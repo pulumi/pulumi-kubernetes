@@ -12,24 +12,28 @@ namespace Pulumi.Kubernetes.Batch.V1 {
     /// </summary>
     public partial class JobList : Pulumi.CustomResource {
         /// <summary>
-        /// APIVersion defines the versioned schema of this representation of an object. Servers should
-        /// convert recognized schemas to the latest internal value, and may reject unrecognized values.
-        /// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         /// </summary>
+        [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
-
-        /// <summary>
-        /// Kind is a string value representing the REST resource this object represents. Servers may infer
-        /// this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-        /// info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-        /// </summary>
-        public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
         /// items is the list of Jobs.
         /// </summary>
         [Output("items")]
         public Output<Types.Outputs.Batch.V1.Job[]> Items { get; private set; } = null!;
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Output("kind")]
+        public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
@@ -47,8 +51,16 @@ namespace Pulumi.Kubernetes.Batch.V1 {
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public JobList(string name, Types.Inputs.Batch.V1.JobList? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:batch/v1:JobList", name, args, MakeResourceOptions(options, ""))
+            : base("kubernetes:batch/v1:JobList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
+        }
+
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Batch.V1.JobList? args) {
+            if (args != null) {
+                args.ApiVersion = "batch/v1";
+                args.Kind = "JobList";
+            }
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)

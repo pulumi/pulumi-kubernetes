@@ -12,24 +12,28 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
     /// </summary>
     public partial class CronJobList : Pulumi.CustomResource {
         /// <summary>
-        /// APIVersion defines the versioned schema of this representation of an object. Servers should
-        /// convert recognized schemas to the latest internal value, and may reject unrecognized values.
-        /// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         /// </summary>
+        [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
-
-        /// <summary>
-        /// Kind is a string value representing the REST resource this object represents. Servers may infer
-        /// this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-        /// info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-        /// </summary>
-        public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
         /// items is the list of CronJobs.
         /// </summary>
         [Output("items")]
         public Output<Types.Outputs.Batch.V2Alpha1.CronJob[]> Items { get; private set; } = null!;
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Output("kind")]
+        public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
@@ -47,8 +51,16 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CronJobList(string name, Types.Inputs.Batch.V2Alpha1.CronJobList? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:batch/v2alpha1:CronJobList", name, args, MakeResourceOptions(options, ""))
+            : base("kubernetes:batch/v2alpha1:CronJobList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
+        }
+
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Batch.V2Alpha1.CronJobList? args) {
+            if (args != null) {
+                args.ApiVersion = "batch/v2alpha1";
+                args.Kind = "CronJobList";
+            }
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)

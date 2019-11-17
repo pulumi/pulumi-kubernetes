@@ -12,18 +12,13 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
     /// </summary>
     public partial class ReplicaSetList : Pulumi.CustomResource {
         /// <summary>
-        /// APIVersion defines the versioned schema of this representation of an object. Servers should
-        /// convert recognized schemas to the latest internal value, and may reject unrecognized values.
-        /// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         /// </summary>
+        [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
-
-        /// <summary>
-        /// Kind is a string value representing the REST resource this object represents. Servers may infer
-        /// this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-        /// info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-        /// </summary>
-        public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
         /// List of ReplicaSets. More info:
@@ -31,6 +26,15 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// </summary>
         [Output("items")]
         public Output<Types.Outputs.Extensions.V1Beta1.ReplicaSet[]> Items { get; private set; } = null!;
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Output("kind")]
+        public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
@@ -48,8 +52,16 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ReplicaSetList(string name, Types.Inputs.Extensions.V1Beta1.ReplicaSetList? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:extensions/v1beta1:ReplicaSetList", name, args, MakeResourceOptions(options, ""))
+            : base("kubernetes:extensions/v1beta1:ReplicaSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
+        }
+
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.ReplicaSetList? args) {
+            if (args != null) {
+                args.ApiVersion = "extensions/v1beta1";
+                args.Kind = "ReplicaSetList";
+            }
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)

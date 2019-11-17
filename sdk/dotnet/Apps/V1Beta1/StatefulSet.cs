@@ -32,17 +32,21 @@ namespace Pulumi.Kubernetes.Apps.V1Beta1 {
     /// </summary>
     public partial class StatefulSet : Pulumi.CustomResource {
         /// <summary>
-        /// APIVersion defines the versioned schema of this representation of an object. Servers should
-        /// convert recognized schemas to the latest internal value, and may reject unrecognized values.
-        /// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         /// </summary>
+        [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Kind is a string value representing the REST resource this object represents. Servers may infer
-        /// this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-        /// info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
+        [Output("kind")]
         public Output<string> Kind { get; private set; } = null!;
 
         
@@ -71,8 +75,16 @@ namespace Pulumi.Kubernetes.Apps.V1Beta1 {
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public StatefulSet(string name, Types.Inputs.Apps.V1Beta1.StatefulSet? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1beta1:StatefulSet", name, args, MakeResourceOptions(options, ""))
+            : base("kubernetes:apps/v1beta1:StatefulSet", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
+        }
+
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Apps.V1Beta1.StatefulSet? args) {
+            if (args != null) {
+                args.ApiVersion = "apps/v1beta1";
+                args.Kind = "StatefulSet";
+            }
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)

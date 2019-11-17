@@ -11,6 +11,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// MutatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
     /// </summary>
+    [OutputType]
     public sealed class MutatingWebhook {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
@@ -20,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// and does not include any versions known to the API Server, calls to the webhook will
         /// fail and be subject to the failure policy.
         /// </summary>
-      public readonly string[] AdmissionReviewVersions;
+      public readonly ImmutableArray<string> AdmissionReviewVersions;
 
       /// <summary>
         /// ClientConfig defines how to communicate with the hook. Required
@@ -143,7 +144,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration
         /// objects.
         /// </summary>
-      public readonly AdmissionRegistration.V1.RuleWithOperations[] Rules;
+      public readonly ImmutableArray<AdmissionRegistration.V1.RuleWithOperations> Rules;
 
       /// <summary>
         /// SideEffects states whether this webhook has side effects. Acceptable values are: None,
@@ -164,7 +165,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private MutatingWebhook(
-          string[] _admissionReviewVersions,
+          ImmutableArray<string> _admissionReviewVersions,
           AdmissionRegistration.V1.WebhookClientConfig _clientConfig,
           string _failurePolicy,
           string _matchPolicy,
@@ -172,7 +173,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
           Meta.V1.LabelSelector _namespaceSelector,
           Meta.V1.LabelSelector _objectSelector,
           string _reinvocationPolicy,
-          AdmissionRegistration.V1.RuleWithOperations[] _rules,
+          ImmutableArray<AdmissionRegistration.V1.RuleWithOperations> _rules,
           string _sideEffects,
           int _timeoutSeconds)
       {
@@ -194,7 +195,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// MutatingWebhookConfiguration describes the configuration of and admission webhook that
     /// accept or reject and may change the object.
     /// </summary>
+    [OutputType]
     public sealed class MutatingWebhookConfiguration {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -204,13 +222,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
       /// <summary>
         /// Webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
-      public readonly AdmissionRegistration.V1.MutatingWebhook[] Webhooks;
+      public readonly ImmutableArray<AdmissionRegistration.V1.MutatingWebhook> Webhooks;
 
       [OutputConstructor]
       private MutatingWebhookConfiguration(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          AdmissionRegistration.V1.MutatingWebhook[] _webhooks)
+          ImmutableArray<AdmissionRegistration.V1.MutatingWebhook> _webhooks)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Webhooks = _webhooks;
       }
@@ -219,11 +241,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
     /// </summary>
+    [OutputType]
     public sealed class MutatingWebhookConfigurationList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of MutatingWebhookConfiguration.
         /// </summary>
-      public readonly AdmissionRegistration.V1.MutatingWebhookConfiguration[] Items;
+      public readonly ImmutableArray<AdmissionRegistration.V1.MutatingWebhookConfiguration> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -233,10 +272,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private MutatingWebhookConfigurationList(
-          AdmissionRegistration.V1.MutatingWebhookConfiguration[] _items,
+          string _apiVersion,
+          ImmutableArray<AdmissionRegistration.V1.MutatingWebhookConfiguration> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -245,24 +288,25 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure
     /// that all the tuple expansions are valid.
     /// </summary>
+    [OutputType]
     public sealed class RuleWithOperations {
       /// <summary>
         /// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is
         /// present, the length of the slice must be one. Required.
         /// </summary>
-      public readonly string[] ApiGroups;
+      public readonly ImmutableArray<string> ApiGroups;
 
       /// <summary>
         /// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is
         /// present, the length of the slice must be one. Required.
         /// </summary>
-      public readonly string[] ApiVersions;
+      public readonly ImmutableArray<string> ApiVersions;
 
       /// <summary>
         /// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for
         /// all operations. If '*' is present, the length of the slice must be one. Required.
         /// </summary>
-      public readonly string[] Operations;
+      public readonly ImmutableArray<string> Operations;
 
       /// <summary>
         /// Resources is a list of resources this rule applies to.
@@ -276,7 +320,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// 
         /// Depending on the enclosing object, subresources might not be allowed. Required.
         /// </summary>
-      public readonly string[] Resources;
+      public readonly ImmutableArray<string> Resources;
 
       /// <summary>
         /// scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and
@@ -289,10 +333,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private RuleWithOperations(
-          string[] _apiGroups,
-          string[] _apiVersions,
-          string[] _operations,
-          string[] _resources,
+          ImmutableArray<string> _apiGroups,
+          ImmutableArray<string> _apiVersions,
+          ImmutableArray<string> _operations,
+          ImmutableArray<string> _resources,
           string _scope)
       {
           ApiGroups = _apiGroups;
@@ -306,6 +350,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
+    [OutputType]
     public sealed class ServiceReference {
       /// <summary>
         /// `name` is the name of the service. Required
@@ -346,6 +391,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// ValidatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
     /// </summary>
+    [OutputType]
     public sealed class ValidatingWebhook {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
@@ -355,7 +401,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// and does not include any versions known to the API Server, calls to the webhook will
         /// fail and be subject to the failure policy.
         /// </summary>
-      public readonly string[] AdmissionReviewVersions;
+      public readonly ImmutableArray<string> AdmissionReviewVersions;
 
       /// <summary>
         /// ClientConfig defines how to communicate with the hook. Required
@@ -458,7 +504,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration
         /// objects.
         /// </summary>
-      public readonly AdmissionRegistration.V1.RuleWithOperations[] Rules;
+      public readonly ImmutableArray<AdmissionRegistration.V1.RuleWithOperations> Rules;
 
       /// <summary>
         /// SideEffects states whether this webhook has side effects. Acceptable values are: None,
@@ -479,14 +525,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private ValidatingWebhook(
-          string[] _admissionReviewVersions,
+          ImmutableArray<string> _admissionReviewVersions,
           AdmissionRegistration.V1.WebhookClientConfig _clientConfig,
           string _failurePolicy,
           string _matchPolicy,
           string _name,
           Meta.V1.LabelSelector _namespaceSelector,
           Meta.V1.LabelSelector _objectSelector,
-          AdmissionRegistration.V1.RuleWithOperations[] _rules,
+          ImmutableArray<AdmissionRegistration.V1.RuleWithOperations> _rules,
           string _sideEffects,
           int _timeoutSeconds)
       {
@@ -507,7 +553,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// ValidatingWebhookConfiguration describes the configuration of and admission webhook that
     /// accept or reject and object without changing it.
     /// </summary>
+    [OutputType]
     public sealed class ValidatingWebhookConfiguration {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -517,13 +580,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
       /// <summary>
         /// Webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
-      public readonly AdmissionRegistration.V1.ValidatingWebhook[] Webhooks;
+      public readonly ImmutableArray<AdmissionRegistration.V1.ValidatingWebhook> Webhooks;
 
       [OutputConstructor]
       private ValidatingWebhookConfiguration(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          AdmissionRegistration.V1.ValidatingWebhook[] _webhooks)
+          ImmutableArray<AdmissionRegistration.V1.ValidatingWebhook> _webhooks)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Webhooks = _webhooks;
       }
@@ -532,11 +599,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
+    [OutputType]
     public sealed class ValidatingWebhookConfigurationList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of ValidatingWebhookConfiguration.
         /// </summary>
-      public readonly AdmissionRegistration.V1.ValidatingWebhookConfiguration[] Items;
+      public readonly ImmutableArray<AdmissionRegistration.V1.ValidatingWebhookConfiguration> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -546,10 +630,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private ValidatingWebhookConfigurationList(
-          AdmissionRegistration.V1.ValidatingWebhookConfiguration[] _items,
+          string _apiVersion,
+          ImmutableArray<AdmissionRegistration.V1.ValidatingWebhookConfiguration> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -557,6 +645,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook
     /// </summary>
+    [OutputType]
     public sealed class WebhookClientConfig {
       /// <summary>
         /// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's
@@ -615,6 +704,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// MutatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
     /// </summary>
+    [OutputType]
     public sealed class MutatingWebhook {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
@@ -624,7 +714,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// and does not include any versions known to the API Server, calls to the webhook will
         /// fail and be subject to the failure policy. Default to `['v1beta1']`.
         /// </summary>
-      public readonly string[] AdmissionReviewVersions;
+      public readonly ImmutableArray<string> AdmissionReviewVersions;
 
       /// <summary>
         /// ClientConfig defines how to communicate with the hook. Required
@@ -747,7 +837,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration
         /// objects.
         /// </summary>
-      public readonly AdmissionRegistration.V1Beta1.RuleWithOperations[] Rules;
+      public readonly ImmutableArray<AdmissionRegistration.V1Beta1.RuleWithOperations> Rules;
 
       /// <summary>
         /// SideEffects states whether this webhookk has side effects. Acceptable values are:
@@ -768,7 +858,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private MutatingWebhook(
-          string[] _admissionReviewVersions,
+          ImmutableArray<string> _admissionReviewVersions,
           AdmissionRegistration.V1Beta1.WebhookClientConfig _clientConfig,
           string _failurePolicy,
           string _matchPolicy,
@@ -776,7 +866,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
           Meta.V1.LabelSelector _namespaceSelector,
           Meta.V1.LabelSelector _objectSelector,
           string _reinvocationPolicy,
-          AdmissionRegistration.V1Beta1.RuleWithOperations[] _rules,
+          ImmutableArray<AdmissionRegistration.V1Beta1.RuleWithOperations> _rules,
           string _sideEffects,
           int _timeoutSeconds)
       {
@@ -799,7 +889,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// accept or reject and may change the object. Deprecated in v1.16, planned for removal in
     /// v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
     /// </summary>
+    [OutputType]
     public sealed class MutatingWebhookConfiguration {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -809,13 +916,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
       /// <summary>
         /// Webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
-      public readonly AdmissionRegistration.V1Beta1.MutatingWebhook[] Webhooks;
+      public readonly ImmutableArray<AdmissionRegistration.V1Beta1.MutatingWebhook> Webhooks;
 
       [OutputConstructor]
       private MutatingWebhookConfiguration(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          AdmissionRegistration.V1Beta1.MutatingWebhook[] _webhooks)
+          ImmutableArray<AdmissionRegistration.V1Beta1.MutatingWebhook> _webhooks)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Webhooks = _webhooks;
       }
@@ -824,11 +935,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
     /// </summary>
+    [OutputType]
     public sealed class MutatingWebhookConfigurationList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of MutatingWebhookConfiguration.
         /// </summary>
-      public readonly AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration[] Items;
+      public readonly ImmutableArray<AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -838,10 +966,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private MutatingWebhookConfigurationList(
-          AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration[] _items,
+          string _apiVersion,
+          ImmutableArray<AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -850,24 +982,25 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure
     /// that all the tuple expansions are valid.
     /// </summary>
+    [OutputType]
     public sealed class RuleWithOperations {
       /// <summary>
         /// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is
         /// present, the length of the slice must be one. Required.
         /// </summary>
-      public readonly string[] ApiGroups;
+      public readonly ImmutableArray<string> ApiGroups;
 
       /// <summary>
         /// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is
         /// present, the length of the slice must be one. Required.
         /// </summary>
-      public readonly string[] ApiVersions;
+      public readonly ImmutableArray<string> ApiVersions;
 
       /// <summary>
         /// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for
         /// all operations. If '*' is present, the length of the slice must be one. Required.
         /// </summary>
-      public readonly string[] Operations;
+      public readonly ImmutableArray<string> Operations;
 
       /// <summary>
         /// Resources is a list of resources this rule applies to.
@@ -881,7 +1014,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// 
         /// Depending on the enclosing object, subresources might not be allowed. Required.
         /// </summary>
-      public readonly string[] Resources;
+      public readonly ImmutableArray<string> Resources;
 
       /// <summary>
         /// scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and
@@ -894,10 +1027,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private RuleWithOperations(
-          string[] _apiGroups,
-          string[] _apiVersions,
-          string[] _operations,
-          string[] _resources,
+          ImmutableArray<string> _apiGroups,
+          ImmutableArray<string> _apiVersions,
+          ImmutableArray<string> _operations,
+          ImmutableArray<string> _resources,
           string _scope)
       {
           ApiGroups = _apiGroups;
@@ -911,6 +1044,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
+    [OutputType]
     public sealed class ServiceReference {
       /// <summary>
         /// `name` is the name of the service. Required
@@ -951,6 +1085,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// ValidatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
     /// </summary>
+    [OutputType]
     public sealed class ValidatingWebhook {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
@@ -960,7 +1095,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// and does not include any versions known to the API Server, calls to the webhook will
         /// fail and be subject to the failure policy. Default to `['v1beta1']`.
         /// </summary>
-      public readonly string[] AdmissionReviewVersions;
+      public readonly ImmutableArray<string> AdmissionReviewVersions;
 
       /// <summary>
         /// ClientConfig defines how to communicate with the hook. Required
@@ -1063,7 +1198,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration
         /// objects.
         /// </summary>
-      public readonly AdmissionRegistration.V1Beta1.RuleWithOperations[] Rules;
+      public readonly ImmutableArray<AdmissionRegistration.V1Beta1.RuleWithOperations> Rules;
 
       /// <summary>
         /// SideEffects states whether this webhookk has side effects. Acceptable values are:
@@ -1084,14 +1219,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private ValidatingWebhook(
-          string[] _admissionReviewVersions,
+          ImmutableArray<string> _admissionReviewVersions,
           AdmissionRegistration.V1Beta1.WebhookClientConfig _clientConfig,
           string _failurePolicy,
           string _matchPolicy,
           string _name,
           Meta.V1.LabelSelector _namespaceSelector,
           Meta.V1.LabelSelector _objectSelector,
-          AdmissionRegistration.V1Beta1.RuleWithOperations[] _rules,
+          ImmutableArray<AdmissionRegistration.V1Beta1.RuleWithOperations> _rules,
           string _sideEffects,
           int _timeoutSeconds)
       {
@@ -1113,7 +1248,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// accept or reject and object without changing it. Deprecated in v1.16, planned for removal in
     /// v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
     /// </summary>
+    [OutputType]
     public sealed class ValidatingWebhookConfiguration {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -1123,13 +1275,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
       /// <summary>
         /// Webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
-      public readonly AdmissionRegistration.V1Beta1.ValidatingWebhook[] Webhooks;
+      public readonly ImmutableArray<AdmissionRegistration.V1Beta1.ValidatingWebhook> Webhooks;
 
       [OutputConstructor]
       private ValidatingWebhookConfiguration(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          AdmissionRegistration.V1Beta1.ValidatingWebhook[] _webhooks)
+          ImmutableArray<AdmissionRegistration.V1Beta1.ValidatingWebhook> _webhooks)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Webhooks = _webhooks;
       }
@@ -1138,11 +1294,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
+    [OutputType]
     public sealed class ValidatingWebhookConfigurationList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of ValidatingWebhookConfiguration.
         /// </summary>
-      public readonly AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration[] Items;
+      public readonly ImmutableArray<AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -1152,10 +1325,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
       [OutputConstructor]
       private ValidatingWebhookConfigurationList(
-          AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration[] _items,
+          string _apiVersion,
+          ImmutableArray<AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -1163,6 +1340,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook
     /// </summary>
+    [OutputType]
     public sealed class WebhookClientConfig {
       /// <summary>
         /// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's
@@ -1223,6 +1401,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceColumnDefinition specifies a column for server side printing.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceColumnDefinition {
       /// <summary>
         /// description is a human readable description of this column.
@@ -1284,6 +1463,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceConversion {
       /// <summary>
         /// strategy specifies how custom resources are converted between versions. Allowed values
@@ -1315,7 +1495,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.
     /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinition {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -1331,10 +1528,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       [OutputConstructor]
       private CustomResourceDefinition(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           ApiExtensions.V1.CustomResourceDefinitionSpec _spec,
           ApiExtensions.V1.CustomResourceDefinitionStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -1344,6 +1545,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionCondition {
       /// <summary>
         /// lastTransitionTime last time the condition transitioned from one status to another.
@@ -1390,21 +1592,42 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items list individual CustomResourceDefinition objects
         /// </summary>
-      public readonly ApiExtensions.V1.CustomResourceDefinition[] Items;
+      public readonly ImmutableArray<ApiExtensions.V1.CustomResourceDefinition> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private CustomResourceDefinitionList(
-          ApiExtensions.V1.CustomResourceDefinition[] _items,
+          string _apiVersion,
+          ImmutableArray<ApiExtensions.V1.CustomResourceDefinition> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -1412,13 +1635,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionNames {
       /// <summary>
         /// categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
         /// This is published in API discovery documents, and used by clients to support invocations
         /// like `kubectl get all`.
         /// </summary>
-      public readonly string[] Categories;
+      public readonly ImmutableArray<string> Categories;
+
+      /// <summary>
+        /// kind is the serialized kind of the resource. It is normally CamelCase and singular.
+        /// Custom resource instances will use this value as the `kind` attribute in API calls.
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
@@ -1438,7 +1668,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// used by clients to support invocations like `kubectl get &amp;lt;shortname&amp;gt;`. It
         /// must be all lowercase.
         /// </summary>
-      public readonly string[] ShortNames;
+      public readonly ImmutableArray<string> ShortNames;
 
       /// <summary>
         /// singular is the singular name of the resource. It must be all lowercase. Defaults to
@@ -1448,13 +1678,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       [OutputConstructor]
       private CustomResourceDefinitionNames(
-          string[] _categories,
+          ImmutableArray<string> _categories,
+          string _kind,
           string _listKind,
           string _plural,
-          string[] _shortNames,
+          ImmutableArray<string> _shortNames,
           string _singular)
       {
           Categories = _categories;
+          Kind = _kind;
           ListKind = _listKind;
           Plural = _plural;
           ShortNames = _shortNames;
@@ -1465,6 +1697,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionSpec {
       /// <summary>
         /// conversion defines conversion settings for the CRD.
@@ -1512,7 +1745,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// comparing major version, then minor version. An example sorted list of versions: v10,
         /// v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         /// </summary>
-      public readonly ApiExtensions.V1.CustomResourceDefinitionVersion[] Versions;
+      public readonly ImmutableArray<ApiExtensions.V1.CustomResourceDefinitionVersion> Versions;
 
       [OutputConstructor]
       private CustomResourceDefinitionSpec(
@@ -1521,7 +1754,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ApiExtensions.V1.CustomResourceDefinitionNames _names,
           bool _preserveUnknownFields,
           string _scope,
-          ApiExtensions.V1.CustomResourceDefinitionVersion[] _versions)
+          ImmutableArray<ApiExtensions.V1.CustomResourceDefinitionVersion> _versions)
       {
           Conversion = _conversion;
           Group = _group;
@@ -1535,6 +1768,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionStatus {
       /// <summary>
         /// acceptedNames are the names that are actually being used to serve discovery. They may be
@@ -1545,7 +1779,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       /// <summary>
         /// conditions indicate state for particular aspects of a CustomResourceDefinition
         /// </summary>
-      public readonly ApiExtensions.V1.CustomResourceDefinitionCondition[] Conditions;
+      public readonly ImmutableArray<ApiExtensions.V1.CustomResourceDefinitionCondition> Conditions;
 
       /// <summary>
         /// storedVersions lists all versions of CustomResources that were ever persisted. Tracking
@@ -1554,13 +1788,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// objects are left in storage), and then remove the rest of the versions from this list.
         /// Versions may not be removed from `spec.versions` while they exist in this list.
         /// </summary>
-      public readonly string[] StoredVersions;
+      public readonly ImmutableArray<string> StoredVersions;
 
       [OutputConstructor]
       private CustomResourceDefinitionStatus(
           ApiExtensions.V1.CustomResourceDefinitionNames _acceptedNames,
-          ApiExtensions.V1.CustomResourceDefinitionCondition[] _conditions,
-          string[] _storedVersions)
+          ImmutableArray<ApiExtensions.V1.CustomResourceDefinitionCondition> _conditions,
+          ImmutableArray<string> _storedVersions)
       {
           AcceptedNames = _acceptedNames;
           Conditions = _conditions;
@@ -1571,6 +1805,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionVersion describes a version for CRD.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionVersion {
       /// <summary>
         /// additionalPrinterColumns specifies additional columns returned in Table output. See
@@ -1578,7 +1813,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// for details. If no columns are specified, a single column displaying the age of the
         /// custom resource is used.
         /// </summary>
-      public readonly ApiExtensions.V1.CustomResourceColumnDefinition[] AdditionalPrinterColumns;
+      public readonly ImmutableArray<ApiExtensions.V1.CustomResourceColumnDefinition> AdditionalPrinterColumns;
 
       /// <summary>
         /// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
@@ -1611,7 +1846,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       [OutputConstructor]
       private CustomResourceDefinitionVersion(
-          ApiExtensions.V1.CustomResourceColumnDefinition[] _additionalPrinterColumns,
+          ImmutableArray<ApiExtensions.V1.CustomResourceColumnDefinition> _additionalPrinterColumns,
           string _name,
           ApiExtensions.V1.CustomResourceValidation _schema,
           bool _served,
@@ -1631,6 +1866,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceSubresourceScale defines how to serve the scale subresource for
     /// CustomResources.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceSubresourceScale {
       /// <summary>
         /// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to
@@ -1676,6 +1912,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceSubresources {
       /// <summary>
         /// scale indicates the custom resource should serve a `/scale` subresource that returns an
@@ -1689,12 +1926,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// stanza of the object. 2. requests to the custom resource `/status` subresource ignore
         /// changes to anything other than the `status` stanza of the object.
         /// </summary>
-      public readonly object Status;
+      public readonly string /* TODO: wrong!*/ Status;
 
       [OutputConstructor]
       private CustomResourceSubresources(
           ApiExtensions.V1.CustomResourceSubresourceScale _scale,
-          object _status)
+          string /* TODO: wrong!*/ _status)
       {
           Scale = _scale;
           Status = _status;
@@ -1704,6 +1941,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceValidation is a list of validation methods for CustomResources.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceValidation {
       /// <summary>
         /// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
@@ -1721,6 +1959,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// ExternalDocumentation allows referencing an external resource for extended documentation.
     /// </summary>
+    [OutputType]
     public sealed class ExternalDocumentation {
       
       public readonly string Description;
@@ -1741,6 +1980,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     /// </summary>
+    [OutputType]
     public sealed class JSONSchemaProps {
       
       public readonly string Ref;
@@ -1755,32 +1995,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly ApiExtensions.V1.JSONSchemaProps /* TODO: or bool */ AdditionalProperties;
 
       
-      public readonly ApiExtensions.V1.JSONSchemaProps[] AllOf;
+      public readonly ImmutableArray<ApiExtensions.V1.JSONSchemaProps> AllOf;
 
       
-      public readonly ApiExtensions.V1.JSONSchemaProps[] AnyOf;
+      public readonly ImmutableArray<ApiExtensions.V1.JSONSchemaProps> AnyOf;
 
       /// <summary>
         /// default is a default value for undefined object fields. Defaulting is a beta feature
         /// under the CustomResourceDefaulting feature gate. Defaulting requires
         /// spec.preserveUnknownFields to be false.
         /// </summary>
-      public readonly object Default;
+      public readonly string /* TODO: wrong!*/ Default;
 
       
-      public readonly object Definitions;
+      public readonly ImmutableDictionary<string, string> Definitions;
 
       
-      public readonly object Dependencies;
+      public readonly ImmutableDictionary<string, string> Dependencies;
 
       
       public readonly string Description;
 
       
-      public readonly object[] Enum;
+      public readonly ImmutableArray<string /* TODO: wrong!*/> Enum;
 
       
-      public readonly object Example;
+      public readonly string /* TODO: wrong!*/ Example;
 
       
       public readonly bool ExclusiveMaximum;
@@ -1834,19 +2074,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly bool Nullable;
 
       
-      public readonly ApiExtensions.V1.JSONSchemaProps[] OneOf;
+      public readonly ImmutableArray<ApiExtensions.V1.JSONSchemaProps> OneOf;
 
       
       public readonly string Pattern;
 
       
-      public readonly object PatternProperties;
+      public readonly ImmutableDictionary<string, string> PatternProperties;
 
       
-      public readonly object Properties;
+      public readonly ImmutableDictionary<string, string> Properties;
 
       
-      public readonly string[] Required;
+      public readonly ImmutableArray<string> Required;
 
       
       public readonly string Title;
@@ -1890,7 +2130,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// to "map". Also, the values specified for this attribute must be a scalar typed field of
         /// the child structure (no nesting is supported).
         /// </summary>
-      public readonly string[] X_kubernetes_list_map_keys;
+      public readonly ImmutableArray<string> X_kubernetes_list_map_keys;
 
       /// <summary>
         /// x-kubernetes-list-type annotates an array to further describe its topology. This
@@ -1925,14 +2165,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           string _schema,
           ApiExtensions.V1.JSONSchemaProps /* TODO: or bool */ _additionalItems,
           ApiExtensions.V1.JSONSchemaProps /* TODO: or bool */ _additionalProperties,
-          ApiExtensions.V1.JSONSchemaProps[] _allOf,
-          ApiExtensions.V1.JSONSchemaProps[] _anyOf,
-          object _default,
-          object _definitions,
-          object _dependencies,
+          ImmutableArray<ApiExtensions.V1.JSONSchemaProps> _allOf,
+          ImmutableArray<ApiExtensions.V1.JSONSchemaProps> _anyOf,
+          string /* TODO: wrong!*/ _default,
+          ImmutableDictionary<string, string> _definitions,
+          ImmutableDictionary<string, string> _dependencies,
           string _description,
-          object[] _enum,
-          object _example,
+          ImmutableArray<string /* TODO: wrong!*/> _enum,
+          string /* TODO: wrong!*/ _example,
           bool _exclusiveMaximum,
           bool _exclusiveMinimum,
           ApiExtensions.V1.ExternalDocumentation _externalDocs,
@@ -1950,17 +2190,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           double _multipleOf,
           ApiExtensions.V1.JSONSchemaProps _not,
           bool _nullable,
-          ApiExtensions.V1.JSONSchemaProps[] _oneOf,
+          ImmutableArray<ApiExtensions.V1.JSONSchemaProps> _oneOf,
           string _pattern,
-          object _patternProperties,
-          object _properties,
-          string[] _required,
+          ImmutableDictionary<string, string> _patternProperties,
+          ImmutableDictionary<string, string> _properties,
+          ImmutableArray<string> _required,
           string _title,
           string _type,
           bool _uniqueItems,
           bool _x_kubernetes_embedded_resource,
           bool _x_kubernetes_int_or_string,
-          string[] _x_kubernetes_list_map_keys,
+          ImmutableArray<string> _x_kubernetes_list_map_keys,
           string _x_kubernetes_list_type,
           bool _x_kubernetes_preserve_unknown_fields)
       {
@@ -2012,6 +2252,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
+    [OutputType]
     public sealed class ServiceReference {
       /// <summary>
         /// name is the name of the service. Required
@@ -2051,6 +2292,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
     /// </summary>
+    [OutputType]
     public sealed class WebhookClientConfig {
       /// <summary>
         /// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
@@ -2105,6 +2347,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// WebhookConversion describes how to call a conversion webhook
     /// </summary>
+    [OutputType]
     public sealed class WebhookConversion {
       /// <summary>
         /// clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
@@ -2119,12 +2362,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// specifies allowed versions and does not include any versions known to the API Server,
         /// calls to the webhook will fail.
         /// </summary>
-      public readonly string[] ConversionReviewVersions;
+      public readonly ImmutableArray<string> ConversionReviewVersions;
 
       [OutputConstructor]
       private WebhookConversion(
           ApiExtensions.V1.WebhookClientConfig _clientConfig,
-          string[] _conversionReviewVersions)
+          ImmutableArray<string> _conversionReviewVersions)
       {
           ClientConfig = _clientConfig;
           ConversionReviewVersions = _conversionReviewVersions;
@@ -2137,6 +2380,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceColumnDefinition specifies a column for server side printing.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceColumnDefinition {
       /// <summary>
         /// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against
@@ -2198,6 +2442,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceConversion {
       /// <summary>
         /// conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
@@ -2207,7 +2452,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// specifies allowed versions and does not include any versions known to the API Server,
         /// calls to the webhook will fail. Defaults to `["v1beta1"]`.
         /// </summary>
-      public readonly string[] ConversionReviewVersions;
+      public readonly ImmutableArray<string> ConversionReviewVersions;
 
       /// <summary>
         /// strategy specifies how custom resources are converted between versions. Allowed values
@@ -2227,7 +2472,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       [OutputConstructor]
       private CustomResourceConversion(
-          string[] _conversionReviewVersions,
+          ImmutableArray<string> _conversionReviewVersions,
           string _strategy,
           ApiExtensions.V1Beta1.WebhookClientConfig _webhookClientConfig)
       {
@@ -2243,7 +2488,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1
     /// CustomResourceDefinition instead.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinition {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -2259,10 +2521,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       [OutputConstructor]
       private CustomResourceDefinition(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           ApiExtensions.V1Beta1.CustomResourceDefinitionSpec _spec,
           ApiExtensions.V1Beta1.CustomResourceDefinitionStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -2272,6 +2538,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionCondition {
       /// <summary>
         /// lastTransitionTime last time the condition transitioned from one status to another.
@@ -2318,21 +2585,42 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items list individual CustomResourceDefinition objects
         /// </summary>
-      public readonly ApiExtensions.V1Beta1.CustomResourceDefinition[] Items;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.CustomResourceDefinition> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private CustomResourceDefinitionList(
-          ApiExtensions.V1Beta1.CustomResourceDefinition[] _items,
+          string _apiVersion,
+          ImmutableArray<ApiExtensions.V1Beta1.CustomResourceDefinition> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -2340,13 +2628,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionNames {
       /// <summary>
         /// categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
         /// This is published in API discovery documents, and used by clients to support invocations
         /// like `kubectl get all`.
         /// </summary>
-      public readonly string[] Categories;
+      public readonly ImmutableArray<string> Categories;
+
+      /// <summary>
+        /// kind is the serialized kind of the resource. It is normally CamelCase and singular.
+        /// Custom resource instances will use this value as the `kind` attribute in API calls.
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
@@ -2366,7 +2661,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// used by clients to support invocations like `kubectl get &amp;lt;shortname&amp;gt;`. It
         /// must be all lowercase.
         /// </summary>
-      public readonly string[] ShortNames;
+      public readonly ImmutableArray<string> ShortNames;
 
       /// <summary>
         /// singular is the singular name of the resource. It must be all lowercase. Defaults to
@@ -2376,13 +2671,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       [OutputConstructor]
       private CustomResourceDefinitionNames(
-          string[] _categories,
+          ImmutableArray<string> _categories,
+          string _kind,
           string _listKind,
           string _plural,
-          string[] _shortNames,
+          ImmutableArray<string> _shortNames,
           string _singular)
       {
           Categories = _categories;
+          Kind = _kind;
           ListKind = _listKind;
           Plural = _plural;
           ShortNames = _shortNames;
@@ -2393,6 +2690,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionSpec {
       /// <summary>
         /// additionalPrinterColumns specifies additional columns returned in Table output. See
@@ -2401,7 +2699,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// per-version columns are mutually exclusive. If no top-level or per-version columns are
         /// specified, a single column displaying the age of the custom resource is used.
         /// </summary>
-      public readonly ApiExtensions.V1Beta1.CustomResourceColumnDefinition[] AdditionalPrinterColumns;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.CustomResourceColumnDefinition> AdditionalPrinterColumns;
 
       /// <summary>
         /// conversion defines conversion settings for the CRD.
@@ -2475,11 +2773,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// comparing major version, then minor version. An example sorted list of versions: v10,
         /// v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         /// </summary>
-      public readonly ApiExtensions.V1Beta1.CustomResourceDefinitionVersion[] Versions;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.CustomResourceDefinitionVersion> Versions;
 
       [OutputConstructor]
       private CustomResourceDefinitionSpec(
-          ApiExtensions.V1Beta1.CustomResourceColumnDefinition[] _additionalPrinterColumns,
+          ImmutableArray<ApiExtensions.V1Beta1.CustomResourceColumnDefinition> _additionalPrinterColumns,
           ApiExtensions.V1Beta1.CustomResourceConversion _conversion,
           string _group,
           ApiExtensions.V1Beta1.CustomResourceDefinitionNames _names,
@@ -2488,7 +2786,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ApiExtensions.V1Beta1.CustomResourceSubresources _subresources,
           ApiExtensions.V1Beta1.CustomResourceValidation _validation,
           string _version,
-          ApiExtensions.V1Beta1.CustomResourceDefinitionVersion[] _versions)
+          ImmutableArray<ApiExtensions.V1Beta1.CustomResourceDefinitionVersion> _versions)
       {
           AdditionalPrinterColumns = _additionalPrinterColumns;
           Conversion = _conversion;
@@ -2506,6 +2804,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionStatus {
       /// <summary>
         /// acceptedNames are the names that are actually being used to serve discovery. They may be
@@ -2516,7 +2815,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       /// <summary>
         /// conditions indicate state for particular aspects of a CustomResourceDefinition
         /// </summary>
-      public readonly ApiExtensions.V1Beta1.CustomResourceDefinitionCondition[] Conditions;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.CustomResourceDefinitionCondition> Conditions;
 
       /// <summary>
         /// storedVersions lists all versions of CustomResources that were ever persisted. Tracking
@@ -2525,13 +2824,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// objects are left in storage), and then remove the rest of the versions from this list.
         /// Versions may not be removed from `spec.versions` while they exist in this list.
         /// </summary>
-      public readonly string[] StoredVersions;
+      public readonly ImmutableArray<string> StoredVersions;
 
       [OutputConstructor]
       private CustomResourceDefinitionStatus(
           ApiExtensions.V1Beta1.CustomResourceDefinitionNames _acceptedNames,
-          ApiExtensions.V1Beta1.CustomResourceDefinitionCondition[] _conditions,
-          string[] _storedVersions)
+          ImmutableArray<ApiExtensions.V1Beta1.CustomResourceDefinitionCondition> _conditions,
+          ImmutableArray<string> _storedVersions)
       {
           AcceptedNames = _acceptedNames;
           Conditions = _conditions;
@@ -2542,6 +2841,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceDefinitionVersion describes a version for CRD.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceDefinitionVersion {
       /// <summary>
         /// additionalPrinterColumns specifies additional columns returned in Table output. See
@@ -2551,7 +2851,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// instead). If no top-level or per-version columns are specified, a single column
         /// displaying the age of the custom resource is used.
         /// </summary>
-      public readonly ApiExtensions.V1Beta1.CustomResourceColumnDefinition[] AdditionalPrinterColumns;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.CustomResourceColumnDefinition> AdditionalPrinterColumns;
 
       /// <summary>
         /// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
@@ -2588,7 +2888,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       [OutputConstructor]
       private CustomResourceDefinitionVersion(
-          ApiExtensions.V1Beta1.CustomResourceColumnDefinition[] _additionalPrinterColumns,
+          ImmutableArray<ApiExtensions.V1Beta1.CustomResourceColumnDefinition> _additionalPrinterColumns,
           string _name,
           ApiExtensions.V1Beta1.CustomResourceValidation _schema,
           bool _served,
@@ -2608,6 +2908,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceSubresourceScale defines how to serve the scale subresource for
     /// CustomResources.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceSubresourceScale {
       /// <summary>
         /// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to
@@ -2653,6 +2954,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceSubresources {
       /// <summary>
         /// scale indicates the custom resource should serve a `/scale` subresource that returns an
@@ -2666,12 +2968,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// stanza of the object. 2. requests to the custom resource `/status` subresource ignore
         /// changes to anything other than the `status` stanza of the object.
         /// </summary>
-      public readonly object Status;
+      public readonly string /* TODO: wrong!*/ Status;
 
       [OutputConstructor]
       private CustomResourceSubresources(
           ApiExtensions.V1Beta1.CustomResourceSubresourceScale _scale,
-          object _status)
+          string /* TODO: wrong!*/ _status)
       {
           Scale = _scale;
           Status = _status;
@@ -2681,6 +2983,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// CustomResourceValidation is a list of validation methods for CustomResources.
     /// </summary>
+    [OutputType]
     public sealed class CustomResourceValidation {
       /// <summary>
         /// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
@@ -2698,6 +3001,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// ExternalDocumentation allows referencing an external resource for extended documentation.
     /// </summary>
+    [OutputType]
     public sealed class ExternalDocumentation {
       
       public readonly string Description;
@@ -2718,6 +3022,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     /// </summary>
+    [OutputType]
     public sealed class JSONSchemaProps {
       
       public readonly string Ref;
@@ -2732,32 +3037,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or bool */ AdditionalProperties;
 
       
-      public readonly ApiExtensions.V1Beta1.JSONSchemaProps[] AllOf;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> AllOf;
 
       
-      public readonly ApiExtensions.V1Beta1.JSONSchemaProps[] AnyOf;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> AnyOf;
 
       /// <summary>
         /// default is a default value for undefined object fields. Defaulting is a beta feature
         /// under the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults
         /// must be created using the v1 (or newer) CustomResourceDefinition API.
         /// </summary>
-      public readonly object Default;
+      public readonly string /* TODO: wrong!*/ Default;
 
       
-      public readonly object Definitions;
+      public readonly ImmutableDictionary<string, string> Definitions;
 
       
-      public readonly object Dependencies;
+      public readonly ImmutableDictionary<string, string> Dependencies;
 
       
       public readonly string Description;
 
       
-      public readonly object[] Enum;
+      public readonly ImmutableArray<string /* TODO: wrong!*/> Enum;
 
       
-      public readonly object Example;
+      public readonly string /* TODO: wrong!*/ Example;
 
       
       public readonly bool ExclusiveMaximum;
@@ -2811,19 +3116,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly bool Nullable;
 
       
-      public readonly ApiExtensions.V1Beta1.JSONSchemaProps[] OneOf;
+      public readonly ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> OneOf;
 
       
       public readonly string Pattern;
 
       
-      public readonly object PatternProperties;
+      public readonly ImmutableDictionary<string, string> PatternProperties;
 
       
-      public readonly object Properties;
+      public readonly ImmutableDictionary<string, string> Properties;
 
       
-      public readonly string[] Required;
+      public readonly ImmutableArray<string> Required;
 
       
       public readonly string Title;
@@ -2867,7 +3172,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// to "map". Also, the values specified for this attribute must be a scalar typed field of
         /// the child structure (no nesting is supported).
         /// </summary>
-      public readonly string[] X_kubernetes_list_map_keys;
+      public readonly ImmutableArray<string> X_kubernetes_list_map_keys;
 
       /// <summary>
         /// x-kubernetes-list-type annotates an array to further describe its topology. This
@@ -2902,14 +3207,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           string _schema,
           ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or bool */ _additionalItems,
           ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or bool */ _additionalProperties,
-          ApiExtensions.V1Beta1.JSONSchemaProps[] _allOf,
-          ApiExtensions.V1Beta1.JSONSchemaProps[] _anyOf,
-          object _default,
-          object _definitions,
-          object _dependencies,
+          ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> _allOf,
+          ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> _anyOf,
+          string /* TODO: wrong!*/ _default,
+          ImmutableDictionary<string, string> _definitions,
+          ImmutableDictionary<string, string> _dependencies,
           string _description,
-          object[] _enum,
-          object _example,
+          ImmutableArray<string /* TODO: wrong!*/> _enum,
+          string /* TODO: wrong!*/ _example,
           bool _exclusiveMaximum,
           bool _exclusiveMinimum,
           ApiExtensions.V1Beta1.ExternalDocumentation _externalDocs,
@@ -2927,17 +3232,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           double _multipleOf,
           ApiExtensions.V1Beta1.JSONSchemaProps _not,
           bool _nullable,
-          ApiExtensions.V1Beta1.JSONSchemaProps[] _oneOf,
+          ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> _oneOf,
           string _pattern,
-          object _patternProperties,
-          object _properties,
-          string[] _required,
+          ImmutableDictionary<string, string> _patternProperties,
+          ImmutableDictionary<string, string> _properties,
+          ImmutableArray<string> _required,
           string _title,
           string _type,
           bool _uniqueItems,
           bool _x_kubernetes_embedded_resource,
           bool _x_kubernetes_int_or_string,
-          string[] _x_kubernetes_list_map_keys,
+          ImmutableArray<string> _x_kubernetes_list_map_keys,
           string _x_kubernetes_list_type,
           bool _x_kubernetes_preserve_unknown_fields)
       {
@@ -2989,6 +3294,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
+    [OutputType]
     public sealed class ServiceReference {
       /// <summary>
         /// name is the name of the service. Required
@@ -3028,6 +3334,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
     /// </summary>
+    [OutputType]
     public sealed class WebhookClientConfig {
       /// <summary>
         /// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
@@ -3088,7 +3395,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
     /// </summary>
+    [OutputType]
     public sealed class APIService {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -3104,10 +3428,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
 
       [OutputConstructor]
       private APIService(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           ApiRegistration.V1.APIServiceSpec _spec,
           ApiRegistration.V1.APIServiceStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -3117,6 +3445,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIServiceCondition describes the state of an APIService at a particular point
     /// </summary>
+    [OutputType]
     public sealed class APIServiceCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -3162,19 +3491,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIServiceList is a list of APIService objects.
     /// </summary>
+    [OutputType]
     public sealed class APIServiceList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       
-      public readonly ApiRegistration.V1.APIService[] Items;
+      public readonly ImmutableArray<ApiRegistration.V1.APIService> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private APIServiceList(
-          ApiRegistration.V1.APIService[] _items,
+          string _apiVersion,
+          ImmutableArray<ApiRegistration.V1.APIService> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -3183,6 +3533,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceSpec contains information for locating and communicating with a server. Only https
     /// is supported, though you are able to disable certificate verification.
     /// </summary>
+    [OutputType]
     public sealed class APIServiceSpec {
       /// <summary>
         /// CABundle is a PEM encoded CA bundle which will be used to validate an API server's
@@ -3265,15 +3616,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIServiceStatus contains derived information about an API server
     /// </summary>
+    [OutputType]
     public sealed class APIServiceStatus {
       /// <summary>
         /// Current service state of apiService.
         /// </summary>
-      public readonly ApiRegistration.V1.APIServiceCondition[] Conditions;
+      public readonly ImmutableArray<ApiRegistration.V1.APIServiceCondition> Conditions;
 
       [OutputConstructor]
       private APIServiceStatus(
-          ApiRegistration.V1.APIServiceCondition[] _conditions)
+          ImmutableArray<ApiRegistration.V1.APIServiceCondition> _conditions)
       {
           Conditions = _conditions;
       }
@@ -3282,6 +3634,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
+    [OutputType]
     public sealed class ServiceReference {
       /// <summary>
         /// Name is the name of the service
@@ -3317,7 +3670,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
     /// </summary>
+    [OutputType]
     public sealed class APIService {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -3333,10 +3703,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
 
       [OutputConstructor]
       private APIService(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           ApiRegistration.V1Beta1.APIServiceSpec _spec,
           ApiRegistration.V1Beta1.APIServiceStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -3346,6 +3720,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIServiceCondition describes the state of an APIService at a particular point
     /// </summary>
+    [OutputType]
     public sealed class APIServiceCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -3391,19 +3766,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIServiceList is a list of APIService objects.
     /// </summary>
+    [OutputType]
     public sealed class APIServiceList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       
-      public readonly ApiRegistration.V1Beta1.APIService[] Items;
+      public readonly ImmutableArray<ApiRegistration.V1Beta1.APIService> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private APIServiceList(
-          ApiRegistration.V1Beta1.APIService[] _items,
+          string _apiVersion,
+          ImmutableArray<ApiRegistration.V1Beta1.APIService> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -3412,6 +3808,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceSpec contains information for locating and communicating with a server. Only https
     /// is supported, though you are able to disable certificate verification.
     /// </summary>
+    [OutputType]
     public sealed class APIServiceSpec {
       /// <summary>
         /// CABundle is a PEM encoded CA bundle which will be used to validate an API server's
@@ -3494,15 +3891,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// APIServiceStatus contains derived information about an API server
     /// </summary>
+    [OutputType]
     public sealed class APIServiceStatus {
       /// <summary>
         /// Current service state of apiService.
         /// </summary>
-      public readonly ApiRegistration.V1Beta1.APIServiceCondition[] Conditions;
+      public readonly ImmutableArray<ApiRegistration.V1Beta1.APIServiceCondition> Conditions;
 
       [OutputConstructor]
       private APIServiceStatus(
-          ApiRegistration.V1Beta1.APIServiceCondition[] _conditions)
+          ImmutableArray<ApiRegistration.V1Beta1.APIServiceCondition> _conditions)
       {
           Conditions = _conditions;
       }
@@ -3511,6 +3909,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
+    [OutputType]
     public sealed class ServiceReference {
       /// <summary>
         /// Name is the name of the service
@@ -3556,11 +3955,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// and representation changes in future releases, and clients should not depend on its
     /// stability. It is primarily for internal use by controllers.
     /// </summary>
+    [OutputType]
     public sealed class ControllerRevision {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-      public readonly object Data;
+      public readonly string /* TODO: wrong!*/ Data;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -3575,11 +3991,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ControllerRevision(
-          object _data,
+          string _apiVersion,
+          string /* TODO: wrong!*/ _data,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           int _revision)
       {
+          ApiVersion = _apiVersion;
           Data = _data;
+          Kind = _kind;
           Metadata = _metadata;
           Revision = _revision;
       }
@@ -3588,11 +4008,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
+    [OutputType]
     public sealed class ControllerRevisionList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of ControllerRevisions
         /// </summary>
-      public readonly Apps.V1.ControllerRevision[] Items;
+      public readonly ImmutableArray<Apps.V1.ControllerRevision> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// More info:
@@ -3602,10 +4039,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ControllerRevisionList(
-          Apps.V1.ControllerRevision[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1.ControllerRevision> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -3613,7 +4054,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -3635,10 +4093,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DaemonSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1.DaemonSetSpec _spec,
           Apps.V1.DaemonSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -3648,6 +4110,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -3693,11 +4156,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// A list of daemon sets.
         /// </summary>
-      public readonly Apps.V1.DaemonSet[] Items;
+      public readonly ImmutableArray<Apps.V1.DaemonSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -3707,10 +4187,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DaemonSetList(
-          Apps.V1.DaemonSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1.DaemonSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -3718,6 +4202,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetSpec {
       /// <summary>
         /// The minimum number of seconds for which a newly created DaemonSet pod should be ready
@@ -3771,6 +4256,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetStatus {
       /// <summary>
         /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as
@@ -3782,7 +4268,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a DaemonSet's current state.
         /// </summary>
-      public readonly Apps.V1.DaemonSetCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1.DaemonSetCondition> Conditions;
 
       /// <summary>
         /// The number of nodes that are running at least 1 daemon pod and are supposed to run the
@@ -3836,7 +4322,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       [OutputConstructor]
       private DaemonSetStatus(
           int _collisionCount,
-          Apps.V1.DaemonSetCondition[] _conditions,
+          ImmutableArray<Apps.V1.DaemonSetCondition> _conditions,
           int _currentNumberScheduled,
           int _desiredNumberScheduled,
           int _numberAvailable,
@@ -3862,6 +4348,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetUpdateStrategy {
       /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
@@ -3887,7 +4374,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
+    [OutputType]
     public sealed class Deployment {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata.
         /// </summary>
@@ -3905,10 +4409,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private Deployment(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1.DeploymentSpec _spec,
           Apps.V1.DeploymentStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -3918,6 +4426,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -3970,11 +4479,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of Deployments.
         /// </summary>
-      public readonly Apps.V1.Deployment[] Items;
+      public readonly ImmutableArray<Apps.V1.Deployment> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata.
@@ -3983,10 +4509,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DeploymentList(
-          Apps.V1.Deployment[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1.Deployment> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -3994,6 +4524,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -4069,6 +4600,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStatus {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
@@ -4086,7 +4618,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a deployment's current state.
         /// </summary>
-      public readonly Apps.V1.DeploymentCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1.DeploymentCondition> Conditions;
 
       /// <summary>
         /// The generation observed by the deployment controller.
@@ -4122,7 +4654,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       private DeploymentStatus(
           int _availableReplicas,
           int _collisionCount,
-          Apps.V1.DeploymentCondition[] _conditions,
+          ImmutableArray<Apps.V1.DeploymentCondition> _conditions,
           int _observedGeneration,
           int _readyReplicas,
           int _replicas,
@@ -4143,6 +4675,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStrategy {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
@@ -4167,7 +4700,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
         /// that the ReplicaSet manages. Standard object's metadata. More info:
@@ -4190,10 +4740,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ReplicaSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1.ReplicaSetSpec _spec,
           Apps.V1.ReplicaSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -4203,6 +4757,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetCondition {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
@@ -4248,12 +4803,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of ReplicaSets. More info:
         /// https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
         /// </summary>
-      public readonly Apps.V1.ReplicaSet[] Items;
+      public readonly ImmutableArray<Apps.V1.ReplicaSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -4263,10 +4835,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ReplicaSetList(
-          Apps.V1.ReplicaSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1.ReplicaSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -4274,6 +4850,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -4321,6 +4898,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetStatus {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replica
@@ -4331,7 +4909,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a replica set's current state.
         /// </summary>
-      public readonly Apps.V1.ReplicaSetCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1.ReplicaSetCondition> Conditions;
 
       /// <summary>
         /// The number of pods that have labels matching the labels of the pod template of the
@@ -4358,7 +4936,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       [OutputConstructor]
       private ReplicaSetStatus(
           int _availableReplicas,
-          Apps.V1.ReplicaSetCondition[] _conditions,
+          ImmutableArray<Apps.V1.ReplicaSetCondition> _conditions,
           int _fullyLabeledReplicas,
           int _observedGeneration,
           int _readyReplicas,
@@ -4376,6 +4954,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateDaemonSet {
       /// <summary>
         /// The maximum number of DaemonSet pods that can be unavailable during the update. Value
@@ -4402,6 +4981,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateDeployment {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
@@ -4441,6 +5021,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// RollingUpdateStatefulSetStrategy is used to communicate parameter for
     /// RollingUpdateStatefulSetStrategyType.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateStatefulSetStrategy {
       /// <summary>
         /// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default
@@ -4463,7 +5044,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// The StatefulSet guarantees that a given network identity will always map to the same storage
     /// identity.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -4480,10 +5078,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private StatefulSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1.StatefulSetSpec _spec,
           Apps.V1.StatefulSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -4493,6 +5095,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -4538,19 +5141,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       
-      public readonly Apps.V1.StatefulSet[] Items;
+      public readonly ImmutableArray<Apps.V1.StatefulSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private StatefulSetList(
-          Apps.V1.StatefulSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1.StatefulSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -4558,6 +5182,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetSpec {
       /// <summary>
         /// podManagementPolicy controls how pods are created during initial scale up, when
@@ -4620,7 +5245,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// matching (by name) volumeMount in one container in the template. A claim in this list
         /// takes precedence over any volumes in the template, with the same name.
         /// </summary>
-      public readonly Core.V1.PersistentVolumeClaim[] VolumeClaimTemplates;
+      public readonly ImmutableArray<Core.V1.PersistentVolumeClaim> VolumeClaimTemplates;
 
       [OutputConstructor]
       private StatefulSetSpec(
@@ -4631,7 +5256,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
           string _serviceName,
           Core.V1.PodTemplateSpec _template,
           Apps.V1.StatefulSetUpdateStrategy _updateStrategy,
-          Core.V1.PersistentVolumeClaim[] _volumeClaimTemplates)
+          ImmutableArray<Core.V1.PersistentVolumeClaim> _volumeClaimTemplates)
       {
           PodManagementPolicy = _podManagementPolicy;
           Replicas = _replicas;
@@ -4647,6 +5272,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetStatus {
       /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet
@@ -4658,7 +5284,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a statefulset's current state.
         /// </summary>
-      public readonly Apps.V1.StatefulSetCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1.StatefulSetCondition> Conditions;
 
       /// <summary>
         /// currentReplicas is the number of Pods created by the StatefulSet controller from the
@@ -4705,7 +5331,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       [OutputConstructor]
       private StatefulSetStatus(
           int _collisionCount,
-          Apps.V1.StatefulSetCondition[] _conditions,
+          ImmutableArray<Apps.V1.StatefulSetCondition> _conditions,
           int _currentReplicas,
           string _currentRevision,
           int _observedGeneration,
@@ -4731,6 +5357,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// perform updates. It includes any additional parameters necessary to perform the update for
     /// the indicated strategy.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetUpdateStrategy {
       /// <summary>
         /// RollingUpdate is used to communicate parameters when Type is
@@ -4769,11 +5396,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// and representation changes in future releases, and clients should not depend on its
     /// stability. It is primarily for internal use by controllers.
     /// </summary>
+    [OutputType]
     public sealed class ControllerRevision {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-      public readonly object Data;
+      public readonly string /* TODO: wrong!*/ Data;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -4788,11 +5432,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ControllerRevision(
-          object _data,
+          string _apiVersion,
+          string /* TODO: wrong!*/ _data,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           int _revision)
       {
+          ApiVersion = _apiVersion;
           Data = _data;
+          Kind = _kind;
           Metadata = _metadata;
           Revision = _revision;
       }
@@ -4801,11 +5449,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
+    [OutputType]
     public sealed class ControllerRevisionList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of ControllerRevisions
         /// </summary>
-      public readonly Apps.V1Beta1.ControllerRevision[] Items;
+      public readonly ImmutableArray<Apps.V1Beta1.ControllerRevision> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// More info:
@@ -4815,10 +5480,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ControllerRevisionList(
-          Apps.V1Beta1.ControllerRevision[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta1.ControllerRevision> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -4829,7 +5498,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// 
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
+    [OutputType]
     public sealed class Deployment {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata.
         /// </summary>
@@ -4847,10 +5533,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private Deployment(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta1.DeploymentSpec _spec,
           Apps.V1Beta1.DeploymentStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -4860,6 +5550,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -4912,11 +5603,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of Deployments.
         /// </summary>
-      public readonly Apps.V1Beta1.Deployment[] Items;
+      public readonly ImmutableArray<Apps.V1Beta1.Deployment> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata.
@@ -4925,10 +5633,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DeploymentList(
-          Apps.V1Beta1.Deployment[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta1.Deployment> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -4936,7 +5648,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentRollback {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Required: This must match the Name of a deployment.
         /// </summary>
@@ -4954,10 +5683,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DeploymentRollback(
+          string _apiVersion,
+          string _kind,
           string _name,
           Apps.V1Beta1.RollbackConfig _rollbackTo,
           ImmutableDictionary<string, string> _updatedAnnotations)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
           RollbackTo = _rollbackTo;
           UpdatedAnnotations = _updatedAnnotations;
@@ -4967,6 +5700,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -5050,6 +5784,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStatus {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
@@ -5067,7 +5802,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a deployment's current state.
         /// </summary>
-      public readonly Apps.V1Beta1.DeploymentCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1Beta1.DeploymentCondition> Conditions;
 
       /// <summary>
         /// The generation observed by the deployment controller.
@@ -5103,7 +5838,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       private DeploymentStatus(
           int _availableReplicas,
           int _collisionCount,
-          Apps.V1Beta1.DeploymentCondition[] _conditions,
+          ImmutableArray<Apps.V1Beta1.DeploymentCondition> _conditions,
           int _observedGeneration,
           int _readyReplicas,
           int _replicas,
@@ -5124,6 +5859,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStrategy {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
@@ -5148,6 +5884,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DEPRECATED.
     /// </summary>
+    [OutputType]
     public sealed class RollbackConfig {
       /// <summary>
         /// The revision to rollback to. If set to 0, rollback to the last revision.
@@ -5165,6 +5902,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateDeployment {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
@@ -5204,6 +5942,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// RollingUpdateStatefulSetStrategy is used to communicate parameter for
     /// RollingUpdateStatefulSetStrategyType.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateStatefulSetStrategy {
       /// <summary>
         /// Partition indicates the ordinal at which the StatefulSet should be partitioned.
@@ -5221,7 +5960,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Scale represents a scaling request for a resource.
     /// </summary>
+    [OutputType]
     public sealed class Scale {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -5243,10 +5999,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private Scale(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta1.ScaleSpec _spec,
           Apps.V1Beta1.ScaleStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -5256,6 +6016,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ScaleSpec describes the attributes of a scale subresource
     /// </summary>
+    [OutputType]
     public sealed class ScaleSpec {
       /// <summary>
         /// desired number of instances for the scaled object.
@@ -5273,6 +6034,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
+    [OutputType]
     public sealed class ScaleStatus {
       /// <summary>
         /// actual number of observed instances of the scaled object.
@@ -5317,7 +6079,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// The StatefulSet guarantees that a given network identity will always map to the same storage
     /// identity.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -5334,10 +6113,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private StatefulSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta1.StatefulSetSpec _spec,
           Apps.V1Beta1.StatefulSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -5347,6 +6130,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -5392,19 +6176,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       
-      public readonly Apps.V1Beta1.StatefulSet[] Items;
+      public readonly ImmutableArray<Apps.V1Beta1.StatefulSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private StatefulSetList(
-          Apps.V1Beta1.StatefulSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta1.StatefulSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -5412,6 +6217,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetSpec {
       /// <summary>
         /// podManagementPolicy controls how pods are created during initial scale up, when
@@ -5474,7 +6280,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// matching (by name) volumeMount in one container in the template. A claim in this list
         /// takes precedence over any volumes in the template, with the same name.
         /// </summary>
-      public readonly Core.V1.PersistentVolumeClaim[] VolumeClaimTemplates;
+      public readonly ImmutableArray<Core.V1.PersistentVolumeClaim> VolumeClaimTemplates;
 
       [OutputConstructor]
       private StatefulSetSpec(
@@ -5485,7 +6291,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
           string _serviceName,
           Core.V1.PodTemplateSpec _template,
           Apps.V1Beta1.StatefulSetUpdateStrategy _updateStrategy,
-          Core.V1.PersistentVolumeClaim[] _volumeClaimTemplates)
+          ImmutableArray<Core.V1.PersistentVolumeClaim> _volumeClaimTemplates)
       {
           PodManagementPolicy = _podManagementPolicy;
           Replicas = _replicas;
@@ -5501,6 +6307,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetStatus {
       /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet
@@ -5512,7 +6319,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a statefulset's current state.
         /// </summary>
-      public readonly Apps.V1Beta1.StatefulSetCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1Beta1.StatefulSetCondition> Conditions;
 
       /// <summary>
         /// currentReplicas is the number of Pods created by the StatefulSet controller from the
@@ -5559,7 +6366,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       [OutputConstructor]
       private StatefulSetStatus(
           int _collisionCount,
-          Apps.V1Beta1.StatefulSetCondition[] _conditions,
+          ImmutableArray<Apps.V1Beta1.StatefulSetCondition> _conditions,
           int _currentReplicas,
           string _currentRevision,
           int _observedGeneration,
@@ -5585,6 +6392,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// perform updates. It includes any additional parameters necessary to perform the update for
     /// the indicated strategy.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetUpdateStrategy {
       /// <summary>
         /// RollingUpdate is used to communicate parameters when Type is
@@ -5623,11 +6431,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// and representation changes in future releases, and clients should not depend on its
     /// stability. It is primarily for internal use by controllers.
     /// </summary>
+    [OutputType]
     public sealed class ControllerRevision {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-      public readonly object Data;
+      public readonly string /* TODO: wrong!*/ Data;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -5642,11 +6467,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ControllerRevision(
-          object _data,
+          string _apiVersion,
+          string /* TODO: wrong!*/ _data,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           int _revision)
       {
+          ApiVersion = _apiVersion;
           Data = _data;
+          Kind = _kind;
           Metadata = _metadata;
           Revision = _revision;
       }
@@ -5655,11 +6484,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
+    [OutputType]
     public sealed class ControllerRevisionList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of ControllerRevisions
         /// </summary>
-      public readonly Apps.V1Beta2.ControllerRevision[] Items;
+      public readonly ImmutableArray<Apps.V1Beta2.ControllerRevision> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// More info:
@@ -5669,10 +6515,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ControllerRevisionList(
-          Apps.V1Beta2.ControllerRevision[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta2.ControllerRevision> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -5683,7 +6533,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// 
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -5705,10 +6572,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DaemonSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta2.DaemonSetSpec _spec,
           Apps.V1Beta2.DaemonSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -5718,6 +6589,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -5763,11 +6635,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// A list of daemon sets.
         /// </summary>
-      public readonly Apps.V1Beta2.DaemonSet[] Items;
+      public readonly ImmutableArray<Apps.V1Beta2.DaemonSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -5777,10 +6666,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DaemonSetList(
-          Apps.V1Beta2.DaemonSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta2.DaemonSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -5788,6 +6681,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetSpec {
       /// <summary>
         /// The minimum number of seconds for which a newly created DaemonSet pod should be ready
@@ -5841,6 +6735,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetStatus {
       /// <summary>
         /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as
@@ -5852,7 +6747,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a DaemonSet's current state.
         /// </summary>
-      public readonly Apps.V1Beta2.DaemonSetCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1Beta2.DaemonSetCondition> Conditions;
 
       /// <summary>
         /// The number of nodes that are running at least 1 daemon pod and are supposed to run the
@@ -5906,7 +6801,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       [OutputConstructor]
       private DaemonSetStatus(
           int _collisionCount,
-          Apps.V1Beta2.DaemonSetCondition[] _conditions,
+          ImmutableArray<Apps.V1Beta2.DaemonSetCondition> _conditions,
           int _currentNumberScheduled,
           int _desiredNumberScheduled,
           int _numberAvailable,
@@ -5932,6 +6827,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetUpdateStrategy {
       /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
@@ -5960,7 +6856,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// 
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
+    [OutputType]
     public sealed class Deployment {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata.
         /// </summary>
@@ -5978,10 +6891,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private Deployment(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta2.DeploymentSpec _spec,
           Apps.V1Beta2.DeploymentStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -5991,6 +6908,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -6043,11 +6961,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of Deployments.
         /// </summary>
-      public readonly Apps.V1Beta2.Deployment[] Items;
+      public readonly ImmutableArray<Apps.V1Beta2.Deployment> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata.
@@ -6056,10 +6991,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private DeploymentList(
-          Apps.V1Beta2.Deployment[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta2.Deployment> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -6067,6 +7006,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -6142,6 +7082,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStatus {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
@@ -6159,7 +7100,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a deployment's current state.
         /// </summary>
-      public readonly Apps.V1Beta2.DeploymentCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1Beta2.DeploymentCondition> Conditions;
 
       /// <summary>
         /// The generation observed by the deployment controller.
@@ -6195,7 +7136,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       private DeploymentStatus(
           int _availableReplicas,
           int _collisionCount,
-          Apps.V1Beta2.DeploymentCondition[] _conditions,
+          ImmutableArray<Apps.V1Beta2.DeploymentCondition> _conditions,
           int _observedGeneration,
           int _readyReplicas,
           int _replicas,
@@ -6216,6 +7157,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStrategy {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
@@ -6243,7 +7185,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// 
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
         /// that the ReplicaSet manages. Standard object's metadata. More info:
@@ -6266,10 +7225,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ReplicaSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta2.ReplicaSetSpec _spec,
           Apps.V1Beta2.ReplicaSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -6279,6 +7242,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetCondition {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
@@ -6324,12 +7288,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of ReplicaSets. More info:
         /// https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
         /// </summary>
-      public readonly Apps.V1Beta2.ReplicaSet[] Items;
+      public readonly ImmutableArray<Apps.V1Beta2.ReplicaSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -6339,10 +7320,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private ReplicaSetList(
-          Apps.V1Beta2.ReplicaSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta2.ReplicaSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -6350,6 +7335,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -6397,6 +7383,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetStatus {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replica
@@ -6407,7 +7394,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a replica set's current state.
         /// </summary>
-      public readonly Apps.V1Beta2.ReplicaSetCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1Beta2.ReplicaSetCondition> Conditions;
 
       /// <summary>
         /// The number of pods that have labels matching the labels of the pod template of the
@@ -6434,7 +7421,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       [OutputConstructor]
       private ReplicaSetStatus(
           int _availableReplicas,
-          Apps.V1Beta2.ReplicaSetCondition[] _conditions,
+          ImmutableArray<Apps.V1Beta2.ReplicaSetCondition> _conditions,
           int _fullyLabeledReplicas,
           int _observedGeneration,
           int _readyReplicas,
@@ -6452,6 +7439,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateDaemonSet {
       /// <summary>
         /// The maximum number of DaemonSet pods that can be unavailable during the update. Value
@@ -6478,6 +7466,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateDeployment {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
@@ -6517,6 +7506,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// RollingUpdateStatefulSetStrategy is used to communicate parameter for
     /// RollingUpdateStatefulSetStrategyType.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateStatefulSetStrategy {
       /// <summary>
         /// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default
@@ -6535,7 +7525,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// Scale represents a scaling request for a resource.
     /// </summary>
+    [OutputType]
     public sealed class Scale {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -6557,10 +7564,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private Scale(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta2.ScaleSpec _spec,
           Apps.V1Beta2.ScaleStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -6570,6 +7581,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ScaleSpec describes the attributes of a scale subresource
     /// </summary>
+    [OutputType]
     public sealed class ScaleSpec {
       /// <summary>
         /// desired number of instances for the scaled object.
@@ -6587,6 +7599,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
+    [OutputType]
     public sealed class ScaleStatus {
       /// <summary>
         /// actual number of observed instances of the scaled object.
@@ -6631,7 +7644,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// The StatefulSet guarantees that a given network identity will always map to the same storage
     /// identity.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -6648,10 +7678,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
       [OutputConstructor]
       private StatefulSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Apps.V1Beta2.StatefulSetSpec _spec,
           Apps.V1Beta2.StatefulSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -6661,6 +7695,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -6706,19 +7741,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       
-      public readonly Apps.V1Beta2.StatefulSet[] Items;
+      public readonly ImmutableArray<Apps.V1Beta2.StatefulSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private StatefulSetList(
-          Apps.V1Beta2.StatefulSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Apps.V1Beta2.StatefulSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -6726,6 +7782,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetSpec {
       /// <summary>
         /// podManagementPolicy controls how pods are created during initial scale up, when
@@ -6788,7 +7845,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// matching (by name) volumeMount in one container in the template. A claim in this list
         /// takes precedence over any volumes in the template, with the same name.
         /// </summary>
-      public readonly Core.V1.PersistentVolumeClaim[] VolumeClaimTemplates;
+      public readonly ImmutableArray<Core.V1.PersistentVolumeClaim> VolumeClaimTemplates;
 
       [OutputConstructor]
       private StatefulSetSpec(
@@ -6799,7 +7856,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
           string _serviceName,
           Core.V1.PodTemplateSpec _template,
           Apps.V1Beta2.StatefulSetUpdateStrategy _updateStrategy,
-          Core.V1.PersistentVolumeClaim[] _volumeClaimTemplates)
+          ImmutableArray<Core.V1.PersistentVolumeClaim> _volumeClaimTemplates)
       {
           PodManagementPolicy = _podManagementPolicy;
           Replicas = _replicas;
@@ -6815,6 +7872,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetStatus {
       /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet
@@ -6826,7 +7884,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       /// <summary>
         /// Represents the latest available observations of a statefulset's current state.
         /// </summary>
-      public readonly Apps.V1Beta2.StatefulSetCondition[] Conditions;
+      public readonly ImmutableArray<Apps.V1Beta2.StatefulSetCondition> Conditions;
 
       /// <summary>
         /// currentReplicas is the number of Pods created by the StatefulSet controller from the
@@ -6873,7 +7931,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       [OutputConstructor]
       private StatefulSetStatus(
           int _collisionCount,
-          Apps.V1Beta2.StatefulSetCondition[] _conditions,
+          ImmutableArray<Apps.V1Beta2.StatefulSetCondition> _conditions,
           int _currentReplicas,
           string _currentRevision,
           int _observedGeneration,
@@ -6899,6 +7957,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// perform updates. It includes any additional parameters necessary to perform the update for
     /// the indicated strategy.
     /// </summary>
+    [OutputType]
     public sealed class StatefulSetUpdateStrategy {
       /// <summary>
         /// RollingUpdate is used to communicate parameters when Type is
@@ -6930,7 +7989,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// AuditSink represents a cluster level audit sink
     /// </summary>
+    [OutputType]
     public sealed class AuditSink {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -6941,9 +8017,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
 
       [OutputConstructor]
       private AuditSink(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           AuditRegistraion.V1Alpha1.AuditSinkSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -6952,21 +8032,42 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// AuditSinkList is a list of AuditSink items.
     /// </summary>
+    [OutputType]
     public sealed class AuditSinkList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of audit configurations.
         /// </summary>
-      public readonly AuditRegistraion.V1Alpha1.AuditSink[] Items;
+      public readonly ImmutableArray<AuditRegistraion.V1Alpha1.AuditSink> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private AuditSinkList(
-          AuditRegistraion.V1Alpha1.AuditSink[] _items,
+          string _apiVersion,
+          ImmutableArray<AuditRegistraion.V1Alpha1.AuditSink> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -6974,6 +8075,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// AuditSinkSpec holds the spec for the audit sink
     /// </summary>
+    [OutputType]
     public sealed class AuditSinkSpec {
       /// <summary>
         /// Policy defines the policy for selecting which events should be sent to the webhook
@@ -6999,6 +8101,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// Policy defines the configuration of how audit events are logged
     /// </summary>
+    [OutputType]
     public sealed class Policy {
       /// <summary>
         /// The Level that all requests are recorded at. available options: None, Metadata, Request,
@@ -7009,12 +8112,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
       /// <summary>
         /// Stages is a list of stages for which events are created.
         /// </summary>
-      public readonly string[] Stages;
+      public readonly ImmutableArray<string> Stages;
 
       [OutputConstructor]
       private Policy(
           string _level,
-          string[] _stages)
+          ImmutableArray<string> _stages)
       {
           Level = _level;
           Stages = _stages;
@@ -7024,6 +8127,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
+    [OutputType]
     public sealed class ServiceReference {
       /// <summary>
         /// `name` is the name of the service. Required
@@ -7063,6 +8167,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// Webhook holds the configuration of the webhook
     /// </summary>
+    [OutputType]
     public sealed class Webhook {
       /// <summary>
         /// ClientConfig holds the connection parameters for the webhook required
@@ -7087,6 +8192,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// WebhookClientConfig contains the information to make a connection with the webhook
     /// </summary>
+    [OutputType]
     public sealed class WebhookClientConfig {
       /// <summary>
         /// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's
@@ -7141,6 +8247,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// <summary>
     /// WebhookThrottleConfig holds the configuration for throttling events
     /// </summary>
+    [OutputType]
     public sealed class WebhookThrottleConfig {
       /// <summary>
         /// ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
@@ -7171,7 +8278,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// BoundObjectReference is a reference to an object that a token is bound to.
     /// </summary>
+    [OutputType]
     public sealed class BoundObjectReference {
+      /// <summary>
+        /// API version of the referent.
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Name of the referent.
         /// </summary>
@@ -7184,9 +8302,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private BoundObjectReference(
+          string _apiVersion,
+          string _kind,
           string _name,
           string _uid)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
           Uid = _uid;
       }
@@ -7195,7 +8317,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// TokenRequest requests a token for a given service account.
     /// </summary>
+    [OutputType]
     public sealed class TokenRequest {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -7207,10 +8346,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenRequest(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authentication.V1.TokenRequestSpec _spec,
           Authentication.V1.TokenRequestStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -7220,6 +8363,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// TokenRequestSpec contains client provided parameters of a token request.
     /// </summary>
+    [OutputType]
     public sealed class TokenRequestSpec {
       /// <summary>
         /// Audiences are the intendend audiences of the token. A recipient of a token must
@@ -7228,7 +8372,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// authenticate against any of the audiences listed but implies a high degree of trust
         /// between the target audiences.
         /// </summary>
-      public readonly string[] Audiences;
+      public readonly ImmutableArray<string> Audiences;
 
       /// <summary>
         /// BoundObjectRef is a reference to an object that the token will be bound to. The token
@@ -7247,7 +8391,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenRequestSpec(
-          string[] _audiences,
+          ImmutableArray<string> _audiences,
           Authentication.V1.BoundObjectReference _boundObjectRef,
           int _expirationSeconds)
       {
@@ -7260,6 +8404,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// TokenRequestStatus is the result of a token request.
     /// </summary>
+    [OutputType]
     public sealed class TokenRequestStatus {
       /// <summary>
         /// ExpirationTimestamp is the time of expiration of the returned token.
@@ -7285,7 +8430,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
     /// be cached by the webhook token authenticator plugin in the kube-apiserver.
     /// </summary>
+    [OutputType]
     public sealed class TokenReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -7302,10 +8464,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authentication.V1.TokenReviewSpec _spec,
           Authentication.V1.TokenReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -7315,6 +8481,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// TokenReviewSpec is a description of the token authentication request.
     /// </summary>
+    [OutputType]
     public sealed class TokenReviewSpec {
       /// <summary>
         /// Audiences is a list of the identifiers that the resource server presented with the token
@@ -7322,7 +8489,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// intended for at least one of the audiences in this list. If no audiences are provided,
         /// the audience will default to the audience of the Kubernetes apiserver.
         /// </summary>
-      public readonly string[] Audiences;
+      public readonly ImmutableArray<string> Audiences;
 
       /// <summary>
         /// Token is the opaque bearer token.
@@ -7331,7 +8498,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenReviewSpec(
-          string[] _audiences,
+          ImmutableArray<string> _audiences,
           string _token)
       {
           Audiences = _audiences;
@@ -7342,6 +8509,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// TokenReviewStatus is the result of the token authentication request.
     /// </summary>
+    [OutputType]
     public sealed class TokenReviewStatus {
       /// <summary>
         /// Audiences are audience identifiers chosen by the authenticator that are compatible with
@@ -7353,7 +8521,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// status.authenticated is "true", the token is valid against the audience of the
         /// Kubernetes API server.
         /// </summary>
-      public readonly string[] Audiences;
+      public readonly ImmutableArray<string> Audiences;
 
       /// <summary>
         /// Authenticated indicates that the token was associated with a known user.
@@ -7372,7 +8540,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenReviewStatus(
-          string[] _audiences,
+          ImmutableArray<string> _audiences,
           bool _authenticated,
           string _error,
           Authentication.V1.UserInfo _user)
@@ -7387,16 +8555,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// UserInfo holds the information about the user needed to implement the user.Info interface.
     /// </summary>
+    [OutputType]
     public sealed class UserInfo {
       /// <summary>
         /// Any additional information provided by the authenticator.
         /// </summary>
-      public readonly object Extra;
+      public readonly ImmutableDictionary<string, string> Extra;
 
       /// <summary>
         /// The names of groups this user is a part of.
         /// </summary>
-      public readonly string[] Groups;
+      public readonly ImmutableArray<string> Groups;
 
       /// <summary>
         /// A unique value that identifies this user across time. If this user is deleted and
@@ -7411,8 +8580,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private UserInfo(
-          object _extra,
-          string[] _groups,
+          ImmutableDictionary<string, string> _extra,
+          ImmutableArray<string> _groups,
           string _uid,
           string _username)
       {
@@ -7430,7 +8599,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
     /// be cached by the webhook token authenticator plugin in the kube-apiserver.
     /// </summary>
+    [OutputType]
     public sealed class TokenReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -7447,10 +8633,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authentication.V1Beta1.TokenReviewSpec _spec,
           Authentication.V1Beta1.TokenReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -7460,6 +8650,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// TokenReviewSpec is a description of the token authentication request.
     /// </summary>
+    [OutputType]
     public sealed class TokenReviewSpec {
       /// <summary>
         /// Audiences is a list of the identifiers that the resource server presented with the token
@@ -7467,7 +8658,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// intended for at least one of the audiences in this list. If no audiences are provided,
         /// the audience will default to the audience of the Kubernetes apiserver.
         /// </summary>
-      public readonly string[] Audiences;
+      public readonly ImmutableArray<string> Audiences;
 
       /// <summary>
         /// Token is the opaque bearer token.
@@ -7476,7 +8667,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenReviewSpec(
-          string[] _audiences,
+          ImmutableArray<string> _audiences,
           string _token)
       {
           Audiences = _audiences;
@@ -7487,6 +8678,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// TokenReviewStatus is the result of the token authentication request.
     /// </summary>
+    [OutputType]
     public sealed class TokenReviewStatus {
       /// <summary>
         /// Audiences are audience identifiers chosen by the authenticator that are compatible with
@@ -7498,7 +8690,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// status.authenticated is "true", the token is valid against the audience of the
         /// Kubernetes API server.
         /// </summary>
-      public readonly string[] Audiences;
+      public readonly ImmutableArray<string> Audiences;
 
       /// <summary>
         /// Authenticated indicates that the token was associated with a known user.
@@ -7517,7 +8709,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private TokenReviewStatus(
-          string[] _audiences,
+          ImmutableArray<string> _audiences,
           bool _authenticated,
           string _error,
           Authentication.V1Beta1.UserInfo _user)
@@ -7532,16 +8724,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// <summary>
     /// UserInfo holds the information about the user needed to implement the user.Info interface.
     /// </summary>
+    [OutputType]
     public sealed class UserInfo {
       /// <summary>
         /// Any additional information provided by the authenticator.
         /// </summary>
-      public readonly object Extra;
+      public readonly ImmutableDictionary<string, string> Extra;
 
       /// <summary>
         /// The names of groups this user is a part of.
         /// </summary>
-      public readonly string[] Groups;
+      public readonly ImmutableArray<string> Groups;
 
       /// <summary>
         /// A unique value that identifies this user across time. If this user is deleted and
@@ -7556,8 +8749,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private UserInfo(
-          object _extra,
-          string[] _groups,
+          ImmutableDictionary<string, string> _extra,
+          ImmutableArray<string> _groups,
           string _uid,
           string _username)
       {
@@ -7579,7 +8772,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// given namespace. Having a namespace scoped resource makes it much easier to grant namespace
     /// scoped policy that includes permissions checking.
     /// </summary>
+    [OutputType]
     public sealed class LocalSubjectAccessReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -7596,10 +8806,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private LocalSubjectAccessReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1.SubjectAccessReviewSpec _spec,
           Authorization.V1.SubjectAccessReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -7610,6 +8824,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// NonResourceAttributes includes the authorization attributes available for non-resource
     /// requests to the Authorizer interface
     /// </summary>
+    [OutputType]
     public sealed class NonResourceAttributes {
       /// <summary>
         /// Path is the URL path of the request
@@ -7634,23 +8849,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// NonResourceRule holds information that describes a rule for the non-resource
     /// </summary>
+    [OutputType]
     public sealed class NonResourceRule {
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
         /// allowed, but only as the full, final step in the path.  "*" means all.
         /// </summary>
-      public readonly string[] NonResourceURLs;
+      public readonly ImmutableArray<string> NonResourceURLs;
 
       /// <summary>
         /// Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete,
         /// patch, head, options.  "*" means all.
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       [OutputConstructor]
       private NonResourceRule(
-          string[] _nonResourceURLs,
-          string[] _verbs)
+          ImmutableArray<string> _nonResourceURLs,
+          ImmutableArray<string> _verbs)
       {
           NonResourceURLs = _nonResourceURLs;
           Verbs = _verbs;
@@ -7661,6 +8877,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceAttributes includes the authorization attributes available for resource requests to
     /// the Authorizer interface
     /// </summary>
+    [OutputType]
     public sealed class ResourceAttributes {
       /// <summary>
         /// Group is the API Group of the Resource.  "*" means all.
@@ -7727,39 +8944,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceRule is the list of actions the subject is allowed to perform on resources. The list
     /// ordering isn't significant, may contain duplicates, and possibly be incomplete.
     /// </summary>
+    [OutputType]
     public sealed class ResourceRule {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
         /// any API group will be allowed.  "*" means all.
         /// </summary>
-      public readonly string[] ApiGroups;
+      public readonly ImmutableArray<string> ApiGroups;
 
       /// <summary>
         /// ResourceNames is an optional white list of names that the rule applies to.  An empty set
         /// means that everything is allowed.  "*" means all.
         /// </summary>
-      public readonly string[] ResourceNames;
+      public readonly ImmutableArray<string> ResourceNames;
 
       /// <summary>
         /// Resources is a list of resources this rule applies to.  "*" means all in the specified
         /// apiGroups.
         ///  "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
         /// </summary>
-      public readonly string[] Resources;
+      public readonly ImmutableArray<string> Resources;
 
       /// <summary>
         /// Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update,
         /// delete, proxy.  "*" means all.
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       [OutputConstructor]
       private ResourceRule(
-          string[] _apiGroups,
-          string[] _resourceNames,
-          string[] _resources,
-          string[] _verbs)
+          ImmutableArray<string> _apiGroups,
+          ImmutableArray<string> _resourceNames,
+          ImmutableArray<string> _resources,
+          ImmutableArray<string> _verbs)
       {
           ApiGroups = _apiGroups;
           ResourceNames = _resourceNames;
@@ -7773,7 +8991,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// filling in a spec.namespace means "in all namespaces".  Self is a special case, because
     /// users should always be able to check whether they can perform an action
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectAccessReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -7789,10 +9024,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SelfSubjectAccessReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1.SelfSubjectAccessReviewSpec _spec,
           Authorization.V1.SubjectAccessReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -7803,6 +9042,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectAccessReviewSpec {
       /// <summary>
         /// NonResourceAttributes describes information for a non-resource access request
@@ -7834,7 +9074,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization
     /// decisions to the API server.
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectRulesReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -7850,10 +9107,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SelfSubjectRulesReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1.SelfSubjectRulesReviewSpec _spec,
           Authorization.V1.SubjectRulesReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -7863,6 +9124,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// 
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectRulesReviewSpec {
       /// <summary>
         /// Namespace to evaluate rules for. Required.
@@ -7880,7 +9142,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
+    [OutputType]
     public sealed class SubjectAccessReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -7896,10 +9175,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SubjectAccessReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1.SubjectAccessReviewSpec _spec,
           Authorization.V1.SubjectAccessReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -7910,17 +9193,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
+    [OutputType]
     public sealed class SubjectAccessReviewSpec {
       /// <summary>
         /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that
         /// is input to the authorizer it needs a reflection here.
         /// </summary>
-      public readonly object Extra;
+      public readonly ImmutableDictionary<string, string> Extra;
 
       /// <summary>
         /// Groups is the groups you're testing for.
         /// </summary>
-      public readonly string[] Groups;
+      public readonly ImmutableArray<string> Groups;
 
       /// <summary>
         /// NonResourceAttributes describes information for a non-resource access request
@@ -7945,8 +9229,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SubjectAccessReviewSpec(
-          object _extra,
-          string[] _groups,
+          ImmutableDictionary<string, string> _extra,
+          ImmutableArray<string> _groups,
           Authorization.V1.NonResourceAttributes _nonResourceAttributes,
           Authorization.V1.ResourceAttributes _resourceAttributes,
           string _uid,
@@ -7964,6 +9248,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// SubjectAccessReviewStatus
     /// </summary>
+    [OutputType]
     public sealed class SubjectAccessReviewStatus {
       /// <summary>
         /// Allowed is required. True if the action would be allowed, false otherwise.
@@ -8010,6 +9295,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// during evaluation. Because authorization rules are additive, if a rule appears in a list
     /// it's safe to assume the subject has that permission, even if that list is incomplete.
     /// </summary>
+    [OutputType]
     public sealed class SubjectRulesReviewStatus {
       /// <summary>
         /// EvaluationError can appear in combination with Rules. It indicates an error occurred
@@ -8030,20 +9316,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// non-resources. The list ordering isn't significant, may contain duplicates, and possibly
         /// be incomplete.
         /// </summary>
-      public readonly Authorization.V1.NonResourceRule[] NonResourceRules;
+      public readonly ImmutableArray<Authorization.V1.NonResourceRule> NonResourceRules;
 
       /// <summary>
         /// ResourceRules is the list of actions the subject is allowed to perform on resources. The
         /// list ordering isn't significant, may contain duplicates, and possibly be incomplete.
         /// </summary>
-      public readonly Authorization.V1.ResourceRule[] ResourceRules;
+      public readonly ImmutableArray<Authorization.V1.ResourceRule> ResourceRules;
 
       [OutputConstructor]
       private SubjectRulesReviewStatus(
           string _evaluationError,
           bool _incomplete,
-          Authorization.V1.NonResourceRule[] _nonResourceRules,
-          Authorization.V1.ResourceRule[] _resourceRules)
+          ImmutableArray<Authorization.V1.NonResourceRule> _nonResourceRules,
+          ImmutableArray<Authorization.V1.ResourceRule> _resourceRules)
       {
           EvaluationError = _evaluationError;
           Incomplete = _incomplete;
@@ -8060,7 +9346,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// given namespace. Having a namespace scoped resource makes it much easier to grant namespace
     /// scoped policy that includes permissions checking.
     /// </summary>
+    [OutputType]
     public sealed class LocalSubjectAccessReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -8077,10 +9380,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private LocalSubjectAccessReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1Beta1.SubjectAccessReviewSpec _spec,
           Authorization.V1Beta1.SubjectAccessReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -8091,6 +9398,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// NonResourceAttributes includes the authorization attributes available for non-resource
     /// requests to the Authorizer interface
     /// </summary>
+    [OutputType]
     public sealed class NonResourceAttributes {
       /// <summary>
         /// Path is the URL path of the request
@@ -8115,23 +9423,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// NonResourceRule holds information that describes a rule for the non-resource
     /// </summary>
+    [OutputType]
     public sealed class NonResourceRule {
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
         /// allowed, but only as the full, final step in the path.  "*" means all.
         /// </summary>
-      public readonly string[] NonResourceURLs;
+      public readonly ImmutableArray<string> NonResourceURLs;
 
       /// <summary>
         /// Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete,
         /// patch, head, options.  "*" means all.
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       [OutputConstructor]
       private NonResourceRule(
-          string[] _nonResourceURLs,
-          string[] _verbs)
+          ImmutableArray<string> _nonResourceURLs,
+          ImmutableArray<string> _verbs)
       {
           NonResourceURLs = _nonResourceURLs;
           Verbs = _verbs;
@@ -8142,6 +9451,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceAttributes includes the authorization attributes available for resource requests to
     /// the Authorizer interface
     /// </summary>
+    [OutputType]
     public sealed class ResourceAttributes {
       /// <summary>
         /// Group is the API Group of the Resource.  "*" means all.
@@ -8208,39 +9518,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceRule is the list of actions the subject is allowed to perform on resources. The list
     /// ordering isn't significant, may contain duplicates, and possibly be incomplete.
     /// </summary>
+    [OutputType]
     public sealed class ResourceRule {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
         /// any API group will be allowed.  "*" means all.
         /// </summary>
-      public readonly string[] ApiGroups;
+      public readonly ImmutableArray<string> ApiGroups;
 
       /// <summary>
         /// ResourceNames is an optional white list of names that the rule applies to.  An empty set
         /// means that everything is allowed.  "*" means all.
         /// </summary>
-      public readonly string[] ResourceNames;
+      public readonly ImmutableArray<string> ResourceNames;
 
       /// <summary>
         /// Resources is a list of resources this rule applies to.  "*" means all in the specified
         /// apiGroups.
         ///  "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
         /// </summary>
-      public readonly string[] Resources;
+      public readonly ImmutableArray<string> Resources;
 
       /// <summary>
         /// Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update,
         /// delete, proxy.  "*" means all.
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       [OutputConstructor]
       private ResourceRule(
-          string[] _apiGroups,
-          string[] _resourceNames,
-          string[] _resources,
-          string[] _verbs)
+          ImmutableArray<string> _apiGroups,
+          ImmutableArray<string> _resourceNames,
+          ImmutableArray<string> _resources,
+          ImmutableArray<string> _verbs)
       {
           ApiGroups = _apiGroups;
           ResourceNames = _resourceNames;
@@ -8254,7 +9565,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// filling in a spec.namespace means "in all namespaces".  Self is a special case, because
     /// users should always be able to check whether they can perform an action
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectAccessReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -8270,10 +9598,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SelfSubjectAccessReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1Beta1.SelfSubjectAccessReviewSpec _spec,
           Authorization.V1Beta1.SubjectAccessReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -8284,6 +9616,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectAccessReviewSpec {
       /// <summary>
         /// NonResourceAttributes describes information for a non-resource access request
@@ -8315,7 +9648,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization
     /// decisions to the API server.
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectRulesReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -8331,10 +9681,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SelfSubjectRulesReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1Beta1.SelfSubjectRulesReviewSpec _spec,
           Authorization.V1Beta1.SubjectRulesReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -8344,6 +9698,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// 
     /// </summary>
+    [OutputType]
     public sealed class SelfSubjectRulesReviewSpec {
       /// <summary>
         /// Namespace to evaluate rules for. Required.
@@ -8361,7 +9716,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
+    [OutputType]
     public sealed class SubjectAccessReview {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -8377,10 +9749,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SubjectAccessReview(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Authorization.V1Beta1.SubjectAccessReviewSpec _spec,
           Authorization.V1Beta1.SubjectAccessReviewStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -8391,17 +9767,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
+    [OutputType]
     public sealed class SubjectAccessReviewSpec {
       /// <summary>
         /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that
         /// is input to the authorizer it needs a reflection here.
         /// </summary>
-      public readonly object Extra;
+      public readonly ImmutableDictionary<string, string> Extra;
 
       /// <summary>
         /// Groups is the groups you're testing for.
         /// </summary>
-      public readonly string[] Group;
+      public readonly ImmutableArray<string> Group;
 
       /// <summary>
         /// NonResourceAttributes describes information for a non-resource access request
@@ -8426,8 +9803,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SubjectAccessReviewSpec(
-          object _extra,
-          string[] _group,
+          ImmutableDictionary<string, string> _extra,
+          ImmutableArray<string> _group,
           Authorization.V1Beta1.NonResourceAttributes _nonResourceAttributes,
           Authorization.V1Beta1.ResourceAttributes _resourceAttributes,
           string _uid,
@@ -8445,6 +9822,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// <summary>
     /// SubjectAccessReviewStatus
     /// </summary>
+    [OutputType]
     public sealed class SubjectAccessReviewStatus {
       /// <summary>
         /// Allowed is required. True if the action would be allowed, false otherwise.
@@ -8491,6 +9869,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// during evaluation. Because authorization rules are additive, if a rule appears in a list
     /// it's safe to assume the subject has that permission, even if that list is incomplete.
     /// </summary>
+    [OutputType]
     public sealed class SubjectRulesReviewStatus {
       /// <summary>
         /// EvaluationError can appear in combination with Rules. It indicates an error occurred
@@ -8511,20 +9890,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// non-resources. The list ordering isn't significant, may contain duplicates, and possibly
         /// be incomplete.
         /// </summary>
-      public readonly Authorization.V1Beta1.NonResourceRule[] NonResourceRules;
+      public readonly ImmutableArray<Authorization.V1Beta1.NonResourceRule> NonResourceRules;
 
       /// <summary>
         /// ResourceRules is the list of actions the subject is allowed to perform on resources. The
         /// list ordering isn't significant, may contain duplicates, and possibly be incomplete.
         /// </summary>
-      public readonly Authorization.V1Beta1.ResourceRule[] ResourceRules;
+      public readonly ImmutableArray<Authorization.V1Beta1.ResourceRule> ResourceRules;
 
       [OutputConstructor]
       private SubjectRulesReviewStatus(
           string _evaluationError,
           bool _incomplete,
-          Authorization.V1Beta1.NonResourceRule[] _nonResourceRules,
-          Authorization.V1Beta1.ResourceRule[] _resourceRules)
+          ImmutableArray<Authorization.V1Beta1.NonResourceRule> _nonResourceRules,
+          ImmutableArray<Authorization.V1Beta1.ResourceRule> _resourceRules)
       {
           EvaluationError = _evaluationError;
           Incomplete = _incomplete;
@@ -8543,7 +9922,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// CrossVersionObjectReference contains enough information to let you identify the referred
     /// resource.
     /// </summary>
+    [OutputType]
     public sealed class CrossVersionObjectReference {
+      /// <summary>
+        /// API version of the referent
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind of the referent; More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         /// </summary>
@@ -8551,8 +9942,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private CrossVersionObjectReference(
+          string _apiVersion,
+          string _kind,
           string _name)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
       }
 
@@ -8560,7 +9955,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// configuration of a horizontal pod autoscaler.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscaler {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -8580,10 +9992,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscaler(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Autoscaling.V1.HorizontalPodAutoscalerSpec _spec,
           Autoscaling.V1.HorizontalPodAutoscalerStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -8593,11 +10009,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// list of horizontal pod autoscaler objects.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// list of horizontal pod autoscaler objects.
         /// </summary>
-      public readonly Autoscaling.V1.HorizontalPodAutoscaler[] Items;
+      public readonly ImmutableArray<Autoscaling.V1.HorizontalPodAutoscaler> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata.
@@ -8606,10 +10039,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscalerList(
-          Autoscaling.V1.HorizontalPodAutoscaler[] _items,
+          string _apiVersion,
+          ImmutableArray<Autoscaling.V1.HorizontalPodAutoscaler> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -8617,6 +10054,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// specification of a horizontal pod autoscaler.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerSpec {
       /// <summary>
         /// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller
@@ -8661,6 +10099,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// current status of a horizontal pod autoscaler
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerStatus {
       /// <summary>
         /// current average CPU utilization over all pods, represented as a percentage of requested
@@ -8708,7 +10147,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// Scale represents a scaling request for a resource.
     /// </summary>
+    [OutputType]
     public sealed class Scale {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -8730,10 +10186,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private Scale(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Autoscaling.V1.ScaleSpec _spec,
           Autoscaling.V1.ScaleStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -8743,6 +10203,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// ScaleSpec describes the attributes of a scale subresource.
     /// </summary>
+    [OutputType]
     public sealed class ScaleSpec {
       /// <summary>
         /// desired number of instances for the scaled object.
@@ -8760,6 +10221,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
+    [OutputType]
     public sealed class ScaleStatus {
       /// <summary>
         /// actual number of observed instances of the scaled object.
@@ -8791,7 +10253,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// CrossVersionObjectReference contains enough information to let you identify the referred
     /// resource.
     /// </summary>
+    [OutputType]
     public sealed class CrossVersionObjectReference {
+      /// <summary>
+        /// API version of the referent
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind of the referent; More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         /// </summary>
@@ -8799,8 +10273,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private CrossVersionObjectReference(
+          string _apiVersion,
+          string _kind,
           string _name)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
       }
 
@@ -8810,6 +10288,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// object (for example length of queue in cloud messaging service, or QPS from loadbalancer
     /// running outside of cluster). Exactly one "target" type should be set.
     /// </summary>
+    [OutputType]
     public sealed class ExternalMetricSource {
       /// <summary>
         /// metricName is the name of the metric in question.
@@ -8851,6 +10330,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ExternalMetricStatus indicates the current value of a global metric not associated with any
     /// Kubernetes object.
     /// </summary>
+    [OutputType]
     public sealed class ExternalMetricStatus {
       /// <summary>
         /// currentAverageValue is the current value of metric averaged over autoscaled pods.
@@ -8891,7 +10371,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// automatically manages the replica count of any resource implementing the scale subresource
     /// based on the metrics specified.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscaler {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// metadata is the standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -8911,10 +10408,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscaler(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Autoscaling.V2Beta1.HorizontalPodAutoscalerSpec _spec,
           Autoscaling.V2Beta1.HorizontalPodAutoscalerStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -8925,6 +10426,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a
     /// certain point.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerCondition {
       /// <summary>
         /// lastTransitionTime is the last time the condition transitioned from one status to
@@ -8971,11 +10473,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of horizontal pod autoscaler objects.
         /// </summary>
-      public readonly Autoscaling.V2Beta1.HorizontalPodAutoscaler[] Items;
+      public readonly ImmutableArray<Autoscaling.V2Beta1.HorizontalPodAutoscaler> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// metadata is the standard list metadata.
@@ -8984,10 +10503,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscalerList(
-          Autoscaling.V2Beta1.HorizontalPodAutoscaler[] _items,
+          string _apiVersion,
+          ImmutableArray<Autoscaling.V2Beta1.HorizontalPodAutoscaler> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -8996,6 +10519,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscalerSpec describes the desired functionality of the
     /// HorizontalPodAutoscaler.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerSpec {
       /// <summary>
         /// maxReplicas is the upper limit for the number of replicas to which the autoscaler can
@@ -9011,7 +10535,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// increased, and vice-versa.  See the individual metric source types for more information
         /// about how each type of metric must respond.
         /// </summary>
-      public readonly Autoscaling.V2Beta1.MetricSpec[] Metrics;
+      public readonly ImmutableArray<Autoscaling.V2Beta1.MetricSpec> Metrics;
 
       /// <summary>
         /// minReplicas is the lower limit for the number of replicas to which the autoscaler can
@@ -9030,7 +10554,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
       [OutputConstructor]
       private HorizontalPodAutoscalerSpec(
           int _maxReplicas,
-          Autoscaling.V2Beta1.MetricSpec[] _metrics,
+          ImmutableArray<Autoscaling.V2Beta1.MetricSpec> _metrics,
           int _minReplicas,
           Autoscaling.V2Beta1.CrossVersionObjectReference _scaleTargetRef)
       {
@@ -9044,17 +10568,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerStatus {
       /// <summary>
         /// conditions is the set of conditions required for this autoscaler to scale its target,
         /// and indicates whether or not those conditions are met.
         /// </summary>
-      public readonly Autoscaling.V2Beta1.HorizontalPodAutoscalerCondition[] Conditions;
+      public readonly ImmutableArray<Autoscaling.V2Beta1.HorizontalPodAutoscalerCondition> Conditions;
 
       /// <summary>
         /// currentMetrics is the last read state of the metrics used by this autoscaler.
         /// </summary>
-      public readonly Autoscaling.V2Beta1.MetricStatus[] CurrentMetrics;
+      public readonly ImmutableArray<Autoscaling.V2Beta1.MetricStatus> CurrentMetrics;
 
       /// <summary>
         /// currentReplicas is current number of replicas of pods managed by this autoscaler, as
@@ -9081,8 +10606,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscalerStatus(
-          Autoscaling.V2Beta1.HorizontalPodAutoscalerCondition[] _conditions,
-          Autoscaling.V2Beta1.MetricStatus[] _currentMetrics,
+          ImmutableArray<Autoscaling.V2Beta1.HorizontalPodAutoscalerCondition> _conditions,
+          ImmutableArray<Autoscaling.V2Beta1.MetricStatus> _currentMetrics,
           int _currentReplicas,
           int _desiredReplicas,
           string _lastScaleTime,
@@ -9101,6 +10626,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// MetricSpec specifies how to scale based on a single metric (only `type` and one other
     /// matching field should be set at once).
     /// </summary>
+    [OutputType]
     public sealed class MetricSpec {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
@@ -9156,6 +10682,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// MetricStatus describes the last-read state of a single metric.
     /// </summary>
+    [OutputType]
     public sealed class MetricStatus {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
@@ -9212,6 +10739,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for
     /// example, hits-per-second on an Ingress object).
     /// </summary>
+    [OutputType]
     public sealed class ObjectMetricSource {
       /// <summary>
         /// averageValue is the target value of the average of the metric across all relevant pods
@@ -9262,6 +10790,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ObjectMetricStatus indicates the current value of a metric describing a kubernetes object
     /// (for example, hits-per-second on an Ingress object).
     /// </summary>
+    [OutputType]
     public sealed class ObjectMetricStatus {
       /// <summary>
         /// averageValue is the current value of the average of the metric across all relevant pods
@@ -9313,6 +10842,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// target (for example, transactions-processed-per-second). The values will be averaged
     /// together before being compared to the target value.
     /// </summary>
+    [OutputType]
     public sealed class PodsMetricSource {
       /// <summary>
         /// metricName is the name of the metric in question
@@ -9349,6 +10879,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// PodsMetricStatus indicates the current value of a metric describing each pod in the current
     /// scale target (for example, transactions-processed-per-second).
     /// </summary>
+    [OutputType]
     public sealed class PodsMetricStatus {
       /// <summary>
         /// currentAverageValue is the current value of the average of the metric across all
@@ -9389,6 +10920,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// available to normal per-pod metrics using the "pods" source.  Only one "target" type should
     /// be set.
     /// </summary>
+    [OutputType]
     public sealed class ResourceMetricSource {
       /// <summary>
         /// name is the name of the resource in question.
@@ -9427,6 +10959,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options
     /// on top of those available to normal per-pod metrics using the "pods" source.
     /// </summary>
+    [OutputType]
     public sealed class ResourceMetricStatus {
       /// <summary>
         /// currentAverageUtilization is the current value of the average of the resource metric
@@ -9468,7 +11001,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// CrossVersionObjectReference contains enough information to let you identify the referred
     /// resource.
     /// </summary>
+    [OutputType]
     public sealed class CrossVersionObjectReference {
+      /// <summary>
+        /// API version of the referent
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind of the referent; More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         /// </summary>
@@ -9476,8 +11021,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private CrossVersionObjectReference(
+          string _apiVersion,
+          string _kind,
           string _name)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
       }
 
@@ -9487,6 +11036,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// object (for example length of queue in cloud messaging service, or QPS from loadbalancer
     /// running outside of cluster).
     /// </summary>
+    [OutputType]
     public sealed class ExternalMetricSource {
       /// <summary>
         /// metric identifies the target metric by name and selector
@@ -9512,6 +11062,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ExternalMetricStatus indicates the current value of a global metric not associated with any
     /// Kubernetes object.
     /// </summary>
+    [OutputType]
     public sealed class ExternalMetricStatus {
       /// <summary>
         /// current contains the current value for the given metric
@@ -9538,7 +11089,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// automatically manages the replica count of any resource implementing the scale subresource
     /// based on the metrics specified.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscaler {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// metadata is the standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -9558,10 +11126,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscaler(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Autoscaling.V2Beta2.HorizontalPodAutoscalerSpec _spec,
           Autoscaling.V2Beta2.HorizontalPodAutoscalerStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -9572,6 +11144,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a
     /// certain point.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerCondition {
       /// <summary>
         /// lastTransitionTime is the last time the condition transitioned from one status to
@@ -9618,11 +11191,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of horizontal pod autoscaler objects.
         /// </summary>
-      public readonly Autoscaling.V2Beta2.HorizontalPodAutoscaler[] Items;
+      public readonly ImmutableArray<Autoscaling.V2Beta2.HorizontalPodAutoscaler> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// metadata is the standard list metadata.
@@ -9631,10 +11221,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscalerList(
-          Autoscaling.V2Beta2.HorizontalPodAutoscaler[] _items,
+          string _apiVersion,
+          ImmutableArray<Autoscaling.V2Beta2.HorizontalPodAutoscaler> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -9643,6 +11237,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscalerSpec describes the desired functionality of the
     /// HorizontalPodAutoscaler.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerSpec {
       /// <summary>
         /// maxReplicas is the upper limit for the number of replicas to which the autoscaler can
@@ -9659,7 +11254,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// about how each type of metric must respond. If not set, the default metric will be set
         /// to 80% average CPU utilization.
         /// </summary>
-      public readonly Autoscaling.V2Beta2.MetricSpec[] Metrics;
+      public readonly ImmutableArray<Autoscaling.V2Beta2.MetricSpec> Metrics;
 
       /// <summary>
         /// minReplicas is the lower limit for the number of replicas to which the autoscaler can
@@ -9678,7 +11273,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
       [OutputConstructor]
       private HorizontalPodAutoscalerSpec(
           int _maxReplicas,
-          Autoscaling.V2Beta2.MetricSpec[] _metrics,
+          ImmutableArray<Autoscaling.V2Beta2.MetricSpec> _metrics,
           int _minReplicas,
           Autoscaling.V2Beta2.CrossVersionObjectReference _scaleTargetRef)
       {
@@ -9692,17 +11287,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     /// </summary>
+    [OutputType]
     public sealed class HorizontalPodAutoscalerStatus {
       /// <summary>
         /// conditions is the set of conditions required for this autoscaler to scale its target,
         /// and indicates whether or not those conditions are met.
         /// </summary>
-      public readonly Autoscaling.V2Beta2.HorizontalPodAutoscalerCondition[] Conditions;
+      public readonly ImmutableArray<Autoscaling.V2Beta2.HorizontalPodAutoscalerCondition> Conditions;
 
       /// <summary>
         /// currentMetrics is the last read state of the metrics used by this autoscaler.
         /// </summary>
-      public readonly Autoscaling.V2Beta2.MetricStatus[] CurrentMetrics;
+      public readonly ImmutableArray<Autoscaling.V2Beta2.MetricStatus> CurrentMetrics;
 
       /// <summary>
         /// currentReplicas is current number of replicas of pods managed by this autoscaler, as
@@ -9729,8 +11325,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
       [OutputConstructor]
       private HorizontalPodAutoscalerStatus(
-          Autoscaling.V2Beta2.HorizontalPodAutoscalerCondition[] _conditions,
-          Autoscaling.V2Beta2.MetricStatus[] _currentMetrics,
+          ImmutableArray<Autoscaling.V2Beta2.HorizontalPodAutoscalerCondition> _conditions,
+          ImmutableArray<Autoscaling.V2Beta2.MetricStatus> _currentMetrics,
           int _currentReplicas,
           int _desiredReplicas,
           string _lastScaleTime,
@@ -9748,6 +11344,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// MetricIdentifier defines the name and optionally selector for a metric
     /// </summary>
+    [OutputType]
     public sealed class MetricIdentifier {
       /// <summary>
         /// name is the name of the given metric
@@ -9776,6 +11373,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// MetricSpec specifies how to scale based on a single metric (only `type` and one other
     /// matching field should be set at once).
     /// </summary>
+    [OutputType]
     public sealed class MetricSpec {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
@@ -9831,6 +11429,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// MetricStatus describes the last-read state of a single metric.
     /// </summary>
+    [OutputType]
     public sealed class MetricStatus {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
@@ -9887,6 +11486,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// MetricTarget defines the target value, average value, or average utilization of a specific
     /// metric
     /// </summary>
+    [OutputType]
     public sealed class MetricTarget {
       /// <summary>
         /// averageUtilization is the target value of the average of the resource metric across all
@@ -9928,6 +11528,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// <summary>
     /// MetricValueStatus holds the current value for a metric
     /// </summary>
+    [OutputType]
     public sealed class MetricValueStatus {
       /// <summary>
         /// currentAverageUtilization is the current value of the average of the resource metric
@@ -9963,6 +11564,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for
     /// example, hits-per-second on an Ingress object).
     /// </summary>
+    [OutputType]
     public sealed class ObjectMetricSource {
       
       public readonly Autoscaling.V2Beta2.CrossVersionObjectReference DescribedObject;
@@ -9993,6 +11595,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ObjectMetricStatus indicates the current value of a metric describing a kubernetes object
     /// (for example, hits-per-second on an Ingress object).
     /// </summary>
+    [OutputType]
     public sealed class ObjectMetricStatus {
       /// <summary>
         /// current contains the current value for the given metric
@@ -10024,6 +11627,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// target (for example, transactions-processed-per-second). The values will be averaged
     /// together before being compared to the target value.
     /// </summary>
+    [OutputType]
     public sealed class PodsMetricSource {
       /// <summary>
         /// metric identifies the target metric by name and selector
@@ -10049,6 +11653,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// PodsMetricStatus indicates the current value of a metric describing each pod in the current
     /// scale target (for example, transactions-processed-per-second).
     /// </summary>
+    [OutputType]
     public sealed class PodsMetricStatus {
       /// <summary>
         /// current contains the current value for the given metric
@@ -10078,6 +11683,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// available to normal per-pod metrics using the "pods" source.  Only one "target" type should
     /// be set.
     /// </summary>
+    [OutputType]
     public sealed class ResourceMetricSource {
       /// <summary>
         /// name is the name of the resource in question.
@@ -10105,6 +11711,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options
     /// on top of those available to normal per-pod metrics using the "pods" source.
     /// </summary>
+    [OutputType]
     public sealed class ResourceMetricStatus {
       /// <summary>
         /// current contains the current value for the given metric
@@ -10135,7 +11742,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// Job represents the configuration of a single job.
     /// </summary>
+    [OutputType]
     public sealed class Job {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -10156,10 +11780,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private Job(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Batch.V1.JobSpec _spec,
           Batch.V1.JobStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -10169,6 +11797,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// JobCondition describes current state of a job.
     /// </summary>
+    [OutputType]
     public sealed class JobCondition {
       /// <summary>
         /// Last time the condition was checked.
@@ -10221,11 +11850,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// JobList is a collection of jobs.
     /// </summary>
+    [OutputType]
     public sealed class JobList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of Jobs.
         /// </summary>
-      public readonly Batch.V1.Job[] Items;
+      public readonly ImmutableArray<Batch.V1.Job> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -10235,10 +11881,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private JobList(
-          Batch.V1.Job[] _items,
+          string _apiVersion,
+          ImmutableArray<Batch.V1.Job> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -10246,6 +11896,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// JobSpec describes how the job execution will look like.
     /// </summary>
+    [OutputType]
     public sealed class JobSpec {
       /// <summary>
         /// Specifies the duration in seconds relative to the startTime that the job may be active
@@ -10337,6 +11988,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// JobStatus represents the current state of a Job.
     /// </summary>
+    [OutputType]
     public sealed class JobStatus {
       /// <summary>
         /// The number of actively running pods.
@@ -10354,7 +12006,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// The latest available observations of an object's current state. More info:
         /// https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         /// </summary>
-      public readonly Batch.V1.JobCondition[] Conditions;
+      public readonly ImmutableArray<Batch.V1.JobCondition> Conditions;
 
       /// <summary>
         /// The number of pods which reached phase Failed.
@@ -10377,7 +12029,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
       private JobStatus(
           int _active,
           string _completionTime,
-          Batch.V1.JobCondition[] _conditions,
+          ImmutableArray<Batch.V1.JobCondition> _conditions,
           int _failed,
           string _startTime,
           int _succeeded)
@@ -10397,7 +12049,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJob represents the configuration of a single cron job.
     /// </summary>
+    [OutputType]
     public sealed class CronJob {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -10418,10 +12087,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private CronJob(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Batch.V1Beta1.CronJobSpec _spec,
           Batch.V1Beta1.CronJobStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -10431,11 +12104,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJobList is a collection of cron jobs.
     /// </summary>
+    [OutputType]
     public sealed class CronJobList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of CronJobs.
         /// </summary>
-      public readonly Batch.V1Beta1.CronJob[] Items;
+      public readonly ImmutableArray<Batch.V1Beta1.CronJob> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -10445,10 +12135,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private CronJobList(
-          Batch.V1Beta1.CronJob[] _items,
+          string _apiVersion,
+          ImmutableArray<Batch.V1Beta1.CronJob> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -10456,6 +12150,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJobSpec describes how the job execution will look like and when it will actually run.
     /// </summary>
+    [OutputType]
     public sealed class CronJobSpec {
       /// <summary>
         /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow"
@@ -10522,11 +12217,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJobStatus represents the current state of a cron job.
     /// </summary>
+    [OutputType]
     public sealed class CronJobStatus {
       /// <summary>
         /// A list of pointers to currently running jobs.
         /// </summary>
-      public readonly Core.V1.ObjectReference[] Active;
+      public readonly ImmutableArray<Core.V1.ObjectReference> Active;
 
       /// <summary>
         /// Information when was the last time the job was successfully scheduled.
@@ -10535,7 +12231,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private CronJobStatus(
-          Core.V1.ObjectReference[] _active,
+          ImmutableArray<Core.V1.ObjectReference> _active,
           string _lastScheduleTime)
       {
           Active = _active;
@@ -10546,6 +12242,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// JobTemplateSpec describes the data a Job should have when created from a template
     /// </summary>
+    [OutputType]
     public sealed class JobTemplateSpec {
       /// <summary>
         /// Standard object's metadata of the jobs created from this template. More info:
@@ -10575,7 +12272,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJob represents the configuration of a single cron job.
     /// </summary>
+    [OutputType]
     public sealed class CronJob {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -10596,10 +12310,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private CronJob(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Batch.V2Alpha1.CronJobSpec _spec,
           Batch.V2Alpha1.CronJobStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -10609,11 +12327,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJobList is a collection of cron jobs.
     /// </summary>
+    [OutputType]
     public sealed class CronJobList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of CronJobs.
         /// </summary>
-      public readonly Batch.V2Alpha1.CronJob[] Items;
+      public readonly ImmutableArray<Batch.V2Alpha1.CronJob> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -10623,10 +12358,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private CronJobList(
-          Batch.V2Alpha1.CronJob[] _items,
+          string _apiVersion,
+          ImmutableArray<Batch.V2Alpha1.CronJob> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -10634,6 +12373,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJobSpec describes how the job execution will look like and when it will actually run.
     /// </summary>
+    [OutputType]
     public sealed class CronJobSpec {
       /// <summary>
         /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow"
@@ -10700,11 +12440,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// CronJobStatus represents the current state of a cron job.
     /// </summary>
+    [OutputType]
     public sealed class CronJobStatus {
       /// <summary>
         /// A list of pointers to currently running jobs.
         /// </summary>
-      public readonly Core.V1.ObjectReference[] Active;
+      public readonly ImmutableArray<Core.V1.ObjectReference> Active;
 
       /// <summary>
         /// Information when was the last time the job was successfully scheduled.
@@ -10713,7 +12454,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
       [OutputConstructor]
       private CronJobStatus(
-          Core.V1.ObjectReference[] _active,
+          ImmutableArray<Core.V1.ObjectReference> _active,
           string _lastScheduleTime)
       {
           Active = _active;
@@ -10724,6 +12465,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// <summary>
     /// JobTemplateSpec describes the data a Job should have when created from a template
     /// </summary>
+    [OutputType]
     public sealed class JobTemplateSpec {
       /// <summary>
         /// Standard object's metadata of the jobs created from this template. More info:
@@ -10756,7 +12498,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// <summary>
     /// Describes a certificate signing request
     /// </summary>
+    [OutputType]
     public sealed class CertificateSigningRequest {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -10772,10 +12531,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
 
       [OutputConstructor]
       private CertificateSigningRequest(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Certificates.V1Beta1.CertificateSigningRequestSpec _spec,
           Certificates.V1Beta1.CertificateSigningRequestStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -10785,6 +12548,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// <summary>
     /// 
     /// </summary>
+    [OutputType]
     public sealed class CertificateSigningRequestCondition {
       /// <summary>
         /// timestamp for the last update to this condition
@@ -10823,19 +12587,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// <summary>
     /// 
     /// </summary>
+    [OutputType]
     public sealed class CertificateSigningRequestList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       
-      public readonly Certificates.V1Beta1.CertificateSigningRequest[] Items;
+      public readonly ImmutableArray<Certificates.V1Beta1.CertificateSigningRequest> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private CertificateSigningRequestList(
-          Certificates.V1Beta1.CertificateSigningRequest[] _items,
+          string _apiVersion,
+          ImmutableArray<Certificates.V1Beta1.CertificateSigningRequest> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -10845,16 +12630,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// fields can be set on creation, other fields are derived by Kubernetes and cannot be modified
     /// by users.
     /// </summary>
+    [OutputType]
     public sealed class CertificateSigningRequestSpec {
       /// <summary>
         /// Extra information about the requesting user. See user.Info interface for details.
         /// </summary>
-      public readonly object Extra;
+      public readonly ImmutableDictionary<string, string> Extra;
 
       /// <summary>
         /// Group information about the requesting user. See user.Info interface for details.
         /// </summary>
-      public readonly string[] Groups;
+      public readonly ImmutableArray<string> Groups;
 
       /// <summary>
         /// Base64-encoded PKCS#10 CSR data
@@ -10871,7 +12657,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
         /// https://tools.ietf.org/html/rfc5280#section-4.2.1.3
         ///      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
         /// </summary>
-      public readonly string[] Usages;
+      public readonly ImmutableArray<string> Usages;
 
       /// <summary>
         /// Information about the requesting user. See user.Info interface for details.
@@ -10880,11 +12666,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
 
       [OutputConstructor]
       private CertificateSigningRequestSpec(
-          object _extra,
-          string[] _groups,
+          ImmutableDictionary<string, string> _extra,
+          ImmutableArray<string> _groups,
           string _request,
           string _uid,
-          string[] _usages,
+          ImmutableArray<string> _usages,
           string _username)
       {
           Extra = _extra;
@@ -10899,6 +12685,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// <summary>
     /// 
     /// </summary>
+    [OutputType]
     public sealed class CertificateSigningRequestStatus {
       /// <summary>
         /// If request was approved, the controller will place the issued certificate here.
@@ -10908,12 +12695,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
       /// <summary>
         /// Conditions applied to the request, such as approval or denial.
         /// </summary>
-      public readonly Certificates.V1Beta1.CertificateSigningRequestCondition[] Conditions;
+      public readonly ImmutableArray<Certificates.V1Beta1.CertificateSigningRequestCondition> Conditions;
 
       [OutputConstructor]
       private CertificateSigningRequestStatus(
           string _certificate,
-          Certificates.V1Beta1.CertificateSigningRequestCondition[] _conditions)
+          ImmutableArray<Certificates.V1Beta1.CertificateSigningRequestCondition> _conditions)
       {
           Certificate = _certificate;
           Conditions = _conditions;
@@ -10929,7 +12716,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// <summary>
     /// Lease defines a lease concept.
     /// </summary>
+    [OutputType]
     public sealed class Lease {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -10944,9 +12748,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
 
       [OutputConstructor]
       private Lease(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Coordination.V1.LeaseSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -10955,11 +12763,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// <summary>
     /// LeaseList is a list of Lease objects.
     /// </summary>
+    [OutputType]
     public sealed class LeaseList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Coordination.V1.Lease[] Items;
+      public readonly ImmutableArray<Coordination.V1.Lease> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -10969,10 +12794,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
 
       [OutputConstructor]
       private LeaseList(
-          Coordination.V1.Lease[] _items,
+          string _apiVersion,
+          ImmutableArray<Coordination.V1.Lease> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -10980,6 +12809,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// <summary>
     /// LeaseSpec is a specification of a Lease.
     /// </summary>
+    [OutputType]
     public sealed class LeaseSpec {
       /// <summary>
         /// acquireTime is a time when the current lease was acquired.
@@ -11029,7 +12859,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// <summary>
     /// Lease defines a lease concept.
     /// </summary>
+    [OutputType]
     public sealed class Lease {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -11044,9 +12891,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
 
       [OutputConstructor]
       private Lease(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Coordination.V1Beta1.LeaseSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -11055,11 +12906,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// <summary>
     /// LeaseList is a list of Lease objects.
     /// </summary>
+    [OutputType]
     public sealed class LeaseList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Coordination.V1Beta1.Lease[] Items;
+      public readonly ImmutableArray<Coordination.V1Beta1.Lease> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -11069,10 +12937,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
 
       [OutputConstructor]
       private LeaseList(
-          Coordination.V1Beta1.Lease[] _items,
+          string _apiVersion,
+          ImmutableArray<Coordination.V1Beta1.Lease> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -11080,6 +12952,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// <summary>
     /// LeaseSpec is a specification of a Lease.
     /// </summary>
+    [OutputType]
     public sealed class LeaseSpec {
       /// <summary>
         /// acquireTime is a time when the current lease was acquired.
@@ -11136,6 +13009,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS
     /// volumes support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class AWSElasticBlockStoreVolumeSource {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
@@ -11183,6 +13057,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Affinity is a group of affinity scheduling rules.
     /// </summary>
+    [OutputType]
     public sealed class Affinity {
       /// <summary>
         /// Describes node affinity scheduling rules for the pod.
@@ -11216,6 +13091,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// AttachedVolume describes a volume attached to a node
     /// </summary>
+    [OutputType]
     public sealed class AttachedVolume {
       /// <summary>
         /// DevicePath represents the device path where the volume should be available
@@ -11240,6 +13116,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
     /// </summary>
+    [OutputType]
     public sealed class AzureDiskVolumeSource {
       /// <summary>
         /// Host Caching mode: None, Read Only, Read Write.
@@ -11263,6 +13140,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       public readonly string FsType;
 
       /// <summary>
+        /// Expected values Shared: multiple blob disks per storage account  Dedicated: single blob
+        /// disk per storage account  Managed: azure managed data disk (only in managed availability
+        /// set). defaults to shared
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
         /// VolumeMounts.
         /// </summary>
@@ -11274,12 +13158,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _diskName,
           string _diskURI,
           string _fsType,
+          string _kind,
           bool _readOnly)
       {
           CachingMode = _cachingMode;
           DiskName = _diskName;
           DiskURI = _diskURI;
           FsType = _fsType;
+          Kind = _kind;
           ReadOnly = _readOnly;
       }
 
@@ -11287,6 +13173,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     /// </summary>
+    [OutputType]
     public sealed class AzureFilePersistentVolumeSource {
       /// <summary>
         /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -11327,6 +13214,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     /// </summary>
+    [OutputType]
     public sealed class AzureFileVolumeSource {
       /// <summary>
         /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -11360,7 +13248,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
     /// Deprecated in 1.7, please use the bindings subresource of pods instead.
     /// </summary>
+    [OutputType]
     public sealed class Binding {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -11374,9 +13279,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private Binding(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.ObjectReference _target)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Target = _target;
       }
@@ -11385,6 +13294,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Represents storage that is managed by an external CSI volume driver (Beta feature)
     /// </summary>
+    [OutputType]
     public sealed class CSIPersistentVolumeSource {
       /// <summary>
         /// ControllerExpandSecretRef is a reference to the secret object containing sensitive
@@ -11474,6 +13384,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Represents a source location of a volume to mount, managed by an external CSI driver
     /// </summary>
+    [OutputType]
     public sealed class CSIVolumeSource {
       /// <summary>
         /// Driver is the name of the CSI driver that handles this volume. Consult with your admin
@@ -11527,21 +13438,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Adds and removes POSIX capabilities from running containers.
     /// </summary>
+    [OutputType]
     public sealed class Capabilities {
       /// <summary>
         /// Added capabilities
         /// </summary>
-      public readonly string[] Add;
+      public readonly ImmutableArray<string> Add;
 
       /// <summary>
         /// Removed capabilities
         /// </summary>
-      public readonly string[] Drop;
+      public readonly ImmutableArray<string> Drop;
 
       [OutputConstructor]
       private Capabilities(
-          string[] _add,
-          string[] _drop)
+          ImmutableArray<string> _add,
+          ImmutableArray<string> _drop)
       {
           Add = _add;
           Drop = _drop;
@@ -11552,12 +13464,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not
     /// support ownership management or SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class CephFSPersistentVolumeSource {
       /// <summary>
         /// Required: Monitors is a collection of Ceph monitors More info:
         /// https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         /// </summary>
-      public readonly string[] Monitors;
+      public readonly ImmutableArray<string> Monitors;
 
       /// <summary>
         /// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
@@ -11591,7 +13504,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private CephFSPersistentVolumeSource(
-          string[] _monitors,
+          ImmutableArray<string> _monitors,
           string _path,
           bool _readOnly,
           string _secretFile,
@@ -11611,12 +13524,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not
     /// support ownership management or SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class CephFSVolumeSource {
       /// <summary>
         /// Required: Monitors is a collection of Ceph monitors More info:
         /// https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         /// </summary>
-      public readonly string[] Monitors;
+      public readonly ImmutableArray<string> Monitors;
 
       /// <summary>
         /// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
@@ -11650,7 +13564,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private CephFSVolumeSource(
-          string[] _monitors,
+          ImmutableArray<string> _monitors,
           string _path,
           bool _readOnly,
           string _secretFile,
@@ -11671,6 +13585,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// to a container. The volume must also be in the same region as the kubelet. Cinder volumes
     /// support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class CinderPersistentVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -11715,6 +13630,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// to a container. The volume must also be in the same region as the kubelet. Cinder volumes
     /// support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class CinderVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -11757,6 +13673,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ClientIPConfig represents the configurations of Client IP based session affinity.
     /// </summary>
+    [OutputType]
     public sealed class ClientIPConfig {
       /// <summary>
         /// timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value
@@ -11776,6 +13693,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Information about the condition of a component.
     /// </summary>
+    [OutputType]
     public sealed class ComponentCondition {
       /// <summary>
         /// Condition error code for a component. For example, a health check error code.
@@ -11816,11 +13734,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
     /// </summary>
+    [OutputType]
     public sealed class ComponentStatus {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of component conditions observed
         /// </summary>
-      public readonly Core.V1.ComponentCondition[] Conditions;
+      public readonly ImmutableArray<Core.V1.ComponentCondition> Conditions;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -11830,10 +13765,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ComponentStatus(
-          Core.V1.ComponentCondition[] _conditions,
+          string _apiVersion,
+          ImmutableArray<Core.V1.ComponentCondition> _conditions,
+          string _kind,
           Meta.V1.ObjectMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Conditions = _conditions;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -11841,11 +13780,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Status of all the conditions for the component as a list of ComponentStatus objects.
     /// </summary>
+    [OutputType]
     public sealed class ComponentStatusList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of ComponentStatus objects.
         /// </summary>
-      public readonly Core.V1.ComponentStatus[] Items;
+      public readonly ImmutableArray<Core.V1.ComponentStatus> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -11855,10 +13811,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ComponentStatusList(
-          Core.V1.ComponentStatus[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.ComponentStatus> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -11866,7 +13826,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ConfigMap holds configuration data for pods to consume.
     /// </summary>
+    [OutputType]
     public sealed class ConfigMap {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// BinaryData contains the binary data. Each key must consist of alphanumeric characters,
         /// '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range.
@@ -11874,7 +13843,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// enforced during validation process. Using this field will require 1.10+ apiserver and
         /// kubelet.
         /// </summary>
-      public readonly object BinaryData;
+      public readonly ImmutableDictionary<string, string> BinaryData;
 
       /// <summary>
         /// Data contains the configuration data. Each key must consist of alphanumeric characters,
@@ -11885,6 +13854,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       public readonly ImmutableDictionary<string, string> Data;
 
       /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
@@ -11892,12 +13869,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ConfigMap(
-          object _binaryData,
+          string _apiVersion,
+          ImmutableDictionary<string, string> _binaryData,
           ImmutableDictionary<string, string> _data,
+          string _kind,
           Meta.V1.ObjectMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           BinaryData = _binaryData;
           Data = _data;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -11908,6 +13889,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// The contents of the target ConfigMap's Data field will represent the key-value pairs as
     /// environment variables.
     /// </summary>
+    [OutputType]
     public sealed class ConfigMapEnvSource {
       /// <summary>
         /// Name of the referent. More info:
@@ -11933,6 +13915,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Selects a key from a ConfigMap.
     /// </summary>
+    [OutputType]
     public sealed class ConfigMapKeySelector {
       /// <summary>
         /// The key to select.
@@ -11965,11 +13948,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ConfigMapList is a resource containing a list of ConfigMap objects.
     /// </summary>
+    [OutputType]
     public sealed class ConfigMapList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of ConfigMaps.
         /// </summary>
-      public readonly Core.V1.ConfigMap[] Items;
+      public readonly ImmutableArray<Core.V1.ConfigMap> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// More info:
@@ -11979,10 +13979,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ConfigMapList(
-          Core.V1.ConfigMap[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.ConfigMap> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -11991,6 +13995,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config
     /// source for the Node.
     /// </summary>
+    [OutputType]
     public sealed class ConfigMapNodeConfigSource {
       /// <summary>
         /// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the
@@ -12046,6 +14051,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// populated with specific mappings of keys to paths. Note that this is identical to a
     /// configmap volume source without the default mode.
     /// </summary>
+    [OutputType]
     public sealed class ConfigMapProjection {
       /// <summary>
         /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will
@@ -12055,7 +14061,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// the volume setup will error unless it is marked optional. Paths must be relative and may
         /// not contain the '..' path or start with '..'.
         /// </summary>
-      public readonly Core.V1.KeyToPath[] Items;
+      public readonly ImmutableArray<Core.V1.KeyToPath> Items;
 
       /// <summary>
         /// Name of the referent. More info:
@@ -12070,7 +14076,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ConfigMapProjection(
-          Core.V1.KeyToPath[] _items,
+          ImmutableArray<Core.V1.KeyToPath> _items,
           string _name,
           bool _optional)
       {
@@ -12088,6 +14094,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// with specific mappings of keys to paths. ConfigMap volumes support ownership management and
     /// SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class ConfigMapVolumeSource {
       /// <summary>
         /// Optional: mode bits to use on created files by default. Must be a value between 0 and
@@ -12105,7 +14112,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// the volume setup will error unless it is marked optional. Paths must be relative and may
         /// not contain the '..' path or start with '..'.
         /// </summary>
-      public readonly Core.V1.KeyToPath[] Items;
+      public readonly ImmutableArray<Core.V1.KeyToPath> Items;
 
       /// <summary>
         /// Name of the referent. More info:
@@ -12121,7 +14128,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private ConfigMapVolumeSource(
           int _defaultMode,
-          Core.V1.KeyToPath[] _items,
+          ImmutableArray<Core.V1.KeyToPath> _items,
           string _name,
           bool _optional)
       {
@@ -12135,6 +14142,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// A single application container that you want to run within a pod.
     /// </summary>
+    [OutputType]
     public sealed class Container {
       /// <summary>
         /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided.
@@ -12145,7 +14153,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// updated. More info:
         /// https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         /// </summary>
-      public readonly string[] Args;
+      public readonly ImmutableArray<string> Args;
 
       /// <summary>
         /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if
@@ -12156,12 +14164,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// not. Cannot be updated. More info:
         /// https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         /// </summary>
-      public readonly string[] Command;
+      public readonly ImmutableArray<string> Command;
 
       /// <summary>
         /// List of environment variables to set in the container. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.EnvVar[] Env;
+      public readonly ImmutableArray<Core.V1.EnvVar> Env;
 
       /// <summary>
         /// List of sources to populate environment variables in the container. The keys defined
@@ -12170,7 +14178,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// associated with the last source will take precedence. Values defined by an Env with a
         /// duplicate key will take precedence. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.EnvFromSource[] EnvFrom;
+      public readonly ImmutableArray<Core.V1.EnvFromSource> EnvFrom;
 
       /// <summary>
         /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This
@@ -12212,7 +14220,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// Any port which is listening on the default "0.0.0.0" address inside a container will be
         /// accessible from the network. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.ContainerPort[] Ports;
+      public readonly ImmutableArray<Core.V1.ContainerPort> Ports;
 
       /// <summary>
         /// Periodic probe of container service readiness. Container will be removed from service
@@ -12292,12 +14300,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// volumeDevices is the list of block devices to be used by the container. This is a beta
         /// feature.
         /// </summary>
-      public readonly Core.V1.VolumeDevice[] VolumeDevices;
+      public readonly ImmutableArray<Core.V1.VolumeDevice> VolumeDevices;
 
       /// <summary>
         /// Pod volumes to mount into the container's filesystem. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.VolumeMount[] VolumeMounts;
+      public readonly ImmutableArray<Core.V1.VolumeMount> VolumeMounts;
 
       /// <summary>
         /// Container's working directory. If not specified, the container runtime's default will be
@@ -12307,16 +14315,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private Container(
-          string[] _args,
-          string[] _command,
-          Core.V1.EnvVar[] _env,
-          Core.V1.EnvFromSource[] _envFrom,
+          ImmutableArray<string> _args,
+          ImmutableArray<string> _command,
+          ImmutableArray<Core.V1.EnvVar> _env,
+          ImmutableArray<Core.V1.EnvFromSource> _envFrom,
           string _image,
           string _imagePullPolicy,
           Core.V1.Lifecycle _lifecycle,
           Core.V1.Probe _livenessProbe,
           string _name,
-          Core.V1.ContainerPort[] _ports,
+          ImmutableArray<Core.V1.ContainerPort> _ports,
           Core.V1.Probe _readinessProbe,
           Core.V1.ResourceRequirements _resources,
           Core.V1.SecurityContext _securityContext,
@@ -12326,8 +14334,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _terminationMessagePath,
           string _terminationMessagePolicy,
           bool _tty,
-          Core.V1.VolumeDevice[] _volumeDevices,
-          Core.V1.VolumeMount[] _volumeMounts,
+          ImmutableArray<Core.V1.VolumeDevice> _volumeDevices,
+          ImmutableArray<Core.V1.VolumeMount> _volumeMounts,
           string _workingDir)
       {
           Args = _args;
@@ -12358,12 +14366,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Describe a container image
     /// </summary>
+    [OutputType]
     public sealed class ContainerImage {
       /// <summary>
         /// Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7",
         /// "dockerhub.io/google_containers/hyperkube:v1.0.7"]
         /// </summary>
-      public readonly string[] Names;
+      public readonly ImmutableArray<string> Names;
 
       /// <summary>
         /// The size of the image in bytes.
@@ -12372,7 +14381,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ContainerImage(
-          string[] _names,
+          ImmutableArray<string> _names,
           int _sizeBytes)
       {
           Names = _names;
@@ -12383,6 +14392,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ContainerPort represents a network port in a single container.
     /// </summary>
+    [OutputType]
     public sealed class ContainerPort {
       /// <summary>
         /// Number of port to expose on the pod's IP address. This must be a valid port number, 0
@@ -12433,6 +14443,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ContainerState holds a possible state of container. Only one of its members may be
     /// specified. If none of them is specified, the default one is ContainerStateWaiting.
     /// </summary>
+    [OutputType]
     public sealed class ContainerState {
       /// <summary>
         /// Details about a running container
@@ -12464,6 +14475,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ContainerStateRunning is a running state of a container.
     /// </summary>
+    [OutputType]
     public sealed class ContainerStateRunning {
       /// <summary>
         /// Time at which the container was last (re-)started
@@ -12481,6 +14493,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ContainerStateTerminated is a terminated state of a container.
     /// </summary>
+    [OutputType]
     public sealed class ContainerStateTerminated {
       /// <summary>
         /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'
@@ -12540,6 +14553,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ContainerStateWaiting is a waiting state of a container.
     /// </summary>
+    [OutputType]
     public sealed class ContainerStateWaiting {
       /// <summary>
         /// Message regarding why the container is not yet running.
@@ -12564,6 +14578,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ContainerStatus contains details for the current status of this container.
     /// </summary>
+    [OutputType]
     public sealed class ContainerStatus {
       /// <summary>
         /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'.
@@ -12645,6 +14660,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// DaemonEndpoint contains information about a single Daemon endpoint.
     /// </summary>
+    [OutputType]
     public sealed class DaemonEndpoint {
       /// <summary>
         /// Port number of the given endpoint.
@@ -12663,15 +14679,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents downward API info for projecting into a projected volume. Note that this is
     /// identical to a downwardAPI volume source without the default mode.
     /// </summary>
+    [OutputType]
     public sealed class DownwardAPIProjection {
       /// <summary>
         /// Items is a list of DownwardAPIVolume file
         /// </summary>
-      public readonly Core.V1.DownwardAPIVolumeFile[] Items;
+      public readonly ImmutableArray<Core.V1.DownwardAPIVolumeFile> Items;
 
       [OutputConstructor]
       private DownwardAPIProjection(
-          Core.V1.DownwardAPIVolumeFile[] _items)
+          ImmutableArray<Core.V1.DownwardAPIVolumeFile> _items)
       {
           Items = _items;
       }
@@ -12680,6 +14697,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// DownwardAPIVolumeFile represents information to create the file containing the pod field
     /// </summary>
+    [OutputType]
     public sealed class DownwardAPIVolumeFile {
       /// <summary>
         /// Required: Selects a field of the pod: only annotations, labels, name and namespace are
@@ -12726,6 +14744,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// DownwardAPIVolumeSource represents a volume containing downward API info. Downward API
     /// volumes support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class DownwardAPIVolumeSource {
       /// <summary>
         /// Optional: mode bits to use on created files by default. Must be a value between 0 and
@@ -12738,12 +14757,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// Items is a list of downward API volume file
         /// </summary>
-      public readonly Core.V1.DownwardAPIVolumeFile[] Items;
+      public readonly ImmutableArray<Core.V1.DownwardAPIVolumeFile> Items;
 
       [OutputConstructor]
       private DownwardAPIVolumeSource(
           int _defaultMode,
-          Core.V1.DownwardAPIVolumeFile[] _items)
+          ImmutableArray<Core.V1.DownwardAPIVolumeFile> _items)
       {
           DefaultMode = _defaultMode;
           Items = _items;
@@ -12754,6 +14773,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents an empty directory for a pod. Empty directory volumes support ownership
     /// management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class EmptyDirVolumeSource {
       /// <summary>
         /// What type of storage medium should back this directory. The default is "" which means to
@@ -12784,6 +14804,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EndpointAddress is a tuple that describes single IP address.
     /// </summary>
+    [OutputType]
     public sealed class EndpointAddress {
       /// <summary>
         /// The Hostname of this endpoint
@@ -12826,6 +14847,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EndpointPort is a tuple that describes a single port.
     /// </summary>
+    [OutputType]
     public sealed class EndpointPort {
       /// <summary>
         /// The name of this port.  This must match the 'name' field in the corresponding
@@ -12866,30 +14888,31 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     ///     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
     ///     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
     /// </summary>
+    [OutputType]
     public sealed class EndpointSubset {
       /// <summary>
         /// IP addresses which offer the related ports that are marked as ready. These endpoints
         /// should be considered safe for load balancers and clients to utilize.
         /// </summary>
-      public readonly Core.V1.EndpointAddress[] Addresses;
+      public readonly ImmutableArray<Core.V1.EndpointAddress> Addresses;
 
       /// <summary>
         /// IP addresses which offer the related ports but are not currently marked as ready because
         /// they have not yet finished starting, have recently failed a readiness check, or have
         /// recently failed a liveness check.
         /// </summary>
-      public readonly Core.V1.EndpointAddress[] NotReadyAddresses;
+      public readonly ImmutableArray<Core.V1.EndpointAddress> NotReadyAddresses;
 
       /// <summary>
         /// Port numbers available on the related IP addresses.
         /// </summary>
-      public readonly Core.V1.EndpointPort[] Ports;
+      public readonly ImmutableArray<Core.V1.EndpointPort> Ports;
 
       [OutputConstructor]
       private EndpointSubset(
-          Core.V1.EndpointAddress[] _addresses,
-          Core.V1.EndpointAddress[] _notReadyAddresses,
-          Core.V1.EndpointPort[] _ports)
+          ImmutableArray<Core.V1.EndpointAddress> _addresses,
+          ImmutableArray<Core.V1.EndpointAddress> _notReadyAddresses,
+          ImmutableArray<Core.V1.EndpointPort> _ports)
       {
           Addresses = _addresses;
           NotReadyAddresses = _notReadyAddresses;
@@ -12911,7 +14934,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     ///     },
     ///  ]
     /// </summary>
+    [OutputType]
     public sealed class Endpoints {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -12926,13 +14966,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of
         /// addresses and ports that comprise a service.
         /// </summary>
-      public readonly Core.V1.EndpointSubset[] Subsets;
+      public readonly ImmutableArray<Core.V1.EndpointSubset> Subsets;
 
       [OutputConstructor]
       private Endpoints(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Core.V1.EndpointSubset[] _subsets)
+          ImmutableArray<Core.V1.EndpointSubset> _subsets)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Subsets = _subsets;
       }
@@ -12941,11 +14985,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EndpointsList is a list of endpoints.
     /// </summary>
+    [OutputType]
     public sealed class EndpointsList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of endpoints.
         /// </summary>
-      public readonly Core.V1.Endpoints[] Items;
+      public readonly ImmutableArray<Core.V1.Endpoints> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -12955,10 +15016,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private EndpointsList(
-          Core.V1.Endpoints[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.Endpoints> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -12966,6 +15031,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EnvFromSource represents the source of a set of ConfigMaps
     /// </summary>
+    [OutputType]
     public sealed class EnvFromSource {
       /// <summary>
         /// The ConfigMap to select from
@@ -12997,6 +15063,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EnvVar represents an environment variable present in a Container.
     /// </summary>
+    [OutputType]
     public sealed class EnvVar {
       /// <summary>
         /// Name of the environment variable. Must be a C_IDENTIFIER.
@@ -13032,6 +15099,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EnvVarSource represents a source for the value of an EnvVar.
     /// </summary>
+    [OutputType]
     public sealed class EnvVarSource {
       /// <summary>
         /// Selects a key of a ConfigMap.
@@ -13081,6 +15149,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// they will appear in the pod spec once added. This is an alpha feature enabled by the
     /// EphemeralContainers feature flag.
     /// </summary>
+    [OutputType]
     public sealed class EphemeralContainer {
       /// <summary>
         /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided.
@@ -13091,7 +15160,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// updated. More info:
         /// https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         /// </summary>
-      public readonly string[] Args;
+      public readonly ImmutableArray<string> Args;
 
       /// <summary>
         /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if
@@ -13102,12 +15171,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// not. Cannot be updated. More info:
         /// https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         /// </summary>
-      public readonly string[] Command;
+      public readonly ImmutableArray<string> Command;
 
       /// <summary>
         /// List of environment variables to set in the container. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.EnvVar[] Env;
+      public readonly ImmutableArray<Core.V1.EnvVar> Env;
 
       /// <summary>
         /// List of sources to populate environment variables in the container. The keys defined
@@ -13116,7 +15185,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// associated with the last source will take precedence. Values defined by an Env with a
         /// duplicate key will take precedence. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.EnvFromSource[] EnvFrom;
+      public readonly ImmutableArray<Core.V1.EnvFromSource> EnvFrom;
 
       /// <summary>
         /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
@@ -13149,7 +15218,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// Ports are not allowed for ephemeral containers.
         /// </summary>
-      public readonly Core.V1.ContainerPort[] Ports;
+      public readonly ImmutableArray<Core.V1.ContainerPort> Ports;
 
       /// <summary>
         /// Probes are not allowed for ephemeral containers.
@@ -13227,12 +15296,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// volumeDevices is the list of block devices to be used by the container. This is a beta
         /// feature.
         /// </summary>
-      public readonly Core.V1.VolumeDevice[] VolumeDevices;
+      public readonly ImmutableArray<Core.V1.VolumeDevice> VolumeDevices;
 
       /// <summary>
         /// Pod volumes to mount into the container's filesystem. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.VolumeMount[] VolumeMounts;
+      public readonly ImmutableArray<Core.V1.VolumeMount> VolumeMounts;
 
       /// <summary>
         /// Container's working directory. If not specified, the container runtime's default will be
@@ -13242,16 +15311,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private EphemeralContainer(
-          string[] _args,
-          string[] _command,
-          Core.V1.EnvVar[] _env,
-          Core.V1.EnvFromSource[] _envFrom,
+          ImmutableArray<string> _args,
+          ImmutableArray<string> _command,
+          ImmutableArray<Core.V1.EnvVar> _env,
+          ImmutableArray<Core.V1.EnvFromSource> _envFrom,
           string _image,
           string _imagePullPolicy,
           Core.V1.Lifecycle _lifecycle,
           Core.V1.Probe _livenessProbe,
           string _name,
-          Core.V1.ContainerPort[] _ports,
+          ImmutableArray<Core.V1.ContainerPort> _ports,
           Core.V1.Probe _readinessProbe,
           Core.V1.ResourceRequirements _resources,
           Core.V1.SecurityContext _securityContext,
@@ -13262,8 +15331,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _terminationMessagePath,
           string _terminationMessagePolicy,
           bool _tty,
-          Core.V1.VolumeDevice[] _volumeDevices,
-          Core.V1.VolumeMount[] _volumeMounts,
+          ImmutableArray<Core.V1.VolumeDevice> _volumeDevices,
+          ImmutableArray<Core.V1.VolumeMount> _volumeMounts,
           string _workingDir)
       {
           Args = _args;
@@ -13295,11 +15364,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Event is a report of an event somewhere in the cluster.
     /// </summary>
+    [OutputType]
     public sealed class Event {
       /// <summary>
         /// What action was taken/failed regarding to the Regarding object.
         /// </summary>
       public readonly string Action;
+
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
 
       /// <summary>
         /// The number of times this event has occurred.
@@ -13320,6 +15398,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// The object that this event is about.
         /// </summary>
       public readonly Core.V1.ObjectReference InvolvedObject;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// The time at which the most recent occurrence of this event was recorded.
@@ -13376,10 +15462,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private Event(
           string _action,
+          string _apiVersion,
           int _count,
           string _eventTime,
           string _firstTimestamp,
           Core.V1.ObjectReference _involvedObject,
+          string _kind,
           string _lastTimestamp,
           string _message,
           Meta.V1.ObjectMeta _metadata,
@@ -13392,10 +15480,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _type)
       {
           Action = _action;
+          ApiVersion = _apiVersion;
           Count = _count;
           EventTime = _eventTime;
           FirstTimestamp = _firstTimestamp;
           InvolvedObject = _involvedObject;
+          Kind = _kind;
           LastTimestamp = _lastTimestamp;
           Message = _message;
           Metadata = _metadata;
@@ -13412,11 +15502,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EventList is a list of events.
     /// </summary>
+    [OutputType]
     public sealed class EventList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of events
         /// </summary>
-      public readonly Core.V1.Event[] Items;
+      public readonly ImmutableArray<Core.V1.Event> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -13426,10 +15533,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private EventList(
-          Core.V1.Event[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.Event> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -13438,6 +15549,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EventSeries contain information on series of events, i.e. thing that was/is happening
     /// continuously for some time.
     /// </summary>
+    [OutputType]
     public sealed class EventSeries {
       /// <summary>
         /// Number of occurrences in this series up to the last heartbeat time
@@ -13469,6 +15581,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// EventSource contains information for an event.
     /// </summary>
+    [OutputType]
     public sealed class EventSource {
       /// <summary>
         /// Component from which the event is generated.
@@ -13493,6 +15606,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ExecAction describes a "run in container" action.
     /// </summary>
+    [OutputType]
     public sealed class ExecAction {
       /// <summary>
         /// Command is the command line to execute inside the container, the working directory for
@@ -13501,11 +15615,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// To use a shell, you need to explicitly call out to that shell. Exit status of 0 is
         /// treated as live/healthy and non-zero is unhealthy.
         /// </summary>
-      public readonly string[] Command;
+      public readonly ImmutableArray<string> Command;
 
       [OutputConstructor]
       private ExecAction(
-          string[] _command)
+          ImmutableArray<string> _command)
       {
           Command = _command;
       }
@@ -13515,6 +15629,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write
     /// once. Fibre Channel volumes support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class FCVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -13536,21 +15651,21 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// Optional: FC target worldwide names (WWNs)
         /// </summary>
-      public readonly string[] TargetWWNs;
+      public readonly ImmutableArray<string> TargetWWNs;
 
       /// <summary>
         /// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of
         /// targetWWNs and lun must be set, but not both simultaneously.
         /// </summary>
-      public readonly string[] Wwids;
+      public readonly ImmutableArray<string> Wwids;
 
       [OutputConstructor]
       private FCVolumeSource(
           string _fsType,
           int _lun,
           bool _readOnly,
-          string[] _targetWWNs,
-          string[] _wwids)
+          ImmutableArray<string> _targetWWNs,
+          ImmutableArray<string> _wwids)
       {
           FsType = _fsType;
           Lun = _lun;
@@ -13564,6 +15679,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// FlexPersistentVolumeSource represents a generic persistent volume resource that is
     /// provisioned/attached using an exec based plugin.
     /// </summary>
+    [OutputType]
     public sealed class FlexPersistentVolumeSource {
       /// <summary>
         /// Driver is the name of the driver to use for this volume.
@@ -13615,6 +15731,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec
     /// based plugin.
     /// </summary>
+    [OutputType]
     public sealed class FlexVolumeSource {
       /// <summary>
         /// Driver is the name of the driver to use for this volume.
@@ -13667,6 +15784,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// and datasetUUID should be set. Flocker volumes do not support ownership management or
     /// SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class FlockerVolumeSource {
       /// <summary>
         /// Name of the dataset stored as metadata -&amp;gt; name on the dataset for Flocker should
@@ -13696,6 +15814,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// project and zone as the kubelet. A GCE PD can only be mounted as read/write once or
     /// read-only many times. GCE PDs support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class GCEPersistentDiskVolumeSource {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
@@ -13747,6 +15866,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into
     /// the Pod's container.
     /// </summary>
+    [OutputType]
     public sealed class GitRepoVolumeSource {
       /// <summary>
         /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the
@@ -13781,6 +15901,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
     /// support ownership management or SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class GlusterfsPersistentVolumeSource {
       /// <summary>
         /// EndpointsName is the endpoint name that details Glusterfs topology. More info:
@@ -13826,6 +15947,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
     /// support ownership management or SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class GlusterfsVolumeSource {
       /// <summary>
         /// EndpointsName is the endpoint name that details Glusterfs topology. More info:
@@ -13861,6 +15983,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// HTTPGetAction describes an action based on HTTP Get requests.
     /// </summary>
+    [OutputType]
     public sealed class HTTPGetAction {
       /// <summary>
         /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in
@@ -13871,7 +15994,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// Custom headers to set in the request. HTTP allows repeated headers.
         /// </summary>
-      public readonly Core.V1.HTTPHeader[] HttpHeaders;
+      public readonly ImmutableArray<Core.V1.HTTPHeader> HttpHeaders;
 
       /// <summary>
         /// Path to access on the HTTP server.
@@ -13892,7 +16015,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private HTTPGetAction(
           string _host,
-          Core.V1.HTTPHeader[] _httpHeaders,
+          ImmutableArray<Core.V1.HTTPHeader> _httpHeaders,
           string _path,
           int /* TODO: or string */ _port,
           string _scheme)
@@ -13908,6 +16031,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// HTTPHeader describes a custom header to be used in HTTP probes
     /// </summary>
+    [OutputType]
     public sealed class HTTPHeader {
       /// <summary>
         /// The header field name
@@ -13932,6 +16056,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Handler defines a specific action that should be taken
     /// </summary>
+    [OutputType]
     public sealed class Handler {
       /// <summary>
         /// One and only one of the following should be specified. Exec specifies the action to
@@ -13965,11 +16090,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in
     /// the pod's hosts file.
     /// </summary>
+    [OutputType]
     public sealed class HostAlias {
       /// <summary>
         /// Hostnames for the above IP address.
         /// </summary>
-      public readonly string[] Hostnames;
+      public readonly ImmutableArray<string> Hostnames;
 
       /// <summary>
         /// IP address of the host file entry.
@@ -13978,7 +16104,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private HostAlias(
-          string[] _hostnames,
+          ImmutableArray<string> _hostnames,
           string _ip)
       {
           Hostnames = _hostnames;
@@ -13990,6 +16116,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a host path mapped into a pod. Host path volumes do not support ownership
     /// management or SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class HostPathVolumeSource {
       /// <summary>
         /// Path of the directory on the host. If the path is a symlink, it will follow the link to
@@ -14017,6 +16144,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as
     /// read/write once. ISCSI volumes support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class ISCSIPersistentVolumeSource {
       /// <summary>
         /// whether support iSCSI Discovery CHAP authentication
@@ -14062,7 +16190,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is
         /// other than default (typically TCP ports 860 and 3260).
         /// </summary>
-      public readonly string[] Portals;
+      public readonly ImmutableArray<string> Portals;
 
       /// <summary>
         /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
@@ -14089,7 +16217,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _iqn,
           string _iscsiInterface,
           int _lun,
-          string[] _portals,
+          ImmutableArray<string> _portals,
           bool _readOnly,
           Core.V1.SecretReference _secretRef,
           string _targetPortal)
@@ -14112,6 +16240,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI
     /// volumes support ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class ISCSIVolumeSource {
       /// <summary>
         /// whether support iSCSI Discovery CHAP authentication
@@ -14157,7 +16286,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is
         /// other than default (typically TCP ports 860 and 3260).
         /// </summary>
-      public readonly string[] Portals;
+      public readonly ImmutableArray<string> Portals;
 
       /// <summary>
         /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
@@ -14184,7 +16313,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _iqn,
           string _iscsiInterface,
           int _lun,
-          string[] _portals,
+          ImmutableArray<string> _portals,
           bool _readOnly,
           Core.V1.LocalObjectReference _secretRef,
           string _targetPortal)
@@ -14206,6 +16335,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Maps a string key to a path within a volume.
     /// </summary>
+    [OutputType]
     public sealed class KeyToPath {
       /// <summary>
         /// The key to project.
@@ -14244,6 +16374,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// container blocks until the action is complete, unless the container process fails, in which
     /// case the handler is aborted.
     /// </summary>
+    [OutputType]
     public sealed class Lifecycle {
       /// <summary>
         /// PostStart is called immediately after a container is created. If the handler fails, the
@@ -14279,7 +16410,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// LimitRange sets resource usage limits for each kind of resource in a Namespace.
     /// </summary>
+    [OutputType]
     public sealed class LimitRange {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -14294,9 +16442,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private LimitRange(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.LimitRangeSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -14305,34 +16457,35 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
     /// </summary>
+    [OutputType]
     public sealed class LimitRangeItem {
       /// <summary>
         /// Default resource requirement limit value by resource name if resource limit is omitted.
         /// </summary>
-      public readonly object Default;
+      public readonly ImmutableDictionary<string, string> Default;
 
       /// <summary>
         /// DefaultRequest is the default resource requirement request value by resource name if
         /// resource request is omitted.
         /// </summary>
-      public readonly object DefaultRequest;
+      public readonly ImmutableDictionary<string, string> DefaultRequest;
 
       /// <summary>
         /// Max usage constraints on this kind by resource name.
         /// </summary>
-      public readonly object Max;
+      public readonly ImmutableDictionary<string, string> Max;
 
       /// <summary>
         /// MaxLimitRequestRatio if specified, the named resource must have a request and limit that
         /// are both non-zero where limit divided by request is less than or equal to the enumerated
         /// value; this represents the max burst for the named resource.
         /// </summary>
-      public readonly object MaxLimitRequestRatio;
+      public readonly ImmutableDictionary<string, string> MaxLimitRequestRatio;
 
       /// <summary>
         /// Min usage constraints on this kind by resource name.
         /// </summary>
-      public readonly object Min;
+      public readonly ImmutableDictionary<string, string> Min;
 
       /// <summary>
         /// Type of resource that this limit applies to.
@@ -14341,11 +16494,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private LimitRangeItem(
-          object _default,
-          object _defaultRequest,
-          object _max,
-          object _maxLimitRequestRatio,
-          object _min,
+          ImmutableDictionary<string, string> _default,
+          ImmutableDictionary<string, string> _defaultRequest,
+          ImmutableDictionary<string, string> _max,
+          ImmutableDictionary<string, string> _maxLimitRequestRatio,
+          ImmutableDictionary<string, string> _min,
           string _type)
       {
           Default = _default;
@@ -14360,12 +16513,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// LimitRangeList is a list of LimitRange items.
     /// </summary>
+    [OutputType]
     public sealed class LimitRangeList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of LimitRange objects. More info:
         /// https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
         /// </summary>
-      public readonly Core.V1.LimitRange[] Items;
+      public readonly ImmutableArray<Core.V1.LimitRange> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -14375,10 +16545,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private LimitRangeList(
-          Core.V1.LimitRange[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.LimitRange> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -14386,15 +16560,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// LimitRangeSpec defines a min/max usage limit for resources that match on kind.
     /// </summary>
+    [OutputType]
     public sealed class LimitRangeSpec {
       /// <summary>
         /// Limits is the list of LimitRangeItem objects that are enforced.
         /// </summary>
-      public readonly Core.V1.LimitRangeItem[] Limits;
+      public readonly ImmutableArray<Core.V1.LimitRangeItem> Limits;
 
       [OutputConstructor]
       private LimitRangeSpec(
-          Core.V1.LimitRangeItem[] _limits)
+          ImmutableArray<Core.V1.LimitRangeItem> _limits)
       {
           Limits = _limits;
       }
@@ -14404,6 +16579,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended
     /// for the service should be sent to an ingress point.
     /// </summary>
+    [OutputType]
     public sealed class LoadBalancerIngress {
       /// <summary>
         /// Hostname is set for load-balancer ingress points that are DNS based (typically AWS
@@ -14430,16 +16606,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// LoadBalancerStatus represents the status of a load-balancer.
     /// </summary>
+    [OutputType]
     public sealed class LoadBalancerStatus {
       /// <summary>
         /// Ingress is a list containing ingress points for the load-balancer. Traffic intended for
         /// the service should be sent to these ingress points.
         /// </summary>
-      public readonly Core.V1.LoadBalancerIngress[] Ingress;
+      public readonly ImmutableArray<Core.V1.LoadBalancerIngress> Ingress;
 
       [OutputConstructor]
       private LoadBalancerStatus(
-          Core.V1.LoadBalancerIngress[] _ingress)
+          ImmutableArray<Core.V1.LoadBalancerIngress> _ingress)
       {
           Ingress = _ingress;
       }
@@ -14449,6 +16626,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// LocalObjectReference contains enough information to let you locate the referenced object
     /// inside the same namespace.
     /// </summary>
+    [OutputType]
     public sealed class LocalObjectReference {
       /// <summary>
         /// Name of the referent. More info:
@@ -14467,6 +16645,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Local represents directly-attached storage with node affinity (Beta feature)
     /// </summary>
+    [OutputType]
     public sealed class LocalVolumeSource {
       /// <summary>
         /// Filesystem type to mount. It applies only when the Path is a block device. Must be a
@@ -14495,6 +16674,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support
     /// ownership management or SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class NFSVolumeSource {
       /// <summary>
         /// Path that is exported by the NFS server. More info:
@@ -14529,7 +16709,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Namespace provides a scope for Names. Use of multiple namespaces is optional.
     /// </summary>
+    [OutputType]
     public sealed class Namespace {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -14550,10 +16747,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private Namespace(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.NamespaceSpec _spec,
           Core.V1.NamespaceStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -14563,6 +16764,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NamespaceCondition contains details about state of namespace.
     /// </summary>
+    [OutputType]
     public sealed class NamespaceCondition {
       
       public readonly string LastTransitionTime;
@@ -14602,12 +16804,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NamespaceList is a list of Namespaces.
     /// </summary>
+    [OutputType]
     public sealed class NamespaceList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of Namespace objects in the list. More info:
         /// https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
         /// </summary>
-      public readonly Core.V1.Namespace[] Items;
+      public readonly ImmutableArray<Core.V1.Namespace> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -14617,10 +16836,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private NamespaceList(
-          Core.V1.Namespace[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.Namespace> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -14628,16 +16851,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NamespaceSpec describes the attributes on a Namespace.
     /// </summary>
+    [OutputType]
     public sealed class NamespaceSpec {
       /// <summary>
         /// Finalizers is an opaque list of values that must be empty to permanently remove object
         /// from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
         /// </summary>
-      public readonly string[] Finalizers;
+      public readonly ImmutableArray<string> Finalizers;
 
       [OutputConstructor]
       private NamespaceSpec(
-          string[] _finalizers)
+          ImmutableArray<string> _finalizers)
       {
           Finalizers = _finalizers;
       }
@@ -14646,11 +16870,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NamespaceStatus is information about the current status of a Namespace.
     /// </summary>
+    [OutputType]
     public sealed class NamespaceStatus {
       /// <summary>
         /// Represents the latest available observations of a namespace's current state.
         /// </summary>
-      public readonly Core.V1.NamespaceCondition[] Conditions;
+      public readonly ImmutableArray<Core.V1.NamespaceCondition> Conditions;
 
       /// <summary>
         /// Phase is the current lifecycle phase of the namespace. More info:
@@ -14660,7 +16885,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private NamespaceStatus(
-          Core.V1.NamespaceCondition[] _conditions,
+          ImmutableArray<Core.V1.NamespaceCondition> _conditions,
           string _phase)
       {
           Conditions = _conditions;
@@ -14672,7 +16897,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache
     /// (i.e. in etcd).
     /// </summary>
+    [OutputType]
     public sealed class Node {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -14694,10 +16936,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private Node(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.NodeSpec _spec,
           Core.V1.NodeStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -14707,6 +16953,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeAddress contains information for the node's address.
     /// </summary>
+    [OutputType]
     public sealed class NodeAddress {
       /// <summary>
         /// The node address.
@@ -14731,6 +16978,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Node affinity is a group of node affinity scheduling rules.
     /// </summary>
+    [OutputType]
     public sealed class NodeAffinity {
       /// <summary>
         /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity
@@ -14742,7 +16990,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// matches the corresponding matchExpressions; the node(s) with the highest sum are the
         /// most preferred.
         /// </summary>
-      public readonly Core.V1.PreferredSchedulingTerm[] PreferredDuringSchedulingIgnoredDuringExecution;
+      public readonly ImmutableArray<Core.V1.PreferredSchedulingTerm> PreferredDuringSchedulingIgnoredDuringExecution;
 
       /// <summary>
         /// If the affinity requirements specified by this field are not met at scheduling time, the
@@ -14754,7 +17002,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private NodeAffinity(
-          Core.V1.PreferredSchedulingTerm[] _preferredDuringSchedulingIgnoredDuringExecution,
+          ImmutableArray<Core.V1.PreferredSchedulingTerm> _preferredDuringSchedulingIgnoredDuringExecution,
           Core.V1.NodeSelector _requiredDuringSchedulingIgnoredDuringExecution)
       {
           PreferredDuringSchedulingIgnoredDuringExecution = _preferredDuringSchedulingIgnoredDuringExecution;
@@ -14765,6 +17013,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeCondition contains condition information for a node.
     /// </summary>
+    [OutputType]
     public sealed class NodeCondition {
       /// <summary>
         /// Last time we got an update on a given condition.
@@ -14818,6 +17067,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding
     /// metadata) must be non-nil.
     /// </summary>
+    [OutputType]
     public sealed class NodeConfigSource {
       /// <summary>
         /// ConfigMap is a reference to a Node's ConfigMap
@@ -14835,6 +17085,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
     /// </summary>
+    [OutputType]
     public sealed class NodeConfigStatus {
       /// <summary>
         /// Active reports the checkpointed config the node is actively using. Active will represent
@@ -14901,6 +17152,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeDaemonEndpoints lists ports opened by daemons running on the Node.
     /// </summary>
+    [OutputType]
     public sealed class NodeDaemonEndpoints {
       /// <summary>
         /// Endpoint on which Kubelet is listening.
@@ -14918,11 +17170,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeList is the whole list of all Nodes which have been registered with master.
     /// </summary>
+    [OutputType]
     public sealed class NodeList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of nodes
         /// </summary>
-      public readonly Core.V1.Node[] Items;
+      public readonly ImmutableArray<Core.V1.Node> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -14932,10 +17201,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private NodeList(
-          Core.V1.Node[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.Node> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -14945,15 +17218,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// of nodes; that is, it represents the OR of the selectors represented by the node selector
     /// terms.
     /// </summary>
+    [OutputType]
     public sealed class NodeSelector {
       /// <summary>
         /// Required. A list of node selector terms. The terms are ORed.
         /// </summary>
-      public readonly Core.V1.NodeSelectorTerm[] NodeSelectorTerms;
+      public readonly ImmutableArray<Core.V1.NodeSelectorTerm> NodeSelectorTerms;
 
       [OutputConstructor]
       private NodeSelector(
-          Core.V1.NodeSelectorTerm[] _nodeSelectorTerms)
+          ImmutableArray<Core.V1.NodeSelectorTerm> _nodeSelectorTerms)
       {
           NodeSelectorTerms = _nodeSelectorTerms;
       }
@@ -14963,6 +17237,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// A node selector requirement is a selector that contains values, a key, and an operator that
     /// relates the key and values.
     /// </summary>
+    [OutputType]
     public sealed class NodeSelectorRequirement {
       /// <summary>
         /// The label key that the selector applies to.
@@ -14981,13 +17256,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// the operator is Gt or Lt, the values array must have a single element, which will be
         /// interpreted as an integer. This array is replaced during a strategic merge patch.
         /// </summary>
-      public readonly string[] Values;
+      public readonly ImmutableArray<string> Values;
 
       [OutputConstructor]
       private NodeSelectorRequirement(
           string _key,
           string _operator,
-          string[] _values)
+          ImmutableArray<string> _values)
       {
           Key = _key;
           Operator = _operator;
@@ -14999,21 +17274,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// A null or empty node selector term matches no objects. The requirements of them are ANDed.
     /// The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
     /// </summary>
+    [OutputType]
     public sealed class NodeSelectorTerm {
       /// <summary>
         /// A list of node selector requirements by node's labels.
         /// </summary>
-      public readonly Core.V1.NodeSelectorRequirement[] MatchExpressions;
+      public readonly ImmutableArray<Core.V1.NodeSelectorRequirement> MatchExpressions;
 
       /// <summary>
         /// A list of node selector requirements by node's fields.
         /// </summary>
-      public readonly Core.V1.NodeSelectorRequirement[] MatchFields;
+      public readonly ImmutableArray<Core.V1.NodeSelectorRequirement> MatchFields;
 
       [OutputConstructor]
       private NodeSelectorTerm(
-          Core.V1.NodeSelectorRequirement[] _matchExpressions,
-          Core.V1.NodeSelectorRequirement[] _matchFields)
+          ImmutableArray<Core.V1.NodeSelectorRequirement> _matchExpressions,
+          ImmutableArray<Core.V1.NodeSelectorRequirement> _matchFields)
       {
           MatchExpressions = _matchExpressions;
           MatchFields = _matchFields;
@@ -15023,6 +17299,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeSpec describes the attributes that a node is created with.
     /// </summary>
+    [OutputType]
     public sealed class NodeSpec {
       /// <summary>
         /// If specified, the source to get node configuration from The DynamicKubeletConfig feature
@@ -15046,7 +17323,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// If this field is specified, the 0th entry must match the podCIDR field. It may contain
         /// at most 1 value for each of IPv4 and IPv6.
         /// </summary>
-      public readonly string[] PodCIDRs;
+      public readonly ImmutableArray<string> PodCIDRs;
 
       /// <summary>
         /// ID of the node assigned by the cloud provider in the format:
@@ -15057,7 +17334,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// If specified, the node's taints.
         /// </summary>
-      public readonly Core.V1.Taint[] Taints;
+      public readonly ImmutableArray<Core.V1.Taint> Taints;
 
       /// <summary>
         /// Unschedulable controls node schedulability of new pods. By default, node is schedulable.
@@ -15070,9 +17347,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           Core.V1.NodeConfigSource _configSource,
           string _externalID,
           string _podCIDR,
-          string[] _podCIDRs,
+          ImmutableArray<string> _podCIDRs,
           string _providerID,
-          Core.V1.Taint[] _taints,
+          ImmutableArray<Core.V1.Taint> _taints,
           bool _unschedulable)
       {
           ConfigSource = _configSource;
@@ -15088,6 +17365,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeStatus is information about the current status of a node.
     /// </summary>
+    [OutputType]
     public sealed class NodeStatus {
       /// <summary>
         /// List of addresses reachable to the node. Queried from cloud provider, if available. More
@@ -15096,25 +17374,25 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// data corruption when it is merged. Callers should instead use a full-replacement patch.
         /// See http://pr.k8s.io/79391 for an example.
         /// </summary>
-      public readonly Core.V1.NodeAddress[] Addresses;
+      public readonly ImmutableArray<Core.V1.NodeAddress> Addresses;
 
       /// <summary>
         /// Allocatable represents the resources of a node that are available for scheduling.
         /// Defaults to Capacity.
         /// </summary>
-      public readonly object Allocatable;
+      public readonly ImmutableDictionary<string, string> Allocatable;
 
       /// <summary>
         /// Capacity represents the total resources of a node. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         /// </summary>
-      public readonly object Capacity;
+      public readonly ImmutableDictionary<string, string> Capacity;
 
       /// <summary>
         /// Conditions is an array of current observed node conditions. More info:
         /// https://kubernetes.io/docs/concepts/nodes/node/#condition
         /// </summary>
-      public readonly Core.V1.NodeCondition[] Conditions;
+      public readonly ImmutableArray<Core.V1.NodeCondition> Conditions;
 
       /// <summary>
         /// Status of the config assigned to the node via the dynamic Kubelet config feature.
@@ -15129,7 +17407,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// List of container images on this node
         /// </summary>
-      public readonly Core.V1.ContainerImage[] Images;
+      public readonly ImmutableArray<Core.V1.ContainerImage> Images;
 
       /// <summary>
         /// Set of ids/uuids to uniquely identify the node. More info:
@@ -15147,26 +17425,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// List of volumes that are attached to the node.
         /// </summary>
-      public readonly Core.V1.AttachedVolume[] VolumesAttached;
+      public readonly ImmutableArray<Core.V1.AttachedVolume> VolumesAttached;
 
       /// <summary>
         /// List of attachable volumes in use (mounted) by the node.
         /// </summary>
-      public readonly string[] VolumesInUse;
+      public readonly ImmutableArray<string> VolumesInUse;
 
       [OutputConstructor]
       private NodeStatus(
-          Core.V1.NodeAddress[] _addresses,
-          object _allocatable,
-          object _capacity,
-          Core.V1.NodeCondition[] _conditions,
+          ImmutableArray<Core.V1.NodeAddress> _addresses,
+          ImmutableDictionary<string, string> _allocatable,
+          ImmutableDictionary<string, string> _capacity,
+          ImmutableArray<Core.V1.NodeCondition> _conditions,
           Core.V1.NodeConfigStatus _config,
           Core.V1.NodeDaemonEndpoints _daemonEndpoints,
-          Core.V1.ContainerImage[] _images,
+          ImmutableArray<Core.V1.ContainerImage> _images,
           Core.V1.NodeSystemInfo _nodeInfo,
           string _phase,
-          Core.V1.AttachedVolume[] _volumesAttached,
-          string[] _volumesInUse)
+          ImmutableArray<Core.V1.AttachedVolume> _volumesAttached,
+          ImmutableArray<string> _volumesInUse)
       {
           Addresses = _addresses;
           Allocatable = _allocatable;
@@ -15185,6 +17463,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
     /// </summary>
+    [OutputType]
     public sealed class NodeSystemInfo {
       /// <summary>
         /// The Architecture reported by the node
@@ -15270,7 +17549,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ObjectFieldSelector selects an APIVersioned field of an object.
     /// </summary>
+    [OutputType]
     public sealed class ObjectFieldSelector {
+      /// <summary>
+        /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Path of the field to select in the specified API version.
         /// </summary>
@@ -15278,8 +17563,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ObjectFieldSelector(
+          string _apiVersion,
           string _fieldPath)
       {
+          ApiVersion = _apiVersion;
           FieldPath = _fieldPath;
       }
 
@@ -15288,7 +17575,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ObjectReference contains enough information to let you inspect or modify the referred
     /// object.
     /// </summary>
+    [OutputType]
     public sealed class ObjectReference {
+      /// <summary>
+        /// API version of the referent.
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// If referring to a piece of an object instead of an entire object, this string should
         /// contain a valid JSON/Go field access statement, such as
@@ -15299,6 +17592,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// is chosen only to have some well-defined way of referencing a part of an object.
         /// </summary>
       public readonly string FieldPath;
+
+      /// <summary>
+        /// Kind of the referent. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Name of the referent. More info:
@@ -15326,13 +17625,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ObjectReference(
+          string _apiVersion,
           string _fieldPath,
+          string _kind,
           string _name,
           string _namespace,
           string _resourceVersion,
           string _uid)
       {
+          ApiVersion = _apiVersion;
           FieldPath = _fieldPath;
+          Kind = _kind;
           Name = _name;
           Namespace = _namespace;
           ResourceVersion = _resourceVersion;
@@ -15344,7 +17647,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous
     /// to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolume {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -15367,10 +17687,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PersistentVolume(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.PersistentVolumeSpec _spec,
           Core.V1.PersistentVolumeStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -15380,7 +17704,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PersistentVolumeClaim is a user's request for and claim to a persistent volume
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeClaim {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -15403,10 +17744,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PersistentVolumeClaim(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.PersistentVolumeClaimSpec _spec,
           Core.V1.PersistentVolumeClaimStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -15416,6 +17761,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PersistentVolumeClaimCondition contails details about state of pvc
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeClaimCondition {
       /// <summary>
         /// Last time we probed the condition.
@@ -15466,12 +17812,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeClaimList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// A list of persistent volume claims. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         /// </summary>
-      public readonly Core.V1.PersistentVolumeClaim[] Items;
+      public readonly ImmutableArray<Core.V1.PersistentVolumeClaim> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -15481,10 +17844,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PersistentVolumeClaimList(
-          Core.V1.PersistentVolumeClaim[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.PersistentVolumeClaim> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -15493,12 +17860,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a
     /// Source for provider-specific attributes
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeClaimSpec {
       /// <summary>
         /// AccessModes contains the desired access modes the volume should have. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         /// </summary>
-      public readonly string[] AccessModes;
+      public readonly ImmutableArray<string> AccessModes;
 
       /// <summary>
         /// This field requires the VolumeSnapshotDataSource alpha feature gate to be enabled and
@@ -15541,7 +17909,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PersistentVolumeClaimSpec(
-          string[] _accessModes,
+          ImmutableArray<string> _accessModes,
           Core.V1.TypedLocalObjectReference _dataSource,
           Core.V1.ResourceRequirements _resources,
           Meta.V1.LabelSelector _selector,
@@ -15562,23 +17930,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeClaimStatus {
       /// <summary>
         /// AccessModes contains the actual access modes the volume backing the PVC has. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         /// </summary>
-      public readonly string[] AccessModes;
+      public readonly ImmutableArray<string> AccessModes;
 
       /// <summary>
         /// Represents the actual resources of the underlying volume.
         /// </summary>
-      public readonly object Capacity;
+      public readonly ImmutableDictionary<string, string> Capacity;
 
       /// <summary>
         /// Current Condition of persistent volume claim. If underlying persistent volume is being
         /// resized then the Condition will be set to 'ResizeStarted'.
         /// </summary>
-      public readonly Core.V1.PersistentVolumeClaimCondition[] Conditions;
+      public readonly ImmutableArray<Core.V1.PersistentVolumeClaimCondition> Conditions;
 
       /// <summary>
         /// Phase represents the current phase of PersistentVolumeClaim.
@@ -15587,9 +17956,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PersistentVolumeClaimStatus(
-          string[] _accessModes,
-          object _capacity,
-          Core.V1.PersistentVolumeClaimCondition[] _conditions,
+          ImmutableArray<string> _accessModes,
+          ImmutableDictionary<string, string> _capacity,
+          ImmutableArray<Core.V1.PersistentVolumeClaimCondition> _conditions,
           string _phase)
       {
           AccessModes = _accessModes;
@@ -15605,6 +17974,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume
     /// that is owned by someone else (the system).
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeClaimVolumeSource {
       /// <summary>
         /// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using
@@ -15631,12 +18001,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PersistentVolumeList is a list of PersistentVolume items.
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of persistent volumes. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes
         /// </summary>
-      public readonly Core.V1.PersistentVolume[] Items;
+      public readonly ImmutableArray<Core.V1.PersistentVolume> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -15646,10 +18033,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PersistentVolumeList(
-          Core.V1.PersistentVolume[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.PersistentVolume> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -15657,12 +18048,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PersistentVolumeSpec is the specification of a persistent volume.
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeSpec {
       /// <summary>
         /// AccessModes contains all ways the volume can be mounted. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
         /// </summary>
-      public readonly string[] AccessModes;
+      public readonly ImmutableArray<string> AccessModes;
 
       /// <summary>
         /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's
@@ -15685,7 +18077,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// A description of the persistent volume's resources and capacity. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         /// </summary>
-      public readonly object Capacity;
+      public readonly ImmutableDictionary<string, string> Capacity;
 
       /// <summary>
         /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
@@ -15767,7 +18159,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// one is invalid. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
         /// </summary>
-      public readonly string[] MountOptions;
+      public readonly ImmutableArray<string> MountOptions;
 
       /// <summary>
         /// NFS represents an NFS mount on the host. Provisioned by an admin. More info:
@@ -15844,11 +18236,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PersistentVolumeSpec(
-          string[] _accessModes,
+          ImmutableArray<string> _accessModes,
           Core.V1.AWSElasticBlockStoreVolumeSource _awsElasticBlockStore,
           Core.V1.AzureDiskVolumeSource _azureDisk,
           Core.V1.AzureFilePersistentVolumeSource _azureFile,
-          object _capacity,
+          ImmutableDictionary<string, string> _capacity,
           Core.V1.CephFSPersistentVolumeSource _cephfs,
           Core.V1.CinderPersistentVolumeSource _cinder,
           Core.V1.ObjectReference _claimRef,
@@ -15861,7 +18253,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           Core.V1.HostPathVolumeSource _hostPath,
           Core.V1.ISCSIPersistentVolumeSource _iscsi,
           Core.V1.LocalVolumeSource _local,
-          string[] _mountOptions,
+          ImmutableArray<string> _mountOptions,
           Core.V1.NFSVolumeSource _nfs,
           Core.V1.VolumeNodeAffinity _nodeAffinity,
           string _persistentVolumeReclaimPolicy,
@@ -15911,6 +18303,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PersistentVolumeStatus is the current status of a persistent volume.
     /// </summary>
+    [OutputType]
     public sealed class PersistentVolumeStatus {
       /// <summary>
         /// A human-readable message indicating details about why the volume is in this state.
@@ -15944,6 +18337,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Represents a Photon Controller persistent disk resource.
     /// </summary>
+    [OutputType]
     public sealed class PhotonPersistentDiskVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -15970,7 +18364,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Pod is a collection of containers that can run on a host. This resource is created by
     /// clients and scheduled onto hosts.
     /// </summary>
+    [OutputType]
     public sealed class Pod {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -15992,10 +18403,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private Pod(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.PodSpec _spec,
           Core.V1.PodStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -16005,6 +18420,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Pod affinity is a group of inter pod affinity scheduling rules.
     /// </summary>
+    [OutputType]
     public sealed class PodAffinity {
       /// <summary>
         /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity
@@ -16016,7 +18432,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// has pods which matches the corresponding podAffinityTerm; the node(s) with the highest
         /// sum are the most preferred.
         /// </summary>
-      public readonly Core.V1.WeightedPodAffinityTerm[] PreferredDuringSchedulingIgnoredDuringExecution;
+      public readonly ImmutableArray<Core.V1.WeightedPodAffinityTerm> PreferredDuringSchedulingIgnoredDuringExecution;
 
       /// <summary>
         /// If the affinity requirements specified by this field are not met at scheduling time, the
@@ -16026,12 +18442,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// there are multiple elements, the lists of nodes corresponding to each podAffinityTerm
         /// are intersected, i.e. all terms must be satisfied.
         /// </summary>
-      public readonly Core.V1.PodAffinityTerm[] RequiredDuringSchedulingIgnoredDuringExecution;
+      public readonly ImmutableArray<Core.V1.PodAffinityTerm> RequiredDuringSchedulingIgnoredDuringExecution;
 
       [OutputConstructor]
       private PodAffinity(
-          Core.V1.WeightedPodAffinityTerm[] _preferredDuringSchedulingIgnoredDuringExecution,
-          Core.V1.PodAffinityTerm[] _requiredDuringSchedulingIgnoredDuringExecution)
+          ImmutableArray<Core.V1.WeightedPodAffinityTerm> _preferredDuringSchedulingIgnoredDuringExecution,
+          ImmutableArray<Core.V1.PodAffinityTerm> _requiredDuringSchedulingIgnoredDuringExecution)
       {
           PreferredDuringSchedulingIgnoredDuringExecution = _preferredDuringSchedulingIgnoredDuringExecution;
           RequiredDuringSchedulingIgnoredDuringExecution = _requiredDuringSchedulingIgnoredDuringExecution;
@@ -16045,6 +18461,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// label with key &amp;lt;topologyKey&amp;gt; matches that of any node on which a pod of the
     /// set of pods is running
     /// </summary>
+    [OutputType]
     public sealed class PodAffinityTerm {
       /// <summary>
         /// A label query over a set of resources, in this case pods.
@@ -16055,7 +18472,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// namespaces specifies which namespaces the labelSelector applies to (matches against);
         /// null or empty list means "this pod's namespace"
         /// </summary>
-      public readonly string[] Namespaces;
+      public readonly ImmutableArray<string> Namespaces;
 
       /// <summary>
         /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods
@@ -16068,7 +18485,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private PodAffinityTerm(
           Meta.V1.LabelSelector _labelSelector,
-          string[] _namespaces,
+          ImmutableArray<string> _namespaces,
           string _topologyKey)
       {
           LabelSelector = _labelSelector;
@@ -16080,6 +18497,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Pod anti affinity is a group of inter pod anti affinity scheduling rules.
     /// </summary>
+    [OutputType]
     public sealed class PodAntiAffinity {
       /// <summary>
         /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity
@@ -16091,7 +18509,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// has pods which matches the corresponding podAffinityTerm; the node(s) with the highest
         /// sum are the most preferred.
         /// </summary>
-      public readonly Core.V1.WeightedPodAffinityTerm[] PreferredDuringSchedulingIgnoredDuringExecution;
+      public readonly ImmutableArray<Core.V1.WeightedPodAffinityTerm> PreferredDuringSchedulingIgnoredDuringExecution;
 
       /// <summary>
         /// If the anti-affinity requirements specified by this field are not met at scheduling
@@ -16101,12 +18519,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// node. When there are multiple elements, the lists of nodes corresponding to each
         /// podAffinityTerm are intersected, i.e. all terms must be satisfied.
         /// </summary>
-      public readonly Core.V1.PodAffinityTerm[] RequiredDuringSchedulingIgnoredDuringExecution;
+      public readonly ImmutableArray<Core.V1.PodAffinityTerm> RequiredDuringSchedulingIgnoredDuringExecution;
 
       [OutputConstructor]
       private PodAntiAffinity(
-          Core.V1.WeightedPodAffinityTerm[] _preferredDuringSchedulingIgnoredDuringExecution,
-          Core.V1.PodAffinityTerm[] _requiredDuringSchedulingIgnoredDuringExecution)
+          ImmutableArray<Core.V1.WeightedPodAffinityTerm> _preferredDuringSchedulingIgnoredDuringExecution,
+          ImmutableArray<Core.V1.PodAffinityTerm> _requiredDuringSchedulingIgnoredDuringExecution)
       {
           PreferredDuringSchedulingIgnoredDuringExecution = _preferredDuringSchedulingIgnoredDuringExecution;
           RequiredDuringSchedulingIgnoredDuringExecution = _requiredDuringSchedulingIgnoredDuringExecution;
@@ -16116,6 +18534,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodCondition contains details for the current condition of this pod.
     /// </summary>
+    [OutputType]
     public sealed class PodCondition {
       /// <summary>
         /// Last time we probed the condition.
@@ -16171,31 +18590,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodDNSConfig defines the DNS parameters of a pod in addition to those generated from
     /// DNSPolicy.
     /// </summary>
+    [OutputType]
     public sealed class PodDNSConfig {
       /// <summary>
         /// A list of DNS name server IP addresses. This will be appended to the base nameservers
         /// generated from DNSPolicy. Duplicated nameservers will be removed.
         /// </summary>
-      public readonly string[] Nameservers;
+      public readonly ImmutableArray<string> Nameservers;
 
       /// <summary>
         /// A list of DNS resolver options. This will be merged with the base options generated from
         /// DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will
         /// override those that appear in the base DNSPolicy.
         /// </summary>
-      public readonly Core.V1.PodDNSConfigOption[] Options;
+      public readonly ImmutableArray<Core.V1.PodDNSConfigOption> Options;
 
       /// <summary>
         /// A list of DNS search domains for host-name lookup. This will be appended to the base
         /// search paths generated from DNSPolicy. Duplicated search paths will be removed.
         /// </summary>
-      public readonly string[] Searches;
+      public readonly ImmutableArray<string> Searches;
 
       [OutputConstructor]
       private PodDNSConfig(
-          string[] _nameservers,
-          Core.V1.PodDNSConfigOption[] _options,
-          string[] _searches)
+          ImmutableArray<string> _nameservers,
+          ImmutableArray<Core.V1.PodDNSConfigOption> _options,
+          ImmutableArray<string> _searches)
       {
           Nameservers = _nameservers;
           Options = _options;
@@ -16206,6 +18626,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodDNSConfigOption defines DNS resolver options of a pod.
     /// </summary>
+    [OutputType]
     public sealed class PodDNSConfigOption {
       /// <summary>
         /// Required.
@@ -16229,6 +18650,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// IP address information for entries in the (plural) PodIPs field. Each entry includes:
     ///    IP: An IP address allocated to the pod. Routable at least within the cluster.
     /// </summary>
+    [OutputType]
     public sealed class PodIP {
       /// <summary>
         /// ip is an IP address (IPv4 or IPv6) assigned to the pod
@@ -16246,12 +18668,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodList is a list of Pods.
     /// </summary>
+    [OutputType]
     public sealed class PodList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of pods. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md
         /// </summary>
-      public readonly Core.V1.Pod[] Items;
+      public readonly ImmutableArray<Core.V1.Pod> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -16261,10 +18700,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PodList(
-          Core.V1.Pod[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.Pod> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -16272,6 +18715,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodReadinessGate contains the reference to a pod condition
     /// </summary>
+    [OutputType]
     public sealed class PodReadinessGate {
       /// <summary>
         /// ConditionType refers to a condition in the pod's condition list with matching type.
@@ -16291,6 +18735,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// fields are also present in container.securityContext.  Field values of
     /// container.securityContext take precedence over field values of PodSecurityContext.
     /// </summary>
+    [OutputType]
     public sealed class PodSecurityContext {
       /// <summary>
         /// A special supplemental group that applies to all containers in a pod. Some volume types
@@ -16340,13 +18785,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// A list of groups applied to the first process run in each container, in addition to the
         /// container's primary GID.  If unspecified, no groups will be added to any container.
         /// </summary>
-      public readonly int[] SupplementalGroups;
+      public readonly ImmutableArray<int> SupplementalGroups;
 
       /// <summary>
         /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported
         /// sysctls (by the container runtime) might fail to launch.
         /// </summary>
-      public readonly Core.V1.Sysctl[] Sysctls;
+      public readonly ImmutableArray<Core.V1.Sysctl> Sysctls;
 
       /// <summary>
         /// The Windows specific settings applied to all containers. If unspecified, the options
@@ -16362,8 +18807,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           bool _runAsNonRoot,
           int _runAsUser,
           Core.V1.SELinuxOptions _seLinuxOptions,
-          int[] _supplementalGroups,
-          Core.V1.Sysctl[] _sysctls,
+          ImmutableArray<int> _supplementalGroups,
+          ImmutableArray<Core.V1.Sysctl> _sysctls,
           Core.V1.WindowsSecurityContextOptions _windowsOptions)
       {
           FsGroup = _fsGroup;
@@ -16380,6 +18825,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodSpec is a description of a pod.
     /// </summary>
+    [OutputType]
     public sealed class PodSpec {
       /// <summary>
         /// Optional duration in seconds the pod may be active on the node relative to StartTime
@@ -16403,7 +18849,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// List of containers belonging to the pod. Containers cannot currently be added or
         /// removed. There must be at least one container in a Pod. Cannot be updated.
         /// </summary>
-      public readonly Core.V1.Container[] Containers;
+      public readonly ImmutableArray<Core.V1.Container> Containers;
 
       /// <summary>
         /// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the
@@ -16435,13 +18881,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// ephemeralcontainers subresource. This field is alpha-level and is only honored by
         /// servers that enable the EphemeralContainers feature.
         /// </summary>
-      public readonly Core.V1.EphemeralContainer[] EphemeralContainers;
+      public readonly ImmutableArray<Core.V1.EphemeralContainer> EphemeralContainers;
 
       /// <summary>
         /// HostAliases is an optional list of hosts and IPs that will be injected into the pod's
         /// hosts file if specified. This is only valid for non-hostNetwork pods.
         /// </summary>
-      public readonly Core.V1.HostAlias[] HostAliases;
+      public readonly ImmutableArray<Core.V1.HostAlias> HostAliases;
 
       /// <summary>
         /// Use the host's ipc namespace. Optional: Default to false.
@@ -16472,7 +18918,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// of docker, only DockerConfig type secrets are honored. More info:
         /// https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         /// </summary>
-      public readonly Core.V1.LocalObjectReference[] ImagePullSecrets;
+      public readonly ImmutableArray<Core.V1.LocalObjectReference> ImagePullSecrets;
 
       /// <summary>
         /// List of initialization containers belonging to the pod. Init containers are executed in
@@ -16486,7 +18932,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// in a similar fashion. Init containers cannot currently be added or removed. Cannot be
         /// updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         /// </summary>
-      public readonly Core.V1.Container[] InitContainers;
+      public readonly ImmutableArray<Core.V1.Container> InitContainers;
 
       /// <summary>
         /// NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the
@@ -16514,7 +18960,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the
         /// PodOverhead feature.
         /// </summary>
-      public readonly object Overhead;
+      public readonly ImmutableDictionary<string, string> Overhead;
 
       /// <summary>
         /// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
@@ -16547,7 +18993,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// have status equal to "True" More info:
         /// https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
         /// </summary>
-      public readonly Core.V1.PodReadinessGate[] ReadinessGates;
+      public readonly ImmutableArray<Core.V1.PodReadinessGate> ReadinessGates;
 
       /// <summary>
         /// Restart policy for all containers within the pod. One of Always, OnFailure, Never.
@@ -16621,7 +19067,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// If specified, the pod's tolerations.
         /// </summary>
-      public readonly Core.V1.Toleration[] Tolerations;
+      public readonly ImmutableArray<Core.V1.Toleration> Tolerations;
 
       /// <summary>
         /// TopologySpreadConstraints describes how a group of pods ought to spread across topology
@@ -16629,38 +19075,38 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// field is alpha-level and is only honored by clusters that enables the EvenPodsSpread
         /// feature. All topologySpreadConstraints are ANDed.
         /// </summary>
-      public readonly Core.V1.TopologySpreadConstraint[] TopologySpreadConstraints;
+      public readonly ImmutableArray<Core.V1.TopologySpreadConstraint> TopologySpreadConstraints;
 
       /// <summary>
         /// List of volumes that can be mounted by containers belonging to the pod. More info:
         /// https://kubernetes.io/docs/concepts/storage/volumes
         /// </summary>
-      public readonly Core.V1.Volume[] Volumes;
+      public readonly ImmutableArray<Core.V1.Volume> Volumes;
 
       [OutputConstructor]
       private PodSpec(
           int _activeDeadlineSeconds,
           Core.V1.Affinity _affinity,
           bool _automountServiceAccountToken,
-          Core.V1.Container[] _containers,
+          ImmutableArray<Core.V1.Container> _containers,
           Core.V1.PodDNSConfig _dnsConfig,
           string _dnsPolicy,
           bool _enableServiceLinks,
-          Core.V1.EphemeralContainer[] _ephemeralContainers,
-          Core.V1.HostAlias[] _hostAliases,
+          ImmutableArray<Core.V1.EphemeralContainer> _ephemeralContainers,
+          ImmutableArray<Core.V1.HostAlias> _hostAliases,
           bool _hostIPC,
           bool _hostNetwork,
           bool _hostPID,
           string _hostname,
-          Core.V1.LocalObjectReference[] _imagePullSecrets,
-          Core.V1.Container[] _initContainers,
+          ImmutableArray<Core.V1.LocalObjectReference> _imagePullSecrets,
+          ImmutableArray<Core.V1.Container> _initContainers,
           string _nodeName,
           ImmutableDictionary<string, string> _nodeSelector,
-          object _overhead,
+          ImmutableDictionary<string, string> _overhead,
           string _preemptionPolicy,
           int _priority,
           string _priorityClassName,
-          Core.V1.PodReadinessGate[] _readinessGates,
+          ImmutableArray<Core.V1.PodReadinessGate> _readinessGates,
           string _restartPolicy,
           string _runtimeClassName,
           string _schedulerName,
@@ -16670,9 +19116,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           bool _shareProcessNamespace,
           string _subdomain,
           int _terminationGracePeriodSeconds,
-          Core.V1.Toleration[] _tolerations,
-          Core.V1.TopologySpreadConstraint[] _topologySpreadConstraints,
-          Core.V1.Volume[] _volumes)
+          ImmutableArray<Core.V1.Toleration> _tolerations,
+          ImmutableArray<Core.V1.TopologySpreadConstraint> _topologySpreadConstraints,
+          ImmutableArray<Core.V1.Volume> _volumes)
       {
           ActiveDeadlineSeconds = _activeDeadlineSeconds;
           Affinity = _affinity;
@@ -16716,25 +19162,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// state of a system, especially if the node that hosts the pod cannot contact the control
     /// plane.
     /// </summary>
+    [OutputType]
     public sealed class PodStatus {
       /// <summary>
         /// Current service state of pod. More info:
         /// https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         /// </summary>
-      public readonly Core.V1.PodCondition[] Conditions;
+      public readonly ImmutableArray<Core.V1.PodCondition> Conditions;
 
       /// <summary>
         /// The list has one entry per container in the manifest. Each entry is currently the output
         /// of `docker inspect`. More info:
         /// https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         /// </summary>
-      public readonly Core.V1.ContainerStatus[] ContainerStatuses;
+      public readonly ImmutableArray<Core.V1.ContainerStatus> ContainerStatuses;
 
       /// <summary>
         /// Status for any ephemeral containers that have run in this pod. This field is alpha-level
         /// and is only populated by servers that enable the EphemeralContainers feature.
         /// </summary>
-      public readonly Core.V1.ContainerStatus[] EphemeralContainerStatuses;
+      public readonly ImmutableArray<Core.V1.ContainerStatus> EphemeralContainerStatuses;
 
       /// <summary>
         /// IP address of the host to which the pod is assigned. Empty if not yet scheduled.
@@ -16747,7 +19194,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// startTime set. More info:
         /// https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         /// </summary>
-      public readonly Core.V1.ContainerStatus[] InitContainerStatuses;
+      public readonly ImmutableArray<Core.V1.ContainerStatus> InitContainerStatuses;
 
       /// <summary>
         /// A human readable message indicating details about why the pod is in this condition.
@@ -16796,7 +19243,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4
         /// and IPv6. This list is empty if no IPs have been allocated yet.
         /// </summary>
-      public readonly Core.V1.PodIP[] PodIPs;
+      public readonly ImmutableArray<Core.V1.PodIP> PodIPs;
 
       /// <summary>
         /// The Quality of Service (QOS) classification assigned to the pod based on resource
@@ -16819,16 +19266,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PodStatus(
-          Core.V1.PodCondition[] _conditions,
-          Core.V1.ContainerStatus[] _containerStatuses,
-          Core.V1.ContainerStatus[] _ephemeralContainerStatuses,
+          ImmutableArray<Core.V1.PodCondition> _conditions,
+          ImmutableArray<Core.V1.ContainerStatus> _containerStatuses,
+          ImmutableArray<Core.V1.ContainerStatus> _ephemeralContainerStatuses,
           string _hostIP,
-          Core.V1.ContainerStatus[] _initContainerStatuses,
+          ImmutableArray<Core.V1.ContainerStatus> _initContainerStatuses,
           string _message,
           string _nominatedNodeName,
           string _phase,
           string _podIP,
-          Core.V1.PodIP[] _podIPs,
+          ImmutableArray<Core.V1.PodIP> _podIPs,
           string _qosClass,
           string _reason,
           string _startTime)
@@ -16852,7 +19299,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodTemplate describes a template for creating copies of a predefined pod.
     /// </summary>
+    [OutputType]
     public sealed class PodTemplate {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -16867,9 +19331,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PodTemplate(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.PodTemplateSpec _template)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Template = _template;
       }
@@ -16878,11 +19346,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodTemplateList is a list of PodTemplates.
     /// </summary>
+    [OutputType]
     public sealed class PodTemplateList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of pod templates
         /// </summary>
-      public readonly Core.V1.PodTemplate[] Items;
+      public readonly ImmutableArray<Core.V1.PodTemplate> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -16892,10 +19377,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private PodTemplateList(
-          Core.V1.PodTemplate[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.PodTemplate> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -16903,6 +19392,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PodTemplateSpec describes the data a pod should have when created from a template
     /// </summary>
+    [OutputType]
     public sealed class PodTemplateSpec {
       /// <summary>
         /// Standard object's metadata. More info:
@@ -16929,6 +19419,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// PortworxVolumeSource represents a Portworx volume resource.
     /// </summary>
+    [OutputType]
     public sealed class PortworxVolumeSource {
       /// <summary>
         /// FSType represents the filesystem type to mount Must be a filesystem type supported by
@@ -16964,6 +19455,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a
     /// no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
     /// </summary>
+    [OutputType]
     public sealed class PreferredSchedulingTerm {
       /// <summary>
         /// A node selector term, associated with the corresponding weight.
@@ -16989,6 +19481,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Probe describes a health check to be performed against a container to determine whether it
     /// is alive or ready to receive traffic.
     /// </summary>
+    [OutputType]
     public sealed class Probe {
       /// <summary>
         /// One and only one of the following should be specified. Exec specifies the action to
@@ -17062,6 +19555,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Represents a projected volume source
     /// </summary>
+    [OutputType]
     public sealed class ProjectedVolumeSource {
       /// <summary>
         /// Mode bits to use on created files by default. Must be a value between 0 and 0777.
@@ -17074,12 +19568,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       /// <summary>
         /// list of volume projections
         /// </summary>
-      public readonly Core.V1.VolumeProjection[] Sources;
+      public readonly ImmutableArray<Core.V1.VolumeProjection> Sources;
 
       [OutputConstructor]
       private ProjectedVolumeSource(
           int _defaultMode,
-          Core.V1.VolumeProjection[] _sources)
+          ImmutableArray<Core.V1.VolumeProjection> _sources)
       {
           DefaultMode = _defaultMode;
           Sources = _sources;
@@ -17090,6 +19584,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support
     /// ownership management or SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class QuobyteVolumeSource {
       /// <summary>
         /// Group to map volume access to Default is no group
@@ -17147,6 +19642,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support
     /// ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class RBDPersistentVolumeSource {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
@@ -17172,7 +19668,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// A collection of Ceph monitors. More info:
         /// https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
-      public readonly string[] Monitors;
+      public readonly ImmutableArray<string> Monitors;
 
       /// <summary>
         /// The rados pool name. Default is rbd. More info:
@@ -17204,7 +19700,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _fsType,
           string _image,
           string _keyring,
-          string[] _monitors,
+          ImmutableArray<string> _monitors,
           string _pool,
           bool _readOnly,
           Core.V1.SecretReference _secretRef,
@@ -17225,6 +19721,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support
     /// ownership management and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class RBDVolumeSource {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
@@ -17250,7 +19747,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// A collection of Ceph monitors. More info:
         /// https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
-      public readonly string[] Monitors;
+      public readonly ImmutableArray<string> Monitors;
 
       /// <summary>
         /// The rados pool name. Default is rbd. More info:
@@ -17282,7 +19779,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string _fsType,
           string _image,
           string _keyring,
-          string[] _monitors,
+          ImmutableArray<string> _monitors,
           string _pool,
           bool _readOnly,
           Core.V1.LocalObjectReference _secretRef,
@@ -17302,7 +19799,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ReplicationController represents the configuration of a replication controller.
     /// </summary>
+    [OutputType]
     public sealed class ReplicationController {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// If the Labels of a ReplicationController are empty, they are defaulted to be the same as
         /// the Pod(s) that the replication controller manages. Standard object's metadata. More
@@ -17327,10 +19841,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ReplicationController(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.ReplicationControllerSpec _spec,
           Core.V1.ReplicationControllerStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -17341,6 +19859,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ReplicationControllerCondition describes the state of a replication controller at a certain
     /// point.
     /// </summary>
+    [OutputType]
     public sealed class ReplicationControllerCondition {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
@@ -17386,12 +19905,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ReplicationControllerList is a collection of replication controllers.
     /// </summary>
+    [OutputType]
     public sealed class ReplicationControllerList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of replication controllers. More info:
         /// https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
         /// </summary>
-      public readonly Core.V1.ReplicationController[] Items;
+      public readonly ImmutableArray<Core.V1.ReplicationController> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -17401,10 +19937,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ReplicationControllerList(
-          Core.V1.ReplicationController[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.ReplicationController> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -17412,6 +19952,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ReplicationControllerSpec is the specification of a replication controller.
     /// </summary>
+    [OutputType]
     public sealed class ReplicationControllerSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -17460,6 +20001,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ReplicationControllerStatus represents the current status of a replication controller.
     /// </summary>
+    [OutputType]
     public sealed class ReplicationControllerStatus {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this
@@ -17471,7 +20013,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// Represents the latest available observations of a replication controller's current
         /// state.
         /// </summary>
-      public readonly Core.V1.ReplicationControllerCondition[] Conditions;
+      public readonly ImmutableArray<Core.V1.ReplicationControllerCondition> Conditions;
 
       /// <summary>
         /// The number of pods that have labels matching the labels of the pod template of the
@@ -17499,7 +20041,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private ReplicationControllerStatus(
           int _availableReplicas,
-          Core.V1.ReplicationControllerCondition[] _conditions,
+          ImmutableArray<Core.V1.ReplicationControllerCondition> _conditions,
           int _fullyLabeledReplicas,
           int _observedGeneration,
           int _readyReplicas,
@@ -17517,6 +20059,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ResourceFieldSelector represents container resources (cpu, memory) and their output format
     /// </summary>
+    [OutputType]
     public sealed class ResourceFieldSelector {
       /// <summary>
         /// Container name: required for volumes, optional for env vars
@@ -17548,7 +20091,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ResourceQuota sets aggregate quota restrictions enforced per namespace
     /// </summary>
+    [OutputType]
     public sealed class ResourceQuota {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -17569,10 +20129,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ResourceQuota(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.ResourceQuotaSpec _spec,
           Core.V1.ResourceQuotaStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -17582,12 +20146,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ResourceQuotaList is a list of ResourceQuota items.
     /// </summary>
+    [OutputType]
     public sealed class ResourceQuotaList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of ResourceQuota objects. More info:
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
         /// </summary>
-      public readonly Core.V1.ResourceQuota[] Items;
+      public readonly ImmutableArray<Core.V1.ResourceQuota> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -17597,10 +20178,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ResourceQuotaList(
-          Core.V1.ResourceQuota[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.ResourceQuota> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -17608,12 +20193,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     /// </summary>
+    [OutputType]
     public sealed class ResourceQuotaSpec {
       /// <summary>
         /// hard is the set of desired hard limits for each named resource. More info:
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
         /// </summary>
-      public readonly object Hard;
+      public readonly ImmutableDictionary<string, string> Hard;
 
       /// <summary>
         /// scopeSelector is also a collection of filters like scopes that must match each object
@@ -17627,13 +20213,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// A collection of filters that must match each object tracked by a quota. If not
         /// specified, the quota matches all objects.
         /// </summary>
-      public readonly string[] Scopes;
+      public readonly ImmutableArray<string> Scopes;
 
       [OutputConstructor]
       private ResourceQuotaSpec(
-          object _hard,
+          ImmutableDictionary<string, string> _hard,
           Core.V1.ScopeSelector _scopeSelector,
-          string[] _scopes)
+          ImmutableArray<string> _scopes)
       {
           Hard = _hard;
           ScopeSelector = _scopeSelector;
@@ -17644,22 +20230,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ResourceQuotaStatus defines the enforced hard limits and observed use.
     /// </summary>
+    [OutputType]
     public sealed class ResourceQuotaStatus {
       /// <summary>
         /// Hard is the set of enforced hard limits for each named resource. More info:
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
         /// </summary>
-      public readonly object Hard;
+      public readonly ImmutableDictionary<string, string> Hard;
 
       /// <summary>
         /// Used is the current observed total usage of the resource in the namespace.
         /// </summary>
-      public readonly object Used;
+      public readonly ImmutableDictionary<string, string> Used;
 
       [OutputConstructor]
       private ResourceQuotaStatus(
-          object _hard,
-          object _used)
+          ImmutableDictionary<string, string> _hard,
+          ImmutableDictionary<string, string> _used)
       {
           Hard = _hard;
           Used = _used;
@@ -17669,12 +20256,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ResourceRequirements describes the compute resource requirements.
     /// </summary>
+    [OutputType]
     public sealed class ResourceRequirements {
       /// <summary>
         /// Limits describes the maximum amount of compute resources allowed. More info:
         /// https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
         /// </summary>
-      public readonly object Limits;
+      public readonly ImmutableDictionary<string, string> Limits;
 
       /// <summary>
         /// Requests describes the minimum amount of compute resources required. If Requests is
@@ -17682,12 +20270,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// otherwise to an implementation-defined value. More info:
         /// https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
         /// </summary>
-      public readonly object Requests;
+      public readonly ImmutableDictionary<string, string> Requests;
 
       [OutputConstructor]
       private ResourceRequirements(
-          object _limits,
-          object _requests)
+          ImmutableDictionary<string, string> _limits,
+          ImmutableDictionary<string, string> _requests)
       {
           Limits = _limits;
           Requests = _requests;
@@ -17697,6 +20285,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// SELinuxOptions are the labels to be applied to the container
     /// </summary>
+    [OutputType]
     public sealed class SELinuxOptions {
       /// <summary>
         /// Level is SELinux level label that applies to the container.
@@ -17735,6 +20324,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
     /// </summary>
+    [OutputType]
     public sealed class ScaleIOPersistentVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -17820,6 +20410,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ScaleIOVolumeSource represents a persistent ScaleIO volume
     /// </summary>
+    [OutputType]
     public sealed class ScaleIOVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -17906,15 +20497,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// A scope selector represents the AND of the selectors represented by the scoped-resource
     /// selector requirements.
     /// </summary>
+    [OutputType]
     public sealed class ScopeSelector {
       /// <summary>
         /// A list of scope selector requirements by scope of the resources.
         /// </summary>
-      public readonly Core.V1.ScopedResourceSelectorRequirement[] MatchExpressions;
+      public readonly ImmutableArray<Core.V1.ScopedResourceSelectorRequirement> MatchExpressions;
 
       [OutputConstructor]
       private ScopeSelector(
-          Core.V1.ScopedResourceSelectorRequirement[] _matchExpressions)
+          ImmutableArray<Core.V1.ScopedResourceSelectorRequirement> _matchExpressions)
       {
           MatchExpressions = _matchExpressions;
       }
@@ -17924,6 +20516,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// A scoped-resource selector requirement is a selector that contains values, a scope name, and
     /// an operator that relates the scope name and values.
     /// </summary>
+    [OutputType]
     public sealed class ScopedResourceSelectorRequirement {
       /// <summary>
         /// Represents a scope's relationship to a set of values. Valid operators are In, NotIn,
@@ -17941,13 +20534,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
         /// This array is replaced during a strategic merge patch.
         /// </summary>
-      public readonly string[] Values;
+      public readonly ImmutableArray<string> Values;
 
       [OutputConstructor]
       private ScopedResourceSelectorRequirement(
           string _operator,
           string _scopeName,
-          string[] _values)
+          ImmutableArray<string> _values)
       {
           Operator = _operator;
           ScopeName = _scopeName;
@@ -17959,14 +20552,31 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Secret holds secret data of a certain type. The total bytes of the values in the Data field
     /// must be less than MaxSecretSize bytes.
     /// </summary>
+    [OutputType]
     public sealed class Secret {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Data contains the secret data. Each key must consist of alphanumeric characters, '-',
         /// '_' or '.'. The serialized form of the secret data is a base64 encoded string,
         /// representing the arbitrary (possibly non-string) data value here. Described in
         /// https://tools.ietf.org/html/rfc4648#section-4
         /// </summary>
-      public readonly object Data;
+      public readonly ImmutableDictionary<string, string> Data;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -17988,12 +20598,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private Secret(
-          object _data,
+          string _apiVersion,
+          ImmutableDictionary<string, string> _data,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           ImmutableDictionary<string, string> _stringData,
           string _type)
       {
+          ApiVersion = _apiVersion;
           Data = _data;
+          Kind = _kind;
           Metadata = _metadata;
           StringData = _stringData;
           Type = _type;
@@ -18006,6 +20620,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// The contents of the target Secret's Data field will represent the key-value pairs as
     /// environment variables.
     /// </summary>
+    [OutputType]
     public sealed class SecretEnvSource {
       /// <summary>
         /// Name of the referent. More info:
@@ -18031,6 +20646,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// SecretKeySelector selects a key of a Secret.
     /// </summary>
+    [OutputType]
     public sealed class SecretKeySelector {
       /// <summary>
         /// The key of the secret to select from.  Must be a valid secret key.
@@ -18063,12 +20679,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// SecretList is a list of Secret.
     /// </summary>
+    [OutputType]
     public sealed class SecretList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of secret objects. More info:
         /// https://kubernetes.io/docs/concepts/configuration/secret
         /// </summary>
-      public readonly Core.V1.Secret[] Items;
+      public readonly ImmutableArray<Core.V1.Secret> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -18078,10 +20711,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private SecretList(
-          Core.V1.Secret[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.Secret> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -18093,6 +20730,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// files using the keys in the Data field as the file names. Note that this is identical to a
     /// secret volume source without the default mode.
     /// </summary>
+    [OutputType]
     public sealed class SecretProjection {
       /// <summary>
         /// If unspecified, each key-value pair in the Data field of the referenced Secret will be
@@ -18102,7 +20740,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// volume setup will error unless it is marked optional. Paths must be relative and may not
         /// contain the '..' path or start with '..'.
         /// </summary>
-      public readonly Core.V1.KeyToPath[] Items;
+      public readonly ImmutableArray<Core.V1.KeyToPath> Items;
 
       /// <summary>
         /// Name of the referent. More info:
@@ -18117,7 +20755,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private SecretProjection(
-          Core.V1.KeyToPath[] _items,
+          ImmutableArray<Core.V1.KeyToPath> _items,
           string _name,
           bool _optional)
       {
@@ -18131,6 +20769,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// SecretReference represents a Secret Reference. It has enough information to retrieve secret
     /// in any namespace
     /// </summary>
+    [OutputType]
     public sealed class SecretReference {
       /// <summary>
         /// Name is unique within a namespace to reference a secret resource.
@@ -18159,6 +20798,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// the keys in the Data field as the file names. Secret volumes support ownership management
     /// and SELinux relabeling.
     /// </summary>
+    [OutputType]
     public sealed class SecretVolumeSource {
       /// <summary>
         /// Optional: mode bits to use on created files by default. Must be a value between 0 and
@@ -18176,7 +20816,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// volume setup will error unless it is marked optional. Paths must be relative and may not
         /// contain the '..' path or start with '..'.
         /// </summary>
-      public readonly Core.V1.KeyToPath[] Items;
+      public readonly ImmutableArray<Core.V1.KeyToPath> Items;
 
       /// <summary>
         /// Specify whether the Secret or its keys must be defined
@@ -18192,7 +20832,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private SecretVolumeSource(
           int _defaultMode,
-          Core.V1.KeyToPath[] _items,
+          ImmutableArray<Core.V1.KeyToPath> _items,
           bool _optional,
           string _secretName)
       {
@@ -18208,6 +20848,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// fields are present in both SecurityContext and PodSecurityContext.  When both are set, the
     /// values in SecurityContext take precedence.
     /// </summary>
+    [OutputType]
     public sealed class SecurityContext {
       /// <summary>
         /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its
@@ -18311,7 +20952,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// port (for example 3306) that the proxy listens on, and the selector that determines which
     /// pods will answer requests sent through the proxy.
     /// </summary>
+    [OutputType]
     public sealed class Service {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -18333,10 +20991,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private Service(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Core.V1.ServiceSpec _spec,
           Core.V1.ServiceStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -18348,7 +21010,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// systems, for an identity * a principal that can be authenticated and authorized * a set of
     /// secrets
     /// </summary>
+    [OutputType]
     public sealed class ServiceAccount {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// AutomountServiceAccountToken indicates whether pods running as this service account
         /// should have an API token automatically mounted. Can be overridden at the pod level.
@@ -18362,7 +21033,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// are only accessed by the kubelet. More info:
         /// https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         /// </summary>
-      public readonly Core.V1.LocalObjectReference[] ImagePullSecrets;
+      public readonly ImmutableArray<Core.V1.LocalObjectReference> ImagePullSecrets;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -18374,17 +21053,21 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// Secrets is the list of secrets allowed to be used by pods running using this
         /// ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
         /// </summary>
-      public readonly Core.V1.ObjectReference[] Secrets;
+      public readonly ImmutableArray<Core.V1.ObjectReference> Secrets;
 
       [OutputConstructor]
       private ServiceAccount(
+          string _apiVersion,
           bool _automountServiceAccountToken,
-          Core.V1.LocalObjectReference[] _imagePullSecrets,
+          ImmutableArray<Core.V1.LocalObjectReference> _imagePullSecrets,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Core.V1.ObjectReference[] _secrets)
+          ImmutableArray<Core.V1.ObjectReference> _secrets)
       {
+          ApiVersion = _apiVersion;
           AutomountServiceAccountToken = _automountServiceAccountToken;
           ImagePullSecrets = _imagePullSecrets;
+          Kind = _kind;
           Metadata = _metadata;
           Secrets = _secrets;
       }
@@ -18393,12 +21076,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ServiceAccountList is a list of ServiceAccount objects
     /// </summary>
+    [OutputType]
     public sealed class ServiceAccountList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of ServiceAccounts. More info:
         /// https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
         /// </summary>
-      public readonly Core.V1.ServiceAccount[] Items;
+      public readonly ImmutableArray<Core.V1.ServiceAccount> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -18408,10 +21108,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ServiceAccountList(
-          Core.V1.ServiceAccount[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.ServiceAccount> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -18421,6 +21125,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// projection can be used to insert a service account token into the pods runtime filesystem
     /// for use against APIs (Kubernetes API Server or otherwise).
     /// </summary>
+    [OutputType]
     public sealed class ServiceAccountTokenProjection {
       /// <summary>
         /// Audience is the intended audience of the token. A recipient of a token must identify
@@ -18458,11 +21163,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ServiceList holds a list of services.
     /// </summary>
+    [OutputType]
     public sealed class ServiceList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of services
         /// </summary>
-      public readonly Core.V1.Service[] Items;
+      public readonly ImmutableArray<Core.V1.Service> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -18472,10 +21194,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       [OutputConstructor]
       private ServiceList(
-          Core.V1.Service[] _items,
+          string _apiVersion,
+          ImmutableArray<Core.V1.Service> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -18483,6 +21209,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ServicePort contains information on service's port.
     /// </summary>
+    [OutputType]
     public sealed class ServicePort {
       /// <summary>
         /// The name of this port within the service. This must be a DNS_LABEL. All ports within a
@@ -18541,6 +21268,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ServiceSpec describes the attributes that a user creates on a service.
     /// </summary>
+    [OutputType]
     public sealed class ServiceSpec {
       /// <summary>
         /// clusterIP is the IP address of the service and is usually assigned randomly by the
@@ -18560,7 +21288,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// responsible for ensuring that traffic arrives at a node with this IP.  A common example
         /// is external load-balancers that are not part of the Kubernetes system.
         /// </summary>
-      public readonly string[] ExternalIPs;
+      public readonly ImmutableArray<string> ExternalIPs;
 
       /// <summary>
         /// externalName is the external reference that kubedns or equivalent will return as a CNAME
@@ -18613,13 +21341,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// will be ignored if the cloud-provider does not support the feature." More info:
         /// https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
         /// </summary>
-      public readonly string[] LoadBalancerSourceRanges;
+      public readonly ImmutableArray<string> LoadBalancerSourceRanges;
 
       /// <summary>
         /// The list of ports that are exposed by this service. More info:
         /// https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         /// </summary>
-      public readonly Core.V1.ServicePort[] Ports;
+      public readonly ImmutableArray<Core.V1.ServicePort> Ports;
 
       /// <summary>
         /// publishNotReadyAddresses, when set to true, indicates that DNS implementations must
@@ -18669,14 +21397,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private ServiceSpec(
           string _clusterIP,
-          string[] _externalIPs,
+          ImmutableArray<string> _externalIPs,
           string _externalName,
           string _externalTrafficPolicy,
           int _healthCheckNodePort,
           string _ipFamily,
           string _loadBalancerIP,
-          string[] _loadBalancerSourceRanges,
-          Core.V1.ServicePort[] _ports,
+          ImmutableArray<string> _loadBalancerSourceRanges,
+          ImmutableArray<Core.V1.ServicePort> _ports,
           bool _publishNotReadyAddresses,
           ImmutableDictionary<string, string> _selector,
           string _sessionAffinity,
@@ -18703,6 +21431,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// ServiceStatus represents the current status of a service.
     /// </summary>
+    [OutputType]
     public sealed class ServiceStatus {
       /// <summary>
         /// LoadBalancer contains the current status of the load-balancer, if one is present.
@@ -18720,6 +21449,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// SessionAffinityConfig represents the configurations of session affinity.
     /// </summary>
+    [OutputType]
     public sealed class SessionAffinityConfig {
       /// <summary>
         /// clientIP contains the configurations of Client IP based session affinity.
@@ -18737,6 +21467,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Represents a StorageOS persistent volume resource.
     /// </summary>
+    [OutputType]
     public sealed class StorageOSPersistentVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -18790,6 +21521,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Represents a StorageOS persistent volume resource.
     /// </summary>
+    [OutputType]
     public sealed class StorageOSVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -18843,6 +21575,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Sysctl defines a kernel parameter to be set
     /// </summary>
+    [OutputType]
     public sealed class Sysctl {
       /// <summary>
         /// Name of a property to set
@@ -18867,6 +21600,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// TCPSocketAction describes an action based on opening a socket
     /// </summary>
+    [OutputType]
     public sealed class TCPSocketAction {
       /// <summary>
         /// Optional: Host name to connect to, defaults to the pod IP.
@@ -18893,6 +21627,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// The node this Taint is attached to has the "effect" on any pod that does not tolerate the
     /// Taint.
     /// </summary>
+    [OutputType]
     public sealed class Taint {
       /// <summary>
         /// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects
@@ -18934,6 +21669,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// The pod this Toleration is attached to tolerates any taint that matches the triple
     /// &amp;lt;key,value,effect&amp;gt; using the matching operator &amp;lt;operator&amp;gt;.
     /// </summary>
+    [OutputType]
     public sealed class Toleration {
       /// <summary>
         /// Effect indicates the taint effect to match. Empty means match all taint effects. When
@@ -18989,6 +21725,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// A topology selector requirement is a selector that matches given label. This is an alpha
     /// feature and may change in the future.
     /// </summary>
+    [OutputType]
     public sealed class TopologySelectorLabelRequirement {
       /// <summary>
         /// The label key that the selector applies to.
@@ -18999,12 +21736,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// An array of string values. One value must match the label to be selected. Each entry in
         /// Values is ORed.
         /// </summary>
-      public readonly string[] Values;
+      public readonly ImmutableArray<string> Values;
 
       [OutputConstructor]
       private TopologySelectorLabelRequirement(
           string _key,
-          string[] _values)
+          ImmutableArray<string> _values)
       {
           Key = _key;
           Values = _values;
@@ -19016,15 +21753,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// selector term matches no objects. The requirements of them are ANDed. It provides a subset
     /// of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
     /// </summary>
+    [OutputType]
     public sealed class TopologySelectorTerm {
       /// <summary>
         /// A list of topology selector requirements by labels.
         /// </summary>
-      public readonly Core.V1.TopologySelectorLabelRequirement[] MatchLabelExpressions;
+      public readonly ImmutableArray<Core.V1.TopologySelectorLabelRequirement> MatchLabelExpressions;
 
       [OutputConstructor]
       private TopologySelectorTerm(
-          Core.V1.TopologySelectorLabelRequirement[] _matchLabelExpressions)
+          ImmutableArray<Core.V1.TopologySelectorLabelRequirement> _matchLabelExpressions)
       {
           MatchLabelExpressions = _matchLabelExpressions;
       }
@@ -19033,6 +21771,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
     /// </summary>
+    [OutputType]
     public sealed class TopologySpreadConstraint {
       /// <summary>
         /// LabelSelector is used to find matching pods. Pods that match this label selector are
@@ -19092,6 +21831,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// TypedLocalObjectReference contains enough information to let you locate the typed referenced
     /// object inside the same namespace.
     /// </summary>
+    [OutputType]
     public sealed class TypedLocalObjectReference {
       /// <summary>
         /// APIGroup is the group for the resource being referenced. If APIGroup is not specified,
@@ -19101,6 +21841,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       public readonly string ApiGroup;
 
       /// <summary>
+        /// Kind is the type of resource being referenced
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// Name is the name of resource being referenced
         /// </summary>
       public readonly string Name;
@@ -19108,9 +21853,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       [OutputConstructor]
       private TypedLocalObjectReference(
           string _apiGroup,
+          string _kind,
           string _name)
       {
           ApiGroup = _apiGroup;
+          Kind = _kind;
           Name = _name;
       }
 
@@ -19118,6 +21865,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
     /// </summary>
+    [OutputType]
     public sealed class Volume {
       /// <summary>
         /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's
@@ -19357,6 +22105,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// volumeDevice describes a mapping of a raw block device within a container.
     /// </summary>
+    [OutputType]
     public sealed class VolumeDevice {
       /// <summary>
         /// devicePath is the path inside of the container that the device will be mapped to.
@@ -19381,6 +22130,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// VolumeMount describes a mounting of a Volume within a container.
     /// </summary>
+    [OutputType]
     public sealed class VolumeMount {
       /// <summary>
         /// Path within the container at which the volume should be mounted.  Must not contain ':'.
@@ -19441,6 +22191,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed
     /// from.
     /// </summary>
+    [OutputType]
     public sealed class VolumeNodeAffinity {
       /// <summary>
         /// Required specifies hard node constraints that must be met.
@@ -19458,6 +22209,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Projection that may be projected along with other supported volume types
     /// </summary>
+    [OutputType]
     public sealed class VolumeProjection {
       /// <summary>
         /// information about the configMap data to project
@@ -19496,6 +22248,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// Represents a vSphere volume resource.
     /// </summary>
+    [OutputType]
     public sealed class VsphereVirtualDiskVolumeSource {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
@@ -19536,6 +22289,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find
     /// the most preferred node(s)
     /// </summary>
+    [OutputType]
     public sealed class WeightedPodAffinityTerm {
       /// <summary>
         /// Required. A pod affinity term, associated with the corresponding weight.
@@ -19560,6 +22314,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// <summary>
     /// WindowsSecurityContextOptions contain Windows-specific options and credentials.
     /// </summary>
+    [OutputType]
     public sealed class WindowsSecurityContextOptions {
       /// <summary>
         /// GMSACredentialSpec is where the GMSA admission webhook
@@ -19605,6 +22360,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// <summary>
     /// Endpoint represents a single logical "backend" implementing a service.
     /// </summary>
+    [OutputType]
     public sealed class Endpoint {
       /// <summary>
         /// addresses of this endpoint. The contents of this field are interpreted according to the
@@ -19613,7 +22369,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
         /// addresses in the context of their own capabilities. This must contain at least one
         /// address but no more than 100.
         /// </summary>
-      public readonly string[] Addresses;
+      public readonly ImmutableArray<string> Addresses;
 
       /// <summary>
         /// conditions contains information about the current status of the endpoint.
@@ -19651,7 +22407,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
 
       [OutputConstructor]
       private Endpoint(
-          string[] _addresses,
+          ImmutableArray<string> _addresses,
           Discovery.V1Alpha1.EndpointConditions _conditions,
           string _hostname,
           Core.V1.ObjectReference _targetRef,
@@ -19668,6 +22424,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// <summary>
     /// EndpointConditions represents the current condition of an endpoint.
     /// </summary>
+    [OutputType]
     public sealed class EndpointConditions {
       /// <summary>
         /// ready indicates that this endpoint is prepared to receive traffic, according to whatever
@@ -19687,6 +22444,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// <summary>
     /// EndpointPort represents a Port used by an EndpointSlice
     /// </summary>
+    [OutputType]
     public sealed class EndpointPort {
       /// <summary>
         /// The name of this port. All ports in an EndpointSlice must have a unique name. If the
@@ -19726,6 +22484,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// service there may be multiple EndpointSlice objects, selected by labels, which must be
     /// joined to produce the full set of endpoints.
     /// </summary>
+    [OutputType]
     public sealed class EndpointSlice {
       /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses
@@ -19734,10 +22493,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
       public readonly string AddressType;
 
       /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
         /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
         /// of 1000 endpoints.
         /// </summary>
-      public readonly Discovery.V1Alpha1.Endpoint[] Endpoints;
+      public readonly ImmutableArray<Discovery.V1Alpha1.Endpoint> Endpoints;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -19750,17 +22525,21 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
         /// defined ports. When a port is defined with a nil port value, it indicates "all ports".
         /// Each slice may include a maximum of 100 ports.
         /// </summary>
-      public readonly Discovery.V1Alpha1.EndpointPort[] Ports;
+      public readonly ImmutableArray<Discovery.V1Alpha1.EndpointPort> Ports;
 
       [OutputConstructor]
       private EndpointSlice(
           string _addressType,
-          Discovery.V1Alpha1.Endpoint[] _endpoints,
+          string _apiVersion,
+          ImmutableArray<Discovery.V1Alpha1.Endpoint> _endpoints,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Discovery.V1Alpha1.EndpointPort[] _ports)
+          ImmutableArray<Discovery.V1Alpha1.EndpointPort> _ports)
       {
           AddressType = _addressType;
+          ApiVersion = _apiVersion;
           Endpoints = _endpoints;
+          Kind = _kind;
           Metadata = _metadata;
           Ports = _ports;
       }
@@ -19769,11 +22548,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// <summary>
     /// EndpointSliceList represents a list of endpoint slices
     /// </summary>
+    [OutputType]
     public sealed class EndpointSliceList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of endpoint slices
         /// </summary>
-      public readonly Discovery.V1Alpha1.EndpointSlice[] Items;
+      public readonly ImmutableArray<Discovery.V1Alpha1.EndpointSlice> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata.
@@ -19782,10 +22578,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
 
       [OutputConstructor]
       private EndpointSliceList(
-          Discovery.V1Alpha1.EndpointSlice[] _items,
+          string _apiVersion,
+          ImmutableArray<Discovery.V1Alpha1.EndpointSlice> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -19800,11 +22600,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
     /// Event is a report of an event somewhere in the cluster. It generally denotes some state
     /// change in the system.
     /// </summary>
+    [OutputType]
     public sealed class Event {
       /// <summary>
         /// What action was taken/failed regarding to the regarding object.
         /// </summary>
       public readonly string Action;
+
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
 
       /// <summary>
         /// Deprecated field assuring backward compatibility with core.v1 Event type
@@ -19830,6 +22639,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
         /// Required. Time when this Event was first observed.
         /// </summary>
       public readonly string EventTime;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ObjectMeta Metadata;
@@ -19881,11 +22698,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
       [OutputConstructor]
       private Event(
           string _action,
+          string _apiVersion,
           int _deprecatedCount,
           string _deprecatedFirstTimestamp,
           string _deprecatedLastTimestamp,
           Core.V1.EventSource _deprecatedSource,
           string _eventTime,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           string _note,
           string _reason,
@@ -19897,11 +22716,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
           string _type)
       {
           Action = _action;
+          ApiVersion = _apiVersion;
           DeprecatedCount = _deprecatedCount;
           DeprecatedFirstTimestamp = _deprecatedFirstTimestamp;
           DeprecatedLastTimestamp = _deprecatedLastTimestamp;
           DeprecatedSource = _deprecatedSource;
           EventTime = _eventTime;
+          Kind = _kind;
           Metadata = _metadata;
           Note = _note;
           Reason = _reason;
@@ -19917,11 +22738,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
     /// <summary>
     /// EventList is a list of Event objects.
     /// </summary>
+    [OutputType]
     public sealed class EventList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Events.V1Beta1.Event[] Items;
+      public readonly ImmutableArray<Events.V1Beta1.Event> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -19931,10 +22769,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
 
       [OutputConstructor]
       private EventList(
-          Events.V1Beta1.Event[] _items,
+          string _apiVersion,
+          ImmutableArray<Events.V1Beta1.Event> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -19943,6 +22785,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
     /// EventSeries contain information on series of events, i.e. thing that was/is happening
     /// continuously for some time.
     /// </summary>
+    [OutputType]
     public sealed class EventSeries {
       /// <summary>
         /// Number of occurrences in this series up to the last heartbeat time
@@ -19981,6 +22824,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
     /// </summary>
+    [OutputType]
     public sealed class AllowedCSIDriver {
       /// <summary>
         /// Name is the registered name of the CSI driver
@@ -19999,6 +22843,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use
     /// AllowedFlexVolume from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class AllowedFlexVolume {
       /// <summary>
         /// driver is the name of the Flexvolume driver.
@@ -20018,6 +22863,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// to use. It requires the path prefix to be defined. Deprecated: use AllowedHostPath from
     /// policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class AllowedHostPath {
       /// <summary>
         /// pathPrefix is the path prefix that the host volume must match. It does not support `*`.
@@ -20050,7 +22896,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// 
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -20072,10 +22935,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private DaemonSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Extensions.V1Beta1.DaemonSetSpec _spec,
           Extensions.V1Beta1.DaemonSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -20085,6 +22952,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -20130,11 +22998,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// A list of daemon sets.
         /// </summary>
-      public readonly Extensions.V1Beta1.DaemonSet[] Items;
+      public readonly ImmutableArray<Extensions.V1Beta1.DaemonSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -20144,10 +23029,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private DaemonSetList(
-          Extensions.V1Beta1.DaemonSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Extensions.V1Beta1.DaemonSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -20155,6 +23044,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetSpec {
       /// <summary>
         /// The minimum number of seconds for which a newly created DaemonSet pod should be ready
@@ -20216,6 +23106,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetStatus {
       /// <summary>
         /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as
@@ -20227,7 +23118,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       /// <summary>
         /// Represents the latest available observations of a DaemonSet's current state.
         /// </summary>
-      public readonly Extensions.V1Beta1.DaemonSetCondition[] Conditions;
+      public readonly ImmutableArray<Extensions.V1Beta1.DaemonSetCondition> Conditions;
 
       /// <summary>
         /// The number of nodes that are running at least 1 daemon pod and are supposed to run the
@@ -20281,7 +23172,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       [OutputConstructor]
       private DaemonSetStatus(
           int _collisionCount,
-          Extensions.V1Beta1.DaemonSetCondition[] _conditions,
+          ImmutableArray<Extensions.V1Beta1.DaemonSetCondition> _conditions,
           int _currentNumberScheduled,
           int _desiredNumberScheduled,
           int _numberAvailable,
@@ -20307,6 +23198,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// 
     /// </summary>
+    [OutputType]
     public sealed class DaemonSetUpdateStrategy {
       /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
@@ -20334,7 +23226,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// 
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
+    [OutputType]
     public sealed class Deployment {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata.
         /// </summary>
@@ -20352,10 +23261,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private Deployment(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Extensions.V1Beta1.DeploymentSpec _spec,
           Extensions.V1Beta1.DeploymentStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -20365,6 +23278,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentCondition {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -20417,11 +23331,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of Deployments.
         /// </summary>
-      public readonly Extensions.V1Beta1.Deployment[] Items;
+      public readonly ImmutableArray<Extensions.V1Beta1.Deployment> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata.
@@ -20430,10 +23361,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private DeploymentList(
-          Extensions.V1Beta1.Deployment[] _items,
+          string _apiVersion,
+          ImmutableArray<Extensions.V1Beta1.Deployment> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -20441,7 +23376,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentRollback {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Required: This must match the Name of a deployment.
         /// </summary>
@@ -20459,10 +23411,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private DeploymentRollback(
+          string _apiVersion,
+          string _kind,
           string _name,
           Extensions.V1Beta1.RollbackConfig _rollbackTo,
           ImmutableDictionary<string, string> _updatedAnnotations)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
           RollbackTo = _rollbackTo;
           UpdatedAnnotations = _updatedAnnotations;
@@ -20472,6 +23428,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -20558,6 +23515,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStatus {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
@@ -20575,7 +23533,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       /// <summary>
         /// Represents the latest available observations of a deployment's current state.
         /// </summary>
-      public readonly Extensions.V1Beta1.DeploymentCondition[] Conditions;
+      public readonly ImmutableArray<Extensions.V1Beta1.DeploymentCondition> Conditions;
 
       /// <summary>
         /// The generation observed by the deployment controller.
@@ -20611,7 +23569,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       private DeploymentStatus(
           int _availableReplicas,
           int _collisionCount,
-          Extensions.V1Beta1.DeploymentCondition[] _conditions,
+          ImmutableArray<Extensions.V1Beta1.DeploymentCondition> _conditions,
           int _observedGeneration,
           int _readyReplicas,
           int _replicas,
@@ -20632,6 +23590,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
+    [OutputType]
     public sealed class DeploymentStrategy {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
@@ -20657,12 +23616,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     /// Deprecated: use FSGroupStrategyOptions from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class FSGroupStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of fs groups.  If you would like to force a single fs
         /// group then supply a single range with the same start and end. Required for MustRunAs.
         /// </summary>
-      public readonly Extensions.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Extensions.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
@@ -20671,7 +23631,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private FSGroupStrategyOptions(
-          Extensions.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Extensions.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -20683,6 +23643,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
     /// forwarded to the backend.
     /// </summary>
+    [OutputType]
     public sealed class HTTPIngressPath {
       /// <summary>
         /// Backend defines the referenced service endpoint to which the traffic will be forwarded
@@ -20715,15 +23676,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// backend where where parts of the url correspond to RFC 3986, this resource will be used to
     /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
+    [OutputType]
     public sealed class HTTPIngressRuleValue {
       /// <summary>
         /// A collection of paths that map requests to backends.
         /// </summary>
-      public readonly Extensions.V1Beta1.HTTPIngressPath[] Paths;
+      public readonly ImmutableArray<Extensions.V1Beta1.HTTPIngressPath> Paths;
 
       [OutputConstructor]
       private HTTPIngressRuleValue(
-          Extensions.V1Beta1.HTTPIngressPath[] _paths)
+          ImmutableArray<Extensions.V1Beta1.HTTPIngressPath> _paths)
       {
           Paths = _paths;
       }
@@ -20734,6 +23696,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from
     /// policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class HostPortRange {
       /// <summary>
         /// max is the end of the range, inclusive.
@@ -20759,6 +23722,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy
     /// API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class IDRange {
       /// <summary>
         /// max is the end of the range, inclusive.
@@ -20786,6 +23750,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should
     /// not be included within this rule.
     /// </summary>
+    [OutputType]
     public sealed class IPBlock {
       /// <summary>
         /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
@@ -20796,12 +23761,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// Except is a slice of CIDRs that should not be included within an IP Block Valid examples
         /// are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
         /// </summary>
-      public readonly string[] Except;
+      public readonly ImmutableArray<string> Except;
 
       [OutputConstructor]
       private IPBlock(
           string _cidr,
-          string[] _except)
+          ImmutableArray<string> _except)
       {
           Cidr = _cidr;
           Except = _except;
@@ -20816,7 +23781,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// defined by a backend. An Ingress can be configured to give services externally-reachable
     /// urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
     /// </summary>
+    [OutputType]
     public sealed class Ingress {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -20837,10 +23819,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private Ingress(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Extensions.V1Beta1.IngressSpec _spec,
           Extensions.V1Beta1.IngressStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -20850,6 +23836,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// IngressBackend describes all endpoints for a given service and port.
     /// </summary>
+    [OutputType]
     public sealed class IngressBackend {
       /// <summary>
         /// Specifies the name of the referenced service.
@@ -20874,11 +23861,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// IngressList is a collection of Ingress.
     /// </summary>
+    [OutputType]
     public sealed class IngressList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of Ingress.
         /// </summary>
-      public readonly Extensions.V1Beta1.Ingress[] Items;
+      public readonly ImmutableArray<Extensions.V1Beta1.Ingress> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -20888,10 +23892,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private IngressList(
-          Extensions.V1Beta1.Ingress[] _items,
+          string _apiVersion,
+          ImmutableArray<Extensions.V1Beta1.Ingress> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -20901,6 +23909,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// backend services. Incoming requests are first evaluated for a host match, then routed to the
     /// backend associated with the matching IngressRuleValue.
     /// </summary>
+    [OutputType]
     public sealed class IngressRule {
       /// <summary>
         /// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note
@@ -20932,6 +23941,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// IngressSpec describes the Ingress the user wishes to exist.
     /// </summary>
+    [OutputType]
     public sealed class IngressSpec {
       /// <summary>
         /// A default backend capable of servicing requests that don't match any rule. At least one
@@ -20944,7 +23954,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// A list of host rules used to configure the Ingress. If unspecified, or no rule matches,
         /// all traffic is sent to the default backend.
         /// </summary>
-      public readonly Extensions.V1Beta1.IngressRule[] Rules;
+      public readonly ImmutableArray<Extensions.V1Beta1.IngressRule> Rules;
 
       /// <summary>
         /// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If
@@ -20952,13 +23962,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// same port according to the hostname specified through the SNI TLS extension, if the
         /// ingress controller fulfilling the ingress supports SNI.
         /// </summary>
-      public readonly Extensions.V1Beta1.IngressTLS[] Tls;
+      public readonly ImmutableArray<Extensions.V1Beta1.IngressTLS> Tls;
 
       [OutputConstructor]
       private IngressSpec(
           Extensions.V1Beta1.IngressBackend _backend,
-          Extensions.V1Beta1.IngressRule[] _rules,
-          Extensions.V1Beta1.IngressTLS[] _tls)
+          ImmutableArray<Extensions.V1Beta1.IngressRule> _rules,
+          ImmutableArray<Extensions.V1Beta1.IngressTLS> _tls)
       {
           Backend = _backend;
           Rules = _rules;
@@ -20969,6 +23979,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// IngressStatus describe the current state of the Ingress.
     /// </summary>
+    [OutputType]
     public sealed class IngressStatus {
       /// <summary>
         /// LoadBalancer contains the current status of the load-balancer.
@@ -20986,13 +23997,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// IngressTLS describes the transport layer security associated with an Ingress.
     /// </summary>
+    [OutputType]
     public sealed class IngressTLS {
       /// <summary>
         /// Hosts are a list of hosts included in the TLS certificate. The values in this list must
         /// match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the
         /// loadbalancer controller fulfilling this Ingress, if left unspecified.
         /// </summary>
-      public readonly string[] Hosts;
+      public readonly ImmutableArray<string> Hosts;
 
       /// <summary>
         /// SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left
@@ -21004,7 +24016,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private IngressTLS(
-          string[] _hosts,
+          ImmutableArray<string> _hosts,
           string _secretName)
       {
           Hosts = _hosts;
@@ -21017,7 +24029,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a
     /// set of Pods
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicy {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -21031,9 +24060,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private NetworkPolicy(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Extensions.V1Beta1.NetworkPolicySpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -21045,6 +24078,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The
     /// traffic must match both ports and to. This type is beta-level in 1.8
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyEgressRule {
       /// <summary>
         /// List of destination ports for outgoing traffic. Each item in this list is combined using
@@ -21052,7 +24086,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// not restricted by port). If this field is present and contains at least one item, then
         /// this rule allows traffic only if the traffic matches at least one port in the list.
         /// </summary>
-      public readonly Extensions.V1Beta1.NetworkPolicyPort[] Ports;
+      public readonly ImmutableArray<Extensions.V1Beta1.NetworkPolicyPort> Ports;
 
       /// <summary>
         /// List of destinations for outgoing traffic of pods selected for this rule. Items in this
@@ -21061,12 +24095,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// present and contains at least one item, this rule allows traffic only if the traffic
         /// matches at least one item in the to list.
         /// </summary>
-      public readonly Extensions.V1Beta1.NetworkPolicyPeer[] To;
+      public readonly ImmutableArray<Extensions.V1Beta1.NetworkPolicyPeer> To;
 
       [OutputConstructor]
       private NetworkPolicyEgressRule(
-          Extensions.V1Beta1.NetworkPolicyPort[] _ports,
-          Extensions.V1Beta1.NetworkPolicyPeer[] _to)
+          ImmutableArray<Extensions.V1Beta1.NetworkPolicyPort> _ports,
+          ImmutableArray<Extensions.V1Beta1.NetworkPolicyPeer> _to)
       {
           Ports = _ports;
           To = _to;
@@ -21078,6 +24112,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and
     /// only if the traffic matches both ports AND from.
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyIngressRule {
       /// <summary>
         /// List of sources which should be able to access the pods selected for this rule. Items in
@@ -21086,7 +24121,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// present and contains at least one item, this rule allows traffic only if the traffic
         /// matches at least one item in the from list.
         /// </summary>
-      public readonly Extensions.V1Beta1.NetworkPolicyPeer[] From;
+      public readonly ImmutableArray<Extensions.V1Beta1.NetworkPolicyPeer> From;
 
       /// <summary>
         /// List of ports which should be made accessible on the pods selected for this rule. Each
@@ -21095,12 +24130,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// and contains at least one item, then this rule allows traffic only if the traffic
         /// matches at least one port in the list.
         /// </summary>
-      public readonly Extensions.V1Beta1.NetworkPolicyPort[] Ports;
+      public readonly ImmutableArray<Extensions.V1Beta1.NetworkPolicyPort> Ports;
 
       [OutputConstructor]
       private NetworkPolicyIngressRule(
-          Extensions.V1Beta1.NetworkPolicyPeer[] _from,
-          Extensions.V1Beta1.NetworkPolicyPort[] _ports)
+          ImmutableArray<Extensions.V1Beta1.NetworkPolicyPeer> _from,
+          ImmutableArray<Extensions.V1Beta1.NetworkPolicyPort> _ports)
       {
           From = _from;
           Ports = _ports;
@@ -21111,11 +24146,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by
     /// networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Extensions.V1Beta1.NetworkPolicy[] Items;
+      public readonly ImmutableArray<Extensions.V1Beta1.NetworkPolicy> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -21125,10 +24177,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private NetworkPolicyList(
-          Extensions.V1Beta1.NetworkPolicy[] _items,
+          string _apiVersion,
+          ImmutableArray<Extensions.V1Beta1.NetworkPolicy> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -21137,6 +24193,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by
     /// networking/v1/NetworkPolicyPeer.
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyPeer {
       /// <summary>
         /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the
@@ -21180,6 +24237,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by
     /// networking/v1/NetworkPolicyPort.
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyPort {
       /// <summary>
         /// If specified, the port on the given protocol.  This can either be a numerical or named
@@ -21208,6 +24266,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by
     /// networking/v1/NetworkPolicySpec.
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicySpec {
       /// <summary>
         /// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if
@@ -21217,7 +24276,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the
         /// pods it selects are isolated by default). This field is beta-level in 1.8
         /// </summary>
-      public readonly Extensions.V1Beta1.NetworkPolicyEgressRule[] Egress;
+      public readonly ImmutableArray<Extensions.V1Beta1.NetworkPolicyEgressRule> Egress;
 
       /// <summary>
         /// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if
@@ -21227,7 +24286,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods
         /// it selects are isolated by default).
         /// </summary>
-      public readonly Extensions.V1Beta1.NetworkPolicyIngressRule[] Ingress;
+      public readonly ImmutableArray<Extensions.V1Beta1.NetworkPolicyIngressRule> Ingress;
 
       /// <summary>
         /// Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules
@@ -21249,14 +24308,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// that include "Egress" (since such a policy would not include an Egress section and would
         /// otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         /// </summary>
-      public readonly string[] PolicyTypes;
+      public readonly ImmutableArray<string> PolicyTypes;
 
       [OutputConstructor]
       private NetworkPolicySpec(
-          Extensions.V1Beta1.NetworkPolicyEgressRule[] _egress,
-          Extensions.V1Beta1.NetworkPolicyIngressRule[] _ingress,
+          ImmutableArray<Extensions.V1Beta1.NetworkPolicyEgressRule> _egress,
+          ImmutableArray<Extensions.V1Beta1.NetworkPolicyIngressRule> _ingress,
           Meta.V1.LabelSelector _podSelector,
-          string[] _policyTypes)
+          ImmutableArray<string> _policyTypes)
       {
           Egress = _egress;
           Ingress = _ingress;
@@ -21270,7 +24329,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API
     /// Group instead.
     /// </summary>
+    [OutputType]
     public sealed class PodSecurityPolicy {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -21284,9 +24360,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private PodSecurityPolicy(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Extensions.V1Beta1.PodSecurityPolicySpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -21296,11 +24376,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use
     /// PodSecurityPolicyList from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class PodSecurityPolicyList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is a list of schema objects.
         /// </summary>
-      public readonly Extensions.V1Beta1.PodSecurityPolicy[] Items;
+      public readonly ImmutableArray<Extensions.V1Beta1.PodSecurityPolicy> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -21310,10 +24407,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private PodSecurityPolicyList(
-          Extensions.V1Beta1.PodSecurityPolicy[] _items,
+          string _apiVersion,
+          ImmutableArray<Extensions.V1Beta1.PodSecurityPolicy> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -21322,6 +24423,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// PodSecurityPolicySpec defines the policy enforced. Deprecated: use PodSecurityPolicySpec
     /// from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class PodSecurityPolicySpec {
       /// <summary>
         /// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation.
@@ -21334,34 +24436,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// embedded within a pod spec. An empty value indicates that any CSI driver can be used for
         /// inline ephemeral volumes.
         /// </summary>
-      public readonly Extensions.V1Beta1.AllowedCSIDriver[] AllowedCSIDrivers;
+      public readonly ImmutableArray<Extensions.V1Beta1.AllowedCSIDriver> AllowedCSIDrivers;
 
       /// <summary>
         /// allowedCapabilities is a list of capabilities that can be requested to add to the
         /// container. Capabilities in this field may be added at the pod author's discretion. You
         /// must not list a capability in both allowedCapabilities and requiredDropCapabilities.
         /// </summary>
-      public readonly string[] AllowedCapabilities;
+      public readonly ImmutableArray<string> AllowedCapabilities;
 
       /// <summary>
         /// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that
         /// all Flexvolumes may be used.  This parameter is effective only when the usage of the
         /// Flexvolumes is allowed in the "volumes" field.
         /// </summary>
-      public readonly Extensions.V1Beta1.AllowedFlexVolume[] AllowedFlexVolumes;
+      public readonly ImmutableArray<Extensions.V1Beta1.AllowedFlexVolume> AllowedFlexVolumes;
 
       /// <summary>
         /// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host
         /// paths may be used.
         /// </summary>
-      public readonly Extensions.V1Beta1.AllowedHostPath[] AllowedHostPaths;
+      public readonly ImmutableArray<Extensions.V1Beta1.AllowedHostPath> AllowedHostPaths;
 
       /// <summary>
         /// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates
         /// that only the DefaultProcMountType may be used. This requires the ProcMountType feature
         /// flag to be enabled.
         /// </summary>
-      public readonly string[] AllowedProcMountTypes;
+      public readonly ImmutableArray<string> AllowedProcMountTypes;
 
       /// <summary>
         /// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none.
@@ -21372,7 +24474,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar",
         /// "foo.baz", etc.
         /// </summary>
-      public readonly string[] AllowedUnsafeSysctls;
+      public readonly ImmutableArray<string> AllowedUnsafeSysctls;
 
       /// <summary>
         /// defaultAddCapabilities is the default set of capabilities that will be added to the
@@ -21381,7 +24483,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// added here are implicitly allowed, and need not be included in the allowedCapabilities
         /// list.
         /// </summary>
-      public readonly string[] DefaultAddCapabilities;
+      public readonly ImmutableArray<string> DefaultAddCapabilities;
 
       /// <summary>
         /// defaultAllowPrivilegeEscalation controls the default setting for whether a process can
@@ -21397,7 +24499,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids
         /// "foo.bar", "foo.baz", etc.
         /// </summary>
-      public readonly string[] ForbiddenSysctls;
+      public readonly ImmutableArray<string> ForbiddenSysctls;
 
       /// <summary>
         /// fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
@@ -21422,7 +24524,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       /// <summary>
         /// hostPorts determines which host port ranges are allowed to be exposed.
         /// </summary>
-      public readonly Extensions.V1Beta1.HostPortRange[] HostPorts;
+      public readonly ImmutableArray<Extensions.V1Beta1.HostPortRange> HostPorts;
 
       /// <summary>
         /// privileged determines if a pod can request to be run as privileged.
@@ -21441,7 +24543,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// requiredDropCapabilities are the capabilities that will be dropped from the container.
         /// These are required to be dropped and cannot be added.
         /// </summary>
-      public readonly string[] RequiredDropCapabilities;
+      public readonly ImmutableArray<string> RequiredDropCapabilities;
 
       /// <summary>
         /// RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be
@@ -21478,34 +24580,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may
         /// be used. To allow all volumes you may use '*'.
         /// </summary>
-      public readonly string[] Volumes;
+      public readonly ImmutableArray<string> Volumes;
 
       [OutputConstructor]
       private PodSecurityPolicySpec(
           bool _allowPrivilegeEscalation,
-          Extensions.V1Beta1.AllowedCSIDriver[] _allowedCSIDrivers,
-          string[] _allowedCapabilities,
-          Extensions.V1Beta1.AllowedFlexVolume[] _allowedFlexVolumes,
-          Extensions.V1Beta1.AllowedHostPath[] _allowedHostPaths,
-          string[] _allowedProcMountTypes,
-          string[] _allowedUnsafeSysctls,
-          string[] _defaultAddCapabilities,
+          ImmutableArray<Extensions.V1Beta1.AllowedCSIDriver> _allowedCSIDrivers,
+          ImmutableArray<string> _allowedCapabilities,
+          ImmutableArray<Extensions.V1Beta1.AllowedFlexVolume> _allowedFlexVolumes,
+          ImmutableArray<Extensions.V1Beta1.AllowedHostPath> _allowedHostPaths,
+          ImmutableArray<string> _allowedProcMountTypes,
+          ImmutableArray<string> _allowedUnsafeSysctls,
+          ImmutableArray<string> _defaultAddCapabilities,
           bool _defaultAllowPrivilegeEscalation,
-          string[] _forbiddenSysctls,
+          ImmutableArray<string> _forbiddenSysctls,
           Extensions.V1Beta1.FSGroupStrategyOptions _fsGroup,
           bool _hostIPC,
           bool _hostNetwork,
           bool _hostPID,
-          Extensions.V1Beta1.HostPortRange[] _hostPorts,
+          ImmutableArray<Extensions.V1Beta1.HostPortRange> _hostPorts,
           bool _privileged,
           bool _readOnlyRootFilesystem,
-          string[] _requiredDropCapabilities,
+          ImmutableArray<string> _requiredDropCapabilities,
           Extensions.V1Beta1.RunAsGroupStrategyOptions _runAsGroup,
           Extensions.V1Beta1.RunAsUserStrategyOptions _runAsUser,
           Extensions.V1Beta1.RuntimeClassStrategyOptions _runtimeClass,
           Extensions.V1Beta1.SELinuxStrategyOptions _seLinux,
           Extensions.V1Beta1.SupplementalGroupsStrategyOptions _supplementalGroups,
-          string[] _volumes)
+          ImmutableArray<string> _volumes)
       {
           AllowPrivilegeEscalation = _allowPrivilegeEscalation;
           AllowedCSIDrivers = _allowedCSIDrivers;
@@ -21540,7 +24642,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// 
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSet {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
         /// that the ReplicaSet manages. Standard object's metadata. More info:
@@ -21563,10 +24682,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private ReplicaSet(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Extensions.V1Beta1.ReplicaSetSpec _spec,
           Extensions.V1Beta1.ReplicaSetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -21576,6 +24699,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetCondition {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
@@ -21621,12 +24745,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// List of ReplicaSets. More info:
         /// https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
         /// </summary>
-      public readonly Extensions.V1Beta1.ReplicaSet[] Items;
+      public readonly ImmutableArray<Extensions.V1Beta1.ReplicaSet> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -21636,10 +24777,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private ReplicaSetList(
-          Extensions.V1Beta1.ReplicaSet[] _items,
+          string _apiVersion,
+          ImmutableArray<Extensions.V1Beta1.ReplicaSet> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -21647,6 +24792,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetSpec {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
@@ -21694,6 +24840,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
+    [OutputType]
     public sealed class ReplicaSetStatus {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replica
@@ -21704,7 +24851,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       /// <summary>
         /// Represents the latest available observations of a replica set's current state.
         /// </summary>
-      public readonly Extensions.V1Beta1.ReplicaSetCondition[] Conditions;
+      public readonly ImmutableArray<Extensions.V1Beta1.ReplicaSetCondition> Conditions;
 
       /// <summary>
         /// The number of pods that have labels matching the labels of the pod template of the
@@ -21731,7 +24878,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       [OutputConstructor]
       private ReplicaSetStatus(
           int _availableReplicas,
-          Extensions.V1Beta1.ReplicaSetCondition[] _conditions,
+          ImmutableArray<Extensions.V1Beta1.ReplicaSetCondition> _conditions,
           int _fullyLabeledReplicas,
           int _observedGeneration,
           int _readyReplicas,
@@ -21749,6 +24896,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// DEPRECATED.
     /// </summary>
+    [OutputType]
     public sealed class RollbackConfig {
       /// <summary>
         /// The revision to rollback to. If set to 0, rollback to the last revision.
@@ -21766,6 +24914,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateDaemonSet {
       /// <summary>
         /// The maximum number of DaemonSet pods that can be unavailable during the update. Value
@@ -21792,6 +24941,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
+    [OutputType]
     public sealed class RollingUpdateDeployment {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
@@ -21831,13 +24981,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// RunAsGroupStrategyOptions defines the strategy type and any options used to create the
     /// strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class RunAsGroupStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of gids that may be used. If you would like to force a
         /// single gid then supply a single range with the same start and end. Required for
         /// MustRunAs.
         /// </summary>
-      public readonly Extensions.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Extensions.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
@@ -21846,7 +24997,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private RunAsGroupStrategyOptions(
-          Extensions.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Extensions.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -21858,13 +25009,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// RunAsUserStrategyOptions defines the strategy type and any options used to create the
     /// strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class RunAsUserStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of uids that may be used. If you would like to force a
         /// single uid then supply a single range with the same start and end. Required for
         /// MustRunAs.
         /// </summary>
-      public readonly Extensions.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Extensions.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate the allowable RunAsUser values that may be set.
@@ -21873,7 +25025,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private RunAsUserStrategyOptions(
-          Extensions.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Extensions.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -21885,13 +25037,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// RuntimeClassStrategyOptions define the strategy that will dictate the allowable
     /// RuntimeClasses for a pod.
     /// </summary>
+    [OutputType]
     public sealed class RuntimeClassStrategyOptions {
       /// <summary>
         /// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a
         /// pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only
         /// item in the list. An empty list requires the RuntimeClassName field to be unset.
         /// </summary>
-      public readonly string[] AllowedRuntimeClassNames;
+      public readonly ImmutableArray<string> AllowedRuntimeClassNames;
 
       /// <summary>
         /// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default
@@ -21902,7 +25055,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private RuntimeClassStrategyOptions(
-          string[] _allowedRuntimeClassNames,
+          ImmutableArray<string> _allowedRuntimeClassNames,
           string _defaultRuntimeClassName)
       {
           AllowedRuntimeClassNames = _allowedRuntimeClassNames;
@@ -21914,6 +25067,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// SELinuxStrategyOptions defines the strategy type and any options used to create the
     /// strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class SELinuxStrategyOptions {
       /// <summary>
         /// rule is the strategy that will dictate the allowable labels that may be set.
@@ -21939,7 +25093,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// represents a scaling request for a resource.
     /// </summary>
+    [OutputType]
     public sealed class Scale {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -21961,10 +25132,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private Scale(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Extensions.V1Beta1.ScaleSpec _spec,
           Extensions.V1Beta1.ScaleStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -21974,6 +25149,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// describes the attributes of a scale subresource
     /// </summary>
+    [OutputType]
     public sealed class ScaleSpec {
       /// <summary>
         /// desired number of instances for the scaled object.
@@ -21991,6 +25167,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// <summary>
     /// represents the current status of a scale subresource.
     /// </summary>
+    [OutputType]
     public sealed class ScaleStatus {
       /// <summary>
         /// actual number of observed instances of the scaled object.
@@ -22029,13 +25206,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
     /// strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
     /// </summary>
+    [OutputType]
     public sealed class SupplementalGroupsStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of supplemental groups.  If you would like to force a
         /// single supplemental group then supply a single range with the same start and end.
         /// Required for MustRunAs.
         /// </summary>
-      public readonly Extensions.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Extensions.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate what supplemental groups is used in the
@@ -22045,7 +25223,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private SupplementalGroupsStrategyOptions(
-          Extensions.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Extensions.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -22062,7 +25240,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// <summary>
     /// APIGroup contains the name, the supported versions, and the preferred version of a group.
     /// </summary>
+    [OutputType]
     public sealed class APIGroup {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// name is the name of the group.
         /// </summary>
@@ -22084,20 +25279,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get
         /// the client IP.
         /// </summary>
-      public readonly Meta.V1.ServerAddressByClientCIDR[] ServerAddressByClientCIDRs;
+      public readonly ImmutableArray<Meta.V1.ServerAddressByClientCIDR> ServerAddressByClientCIDRs;
 
       /// <summary>
         /// versions are the versions supported in this group.
         /// </summary>
-      public readonly Meta.V1.GroupVersionForDiscovery[] Versions;
+      public readonly ImmutableArray<Meta.V1.GroupVersionForDiscovery> Versions;
 
       [OutputConstructor]
       private APIGroup(
+          string _apiVersion,
+          string _kind,
           string _name,
           Meta.V1.GroupVersionForDiscovery _preferredVersion,
-          Meta.V1.ServerAddressByClientCIDR[] _serverAddressByClientCIDRs,
-          Meta.V1.GroupVersionForDiscovery[] _versions)
+          ImmutableArray<Meta.V1.ServerAddressByClientCIDR> _serverAddressByClientCIDRs,
+          ImmutableArray<Meta.V1.GroupVersionForDiscovery> _versions)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
           PreferredVersion = _preferredVersion;
           ServerAddressByClientCIDRs = _serverAddressByClientCIDRs;
@@ -22108,34 +25307,61 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// <summary>
     /// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
     /// </summary>
+    [OutputType]
     public sealed class APIGroupList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// groups is a list of APIGroup.
         /// </summary>
-      public readonly Meta.V1.APIGroup[] Groups;
+      public readonly ImmutableArray<Meta.V1.APIGroup> Groups;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       [OutputConstructor]
       private APIGroupList(
-          Meta.V1.APIGroup[] _groups)
+          string _apiVersion,
+          ImmutableArray<Meta.V1.APIGroup> _groups,
+          string _kind)
       {
+          ApiVersion = _apiVersion;
           Groups = _groups;
+          Kind = _kind;
       }
 
       }
     /// <summary>
     /// APIResource specifies the name of a resource and whether it is namespaced.
     /// </summary>
+    [OutputType]
     public sealed class APIResource {
       /// <summary>
         /// categories is a list of the grouped resources this resource belongs to (e.g. 'all')
         /// </summary>
-      public readonly string[] Categories;
+      public readonly ImmutableArray<string> Categories;
 
       /// <summary>
         /// group is the preferred group of the resource.  Empty implies the group of the containing
         /// resource list. For subresources, this may have a different value, for example: Scale".
         /// </summary>
       public readonly string Group;
+
+      /// <summary>
+        /// kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// name is the plural name of the resource.
@@ -22150,7 +25376,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
       /// <summary>
         /// shortNames is a list of suggested short names of the resource.
         /// </summary>
-      public readonly string[] ShortNames;
+      public readonly ImmutableArray<string> ShortNames;
 
       /// <summary>
         /// singularName is the singular name of the resource.  This allows clients to handle plural
@@ -22172,7 +25398,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// verbs is a list of supported kube verbs (this includes get, list, watch, create, update,
         /// patch, delete, deletecollection, and proxy)
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       /// <summary>
         /// version is the preferred version of the resource.  Empty implies the version of the
@@ -22183,18 +25409,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
       [OutputConstructor]
       private APIResource(
-          string[] _categories,
+          ImmutableArray<string> _categories,
           string _group,
+          string _kind,
           string _name,
           bool _namespaced,
-          string[] _shortNames,
+          ImmutableArray<string> _shortNames,
           string _singularName,
           string _storageVersionHash,
-          string[] _verbs,
+          ImmutableArray<string> _verbs,
           string _version)
       {
           Categories = _categories;
           Group = _group;
+          Kind = _kind;
           Name = _name;
           Namespaced = _namespaced;
           ShortNames = _shortNames;
@@ -22209,23 +25437,44 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// APIResourceList is a list of APIResource, it is used to expose the name of the resources
     /// supported in a specific group and version, and if the resource is namespaced.
     /// </summary>
+    [OutputType]
     public sealed class APIResourceList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// groupVersion is the group and version this APIResourceList is for.
         /// </summary>
       public readonly string GroupVersion;
 
       /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// resources contains the name of the resources and if they are namespaced.
         /// </summary>
-      public readonly Meta.V1.APIResource[] Resources;
+      public readonly ImmutableArray<Meta.V1.APIResource> Resources;
 
       [OutputConstructor]
       private APIResourceList(
+          string _apiVersion,
           string _groupVersion,
-          Meta.V1.APIResource[] _resources)
+          string _kind,
+          ImmutableArray<Meta.V1.APIResource> _resources)
       {
+          ApiVersion = _apiVersion;
           GroupVersion = _groupVersion;
+          Kind = _kind;
           Resources = _resources;
       }
 
@@ -22234,7 +25483,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// APIVersions lists the versions that are available, to allow clients to discover the API at
     /// /api, which is the root path of the legacy v1 API.
     /// </summary>
+    [OutputType]
     public sealed class APIVersions {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// a map of client CIDR to server address that is serving this group. This is to help
         /// clients reach servers in the most network-efficient way possible. Clients can use the
@@ -22245,18 +25511,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get
         /// the client IP.
         /// </summary>
-      public readonly Meta.V1.ServerAddressByClientCIDR[] ServerAddressByClientCIDRs;
+      public readonly ImmutableArray<Meta.V1.ServerAddressByClientCIDR> ServerAddressByClientCIDRs;
 
       /// <summary>
         /// versions are the api versions that are available.
         /// </summary>
-      public readonly string[] Versions;
+      public readonly ImmutableArray<string> Versions;
 
       [OutputConstructor]
       private APIVersions(
-          Meta.V1.ServerAddressByClientCIDR[] _serverAddressByClientCIDRs,
-          string[] _versions)
+          string _apiVersion,
+          string _kind,
+          ImmutableArray<Meta.V1.ServerAddressByClientCIDR> _serverAddressByClientCIDRs,
+          ImmutableArray<string> _versions)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           ServerAddressByClientCIDRs = _serverAddressByClientCIDRs;
           Versions = _versions;
       }
@@ -22265,13 +25535,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// <summary>
     /// DeleteOptions may be provided when deleting an API object.
     /// </summary>
+    [OutputType]
     public sealed class DeleteOptions {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// When present, indicates that modifications should not be persisted. An invalid or
         /// unrecognized dryRun directive will result in an error response and no further processing
         /// of the request. Valid values are: - All: all dry run stages will be processed
         /// </summary>
-      public readonly string[] DryRun;
+      public readonly ImmutableArray<string> DryRun;
 
       /// <summary>
         /// The duration in seconds before the object should be deleted. Value must be non-negative
@@ -22280,6 +25559,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// specified. zero means delete immediately.
         /// </summary>
       public readonly int GracePeriodSeconds;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7.
@@ -22307,14 +25594,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
       [OutputConstructor]
       private DeleteOptions(
-          string[] _dryRun,
+          string _apiVersion,
+          ImmutableArray<string> _dryRun,
           int _gracePeriodSeconds,
+          string _kind,
           bool _orphanDependents,
           Meta.V1.Preconditions _preconditions,
           string _propagationPolicy)
       {
+          ApiVersion = _apiVersion;
           DryRun = _dryRun;
           GracePeriodSeconds = _gracePeriodSeconds;
+          Kind = _kind;
           OrphanDependents = _orphanDependents;
           Preconditions = _preconditions;
           PropagationPolicy = _propagationPolicy;
@@ -22325,6 +25616,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// GroupVersion contains the "group/version" and "version" string of a version. It is made a
     /// struct to keep extensibility.
     /// </summary>
+    [OutputType]
     public sealed class GroupVersionForDiscovery {
       /// <summary>
         /// groupVersion specifies the API group and version in the form "group/version"
@@ -22352,11 +25644,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// matchExpressions are ANDed. An empty label selector matches all objects. A null label
     /// selector matches no objects.
     /// </summary>
+    [OutputType]
     public sealed class LabelSelector {
       /// <summary>
         /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
         /// </summary>
-      public readonly Meta.V1.LabelSelectorRequirement[] MatchExpressions;
+      public readonly ImmutableArray<Meta.V1.LabelSelectorRequirement> MatchExpressions;
 
       /// <summary>
         /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map
@@ -22367,7 +25660,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
       [OutputConstructor]
       private LabelSelector(
-          Meta.V1.LabelSelectorRequirement[] _matchExpressions,
+          ImmutableArray<Meta.V1.LabelSelectorRequirement> _matchExpressions,
           ImmutableDictionary<string, string> _matchLabels)
       {
           MatchExpressions = _matchExpressions;
@@ -22379,6 +25672,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// A label selector requirement is a selector that contains values, a key, and an operator that
     /// relates the key and values.
     /// </summary>
+    [OutputType]
     public sealed class LabelSelectorRequirement {
       /// <summary>
         /// key is the label key that the selector applies to.
@@ -22396,13 +25690,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// must be non-empty. If the operator is Exists or DoesNotExist, the values array must be
         /// empty. This array is replaced during a strategic merge patch.
         /// </summary>
-      public readonly string[] Values;
+      public readonly ImmutableArray<string> Values;
 
       [OutputConstructor]
       private LabelSelectorRequirement(
           string _key,
           string _operator,
-          string[] _values)
+          ImmutableArray<string> _values)
       {
           Key = _key;
           Operator = _operator;
@@ -22414,6 +25708,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// ListMeta describes metadata that synthetic resources must have, including lists and various
     /// status objects. A resource may have only one of {ObjectMeta, ListMeta}.
     /// </summary>
+    [OutputType]
     public sealed class ListMeta {
       /// <summary>
         /// continue may be set if the user set a limit on the number of items returned, and
@@ -22473,7 +25768,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that
     /// the fieldset applies to.
     /// </summary>
+    [OutputType]
     public sealed class ManagedFieldsEntry {
+      /// <summary>
+        /// APIVersion defines the version of this resource that this field set applies to. The
+        /// format is "group/version" just like the top-level APIVersion field. It is necessary to
+        /// track the version of a field set because it cannot be automatically converted.
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// FieldsType is the discriminator for the different fields format and version. There is
         /// currently only one possible value: "FieldsV1"
@@ -22483,7 +25786,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
       /// <summary>
         /// FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
         /// </summary>
-      public readonly object FieldsV1;
+      public readonly string /* TODO: wrong!*/ FieldsV1;
 
       /// <summary>
         /// Manager is an identifier of the workflow managing these fields.
@@ -22504,12 +25807,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
       [OutputConstructor]
       private ManagedFieldsEntry(
+          string _apiVersion,
           string _fieldsType,
-          object _fieldsV1,
+          string /* TODO: wrong!*/ _fieldsV1,
           string _manager,
           string _operation,
           string _time)
       {
+          ApiVersion = _apiVersion;
           FieldsType = _fieldsType;
           FieldsV1 = _fieldsV1;
           Manager = _manager;
@@ -22522,6 +25827,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// ObjectMeta is metadata that all persisted resources must have, which includes all objects
     /// users must create.
     /// </summary>
+    [OutputType]
     public sealed class ObjectMeta {
       /// <summary>
         /// Annotations is an unstructured key value map stored with a resource that may be set by
@@ -22584,7 +25890,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// the deletionTimestamp of the object is non-nil, entries in this list can only be
         /// removed.
         /// </summary>
-      public readonly string[] Finalizers;
+      public readonly ImmutableArray<string> Finalizers;
 
       /// <summary>
         /// GenerateName is an optional prefix, used by the server, to generate a unique name ONLY
@@ -22624,7 +25930,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// or the name of a specific apply path like "ci-cd". The set of fields is always in the
         /// version that the workflow used when modifying the object.
         /// </summary>
-      public readonly Meta.V1.ManagedFieldsEntry[] ManagedFields;
+      public readonly ImmutableArray<Meta.V1.ManagedFieldsEntry> ManagedFields;
 
       /// <summary>
         /// Name must be unique within a namespace. Is required when creating resources, although
@@ -22652,7 +25958,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// an entry in this list will point to this controller, with the controller field set to
         /// true. There cannot be more than one managing controller.
         /// </summary>
-      public readonly Meta.V1.OwnerReference[] OwnerReferences;
+      public readonly ImmutableArray<Meta.V1.OwnerReference> OwnerReferences;
 
       /// <summary>
         /// An opaque value that represents the internal version of this object that can be used by
@@ -22692,14 +25998,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
           string _creationTimestamp,
           int _deletionGracePeriodSeconds,
           string _deletionTimestamp,
-          string[] _finalizers,
+          ImmutableArray<string> _finalizers,
           string _generateName,
           int _generation,
           ImmutableDictionary<string, string> _labels,
-          Meta.V1.ManagedFieldsEntry[] _managedFields,
+          ImmutableArray<Meta.V1.ManagedFieldsEntry> _managedFields,
           string _name,
           string _namespace,
-          Meta.V1.OwnerReference[] _ownerReferences,
+          ImmutableArray<Meta.V1.OwnerReference> _ownerReferences,
           string _resourceVersion,
           string _selfLink,
           string _uid)
@@ -22728,7 +26034,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// object must be in the same namespace as the dependent, or be cluster-scoped, so there is no
     /// namespace field.
     /// </summary>
+    [OutputType]
     public sealed class OwnerReference {
+      /// <summary>
+        /// API version of the referent.
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot
         /// be deleted from the key-value store until this reference is removed. Defaults to false.
@@ -22743,6 +26055,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
       public readonly bool Controller;
 
       /// <summary>
+        /// Kind of the referent. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
         /// </summary>
       public readonly string Name;
@@ -22754,13 +26072,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
       [OutputConstructor]
       private OwnerReference(
+          string _apiVersion,
           bool _blockOwnerDeletion,
           bool _controller,
+          string _kind,
           string _name,
           string _uid)
       {
+          ApiVersion = _apiVersion;
           BlockOwnerDeletion = _blockOwnerDeletion;
           Controller = _controller;
+          Kind = _kind;
           Name = _name;
           Uid = _uid;
       }
@@ -22769,6 +26091,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// <summary>
     /// Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
     /// </summary>
+    [OutputType]
     public sealed class Preconditions {
       /// <summary>
         /// Specifies the target ResourceVersion
@@ -22794,6 +26117,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// ServerAddressByClientCIDR helps the client to determine the server address that they should
     /// use, depending on the clientCIDR that they match.
     /// </summary>
+    [OutputType]
     public sealed class ServerAddressByClientCIDR {
       /// <summary>
         /// The CIDR with which clients can match their IP to figure out the server address that
@@ -22820,7 +26144,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// <summary>
     /// Status is a return value for calls that don't return other objects.
     /// </summary>
+    [OutputType]
     public sealed class Status {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Suggested HTTP return code for this status, 0 if not set.
         /// </summary>
@@ -22832,6 +26165,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// any schema except that defined by the reason type.
         /// </summary>
       public readonly Meta.V1.StatusDetails Details;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// A human-readable description of the status of this operation.
@@ -22859,15 +26200,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
       [OutputConstructor]
       private Status(
+          string _apiVersion,
           int _code,
           Meta.V1.StatusDetails _details,
+          string _kind,
           string _message,
           Meta.V1.ListMeta _metadata,
           string _reason,
           string _status)
       {
+          ApiVersion = _apiVersion;
           Code = _code;
           Details = _details;
+          Kind = _kind;
           Message = _message;
           Metadata = _metadata;
           Reason = _reason;
@@ -22879,6 +26224,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// StatusCause provides more information about an api.Status failure, including cases when
     /// multiple errors are encountered.
     /// </summary>
+    [OutputType]
     public sealed class StatusCause {
       /// <summary>
         /// The field of the resource that has caused this error, as named by its JSON
@@ -22923,17 +26269,25 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// each attribute, and should assume that any attribute may be empty, invalid, or under
     /// defined.
     /// </summary>
+    [OutputType]
     public sealed class StatusDetails {
       /// <summary>
         /// The Causes array includes more details associated with the StatusReason failure. Not all
         /// StatusReasons may provide detailed causes.
         /// </summary>
-      public readonly Meta.V1.StatusCause[] Causes;
+      public readonly ImmutableArray<Meta.V1.StatusCause> Causes;
 
       /// <summary>
         /// The group attribute of the resource associated with the status StatusReason.
         /// </summary>
       public readonly string Group;
+
+      /// <summary>
+        /// The kind attribute of the resource associated with the status StatusReason. On some
+        /// operations may differ from the requested resource Kind. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// The name attribute of the resource associated with the status StatusReason (when there
@@ -22956,14 +26310,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
       [OutputConstructor]
       private StatusDetails(
-          Meta.V1.StatusCause[] _causes,
+          ImmutableArray<Meta.V1.StatusCause> _causes,
           string _group,
+          string _kind,
           string _name,
           int _retryAfterSeconds,
           string _uid)
       {
           Causes = _causes;
           Group = _group;
+          Kind = _kind;
           Name = _name;
           RetryAfterSeconds = _retryAfterSeconds;
           Uid = _uid;
@@ -22973,6 +26329,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// <summary>
     /// Event represents a single event to a watched resource.
     /// </summary>
+    [OutputType]
     public sealed class WatchEvent {
       /// <summary>
         /// Object is:
@@ -22981,14 +26338,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         ///  * If Type is Error: *Status is recommended; other types may make sense
         ///    depending on context.
         /// </summary>
-      public readonly object Object;
+      public readonly string /* TODO: wrong!*/ Object;
 
       
       public readonly string Type;
 
       [OutputConstructor]
       private WatchEvent(
-          object _object,
+          string /* TODO: wrong!*/ _object,
           string _type)
       {
           Object = _object;
@@ -23007,6 +26364,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should
     /// not be included within this rule.
     /// </summary>
+    [OutputType]
     public sealed class IPBlock {
       /// <summary>
         /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
@@ -23017,12 +26375,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// Except is a slice of CIDRs that should not be included within an IP Block Valid examples
         /// are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
         /// </summary>
-      public readonly string[] Except;
+      public readonly ImmutableArray<string> Except;
 
       [OutputConstructor]
       private IPBlock(
           string _cidr,
-          string[] _except)
+          ImmutableArray<string> _except)
       {
           Cidr = _cidr;
           Except = _except;
@@ -23032,7 +26390,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// NetworkPolicy describes what network traffic is allowed for a set of Pods
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicy {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -23046,9 +26421,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
 
       [OutputConstructor]
       private NetworkPolicy(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Networking.V1.NetworkPolicySpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -23059,6 +26438,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This
     /// type is beta-level in 1.8
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyEgressRule {
       /// <summary>
         /// List of destination ports for outgoing traffic. Each item in this list is combined using
@@ -23066,7 +26446,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// not restricted by port). If this field is present and contains at least one item, then
         /// this rule allows traffic only if the traffic matches at least one port in the list.
         /// </summary>
-      public readonly Networking.V1.NetworkPolicyPort[] Ports;
+      public readonly ImmutableArray<Networking.V1.NetworkPolicyPort> Ports;
 
       /// <summary>
         /// List of destinations for outgoing traffic of pods selected for this rule. Items in this
@@ -23075,12 +26455,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// present and contains at least one item, this rule allows traffic only if the traffic
         /// matches at least one item in the to list.
         /// </summary>
-      public readonly Networking.V1.NetworkPolicyPeer[] To;
+      public readonly ImmutableArray<Networking.V1.NetworkPolicyPeer> To;
 
       [OutputConstructor]
       private NetworkPolicyEgressRule(
-          Networking.V1.NetworkPolicyPort[] _ports,
-          Networking.V1.NetworkPolicyPeer[] _to)
+          ImmutableArray<Networking.V1.NetworkPolicyPort> _ports,
+          ImmutableArray<Networking.V1.NetworkPolicyPeer> _to)
       {
           Ports = _ports;
           To = _to;
@@ -23091,6 +26471,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods
     /// matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyIngressRule {
       /// <summary>
         /// List of sources which should be able to access the pods selected for this rule. Items in
@@ -23099,7 +26480,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// present and contains at least one item, this rule allows traffic only if the traffic
         /// matches at least one item in the from list.
         /// </summary>
-      public readonly Networking.V1.NetworkPolicyPeer[] From;
+      public readonly ImmutableArray<Networking.V1.NetworkPolicyPeer> From;
 
       /// <summary>
         /// List of ports which should be made accessible on the pods selected for this rule. Each
@@ -23108,12 +26489,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// and contains at least one item, then this rule allows traffic only if the traffic
         /// matches at least one port in the list.
         /// </summary>
-      public readonly Networking.V1.NetworkPolicyPort[] Ports;
+      public readonly ImmutableArray<Networking.V1.NetworkPolicyPort> Ports;
 
       [OutputConstructor]
       private NetworkPolicyIngressRule(
-          Networking.V1.NetworkPolicyPeer[] _from,
-          Networking.V1.NetworkPolicyPort[] _ports)
+          ImmutableArray<Networking.V1.NetworkPolicyPeer> _from,
+          ImmutableArray<Networking.V1.NetworkPolicyPort> _ports)
       {
           From = _from;
           Ports = _ports;
@@ -23123,11 +26504,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// NetworkPolicyList is a list of NetworkPolicy objects.
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Networking.V1.NetworkPolicy[] Items;
+      public readonly ImmutableArray<Networking.V1.NetworkPolicy> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -23137,10 +26535,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
 
       [OutputConstructor]
       private NetworkPolicyList(
-          Networking.V1.NetworkPolicy[] _items,
+          string _apiVersion,
+          ImmutableArray<Networking.V1.NetworkPolicy> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -23149,6 +26551,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of
     /// fields are allowed
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyPeer {
       /// <summary>
         /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the
@@ -23191,6 +26594,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// NetworkPolicyPort describes a port to allow traffic on
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicyPort {
       /// <summary>
         /// The port on the given protocol. This can either be a numerical or named port on a pod.
@@ -23217,6 +26621,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// NetworkPolicySpec provides the specification of a NetworkPolicy
     /// </summary>
+    [OutputType]
     public sealed class NetworkPolicySpec {
       /// <summary>
         /// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if
@@ -23226,7 +26631,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the
         /// pods it selects are isolated by default). This field is beta-level in 1.8
         /// </summary>
-      public readonly Networking.V1.NetworkPolicyEgressRule[] Egress;
+      public readonly ImmutableArray<Networking.V1.NetworkPolicyEgressRule> Egress;
 
       /// <summary>
         /// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if
@@ -23236,7 +26641,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and
         /// serves solely to ensure that the pods it selects are isolated by default)
         /// </summary>
-      public readonly Networking.V1.NetworkPolicyIngressRule[] Ingress;
+      public readonly ImmutableArray<Networking.V1.NetworkPolicyIngressRule> Ingress;
 
       /// <summary>
         /// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules
@@ -23258,14 +26663,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// that include "Egress" (since such a policy would not include an Egress section and would
         /// otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         /// </summary>
-      public readonly string[] PolicyTypes;
+      public readonly ImmutableArray<string> PolicyTypes;
 
       [OutputConstructor]
       private NetworkPolicySpec(
-          Networking.V1.NetworkPolicyEgressRule[] _egress,
-          Networking.V1.NetworkPolicyIngressRule[] _ingress,
+          ImmutableArray<Networking.V1.NetworkPolicyEgressRule> _egress,
+          ImmutableArray<Networking.V1.NetworkPolicyIngressRule> _ingress,
           Meta.V1.LabelSelector _podSelector,
-          string[] _policyTypes)
+          ImmutableArray<string> _policyTypes)
       {
           Egress = _egress;
           Ingress = _ingress;
@@ -23281,6 +26686,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
     /// forwarded to the backend.
     /// </summary>
+    [OutputType]
     public sealed class HTTPIngressPath {
       /// <summary>
         /// Backend defines the referenced service endpoint to which the traffic will be forwarded
@@ -23313,15 +26719,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// backend where where parts of the url correspond to RFC 3986, this resource will be used to
     /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
+    [OutputType]
     public sealed class HTTPIngressRuleValue {
       /// <summary>
         /// A collection of paths that map requests to backends.
         /// </summary>
-      public readonly Networking.V1Beta1.HTTPIngressPath[] Paths;
+      public readonly ImmutableArray<Networking.V1Beta1.HTTPIngressPath> Paths;
 
       [OutputConstructor]
       private HTTPIngressRuleValue(
-          Networking.V1Beta1.HTTPIngressPath[] _paths)
+          ImmutableArray<Networking.V1Beta1.HTTPIngressPath> _paths)
       {
           Paths = _paths;
       }
@@ -23332,7 +26739,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// defined by a backend. An Ingress can be configured to give services externally-reachable
     /// urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
     /// </summary>
+    [OutputType]
     public sealed class Ingress {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -23353,10 +26777,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
 
       [OutputConstructor]
       private Ingress(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Networking.V1Beta1.IngressSpec _spec,
           Networking.V1Beta1.IngressStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -23366,6 +26794,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// IngressBackend describes all endpoints for a given service and port.
     /// </summary>
+    [OutputType]
     public sealed class IngressBackend {
       /// <summary>
         /// Specifies the name of the referenced service.
@@ -23390,11 +26819,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// IngressList is a collection of Ingress.
     /// </summary>
+    [OutputType]
     public sealed class IngressList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of Ingress.
         /// </summary>
-      public readonly Networking.V1Beta1.Ingress[] Items;
+      public readonly ImmutableArray<Networking.V1Beta1.Ingress> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -23404,10 +26850,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
 
       [OutputConstructor]
       private IngressList(
-          Networking.V1Beta1.Ingress[] _items,
+          string _apiVersion,
+          ImmutableArray<Networking.V1Beta1.Ingress> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -23417,6 +26867,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// backend services. Incoming requests are first evaluated for a host match, then routed to the
     /// backend associated with the matching IngressRuleValue.
     /// </summary>
+    [OutputType]
     public sealed class IngressRule {
       /// <summary>
         /// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note
@@ -23448,6 +26899,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// IngressSpec describes the Ingress the user wishes to exist.
     /// </summary>
+    [OutputType]
     public sealed class IngressSpec {
       /// <summary>
         /// A default backend capable of servicing requests that don't match any rule. At least one
@@ -23460,7 +26912,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// A list of host rules used to configure the Ingress. If unspecified, or no rule matches,
         /// all traffic is sent to the default backend.
         /// </summary>
-      public readonly Networking.V1Beta1.IngressRule[] Rules;
+      public readonly ImmutableArray<Networking.V1Beta1.IngressRule> Rules;
 
       /// <summary>
         /// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If
@@ -23468,13 +26920,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// same port according to the hostname specified through the SNI TLS extension, if the
         /// ingress controller fulfilling the ingress supports SNI.
         /// </summary>
-      public readonly Networking.V1Beta1.IngressTLS[] Tls;
+      public readonly ImmutableArray<Networking.V1Beta1.IngressTLS> Tls;
 
       [OutputConstructor]
       private IngressSpec(
           Networking.V1Beta1.IngressBackend _backend,
-          Networking.V1Beta1.IngressRule[] _rules,
-          Networking.V1Beta1.IngressTLS[] _tls)
+          ImmutableArray<Networking.V1Beta1.IngressRule> _rules,
+          ImmutableArray<Networking.V1Beta1.IngressTLS> _tls)
       {
           Backend = _backend;
           Rules = _rules;
@@ -23485,6 +26937,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// IngressStatus describe the current state of the Ingress.
     /// </summary>
+    [OutputType]
     public sealed class IngressStatus {
       /// <summary>
         /// LoadBalancer contains the current status of the load-balancer.
@@ -23502,13 +26955,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// <summary>
     /// IngressTLS describes the transport layer security associated with an Ingress.
     /// </summary>
+    [OutputType]
     public sealed class IngressTLS {
       /// <summary>
         /// Hosts are a list of hosts included in the TLS certificate. The values in this list must
         /// match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the
         /// loadbalancer controller fulfilling this Ingress, if left unspecified.
         /// </summary>
-      public readonly string[] Hosts;
+      public readonly ImmutableArray<string> Hosts;
 
       /// <summary>
         /// SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left
@@ -23520,7 +26974,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
 
       [OutputConstructor]
       private IngressTLS(
-          string[] _hosts,
+          ImmutableArray<string> _hosts,
           string _secretName)
       {
           Hosts = _hosts;
@@ -23537,15 +26991,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// <summary>
     /// Overhead structure represents the resource overhead associated with running a pod.
     /// </summary>
+    [OutputType]
     public sealed class Overhead {
       /// <summary>
         /// PodFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
-      public readonly object PodFixed;
+      public readonly ImmutableDictionary<string, string> PodFixed;
 
       [OutputConstructor]
       private Overhead(
-          object _podFixed)
+          ImmutableDictionary<string, string> _podFixed)
       {
           PodFixed = _podFixed;
       }
@@ -23559,7 +27014,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// reference before running the pod.  For more details, see
     /// https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
     /// </summary>
+    [OutputType]
     public sealed class RuntimeClass {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -23574,9 +27046,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
 
       [OutputConstructor]
       private RuntimeClass(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Node.V1Alpha1.RuntimeClassSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -23585,11 +27061,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// <summary>
     /// RuntimeClassList is a list of RuntimeClass objects.
     /// </summary>
+    [OutputType]
     public sealed class RuntimeClassList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Node.V1Alpha1.RuntimeClass[] Items;
+      public readonly ImmutableArray<Node.V1Alpha1.RuntimeClass> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -23599,10 +27092,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
 
       [OutputConstructor]
       private RuntimeClassList(
-          Node.V1Alpha1.RuntimeClass[] _items,
+          string _apiVersion,
+          ImmutableArray<Node.V1Alpha1.RuntimeClass> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -23613,6 +27110,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// implementation, as well as any other components that need to understand how the pod will be
     /// run. The RuntimeClassSpec is immutable.
     /// </summary>
+    [OutputType]
     public sealed class RuntimeClassSpec {
       /// <summary>
         /// Overhead represents the resource overhead associated with running a pod for a given
@@ -23656,6 +27154,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// <summary>
     /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     /// </summary>
+    [OutputType]
     public sealed class Scheduling {
       /// <summary>
         /// nodeSelector lists labels that must be present on nodes that support this RuntimeClass.
@@ -23670,12 +27169,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// during admission, effectively unioning the set of nodes tolerated by the pod and the
         /// RuntimeClass.
         /// </summary>
-      public readonly Core.V1.Toleration[] Tolerations;
+      public readonly ImmutableArray<Core.V1.Toleration> Tolerations;
 
       [OutputConstructor]
       private Scheduling(
           ImmutableDictionary<string, string> _nodeSelector,
-          Core.V1.Toleration[] _tolerations)
+          ImmutableArray<Core.V1.Toleration> _tolerations)
       {
           NodeSelector = _nodeSelector;
           Tolerations = _tolerations;
@@ -23688,15 +27187,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// <summary>
     /// Overhead structure represents the resource overhead associated with running a pod.
     /// </summary>
+    [OutputType]
     public sealed class Overhead {
       /// <summary>
         /// PodFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
-      public readonly object PodFixed;
+      public readonly ImmutableDictionary<string, string> PodFixed;
 
       [OutputConstructor]
       private Overhead(
-          object _podFixed)
+          ImmutableDictionary<string, string> _podFixed)
       {
           PodFixed = _podFixed;
       }
@@ -23710,7 +27210,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// reference before running the pod.  For more details, see
     /// https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
     /// </summary>
+    [OutputType]
     public sealed class RuntimeClass {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Handler specifies the underlying runtime and configuration that the CRI implementation
         /// will use to handle pods of this class. The possible values are specific to the node
@@ -23721,6 +27230,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// (RFC 1123) requirements, and is immutable.
         /// </summary>
       public readonly string Handler;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// More info:
@@ -23746,12 +27263,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
 
       [OutputConstructor]
       private RuntimeClass(
+          string _apiVersion,
           string _handler,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Node.V1Beta1.Overhead _overhead,
           Node.V1Beta1.Scheduling _scheduling)
       {
+          ApiVersion = _apiVersion;
           Handler = _handler;
+          Kind = _kind;
           Metadata = _metadata;
           Overhead = _overhead;
           Scheduling = _scheduling;
@@ -23761,11 +27282,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// <summary>
     /// RuntimeClassList is a list of RuntimeClass objects.
     /// </summary>
+    [OutputType]
     public sealed class RuntimeClassList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Node.V1Beta1.RuntimeClass[] Items;
+      public readonly ImmutableArray<Node.V1Beta1.RuntimeClass> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -23775,10 +27313,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
 
       [OutputConstructor]
       private RuntimeClassList(
-          Node.V1Beta1.RuntimeClass[] _items,
+          string _apiVersion,
+          ImmutableArray<Node.V1Beta1.RuntimeClass> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -23786,6 +27328,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// <summary>
     /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     /// </summary>
+    [OutputType]
     public sealed class Scheduling {
       /// <summary>
         /// nodeSelector lists labels that must be present on nodes that support this RuntimeClass.
@@ -23800,12 +27343,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// during admission, effectively unioning the set of nodes tolerated by the pod and the
         /// RuntimeClass.
         /// </summary>
-      public readonly Core.V1.Toleration[] Tolerations;
+      public readonly ImmutableArray<Core.V1.Toleration> Tolerations;
 
       [OutputConstructor]
       private Scheduling(
           ImmutableDictionary<string, string> _nodeSelector,
-          Core.V1.Toleration[] _tolerations)
+          ImmutableArray<Core.V1.Toleration> _tolerations)
       {
           NodeSelector = _nodeSelector;
           Tolerations = _tolerations;
@@ -23821,6 +27364,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Pkg {
     /// <summary>
     /// Info contains versioning information. how we'll want to distribute that information.
     /// </summary>
+    [OutputType]
     public sealed class Info {
       
       public readonly string BuildDate;
@@ -23882,6 +27426,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
     /// </summary>
+    [OutputType]
     public sealed class AllowedCSIDriver {
       /// <summary>
         /// Name is the registered name of the CSI driver
@@ -23899,6 +27444,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
     /// </summary>
+    [OutputType]
     public sealed class AllowedFlexVolume {
       /// <summary>
         /// driver is the name of the Flexvolume driver.
@@ -23917,6 +27463,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods
     /// to use. It requires the path prefix to be defined.
     /// </summary>
+    [OutputType]
     public sealed class AllowedHostPath {
       /// <summary>
         /// pathPrefix is the path prefix that the host volume must match. It does not support `*`.
@@ -23948,11 +27495,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// is a subresource of Pod.  A request to cause such an eviction is created by POSTing to
     /// .../pods/&amp;lt;pod name&amp;gt;/evictions.
     /// </summary>
+    [OutputType]
     public sealed class Eviction {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// DeleteOptions may be provided
         /// </summary>
       public readonly Meta.V1.DeleteOptions DeleteOptions;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// ObjectMeta describes the pod that is being evicted.
@@ -23961,10 +27525,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private Eviction(
+          string _apiVersion,
           Meta.V1.DeleteOptions _deleteOptions,
+          string _kind,
           Meta.V1.ObjectMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           DeleteOptions = _deleteOptions;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -23972,12 +27540,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     /// </summary>
+    [OutputType]
     public sealed class FSGroupStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of fs groups.  If you would like to force a single fs
         /// group then supply a single range with the same start and end. Required for MustRunAs.
         /// </summary>
-      public readonly Policy.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Policy.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
@@ -23986,7 +27555,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private FSGroupStrategyOptions(
-          Policy.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Policy.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -23998,6 +27567,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// HostPortRange defines a range of host ports that will be enabled by a policy for pods to
     /// use.  It requires both the start and end to be defined.
     /// </summary>
+    [OutputType]
     public sealed class HostPortRange {
       /// <summary>
         /// max is the end of the range, inclusive.
@@ -24022,6 +27592,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// IDRange provides a min/max of an allowed range of IDs.
     /// </summary>
+    [OutputType]
     public sealed class IDRange {
       /// <summary>
         /// max is the end of the range, inclusive.
@@ -24047,7 +27618,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// PodDisruptionBudget is an object to define the max disruption that can be caused to a
     /// collection of pods
     /// </summary>
+    [OutputType]
     public sealed class PodDisruptionBudget {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -24063,10 +27651,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private PodDisruptionBudget(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Policy.V1Beta1.PodDisruptionBudgetSpec _spec,
           Policy.V1Beta1.PodDisruptionBudgetStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -24076,19 +27668,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
     /// </summary>
+    [OutputType]
     public sealed class PodDisruptionBudgetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       
-      public readonly Policy.V1Beta1.PodDisruptionBudget[] Items;
+      public readonly ImmutableArray<Policy.V1Beta1.PodDisruptionBudget> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       
       public readonly Meta.V1.ListMeta Metadata;
 
       [OutputConstructor]
       private PodDisruptionBudgetList(
-          Policy.V1Beta1.PodDisruptionBudget[] _items,
+          string _apiVersion,
+          ImmutableArray<Policy.V1Beta1.PodDisruptionBudget> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -24096,6 +27709,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     /// </summary>
+    [OutputType]
     public sealed class PodDisruptionBudgetSpec {
       /// <summary>
         /// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are
@@ -24133,6 +27747,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget.
     /// Status may trail the actual state of a system.
     /// </summary>
+    [OutputType]
     public sealed class PodDisruptionBudgetStatus {
       /// <summary>
         /// current number of healthy pods
@@ -24156,7 +27771,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// smooth this map should be empty for the most of the time. Large number of entries in the
         /// map may indicate problems with pod deletions.
         /// </summary>
-      public readonly object DisruptedPods;
+      public readonly ImmutableDictionary<string, string> DisruptedPods;
 
       /// <summary>
         /// Number of pod disruptions that are currently allowed.
@@ -24179,7 +27794,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
       private PodDisruptionBudgetStatus(
           int _currentHealthy,
           int _desiredHealthy,
-          object _disruptedPods,
+          ImmutableDictionary<string, string> _disruptedPods,
           int _disruptionsAllowed,
           int _expectedPods,
           int _observedGeneration)
@@ -24197,7 +27812,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// PodSecurityPolicy governs the ability to make requests that affect the Security Context that
     /// will be applied to a pod and container.
     /// </summary>
+    [OutputType]
     public sealed class PodSecurityPolicy {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -24211,9 +27843,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private PodSecurityPolicy(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Policy.V1Beta1.PodSecurityPolicySpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -24222,11 +27858,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
     /// </summary>
+    [OutputType]
     public sealed class PodSecurityPolicyList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is a list of schema objects.
         /// </summary>
-      public readonly Policy.V1Beta1.PodSecurityPolicy[] Items;
+      public readonly ImmutableArray<Policy.V1Beta1.PodSecurityPolicy> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -24236,10 +27889,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private PodSecurityPolicyList(
-          Policy.V1Beta1.PodSecurityPolicy[] _items,
+          string _apiVersion,
+          ImmutableArray<Policy.V1Beta1.PodSecurityPolicy> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -24247,6 +27904,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// <summary>
     /// PodSecurityPolicySpec defines the policy enforced.
     /// </summary>
+    [OutputType]
     public sealed class PodSecurityPolicySpec {
       /// <summary>
         /// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation.
@@ -24260,34 +27918,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// inline ephemeral volumes. This is an alpha field, and is only honored if the API server
         /// enables the CSIInlineVolume feature gate.
         /// </summary>
-      public readonly Policy.V1Beta1.AllowedCSIDriver[] AllowedCSIDrivers;
+      public readonly ImmutableArray<Policy.V1Beta1.AllowedCSIDriver> AllowedCSIDrivers;
 
       /// <summary>
         /// allowedCapabilities is a list of capabilities that can be requested to add to the
         /// container. Capabilities in this field may be added at the pod author's discretion. You
         /// must not list a capability in both allowedCapabilities and requiredDropCapabilities.
         /// </summary>
-      public readonly string[] AllowedCapabilities;
+      public readonly ImmutableArray<string> AllowedCapabilities;
 
       /// <summary>
         /// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that
         /// all Flexvolumes may be used.  This parameter is effective only when the usage of the
         /// Flexvolumes is allowed in the "volumes" field.
         /// </summary>
-      public readonly Policy.V1Beta1.AllowedFlexVolume[] AllowedFlexVolumes;
+      public readonly ImmutableArray<Policy.V1Beta1.AllowedFlexVolume> AllowedFlexVolumes;
 
       /// <summary>
         /// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host
         /// paths may be used.
         /// </summary>
-      public readonly Policy.V1Beta1.AllowedHostPath[] AllowedHostPaths;
+      public readonly ImmutableArray<Policy.V1Beta1.AllowedHostPath> AllowedHostPaths;
 
       /// <summary>
         /// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates
         /// that only the DefaultProcMountType may be used. This requires the ProcMountType feature
         /// flag to be enabled.
         /// </summary>
-      public readonly string[] AllowedProcMountTypes;
+      public readonly ImmutableArray<string> AllowedProcMountTypes;
 
       /// <summary>
         /// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none.
@@ -24298,7 +27956,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar",
         /// "foo.baz", etc.
         /// </summary>
-      public readonly string[] AllowedUnsafeSysctls;
+      public readonly ImmutableArray<string> AllowedUnsafeSysctls;
 
       /// <summary>
         /// defaultAddCapabilities is the default set of capabilities that will be added to the
@@ -24307,7 +27965,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// added here are implicitly allowed, and need not be included in the allowedCapabilities
         /// list.
         /// </summary>
-      public readonly string[] DefaultAddCapabilities;
+      public readonly ImmutableArray<string> DefaultAddCapabilities;
 
       /// <summary>
         /// defaultAllowPrivilegeEscalation controls the default setting for whether a process can
@@ -24323,7 +27981,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids
         /// "foo.bar", "foo.baz", etc.
         /// </summary>
-      public readonly string[] ForbiddenSysctls;
+      public readonly ImmutableArray<string> ForbiddenSysctls;
 
       /// <summary>
         /// fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
@@ -24348,7 +28006,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
       /// <summary>
         /// hostPorts determines which host port ranges are allowed to be exposed.
         /// </summary>
-      public readonly Policy.V1Beta1.HostPortRange[] HostPorts;
+      public readonly ImmutableArray<Policy.V1Beta1.HostPortRange> HostPorts;
 
       /// <summary>
         /// privileged determines if a pod can request to be run as privileged.
@@ -24367,7 +28025,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// requiredDropCapabilities are the capabilities that will be dropped from the container.
         /// These are required to be dropped and cannot be added.
         /// </summary>
-      public readonly string[] RequiredDropCapabilities;
+      public readonly ImmutableArray<string> RequiredDropCapabilities;
 
       /// <summary>
         /// RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be
@@ -24404,34 +28062,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may
         /// be used. To allow all volumes you may use '*'.
         /// </summary>
-      public readonly string[] Volumes;
+      public readonly ImmutableArray<string> Volumes;
 
       [OutputConstructor]
       private PodSecurityPolicySpec(
           bool _allowPrivilegeEscalation,
-          Policy.V1Beta1.AllowedCSIDriver[] _allowedCSIDrivers,
-          string[] _allowedCapabilities,
-          Policy.V1Beta1.AllowedFlexVolume[] _allowedFlexVolumes,
-          Policy.V1Beta1.AllowedHostPath[] _allowedHostPaths,
-          string[] _allowedProcMountTypes,
-          string[] _allowedUnsafeSysctls,
-          string[] _defaultAddCapabilities,
+          ImmutableArray<Policy.V1Beta1.AllowedCSIDriver> _allowedCSIDrivers,
+          ImmutableArray<string> _allowedCapabilities,
+          ImmutableArray<Policy.V1Beta1.AllowedFlexVolume> _allowedFlexVolumes,
+          ImmutableArray<Policy.V1Beta1.AllowedHostPath> _allowedHostPaths,
+          ImmutableArray<string> _allowedProcMountTypes,
+          ImmutableArray<string> _allowedUnsafeSysctls,
+          ImmutableArray<string> _defaultAddCapabilities,
           bool _defaultAllowPrivilegeEscalation,
-          string[] _forbiddenSysctls,
+          ImmutableArray<string> _forbiddenSysctls,
           Policy.V1Beta1.FSGroupStrategyOptions _fsGroup,
           bool _hostIPC,
           bool _hostNetwork,
           bool _hostPID,
-          Policy.V1Beta1.HostPortRange[] _hostPorts,
+          ImmutableArray<Policy.V1Beta1.HostPortRange> _hostPorts,
           bool _privileged,
           bool _readOnlyRootFilesystem,
-          string[] _requiredDropCapabilities,
+          ImmutableArray<string> _requiredDropCapabilities,
           Policy.V1Beta1.RunAsGroupStrategyOptions _runAsGroup,
           Policy.V1Beta1.RunAsUserStrategyOptions _runAsUser,
           Policy.V1Beta1.RuntimeClassStrategyOptions _runtimeClass,
           Policy.V1Beta1.SELinuxStrategyOptions _seLinux,
           Policy.V1Beta1.SupplementalGroupsStrategyOptions _supplementalGroups,
-          string[] _volumes)
+          ImmutableArray<string> _volumes)
       {
           AllowPrivilegeEscalation = _allowPrivilegeEscalation;
           AllowedCSIDrivers = _allowedCSIDrivers;
@@ -24464,13 +28122,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// RunAsGroupStrategyOptions defines the strategy type and any options used to create the
     /// strategy.
     /// </summary>
+    [OutputType]
     public sealed class RunAsGroupStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of gids that may be used. If you would like to force a
         /// single gid then supply a single range with the same start and end. Required for
         /// MustRunAs.
         /// </summary>
-      public readonly Policy.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Policy.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
@@ -24479,7 +28138,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private RunAsGroupStrategyOptions(
-          Policy.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Policy.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -24491,13 +28150,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// RunAsUserStrategyOptions defines the strategy type and any options used to create the
     /// strategy.
     /// </summary>
+    [OutputType]
     public sealed class RunAsUserStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of uids that may be used. If you would like to force a
         /// single uid then supply a single range with the same start and end. Required for
         /// MustRunAs.
         /// </summary>
-      public readonly Policy.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Policy.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate the allowable RunAsUser values that may be set.
@@ -24506,7 +28166,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private RunAsUserStrategyOptions(
-          Policy.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Policy.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -24518,13 +28178,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// RuntimeClassStrategyOptions define the strategy that will dictate the allowable
     /// RuntimeClasses for a pod.
     /// </summary>
+    [OutputType]
     public sealed class RuntimeClassStrategyOptions {
       /// <summary>
         /// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a
         /// pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only
         /// item in the list. An empty list requires the RuntimeClassName field to be unset.
         /// </summary>
-      public readonly string[] AllowedRuntimeClassNames;
+      public readonly ImmutableArray<string> AllowedRuntimeClassNames;
 
       /// <summary>
         /// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default
@@ -24535,7 +28196,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private RuntimeClassStrategyOptions(
-          string[] _allowedRuntimeClassNames,
+          ImmutableArray<string> _allowedRuntimeClassNames,
           string _defaultRuntimeClassName)
       {
           AllowedRuntimeClassNames = _allowedRuntimeClassNames;
@@ -24547,6 +28208,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// SELinuxStrategyOptions defines the strategy type and any options used to create the
     /// strategy.
     /// </summary>
+    [OutputType]
     public sealed class SELinuxStrategyOptions {
       /// <summary>
         /// rule is the strategy that will dictate the allowable labels that may be set.
@@ -24573,13 +28235,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
     /// strategy.
     /// </summary>
+    [OutputType]
     public sealed class SupplementalGroupsStrategyOptions {
       /// <summary>
         /// ranges are the allowed ranges of supplemental groups.  If you would like to force a
         /// single supplemental group then supply a single range with the same start and end.
         /// Required for MustRunAs.
         /// </summary>
-      public readonly Policy.V1Beta1.IDRange[] Ranges;
+      public readonly ImmutableArray<Policy.V1Beta1.IDRange> Ranges;
 
       /// <summary>
         /// rule is the strategy that will dictate what supplemental groups is used in the
@@ -24589,7 +28252,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private SupplementalGroupsStrategyOptions(
-          Policy.V1Beta1.IDRange[] _ranges,
+          ImmutableArray<Policy.V1Beta1.IDRange> _ranges,
           string _rule)
       {
           Ranges = _ranges;
@@ -24606,17 +28269,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     /// </summary>
+    [OutputType]
     public sealed class AggregationRule {
       /// <summary>
         /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles
         /// and create the rules. If any of the selectors match, then the ClusterRole's permissions
         /// will be added
         /// </summary>
-      public readonly Meta.V1.LabelSelector[] ClusterRoleSelectors;
+      public readonly ImmutableArray<Meta.V1.LabelSelector> ClusterRoleSelectors;
 
       [OutputConstructor]
       private AggregationRule(
-          Meta.V1.LabelSelector[] _clusterRoleSelectors)
+          ImmutableArray<Meta.V1.LabelSelector> _clusterRoleSelectors)
       {
           ClusterRoleSelectors = _clusterRoleSelectors;
       }
@@ -24626,6 +28290,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
+    [OutputType]
     public sealed class ClusterRole {
       /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
@@ -24635,6 +28300,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       public readonly Rbac.V1.AggregationRule AggregationRule;
 
       /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// Standard object's metadata.
         /// </summary>
       public readonly Meta.V1.ObjectMeta Metadata;
@@ -24642,15 +28323,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Rules holds all the PolicyRules for this ClusterRole
         /// </summary>
-      public readonly Rbac.V1.PolicyRule[] Rules;
+      public readonly ImmutableArray<Rbac.V1.PolicyRule> Rules;
 
       [OutputConstructor]
       private ClusterRole(
           Rbac.V1.AggregationRule _aggregationRule,
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Rbac.V1.PolicyRule[] _rules)
+          ImmutableArray<Rbac.V1.PolicyRule> _rules)
       {
           AggregationRule = _aggregationRule;
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Rules = _rules;
       }
@@ -24660,7 +28345,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
     /// ClusterRole in the global namespace, and adds who information via Subject.
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleBinding {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -24675,14 +28377,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
-      public readonly Rbac.V1.Subject[] Subjects;
+      public readonly ImmutableArray<Rbac.V1.Subject> Subjects;
 
       [OutputConstructor]
       private ClusterRoleBinding(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Rbac.V1.RoleRef _roleRef,
-          Rbac.V1.Subject[] _subjects)
+          ImmutableArray<Rbac.V1.Subject> _subjects)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           RoleRef = _roleRef;
           Subjects = _subjects;
@@ -24692,11 +28398,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleBindingList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of ClusterRoleBindings
         /// </summary>
-      public readonly Rbac.V1.ClusterRoleBinding[] Items;
+      public readonly ImmutableArray<Rbac.V1.ClusterRoleBinding> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -24705,10 +28428,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private ClusterRoleBindingList(
-          Rbac.V1.ClusterRoleBinding[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1.ClusterRoleBinding> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -24716,11 +28443,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of ClusterRoles
         /// </summary>
-      public readonly Rbac.V1.ClusterRole[] Items;
+      public readonly ImmutableArray<Rbac.V1.ClusterRole> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -24729,10 +28473,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private ClusterRoleList(
-          Rbac.V1.ClusterRole[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1.ClusterRole> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -24741,13 +28489,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// PolicyRule holds information that describes a policy rule, but does not contain information
     /// about who the rule applies to or which namespace the rule applies to.
     /// </summary>
+    [OutputType]
     public sealed class PolicyRule {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
         /// any API group will be allowed.
         /// </summary>
-      public readonly string[] ApiGroups;
+      public readonly ImmutableArray<string> ApiGroups;
 
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
@@ -24756,33 +28505,33 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or
         /// "secrets") or non-resource URL paths (such as "/api"),  but not both.
         /// </summary>
-      public readonly string[] NonResourceURLs;
+      public readonly ImmutableArray<string> NonResourceURLs;
 
       /// <summary>
         /// ResourceNames is an optional white list of names that the rule applies to.  An empty set
         /// means that everything is allowed.
         /// </summary>
-      public readonly string[] ResourceNames;
+      public readonly ImmutableArray<string> ResourceNames;
 
       /// <summary>
         /// Resources is a list of resources this rule applies to.  ResourceAll represents all
         /// resources.
         /// </summary>
-      public readonly string[] Resources;
+      public readonly ImmutableArray<string> Resources;
 
       /// <summary>
         /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
         /// contained in this rule.  VerbAll represents all kinds.
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       [OutputConstructor]
       private PolicyRule(
-          string[] _apiGroups,
-          string[] _nonResourceURLs,
-          string[] _resourceNames,
-          string[] _resources,
-          string[] _verbs)
+          ImmutableArray<string> _apiGroups,
+          ImmutableArray<string> _nonResourceURLs,
+          ImmutableArray<string> _resourceNames,
+          ImmutableArray<string> _resources,
+          ImmutableArray<string> _verbs)
       {
           ApiGroups = _apiGroups;
           NonResourceURLs = _nonResourceURLs;
@@ -24796,7 +28545,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
     /// RoleBinding.
     /// </summary>
+    [OutputType]
     public sealed class Role {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -24805,13 +28571,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Rules holds all the PolicyRules for this Role
         /// </summary>
-      public readonly Rbac.V1.PolicyRule[] Rules;
+      public readonly ImmutableArray<Rbac.V1.PolicyRule> Rules;
 
       [OutputConstructor]
       private Role(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Rbac.V1.PolicyRule[] _rules)
+          ImmutableArray<Rbac.V1.PolicyRule> _rules)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Rules = _rules;
       }
@@ -24823,7 +28593,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
     /// only have effect in that namespace.
     /// </summary>
+    [OutputType]
     public sealed class RoleBinding {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -24838,14 +28625,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
-      public readonly Rbac.V1.Subject[] Subjects;
+      public readonly ImmutableArray<Rbac.V1.Subject> Subjects;
 
       [OutputConstructor]
       private RoleBinding(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Rbac.V1.RoleRef _roleRef,
-          Rbac.V1.Subject[] _subjects)
+          ImmutableArray<Rbac.V1.Subject> _subjects)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           RoleRef = _roleRef;
           Subjects = _subjects;
@@ -24855,11 +28646,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
+    [OutputType]
     public sealed class RoleBindingList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of RoleBindings
         /// </summary>
-      public readonly Rbac.V1.RoleBinding[] Items;
+      public readonly ImmutableArray<Rbac.V1.RoleBinding> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -24868,10 +28676,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private RoleBindingList(
-          Rbac.V1.RoleBinding[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1.RoleBinding> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -24879,11 +28691,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleList is a collection of Roles
     /// </summary>
+    [OutputType]
     public sealed class RoleList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of Roles
         /// </summary>
-      public readonly Rbac.V1.Role[] Items;
+      public readonly ImmutableArray<Rbac.V1.Role> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -24892,10 +28721,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private RoleList(
-          Rbac.V1.Role[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1.Role> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -24903,11 +28736,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleRef contains information that points to the role being used
     /// </summary>
+    [OutputType]
     public sealed class RoleRef {
       /// <summary>
         /// APIGroup is the group for the resource being referenced
         /// </summary>
       public readonly string ApiGroup;
+
+      /// <summary>
+        /// Kind is the type of resource being referenced
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Name is the name of resource being referenced
@@ -24917,9 +28756,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       [OutputConstructor]
       private RoleRef(
           string _apiGroup,
+          string _kind,
           string _name)
       {
           ApiGroup = _apiGroup;
+          Kind = _kind;
           Name = _name;
       }
 
@@ -24929,6 +28770,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// This can either hold a direct API object reference, or a value for non-objects such as user
     /// and group names.
     /// </summary>
+    [OutputType]
     public sealed class Subject {
       /// <summary>
         /// APIGroup holds the API group of the referenced subject. Defaults to "" for
@@ -24936,6 +28778,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// subjects.
         /// </summary>
       public readonly string ApiGroup;
+
+      /// <summary>
+        /// Kind of object being referenced. Values defined by this API group are "User", "Group",
+        /// and "ServiceAccount". If the Authorizer does not recognized the kind value, the
+        /// Authorizer should report an error.
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Name of the object being referenced.
@@ -24951,10 +28800,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       [OutputConstructor]
       private Subject(
           string _apiGroup,
+          string _kind,
           string _name,
           string _namespace)
       {
           ApiGroup = _apiGroup;
+          Kind = _kind;
           Name = _name;
           Namespace = _namespace;
       }
@@ -24966,17 +28817,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     /// </summary>
+    [OutputType]
     public sealed class AggregationRule {
       /// <summary>
         /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles
         /// and create the rules. If any of the selectors match, then the ClusterRole's permissions
         /// will be added
         /// </summary>
-      public readonly Meta.V1.LabelSelector[] ClusterRoleSelectors;
+      public readonly ImmutableArray<Meta.V1.LabelSelector> ClusterRoleSelectors;
 
       [OutputConstructor]
       private AggregationRule(
-          Meta.V1.LabelSelector[] _clusterRoleSelectors)
+          ImmutableArray<Meta.V1.LabelSelector> _clusterRoleSelectors)
       {
           ClusterRoleSelectors = _clusterRoleSelectors;
       }
@@ -24986,6 +28838,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
+    [OutputType]
     public sealed class ClusterRole {
       /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
@@ -24995,6 +28848,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       public readonly Rbac.V1Alpha1.AggregationRule AggregationRule;
 
       /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// Standard object's metadata.
         /// </summary>
       public readonly Meta.V1.ObjectMeta Metadata;
@@ -25002,15 +28871,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Rules holds all the PolicyRules for this ClusterRole
         /// </summary>
-      public readonly Rbac.V1Alpha1.PolicyRule[] Rules;
+      public readonly ImmutableArray<Rbac.V1Alpha1.PolicyRule> Rules;
 
       [OutputConstructor]
       private ClusterRole(
           Rbac.V1Alpha1.AggregationRule _aggregationRule,
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Rbac.V1Alpha1.PolicyRule[] _rules)
+          ImmutableArray<Rbac.V1Alpha1.PolicyRule> _rules)
       {
           AggregationRule = _aggregationRule;
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Rules = _rules;
       }
@@ -25020,7 +28893,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
     /// ClusterRole in the global namespace, and adds who information via Subject.
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleBinding {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -25035,14 +28925,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
-      public readonly Rbac.V1Alpha1.Subject[] Subjects;
+      public readonly ImmutableArray<Rbac.V1Alpha1.Subject> Subjects;
 
       [OutputConstructor]
       private ClusterRoleBinding(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Rbac.V1Alpha1.RoleRef _roleRef,
-          Rbac.V1Alpha1.Subject[] _subjects)
+          ImmutableArray<Rbac.V1Alpha1.Subject> _subjects)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           RoleRef = _roleRef;
           Subjects = _subjects;
@@ -25052,11 +28946,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleBindingList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of ClusterRoleBindings
         /// </summary>
-      public readonly Rbac.V1Alpha1.ClusterRoleBinding[] Items;
+      public readonly ImmutableArray<Rbac.V1Alpha1.ClusterRoleBinding> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25065,10 +28976,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private ClusterRoleBindingList(
-          Rbac.V1Alpha1.ClusterRoleBinding[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Alpha1.ClusterRoleBinding> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25076,11 +28991,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of ClusterRoles
         /// </summary>
-      public readonly Rbac.V1Alpha1.ClusterRole[] Items;
+      public readonly ImmutableArray<Rbac.V1Alpha1.ClusterRole> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25089,10 +29021,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private ClusterRoleList(
-          Rbac.V1Alpha1.ClusterRole[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Alpha1.ClusterRole> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25101,13 +29037,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// PolicyRule holds information that describes a policy rule, but does not contain information
     /// about who the rule applies to or which namespace the rule applies to.
     /// </summary>
+    [OutputType]
     public sealed class PolicyRule {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
         /// any API group will be allowed.
         /// </summary>
-      public readonly string[] ApiGroups;
+      public readonly ImmutableArray<string> ApiGroups;
 
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
@@ -25118,33 +29055,33 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as
         /// "/api"),  but not both.
         /// </summary>
-      public readonly string[] NonResourceURLs;
+      public readonly ImmutableArray<string> NonResourceURLs;
 
       /// <summary>
         /// ResourceNames is an optional white list of names that the rule applies to.  An empty set
         /// means that everything is allowed.
         /// </summary>
-      public readonly string[] ResourceNames;
+      public readonly ImmutableArray<string> ResourceNames;
 
       /// <summary>
         /// Resources is a list of resources this rule applies to.  ResourceAll represents all
         /// resources.
         /// </summary>
-      public readonly string[] Resources;
+      public readonly ImmutableArray<string> Resources;
 
       /// <summary>
         /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
         /// contained in this rule.  VerbAll represents all kinds.
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       [OutputConstructor]
       private PolicyRule(
-          string[] _apiGroups,
-          string[] _nonResourceURLs,
-          string[] _resourceNames,
-          string[] _resources,
-          string[] _verbs)
+          ImmutableArray<string> _apiGroups,
+          ImmutableArray<string> _nonResourceURLs,
+          ImmutableArray<string> _resourceNames,
+          ImmutableArray<string> _resources,
+          ImmutableArray<string> _verbs)
       {
           ApiGroups = _apiGroups;
           NonResourceURLs = _nonResourceURLs;
@@ -25158,7 +29095,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
     /// RoleBinding.
     /// </summary>
+    [OutputType]
     public sealed class Role {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -25167,13 +29121,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Rules holds all the PolicyRules for this Role
         /// </summary>
-      public readonly Rbac.V1Alpha1.PolicyRule[] Rules;
+      public readonly ImmutableArray<Rbac.V1Alpha1.PolicyRule> Rules;
 
       [OutputConstructor]
       private Role(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Rbac.V1Alpha1.PolicyRule[] _rules)
+          ImmutableArray<Rbac.V1Alpha1.PolicyRule> _rules)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Rules = _rules;
       }
@@ -25185,7 +29143,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
     /// only have effect in that namespace.
     /// </summary>
+    [OutputType]
     public sealed class RoleBinding {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -25200,14 +29175,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
-      public readonly Rbac.V1Alpha1.Subject[] Subjects;
+      public readonly ImmutableArray<Rbac.V1Alpha1.Subject> Subjects;
 
       [OutputConstructor]
       private RoleBinding(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Rbac.V1Alpha1.RoleRef _roleRef,
-          Rbac.V1Alpha1.Subject[] _subjects)
+          ImmutableArray<Rbac.V1Alpha1.Subject> _subjects)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           RoleRef = _roleRef;
           Subjects = _subjects;
@@ -25217,11 +29196,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
+    [OutputType]
     public sealed class RoleBindingList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of RoleBindings
         /// </summary>
-      public readonly Rbac.V1Alpha1.RoleBinding[] Items;
+      public readonly ImmutableArray<Rbac.V1Alpha1.RoleBinding> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25230,10 +29226,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private RoleBindingList(
-          Rbac.V1Alpha1.RoleBinding[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Alpha1.RoleBinding> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25241,11 +29241,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleList is a collection of Roles
     /// </summary>
+    [OutputType]
     public sealed class RoleList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of Roles
         /// </summary>
-      public readonly Rbac.V1Alpha1.Role[] Items;
+      public readonly ImmutableArray<Rbac.V1Alpha1.Role> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25254,10 +29271,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private RoleList(
-          Rbac.V1Alpha1.Role[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Alpha1.Role> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25265,11 +29286,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleRef contains information that points to the role being used
     /// </summary>
+    [OutputType]
     public sealed class RoleRef {
       /// <summary>
         /// APIGroup is the group for the resource being referenced
         /// </summary>
       public readonly string ApiGroup;
+
+      /// <summary>
+        /// Kind is the type of resource being referenced
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Name is the name of resource being referenced
@@ -25279,9 +29306,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       [OutputConstructor]
       private RoleRef(
           string _apiGroup,
+          string _kind,
           string _name)
       {
           ApiGroup = _apiGroup;
+          Kind = _kind;
           Name = _name;
       }
 
@@ -25291,7 +29320,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// This can either hold a direct API object reference, or a value for non-objects such as user
     /// and group names.
     /// </summary>
+    [OutputType]
     public sealed class Subject {
+      /// <summary>
+        /// APIVersion holds the API group and version of the referenced subject. Defaults to "v1"
+        /// for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User
+        /// and Group subjects.
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind of object being referenced. Values defined by this API group are "User", "Group",
+        /// and "ServiceAccount". If the Authorizer does not recognized the kind value, the
+        /// Authorizer should report an error.
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Name of the object being referenced.
         /// </summary>
@@ -25305,9 +29349,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private Subject(
+          string _apiVersion,
+          string _kind,
           string _name,
           string _namespace)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Name = _name;
           Namespace = _namespace;
       }
@@ -25319,17 +29367,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     /// </summary>
+    [OutputType]
     public sealed class AggregationRule {
       /// <summary>
         /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles
         /// and create the rules. If any of the selectors match, then the ClusterRole's permissions
         /// will be added
         /// </summary>
-      public readonly Meta.V1.LabelSelector[] ClusterRoleSelectors;
+      public readonly ImmutableArray<Meta.V1.LabelSelector> ClusterRoleSelectors;
 
       [OutputConstructor]
       private AggregationRule(
-          Meta.V1.LabelSelector[] _clusterRoleSelectors)
+          ImmutableArray<Meta.V1.LabelSelector> _clusterRoleSelectors)
       {
           ClusterRoleSelectors = _clusterRoleSelectors;
       }
@@ -25339,6 +29388,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
+    [OutputType]
     public sealed class ClusterRole {
       /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
@@ -25348,6 +29398,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       public readonly Rbac.V1Beta1.AggregationRule AggregationRule;
 
       /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
         /// Standard object's metadata.
         /// </summary>
       public readonly Meta.V1.ObjectMeta Metadata;
@@ -25355,15 +29421,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Rules holds all the PolicyRules for this ClusterRole
         /// </summary>
-      public readonly Rbac.V1Beta1.PolicyRule[] Rules;
+      public readonly ImmutableArray<Rbac.V1Beta1.PolicyRule> Rules;
 
       [OutputConstructor]
       private ClusterRole(
           Rbac.V1Beta1.AggregationRule _aggregationRule,
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Rbac.V1Beta1.PolicyRule[] _rules)
+          ImmutableArray<Rbac.V1Beta1.PolicyRule> _rules)
       {
           AggregationRule = _aggregationRule;
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Rules = _rules;
       }
@@ -25373,7 +29443,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
     /// ClusterRole in the global namespace, and adds who information via Subject.
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleBinding {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -25388,14 +29475,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
-      public readonly Rbac.V1Beta1.Subject[] Subjects;
+      public readonly ImmutableArray<Rbac.V1Beta1.Subject> Subjects;
 
       [OutputConstructor]
       private ClusterRoleBinding(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Rbac.V1Beta1.RoleRef _roleRef,
-          Rbac.V1Beta1.Subject[] _subjects)
+          ImmutableArray<Rbac.V1Beta1.Subject> _subjects)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           RoleRef = _roleRef;
           Subjects = _subjects;
@@ -25405,11 +29496,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleBindingList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of ClusterRoleBindings
         /// </summary>
-      public readonly Rbac.V1Beta1.ClusterRoleBinding[] Items;
+      public readonly ImmutableArray<Rbac.V1Beta1.ClusterRoleBinding> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25418,10 +29526,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private ClusterRoleBindingList(
-          Rbac.V1Beta1.ClusterRoleBinding[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Beta1.ClusterRoleBinding> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25429,11 +29541,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
+    [OutputType]
     public sealed class ClusterRoleList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of ClusterRoles
         /// </summary>
-      public readonly Rbac.V1Beta1.ClusterRole[] Items;
+      public readonly ImmutableArray<Rbac.V1Beta1.ClusterRole> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25442,10 +29571,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private ClusterRoleList(
-          Rbac.V1Beta1.ClusterRole[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Beta1.ClusterRole> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25454,13 +29587,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// PolicyRule holds information that describes a policy rule, but does not contain information
     /// about who the rule applies to or which namespace the rule applies to.
     /// </summary>
+    [OutputType]
     public sealed class PolicyRule {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
         /// any API group will be allowed.
         /// </summary>
-      public readonly string[] ApiGroups;
+      public readonly ImmutableArray<string> ApiGroups;
 
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
@@ -25469,34 +29603,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or
         /// "secrets") or non-resource URL paths (such as "/api"),  but not both.
         /// </summary>
-      public readonly string[] NonResourceURLs;
+      public readonly ImmutableArray<string> NonResourceURLs;
 
       /// <summary>
         /// ResourceNames is an optional white list of names that the rule applies to.  An empty set
         /// means that everything is allowed.
         /// </summary>
-      public readonly string[] ResourceNames;
+      public readonly ImmutableArray<string> ResourceNames;
 
       /// <summary>
         /// Resources is a list of resources this rule applies to.  '*' represents all resources in
         /// the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in
         /// the specified apiGroups.
         /// </summary>
-      public readonly string[] Resources;
+      public readonly ImmutableArray<string> Resources;
 
       /// <summary>
         /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
         /// contained in this rule.  VerbAll represents all kinds.
         /// </summary>
-      public readonly string[] Verbs;
+      public readonly ImmutableArray<string> Verbs;
 
       [OutputConstructor]
       private PolicyRule(
-          string[] _apiGroups,
-          string[] _nonResourceURLs,
-          string[] _resourceNames,
-          string[] _resources,
-          string[] _verbs)
+          ImmutableArray<string> _apiGroups,
+          ImmutableArray<string> _nonResourceURLs,
+          ImmutableArray<string> _resourceNames,
+          ImmutableArray<string> _resources,
+          ImmutableArray<string> _verbs)
       {
           ApiGroups = _apiGroups;
           NonResourceURLs = _nonResourceURLs;
@@ -25510,7 +29644,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
     /// RoleBinding.
     /// </summary>
+    [OutputType]
     public sealed class Role {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -25519,13 +29670,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Rules holds all the PolicyRules for this Role
         /// </summary>
-      public readonly Rbac.V1Beta1.PolicyRule[] Rules;
+      public readonly ImmutableArray<Rbac.V1Beta1.PolicyRule> Rules;
 
       [OutputConstructor]
       private Role(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          Rbac.V1Beta1.PolicyRule[] _rules)
+          ImmutableArray<Rbac.V1Beta1.PolicyRule> _rules)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Rules = _rules;
       }
@@ -25537,7 +29692,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
     /// only have effect in that namespace.
     /// </summary>
+    [OutputType]
     public sealed class RoleBinding {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object's metadata.
         /// </summary>
@@ -25552,14 +29724,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
-      public readonly Rbac.V1Beta1.Subject[] Subjects;
+      public readonly ImmutableArray<Rbac.V1Beta1.Subject> Subjects;
 
       [OutputConstructor]
       private RoleBinding(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Rbac.V1Beta1.RoleRef _roleRef,
-          Rbac.V1Beta1.Subject[] _subjects)
+          ImmutableArray<Rbac.V1Beta1.Subject> _subjects)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           RoleRef = _roleRef;
           Subjects = _subjects;
@@ -25569,11 +29745,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
+    [OutputType]
     public sealed class RoleBindingList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of RoleBindings
         /// </summary>
-      public readonly Rbac.V1Beta1.RoleBinding[] Items;
+      public readonly ImmutableArray<Rbac.V1Beta1.RoleBinding> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25582,10 +29775,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private RoleBindingList(
-          Rbac.V1Beta1.RoleBinding[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Beta1.RoleBinding> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25593,11 +29790,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleList is a collection of Roles
     /// </summary>
+    [OutputType]
     public sealed class RoleList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of Roles
         /// </summary>
-      public readonly Rbac.V1Beta1.Role[] Items;
+      public readonly ImmutableArray<Rbac.V1Beta1.Role> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata.
@@ -25606,10 +29820,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
       [OutputConstructor]
       private RoleList(
-          Rbac.V1Beta1.Role[] _items,
+          string _apiVersion,
+          ImmutableArray<Rbac.V1Beta1.Role> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25617,11 +29835,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// <summary>
     /// RoleRef contains information that points to the role being used
     /// </summary>
+    [OutputType]
     public sealed class RoleRef {
       /// <summary>
         /// APIGroup is the group for the resource being referenced
         /// </summary>
       public readonly string ApiGroup;
+
+      /// <summary>
+        /// Kind is the type of resource being referenced
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Name is the name of resource being referenced
@@ -25631,9 +29855,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       [OutputConstructor]
       private RoleRef(
           string _apiGroup,
+          string _kind,
           string _name)
       {
           ApiGroup = _apiGroup;
+          Kind = _kind;
           Name = _name;
       }
 
@@ -25643,6 +29869,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// This can either hold a direct API object reference, or a value for non-objects such as user
     /// and group names.
     /// </summary>
+    [OutputType]
     public sealed class Subject {
       /// <summary>
         /// APIGroup holds the API group of the referenced subject. Defaults to "" for
@@ -25650,6 +29877,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// subjects.
         /// </summary>
       public readonly string ApiGroup;
+
+      /// <summary>
+        /// Kind of object being referenced. Values defined by this API group are "User", "Group",
+        /// and "ServiceAccount". If the Authorizer does not recognized the kind value, the
+        /// Authorizer should report an error.
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Name of the object being referenced.
@@ -25665,10 +29899,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
       [OutputConstructor]
       private Subject(
           string _apiGroup,
+          string _kind,
           string _name,
           string _namespace)
       {
           ApiGroup = _apiGroup;
+          Kind = _kind;
           Name = _name;
           Namespace = _namespace;
       }
@@ -25684,7 +29920,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// PriorityClass defines mapping from a priority class name to the priority integer value. The
     /// value can be any valid integer.
     /// </summary>
+    [OutputType]
     public sealed class PriorityClass {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// description is an arbitrary string that usually provides guidelines on when this
         /// priority class should be used.
@@ -25699,6 +29944,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// PriorityClasses will be used as the default priority.
         /// </summary>
       public readonly bool GlobalDefault;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -25722,14 +29975,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
 
       [OutputConstructor]
       private PriorityClass(
+          string _apiVersion,
           string _description,
           bool _globalDefault,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           string _preemptionPolicy,
           int _value)
       {
+          ApiVersion = _apiVersion;
           Description = _description;
           GlobalDefault = _globalDefault;
+          Kind = _kind;
           Metadata = _metadata;
           PreemptionPolicy = _preemptionPolicy;
           Value = _value;
@@ -25739,11 +29996,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
+    [OutputType]
     public sealed class PriorityClassList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of PriorityClasses
         /// </summary>
-      public readonly Scheduling.V1.PriorityClass[] Items;
+      public readonly ImmutableArray<Scheduling.V1.PriorityClass> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -25753,10 +30027,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
 
       [OutputConstructor]
       private PriorityClassList(
-          Scheduling.V1.PriorityClass[] _items,
+          string _apiVersion,
+          ImmutableArray<Scheduling.V1.PriorityClass> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25769,7 +30047,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
     /// to the priority integer value. The value can be any valid integer.
     /// </summary>
+    [OutputType]
     public sealed class PriorityClass {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// description is an arbitrary string that usually provides guidelines on when this
         /// priority class should be used.
@@ -25784,6 +30071,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// PriorityClasses will be used as the default priority.
         /// </summary>
       public readonly bool GlobalDefault;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -25807,14 +30102,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
 
       [OutputConstructor]
       private PriorityClass(
+          string _apiVersion,
           string _description,
           bool _globalDefault,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           string _preemptionPolicy,
           int _value)
       {
+          ApiVersion = _apiVersion;
           Description = _description;
           GlobalDefault = _globalDefault;
+          Kind = _kind;
           Metadata = _metadata;
           PreemptionPolicy = _preemptionPolicy;
           Value = _value;
@@ -25824,11 +30123,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
+    [OutputType]
     public sealed class PriorityClassList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of PriorityClasses
         /// </summary>
-      public readonly Scheduling.V1Alpha1.PriorityClass[] Items;
+      public readonly ImmutableArray<Scheduling.V1Alpha1.PriorityClass> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -25838,10 +30154,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
 
       [OutputConstructor]
       private PriorityClassList(
-          Scheduling.V1Alpha1.PriorityClass[] _items,
+          string _apiVersion,
+          ImmutableArray<Scheduling.V1Alpha1.PriorityClass> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25854,7 +30174,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
     /// to the priority integer value. The value can be any valid integer.
     /// </summary>
+    [OutputType]
     public sealed class PriorityClass {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// description is an arbitrary string that usually provides guidelines on when this
         /// priority class should be used.
@@ -25869,6 +30198,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// PriorityClasses will be used as the default priority.
         /// </summary>
       public readonly bool GlobalDefault;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -25892,14 +30229,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
 
       [OutputConstructor]
       private PriorityClass(
+          string _apiVersion,
           string _description,
           bool _globalDefault,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           string _preemptionPolicy,
           int _value)
       {
+          ApiVersion = _apiVersion;
           Description = _description;
           GlobalDefault = _globalDefault;
+          Kind = _kind;
           Metadata = _metadata;
           PreemptionPolicy = _preemptionPolicy;
           Value = _value;
@@ -25909,11 +30250,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
+    [OutputType]
     public sealed class PriorityClassList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of PriorityClasses
         /// </summary>
-      public readonly Scheduling.V1Beta1.PriorityClass[] Items;
+      public readonly ImmutableArray<Scheduling.V1Beta1.PriorityClass> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -25923,10 +30281,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
 
       [OutputConstructor]
       private PriorityClassList(
-          Scheduling.V1Beta1.PriorityClass[] _items,
+          string _apiVersion,
+          ImmutableArray<Scheduling.V1Beta1.PriorityClass> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25940,7 +30302,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
     /// <summary>
     /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
     /// </summary>
+    [OutputType]
     public sealed class PodPreset {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       
       public readonly Meta.V1.ObjectMeta Metadata;
 
@@ -25949,9 +30328,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
 
       [OutputConstructor]
       private PodPreset(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Settings.V1Alpha1.PodPresetSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -25960,11 +30343,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
     /// <summary>
     /// PodPresetList is a list of PodPreset objects.
     /// </summary>
+    [OutputType]
     public sealed class PodPresetList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-      public readonly Settings.V1Alpha1.PodPreset[] Items;
+      public readonly ImmutableArray<Settings.V1Alpha1.PodPreset> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata. More info:
@@ -25974,10 +30374,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
 
       [OutputConstructor]
       private PodPresetList(
-          Settings.V1Alpha1.PodPreset[] _items,
+          string _apiVersion,
+          ImmutableArray<Settings.V1Alpha1.PodPreset> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -25985,16 +30389,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
     /// <summary>
     /// PodPresetSpec is a description of a pod preset.
     /// </summary>
+    [OutputType]
     public sealed class PodPresetSpec {
       /// <summary>
         /// Env defines the collection of EnvVar to inject into containers.
         /// </summary>
-      public readonly Core.V1.EnvVar[] Env;
+      public readonly ImmutableArray<Core.V1.EnvVar> Env;
 
       /// <summary>
         /// EnvFrom defines the collection of EnvFromSource to inject into containers.
         /// </summary>
-      public readonly Core.V1.EnvFromSource[] EnvFrom;
+      public readonly ImmutableArray<Core.V1.EnvFromSource> EnvFrom;
 
       /// <summary>
         /// Selector is a label query over a set of resources, in this case pods. Required.
@@ -26004,20 +30409,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
       /// <summary>
         /// VolumeMounts defines the collection of VolumeMount to inject into containers.
         /// </summary>
-      public readonly Core.V1.VolumeMount[] VolumeMounts;
+      public readonly ImmutableArray<Core.V1.VolumeMount> VolumeMounts;
 
       /// <summary>
         /// Volumes defines the collection of Volume to inject into the pod.
         /// </summary>
-      public readonly Core.V1.Volume[] Volumes;
+      public readonly ImmutableArray<Core.V1.Volume> Volumes;
 
       [OutputConstructor]
       private PodPresetSpec(
-          Core.V1.EnvVar[] _env,
-          Core.V1.EnvFromSource[] _envFrom,
+          ImmutableArray<Core.V1.EnvVar> _env,
+          ImmutableArray<Core.V1.EnvFromSource> _envFrom,
           Meta.V1.LabelSelector _selector,
-          Core.V1.VolumeMount[] _volumeMounts,
-          Core.V1.Volume[] _volumes)
+          ImmutableArray<Core.V1.VolumeMount> _volumeMounts,
+          ImmutableArray<Core.V1.Volume> _volumes)
       {
           Env = _env;
           EnvFrom = _envFrom;
@@ -26040,6 +30445,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// StorageClasses are non-namespaced; the name of the storage class according to etcd is in
     /// ObjectMeta.Name.
     /// </summary>
+    [OutputType]
     public sealed class StorageClass {
       /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
@@ -26052,7 +30458,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// list means there is no topology restriction. This field is only honored by servers that
         /// enable the VolumeScheduling feature.
         /// </summary>
-      public readonly Core.V1.TopologySelectorTerm[] AllowedTopologies;
+      public readonly ImmutableArray<Core.V1.TopologySelectorTerm> AllowedTopologies;
+
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -26065,7 +30487,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if
         /// one is invalid.
         /// </summary>
-      public readonly string[] MountOptions;
+      public readonly ImmutableArray<string> MountOptions;
 
       /// <summary>
         /// Parameters holds the parameters for the provisioner that should create volumes of this
@@ -26094,9 +30516,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
       [OutputConstructor]
       private StorageClass(
           bool _allowVolumeExpansion,
-          Core.V1.TopologySelectorTerm[] _allowedTopologies,
+          ImmutableArray<Core.V1.TopologySelectorTerm> _allowedTopologies,
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          string[] _mountOptions,
+          ImmutableArray<string> _mountOptions,
           ImmutableDictionary<string, string> _parameters,
           string _provisioner,
           string _reclaimPolicy,
@@ -26104,6 +30528,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
       {
           AllowVolumeExpansion = _allowVolumeExpansion;
           AllowedTopologies = _allowedTopologies;
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           MountOptions = _mountOptions;
           Parameters = _parameters;
@@ -26116,11 +30542,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// StorageClassList is a collection of storage classes.
     /// </summary>
+    [OutputType]
     public sealed class StorageClassList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of StorageClasses
         /// </summary>
-      public readonly Storage.V1.StorageClass[] Items;
+      public readonly ImmutableArray<Storage.V1.StorageClass> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -26130,10 +30573,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private StorageClassList(
-          Storage.V1.StorageClass[] _items,
+          string _apiVersion,
+          ImmutableArray<Storage.V1.StorageClass> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -26144,7 +30591,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// 
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachment {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -26165,10 +30629,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private VolumeAttachment(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Storage.V1.VolumeAttachmentSpec _spec,
           Storage.V1.VolumeAttachmentStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -26178,11 +30646,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of VolumeAttachments
         /// </summary>
-      public readonly Storage.V1.VolumeAttachment[] Items;
+      public readonly ImmutableArray<Storage.V1.VolumeAttachment> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -26192,10 +30677,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private VolumeAttachmentList(
-          Storage.V1.VolumeAttachment[] _items,
+          string _apiVersion,
+          ImmutableArray<Storage.V1.VolumeAttachment> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -26205,6 +30694,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// PersistenVolumes can be attached via external attacher, in future we may allow also inline
     /// volumes in pods. Exactly one member can be set.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentSource {
       /// <summary>
         /// inlineVolumeSpec contains all the information necessary to attach a persistent volume
@@ -26233,6 +30723,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentSpec {
       /// <summary>
         /// Attacher indicates the name of the volume driver that MUST handle this request. This is
@@ -26265,6 +30756,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentStatus {
       /// <summary>
         /// The last error encountered during attach operation, if any. This field must only be set
@@ -26309,6 +30801,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
+    [OutputType]
     public sealed class VolumeError {
       /// <summary>
         /// String detailing the error encountered during Attach or Detach operation. This string
@@ -26340,7 +30833,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// 
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachment {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -26361,10 +30871,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private VolumeAttachment(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Storage.V1Alpha1.VolumeAttachmentSpec _spec,
           Storage.V1Alpha1.VolumeAttachmentStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -26374,11 +30888,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of VolumeAttachments
         /// </summary>
-      public readonly Storage.V1Alpha1.VolumeAttachment[] Items;
+      public readonly ImmutableArray<Storage.V1Alpha1.VolumeAttachment> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -26388,10 +30919,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private VolumeAttachmentList(
-          Storage.V1Alpha1.VolumeAttachment[] _items,
+          string _apiVersion,
+          ImmutableArray<Storage.V1Alpha1.VolumeAttachment> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -26401,6 +30936,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// PersistenVolumes can be attached via external attacher, in future we may allow also inline
     /// volumes in pods. Exactly one member can be set.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentSource {
       /// <summary>
         /// inlineVolumeSpec contains all the information necessary to attach a persistent volume
@@ -26429,6 +30965,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentSpec {
       /// <summary>
         /// Attacher indicates the name of the volume driver that MUST handle this request. This is
@@ -26461,6 +30998,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentStatus {
       /// <summary>
         /// The last error encountered during attach operation, if any. This field must only be set
@@ -26505,6 +31043,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
+    [OutputType]
     public sealed class VolumeError {
       /// <summary>
         /// String detailing the error encountered during Attach or Detach operation. This string
@@ -26539,7 +31078,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// uses this object to determine whether pod information needs to be passed on mount. CSIDriver
     /// objects are non-namespaced.
     /// </summary>
+    [OutputType]
     public sealed class CSIDriver {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata. metadata.Name indicates the name of the CSI driver that this
         /// object refers to; it MUST be the same name returned by the CSI GetPluginName() call for
@@ -26557,9 +31113,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private CSIDriver(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Storage.V1Beta1.CSIDriverSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -26568,11 +31128,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// CSIDriverList is a collection of CSIDriver objects.
     /// </summary>
+    [OutputType]
     public sealed class CSIDriverList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of CSIDriver
         /// </summary>
-      public readonly Storage.V1Beta1.CSIDriver[] Items;
+      public readonly ImmutableArray<Storage.V1Beta1.CSIDriver> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -26582,10 +31159,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private CSIDriverList(
-          Storage.V1Beta1.CSIDriver[] _items,
+          string _apiVersion,
+          ImmutableArray<Storage.V1Beta1.CSIDriver> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -26593,6 +31174,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// CSIDriverSpec is the specification of a CSIDriver.
     /// </summary>
+    [OutputType]
     public sealed class CSIDriverSpec {
       /// <summary>
         /// attachRequired indicates this CSI volume driver requires an attach operation (because it
@@ -26640,13 +31222,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support
         /// one or more of these modes and more modes may be added in the future.
         /// </summary>
-      public readonly string[] VolumeLifecycleModes;
+      public readonly ImmutableArray<string> VolumeLifecycleModes;
 
       [OutputConstructor]
       private CSIDriverSpec(
           bool _attachRequired,
           bool _podInfoOnMount,
-          string[] _volumeLifecycleModes)
+          ImmutableArray<string> _volumeLifecycleModes)
       {
           AttachRequired = _attachRequired;
           PodInfoOnMount = _podInfoOnMount;
@@ -26663,7 +31245,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// version is low enough that it doesn't create this object. CSINode has an OwnerReference that
     /// points to the corresponding node object.
     /// </summary>
+    [OutputType]
     public sealed class CSINode {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// metadata.name must be the Kubernetes node name.
         /// </summary>
@@ -26676,9 +31275,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private CSINode(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Storage.V1Beta1.CSINodeSpec _spec)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
       }
@@ -26688,6 +31291,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// CSINodeDriver holds information about the specification of one CSI driver installed on a
     /// node
     /// </summary>
+    [OutputType]
     public sealed class CSINodeDriver {
       /// <summary>
         /// allocatable represents the volume resources of a node that are available for scheduling.
@@ -26721,14 +31325,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// and pass back to the driver. It is possible for different nodes to use different
         /// topology keys. This can be empty if driver does not support topology.
         /// </summary>
-      public readonly string[] TopologyKeys;
+      public readonly ImmutableArray<string> TopologyKeys;
 
       [OutputConstructor]
       private CSINodeDriver(
           Storage.V1Beta1.VolumeNodeResources _allocatable,
           string _name,
           string _nodeID,
-          string[] _topologyKeys)
+          ImmutableArray<string> _topologyKeys)
       {
           Allocatable = _allocatable;
           Name = _name;
@@ -26740,11 +31344,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// CSINodeList is a collection of CSINode objects.
     /// </summary>
+    [OutputType]
     public sealed class CSINodeList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// items is the list of CSINode
         /// </summary>
-      public readonly Storage.V1Beta1.CSINode[] Items;
+      public readonly ImmutableArray<Storage.V1Beta1.CSINode> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -26754,10 +31375,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private CSINodeList(
-          Storage.V1Beta1.CSINode[] _items,
+          string _apiVersion,
+          ImmutableArray<Storage.V1Beta1.CSINode> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -26765,16 +31390,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
     /// </summary>
+    [OutputType]
     public sealed class CSINodeSpec {
       /// <summary>
         /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers
         /// in the list are uninstalled, this can become empty.
         /// </summary>
-      public readonly Storage.V1Beta1.CSINodeDriver[] Drivers;
+      public readonly ImmutableArray<Storage.V1Beta1.CSINodeDriver> Drivers;
 
       [OutputConstructor]
       private CSINodeSpec(
-          Storage.V1Beta1.CSINodeDriver[] _drivers)
+          ImmutableArray<Storage.V1Beta1.CSINodeDriver> _drivers)
       {
           Drivers = _drivers;
       }
@@ -26787,6 +31413,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// StorageClasses are non-namespaced; the name of the storage class according to etcd is in
     /// ObjectMeta.Name.
     /// </summary>
+    [OutputType]
     public sealed class StorageClass {
       /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
@@ -26799,7 +31426,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// list means there is no topology restriction. This field is only honored by servers that
         /// enable the VolumeScheduling feature.
         /// </summary>
-      public readonly Core.V1.TopologySelectorTerm[] AllowedTopologies;
+      public readonly ImmutableArray<Core.V1.TopologySelectorTerm> AllowedTopologies;
+
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard object's metadata. More info:
@@ -26812,7 +31455,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if
         /// one is invalid.
         /// </summary>
-      public readonly string[] MountOptions;
+      public readonly ImmutableArray<string> MountOptions;
 
       /// <summary>
         /// Parameters holds the parameters for the provisioner that should create volumes of this
@@ -26841,9 +31484,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
       [OutputConstructor]
       private StorageClass(
           bool _allowVolumeExpansion,
-          Core.V1.TopologySelectorTerm[] _allowedTopologies,
+          ImmutableArray<Core.V1.TopologySelectorTerm> _allowedTopologies,
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
-          string[] _mountOptions,
+          ImmutableArray<string> _mountOptions,
           ImmutableDictionary<string, string> _parameters,
           string _provisioner,
           string _reclaimPolicy,
@@ -26851,6 +31496,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
       {
           AllowVolumeExpansion = _allowVolumeExpansion;
           AllowedTopologies = _allowedTopologies;
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           MountOptions = _mountOptions;
           Parameters = _parameters;
@@ -26863,11 +31510,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// StorageClassList is a collection of storage classes.
     /// </summary>
+    [OutputType]
     public sealed class StorageClassList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of StorageClasses
         /// </summary>
-      public readonly Storage.V1Beta1.StorageClass[] Items;
+      public readonly ImmutableArray<Storage.V1Beta1.StorageClass> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -26877,10 +31541,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private StorageClassList(
-          Storage.V1Beta1.StorageClass[] _items,
+          string _apiVersion,
+          ImmutableArray<Storage.V1Beta1.StorageClass> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -26891,7 +31559,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// 
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachment {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
       /// <summary>
         /// Standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -26912,10 +31597,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private VolumeAttachment(
+          string _apiVersion,
+          string _kind,
           Meta.V1.ObjectMeta _metadata,
           Storage.V1Beta1.VolumeAttachmentSpec _spec,
           Storage.V1Beta1.VolumeAttachmentStatus _status)
       {
+          ApiVersion = _apiVersion;
+          Kind = _kind;
           Metadata = _metadata;
           Spec = _spec;
           Status = _status;
@@ -26925,11 +31614,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentList {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
       /// <summary>
         /// Items is the list of VolumeAttachments
         /// </summary>
-      public readonly Storage.V1Beta1.VolumeAttachment[] Items;
+      public readonly ImmutableArray<Storage.V1Beta1.VolumeAttachment> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
 
       /// <summary>
         /// Standard list metadata More info:
@@ -26939,10 +31645,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
 
       [OutputConstructor]
       private VolumeAttachmentList(
-          Storage.V1Beta1.VolumeAttachment[] _items,
+          string _apiVersion,
+          ImmutableArray<Storage.V1Beta1.VolumeAttachment> _items,
+          string _kind,
           Meta.V1.ListMeta _metadata)
       {
+          ApiVersion = _apiVersion;
           Items = _items;
+          Kind = _kind;
           Metadata = _metadata;
       }
 
@@ -26952,6 +31662,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// PersistenVolumes can be attached via external attacher, in future we may allow also inline
     /// volumes in pods. Exactly one member can be set.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentSource {
       /// <summary>
         /// inlineVolumeSpec contains all the information necessary to attach a persistent volume
@@ -26980,6 +31691,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentSpec {
       /// <summary>
         /// Attacher indicates the name of the volume driver that MUST handle this request. This is
@@ -27012,6 +31724,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
+    [OutputType]
     public sealed class VolumeAttachmentStatus {
       /// <summary>
         /// The last error encountered during attach operation, if any. This field must only be set
@@ -27056,6 +31769,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
+    [OutputType]
     public sealed class VolumeError {
       /// <summary>
         /// String detailing the error encountered during Attach or Detach operation. This string
@@ -27081,6 +31795,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// <summary>
     /// VolumeNodeResources is a set of resource limits for scheduling of volumes.
     /// </summary>
+    [OutputType]
     public sealed class VolumeNodeResources {
       /// <summary>
         /// Maximum number of unique volumes managed by the CSI driver that can be used on a node. A

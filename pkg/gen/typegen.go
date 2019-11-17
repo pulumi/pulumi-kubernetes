@@ -586,7 +586,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			case provider:
 				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
 			case outputsAPI:
-				return fmt.Sprintf("%s[]", elemType)
+				return fmt.Sprintf("ImmutableArray<%s>", elemType)
 			case inputsAPI:
 				return fmt.Sprintf("InputList<%s>", elemType)
 			}
@@ -597,20 +597,23 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		} else if tstr == "number" {
 			return wrapType("double")
 		} else if tstr == "object" {
+			kvtype := "string"
 			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
 			// values both have type `type`. This type is never a `$ref`.
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
 				mapType := additionalProperties.(map[string]interface{})
 				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
-					switch opts.generatorType {
-					case inputsAPI:
-						return fmt.Sprintf("InputMap<%s>", ktype)
-					case outputsAPI:
-						return fmt.Sprintf("ImmutableDictionary<%s, %s>", ktype, ktype)
-					case provider:
-						return fmt.Sprintf("Output<ImmutableDictionary<%s, %s>>", ktype, ktype)
-					}
+					kvtype = ktype.(string)
+
 				}
+			}
+			switch opts.generatorType {
+			case inputsAPI:
+				return fmt.Sprintf("InputMap<%s>", kvtype)
+			case outputsAPI:
+				return fmt.Sprintf("ImmutableDictionary<%s, %s>", kvtype, kvtype)
+			case provider:
+				return fmt.Sprintf("Output<ImmutableDictionary<%s, %s>>", kvtype, kvtype)
 			}
 		} else if tstr == "string" && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
 			// Special case: `.metadata.namespace` should either take a string or a namespace object
@@ -638,7 +641,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case intOrString:
 		ref = "int /* TODO: or string */"
 	case v1Fields, v1FieldsV1, rawExtension:
-		ref = tsObject
+		ref = "string /* TODO: wrong!*/"
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
 		ref = "string"
@@ -651,7 +654,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case v1JSONSchemaPropsOrArray:
 		ref = "ApiExtensions.V1.JSONSchemaProps /* TODO: or array */"
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
-		ref = "object"
+		ref = "string /* TODO: wrong!*/"
 	default:
 		isSimpleRef = false
 	}
@@ -869,7 +872,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				WhereT(func(kv linq.KeyValue) bool {
 					propName := kv.Key.(string)
-					if (opts.language == python || opts.language == dotnet) && (propName == "apiVersion" || propName == "kind") {
+					if (opts.language == python) && (propName == "apiVersion" || propName == "kind") {
 						return false
 					}
 					return true

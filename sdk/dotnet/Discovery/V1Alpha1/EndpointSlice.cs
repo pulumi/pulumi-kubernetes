@@ -14,20 +14,6 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
     /// </summary>
     public partial class EndpointSlice : Pulumi.CustomResource {
         /// <summary>
-        /// APIVersion defines the versioned schema of this representation of an object. Servers should
-        /// convert recognized schemas to the latest internal value, and may reject unrecognized values.
-        /// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-        /// </summary>
-        public Output<string> ApiVersion { get; private set; } = null!;
-
-        /// <summary>
-        /// Kind is a string value representing the REST resource this object represents. Servers may infer
-        /// this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-        /// info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-        /// </summary>
-        public Output<string> Kind { get; private set; } = null!;
-
-        /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses
         /// in this slice must be the same type. Default is IP
         /// </summary>
@@ -35,11 +21,29 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         public Output<string> AddressType { get; private set; } = null!;
 
         /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+        [Output("apiVersion")]
+        public Output<string> ApiVersion { get; private set; } = null!;
+
+        /// <summary>
         /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
         /// of 1000 endpoints.
         /// </summary>
         [Output("endpoints")]
         public Output<Types.Outputs.Discovery.V1Alpha1.Endpoint[]> Endpoints { get; private set; } = null!;
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Output("kind")]
+        public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata.
@@ -65,8 +69,16 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public EndpointSlice(string name, Types.Inputs.Discovery.V1Alpha1.EndpointSlice? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:discovery.k8s.io/v1alpha1:EndpointSlice", name, args, MakeResourceOptions(options, ""))
+            : base("kubernetes:discovery.k8s.io/v1alpha1:EndpointSlice", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
+        }
+
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Discovery.V1Alpha1.EndpointSlice? args) {
+            if (args != null) {
+                args.ApiVersion = "discovery.k8s.io/v1alpha1";
+                args.Kind = "EndpointSlice";
+            }
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)

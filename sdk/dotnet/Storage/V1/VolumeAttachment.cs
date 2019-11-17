@@ -15,17 +15,21 @@ namespace Pulumi.Kubernetes.Storage.V1 {
     /// </summary>
     public partial class VolumeAttachment : Pulumi.CustomResource {
         /// <summary>
-        /// APIVersion defines the versioned schema of this representation of an object. Servers should
-        /// convert recognized schemas to the latest internal value, and may reject unrecognized values.
-        /// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         /// </summary>
+        [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Kind is a string value representing the REST resource this object represents. Servers may infer
-        /// this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-        /// info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
+        [Output("kind")]
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
@@ -58,8 +62,16 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public VolumeAttachment(string name, Types.Inputs.Storage.V1.VolumeAttachment? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1:VolumeAttachment", name, args, MakeResourceOptions(options, ""))
+            : base("kubernetes:storage.k8s.io/v1:VolumeAttachment", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
+        }
+
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1.VolumeAttachment? args) {
+            if (args != null) {
+                args.ApiVersion = "storage.k8s.io/v1";
+                args.Kind = "VolumeAttachment";
+            }
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)

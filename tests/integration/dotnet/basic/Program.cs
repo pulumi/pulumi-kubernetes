@@ -16,7 +16,17 @@ class Program
         {
             var pod = new Pulumi.Kubernetes.Core.V1.Pod("pod", new Pulumi.Kubernetes.Types.Inputs.Core.V1.Pod
             {
-
+                Spec = new Pulumi.Kubernetes.Types.Inputs.Core.V1.PodSpec
+                {
+                    Containers = 
+                    {
+                        new Pulumi.Kubernetes.Types.Inputs.Core.V1.Container
+                        {
+                            Name = "nginx",
+                            Image = "nginx",
+                        },
+                    },
+                },
             });
         });
     }
