@@ -5,6 +5,7 @@ PACK             := kubernetes
 PACKDIR          := sdk
 PROJECT          := github.com/pulumi/pulumi-kubernetes
 NODE_MODULE_NAME := @pulumi/kubernetes
+NUGET_PKG_NAME   := Pulumi.Kubernetes
 
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
@@ -79,6 +80,9 @@ install::
 		yarn install --offline --production && \
 		(yarn unlink > /dev/null 2>&1 || true) && \
 		yarn link
+	[ ! -e "$(PULUMI_NUGET)" ] || rm -rf "$(PULUMI_NUGET)/$(NUGET_PKG_NAME).*.nupkg"
+	find . -name '$(NUGET_PKG_NAME).*.nupkg' -exec cp -p {} ${PULUMI_NUGET} \;
+
 
 test_fast::
 	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests

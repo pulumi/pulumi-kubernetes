@@ -908,7 +908,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					switch propName {
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
-						if isTopLevel {
+						if opts.language == typescript && isTopLevel {
 							switch opts.generatorType {
 							case provider:
 								t = fmt.Sprintf(`pulumi.Output<"%s">`, defaultGroupVersion)
@@ -920,7 +920,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						}
 					case "kind":
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
-						if isTopLevel {
+						if opts.language == typescript && isTopLevel {
 							switch opts.generatorType {
 							case provider:
 								t = fmt.Sprintf(`pulumi.Output<"%s">`, d.gvk.Kind)
