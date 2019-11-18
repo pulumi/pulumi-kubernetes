@@ -25,18 +25,14 @@ values = {
             "pullPolicy": "Always"
         }
     },
-    "healthz": {
-        "image": {
-            "repository": "gcr.io/google-containers/exechealthz"
-        }
-    },
     "random-string": rs
 }
 
 Chart("unbound", ChartOpts(
-    "stable/unbound", values=values, namespace=namespace.metadata["name"]))
+    "stable/unbound", values=values, namespace=namespace.metadata["name"], version="1.1.0"))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
 # can be managed in the same stack.
 Chart("unbound", ChartOpts(
-    "stable/unbound", resource_prefix="dup", values=values, namespace=namespace.metadata["name"]))
+    "stable/unbound", resource_prefix="dup", values=values, namespace=namespace.metadata["name"],
+    version="1.1.0"))
