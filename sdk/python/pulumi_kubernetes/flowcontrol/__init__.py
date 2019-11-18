@@ -4,5 +4,5 @@
 
 # Make subpackages available:
 __all__ = [
-    "v1beta1",
+    "v1alpha1",
 ]

@@ -98,15 +98,6 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          opts.additionalSecretOutputs = [
-              ...((opts && opts.additionalSecretOutputs) || []),
-
-          ];
-
-          opts.aliases = [
-              ...((opts && opts.aliases) || []),
-          ];
-
           super(CSINode.__pulumiType, name, props, opts);
       }
     }

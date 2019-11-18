@@ -11,11 +11,11 @@ from pulumi import Input, ResourceOptions
 from ... import tables, version
 
 
-class ClusterRole(pulumi.CustomResource):
+class EndpointSlice(pulumi.CustomResource):
     """
-    ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit
-    by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
-    rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
+    EndpointSlice represents a subset of the endpoints that implement a service. For a given service
+    there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce
+    the full set of endpoints.
     """
 
     apiVersion: pulumi.Output[str]
@@ -32,11 +32,18 @@ class ClusterRole(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    aggregation_rule: pulumi.Output[dict]
+    address_type: pulumi.Output[str]
     """
-    AggregationRule is an optional field that describes how to build the Rules for this ClusterRole.
-    If AggregationRule is set, then the Rules are controller managed and direct changes to Rules
-    will be stomped by the controller.
+    addressType specifies the type of address carried by this EndpointSlice. All addresses in this
+    slice must be the same type. This field is immutable after creation. The following address types
+    are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address.
+    * FQDN: Represents a Fully Qualified Domain Name.
+    """
+
+    endpoints: pulumi.Output[list]
+    """
+    endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000
+    endpoints.
     """
 
     metadata: pulumi.Output[dict]
@@ -44,22 +51,32 @@ class ClusterRole(pulumi.CustomResource):
     Standard object's metadata.
     """
 
-    rules: pulumi.Output[list]
+    ports: pulumi.Output[list]
     """
-    Rules holds all the PolicyRules for this ClusterRole
+    ports specifies the list of network ports exposed by each endpoint in this slice. Each port must
+    have a unique name. When ports is empty, it indicates that there are no defined ports. When a
+    port is defined with a nil port value, it indicates "all ports". Each slice may include a
+    maximum of 100 ports.
     """
 
-    def __init__(self, resource_name, opts=None, aggregation_rule=None, metadata=None, rules=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, address_type=None, endpoints=None, metadata=None, ports=None, __name__=None, __opts__=None):
         """
-        Create a ClusterRole resource with the given unique name, arguments, and options.
+        Create a EndpointSlice resource with the given unique name, arguments, and options.
 
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[dict] aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this
-               ClusterRole. If AggregationRule is set, then the Rules are controller managed and
-               direct changes to Rules will be stomped by the controller.
+        :param pulumi.Input[str] address_type: addressType specifies the type of address carried by this EndpointSlice. All
+               addresses in this slice must be the same type. This field is immutable after
+               creation. The following address types are currently supported: * IPv4: Represents an
+               IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully
+               Qualified Domain Name.
+        :param pulumi.Input[list] endpoints: endpoints is a list of unique endpoints in this slice. Each slice may include a
+               maximum of 1000 endpoints.
         :param pulumi.Input[dict] metadata: Standard object's metadata.
-        :param pulumi.Input[list] rules: Rules holds all the PolicyRules for this ClusterRole
+        :param pulumi.Input[list] ports: ports specifies the list of network ports exposed by each endpoint in this slice.
+               Each port must have a unique name. When ports is empty, it indicates that there are
+               no defined ports. When a port is defined with a nil port value, it indicates "all
+               ports". Each slice may include a maximum of 100 ports.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -76,11 +93,16 @@ class ClusterRole(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1beta1'
-        __props__['kind'] = 'ClusterRole'
-        __props__['aggregationRule'] = aggregation_rule
+        __props__['apiVersion'] = 'discovery.k8s.io/v1beta1'
+        __props__['kind'] = 'EndpointSlice'
+        if address_type is None:
+            raise TypeError('Missing required property address_type')
+        __props__['addressType'] = address_type
+        if endpoints is None:
+            raise TypeError('Missing required property endpoints')
+        __props__['endpoints'] = endpoints
         __props__['metadata'] = metadata
-        __props__['rules'] = rules
+        __props__['ports'] = ports
 
         __props__['status'] = None
 
@@ -88,8 +110,8 @@ class ClusterRole(pulumi.CustomResource):
             version=version.get_version(),
         ))
 
-        super(ClusterRole, self).__init__(
-            "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole",
+        super(EndpointSlice, self).__init__(
+            "kubernetes:discovery.k8s.io/v1beta1:EndpointSlice",
             resource_name,
             __props__,
             opts)
@@ -97,7 +119,7 @@ class ClusterRole(pulumi.CustomResource):
     @staticmethod
     def get(resource_name, id, opts=None):
         """
-        Get the state of an existing `ClusterRole` resource, as identified by `id`.
+        Get the state of an existing `EndpointSlice` resource, as identified by `id`.
         The ID is of the form `[namespace]/[name]`; if `[namespace]` is omitted,
         then (per Kubernetes convention) the ID becomes `default/[name]`.
 
@@ -110,7 +132,7 @@ class ClusterRole(pulumi.CustomResource):
                resource's behavior.
         """
         opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return ClusterRole(resource_name, opts)
+        return EndpointSlice(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

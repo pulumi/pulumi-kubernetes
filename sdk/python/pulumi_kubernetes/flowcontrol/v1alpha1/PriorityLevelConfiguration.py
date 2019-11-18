@@ -11,11 +11,9 @@ from pulumi import Input, ResourceOptions
 from ... import tables, version
 
 
-class ClusterRole(pulumi.CustomResource):
+class PriorityLevelConfiguration(pulumi.CustomResource):
     """
-    ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit
-    by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
-    rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
+    PriorityLevelConfiguration represents the configuration of a priority level.
     """
 
     apiVersion: pulumi.Output[str]
@@ -32,34 +30,35 @@ class ClusterRole(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    aggregation_rule: pulumi.Output[dict]
-    """
-    AggregationRule is an optional field that describes how to build the Rules for this ClusterRole.
-    If AggregationRule is set, then the Rules are controller managed and direct changes to Rules
-    will be stomped by the controller.
-    """
-
     metadata: pulumi.Output[dict]
     """
-    Standard object's metadata.
+    `metadata` is the standard object's metadata. More info:
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
-    rules: pulumi.Output[list]
+    spec: pulumi.Output[dict]
     """
-    Rules holds all the PolicyRules for this ClusterRole
+    `spec` is the specification of the desired behavior of a "request-priority". More info:
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
-    def __init__(self, resource_name, opts=None, aggregation_rule=None, metadata=None, rules=None, __name__=None, __opts__=None):
+    status: pulumi.Output[dict]
+    """
+    `status` is the current status of a "request-priority". More info:
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
+
+    def __init__(self, resource_name, opts=None, metadata=None, spec=None, __name__=None, __opts__=None):
         """
-        Create a ClusterRole resource with the given unique name, arguments, and options.
+        Create a PriorityLevelConfiguration resource with the given unique name, arguments, and options.
 
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[dict] aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this
-               ClusterRole. If AggregationRule is set, then the Rules are controller managed and
-               direct changes to Rules will be stomped by the controller.
-        :param pulumi.Input[dict] metadata: Standard object's metadata.
-        :param pulumi.Input[list] rules: Rules holds all the PolicyRules for this ClusterRole
+        :param pulumi.Input[dict] metadata: `metadata` is the standard object's metadata. More info:
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[dict] spec: `spec` is the specification of the desired behavior of a "request-priority". More
+               info:
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -76,11 +75,10 @@ class ClusterRole(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1beta1'
-        __props__['kind'] = 'ClusterRole'
-        __props__['aggregationRule'] = aggregation_rule
+        __props__['apiVersion'] = 'flowcontrol.apiserver.k8s.io/v1alpha1'
+        __props__['kind'] = 'PriorityLevelConfiguration'
         __props__['metadata'] = metadata
-        __props__['rules'] = rules
+        __props__['spec'] = spec
 
         __props__['status'] = None
 
@@ -88,8 +86,8 @@ class ClusterRole(pulumi.CustomResource):
             version=version.get_version(),
         ))
 
-        super(ClusterRole, self).__init__(
-            "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole",
+        super(PriorityLevelConfiguration, self).__init__(
+            "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration",
             resource_name,
             __props__,
             opts)
@@ -97,7 +95,7 @@ class ClusterRole(pulumi.CustomResource):
     @staticmethod
     def get(resource_name, id, opts=None):
         """
-        Get the state of an existing `ClusterRole` resource, as identified by `id`.
+        Get the state of an existing `PriorityLevelConfiguration` resource, as identified by `id`.
         The ID is of the form `[namespace]/[name]`; if `[namespace]` is omitted,
         then (per Kubernetes convention) the ID becomes `default/[name]`.
 
@@ -110,7 +108,7 @@ class ClusterRole(pulumi.CustomResource):
                resource's behavior.
         """
         opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return ClusterRole(resource_name, opts)
+        return PriorityLevelConfiguration(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

@@ -13,7 +13,8 @@ from ... import tables, version
 
 class ClusterRoleList(pulumi.CustomResource):
     """
-    ClusterRoleList is a collection of ClusterRoles
+    ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+    rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
     """
 
     apiVersion: pulumi.Output[str]

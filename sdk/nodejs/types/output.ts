@@ -686,7 +686,7 @@ export namespace admissionregistration {
       readonly rules: admissionregistration.v1beta1.RuleWithOperations[]
 
       /**
-       * SideEffects states whether this webhookk has side effects. Acceptable values are: Unknown,
+       * SideEffects states whether this webhook has side effects. Acceptable values are: Unknown,
        * None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system,
        * since a request may be rejected by a future step in the admission change and the side
        * effects therefore need to be undone. Requests with the dryRun attribute will be
@@ -964,7 +964,7 @@ export namespace admissionregistration {
       readonly rules: admissionregistration.v1beta1.RuleWithOperations[]
 
       /**
-       * SideEffects states whether this webhookk has side effects. Acceptable values are: Unknown,
+       * SideEffects states whether this webhook has side effects. Acceptable values are: Unknown,
        * None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system,
        * since a request may be rejected by a future step in the admission change and the side
        * effects therefore need to be undone. Requests with the dryRun attribute will be
@@ -1559,7 +1559,37 @@ export namespace apiextensions {
       
       readonly externalDocs: apiextensions.v1.ExternalDocumentation
 
-      
+      /**
+       * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats
+       * are validated:
+       * 
+       * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed
+       * by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+       * net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+       * defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+       * net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by
+       * Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an
+       * UUID5 that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+       * ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+       * number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" -
+       * creditcard: a credit card number defined by the regex
+       * ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+       * with any non digit characters mixed in - ssn: a U.S. social security number following the
+       * regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF:
+       * following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like
+       * rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of
+       * string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 -
+       * duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or
+       * compatible with Scala duration format - datetime: a date time string like
+       * "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+       */
       readonly format: string
 
       
@@ -1669,7 +1699,8 @@ export namespace apiextensions {
        *      may be used on any type of list (struct, scalar, ...).
        * 2) `set`:
        *      Sets are lists that must not have multiple items with the same value. Each
-       *      value must be a scalar (or another atomic type).
+       *      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+       *      array with x-kubernetes-list-type `atomic`.
        * 3) `map`:
        *      These lists are like maps in that their elements have a non-index key
        *      used to identify them. Order is preserved upon merge. The map tag
@@ -2307,7 +2338,37 @@ export namespace apiextensions {
       
       readonly externalDocs: apiextensions.v1beta1.ExternalDocumentation
 
-      
+      /**
+       * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats
+       * are validated:
+       * 
+       * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed
+       * by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+       * net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+       * defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+       * net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by
+       * Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an
+       * UUID5 that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+       * ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+       * number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" -
+       * creditcard: a credit card number defined by the regex
+       * ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+       * with any non digit characters mixed in - ssn: a U.S. social security number following the
+       * regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF:
+       * following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like
+       * rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of
+       * string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 -
+       * duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or
+       * compatible with Scala duration format - datetime: a date time string like
+       * "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+       */
       readonly format: string
 
       
@@ -2417,7 +2478,8 @@ export namespace apiextensions {
        *      may be used on any type of list (struct, scalar, ...).
        * 2) `set`:
        *      Sets are lists that must not have multiple items with the same value. Each
-       *      value must be a scalar (or another atomic type).
+       *      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+       *      array with x-kubernetes-list-type `atomic`.
        * 3) `map`:
        *      These lists are like maps in that their elements have a non-index key
        *      used to identify them. Order is preserved upon merge. The map tag
@@ -10832,7 +10894,8 @@ export namespace core {
 
       /**
        * Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels,
-       * metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP.
+       * metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP,
+       * status.podIPs.
        */
       readonly fieldRef: core.v1.ObjectFieldSelector
 
@@ -13680,8 +13743,7 @@ export namespace core {
        * Share a single process namespace between all of the containers in a pod. When this is set
        * containers will be able to view and signal processes from other containers in the same pod,
        * and the first process in each container will not be assigned PID 1. HostPID and
-       * ShareProcessNamespace cannot both be set. Optional: Default to false. This field is
-       * beta-level and may be disabled with the PodShareProcessNamespace feature.
+       * ShareProcessNamespace cannot both be set. Optional: Default to false.
        */
       readonly shareProcessNamespace: boolean
 
@@ -15348,6 +15410,19 @@ export namespace core {
       readonly sessionAffinityConfig: core.v1.SessionAffinityConfig
 
       /**
+       * topologyKeys is a preference-order list of topology keys which implementations of services
+       * should use to preferentially sort endpoints when accessing this Service, it can not be used
+       * at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and
+       * at most 16 keys may be specified. Endpoints are chosen based on the first topology key with
+       * available backends. If this field is specified and all entries have no backends that match
+       * the topology of the client, the service has no backends for that client and connections
+       * should fail. The special value "*" may be used to mean "any topology". This catch-all
+       * value, if used, only makes sense as the last value in the list. If this is not specified or
+       * empty, no topology constraints will be applied.
+       */
+      readonly topologyKeys: string[]
+
+      /**
        * type determines how the Service is exposed. Defaults to ClusterIP. Valid options are
        * ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified
        * externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to
@@ -16002,8 +16077,8 @@ export namespace core {
        * The UserName in Windows to run the entrypoint of the container process. Defaults to the
        * user specified in image metadata if unspecified. May also be set in PodSecurityContext. If
        * set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext
-       * takes precedence. This field is alpha-level and it is only honored by servers that enable
-       * the WindowsRunAsUserName feature flag.
+       * takes precedence. This field is beta-level and may be disabled with the
+       * WindowsRunAsUserName feature flag.
        */
       readonly runAsUserName: string
 
@@ -16014,24 +16089,23 @@ export namespace core {
 }
 
 export namespace discovery {
-  export namespace v1alpha1 {
+  export namespace v1beta1 {
     /**
      * Endpoint represents a single logical "backend" implementing a service.
      */
     export interface Endpoint {
       /**
        * addresses of this endpoint. The contents of this field are interpreted according to the
-       * corresponding EndpointSlice addressType field. This allows for cases like dual-stack
-       * networking where both IPv4 and IPv6 addresses would be included with the IP addressType.
-       * Consumers (e.g. kube-proxy) must handle different types of addresses in the context of
-       * their own capabilities. This must contain at least one address but no more than 100.
+       * corresponding EndpointSlice addressType field. Consumers must handle different types of
+       * addresses in the context of their own capabilities. This must contain at least one address
+       * but no more than 100.
        */
       readonly addresses: string[]
 
       /**
        * conditions contains information about the current status of the endpoint.
        */
-      readonly conditions: discovery.v1alpha1.EndpointConditions
+      readonly conditions: discovery.v1beta1.EndpointConditions
 
       /**
        * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish
@@ -16081,6 +16155,14 @@ export namespace discovery {
      */
     export interface EndpointPort {
       /**
+       * The application protocol for this port. This field follows standard Kubernetes label
+       * syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
+       * http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
+       * names. Default is empty string.
+       */
+      readonly appProtocol: string
+
+      /**
        * The name of this port. All ports in an EndpointSlice must have a unique name. If the
        * EndpointSlice is dervied from a Kubernetes service, this corresponds to the
        * Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: *
@@ -16111,10 +16193,9 @@ export namespace discovery {
     export interface EndpointSlice {
       /**
        * addressType specifies the type of address carried by this EndpointSlice. All addresses in
-       * this slice must be the same type. The following address types are currently supported: *
-       * IP:   Represents an IP Address. This can include both IPv4 and IPv6
-       *         addresses.
-       * * FQDN: Represents a Fully Qualified Domain Name. Default is IP
+       * this slice must be the same type. This field is immutable after creation. The following
+       * address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6:
+       * Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
        */
       readonly addressType: string
 
@@ -16124,13 +16205,13 @@ export namespace discovery {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      readonly apiVersion: "discovery.k8s.io/v1alpha1"
+      readonly apiVersion: "discovery.k8s.io/v1beta1"
 
       /**
        * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of
        * 1000 endpoints.
        */
-      readonly endpoints: discovery.v1alpha1.Endpoint[]
+      readonly endpoints: discovery.v1beta1.Endpoint[]
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16151,7 +16232,7 @@ export namespace discovery {
        * When a port is defined with a nil port value, it indicates "all ports". Each slice may
        * include a maximum of 100 ports.
        */
-      readonly ports: discovery.v1alpha1.EndpointPort[]
+      readonly ports: discovery.v1beta1.EndpointPort[]
 
     }
 
@@ -16165,12 +16246,12 @@ export namespace discovery {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      readonly apiVersion: "discovery.k8s.io/v1alpha1"
+      readonly apiVersion: "discovery.k8s.io/v1beta1"
 
       /**
        * List of endpoint slices
        */
-      readonly items: discovery.v1alpha1.EndpointSlice[]
+      readonly items: discovery.v1beta1.EndpointSlice[]
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18066,6 +18147,574 @@ export namespace extensions {
        * SecurityContext.
        */
       readonly rule: string
+
+    }
+
+  }
+
+}
+
+export namespace flowcontrol {
+  export namespace v1alpha1 {
+    /**
+     * FlowDistinguisherMethod specifies the method of a flow distinguisher.
+     */
+    export interface FlowDistinguisherMethod {
+      /**
+       * `type` is the type of flow distinguisher method The supported types are "ByUser" and
+       * "ByNamespace". Required.
+       */
+      readonly type: string
+
+    }
+
+    /**
+     * FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of
+     * inbound API requests with similar attributes and is identified by a pair of strings: the name
+     * of the FlowSchema and a "flow distinguisher".
+     */
+    export interface FlowSchema {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      readonly apiVersion: "flowcontrol.apiserver.k8s.io/v1alpha1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      readonly kind: "FlowSchema"
+
+      /**
+       * `metadata` is the standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * `spec` is the specification of the desired behavior of a FlowSchema. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      readonly spec: flowcontrol.v1alpha1.FlowSchemaSpec
+
+      /**
+       * `status` is the current status of a FlowSchema. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      readonly status: flowcontrol.v1alpha1.FlowSchemaStatus
+
+    }
+
+    /**
+     * FlowSchemaCondition describes conditions for a FlowSchema.
+     */
+    export interface FlowSchemaCondition {
+      /**
+       * `lastTransitionTime` is the last time the condition transitioned from one status to
+       * another.
+       */
+      readonly lastTransitionTime: string
+
+      /**
+       * `message` is a human-readable message indicating details about last transition.
+       */
+      readonly message: string
+
+      /**
+       * `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+       */
+      readonly reason: string
+
+      /**
+       * `status` is the status of the condition. Can be True, False, Unknown. Required.
+       */
+      readonly status: string
+
+      /**
+       * `type` is the type of the condition. Required.
+       */
+      readonly type: string
+
+    }
+
+    /**
+     * FlowSchemaList is a list of FlowSchema objects.
+     */
+    export interface FlowSchemaList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      readonly apiVersion: "flowcontrol.apiserver.k8s.io/v1alpha1"
+
+      /**
+       * `items` is a list of FlowSchemas.
+       */
+      readonly items: flowcontrol.v1alpha1.FlowSchema[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      readonly kind: "FlowSchemaList"
+
+      /**
+       * `metadata` is the standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * FlowSchemaSpec describes how the FlowSchema's specification looks like.
+     */
+    export interface FlowSchemaSpec {
+      /**
+       * `distinguisherMethod` defines how to compute the flow distinguisher for requests that match
+       * this schema. `nil` specifies that the distinguisher is disabled and thus will always be the
+       * empty string.
+       */
+      readonly distinguisherMethod: flowcontrol.v1alpha1.FlowDistinguisherMethod
+
+      /**
+       * `matchingPrecedence` is used to choose among the FlowSchemas that match a given request.
+       * The chosen FlowSchema is among those with the numerically lowest (which we take to be
+       * logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative.
+       * Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+       */
+      readonly matchingPrecedence: number
+
+      /**
+       * `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster.
+       * If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid
+       * in its status. Required.
+       */
+      readonly priorityLevelConfiguration: flowcontrol.v1alpha1.PriorityLevelConfigurationReference
+
+      /**
+       * `rules` describes which requests will match this flow schema. This FlowSchema matches a
+       * request if and only if at least one member of rules matches the request. if it is an empty
+       * slice, there will be no requests matching the FlowSchema.
+       */
+      readonly rules: flowcontrol.v1alpha1.PolicyRulesWithSubjects[]
+
+    }
+
+    /**
+     * FlowSchemaStatus represents the current state of a FlowSchema.
+     */
+    export interface FlowSchemaStatus {
+      /**
+       * `conditions` is a list of the current states of FlowSchema.
+       */
+      readonly conditions: flowcontrol.v1alpha1.FlowSchemaCondition[]
+
+    }
+
+    /**
+     * GroupSubject holds detailed information for group-kind subject.
+     */
+    export interface GroupSubject {
+      /**
+       * name is the user group that matches, or "*" to match all user groups. See
+       * https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for
+       * some well-known group names. Required.
+       */
+      readonly name: string
+
+    }
+
+    /**
+     * LimitResponse defines how to handle requests that can not be executed right now.
+     */
+    export interface LimitResponse {
+      /**
+       * `queuing` holds the configuration parameters for queuing. This field may be non-empty only
+       * if `type` is `"Queue"`.
+       */
+      readonly queuing: flowcontrol.v1alpha1.QueuingConfiguration
+
+      /**
+       * `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon
+       * arrival are held in a queue until they can be executed or a queuing limit is reached.
+       * "Reject" means that requests that can not be executed upon arrival are rejected. Required.
+       */
+      readonly type: string
+
+    }
+
+    /**
+     * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to
+     * limits. It addresses two issues:
+     *  * How are requests for this priority level limited?
+     *  * What should be done with requests that exceed the limit?
+     */
+    export interface LimitedPriorityLevelConfiguration {
+      /**
+       * `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the
+       * number of requests of this priority level that may be exeucting at a given time.  ACS must
+       * be a positive number. The server's concurrency limit (SCL) is divided among the
+       * concurrency-controlled priority levels in proportion to their assured concurrency shares.
+       * This produces the assured concurrency value (ACV) --- the number of requests that may be
+       * executing at a time --- for each such priority level:
+       * 
+       *             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+       * 
+       * bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other
+       * PL). This field has a default value of 30.
+       */
+      readonly assuredConcurrencyShares: number
+
+      /**
+       * `limitResponse` indicates what to do with requests that can not be executed right now
+       */
+      readonly limitResponse: flowcontrol.v1alpha1.LimitResponse
+
+    }
+
+    /**
+     * NonResourcePolicyRule is a predicate that matches non-resource requests according to their
+     * verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only
+     * if both (a) at least one member of verbs matches the request and (b) at least one member of
+     * nonResourceURLs matches the request.
+     */
+    export interface NonResourcePolicyRule {
+      /**
+       * `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be
+       * empty. For example:
+       *   - "/healthz" is legal
+       *   - "/hea*" is illegal
+       *   - "/hea" is legal but matches nothing
+       *   - "/hea/*" also matches nothing
+       *   - "/healthz/*" matches all per-component health checks.
+       * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+       */
+      readonly nonResourceURLs: string[]
+
+      /**
+       * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is
+       * present, it must be the only entry. Required.
+       */
+      readonly verbs: string[]
+
+    }
+
+    /**
+     * PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test
+     * considers the subject making the request, the verb being requested, and the resource to be
+     * acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least
+     * one member of subjects matches the request and (b) at least one member of resourceRules or
+     * nonResourceRules matches the request.
+     */
+    export interface PolicyRulesWithSubjects {
+      /**
+       * `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests
+       * according to their verb and the target non-resource URL.
+       */
+      readonly nonResourceRules: flowcontrol.v1alpha1.NonResourcePolicyRule[]
+
+      /**
+       * `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according
+       * to their verb and the target resource. At least one of `resourceRules` and
+       * `nonResourceRules` has to be non-empty.
+       */
+      readonly resourceRules: flowcontrol.v1alpha1.ResourcePolicyRule[]
+
+      /**
+       * subjects is the list of normal user, serviceaccount, or group that this rule cares about.
+       * There must be at least one member in this slice. A slice that includes both the
+       * system:authenticated and system:unauthenticated user groups matches every request.
+       * Required.
+       */
+      readonly subjects: flowcontrol.v1alpha1.Subject[]
+
+    }
+
+    /**
+     * PriorityLevelConfiguration represents the configuration of a priority level.
+     */
+    export interface PriorityLevelConfiguration {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      readonly apiVersion: "flowcontrol.apiserver.k8s.io/v1alpha1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      readonly kind: "PriorityLevelConfiguration"
+
+      /**
+       * `metadata` is the standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * `spec` is the specification of the desired behavior of a "request-priority". More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      readonly spec: flowcontrol.v1alpha1.PriorityLevelConfigurationSpec
+
+      /**
+       * `status` is the current status of a "request-priority". More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      readonly status: flowcontrol.v1alpha1.PriorityLevelConfigurationStatus
+
+    }
+
+    /**
+     * PriorityLevelConfigurationCondition defines the condition of priority level.
+     */
+    export interface PriorityLevelConfigurationCondition {
+      /**
+       * `lastTransitionTime` is the last time the condition transitioned from one status to
+       * another.
+       */
+      readonly lastTransitionTime: string
+
+      /**
+       * `message` is a human-readable message indicating details about last transition.
+       */
+      readonly message: string
+
+      /**
+       * `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+       */
+      readonly reason: string
+
+      /**
+       * `status` is the status of the condition. Can be True, False, Unknown. Required.
+       */
+      readonly status: string
+
+      /**
+       * `type` is the type of the condition. Required.
+       */
+      readonly type: string
+
+    }
+
+    /**
+     * PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+     */
+    export interface PriorityLevelConfigurationList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      readonly apiVersion: "flowcontrol.apiserver.k8s.io/v1alpha1"
+
+      /**
+       * `items` is a list of request-priorities.
+       */
+      readonly items: flowcontrol.v1alpha1.PriorityLevelConfiguration[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      readonly kind: "PriorityLevelConfigurationList"
+
+      /**
+       * `metadata` is the standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * PriorityLevelConfigurationReference contains information that points to the
+     * "request-priority" being used.
+     */
+    export interface PriorityLevelConfigurationReference {
+      /**
+       * `name` is the name of the priority level configuration being referenced Required.
+       */
+      readonly name: string
+
+    }
+
+    /**
+     * PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+     */
+    export interface PriorityLevelConfigurationSpec {
+      /**
+       * `limited` specifies how requests are handled for a Limited priority level. This field must
+       * be non-empty if and only if `type` is `"Limited"`.
+       */
+      readonly limited: flowcontrol.v1alpha1.LimitedPriorityLevelConfiguration
+
+      /**
+       * `type` indicates whether this priority level is subject to limitation on request execution.
+       * A value of `"Exempt"` means that requests of this priority level are not subject to a limit
+       * (and thus are never queued) and do not detract from the capacity made available to other
+       * priority levels.  A value of `"Limited"` means that (a) requests of this priority level
+       * _are_ subject to limits and (b) some of the server's limited capacity is made available
+       * exclusively to this priority level. Required.
+       */
+      readonly type: string
+
+    }
+
+    /**
+     * PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+     */
+    export interface PriorityLevelConfigurationStatus {
+      /**
+       * `conditions` is the current state of "request-priority".
+       */
+      readonly conditions: flowcontrol.v1alpha1.PriorityLevelConfigurationCondition[]
+
+    }
+
+    /**
+     * QueuingConfiguration holds the configuration parameters for queuing
+     */
+    export interface QueuingConfiguration {
+      /**
+       * `handSize` is a small positive number that configures the shuffle sharding of requests into
+       * queues.  When enqueuing a request at this priority level the request's flow identifier (a
+       * string pair) is hashed and the hash value is used to shuffle the list of queues and deal a
+       * hand of the size specified here.  The request is put into one of the shortest queues in
+       * that hand. `handSize` must be no larger than `queues`, and should be significantly smaller
+       * (so that a few heavy flows do not saturate most of the queues).  See the user-facing
+       * documentation for more extensive guidance on setting this field.  This field has a default
+       * value of 8.
+       */
+      readonly handSize: number
+
+      /**
+       * `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue
+       * of this priority level at a time; excess requests are rejected.  This value must be
+       * positive.  If not specified, it will be defaulted to 50.
+       */
+      readonly queueLengthLimit: number
+
+      /**
+       * `queues` is the number of queues for this priority level. The queues exist independently at
+       * each apiserver. The value must be positive.  Setting it to 1 effectively precludes
+       * shufflesharding and thus makes the distinguisher method of associated flow schemas
+       * irrelevant.  This field has a default value of 64.
+       */
+      readonly queues: number
+
+    }
+
+    /**
+     * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
+     * verb and the target resource. A ResourcePolicyRule matches a resource request if and only if:
+     * (a) at least one member of verbs matches the request, (b) at least one member of apiGroups
+     * matches the request, (c) at least one member of resources matches the request, and (d) least
+     * one member of namespaces matches the request.
+     */
+    export interface ResourcePolicyRule {
+      /**
+       * `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API
+       * groups and, if present, must be the only entry. Required.
+       */
+      readonly apiGroups: string[]
+
+      /**
+       * `clusterScope` indicates whether to match requests that do not specify a namespace (which
+       * happens either because the resource is not namespaced or the request targets all
+       * namespaces). If this field is omitted or false then the `namespaces` field must contain a
+       * non-empty list.
+       */
+      readonly clusterScope: boolean
+
+      /**
+       * `namespaces` is a list of target namespaces that restricts matches.  A request that
+       * specifies a target namespace matches only if either (a) this list contains that target
+       * namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but
+       * does not match a request that _does not specify_ a namespace (see the `clusterScope` field
+       * for that). This list may be empty, but only if `clusterScope` is true.
+       */
+      readonly namespaces: string[]
+
+      /**
+       * `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired,
+       * subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*"
+       * matches all resources and, if present, must be the only entry. Required.
+       */
+      readonly resources: string[]
+
+      /**
+       * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if
+       * present, must be the only entry. Required.
+       */
+      readonly verbs: string[]
+
+    }
+
+    /**
+     * ServiceAccountSubject holds detailed information for service-account-kind subject.
+     */
+    export interface ServiceAccountSubject {
+      /**
+       * `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name.
+       * Required.
+       */
+      readonly name: string
+
+      /**
+       * `namespace` is the namespace of matching ServiceAccount objects. Required.
+       */
+      readonly namespace: string
+
+    }
+
+    /**
+     * Subject matches the originator of a request, as identified by the request authentication
+     * system. There are three ways of matching an originator; by user, group, or service account.
+     */
+    export interface Subject {
+      
+      readonly group: flowcontrol.v1alpha1.GroupSubject
+
+      /**
+       * Required
+       */
+      readonly kind: string
+
+      
+      readonly serviceAccount: flowcontrol.v1alpha1.ServiceAccountSubject
+
+      
+      readonly user: flowcontrol.v1alpha1.UserSubject
+
+    }
+
+    /**
+     * UserSubject holds detailed information for user-kind subject.
+     */
+    export interface UserSubject {
+      /**
+       * `name` is the username that matches, or "*" to match all usernames. Required.
+       */
+      readonly name: string
 
     }
 
@@ -20675,7 +21324,8 @@ export namespace rbac {
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-     * unit by a RoleBinding or ClusterRoleBinding.
+     * unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
      */
     export interface ClusterRole {
       /**
@@ -20715,7 +21365,9 @@ export namespace rbac {
 
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-     * ClusterRole in the global namespace, and adds who information via Subject.
+     * ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+     * v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+     * served in v1.20.
      */
     export interface ClusterRoleBinding {
       /**
@@ -20753,7 +21405,8 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleBindingList is a collection of ClusterRoleBindings
+     * ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+     * of rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.20.
      */
     export interface ClusterRoleBindingList {
       /**
@@ -20785,7 +21438,8 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleList is a collection of ClusterRoles
+     * ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
      */
     export interface ClusterRoleList {
       /**
@@ -20860,7 +21514,8 @@ export namespace rbac {
 
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-     * RoleBinding.
+     * RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+     * longer be served in v1.20.
      */
     export interface Role {
       /**
@@ -20895,7 +21550,8 @@ export namespace rbac {
      * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
      * namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
      * namespace information by which namespace it exists in.  RoleBindings in a given namespace
-     * only have effect in that namespace.
+     * only have effect in that namespace. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
      */
     export interface RoleBinding {
       /**
@@ -20933,7 +21589,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleBindingList is a collection of RoleBindings
+     * RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
      */
     export interface RoleBindingList {
       /**
@@ -20965,7 +21622,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleList is a collection of Roles
+     * RoleList is a collection of Roles. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
      */
     export interface RoleList {
       /**
@@ -21068,7 +21726,8 @@ export namespace rbac {
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-     * unit by a RoleBinding or ClusterRoleBinding.
+     * unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
      */
     export interface ClusterRole {
       /**
@@ -21108,7 +21767,9 @@ export namespace rbac {
 
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-     * ClusterRole in the global namespace, and adds who information via Subject.
+     * ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+     * v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+     * served in v1.20.
      */
     export interface ClusterRoleBinding {
       /**
@@ -21146,7 +21807,9 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleBindingList is a collection of ClusterRoleBindings
+     * ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+     * of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in
+     * v1.20.
      */
     export interface ClusterRoleBindingList {
       /**
@@ -21178,7 +21841,8 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleList is a collection of ClusterRoles
+     * ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
      */
     export interface ClusterRoleList {
       /**
@@ -21253,7 +21917,8 @@ export namespace rbac {
 
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-     * RoleBinding.
+     * RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+     * longer be served in v1.20.
      */
     export interface Role {
       /**
@@ -21288,7 +21953,8 @@ export namespace rbac {
      * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
      * namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
      * namespace information by which namespace it exists in.  RoleBindings in a given namespace
-     * only have effect in that namespace.
+     * only have effect in that namespace. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
      */
     export interface RoleBinding {
       /**
@@ -21326,7 +21992,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleBindingList is a collection of RoleBindings
+     * RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
      */
     export interface RoleBindingList {
       /**
@@ -21358,7 +22025,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleList is a collection of Roles
+     * RoleList is a collection of Roles Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
      */
     export interface RoleList {
       /**

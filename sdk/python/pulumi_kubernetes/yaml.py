@@ -822,17 +822,17 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"v1/ServiceList:{x}",
                        ServiceList(f"{x}", opts, **obj)))]
-    if gvk == "discovery.k8s.io/v1alpha1/EndpointSlice":
+    if gvk == "discovery.k8s.io/v1beta1/EndpointSlice":
         # Import locally to avoid name collisions.
-        from pulumi_kubernetes.discovery.v1alpha1 import EndpointSlice
+        from pulumi_kubernetes.discovery.v1beta1 import EndpointSlice
         return [identifier.apply(
-            lambda x: (f"discovery.k8s.io/v1alpha1/EndpointSlice:{x}",
+            lambda x: (f"discovery.k8s.io/v1beta1/EndpointSlice:{x}",
                        EndpointSlice(f"{x}", opts, **obj)))]
-    if gvk == "discovery.k8s.io/v1alpha1/EndpointSliceList":
+    if gvk == "discovery.k8s.io/v1beta1/EndpointSliceList":
         # Import locally to avoid name collisions.
-        from pulumi_kubernetes.discovery.v1alpha1 import EndpointSliceList
+        from pulumi_kubernetes.discovery.v1beta1 import EndpointSliceList
         return [identifier.apply(
-            lambda x: (f"discovery.k8s.io/v1alpha1/EndpointSliceList:{x}",
+            lambda x: (f"discovery.k8s.io/v1beta1/EndpointSliceList:{x}",
                        EndpointSliceList(f"{x}", opts, **obj)))]
     if gvk == "events.k8s.io/v1beta1/Event":
         # Import locally to avoid name collisions.
@@ -918,6 +918,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/ReplicaSetList:{x}",
                        ReplicaSetList(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1alpha1 import FlowSchema
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema:{x}",
+                       FlowSchema(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1alpha1 import FlowSchemaList
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList:{x}",
+                       FlowSchemaList(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1alpha1 import PriorityLevelConfiguration
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration:{x}",
+                       PriorityLevelConfiguration(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1alpha1 import PriorityLevelConfigurationList
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList:{x}",
+                       PriorityLevelConfigurationList(f"{x}", opts, **obj)))]
     if gvk == "v1/Status":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.meta.v1 import Status

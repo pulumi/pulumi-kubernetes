@@ -22,6 +22,7 @@ import * as core from "./core/index";
 import * as discovery from "./discovery/index";
 import * as events from "./events/index";
 import * as extensions from "./extensions/index";
+import * as flowcontrol from "./flowcontrol/index";
 import * as meta from "./meta/index";
 import * as networking from "./networking/index";
 import * as node from "./node/index";
@@ -32,7 +33,7 @@ import * as settings from "./settings/index";
 import * as storage from "./storage/index";
 
 // Export sub-modules
-export { admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, meta, networking, node, policy, rbac, scheduling, settings, storage,  };
+export { admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, flowcontrol, meta, networking, node, policy, rbac, scheduling, settings, storage,  };
 
 // Import and export sub-modules for all Kubernetes types.
 import * as types from "./types";

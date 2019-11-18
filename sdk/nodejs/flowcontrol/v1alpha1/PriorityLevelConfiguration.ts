@@ -8,25 +8,16 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-     * unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
-     * rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
+     * PriorityLevelConfiguration represents the configuration of a priority level.
      */
-    export class ClusterRole extends pulumi.CustomResource {
-      /**
-       * AggregationRule is an optional field that describes how to build the Rules for this
-       * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
-       * changes to Rules will be stomped by the controller.
-       */
-      public readonly aggregationRule: pulumi.Output<outputs.rbac.v1alpha1.AggregationRule>;
-
+    export class PriorityLevelConfiguration extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"rbac.authorization.k8s.io/v1alpha1">;
+      public readonly apiVersion: pulumi.Output<"flowcontrol.apiserver.k8s.io/v1alpha1">;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -34,20 +25,28 @@ import { getVersion } from "../../version";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"ClusterRole">;
+      public readonly kind: pulumi.Output<"PriorityLevelConfiguration">;
 
       /**
-       * Standard object's metadata.
+       * `metadata` is the standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
-       * Rules holds all the PolicyRules for this ClusterRole
+       * `spec` is the specification of the desired behavior of a "request-priority". More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
-      public readonly rules: pulumi.Output<outputs.rbac.v1alpha1.PolicyRule[]>;
+      public readonly spec: pulumi.Output<outputs.flowcontrol.v1alpha1.PriorityLevelConfigurationSpec>;
 
       /**
-       * Get the state of an existing `ClusterRole` resource, as identified by `id`.
+       * `status` is the current status of a "request-priority". More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      public readonly status: pulumi.Output<outputs.flowcontrol.v1alpha1.PriorityLevelConfigurationStatus>;
+
+      /**
+       * Get the state of an existing `PriorityLevelConfiguration` resource, as identified by `id`.
        * The ID is of the form `[namespace]/<name>`; if `namespace` is omitted, then (per
        * Kubernetes convention) the ID becomes `default/<name>`.
        *
@@ -57,40 +56,39 @@ import { getVersion } from "../../version";
        * @param id An ID for the Kubernetes resource to retrieve. Takes the form `[namespace]/<name>`.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRole {
-          return new ClusterRole(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PriorityLevelConfiguration {
+          return new PriorityLevelConfiguration(name, undefined, { ...opts, id: id });
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole";
+      private static readonly __pulumiType = "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration";
 
       /**
-       * Returns true if the given object is an instance of ClusterRole.  This is designed to work even
+       * Returns true if the given object is an instance of PriorityLevelConfiguration.  This is designed to work even
        * when multiple copies of the Pulumi SDK have been loaded into the same process.
        */
-      public static isInstance(obj: any): obj is ClusterRole {
+      public static isInstance(obj: any): obj is PriorityLevelConfiguration {
           if (obj === undefined || obj === null) {
               return false;
           }
 
-          return obj["__pulumiType"] === ClusterRole.__pulumiType;
+          return obj["__pulumiType"] === PriorityLevelConfiguration.__pulumiType;
       }
 
       /**
-       * Create a rbac.v1alpha1.ClusterRole resource with the given unique name, arguments, and options.
+       * Create a flowcontrol.v1alpha1.PriorityLevelConfiguration resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.rbac.v1alpha1.ClusterRole, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.flowcontrol.v1alpha1.PriorityLevelConfiguration, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
 
-          props["aggregationRule"] = args && args.aggregationRule || undefined;
-          props["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
-          props["kind"] = "ClusterRole";
+          props["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
+          props["kind"] = "PriorityLevelConfiguration";
           props["metadata"] = args && args.metadata || undefined;
-          props["rules"] = args && args.rules || undefined;
+          props["spec"] = args && args.spec || undefined;
 
           props["status"] = undefined;
 
@@ -102,6 +100,6 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(ClusterRole.__pulumiType, name, props, opts);
+          super(PriorityLevelConfiguration.__pulumiType, name, props, opts);
       }
     }
