@@ -6,6 +6,10 @@
 - v1.15.x
 - v1.14.x
 
+### Improvements
+
+-   Add support for helm 3 CLI tool. (https://github.com/pulumi/pulumi-kubernetes/pull/882).
+
 ## 1.3.0 (November 13, 2019)
 
 ### Supported Kubernetes versions

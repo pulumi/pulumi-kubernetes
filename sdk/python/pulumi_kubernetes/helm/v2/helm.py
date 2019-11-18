@@ -339,7 +339,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
 
     # Use 'helm template' to create a combined YAML manifest.
-    cmd = ['helm', 'template', chart, '--name', release_name,
+    cmd = ['helm', 'template', chart, '--name-template', release_name,
            '--values', default_values, '--values', overrides_filename]
     cmd.extend(namespace_arg)
 
