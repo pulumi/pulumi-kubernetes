@@ -580,14 +580,20 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
-			elemType := makeDotnetType(
-				resourceType, propName, prop["items"].(map[string]interface{}), opts)
 			switch opts.generatorType {
 			case provider:
+				elemType := makeDotnetType(
+					resourceType, propName, prop["items"].(map[string]interface{}), opts)
 				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
 			case outputsAPI:
+				elemType := makeDotnetType(
+					resourceType, propName, prop["items"].(map[string]interface{}), opts)
 				return fmt.Sprintf("ImmutableArray<%s>", elemType)
 			case inputsAPI:
+				elemOpts := opts
+				elemOpts.generatorType = outputsAPI
+				elemType := makeDotnetType(
+					resourceType, propName, prop["items"].(map[string]interface{}), elemOpts)
 				return fmt.Sprintf("InputList<%s>", elemType)
 			}
 		} else if tstr == "integer" {
