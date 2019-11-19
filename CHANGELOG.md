@@ -6,9 +6,31 @@
 - v1.15.x
 - v1.14.x
 
+## 1.3.1 (November 18, 2019)
+
+### Supported Kubernetes versions
+
+- v1.16.x
+- v1.15.x
+- v1.14.x
+
+### Improvements
+
+-   Add support for helm 3 CLI tool. (https://github.com/pulumi/pulumi-kubernetes/pull/882).
+
+## 1.3.0 (November 13, 2019)
+
+### Supported Kubernetes versions
+
+- v1.16.x
+- v1.15.x
+- v1.14.x
+
 ### Improvements
 
 -   Increase maxBuffer for helm template exec. (https://github.com/pulumi/pulumi-kubernetes/pull/864).
+-   Add StreamInvoke RPC call, along with stream invoke implementations for
+    kubernetes:kubernetes:watch, kubernetes:kubernetes:list, and kubernetes:kubernetes:logs. (#858, #873, #876).
 
 ## 1.2.3 (October 17, 2019)
 

@@ -325,7 +325,7 @@ func TestHelm(t *testing.T) {
 
 			// Verify override value was set.
 			unboundDepl := stackInfo.Deployment.Resources[1]
-			assert.Equal(t, tokens.Type("kubernetes:apps/v1beta2:Deployment"), unboundDepl.URN.Type())
+			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), unboundDepl.URN.Type())
 			containersRaw, _ := openapi.Pluck(unboundDepl.Outputs, "spec", "template", "spec", "containers")
 			containers := containersRaw.([]interface{})
 			assert.Equal(t, 2, len(containers))

@@ -193,7 +193,7 @@ export class Chart extends yaml.CollectionComponentResource {
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
                 const yamlStream = execSync(
-                    `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`,
+                    `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`,
                     {
                         maxBuffer: 512 * 1024 * 1024 // 512 MB
                     },

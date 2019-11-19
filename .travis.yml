@@ -43,10 +43,11 @@ install:
     - source ${PULUMI_SCRIPTS}/ci/install-common-toolchain.sh
 
     # Install Helm CLI. Do not install Tiller.
-    - curl -LO  https://storage.googleapis.com/kubernetes-helm/helm-v2.14.3-linux-amd64.tar.gz
-    - tar -xvf helm-v2.14.3-linux-amd64.tar.gz
+    - curl -LO  https://get.helm.sh/helm-v3.0.0-linux-amd64.tar.gz
+    - tar -xvf helm-v3.0.0-linux-amd64.tar.gz
     - sudo mv linux-amd64/helm /usr/local/bin
-    - helm init --client-only
+    - helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+    - helm repo update
 
     # Install Pulumi
     - curl -L https://get.pulumi.com/ | bash
