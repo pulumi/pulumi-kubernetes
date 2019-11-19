@@ -23,7 +23,6 @@ import (
 	"path/filepath"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
-	providerVersion "github.com/pulumi/pulumi-kubernetes/pkg/version"
 )
 
 func main() {
@@ -228,11 +227,6 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	err = os.MkdirAll(outdir, 0700)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/version.txt", outdir), []byte(providerVersion.Version), 0777)
 	if err != nil {
 		panic(err)
 	}
