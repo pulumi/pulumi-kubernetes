@@ -21,7 +21,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 )
 
-func TestAliases(t *testing.T) {
+func TestDotnet(t *testing.T) {
 	kubectx := os.Getenv("KUBERNETES_CONTEXT")
 
 	if kubectx == "" {
@@ -29,7 +29,8 @@ func TestAliases(t *testing.T) {
 	}
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:   "basic",
-		Quick: true,
+		Dir:          "basic",
+		Dependencies: []string{"Pulumi.Kubernetes"},
+		Quick:        true,
 	})
 }
