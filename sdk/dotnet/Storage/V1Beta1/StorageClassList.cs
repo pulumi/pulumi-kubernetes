@@ -50,12 +50,12 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public StorageClassList(string name, Types.Inputs.Storage.V1Beta1.StorageClassList? args = null, CustomResourceOptions? options = null)
+        public StorageClassList(string name, Types.Inputs.Storage.V1Beta1.StorageClassListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:storage.k8s.io/v1beta1:StorageClassList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.StorageClassList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.StorageClassListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "storage.k8s.io/v1beta1";
                 args.Kind = "StorageClassList";

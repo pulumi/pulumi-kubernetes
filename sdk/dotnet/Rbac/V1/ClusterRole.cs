@@ -58,12 +58,12 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ClusterRole(string name, Types.Inputs.Rbac.V1.ClusterRole? args = null, CustomResourceOptions? options = null)
+        public ClusterRole(string name, Types.Inputs.Rbac.V1.ClusterRoleArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Rbac.V1.ClusterRole? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Rbac.V1.ClusterRoleArgs? args) {
             if (args != null) {
                 args.ApiVersion = "rbac.authorization.k8s.io/v1";
                 args.Kind = "ClusterRole";

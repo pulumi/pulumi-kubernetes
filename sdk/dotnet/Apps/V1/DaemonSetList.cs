@@ -50,12 +50,12 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public DaemonSetList(string name, Types.Inputs.Apps.V1.DaemonSetList? args = null, CustomResourceOptions? options = null)
+        public DaemonSetList(string name, Types.Inputs.Apps.V1.DaemonSetListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:apps/v1:DaemonSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Apps.V1.DaemonSetList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Apps.V1.DaemonSetListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "apps/v1";
                 args.Kind = "DaemonSetList";

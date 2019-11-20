@@ -56,12 +56,12 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public LocalSubjectAccessReview(string name, Types.Inputs.Authorization.V1Beta1.LocalSubjectAccessReview? args = null, CustomResourceOptions? options = null)
+        public LocalSubjectAccessReview(string name, Types.Inputs.Authorization.V1Beta1.LocalSubjectAccessReviewArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authorization.V1Beta1.LocalSubjectAccessReview? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authorization.V1Beta1.LocalSubjectAccessReviewArgs? args) {
             if (args != null) {
                 args.ApiVersion = "authorization.k8s.io/v1beta1";
                 args.Kind = "LocalSubjectAccessReview";

@@ -49,12 +49,12 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public DeploymentList(string name, Types.Inputs.Extensions.V1Beta1.DeploymentList? args = null, CustomResourceOptions? options = null)
+        public DeploymentList(string name, Types.Inputs.Extensions.V1Beta1.DeploymentListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:extensions/v1beta1:DeploymentList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.DeploymentList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.DeploymentListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "extensions/v1beta1";
                 args.Kind = "DeploymentList";

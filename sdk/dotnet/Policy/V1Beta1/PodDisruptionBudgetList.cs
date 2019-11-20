@@ -45,12 +45,12 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PodDisruptionBudgetList(string name, Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetList? args = null, CustomResourceOptions? options = null)
+        public PodDisruptionBudgetList(string name, Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "policy/v1beta1";
                 args.Kind = "PodDisruptionBudgetList";

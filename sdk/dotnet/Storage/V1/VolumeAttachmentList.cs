@@ -50,12 +50,12 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public VolumeAttachmentList(string name, Types.Inputs.Storage.V1.VolumeAttachmentList? args = null, CustomResourceOptions? options = null)
+        public VolumeAttachmentList(string name, Types.Inputs.Storage.V1.VolumeAttachmentListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1.VolumeAttachmentList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1.VolumeAttachmentListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "storage.k8s.io/v1";
                 args.Kind = "VolumeAttachmentList";

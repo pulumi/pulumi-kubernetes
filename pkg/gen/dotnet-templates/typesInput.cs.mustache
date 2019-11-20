@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}} {
     /// <summary>
     /// {{{Comment}}}
     /// </summary>
-    public class {{Kind}} : Pulumi.ResourceArgs {
+    public class {{Kind}}Args : Pulumi.ResourceArgs {
         {{#RequiredInputProperties}}
         {{#DotnetIsListOrMap}}
         [Input("{{Name}}", required: true)]

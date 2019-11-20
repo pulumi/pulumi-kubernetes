@@ -54,12 +54,12 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CustomResourceDefinition(string name, Types.Inputs.ApiExtensions.V1.CustomResourceDefinition? args = null, CustomResourceOptions? options = null)
+        public CustomResourceDefinition(string name, Types.Inputs.ApiExtensions.V1.CustomResourceDefinitionArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.ApiExtensions.V1.CustomResourceDefinition? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.ApiExtensions.V1.CustomResourceDefinitionArgs? args) {
             if (args != null) {
                 args.ApiVersion = "apiextensions.k8s.io/v1";
                 args.Kind = "CustomResourceDefinition";

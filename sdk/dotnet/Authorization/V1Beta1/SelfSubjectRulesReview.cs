@@ -60,12 +60,12 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public SelfSubjectRulesReview(string name, Types.Inputs.Authorization.V1Beta1.SelfSubjectRulesReview? args = null, CustomResourceOptions? options = null)
+        public SelfSubjectRulesReview(string name, Types.Inputs.Authorization.V1Beta1.SelfSubjectRulesReviewArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authorization.V1Beta1.SelfSubjectRulesReview? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authorization.V1Beta1.SelfSubjectRulesReviewArgs? args) {
             if (args != null) {
                 args.ApiVersion = "authorization.k8s.io/v1beta1";
                 args.Kind = "SelfSubjectRulesReview";

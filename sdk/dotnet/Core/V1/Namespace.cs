@@ -58,12 +58,12 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Namespace(string name, Types.Inputs.Core.V1.Namespace? args = null, CustomResourceOptions? options = null)
+        public Namespace(string name, Types.Inputs.Core.V1.NamespaceArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:Namespace", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.Namespace? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.NamespaceArgs? args) {
             if (args != null) {
                 args.ApiVersion = "v1";
                 args.Kind = "Namespace";

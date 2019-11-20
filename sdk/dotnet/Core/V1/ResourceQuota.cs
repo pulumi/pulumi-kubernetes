@@ -58,12 +58,12 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ResourceQuota(string name, Types.Inputs.Core.V1.ResourceQuota? args = null, CustomResourceOptions? options = null)
+        public ResourceQuota(string name, Types.Inputs.Core.V1.ResourceQuotaArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:ResourceQuota", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.ResourceQuota? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.ResourceQuotaArgs? args) {
             if (args != null) {
                 args.ApiVersion = "v1";
                 args.Kind = "ResourceQuota";

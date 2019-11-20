@@ -52,12 +52,12 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PodSecurityPolicy(string name, Types.Inputs.Extensions.V1Beta1.PodSecurityPolicy? args = null, CustomResourceOptions? options = null)
+        public PodSecurityPolicy(string name, Types.Inputs.Extensions.V1Beta1.PodSecurityPolicyArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:extensions/v1beta1:PodSecurityPolicy", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.PodSecurityPolicy? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.PodSecurityPolicyArgs? args) {
             if (args != null) {
                 args.ApiVersion = "extensions/v1beta1";
                 args.Kind = "PodSecurityPolicy";

@@ -51,12 +51,12 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ReplicaSetList(string name, Types.Inputs.Extensions.V1Beta1.ReplicaSetList? args = null, CustomResourceOptions? options = null)
+        public ReplicaSetList(string name, Types.Inputs.Extensions.V1Beta1.ReplicaSetListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:extensions/v1beta1:ReplicaSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.ReplicaSetList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.ReplicaSetListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "extensions/v1beta1";
                 args.Kind = "ReplicaSetList";

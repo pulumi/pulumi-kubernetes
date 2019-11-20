@@ -45,12 +45,12 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PodPreset(string name, Types.Inputs.Settings.V1Alpha1.PodPreset? args = null, CustomResourceOptions? options = null)
+        public PodPreset(string name, Types.Inputs.Settings.V1Alpha1.PodPresetArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Settings.V1Alpha1.PodPreset? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Settings.V1Alpha1.PodPresetArgs? args) {
             if (args != null) {
                 args.ApiVersion = "settings.k8s.io/v1alpha1";
                 args.Kind = "PodPreset";

@@ -59,12 +59,12 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public RoleBinding(string name, Types.Inputs.Rbac.V1Alpha1.RoleBinding? args = null, CustomResourceOptions? options = null)
+        public RoleBinding(string name, Types.Inputs.Rbac.V1Alpha1.RoleBindingArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Rbac.V1Alpha1.RoleBinding? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Rbac.V1Alpha1.RoleBindingArgs? args) {
             if (args != null) {
                 args.ApiVersion = "rbac.authorization.k8s.io/v1alpha1";
                 args.Kind = "RoleBinding";

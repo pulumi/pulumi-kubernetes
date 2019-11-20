@@ -51,12 +51,12 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ReplicationControllerList(string name, Types.Inputs.Core.V1.ReplicationControllerList? args = null, CustomResourceOptions? options = null)
+        public ReplicationControllerList(string name, Types.Inputs.Core.V1.ReplicationControllerListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:ReplicationControllerList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.ReplicationControllerList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.ReplicationControllerListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "v1";
                 args.Kind = "ReplicationControllerList";

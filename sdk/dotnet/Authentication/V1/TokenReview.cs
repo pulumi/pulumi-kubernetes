@@ -55,12 +55,12 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public TokenReview(string name, Types.Inputs.Authentication.V1.TokenReview? args = null, CustomResourceOptions? options = null)
+        public TokenReview(string name, Types.Inputs.Authentication.V1.TokenReviewArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:authentication.k8s.io/v1:TokenReview", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authentication.V1.TokenReview? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authentication.V1.TokenReviewArgs? args) {
             if (args != null) {
                 args.ApiVersion = "authentication.k8s.io/v1";
                 args.Kind = "TokenReview";

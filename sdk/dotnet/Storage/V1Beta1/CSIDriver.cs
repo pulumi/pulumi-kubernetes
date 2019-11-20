@@ -60,12 +60,12 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CSIDriver(string name, Types.Inputs.Storage.V1Beta1.CSIDriver? args = null, CustomResourceOptions? options = null)
+        public CSIDriver(string name, Types.Inputs.Storage.V1Beta1.CSIDriverArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSIDriver? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSIDriverArgs? args) {
             if (args != null) {
                 args.ApiVersion = "storage.k8s.io/v1beta1";
                 args.Kind = "CSIDriver";

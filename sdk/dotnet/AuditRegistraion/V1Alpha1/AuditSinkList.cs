@@ -47,12 +47,12 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public AuditSinkList(string name, Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkList? args = null, CustomResourceOptions? options = null)
+        public AuditSinkList(string name, Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "auditregistration.k8s.io/v1alpha1";
                 args.Kind = "AuditSinkList";

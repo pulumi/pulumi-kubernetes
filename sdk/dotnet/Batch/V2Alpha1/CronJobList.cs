@@ -50,12 +50,12 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CronJobList(string name, Types.Inputs.Batch.V2Alpha1.CronJobList? args = null, CustomResourceOptions? options = null)
+        public CronJobList(string name, Types.Inputs.Batch.V2Alpha1.CronJobListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:batch/v2alpha1:CronJobList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Batch.V2Alpha1.CronJobList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Batch.V2Alpha1.CronJobListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "batch/v2alpha1";
                 args.Kind = "CronJobList";

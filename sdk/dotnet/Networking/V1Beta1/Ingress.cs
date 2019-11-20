@@ -74,12 +74,12 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Ingress(string name, Types.Inputs.Networking.V1Beta1.Ingress? args = null, CustomResourceOptions? options = null)
+        public Ingress(string name, Types.Inputs.Networking.V1Beta1.IngressArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:networking.k8s.io/v1beta1:Ingress", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Networking.V1Beta1.Ingress? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Networking.V1Beta1.IngressArgs? args) {
             if (args != null) {
                 args.ApiVersion = "networking.k8s.io/v1beta1";
                 args.Kind = "Ingress";

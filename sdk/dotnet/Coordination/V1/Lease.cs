@@ -51,12 +51,12 @@ namespace Pulumi.Kubernetes.Coordination.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Lease(string name, Types.Inputs.Coordination.V1.Lease? args = null, CustomResourceOptions? options = null)
+        public Lease(string name, Types.Inputs.Coordination.V1.LeaseArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:coordination.k8s.io/v1:Lease", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Coordination.V1.Lease? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Coordination.V1.LeaseArgs? args) {
             if (args != null) {
                 args.ApiVersion = "coordination.k8s.io/v1";
                 args.Kind = "Lease";

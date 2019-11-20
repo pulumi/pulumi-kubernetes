@@ -53,12 +53,12 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CertificateSigningRequest(string name, Types.Inputs.Certificates.V1Beta1.CertificateSigningRequest? args = null, CustomResourceOptions? options = null)
+        public CertificateSigningRequest(string name, Types.Inputs.Certificates.V1Beta1.CertificateSigningRequestArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Certificates.V1Beta1.CertificateSigningRequest? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Certificates.V1Beta1.CertificateSigningRequestArgs? args) {
             if (args != null) {
                 args.ApiVersion = "certificates.k8s.io/v1beta1";
                 args.Kind = "CertificateSigningRequest";

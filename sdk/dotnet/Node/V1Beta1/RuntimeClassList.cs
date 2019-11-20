@@ -50,12 +50,12 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public RuntimeClassList(string name, Types.Inputs.Node.V1Beta1.RuntimeClassList? args = null, CustomResourceOptions? options = null)
+        public RuntimeClassList(string name, Types.Inputs.Node.V1Beta1.RuntimeClassListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:node.k8s.io/v1beta1:RuntimeClassList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Node.V1Beta1.RuntimeClassList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Node.V1Beta1.RuntimeClassListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "node.k8s.io/v1beta1";
                 args.Kind = "RuntimeClassList";

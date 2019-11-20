@@ -560,6 +560,9 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 
 func makeDotnetType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
 	wrapType := func(typ string) string {
+		if opts.forceNoWrap {
+			return typ
+		}
 		switch opts.generatorType {
 		case provider:
 			return fmt.Sprintf("Output<%s>", typ)
@@ -591,7 +594,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 				return fmt.Sprintf("ImmutableArray<%s>", elemType)
 			case inputsAPI:
 				elemOpts := opts
-				elemOpts.generatorType = outputsAPI
+				elemOpts.forceNoWrap = true
 				elemType := makeDotnetType(
 					resourceType, propName, prop["items"].(map[string]interface{}), elemOpts)
 				return fmt.Sprintf("InputList<%s>", elemType)
@@ -640,6 +643,11 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 
 	ref := stripPrefix(prop["$ref"].(string))
 
+	argsSuffix := ""
+	if opts.generatorType == inputsAPI {
+		argsSuffix = "Args"
+	}
+
 	isSimpleRef := true
 	switch ref {
 	case quantity:
@@ -652,13 +660,13 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		// TODO: Automatically deserialized with `DateConstructor`.
 		ref = "string"
 	case v1beta1JSONSchemaPropsOrBool:
-		ref = "ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or bool */"
+		ref = "ApiExtensions.V1Beta1.JSONSchemaProps" + argsSuffix + " /* TODO: or bool */"
 	case v1JSONSchemaPropsOrBool:
-		ref = "ApiExtensions.V1.JSONSchemaProps /* TODO: or bool */"
+		ref = "ApiExtensions.V1.JSONSchemaProps" + argsSuffix + " /* TODO: or bool */"
 	case v1beta1JSONSchemaPropsOrArray:
-		ref = "ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or array */"
+		ref = "ApiExtensions.V1Beta1.JSONSchemaProps" + argsSuffix + " /* TODO: or array */"
 	case v1JSONSchemaPropsOrArray:
-		ref = "ApiExtensions.V1.JSONSchemaProps /* TODO: or array */"
+		ref = "ApiExtensions.V1.JSONSchemaProps" + argsSuffix + " /* TODO: or array */"
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
 		ref = "string /* TODO: wrong!*/"
 	default:
@@ -672,12 +680,16 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	gvk := gvkFromRef(ref)
 	group := pascalCase(gvk.Group)
 	version := pascalCase(gvk.Version)
+	kind := gvk.Kind
+	if opts.generatorType == inputsAPI {
+		kind = kind + "Args"
+	}
 
 	var gvkRefStr string
 	if refPrefix == "" {
-		gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, gvk.Kind)
+		gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, kind)
 	} else {
-		gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, gvk.Kind)
+		gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, kind)
 	}
 
 	return wrapType(gvkRefStr)
@@ -762,6 +774,7 @@ const (
 type groupOpts struct {
 	generatorType gentype
 	language      language
+	forceNoWrap   bool
 }
 
 func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: typescript} }

@@ -79,12 +79,12 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Status(string name, Types.Inputs.Meta.V1.Status? args = null, CustomResourceOptions? options = null)
+        public Status(string name, Types.Inputs.Meta.V1.StatusArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:Status", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Meta.V1.Status? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Meta.V1.StatusArgs? args) {
             if (args != null) {
                 args.ApiVersion = "v1";
                 args.Kind = "Status";

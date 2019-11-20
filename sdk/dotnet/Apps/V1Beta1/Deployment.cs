@@ -82,12 +82,12 @@ namespace Pulumi.Kubernetes.Apps.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Deployment(string name, Types.Inputs.Apps.V1Beta1.Deployment? args = null, CustomResourceOptions? options = null)
+        public Deployment(string name, Types.Inputs.Apps.V1Beta1.DeploymentArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:apps/v1beta1:Deployment", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Apps.V1Beta1.Deployment? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Apps.V1Beta1.DeploymentArgs? args) {
             if (args != null) {
                 args.ApiVersion = "apps/v1beta1";
                 args.Kind = "Deployment";

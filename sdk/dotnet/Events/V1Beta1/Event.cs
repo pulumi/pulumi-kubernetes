@@ -130,12 +130,12 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Event(string name, Types.Inputs.Events.V1Beta1.Event? args = null, CustomResourceOptions? options = null)
+        public Event(string name, Types.Inputs.Events.V1Beta1.EventArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:events.k8s.io/v1beta1:Event", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Events.V1Beta1.Event? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Events.V1Beta1.EventArgs? args) {
             if (args != null) {
                 args.ApiVersion = "events.k8s.io/v1beta1";
                 args.Kind = "Event";

@@ -52,12 +52,12 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ValidatingWebhookConfiguration(string name, Types.Inputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration? args = null, CustomResourceOptions? options = null)
+        public ValidatingWebhookConfiguration(string name, Types.Inputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfigurationArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfigurationArgs? args) {
             if (args != null) {
                 args.ApiVersion = "admissionregistration.k8s.io/v1beta1";
                 args.Kind = "ValidatingWebhookConfiguration";

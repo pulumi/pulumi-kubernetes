@@ -73,12 +73,12 @@ namespace Pulumi.Kubernetes.Batch.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Job(string name, Types.Inputs.Batch.V1.Job? args = null, CustomResourceOptions? options = null)
+        public Job(string name, Types.Inputs.Batch.V1.JobArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:batch/v1:Job", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Batch.V1.Job? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Batch.V1.JobArgs? args) {
             if (args != null) {
                 args.ApiVersion = "batch/v1";
                 args.Kind = "Job";

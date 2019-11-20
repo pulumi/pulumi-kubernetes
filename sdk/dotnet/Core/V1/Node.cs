@@ -60,12 +60,12 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Node(string name, Types.Inputs.Core.V1.Node? args = null, CustomResourceOptions? options = null)
+        public Node(string name, Types.Inputs.Core.V1.NodeArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:Node", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.Node? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.NodeArgs? args) {
             if (args != null) {
                 args.ApiVersion = "v1";
                 args.Kind = "Node";

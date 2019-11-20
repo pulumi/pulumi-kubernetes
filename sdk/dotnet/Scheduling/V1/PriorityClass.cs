@@ -78,12 +78,12 @@ namespace Pulumi.Kubernetes.Scheduling.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PriorityClass(string name, Types.Inputs.Scheduling.V1.PriorityClass? args = null, CustomResourceOptions? options = null)
+        public PriorityClass(string name, Types.Inputs.Scheduling.V1.PriorityClassArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:scheduling.k8s.io/v1:PriorityClass", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Scheduling.V1.PriorityClass? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Scheduling.V1.PriorityClassArgs? args) {
             if (args != null) {
                 args.ApiVersion = "scheduling.k8s.io/v1";
                 args.Kind = "PriorityClass";

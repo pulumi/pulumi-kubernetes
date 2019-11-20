@@ -49,12 +49,12 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public EndpointSliceList(string name, Types.Inputs.Discovery.V1Alpha1.EndpointSliceList? args = null, CustomResourceOptions? options = null)
+        public EndpointSliceList(string name, Types.Inputs.Discovery.V1Alpha1.EndpointSliceListArgs? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:discovery.k8s.io/v1alpha1:EndpointSliceList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Discovery.V1Alpha1.EndpointSliceList? args) {
+        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Discovery.V1Alpha1.EndpointSliceListArgs? args) {
             if (args != null) {
                 args.ApiVersion = "discovery.k8s.io/v1alpha1";
                 args.Kind = "EndpointSliceList";
