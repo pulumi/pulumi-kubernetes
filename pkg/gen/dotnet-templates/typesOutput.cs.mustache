@@ -27,11 +27,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.{{Group}} {
           {{/Properties}}
       {
           {{#Properties}}
-          {{{LanguageName}}} = {{DotnetVarName}};
+          this.{{{LanguageName}}} = {{DotnetVarName}};
           {{/Properties}}
       }
 
-      }
+    }
     {{/Kinds}}
   }
 
