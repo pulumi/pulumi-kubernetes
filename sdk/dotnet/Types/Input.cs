@@ -1860,11 +1860,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         
         [Input("additionalItems")]
-        public Input<ApiExtensions.V1.JSONSchemaPropsArgs /* TODO: or bool */>? AdditionalItems { get; set; }
+        public InputOneOf<ApiExtensions.V1.JSONSchemaPropsArgs,bool>? AdditionalItems { get; set; }
 
         
         [Input("additionalProperties")]
-        public Input<ApiExtensions.V1.JSONSchemaPropsArgs /* TODO: or bool */>? AdditionalProperties { get; set; }
+        public InputOneOf<ApiExtensions.V1.JSONSchemaPropsArgs,bool>? AdditionalProperties { get; set; }
 
         [Input("allOf")]
         private InputList<ApiExtensions.V1.JSONSchemaPropsArgs>? _allOf;
@@ -1892,25 +1892,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         /// spec.preserveUnknownFields to be false.
         /// </summary>
         [Input("default")]
-        public Input<string /* TODO: wrong!*/>? Default { get; set; }
+        public Input<string>? Default { get; set; }
 
         [Input("definitions")]
-        private InputMap<string>? _definitions;
+        private InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>>? _definitions;
 
         
-        public InputMap<string> Definitions
+        public InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>> Definitions
         {
-            get => _definitions ?? (_definitions = new InputMap<string>());
+            get => _definitions ?? (_definitions = new InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>>());
             set => _definitions = value;
         }
 
         [Input("dependencies")]
-        private InputMap<string>? _dependencies;
+        private InputMap<InputOneOf<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>>? _dependencies;
 
         
-        public InputMap<string> Dependencies
+        public InputMap<InputOneOf<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>> Dependencies
         {
-            get => _dependencies ?? (_dependencies = new InputMap<string>());
+            get => _dependencies ?? (_dependencies = new InputMap<InputOneOf<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>>());
             set => _dependencies = value;
         }
 
@@ -1919,18 +1919,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         public Input<string>? Description { get; set; }
 
         [Input("enum")]
-        private InputList<string /* TODO: wrong!*/>? _enum;
+        private InputList<string>? _enum;
 
         
-        public InputList<string /* TODO: wrong!*/> Enum
+        public InputList<string> Enum
         {
-            get => _enum ?? (_enum = new InputList<string /* TODO: wrong!*/>());
+            get => _enum ?? (_enum = new InputList<string>());
             set => _enum = value;
         }
 
         
         [Input("example")]
-        public Input<string /* TODO: wrong!*/>? Example { get; set; }
+        public Input<string>? Example { get; set; }
 
         
         [Input("exclusiveMaximum")]
@@ -1954,7 +1954,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         
         [Input("items")]
-        public Input<ApiExtensions.V1.JSONSchemaPropsArgs /* TODO: or array */>? Items { get; set; }
+        public InputOneOf<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>? Items { get; set; }
 
         
         [Input("maxItems")]
@@ -2015,22 +2015,22 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         public Input<string>? Pattern { get; set; }
 
         [Input("patternProperties")]
-        private InputMap<string>? _patternProperties;
+        private InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>>? _patternProperties;
 
         
-        public InputMap<string> PatternProperties
+        public InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>> PatternProperties
         {
-            get => _patternProperties ?? (_patternProperties = new InputMap<string>());
+            get => _patternProperties ?? (_patternProperties = new InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>>());
             set => _patternProperties = value;
         }
 
         [Input("properties")]
-        private InputMap<string>? _properties;
+        private InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>>? _properties;
 
         
-        public InputMap<string> Properties
+        public InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>> Properties
         {
-            get => _properties ?? (_properties = new InputMap<string>());
+            get => _properties ?? (_properties = new InputMap<Input<ApiExtensions.V1.JSONSchemaPropsArgs>>());
             set => _properties = value;
         }
 
@@ -2815,11 +2815,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         
         [Input("additionalItems")]
-        public Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs /* TODO: or bool */>? AdditionalItems { get; set; }
+        public InputOneOf<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,bool>? AdditionalItems { get; set; }
 
         
         [Input("additionalProperties")]
-        public Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs /* TODO: or bool */>? AdditionalProperties { get; set; }
+        public InputOneOf<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,bool>? AdditionalProperties { get; set; }
 
         [Input("allOf")]
         private InputList<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>? _allOf;
@@ -2847,25 +2847,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         /// must be created using the v1 (or newer) CustomResourceDefinition API.
         /// </summary>
         [Input("default")]
-        public Input<string /* TODO: wrong!*/>? Default { get; set; }
+        public Input<string>? Default { get; set; }
 
         [Input("definitions")]
-        private InputMap<string>? _definitions;
+        private InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>>? _definitions;
 
         
-        public InputMap<string> Definitions
+        public InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>> Definitions
         {
-            get => _definitions ?? (_definitions = new InputMap<string>());
+            get => _definitions ?? (_definitions = new InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>>());
             set => _definitions = value;
         }
 
         [Input("dependencies")]
-        private InputMap<string>? _dependencies;
+        private InputMap<InputOneOf<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>>? _dependencies;
 
         
-        public InputMap<string> Dependencies
+        public InputMap<InputOneOf<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>> Dependencies
         {
-            get => _dependencies ?? (_dependencies = new InputMap<string>());
+            get => _dependencies ?? (_dependencies = new InputMap<InputOneOf<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>>());
             set => _dependencies = value;
         }
 
@@ -2874,18 +2874,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         public Input<string>? Description { get; set; }
 
         [Input("enum")]
-        private InputList<string /* TODO: wrong!*/>? _enum;
+        private InputList<string>? _enum;
 
         
-        public InputList<string /* TODO: wrong!*/> Enum
+        public InputList<string> Enum
         {
-            get => _enum ?? (_enum = new InputList<string /* TODO: wrong!*/>());
+            get => _enum ?? (_enum = new InputList<string>());
             set => _enum = value;
         }
 
         
         [Input("example")]
-        public Input<string /* TODO: wrong!*/>? Example { get; set; }
+        public Input<string>? Example { get; set; }
 
         
         [Input("exclusiveMaximum")]
@@ -2909,7 +2909,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         
         [Input("items")]
-        public Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs /* TODO: or array */>? Items { get; set; }
+        public InputOneOf<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>? Items { get; set; }
 
         
         [Input("maxItems")]
@@ -2970,22 +2970,22 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         public Input<string>? Pattern { get; set; }
 
         [Input("patternProperties")]
-        private InputMap<string>? _patternProperties;
+        private InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>>? _patternProperties;
 
         
-        public InputMap<string> PatternProperties
+        public InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>> PatternProperties
         {
-            get => _patternProperties ?? (_patternProperties = new InputMap<string>());
+            get => _patternProperties ?? (_patternProperties = new InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>>());
             set => _patternProperties = value;
         }
 
         [Input("properties")]
-        private InputMap<string>? _properties;
+        private InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>>? _properties;
 
         
-        public InputMap<string> Properties
+        public InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>> Properties
         {
-            get => _properties ?? (_properties = new InputMap<string>());
+            get => _properties ?? (_properties = new InputMap<Input<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>>());
             set => _properties = value;
         }
 
@@ -3655,7 +3655,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// Data is the serialized representation of the state.
         /// </summary>
         [Input("data")]
-        public Input<string /* TODO: wrong!*/>? Data { get; set; }
+        public Input<string>? Data { get; set; }
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -4476,7 +4476,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
     }
 
@@ -4495,7 +4495,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public InputOneOf<int, string>? MaxSurge { get; set; }
+        public InputOneOf<int,string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -4508,7 +4508,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// update is at least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
     }
 
@@ -4853,7 +4853,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// Data is the serialized representation of the state.
         /// </summary>
         [Input("data")]
-        public Input<string /* TODO: wrong!*/>? Data { get; set; }
+        public Input<string>? Data { get; set; }
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -5270,7 +5270,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public InputOneOf<int, string>? MaxSurge { get; set; }
+        public InputOneOf<int,string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -5283,7 +5283,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// update is at least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
     }
 
@@ -5716,7 +5716,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// Data is the serialized representation of the state.
         /// </summary>
         [Input("data")]
-        public Input<string /* TODO: wrong!*/>? Data { get; set; }
+        public Input<string>? Data { get; set; }
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -6546,7 +6546,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
     }
 
@@ -6565,7 +6565,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public InputOneOf<int, string>? MaxSurge { get; set; }
+        public InputOneOf<int,string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -6578,7 +6578,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// update is at least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
     }
 
@@ -13837,7 +13837,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// 65535. Name must be an IANA_SVC_NAME.
         /// </summary>
         [Input("port", required: true)]
-        public InputOneOf<int, string> Port { get; set; } = null!;
+        public InputOneOf<int,string> Port { get; set; } = null!;
 
         /// <summary>
         /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in
@@ -14236,65 +14236,65 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     /// </summary>
     public class LimitRangeItemArgs : Pulumi.ResourceArgs {
         [Input("default")]
-        private InputMap<string>? _default;
+        private InputMap<Input<string>>? _default;
 
         /// <summary>
         /// Default resource requirement limit value by resource name if resource limit is omitted.
         /// </summary>
-        public InputMap<string> Default
+        public InputMap<Input<string>> Default
         {
-            get => _default ?? (_default = new InputMap<string>());
+            get => _default ?? (_default = new InputMap<Input<string>>());
             set => _default = value;
         }
 
         [Input("defaultRequest")]
-        private InputMap<string>? _defaultRequest;
+        private InputMap<Input<string>>? _defaultRequest;
 
         /// <summary>
         /// DefaultRequest is the default resource requirement request value by resource name if
         /// resource request is omitted.
         /// </summary>
-        public InputMap<string> DefaultRequest
+        public InputMap<Input<string>> DefaultRequest
         {
-            get => _defaultRequest ?? (_defaultRequest = new InputMap<string>());
+            get => _defaultRequest ?? (_defaultRequest = new InputMap<Input<string>>());
             set => _defaultRequest = value;
         }
 
         [Input("max")]
-        private InputMap<string>? _max;
+        private InputMap<Input<string>>? _max;
 
         /// <summary>
         /// Max usage constraints on this kind by resource name.
         /// </summary>
-        public InputMap<string> Max
+        public InputMap<Input<string>> Max
         {
-            get => _max ?? (_max = new InputMap<string>());
+            get => _max ?? (_max = new InputMap<Input<string>>());
             set => _max = value;
         }
 
         [Input("maxLimitRequestRatio")]
-        private InputMap<string>? _maxLimitRequestRatio;
+        private InputMap<Input<string>>? _maxLimitRequestRatio;
 
         /// <summary>
         /// MaxLimitRequestRatio if specified, the named resource must have a request and limit that
         /// are both non-zero where limit divided by request is less than or equal to the enumerated
         /// value; this represents the max burst for the named resource.
         /// </summary>
-        public InputMap<string> MaxLimitRequestRatio
+        public InputMap<Input<string>> MaxLimitRequestRatio
         {
-            get => _maxLimitRequestRatio ?? (_maxLimitRequestRatio = new InputMap<string>());
+            get => _maxLimitRequestRatio ?? (_maxLimitRequestRatio = new InputMap<Input<string>>());
             set => _maxLimitRequestRatio = value;
         }
 
         [Input("min")]
-        private InputMap<string>? _min;
+        private InputMap<Input<string>>? _min;
 
         /// <summary>
         /// Min usage constraints on this kind by resource name.
         /// </summary>
-        public InputMap<string> Min
+        public InputMap<Input<string>> Min
         {
-            get => _min ?? (_min = new InputMap<string>());
+            get => _min ?? (_min = new InputMap<Input<string>>());
             set => _min = value;
         }
 
@@ -15059,28 +15059,28 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         }
 
         [Input("allocatable")]
-        private InputMap<string>? _allocatable;
+        private InputMap<Input<string>>? _allocatable;
 
         /// <summary>
         /// Allocatable represents the resources of a node that are available for scheduling.
         /// Defaults to Capacity.
         /// </summary>
-        public InputMap<string> Allocatable
+        public InputMap<Input<string>> Allocatable
         {
-            get => _allocatable ?? (_allocatable = new InputMap<string>());
+            get => _allocatable ?? (_allocatable = new InputMap<Input<string>>());
             set => _allocatable = value;
         }
 
         [Input("capacity")]
-        private InputMap<string>? _capacity;
+        private InputMap<Input<string>>? _capacity;
 
         /// <summary>
         /// Capacity represents the total resources of a node. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         /// </summary>
-        public InputMap<string> Capacity
+        public InputMap<Input<string>> Capacity
         {
-            get => _capacity ?? (_capacity = new InputMap<string>());
+            get => _capacity ?? (_capacity = new InputMap<Input<string>>());
             set => _capacity = value;
         }
 
@@ -15557,14 +15557,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         }
 
         [Input("capacity")]
-        private InputMap<string>? _capacity;
+        private InputMap<Input<string>>? _capacity;
 
         /// <summary>
         /// Represents the actual resources of the underlying volume.
         /// </summary>
-        public InputMap<string> Capacity
+        public InputMap<Input<string>> Capacity
         {
-            get => _capacity ?? (_capacity = new InputMap<string>());
+            get => _capacity ?? (_capacity = new InputMap<Input<string>>());
             set => _capacity = value;
         }
 
@@ -15694,15 +15694,15 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         public Input<Core.V1.AzureFilePersistentVolumeSourceArgs>? AzureFile { get; set; }
 
         [Input("capacity")]
-        private InputMap<string>? _capacity;
+        private InputMap<Input<string>>? _capacity;
 
         /// <summary>
         /// A description of the persistent volume's resources and capacity. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         /// </summary>
-        public InputMap<string> Capacity
+        public InputMap<Input<string>> Capacity
         {
-            get => _capacity ?? (_capacity = new InputMap<string>());
+            get => _capacity ?? (_capacity = new InputMap<Input<string>>());
             set => _capacity = value;
         }
 
@@ -16546,7 +16546,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         }
 
         [Input("overhead")]
-        private InputMap<string>? _overhead;
+        private InputMap<Input<string>>? _overhead;
 
         /// <summary>
         /// Overhead represents the resource overhead associated with running a pod for a given
@@ -16560,9 +16560,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the
         /// PodOverhead feature.
         /// </summary>
-        public InputMap<string> Overhead
+        public InputMap<Input<string>> Overhead
         {
-            get => _overhead ?? (_overhead = new InputMap<string>());
+            get => _overhead ?? (_overhead = new InputMap<Input<string>>());
             set => _overhead = value;
         }
 
@@ -17639,15 +17639,15 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     /// </summary>
     public class ResourceQuotaSpecArgs : Pulumi.ResourceArgs {
         [Input("hard")]
-        private InputMap<string>? _hard;
+        private InputMap<Input<string>>? _hard;
 
         /// <summary>
         /// hard is the set of desired hard limits for each named resource. More info:
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
         /// </summary>
-        public InputMap<string> Hard
+        public InputMap<Input<string>> Hard
         {
-            get => _hard ?? (_hard = new InputMap<string>());
+            get => _hard ?? (_hard = new InputMap<Input<string>>());
             set => _hard = value;
         }
 
@@ -17680,27 +17680,27 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     /// </summary>
     public class ResourceQuotaStatusArgs : Pulumi.ResourceArgs {
         [Input("hard")]
-        private InputMap<string>? _hard;
+        private InputMap<Input<string>>? _hard;
 
         /// <summary>
         /// Hard is the set of enforced hard limits for each named resource. More info:
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
         /// </summary>
-        public InputMap<string> Hard
+        public InputMap<Input<string>> Hard
         {
-            get => _hard ?? (_hard = new InputMap<string>());
+            get => _hard ?? (_hard = new InputMap<Input<string>>());
             set => _hard = value;
         }
 
         [Input("used")]
-        private InputMap<string>? _used;
+        private InputMap<Input<string>>? _used;
 
         /// <summary>
         /// Used is the current observed total usage of the resource in the namespace.
         /// </summary>
-        public InputMap<string> Used
+        public InputMap<Input<string>> Used
         {
-            get => _used ?? (_used = new InputMap<string>());
+            get => _used ?? (_used = new InputMap<Input<string>>());
             set => _used = value;
         }
 
@@ -17711,20 +17711,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     /// </summary>
     public class ResourceRequirementsArgs : Pulumi.ResourceArgs {
         [Input("limits")]
-        private InputMap<string>? _limits;
+        private InputMap<Input<string>>? _limits;
 
         /// <summary>
         /// Limits describes the maximum amount of compute resources allowed. More info:
         /// https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
         /// </summary>
-        public InputMap<string> Limits
+        public InputMap<Input<string>> Limits
         {
-            get => _limits ?? (_limits = new InputMap<string>());
+            get => _limits ?? (_limits = new InputMap<Input<string>>());
             set => _limits = value;
         }
 
         [Input("requests")]
-        private InputMap<string>? _requests;
+        private InputMap<Input<string>>? _requests;
 
         /// <summary>
         /// Requests describes the minimum amount of compute resources required. If Requests is
@@ -17732,9 +17732,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// otherwise to an implementation-defined value. More info:
         /// https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
         /// </summary>
-        public InputMap<string> Requests
+        public InputMap<Input<string>> Requests
         {
-            get => _requests ?? (_requests = new InputMap<string>());
+            get => _requests ?? (_requests = new InputMap<Input<string>>());
             set => _requests = value;
         }
 
@@ -18593,7 +18593,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         /// </summary>
         [Input("targetPort")]
-        public InputOneOf<int, string>? TargetPort { get; set; }
+        public InputOneOf<int,string>? TargetPort { get; set; }
 
     }
 
@@ -18904,7 +18904,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// 65535. Name must be an IANA_SVC_NAME.
         /// </summary>
         [Input("port", required: true)]
-        public InputOneOf<int, string> Port { get; set; } = null!;
+        public InputOneOf<int,string> Port { get; set; } = null!;
 
         /// <summary>
         /// Optional: Host name to connect to, defaults to the pod IP.
@@ -20784,7 +20784,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// Specifies the port of the referenced service.
         /// </summary>
         [Input("servicePort", required: true)]
-        public InputOneOf<int, string> ServicePort { get; set; } = null!;
+        public InputOneOf<int,string> ServicePort { get; set; } = null!;
 
     }
 
@@ -21151,7 +21151,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// If present, only traffic on the specified protocol AND port will be matched.
         /// </summary>
         [Input("port")]
-        public InputOneOf<int, string>? Port { get; set; }
+        public InputOneOf<int,string>? Port { get; set; }
 
         /// <summary>
         /// Optional.  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified,
@@ -21811,7 +21811,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
     }
 
@@ -21830,7 +21830,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// any time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public InputOneOf<int, string>? MaxSurge { get; set; }
+        public InputOneOf<int,string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -21843,7 +21843,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
     }
 
@@ -22604,7 +22604,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta {
         /// FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
         /// </summary>
         [Input("fieldsV1")]
-        public Input<string /* TODO: wrong!*/>? FieldsV1 { get; set; }
+        public Input<string>? FieldsV1 { get; set; }
 
         /// <summary>
         /// Manager is an identifier of the workflow managing these fields.
@@ -23094,7 +23094,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta {
         ///    depending on context.
         /// </summary>
         [Input("object", required: true)]
-        public Input<string /* TODO: wrong!*/> Object { get; set; } = null!;
+        public Input<string> Object { get; set; } = null!;
 
         
         [Input("type", required: true)]
@@ -23338,7 +23338,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking {
         /// If this field is not provided, this matches all port names and numbers.
         /// </summary>
         [Input("port")]
-        public InputOneOf<int, string>? Port { get; set; }
+        public InputOneOf<int,string>? Port { get; set; }
 
         /// <summary>
         /// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field
@@ -23521,7 +23521,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking {
         /// Specifies the port of the referenced service.
         /// </summary>
         [Input("servicePort", required: true)]
-        public InputOneOf<int, string> ServicePort { get; set; } = null!;
+        public InputOneOf<int,string> ServicePort { get; set; } = null!;
 
     }
 
@@ -23689,14 +23689,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node {
     /// </summary>
     public class OverheadArgs : Pulumi.ResourceArgs {
         [Input("podFixed")]
-        private InputMap<string>? _podFixed;
+        private InputMap<Input<string>>? _podFixed;
 
         /// <summary>
         /// PodFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
-        public InputMap<string> PodFixed
+        public InputMap<Input<string>> PodFixed
         {
-            get => _podFixed ?? (_podFixed = new InputMap<string>());
+            get => _podFixed ?? (_podFixed = new InputMap<Input<string>>());
             set => _podFixed = value;
         }
 
@@ -23870,14 +23870,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node {
     /// </summary>
     public class OverheadArgs : Pulumi.ResourceArgs {
         [Input("podFixed")]
-        private InputMap<string>? _podFixed;
+        private InputMap<Input<string>>? _podFixed;
 
         /// <summary>
         /// PodFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
-        public InputMap<string> PodFixed
+        public InputMap<Input<string>> PodFixed
         {
-            get => _podFixed ?? (_podFixed = new InputMap<string>());
+            get => _podFixed ?? (_podFixed = new InputMap<Input<string>>());
             set => _podFixed = value;
         }
 
@@ -24313,7 +24313,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy {
         /// setting with "minAvailable".
         /// </summary>
         [Input("maxUnavailable")]
-        public InputOneOf<int, string>? MaxUnavailable { get; set; }
+        public InputOneOf<int,string>? MaxUnavailable { get; set; }
 
         /// <summary>
         /// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still
@@ -24321,7 +24321,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy {
         /// example you can prevent all voluntary evictions by specifying "100%".
         /// </summary>
         [Input("minAvailable")]
-        public InputOneOf<int, string>? MinAvailable { get; set; }
+        public InputOneOf<int,string>? MinAvailable { get; set; }
 
         /// <summary>
         /// Label query over pods whose evictions are managed by the disruption budget.
@@ -24361,7 +24361,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy {
         public Input<int> ExpectedPods { get; set; } = null!;
 
         [Input("disruptedPods")]
-        private InputMap<string>? _disruptedPods;
+        private InputMap<Input<string>>? _disruptedPods;
 
         /// <summary>
         /// DisruptedPods contains information about pods whose eviction was processed by the API
@@ -24375,9 +24375,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy {
         /// smooth this map should be empty for the most of the time. Large number of entries in the
         /// map may indicate problems with pod deletions.
         /// </summary>
-        public InputMap<string> DisruptedPods
+        public InputMap<Input<string>> DisruptedPods
         {
-            get => _disruptedPods ?? (_disruptedPods = new InputMap<string>());
+            get => _disruptedPods ?? (_disruptedPods = new InputMap<Input<string>>());
             set => _disruptedPods = value;
         }
 

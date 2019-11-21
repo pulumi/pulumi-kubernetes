@@ -32,7 +32,7 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// Data is the serialized representation of the state.
         /// </summary>
         [Output("data")]
-        public Output<string /* TODO: wrong!*/> Data { get; private set; } = null!;
+        public Output<string> Data { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

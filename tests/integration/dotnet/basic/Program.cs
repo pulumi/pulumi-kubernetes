@@ -9,6 +9,7 @@ using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
+using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1;
 
 class Program
 {
@@ -245,6 +246,56 @@ class Program
                         },
                     },
                     Selector = frontendDeployment.Spec.Apply(spec => spec.Template.Metadata.Labels),
+                }
+            });
+
+            Output<string> t = frontendDeployment.Status.Apply(status => status.Conditions[0].LastTransitionTime);
+            t.Apply<int>(t => { Console.WriteLine(t); return 1; });
+
+            var x = new Pulumi.Kubernetes.Apps.V1.ControllerRevision("revision", new ControllerRevisionArgs
+            {
+                Revision = 12,
+                Data = "hello, world",
+            });
+
+            var y = new Pulumi.Kubernetes.ApiExtensions.V1.CustomResourceDefinition("crd", new CustomResourceDefinitionArgs
+            {
+                Metadata = new ObjectMetaArgs
+                {
+                    Name = "crontabs.stable.example.com",
+                },
+                Spec = new CustomResourceDefinitionSpecArgs
+                {
+                    Group = "stable.example.com",
+                    Versions = {
+                        new CustomResourceDefinitionVersionArgs
+                        {
+                            Name = "v1",
+                            Served = true,
+                            Storage = true,
+                            Schema = new CustomResourceValidationArgs
+                            {
+                                OpenAPIV3Schema = new JSONSchemaPropsArgs
+                                {
+                                    Type = "object",
+                                    Properties = {
+                                        {"spec", new JSONSchemaPropsArgs 
+                                            {
+                                                Type = "object",
+                                                Properties = {
+                                                    { "cronSpec", new JSONSchemaPropsArgs
+                                                        {
+                                                            Type = "string",
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                            },
+                        }
+                    }
                 }
             });
 

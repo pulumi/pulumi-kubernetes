@@ -374,23 +374,25 @@ func fmtComment(
 }
 
 const (
-	apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
-	apiextensionsV1               = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1"
-	quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
-	rawExtension                  = "io.k8s.apimachinery.pkg.runtime.RawExtension"
-	intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
-	v1Fields                      = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
-	v1FieldsV1                    = "io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1"
-	v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-	v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
-	v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
-	v1beta1JSONSchemaPropsOrArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
-	v1beta1JSON                   = apiextensionsV1beta1 + ".JSON"
-	v1beta1CRSubresourceStatus    = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
-	v1JSONSchemaPropsOrBool       = apiextensionsV1 + ".JSONSchemaPropsOrBool"
-	v1JSONSchemaPropsOrArray      = apiextensionsV1 + ".JSONSchemaPropsOrArray"
-	v1JSON                        = apiextensionsV1 + ".JSON"
-	v1CRSubresourceStatus         = apiextensionsV1 + ".CustomResourceSubresourceStatus"
+	apiextensionsV1beta1                = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
+	apiextensionsV1                     = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1"
+	quantity                            = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+	rawExtension                        = "io.k8s.apimachinery.pkg.runtime.RawExtension"
+	intOrString                         = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+	v1Fields                            = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
+	v1FieldsV1                          = "io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1"
+	v1Time                              = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+	v1MicroTime                         = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+	v1beta1JSONSchemaPropsOrBool        = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
+	v1beta1JSONSchemaPropsOrArray       = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
+	v1beta1JSONSchemaPropsOrStringArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrStringArray"
+	v1beta1JSON                         = apiextensionsV1beta1 + ".JSON"
+	v1beta1CRSubresourceStatus          = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
+	v1JSONSchemaPropsOrBool             = apiextensionsV1 + ".JSONSchemaPropsOrBool"
+	v1JSONSchemaPropsOrArray            = apiextensionsV1 + ".JSONSchemaPropsOrArray"
+	v1JSONSchemaPropsOrStringArray      = apiextensionsV1 + ".JSONSchemaPropsOrStringArray"
+	v1JSON                              = apiextensionsV1 + ".JSON"
+	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
 func makeTypescriptType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
@@ -559,6 +561,12 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 }
 
 func makeDotnetType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+
+	refPrefix := ""
+	if opts.generatorType == provider {
+		refPrefix = "Types.Outputs"
+	}
+
 	wrapType := func(typ string) string {
 		if opts.forceNoWrap {
 			return typ
@@ -575,9 +583,74 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		}
 	}
 
-	refPrefix := ""
-	if opts.generatorType == provider {
-		refPrefix = "Types.Outputs"
+	oneOf := func(typeA string, typeB string) string {
+		if opts.forceNoWrap {
+			return fmt.Sprintf("OneOf<%s,%s>", typeA, typeB)
+		}
+		switch opts.generatorType {
+		case provider:
+			return fmt.Sprintf("Output<OneOf<%s,%s>>", typeA, typeB)
+		case outputsAPI:
+			return fmt.Sprintf("OneOf<%s,%s>", typeA, typeB)
+		case inputsAPI:
+			return fmt.Sprintf("InputOneOf<%s,%s>", typeA, typeB)
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		}
+	}
+
+	typeForRef := func(ref string) string {
+		argsSuffix := ""
+		if opts.generatorType == inputsAPI {
+			argsSuffix = "Args"
+		}
+
+		isSimpleRef := true
+		switch ref {
+		case quantity:
+			ref = "string"
+		case intOrString:
+			return oneOf("int", "string")
+		case v1Fields, v1FieldsV1, rawExtension:
+			// TODO: This is quite possibly wrong - these are actually JSON objects
+			ref = "string"
+		case v1Time, v1MicroTime:
+			ref = "string"
+		case v1beta1JSONSchemaPropsOrBool:
+			return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "bool")
+		case v1JSONSchemaPropsOrBool:
+			return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "bool")
+		case v1beta1JSONSchemaPropsOrArray, v1beta1JSONSchemaPropsOrStringArray:
+			return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "string[]")
+		case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
+			return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "string[]")
+		case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+			// TODO: This is quite possibly wrong - these are actually JSON objects
+			ref = "string"
+		default:
+			isSimpleRef = false
+		}
+
+		if isSimpleRef {
+			return wrapType(ref)
+		}
+
+		gvk := gvkFromRef(ref)
+		group := pascalCase(gvk.Group)
+		version := pascalCase(gvk.Version)
+		kind := gvk.Kind
+		if opts.generatorType == inputsAPI {
+			kind = kind + "Args"
+		}
+
+		var gvkRefStr string
+		if refPrefix == "" {
+			gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, kind)
+		} else {
+			gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, kind)
+		}
+
+		return wrapType(gvkRefStr)
 	}
 
 	if t, exists := prop["type"]; exists {
@@ -606,23 +679,23 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		} else if tstr == "number" {
 			return wrapType("double")
 		} else if tstr == "object" {
-			kvtype := "string"
-			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
-			// values both have type `type`. This type is never a `$ref`.
+			vtype := "string"
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
 				mapType := additionalProperties.(map[string]interface{})
 				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
-					kvtype = ktype.(string)
-
+					vtype = ktype.(string)
+				} else if ktype, exists := mapType["$ref"]; exists {
+					vref := stripPrefix(ktype.(string))
+					vtype = typeForRef(vref)
 				}
 			}
 			switch opts.generatorType {
 			case inputsAPI:
-				return fmt.Sprintf("InputMap<%s>", kvtype)
+				return fmt.Sprintf("InputMap<%s>", vtype)
 			case outputsAPI:
-				return fmt.Sprintf("ImmutableDictionary<%s, %s>", kvtype, kvtype)
+				return fmt.Sprintf("ImmutableDictionary<string, %s>", vtype)
 			case provider:
-				return fmt.Sprintf("Output<ImmutableDictionary<%s, %s>>", kvtype, kvtype)
+				return fmt.Sprintf("Output<ImmutableDictionary<string, %s>>", vtype)
 			}
 		} else if tstr == "string" && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
 			// Special case: `.metadata.namespace` should either take a string or a namespace object
@@ -642,66 +715,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	}
 
 	ref := stripPrefix(prop["$ref"].(string))
-
-	argsSuffix := ""
-	if opts.generatorType == inputsAPI {
-		argsSuffix = "Args"
-	}
-
-	isSimpleRef := true
-	switch ref {
-	case quantity:
-		ref = "string"
-	case intOrString:
-		switch opts.generatorType {
-		case inputsAPI:
-			return "InputOneOf<int, string>"
-		case outputsAPI:
-			return "OneOf<int, string>"
-		case provider:
-			return "Output<OneOf<int, string>>"
-		default:
-			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
-		}
-	case v1Fields, v1FieldsV1, rawExtension:
-		ref = "string /* TODO: wrong!*/"
-	case v1Time, v1MicroTime:
-		// TODO: Automatically deserialized with `DateConstructor`.
-		ref = "string"
-	case v1beta1JSONSchemaPropsOrBool:
-		ref = "ApiExtensions.V1Beta1.JSONSchemaProps" + argsSuffix + " /* TODO: or bool */"
-	case v1JSONSchemaPropsOrBool:
-		ref = "ApiExtensions.V1.JSONSchemaProps" + argsSuffix + " /* TODO: or bool */"
-	case v1beta1JSONSchemaPropsOrArray:
-		ref = "ApiExtensions.V1Beta1.JSONSchemaProps" + argsSuffix + " /* TODO: or array */"
-	case v1JSONSchemaPropsOrArray:
-		ref = "ApiExtensions.V1.JSONSchemaProps" + argsSuffix + " /* TODO: or array */"
-	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
-		ref = "string /* TODO: wrong!*/"
-	default:
-		isSimpleRef = false
-	}
-
-	if isSimpleRef {
-		return wrapType(ref)
-	}
-
-	gvk := gvkFromRef(ref)
-	group := pascalCase(gvk.Group)
-	version := pascalCase(gvk.Version)
-	kind := gvk.Kind
-	if opts.generatorType == inputsAPI {
-		kind = kind + "Args"
-	}
-
-	var gvkRefStr string
-	if refPrefix == "" {
-		gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, kind)
-	} else {
-		gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, kind)
-	}
-
-	return wrapType(gvkRefStr)
+	return typeForRef(ref)
 }
 
 func makeType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
