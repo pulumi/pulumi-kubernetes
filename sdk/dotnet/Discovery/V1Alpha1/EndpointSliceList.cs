@@ -4,6 +4,7 @@
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using OneOf;
 
 
 namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {

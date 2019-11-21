@@ -3,7 +3,9 @@
 
 using System.Collections.Immutable;
 using System.Threading.Tasks;
+using Pulumi.Core;
 using Pulumi.Serialization;
+using OneOf;
 
 namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration {
   namespace V1 {
@@ -4474,7 +4476,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
     }
 
@@ -4493,7 +4495,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public Input<int /* TODO: or string */>? MaxSurge { get; set; }
+        public InputOneOf<int, string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -4506,7 +4508,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// update is at least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
     }
 
@@ -5268,7 +5270,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public Input<int /* TODO: or string */>? MaxSurge { get; set; }
+        public InputOneOf<int, string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -5281,7 +5283,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// update is at least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
     }
 
@@ -6544,7 +6546,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
     }
 
@@ -6563,7 +6565,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public Input<int /* TODO: or string */>? MaxSurge { get; set; }
+        public InputOneOf<int, string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -6576,7 +6578,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps {
         /// update is at least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
     }
 
@@ -13835,7 +13837,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// 65535. Name must be an IANA_SVC_NAME.
         /// </summary>
         [Input("port", required: true)]
-        public Input<int /* TODO: or string */> Port { get; set; } = null!;
+        public InputOneOf<int, string> Port { get; set; } = null!;
 
         /// <summary>
         /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in
@@ -18591,7 +18593,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         /// </summary>
         [Input("targetPort")]
-        public Input<int /* TODO: or string */>? TargetPort { get; set; }
+        public InputOneOf<int, string>? TargetPort { get; set; }
 
     }
 
@@ -18902,7 +18904,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// 65535. Name must be an IANA_SVC_NAME.
         /// </summary>
         [Input("port", required: true)]
-        public Input<int /* TODO: or string */> Port { get; set; } = null!;
+        public InputOneOf<int, string> Port { get; set; } = null!;
 
         /// <summary>
         /// Optional: Host name to connect to, defaults to the pod IP.
@@ -20782,7 +20784,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// Specifies the port of the referenced service.
         /// </summary>
         [Input("servicePort", required: true)]
-        public Input<int /* TODO: or string */> ServicePort { get; set; } = null!;
+        public InputOneOf<int, string> ServicePort { get; set; } = null!;
 
     }
 
@@ -21149,7 +21151,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// If present, only traffic on the specified protocol AND port will be matched.
         /// </summary>
         [Input("port")]
-        public Input<int /* TODO: or string */>? Port { get; set; }
+        public InputOneOf<int, string>? Port { get; set; }
 
         /// <summary>
         /// Optional.  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified,
@@ -21809,7 +21811,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
     }
 
@@ -21828,7 +21830,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// any time during the update is at most 130% of desired pods.
         /// </summary>
         [Input("maxSurge")]
-        public Input<int /* TODO: or string */>? MaxSurge { get; set; }
+        public InputOneOf<int, string>? MaxSurge { get; set; }
 
         /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -21841,7 +21843,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
         /// least 70% of desired pods.
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
     }
 
@@ -23336,7 +23338,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking {
         /// If this field is not provided, this matches all port names and numbers.
         /// </summary>
         [Input("port")]
-        public Input<int /* TODO: or string */>? Port { get; set; }
+        public InputOneOf<int, string>? Port { get; set; }
 
         /// <summary>
         /// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field
@@ -23519,7 +23521,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking {
         /// Specifies the port of the referenced service.
         /// </summary>
         [Input("servicePort", required: true)]
-        public Input<int /* TODO: or string */> ServicePort { get; set; } = null!;
+        public InputOneOf<int, string> ServicePort { get; set; } = null!;
 
     }
 
@@ -24311,7 +24313,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy {
         /// setting with "minAvailable".
         /// </summary>
         [Input("maxUnavailable")]
-        public Input<int /* TODO: or string */>? MaxUnavailable { get; set; }
+        public InputOneOf<int, string>? MaxUnavailable { get; set; }
 
         /// <summary>
         /// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still
@@ -24319,7 +24321,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy {
         /// example you can prevent all voluntary evictions by specifying "100%".
         /// </summary>
         [Input("minAvailable")]
-        public Input<int /* TODO: or string */>? MinAvailable { get; set; }
+        public InputOneOf<int, string>? MinAvailable { get; set; }
 
         /// <summary>
         /// Label query over pods whose evictions are managed by the disruption budget.

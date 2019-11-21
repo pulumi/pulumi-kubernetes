@@ -94,12 +94,7 @@ class Program
                             TargetPort = 6379,
                         },
                     },
-                    Selector = redisMasterDeployment.Spec.Apply(spec => {
-                        Console.WriteLine(spec);
-                        Console.WriteLine("Replicas: {0}", spec.Replicas);
-                        Console.WriteLine("Template: {0}", spec.Template);
-                        return spec.Template.Metadata.Labels;
-                    }),
+                    Selector = redisMasterDeployment.Spec.Apply(spec => spec.Template.Metadata.Labels),
                 }
             });
 
@@ -245,8 +240,8 @@ class Program
                     Ports = {
                         new ServicePortArgs
                         {
-                            Port = 6379,
-                            TargetPort = 6379,
+                            Port = 80,
+                            TargetPort = 80,
                         },
                     },
                     Selector = frontendDeployment.Spec.Apply(spec => spec.Template.Metadata.Labels),

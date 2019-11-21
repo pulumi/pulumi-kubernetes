@@ -653,7 +653,16 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case quantity:
 		ref = "string"
 	case intOrString:
-		ref = "int /* TODO: or string */"
+		switch opts.generatorType {
+		case inputsAPI:
+			return "InputOneOf<int, string>"
+		case outputsAPI:
+			return "OneOf<int, string>"
+		case provider:
+			return "Output<OneOf<int, string>>"
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		}
 	case v1Fields, v1FieldsV1, rawExtension:
 		ref = "string /* TODO: wrong!*/"
 	case v1Time, v1MicroTime:

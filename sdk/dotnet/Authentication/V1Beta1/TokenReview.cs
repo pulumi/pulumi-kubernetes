@@ -4,6 +4,7 @@
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using OneOf;
 
 
 namespace Pulumi.Kubernetes.Authentication.V1Beta1 {
