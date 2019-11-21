@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="OneOf" Version="2.1.151" />
-    <PackageReference Include="Pulumi" Version="1.7.0-preview-alpha.1574296789" />
+    <PackageReference Include="Pulumi" Version="1.7.0-preview-alpha.1574365905" />
     <PackageReference Include="System.Collections.Immutable" Version="1.6.0" />
   </ItemGroup>
 

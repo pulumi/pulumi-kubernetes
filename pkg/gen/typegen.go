@@ -585,72 +585,18 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 
 	oneOf := func(typeA string, typeB string) string {
 		if opts.forceNoWrap {
-			return fmt.Sprintf("OneOf<%s,%s>", typeA, typeB)
+			return fmt.Sprintf("Union<%s,%s>", typeA, typeB)
 		}
 		switch opts.generatorType {
 		case provider:
-			return fmt.Sprintf("Output<OneOf<%s,%s>>", typeA, typeB)
+			return fmt.Sprintf("Output<Union<%s,%s>>", typeA, typeB)
 		case outputsAPI:
-			return fmt.Sprintf("OneOf<%s,%s>", typeA, typeB)
+			return fmt.Sprintf("Union<%s,%s>", typeA, typeB)
 		case inputsAPI:
-			return fmt.Sprintf("InputOneOf<%s,%s>", typeA, typeB)
+			return fmt.Sprintf("InputUnion<%s,%s>", typeA, typeB)
 		default:
 			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
 		}
-	}
-
-	typeForRef := func(ref string) string {
-		argsSuffix := ""
-		if opts.generatorType == inputsAPI {
-			argsSuffix = "Args"
-		}
-
-		isSimpleRef := true
-		switch ref {
-		case quantity:
-			ref = "string"
-		case intOrString:
-			return oneOf("int", "string")
-		case v1Fields, v1FieldsV1, rawExtension:
-			// TODO: This is quite possibly wrong - these are actually JSON objects
-			ref = "string"
-		case v1Time, v1MicroTime:
-			ref = "string"
-		case v1beta1JSONSchemaPropsOrBool:
-			return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "bool")
-		case v1JSONSchemaPropsOrBool:
-			return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "bool")
-		case v1beta1JSONSchemaPropsOrArray, v1beta1JSONSchemaPropsOrStringArray:
-			return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "string[]")
-		case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
-			return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "string[]")
-		case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
-			// TODO: This is quite possibly wrong - these are actually JSON objects
-			ref = "string"
-		default:
-			isSimpleRef = false
-		}
-
-		if isSimpleRef {
-			return wrapType(ref)
-		}
-
-		gvk := gvkFromRef(ref)
-		group := pascalCase(gvk.Group)
-		version := pascalCase(gvk.Version)
-		kind := gvk.Kind
-		if opts.generatorType == inputsAPI {
-			kind = kind + "Args"
-		}
-
-		var gvkRefStr string
-		if refPrefix == "" {
-			gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, kind)
-		} else {
-			gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, kind)
-		}
-
-		return wrapType(gvkRefStr)
 	}
 
 	if t, exists := prop["type"]; exists {
@@ -681,12 +627,20 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		} else if tstr == "object" {
 			vtype := "string"
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
-				mapType := additionalProperties.(map[string]interface{})
-				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
-					vtype = ktype.(string)
-				} else if ktype, exists := mapType["$ref"]; exists {
-					vref := stripPrefix(ktype.(string))
-					vtype = typeForRef(vref)
+				switch opts.generatorType {
+				case provider:
+					elemOpts := opts
+					elemOpts.forceNoWrap = true
+					vtype = makeDotnetType(
+						resourceType, propName, additionalProperties.(map[string]interface{}), elemOpts)
+				case outputsAPI:
+					vtype = makeDotnetType(
+						resourceType, propName, additionalProperties.(map[string]interface{}), opts)
+				case inputsAPI:
+					elemOpts := opts
+					elemOpts.forceNoWrap = true
+					vtype = makeDotnetType(
+						resourceType, propName, additionalProperties.(map[string]interface{}), elemOpts)
 				}
 			}
 			switch opts.generatorType {
@@ -715,7 +669,57 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	}
 
 	ref := stripPrefix(prop["$ref"].(string))
-	return typeForRef(ref)
+	argsSuffix := ""
+	if opts.generatorType == inputsAPI {
+		argsSuffix = "Args"
+	}
+
+	isSimpleRef := true
+	switch ref {
+	case quantity:
+		ref = "string"
+	case intOrString:
+		return oneOf("int", "string")
+	case v1Fields, v1FieldsV1, rawExtension:
+		// TODO: This is quite possibly wrong - these are actually JSON objects
+		ref = "string"
+	case v1Time, v1MicroTime:
+		ref = "string"
+	case v1beta1JSONSchemaPropsOrBool:
+		return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "bool")
+	case v1JSONSchemaPropsOrBool:
+		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "bool")
+	case v1beta1JSONSchemaPropsOrArray, v1beta1JSONSchemaPropsOrStringArray:
+		return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "string[]")
+	case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
+		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "string[]")
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+		// TODO: This is quite possibly wrong - these are actually JSON objects
+		ref = "string"
+	default:
+		isSimpleRef = false
+	}
+
+	if isSimpleRef {
+		return wrapType(ref)
+	}
+
+	gvk := gvkFromRef(ref)
+	group := pascalCase(gvk.Group)
+	version := pascalCase(gvk.Version)
+	kind := gvk.Kind
+	if opts.generatorType == inputsAPI {
+		kind = kind + "Args"
+	}
+
+	var gvkRefStr string
+	if refPrefix == "" {
+		gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, kind)
+	} else {
+		gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, kind)
+	}
+
+	return wrapType(gvkRefStr)
 }
 
 func makeType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {

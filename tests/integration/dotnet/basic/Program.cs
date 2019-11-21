@@ -249,55 +249,53 @@ class Program
                 }
             });
 
-            Output<string> t = frontendDeployment.Status.Apply(status => status.Conditions[0].LastTransitionTime);
-            t.Apply<int>(t => { Console.WriteLine(t); return 1; });
-
             var x = new Pulumi.Kubernetes.Apps.V1.ControllerRevision("revision", new ControllerRevisionArgs
             {
                 Revision = 12,
                 Data = "hello, world",
             });
 
-            var y = new Pulumi.Kubernetes.ApiExtensions.V1.CustomResourceDefinition("crd", new CustomResourceDefinitionArgs
-            {
-                Metadata = new ObjectMetaArgs
-                {
-                    Name = "crontabs.stable.example.com",
-                },
-                Spec = new CustomResourceDefinitionSpecArgs
-                {
-                    Group = "stable.example.com",
-                    Versions = {
-                        new CustomResourceDefinitionVersionArgs
-                        {
-                            Name = "v1",
-                            Served = true,
-                            Storage = true,
-                            Schema = new CustomResourceValidationArgs
-                            {
-                                OpenAPIV3Schema = new JSONSchemaPropsArgs
-                                {
-                                    Type = "object",
-                                    Properties = {
-                                        {"spec", new JSONSchemaPropsArgs 
-                                            {
-                                                Type = "object",
-                                                Properties = {
-                                                    { "cronSpec", new JSONSchemaPropsArgs
-                                                        {
-                                                            Type = "string",
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                            },
-                        }
-                    }
-                }
-            });
+            // TODO: This currently triggers a Stack Overflow in the .NET serialization logic.
+            // var y = new Pulumi.Kubernetes.ApiExtensions.V1.CustomResourceDefinition("crd", new CustomResourceDefinitionArgs
+            // {
+            //     Metadata = new ObjectMetaArgs
+            //     {
+            //         Name = "crontabs.stable.example.com",
+            //     },
+            //     Spec = new CustomResourceDefinitionSpecArgs
+            //     {
+            //         Group = "stable.example.com",
+            //         Versions = {
+            //             new CustomResourceDefinitionVersionArgs
+            //             {
+            //                 Name = "v1",
+            //                 Served = true,
+            //                 Storage = true,
+            //                 Schema = new CustomResourceValidationArgs
+            //                 {
+            //                     OpenAPIV3Schema = new JSONSchemaPropsArgs
+            //                     {
+            //                         Type = "object",
+            //                         Properties = {
+            //                             {"spec", new JSONSchemaPropsArgs 
+            //                                 {
+            //                                     Type = "object",
+            //                                     Properties = {
+            //                                         { "cronSpec", new JSONSchemaPropsArgs
+            //                                             {
+            //                                                 Type = "string",
+            //                                             }
+            //                                         }
+            //                                     }
+            //                                 }
+            //                             }
+            //                         }
+            //                     },
+            //                 },
+            //             }
+            //         }
+            //     }
+            // });
 
             Output<string> frontendIP;
             if (isMiniKube) {

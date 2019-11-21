@@ -4,8 +4,6 @@
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using OneOf;
-
 
 namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
     /// <summary>

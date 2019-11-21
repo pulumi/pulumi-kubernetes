@@ -4,7 +4,6 @@
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
-using OneOf;
 
 namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
   namespace V1 {
@@ -1990,10 +1989,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly string Schema;
 
       
-      public readonly OneOf<ApiExtensions.V1.JSONSchemaProps,bool> AdditionalItems;
+      public readonly Union<ApiExtensions.V1.JSONSchemaProps,bool> AdditionalItems;
 
       
-      public readonly OneOf<ApiExtensions.V1.JSONSchemaProps,bool> AdditionalProperties;
+      public readonly Union<ApiExtensions.V1.JSONSchemaProps,bool> AdditionalProperties;
 
       
       public readonly ImmutableArray<ApiExtensions.V1.JSONSchemaProps> AllOf;
@@ -2012,7 +2011,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly ImmutableDictionary<string, ApiExtensions.V1.JSONSchemaProps> Definitions;
 
       
-      public readonly ImmutableDictionary<string, OneOf<ApiExtensions.V1.JSONSchemaProps,string[]>> Dependencies;
+      public readonly ImmutableDictionary<string, Union<ApiExtensions.V1.JSONSchemaProps,string[]>> Dependencies;
 
       
       public readonly string Description;
@@ -2039,7 +2038,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly string Id;
 
       
-      public readonly OneOf<ApiExtensions.V1.JSONSchemaProps,string[]> Items;
+      public readonly Union<ApiExtensions.V1.JSONSchemaProps,string[]> Items;
 
       
       public readonly int MaxItems;
@@ -2164,13 +2163,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       private JSONSchemaProps(
           string @ref,
           string @schema,
-          OneOf<ApiExtensions.V1.JSONSchemaProps,bool> @additionalItems,
-          OneOf<ApiExtensions.V1.JSONSchemaProps,bool> @additionalProperties,
+          Union<ApiExtensions.V1.JSONSchemaProps,bool> @additionalItems,
+          Union<ApiExtensions.V1.JSONSchemaProps,bool> @additionalProperties,
           ImmutableArray<ApiExtensions.V1.JSONSchemaProps> @allOf,
           ImmutableArray<ApiExtensions.V1.JSONSchemaProps> @anyOf,
           string @default,
           ImmutableDictionary<string, ApiExtensions.V1.JSONSchemaProps> @definitions,
-          ImmutableDictionary<string, OneOf<ApiExtensions.V1.JSONSchemaProps,string[]>> @dependencies,
+          ImmutableDictionary<string, Union<ApiExtensions.V1.JSONSchemaProps,string[]>> @dependencies,
           string @description,
           ImmutableArray<string> @enum,
           string @example,
@@ -2179,7 +2178,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ApiExtensions.V1.ExternalDocumentation @externalDocs,
           string @format,
           string @id,
-          OneOf<ApiExtensions.V1.JSONSchemaProps,string[]> @items,
+          Union<ApiExtensions.V1.JSONSchemaProps,string[]> @items,
           int @maxItems,
           int @maxLength,
           int @maxProperties,
@@ -3032,10 +3031,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly string Schema;
 
       
-      public readonly OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,bool> AdditionalItems;
+      public readonly Union<ApiExtensions.V1Beta1.JSONSchemaProps,bool> AdditionalItems;
 
       
-      public readonly OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,bool> AdditionalProperties;
+      public readonly Union<ApiExtensions.V1Beta1.JSONSchemaProps,bool> AdditionalProperties;
 
       
       public readonly ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> AllOf;
@@ -3054,7 +3053,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly ImmutableDictionary<string, ApiExtensions.V1Beta1.JSONSchemaProps> Definitions;
 
       
-      public readonly ImmutableDictionary<string, OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,string[]>> Dependencies;
+      public readonly ImmutableDictionary<string, Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]>> Dependencies;
 
       
       public readonly string Description;
@@ -3081,7 +3080,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly string Id;
 
       
-      public readonly OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,string[]> Items;
+      public readonly Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]> Items;
 
       
       public readonly int MaxItems;
@@ -3206,13 +3205,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       private JSONSchemaProps(
           string @ref,
           string @schema,
-          OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,bool> @additionalItems,
-          OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,bool> @additionalProperties,
+          Union<ApiExtensions.V1Beta1.JSONSchemaProps,bool> @additionalItems,
+          Union<ApiExtensions.V1Beta1.JSONSchemaProps,bool> @additionalProperties,
           ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> @allOf,
           ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> @anyOf,
           string @default,
           ImmutableDictionary<string, ApiExtensions.V1Beta1.JSONSchemaProps> @definitions,
-          ImmutableDictionary<string, OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,string[]>> @dependencies,
+          ImmutableDictionary<string, Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]>> @dependencies,
           string @description,
           ImmutableArray<string> @enum,
           string @example,
@@ -3221,7 +3220,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ApiExtensions.V1Beta1.ExternalDocumentation @externalDocs,
           string @format,
           string @id,
-          OneOf<ApiExtensions.V1Beta1.JSONSchemaProps,string[]> @items,
+          Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]> @items,
           int @maxItems,
           int @maxLength,
           int @maxProperties,
@@ -4969,11 +4968,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// onto other DaemonSet pods, thus ensuring that at least 70% of original number of
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       [OutputConstructor]
       private RollingUpdateDaemonSet(
-          OneOf<int,string> @maxUnavailable)
+          Union<int,string> @maxUnavailable)
       {
           this.MaxUnavailable = @maxUnavailable;
       }
@@ -4994,7 +4993,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// ReplicaSet can be scaled up further, ensuring that total number of pods running at any
         /// time during the update is at most 130% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxSurge;
+      public readonly Union<int,string> MaxSurge;
 
       /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -5006,12 +5005,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// ReplicaSet, ensuring that the total number of pods available at all times during the
         /// update is at least 70% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       [OutputConstructor]
       private RollingUpdateDeployment(
-          OneOf<int,string> @maxSurge,
-          OneOf<int,string> @maxUnavailable)
+          Union<int,string> @maxSurge,
+          Union<int,string> @maxUnavailable)
       {
           this.MaxSurge = @maxSurge;
           this.MaxUnavailable = @maxUnavailable;
@@ -5915,7 +5914,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// ReplicaSet can be scaled up further, ensuring that total number of pods running at any
         /// time during the update is at most 130% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxSurge;
+      public readonly Union<int,string> MaxSurge;
 
       /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -5927,12 +5926,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// ReplicaSet, ensuring that the total number of pods available at all times during the
         /// update is at least 70% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       [OutputConstructor]
       private RollingUpdateDeployment(
-          OneOf<int,string> @maxSurge,
-          OneOf<int,string> @maxUnavailable)
+          Union<int,string> @maxSurge,
+          Union<int,string> @maxUnavailable)
       {
           this.MaxSurge = @maxSurge;
           this.MaxUnavailable = @maxUnavailable;
@@ -7454,11 +7453,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// onto other DaemonSet pods, thus ensuring that at least 70% of original number of
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       [OutputConstructor]
       private RollingUpdateDaemonSet(
-          OneOf<int,string> @maxUnavailable)
+          Union<int,string> @maxUnavailable)
       {
           this.MaxUnavailable = @maxUnavailable;
       }
@@ -7479,7 +7478,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// ReplicaSet can be scaled up further, ensuring that total number of pods running at any
         /// time during the update is at most 130% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxSurge;
+      public readonly Union<int,string> MaxSurge;
 
       /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -7491,12 +7490,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// ReplicaSet, ensuring that the total number of pods available at all times during the
         /// update is at least 70% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       [OutputConstructor]
       private RollingUpdateDeployment(
-          OneOf<int,string> @maxSurge,
-          OneOf<int,string> @maxUnavailable)
+          Union<int,string> @maxSurge,
+          Union<int,string> @maxUnavailable)
       {
           this.MaxSurge = @maxSurge;
           this.MaxUnavailable = @maxUnavailable;
@@ -8561,7 +8560,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
       /// <summary>
         /// Any additional information provided by the authenticator.
         /// </summary>
-      public readonly ImmutableDictionary<string, string> Extra;
+      public readonly ImmutableDictionary<string, ImmutableArray<string>> Extra;
 
       /// <summary>
         /// The names of groups this user is a part of.
@@ -8581,7 +8580,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private UserInfo(
-          ImmutableDictionary<string, string> @extra,
+          ImmutableDictionary<string, ImmutableArray<string>> @extra,
           ImmutableArray<string> @groups,
           string @uid,
           string @username)
@@ -8730,7 +8729,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
       /// <summary>
         /// Any additional information provided by the authenticator.
         /// </summary>
-      public readonly ImmutableDictionary<string, string> Extra;
+      public readonly ImmutableDictionary<string, ImmutableArray<string>> Extra;
 
       /// <summary>
         /// The names of groups this user is a part of.
@@ -8750,7 +8749,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
       [OutputConstructor]
       private UserInfo(
-          ImmutableDictionary<string, string> @extra,
+          ImmutableDictionary<string, ImmutableArray<string>> @extra,
           ImmutableArray<string> @groups,
           string @uid,
           string @username)
@@ -9200,7 +9199,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that
         /// is input to the authorizer it needs a reflection here.
         /// </summary>
-      public readonly ImmutableDictionary<string, string> Extra;
+      public readonly ImmutableDictionary<string, ImmutableArray<string>> Extra;
 
       /// <summary>
         /// Groups is the groups you're testing for.
@@ -9230,7 +9229,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SubjectAccessReviewSpec(
-          ImmutableDictionary<string, string> @extra,
+          ImmutableDictionary<string, ImmutableArray<string>> @extra,
           ImmutableArray<string> @groups,
           Authorization.V1.NonResourceAttributes @nonResourceAttributes,
           Authorization.V1.ResourceAttributes @resourceAttributes,
@@ -9774,7 +9773,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that
         /// is input to the authorizer it needs a reflection here.
         /// </summary>
-      public readonly ImmutableDictionary<string, string> Extra;
+      public readonly ImmutableDictionary<string, ImmutableArray<string>> Extra;
 
       /// <summary>
         /// Groups is the groups you're testing for.
@@ -9804,7 +9803,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
       [OutputConstructor]
       private SubjectAccessReviewSpec(
-          ImmutableDictionary<string, string> @extra,
+          ImmutableDictionary<string, ImmutableArray<string>> @extra,
           ImmutableArray<string> @group,
           Authorization.V1Beta1.NonResourceAttributes @nonResourceAttributes,
           Authorization.V1Beta1.ResourceAttributes @resourceAttributes,
@@ -12636,7 +12635,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
       /// <summary>
         /// Extra information about the requesting user. See user.Info interface for details.
         /// </summary>
-      public readonly ImmutableDictionary<string, string> Extra;
+      public readonly ImmutableDictionary<string, ImmutableArray<string>> Extra;
 
       /// <summary>
         /// Group information about the requesting user. See user.Info interface for details.
@@ -12667,7 +12666,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
 
       [OutputConstructor]
       private CertificateSigningRequestSpec(
-          ImmutableDictionary<string, string> @extra,
+          ImmutableDictionary<string, ImmutableArray<string>> @extra,
           ImmutableArray<string> @groups,
           string @request,
           string @uid,
@@ -16006,7 +16005,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// Name or number of the port to access on the container. Number must be in the range 1 to
         /// 65535. Name must be an IANA_SVC_NAME.
         /// </summary>
-      public readonly OneOf<int,string> Port;
+      public readonly Union<int,string> Port;
 
       /// <summary>
         /// Scheme to use for connecting to the host. Defaults to HTTP.
@@ -16018,7 +16017,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           string @host,
           ImmutableArray<Core.V1.HTTPHeader> @httpHeaders,
           string @path,
-          OneOf<int,string> @port,
+          Union<int,string> @port,
           string @scheme)
       {
           this.Host = @host;
@@ -21248,7 +21247,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// More info:
         /// https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         /// </summary>
-      public readonly OneOf<int,string> TargetPort;
+      public readonly Union<int,string> TargetPort;
 
       [OutputConstructor]
       private ServicePort(
@@ -21256,7 +21255,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
           int @nodePort,
           int @port,
           string @protocol,
-          OneOf<int,string> @targetPort)
+          Union<int,string> @targetPort)
       {
           this.Name = @name;
           this.NodePort = @nodePort;
@@ -21612,12 +21611,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// Number or name of the port to access on the container. Number must be in the range 1 to
         /// 65535. Name must be an IANA_SVC_NAME.
         /// </summary>
-      public readonly OneOf<int,string> Port;
+      public readonly Union<int,string> Port;
 
       [OutputConstructor]
       private TCPSocketAction(
           string @host,
-          OneOf<int,string> @port)
+          Union<int,string> @port)
       {
           this.Host = @host;
           this.Port = @port;
@@ -23847,12 +23846,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       /// <summary>
         /// Specifies the port of the referenced service.
         /// </summary>
-      public readonly OneOf<int,string> ServicePort;
+      public readonly Union<int,string> ServicePort;
 
       [OutputConstructor]
       private IngressBackend(
           string @serviceName,
-          OneOf<int,string> @servicePort)
+          Union<int,string> @servicePort)
       {
           this.ServiceName = @serviceName;
           this.ServicePort = @servicePort;
@@ -24245,7 +24244,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// port on a pod.  If this field is not provided, this matches all port names and numbers.
         /// If present, only traffic on the specified protocol AND port will be matched.
         /// </summary>
-      public readonly OneOf<int,string> Port;
+      public readonly Union<int,string> Port;
 
       /// <summary>
         /// Optional.  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified,
@@ -24255,7 +24254,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
       [OutputConstructor]
       private NetworkPolicyPort(
-          OneOf<int,string> @port,
+          Union<int,string> @port,
           string @protocol)
       {
           this.Port = @port;
@@ -24929,11 +24928,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// onto other DaemonSet pods, thus ensuring that at least 70% of original number of
         /// DaemonSet pods are available at all times during the update.
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       [OutputConstructor]
       private RollingUpdateDaemonSet(
-          OneOf<int,string> @maxUnavailable)
+          Union<int,string> @maxUnavailable)
       {
           this.MaxUnavailable = @maxUnavailable;
       }
@@ -24954,7 +24953,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// killed, new RC can be scaled up further, ensuring that total number of pods running at
         /// any time during the update is at most 130% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxSurge;
+      public readonly Union<int,string> MaxSurge;
 
       /// <summary>
         /// The maximum number of pods that can be unavailable during the update. Value can be an
@@ -24966,12 +24965,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// ensuring that the total number of pods available at all times during the update is at
         /// least 70% of desired pods.
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       [OutputConstructor]
       private RollingUpdateDeployment(
-          OneOf<int,string> @maxSurge,
-          OneOf<int,string> @maxUnavailable)
+          Union<int,string> @maxSurge,
+          Union<int,string> @maxUnavailable)
       {
           this.MaxSurge = @maxSurge;
           this.MaxUnavailable = @maxUnavailable;
@@ -26601,7 +26600,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// The port on the given protocol. This can either be a numerical or named port on a pod.
         /// If this field is not provided, this matches all port names and numbers.
         /// </summary>
-      public readonly OneOf<int,string> Port;
+      public readonly Union<int,string> Port;
 
       /// <summary>
         /// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field
@@ -26611,7 +26610,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
 
       [OutputConstructor]
       private NetworkPolicyPort(
-          OneOf<int,string> @port,
+          Union<int,string> @port,
           string @protocol)
       {
           this.Port = @port;
@@ -26805,12 +26804,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
       /// <summary>
         /// Specifies the port of the referenced service.
         /// </summary>
-      public readonly OneOf<int,string> ServicePort;
+      public readonly Union<int,string> ServicePort;
 
       [OutputConstructor]
       private IngressBackend(
           string @serviceName,
-          OneOf<int,string> @servicePort)
+          Union<int,string> @servicePort)
       {
           this.ServiceName = @serviceName;
           this.ServicePort = @servicePort;
@@ -27718,14 +27717,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive
         /// setting with "minAvailable".
         /// </summary>
-      public readonly OneOf<int,string> MaxUnavailable;
+      public readonly Union<int,string> MaxUnavailable;
 
       /// <summary>
         /// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still
         /// be available after the eviction, i.e. even in the absence of the evicted pod.  So for
         /// example you can prevent all voluntary evictions by specifying "100%".
         /// </summary>
-      public readonly OneOf<int,string> MinAvailable;
+      public readonly Union<int,string> MinAvailable;
 
       /// <summary>
         /// Label query over pods whose evictions are managed by the disruption budget.
@@ -27734,8 +27733,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
       [OutputConstructor]
       private PodDisruptionBudgetSpec(
-          OneOf<int,string> @maxUnavailable,
-          OneOf<int,string> @minAvailable,
+          Union<int,string> @maxUnavailable,
+          Union<int,string> @minAvailable,
           Meta.V1.LabelSelector @selector)
       {
           this.MaxUnavailable = @maxUnavailable;
