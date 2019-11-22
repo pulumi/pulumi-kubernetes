@@ -21,7 +21,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 )
 
-func TestDotnet(t *testing.T) {
+func TestDotnet_Basic(t *testing.T) {
 	kubectx := os.Getenv("KUBERNETES_CONTEXT")
 
 	if kubectx == "" {
@@ -30,6 +30,20 @@ func TestDotnet(t *testing.T) {
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "basic",
+		Dependencies: []string{"Pulumi.Kubernetes"},
+		Quick:        true,
+	})
+}
+
+func TestDotnet_Guestbook(t *testing.T) {
+	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+
+	if kubectx == "" {
+		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
+	}
+
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir:          "guestbook",
 		Dependencies: []string{"Pulumi.Kubernetes"},
 		Quick:        true,
 	})

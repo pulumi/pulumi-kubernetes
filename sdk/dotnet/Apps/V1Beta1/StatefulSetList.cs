@@ -46,7 +46,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public StatefulSetList(string name, Types.Inputs.Apps.V1Beta1.StatefulSetListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1beta1:StatefulSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options, ""))
+            : base("kubernetes:apps/v1beta1:StatefulSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
         {
         }
 
@@ -59,15 +59,13 @@ namespace Pulumi.Kubernetes.Apps.V1Beta1
             return args ?? ResourceArgs.Empty;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
+        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
         {
             var defaultOptions = new CustomResourceOptions
             {
+                Version = Utilities.Version,
             };
-            var merged = CustomResourceOptions.Merge(defaultOptions, options);
-            // Override the ID if one was specified for consistency with other language SDKs.
-            merged.Id = id ?? merged.Id;
-            return merged;
+            return CustomResourceOptions.Merge(defaultOptions, options);
         }
 
         /// <summary>
