@@ -45,8 +45,7 @@ build:: $(OPENAPI_FILE)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
 	# Delete only files and folders that are generated.
-	# rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
-	# rm -r sdk/dotnet/*
+	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
 	for LANGUAGE in "dotnet" "nodejs" "python" ; do \
 		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
 	done
@@ -83,9 +82,7 @@ install::
 	echo "Copying ${NUGET_PKG_NAME} NuGet packages to ${PULUMI_NUGET}"
 	mkdir -p $(PULUMI_NUGET)
 	rm -rf "$(PULUMI_NUGET)/$(NUGET_PKG_NAME).*.nupkg"
-	find . -name '$(NUGET_PKG_NAME).*.nupkg'
 	find . -name '$(NUGET_PKG_NAME).*.nupkg' -exec cp -p {} ${PULUMI_NUGET} \;
-	ls -la ${PULUMI_NUGET}
 
 test_fast::
 	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests

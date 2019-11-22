@@ -264,6 +264,11 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
+	err = CopyFile(filepath.Join(templateDir, "logo.png"), filepath.Join(outdir, "logo.png"))
+	if err != nil {
+		panic(err)
+	}
+
 	err = CopyFile(filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(outdir, "Pulumi.Kubernetes.csproj"))
 	if err != nil {
 		panic(err)
