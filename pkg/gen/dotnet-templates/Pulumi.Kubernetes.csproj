@@ -16,7 +16,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>1701;1702;1591;8604;8625</NoWarn>
+    <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OneOf" Version="2.1.151" />
     <PackageReference Include="Pulumi" Version="1.7.0-preview-alpha.1574379361" />
     <PackageReference Include="System.Collections.Immutable" Version="1.6.0" />
   </ItemGroup>

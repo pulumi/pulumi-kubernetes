@@ -5,12 +5,14 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.ApiExtensions.V1 {
+namespace Pulumi.Kubernetes.ApiExtensions.V1
+{
     /// <summary>
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.
     /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
     /// </summary>
-    public partial class CustomResourceDefinition : Pulumi.CustomResource {
+    public partial class CustomResourceDefinition : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -49,7 +51,6 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         /// <summary>
         /// Create a CustomResourceDefinition resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -58,12 +59,13 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.ApiExtensions.V1.CustomResourceDefinitionArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.ApiExtensions.V1.CustomResourceDefinitionArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "apiextensions.k8s.io/v1";
                 args.Kind = "CustomResourceDefinition";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -80,7 +82,6 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         /// <summary>
         /// Get an existing CustomResourceDefinition resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

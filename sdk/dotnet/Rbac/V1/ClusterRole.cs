@@ -5,12 +5,14 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Rbac.V1 {
+namespace Pulumi.Kubernetes.Rbac.V1
+{
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
-    public partial class ClusterRole : Pulumi.CustomResource {
+    public partial class ClusterRole : Pulumi.CustomResource
+    {
         /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
         /// ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
@@ -53,7 +55,6 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// <summary>
         /// Create a ClusterRole resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -62,12 +63,13 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Rbac.V1.ClusterRoleArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Rbac.V1.ClusterRoleArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "rbac.authorization.k8s.io/v1";
                 args.Kind = "ClusterRole";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -84,7 +86,6 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// <summary>
         /// Get an existing ClusterRole resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

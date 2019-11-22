@@ -5,14 +5,17 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration
+{
+  namespace V1
+  {
     /// <summary>
     /// MutatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
     /// </summary>
     [OutputType]
-    public sealed class MutatingWebhook {
+    public sealed class MutatingWebhook
+    {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
         /// Webhook expects. API server will try to use first version in the list which it supports.
@@ -196,7 +199,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// accept or reject and may change the object.
     /// </summary>
     [OutputType]
-    public sealed class MutatingWebhookConfiguration {
+    public sealed class MutatingWebhookConfiguration
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -242,7 +246,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
     /// </summary>
     [OutputType]
-    public sealed class MutatingWebhookConfigurationList {
+    public sealed class MutatingWebhookConfigurationList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -289,7 +294,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// that all the tuple expansions are valid.
     /// </summary>
     [OutputType]
-    public sealed class RuleWithOperations {
+    public sealed class RuleWithOperations
+    {
       /// <summary>
         /// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is
         /// present, the length of the slice must be one. Required.
@@ -351,7 +357,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
     [OutputType]
-    public sealed class ServiceReference {
+    public sealed class ServiceReference
+    {
       /// <summary>
         /// `name` is the name of the service. Required
         /// </summary>
@@ -392,7 +399,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// to.
     /// </summary>
     [OutputType]
-    public sealed class ValidatingWebhook {
+    public sealed class ValidatingWebhook
+    {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
         /// Webhook expects. API server will try to use first version in the list which it supports.
@@ -554,7 +562,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// accept or reject and object without changing it.
     /// </summary>
     [OutputType]
-    public sealed class ValidatingWebhookConfiguration {
+    public sealed class ValidatingWebhookConfiguration
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -600,7 +609,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
     [OutputType]
-    public sealed class ValidatingWebhookConfigurationList {
+    public sealed class ValidatingWebhookConfigurationList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -646,7 +656,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook
     /// </summary>
     [OutputType]
-    public sealed class WebhookClientConfig {
+    public sealed class WebhookClientConfig
+    {
       /// <summary>
         /// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's
         /// server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -699,13 +710,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// MutatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
     /// </summary>
     [OutputType]
-    public sealed class MutatingWebhook {
+    public sealed class MutatingWebhook
+    {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
         /// Webhook expects. API server will try to use first version in the list which it supports.
@@ -890,7 +903,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
     /// </summary>
     [OutputType]
-    public sealed class MutatingWebhookConfiguration {
+    public sealed class MutatingWebhookConfiguration
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -936,7 +950,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
     /// </summary>
     [OutputType]
-    public sealed class MutatingWebhookConfigurationList {
+    public sealed class MutatingWebhookConfigurationList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -983,7 +998,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// that all the tuple expansions are valid.
     /// </summary>
     [OutputType]
-    public sealed class RuleWithOperations {
+    public sealed class RuleWithOperations
+    {
       /// <summary>
         /// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is
         /// present, the length of the slice must be one. Required.
@@ -1045,7 +1061,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
     [OutputType]
-    public sealed class ServiceReference {
+    public sealed class ServiceReference
+    {
       /// <summary>
         /// `name` is the name of the service. Required
         /// </summary>
@@ -1086,7 +1103,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// to.
     /// </summary>
     [OutputType]
-    public sealed class ValidatingWebhook {
+    public sealed class ValidatingWebhook
+    {
       /// <summary>
         /// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
         /// Webhook expects. API server will try to use first version in the list which it supports.
@@ -1249,7 +1267,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
     /// </summary>
     [OutputType]
-    public sealed class ValidatingWebhookConfiguration {
+    public sealed class ValidatingWebhookConfiguration
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -1295,7 +1314,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
     [OutputType]
-    public sealed class ValidatingWebhookConfigurationList {
+    public sealed class ValidatingWebhookConfigurationList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -1341,7 +1361,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook
     /// </summary>
     [OutputType]
-    public sealed class WebhookClientConfig {
+    public sealed class WebhookClientConfig
+    {
       /// <summary>
         /// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's
         /// server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -1396,13 +1417,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
+{
+  namespace V1
+  {
     /// <summary>
     /// CustomResourceColumnDefinition specifies a column for server side printing.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceColumnDefinition {
+    public sealed class CustomResourceColumnDefinition
+    {
       /// <summary>
         /// description is a human readable description of this column.
         /// </summary>
@@ -1464,7 +1488,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceConversion {
+    public sealed class CustomResourceConversion
+    {
       /// <summary>
         /// strategy specifies how custom resources are converted between versions. Allowed values
         /// are: - `None`: The converter only change the apiVersion and would not touch any other
@@ -1496,7 +1521,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinition {
+    public sealed class CustomResourceDefinition
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -1546,7 +1572,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionCondition {
+    public sealed class CustomResourceDefinitionCondition
+    {
       /// <summary>
         /// lastTransitionTime last time the condition transitioned from one status to another.
         /// </summary>
@@ -1593,7 +1620,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionList {
+    public sealed class CustomResourceDefinitionList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -1636,7 +1664,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionNames {
+    public sealed class CustomResourceDefinitionNames
+    {
       /// <summary>
         /// categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
         /// This is published in API discovery documents, and used by clients to support invocations
@@ -1698,7 +1727,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionSpec {
+    public sealed class CustomResourceDefinitionSpec
+    {
       /// <summary>
         /// conversion defines conversion settings for the CRD.
         /// </summary>
@@ -1769,7 +1799,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionStatus {
+    public sealed class CustomResourceDefinitionStatus
+    {
       /// <summary>
         /// acceptedNames are the names that are actually being used to serve discovery. They may be
         /// different than the names in spec.
@@ -1806,7 +1837,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionVersion describes a version for CRD.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionVersion {
+    public sealed class CustomResourceDefinitionVersion
+    {
       /// <summary>
         /// additionalPrinterColumns specifies additional columns returned in Table output. See
         /// https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables
@@ -1867,7 +1899,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResources.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceSubresourceScale {
+    public sealed class CustomResourceSubresourceScale
+    {
       /// <summary>
         /// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to
         /// Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be
@@ -1913,7 +1946,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceSubresources {
+    public sealed class CustomResourceSubresources
+    {
       /// <summary>
         /// scale indicates the custom resource should serve a `/scale` subresource that returns an
         /// `autoscaling/v1` Scale object.
@@ -1942,7 +1976,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceValidation is a list of validation methods for CustomResources.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceValidation {
+    public sealed class CustomResourceValidation
+    {
       /// <summary>
         /// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         /// </summary>
@@ -1960,7 +1995,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// ExternalDocumentation allows referencing an external resource for extended documentation.
     /// </summary>
     [OutputType]
-    public sealed class ExternalDocumentation {
+    public sealed class ExternalDocumentation
+    {
       
       public readonly string Description;
 
@@ -1981,7 +2017,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     /// </summary>
     [OutputType]
-    public sealed class JSONSchemaProps {
+    public sealed class JSONSchemaProps
+    {
       
       public readonly string Ref;
 
@@ -2253,7 +2290,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
     [OutputType]
-    public sealed class ServiceReference {
+    public sealed class ServiceReference
+    {
       /// <summary>
         /// name is the name of the service. Required
         /// </summary>
@@ -2293,7 +2331,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
     /// </summary>
     [OutputType]
-    public sealed class WebhookClientConfig {
+    public sealed class WebhookClientConfig
+    {
       /// <summary>
         /// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
         /// certificate. If unspecified, system trust roots on the apiserver are used.
@@ -2348,7 +2387,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// WebhookConversion describes how to call a conversion webhook
     /// </summary>
     [OutputType]
-    public sealed class WebhookConversion {
+    public sealed class WebhookConversion
+    {
       /// <summary>
         /// clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         /// </summary>
@@ -2376,12 +2416,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// CustomResourceColumnDefinition specifies a column for server side printing.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceColumnDefinition {
+    public sealed class CustomResourceColumnDefinition
+    {
       /// <summary>
         /// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against
         /// each custom resource to produce the value for this column.
@@ -2443,7 +2485,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceConversion {
+    public sealed class CustomResourceConversion
+    {
       /// <summary>
         /// conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
         /// Webhook expects. The API server will use the first version in the list which it
@@ -2489,7 +2532,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinition instead.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinition {
+    public sealed class CustomResourceDefinition
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -2539,7 +2583,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionCondition {
+    public sealed class CustomResourceDefinitionCondition
+    {
       /// <summary>
         /// lastTransitionTime last time the condition transitioned from one status to another.
         /// </summary>
@@ -2586,7 +2631,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionList {
+    public sealed class CustomResourceDefinitionList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -2629,7 +2675,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionNames {
+    public sealed class CustomResourceDefinitionNames
+    {
       /// <summary>
         /// categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
         /// This is published in API discovery documents, and used by clients to support invocations
@@ -2691,7 +2738,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionSpec {
+    public sealed class CustomResourceDefinitionSpec
+    {
       /// <summary>
         /// additionalPrinterColumns specifies additional columns returned in Table output. See
         /// https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables
@@ -2805,7 +2853,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionStatus {
+    public sealed class CustomResourceDefinitionStatus
+    {
       /// <summary>
         /// acceptedNames are the names that are actually being used to serve discovery. They may be
         /// different than the names in spec.
@@ -2842,7 +2891,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceDefinitionVersion describes a version for CRD.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceDefinitionVersion {
+    public sealed class CustomResourceDefinitionVersion
+    {
       /// <summary>
         /// additionalPrinterColumns specifies additional columns returned in Table output. See
         /// https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables
@@ -2909,7 +2959,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResources.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceSubresourceScale {
+    public sealed class CustomResourceSubresourceScale
+    {
       /// <summary>
         /// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to
         /// Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be
@@ -2955,7 +3006,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceSubresources {
+    public sealed class CustomResourceSubresources
+    {
       /// <summary>
         /// scale indicates the custom resource should serve a `/scale` subresource that returns an
         /// `autoscaling/v1` Scale object.
@@ -2984,7 +3036,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// CustomResourceValidation is a list of validation methods for CustomResources.
     /// </summary>
     [OutputType]
-    public sealed class CustomResourceValidation {
+    public sealed class CustomResourceValidation
+    {
       /// <summary>
         /// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         /// </summary>
@@ -3002,7 +3055,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// ExternalDocumentation allows referencing an external resource for extended documentation.
     /// </summary>
     [OutputType]
-    public sealed class ExternalDocumentation {
+    public sealed class ExternalDocumentation
+    {
       
       public readonly string Description;
 
@@ -3023,7 +3077,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     /// </summary>
     [OutputType]
-    public sealed class JSONSchemaProps {
+    public sealed class JSONSchemaProps
+    {
       
       public readonly string Ref;
 
@@ -3295,7 +3350,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
     [OutputType]
-    public sealed class ServiceReference {
+    public sealed class ServiceReference
+    {
       /// <summary>
         /// name is the name of the service. Required
         /// </summary>
@@ -3335,7 +3391,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
     /// </summary>
     [OutputType]
-    public sealed class WebhookClientConfig {
+    public sealed class WebhookClientConfig
+    {
       /// <summary>
         /// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
         /// certificate. If unspecified, system trust roots on the apiserver are used.
@@ -3390,13 +3447,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration
+{
+  namespace V1
+  {
     /// <summary>
     /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
     /// </summary>
     [OutputType]
-    public sealed class APIService {
+    public sealed class APIService
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -3446,7 +3506,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceCondition describes the state of an APIService at a particular point
     /// </summary>
     [OutputType]
-    public sealed class APIServiceCondition {
+    public sealed class APIServiceCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -3492,7 +3553,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceList is a list of APIService objects.
     /// </summary>
     [OutputType]
-    public sealed class APIServiceList {
+    public sealed class APIServiceList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -3534,7 +3596,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// is supported, though you are able to disable certificate verification.
     /// </summary>
     [OutputType]
-    public sealed class APIServiceSpec {
+    public sealed class APIServiceSpec
+    {
       /// <summary>
         /// CABundle is a PEM encoded CA bundle which will be used to validate an API server's
         /// serving certificate. If unspecified, system trust roots on the apiserver are used.
@@ -3617,7 +3680,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceStatus contains derived information about an API server
     /// </summary>
     [OutputType]
-    public sealed class APIServiceStatus {
+    public sealed class APIServiceStatus
+    {
       /// <summary>
         /// Current service state of apiService.
         /// </summary>
@@ -3635,7 +3699,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
     [OutputType]
-    public sealed class ServiceReference {
+    public sealed class ServiceReference
+    {
       /// <summary>
         /// Name is the name of the service
         /// </summary>
@@ -3666,12 +3731,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
     /// </summary>
     [OutputType]
-    public sealed class APIService {
+    public sealed class APIService
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -3721,7 +3788,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceCondition describes the state of an APIService at a particular point
     /// </summary>
     [OutputType]
-    public sealed class APIServiceCondition {
+    public sealed class APIServiceCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -3767,7 +3835,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceList is a list of APIService objects.
     /// </summary>
     [OutputType]
-    public sealed class APIServiceList {
+    public sealed class APIServiceList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -3809,7 +3878,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// is supported, though you are able to disable certificate verification.
     /// </summary>
     [OutputType]
-    public sealed class APIServiceSpec {
+    public sealed class APIServiceSpec
+    {
       /// <summary>
         /// CABundle is a PEM encoded CA bundle which will be used to validate an API server's
         /// serving certificate. If unspecified, system trust roots on the apiserver are used.
@@ -3892,7 +3962,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// APIServiceStatus contains derived information about an API server
     /// </summary>
     [OutputType]
-    public sealed class APIServiceStatus {
+    public sealed class APIServiceStatus
+    {
       /// <summary>
         /// Current service state of apiService.
         /// </summary>
@@ -3910,7 +3981,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
     [OutputType]
-    public sealed class ServiceReference {
+    public sealed class ServiceReference
+    {
       /// <summary>
         /// Name is the name of the service
         /// </summary>
@@ -3943,8 +4015,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Apps {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Apps
+{
+  namespace V1
+  {
     /// <summary>
     /// ControllerRevision implements an immutable snapshot of state data. Clients are responsible
     /// for serializing and deserializing the objects that contain their internal state. Once a
@@ -3956,7 +4030,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// stability. It is primarily for internal use by controllers.
     /// </summary>
     [OutputType]
-    public sealed class ControllerRevision {
+    public sealed class ControllerRevision
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4009,7 +4084,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
     [OutputType]
-    public sealed class ControllerRevisionList {
+    public sealed class ControllerRevisionList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4055,7 +4131,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSet {
+    public sealed class DaemonSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4111,7 +4188,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetCondition {
+    public sealed class DaemonSetCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -4157,7 +4235,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetList {
+    public sealed class DaemonSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4203,7 +4282,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetSpec {
+    public sealed class DaemonSetSpec
+    {
       /// <summary>
         /// The minimum number of seconds for which a newly created DaemonSet pod should be ready
         /// without any of its container crashing, for it to be considered available. Defaults to 0
@@ -4257,7 +4337,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetStatus {
+    public sealed class DaemonSetStatus
+    {
       /// <summary>
         /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as
         /// a collision avoidance mechanism when it needs to create the name for the newest
@@ -4349,7 +4430,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetUpdateStrategy {
+    public sealed class DaemonSetUpdateStrategy
+    {
       /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
         /// </summary>
@@ -4375,7 +4457,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
     [OutputType]
-    public sealed class Deployment {
+    public sealed class Deployment
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4427,7 +4510,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentCondition {
+    public sealed class DeploymentCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -4480,7 +4564,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentList is a list of Deployments.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentList {
+    public sealed class DeploymentList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4525,7 +4610,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentSpec {
+    public sealed class DeploymentSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -4601,7 +4687,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStatus {
+    public sealed class DeploymentStatus
+    {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
         /// deployment.
@@ -4676,7 +4763,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStrategy {
+    public sealed class DeploymentStrategy
+    {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         /// </summary>
@@ -4701,7 +4789,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSet {
+    public sealed class ReplicaSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4758,7 +4847,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetCondition {
+    public sealed class ReplicaSetCondition
+    {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
         /// </summary>
@@ -4804,7 +4894,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetList {
+    public sealed class ReplicaSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -4851,7 +4942,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetSpec {
+    public sealed class ReplicaSetSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -4899,7 +4991,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetStatus {
+    public sealed class ReplicaSetStatus
+    {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replica
         /// set.
@@ -4955,7 +5048,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateDaemonSet {
+    public sealed class RollingUpdateDaemonSet
+    {
       /// <summary>
         /// The maximum number of DaemonSet pods that can be unavailable during the update. Value
         /// can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at
@@ -4982,7 +5076,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateDeployment {
+    public sealed class RollingUpdateDeployment
+    {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
         /// can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can
@@ -5022,7 +5117,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// RollingUpdateStatefulSetStrategyType.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateStatefulSetStrategy {
+    public sealed class RollingUpdateStatefulSetStrategy
+    {
       /// <summary>
         /// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default
         /// value is 0.
@@ -5045,7 +5141,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// identity.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSet {
+    public sealed class StatefulSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -5096,7 +5193,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetCondition {
+    public sealed class StatefulSetCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -5142,7 +5240,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetList {
+    public sealed class StatefulSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -5183,7 +5282,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetSpec {
+    public sealed class StatefulSetSpec
+    {
       /// <summary>
         /// podManagementPolicy controls how pods are created during initial scale up, when
         /// replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`,
@@ -5273,7 +5373,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetStatus {
+    public sealed class StatefulSetStatus
+    {
       /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet
         /// controller uses this field as a collision avoidance mechanism when it needs to create
@@ -5358,7 +5459,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// the indicated strategy.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetUpdateStrategy {
+    public sealed class StatefulSetUpdateStrategy
+    {
       /// <summary>
         /// RollingUpdate is used to communicate parameters when Type is
         /// RollingUpdateStatefulSetStrategyType.
@@ -5382,7 +5484,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// DEPRECATED - apps/v1beta1/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
     /// Use apps/v1/ControllerRevision instead.
@@ -5397,7 +5500,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// stability. It is primarily for internal use by controllers.
     /// </summary>
     [OutputType]
-    public sealed class ControllerRevision {
+    public sealed class ControllerRevision
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -5450,7 +5554,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
     [OutputType]
-    public sealed class ControllerRevisionList {
+    public sealed class ControllerRevisionList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -5499,7 +5604,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
     [OutputType]
-    public sealed class Deployment {
+    public sealed class Deployment
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -5551,7 +5657,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentCondition {
+    public sealed class DeploymentCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -5604,7 +5711,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentList is a list of Deployments.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentList {
+    public sealed class DeploymentList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -5649,7 +5757,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentRollback {
+    public sealed class DeploymentRollback
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -5701,7 +5810,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentSpec {
+    public sealed class DeploymentSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -5785,7 +5895,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStatus {
+    public sealed class DeploymentStatus
+    {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
         /// deployment.
@@ -5860,7 +5971,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStrategy {
+    public sealed class DeploymentStrategy
+    {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         /// </summary>
@@ -5885,7 +5997,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DEPRECATED.
     /// </summary>
     [OutputType]
-    public sealed class RollbackConfig {
+    public sealed class RollbackConfig
+    {
       /// <summary>
         /// The revision to rollback to. If set to 0, rollback to the last revision.
         /// </summary>
@@ -5903,7 +6016,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateDeployment {
+    public sealed class RollingUpdateDeployment
+    {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
         /// can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can
@@ -5943,7 +6057,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// RollingUpdateStatefulSetStrategyType.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateStatefulSetStrategy {
+    public sealed class RollingUpdateStatefulSetStrategy
+    {
       /// <summary>
         /// Partition indicates the ordinal at which the StatefulSet should be partitioned.
         /// </summary>
@@ -5961,7 +6076,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Scale represents a scaling request for a resource.
     /// </summary>
     [OutputType]
-    public sealed class Scale {
+    public sealed class Scale
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6017,7 +6133,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ScaleSpec describes the attributes of a scale subresource
     /// </summary>
     [OutputType]
-    public sealed class ScaleSpec {
+    public sealed class ScaleSpec
+    {
       /// <summary>
         /// desired number of instances for the scaled object.
         /// </summary>
@@ -6035,7 +6152,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
     [OutputType]
-    public sealed class ScaleStatus {
+    public sealed class ScaleStatus
+    {
       /// <summary>
         /// actual number of observed instances of the scaled object.
         /// </summary>
@@ -6080,7 +6198,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// identity.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSet {
+    public sealed class StatefulSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6131,7 +6250,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetCondition {
+    public sealed class StatefulSetCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -6177,7 +6297,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetList {
+    public sealed class StatefulSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6218,7 +6339,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetSpec {
+    public sealed class StatefulSetSpec
+    {
       /// <summary>
         /// podManagementPolicy controls how pods are created during initial scale up, when
         /// replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`,
@@ -6308,7 +6430,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetStatus {
+    public sealed class StatefulSetStatus
+    {
       /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet
         /// controller uses this field as a collision avoidance mechanism when it needs to create
@@ -6393,7 +6516,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// the indicated strategy.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetUpdateStrategy {
+    public sealed class StatefulSetUpdateStrategy
+    {
       /// <summary>
         /// RollingUpdate is used to communicate parameters when Type is
         /// RollingUpdateStatefulSetStrategyType.
@@ -6417,7 +6541,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     }
   }
 
-  namespace V1Beta2 {
+  namespace V1Beta2
+  {
     /// <summary>
     /// DEPRECATED - apps/v1beta2/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
     /// Use apps/v1/ControllerRevision instead.
@@ -6432,7 +6557,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// stability. It is primarily for internal use by controllers.
     /// </summary>
     [OutputType]
-    public sealed class ControllerRevision {
+    public sealed class ControllerRevision
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6485,7 +6611,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
     [OutputType]
-    public sealed class ControllerRevisionList {
+    public sealed class ControllerRevisionList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6534,7 +6661,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSet {
+    public sealed class DaemonSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6590,7 +6718,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetCondition {
+    public sealed class DaemonSetCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -6636,7 +6765,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetList {
+    public sealed class DaemonSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6682,7 +6812,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetSpec {
+    public sealed class DaemonSetSpec
+    {
       /// <summary>
         /// The minimum number of seconds for which a newly created DaemonSet pod should be ready
         /// without any of its container crashing, for it to be considered available. Defaults to 0
@@ -6736,7 +6867,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetStatus {
+    public sealed class DaemonSetStatus
+    {
       /// <summary>
         /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as
         /// a collision avoidance mechanism when it needs to create the name for the newest
@@ -6828,7 +6960,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetUpdateStrategy {
+    public sealed class DaemonSetUpdateStrategy
+    {
       /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
         /// </summary>
@@ -6857,7 +6990,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
     [OutputType]
-    public sealed class Deployment {
+    public sealed class Deployment
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -6909,7 +7043,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentCondition {
+    public sealed class DeploymentCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -6962,7 +7097,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentList is a list of Deployments.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentList {
+    public sealed class DeploymentList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -7007,7 +7143,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentSpec {
+    public sealed class DeploymentSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -7083,7 +7220,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStatus {
+    public sealed class DeploymentStatus
+    {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
         /// deployment.
@@ -7158,7 +7296,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStrategy {
+    public sealed class DeploymentStrategy
+    {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         /// </summary>
@@ -7186,7 +7325,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSet {
+    public sealed class ReplicaSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -7243,7 +7383,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetCondition {
+    public sealed class ReplicaSetCondition
+    {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
         /// </summary>
@@ -7289,7 +7430,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetList {
+    public sealed class ReplicaSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -7336,7 +7478,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetSpec {
+    public sealed class ReplicaSetSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -7384,7 +7527,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetStatus {
+    public sealed class ReplicaSetStatus
+    {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replica
         /// set.
@@ -7440,7 +7584,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateDaemonSet {
+    public sealed class RollingUpdateDaemonSet
+    {
       /// <summary>
         /// The maximum number of DaemonSet pods that can be unavailable during the update. Value
         /// can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at
@@ -7467,7 +7612,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateDeployment {
+    public sealed class RollingUpdateDeployment
+    {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
         /// can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can
@@ -7507,7 +7653,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// RollingUpdateStatefulSetStrategyType.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateStatefulSetStrategy {
+    public sealed class RollingUpdateStatefulSetStrategy
+    {
       /// <summary>
         /// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default
         /// value is 0.
@@ -7526,7 +7673,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// Scale represents a scaling request for a resource.
     /// </summary>
     [OutputType]
-    public sealed class Scale {
+    public sealed class Scale
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -7582,7 +7730,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ScaleSpec describes the attributes of a scale subresource
     /// </summary>
     [OutputType]
-    public sealed class ScaleSpec {
+    public sealed class ScaleSpec
+    {
       /// <summary>
         /// desired number of instances for the scaled object.
         /// </summary>
@@ -7600,7 +7749,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
     [OutputType]
-    public sealed class ScaleStatus {
+    public sealed class ScaleStatus
+    {
       /// <summary>
         /// actual number of observed instances of the scaled object.
         /// </summary>
@@ -7645,7 +7795,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// identity.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSet {
+    public sealed class StatefulSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -7696,7 +7847,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetCondition {
+    public sealed class StatefulSetCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -7742,7 +7894,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetList {
+    public sealed class StatefulSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -7783,7 +7936,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetSpec {
+    public sealed class StatefulSetSpec
+    {
       /// <summary>
         /// podManagementPolicy controls how pods are created during initial scale up, when
         /// replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`,
@@ -7873,7 +8027,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetStatus {
+    public sealed class StatefulSetStatus
+    {
       /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet
         /// controller uses this field as a collision avoidance mechanism when it needs to create
@@ -7958,7 +8113,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
     /// the indicated strategy.
     /// </summary>
     [OutputType]
-    public sealed class StatefulSetUpdateStrategy {
+    public sealed class StatefulSetUpdateStrategy
+    {
       /// <summary>
         /// RollingUpdate is used to communicate parameters when Type is
         /// RollingUpdateStatefulSetStrategyType.
@@ -7984,13 +8140,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
-  namespace V1Alpha1 {
+namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion
+{
+  namespace V1Alpha1
+  {
     /// <summary>
     /// AuditSink represents a cluster level audit sink
     /// </summary>
     [OutputType]
-    public sealed class AuditSink {
+    public sealed class AuditSink
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -8033,7 +8192,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// AuditSinkList is a list of AuditSink items.
     /// </summary>
     [OutputType]
-    public sealed class AuditSinkList {
+    public sealed class AuditSinkList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -8076,7 +8236,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// AuditSinkSpec holds the spec for the audit sink
     /// </summary>
     [OutputType]
-    public sealed class AuditSinkSpec {
+    public sealed class AuditSinkSpec
+    {
       /// <summary>
         /// Policy defines the policy for selecting which events should be sent to the webhook
         /// required
@@ -8102,7 +8263,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// Policy defines the configuration of how audit events are logged
     /// </summary>
     [OutputType]
-    public sealed class Policy {
+    public sealed class Policy
+    {
       /// <summary>
         /// The Level that all requests are recorded at. available options: None, Metadata, Request,
         /// RequestResponse required
@@ -8128,7 +8290,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
     [OutputType]
-    public sealed class ServiceReference {
+    public sealed class ServiceReference
+    {
       /// <summary>
         /// `name` is the name of the service. Required
         /// </summary>
@@ -8168,7 +8331,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// Webhook holds the configuration of the webhook
     /// </summary>
     [OutputType]
-    public sealed class Webhook {
+    public sealed class Webhook
+    {
       /// <summary>
         /// ClientConfig holds the connection parameters for the webhook required
         /// </summary>
@@ -8193,7 +8357,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// WebhookClientConfig contains the information to make a connection with the webhook
     /// </summary>
     [OutputType]
-    public sealed class WebhookClientConfig {
+    public sealed class WebhookClientConfig
+    {
       /// <summary>
         /// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's
         /// server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -8248,7 +8413,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
     /// WebhookThrottleConfig holds the configuration for throttling events
     /// </summary>
     [OutputType]
-    public sealed class WebhookThrottleConfig {
+    public sealed class WebhookThrottleConfig
+    {
       /// <summary>
         /// ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         /// </summary>
@@ -8273,13 +8439,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Authentication
+{
+  namespace V1
+  {
     /// <summary>
     /// BoundObjectReference is a reference to an object that a token is bound to.
     /// </summary>
     [OutputType]
-    public sealed class BoundObjectReference {
+    public sealed class BoundObjectReference
+    {
       /// <summary>
         /// API version of the referent.
         /// </summary>
@@ -8318,7 +8487,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenRequest requests a token for a given service account.
     /// </summary>
     [OutputType]
-    public sealed class TokenRequest {
+    public sealed class TokenRequest
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -8364,7 +8534,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenRequestSpec contains client provided parameters of a token request.
     /// </summary>
     [OutputType]
-    public sealed class TokenRequestSpec {
+    public sealed class TokenRequestSpec
+    {
       /// <summary>
         /// Audiences are the intendend audiences of the token. A recipient of a token must
         /// identitfy themself with an identifier in the list of audiences of the token, and
@@ -8405,7 +8576,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenRequestStatus is the result of a token request.
     /// </summary>
     [OutputType]
-    public sealed class TokenRequestStatus {
+    public sealed class TokenRequestStatus
+    {
       /// <summary>
         /// ExpirationTimestamp is the time of expiration of the returned token.
         /// </summary>
@@ -8431,7 +8603,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// be cached by the webhook token authenticator plugin in the kube-apiserver.
     /// </summary>
     [OutputType]
-    public sealed class TokenReview {
+    public sealed class TokenReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -8482,7 +8655,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenReviewSpec is a description of the token authentication request.
     /// </summary>
     [OutputType]
-    public sealed class TokenReviewSpec {
+    public sealed class TokenReviewSpec
+    {
       /// <summary>
         /// Audiences is a list of the identifiers that the resource server presented with the token
         /// identifies as. Audience-aware token authenticators will verify that the token was
@@ -8510,7 +8684,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenReviewStatus is the result of the token authentication request.
     /// </summary>
     [OutputType]
-    public sealed class TokenReviewStatus {
+    public sealed class TokenReviewStatus
+    {
       /// <summary>
         /// Audiences are audience identifiers chosen by the authenticator that are compatible with
         /// both the TokenReview and token. An identifier is any identifier in the intersection of
@@ -8556,7 +8731,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// UserInfo holds the information about the user needed to implement the user.Info interface.
     /// </summary>
     [OutputType]
-    public sealed class UserInfo {
+    public sealed class UserInfo
+    {
       /// <summary>
         /// Any additional information provided by the authenticator.
         /// </summary>
@@ -8594,13 +8770,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
     /// be cached by the webhook token authenticator plugin in the kube-apiserver.
     /// </summary>
     [OutputType]
-    public sealed class TokenReview {
+    public sealed class TokenReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -8651,7 +8829,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenReviewSpec is a description of the token authentication request.
     /// </summary>
     [OutputType]
-    public sealed class TokenReviewSpec {
+    public sealed class TokenReviewSpec
+    {
       /// <summary>
         /// Audiences is a list of the identifiers that the resource server presented with the token
         /// identifies as. Audience-aware token authenticators will verify that the token was
@@ -8679,7 +8858,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// TokenReviewStatus is the result of the token authentication request.
     /// </summary>
     [OutputType]
-    public sealed class TokenReviewStatus {
+    public sealed class TokenReviewStatus
+    {
       /// <summary>
         /// Audiences are audience identifiers chosen by the authenticator that are compatible with
         /// both the TokenReview and token. An identifier is any identifier in the intersection of
@@ -8725,7 +8905,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
     /// UserInfo holds the information about the user needed to implement the user.Info interface.
     /// </summary>
     [OutputType]
-    public sealed class UserInfo {
+    public sealed class UserInfo
+    {
       /// <summary>
         /// Any additional information provided by the authenticator.
         /// </summary>
@@ -8765,15 +8946,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Authorization
+{
+  namespace V1
+  {
     /// <summary>
     /// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a
     /// given namespace. Having a namespace scoped resource makes it much easier to grant namespace
     /// scoped policy that includes permissions checking.
     /// </summary>
     [OutputType]
-    public sealed class LocalSubjectAccessReview {
+    public sealed class LocalSubjectAccessReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -8825,7 +9009,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// requests to the Authorizer interface
     /// </summary>
     [OutputType]
-    public sealed class NonResourceAttributes {
+    public sealed class NonResourceAttributes
+    {
       /// <summary>
         /// Path is the URL path of the request
         /// </summary>
@@ -8850,7 +9035,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// NonResourceRule holds information that describes a rule for the non-resource
     /// </summary>
     [OutputType]
-    public sealed class NonResourceRule {
+    public sealed class NonResourceRule
+    {
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
         /// allowed, but only as the full, final step in the path.  "*" means all.
@@ -8878,7 +9064,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// the Authorizer interface
     /// </summary>
     [OutputType]
-    public sealed class ResourceAttributes {
+    public sealed class ResourceAttributes
+    {
       /// <summary>
         /// Group is the API Group of the Resource.  "*" means all.
         /// </summary>
@@ -8945,7 +9132,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ordering isn't significant, may contain duplicates, and possibly be incomplete.
     /// </summary>
     [OutputType]
-    public sealed class ResourceRule {
+    public sealed class ResourceRule
+    {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
@@ -8992,7 +9180,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// users should always be able to check whether they can perform an action
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectAccessReview {
+    public sealed class SelfSubjectAccessReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -9043,7 +9232,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectAccessReviewSpec {
+    public sealed class SelfSubjectAccessReviewSpec
+    {
       /// <summary>
         /// NonResourceAttributes describes information for a non-resource access request
         /// </summary>
@@ -9075,7 +9265,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// decisions to the API server.
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectRulesReview {
+    public sealed class SelfSubjectRulesReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -9125,7 +9316,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// 
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectRulesReviewSpec {
+    public sealed class SelfSubjectRulesReviewSpec
+    {
       /// <summary>
         /// Namespace to evaluate rules for. Required.
         /// </summary>
@@ -9143,7 +9335,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
     [OutputType]
-    public sealed class SubjectAccessReview {
+    public sealed class SubjectAccessReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -9194,7 +9387,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
     [OutputType]
-    public sealed class SubjectAccessReviewSpec {
+    public sealed class SubjectAccessReviewSpec
+    {
       /// <summary>
         /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that
         /// is input to the authorizer it needs a reflection here.
@@ -9249,7 +9443,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReviewStatus
     /// </summary>
     [OutputType]
-    public sealed class SubjectAccessReviewStatus {
+    public sealed class SubjectAccessReviewStatus
+    {
       /// <summary>
         /// Allowed is required. True if the action would be allowed, false otherwise.
         /// </summary>
@@ -9296,7 +9491,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// it's safe to assume the subject has that permission, even if that list is incomplete.
     /// </summary>
     [OutputType]
-    public sealed class SubjectRulesReviewStatus {
+    public sealed class SubjectRulesReviewStatus
+    {
       /// <summary>
         /// EvaluationError can appear in combination with Rules. It indicates an error occurred
         /// during rule evaluation, such as an authorizer that doesn't support rule evaluation, and
@@ -9340,14 +9536,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a
     /// given namespace. Having a namespace scoped resource makes it much easier to grant namespace
     /// scoped policy that includes permissions checking.
     /// </summary>
     [OutputType]
-    public sealed class LocalSubjectAccessReview {
+    public sealed class LocalSubjectAccessReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -9399,7 +9597,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// requests to the Authorizer interface
     /// </summary>
     [OutputType]
-    public sealed class NonResourceAttributes {
+    public sealed class NonResourceAttributes
+    {
       /// <summary>
         /// Path is the URL path of the request
         /// </summary>
@@ -9424,7 +9623,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// NonResourceRule holds information that describes a rule for the non-resource
     /// </summary>
     [OutputType]
-    public sealed class NonResourceRule {
+    public sealed class NonResourceRule
+    {
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
         /// allowed, but only as the full, final step in the path.  "*" means all.
@@ -9452,7 +9652,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// the Authorizer interface
     /// </summary>
     [OutputType]
-    public sealed class ResourceAttributes {
+    public sealed class ResourceAttributes
+    {
       /// <summary>
         /// Group is the API Group of the Resource.  "*" means all.
         /// </summary>
@@ -9519,7 +9720,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ordering isn't significant, may contain duplicates, and possibly be incomplete.
     /// </summary>
     [OutputType]
-    public sealed class ResourceRule {
+    public sealed class ResourceRule
+    {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
@@ -9566,7 +9768,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// users should always be able to check whether they can perform an action
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectAccessReview {
+    public sealed class SelfSubjectAccessReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -9617,7 +9820,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectAccessReviewSpec {
+    public sealed class SelfSubjectAccessReviewSpec
+    {
       /// <summary>
         /// NonResourceAttributes describes information for a non-resource access request
         /// </summary>
@@ -9649,7 +9853,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// decisions to the API server.
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectRulesReview {
+    public sealed class SelfSubjectRulesReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -9699,7 +9904,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// 
     /// </summary>
     [OutputType]
-    public sealed class SelfSubjectRulesReviewSpec {
+    public sealed class SelfSubjectRulesReviewSpec
+    {
       /// <summary>
         /// Namespace to evaluate rules for. Required.
         /// </summary>
@@ -9717,7 +9923,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
     [OutputType]
-    public sealed class SubjectAccessReview {
+    public sealed class SubjectAccessReview
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -9768,7 +9975,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
     [OutputType]
-    public sealed class SubjectAccessReviewSpec {
+    public sealed class SubjectAccessReviewSpec
+    {
       /// <summary>
         /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that
         /// is input to the authorizer it needs a reflection here.
@@ -9823,7 +10031,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// SubjectAccessReviewStatus
     /// </summary>
     [OutputType]
-    public sealed class SubjectAccessReviewStatus {
+    public sealed class SubjectAccessReviewStatus
+    {
       /// <summary>
         /// Allowed is required. True if the action would be allowed, false otherwise.
         /// </summary>
@@ -9870,7 +10079,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
     /// it's safe to assume the subject has that permission, even if that list is incomplete.
     /// </summary>
     [OutputType]
-    public sealed class SubjectRulesReviewStatus {
+    public sealed class SubjectRulesReviewStatus
+    {
       /// <summary>
         /// EvaluationError can appear in combination with Rules. It indicates an error occurred
         /// during rule evaluation, such as an authorizer that doesn't support rule evaluation, and
@@ -9916,14 +10126,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling
+{
+  namespace V1
+  {
     /// <summary>
     /// CrossVersionObjectReference contains enough information to let you identify the referred
     /// resource.
     /// </summary>
     [OutputType]
-    public sealed class CrossVersionObjectReference {
+    public sealed class CrossVersionObjectReference
+    {
       /// <summary>
         /// API version of the referent
         /// </summary>
@@ -9956,7 +10169,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// configuration of a horizontal pod autoscaler.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscaler {
+    public sealed class HorizontalPodAutoscaler
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -10010,7 +10224,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// list of horizontal pod autoscaler objects.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerList {
+    public sealed class HorizontalPodAutoscalerList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -10055,7 +10270,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// specification of a horizontal pod autoscaler.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerSpec {
+    public sealed class HorizontalPodAutoscalerSpec
+    {
       /// <summary>
         /// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller
         /// than MinReplicas.
@@ -10100,7 +10316,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// current status of a horizontal pod autoscaler
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerStatus {
+    public sealed class HorizontalPodAutoscalerStatus
+    {
       /// <summary>
         /// current average CPU utilization over all pods, represented as a percentage of requested
         /// CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
@@ -10148,7 +10365,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// Scale represents a scaling request for a resource.
     /// </summary>
     [OutputType]
-    public sealed class Scale {
+    public sealed class Scale
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -10204,7 +10422,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ScaleSpec describes the attributes of a scale subresource.
     /// </summary>
     [OutputType]
-    public sealed class ScaleSpec {
+    public sealed class ScaleSpec
+    {
       /// <summary>
         /// desired number of instances for the scaled object.
         /// </summary>
@@ -10222,7 +10441,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
     [OutputType]
-    public sealed class ScaleStatus {
+    public sealed class ScaleStatus
+    {
       /// <summary>
         /// actual number of observed instances of the scaled object.
         /// </summary>
@@ -10248,13 +10468,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     }
   }
 
-  namespace V2Beta1 {
+  namespace V2Beta1
+  {
     /// <summary>
     /// CrossVersionObjectReference contains enough information to let you identify the referred
     /// resource.
     /// </summary>
     [OutputType]
-    public sealed class CrossVersionObjectReference {
+    public sealed class CrossVersionObjectReference
+    {
       /// <summary>
         /// API version of the referent
         /// </summary>
@@ -10289,7 +10511,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// running outside of cluster). Exactly one "target" type should be set.
     /// </summary>
     [OutputType]
-    public sealed class ExternalMetricSource {
+    public sealed class ExternalMetricSource
+    {
       /// <summary>
         /// metricName is the name of the metric in question.
         /// </summary>
@@ -10331,7 +10554,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// Kubernetes object.
     /// </summary>
     [OutputType]
-    public sealed class ExternalMetricStatus {
+    public sealed class ExternalMetricStatus
+    {
       /// <summary>
         /// currentAverageValue is the current value of metric averaged over autoscaled pods.
         /// </summary>
@@ -10372,7 +10596,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// based on the metrics specified.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscaler {
+    public sealed class HorizontalPodAutoscaler
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -10427,7 +10652,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// certain point.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerCondition {
+    public sealed class HorizontalPodAutoscalerCondition
+    {
       /// <summary>
         /// lastTransitionTime is the last time the condition transitioned from one status to
         /// another
@@ -10474,7 +10700,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerList {
+    public sealed class HorizontalPodAutoscalerList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -10520,7 +10747,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscaler.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerSpec {
+    public sealed class HorizontalPodAutoscalerSpec
+    {
       /// <summary>
         /// maxReplicas is the upper limit for the number of replicas to which the autoscaler can
         /// scale up. It cannot be less that minReplicas.
@@ -10569,7 +10797,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerStatus {
+    public sealed class HorizontalPodAutoscalerStatus
+    {
       /// <summary>
         /// conditions is the set of conditions required for this autoscaler to scale its target,
         /// and indicates whether or not those conditions are met.
@@ -10627,7 +10856,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// matching field should be set at once).
     /// </summary>
     [OutputType]
-    public sealed class MetricSpec {
+    public sealed class MetricSpec
+    {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
         /// allows autoscaling based on information coming from components running outside of
@@ -10683,7 +10913,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// MetricStatus describes the last-read state of a single metric.
     /// </summary>
     [OutputType]
-    public sealed class MetricStatus {
+    public sealed class MetricStatus
+    {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
         /// allows autoscaling based on information coming from components running outside of
@@ -10740,7 +10971,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// example, hits-per-second on an Ingress object).
     /// </summary>
     [OutputType]
-    public sealed class ObjectMetricSource {
+    public sealed class ObjectMetricSource
+    {
       /// <summary>
         /// averageValue is the target value of the average of the metric across all relevant pods
         /// (as a quantity)
@@ -10791,7 +11023,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// (for example, hits-per-second on an Ingress object).
     /// </summary>
     [OutputType]
-    public sealed class ObjectMetricStatus {
+    public sealed class ObjectMetricStatus
+    {
       /// <summary>
         /// averageValue is the current value of the average of the metric across all relevant pods
         /// (as a quantity)
@@ -10843,7 +11076,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// together before being compared to the target value.
     /// </summary>
     [OutputType]
-    public sealed class PodsMetricSource {
+    public sealed class PodsMetricSource
+    {
       /// <summary>
         /// metricName is the name of the metric in question
         /// </summary>
@@ -10880,7 +11114,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// scale target (for example, transactions-processed-per-second).
     /// </summary>
     [OutputType]
-    public sealed class PodsMetricStatus {
+    public sealed class PodsMetricStatus
+    {
       /// <summary>
         /// currentAverageValue is the current value of the average of the metric across all
         /// relevant pods (as a quantity)
@@ -10921,7 +11156,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// be set.
     /// </summary>
     [OutputType]
-    public sealed class ResourceMetricSource {
+    public sealed class ResourceMetricSource
+    {
       /// <summary>
         /// name is the name of the resource in question.
         /// </summary>
@@ -10960,7 +11196,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// on top of those available to normal per-pod metrics using the "pods" source.
     /// </summary>
     [OutputType]
-    public sealed class ResourceMetricStatus {
+    public sealed class ResourceMetricStatus
+    {
       /// <summary>
         /// currentAverageUtilization is the current value of the average of the resource metric
         /// across all relevant pods, represented as a percentage of the requested value of the
@@ -10996,13 +11233,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     }
   }
 
-  namespace V2Beta2 {
+  namespace V2Beta2
+  {
     /// <summary>
     /// CrossVersionObjectReference contains enough information to let you identify the referred
     /// resource.
     /// </summary>
     [OutputType]
-    public sealed class CrossVersionObjectReference {
+    public sealed class CrossVersionObjectReference
+    {
       /// <summary>
         /// API version of the referent
         /// </summary>
@@ -11037,7 +11276,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// running outside of cluster).
     /// </summary>
     [OutputType]
-    public sealed class ExternalMetricSource {
+    public sealed class ExternalMetricSource
+    {
       /// <summary>
         /// metric identifies the target metric by name and selector
         /// </summary>
@@ -11063,7 +11303,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// Kubernetes object.
     /// </summary>
     [OutputType]
-    public sealed class ExternalMetricStatus {
+    public sealed class ExternalMetricStatus
+    {
       /// <summary>
         /// current contains the current value for the given metric
         /// </summary>
@@ -11090,7 +11331,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// based on the metrics specified.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscaler {
+    public sealed class HorizontalPodAutoscaler
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -11145,7 +11387,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// certain point.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerCondition {
+    public sealed class HorizontalPodAutoscalerCondition
+    {
       /// <summary>
         /// lastTransitionTime is the last time the condition transitioned from one status to
         /// another
@@ -11192,7 +11435,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerList {
+    public sealed class HorizontalPodAutoscalerList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -11238,7 +11482,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscaler.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerSpec {
+    public sealed class HorizontalPodAutoscalerSpec
+    {
       /// <summary>
         /// maxReplicas is the upper limit for the number of replicas to which the autoscaler can
         /// scale up. It cannot be less that minReplicas.
@@ -11288,7 +11533,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     /// </summary>
     [OutputType]
-    public sealed class HorizontalPodAutoscalerStatus {
+    public sealed class HorizontalPodAutoscalerStatus
+    {
       /// <summary>
         /// conditions is the set of conditions required for this autoscaler to scale its target,
         /// and indicates whether or not those conditions are met.
@@ -11345,7 +11591,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// MetricIdentifier defines the name and optionally selector for a metric
     /// </summary>
     [OutputType]
-    public sealed class MetricIdentifier {
+    public sealed class MetricIdentifier
+    {
       /// <summary>
         /// name is the name of the given metric
         /// </summary>
@@ -11374,7 +11621,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// matching field should be set at once).
     /// </summary>
     [OutputType]
-    public sealed class MetricSpec {
+    public sealed class MetricSpec
+    {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
         /// allows autoscaling based on information coming from components running outside of
@@ -11430,7 +11678,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// MetricStatus describes the last-read state of a single metric.
     /// </summary>
     [OutputType]
-    public sealed class MetricStatus {
+    public sealed class MetricStatus
+    {
       /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It
         /// allows autoscaling based on information coming from components running outside of
@@ -11487,7 +11736,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// metric
     /// </summary>
     [OutputType]
-    public sealed class MetricTarget {
+    public sealed class MetricTarget
+    {
       /// <summary>
         /// averageUtilization is the target value of the average of the resource metric across all
         /// relevant pods, represented as a percentage of the requested value of the resource for
@@ -11529,7 +11779,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// MetricValueStatus holds the current value for a metric
     /// </summary>
     [OutputType]
-    public sealed class MetricValueStatus {
+    public sealed class MetricValueStatus
+    {
       /// <summary>
         /// currentAverageUtilization is the current value of the average of the resource metric
         /// across all relevant pods, represented as a percentage of the requested value of the
@@ -11565,7 +11816,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// example, hits-per-second on an Ingress object).
     /// </summary>
     [OutputType]
-    public sealed class ObjectMetricSource {
+    public sealed class ObjectMetricSource
+    {
       
       public readonly Autoscaling.V2Beta2.CrossVersionObjectReference DescribedObject;
 
@@ -11596,7 +11848,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// (for example, hits-per-second on an Ingress object).
     /// </summary>
     [OutputType]
-    public sealed class ObjectMetricStatus {
+    public sealed class ObjectMetricStatus
+    {
       /// <summary>
         /// current contains the current value for the given metric
         /// </summary>
@@ -11628,7 +11881,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// together before being compared to the target value.
     /// </summary>
     [OutputType]
-    public sealed class PodsMetricSource {
+    public sealed class PodsMetricSource
+    {
       /// <summary>
         /// metric identifies the target metric by name and selector
         /// </summary>
@@ -11654,7 +11908,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// scale target (for example, transactions-processed-per-second).
     /// </summary>
     [OutputType]
-    public sealed class PodsMetricStatus {
+    public sealed class PodsMetricStatus
+    {
       /// <summary>
         /// current contains the current value for the given metric
         /// </summary>
@@ -11684,7 +11939,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// be set.
     /// </summary>
     [OutputType]
-    public sealed class ResourceMetricSource {
+    public sealed class ResourceMetricSource
+    {
       /// <summary>
         /// name is the name of the resource in question.
         /// </summary>
@@ -11712,7 +11968,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
     /// on top of those available to normal per-pod metrics using the "pods" source.
     /// </summary>
     [OutputType]
-    public sealed class ResourceMetricStatus {
+    public sealed class ResourceMetricStatus
+    {
       /// <summary>
         /// current contains the current value for the given metric
         /// </summary>
@@ -11737,13 +11994,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Batch {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Batch
+{
+  namespace V1
+  {
     /// <summary>
     /// Job represents the configuration of a single job.
     /// </summary>
     [OutputType]
-    public sealed class Job {
+    public sealed class Job
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -11798,7 +12058,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// JobCondition describes current state of a job.
     /// </summary>
     [OutputType]
-    public sealed class JobCondition {
+    public sealed class JobCondition
+    {
       /// <summary>
         /// Last time the condition was checked.
         /// </summary>
@@ -11851,7 +12112,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// JobList is a collection of jobs.
     /// </summary>
     [OutputType]
-    public sealed class JobList {
+    public sealed class JobList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -11897,7 +12159,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// JobSpec describes how the job execution will look like.
     /// </summary>
     [OutputType]
-    public sealed class JobSpec {
+    public sealed class JobSpec
+    {
       /// <summary>
         /// Specifies the duration in seconds relative to the startTime that the job may be active
         /// before the system tries to terminate it; value must be positive integer
@@ -11989,7 +12252,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// JobStatus represents the current state of a Job.
     /// </summary>
     [OutputType]
-    public sealed class JobStatus {
+    public sealed class JobStatus
+    {
       /// <summary>
         /// The number of actively running pods.
         /// </summary>
@@ -12045,12 +12309,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// CronJob represents the configuration of a single cron job.
     /// </summary>
     [OutputType]
-    public sealed class CronJob {
+    public sealed class CronJob
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12105,7 +12371,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// CronJobList is a collection of cron jobs.
     /// </summary>
     [OutputType]
-    public sealed class CronJobList {
+    public sealed class CronJobList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12151,7 +12418,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// CronJobSpec describes how the job execution will look like and when it will actually run.
     /// </summary>
     [OutputType]
-    public sealed class CronJobSpec {
+    public sealed class CronJobSpec
+    {
       /// <summary>
         /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow"
         /// (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs,
@@ -12218,7 +12486,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// CronJobStatus represents the current state of a cron job.
     /// </summary>
     [OutputType]
-    public sealed class CronJobStatus {
+    public sealed class CronJobStatus
+    {
       /// <summary>
         /// A list of pointers to currently running jobs.
         /// </summary>
@@ -12243,7 +12512,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// JobTemplateSpec describes the data a Job should have when created from a template
     /// </summary>
     [OutputType]
-    public sealed class JobTemplateSpec {
+    public sealed class JobTemplateSpec
+    {
       /// <summary>
         /// Standard object's metadata of the jobs created from this template. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -12268,12 +12538,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     }
   }
 
-  namespace V2Alpha1 {
+  namespace V2Alpha1
+  {
     /// <summary>
     /// CronJob represents the configuration of a single cron job.
     /// </summary>
     [OutputType]
-    public sealed class CronJob {
+    public sealed class CronJob
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12328,7 +12600,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// CronJobList is a collection of cron jobs.
     /// </summary>
     [OutputType]
-    public sealed class CronJobList {
+    public sealed class CronJobList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12374,7 +12647,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// CronJobSpec describes how the job execution will look like and when it will actually run.
     /// </summary>
     [OutputType]
-    public sealed class CronJobSpec {
+    public sealed class CronJobSpec
+    {
       /// <summary>
         /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow"
         /// (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs,
@@ -12441,7 +12715,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// CronJobStatus represents the current state of a cron job.
     /// </summary>
     [OutputType]
-    public sealed class CronJobStatus {
+    public sealed class CronJobStatus
+    {
       /// <summary>
         /// A list of pointers to currently running jobs.
         /// </summary>
@@ -12466,7 +12741,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
     /// JobTemplateSpec describes the data a Job should have when created from a template
     /// </summary>
     [OutputType]
-    public sealed class JobTemplateSpec {
+    public sealed class JobTemplateSpec
+    {
       /// <summary>
         /// Standard object's metadata of the jobs created from this template. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -12493,13 +12769,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
-  namespace V1Beta1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Certificates
+{
+  namespace V1Beta1
+  {
     /// <summary>
     /// Describes a certificate signing request
     /// </summary>
     [OutputType]
-    public sealed class CertificateSigningRequest {
+    public sealed class CertificateSigningRequest
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12549,7 +12828,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// 
     /// </summary>
     [OutputType]
-    public sealed class CertificateSigningRequestCondition {
+    public sealed class CertificateSigningRequestCondition
+    {
       /// <summary>
         /// timestamp for the last update to this condition
         /// </summary>
@@ -12588,7 +12868,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// 
     /// </summary>
     [OutputType]
-    public sealed class CertificateSigningRequestList {
+    public sealed class CertificateSigningRequestList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12631,7 +12912,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// by users.
     /// </summary>
     [OutputType]
-    public sealed class CertificateSigningRequestSpec {
+    public sealed class CertificateSigningRequestSpec
+    {
       /// <summary>
         /// Extra information about the requesting user. See user.Info interface for details.
         /// </summary>
@@ -12686,7 +12968,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
     /// 
     /// </summary>
     [OutputType]
-    public sealed class CertificateSigningRequestStatus {
+    public sealed class CertificateSigningRequestStatus
+    {
       /// <summary>
         /// If request was approved, the controller will place the issued certificate here.
         /// </summary>
@@ -12711,13 +12994,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Coordination
+{
+  namespace V1
+  {
     /// <summary>
     /// Lease defines a lease concept.
     /// </summary>
     [OutputType]
-    public sealed class Lease {
+    public sealed class Lease
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12764,7 +13050,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// LeaseList is a list of Lease objects.
     /// </summary>
     [OutputType]
-    public sealed class LeaseList {
+    public sealed class LeaseList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12810,7 +13097,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// LeaseSpec is a specification of a Lease.
     /// </summary>
     [OutputType]
-    public sealed class LeaseSpec {
+    public sealed class LeaseSpec
+    {
       /// <summary>
         /// acquireTime is a time when the current lease was acquired.
         /// </summary>
@@ -12855,12 +13143,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// Lease defines a lease concept.
     /// </summary>
     [OutputType]
-    public sealed class Lease {
+    public sealed class Lease
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12907,7 +13197,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// LeaseList is a list of Lease objects.
     /// </summary>
     [OutputType]
-    public sealed class LeaseList {
+    public sealed class LeaseList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -12953,7 +13244,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
     /// LeaseSpec is a specification of a Lease.
     /// </summary>
     [OutputType]
-    public sealed class LeaseSpec {
+    public sealed class LeaseSpec
+    {
       /// <summary>
         /// acquireTime is a time when the current lease was acquired.
         /// </summary>
@@ -13000,8 +13292,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Core {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Core
+{
+  namespace V1
+  {
     /// <summary>
     /// Represents a Persistent Disk resource in AWS.
     /// 
@@ -13010,7 +13304,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// volumes support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class AWSElasticBlockStoreVolumeSource {
+    public sealed class AWSElasticBlockStoreVolumeSource
+    {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
         /// type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs".
@@ -13058,7 +13353,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Affinity is a group of affinity scheduling rules.
     /// </summary>
     [OutputType]
-    public sealed class Affinity {
+    public sealed class Affinity
+    {
       /// <summary>
         /// Describes node affinity scheduling rules for the pod.
         /// </summary>
@@ -13092,7 +13388,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// AttachedVolume describes a volume attached to a node
     /// </summary>
     [OutputType]
-    public sealed class AttachedVolume {
+    public sealed class AttachedVolume
+    {
       /// <summary>
         /// DevicePath represents the device path where the volume should be available
         /// </summary>
@@ -13117,7 +13414,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
     /// </summary>
     [OutputType]
-    public sealed class AzureDiskVolumeSource {
+    public sealed class AzureDiskVolumeSource
+    {
       /// <summary>
         /// Host Caching mode: None, Read Only, Read Write.
         /// </summary>
@@ -13174,7 +13472,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     /// </summary>
     [OutputType]
-    public sealed class AzureFilePersistentVolumeSource {
+    public sealed class AzureFilePersistentVolumeSource
+    {
       /// <summary>
         /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
         /// VolumeMounts.
@@ -13215,7 +13514,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     /// </summary>
     [OutputType]
-    public sealed class AzureFileVolumeSource {
+    public sealed class AzureFileVolumeSource
+    {
       /// <summary>
         /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
         /// VolumeMounts.
@@ -13249,7 +13549,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Deprecated in 1.7, please use the bindings subresource of pods instead.
     /// </summary>
     [OutputType]
-    public sealed class Binding {
+    public sealed class Binding
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -13295,7 +13596,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents storage that is managed by an external CSI volume driver (Beta feature)
     /// </summary>
     [OutputType]
-    public sealed class CSIPersistentVolumeSource {
+    public sealed class CSIPersistentVolumeSource
+    {
       /// <summary>
         /// ControllerExpandSecretRef is a reference to the secret object containing sensitive
         /// information to pass to the CSI driver to complete the CSI ControllerExpandVolume call.
@@ -13385,7 +13687,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a source location of a volume to mount, managed by an external CSI driver
     /// </summary>
     [OutputType]
-    public sealed class CSIVolumeSource {
+    public sealed class CSIVolumeSource
+    {
       /// <summary>
         /// Driver is the name of the CSI driver that handles this volume. Consult with your admin
         /// for the correct name as registered in the cluster.
@@ -13439,7 +13742,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Adds and removes POSIX capabilities from running containers.
     /// </summary>
     [OutputType]
-    public sealed class Capabilities {
+    public sealed class Capabilities
+    {
       /// <summary>
         /// Added capabilities
         /// </summary>
@@ -13465,7 +13769,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// support ownership management or SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class CephFSPersistentVolumeSource {
+    public sealed class CephFSPersistentVolumeSource
+    {
       /// <summary>
         /// Required: Monitors is a collection of Ceph monitors More info:
         /// https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -13525,7 +13830,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// support ownership management or SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class CephFSVolumeSource {
+    public sealed class CephFSVolumeSource
+    {
       /// <summary>
         /// Required: Monitors is a collection of Ceph monitors More info:
         /// https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -13586,7 +13892,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class CinderPersistentVolumeSource {
+    public sealed class CinderPersistentVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if
@@ -13631,7 +13938,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class CinderVolumeSource {
+    public sealed class CinderVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if
@@ -13674,7 +13982,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ClientIPConfig represents the configurations of Client IP based session affinity.
     /// </summary>
     [OutputType]
-    public sealed class ClientIPConfig {
+    public sealed class ClientIPConfig
+    {
       /// <summary>
         /// timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value
         /// must be &amp;gt;0 &amp;&amp; &amp;lt;=86400(for 1 day) if ServiceAffinity == "ClientIP".
@@ -13694,7 +14003,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Information about the condition of a component.
     /// </summary>
     [OutputType]
-    public sealed class ComponentCondition {
+    public sealed class ComponentCondition
+    {
       /// <summary>
         /// Condition error code for a component. For example, a health check error code.
         /// </summary>
@@ -13735,7 +14045,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
     /// </summary>
     [OutputType]
-    public sealed class ComponentStatus {
+    public sealed class ComponentStatus
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -13781,7 +14092,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Status of all the conditions for the component as a list of ComponentStatus objects.
     /// </summary>
     [OutputType]
-    public sealed class ComponentStatusList {
+    public sealed class ComponentStatusList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -13827,7 +14139,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ConfigMap holds configuration data for pods to consume.
     /// </summary>
     [OutputType]
-    public sealed class ConfigMap {
+    public sealed class ConfigMap
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -13890,7 +14203,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// environment variables.
     /// </summary>
     [OutputType]
-    public sealed class ConfigMapEnvSource {
+    public sealed class ConfigMapEnvSource
+    {
       /// <summary>
         /// Name of the referent. More info:
         /// https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -13916,7 +14230,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Selects a key from a ConfigMap.
     /// </summary>
     [OutputType]
-    public sealed class ConfigMapKeySelector {
+    public sealed class ConfigMapKeySelector
+    {
       /// <summary>
         /// The key to select.
         /// </summary>
@@ -13949,7 +14264,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ConfigMapList is a resource containing a list of ConfigMap objects.
     /// </summary>
     [OutputType]
-    public sealed class ConfigMapList {
+    public sealed class ConfigMapList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -13996,7 +14312,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// source for the Node.
     /// </summary>
     [OutputType]
-    public sealed class ConfigMapNodeConfigSource {
+    public sealed class ConfigMapNodeConfigSource
+    {
       /// <summary>
         /// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the
         /// KubeletConfiguration structure This field is required in all cases.
@@ -14052,7 +14369,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// configmap volume source without the default mode.
     /// </summary>
     [OutputType]
-    public sealed class ConfigMapProjection {
+    public sealed class ConfigMapProjection
+    {
       /// <summary>
         /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will
         /// be projected into the volume as a file whose name is the key and content is the value.
@@ -14095,7 +14413,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class ConfigMapVolumeSource {
+    public sealed class ConfigMapVolumeSource
+    {
       /// <summary>
         /// Optional: mode bits to use on created files by default. Must be a value between 0 and
         /// 0777. Defaults to 0644. Directories within the path are not affected by this setting.
@@ -14143,7 +14462,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// A single application container that you want to run within a pod.
     /// </summary>
     [OutputType]
-    public sealed class Container {
+    public sealed class Container
+    {
       /// <summary>
         /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided.
         /// Variable references $(VAR_NAME) are expanded using the container's environment. If a
@@ -14367,7 +14687,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Describe a container image
     /// </summary>
     [OutputType]
-    public sealed class ContainerImage {
+    public sealed class ContainerImage
+    {
       /// <summary>
         /// Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7",
         /// "dockerhub.io/google_containers/hyperkube:v1.0.7"]
@@ -14393,7 +14714,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ContainerPort represents a network port in a single container.
     /// </summary>
     [OutputType]
-    public sealed class ContainerPort {
+    public sealed class ContainerPort
+    {
       /// <summary>
         /// Number of port to expose on the pod's IP address. This must be a valid port number, 0
         /// &amp;lt; x &amp;lt; 65536.
@@ -14444,7 +14766,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// specified. If none of them is specified, the default one is ContainerStateWaiting.
     /// </summary>
     [OutputType]
-    public sealed class ContainerState {
+    public sealed class ContainerState
+    {
       /// <summary>
         /// Details about a running container
         /// </summary>
@@ -14476,7 +14799,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ContainerStateRunning is a running state of a container.
     /// </summary>
     [OutputType]
-    public sealed class ContainerStateRunning {
+    public sealed class ContainerStateRunning
+    {
       /// <summary>
         /// Time at which the container was last (re-)started
         /// </summary>
@@ -14494,7 +14818,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ContainerStateTerminated is a terminated state of a container.
     /// </summary>
     [OutputType]
-    public sealed class ContainerStateTerminated {
+    public sealed class ContainerStateTerminated
+    {
       /// <summary>
         /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'
         /// </summary>
@@ -14554,7 +14879,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ContainerStateWaiting is a waiting state of a container.
     /// </summary>
     [OutputType]
-    public sealed class ContainerStateWaiting {
+    public sealed class ContainerStateWaiting
+    {
       /// <summary>
         /// Message regarding why the container is not yet running.
         /// </summary>
@@ -14579,7 +14905,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ContainerStatus contains details for the current status of this container.
     /// </summary>
     [OutputType]
-    public sealed class ContainerStatus {
+    public sealed class ContainerStatus
+    {
       /// <summary>
         /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'.
         /// </summary>
@@ -14661,7 +14988,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// DaemonEndpoint contains information about a single Daemon endpoint.
     /// </summary>
     [OutputType]
-    public sealed class DaemonEndpoint {
+    public sealed class DaemonEndpoint
+    {
       /// <summary>
         /// Port number of the given endpoint.
         /// </summary>
@@ -14680,7 +15008,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// identical to a downwardAPI volume source without the default mode.
     /// </summary>
     [OutputType]
-    public sealed class DownwardAPIProjection {
+    public sealed class DownwardAPIProjection
+    {
       /// <summary>
         /// Items is a list of DownwardAPIVolume file
         /// </summary>
@@ -14698,7 +15027,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// DownwardAPIVolumeFile represents information to create the file containing the pod field
     /// </summary>
     [OutputType]
-    public sealed class DownwardAPIVolumeFile {
+    public sealed class DownwardAPIVolumeFile
+    {
       /// <summary>
         /// Required: Selects a field of the pod: only annotations, labels, name and namespace are
         /// supported.
@@ -14745,7 +15075,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// volumes support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class DownwardAPIVolumeSource {
+    public sealed class DownwardAPIVolumeSource
+    {
       /// <summary>
         /// Optional: mode bits to use on created files by default. Must be a value between 0 and
         /// 0777. Defaults to 0644. Directories within the path are not affected by this setting.
@@ -14774,7 +15105,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class EmptyDirVolumeSource {
+    public sealed class EmptyDirVolumeSource
+    {
       /// <summary>
         /// What type of storage medium should back this directory. The default is "" which means to
         /// use the node's default medium. Must be an empty string (default) or Memory. More info:
@@ -14805,7 +15137,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EndpointAddress is a tuple that describes single IP address.
     /// </summary>
     [OutputType]
-    public sealed class EndpointAddress {
+    public sealed class EndpointAddress
+    {
       /// <summary>
         /// The Hostname of this endpoint
         /// </summary>
@@ -14848,7 +15181,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EndpointPort is a tuple that describes a single port.
     /// </summary>
     [OutputType]
-    public sealed class EndpointPort {
+    public sealed class EndpointPort
+    {
       /// <summary>
         /// The name of this port.  This must match the 'name' field in the corresponding
         /// ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
@@ -14889,7 +15223,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     ///     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
     /// </summary>
     [OutputType]
-    public sealed class EndpointSubset {
+    public sealed class EndpointSubset
+    {
       /// <summary>
         /// IP addresses which offer the related ports that are marked as ready. These endpoints
         /// should be considered safe for load balancers and clients to utilize.
@@ -14935,7 +15270,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     ///  ]
     /// </summary>
     [OutputType]
-    public sealed class Endpoints {
+    public sealed class Endpoints
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -14986,7 +15322,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EndpointsList is a list of endpoints.
     /// </summary>
     [OutputType]
-    public sealed class EndpointsList {
+    public sealed class EndpointsList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -15032,7 +15369,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EnvFromSource represents the source of a set of ConfigMaps
     /// </summary>
     [OutputType]
-    public sealed class EnvFromSource {
+    public sealed class EnvFromSource
+    {
       /// <summary>
         /// The ConfigMap to select from
         /// </summary>
@@ -15064,7 +15402,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EnvVar represents an environment variable present in a Container.
     /// </summary>
     [OutputType]
-    public sealed class EnvVar {
+    public sealed class EnvVar
+    {
       /// <summary>
         /// Name of the environment variable. Must be a C_IDENTIFIER.
         /// </summary>
@@ -15100,7 +15439,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EnvVarSource represents a source for the value of an EnvVar.
     /// </summary>
     [OutputType]
-    public sealed class EnvVarSource {
+    public sealed class EnvVarSource
+    {
       /// <summary>
         /// Selects a key of a ConfigMap.
         /// </summary>
@@ -15150,7 +15490,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EphemeralContainers feature flag.
     /// </summary>
     [OutputType]
-    public sealed class EphemeralContainer {
+    public sealed class EphemeralContainer
+    {
       /// <summary>
         /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided.
         /// Variable references $(VAR_NAME) are expanded using the container's environment. If a
@@ -15365,7 +15706,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Event is a report of an event somewhere in the cluster.
     /// </summary>
     [OutputType]
-    public sealed class Event {
+    public sealed class Event
+    {
       /// <summary>
         /// What action was taken/failed regarding to the Regarding object.
         /// </summary>
@@ -15503,7 +15845,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EventList is a list of events.
     /// </summary>
     [OutputType]
-    public sealed class EventList {
+    public sealed class EventList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -15550,7 +15893,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// continuously for some time.
     /// </summary>
     [OutputType]
-    public sealed class EventSeries {
+    public sealed class EventSeries
+    {
       /// <summary>
         /// Number of occurrences in this series up to the last heartbeat time
         /// </summary>
@@ -15582,7 +15926,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// EventSource contains information for an event.
     /// </summary>
     [OutputType]
-    public sealed class EventSource {
+    public sealed class EventSource
+    {
       /// <summary>
         /// Component from which the event is generated.
         /// </summary>
@@ -15607,7 +15952,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ExecAction describes a "run in container" action.
     /// </summary>
     [OutputType]
-    public sealed class ExecAction {
+    public sealed class ExecAction
+    {
       /// <summary>
         /// Command is the command line to execute inside the container, the working directory for
         /// the command  is root ('/') in the container's filesystem. The command is simply exec'd,
@@ -15630,7 +15976,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// once. Fibre Channel volumes support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class FCVolumeSource {
+    public sealed class FCVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -15680,7 +16027,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// provisioned/attached using an exec based plugin.
     /// </summary>
     [OutputType]
-    public sealed class FlexPersistentVolumeSource {
+    public sealed class FlexPersistentVolumeSource
+    {
       /// <summary>
         /// Driver is the name of the driver to use for this volume.
         /// </summary>
@@ -15732,7 +16080,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// based plugin.
     /// </summary>
     [OutputType]
-    public sealed class FlexVolumeSource {
+    public sealed class FlexVolumeSource
+    {
       /// <summary>
         /// Driver is the name of the driver to use for this volume.
         /// </summary>
@@ -15785,7 +16134,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class FlockerVolumeSource {
+    public sealed class FlockerVolumeSource
+    {
       /// <summary>
         /// Name of the dataset stored as metadata -&amp;gt; name on the dataset for Flocker should
         /// be considered as deprecated
@@ -15815,7 +16165,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// read-only many times. GCE PDs support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class GCEPersistentDiskVolumeSource {
+    public sealed class GCEPersistentDiskVolumeSource
+    {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
         /// type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs".
@@ -15867,7 +16218,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// the Pod's container.
     /// </summary>
     [OutputType]
-    public sealed class GitRepoVolumeSource {
+    public sealed class GitRepoVolumeSource
+    {
       /// <summary>
         /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the
         /// volume directory will be the git repository.  Otherwise, if specified, the volume will
@@ -15902,7 +16254,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// support ownership management or SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class GlusterfsPersistentVolumeSource {
+    public sealed class GlusterfsPersistentVolumeSource
+    {
       /// <summary>
         /// EndpointsName is the endpoint name that details Glusterfs topology. More info:
         /// https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -15948,7 +16301,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// support ownership management or SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class GlusterfsVolumeSource {
+    public sealed class GlusterfsVolumeSource
+    {
       /// <summary>
         /// EndpointsName is the endpoint name that details Glusterfs topology. More info:
         /// https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -15984,7 +16338,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// HTTPGetAction describes an action based on HTTP Get requests.
     /// </summary>
     [OutputType]
-    public sealed class HTTPGetAction {
+    public sealed class HTTPGetAction
+    {
       /// <summary>
         /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in
         /// httpHeaders instead.
@@ -16032,7 +16387,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// HTTPHeader describes a custom header to be used in HTTP probes
     /// </summary>
     [OutputType]
-    public sealed class HTTPHeader {
+    public sealed class HTTPHeader
+    {
       /// <summary>
         /// The header field name
         /// </summary>
@@ -16057,7 +16413,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Handler defines a specific action that should be taken
     /// </summary>
     [OutputType]
-    public sealed class Handler {
+    public sealed class Handler
+    {
       /// <summary>
         /// One and only one of the following should be specified. Exec specifies the action to
         /// take.
@@ -16091,7 +16448,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// the pod's hosts file.
     /// </summary>
     [OutputType]
-    public sealed class HostAlias {
+    public sealed class HostAlias
+    {
       /// <summary>
         /// Hostnames for the above IP address.
         /// </summary>
@@ -16117,7 +16475,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// management or SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class HostPathVolumeSource {
+    public sealed class HostPathVolumeSource
+    {
       /// <summary>
         /// Path of the directory on the host. If the path is a symlink, it will follow the link to
         /// the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
@@ -16145,7 +16504,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// read/write once. ISCSI volumes support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class ISCSIPersistentVolumeSource {
+    public sealed class ISCSIPersistentVolumeSource
+    {
       /// <summary>
         /// whether support iSCSI Discovery CHAP authentication
         /// </summary>
@@ -16241,7 +16601,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// volumes support ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class ISCSIVolumeSource {
+    public sealed class ISCSIVolumeSource
+    {
       /// <summary>
         /// whether support iSCSI Discovery CHAP authentication
         /// </summary>
@@ -16336,7 +16697,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Maps a string key to a path within a volume.
     /// </summary>
     [OutputType]
-    public sealed class KeyToPath {
+    public sealed class KeyToPath
+    {
       /// <summary>
         /// The key to project.
         /// </summary>
@@ -16375,7 +16737,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// case the handler is aborted.
     /// </summary>
     [OutputType]
-    public sealed class Lifecycle {
+    public sealed class Lifecycle
+    {
       /// <summary>
         /// PostStart is called immediately after a container is created. If the handler fails, the
         /// container is terminated and restarted according to its restart policy. Other management
@@ -16411,7 +16774,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// LimitRange sets resource usage limits for each kind of resource in a Namespace.
     /// </summary>
     [OutputType]
-    public sealed class LimitRange {
+    public sealed class LimitRange
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -16458,7 +16822,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
     /// </summary>
     [OutputType]
-    public sealed class LimitRangeItem {
+    public sealed class LimitRangeItem
+    {
       /// <summary>
         /// Default resource requirement limit value by resource name if resource limit is omitted.
         /// </summary>
@@ -16514,7 +16879,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// LimitRangeList is a list of LimitRange items.
     /// </summary>
     [OutputType]
-    public sealed class LimitRangeList {
+    public sealed class LimitRangeList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -16561,7 +16927,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// LimitRangeSpec defines a min/max usage limit for resources that match on kind.
     /// </summary>
     [OutputType]
-    public sealed class LimitRangeSpec {
+    public sealed class LimitRangeSpec
+    {
       /// <summary>
         /// Limits is the list of LimitRangeItem objects that are enforced.
         /// </summary>
@@ -16580,7 +16947,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// for the service should be sent to an ingress point.
     /// </summary>
     [OutputType]
-    public sealed class LoadBalancerIngress {
+    public sealed class LoadBalancerIngress
+    {
       /// <summary>
         /// Hostname is set for load-balancer ingress points that are DNS based (typically AWS
         /// load-balancers)
@@ -16607,7 +16975,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// LoadBalancerStatus represents the status of a load-balancer.
     /// </summary>
     [OutputType]
-    public sealed class LoadBalancerStatus {
+    public sealed class LoadBalancerStatus
+    {
       /// <summary>
         /// Ingress is a list containing ingress points for the load-balancer. Traffic intended for
         /// the service should be sent to these ingress points.
@@ -16627,7 +16996,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// inside the same namespace.
     /// </summary>
     [OutputType]
-    public sealed class LocalObjectReference {
+    public sealed class LocalObjectReference
+    {
       /// <summary>
         /// Name of the referent. More info:
         /// https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -16646,7 +17016,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Local represents directly-attached storage with node affinity (Beta feature)
     /// </summary>
     [OutputType]
-    public sealed class LocalVolumeSource {
+    public sealed class LocalVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. It applies only when the Path is a block device. Must be a
         /// filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The
@@ -16675,7 +17046,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ownership management or SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class NFSVolumeSource {
+    public sealed class NFSVolumeSource
+    {
       /// <summary>
         /// Path that is exported by the NFS server. More info:
         /// https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -16710,7 +17082,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Namespace provides a scope for Names. Use of multiple namespaces is optional.
     /// </summary>
     [OutputType]
-    public sealed class Namespace {
+    public sealed class Namespace
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -16765,7 +17138,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NamespaceCondition contains details about state of namespace.
     /// </summary>
     [OutputType]
-    public sealed class NamespaceCondition {
+    public sealed class NamespaceCondition
+    {
       
       public readonly string LastTransitionTime;
 
@@ -16805,7 +17179,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NamespaceList is a list of Namespaces.
     /// </summary>
     [OutputType]
-    public sealed class NamespaceList {
+    public sealed class NamespaceList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -16852,7 +17227,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NamespaceSpec describes the attributes on a Namespace.
     /// </summary>
     [OutputType]
-    public sealed class NamespaceSpec {
+    public sealed class NamespaceSpec
+    {
       /// <summary>
         /// Finalizers is an opaque list of values that must be empty to permanently remove object
         /// from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
@@ -16871,7 +17247,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NamespaceStatus is information about the current status of a Namespace.
     /// </summary>
     [OutputType]
-    public sealed class NamespaceStatus {
+    public sealed class NamespaceStatus
+    {
       /// <summary>
         /// Represents the latest available observations of a namespace's current state.
         /// </summary>
@@ -16898,7 +17275,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// (i.e. in etcd).
     /// </summary>
     [OutputType]
-    public sealed class Node {
+    public sealed class Node
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -16954,7 +17332,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeAddress contains information for the node's address.
     /// </summary>
     [OutputType]
-    public sealed class NodeAddress {
+    public sealed class NodeAddress
+    {
       /// <summary>
         /// The node address.
         /// </summary>
@@ -16979,7 +17358,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Node affinity is a group of node affinity scheduling rules.
     /// </summary>
     [OutputType]
-    public sealed class NodeAffinity {
+    public sealed class NodeAffinity
+    {
       /// <summary>
         /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity
         /// expressions specified by this field, but it may choose a node that violates one or more
@@ -17014,7 +17394,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeCondition contains condition information for a node.
     /// </summary>
     [OutputType]
-    public sealed class NodeCondition {
+    public sealed class NodeCondition
+    {
       /// <summary>
         /// Last time we got an update on a given condition.
         /// </summary>
@@ -17068,7 +17449,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// metadata) must be non-nil.
     /// </summary>
     [OutputType]
-    public sealed class NodeConfigSource {
+    public sealed class NodeConfigSource
+    {
       /// <summary>
         /// ConfigMap is a reference to a Node's ConfigMap
         /// </summary>
@@ -17086,7 +17468,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
     /// </summary>
     [OutputType]
-    public sealed class NodeConfigStatus {
+    public sealed class NodeConfigStatus
+    {
       /// <summary>
         /// Active reports the checkpointed config the node is actively using. Active will represent
         /// either the current version of the Assigned config, or the current LastKnownGood config,
@@ -17153,7 +17536,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeDaemonEndpoints lists ports opened by daemons running on the Node.
     /// </summary>
     [OutputType]
-    public sealed class NodeDaemonEndpoints {
+    public sealed class NodeDaemonEndpoints
+    {
       /// <summary>
         /// Endpoint on which Kubelet is listening.
         /// </summary>
@@ -17171,7 +17555,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeList is the whole list of all Nodes which have been registered with master.
     /// </summary>
     [OutputType]
-    public sealed class NodeList {
+    public sealed class NodeList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -17219,7 +17604,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// terms.
     /// </summary>
     [OutputType]
-    public sealed class NodeSelector {
+    public sealed class NodeSelector
+    {
       /// <summary>
         /// Required. A list of node selector terms. The terms are ORed.
         /// </summary>
@@ -17238,7 +17624,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// relates the key and values.
     /// </summary>
     [OutputType]
-    public sealed class NodeSelectorRequirement {
+    public sealed class NodeSelectorRequirement
+    {
       /// <summary>
         /// The label key that the selector applies to.
         /// </summary>
@@ -17275,7 +17662,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
     /// </summary>
     [OutputType]
-    public sealed class NodeSelectorTerm {
+    public sealed class NodeSelectorTerm
+    {
       /// <summary>
         /// A list of node selector requirements by node's labels.
         /// </summary>
@@ -17300,7 +17688,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeSpec describes the attributes that a node is created with.
     /// </summary>
     [OutputType]
-    public sealed class NodeSpec {
+    public sealed class NodeSpec
+    {
       /// <summary>
         /// If specified, the source to get node configuration from The DynamicKubeletConfig feature
         /// gate must be enabled for the Kubelet to use this field
@@ -17366,7 +17755,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeStatus is information about the current status of a node.
     /// </summary>
     [OutputType]
-    public sealed class NodeStatus {
+    public sealed class NodeStatus
+    {
       /// <summary>
         /// List of addresses reachable to the node. Queried from cloud provider, if available. More
         /// info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is
@@ -17464,7 +17854,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
     /// </summary>
     [OutputType]
-    public sealed class NodeSystemInfo {
+    public sealed class NodeSystemInfo
+    {
       /// <summary>
         /// The Architecture reported by the node
         /// </summary>
@@ -17550,7 +17941,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ObjectFieldSelector selects an APIVersioned field of an object.
     /// </summary>
     [OutputType]
-    public sealed class ObjectFieldSelector {
+    public sealed class ObjectFieldSelector
+    {
       /// <summary>
         /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
         /// </summary>
@@ -17576,7 +17968,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// object.
     /// </summary>
     [OutputType]
-    public sealed class ObjectReference {
+    public sealed class ObjectReference
+    {
       /// <summary>
         /// API version of the referent.
         /// </summary>
@@ -17648,7 +18041,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolume {
+    public sealed class PersistentVolume
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -17705,7 +18099,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeClaim is a user's request for and claim to a persistent volume
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeClaim {
+    public sealed class PersistentVolumeClaim
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -17762,7 +18157,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeClaimCondition contails details about state of pvc
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeClaimCondition {
+    public sealed class PersistentVolumeClaimCondition
+    {
       /// <summary>
         /// Last time we probed the condition.
         /// </summary>
@@ -17813,7 +18209,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeClaimList {
+    public sealed class PersistentVolumeClaimList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -17861,7 +18258,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Source for provider-specific attributes
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeClaimSpec {
+    public sealed class PersistentVolumeClaimSpec
+    {
       /// <summary>
         /// AccessModes contains the desired access modes the volume should have. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -17931,7 +18329,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeClaimStatus {
+    public sealed class PersistentVolumeClaimStatus
+    {
       /// <summary>
         /// AccessModes contains the actual access modes the volume backing the PVC has. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -17975,7 +18374,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// that is owned by someone else (the system).
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeClaimVolumeSource {
+    public sealed class PersistentVolumeClaimVolumeSource
+    {
       /// <summary>
         /// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using
         /// this volume. More info:
@@ -18002,7 +18402,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeList is a list of PersistentVolume items.
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeList {
+    public sealed class PersistentVolumeList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -18049,7 +18450,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeSpec is the specification of a persistent volume.
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeSpec {
+    public sealed class PersistentVolumeSpec
+    {
       /// <summary>
         /// AccessModes contains all ways the volume can be mounted. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
@@ -18304,7 +18706,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PersistentVolumeStatus is the current status of a persistent volume.
     /// </summary>
     [OutputType]
-    public sealed class PersistentVolumeStatus {
+    public sealed class PersistentVolumeStatus
+    {
       /// <summary>
         /// A human-readable message indicating details about why the volume is in this state.
         /// </summary>
@@ -18338,7 +18741,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a Photon Controller persistent disk resource.
     /// </summary>
     [OutputType]
-    public sealed class PhotonPersistentDiskVolumeSource {
+    public sealed class PhotonPersistentDiskVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -18365,7 +18769,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// clients and scheduled onto hosts.
     /// </summary>
     [OutputType]
-    public sealed class Pod {
+    public sealed class Pod
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -18421,7 +18826,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Pod affinity is a group of inter pod affinity scheduling rules.
     /// </summary>
     [OutputType]
-    public sealed class PodAffinity {
+    public sealed class PodAffinity
+    {
       /// <summary>
         /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity
         /// expressions specified by this field, but it may choose a node that violates one or more
@@ -18462,7 +18868,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// set of pods is running
     /// </summary>
     [OutputType]
-    public sealed class PodAffinityTerm {
+    public sealed class PodAffinityTerm
+    {
       /// <summary>
         /// A label query over a set of resources, in this case pods.
         /// </summary>
@@ -18498,7 +18905,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Pod anti affinity is a group of inter pod anti affinity scheduling rules.
     /// </summary>
     [OutputType]
-    public sealed class PodAntiAffinity {
+    public sealed class PodAntiAffinity
+    {
       /// <summary>
         /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity
         /// expressions specified by this field, but it may choose a node that violates one or more
@@ -18535,7 +18943,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodCondition contains details for the current condition of this pod.
     /// </summary>
     [OutputType]
-    public sealed class PodCondition {
+    public sealed class PodCondition
+    {
       /// <summary>
         /// Last time we probed the condition.
         /// </summary>
@@ -18591,7 +19000,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// DNSPolicy.
     /// </summary>
     [OutputType]
-    public sealed class PodDNSConfig {
+    public sealed class PodDNSConfig
+    {
       /// <summary>
         /// A list of DNS name server IP addresses. This will be appended to the base nameservers
         /// generated from DNSPolicy. Duplicated nameservers will be removed.
@@ -18627,7 +19037,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodDNSConfigOption defines DNS resolver options of a pod.
     /// </summary>
     [OutputType]
-    public sealed class PodDNSConfigOption {
+    public sealed class PodDNSConfigOption
+    {
       /// <summary>
         /// Required.
         /// </summary>
@@ -18651,7 +19062,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     ///    IP: An IP address allocated to the pod. Routable at least within the cluster.
     /// </summary>
     [OutputType]
-    public sealed class PodIP {
+    public sealed class PodIP
+    {
       /// <summary>
         /// ip is an IP address (IPv4 or IPv6) assigned to the pod
         /// </summary>
@@ -18669,7 +19081,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodList is a list of Pods.
     /// </summary>
     [OutputType]
-    public sealed class PodList {
+    public sealed class PodList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -18716,7 +19129,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodReadinessGate contains the reference to a pod condition
     /// </summary>
     [OutputType]
-    public sealed class PodReadinessGate {
+    public sealed class PodReadinessGate
+    {
       /// <summary>
         /// ConditionType refers to a condition in the pod's condition list with matching type.
         /// </summary>
@@ -18736,7 +19150,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// container.securityContext take precedence over field values of PodSecurityContext.
     /// </summary>
     [OutputType]
-    public sealed class PodSecurityContext {
+    public sealed class PodSecurityContext
+    {
       /// <summary>
         /// A special supplemental group that applies to all containers in a pod. Some volume types
         /// allow the Kubelet to change the ownership of that volume to be owned by the pod:
@@ -18826,7 +19241,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodSpec is a description of a pod.
     /// </summary>
     [OutputType]
-    public sealed class PodSpec {
+    public sealed class PodSpec
+    {
       /// <summary>
         /// Optional duration in seconds the pod may be active on the node relative to StartTime
         /// before the system will actively try to mark it failed and kill associated containers.
@@ -19163,7 +19579,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// plane.
     /// </summary>
     [OutputType]
-    public sealed class PodStatus {
+    public sealed class PodStatus
+    {
       /// <summary>
         /// Current service state of pod. More info:
         /// https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -19300,7 +19717,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodTemplate describes a template for creating copies of a predefined pod.
     /// </summary>
     [OutputType]
-    public sealed class PodTemplate {
+    public sealed class PodTemplate
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -19347,7 +19765,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodTemplateList is a list of PodTemplates.
     /// </summary>
     [OutputType]
-    public sealed class PodTemplateList {
+    public sealed class PodTemplateList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -19393,7 +19812,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PodTemplateSpec describes the data a pod should have when created from a template
     /// </summary>
     [OutputType]
-    public sealed class PodTemplateSpec {
+    public sealed class PodTemplateSpec
+    {
       /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -19420,7 +19840,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// PortworxVolumeSource represents a Portworx volume resource.
     /// </summary>
     [OutputType]
-    public sealed class PortworxVolumeSource {
+    public sealed class PortworxVolumeSource
+    {
       /// <summary>
         /// FSType represents the filesystem type to mount Must be a filesystem type supported by
         /// the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if
@@ -19456,7 +19877,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
     /// </summary>
     [OutputType]
-    public sealed class PreferredSchedulingTerm {
+    public sealed class PreferredSchedulingTerm
+    {
       /// <summary>
         /// A node selector term, associated with the corresponding weight.
         /// </summary>
@@ -19482,7 +19904,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// is alive or ready to receive traffic.
     /// </summary>
     [OutputType]
-    public sealed class Probe {
+    public sealed class Probe
+    {
       /// <summary>
         /// One and only one of the following should be specified. Exec specifies the action to
         /// take.
@@ -19556,7 +19979,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a projected volume source
     /// </summary>
     [OutputType]
-    public sealed class ProjectedVolumeSource {
+    public sealed class ProjectedVolumeSource
+    {
       /// <summary>
         /// Mode bits to use on created files by default. Must be a value between 0 and 0777.
         /// Directories within the path are not affected by this setting. This might be in conflict
@@ -19585,7 +20009,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ownership management or SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class QuobyteVolumeSource {
+    public sealed class QuobyteVolumeSource
+    {
       /// <summary>
         /// Group to map volume access to Default is no group
         /// </summary>
@@ -19643,7 +20068,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class RBDPersistentVolumeSource {
+    public sealed class RBDPersistentVolumeSource
+    {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
         /// type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs".
@@ -19722,7 +20148,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ownership management and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class RBDVolumeSource {
+    public sealed class RBDVolumeSource
+    {
       /// <summary>
         /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem
         /// type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs".
@@ -19800,7 +20227,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ReplicationController represents the configuration of a replication controller.
     /// </summary>
     [OutputType]
-    public sealed class ReplicationController {
+    public sealed class ReplicationController
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -19860,7 +20288,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// point.
     /// </summary>
     [OutputType]
-    public sealed class ReplicationControllerCondition {
+    public sealed class ReplicationControllerCondition
+    {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
         /// </summary>
@@ -19906,7 +20335,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ReplicationControllerList is a collection of replication controllers.
     /// </summary>
     [OutputType]
-    public sealed class ReplicationControllerList {
+    public sealed class ReplicationControllerList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -19953,7 +20383,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ReplicationControllerSpec is the specification of a replication controller.
     /// </summary>
     [OutputType]
-    public sealed class ReplicationControllerSpec {
+    public sealed class ReplicationControllerSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -20002,7 +20433,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ReplicationControllerStatus represents the current status of a replication controller.
     /// </summary>
     [OutputType]
-    public sealed class ReplicationControllerStatus {
+    public sealed class ReplicationControllerStatus
+    {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this
         /// replication controller.
@@ -20060,7 +20492,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ResourceFieldSelector represents container resources (cpu, memory) and their output format
     /// </summary>
     [OutputType]
-    public sealed class ResourceFieldSelector {
+    public sealed class ResourceFieldSelector
+    {
       /// <summary>
         /// Container name: required for volumes, optional for env vars
         /// </summary>
@@ -20092,7 +20525,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ResourceQuota sets aggregate quota restrictions enforced per namespace
     /// </summary>
     [OutputType]
-    public sealed class ResourceQuota {
+    public sealed class ResourceQuota
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -20147,7 +20581,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ResourceQuotaList is a list of ResourceQuota items.
     /// </summary>
     [OutputType]
-    public sealed class ResourceQuotaList {
+    public sealed class ResourceQuotaList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -20194,7 +20629,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     /// </summary>
     [OutputType]
-    public sealed class ResourceQuotaSpec {
+    public sealed class ResourceQuotaSpec
+    {
       /// <summary>
         /// hard is the set of desired hard limits for each named resource. More info:
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
@@ -20231,7 +20667,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ResourceQuotaStatus defines the enforced hard limits and observed use.
     /// </summary>
     [OutputType]
-    public sealed class ResourceQuotaStatus {
+    public sealed class ResourceQuotaStatus
+    {
       /// <summary>
         /// Hard is the set of enforced hard limits for each named resource. More info:
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
@@ -20257,7 +20694,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ResourceRequirements describes the compute resource requirements.
     /// </summary>
     [OutputType]
-    public sealed class ResourceRequirements {
+    public sealed class ResourceRequirements
+    {
       /// <summary>
         /// Limits describes the maximum amount of compute resources allowed. More info:
         /// https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
@@ -20286,7 +20724,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// SELinuxOptions are the labels to be applied to the container
     /// </summary>
     [OutputType]
-    public sealed class SELinuxOptions {
+    public sealed class SELinuxOptions
+    {
       /// <summary>
         /// Level is SELinux level label that applies to the container.
         /// </summary>
@@ -20325,7 +20764,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
     /// </summary>
     [OutputType]
-    public sealed class ScaleIOPersistentVolumeSource {
+    public sealed class ScaleIOPersistentVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
@@ -20411,7 +20851,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ScaleIOVolumeSource represents a persistent ScaleIO volume
     /// </summary>
     [OutputType]
-    public sealed class ScaleIOVolumeSource {
+    public sealed class ScaleIOVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
@@ -20498,7 +20939,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// selector requirements.
     /// </summary>
     [OutputType]
-    public sealed class ScopeSelector {
+    public sealed class ScopeSelector
+    {
       /// <summary>
         /// A list of scope selector requirements by scope of the resources.
         /// </summary>
@@ -20517,7 +20959,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// an operator that relates the scope name and values.
     /// </summary>
     [OutputType]
-    public sealed class ScopedResourceSelectorRequirement {
+    public sealed class ScopedResourceSelectorRequirement
+    {
       /// <summary>
         /// Represents a scope's relationship to a set of values. Valid operators are In, NotIn,
         /// Exists, DoesNotExist.
@@ -20553,7 +20996,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// must be less than MaxSecretSize bytes.
     /// </summary>
     [OutputType]
-    public sealed class Secret {
+    public sealed class Secret
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -20621,7 +21065,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// environment variables.
     /// </summary>
     [OutputType]
-    public sealed class SecretEnvSource {
+    public sealed class SecretEnvSource
+    {
       /// <summary>
         /// Name of the referent. More info:
         /// https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -20647,7 +21092,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// SecretKeySelector selects a key of a Secret.
     /// </summary>
     [OutputType]
-    public sealed class SecretKeySelector {
+    public sealed class SecretKeySelector
+    {
       /// <summary>
         /// The key of the secret to select from.  Must be a valid secret key.
         /// </summary>
@@ -20680,7 +21126,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// SecretList is a list of Secret.
     /// </summary>
     [OutputType]
-    public sealed class SecretList {
+    public sealed class SecretList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -20731,7 +21178,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// secret volume source without the default mode.
     /// </summary>
     [OutputType]
-    public sealed class SecretProjection {
+    public sealed class SecretProjection
+    {
       /// <summary>
         /// If unspecified, each key-value pair in the Data field of the referenced Secret will be
         /// projected into the volume as a file whose name is the key and content is the value. If
@@ -20770,7 +21218,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// in any namespace
     /// </summary>
     [OutputType]
-    public sealed class SecretReference {
+    public sealed class SecretReference
+    {
       /// <summary>
         /// Name is unique within a namespace to reference a secret resource.
         /// </summary>
@@ -20799,7 +21248,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// and SELinux relabeling.
     /// </summary>
     [OutputType]
-    public sealed class SecretVolumeSource {
+    public sealed class SecretVolumeSource
+    {
       /// <summary>
         /// Optional: mode bits to use on created files by default. Must be a value between 0 and
         /// 0777. Defaults to 0644. Directories within the path are not affected by this setting.
@@ -20849,7 +21299,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// values in SecurityContext take precedence.
     /// </summary>
     [OutputType]
-    public sealed class SecurityContext {
+    public sealed class SecurityContext
+    {
       /// <summary>
         /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its
         /// parent process. This bool directly controls if the no_new_privs flag will be set on the
@@ -20953,7 +21404,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// pods will answer requests sent through the proxy.
     /// </summary>
     [OutputType]
-    public sealed class Service {
+    public sealed class Service
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -21011,7 +21463,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// secrets
     /// </summary>
     [OutputType]
-    public sealed class ServiceAccount {
+    public sealed class ServiceAccount
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -21077,7 +21530,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ServiceAccountList is a list of ServiceAccount objects
     /// </summary>
     [OutputType]
-    public sealed class ServiceAccountList {
+    public sealed class ServiceAccountList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -21126,7 +21580,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// for use against APIs (Kubernetes API Server or otherwise).
     /// </summary>
     [OutputType]
-    public sealed class ServiceAccountTokenProjection {
+    public sealed class ServiceAccountTokenProjection
+    {
       /// <summary>
         /// Audience is the intended audience of the token. A recipient of a token must identify
         /// itself with an identifier specified in the audience of the token, and otherwise should
@@ -21164,7 +21619,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ServiceList holds a list of services.
     /// </summary>
     [OutputType]
-    public sealed class ServiceList {
+    public sealed class ServiceList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -21210,7 +21666,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ServicePort contains information on service's port.
     /// </summary>
     [OutputType]
-    public sealed class ServicePort {
+    public sealed class ServicePort
+    {
       /// <summary>
         /// The name of this port within the service. This must be a DNS_LABEL. All ports within a
         /// ServiceSpec must have unique names. When considering the endpoints for a Service, this
@@ -21269,7 +21726,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ServiceSpec describes the attributes that a user creates on a service.
     /// </summary>
     [OutputType]
-    public sealed class ServiceSpec {
+    public sealed class ServiceSpec
+    {
       /// <summary>
         /// clusterIP is the IP address of the service and is usually assigned randomly by the
         /// master. If an address is specified manually and is not in use by others, it will be
@@ -21432,7 +21890,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// ServiceStatus represents the current status of a service.
     /// </summary>
     [OutputType]
-    public sealed class ServiceStatus {
+    public sealed class ServiceStatus
+    {
       /// <summary>
         /// LoadBalancer contains the current status of the load-balancer, if one is present.
         /// </summary>
@@ -21450,7 +21909,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// SessionAffinityConfig represents the configurations of session affinity.
     /// </summary>
     [OutputType]
-    public sealed class SessionAffinityConfig {
+    public sealed class SessionAffinityConfig
+    {
       /// <summary>
         /// clientIP contains the configurations of Client IP based session affinity.
         /// </summary>
@@ -21468,7 +21928,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a StorageOS persistent volume resource.
     /// </summary>
     [OutputType]
-    public sealed class StorageOSPersistentVolumeSource {
+    public sealed class StorageOSPersistentVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -21522,7 +21983,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a StorageOS persistent volume resource.
     /// </summary>
     [OutputType]
-    public sealed class StorageOSVolumeSource {
+    public sealed class StorageOSVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -21576,7 +22038,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Sysctl defines a kernel parameter to be set
     /// </summary>
     [OutputType]
-    public sealed class Sysctl {
+    public sealed class Sysctl
+    {
       /// <summary>
         /// Name of a property to set
         /// </summary>
@@ -21601,7 +22064,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// TCPSocketAction describes an action based on opening a socket
     /// </summary>
     [OutputType]
-    public sealed class TCPSocketAction {
+    public sealed class TCPSocketAction
+    {
       /// <summary>
         /// Optional: Host name to connect to, defaults to the pod IP.
         /// </summary>
@@ -21628,7 +22092,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Taint.
     /// </summary>
     [OutputType]
-    public sealed class Taint {
+    public sealed class Taint
+    {
       /// <summary>
         /// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects
         /// are NoSchedule, PreferNoSchedule and NoExecute.
@@ -21670,7 +22135,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// &amp;lt;key,value,effect&amp;gt; using the matching operator &amp;lt;operator&amp;gt;.
     /// </summary>
     [OutputType]
-    public sealed class Toleration {
+    public sealed class Toleration
+    {
       /// <summary>
         /// Effect indicates the taint effect to match. Empty means match all taint effects. When
         /// specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
@@ -21726,7 +22192,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// feature and may change in the future.
     /// </summary>
     [OutputType]
-    public sealed class TopologySelectorLabelRequirement {
+    public sealed class TopologySelectorLabelRequirement
+    {
       /// <summary>
         /// The label key that the selector applies to.
         /// </summary>
@@ -21754,7 +22221,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
     /// </summary>
     [OutputType]
-    public sealed class TopologySelectorTerm {
+    public sealed class TopologySelectorTerm
+    {
       /// <summary>
         /// A list of topology selector requirements by labels.
         /// </summary>
@@ -21772,7 +22240,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
     /// </summary>
     [OutputType]
-    public sealed class TopologySpreadConstraint {
+    public sealed class TopologySpreadConstraint
+    {
       /// <summary>
         /// LabelSelector is used to find matching pods. Pods that match this label selector are
         /// counted to determine the number of pods in their corresponding topology domain.
@@ -21832,7 +22301,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// object inside the same namespace.
     /// </summary>
     [OutputType]
-    public sealed class TypedLocalObjectReference {
+    public sealed class TypedLocalObjectReference
+    {
       /// <summary>
         /// APIGroup is the group for the resource being referenced. If APIGroup is not specified,
         /// the specified Kind must be in the core API group. For any other third-party types,
@@ -21866,7 +22336,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
     /// </summary>
     [OutputType]
-    public sealed class Volume {
+    public sealed class Volume
+    {
       /// <summary>
         /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's
         /// host machine and then exposed to the pod. More info:
@@ -22106,7 +22577,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// volumeDevice describes a mapping of a raw block device within a container.
     /// </summary>
     [OutputType]
-    public sealed class VolumeDevice {
+    public sealed class VolumeDevice
+    {
       /// <summary>
         /// devicePath is the path inside of the container that the device will be mapped to.
         /// </summary>
@@ -22131,7 +22603,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// VolumeMount describes a mounting of a Volume within a container.
     /// </summary>
     [OutputType]
-    public sealed class VolumeMount {
+    public sealed class VolumeMount
+    {
       /// <summary>
         /// Path within the container at which the volume should be mounted.  Must not contain ':'.
         /// </summary>
@@ -22192,7 +22665,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// from.
     /// </summary>
     [OutputType]
-    public sealed class VolumeNodeAffinity {
+    public sealed class VolumeNodeAffinity
+    {
       /// <summary>
         /// Required specifies hard node constraints that must be met.
         /// </summary>
@@ -22210,7 +22684,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Projection that may be projected along with other supported volume types
     /// </summary>
     [OutputType]
-    public sealed class VolumeProjection {
+    public sealed class VolumeProjection
+    {
       /// <summary>
         /// information about the configMap data to project
         /// </summary>
@@ -22249,7 +22724,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// Represents a vSphere volume resource.
     /// </summary>
     [OutputType]
-    public sealed class VsphereVirtualDiskVolumeSource {
+    public sealed class VsphereVirtualDiskVolumeSource
+    {
       /// <summary>
         /// Filesystem type to mount. Must be a filesystem type supported by the host operating
         /// system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -22290,7 +22766,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// the most preferred node(s)
     /// </summary>
     [OutputType]
-    public sealed class WeightedPodAffinityTerm {
+    public sealed class WeightedPodAffinityTerm
+    {
       /// <summary>
         /// Required. A pod affinity term, associated with the corresponding weight.
         /// </summary>
@@ -22315,7 +22792,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// WindowsSecurityContextOptions contain Windows-specific options and credentials.
     /// </summary>
     [OutputType]
-    public sealed class WindowsSecurityContextOptions {
+    public sealed class WindowsSecurityContextOptions
+    {
       /// <summary>
         /// GMSACredentialSpec is where the GMSA admission webhook
         /// (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA
@@ -22355,13 +22833,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
-  namespace V1Alpha1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Discovery
+{
+  namespace V1Alpha1
+  {
     /// <summary>
     /// Endpoint represents a single logical "backend" implementing a service.
     /// </summary>
     [OutputType]
-    public sealed class Endpoint {
+    public sealed class Endpoint
+    {
       /// <summary>
         /// addresses of this endpoint. The contents of this field are interpreted according to the
         /// corresponding EndpointSlice addressType field. This allows for cases like dual-stack
@@ -22425,7 +22906,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// EndpointConditions represents the current condition of an endpoint.
     /// </summary>
     [OutputType]
-    public sealed class EndpointConditions {
+    public sealed class EndpointConditions
+    {
       /// <summary>
         /// ready indicates that this endpoint is prepared to receive traffic, according to whatever
         /// system is managing the endpoint. A nil value indicates an unknown state. In most cases
@@ -22445,7 +22927,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// EndpointPort represents a Port used by an EndpointSlice
     /// </summary>
     [OutputType]
-    public sealed class EndpointPort {
+    public sealed class EndpointPort
+    {
       /// <summary>
         /// The name of this port. All ports in an EndpointSlice must have a unique name. If the
         /// EndpointSlice is dervied from a Kubernetes service, this corresponds to the
@@ -22485,7 +22968,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// joined to produce the full set of endpoints.
     /// </summary>
     [OutputType]
-    public sealed class EndpointSlice {
+    public sealed class EndpointSlice
+    {
       /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses
         /// in this slice must be the same type. Default is IP
@@ -22549,7 +23033,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
     /// EndpointSliceList represents a list of endpoint slices
     /// </summary>
     [OutputType]
-    public sealed class EndpointSliceList {
+    public sealed class EndpointSliceList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -22594,14 +23079,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Events {
-  namespace V1Beta1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Events
+{
+  namespace V1Beta1
+  {
     /// <summary>
     /// Event is a report of an event somewhere in the cluster. It generally denotes some state
     /// change in the system.
     /// </summary>
     [OutputType]
-    public sealed class Event {
+    public sealed class Event
+    {
       /// <summary>
         /// What action was taken/failed regarding to the regarding object.
         /// </summary>
@@ -22739,7 +23227,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
     /// EventList is a list of Event objects.
     /// </summary>
     [OutputType]
-    public sealed class EventList {
+    public sealed class EventList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -22786,7 +23275,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
     /// continuously for some time.
     /// </summary>
     [OutputType]
-    public sealed class EventSeries {
+    public sealed class EventSeries
+    {
       /// <summary>
         /// Number of occurrences in this series up to the last heartbeat time
         /// </summary>
@@ -22819,13 +23309,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
-  namespace V1Beta1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Extensions
+{
+  namespace V1Beta1
+  {
     /// <summary>
     /// AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
     /// </summary>
     [OutputType]
-    public sealed class AllowedCSIDriver {
+    public sealed class AllowedCSIDriver
+    {
       /// <summary>
         /// Name is the registered name of the CSI driver
         /// </summary>
@@ -22844,7 +23337,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// AllowedFlexVolume from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class AllowedFlexVolume {
+    public sealed class AllowedFlexVolume
+    {
       /// <summary>
         /// driver is the name of the Flexvolume driver.
         /// </summary>
@@ -22864,7 +23358,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class AllowedHostPath {
+    public sealed class AllowedHostPath
+    {
       /// <summary>
         /// pathPrefix is the path prefix that the host volume must match. It does not support `*`.
         /// Trailing slashes are trimmed when validating the path prefix with a host path.
@@ -22897,7 +23392,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSet {
+    public sealed class DaemonSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -22953,7 +23449,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetCondition {
+    public sealed class DaemonSetCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -22999,7 +23496,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetList {
+    public sealed class DaemonSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -23045,7 +23543,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetSpec {
+    public sealed class DaemonSetSpec
+    {
       /// <summary>
         /// The minimum number of seconds for which a newly created DaemonSet pod should be ready
         /// without any of its container crashing, for it to be considered available. Defaults to 0
@@ -23107,7 +23606,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetStatus {
+    public sealed class DaemonSetStatus
+    {
       /// <summary>
         /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as
         /// a collision avoidance mechanism when it needs to create the name for the newest
@@ -23199,7 +23699,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// 
     /// </summary>
     [OutputType]
-    public sealed class DaemonSetUpdateStrategy {
+    public sealed class DaemonSetUpdateStrategy
+    {
       /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
         /// </summary>
@@ -23227,7 +23728,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
     [OutputType]
-    public sealed class Deployment {
+    public sealed class Deployment
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -23279,7 +23781,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentCondition {
+    public sealed class DeploymentCondition
+    {
       /// <summary>
         /// Last time the condition transitioned from one status to another.
         /// </summary>
@@ -23332,7 +23835,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DeploymentList is a list of Deployments.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentList {
+    public sealed class DeploymentList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -23377,7 +23881,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentRollback {
+    public sealed class DeploymentRollback
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -23429,7 +23934,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentSpec {
+    public sealed class DeploymentSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -23516,7 +24022,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStatus {
+    public sealed class DeploymentStatus
+    {
       /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this
         /// deployment.
@@ -23591,7 +24098,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
     [OutputType]
-    public sealed class DeploymentStrategy {
+    public sealed class DeploymentStrategy
+    {
       /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         /// </summary>
@@ -23617,7 +24125,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// Deprecated: use FSGroupStrategyOptions from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class FSGroupStrategyOptions {
+    public sealed class FSGroupStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of fs groups.  If you would like to force a single fs
         /// group then supply a single range with the same start and end. Required for MustRunAs.
@@ -23644,7 +24153,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// forwarded to the backend.
     /// </summary>
     [OutputType]
-    public sealed class HTTPIngressPath {
+    public sealed class HTTPIngressPath
+    {
       /// <summary>
         /// Backend defines the referenced service endpoint to which the traffic will be forwarded
         /// to.
@@ -23677,7 +24187,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
     [OutputType]
-    public sealed class HTTPIngressRuleValue {
+    public sealed class HTTPIngressRuleValue
+    {
       /// <summary>
         /// A collection of paths that map requests to backends.
         /// </summary>
@@ -23697,7 +24208,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class HostPortRange {
+    public sealed class HostPortRange
+    {
       /// <summary>
         /// max is the end of the range, inclusive.
         /// </summary>
@@ -23723,7 +24235,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class IDRange {
+    public sealed class IDRange
+    {
       /// <summary>
         /// max is the end of the range, inclusive.
         /// </summary>
@@ -23751,7 +24264,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// not be included within this rule.
     /// </summary>
     [OutputType]
-    public sealed class IPBlock {
+    public sealed class IPBlock
+    {
       /// <summary>
         /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
         /// </summary>
@@ -23782,7 +24296,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
     /// </summary>
     [OutputType]
-    public sealed class Ingress {
+    public sealed class Ingress
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -23837,7 +24352,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// IngressBackend describes all endpoints for a given service and port.
     /// </summary>
     [OutputType]
-    public sealed class IngressBackend {
+    public sealed class IngressBackend
+    {
       /// <summary>
         /// Specifies the name of the referenced service.
         /// </summary>
@@ -23862,7 +24378,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// IngressList is a collection of Ingress.
     /// </summary>
     [OutputType]
-    public sealed class IngressList {
+    public sealed class IngressList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -23910,7 +24427,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// backend associated with the matching IngressRuleValue.
     /// </summary>
     [OutputType]
-    public sealed class IngressRule {
+    public sealed class IngressRule
+    {
       /// <summary>
         /// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note
         /// the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs
@@ -23942,7 +24460,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// IngressSpec describes the Ingress the user wishes to exist.
     /// </summary>
     [OutputType]
-    public sealed class IngressSpec {
+    public sealed class IngressSpec
+    {
       /// <summary>
         /// A default backend capable of servicing requests that don't match any rule. At least one
         /// of 'backend' or 'rules' must be specified. This field is optional to allow the
@@ -23980,7 +24499,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// IngressStatus describe the current state of the Ingress.
     /// </summary>
     [OutputType]
-    public sealed class IngressStatus {
+    public sealed class IngressStatus
+    {
       /// <summary>
         /// LoadBalancer contains the current status of the load-balancer.
         /// </summary>
@@ -23998,7 +24518,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// IngressTLS describes the transport layer security associated with an Ingress.
     /// </summary>
     [OutputType]
-    public sealed class IngressTLS {
+    public sealed class IngressTLS
+    {
       /// <summary>
         /// Hosts are a list of hosts included in the TLS certificate. The values in this list must
         /// match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the
@@ -24030,7 +24551,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// set of Pods
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicy {
+    public sealed class NetworkPolicy
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -24079,7 +24601,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// traffic must match both ports and to. This type is beta-level in 1.8
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyEgressRule {
+    public sealed class NetworkPolicyEgressRule
+    {
       /// <summary>
         /// List of destination ports for outgoing traffic. Each item in this list is combined using
         /// a logical OR. If this field is empty or missing, this rule matches all ports (traffic
@@ -24113,7 +24636,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// only if the traffic matches both ports AND from.
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyIngressRule {
+    public sealed class NetworkPolicyIngressRule
+    {
       /// <summary>
         /// List of sources which should be able to access the pods selected for this rule. Items in
         /// this list are combined using a logical OR operation. If this field is empty or missing,
@@ -24147,7 +24671,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyList {
+    public sealed class NetworkPolicyList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -24194,7 +24719,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// networking/v1/NetworkPolicyPeer.
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyPeer {
+    public sealed class NetworkPolicyPeer
+    {
       /// <summary>
         /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the
         /// other fields can be.
@@ -24238,7 +24764,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// networking/v1/NetworkPolicyPort.
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyPort {
+    public sealed class NetworkPolicyPort
+    {
       /// <summary>
         /// If specified, the port on the given protocol.  This can either be a numerical or named
         /// port on a pod.  If this field is not provided, this matches all port names and numbers.
@@ -24267,7 +24794,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// networking/v1/NetworkPolicySpec.
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicySpec {
+    public sealed class NetworkPolicySpec
+    {
       /// <summary>
         /// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if
         /// there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the
@@ -24330,7 +24858,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// Group instead.
     /// </summary>
     [OutputType]
-    public sealed class PodSecurityPolicy {
+    public sealed class PodSecurityPolicy
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -24377,7 +24906,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// PodSecurityPolicyList from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class PodSecurityPolicyList {
+    public sealed class PodSecurityPolicyList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -24424,7 +24954,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class PodSecurityPolicySpec {
+    public sealed class PodSecurityPolicySpec
+    {
       /// <summary>
         /// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation.
         /// If unspecified, defaults to true.
@@ -24643,7 +25174,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSet {
+    public sealed class ReplicaSet
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -24700,7 +25232,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetCondition {
+    public sealed class ReplicaSetCondition
+    {
       /// <summary>
         /// The last time the condition transitioned from one status to another.
         /// </summary>
@@ -24746,7 +25279,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetList {
+    public sealed class ReplicaSetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -24793,7 +25327,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetSpec {
+    public sealed class ReplicaSetSpec
+    {
       /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of
         /// its container crashing, for it to be considered available. Defaults to 0 (pod will be
@@ -24841,7 +25376,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
     [OutputType]
-    public sealed class ReplicaSetStatus {
+    public sealed class ReplicaSetStatus
+    {
       /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replica
         /// set.
@@ -24897,7 +25433,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// DEPRECATED.
     /// </summary>
     [OutputType]
-    public sealed class RollbackConfig {
+    public sealed class RollbackConfig
+    {
       /// <summary>
         /// The revision to rollback to. If set to 0, rollback to the last revision.
         /// </summary>
@@ -24915,7 +25452,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateDaemonSet {
+    public sealed class RollingUpdateDaemonSet
+    {
       /// <summary>
         /// The maximum number of DaemonSet pods that can be unavailable during the update. Value
         /// can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at
@@ -24942,7 +25480,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
     [OutputType]
-    public sealed class RollingUpdateDeployment {
+    public sealed class RollingUpdateDeployment
+    {
       /// <summary>
         /// The maximum number of pods that can be scheduled above the desired number of pods. Value
         /// can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can
@@ -24982,7 +25521,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class RunAsGroupStrategyOptions {
+    public sealed class RunAsGroupStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of gids that may be used. If you would like to force a
         /// single gid then supply a single range with the same start and end. Required for
@@ -25010,7 +25550,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class RunAsUserStrategyOptions {
+    public sealed class RunAsUserStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of uids that may be used. If you would like to force a
         /// single uid then supply a single range with the same start and end. Required for
@@ -25038,7 +25579,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// RuntimeClasses for a pod.
     /// </summary>
     [OutputType]
-    public sealed class RuntimeClassStrategyOptions {
+    public sealed class RuntimeClassStrategyOptions
+    {
       /// <summary>
         /// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a
         /// pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only
@@ -25068,7 +25610,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class SELinuxStrategyOptions {
+    public sealed class SELinuxStrategyOptions
+    {
       /// <summary>
         /// rule is the strategy that will dictate the allowable labels that may be set.
         /// </summary>
@@ -25094,7 +25637,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// represents a scaling request for a resource.
     /// </summary>
     [OutputType]
-    public sealed class Scale {
+    public sealed class Scale
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -25150,7 +25694,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// describes the attributes of a scale subresource
     /// </summary>
     [OutputType]
-    public sealed class ScaleSpec {
+    public sealed class ScaleSpec
+    {
       /// <summary>
         /// desired number of instances for the scaled object.
         /// </summary>
@@ -25168,7 +25713,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// represents the current status of a scale subresource.
     /// </summary>
     [OutputType]
-    public sealed class ScaleStatus {
+    public sealed class ScaleStatus
+    {
       /// <summary>
         /// actual number of observed instances of the scaled object.
         /// </summary>
@@ -25207,7 +25753,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
     /// strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
     /// </summary>
     [OutputType]
-    public sealed class SupplementalGroupsStrategyOptions {
+    public sealed class SupplementalGroupsStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of supplemental groups.  If you would like to force a
         /// single supplemental group then supply a single range with the same start and end.
@@ -25235,13 +25782,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Meta {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Meta
+{
+  namespace V1
+  {
     /// <summary>
     /// APIGroup contains the name, the supported versions, and the preferred version of a group.
     /// </summary>
     [OutputType]
-    public sealed class APIGroup {
+    public sealed class APIGroup
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -25308,7 +25858,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
     /// </summary>
     [OutputType]
-    public sealed class APIGroupList {
+    public sealed class APIGroupList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -25346,7 +25897,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// APIResource specifies the name of a resource and whether it is namespaced.
     /// </summary>
     [OutputType]
-    public sealed class APIResource {
+    public sealed class APIResource
+    {
       /// <summary>
         /// categories is a list of the grouped resources this resource belongs to (e.g. 'all')
         /// </summary>
@@ -25438,7 +25990,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// supported in a specific group and version, and if the resource is namespaced.
     /// </summary>
     [OutputType]
-    public sealed class APIResourceList {
+    public sealed class APIResourceList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -25484,7 +26037,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// /api, which is the root path of the legacy v1 API.
     /// </summary>
     [OutputType]
-    public sealed class APIVersions {
+    public sealed class APIVersions
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -25536,7 +26090,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// DeleteOptions may be provided when deleting an API object.
     /// </summary>
     [OutputType]
-    public sealed class DeleteOptions {
+    public sealed class DeleteOptions
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -25617,7 +26172,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// struct to keep extensibility.
     /// </summary>
     [OutputType]
-    public sealed class GroupVersionForDiscovery {
+    public sealed class GroupVersionForDiscovery
+    {
       /// <summary>
         /// groupVersion specifies the API group and version in the form "group/version"
         /// </summary>
@@ -25645,7 +26201,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// selector matches no objects.
     /// </summary>
     [OutputType]
-    public sealed class LabelSelector {
+    public sealed class LabelSelector
+    {
       /// <summary>
         /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
         /// </summary>
@@ -25673,7 +26230,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// relates the key and values.
     /// </summary>
     [OutputType]
-    public sealed class LabelSelectorRequirement {
+    public sealed class LabelSelectorRequirement
+    {
       /// <summary>
         /// key is the label key that the selector applies to.
         /// </summary>
@@ -25709,7 +26267,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// status objects. A resource may have only one of {ObjectMeta, ListMeta}.
     /// </summary>
     [OutputType]
-    public sealed class ListMeta {
+    public sealed class ListMeta
+    {
       /// <summary>
         /// continue may be set if the user set a limit on the number of items returned, and
         /// indicates that the server has more data available. The value is opaque and may be used
@@ -25769,7 +26328,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// the fieldset applies to.
     /// </summary>
     [OutputType]
-    public sealed class ManagedFieldsEntry {
+    public sealed class ManagedFieldsEntry
+    {
       /// <summary>
         /// APIVersion defines the version of this resource that this field set applies to. The
         /// format is "group/version" just like the top-level APIVersion field. It is necessary to
@@ -25828,7 +26388,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// users must create.
     /// </summary>
     [OutputType]
-    public sealed class ObjectMeta {
+    public sealed class ObjectMeta
+    {
       /// <summary>
         /// Annotations is an unstructured key value map stored with a resource that may be set by
         /// external tools to store and retrieve arbitrary metadata. They are not queryable and
@@ -26035,7 +26596,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// namespace field.
     /// </summary>
     [OutputType]
-    public sealed class OwnerReference {
+    public sealed class OwnerReference
+    {
       /// <summary>
         /// API version of the referent.
         /// </summary>
@@ -26092,7 +26654,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
     /// </summary>
     [OutputType]
-    public sealed class Preconditions {
+    public sealed class Preconditions
+    {
       /// <summary>
         /// Specifies the target ResourceVersion
         /// </summary>
@@ -26118,7 +26681,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// use, depending on the clientCIDR that they match.
     /// </summary>
     [OutputType]
-    public sealed class ServerAddressByClientCIDR {
+    public sealed class ServerAddressByClientCIDR
+    {
       /// <summary>
         /// The CIDR with which clients can match their IP to figure out the server address that
         /// they should use.
@@ -26145,7 +26709,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// Status is a return value for calls that don't return other objects.
     /// </summary>
     [OutputType]
-    public sealed class Status {
+    public sealed class Status
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -26225,7 +26790,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// multiple errors are encountered.
     /// </summary>
     [OutputType]
-    public sealed class StatusCause {
+    public sealed class StatusCause
+    {
       /// <summary>
         /// The field of the resource that has caused this error, as named by its JSON
         /// serialization. May include dot and postfix notation for nested attributes. Arrays are
@@ -26270,7 +26836,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// defined.
     /// </summary>
     [OutputType]
-    public sealed class StatusDetails {
+    public sealed class StatusDetails
+    {
       /// <summary>
         /// The Causes array includes more details associated with the StatusReason failure. Not all
         /// StatusReasons may provide detailed causes.
@@ -26330,7 +26897,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
     /// Event represents a single event to a watched resource.
     /// </summary>
     [OutputType]
-    public sealed class WatchEvent {
+    public sealed class WatchEvent
+    {
       /// <summary>
         /// Object is:
         ///  * If Type is Added or Modified: the new state of the object.
@@ -26357,15 +26925,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Networking {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Networking
+{
+  namespace V1
+  {
     /// <summary>
     /// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods
     /// matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should
     /// not be included within this rule.
     /// </summary>
     [OutputType]
-    public sealed class IPBlock {
+    public sealed class IPBlock
+    {
       /// <summary>
         /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
         /// </summary>
@@ -26391,7 +26962,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// NetworkPolicy describes what network traffic is allowed for a set of Pods
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicy {
+    public sealed class NetworkPolicy
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -26439,7 +27011,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// type is beta-level in 1.8
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyEgressRule {
+    public sealed class NetworkPolicyEgressRule
+    {
       /// <summary>
         /// List of destination ports for outgoing traffic. Each item in this list is combined using
         /// a logical OR. If this field is empty or missing, this rule matches all ports (traffic
@@ -26472,7 +27045,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyIngressRule {
+    public sealed class NetworkPolicyIngressRule
+    {
       /// <summary>
         /// List of sources which should be able to access the pods selected for this rule. Items in
         /// this list are combined using a logical OR operation. If this field is empty or missing,
@@ -26505,7 +27079,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// NetworkPolicyList is a list of NetworkPolicy objects.
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyList {
+    public sealed class NetworkPolicyList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -26552,7 +27127,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// fields are allowed
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyPeer {
+    public sealed class NetworkPolicyPeer
+    {
       /// <summary>
         /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the
         /// other fields can be.
@@ -26595,7 +27171,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// NetworkPolicyPort describes a port to allow traffic on
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicyPort {
+    public sealed class NetworkPolicyPort
+    {
       /// <summary>
         /// The port on the given protocol. This can either be a numerical or named port on a pod.
         /// If this field is not provided, this matches all port names and numbers.
@@ -26622,7 +27199,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// NetworkPolicySpec provides the specification of a NetworkPolicy
     /// </summary>
     [OutputType]
-    public sealed class NetworkPolicySpec {
+    public sealed class NetworkPolicySpec
+    {
       /// <summary>
         /// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if
         /// there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the
@@ -26681,13 +27259,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
     /// forwarded to the backend.
     /// </summary>
     [OutputType]
-    public sealed class HTTPIngressPath {
+    public sealed class HTTPIngressPath
+    {
       /// <summary>
         /// Backend defines the referenced service endpoint to which the traffic will be forwarded
         /// to.
@@ -26720,7 +27300,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
     [OutputType]
-    public sealed class HTTPIngressRuleValue {
+    public sealed class HTTPIngressRuleValue
+    {
       /// <summary>
         /// A collection of paths that map requests to backends.
         /// </summary>
@@ -26740,7 +27321,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
     /// </summary>
     [OutputType]
-    public sealed class Ingress {
+    public sealed class Ingress
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -26795,7 +27377,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// IngressBackend describes all endpoints for a given service and port.
     /// </summary>
     [OutputType]
-    public sealed class IngressBackend {
+    public sealed class IngressBackend
+    {
       /// <summary>
         /// Specifies the name of the referenced service.
         /// </summary>
@@ -26820,7 +27403,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// IngressList is a collection of Ingress.
     /// </summary>
     [OutputType]
-    public sealed class IngressList {
+    public sealed class IngressList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -26868,7 +27452,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// backend associated with the matching IngressRuleValue.
     /// </summary>
     [OutputType]
-    public sealed class IngressRule {
+    public sealed class IngressRule
+    {
       /// <summary>
         /// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note
         /// the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs
@@ -26900,7 +27485,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// IngressSpec describes the Ingress the user wishes to exist.
     /// </summary>
     [OutputType]
-    public sealed class IngressSpec {
+    public sealed class IngressSpec
+    {
       /// <summary>
         /// A default backend capable of servicing requests that don't match any rule. At least one
         /// of 'backend' or 'rules' must be specified. This field is optional to allow the
@@ -26938,7 +27524,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// IngressStatus describe the current state of the Ingress.
     /// </summary>
     [OutputType]
-    public sealed class IngressStatus {
+    public sealed class IngressStatus
+    {
       /// <summary>
         /// LoadBalancer contains the current status of the load-balancer.
         /// </summary>
@@ -26956,7 +27543,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
     /// IngressTLS describes the transport layer security associated with an Ingress.
     /// </summary>
     [OutputType]
-    public sealed class IngressTLS {
+    public sealed class IngressTLS
+    {
       /// <summary>
         /// Hosts are a list of hosts included in the TLS certificate. The values in this list must
         /// match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the
@@ -26986,13 +27574,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Node {
-  namespace V1Alpha1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Node
+{
+  namespace V1Alpha1
+  {
     /// <summary>
     /// Overhead structure represents the resource overhead associated with running a pod.
     /// </summary>
     [OutputType]
-    public sealed class Overhead {
+    public sealed class Overhead
+    {
       /// <summary>
         /// PodFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
@@ -27015,7 +27606,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
     /// </summary>
     [OutputType]
-    public sealed class RuntimeClass {
+    public sealed class RuntimeClass
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27062,7 +27654,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// RuntimeClassList is a list of RuntimeClass objects.
     /// </summary>
     [OutputType]
-    public sealed class RuntimeClassList {
+    public sealed class RuntimeClassList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27111,7 +27704,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// run. The RuntimeClassSpec is immutable.
     /// </summary>
     [OutputType]
-    public sealed class RuntimeClassSpec {
+    public sealed class RuntimeClassSpec
+    {
       /// <summary>
         /// Overhead represents the resource overhead associated with running a pod for a given
         /// RuntimeClass. For more details, see
@@ -27155,7 +27749,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     /// </summary>
     [OutputType]
-    public sealed class Scheduling {
+    public sealed class Scheduling
+    {
       /// <summary>
         /// nodeSelector lists labels that must be present on nodes that support this RuntimeClass.
         /// Pods using this RuntimeClass can only be scheduled to a node matched by this selector.
@@ -27183,12 +27778,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// Overhead structure represents the resource overhead associated with running a pod.
     /// </summary>
     [OutputType]
-    public sealed class Overhead {
+    public sealed class Overhead
+    {
       /// <summary>
         /// PodFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
@@ -27211,7 +27808,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
     /// </summary>
     [OutputType]
-    public sealed class RuntimeClass {
+    public sealed class RuntimeClass
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27283,7 +27881,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// RuntimeClassList is a list of RuntimeClass objects.
     /// </summary>
     [OutputType]
-    public sealed class RuntimeClassList {
+    public sealed class RuntimeClassList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27329,7 +27928,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     /// </summary>
     [OutputType]
-    public sealed class Scheduling {
+    public sealed class Scheduling
+    {
       /// <summary>
         /// nodeSelector lists labels that must be present on nodes that support this RuntimeClass.
         /// Pods using this RuntimeClass can only be scheduled to a node matched by this selector.
@@ -27359,13 +27959,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Pkg {
-  namespace Version {
+namespace Pulumi.Kubernetes.Types.Outputs.Pkg
+{
+  namespace Version
+  {
     /// <summary>
     /// Info contains versioning information. how we'll want to distribute that information.
     /// </summary>
     [OutputType]
-    public sealed class Info {
+    public sealed class Info
+    {
       
       public readonly string BuildDate;
 
@@ -27421,13 +28024,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Pkg {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Policy {
-  namespace V1Beta1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Policy
+{
+  namespace V1Beta1
+  {
     /// <summary>
     /// AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
     /// </summary>
     [OutputType]
-    public sealed class AllowedCSIDriver {
+    public sealed class AllowedCSIDriver
+    {
       /// <summary>
         /// Name is the registered name of the CSI driver
         /// </summary>
@@ -27445,7 +28051,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
     /// </summary>
     [OutputType]
-    public sealed class AllowedFlexVolume {
+    public sealed class AllowedFlexVolume
+    {
       /// <summary>
         /// driver is the name of the Flexvolume driver.
         /// </summary>
@@ -27464,7 +28071,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// to use. It requires the path prefix to be defined.
     /// </summary>
     [OutputType]
-    public sealed class AllowedHostPath {
+    public sealed class AllowedHostPath
+    {
       /// <summary>
         /// pathPrefix is the path prefix that the host volume must match. It does not support `*`.
         /// Trailing slashes are trimmed when validating the path prefix with a host path.
@@ -27496,7 +28104,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// .../pods/&amp;lt;pod name&amp;gt;/evictions.
     /// </summary>
     [OutputType]
-    public sealed class Eviction {
+    public sealed class Eviction
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27541,7 +28150,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     /// </summary>
     [OutputType]
-    public sealed class FSGroupStrategyOptions {
+    public sealed class FSGroupStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of fs groups.  If you would like to force a single fs
         /// group then supply a single range with the same start and end. Required for MustRunAs.
@@ -27568,7 +28178,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// use.  It requires both the start and end to be defined.
     /// </summary>
     [OutputType]
-    public sealed class HostPortRange {
+    public sealed class HostPortRange
+    {
       /// <summary>
         /// max is the end of the range, inclusive.
         /// </summary>
@@ -27593,7 +28204,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// IDRange provides a min/max of an allowed range of IDs.
     /// </summary>
     [OutputType]
-    public sealed class IDRange {
+    public sealed class IDRange
+    {
       /// <summary>
         /// max is the end of the range, inclusive.
         /// </summary>
@@ -27619,7 +28231,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// collection of pods
     /// </summary>
     [OutputType]
-    public sealed class PodDisruptionBudget {
+    public sealed class PodDisruptionBudget
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27669,7 +28282,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
     /// </summary>
     [OutputType]
-    public sealed class PodDisruptionBudgetList {
+    public sealed class PodDisruptionBudgetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27710,7 +28324,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     /// </summary>
     [OutputType]
-    public sealed class PodDisruptionBudgetSpec {
+    public sealed class PodDisruptionBudgetSpec
+    {
       /// <summary>
         /// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are
         /// unavailable after the eviction, i.e. even in absence of the evicted pod. For example,
@@ -27748,7 +28363,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// Status may trail the actual state of a system.
     /// </summary>
     [OutputType]
-    public sealed class PodDisruptionBudgetStatus {
+    public sealed class PodDisruptionBudgetStatus
+    {
       /// <summary>
         /// current number of healthy pods
         /// </summary>
@@ -27813,7 +28429,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// will be applied to a pod and container.
     /// </summary>
     [OutputType]
-    public sealed class PodSecurityPolicy {
+    public sealed class PodSecurityPolicy
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27859,7 +28476,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
     /// </summary>
     [OutputType]
-    public sealed class PodSecurityPolicyList {
+    public sealed class PodSecurityPolicyList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -27905,7 +28523,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// PodSecurityPolicySpec defines the policy enforced.
     /// </summary>
     [OutputType]
-    public sealed class PodSecurityPolicySpec {
+    public sealed class PodSecurityPolicySpec
+    {
       /// <summary>
         /// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation.
         /// If unspecified, defaults to true.
@@ -28123,7 +28742,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// strategy.
     /// </summary>
     [OutputType]
-    public sealed class RunAsGroupStrategyOptions {
+    public sealed class RunAsGroupStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of gids that may be used. If you would like to force a
         /// single gid then supply a single range with the same start and end. Required for
@@ -28151,7 +28771,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// strategy.
     /// </summary>
     [OutputType]
-    public sealed class RunAsUserStrategyOptions {
+    public sealed class RunAsUserStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of uids that may be used. If you would like to force a
         /// single uid then supply a single range with the same start and end. Required for
@@ -28179,7 +28800,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// RuntimeClasses for a pod.
     /// </summary>
     [OutputType]
-    public sealed class RuntimeClassStrategyOptions {
+    public sealed class RuntimeClassStrategyOptions
+    {
       /// <summary>
         /// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a
         /// pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only
@@ -28209,7 +28831,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// strategy.
     /// </summary>
     [OutputType]
-    public sealed class SELinuxStrategyOptions {
+    public sealed class SELinuxStrategyOptions
+    {
       /// <summary>
         /// rule is the strategy that will dictate the allowable labels that may be set.
         /// </summary>
@@ -28236,7 +28859,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
     /// strategy.
     /// </summary>
     [OutputType]
-    public sealed class SupplementalGroupsStrategyOptions {
+    public sealed class SupplementalGroupsStrategyOptions
+    {
       /// <summary>
         /// ranges are the allowed ranges of supplemental groups.  If you would like to force a
         /// single supplemental group then supply a single range with the same start and end.
@@ -28264,13 +28888,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Rbac
+{
+  namespace V1
+  {
     /// <summary>
     /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     /// </summary>
     [OutputType]
-    public sealed class AggregationRule {
+    public sealed class AggregationRule
+    {
       /// <summary>
         /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles
         /// and create the rules. If any of the selectors match, then the ClusterRole's permissions
@@ -28291,7 +28918,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
     [OutputType]
-    public sealed class ClusterRole {
+    public sealed class ClusterRole
+    {
       /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
         /// ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
@@ -28346,7 +28974,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRole in the global namespace, and adds who information via Subject.
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleBinding {
+    public sealed class ClusterRoleBinding
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28399,7 +29028,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleBindingList {
+    public sealed class ClusterRoleBindingList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28444,7 +29074,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleList {
+    public sealed class ClusterRoleList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28490,7 +29121,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// about who the rule applies to or which namespace the rule applies to.
     /// </summary>
     [OutputType]
-    public sealed class PolicyRule {
+    public sealed class PolicyRule
+    {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
@@ -28546,7 +29178,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleBinding.
     /// </summary>
     [OutputType]
-    public sealed class Role {
+    public sealed class Role
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28594,7 +29227,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// only have effect in that namespace.
     /// </summary>
     [OutputType]
-    public sealed class RoleBinding {
+    public sealed class RoleBinding
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28647,7 +29281,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
     [OutputType]
-    public sealed class RoleBindingList {
+    public sealed class RoleBindingList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28692,7 +29327,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleList is a collection of Roles
     /// </summary>
     [OutputType]
-    public sealed class RoleList {
+    public sealed class RoleList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28737,7 +29373,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleRef contains information that points to the role being used
     /// </summary>
     [OutputType]
-    public sealed class RoleRef {
+    public sealed class RoleRef
+    {
       /// <summary>
         /// APIGroup is the group for the resource being referenced
         /// </summary>
@@ -28771,7 +29408,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// and group names.
     /// </summary>
     [OutputType]
-    public sealed class Subject {
+    public sealed class Subject
+    {
       /// <summary>
         /// APIGroup holds the API group of the referenced subject. Defaults to "" for
         /// ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group
@@ -28813,12 +29451,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     }
   }
 
-  namespace V1Alpha1 {
+  namespace V1Alpha1
+  {
     /// <summary>
     /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     /// </summary>
     [OutputType]
-    public sealed class AggregationRule {
+    public sealed class AggregationRule
+    {
       /// <summary>
         /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles
         /// and create the rules. If any of the selectors match, then the ClusterRole's permissions
@@ -28839,7 +29479,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
     [OutputType]
-    public sealed class ClusterRole {
+    public sealed class ClusterRole
+    {
       /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
         /// ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
@@ -28894,7 +29535,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRole in the global namespace, and adds who information via Subject.
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleBinding {
+    public sealed class ClusterRoleBinding
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28947,7 +29589,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleBindingList {
+    public sealed class ClusterRoleBindingList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -28992,7 +29635,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleList {
+    public sealed class ClusterRoleList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29038,7 +29682,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// about who the rule applies to or which namespace the rule applies to.
     /// </summary>
     [OutputType]
-    public sealed class PolicyRule {
+    public sealed class PolicyRule
+    {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
@@ -29096,7 +29741,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleBinding.
     /// </summary>
     [OutputType]
-    public sealed class Role {
+    public sealed class Role
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29144,7 +29790,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// only have effect in that namespace.
     /// </summary>
     [OutputType]
-    public sealed class RoleBinding {
+    public sealed class RoleBinding
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29197,7 +29844,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
     [OutputType]
-    public sealed class RoleBindingList {
+    public sealed class RoleBindingList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29242,7 +29890,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleList is a collection of Roles
     /// </summary>
     [OutputType]
-    public sealed class RoleList {
+    public sealed class RoleList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29287,7 +29936,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleRef contains information that points to the role being used
     /// </summary>
     [OutputType]
-    public sealed class RoleRef {
+    public sealed class RoleRef
+    {
       /// <summary>
         /// APIGroup is the group for the resource being referenced
         /// </summary>
@@ -29321,7 +29971,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// and group names.
     /// </summary>
     [OutputType]
-    public sealed class Subject {
+    public sealed class Subject
+    {
       /// <summary>
         /// APIVersion holds the API group and version of the referenced subject. Defaults to "v1"
         /// for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User
@@ -29363,12 +30014,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     /// </summary>
     [OutputType]
-    public sealed class AggregationRule {
+    public sealed class AggregationRule
+    {
       /// <summary>
         /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles
         /// and create the rules. If any of the selectors match, then the ClusterRole's permissions
@@ -29389,7 +30042,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
     [OutputType]
-    public sealed class ClusterRole {
+    public sealed class ClusterRole
+    {
       /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
         /// ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
@@ -29444,7 +30098,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRole in the global namespace, and adds who information via Subject.
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleBinding {
+    public sealed class ClusterRoleBinding
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29497,7 +30152,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleBindingList {
+    public sealed class ClusterRoleBindingList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29542,7 +30198,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
     [OutputType]
-    public sealed class ClusterRoleList {
+    public sealed class ClusterRoleList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29588,7 +30245,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// about who the rule applies to or which namespace the rule applies to.
     /// </summary>
     [OutputType]
-    public sealed class PolicyRule {
+    public sealed class PolicyRule
+    {
       /// <summary>
         /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API
         /// groups are specified, any action requested against one of the enumerated resources in
@@ -29645,7 +30303,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleBinding.
     /// </summary>
     [OutputType]
-    public sealed class Role {
+    public sealed class Role
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29693,7 +30352,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// only have effect in that namespace.
     /// </summary>
     [OutputType]
-    public sealed class RoleBinding {
+    public sealed class RoleBinding
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29746,7 +30406,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
     [OutputType]
-    public sealed class RoleBindingList {
+    public sealed class RoleBindingList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29791,7 +30452,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleList is a collection of Roles
     /// </summary>
     [OutputType]
-    public sealed class RoleList {
+    public sealed class RoleList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29836,7 +30498,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// RoleRef contains information that points to the role being used
     /// </summary>
     [OutputType]
-    public sealed class RoleRef {
+    public sealed class RoleRef
+    {
       /// <summary>
         /// APIGroup is the group for the resource being referenced
         /// </summary>
@@ -29870,7 +30533,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
     /// and group names.
     /// </summary>
     [OutputType]
-    public sealed class Subject {
+    public sealed class Subject
+    {
       /// <summary>
         /// APIGroup holds the API group of the referenced subject. Defaults to "" for
         /// ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group
@@ -29914,14 +30578,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Scheduling
+{
+  namespace V1
+  {
     /// <summary>
     /// PriorityClass defines mapping from a priority class name to the priority integer value. The
     /// value can be any valid integer.
     /// </summary>
     [OutputType]
-    public sealed class PriorityClass {
+    public sealed class PriorityClass
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29997,7 +30664,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
     [OutputType]
-    public sealed class PriorityClassList {
+    public sealed class PriorityClassList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30041,14 +30709,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     }
   }
 
-  namespace V1Alpha1 {
+  namespace V1Alpha1
+  {
     /// <summary>
     /// DEPRECATED - This group version of PriorityClass is deprecated by
     /// scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
     /// to the priority integer value. The value can be any valid integer.
     /// </summary>
     [OutputType]
-    public sealed class PriorityClass {
+    public sealed class PriorityClass
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30124,7 +30794,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
     [OutputType]
-    public sealed class PriorityClassList {
+    public sealed class PriorityClassList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30168,14 +30839,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// DEPRECATED - This group version of PriorityClass is deprecated by
     /// scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
     /// to the priority integer value. The value can be any valid integer.
     /// </summary>
     [OutputType]
-    public sealed class PriorityClass {
+    public sealed class PriorityClass
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30251,7 +30924,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
     [OutputType]
-    public sealed class PriorityClassList {
+    public sealed class PriorityClassList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30297,13 +30971,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Settings {
-  namespace V1Alpha1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Settings
+{
+  namespace V1Alpha1
+  {
     /// <summary>
     /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
     /// </summary>
     [OutputType]
-    public sealed class PodPreset {
+    public sealed class PodPreset
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30344,7 +31021,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
     /// PodPresetList is a list of PodPreset objects.
     /// </summary>
     [OutputType]
-    public sealed class PodPresetList {
+    public sealed class PodPresetList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30390,7 +31068,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
     /// PodPresetSpec is a description of a pod preset.
     /// </summary>
     [OutputType]
-    public sealed class PodPresetSpec {
+    public sealed class PodPresetSpec
+    {
       /// <summary>
         /// Env defines the collection of EnvVar to inject into containers.
         /// </summary>
@@ -30436,8 +31115,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
 
 }
 
-namespace Pulumi.Kubernetes.Types.Outputs.Storage {
-  namespace V1 {
+namespace Pulumi.Kubernetes.Types.Outputs.Storage
+{
+  namespace V1
+  {
     /// <summary>
     /// StorageClass describes the parameters for a class of storage for which PersistentVolumes can
     /// be dynamically provisioned.
@@ -30446,7 +31127,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// ObjectMeta.Name.
     /// </summary>
     [OutputType]
-    public sealed class StorageClass {
+    public sealed class StorageClass
+    {
       /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
         /// </summary>
@@ -30543,7 +31225,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// StorageClassList is a collection of storage classes.
     /// </summary>
     [OutputType]
-    public sealed class StorageClassList {
+    public sealed class StorageClassList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30592,7 +31275,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachment {
+    public sealed class VolumeAttachment
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30647,7 +31331,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentList {
+    public sealed class VolumeAttachmentList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30695,7 +31380,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// volumes in pods. Exactly one member can be set.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentSource {
+    public sealed class VolumeAttachmentSource
+    {
       /// <summary>
         /// inlineVolumeSpec contains all the information necessary to attach a persistent volume
         /// defined by a pod's inline VolumeSource. This field is populated only for the
@@ -30724,7 +31410,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentSpec {
+    public sealed class VolumeAttachmentSpec
+    {
       /// <summary>
         /// Attacher indicates the name of the volume driver that MUST handle this request. This is
         /// the name returned by GetPluginName().
@@ -30757,7 +31444,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentStatus {
+    public sealed class VolumeAttachmentStatus
+    {
       /// <summary>
         /// The last error encountered during attach operation, if any. This field must only be set
         /// by the entity completing the attach operation, i.e. the external-attacher.
@@ -30802,7 +31490,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
     [OutputType]
-    public sealed class VolumeError {
+    public sealed class VolumeError
+    {
       /// <summary>
         /// String detailing the error encountered during Attach or Detach operation. This string
         /// may be logged, so it should not contain sensitive information.
@@ -30826,7 +31515,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     }
   }
 
-  namespace V1Alpha1 {
+  namespace V1Alpha1
+  {
     /// <summary>
     /// VolumeAttachment captures the intent to attach or detach the specified volume to/from the
     /// specified node.
@@ -30834,7 +31524,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachment {
+    public sealed class VolumeAttachment
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30889,7 +31580,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentList {
+    public sealed class VolumeAttachmentList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -30937,7 +31629,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// volumes in pods. Exactly one member can be set.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentSource {
+    public sealed class VolumeAttachmentSource
+    {
       /// <summary>
         /// inlineVolumeSpec contains all the information necessary to attach a persistent volume
         /// defined by a pod's inline VolumeSource. This field is populated only for the
@@ -30966,7 +31659,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentSpec {
+    public sealed class VolumeAttachmentSpec
+    {
       /// <summary>
         /// Attacher indicates the name of the volume driver that MUST handle this request. This is
         /// the name returned by GetPluginName().
@@ -30999,7 +31693,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentStatus {
+    public sealed class VolumeAttachmentStatus
+    {
       /// <summary>
         /// The last error encountered during attach operation, if any. This field must only be set
         /// by the entity completing the attach operation, i.e. the external-attacher.
@@ -31044,7 +31739,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
     [OutputType]
-    public sealed class VolumeError {
+    public sealed class VolumeError
+    {
       /// <summary>
         /// String detailing the error encountered during Attach or Detach operation. This string
         /// maybe logged, so it should not contain sensitive information.
@@ -31068,7 +31764,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     }
   }
 
-  namespace V1Beta1 {
+  namespace V1Beta1
+  {
     /// <summary>
     /// CSIDriver captures information about a Container Storage Interface (CSI) volume driver
     /// deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
@@ -31079,7 +31776,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// objects are non-namespaced.
     /// </summary>
     [OutputType]
-    public sealed class CSIDriver {
+    public sealed class CSIDriver
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31129,7 +31827,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// CSIDriverList is a collection of CSIDriver objects.
     /// </summary>
     [OutputType]
-    public sealed class CSIDriverList {
+    public sealed class CSIDriverList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31175,7 +31874,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// CSIDriverSpec is the specification of a CSIDriver.
     /// </summary>
     [OutputType]
-    public sealed class CSIDriverSpec {
+    public sealed class CSIDriverSpec
+    {
       /// <summary>
         /// attachRequired indicates this CSI volume driver requires an attach operation (because it
         /// implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach
@@ -31246,7 +31946,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// points to the corresponding node object.
     /// </summary>
     [OutputType]
-    public sealed class CSINode {
+    public sealed class CSINode
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31292,7 +31993,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// node
     /// </summary>
     [OutputType]
-    public sealed class CSINodeDriver {
+    public sealed class CSINodeDriver
+    {
       /// <summary>
         /// allocatable represents the volume resources of a node that are available for scheduling.
         /// </summary>
@@ -31345,7 +32047,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// CSINodeList is a collection of CSINode objects.
     /// </summary>
     [OutputType]
-    public sealed class CSINodeList {
+    public sealed class CSINodeList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31391,7 +32094,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
     /// </summary>
     [OutputType]
-    public sealed class CSINodeSpec {
+    public sealed class CSINodeSpec
+    {
       /// <summary>
         /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers
         /// in the list are uninstalled, this can become empty.
@@ -31414,7 +32118,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// ObjectMeta.Name.
     /// </summary>
     [OutputType]
-    public sealed class StorageClass {
+    public sealed class StorageClass
+    {
       /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
         /// </summary>
@@ -31511,7 +32216,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// StorageClassList is a collection of storage classes.
     /// </summary>
     [OutputType]
-    public sealed class StorageClassList {
+    public sealed class StorageClassList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31560,7 +32266,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachment {
+    public sealed class VolumeAttachment
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31615,7 +32322,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentList {
+    public sealed class VolumeAttachmentList
+    {
       /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31663,7 +32371,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// volumes in pods. Exactly one member can be set.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentSource {
+    public sealed class VolumeAttachmentSource
+    {
       /// <summary>
         /// inlineVolumeSpec contains all the information necessary to attach a persistent volume
         /// defined by a pod's inline VolumeSource. This field is populated only for the
@@ -31692,7 +32401,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentSpec {
+    public sealed class VolumeAttachmentSpec
+    {
       /// <summary>
         /// Attacher indicates the name of the volume driver that MUST handle this request. This is
         /// the name returned by GetPluginName().
@@ -31725,7 +32435,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
     [OutputType]
-    public sealed class VolumeAttachmentStatus {
+    public sealed class VolumeAttachmentStatus
+    {
       /// <summary>
         /// The last error encountered during attach operation, if any. This field must only be set
         /// by the entity completing the attach operation, i.e. the external-attacher.
@@ -31770,7 +32481,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
     [OutputType]
-    public sealed class VolumeError {
+    public sealed class VolumeError
+    {
       /// <summary>
         /// String detailing the error encountered during Attach or Detach operation. This string
         /// may be logged, so it should not contain sensitive information.
@@ -31796,7 +32508,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
     /// VolumeNodeResources is a set of resource limits for scheduling of volumes.
     /// </summary>
     [OutputType]
-    public sealed class VolumeNodeResources {
+    public sealed class VolumeNodeResources
+    {
       /// <summary>
         /// Maximum number of unique volumes managed by the CSI driver that can be used on a node. A
         /// volume that is both attached and mounted on a node is considered to be used once, not

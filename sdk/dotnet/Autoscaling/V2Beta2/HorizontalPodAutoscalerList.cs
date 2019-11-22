@@ -5,11 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
+namespace Pulumi.Kubernetes.Autoscaling.V2Beta2
+{
     /// <summary>
     /// HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
     /// </summary>
-    public partial class HorizontalPodAutoscalerList : Pulumi.CustomResource {
+    public partial class HorizontalPodAutoscalerList : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -44,7 +46,6 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
         /// <summary>
         /// Create a HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -53,12 +54,13 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerListArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerListArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "autoscaling/v2beta2";
                 args.Kind = "HorizontalPodAutoscalerList";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -75,7 +77,6 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
         /// <summary>
         /// Get an existing HorizontalPodAutoscalerList resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

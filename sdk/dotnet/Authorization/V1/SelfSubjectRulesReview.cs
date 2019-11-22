@@ -5,7 +5,8 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Authorization.V1 {
+namespace Pulumi.Kubernetes.Authorization.V1
+{
     /// <summary>
     /// SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
     /// namespace. The returned list of actions may be incomplete depending on the server's
@@ -16,7 +17,8 @@ namespace Pulumi.Kubernetes.Authorization.V1 {
     /// SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization
     /// decisions to the API server.
     /// </summary>
-    public partial class SelfSubjectRulesReview : Pulumi.CustomResource {
+    public partial class SelfSubjectRulesReview : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -55,7 +57,6 @@ namespace Pulumi.Kubernetes.Authorization.V1 {
         /// <summary>
         /// Create a SelfSubjectRulesReview resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -64,12 +65,13 @@ namespace Pulumi.Kubernetes.Authorization.V1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authorization.V1.SelfSubjectRulesReviewArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Authorization.V1.SelfSubjectRulesReviewArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "authorization.k8s.io/v1";
                 args.Kind = "SelfSubjectRulesReview";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -86,7 +88,6 @@ namespace Pulumi.Kubernetes.Authorization.V1 {
         /// <summary>
         /// Get an existing SelfSubjectRulesReview resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

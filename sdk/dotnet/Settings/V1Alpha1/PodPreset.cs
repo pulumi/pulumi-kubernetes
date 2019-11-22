@@ -5,11 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
+namespace Pulumi.Kubernetes.Settings.V1Alpha1
+{
     /// <summary>
     /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
     /// </summary>
-    public partial class PodPreset : Pulumi.CustomResource {
+    public partial class PodPreset : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -40,7 +42,6 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
         /// <summary>
         /// Create a PodPreset resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -49,12 +50,13 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Settings.V1Alpha1.PodPresetArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Settings.V1Alpha1.PodPresetArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "settings.k8s.io/v1alpha1";
                 args.Kind = "PodPreset";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -71,7 +73,6 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
         /// <summary>
         /// Get an existing PodPreset resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

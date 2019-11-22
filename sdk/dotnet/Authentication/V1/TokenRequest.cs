@@ -5,11 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Authentication.V1 {
+namespace Pulumi.Kubernetes.Authentication.V1
+{
     /// <summary>
     /// TokenRequest requests a token for a given service account.
     /// </summary>
-    public partial class TokenRequest : Pulumi.CustomResource {
+    public partial class TokenRequest : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -44,7 +46,6 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         /// <summary>
         /// Create a TokenRequest resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -53,12 +54,13 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Authentication.V1.TokenRequestArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Authentication.V1.TokenRequestArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "authentication.k8s.io/v1";
                 args.Kind = "TokenRequest";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -75,7 +77,6 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         /// <summary>
         /// Get an existing TokenRequest resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

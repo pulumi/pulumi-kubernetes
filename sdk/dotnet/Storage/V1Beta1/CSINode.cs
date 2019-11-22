@@ -5,7 +5,8 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Storage.V1Beta1 {
+namespace Pulumi.Kubernetes.Storage.V1Beta1
+{
     /// <summary>
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
@@ -15,7 +16,8 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
     /// version is low enough that it doesn't create this object. CSINode has an OwnerReference that
     /// points to the corresponding node object.
     /// </summary>
-    public partial class CSINode : Pulumi.CustomResource {
+    public partial class CSINode : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -50,7 +52,6 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <summary>
         /// Create a CSINode resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -59,12 +60,13 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSINodeArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSINodeArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "storage.k8s.io/v1beta1";
                 args.Kind = "CSINode";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -81,7 +83,6 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <summary>
         /// Get an existing CSINode resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

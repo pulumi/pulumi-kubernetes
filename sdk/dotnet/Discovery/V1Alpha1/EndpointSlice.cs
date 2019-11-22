@@ -5,13 +5,15 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
+namespace Pulumi.Kubernetes.Discovery.V1Alpha1
+{
     /// <summary>
     /// EndpointSlice represents a subset of the endpoints that implement a service. For a given
     /// service there may be multiple EndpointSlice objects, selected by labels, which must be
     /// joined to produce the full set of endpoints.
     /// </summary>
-    public partial class EndpointSlice : Pulumi.CustomResource {
+    public partial class EndpointSlice : Pulumi.CustomResource
+    {
         /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses
         /// in this slice must be the same type. Default is IP
@@ -63,7 +65,6 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// <summary>
         /// Create a EndpointSlice resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -72,12 +73,13 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Discovery.V1Alpha1.EndpointSliceArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Discovery.V1Alpha1.EndpointSliceArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "discovery.k8s.io/v1alpha1";
                 args.Kind = "EndpointSlice";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -94,7 +96,6 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// <summary>
         /// Get an existing EndpointSlice resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

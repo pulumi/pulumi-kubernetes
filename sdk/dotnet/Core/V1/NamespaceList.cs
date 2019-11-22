@@ -5,11 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Core.V1 {
+namespace Pulumi.Kubernetes.Core.V1
+{
     /// <summary>
     /// NamespaceList is a list of Namespaces.
     /// </summary>
-    public partial class NamespaceList : Pulumi.CustomResource {
+    public partial class NamespaceList : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -46,7 +48,6 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <summary>
         /// Create a NamespaceList resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -55,12 +56,13 @@ namespace Pulumi.Kubernetes.Core.V1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Core.V1.NamespaceListArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Core.V1.NamespaceListArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "v1";
                 args.Kind = "NamespaceList";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -77,7 +79,6 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <summary>
         /// Get an existing NamespaceList resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

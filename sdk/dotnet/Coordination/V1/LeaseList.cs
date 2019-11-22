@@ -5,11 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Coordination.V1 {
+namespace Pulumi.Kubernetes.Coordination.V1
+{
     /// <summary>
     /// LeaseList is a list of Lease objects.
     /// </summary>
-    public partial class LeaseList : Pulumi.CustomResource {
+    public partial class LeaseList : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -45,7 +47,6 @@ namespace Pulumi.Kubernetes.Coordination.V1 {
         /// <summary>
         /// Create a LeaseList resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -54,12 +55,13 @@ namespace Pulumi.Kubernetes.Coordination.V1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.Coordination.V1.LeaseListArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Coordination.V1.LeaseListArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "coordination.k8s.io/v1";
                 args.Kind = "LeaseList";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -76,7 +78,6 @@ namespace Pulumi.Kubernetes.Coordination.V1 {
         /// <summary>
         /// Get an existing LeaseList resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

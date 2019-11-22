@@ -5,11 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1 {
+namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
+{
     /// <summary>
     /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
     /// </summary>
-    public partial class APIService : Pulumi.CustomResource {
+    public partial class APIService : Pulumi.CustomResource
+    {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -48,7 +50,6 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1 {
         /// <summary>
         /// Create a APIService resource with the given unique name, arguments, and options.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
@@ -57,12 +58,13 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1 {
         {
         }
 
-        private static ResourceArgs? SetAPIKindAndVersion(Types.Inputs.ApiRegistration.V1Beta1.APIServiceArgs? args) {
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.ApiRegistration.V1Beta1.APIServiceArgs? args)
+        {
             if (args != null) {
                 args.ApiVersion = "apiregistration.k8s.io/v1beta1";
                 args.Kind = "APIService";
             }
-            return args;
+            return args ?? ResourceArgs.Empty;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
@@ -79,7 +81,6 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1 {
         /// <summary>
         /// Get an existing APIService resource's state with the given name and ID.
         /// </summary>
-        ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>

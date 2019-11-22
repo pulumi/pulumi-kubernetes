@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 
 {{#Groups}}
-namespace Pulumi.Kubernetes.Types.Inputs.{{Group}} {
+namespace Pulumi.Kubernetes.Types.Inputs.{{Group}}
+{
   {{#Versions}}
-  namespace {{Version}} {
+  namespace {{Version}}
+  {
     {{#Kinds}}
     /// <summary>
     /// {{{Comment}}}
     /// </summary>
-    public class {{Kind}}Args : Pulumi.ResourceArgs {
+    public class {{Kind}}Args : Pulumi.ResourceArgs
+    {
         {{#RequiredInputProperties}}
         {{#DotnetIsListOrMap}}
         [Input("{{Name}}", required: true)]
