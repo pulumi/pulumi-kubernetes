@@ -1903,12 +1903,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         }
 
         [Input("dependencies")]
-        private InputMap<Union<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>>? _dependencies;
+        private InputMap<Union<ApiExtensions.V1.JSONSchemaPropsArgs,InputList<string>>>? _dependencies;
 
         
-        public InputMap<Union<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>> Dependencies
+        public InputMap<Union<ApiExtensions.V1.JSONSchemaPropsArgs,InputList<string>>> Dependencies
         {
-            get => _dependencies ?? (_dependencies = new InputMap<Union<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>>());
+            get => _dependencies ?? (_dependencies = new InputMap<Union<ApiExtensions.V1.JSONSchemaPropsArgs,InputList<string>>>());
             set => _dependencies = value;
         }
 
@@ -1952,7 +1952,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         
         [Input("items")]
-        public InputUnion<ApiExtensions.V1.JSONSchemaPropsArgs,string[]>? Items { get; set; }
+        public InputUnion<ApiExtensions.V1.JSONSchemaPropsArgs,InputList<string>>? Items { get; set; }
 
         
         [Input("maxItems")]
@@ -2858,12 +2858,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         }
 
         [Input("dependencies")]
-        private InputMap<Union<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>>? _dependencies;
+        private InputMap<Union<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,InputList<string>>>? _dependencies;
 
         
-        public InputMap<Union<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>> Dependencies
+        public InputMap<Union<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,InputList<string>>> Dependencies
         {
-            get => _dependencies ?? (_dependencies = new InputMap<Union<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>>());
+            get => _dependencies ?? (_dependencies = new InputMap<Union<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,InputList<string>>>());
             set => _dependencies = value;
         }
 
@@ -2907,7 +2907,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         
         [Input("items")]
-        public InputUnion<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,string[]>? Items { get; set; }
+        public InputUnion<ApiExtensions.V1Beta1.JSONSchemaPropsArgs,InputList<string>>? Items { get; set; }
 
         
         [Input("maxItems")]

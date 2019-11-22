@@ -2011,7 +2011,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly ImmutableDictionary<string, ApiExtensions.V1.JSONSchemaProps> Definitions;
 
       
-      public readonly ImmutableDictionary<string, Union<ApiExtensions.V1.JSONSchemaProps,string[]>> Dependencies;
+      public readonly ImmutableDictionary<string, Union<ApiExtensions.V1.JSONSchemaProps,ImmutableArray<string>>> Dependencies;
 
       
       public readonly string Description;
@@ -2038,7 +2038,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly string Id;
 
       
-      public readonly Union<ApiExtensions.V1.JSONSchemaProps,string[]> Items;
+      public readonly Union<ApiExtensions.V1.JSONSchemaProps,ImmutableArray<string>> Items;
 
       
       public readonly int MaxItems;
@@ -2169,7 +2169,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ImmutableArray<ApiExtensions.V1.JSONSchemaProps> @anyOf,
           string @default,
           ImmutableDictionary<string, ApiExtensions.V1.JSONSchemaProps> @definitions,
-          ImmutableDictionary<string, Union<ApiExtensions.V1.JSONSchemaProps,string[]>> @dependencies,
+          ImmutableDictionary<string, Union<ApiExtensions.V1.JSONSchemaProps,ImmutableArray<string>>> @dependencies,
           string @description,
           ImmutableArray<string> @enum,
           string @example,
@@ -2178,7 +2178,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ApiExtensions.V1.ExternalDocumentation @externalDocs,
           string @format,
           string @id,
-          Union<ApiExtensions.V1.JSONSchemaProps,string[]> @items,
+          Union<ApiExtensions.V1.JSONSchemaProps,ImmutableArray<string>> @items,
           int @maxItems,
           int @maxLength,
           int @maxProperties,
@@ -3053,7 +3053,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly ImmutableDictionary<string, ApiExtensions.V1Beta1.JSONSchemaProps> Definitions;
 
       
-      public readonly ImmutableDictionary<string, Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]>> Dependencies;
+      public readonly ImmutableDictionary<string, Union<ApiExtensions.V1Beta1.JSONSchemaProps,ImmutableArray<string>>> Dependencies;
 
       
       public readonly string Description;
@@ -3080,7 +3080,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly string Id;
 
       
-      public readonly Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]> Items;
+      public readonly Union<ApiExtensions.V1Beta1.JSONSchemaProps,ImmutableArray<string>> Items;
 
       
       public readonly int MaxItems;
@@ -3211,7 +3211,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> @anyOf,
           string @default,
           ImmutableDictionary<string, ApiExtensions.V1Beta1.JSONSchemaProps> @definitions,
-          ImmutableDictionary<string, Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]>> @dependencies,
+          ImmutableDictionary<string, Union<ApiExtensions.V1Beta1.JSONSchemaProps,ImmutableArray<string>>> @dependencies,
           string @description,
           ImmutableArray<string> @enum,
           string @example,
@@ -3220,7 +3220,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           ApiExtensions.V1Beta1.ExternalDocumentation @externalDocs,
           string @format,
           string @id,
-          Union<ApiExtensions.V1Beta1.JSONSchemaProps,string[]> @items,
+          Union<ApiExtensions.V1Beta1.JSONSchemaProps,ImmutableArray<string>> @items,
           int @maxItems,
           int @maxLength,
           int @maxProperties,

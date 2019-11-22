@@ -669,9 +669,20 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	}
 
 	ref := stripPrefix(prop["$ref"].(string))
-	argsSuffix := ""
-	if opts.generatorType == inputsAPI {
+	var argsSuffix string
+	var stringArr string
+	switch opts.generatorType {
+	case inputsAPI:
 		argsSuffix = "Args"
+		stringArr = "InputList<string>"
+	case outputsAPI:
+		argsSuffix = ""
+		stringArr = "ImmutableArray<string>"
+	case provider:
+		argsSuffix = ""
+		stringArr = "string[]"
+	default:
+		panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
 	}
 
 	isSimpleRef := true
@@ -690,9 +701,9 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case v1JSONSchemaPropsOrBool:
 		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "bool")
 	case v1beta1JSONSchemaPropsOrArray, v1beta1JSONSchemaPropsOrStringArray:
-		return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "string[]")
+		return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, stringArr)
 	case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
-		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "string[]")
+		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, stringArr)
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
 		// TODO: This is quite possibly wrong - these are actually JSON objects
 		ref = "string"
