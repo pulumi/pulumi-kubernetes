@@ -81,7 +81,8 @@ install::
 		(yarn unlink > /dev/null 2>&1 || true) && \
 		yarn link
 	echo "Copying ${NUGET_PKG_NAME} NuGet packages to ${PULUMI_NUGET}"
-	[ ! -e "$(PULUMI_NUGET)" ] || rm -rf "$(PULUMI_NUGET)/$(NUGET_PKG_NAME).*.nupkg"
+	mkdir -p $(PULUMI_NUGET)
+	rm -rf "$(PULUMI_NUGET)/$(NUGET_PKG_NAME).*.nupkg"
 	find . -name '$(NUGET_PKG_NAME).*.nupkg'
 	find . -name '$(NUGET_PKG_NAME).*.nupkg' -exec cp -p {} ${PULUMI_NUGET} \;
 	ls -la ${PULUMI_NUGET}
