@@ -692,7 +692,8 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case intOrString:
 		return oneOf("int", "string")
 	case v1Fields, v1FieldsV1, rawExtension:
-		// TODO: This is quite possibly wrong - these are actually JSON objects
+		// TODO[pulumi/kubernetes#889]: These are actually JSON objects, but cannot project that
+		// correctly in .NET currently.
 		ref = "string"
 	case v1Time, v1MicroTime:
 		ref = "string"
@@ -705,7 +706,8 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
 		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, stringArr)
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
-		// TODO: This is quite possibly wrong - these are actually JSON objects
+		// TODO[pulumi/kubernetes#889]: These are actually JSON objects, but cannot project that
+		// correctly in .NET currently.
 		ref = "string"
 	default:
 		isSimpleRef = false
