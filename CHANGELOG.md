@@ -6,6 +6,10 @@
 - v1.15.x
 - v1.14.x
 
+### Improvements
+
+-   Add support for .NET. (https://github.com/pulumi/pulumi-kubernetes/pull/885)
+
 ## 1.3.1 (November 18, 2019)
 
 ### Supported Kubernetes versions

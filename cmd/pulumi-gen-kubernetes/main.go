@@ -51,6 +51,8 @@ func main() {
 		writeNodeJSClient(data, outdir, templateDir)
 	case "python":
 		writePythonClient(data, outdir, templateDir)
+	case "dotnet":
+		writeDotnetClient(data, outdir, templateDir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -212,6 +214,67 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(sdkDir, "README.md"))
+	if err != nil {
+		panic(err)
+	}
+}
+
+func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) {
+
+	inputAPIcs, ouputAPIcs, kindsCs, err := gen.DotnetClient(data, templateDir)
+	if err != nil {
+		panic(err)
+	}
+
+	err = os.MkdirAll(outdir, 0700)
+	if err != nil {
+		panic(err)
+	}
+
+	typesDir := fmt.Sprintf("%s/Types", outdir)
+	err = os.MkdirAll(typesDir, 0700)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("%s/Input.cs", typesDir), []byte(inputAPIcs), 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("%s/Output.cs", typesDir), []byte(ouputAPIcs), 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	for path, contents := range kindsCs {
+		filename := filepath.Join(outdir, path)
+		err := os.MkdirAll(filepath.Dir(filename), 0700)
+		if err != nil {
+			panic(err)
+		}
+		err = ioutil.WriteFile(filename, []byte(contents), 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
+	if err != nil {
+		panic(err)
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "Utilities.cs"), filepath.Join(outdir, "Utilities.cs"))
+	if err != nil {
+		panic(err)
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "logo.png"), filepath.Join(outdir, "logo.png"))
+	if err != nil {
+		panic(err)
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(outdir, "Pulumi.Kubernetes.csproj"))
 	if err != nil {
 		panic(err)
 	}

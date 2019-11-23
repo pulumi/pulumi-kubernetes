@@ -205,6 +205,9 @@ type Property struct {
 	propType                  string
 	pythonConstructorPropType string
 	defaultValue              string
+	isLast                    bool
+	dotnetVarName             string
+	dotnetIsListOrMap         bool
 }
 
 // Name returns the name of the property.
@@ -229,6 +232,15 @@ func (p *Property) PythonConstructorPropType() string { return p.pythonConstruct
 
 // DefaultValue returns the type of the property.
 func (p *Property) DefaultValue() string { return p.defaultValue }
+
+// IsLast returns whether the property is the last in the list of properties.
+func (p *Property) IsLast() bool { return p.isLast }
+
+// DotnetVarName returns a variable name safe to use in .NET (e.g. `@namespace` instead of `namespace`)
+func (p *Property) DotnetVarName() string { return p.dotnetVarName }
+
+// DotnetIsListOrMap returns whether the property type is a List or map
+func (p *Property) DotnetIsListOrMap() bool { return p.dotnetIsListOrMap }
 
 // --------------------------------------------------------------------------
 
@@ -262,7 +274,7 @@ func replaceDeprecationComment(comment string, gvk schema.GroupVersionKind, lang
 	case typescript:
 		prefix = "@deprecated "
 		replacement = prefix + ApiVersionComment(gvk)
-	case python:
+	case python, dotnet:
 		prefix = "DEPRECATED - "
 		replacement = prefix + ApiVersionComment(gvk)
 	default:
@@ -316,6 +328,22 @@ func fmtComment(
 			}
 			return joined
 		}
+	case dotnet:
+		wrapParagraph = func(paragraph string) []string {
+			escaped := strings.Replace(paragraph, "<", "&lt;", -1)
+			escaped = strings.Replace(escaped, ">", "&gt;", -1)
+			escaped = strings.Replace(escaped, "&", "&amp;", -1)
+			borderLen := len(prefix + "/// ")
+			wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
+			return strings.Split(wrapped, "\n")
+		}
+		renderComment = func(lines []string) string {
+			joined := strings.Join(lines, fmt.Sprintf("\n%s/// ", prefix))
+			if !bareRender {
+				return fmt.Sprintf("/// <summary>\n%s/// %s\n%s/// </summary>", prefix, joined, prefix)
+			}
+			return joined
+		}
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 	}
@@ -346,23 +374,25 @@ func fmtComment(
 }
 
 const (
-	apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
-	apiextensionsV1               = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1"
-	quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
-	rawExtension                  = "io.k8s.apimachinery.pkg.runtime.RawExtension"
-	intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
-	v1Fields                      = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
-	v1FieldsV1                    = "io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1"
-	v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-	v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
-	v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
-	v1beta1JSONSchemaPropsOrArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
-	v1beta1JSON                   = apiextensionsV1beta1 + ".JSON"
-	v1beta1CRSubresourceStatus    = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
-	v1JSONSchemaPropsOrBool       = apiextensionsV1 + ".JSONSchemaPropsOrBool"
-	v1JSONSchemaPropsOrArray      = apiextensionsV1 + ".JSONSchemaPropsOrArray"
-	v1JSON                        = apiextensionsV1 + ".JSON"
-	v1CRSubresourceStatus         = apiextensionsV1 + ".CustomResourceSubresourceStatus"
+	apiextensionsV1beta1                = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
+	apiextensionsV1                     = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1"
+	quantity                            = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+	rawExtension                        = "io.k8s.apimachinery.pkg.runtime.RawExtension"
+	intOrString                         = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+	v1Fields                            = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
+	v1FieldsV1                          = "io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1"
+	v1Time                              = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+	v1MicroTime                         = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+	v1beta1JSONSchemaPropsOrBool        = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
+	v1beta1JSONSchemaPropsOrArray       = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
+	v1beta1JSONSchemaPropsOrStringArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrStringArray"
+	v1beta1JSON                         = apiextensionsV1beta1 + ".JSON"
+	v1beta1CRSubresourceStatus          = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
+	v1JSONSchemaPropsOrBool             = apiextensionsV1 + ".JSONSchemaPropsOrBool"
+	v1JSONSchemaPropsOrArray            = apiextensionsV1 + ".JSONSchemaPropsOrArray"
+	v1JSONSchemaPropsOrStringArray      = apiextensionsV1 + ".JSONSchemaPropsOrStringArray"
+	v1JSON                              = apiextensionsV1 + ".JSON"
+	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
 func makeTypescriptType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
@@ -530,14 +560,191 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(ref)
 }
 
+func makeDotnetType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+
+	refPrefix := ""
+	if opts.generatorType == provider {
+		refPrefix = "Types.Outputs"
+	}
+
+	wrapType := func(typ string) string {
+		if opts.forceNoWrap {
+			return typ
+		}
+		switch opts.generatorType {
+		case provider:
+			return fmt.Sprintf("Output<%s>", typ)
+		case outputsAPI:
+			return typ
+		case inputsAPI:
+			return fmt.Sprintf("Input<%s>", typ)
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		}
+	}
+
+	oneOf := func(typeA string, typeB string) string {
+		if opts.forceNoWrap {
+			return fmt.Sprintf("Union<%s,%s>", typeA, typeB)
+		}
+		switch opts.generatorType {
+		case provider:
+			return fmt.Sprintf("Output<Union<%s,%s>>", typeA, typeB)
+		case outputsAPI:
+			return fmt.Sprintf("Union<%s,%s>", typeA, typeB)
+		case inputsAPI:
+			return fmt.Sprintf("InputUnion<%s,%s>", typeA, typeB)
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		}
+	}
+
+	if t, exists := prop["type"]; exists {
+		tstr := t.(string)
+		if tstr == "array" {
+			switch opts.generatorType {
+			case provider:
+				elemType := makeDotnetType(
+					resourceType, propName, prop["items"].(map[string]interface{}), opts)
+				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
+			case outputsAPI:
+				elemType := makeDotnetType(
+					resourceType, propName, prop["items"].(map[string]interface{}), opts)
+				return fmt.Sprintf("ImmutableArray<%s>", elemType)
+			case inputsAPI:
+				elemOpts := opts
+				elemOpts.forceNoWrap = true
+				elemType := makeDotnetType(
+					resourceType, propName, prop["items"].(map[string]interface{}), elemOpts)
+				return fmt.Sprintf("InputList<%s>", elemType)
+			}
+		} else if tstr == "integer" {
+			return wrapType("int")
+		} else if tstr == "boolean" {
+			return wrapType("bool")
+		} else if tstr == "number" {
+			return wrapType("double")
+		} else if tstr == "object" {
+			vtype := "string"
+			if additionalProperties, exists := prop["additionalProperties"]; exists {
+				switch opts.generatorType {
+				case provider:
+					elemOpts := opts
+					elemOpts.forceNoWrap = true
+					vtype = makeDotnetType(
+						resourceType, propName, additionalProperties.(map[string]interface{}), elemOpts)
+				case outputsAPI:
+					vtype = makeDotnetType(
+						resourceType, propName, additionalProperties.(map[string]interface{}), opts)
+				case inputsAPI:
+					elemOpts := opts
+					elemOpts.forceNoWrap = true
+					vtype = makeDotnetType(
+						resourceType, propName, additionalProperties.(map[string]interface{}), elemOpts)
+				}
+			}
+			switch opts.generatorType {
+			case inputsAPI:
+				return fmt.Sprintf("InputMap<%s>", vtype)
+			case outputsAPI:
+				return fmt.Sprintf("ImmutableDictionary<string, %s>", vtype)
+			case provider:
+				return fmt.Sprintf("Output<ImmutableDictionary<string, %s>>", vtype)
+			}
+		} else if tstr == "string" && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
+			// Special case: `.metadata.namespace` should either take a string or a namespace object
+			// itself.
+
+			switch opts.generatorType {
+			case inputsAPI:
+				// TODO: Enable metadata to take explicit namespaces, like:
+				// return "pulumi.Input<string> | Namespace"
+				return "Input<string>"
+			case outputsAPI:
+				return "string"
+			}
+		}
+
+		return wrapType(tstr)
+	}
+
+	ref := stripPrefix(prop["$ref"].(string))
+	var argsSuffix string
+	var stringArr string
+	switch opts.generatorType {
+	case inputsAPI:
+		argsSuffix = "Args"
+		stringArr = "InputList<string>"
+	case outputsAPI:
+		argsSuffix = ""
+		stringArr = "ImmutableArray<string>"
+	case provider:
+		argsSuffix = ""
+		stringArr = "string[]"
+	default:
+		panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+	}
+
+	isSimpleRef := true
+	switch ref {
+	case quantity:
+		ref = "string"
+	case intOrString:
+		return oneOf("int", "string")
+	case v1Fields, v1FieldsV1, rawExtension:
+		// TODO[pulumi/kubernetes#889]: These are actually JSON objects, but cannot project that
+		// correctly in .NET currently.
+		ref = "string"
+	case v1Time, v1MicroTime:
+		ref = "string"
+	case v1beta1JSONSchemaPropsOrBool:
+		return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "bool")
+	case v1JSONSchemaPropsOrBool:
+		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "bool")
+	case v1beta1JSONSchemaPropsOrArray, v1beta1JSONSchemaPropsOrStringArray:
+		return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, stringArr)
+	case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
+		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, stringArr)
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+		// TODO[pulumi/kubernetes#889]: These are actually JSON objects, but cannot project that
+		// correctly in .NET currently.
+		ref = "string"
+	default:
+		isSimpleRef = false
+	}
+
+	if isSimpleRef {
+		return wrapType(ref)
+	}
+
+	gvk := gvkFromRef(ref)
+	group := pascalCase(gvk.Group)
+	version := pascalCase(gvk.Version)
+	kind := gvk.Kind
+	if opts.generatorType == inputsAPI {
+		kind = kind + "Args"
+	}
+
+	var gvkRefStr string
+	if refPrefix == "" {
+		gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, kind)
+	} else {
+		gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, kind)
+	}
+
+	return wrapType(gvkRefStr)
+}
+
 func makeType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
 	switch opts.language {
 	case typescript:
 		return makeTypescriptType(resourceType, propName, prop, opts)
 	case python:
 		return makePythonType(resourceType, propName, prop, opts)
+	case dotnet:
+		return makeDotnetType(resourceType, propName, prop, opts)
 	default:
-		panic("Unrecognized generator type")
+		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 	}
 }
 
@@ -601,11 +808,13 @@ type language string
 const (
 	python     = "python"
 	typescript = "typescript"
+	dotnet     = "dotnet"
 )
 
 type groupOpts struct {
 	generatorType gentype
 	language      language
+	forceNoWrap   bool
 }
 
 func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: typescript} }
@@ -613,6 +822,10 @@ func nodeJSOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, la
 func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider, language: typescript} }
 
 func pythonProvider() groupOpts { return groupOpts{generatorType: provider, language: python} }
+
+func dotnetInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: dotnet} }
+func dotnetOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, language: dotnet} }
+func dotnetProvider() groupOpts { return groupOpts{generatorType: provider, language: dotnet} }
 
 func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
@@ -718,7 +931,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				WhereT(func(kv linq.KeyValue) bool {
 					propName := kv.Key.(string)
-					if opts.language == python && (propName == "apiVersion" || propName == "kind") {
+					if (opts.language == python) && (propName == "apiVersion" || propName == "kind") {
 						return false
 					}
 					return true
@@ -729,6 +942,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 
 					var prefix string
 					var t, pyConstructorT string
+					isListOrMap := false
 					switch opts.language {
 					case typescript:
 						prefix = "      "
@@ -738,6 +952,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						t = makeType(d.name, propName, prop, opts)
 						pyConstructorT = makeType(d.name, propName, prop,
 							groupOpts{language: python, generatorType: inputsAPI})
+					case dotnet:
+						prefix = "        "
+						t = makeType(d.name, propName, prop, opts)
+						if strings.HasPrefix(t, "InputList") || strings.HasPrefix(t, "InputMap") {
+							isListOrMap = true
+						}
+					default:
+						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
 
 					// `-` is invalid in TS variable names, so replace with `_`
@@ -748,7 +970,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					switch propName {
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
-						if isTopLevel {
+						if opts.language == typescript && isTopLevel {
 							switch opts.generatorType {
 							case provider:
 								t = fmt.Sprintf(`pulumi.Output<"%s">`, defaultGroupVersion)
@@ -760,7 +982,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						}
 					case "kind":
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
-						if isTopLevel {
+						if opts.language == typescript && isTopLevel {
 							switch opts.generatorType {
 							case provider:
 								t = fmt.Sprintf(`pulumi.Output<"%s">`, d.gvk.Kind)
@@ -772,20 +994,50 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						}
 					}
 
+					var languageName string
+					var dotnetVarName string
+					switch opts.language {
+					case typescript:
+						languageName = propName
+					case python:
+						languageName = pycodegen.PyName(propName)
+					case dotnet:
+						name := propName
+						if name[0] == '$' {
+							// $ref and $schema are property names that we want to special case into
+							// just Ref and Schema.
+							name = name[1:]
+						}
+						languageName = strings.ToUpper(name[:1]) + name[1:]
+						if languageName == d.gvk.Kind {
+							// .NET does not allow properties to be the same as the enclosing class - so special case these
+							languageName = languageName + "Value"
+						}
+						dotnetVarName = "@" + name
+					default:
+						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
+					}
+
 					return &Property{
 						comment:                   fmtComment(prop["description"], prefix, false, opts, d.gvk),
 						pythonConstructorComment:  fmtComment(prop["description"], prefix+prefix+"       ", true, opts, d.gvk),
 						propType:                  t,
 						pythonConstructorPropType: pyConstructorT,
 						name:                      propName,
-						languageName:              pycodegen.PyName(propName),
+						languageName:              languageName,
+						dotnetVarName:             dotnetVarName,
 						defaultValue:              defaultValue,
+						isLast:                    false,
+						dotnetIsListOrMap:         isListOrMap,
 					}
 				})
 
 			// All properties.
 			properties := []*Property{}
 			ps.ToSlice(&properties)
+			if len(properties) > 0 {
+				properties[len(properties)-1].isLast = true
+			}
 
 			// Required properties.
 			reqdProps := sets.NewString()
@@ -827,14 +1079,13 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
-			prefix := "    "
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
 					comment:                 fmtComment(d.data["description"], "    ", true, opts, d.gvk),
-					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), prefix, true, opts, d.gvk),
+					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), "    ", true, opts, d.gvk),
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,
@@ -869,9 +1120,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				return linq.From([]*VersionConfig{})
 			}
 
+			version := gv.Version
+			if opts.language == dotnet {
+				version = pascalCase(version)
+			}
+
 			return linq.From([]*VersionConfig{
 				{
-					version:       gv.Version,
+					version:       version,
 					kinds:         kindsGroup,
 					gv:            &gv,
 					apiVersion:    kindsGroup[0].apiVersion,    // NOTE: This is safe.
@@ -898,9 +1154,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				return linq.From([]*GroupConfig{})
 			}
 
+			group := versions.Key.(string)
+			if opts.language == dotnet {
+				group = pascalCase(group)
+			}
+
 			return linq.From([]*GroupConfig{
 				{
-					group:    versions.Key.(string),
+					group:    group,
 					versions: versionsGroup,
 				},
 			})

@@ -3,9 +3,6 @@ module github.com/pulumi/pulumi-kubernetes
 go 1.12
 
 require (
-	github.com/Azure/go-autorest/autorest/azure/auth v0.1.0 // indirect
-	github.com/Azure/go-autorest/autorest/to v0.2.0 // indirect
-	github.com/Azure/go-autorest/autorest/validation v0.1.0 // indirect
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/cbroglie/mustache v1.0.1
 	github.com/docker/docker v1.13.1 // indirect
@@ -17,10 +14,9 @@ require (
 	github.com/jinzhu/copier v0.0.0-20180308034124-7e38e58719c3
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.8.1
-	github.com/pulumi/pulumi v1.4.2-0.20191105213231-1fe3f0f46eb6
+	github.com/pulumi/pulumi v1.5.2-0.20191119200129-f9085bf79966
 	github.com/stretchr/testify v1.3.0
-	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
-	google.golang.org/grpc v1.20.1
+	google.golang.org/grpc v1.21.1
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	k8s.io/api v0.0.0-20190918155943-95b840bb6a1f
 	k8s.io/apimachinery v0.0.0-20190913080033-27d36303b655
