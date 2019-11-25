@@ -671,16 +671,20 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	ref := stripPrefix(prop["$ref"].(string))
 	var argsSuffix string
 	var stringArr string
+	var jsonType string
 	switch opts.generatorType {
 	case inputsAPI:
 		argsSuffix = "Args"
 		stringArr = "InputList<string>"
+		jsonType = "InputJson"
 	case outputsAPI:
 		argsSuffix = ""
 		stringArr = "ImmutableArray<string>"
+		jsonType = "System.Text.Json.JsonElement"
 	case provider:
 		argsSuffix = ""
 		stringArr = "string[]"
+		jsonType = "Output<System.Text.Json.JsonElement>"
 	default:
 		panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
 	}
@@ -692,9 +696,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case intOrString:
 		return oneOf("int", "string")
 	case v1Fields, v1FieldsV1, rawExtension:
-		// TODO[pulumi/kubernetes#889]: These are actually JSON objects, but cannot project that
-		// correctly in .NET currently.
-		ref = "string"
+		return jsonType
 	case v1Time, v1MicroTime:
 		ref = "string"
 	case v1beta1JSONSchemaPropsOrBool:
@@ -706,9 +708,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
 		return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, stringArr)
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
-		// TODO[pulumi/kubernetes#889]: These are actually JSON objects, but cannot project that
-		// correctly in .NET currently.
-		ref = "string"
+		return jsonType
 	default:
 		isSimpleRef = false
 	}

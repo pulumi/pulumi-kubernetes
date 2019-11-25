@@ -3,9 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Pulumi;
 using Pulumi.Kubernetes.Core.V1;
+using Pulumi.Kubernetes.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
@@ -15,7 +17,7 @@ class Program
 {
     static Task<int> Main(string[] args)
     {
-        return Deployment.RunAsync(() =>
+        return Pulumi.Deployment.RunAsync(() =>
         {
 
             var pod = new Pod("pod", new PodArgs
@@ -31,6 +33,13 @@ class Program
                         },
                     },
                 },
+            });
+
+            // Test that JSON data marhalling works.
+            var revision = new ControllerRevision("rev", new ControllerRevisionArgs
+            {
+                Data = JsonDocument.Parse("{\"foo\":42}"),
+                Revision = 42,
             });
 
             // CRDs and in particular JSONSchemaProps are particularly complex mappings, so test these out as well. Example from:
@@ -89,6 +98,7 @@ class Program
 
             return new Dictionary<string, object>{
                 { "namespacePhase", ns.Status.Apply(status => status.Phase) },
+                { "revisionData", revision.Data },
             };
 
         });
