@@ -1960,12 +1960,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         /// stanza of the object. 2. requests to the custom resource `/status` subresource ignore
         /// changes to anything other than the `status` stanza of the object.
         /// </summary>
-      public readonly string Status;
+      public readonly System.Text.Json.JsonElement Status;
 
       [OutputConstructor]
       private CustomResourceSubresources(
           ApiExtensions.V1.CustomResourceSubresourceScale @scale,
-          string @status)
+          System.Text.Json.JsonElement @status)
       {
           this.Scale = @scale;
           this.Status = @status;
@@ -2042,7 +2042,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         /// under the CustomResourceDefaulting feature gate. Defaulting requires
         /// spec.preserveUnknownFields to be false.
         /// </summary>
-      public readonly string Default;
+      public readonly System.Text.Json.JsonElement Default;
 
       
       public readonly ImmutableDictionary<string, ApiExtensions.V1.JSONSchemaProps> Definitions;
@@ -2054,10 +2054,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
       public readonly string Description;
 
       
-      public readonly ImmutableArray<string> Enum;
+      public readonly ImmutableArray<System.Text.Json.JsonElement> Enum;
 
       
-      public readonly string Example;
+      public readonly System.Text.Json.JsonElement Example;
 
       
       public readonly bool ExclusiveMaximum;
@@ -2204,12 +2204,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
           Union<ApiExtensions.V1.JSONSchemaProps,bool> @additionalProperties,
           ImmutableArray<ApiExtensions.V1.JSONSchemaProps> @allOf,
           ImmutableArray<ApiExtensions.V1.JSONSchemaProps> @anyOf,
-          string @default,
+          System.Text.Json.JsonElement @default,
           ImmutableDictionary<string, ApiExtensions.V1.JSONSchemaProps> @definitions,
           ImmutableDictionary<string, Union<ApiExtensions.V1.JSONSchemaProps,ImmutableArray<string>>> @dependencies,
           string @description,
-          ImmutableArray<string> @enum,
-          string @example,
+          ImmutableArray<System.Text.Json.JsonElement> @enum,
+          System.Text.Json.JsonElement @example,
           bool @exclusiveMaximum,
           bool @exclusiveMinimum,
           ApiExtensions.V1.ExternalDocumentation @externalDocs,
@@ -3020,12 +3020,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         /// stanza of the object. 2. requests to the custom resource `/status` subresource ignore
         /// changes to anything other than the `status` stanza of the object.
         /// </summary>
-      public readonly string Status;
+      public readonly System.Text.Json.JsonElement Status;
 
       [OutputConstructor]
       private CustomResourceSubresources(
           ApiExtensions.V1Beta1.CustomResourceSubresourceScale @scale,
-          string @status)
+          System.Text.Json.JsonElement @status)
       {
           this.Scale = @scale;
           this.Status = @status;
@@ -3102,7 +3102,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         /// under the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults
         /// must be created using the v1 (or newer) CustomResourceDefinition API.
         /// </summary>
-      public readonly string Default;
+      public readonly System.Text.Json.JsonElement Default;
 
       
       public readonly ImmutableDictionary<string, ApiExtensions.V1Beta1.JSONSchemaProps> Definitions;
@@ -3114,10 +3114,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
       public readonly string Description;
 
       
-      public readonly ImmutableArray<string> Enum;
+      public readonly ImmutableArray<System.Text.Json.JsonElement> Enum;
 
       
-      public readonly string Example;
+      public readonly System.Text.Json.JsonElement Example;
 
       
       public readonly bool ExclusiveMaximum;
@@ -3264,12 +3264,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
           Union<ApiExtensions.V1Beta1.JSONSchemaProps,bool> @additionalProperties,
           ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> @allOf,
           ImmutableArray<ApiExtensions.V1Beta1.JSONSchemaProps> @anyOf,
-          string @default,
+          System.Text.Json.JsonElement @default,
           ImmutableDictionary<string, ApiExtensions.V1Beta1.JSONSchemaProps> @definitions,
           ImmutableDictionary<string, Union<ApiExtensions.V1Beta1.JSONSchemaProps,ImmutableArray<string>>> @dependencies,
           string @description,
-          ImmutableArray<string> @enum,
-          string @example,
+          ImmutableArray<System.Text.Json.JsonElement> @enum,
+          System.Text.Json.JsonElement @example,
           bool @exclusiveMaximum,
           bool @exclusiveMinimum,
           ApiExtensions.V1Beta1.ExternalDocumentation @externalDocs,
@@ -4043,7 +4043,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
       /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-      public readonly string Data;
+      public readonly System.Text.Json.JsonElement Data;
 
       /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -4067,7 +4067,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
       [OutputConstructor]
       private ControllerRevision(
           string @apiVersion,
-          string @data,
+          System.Text.Json.JsonElement @data,
           string @kind,
           Meta.V1.ObjectMeta @metadata,
           int @revision)
@@ -5513,7 +5513,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
       /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-      public readonly string Data;
+      public readonly System.Text.Json.JsonElement Data;
 
       /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -5537,7 +5537,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
       [OutputConstructor]
       private ControllerRevision(
           string @apiVersion,
-          string @data,
+          System.Text.Json.JsonElement @data,
           string @kind,
           Meta.V1.ObjectMeta @metadata,
           int @revision)
@@ -6570,7 +6570,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
       /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-      public readonly string Data;
+      public readonly System.Text.Json.JsonElement Data;
 
       /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -6594,7 +6594,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
       [OutputConstructor]
       private ControllerRevision(
           string @apiVersion,
-          string @data,
+          System.Text.Json.JsonElement @data,
           string @kind,
           Meta.V1.ObjectMeta @metadata,
           int @revision)
@@ -26346,7 +26346,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta
       /// <summary>
         /// FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
         /// </summary>
-      public readonly string FieldsV1;
+      public readonly System.Text.Json.JsonElement FieldsV1;
 
       /// <summary>
         /// Manager is an identifier of the workflow managing these fields.
@@ -26369,7 +26369,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta
       private ManagedFieldsEntry(
           string @apiVersion,
           string @fieldsType,
-          string @fieldsV1,
+          System.Text.Json.JsonElement @fieldsV1,
           string @manager,
           string @operation,
           string @time)
@@ -26906,14 +26906,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta
         ///  * If Type is Error: *Status is recommended; other types may make sense
         ///    depending on context.
         /// </summary>
-      public readonly string Object;
+      public readonly System.Text.Json.JsonElement Object;
 
       
       public readonly string Type;
 
       [OutputConstructor]
       private WatchEvent(
-          string @object,
+          System.Text.Json.JsonElement @object,
           string @type)
       {
           this.Object = @object;

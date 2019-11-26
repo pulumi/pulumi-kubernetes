@@ -1927,7 +1927,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         /// spec.preserveUnknownFields to be false.
         /// </summary>
         [Input("default")]
-        public Input<string>? Default { get; set; }
+        public InputJson? Default { get; set; }
 
         [Input("definitions")]
         private InputMap<ApiExtensions.V1.JSONSchemaPropsArgs>? _definitions;
@@ -1954,18 +1954,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         public Input<string>? Description { get; set; }
 
         [Input("enum")]
-        private InputList<string>? _enum;
+        private InputList<InputJson>? _enum;
 
         
-        public InputList<string> Enum
+        public InputList<InputJson> Enum
         {
-            get => _enum ?? (_enum = new InputList<string>());
+            get => _enum ?? (_enum = new InputList<InputJson>());
             set => _enum = value;
         }
 
         
         [Input("example")]
-        public Input<string>? Example { get; set; }
+        public InputJson? Example { get; set; }
 
         
         [Input("exclusiveMaximum")]
@@ -2900,7 +2900,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         /// must be created using the v1 (or newer) CustomResourceDefinition API.
         /// </summary>
         [Input("default")]
-        public Input<string>? Default { get; set; }
+        public InputJson? Default { get; set; }
 
         [Input("definitions")]
         private InputMap<ApiExtensions.V1Beta1.JSONSchemaPropsArgs>? _definitions;
@@ -2927,18 +2927,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         public Input<string>? Description { get; set; }
 
         [Input("enum")]
-        private InputList<string>? _enum;
+        private InputList<InputJson>? _enum;
 
         
-        public InputList<string> Enum
+        public InputList<InputJson> Enum
         {
-            get => _enum ?? (_enum = new InputList<string>());
+            get => _enum ?? (_enum = new InputList<InputJson>());
             set => _enum = value;
         }
 
         
         [Input("example")]
-        public Input<string>? Example { get; set; }
+        public InputJson? Example { get; set; }
 
         
         [Input("exclusiveMaximum")]
@@ -3728,7 +3728,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps
         /// Data is the serialized representation of the state.
         /// </summary>
         [Input("data")]
-        public Input<string>? Data { get; set; }
+        public InputJson? Data { get; set; }
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -4955,7 +4955,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps
         /// Data is the serialized representation of the state.
         /// </summary>
         [Input("data")]
-        public Input<string>? Data { get; set; }
+        public InputJson? Data { get; set; }
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -5840,7 +5840,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps
         /// Data is the serialized representation of the state.
         /// </summary>
         [Input("data")]
-        public Input<string>? Data { get; set; }
+        public InputJson? Data { get; set; }
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -23162,7 +23162,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta
         /// FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
         /// </summary>
         [Input("fieldsV1")]
-        public Input<string>? FieldsV1 { get; set; }
+        public InputJson? FieldsV1 { get; set; }
 
         /// <summary>
         /// Manager is an identifier of the workflow managing these fields.
@@ -23660,7 +23660,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta
         ///    depending on context.
         /// </summary>
         [Input("object", required: true)]
-        public Input<string> Object { get; set; } = null!;
+        public InputJson Object { get; set; } = null!;
 
         
         [Input("type", required: true)]
