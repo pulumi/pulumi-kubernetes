@@ -194,7 +194,9 @@ export class Chart extends yaml.CollectionComponentResource {
                 const release = shell.quote([releaseName]);
                 const values = path.quotePath(overrides.name);
                 const apiVersionsArgs = cfg.apiVersions
-                    ? `--api-versions={${cfg.apiVersions.join(',')}}`
+                    ? `--api-versions={${cfg.apiVersions
+                        .map(apiVersion => shell.quote([apiVersion]))
+                        .join(',')}}`
                     : "";
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
