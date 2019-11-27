@@ -269,6 +269,11 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
+	err = CopyFile(filepath.Join(templateDir, "Provider.cs"), filepath.Join(outdir, "Provider.cs"))
+	if err != nil {
+		panic(err)
+	}
+
 	err = CopyFile(filepath.Join(templateDir, "logo.png"), filepath.Join(outdir, "logo.png"))
 	if err != nil {
 		panic(err)
