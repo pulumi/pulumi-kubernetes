@@ -32,6 +32,8 @@ func TestDotnet_Basic(t *testing.T) {
 		Dir:          "basic",
 		Dependencies: []string{"Pulumi.Kubernetes"},
 		Quick:        true,
+		// The CRD sometimes, but not always, has changes during refresh.
+		ExpectRefreshChanges: true,
 	})
 }
 
