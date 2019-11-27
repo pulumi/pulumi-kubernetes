@@ -2,6 +2,7 @@
 **/bin/
 **/obj/
 **/node_modules/
+**/.vs
 .pulumi
 Pulumi.*.yaml
 /pkg/gen/openapi-specs
