@@ -80,10 +80,11 @@ for more details.
 ## Prerequisites
 
 1. [Install Pulumi](https://www.pulumi.com/docs/get-started/kubernetes/install-pulumi/).
-1. Install a language runtime such as [Node.js](https://nodejs.org/en/download) or [Python](https://www.python.org/downloads/).
+1. Install a language runtime such as [Node.js](https://nodejs.org/en/download), [Python](https://www.python.org/downloads/) or [.NET](https://dotnet.microsoft.com/download/dotnet-core/3.0).
 1. Install a package manager
     * For Node.js, use [NPM](https://www.npmjs.com/get-npm) or [Yarn](https://yarnpkg.com/lang/en/docs/install).
     * For Python, use [pip](https://pip.pypa.io/en/stable/installing/).
+    * For .NET, use Nuget which is integrated with the `dotnet` CLI.
 1. Have access to a running Kubernetes cluster
     * If `kubectl` already works for your running cluster, Pulumi respects and uses this configuration.
     * If you do not have a cluster already running and available, we encourage you to
@@ -93,7 +94,7 @@ for more details.
 
 ## Installing
 
-This package is available in JavaScript/TypeScript for use with Node.js, as well as in Python.
+This package is available in JavaScript/TypeScript for use with Node.js, as well as in Python and .NET.
 
 For Node.js use either `npm` or `yarn`:
 
@@ -114,6 +115,8 @@ For Python use `pip`:
 ```bash
 pip install pulumi-kubernetes
 ```
+
+For .NET, dependencies will be automatically installed as part of your Pulumi deployments using `dotnet build`.
 
 ## Quick Examples
 
