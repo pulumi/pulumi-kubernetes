@@ -851,7 +851,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration
         }
 
         /// <summary>
-        /// SideEffects states whether this webhookk has side effects. Acceptable values are:
+        /// SideEffects states whether this webhook has side effects. Acceptable values are:
         /// Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a
         /// reconciliation system, since a request may be rejected by a future step in the admission
         /// change and the side effects therefore need to be undone. Requests with the dryRun
@@ -1211,7 +1211,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration
         }
 
         /// <summary>
-        /// SideEffects states whether this webhookk has side effects. Acceptable values are:
+        /// SideEffects states whether this webhook has side effects. Acceptable values are:
         /// Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a
         /// reconciliation system, since a request may be rejected by a future step in the admission
         /// change and the side effects therefore need to be undone. Requests with the dryRun
@@ -1655,7 +1655,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
 
         /// <summary>
         /// scope indicates whether the defined custom resource is cluster- or namespace-scoped.
-        /// Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
+        /// Allowed values are `Cluster` and `Namespaced`.
         /// </summary>
         [Input("scope", required: true)]
         public Input<string> Scope { get; set; } = null!;
@@ -1979,7 +1979,37 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         [Input("externalDocs")]
         public Input<ApiExtensions.V1.ExternalDocumentationArgs>? ExternalDocs { get; set; }
 
-        
+        /// <summary>
+        /// format is an OpenAPI v3 format string. Unknown formats are ignored. The following
+        /// formats are validated:
+        /// 
+        /// - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as
+        /// parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+        /// net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+        /// defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+        /// net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed
+        /// by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an
+        /// UUID that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+        /// that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an
+        /// UUID4 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5:
+        /// an UUID5 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+        /// ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+        /// number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041"
+        /// - creditcard: a credit card number defined by the regex
+        /// ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+        /// with any non digit characters mixed in - ssn: a U.S. social security number following
+        /// the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like
+        /// "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB
+        /// color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data -
+        /// password: any kind of string - date: a date string like "2006-01-02" as defined by
+        /// full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang
+        /// time.ParseDuration or compatible with Scala duration format - datetime: a date time
+        /// string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+        /// </summary>
         [Input("format")]
         public Input<string>? Format { get; set; }
 
@@ -2144,7 +2174,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         ///      may be used on any type of list (struct, scalar, ...).
         /// 2) `set`:
         ///      Sets are lists that must not have multiple items with the same value. Each
-        ///      value must be a scalar (or another atomic type).
+        ///      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+        ///      array with x-kubernetes-list-type `atomic`.
         /// 3) `map`:
         ///      These lists are like maps in that their elements have a non-index key
         ///      used to identify them. Order is preserved upon merge. The map tag
@@ -2153,6 +2184,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         /// </summary>
         [Input("x_kubernetes_list_type")]
         public Input<string>? X_kubernetes_list_type { get; set; }
+
+        /// <summary>
+        /// x-kubernetes-map-type annotates an object to further describe its topology. This
+        /// extension must only be used when type is object and may have 2 possible values:
+        /// 
+        /// 1) `granular`:
+        ///      These maps are actual maps (key-value pairs) and each fields are independent
+        ///      from each other (they can each be manipulated by separate actors). This is
+        ///      the default behaviour for all maps.
+        /// 2) `atomic`: the list is treated as a single entity, like a scalar.
+        ///      Atomic maps will be entirely replaced when updated.
+        /// </summary>
+        [Input("x_kubernetes_map_type")]
+        public Input<string>? X_kubernetes_map_type { get; set; }
 
         /// <summary>
         /// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning
@@ -2952,7 +2997,37 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         [Input("externalDocs")]
         public Input<ApiExtensions.V1Beta1.ExternalDocumentationArgs>? ExternalDocs { get; set; }
 
-        
+        /// <summary>
+        /// format is an OpenAPI v3 format string. Unknown formats are ignored. The following
+        /// formats are validated:
+        /// 
+        /// - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as
+        /// parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+        /// net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+        /// defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+        /// net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed
+        /// by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an
+        /// UUID that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+        /// that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an
+        /// UUID4 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5:
+        /// an UUID5 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+        /// ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+        /// number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041"
+        /// - creditcard: a credit card number defined by the regex
+        /// ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+        /// with any non digit characters mixed in - ssn: a U.S. social security number following
+        /// the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like
+        /// "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB
+        /// color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data -
+        /// password: any kind of string - date: a date string like "2006-01-02" as defined by
+        /// full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang
+        /// time.ParseDuration or compatible with Scala duration format - datetime: a date time
+        /// string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+        /// </summary>
         [Input("format")]
         public Input<string>? Format { get; set; }
 
@@ -3117,7 +3192,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         ///      may be used on any type of list (struct, scalar, ...).
         /// 2) `set`:
         ///      Sets are lists that must not have multiple items with the same value. Each
-        ///      value must be a scalar (or another atomic type).
+        ///      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+        ///      array with x-kubernetes-list-type `atomic`.
         /// 3) `map`:
         ///      These lists are like maps in that their elements have a non-index key
         ///      used to identify them. Order is preserved upon merge. The map tag
@@ -3126,6 +3202,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions
         /// </summary>
         [Input("x_kubernetes_list_type")]
         public Input<string>? X_kubernetes_list_type { get; set; }
+
+        /// <summary>
+        /// x-kubernetes-map-type annotates an object to further describe its topology. This
+        /// extension must only be used when type is object and may have 2 possible values:
+        /// 
+        /// 1) `granular`:
+        ///      These maps are actual maps (key-value pairs) and each fields are independent
+        ///      from each other (they can each be manipulated by separate actors). This is
+        ///      the default behaviour for all maps.
+        /// 2) `atomic`: the list is treated as a single entity, like a scalar.
+        ///      Atomic maps will be entirely replaced when updated.
+        /// </summary>
+        [Input("x_kubernetes_map_type")]
+        public Input<string>? X_kubernetes_map_type { get; set; }
 
         /// <summary>
         /// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning
@@ -13377,7 +13467,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
         /// <summary>
         /// Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels,
         /// metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP,
-        /// status.podIP.
+        /// status.podIP, status.podIPs.
         /// </summary>
         [Input("fieldRef")]
         public Input<Core.V1.ObjectFieldSelectorArgs>? FieldRef { get; set; }
@@ -17074,8 +17164,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
         /// Share a single process namespace between all of the containers in a pod. When this is
         /// set containers will be able to view and signal processes from other containers in the
         /// same pod, and the first process in each container will not be assigned PID 1. HostPID
-        /// and ShareProcessNamespace cannot both be set. Optional: Default to false. This field is
-        /// beta-level and may be disabled with the PodShareProcessNamespace feature.
+        /// and ShareProcessNamespace cannot both be set. Optional: Default to false.
         /// </summary>
         [Input("shareProcessNamespace")]
         public Input<bool>? ShareProcessNamespace { get; set; }
@@ -19203,6 +19292,26 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
         [Input("sessionAffinityConfig")]
         public Input<Core.V1.SessionAffinityConfigArgs>? SessionAffinityConfig { get; set; }
 
+        [Input("topologyKeys")]
+        private InputList<string>? _topologyKeys;
+
+        /// <summary>
+        /// topologyKeys is a preference-order list of topology keys which implementations of
+        /// services should use to preferentially sort endpoints when accessing this Service, it can
+        /// not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid
+        /// label keys and at most 16 keys may be specified. Endpoints are chosen based on the first
+        /// topology key with available backends. If this field is specified and all entries have no
+        /// backends that match the topology of the client, the service has no backends for that
+        /// client and connections should fail. The special value "*" may be used to mean "any
+        /// topology". This catch-all value, if used, only makes sense as the last value in the
+        /// list. If this is not specified or empty, no topology constraints will be applied.
+        /// </summary>
+        public InputList<string> TopologyKeys
+        {
+            get => _topologyKeys ?? (_topologyKeys = new InputList<string>());
+            set => _topologyKeys = value;
+        }
+
         /// <summary>
         /// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are
         /// ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the
@@ -19853,7 +19962,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
         /// Expanded path within the volume from which the container's volume should be mounted.
         /// Behaves similarly to SubPath but environment variable references $(VAR_NAME) are
         /// expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr
-        /// and SubPath are mutually exclusive. This field is beta in 1.15.
+        /// and SubPath are mutually exclusive.
         /// </summary>
         [Input("subPathExpr")]
         public Input<string>? SubPathExpr { get; set; }
@@ -19982,8 +20091,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
         /// The UserName in Windows to run the entrypoint of the container process. Defaults to the
         /// user specified in image metadata if unspecified. May also be set in PodSecurityContext.
         /// If set in both SecurityContext and PodSecurityContext, the value specified in
-        /// SecurityContext takes precedence. This field is alpha-level and it is only honored by
-        /// servers that enable the WindowsRunAsUserName feature flag.
+        /// SecurityContext takes precedence. This field is beta-level and may be disabled with the
+        /// WindowsRunAsUserName feature flag.
         /// </summary>
         [Input("runAsUserName")]
         public Input<string>? RunAsUserName { get; set; }
@@ -19996,7 +20105,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
 
 namespace Pulumi.Kubernetes.Types.Inputs.Discovery
 {
-  namespace V1Alpha1
+  namespace V1Beta1
   {
     /// <summary>
     /// Endpoint represents a single logical "backend" implementing a service.
@@ -20008,8 +20117,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery
 
         /// <summary>
         /// addresses of this endpoint. The contents of this field are interpreted according to the
-        /// corresponding EndpointSlice addressType field. This allows for cases like dual-stack
-        /// (IPv4 and IPv6) networking. Consumers (e.g. kube-proxy) must handle different types of
+        /// corresponding EndpointSlice addressType field. Consumers must handle different types of
         /// addresses in the context of their own capabilities. This must contain at least one
         /// address but no more than 100.
         /// </summary>
@@ -20023,7 +20131,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery
         /// conditions contains information about the current status of the endpoint.
         /// </summary>
         [Input("conditions")]
-        public Input<Discovery.V1Alpha1.EndpointConditionsArgs>? Conditions { get; set; }
+        public Input<Discovery.V1Beta1.EndpointConditionsArgs>? Conditions { get; set; }
 
         /// <summary>
         /// hostname of this endpoint. This field may be used by consumers of endpoints to
@@ -20086,12 +20194,21 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery
     public class EndpointPortArgs : Pulumi.ResourceArgs
     {
         /// <summary>
+        /// The application protocol for this port. This field follows standard Kubernetes label
+        /// syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335
+        /// and http://www.iana.org/assignments/service-names). Non-standard protocols should use
+        /// prefixed names. Default is empty string.
+        /// </summary>
+        [Input("appProtocol")]
+        public Input<string>? AppProtocol { get; set; }
+
+        /// <summary>
         /// The name of this port. All ports in an EndpointSlice must have a unique name. If the
         /// EndpointSlice is dervied from a Kubernetes service, this corresponds to the
-        /// Service.ports[].name. Name must either be an empty string or pass IANA_SVC_NAME
-        /// validation: * must be no more than 15 characters long * may contain only [-a-z0-9] *
-        /// must contain at least one letter [a-z] * it must not start or end with a hyphen, nor
-        /// contain adjacent hyphens Default is empty string.
+        /// Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation:
+        /// * must be no more than 63 characters long. * must consist of lower case alphanumeric
+        /// characters or '-'. * must start and end with an alphanumeric character. Default is empty
+        /// string.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -20118,25 +20235,27 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery
     /// </summary>
     public class EndpointSliceArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// addressType specifies the type of address carried by this EndpointSlice. All addresses
+        /// in this slice must be the same type. This field is immutable after creation. The
+        /// following address types are currently supported: * IPv4: Represents an IPv4 Address. *
+        /// IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+        /// </summary>
+        [Input("addressType", required: true)]
+        public Input<string> AddressType { get; set; } = null!;
+
         [Input("endpoints", required: true)]
-        private InputList<Discovery.V1Alpha1.EndpointArgs>? _endpoints;
+        private InputList<Discovery.V1Beta1.EndpointArgs>? _endpoints;
 
         /// <summary>
         /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
         /// of 1000 endpoints.
         /// </summary>
-        public InputList<Discovery.V1Alpha1.EndpointArgs> Endpoints
+        public InputList<Discovery.V1Beta1.EndpointArgs> Endpoints
         {
-            get => _endpoints ?? (_endpoints = new InputList<Discovery.V1Alpha1.EndpointArgs>());
+            get => _endpoints ?? (_endpoints = new InputList<Discovery.V1Beta1.EndpointArgs>());
             set => _endpoints = value;
         }
-
-        /// <summary>
-        /// addressType specifies the type of address carried by this EndpointSlice. All addresses
-        /// in this slice must be the same type. Default is IP
-        /// </summary>
-        [Input("addressType")]
-        public Input<string>? AddressType { get; set; }
 
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -20163,7 +20282,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery
         public Input<Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         [Input("ports")]
-        private InputList<Discovery.V1Alpha1.EndpointPortArgs>? _ports;
+        private InputList<Discovery.V1Beta1.EndpointPortArgs>? _ports;
 
         /// <summary>
         /// ports specifies the list of network ports exposed by each endpoint in this slice. Each
@@ -20171,9 +20290,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery
         /// defined ports. When a port is defined with a nil port value, it indicates "all ports".
         /// Each slice may include a maximum of 100 ports.
         /// </summary>
-        public InputList<Discovery.V1Alpha1.EndpointPortArgs> Ports
+        public InputList<Discovery.V1Beta1.EndpointPortArgs> Ports
         {
-            get => _ports ?? (_ports = new InputList<Discovery.V1Alpha1.EndpointPortArgs>());
+            get => _ports ?? (_ports = new InputList<Discovery.V1Beta1.EndpointPortArgs>());
             set => _ports = value;
         }
 
@@ -20185,14 +20304,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery
     public class EndpointSliceListArgs : Pulumi.ResourceArgs
     {
         [Input("items", required: true)]
-        private InputList<Discovery.V1Alpha1.EndpointSliceArgs>? _items;
+        private InputList<Discovery.V1Beta1.EndpointSliceArgs>? _items;
 
         /// <summary>
         /// List of endpoint slices
         /// </summary>
-        public InputList<Discovery.V1Alpha1.EndpointSliceArgs> Items
+        public InputList<Discovery.V1Beta1.EndpointSliceArgs> Items
         {
-            get => _items ?? (_items = new InputList<Discovery.V1Alpha1.EndpointSliceArgs>());
+            get => _items ?? (_items = new InputList<Discovery.V1Beta1.EndpointSliceArgs>());
             set => _items = value;
         }
 
@@ -22613,6 +22732,722 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions
 
 }
 
+namespace Pulumi.Kubernetes.Types.Inputs.FlowControl
+{
+  namespace V1Alpha1
+  {
+    /// <summary>
+    /// FlowDistinguisherMethod specifies the method of a flow distinguisher.
+    /// </summary>
+    public class FlowDistinguisherMethodArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `type` is the type of flow distinguisher method The supported types are "ByUser" and
+        /// "ByNamespace". Required.
+        /// </summary>
+        [Input("type", required: true)]
+        public Input<string> Type { get; set; } = null!;
+
+    }
+
+    /// <summary>
+    /// FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of
+    /// inbound API requests with similar attributes and is identified by a pair of strings: the
+    /// name of the FlowSchema and a "flow distinguisher".
+    /// </summary>
+    public class FlowSchemaArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Input("kind")]
+        public Input<string>? Kind { get; set; }
+
+        /// <summary>
+        /// `metadata` is the standard object's metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+        [Input("metadata")]
+        public Input<Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
+
+        /// <summary>
+        /// `spec` is the specification of the desired behavior of a FlowSchema. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+        [Input("spec")]
+        public Input<FlowControl.V1Alpha1.FlowSchemaSpecArgs>? Spec { get; set; }
+
+    }
+
+    /// <summary>
+    /// FlowSchemaCondition describes conditions for a FlowSchema.
+    /// </summary>
+    public class FlowSchemaConditionArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `lastTransitionTime` is the last time the condition transitioned from one status to
+        /// another.
+        /// </summary>
+        [Input("lastTransitionTime")]
+        public Input<string>? LastTransitionTime { get; set; }
+
+        /// <summary>
+        /// `message` is a human-readable message indicating details about last transition.
+        /// </summary>
+        [Input("message")]
+        public Input<string>? Message { get; set; }
+
+        /// <summary>
+        /// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+        /// </summary>
+        [Input("reason")]
+        public Input<string>? Reason { get; set; }
+
+        /// <summary>
+        /// `type` is the type of the condition. Required.
+        /// </summary>
+        [Input("type")]
+        public Input<string>? Type { get; set; }
+
+    }
+
+    /// <summary>
+    /// FlowSchemaList is a list of FlowSchema objects.
+    /// </summary>
+    public class FlowSchemaListArgs : Pulumi.ResourceArgs
+    {
+        [Input("items", required: true)]
+        private InputList<FlowControl.V1Alpha1.FlowSchemaArgs>? _items;
+
+        /// <summary>
+        /// `items` is a list of FlowSchemas.
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.FlowSchemaArgs> Items
+        {
+            get => _items ?? (_items = new InputList<FlowControl.V1Alpha1.FlowSchemaArgs>());
+            set => _items = value;
+        }
+
+        /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Input("kind")]
+        public Input<string>? Kind { get; set; }
+
+        /// <summary>
+        /// `metadata` is the standard list metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+        [Input("metadata")]
+        public Input<Meta.V1.ListMetaArgs>? Metadata { get; set; }
+
+    }
+
+    /// <summary>
+    /// FlowSchemaSpec describes how the FlowSchema's specification looks like.
+    /// </summary>
+    public class FlowSchemaSpecArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the
+        /// cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked
+        /// as invalid in its status. Required.
+        /// </summary>
+        [Input("priorityLevelConfiguration", required: true)]
+        public Input<FlowControl.V1Alpha1.PriorityLevelConfigurationReferenceArgs> PriorityLevelConfiguration { get; set; } = null!;
+
+        /// <summary>
+        /// `distinguisherMethod` defines how to compute the flow distinguisher for requests that
+        /// match this schema. `nil` specifies that the distinguisher is disabled and thus will
+        /// always be the empty string.
+        /// </summary>
+        [Input("distinguisherMethod")]
+        public Input<FlowControl.V1Alpha1.FlowDistinguisherMethodArgs>? DistinguisherMethod { get; set; }
+
+        /// <summary>
+        /// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request.
+        /// The chosen FlowSchema is among those with the numerically lowest (which we take to be
+        /// logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be
+        /// non-negative. Note that if the precedence is not specified or zero, it will be set to
+        /// 1000 as default.
+        /// </summary>
+        [Input("matchingPrecedence")]
+        public Input<int>? MatchingPrecedence { get; set; }
+
+        [Input("rules")]
+        private InputList<FlowControl.V1Alpha1.PolicyRulesWithSubjectsArgs>? _rules;
+
+        /// <summary>
+        /// `rules` describes which requests will match this flow schema. This FlowSchema matches a
+        /// request if and only if at least one member of rules matches the request. if it is an
+        /// empty slice, there will be no requests matching the FlowSchema.
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.PolicyRulesWithSubjectsArgs> Rules
+        {
+            get => _rules ?? (_rules = new InputList<FlowControl.V1Alpha1.PolicyRulesWithSubjectsArgs>());
+            set => _rules = value;
+        }
+
+    }
+
+    /// <summary>
+    /// FlowSchemaStatus represents the current state of a FlowSchema.
+    /// </summary>
+    public class FlowSchemaStatusArgs : Pulumi.ResourceArgs
+    {
+        [Input("conditions")]
+        private InputList<FlowControl.V1Alpha1.FlowSchemaConditionArgs>? _conditions;
+
+        /// <summary>
+        /// `conditions` is a list of the current states of FlowSchema.
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.FlowSchemaConditionArgs> Conditions
+        {
+            get => _conditions ?? (_conditions = new InputList<FlowControl.V1Alpha1.FlowSchemaConditionArgs>());
+            set => _conditions = value;
+        }
+
+    }
+
+    /// <summary>
+    /// GroupSubject holds detailed information for group-kind subject.
+    /// </summary>
+    public class GroupSubjectArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// name is the user group that matches, or "*" to match all user groups. See
+        /// https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for
+        /// some well-known group names. Required.
+        /// </summary>
+        [Input("name", required: true)]
+        public Input<string> Name { get; set; } = null!;
+
+    }
+
+    /// <summary>
+    /// LimitResponse defines how to handle requests that can not be executed right now.
+    /// </summary>
+    public class LimitResponseArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon
+        /// arrival are held in a queue until they can be executed or a queuing limit is reached.
+        /// "Reject" means that requests that can not be executed upon arrival are rejected.
+        /// Required.
+        /// </summary>
+        [Input("type", required: true)]
+        public Input<string> Type { get; set; } = null!;
+
+        /// <summary>
+        /// `queuing` holds the configuration parameters for queuing. This field may be non-empty
+        /// only if `type` is `"Queue"`.
+        /// </summary>
+        [Input("queuing")]
+        public Input<FlowControl.V1Alpha1.QueuingConfigurationArgs>? Queuing { get; set; }
+
+    }
+
+    /// <summary>
+    /// LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to
+    /// limits. It addresses two issues:
+    ///  * How are requests for this priority level limited?
+    ///  * What should be done with requests that exceed the limit?
+    /// </summary>
+    public class LimitedPriorityLevelConfigurationArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the
+        /// number of requests of this priority level that may be exeucting at a given time.  ACS
+        /// must be a positive number. The server's concurrency limit (SCL) is divided among the
+        /// concurrency-controlled priority levels in proportion to their assured concurrency
+        /// shares. This produces the assured concurrency value (ACV) --- the number of requests
+        /// that may be executing at a time --- for each such priority level:
+        /// 
+        ///             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+        /// 
+        /// bigger numbers of ACS mean more reserved concurrent requests (at the expense of every
+        /// other PL). This field has a default value of 30.
+        /// </summary>
+        [Input("assuredConcurrencyShares")]
+        public Input<int>? AssuredConcurrencyShares { get; set; }
+
+        /// <summary>
+        /// `limitResponse` indicates what to do with requests that can not be executed right now
+        /// </summary>
+        [Input("limitResponse")]
+        public Input<FlowControl.V1Alpha1.LimitResponseArgs>? LimitResponse { get; set; }
+
+    }
+
+    /// <summary>
+    /// NonResourcePolicyRule is a predicate that matches non-resource requests according to their
+    /// verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only
+    /// if both (a) at least one member of verbs matches the request and (b) at least one member of
+    /// nonResourceURLs matches the request.
+    /// </summary>
+    public class NonResourcePolicyRuleArgs : Pulumi.ResourceArgs
+    {
+        [Input("nonResourceURLs", required: true)]
+        private InputList<string>? _nonResourceURLs;
+
+        /// <summary>
+        /// `nonResourceURLs` is a set of url prefixes that a user should have access to and may not
+        /// be empty. For example:
+        ///   - "/healthz" is legal
+        ///   - "/hea*" is illegal
+        ///   - "/hea" is legal but matches nothing
+        ///   - "/hea/*" also matches nothing
+        ///   - "/healthz/*" matches all per-component health checks.
+        /// "*" matches all non-resource urls. if it is present, it must be the only entry.
+        /// Required.
+        /// </summary>
+        public InputList<string> NonResourceURLs
+        {
+            get => _nonResourceURLs ?? (_nonResourceURLs = new InputList<string>());
+            set => _nonResourceURLs = value;
+        }
+
+        [Input("verbs", required: true)]
+        private InputList<string>? _verbs;
+
+        /// <summary>
+        /// `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it
+        /// is present, it must be the only entry. Required.
+        /// </summary>
+        public InputList<string> Verbs
+        {
+            get => _verbs ?? (_verbs = new InputList<string>());
+            set => _verbs = value;
+        }
+
+    }
+
+    /// <summary>
+    /// PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The
+    /// test considers the subject making the request, the verb being requested, and the resource to
+    /// be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at
+    /// least one member of subjects matches the request and (b) at least one member of
+    /// resourceRules or nonResourceRules matches the request.
+    /// </summary>
+    public class PolicyRulesWithSubjectsArgs : Pulumi.ResourceArgs
+    {
+        [Input("subjects", required: true)]
+        private InputList<FlowControl.V1Alpha1.SubjectArgs>? _subjects;
+
+        /// <summary>
+        /// subjects is the list of normal user, serviceaccount, or group that this rule cares
+        /// about. There must be at least one member in this slice. A slice that includes both the
+        /// system:authenticated and system:unauthenticated user groups matches every request.
+        /// Required.
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.SubjectArgs> Subjects
+        {
+            get => _subjects ?? (_subjects = new InputList<FlowControl.V1Alpha1.SubjectArgs>());
+            set => _subjects = value;
+        }
+
+        [Input("nonResourceRules")]
+        private InputList<FlowControl.V1Alpha1.NonResourcePolicyRuleArgs>? _nonResourceRules;
+
+        /// <summary>
+        /// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests
+        /// according to their verb and the target non-resource URL.
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.NonResourcePolicyRuleArgs> NonResourceRules
+        {
+            get => _nonResourceRules ?? (_nonResourceRules = new InputList<FlowControl.V1Alpha1.NonResourcePolicyRuleArgs>());
+            set => _nonResourceRules = value;
+        }
+
+        [Input("resourceRules")]
+        private InputList<FlowControl.V1Alpha1.ResourcePolicyRuleArgs>? _resourceRules;
+
+        /// <summary>
+        /// `resourceRules` is a slice of ResourcePolicyRules that identify matching requests
+        /// according to their verb and the target resource. At least one of `resourceRules` and
+        /// `nonResourceRules` has to be non-empty.
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.ResourcePolicyRuleArgs> ResourceRules
+        {
+            get => _resourceRules ?? (_resourceRules = new InputList<FlowControl.V1Alpha1.ResourcePolicyRuleArgs>());
+            set => _resourceRules = value;
+        }
+
+    }
+
+    /// <summary>
+    /// PriorityLevelConfiguration represents the configuration of a priority level.
+    /// </summary>
+    public class PriorityLevelConfigurationArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Input("kind")]
+        public Input<string>? Kind { get; set; }
+
+        /// <summary>
+        /// `metadata` is the standard object's metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+        [Input("metadata")]
+        public Input<Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
+
+        /// <summary>
+        /// `spec` is the specification of the desired behavior of a "request-priority". More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+        [Input("spec")]
+        public Input<FlowControl.V1Alpha1.PriorityLevelConfigurationSpecArgs>? Spec { get; set; }
+
+    }
+
+    /// <summary>
+    /// PriorityLevelConfigurationCondition defines the condition of priority level.
+    /// </summary>
+    public class PriorityLevelConfigurationConditionArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `lastTransitionTime` is the last time the condition transitioned from one status to
+        /// another.
+        /// </summary>
+        [Input("lastTransitionTime")]
+        public Input<string>? LastTransitionTime { get; set; }
+
+        /// <summary>
+        /// `message` is a human-readable message indicating details about last transition.
+        /// </summary>
+        [Input("message")]
+        public Input<string>? Message { get; set; }
+
+        /// <summary>
+        /// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+        /// </summary>
+        [Input("reason")]
+        public Input<string>? Reason { get; set; }
+
+        /// <summary>
+        /// `type` is the type of the condition. Required.
+        /// </summary>
+        [Input("type")]
+        public Input<string>? Type { get; set; }
+
+    }
+
+    /// <summary>
+    /// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+    /// </summary>
+    public class PriorityLevelConfigurationListArgs : Pulumi.ResourceArgs
+    {
+        [Input("items", required: true)]
+        private InputList<FlowControl.V1Alpha1.PriorityLevelConfigurationArgs>? _items;
+
+        /// <summary>
+        /// `items` is a list of request-priorities.
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.PriorityLevelConfigurationArgs> Items
+        {
+            get => _items ?? (_items = new InputList<FlowControl.V1Alpha1.PriorityLevelConfigurationArgs>());
+            set => _items = value;
+        }
+
+        /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Input("kind")]
+        public Input<string>? Kind { get; set; }
+
+        /// <summary>
+        /// `metadata` is the standard object's metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+        [Input("metadata")]
+        public Input<Meta.V1.ListMetaArgs>? Metadata { get; set; }
+
+    }
+
+    /// <summary>
+    /// PriorityLevelConfigurationReference contains information that points to the
+    /// "request-priority" being used.
+    /// </summary>
+    public class PriorityLevelConfigurationReferenceArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `name` is the name of the priority level configuration being referenced Required.
+        /// </summary>
+        [Input("name", required: true)]
+        public Input<string> Name { get; set; } = null!;
+
+    }
+
+    /// <summary>
+    /// PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+    /// </summary>
+    public class PriorityLevelConfigurationSpecArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `type` indicates whether this priority level is subject to limitation on request
+        /// execution.  A value of `"Exempt"` means that requests of this priority level are not
+        /// subject to a limit (and thus are never queued) and do not detract from the capacity made
+        /// available to other priority levels.  A value of `"Limited"` means that (a) requests of
+        /// this priority level _are_ subject to limits and (b) some of the server's limited
+        /// capacity is made available exclusively to this priority level. Required.
+        /// </summary>
+        [Input("type", required: true)]
+        public Input<string> Type { get; set; } = null!;
+
+        /// <summary>
+        /// `limited` specifies how requests are handled for a Limited priority level. This field
+        /// must be non-empty if and only if `type` is `"Limited"`.
+        /// </summary>
+        [Input("limited")]
+        public Input<FlowControl.V1Alpha1.LimitedPriorityLevelConfigurationArgs>? Limited { get; set; }
+
+    }
+
+    /// <summary>
+    /// PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+    /// </summary>
+    public class PriorityLevelConfigurationStatusArgs : Pulumi.ResourceArgs
+    {
+        [Input("conditions")]
+        private InputList<FlowControl.V1Alpha1.PriorityLevelConfigurationConditionArgs>? _conditions;
+
+        /// <summary>
+        /// `conditions` is the current state of "request-priority".
+        /// </summary>
+        public InputList<FlowControl.V1Alpha1.PriorityLevelConfigurationConditionArgs> Conditions
+        {
+            get => _conditions ?? (_conditions = new InputList<FlowControl.V1Alpha1.PriorityLevelConfigurationConditionArgs>());
+            set => _conditions = value;
+        }
+
+    }
+
+    /// <summary>
+    /// QueuingConfiguration holds the configuration parameters for queuing
+    /// </summary>
+    public class QueuingConfigurationArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `handSize` is a small positive number that configures the shuffle sharding of requests
+        /// into queues.  When enqueuing a request at this priority level the request's flow
+        /// identifier (a string pair) is hashed and the hash value is used to shuffle the list of
+        /// queues and deal a hand of the size specified here.  The request is put into one of the
+        /// shortest queues in that hand. `handSize` must be no larger than `queues`, and should be
+        /// significantly smaller (so that a few heavy flows do not saturate most of the queues).
+        /// See the user-facing documentation for more extensive guidance on setting this field.
+        /// This field has a default value of 8.
+        /// </summary>
+        [Input("handSize")]
+        public Input<int>? HandSize { get; set; }
+
+        /// <summary>
+        /// `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given
+        /// queue of this priority level at a time; excess requests are rejected.  This value must
+        /// be positive.  If not specified, it will be defaulted to 50.
+        /// </summary>
+        [Input("queueLengthLimit")]
+        public Input<int>? QueueLengthLimit { get; set; }
+
+        /// <summary>
+        /// `queues` is the number of queues for this priority level. The queues exist independently
+        /// at each apiserver. The value must be positive.  Setting it to 1 effectively precludes
+        /// shufflesharding and thus makes the distinguisher method of associated flow schemas
+        /// irrelevant.  This field has a default value of 64.
+        /// </summary>
+        [Input("queues")]
+        public Input<int>? Queues { get; set; }
+
+    }
+
+    /// <summary>
+    /// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
+    /// verb and the target resource. A ResourcePolicyRule matches a resource request if and only
+    /// if: (a) at least one member of verbs matches the request, (b) at least one member of
+    /// apiGroups matches the request, (c) at least one member of resources matches the request, and
+    /// (d) least one member of namespaces matches the request.
+    /// </summary>
+    public class ResourcePolicyRuleArgs : Pulumi.ResourceArgs
+    {
+        [Input("apiGroups", required: true)]
+        private InputList<string>? _apiGroups;
+
+        /// <summary>
+        /// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API
+        /// groups and, if present, must be the only entry. Required.
+        /// </summary>
+        public InputList<string> ApiGroups
+        {
+            get => _apiGroups ?? (_apiGroups = new InputList<string>());
+            set => _apiGroups = value;
+        }
+
+        [Input("resources", required: true)]
+        private InputList<string>? _resources;
+
+        /// <summary>
+        /// `resources` is a list of matching resources (i.e., lowercase and plural) with, if
+        /// desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not
+        /// be empty. "*" matches all resources and, if present, must be the only entry. Required.
+        /// </summary>
+        public InputList<string> Resources
+        {
+            get => _resources ?? (_resources = new InputList<string>());
+            set => _resources = value;
+        }
+
+        [Input("verbs", required: true)]
+        private InputList<string>? _verbs;
+
+        /// <summary>
+        /// `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if
+        /// present, must be the only entry. Required.
+        /// </summary>
+        public InputList<string> Verbs
+        {
+            get => _verbs ?? (_verbs = new InputList<string>());
+            set => _verbs = value;
+        }
+
+        /// <summary>
+        /// `clusterScope` indicates whether to match requests that do not specify a namespace
+        /// (which happens either because the resource is not namespaced or the request targets all
+        /// namespaces). If this field is omitted or false then the `namespaces` field must contain
+        /// a non-empty list.
+        /// </summary>
+        [Input("clusterScope")]
+        public Input<bool>? ClusterScope { get; set; }
+
+        [Input("namespaces")]
+        private InputList<string>? _namespaces;
+
+        /// <summary>
+        /// `namespaces` is a list of target namespaces that restricts matches.  A request that
+        /// specifies a target namespace matches only if either (a) this list contains that target
+        /// namespace or (b) this list contains "*".  Note that "*" matches any specified namespace
+        /// but does not match a request that _does not specify_ a namespace (see the `clusterScope`
+        /// field for that). This list may be empty, but only if `clusterScope` is true.
+        /// </summary>
+        public InputList<string> Namespaces
+        {
+            get => _namespaces ?? (_namespaces = new InputList<string>());
+            set => _namespaces = value;
+        }
+
+    }
+
+    /// <summary>
+    /// ServiceAccountSubject holds detailed information for service-account-kind subject.
+    /// </summary>
+    public class ServiceAccountSubjectArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of
+        /// name. Required.
+        /// </summary>
+        [Input("name", required: true)]
+        public Input<string> Name { get; set; } = null!;
+
+        /// <summary>
+        /// `namespace` is the namespace of matching ServiceAccount objects. Required.
+        /// </summary>
+        [Input("namespace", required: true)]
+        public Input<string> Namespace { get; set; } = null!;
+
+    }
+
+    /// <summary>
+    /// Subject matches the originator of a request, as identified by the request authentication
+    /// system. There are three ways of matching an originator; by user, group, or service account.
+    /// </summary>
+    public class SubjectArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// Required
+        /// </summary>
+        [Input("kind", required: true)]
+        public Input<string> Kind { get; set; } = null!;
+
+        
+        [Input("group")]
+        public Input<FlowControl.V1Alpha1.GroupSubjectArgs>? Group { get; set; }
+
+        
+        [Input("serviceAccount")]
+        public Input<FlowControl.V1Alpha1.ServiceAccountSubjectArgs>? ServiceAccount { get; set; }
+
+        
+        [Input("user")]
+        public Input<FlowControl.V1Alpha1.UserSubjectArgs>? User { get; set; }
+
+    }
+
+    /// <summary>
+    /// UserSubject holds detailed information for user-kind subject.
+    /// </summary>
+    public class UserSubjectArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// `name` is the username that matches, or "*" to match all usernames. Required.
+        /// </summary>
+        [Input("name", required: true)]
+        public Input<string> Name { get; set; } = null!;
+
+    }
+
+  }
+
+}
+
 namespace Pulumi.Kubernetes.Types.Inputs.Meta
 {
   namespace V1
@@ -23265,7 +24100,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta
         /// Must be empty before the object is deleted from the registry. Each entry is an
         /// identifier for the responsible component that will remove the entry from the list. If
         /// the deletionTimestamp of the object is non-nil, entries in this list can only be
-        /// removed.
+        /// removed. Finalizers may be processed and removed in any order.  Order is NOT enforced
+        /// because it introduces significant risk of stuck finalizers. finalizers is a shared
+        /// field, any actor with permission can reorder it. If the finalizer list is processed in
+        /// order, then this can lead to a situation in which the component responsible for the
+        /// first finalizer in the list is waiting for a signal (field value, external system, or
+        /// other) produced by a component responsible for a finalizer later in the list, resulting
+        /// in a deadlock. Without enforced ordering finalizers are free to order amongst themselves
+        /// and are not vulnerable to ordering changes in the list.
         /// </summary>
         public InputList<string> Finalizers
         {
@@ -24997,7 +25839,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy
 
         /// <summary>
         /// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and
-        /// other status informatio is valid only if observedGeneration equals to PDB's object
+        /// other status information is valid only if observedGeneration equals to PDB's object
         /// generation.
         /// </summary>
         [Input("observedGeneration")]
@@ -26047,7 +26889,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
 
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-    /// unit by a RoleBinding or ClusterRoleBinding.
+    /// unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
     /// </summary>
     public class ClusterRoleArgs : Pulumi.ResourceArgs
     {
@@ -26099,7 +26942,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
 
     /// <summary>
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-    /// ClusterRole in the global namespace, and adds who information via Subject.
+    /// ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+    /// v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+    /// served in v1.20.
     /// </summary>
     public class ClusterRoleBindingArgs : Pulumi.ResourceArgs
     {
@@ -26149,7 +26994,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+    /// of rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.20.
     /// </summary>
     public class ClusterRoleBindingListArgs : Pulumi.ResourceArgs
     {
@@ -26192,7 +27038,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// ClusterRoleList is a collection of ClusterRoles
+    /// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
     /// </summary>
     public class ClusterRoleListArgs : Pulumi.ResourceArgs
     {
@@ -26315,7 +27162,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
 
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-    /// RoleBinding.
+    /// RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+    /// longer be served in v1.20.
     /// </summary>
     public class RoleArgs : Pulumi.ResourceArgs
     {
@@ -26361,7 +27209,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     /// RoleBinding references a role, but does not contain it.  It can reference a Role in the same
     /// namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
-    /// only have effect in that namespace.
+    /// only have effect in that namespace. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
     /// </summary>
     public class RoleBindingArgs : Pulumi.ResourceArgs
     {
@@ -26411,7 +27260,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// RoleBindingList is a collection of RoleBindings
+    /// RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
     /// </summary>
     public class RoleBindingListArgs : Pulumi.ResourceArgs
     {
@@ -26454,7 +27304,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// RoleList is a collection of Roles
+    /// RoleList is a collection of Roles. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
     /// </summary>
     public class RoleListArgs : Pulumi.ResourceArgs
     {
@@ -26586,7 +27437,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
 
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-    /// unit by a RoleBinding or ClusterRoleBinding.
+    /// unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
     /// </summary>
     public class ClusterRoleArgs : Pulumi.ResourceArgs
     {
@@ -26638,7 +27490,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
 
     /// <summary>
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-    /// ClusterRole in the global namespace, and adds who information via Subject.
+    /// ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+    /// v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+    /// served in v1.20.
     /// </summary>
     public class ClusterRoleBindingArgs : Pulumi.ResourceArgs
     {
@@ -26688,7 +27542,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+    /// of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in
+    /// v1.20.
     /// </summary>
     public class ClusterRoleBindingListArgs : Pulumi.ResourceArgs
     {
@@ -26731,7 +27587,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// ClusterRoleList is a collection of ClusterRoles
+    /// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
     /// </summary>
     public class ClusterRoleListArgs : Pulumi.ResourceArgs
     {
@@ -26853,7 +27710,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
 
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-    /// RoleBinding.
+    /// RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+    /// longer be served in v1.20.
     /// </summary>
     public class RoleArgs : Pulumi.ResourceArgs
     {
@@ -26899,7 +27757,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     /// RoleBinding references a role, but does not contain it.  It can reference a Role in the same
     /// namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
-    /// only have effect in that namespace.
+    /// only have effect in that namespace. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
     /// </summary>
     public class RoleBindingArgs : Pulumi.ResourceArgs
     {
@@ -26949,7 +27808,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// RoleBindingList is a collection of RoleBindings
+    /// RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
     /// </summary>
     public class RoleBindingListArgs : Pulumi.ResourceArgs
     {
@@ -26992,7 +27852,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac
     }
 
     /// <summary>
-    /// RoleList is a collection of Roles
+    /// RoleList is a collection of Roles Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
     /// </summary>
     public class RoleListArgs : Pulumi.ResourceArgs
     {
@@ -27600,6 +28461,166 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage
   namespace V1
   {
     /// <summary>
+    /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
+    /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
+    /// container, the kubelet will automatically populate the CSINode object for the CSI driver as
+    /// part of kubelet plugin registration. CSINode has the same name as a node. If the object is
+    /// missing, it means either there are no CSI Drivers available on the node, or the Kubelet
+    /// version is low enough that it doesn't create this object. CSINode has an OwnerReference that
+    /// points to the corresponding node object.
+    /// </summary>
+    public class CSINodeArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// spec is the specification of CSINode
+        /// </summary>
+        [Input("spec", required: true)]
+        public Input<Storage.V1.CSINodeSpecArgs> Spec { get; set; } = null!;
+
+        /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Input("kind")]
+        public Input<string>? Kind { get; set; }
+
+        /// <summary>
+        /// metadata.name must be the Kubernetes node name.
+        /// </summary>
+        [Input("metadata")]
+        public Input<Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
+
+    }
+
+    /// <summary>
+    /// CSINodeDriver holds information about the specification of one CSI driver installed on a
+    /// node
+    /// </summary>
+    public class CSINodeDriverArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// This is the name of the CSI driver that this object refers to. This MUST be the same
+        /// name returned by the CSI GetPluginName() call for that driver.
+        /// </summary>
+        [Input("name", required: true)]
+        public Input<string> Name { get; set; } = null!;
+
+        /// <summary>
+        /// nodeID of the node from the driver point of view. This field enables Kubernetes to
+        /// communicate with storage systems that do not share the same nomenclature for nodes. For
+        /// example, Kubernetes may refer to a given node as "node1", but the storage system may
+        /// refer to the same node as "nodeA". When Kubernetes issues a command to the storage
+        /// system to attach a volume to a specific node, it can use this field to refer to the node
+        /// name using the ID that the storage system will understand, e.g. "nodeA" instead of
+        /// "node1". This field is required.
+        /// </summary>
+        [Input("nodeID", required: true)]
+        public Input<string> NodeID { get; set; } = null!;
+
+        /// <summary>
+        /// allocatable represents the volume resources of a node that are available for scheduling.
+        /// This field is beta.
+        /// </summary>
+        [Input("allocatable")]
+        public Input<Storage.V1.VolumeNodeResourcesArgs>? Allocatable { get; set; }
+
+        [Input("topologyKeys")]
+        private InputList<string>? _topologyKeys;
+
+        /// <summary>
+        /// topologyKeys is the list of keys supported by the driver. When a driver is initialized
+        /// on a cluster, it provides a set of topology keys that it understands (e.g.
+        /// "company.com/zone", "company.com/region"). When a driver is initialized on a node, it
+        /// provides the same topology keys along with values. Kubelet will expose these topology
+        /// keys as labels on its own node object. When Kubernetes does topology aware provisioning,
+        /// it can use this list to determine which labels it should retrieve from the node object
+        /// and pass back to the driver. It is possible for different nodes to use different
+        /// topology keys. This can be empty if driver does not support topology.
+        /// </summary>
+        public InputList<string> TopologyKeys
+        {
+            get => _topologyKeys ?? (_topologyKeys = new InputList<string>());
+            set => _topologyKeys = value;
+        }
+
+    }
+
+    /// <summary>
+    /// CSINodeList is a collection of CSINode objects.
+    /// </summary>
+    public class CSINodeListArgs : Pulumi.ResourceArgs
+    {
+        [Input("items", required: true)]
+        private InputList<Storage.V1.CSINodeArgs>? _items;
+
+        /// <summary>
+        /// items is the list of CSINode
+        /// </summary>
+        public InputList<Storage.V1.CSINodeArgs> Items
+        {
+            get => _items ?? (_items = new InputList<Storage.V1.CSINodeArgs>());
+            set => _items = value;
+        }
+
+        /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+        [Input("apiVersion")]
+        public Input<string>? ApiVersion { get; set; }
+
+        /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+        [Input("kind")]
+        public Input<string>? Kind { get; set; }
+
+        /// <summary>
+        /// Standard list metadata More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+        [Input("metadata")]
+        public Input<Meta.V1.ListMetaArgs>? Metadata { get; set; }
+
+    }
+
+    /// <summary>
+    /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+    /// </summary>
+    public class CSINodeSpecArgs : Pulumi.ResourceArgs
+    {
+        [Input("drivers", required: true)]
+        private InputList<Storage.V1.CSINodeDriverArgs>? _drivers;
+
+        /// <summary>
+        /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers
+        /// in the list are uninstalled, this can become empty.
+        /// </summary>
+        public InputList<Storage.V1.CSINodeDriverArgs> Drivers
+        {
+            get => _drivers ?? (_drivers = new InputList<Storage.V1.CSINodeDriverArgs>());
+            set => _drivers = value;
+        }
+
+    }
+
+    /// <summary>
     /// StorageClass describes the parameters for a class of storage for which PersistentVolumes can
     /// be dynamically provisioned.
     /// 
@@ -27945,6 +28966,23 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage
         /// </summary>
         [Input("time")]
         public Input<string>? Time { get; set; }
+
+    }
+
+    /// <summary>
+    /// VolumeNodeResources is a set of resource limits for scheduling of volumes.
+    /// </summary>
+    public class VolumeNodeResourcesArgs : Pulumi.ResourceArgs
+    {
+        /// <summary>
+        /// Maximum number of unique volumes managed by the CSI driver that can be used on a node. A
+        /// volume that is both attached and mounted on a node is considered to be used once, not
+        /// twice. The same rule applies for a unique volume that is shared among multiple pods on
+        /// the same node. If this field is not specified, then the supported number of volumes on
+        /// this node is unbounded.
+        /// </summary>
+        [Input("count")]
+        public Input<int>? Count { get; set; }
 
     }
 
@@ -28313,6 +29351,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage
     }
 
     /// <summary>
+    /// DEPRECATED - storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
+    /// storage/v1beta1/CSINode instead.
+    /// 
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
     /// container, the kubelet will automatically populate the CSINode object for the CSI driver as

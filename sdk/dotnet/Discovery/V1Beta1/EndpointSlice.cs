@@ -5,22 +5,24 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Storage.V1Beta1
+namespace Pulumi.Kubernetes.Discovery.V1Beta1
 {
     /// <summary>
-    /// DEPRECATED - storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
-    /// storage/v1beta1/CSINode instead.
-    /// 
-    /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
-    /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
-    /// container, the kubelet will automatically populate the CSINode object for the CSI driver as
-    /// part of kubelet plugin registration. CSINode has the same name as a node. If the object is
-    /// missing, it means either there are no CSI Drivers available on the node, or the Kubelet
-    /// version is low enough that it doesn't create this object. CSINode has an OwnerReference that
-    /// points to the corresponding node object.
+    /// EndpointSlice represents a subset of the endpoints that implement a service. For a given
+    /// service there may be multiple EndpointSlice objects, selected by labels, which must be
+    /// joined to produce the full set of endpoints.
     /// </summary>
-    public partial class CSINode : Pulumi.CustomResource
+    public partial class EndpointSlice : Pulumi.CustomResource
     {
+        /// <summary>
+        /// addressType specifies the type of address carried by this EndpointSlice. All addresses
+        /// in this slice must be the same type. This field is immutable after creation. The
+        /// following address types are currently supported: * IPv4: Represents an IPv4 Address. *
+        /// IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+        /// </summary>
+        [Output("addressType")]
+        public Output<string> AddressType { get; private set; } = null!;
+
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -29,6 +31,13 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// </summary>
         [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
+
+        /// <summary>
+        /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
+        /// of 1000 endpoints.
+        /// </summary>
+        [Output("endpoints")]
+        public Output<Types.Outputs.Discovery.V1Beta1.Endpoint[]> Endpoints { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -40,34 +49,37 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// metadata.name must be the Kubernetes node name.
+        /// Standard object's metadata.
         /// </summary>
         [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// spec is the specification of CSINode
+        /// ports specifies the list of network ports exposed by each endpoint in this slice. Each
+        /// port must have a unique name. When ports is empty, it indicates that there are no
+        /// defined ports. When a port is defined with a nil port value, it indicates "all ports".
+        /// Each slice may include a maximum of 100 ports.
         /// </summary>
-        [Output("spec")]
-        public Output<Types.Outputs.Storage.V1Beta1.CSINodeSpec> Spec { get; private set; } = null!;
+        [Output("ports")]
+        public Output<Types.Outputs.Discovery.V1Beta1.EndpointPort[]> Ports { get; private set; } = null!;
 
 
         /// <summary>
-        /// Create a CSINode resource with the given unique name, arguments, and options.
+        /// Create a EndpointSlice resource with the given unique name, arguments, and options.
         /// </summary>
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CSINode(string name, Types.Inputs.Storage.V1Beta1.CSINodeArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1beta1:CSINode", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+        public EndpointSlice(string name, Types.Inputs.Discovery.V1Beta1.EndpointSliceArgs? args = null, CustomResourceOptions? options = null)
+            : base("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
         {
         }
 
-        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSINodeArgs? args)
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Discovery.V1Beta1.EndpointSliceArgs? args)
         {
             if (args != null) {
-                args.ApiVersion = "storage.k8s.io/v1beta1";
-                args.Kind = "CSINode";
+                args.ApiVersion = "discovery.k8s.io/v1beta1";
+                args.Kind = "EndpointSlice";
             }
             return args ?? ResourceArgs.Empty;
         }
@@ -82,14 +94,14 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         }
 
         /// <summary>
-        /// Get an existing CSINode resource's state with the given name and ID.
+        /// Get an existing EndpointSlice resource's state with the given name and ID.
         /// </summary>
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static CSINode Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        public static EndpointSlice Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CSINode(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            return new EndpointSlice(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
             {
                 Id = id,
             }));

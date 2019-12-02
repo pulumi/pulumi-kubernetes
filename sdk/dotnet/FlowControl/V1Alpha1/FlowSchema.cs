@@ -5,21 +5,14 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Storage.V1Beta1
+namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
 {
     /// <summary>
-    /// DEPRECATED - storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
-    /// storage/v1beta1/CSINode instead.
-    /// 
-    /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
-    /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
-    /// container, the kubelet will automatically populate the CSINode object for the CSI driver as
-    /// part of kubelet plugin registration. CSINode has the same name as a node. If the object is
-    /// missing, it means either there are no CSI Drivers available on the node, or the Kubelet
-    /// version is low enough that it doesn't create this object. CSINode has an OwnerReference that
-    /// points to the corresponding node object.
+    /// FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of
+    /// inbound API requests with similar attributes and is identified by a pair of strings: the
+    /// name of the FlowSchema and a "flow distinguisher".
     /// </summary>
-    public partial class CSINode : Pulumi.CustomResource
+    public partial class FlowSchema : Pulumi.CustomResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -40,34 +33,43 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// metadata.name must be the Kubernetes node name.
+        /// `metadata` is the standard object's metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
         [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// spec is the specification of CSINode
+        /// `spec` is the specification of the desired behavior of a FlowSchema. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         [Output("spec")]
-        public Output<Types.Outputs.Storage.V1Beta1.CSINodeSpec> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.FlowControl.V1Alpha1.FlowSchemaSpec> Spec { get; private set; } = null!;
+
+        /// <summary>
+        /// `status` is the current status of a FlowSchema. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+        [Output("status")]
+        public Output<Types.Outputs.FlowControl.V1Alpha1.FlowSchemaStatus> Status { get; private set; } = null!;
 
 
         /// <summary>
-        /// Create a CSINode resource with the given unique name, arguments, and options.
+        /// Create a FlowSchema resource with the given unique name, arguments, and options.
         /// </summary>
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CSINode(string name, Types.Inputs.Storage.V1Beta1.CSINodeArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1beta1:CSINode", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+        public FlowSchema(string name, Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs? args = null, CustomResourceOptions? options = null)
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
         {
         }
 
-        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSINodeArgs? args)
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs? args)
         {
             if (args != null) {
-                args.ApiVersion = "storage.k8s.io/v1beta1";
-                args.Kind = "CSINode";
+                args.ApiVersion = "flowcontrol.apiserver.k8s.io/v1alpha1";
+                args.Kind = "FlowSchema";
             }
             return args ?? ResourceArgs.Empty;
         }
@@ -82,14 +84,14 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         }
 
         /// <summary>
-        /// Get an existing CSINode resource's state with the given name and ID.
+        /// Get an existing FlowSchema resource's state with the given name and ID.
         /// </summary>
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static CSINode Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        public static FlowSchema Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CSINode(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            return new FlowSchema(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
             {
                 Id = id,
             }));

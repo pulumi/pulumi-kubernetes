@@ -37,6 +37,7 @@ var pascalCaseMapping = map[string]string{
 	"discovery":             "Discovery",
 	"events":                "Events",
 	"extensions":            "Extensions",
+	"flowcontrol":           "FlowControl",
 	"networking":            "Networking",
 	"meta":                  "Meta",
 	"node":                  "Node",

@@ -5,12 +5,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Storage.V1Beta1
+namespace Pulumi.Kubernetes.Storage.V1
 {
     /// <summary>
-    /// DEPRECATED - storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
-    /// storage/v1beta1/CSINode instead.
-    /// 
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
     /// container, the kubelet will automatically populate the CSINode object for the CSI driver as
@@ -49,7 +46,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// spec is the specification of CSINode
         /// </summary>
         [Output("spec")]
-        public Output<Types.Outputs.Storage.V1Beta1.CSINodeSpec> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Storage.V1.CSINodeSpec> Spec { get; private set; } = null!;
 
 
         /// <summary>
@@ -58,15 +55,15 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CSINode(string name, Types.Inputs.Storage.V1Beta1.CSINodeArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1beta1:CSINode", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+        public CSINode(string name, Types.Inputs.Storage.V1.CSINodeArgs? args = null, CustomResourceOptions? options = null)
+            : base("kubernetes:storage.k8s.io/v1:CSINode", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
         {
         }
 
-        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSINodeArgs? args)
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1.CSINodeArgs? args)
         {
             if (args != null) {
-                args.ApiVersion = "storage.k8s.io/v1beta1";
+                args.ApiVersion = "storage.k8s.io/v1";
                 args.Kind = "CSINode";
             }
             return args ?? ResourceArgs.Empty;
