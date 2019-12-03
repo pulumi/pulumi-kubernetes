@@ -192,8 +192,16 @@ export class Chart extends yaml.CollectionComponentResource {
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
+                let cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`;
+
+                // Use the HELM_HOME environment variable value if set.
+                const home = process.env.HELM_HOME || undefined;
+                if (home !== undefined) {
+                    cmd += ` --home ${path.quotePath(home)}`;
+                }
+
                 const yamlStream = execSync(
-                    `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`,
+                    cmd,
                     {
                         maxBuffer: 512 * 1024 * 1024 // 512 MB
                     },
@@ -394,7 +402,12 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         // Untar by default.
         if(opts.untar !== false) { flags.push(`--untar`); }
 
-        // For arguments that are not paths to files, it is sufficent to use shell.quote to quote the arguments.
+        // Fallback to using the HELM_HOME environment variable if opts.home is not set.
+        if (!opts.home) {
+            opts.home = process.env.HELM_HOME || undefined;
+        }
+
+        // For arguments that are not paths to files, it is sufficient to use shell.quote to quote the arguments.
         // However, for arguments that are actual paths to files we use path.quotePath (note that path here is
         // not the node path builtin module). This ensures proper escaping of paths on Windows.
         if (opts.version !== undefined)     { flags.push(`--version ${shell.quote([opts.version])}`);    }
