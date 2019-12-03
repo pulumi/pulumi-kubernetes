@@ -284,10 +284,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		CurrentContext: vars["kubernetes:config:context"],
 	}
 
-	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
-		k.defaultNamespace = defaultNamespace
-	}
-
 	enableDryRun := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
 		if enabled, exists := vars["kubernetes:config:enableDryRun"]; exists {
@@ -329,6 +325,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				"a filename or path")
 		}
 		kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
+		configurationNamespace, _, err := kubeconfig.Namespace()
+		if err == nil {
+			k.defaultNamespace = configurationNamespace
+		}
 	} else {
 		// Use client-go to resolve the final configuration values for the client. Typically these
 		// values would would reside in the $KUBECONFIG file, but can also be altered in several
@@ -337,6 +337,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
 		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
+	}
+
+	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
+		k.defaultNamespace = defaultNamespace
 	}
 
 	config, err := kubeconfig.ClientConfig()
