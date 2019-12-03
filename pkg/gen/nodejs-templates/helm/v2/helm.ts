@@ -197,7 +197,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 // Use the HELM_HOME environment variable value if set.
                 const home = process.env.HELM_HOME || undefined;
                 if (home !== undefined) {
-                    cmd += ` --home ${home}`;
+                    cmd += ` --home ${path.quotePath(home)}`;
                 }
 
                 const yamlStream = execSync(
@@ -403,13 +403,8 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         if(opts.untar !== false) { flags.push(`--untar`); }
 
         // Fallback to using the HELM_HOME environment variable if opts.home is not set.
-        if (opts.home !== undefined) {
-            flags.push(`--home ${path.quotePath(opts.home)}`);
-        } else {
-            const home = process.env.HELM_HOME || undefined;
-            if (home !== undefined) {
-                flags.push(`--home ${home}`);
-            }
+        if (!opts.home) {
+            opts.home = process.env.HELM_HOME || undefined;
         }
 
         // For arguments that are not paths to files, it is sufficient to use shell.quote to quote the arguments.
@@ -425,6 +420,7 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         if (opts.repo !== undefined)        { flags.push(`--repo ${path.quotePath(opts.repo)}`);               }
         if (opts.untardir !== undefined)    { flags.push(`--untardir ${path.quotePath(opts.untardir)}`);       }
         if (opts.username !== undefined)    { flags.push(`--username ${shell.quote([opts.username])}`);  }
+        if (opts.home !== undefined)        { flags.push(`--home ${path.quotePath(opts.home)}`);               }
         if (opts.devel === true)            { flags.push(`--devel`);                                           }
         if (opts.prov === true)             { flags.push(`--prov`);                                            }
         if (opts.verify === true)           { flags.push(`--verify`);                                          }
