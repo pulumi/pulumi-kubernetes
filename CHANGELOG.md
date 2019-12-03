@@ -8,7 +8,7 @@
 
 ### Improvements
 
--   Use `namespace` provided by `KUBECONFIG`, if it is not explicitly set in the provider (https://github.com/pulumi/pulumi-kubernetes/pull/862).
+-   Use `namespace` provided by `KUBECONFIG`, if it is not explicitly set in the provider (https://github.com/pulumi/pulumi-kubernetes/pull/903).
 
 ## 1.3.3 (November 29, 2019)
 
