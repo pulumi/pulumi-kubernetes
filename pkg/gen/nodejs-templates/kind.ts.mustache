@@ -13,7 +13,7 @@ import { getVersion } from "../../version";
     export class {{Kind}} extends pulumi.CustomResource {
       {{#Properties}}
       {{{Comment}}}
-      public readonly {{Name}}: {{{PropType}}};
+      public readonly {{Name}}: {{{ProviderType}}};
 
       {{/Properties}}
       /**

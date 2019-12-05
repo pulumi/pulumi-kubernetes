@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}}
         {{#Properties}}
         {{{Comment}}}
         [Output("{{Name}}")]
-        public {{{PropType}}} {{LanguageName}} { get; private set; } = null!;
+        public {{{ProviderType}}} {{LanguageName}} { get; private set; } = null!;
 
         {{/Properties}}
 

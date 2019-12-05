@@ -31,7 +31,7 @@ class {{Kind}}(pulumi.CustomResource):
     """
 
     {{#Properties}}
-    {{LanguageName}}: {{{PropType}}}
+    {{LanguageName}}: {{{ProviderType}}}
     {{{Comment}}}
 
     {{/Properties}}
@@ -42,10 +42,10 @@ class {{Kind}}(pulumi.CustomResource):
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         {{#RequiredInputProperties}}
-        :param {{{PythonConstructorPropType}}} {{LanguageName}}: {{{PythonConstructorComment}}}
+        :param {{{InputsAPIType}}} {{LanguageName}}: {{{PythonConstructorComment}}}
         {{/RequiredInputProperties}}
         {{#OptionalInputProperties}}
-        :param {{{PythonConstructorPropType}}} {{LanguageName}}: {{{PythonConstructorComment}}}
+        :param {{{InputsAPIType}}} {{LanguageName}}: {{{PythonConstructorComment}}}
         {{/OptionalInputProperties}}
         """
         if __name__ is not None:

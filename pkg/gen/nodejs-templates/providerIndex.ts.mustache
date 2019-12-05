@@ -8,11 +8,13 @@ export { helm, yaml };
 
 // Import groups
 {{#Groups}}
+{{#HasTopLevelKinds}}
 import * as {{Group}} from "./{{Group}}/index";
+{{/HasTopLevelKinds}}
 {{/Groups}}
 
 // Export sub-modules
-export { {{#Groups}}{{Group}}, {{/Groups}} };
+export { {{#Groups}}{{#HasTopLevelKinds}}{{Group}}, {{/HasTopLevelKinds}}{{/Groups}} };
 
 // Import and export sub-modules for all Kubernetes types.
 import * as types from "./types";

@@ -42,7 +42,8 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 ) (inputsts, outputsts, indexts, yamlts, packagejson string, groupsts map[string]*GroupTS, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
-	groupsSlice := createGroups(definitions, nodeJSInputs())
+	groupsSlice := createGroups(definitions, nodeJSOpts())
+
 	inputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesInput.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
@@ -51,7 +52,6 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 		return
 	}
 
-	groupsSlice = createGroups(definitions, nodeJSOutputs())
 	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesOutput.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
@@ -60,16 +60,23 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 		return
 	}
 
-	groupsSlice = createGroups(definitions, nodeJSProvider())
 	groupsts = make(map[string]*GroupTS)
 	for _, group := range groupsSlice {
+		if !group.HasTopLevelKinds() {
+			continue
+		}
+
 		groupTS := &GroupTS{}
 		for _, version := range group.Versions() {
+			if !version.HasTopLevelKinds() {
+				continue
+			}
+
 			if groupTS.Versions == nil {
 				groupTS.Versions = make(map[string]*VersionTS)
 			}
 			versionTS := &VersionTS{}
-			for _, kind := range version.Kinds() {
+			for _, kind := range version.TopLevelKinds() {
 				if versionTS.Kinds == nil {
 					versionTS.Kinds = make(map[string]string)
 				}
@@ -103,7 +110,7 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 
 			kindIndexTS, err := mustache.RenderFile(fmt.Sprintf("%s/kindIndex.ts.mustache", templateDir),
 				map[string]interface{}{
-					"Kinds": version.Kinds(),
+					"Kinds": version.TopLevelKinds(),
 				})
 			if err != nil {
 				return "", "", "", "", "", nil, err

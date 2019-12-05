@@ -80,32 +80,28 @@ func DotnetClient(
 ) (inputsts, outputsts string, groups map[string]string, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
-	inputGroupsSlice := createGroups(definitions, dotnetInputs())
+	groupsSlice := createGroups(definitions, dotnetOpts())
+
 	inputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesInput.cs.mustache", templateDir),
 		map[string]interface{}{
-			"Groups": inputGroupsSlice,
+			"Groups": groupsSlice,
 		})
 	if err != nil {
 		return
 	}
 
-	outputGroupsSlice := createGroups(definitions, dotnetOutputs())
 	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesOutput.cs.mustache", templateDir),
 		map[string]interface{}{
-			"Groups": outputGroupsSlice,
+			"Groups": groupsSlice,
 		})
 	if err != nil {
 		return
 	}
 
-	groupsSlice := createGroups(definitions, dotnetProvider())
-	fmt.Printf("%v\n", groupsSlice)
-
 	groups = make(map[string]string)
-
 	for _, group := range groupsSlice {
 		for _, version := range group.Versions() {
-			for _, kind := range version.Kinds() {
+			for _, kind := range version.TopLevelKinds() {
 				inputMap := map[string]interface{}{
 					"RawAPIVersion":           kind.RawAPIVersion(),
 					"Comment":                 kind.Comment(),

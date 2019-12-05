@@ -20,38 +20,38 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}}
         {{#RequiredInputProperties}}
         {{#DotnetIsListOrMap}}
         [Input("{{Name}}", required: true)]
-        private {{{PropType}}}? _{{Name}};
+        private {{{InputsAPIType}}}? _{{Name}};
 
         {{{Comment}}}
-        public {{{PropType}}} {{LanguageName}}
+        public {{{InputsAPIType}}} {{LanguageName}}
         {
-            get => _{{Name}} ?? (_{{Name}} = new {{{PropType}}}());
+            get => _{{Name}} ?? (_{{Name}} = new {{{InputsAPIType}}}());
             set => _{{Name}} = value;
         }
         {{/DotnetIsListOrMap}}
         {{^DotnetIsListOrMap}}
         {{{Comment}}}
         [Input("{{Name}}", required: true)]
-        public {{{PropType}}} {{LanguageName}} { get; set; } = null!;
+        public {{{InputsAPIType}}} {{LanguageName}} { get; set; } = null!;
         {{/DotnetIsListOrMap}}
 
         {{/RequiredInputProperties}}
         {{#OptionalInputProperties}}
         {{#DotnetIsListOrMap}}
         [Input("{{Name}}")]
-        private {{{PropType}}}? _{{Name}};
+        private {{{InputsAPIType}}}? _{{Name}};
 
         {{{Comment}}}
-        public {{{PropType}}} {{LanguageName}}
+        public {{{InputsAPIType}}} {{LanguageName}}
         {
-            get => _{{Name}} ?? (_{{Name}} = new {{{PropType}}}());
+            get => _{{Name}} ?? (_{{Name}} = new {{{InputsAPIType}}}());
             set => _{{Name}} = value;
         }
         {{/DotnetIsListOrMap}}
         {{^DotnetIsListOrMap}}
         {{{Comment}}}
         [Input("{{Name}}")]
-        public {{{PropType}}}? {{LanguageName}} { get; set; }
+        public {{{InputsAPIType}}}? {{LanguageName}} { get; set; }
         {{/DotnetIsListOrMap}}
 
         {{/OptionalInputProperties}}

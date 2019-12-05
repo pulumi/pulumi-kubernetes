@@ -212,10 +212,10 @@ import * as outputs from "../types/output";
          */
         {{#Groups}}
         {{#Versions}}
-        {{#KindsAndAliases}}
+        {{#TopLevelKindsAndAliases}}
         public getResource(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string): pulumi.Output<k8s.{{Group}}.{{Version}}.{{Kind}}>;
         public getResource(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string): pulumi.Output<k8s.{{Group}}.{{Version}}.{{Kind}}>;
-        {{/KindsAndAliases}}
+        {{/TopLevelKindsAndAliases}}
         {{/Versions}}
         {{/Groups}}
         public getResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.Output<pulumi.CustomResource> {
@@ -230,12 +230,12 @@ import * as outputs from "../types/output";
          */
         {{#Groups}}
         {{#Versions}}
-        {{#KindsAndAliases}}
+        {{#TopLevelKindsAndAliases}}
         {{#Properties}}
-        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string, property: "{{LanguageName}}"): {{{PropType}}};
-        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string, property: "{{LanguageName}}"): {{{PropType}}};
+        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string, property: "{{LanguageName}}"): {{{ProviderType}}};
+        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string, property: "{{LanguageName}}"): {{{ProviderType}}};
         {{/Properties}}
-        {{/KindsAndAliases}}
+        {{/TopLevelKindsAndAliases}}
         {{/Versions}}
         {{/Groups}}
         public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {
@@ -400,9 +400,9 @@ import * as outputs from "../types/output";
                (apiVersion == "v1" && kind == "List")
             {{#Groups}}
             {{#Versions}}
-            {{#ListKindsAndAliases}}
+            {{#ListTopLevelKindsAndAliases}}
             || (apiVersion == "{{RawAPIVersion}}" && kind == "{{Kind}}")
-            {{/ListKindsAndAliases}}
+            {{/ListTopLevelKindsAndAliases}}
             {{/Versions}}
             {{/Groups}}
         ) {
@@ -430,13 +430,13 @@ import * as outputs from "../types/output";
         switch (`${apiVersion}/${kind}`) {
             {{#Groups}}
             {{#Versions}}
-            {{#KindsAndAliases}}
+            {{#TopLevelKindsAndAliases}}
             case "{{RawAPIVersion}}/{{Kind}}":
                 return [id.apply(id => ({
                     name: `{{RawAPIVersion}}/{{Kind}}::${id}`,
                     resource: new k8s.{{Group}}.{{Version}}.{{Kind}}(id, obj, opts),
                 }))];
-            {{/KindsAndAliases}}
+            {{/TopLevelKindsAndAliases}}
             {{/Versions}}
             {{/Groups}}
             default:
