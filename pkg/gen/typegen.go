@@ -17,6 +17,7 @@ package gen
 import (
 	"fmt"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/ahmetb/go-linq"
@@ -167,8 +168,12 @@ type KindConfig struct {
 	apiVersion    string
 	rawAPIVersion string
 	typeGuard     string
+	goImports     []GoImport
 
-	isNested bool
+	isNested       bool
+	isPropertyType bool
+	isArrayElement bool
+	isMapElement   bool
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
@@ -218,8 +223,20 @@ func (kc *KindConfig) URNAPIVersion() string {
 // TypeGuard returns the text of a TypeScript type guard for the given kind.
 func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
 
+// GoImports returns the list of Go imports for the given kind.
+func (kc *KindConfig) GoImports() []GoImport { return kc.goImports }
+
 // IsNested returns true if this is a nested kind.
 func (kc *KindConfig) IsNested() bool { return kc.isNested }
+
+// IsPropertyType returns true if this kind is referenced from a property type.
+func (kc *KindConfig) IsPropertyType() bool { return kc.isPropertyType }
+
+// IsArrayElement returns true if this kind is ever used as an array element.
+func (kc *KindConfig) IsArrayElement() bool { return kc.isArrayElement }
+
+// IsMapElement returns true if this kind is every used as a map element.
+func (kc *KindConfig) IsMapElement() bool { return kc.isMapElement }
 
 // Property represents a property we want to expose on a Kubernetes API kind (i.e., things that we
 // will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
@@ -235,6 +252,8 @@ type Property struct {
 	isLast                   bool
 	dotnetVarName            string
 	dotnetIsListOrMap        bool
+	goOutputMethodName       string
+	isRequired               bool
 }
 
 // Name returns the name of the property.
@@ -271,6 +290,12 @@ func (p *Property) DotnetVarName() string { return p.dotnetVarName }
 // DotnetIsListOrMap returns whether the property type is a List or map
 func (p *Property) DotnetIsListOrMap() bool { return p.dotnetIsListOrMap }
 
+// GoOutputMethodName returns the To*Output() method invocation for this property, if any.
+func (p *Property) GoOutputMethodName() string { return p.goOutputMethodName }
+
+// IsRequired returns true if this property is required.
+func (p *Property) IsRequired() bool { return p.isRequired }
+
 // --------------------------------------------------------------------------
 
 // Utility functions.
@@ -303,7 +328,7 @@ func replaceDeprecationComment(comment string, gvk schema.GroupVersionKind, lang
 	case typescript:
 		prefix = "@deprecated "
 		replacement = prefix + ApiVersionComment(gvk)
-	case python, dotnet:
+	case python, dotnet, golang:
 		prefix = "DEPRECATED - "
 		replacement = prefix + ApiVersionComment(gvk)
 	default:
@@ -373,6 +398,20 @@ func fmtComment(
 			}
 			return joined
 		}
+	case golang:
+		wrapParagraph = func(paragraph string) []string {
+			borderLen := len(prefix + "// ")
+			wrapped := wordwrap.WrapString(paragraph, 100-uint(borderLen))
+			return strings.Split(wrapped, "\n")
+		}
+		renderComment = func(lines []string) string {
+			joined := strings.Join(lines, fmt.Sprintf("\n%s// ", prefix))
+			if !bareRender {
+				return fmt.Sprintf("// %s", joined)
+			}
+			return joined
+		}
+
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 	}
@@ -758,23 +797,236 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(gvkRefStr)
 }
 
-func makeTypes(resourceType, propName string, prop map[string]interface{}, language language) (string, string, string) {
-	inputsAPIType := makeType(resourceType, propName, prop, language, inputsAPI)
-	outputsAPIType := makeType(resourceType, propName, prop, language, outputsAPI)
-	providerType := makeType(resourceType, propName, prop, language, provider)
+func makeGoType(
+	resourceType, propName string,
+	prop map[string]interface{},
+	context *typesContext,
+	gentype gentype,
+	forceNoWrap bool,
+) string {
+
+	wrapType := func(typ string) string {
+		if forceNoWrap {
+			return typ
+		}
+		switch gentype {
+		case provider:
+			return fmt.Sprintf("%sOutput", typ)
+		case outputsAPI:
+			isRefType := typ == "interface{}" ||
+				strings.HasPrefix("[]", typ) || strings.HasPrefix("map[", typ) || strings.HasPrefix("*", typ)
+			if !isRefType && !context.requiredProperties.Has(propName) && propName != "status" {
+				return "*" + typ
+			}
+			return typ
+		case inputsAPI:
+			return fmt.Sprintf("%sInput", typ)
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", gentype))
+		}
+	}
+
+	if t, exists := prop["type"]; exists {
+		switch tstr := t.(string); tstr {
+		case "integer":
+			if gentype == outputsAPI {
+				return wrapType("int")
+			}
+			return wrapType("pulumi.Int")
+		case "boolean":
+			if gentype == outputsAPI {
+				return wrapType("bool")
+			}
+			return wrapType("pulumi.Bool")
+		case "number":
+			if gentype == outputsAPI {
+				return wrapType("float64")
+			}
+			return wrapType("pulumi.Float64")
+		case "string":
+			// TODO: Enable metadata to take explicit namespaces, like:
+			// return "pulumi.Input<string> | Namespace"
+			if gentype == outputsAPI {
+				return wrapType("string")
+			}
+			return wrapType("pulumi.String")
+		case "array":
+			elemType := makeGoType(
+				resourceType, propName, prop["items"].(map[string]interface{}), context, gentype, true)
+			if gentype == outputsAPI {
+				return fmt.Sprintf("[]%s", elemType)
+			}
+			if elemType == "pulumi.Input" || elemType == "pulumi.AnyOutput" {
+				elemType = "pulumi."
+			}
+			return wrapType(fmt.Sprintf("%sArray", elemType))
+		case "object":
+			vtype := "pulumi.String"
+			if additionalProperties, exists := prop["additionalProperties"]; exists {
+				vtype = makeGoType(
+					resourceType, propName, additionalProperties.(map[string]interface{}), context, gentype, true)
+			}
+			if gentype == outputsAPI {
+				if vtype == "pulumi.String" {
+					return "map[string]string"
+				}
+				return fmt.Sprintf("map[string]%s", vtype)
+			}
+			if vtype == "pulumi.Input" || vtype == "pulumi.AnyOutput" {
+				vtype = "pulumi."
+			}
+			return wrapType(fmt.Sprintf("%sMap", vtype))
+		default:
+			panic(fmt.Sprintf("unmapped OpenAPI type %s", tstr))
+		}
+	}
+
+	ref := stripPrefix(prop["$ref"].(string))
+	//var argsSuffix string
+	//var stringArr string
+	var anyType string
+	switch gentype {
+	case inputsAPI:
+		//argsSuffix = "Args"
+		//stringArr = "pulumi.StringArray"
+		anyType = "pulumi.Input"
+	case outputsAPI:
+		//argsSuffix = ""
+		//stringArr = "ImmutableArray<string>"
+		anyType = "interface{}"
+	case provider:
+		//argsSuffix = ""
+		//stringArr = "pulumi.StringArray"
+		anyType = "pulumi.AnyOutput"
+	default:
+		panic(fmt.Sprintf("unrecognized generator type %d", gentype))
+	}
+
+	isSimpleRef := true
+	switch ref {
+	case quantity:
+		if gentype == outputsAPI {
+			return wrapType("string")
+		}
+		ref = "pulumi.String"
+	case intOrString:
+		// TODO(pdg): IntOrString type
+		return anyType
+	case v1Fields, v1FieldsV1, rawExtension:
+		return anyType
+	case v1Time, v1MicroTime:
+		if gentype == outputsAPI {
+			return wrapType("string")
+		}
+		ref = "pulumi.String"
+	case v1beta1JSONSchemaPropsOrBool:
+		// TODO(pdg): return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "bool")
+		return anyType
+	case v1JSONSchemaPropsOrBool:
+		// TODO(pdg): return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, "bool")
+		return anyType
+	case v1beta1JSONSchemaPropsOrArray, v1beta1JSONSchemaPropsOrStringArray:
+		// TODO(pdg): return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, stringArr)
+		return anyType
+	case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
+		// TODO(pdg): return oneOf("ApiExtensions.V1.JSONSchemaProps"+argsSuffix, stringArr)
+		return anyType
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+		return anyType
+	default:
+		isSimpleRef = false
+	}
+
+	if isSimpleRef {
+		return wrapType(ref)
+	}
+
+	gvk := gvkFromRef(ref)
+	refStr := gvk.Kind
+	if context.topLevelKinds.has(gvk) {
+		refStr += "Property"
+	}
+	if gv := gvk.GroupVersion(); gv != context.gvk.GroupVersion() {
+		refStr = fmt.Sprintf("%s%s.%s", gvk.Group, pascalCase(gvk.Version), refStr)
+		context.goImports[gv] = struct{}{}
+	}
+
+	// Deal with recursive types (looking at you, JSONSchemaProps...)
+	if gentype == outputsAPI && gvk == context.gvk {
+		refStr = "*" + refStr
+	}
+
+	return wrapType(refStr)
+}
+
+func makeTypeDetails(
+	resourceType, propName string,
+	prop map[string]interface{},
+	context *typesContext,
+	isArrayElement, isMapElement bool,
+) {
+	if t, exists := prop["type"]; exists {
+		switch tstr := t.(string); tstr {
+		case "integer", "boolean", "number", "string":
+			// primitives
+			return
+		case "array":
+			makeTypeDetails(resourceType, propName, prop["items"].(map[string]interface{}), context, true, false)
+			return
+		case "object":
+			if additionalProperties, exists := prop["additionalProperties"]; exists {
+				makeTypeDetails(
+					resourceType, propName, additionalProperties.(map[string]interface{}), context, false, true)
+			}
+			return
+		default:
+			panic(fmt.Sprintf("unmapped OpenAPI type %s", tstr))
+		}
+	}
+
+	switch ref := stripPrefix(prop["$ref"].(string)); ref {
+	case quantity:
+	case intOrString:
+	case v1Fields, v1FieldsV1, rawExtension:
+	case v1Time, v1MicroTime:
+	case v1beta1JSONSchemaPropsOrBool:
+	case v1JSONSchemaPropsOrBool:
+	case v1beta1JSONSchemaPropsOrArray, v1beta1JSONSchemaPropsOrStringArray:
+	case v1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrStringArray:
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+	default:
+		gvk := gvkFromRef(ref)
+		context.propertyTypeKinds.add(gvk)
+		if isArrayElement {
+			context.arrayElementKinds.add(gvk)
+		}
+		if isMapElement {
+			context.mapElementKinds.add(gvk)
+		}
+	}
+}
+
+func makeTypes(resourceType, propName string, prop map[string]interface{}, context *typesContext) (string, string, string) {
+	makeTypeDetails(resourceType, propName, prop, context, false, false)
+
+	inputsAPIType := makeType(resourceType, propName, prop, context, inputsAPI)
+	outputsAPIType := makeType(resourceType, propName, prop, context, outputsAPI)
+	providerType := makeType(resourceType, propName, prop, context, provider)
 	return inputsAPIType, outputsAPIType, providerType
 }
 
-func makeType(resourceType, propName string, prop map[string]interface{}, language language, gentype gentype) string {
-	switch language {
+func makeType(resourceType, propName string, prop map[string]interface{}, context *typesContext, gentype gentype) string {
+	switch context.language {
 	case typescript:
 		return makeTypescriptType(resourceType, propName, prop, gentype)
 	case python:
 		return makePythonType(resourceType, propName, prop, gentype)
 	case dotnet:
 		return makeDotnetType(resourceType, propName, prop, gentype, false)
+	case golang:
+		return makeGoType(resourceType, propName, prop, context, gentype, false)
 	default:
-		panic(fmt.Sprintf("Unsupported language '%s'", language))
+		panic(fmt.Sprintf("Unsupported language '%s'", context.language))
 	}
 }
 
@@ -839,6 +1091,7 @@ const (
 	python     = "python"
 	typescript = "typescript"
 	dotnet     = "dotnet"
+	golang     = "go"
 )
 
 type groupOpts struct {
@@ -848,6 +1101,35 @@ type groupOpts struct {
 func nodeJSOpts() groupOpts { return groupOpts{language: typescript} }
 func pythonOpts() groupOpts { return groupOpts{language: python} }
 func dotnetOpts() groupOpts { return groupOpts{language: dotnet} }
+func goOpts() groupOpts     { return groupOpts{language: golang} }
+
+type GoImport string
+
+func (i GoImport) GoImport() string { return string(i) }
+
+type gvkSet map[schema.GroupVersionKind]struct{}
+
+func (s gvkSet) add(gvk schema.GroupVersionKind) {
+	s[gvk] = struct{}{}
+}
+
+func (s gvkSet) has(gvk schema.GroupVersionKind) bool {
+	_, ok := s[gvk]
+	return ok
+}
+
+type typesContext struct {
+	language language
+
+	topLevelKinds     gvkSet
+	propertyTypeKinds gvkSet
+	arrayElementKinds gvkSet
+	mapElementKinds   gvkSet
+
+	gvk                schema.GroupVersionKind
+	requiredProperties sets.String
+	goImports          map[schema.GroupVersion]struct{}
+}
 
 func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
@@ -911,6 +1193,19 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Assemble a `KindConfig` for each Kubernetes kind.
 	//
 
+	typesContext := &typesContext{
+		language:          opts.language,
+		topLevelKinds:     gvkSet{},
+		propertyTypeKinds: gvkSet{},
+		arrayElementKinds: gvkSet{},
+		mapElementKinds:   gvkSet{},
+	}
+	for _, d := range definitions {
+		if isTopLevel(d) {
+			typesContext.topLevelKinds.add(d.gvk)
+		}
+	}
+
 	kinds := []*KindConfig{}
 	linq.From(definitions).
 		OrderByT(func(d *definition) string { return d.gvk.String() }).
@@ -926,7 +1221,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
 			defaultGroupVersion := d.gvk.Group
 			var fqGroupVersion string
-			isTopLevel := isTopLevel(d)
+			isTopLevel := typesContext.topLevelKinds.has(d.gvk)
 			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
 				gvk := gvks[0].(map[string]interface{})
 				group := gvk["group"].(string)
@@ -949,6 +1244,16 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				fqGroupVersion = gv
 			}
 
+			// Required properties.
+			typesContext.requiredProperties = sets.String{}
+			if reqd, hasReqd := d.data["required"]; hasReqd {
+				for _, propName := range reqd.([]interface{}) {
+					typesContext.requiredProperties.Insert(propName.(string))
+				}
+			}
+
+			typesContext.gvk = d.gvk
+			typesContext.goImports = map[schema.GroupVersion]struct{}{}
 			ps := linq.From(d.data["properties"]).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				WhereT(func(kv linq.KeyValue) bool {
@@ -963,20 +1268,27 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 
 					var prefix string
-					var inputsAPIType, outputsAPIType, providerType string
+					var inputsAPIType, outputsAPIType, providerType, goOutputMethodName string
 					isListOrMap := false
-					switch opts.language {
+					switch typesContext.language {
 					case typescript:
 						prefix = "      "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typescript)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typesContext)
 					case python:
 						prefix = "    "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, python)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typesContext)
 					case dotnet:
 						prefix = "        "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, dotnet)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typesContext)
 						if strings.HasPrefix(inputsAPIType, "InputList") || strings.HasPrefix(inputsAPIType, "InputMap") {
 							isListOrMap = true
+						}
+					case golang:
+						prefix = "\t"
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typesContext)
+						if inputsAPIType != "pulumi.Input" {
+							split := strings.SplitAfter(providerType, ".")
+							goOutputMethodName = fmt.Sprintf(".To%s()", split[len(split)-1])
 						}
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
@@ -1024,6 +1336,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 							languageName = languageName + "Value"
 						}
 						dotnetVarName = "@" + name
+					case golang:
+						name := propName
+						if name[0] == '$' {
+							// $ref and $schema are property names that we want to special case into
+							// just Ref and Schema.
+							name = name[1:]
+						}
+						languageName = strings.ToUpper(name[:1]) + name[1:]
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
@@ -1040,6 +1360,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						defaultValue:             defaultValue,
 						isLast:                   false,
 						dotnetIsListOrMap:        isListOrMap,
+						goOutputMethodName:       goOutputMethodName,
 					}
 				})
 
@@ -1050,25 +1371,17 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				properties[len(properties)-1].isLast = true
 			}
 
-			// Required properties.
-			reqdProps := sets.NewString()
-			if reqd, hasReqd := d.data["required"]; hasReqd {
-				for _, propName := range reqd.([]interface{}) {
-					reqdProps.Insert(propName.(string))
-				}
-			}
-
 			requiredInputProperties := []*Property{}
 			ps.
 				WhereT(func(p *Property) bool {
-					return reqdProps.Has(p.name)
+					return typesContext.requiredProperties.Has(p.name)
 				}).
 				ToSlice(&requiredInputProperties)
 
 			optionalInputProperties := []*Property{}
 			ps.
 				WhereT(func(p *Property) bool {
-					return !reqdProps.Has(p.name) && p.name != "status"
+					return !typesContext.requiredProperties.Has(p.name) && p.name != "status"
 				}).
 				ToSlice(&optionalInputProperties)
 
@@ -1086,13 +1399,27 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
+			var goImports []GoImport
+			for k := range typesContext.goImports {
+				group, version := k.Group, k.Version
+				imp := fmt.Sprintf(`%s%s "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/%s/%s"`,
+					group, pascalCase(version), group, version)
+				goImports = append(goImports, GoImport(imp))
+			}
+			sort.Slice(goImports, func(i, j int) bool { return goImports[i] < goImports[j] })
+
+			prefix := "    "
+			if opts.language == golang {
+				prefix = ""
+			}
+
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:                 fmtComment(d.data["description"], "    ", true, opts, d.gvk),
-					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), "    ", true, opts, d.gvk),
+					comment:                 fmtComment(d.data["description"], prefix, true, opts, d.gvk),
+					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), prefix, true, opts, d.gvk),
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,
@@ -1103,10 +1430,17 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					rawAPIVersion:           defaultGroupVersion,
 					typeGuard:               typeGuard,
 					isNested:                !isTopLevel,
+					goImports:               goImports,
 				},
 			})
 		}).
 		ToSlice(&kinds)
+
+	for _, k := range kinds {
+		k.isPropertyType = typesContext.propertyTypeKinds.has(*k.gvk)
+		k.isArrayElement = typesContext.arrayElementKinds.has(*k.gvk)
+		k.isMapElement = typesContext.mapElementKinds.has(*k.gvk)
+	}
 
 	//
 	// Assemble a `VersionConfig` for each group of kinds.

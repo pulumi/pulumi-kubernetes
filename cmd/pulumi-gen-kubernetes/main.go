@@ -53,6 +53,8 @@ func main() {
 		writePythonClient(data, outdir, templateDir)
 	case "dotnet":
 		writeDotnetClient(data, outdir, templateDir)
+	case "go":
+		writeGoClient(data, outdir, templateDir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -280,6 +282,42 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	err = CopyFile(filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(outdir, "Pulumi.Kubernetes.csproj"))
+	if err != nil {
+		panic(err)
+	}
+}
+
+func writeGoClient(data map[string]interface{}, outdir, templateDir string) {
+	goFiles, err := gen.GoClient(data, templateDir)
+	if err != nil {
+		panic(err)
+	}
+
+	outdir = filepath.Join(outdir, "kubernetes")
+
+	err = os.MkdirAll(outdir, 0700)
+	if err != nil {
+		panic(err)
+	}
+
+	for path, contents := range goFiles {
+		filename := filepath.Join(outdir, path)
+		err := os.MkdirAll(filepath.Dir(filename), 0700)
+		if err != nil {
+			panic(err)
+		}
+		err = ioutil.WriteFile(filename, []byte(contents), 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
+	if err != nil {
+		panic(err)
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "provider.go"), filepath.Join(outdir, "provider.go"))
 	if err != nil {
 		panic(err)
 	}

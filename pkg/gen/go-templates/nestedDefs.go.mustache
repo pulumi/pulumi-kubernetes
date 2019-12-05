@@ -1,0 +1,138 @@
+// {{{Comment}}}
+type {{PropertyKind}} struct {
+	{{#Properties}}
+	{{{Comment}}}
+	{{LanguageName}} {{OutputsAPIType}} `pulumi:"{{Name}}"`
+
+	{{/Properties}}
+}
+
+var _{{PropertyKind}}Type = reflect.TypeOf((*{{PropertyKind}})(nil)).Elem()
+
+// {{PropertyKind}}Input represents an input type that resolves to a {{PropertyKind}}.
+type {{PropertyKind}}Input interface {
+	ElementType() reflect.Type
+
+	To{{PropertyKind}}Output() {{PropertyKind}}Output
+	To{{PropertyKind}}OutputWithContext(ctx context.Context) {{PropertyKind}}Output
+}
+
+// {{PropertyKind}}Args is a {{PropertyKind}}Input whose fields are all Input types.
+type {{PropertyKind}}Args struct {
+	{{#RequiredInputProperties}}
+	{{{Comment}}}
+	{{LanguageName}} {{{InputsAPIType}}} `pulumi:"{{Name}}"`
+
+	{{/RequiredInputProperties}}
+	{{#OptionalInputProperties}}
+	{{{Comment}}}
+	{{LanguageName}} {{{InputsAPIType}}} `pulumi:"{{Name}}"`
+
+	{{/OptionalInputProperties}}
+}
+
+func (a {{PropertyKind}}Args) ElementType() reflect.Type {
+	return _{{PropertyKind}}Type
+}
+
+func (a {{PropertyKind}}Args) To{{PropertyKind}}Output() {{PropertyKind}}Output {
+	return pulumi.ToOutput(a).({{PropertyKind}}Output)
+}
+
+func (a {{PropertyKind}}Args) To{{PropertyKind}}OutputWithContext(ctx context.Context) {{PropertyKind}}Output {
+	return pulumi.ToOutputWithContext(ctx, a).({{PropertyKind}}Output)
+}
+
+// {{PropertyKind}}Output is an output type that resolves to a {{Kind} and is a {{PropertyKind}}Input.
+type {{PropertyKind}}Output struct { *pulumi.OutputState }
+
+func init() { pulumi.RegisterOutputType({{PropertyKind}}Output{}) }
+
+func ({{PropertyKind}}Output) ElementType() reflect.Type {
+	return _{{PropertyKind}}Type
+}
+
+{{#Properties}}
+func (o {{PropertyKind}}Output) {{LanguageName}}() {{ProviderType}} {
+	return o.Apply(func(v {{PropertyKind}}) {{OutputsAPIType}} {
+		return v.{{LanguageName}}
+	}).({{ProviderType}})
+}
+
+{{/Properties}}
+{{#IsArrayElement}}
+var _{{PropertyKind}}ArrayType = reflect.TypeOf((*[]{{PropertyKind}})(nil)).Elem()
+
+type {{PropertyKind}}ArrayInput interface {
+	ElementType() reflect.Type
+
+	To{{PropertyKind}}ArrayOutput() {{PropertyKind}}ArrayOutput
+	To{{PropertyKind}}ArrayOutputWithContext(ctx context.Context) {{PropertyKind}}ArrayOutput
+}
+
+type {{PropertyKind}}Array []{{PropertyKind}}Input
+
+func (a {{PropertyKind}}Array) ElementType() reflect.Type {
+	return _{{PropertyKind}}ArrayType
+}
+
+func (a {{PropertyKind}}Array) To{{PropertyKind}}ArrayOutput() {{PropertyKind}}ArrayOutput {
+	return pulumi.ToOutput(a).({{PropertyKind}}ArrayOutput)
+}
+
+func (a {{PropertyKind}}Array) To{{PropertyKind}}ArrayOutputWithContext(ctx context.Context) {{PropertyKind}}ArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, a).({{PropertyKind}}ArrayOutput)
+}
+
+type {{PropertyKind}}ArrayOutput struct { *pulumi.OutputState }
+
+func init() { pulumi.RegisterOutputType({{PropertyKind}}ArrayOutput{}) }
+
+func ({{PropertyKind}}ArrayOutput) ElementType() reflect.Type {
+	return _{{PropertyKind}}ArrayType
+}
+
+func (o {{PropertyKind}}ArrayOutput) Index(i pulumi.IntInput) {{PropertyKind}}Output {
+	return pulumi.All(o, i).Apply(func(vs []interface{}) {{PropertyKind}} {
+		return vs[0].([]{{PropertyKind}})[vs[1].(int)]
+	}).({{PropertyKind}}Output)
+}
+{{/IsArrayElement}}
+{{#IsMapElement}}
+var _{{PropertyKind}}MapType = reflect.TypeOf((*map[string]{{PropertyKind}})(nil)).Elem()
+
+type {{PropertyKind}}MapInput interface {
+	ElementType() reflect.Type
+
+	To{{PropertyKind}}MapOutput() {{PropertyKind}}MapOutput
+	To{{PropertyKind}}MapOutputWithContext(ctx context.Context) {{PropertyKind}}MapOutput
+}
+
+type {{PropertyKind}}Map map[string]{{PropertyKind}}Input
+
+func (a {{PropertyKind}}Map) ElementType() reflect.Type {
+	return _{{PropertyKind}}MapType
+}
+
+func (a {{PropertyKind}}Map) To{{PropertyKind}}MapOutput() {{PropertyKind}}MapOutput {
+	return pulumi.ToOutput(a).({{PropertyKind}}MapOutput)
+}
+
+func (a {{PropertyKind}}Map) To{{PropertyKind}}MapOutputWithContext(ctx context.Context) {{PropertyKind}}MapOutput {
+	return pulumi.ToOutputWithContext(ctx, a).({{PropertyKind}}MapOutput)
+}
+
+type {{PropertyKind}}MapOutput struct { *pulumi.OutputState }
+
+func init() { pulumi.RegisterOutputType({{PropertyKind}}MapOutput{}) }
+
+func ({{PropertyKind}}MapOutput) ElementType() reflect.Type {
+	return _{{PropertyKind}}MapType
+}
+
+func (o {{PropertyKind}}MapOutput) MapIndex(k pulumi.StringInput) {{PropertyKind}}Output {
+	return pulumi.All(o, k).Apply(func(vs []interface{}) {{PropertyKind}} {
+		return vs[0].(map[string]{{PropertyKind}})[vs[1].(string)]
+	}).({{PropertyKind}}Output)
+}
+{{/IsMapElement}}
