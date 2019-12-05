@@ -6,6 +6,14 @@
 - v1.15.x
 - v1.14.x
 
+## 1.3.4 (December 5, 2019)
+
+### Supported Kubernetes versions
+
+- v1.16.x
+- v1.15.x
+- v1.14.x
+
 ### Improvements
 
 -   Use HELM_HOME as default if set. (https://github.com/pulumi/pulumi-kubernetes/pull/855).
