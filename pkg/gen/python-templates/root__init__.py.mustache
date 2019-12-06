@@ -5,7 +5,9 @@
 # Make subpackages available:
 __all__ = [
     {{#Groups}}
+	{{#HasTopLevelKinds}}
     "{{Group}}",
+	{{/HasTopLevelKinds}}
     {{/Groups}}
     "helm",
     "provider",

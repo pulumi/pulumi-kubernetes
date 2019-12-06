@@ -15,12 +15,12 @@ export namespace {{Group}} {
     export interface {{Kind}} {
       {{#RequiredInputProperties}}
       {{{Comment}}}
-      {{Name}}: {{{PropType}}}
+      {{Name}}: {{{InputsAPIType}}}
 
       {{/RequiredInputProperties}}
       {{#OptionalInputProperties}}
       {{{Comment}}}
-      {{Name}}?: {{{PropType}}}
+      {{Name}}?: {{{InputsAPIType}}}
 
       {{/OptionalInputProperties}}
     }

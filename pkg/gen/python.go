@@ -45,7 +45,7 @@ func PythonClient(
 
 	// Generate casing tables from property names.
 	// { properties: [ {name: fooBar, casedName: foo_bar}, ]}
-	properties := allCamelCasePropertyNames(definitions, pythonProvider())
+	properties := allCamelCasePropertyNames(definitions, pythonOpts())
 	cases := map[string][]map[string]string{"properties": make([]map[string]string, 0)}
 	for _, name := range properties {
 		cases["properties"] = append(cases["properties"],
@@ -61,7 +61,7 @@ func PythonClient(
 		return err
 	}
 
-	groupsSlice := createGroups(definitions, pythonProvider())
+	groupsSlice := createGroups(definitions, pythonOpts())
 
 	yamlPy, err := mustache.RenderFile(
 		fmt.Sprintf("%s/yaml.py.mustache", templateDir),
@@ -90,6 +90,9 @@ func PythonClient(
 	}
 
 	for _, group := range groupsSlice {
+		if !group.HasTopLevelKinds() {
+			continue
+		}
 
 		groupInitPy, err := mustache.RenderFile(
 			fmt.Sprintf("%s/group__init__.py.mustache", templateDir), group)
@@ -118,6 +121,10 @@ from .CustomResource import (CustomResource)
 		}
 
 		for _, version := range group.Versions() {
+			if !version.HasTopLevelKinds() {
+				continue
+			}
+
 			versionInitPy, err := mustache.RenderFile(
 				fmt.Sprintf("%s/version__init__.py.mustache", templateDir), version)
 			if err != nil {
@@ -129,7 +136,7 @@ from .CustomResource import (CustomResource)
 				return err
 			}
 
-			for _, kind := range version.Kinds() {
+			for _, kind := range version.TopLevelKinds() {
 				inputMap := map[string]interface{}{
 					"RawAPIVersion":           kind.RawAPIVersion(),
 					"Comment":                 kind.Comment(),

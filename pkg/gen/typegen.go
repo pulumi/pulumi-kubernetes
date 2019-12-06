@@ -55,6 +55,8 @@ const (
 type GroupConfig struct {
 	group    string
 	versions []*VersionConfig
+
+	hasTopLevelKinds bool
 }
 
 // Group returns the name of the group (e.g., `core` for core, etc.)
@@ -63,6 +65,9 @@ func (gc *GroupConfig) Group() string { return gc.group }
 // Versions returns the set of version for some Kubernetes API group. For example, the `apps` group
 // has `v1beta1`, `v1beta2`, and `v1`.
 func (gc *GroupConfig) Versions() []*VersionConfig { return gc.versions }
+
+// HasTopLevelKinds returns true if this group has top-level kinds.
+func (gc *GroupConfig) HasTopLevelKinds() bool { return gc.hasTopLevelKinds }
 
 // VersionConfig represents a version of a Kubernetes API group (e.g., the `apps` group has
 // `v1beta1`, `v1beta2`, and `v1`.)
@@ -73,6 +78,8 @@ type VersionConfig struct {
 	gv            *schema.GroupVersion // Used for sorting.
 	apiVersion    string
 	rawAPIVersion string
+
+	hasTopLevelKinds bool
 }
 
 // Version returns the name of the version (e.g., `apps/v1beta1` would return `v1beta1`).
@@ -82,11 +89,25 @@ func (vc *VersionConfig) Version() string { return vc.version }
 // `apps/v1beta1` has the `Deployment` kind, etc.).
 func (vc *VersionConfig) Kinds() []*KindConfig { return vc.kinds }
 
-// KindsAndAliases will produce a list of kinds, including aliases (e.g., both `apiregistration` and
+// HasTopLevelKinds returns true if this group has top-level kinds.
+func (vc *VersionConfig) HasTopLevelKinds() bool { return vc.hasTopLevelKinds }
+
+// TopLevelKinds returns the set of kinds that are not nested.
+func (vc *VersionConfig) TopLevelKinds() []*KindConfig {
+	var kinds []*KindConfig
+	for _, k := range vc.kinds {
+		if !k.IsNested() {
+			kinds = append(kinds, k)
+		}
+	}
+	return kinds
+}
+
+// TopLevelKindsAndAliases will produce a list of kinds, including aliases (e.g., both `apiregistration` and
 // `apiregistration.k8s.io`).
-func (vc *VersionConfig) KindsAndAliases() []*KindConfig {
+func (vc *VersionConfig) TopLevelKindsAndAliases() []*KindConfig {
 	kindsAndAliases := []*KindConfig{}
-	for _, kind := range vc.kinds {
+	for _, kind := range vc.TopLevelKinds() {
 		kindsAndAliases = append(kindsAndAliases, kind)
 		if strings.HasPrefix(kind.APIVersion(), apiRegistration) {
 			alias := KindConfig{}
@@ -102,12 +123,12 @@ func (vc *VersionConfig) KindsAndAliases() []*KindConfig {
 	return kindsAndAliases
 }
 
-// ListKindsAndAliases will return all known `Kind`s that are lists, or aliases of lists. These
+// ListTopLevelKindsAndAliases will return all known `Kind`s that are lists, or aliases of lists. These
 // `Kind`s are not instantiated by the API server, and we must "flatten" them client-side to get an
 // accurate view of what resource operations we need to perform.
-func (vc *VersionConfig) ListKindsAndAliases() []*KindConfig {
+func (vc *VersionConfig) ListTopLevelKindsAndAliases() []*KindConfig {
 	listKinds := []*KindConfig{}
-	for _, kind := range vc.KindsAndAliases() {
+	for _, kind := range vc.TopLevelKindsAndAliases() {
 		hasItems := false
 		for _, prop := range kind.properties {
 			if prop.name == "items" {
@@ -146,6 +167,8 @@ type KindConfig struct {
 	apiVersion    string
 	rawAPIVersion string
 	typeGuard     string
+
+	isNested bool
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
@@ -195,19 +218,23 @@ func (kc *KindConfig) URNAPIVersion() string {
 // TypeGuard returns the text of a TypeScript type guard for the given kind.
 func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
 
+// IsNested returns true if this is a nested kind.
+func (kc *KindConfig) IsNested() bool { return kc.isNested }
+
 // Property represents a property we want to expose on a Kubernetes API kind (i.e., things that we
 // will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
 type Property struct {
-	name                      string
-	languageName              string
-	comment                   string
-	pythonConstructorComment  string
-	propType                  string
-	pythonConstructorPropType string
-	defaultValue              string
-	isLast                    bool
-	dotnetVarName             string
-	dotnetIsListOrMap         bool
+	name                     string
+	languageName             string
+	comment                  string
+	pythonConstructorComment string
+	inputsAPIType            string
+	outputsAPIType           string
+	providerType             string
+	defaultValue             string
+	isLast                   bool
+	dotnetVarName            string
+	dotnetIsListOrMap        bool
 }
 
 // Name returns the name of the property.
@@ -223,12 +250,14 @@ func (p *Property) Comment() string { return p.comment }
 // constructor documentation.
 func (p *Property) PythonConstructorComment() string { return p.pythonConstructorComment }
 
-// PropType returns the type of the property.
-func (p *Property) PropType() string { return p.propType }
+// InputsAPIType returns the type of the property for the inputs API.
+func (p *Property) InputsAPIType() string { return p.inputsAPIType }
 
-// PythonConstructorPropType returns the type of the property, typed for the Python constructor
-// resource inputs.
-func (p *Property) PythonConstructorPropType() string { return p.pythonConstructorPropType }
+// OutputsAPIType returns the type of the property for the outputs API.
+func (p *Property) OutputsAPIType() string { return p.outputsAPIType }
+
+// ProviderType returns the type of the property for the provider API.
+func (p *Property) ProviderType() string { return p.providerType }
 
 // DefaultValue returns the type of the property.
 func (p *Property) DefaultValue() string { return p.defaultValue }
@@ -395,9 +424,9 @@ const (
 	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
-func makeTypescriptType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+func makeTypescriptType(resourceType, propName string, prop map[string]interface{}, gentype gentype) string {
 	wrapType := func(typ string) string {
-		switch opts.generatorType {
+		switch gentype {
 		case provider:
 			return fmt.Sprintf("pulumi.Output<%s>", typ)
 		case outputsAPI:
@@ -405,12 +434,12 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 		case inputsAPI:
 			return fmt.Sprintf("pulumi.Input<%s>", typ)
 		default:
-			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+			panic(fmt.Sprintf("unrecognized generator type %d", gentype))
 		}
 	}
 
 	refPrefix := ""
-	if opts.generatorType == provider {
+	if gentype == provider {
 		refPrefix = "outputs"
 	}
 
@@ -418,8 +447,8 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 		tstr := t.(string)
 		if tstr == "array" {
 			elemType := makeTypescriptType(
-				resourceType, propName, prop["items"].(map[string]interface{}), opts)
-			switch opts.generatorType {
+				resourceType, propName, prop["items"].(map[string]interface{}), gentype)
+			switch gentype {
 			case provider:
 				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
 			case outputsAPI:
@@ -435,7 +464,7 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
 				mapType := additionalProperties.(map[string]interface{})
 				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
-					switch opts.generatorType {
+					switch gentype {
 					case inputsAPI:
 						return fmt.Sprintf("pulumi.Input<{[key: %s]: pulumi.Input<%s>}>", ktype, ktype)
 					case outputsAPI:
@@ -449,7 +478,7 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 			// Special case: `.metadata.namespace` should either take a string or a namespace object
 			// itself.
 
-			switch opts.generatorType {
+			switch gentype {
 			case inputsAPI:
 				// TODO: Enable metadata to take explicit namespaces, like:
 				// return "pulumi.Input<string> | Namespace"
@@ -504,9 +533,9 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 	return wrapType(gvkRefStr)
 }
 
-func makePythonType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+func makePythonType(resourceType, propName string, prop map[string]interface{}, gentype gentype) string {
 	wrapType := func(typ string) string {
-		switch opts.generatorType {
+		switch gentype {
 		case provider:
 			return fmt.Sprintf("pulumi.Output[%s]", typ)
 		case outputsAPI:
@@ -514,7 +543,7 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 		case inputsAPI:
 			return fmt.Sprintf("pulumi.Input[%s]", typ)
 		default:
-			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+			panic(fmt.Sprintf("unrecognized generator type %d", gentype))
 		}
 	}
 
@@ -560,18 +589,18 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(ref)
 }
 
-func makeDotnetType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+func makeDotnetType(resourceType, propName string, prop map[string]interface{}, gentype gentype, forceNoWrap bool) string {
 
 	refPrefix := ""
-	if opts.generatorType == provider {
+	if gentype == provider {
 		refPrefix = "Types.Outputs"
 	}
 
 	wrapType := func(typ string) string {
-		if opts.forceNoWrap {
+		if forceNoWrap {
 			return typ
 		}
-		switch opts.generatorType {
+		switch gentype {
 		case provider:
 			return fmt.Sprintf("Output<%s>", typ)
 		case outputsAPI:
@@ -579,15 +608,15 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		case inputsAPI:
 			return fmt.Sprintf("Input<%s>", typ)
 		default:
-			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+			panic(fmt.Sprintf("unrecognized generator type %d", gentype))
 		}
 	}
 
 	oneOf := func(typeA string, typeB string) string {
-		if opts.forceNoWrap {
+		if forceNoWrap {
 			return fmt.Sprintf("Union<%s,%s>", typeA, typeB)
 		}
-		switch opts.generatorType {
+		switch gentype {
 		case provider:
 			return fmt.Sprintf("Output<Union<%s,%s>>", typeA, typeB)
 		case outputsAPI:
@@ -595,27 +624,25 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		case inputsAPI:
 			return fmt.Sprintf("InputUnion<%s,%s>", typeA, typeB)
 		default:
-			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+			panic(fmt.Sprintf("unrecognized generator type %d", gentype))
 		}
 	}
 
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
-			switch opts.generatorType {
+			switch gentype {
 			case provider:
 				elemType := makeDotnetType(
-					resourceType, propName, prop["items"].(map[string]interface{}), opts)
+					resourceType, propName, prop["items"].(map[string]interface{}), gentype, forceNoWrap)
 				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
 			case outputsAPI:
 				elemType := makeDotnetType(
-					resourceType, propName, prop["items"].(map[string]interface{}), opts)
+					resourceType, propName, prop["items"].(map[string]interface{}), gentype, forceNoWrap)
 				return fmt.Sprintf("ImmutableArray<%s>", elemType)
 			case inputsAPI:
-				elemOpts := opts
-				elemOpts.forceNoWrap = true
 				elemType := makeDotnetType(
-					resourceType, propName, prop["items"].(map[string]interface{}), elemOpts)
+					resourceType, propName, prop["items"].(map[string]interface{}), gentype, true)
 				return fmt.Sprintf("InputList<%s>", elemType)
 			}
 		} else if tstr == "integer" {
@@ -627,23 +654,19 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		} else if tstr == "object" {
 			vtype := "string"
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
-				switch opts.generatorType {
+				switch gentype {
 				case provider:
-					elemOpts := opts
-					elemOpts.forceNoWrap = true
 					vtype = makeDotnetType(
-						resourceType, propName, additionalProperties.(map[string]interface{}), elemOpts)
+						resourceType, propName, additionalProperties.(map[string]interface{}), gentype, true)
 				case outputsAPI:
 					vtype = makeDotnetType(
-						resourceType, propName, additionalProperties.(map[string]interface{}), opts)
+						resourceType, propName, additionalProperties.(map[string]interface{}), gentype, forceNoWrap)
 				case inputsAPI:
-					elemOpts := opts
-					elemOpts.forceNoWrap = true
 					vtype = makeDotnetType(
-						resourceType, propName, additionalProperties.(map[string]interface{}), elemOpts)
+						resourceType, propName, additionalProperties.(map[string]interface{}), gentype, true)
 				}
 			}
-			switch opts.generatorType {
+			switch gentype {
 			case inputsAPI:
 				return fmt.Sprintf("InputMap<%s>", vtype)
 			case outputsAPI:
@@ -655,7 +678,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			// Special case: `.metadata.namespace` should either take a string or a namespace object
 			// itself.
 
-			switch opts.generatorType {
+			switch gentype {
 			case inputsAPI:
 				// TODO: Enable metadata to take explicit namespaces, like:
 				// return "pulumi.Input<string> | Namespace"
@@ -672,7 +695,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	var argsSuffix string
 	var stringArr string
 	var jsonType string
-	switch opts.generatorType {
+	switch gentype {
 	case inputsAPI:
 		argsSuffix = "Args"
 		stringArr = "InputList<string>"
@@ -686,7 +709,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		stringArr = "string[]"
 		jsonType = "Output<System.Text.Json.JsonElement>"
 	default:
-		panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		panic(fmt.Sprintf("unrecognized generator type %d", gentype))
 	}
 
 	isSimpleRef := true
@@ -721,7 +744,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	group := pascalCase(gvk.Group)
 	version := pascalCase(gvk.Version)
 	kind := gvk.Kind
-	if opts.generatorType == inputsAPI {
+	if gentype == inputsAPI {
 		kind = kind + "Args"
 	}
 
@@ -735,16 +758,23 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(gvkRefStr)
 }
 
-func makeType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
-	switch opts.language {
+func makeTypes(resourceType, propName string, prop map[string]interface{}, language language) (string, string, string) {
+	inputsAPIType := makeType(resourceType, propName, prop, language, inputsAPI)
+	outputsAPIType := makeType(resourceType, propName, prop, language, outputsAPI)
+	providerType := makeType(resourceType, propName, prop, language, provider)
+	return inputsAPIType, outputsAPIType, providerType
+}
+
+func makeType(resourceType, propName string, prop map[string]interface{}, language language, gentype gentype) string {
+	switch language {
 	case typescript:
-		return makeTypescriptType(resourceType, propName, prop, opts)
+		return makeTypescriptType(resourceType, propName, prop, gentype)
 	case python:
-		return makePythonType(resourceType, propName, prop, opts)
+		return makePythonType(resourceType, propName, prop, gentype)
 	case dotnet:
-		return makeDotnetType(resourceType, propName, prop, opts)
+		return makeDotnetType(resourceType, propName, prop, gentype, false)
 	default:
-		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
+		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
 }
 
@@ -812,20 +842,12 @@ const (
 )
 
 type groupOpts struct {
-	generatorType gentype
-	language      language
-	forceNoWrap   bool
+	language language
 }
 
-func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: typescript} }
-func nodeJSOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, language: typescript} }
-func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider, language: typescript} }
-
-func pythonProvider() groupOpts { return groupOpts{generatorType: provider, language: python} }
-
-func dotnetInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: dotnet} }
-func dotnetOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, language: dotnet} }
-func dotnetProvider() groupOpts { return groupOpts{generatorType: provider, language: dotnet} }
+func nodeJSOpts() groupOpts { return groupOpts{language: typescript} }
+func pythonOpts() groupOpts { return groupOpts{language: python} }
+func dotnetOpts() groupOpts { return groupOpts{language: dotnet} }
 
 func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
@@ -941,21 +963,19 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 
 					var prefix string
-					var t, pyConstructorT string
+					var inputsAPIType, outputsAPIType, providerType string
 					isListOrMap := false
 					switch opts.language {
 					case typescript:
 						prefix = "      "
-						t = makeType(d.name, propName, prop, opts)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typescript)
 					case python:
 						prefix = "    "
-						t = makeType(d.name, propName, prop, opts)
-						pyConstructorT = makeType(d.name, propName, prop,
-							groupOpts{language: python, generatorType: inputsAPI})
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, python)
 					case dotnet:
 						prefix = "        "
-						t = makeType(d.name, propName, prop, opts)
-						if strings.HasPrefix(t, "InputList") || strings.HasPrefix(t, "InputMap") {
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, dotnet)
+						if strings.HasPrefix(inputsAPIType, "InputList") || strings.HasPrefix(inputsAPIType, "InputMap") {
 							isListOrMap = true
 						}
 					default:
@@ -971,26 +991,16 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
 						if opts.language == typescript && isTopLevel {
-							switch opts.generatorType {
-							case provider:
-								t = fmt.Sprintf(`pulumi.Output<"%s">`, defaultGroupVersion)
-							case outputsAPI:
-								t = fmt.Sprintf(`"%s"`, defaultGroupVersion)
-							case inputsAPI:
-								t = fmt.Sprintf(`pulumi.Input<"%s">`, defaultGroupVersion)
-							}
+							inputsAPIType = fmt.Sprintf(`pulumi.Input<"%s">`, defaultGroupVersion)
+							outputsAPIType = fmt.Sprintf(`"%s"`, defaultGroupVersion)
+							providerType = fmt.Sprintf(`pulumi.Output<"%s">`, defaultGroupVersion)
 						}
 					case "kind":
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 						if opts.language == typescript && isTopLevel {
-							switch opts.generatorType {
-							case provider:
-								t = fmt.Sprintf(`pulumi.Output<"%s">`, d.gvk.Kind)
-							case outputsAPI:
-								t = fmt.Sprintf(`"%s"`, d.gvk.Kind)
-							case inputsAPI:
-								t = fmt.Sprintf(`pulumi.Input<"%s">`, d.gvk.Kind)
-							}
+							inputsAPIType = fmt.Sprintf(`pulumi.Input<"%s">`, d.gvk.Kind)
+							outputsAPIType = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+							providerType = fmt.Sprintf(`pulumi.Output<"%s">`, d.gvk.Kind)
 						}
 					}
 
@@ -1019,16 +1029,17 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					}
 
 					return &Property{
-						comment:                   fmtComment(prop["description"], prefix, false, opts, d.gvk),
-						pythonConstructorComment:  fmtComment(prop["description"], prefix+prefix+"       ", true, opts, d.gvk),
-						propType:                  t,
-						pythonConstructorPropType: pyConstructorT,
-						name:                      propName,
-						languageName:              languageName,
-						dotnetVarName:             dotnetVarName,
-						defaultValue:              defaultValue,
-						isLast:                    false,
-						dotnetIsListOrMap:         isListOrMap,
+						comment:                  fmtComment(prop["description"], prefix, false, opts, d.gvk),
+						pythonConstructorComment: fmtComment(prop["description"], prefix+prefix+"       ", true, opts, d.gvk),
+						inputsAPIType:            inputsAPIType,
+						outputsAPIType:           outputsAPIType,
+						providerType:             providerType,
+						name:                     propName,
+						languageName:             languageName,
+						dotnetVarName:            dotnetVarName,
+						defaultValue:             defaultValue,
+						isLast:                   false,
+						dotnetIsListOrMap:        isListOrMap,
 					}
 				})
 
@@ -1065,10 +1076,6 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				return linq.From([]*KindConfig{})
 			}
 
-			if opts.generatorType == provider && (!isTopLevel) {
-				return linq.From([]*KindConfig{})
-			}
-
 			var typeGuard string
 			props := d.data["properties"].(map[string]interface{})
 			_, apiVersionExists := props["apiVersion"]
@@ -1095,6 +1102,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					apiVersion:              fqGroupVersion,
 					rawAPIVersion:           defaultGroupVersion,
 					typeGuard:               typeGuard,
+					isNested:                !isTopLevel,
 				},
 			})
 		}).
@@ -1125,13 +1133,18 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				version = pascalCase(version)
 			}
 
+			hasTopLevelKinds := linq.From(kindsGroup).WhereT(func(k *KindConfig) bool {
+				return !k.IsNested()
+			}).Any()
+
 			return linq.From([]*VersionConfig{
 				{
-					version:       version,
-					kinds:         kindsGroup,
-					gv:            &gv,
-					apiVersion:    kindsGroup[0].apiVersion,    // NOTE: This is safe.
-					rawAPIVersion: kindsGroup[0].rawAPIVersion, // NOTE: This is safe.
+					version:          version,
+					kinds:            kindsGroup,
+					gv:               &gv,
+					apiVersion:       kindsGroup[0].apiVersion,    // NOTE: This is safe.
+					rawAPIVersion:    kindsGroup[0].rawAPIVersion, // NOTE: This is safe.
+					hasTopLevelKinds: hasTopLevelKinds,
 				},
 			})
 		}).
@@ -1159,10 +1172,15 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				group = pascalCase(group)
 			}
 
+			hasTopLevelKinds := linq.From(versionsGroup).WhereT(func(v *VersionConfig) bool {
+				return v.HasTopLevelKinds()
+			}).Any()
+
 			return linq.From([]*GroupConfig{
 				{
-					group:    group,
-					versions: versionsGroup,
+					group:            group,
+					versions:         versionsGroup,
+					hasTopLevelKinds: hasTopLevelKinds,
 				},
 			})
 		}).
