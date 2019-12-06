@@ -21,7 +21,7 @@ import (
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
-	"gopkg.in/yaml.v2"
+	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
 func loadYaml(path string) ([]interface{}, error) {
@@ -57,7 +57,7 @@ func loadYaml(path string) ([]interface{}, error) {
 
 	var result []interface{}
 
-	dec := yaml.NewDecoder(strings.NewReader(text))
+	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(strings.NewReader(text)), 128)
 	for {
 		var value interface{}
 		err := dec.Decode(&value)
