@@ -1,0 +1,3 @@
+name: guestbook_go
+description: A full Go Kubernetes Guestbook example program.
+runtime: go
