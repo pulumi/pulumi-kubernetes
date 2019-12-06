@@ -126,8 +126,8 @@ import * as outputs from "../types/output";
         // important to use `JSON_SCHEMA` here because the fields of the Kubernetes core
         // API types are all tagged with `json:`, and they don't deal very well with things
         // like dates.
-        const jsyaml = require("js-yaml");
-        return jsyaml.loadAll(text, undefined, {schema: jsyaml.JSON_SCHEMA});
+        // TODO: delete me
+        return [];
     }
 
     /** @ignore */ export function parse(
@@ -2447,23 +2447,17 @@ import * as outputs from "../types/output";
             }
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             const fileId = config && config.file || name;
-            let text: Promise<string>;
-            if (isUrl(fileId)) {
-                text = fetch(fileId).then(r => {
-                    if (r.ok) {
-                        return r.text()
-                    } else {
-                        throw Error(`Error fetching YAML file '${fileId}': ${r.status} ${r.statusText}`);
-                    }
-                });
-            } else {
-                text = Promise.resolve(fs.readFileSync(fileId).toString());
-            }
 
-            this.resources = pulumi.output(text.then(t => {
+            const promise = pulumi.runtime.invoke(
+                "kubernetes:yaml:load",
+                {path: fileId},
+                {async: true}
+                );
+
+            this.resources = pulumi.output(promise.then(t => {
                 try {
                     return parseYamlDocument({
-                        objs: yamlLoadAll(t),
+                        objs: t.result,
                         transformations: config && config.transformations || [],
                         resourcePrefix: config && config.resourcePrefix || undefined
                     }, {parent: this})

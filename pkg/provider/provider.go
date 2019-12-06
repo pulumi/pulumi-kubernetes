@@ -72,6 +72,7 @@ const (
 	streamInvokeList     = "kubernetes:kubernetes:list"
 	streamInvokeWatch    = "kubernetes:kubernetes:watch"
 	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
+	invokeLoadYaml       = "kubernetes:yaml:load"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialApiVersionKey = "__initialApiVersion"
 )
@@ -378,7 +379,39 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 	// Always fail.
 	tok := req.GetTok()
-	return nil, fmt.Errorf("Unknown Invoke type '%s'", tok)
+	label := fmt.Sprintf("%s.Invoke(%s)", k.label(), tok)
+	args, err := plugin.UnmarshalProperties(
+		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args during an StreamInvoke call", tok)
+	}
+
+	switch tok {
+	case invokeLoadYaml:
+		var path string
+		if args["path"].HasValue() {
+			path = args["path"].StringValue()
+		}
+
+		result, err := loadYaml(path)
+		if err != nil {
+			return nil, err
+		}
+
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+
+	default:
+		return nil, fmt.Errorf("unknown Invoke type %q", tok)
+	}
 }
 
 // StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
