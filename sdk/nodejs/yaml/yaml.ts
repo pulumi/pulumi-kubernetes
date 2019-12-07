@@ -2446,25 +2446,15 @@ import * as outputs from "../types/output";
                 name = `${config.resourcePrefix}-${name}`
             }
             super("kubernetes:yaml:ConfigFile", name, config, opts);
-            const fileId = config && config.file || name;
+            const path = config && config.file || name;
 
-            const promise = pulumi.runtime.invoke(
-                "kubernetes:yaml:load",
-                {path: fileId},
-                {async: true}
-                );
+            const promise = pulumi.runtime.invoke("kubernetes:yaml:load", {path}, {async: true});
 
-            this.resources = pulumi.output(promise.then(t => {
-                try {
-                    return parseYamlDocument({
-                        objs: t.result,
-                        transformations: config && config.transformations || [],
-                        resourcePrefix: config && config.resourcePrefix || undefined
-                    }, {parent: this})
-                } catch (e) {
-                    throw Error(`Error fetching YAML file '${fileId}': ${e}`);
-                }
-            }));
+            this.resources = pulumi.output(promise).apply(p => parseYamlDocument({
+                objs: p.result,
+                transformations: config && config.transformations || [],
+                resourcePrefix: config && config.resourcePrefix || undefined
+            }, {parent: this}));
         }
     }
 

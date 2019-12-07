@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -24,7 +25,13 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
+// loadYaml loads a YAML document from either a file or a URL, decodes it, and then returns a slice of
+// untyped structs that can be marshalled easily into Pulumi RPC calls.
 func loadYaml(path string) ([]interface{}, error) {
+	if len(path) == 0 {
+		return nil, fmt.Errorf("empty path for loadYaml")
+	}
+
 	var text string
 
 	isUrl := func(path string) bool {
@@ -44,7 +51,7 @@ func loadYaml(path string) ([]interface{}, error) {
 			}
 			text = string(bodyBytes)
 		} else {
-			return nil, pkgerrors.Wrapf(err, "HTTP Get for %q returned status code: %v", path, resp.StatusCode)
+			return nil, fmt.Errorf("HTTP Get for %q returned status: %s", path, resp.Status)
 		}
 	} else {
 		b, err := ioutil.ReadFile(path)
