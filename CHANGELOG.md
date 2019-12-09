@@ -1,18 +1,6 @@
 ## HEAD (Unreleased)
 
-### Supported Kubernetes versions
-
-- v1.17.x
-- v1.16.x
-- v1.15.x
-
 ## 1.4.0 (December 9, 2019)
-
-### Supported Kubernetes versions
-
-- v1.17.x
-- v1.16.x
-- v1.15.x
 
 ### Important
 
@@ -26,12 +14,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.3.4 (December 5, 2019)
 
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
-
 ### Improvements
 
 -   Use HELM_HOME as default if set. (https://github.com/pulumi/pulumi-kubernetes/pull/855).
@@ -39,23 +21,11 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.3.3 (November 29, 2019)
 
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
-
 ### Improvements
 
 -   Add `Provider` for .NET. (https://github.com/pulumi/pulumi-kubernetes/pull/897)
 
 ## 1.3.2 (November 26, 2019)
-
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
 
 ### Improvements
 
@@ -63,23 +33,11 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.3.1 (November 18, 2019)
 
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
-
 ### Improvements
 
 -   Add support for helm 3 CLI tool. (https://github.com/pulumi/pulumi-kubernetes/pull/882).
 
 ## 1.3.0 (November 13, 2019)
-
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
 
 ### Improvements
 
@@ -89,12 +47,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.2.3 (October 17, 2019)
 
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
-
 ### Bug fixes
 
 -   Correctly merge provided opts for k8s resources. (https://github.com/pulumi/pulumi-kubernetes/pull/850).
@@ -102,24 +54,12 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.2.2 (October 10, 2019)
 
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
-
 ### Improvements
 
 -   Stop using initialApiVersion annotation. (https://github.com/pulumi/pulumi-kubernetes/pull/837).
 -   Cache the parsed OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/836).
 
 ## 1.2.1 (October 8, 2019)
-
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
 
 ### Improvements
 
@@ -129,12 +69,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.2.0 (October 4, 2019)
 
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
-
 ### Improvements
 
 -   Add logic to check for Job readiness. (https://github.com/pulumi/pulumi-kubernetes/pull/633).
@@ -143,12 +77,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 -   Provide detailed error for removed apiVersions. (https://github.com/pulumi/pulumi-kubernetes/pull/809).
 
 ## 1.1.0 (September 18, 2019)
-
-### Supported Kubernetes versions
-
-- v1.16.x
-- v1.15.x
-- v1.14.x
 
 ### Major changes
 
@@ -164,12 +92,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.0.1 (September 11, 2019)
 
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
 ### Improvements
 
 -   Warn for deprecated apiVersions.
@@ -184,12 +106,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.0.0 (September 3, 2019)
 
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
 ### Bug fixes
 
 -   Fix name collisions in the Charts/YAML Python packages
@@ -200,12 +116,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.0.0-rc.1 (August 28, 2019)
 
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
 ### Improvements
 
 ### Bug fixes
@@ -213,12 +123,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 -   Do not leak unencrypted secret values into the state file (fixes https://github.com/pulumi/pulumi-kubernetes/issues/734).
 
 ## 1.0.0-beta.2 (August 26, 2019)
-
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
 
 ### Improvements
 
@@ -239,23 +143,11 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 1.0.0-beta.1 (August 13, 2019)
 
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
 ### Improvements
 
 -   Add .get() to Python SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/435).
 
 ## 0.25.6 (August 7, 2019)
-
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
 
 ### Bug fixes
 
@@ -266,12 +158,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ## 0.25.5 (August 2, 2019)
 
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
 ### Bug fixes
 
 -   Fall back to client-side diff if server-side diff fails. (https://github.com/pulumi/pulumi-kubernetes/pull/685).
@@ -281,12 +167,6 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 -   Fix Python Helm LocalChartOpts to inherit from BaseChartOpts (https://github.com/pulumi/pulumi-kubernetes/pull/681).
 
 ## 0.25.4 (August 1, 2019)
-
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
 
 ### Important
 
@@ -309,12 +189,6 @@ that this change is not disruptive.
 -   Handle Output values in diffs. (https://github.com/pulumi/pulumi-kubernetes/pull/682).
 
 ## 0.25.3 (July 29, 2019)
-
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
 
 ### Bug fixes
 
@@ -344,12 +218,6 @@ that this change is not disruptive.
 
 ## 0.25.2 (July 11, 2019)
 
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
 ### Improvements
 
 -   The Kubernetes provider can now communicate detailed information about the difference between a resource's
@@ -364,12 +232,6 @@ desired and actual state during a Pulumi update. (https://github.com/pulumi/pulu
 
 ## 0.25.1 (July 2, 2019)
 
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
 ### Improvements
 
 -   Unify diff behavior between `Diff` and `Update`. This should result in better detection of state drift as
@@ -382,12 +244,6 @@ desired and actual state during a Pulumi update. (https://github.com/pulumi/pulu
 -   Add more props that force replacement of Pods (https://github.com/pulumi/pulumi-kubernetes/pull/613)
 
 ## 0.25.0 (June 19, 2019)
-
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
 
 ### Major changes
 
@@ -403,12 +259,6 @@ desired and actual state during a Pulumi update. (https://github.com/pulumi/pulu
 -   None
 
 ## 0.24.0 (June 5, 2019)
-
-### Supported Kubernetes versions
-
-- v1.14.x
-- v1.13.x
-- v1.12.x
 
 ### Important
 
@@ -437,12 +287,6 @@ on the next update.
 
 ## 0.23.1 (May 10, 2019)
 
-### Supported Kubernetes versions
-
-- v1.14.x
-- v1.13.x
-- v1.12.x
-
 ### Major changes
 
 -   None
@@ -457,12 +301,6 @@ on the next update.
 -   Fix namespaceable check for diff (https://github.com/pulumi/pulumi-kubernetes/pull/554)
 
 ## 0.23.0 (April 30, 2019)
-
-### Supported Kubernetes versions
-
-- v1.14.x
-- v1.13.x
-- v1.12.x
 
 ### Important
 
@@ -487,12 +325,6 @@ and `CustomResources`!
 
 ## 0.22.2 (April 11, 2019)
 
-### Supported Kubernetes versions
-
-- v1.14.x
-- v1.13.x
-- v1.12.x
-
 ### Important
 
 This release improves handling for CustomResources (CRs) and CustomResourceDefinitions (CRDs).
@@ -514,12 +346,6 @@ See https://github.com/pulumi/pulumi-kubernetes/pull/530 for details.
 
 ## 0.22.1 (April 9, 2019)
 
-### Supported Kubernetes versions
-
-- v1.14.x
-- v1.13.x
-- v1.12.x
-
 ### Major changes
 
 -   Add basic YAML support to Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/499)
@@ -537,12 +363,6 @@ See https://github.com/pulumi/pulumi-kubernetes/pull/530 for details.
 
 ## 0.22.0 (March 25, 2019)
 
-### Supported Kubernetes versions
-
-- v1.14.x
-- v1.13.x
-- v1.12.x
-
 ### Major changes
 
 -   Add support for Kubernetes v1.14.0 (https://github.com/pulumi/pulumi-kubernetes/pull/371)
@@ -556,12 +376,6 @@ See https://github.com/pulumi/pulumi-kubernetes/pull/530 for details.
 -   None
 
 ## 0.21.1 (March 18, 2019)
-
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
 
 ### Major changes
 
@@ -579,12 +393,6 @@ See https://github.com/pulumi/pulumi-kubernetes/pull/530 for details.
 
 ## 0.21.0 (Released March 6, 2019)
 
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
-
 ### Important
 
 Updating to v0.17.0 version of `@pulumi/pulumi`.  This is an update that will not play nicely
@@ -595,12 +403,6 @@ See https://github.com/pulumi/pulumi/commit/7f5e089f043a70c02f7e03600d6404ff0e27
 As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Recent version of `pulumi` will now detect, and warn, if different versions of `@pulumi/pulumi` are loaded into the same application.  If you encounter this warning, it is recommended you move to versions of the `@pulumi/...` packages that are compatible.  i.e. keep everything on 0.16.x until you are ready to move everything to 0.17.x.
 
 ## 0.20.4 (March 1, 2019)
-
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
 
 ### Major changes
 
@@ -616,12 +418,6 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 ## 0.20.3 (February 20, 2019)
 
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
-
 ### Major changes
 
 -   None
@@ -636,12 +432,6 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 -   Include managed-by label in diff preview (https://github.com/pulumi/pulumi-kubernetes/pull/431)
 
 ## 0.20.2 (Released February 13, 2019)
-
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
 
 ### Major changes
 
@@ -661,24 +451,12 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 ## 0.20.1 (Released February 6, 2019)
 
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
-
 ### Bug fixes
 
 -   Fix namespace handling regression (https://github.com/pulumi/pulumi-kubernetes/pull/403)
 -   Nest Input<T> inside arrays (https://github.com/pulumi/pulumi-kubernetes/pull/395)
 
 ## 0.20.0 (Released February 1, 2019)
-
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
 
 ### Major changes
 
@@ -699,12 +477,6 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 
 ## 0.19.0 (Released January 15, 2019)
-
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
 
 ### Major changes
 
@@ -729,12 +501,6 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
     (https://github.com/pulumi/pulumi-kubernetes/pull/341)
 
 ## 0.18.0 (Released December 4, 2018)
-
-### Supported Kubernetes versions
-
-- v1.13.x
-- v1.12.x
-- v1.11.x
 
 ### Major changes
 
