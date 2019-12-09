@@ -6,6 +6,20 @@
 - v1.16.x
 - v1.15.x
 
+## 1.4.0 (December 9, 2019)
+
+### Supported Kubernetes versions
+
+- v1.17.x
+- v1.16.x
+- v1.15.x
+
+### Important
+
+The discovery.v1alpha1.EndpointSlice and discovery.v1alpha1.EndpointSliceList APIs were removed in k8s 1.17,
+and no longer appear in the Pulumi Kubernetes SDKs. These resources can now be found at
+discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
+
 ### Major changes
 
 -   Add support for Kubernetes v1.17.0 (https://github.com/pulumi/pulumi-kubernetes/pull/706)
