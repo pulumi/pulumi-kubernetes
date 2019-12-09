@@ -19,6 +19,7 @@ __all__ = [
     "discovery",
     "events",
     "extensions",
+    "flowcontrol",
     "meta",
     "networking",
     "node",

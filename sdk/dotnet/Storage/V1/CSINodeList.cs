@@ -5,22 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Discovery.V1Alpha1
+namespace Pulumi.Kubernetes.Storage.V1
 {
     /// <summary>
-    /// EndpointSlice represents a subset of the endpoints that implement a service. For a given
-    /// service there may be multiple EndpointSlice objects, selected by labels, which must be
-    /// joined to produce the full set of endpoints.
+    /// CSINodeList is a collection of CSINode objects.
     /// </summary>
-    public partial class EndpointSlice : Pulumi.CustomResource
+    public partial class CSINodeList : Pulumi.CustomResource
     {
-        /// <summary>
-        /// addressType specifies the type of address carried by this EndpointSlice. All addresses
-        /// in this slice must be the same type. Default is IP
-        /// </summary>
-        [Output("addressType")]
-        public Output<string> AddressType { get; private set; } = null!;
-
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
         /// should convert recognized schemas to the latest internal value, and may reject
@@ -31,11 +22,10 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
-        /// of 1000 endpoints.
+        /// items is the list of CSINode
         /// </summary>
-        [Output("endpoints")]
-        public Output<Types.Outputs.Discovery.V1Alpha1.Endpoint[]> Endpoints { get; private set; } = null!;
+        [Output("items")]
+        public Output<Types.Outputs.Storage.V1.CSINode[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -47,37 +37,29 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object's metadata.
+        /// Standard list metadata More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
         [Output("metadata")]
-        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
-
-        /// <summary>
-        /// ports specifies the list of network ports exposed by each endpoint in this slice. Each
-        /// port must have a unique name. When ports is empty, it indicates that there are no
-        /// defined ports. When a port is defined with a nil port value, it indicates "all ports".
-        /// Each slice may include a maximum of 100 ports.
-        /// </summary>
-        [Output("ports")]
-        public Output<Types.Outputs.Discovery.V1Alpha1.EndpointPort[]> Ports { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         /// <summary>
-        /// Create a EndpointSlice resource with the given unique name, arguments, and options.
+        /// Create a CSINodeList resource with the given unique name, arguments, and options.
         /// </summary>
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public EndpointSlice(string name, Types.Inputs.Discovery.V1Alpha1.EndpointSliceArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:discovery.k8s.io/v1alpha1:EndpointSlice", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+        public CSINodeList(string name, Types.Inputs.Storage.V1.CSINodeListArgs? args = null, CustomResourceOptions? options = null)
+            : base("kubernetes:storage.k8s.io/v1:CSINodeList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
         {
         }
 
-        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Discovery.V1Alpha1.EndpointSliceArgs? args)
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1.CSINodeListArgs? args)
         {
             if (args != null) {
-                args.ApiVersion = "discovery.k8s.io/v1alpha1";
-                args.Kind = "EndpointSlice";
+                args.ApiVersion = "storage.k8s.io/v1";
+                args.Kind = "CSINodeList";
             }
             return args ?? ResourceArgs.Empty;
         }
@@ -92,14 +74,14 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1
         }
 
         /// <summary>
-        /// Get an existing EndpointSlice resource's state with the given name and ID.
+        /// Get an existing CSINodeList resource's state with the given name and ID.
         /// </summary>
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static EndpointSlice Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        public static CSINodeList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new EndpointSlice(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            return new CSINodeList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
             {
                 Id = id,
             }));

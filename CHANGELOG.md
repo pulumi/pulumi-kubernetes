@@ -2,9 +2,13 @@
 
 ### Supported Kubernetes versions
 
+- v1.17.x
 - v1.16.x
 - v1.15.x
-- v1.14.x
+
+### Major changes
+
+-   Add support for Kubernetes v1.17.0 (https://github.com/pulumi/pulumi-kubernetes/pull/706)
 
 ## 1.3.4 (December 5, 2019)
 

@@ -8,7 +8,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Rbac.V1Beta1
 {
     /// <summary>
-    /// ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+    /// of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in
+    /// v1.20.
     /// </summary>
     public partial class ClusterRoleBindingList : Pulumi.CustomResource
     {

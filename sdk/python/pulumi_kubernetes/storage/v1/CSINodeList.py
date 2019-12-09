@@ -11,9 +11,9 @@ from pulumi import Input, ResourceOptions
 from ... import tables, version
 
 
-class EndpointSliceList(pulumi.CustomResource):
+class CSINodeList(pulumi.CustomResource):
     """
-    EndpointSliceList represents a list of endpoint slices
+    CSINodeList is a collection of CSINode objects.
     """
 
     apiVersion: pulumi.Output[str]
@@ -32,22 +32,24 @@ class EndpointSliceList(pulumi.CustomResource):
 
     items: pulumi.Output[list]
     """
-    List of endpoint slices
+    items is the list of CSINode
     """
 
     metadata: pulumi.Output[dict]
     """
-    Standard list metadata.
+    Standard list metadata More info:
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):
         """
-        Create a EndpointSliceList resource with the given unique name, arguments, and options.
+        Create a CSINodeList resource with the given unique name, arguments, and options.
 
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[list] items: List of endpoint slices
-        :param pulumi.Input[dict] metadata: Standard list metadata.
+        :param pulumi.Input[list] items: items is the list of CSINode
+        :param pulumi.Input[dict] metadata: Standard list metadata More info:
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -64,8 +66,8 @@ class EndpointSliceList(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'discovery.k8s.io/v1alpha1'
-        __props__['kind'] = 'EndpointSliceList'
+        __props__['apiVersion'] = 'storage.k8s.io/v1'
+        __props__['kind'] = 'CSINodeList'
         if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
@@ -77,8 +79,8 @@ class EndpointSliceList(pulumi.CustomResource):
             version=version.get_version(),
         ))
 
-        super(EndpointSliceList, self).__init__(
-            "kubernetes:discovery.k8s.io/v1alpha1:EndpointSliceList",
+        super(CSINodeList, self).__init__(
+            "kubernetes:storage.k8s.io/v1:CSINodeList",
             resource_name,
             __props__,
             opts)
@@ -86,7 +88,7 @@ class EndpointSliceList(pulumi.CustomResource):
     @staticmethod
     def get(resource_name, id, opts=None):
         """
-        Get the state of an existing `EndpointSliceList` resource, as identified by `id`.
+        Get the state of an existing `CSINodeList` resource, as identified by `id`.
         The ID is of the form `[namespace]/[name]`; if `[namespace]` is omitted,
         then (per Kubernetes convention) the ID becomes `default/[name]`.
 
@@ -99,7 +101,7 @@ class EndpointSliceList(pulumi.CustomResource):
                resource's behavior.
         """
         opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return EndpointSliceList(resource_name, opts)
+        return CSINodeList(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

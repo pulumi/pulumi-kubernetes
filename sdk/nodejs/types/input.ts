@@ -710,7 +710,7 @@ export namespace admissionregistration {
       rules?: pulumi.Input<pulumi.Input<admissionregistration.v1beta1.RuleWithOperations>[]>
 
       /**
-       * SideEffects states whether this webhookk has side effects. Acceptable values are: Unknown,
+       * SideEffects states whether this webhook has side effects. Acceptable values are: Unknown,
        * None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system,
        * since a request may be rejected by a future step in the admission change and the side
        * effects therefore need to be undone. Requests with the dryRun attribute will be
@@ -999,7 +999,7 @@ export namespace admissionregistration {
       rules?: pulumi.Input<pulumi.Input<admissionregistration.v1beta1.RuleWithOperations>[]>
 
       /**
-       * SideEffects states whether this webhookk has side effects. Acceptable values are: Unknown,
+       * SideEffects states whether this webhook has side effects. Acceptable values are: Unknown,
        * None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system,
        * since a request may be rejected by a future step in the admission change and the side
        * effects therefore need to be undone. Requests with the dryRun attribute will be
@@ -1378,7 +1378,7 @@ export namespace apiextensions {
 
       /**
        * scope indicates whether the defined custom resource is cluster- or namespace-scoped.
-       * Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
+       * Allowed values are `Cluster` and `Namespaced`.
        */
       scope: pulumi.Input<string>
 
@@ -1610,7 +1610,37 @@ export namespace apiextensions {
       
       externalDocs?: pulumi.Input<apiextensions.v1.ExternalDocumentation>
 
-      
+      /**
+       * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats
+       * are validated:
+       * 
+       * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed
+       * by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+       * net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+       * defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+       * net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by
+       * Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an
+       * UUID5 that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+       * ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+       * number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" -
+       * creditcard: a credit card number defined by the regex
+       * ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+       * with any non digit characters mixed in - ssn: a U.S. social security number following the
+       * regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF:
+       * following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like
+       * rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of
+       * string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 -
+       * duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or
+       * compatible with Scala duration format - datetime: a date time string like
+       * "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+       */
       format?: pulumi.Input<string>
 
       
@@ -1720,7 +1750,8 @@ export namespace apiextensions {
        *      may be used on any type of list (struct, scalar, ...).
        * 2) `set`:
        *      Sets are lists that must not have multiple items with the same value. Each
-       *      value must be a scalar (or another atomic type).
+       *      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+       *      array with x-kubernetes-list-type `atomic`.
        * 3) `map`:
        *      These lists are like maps in that their elements have a non-index key
        *      used to identify them. Order is preserved upon merge. The map tag
@@ -1728,6 +1759,19 @@ export namespace apiextensions {
        * Defaults to atomic for arrays.
        */
       x_kubernetes_list_type?: pulumi.Input<string>
+
+      /**
+       * x-kubernetes-map-type annotates an object to further describe its topology. This extension
+       * must only be used when type is object and may have 2 possible values:
+       * 
+       * 1) `granular`:
+       *      These maps are actual maps (key-value pairs) and each fields are independent
+       *      from each other (they can each be manipulated by separate actors). This is
+       *      the default behaviour for all maps.
+       * 2) `atomic`: the list is treated as a single entity, like a scalar.
+       *      Atomic maps will be entirely replaced when updated.
+       */
+      x_kubernetes_map_type?: pulumi.Input<string>
 
       /**
        * x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
@@ -2355,7 +2399,37 @@ export namespace apiextensions {
       
       externalDocs?: pulumi.Input<apiextensions.v1beta1.ExternalDocumentation>
 
-      
+      /**
+       * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats
+       * are validated:
+       * 
+       * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed
+       * by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+       * net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+       * defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+       * net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by
+       * Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4
+       * that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an
+       * UUID5 that allows uppercase defined by the regex
+       * (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+       * ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+       * number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" -
+       * creditcard: a credit card number defined by the regex
+       * ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+       * with any non digit characters mixed in - ssn: a U.S. social security number following the
+       * regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF:
+       * following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like
+       * rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of
+       * string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 -
+       * duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or
+       * compatible with Scala duration format - datetime: a date time string like
+       * "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+       */
       format?: pulumi.Input<string>
 
       
@@ -2465,7 +2539,8 @@ export namespace apiextensions {
        *      may be used on any type of list (struct, scalar, ...).
        * 2) `set`:
        *      Sets are lists that must not have multiple items with the same value. Each
-       *      value must be a scalar (or another atomic type).
+       *      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+       *      array with x-kubernetes-list-type `atomic`.
        * 3) `map`:
        *      These lists are like maps in that their elements have a non-index key
        *      used to identify them. Order is preserved upon merge. The map tag
@@ -2473,6 +2548,19 @@ export namespace apiextensions {
        * Defaults to atomic for arrays.
        */
       x_kubernetes_list_type?: pulumi.Input<string>
+
+      /**
+       * x-kubernetes-map-type annotates an object to further describe its topology. This extension
+       * must only be used when type is object and may have 2 possible values:
+       * 
+       * 1) `granular`:
+       *      These maps are actual maps (key-value pairs) and each fields are independent
+       *      from each other (they can each be manipulated by separate actors). This is
+       *      the default behaviour for all maps.
+       * 2) `atomic`: the list is treated as a single entity, like a scalar.
+       *      Atomic maps will be entirely replaced when updated.
+       */
+      x_kubernetes_map_type?: pulumi.Input<string>
 
       /**
        * x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
@@ -11167,7 +11255,8 @@ export namespace core {
 
       /**
        * Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels,
-       * metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP.
+       * metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP,
+       * status.podIPs.
        */
       fieldRef?: pulumi.Input<core.v1.ObjectFieldSelector>
 
@@ -14106,8 +14195,7 @@ export namespace core {
        * Share a single process namespace between all of the containers in a pod. When this is set
        * containers will be able to view and signal processes from other containers in the same pod,
        * and the first process in each container will not be assigned PID 1. HostPID and
-       * ShareProcessNamespace cannot both be set. Optional: Default to false. This field is
-       * beta-level and may be disabled with the PodShareProcessNamespace feature.
+       * ShareProcessNamespace cannot both be set. Optional: Default to false.
        */
       shareProcessNamespace?: pulumi.Input<boolean>
 
@@ -15832,6 +15920,19 @@ export namespace core {
       sessionAffinityConfig?: pulumi.Input<core.v1.SessionAffinityConfig>
 
       /**
+       * topologyKeys is a preference-order list of topology keys which implementations of services
+       * should use to preferentially sort endpoints when accessing this Service, it can not be used
+       * at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and
+       * at most 16 keys may be specified. Endpoints are chosen based on the first topology key with
+       * available backends. If this field is specified and all entries have no backends that match
+       * the topology of the client, the service has no backends for that client and connections
+       * should fail. The special value "*" may be used to mean "any topology". This catch-all
+       * value, if used, only makes sense as the last value in the list. If this is not specified or
+       * empty, no topology constraints will be applied.
+       */
+      topologyKeys?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
        * type determines how the Service is exposed. Defaults to ClusterIP. Valid options are
        * ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified
        * externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to
@@ -16391,7 +16492,7 @@ export namespace core {
        * Expanded path within the volume from which the container's volume should be mounted.
        * Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded
        * using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath
-       * are mutually exclusive. This field is beta in 1.15.
+       * are mutually exclusive.
        */
       subPathExpr?: pulumi.Input<string>
 
@@ -16506,8 +16607,8 @@ export namespace core {
        * The UserName in Windows to run the entrypoint of the container process. Defaults to the
        * user specified in image metadata if unspecified. May also be set in PodSecurityContext. If
        * set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext
-       * takes precedence. This field is alpha-level and it is only honored by servers that enable
-       * the WindowsRunAsUserName feature flag.
+       * takes precedence. This field is beta-level and may be disabled with the
+       * WindowsRunAsUserName feature flag.
        */
       runAsUserName?: pulumi.Input<string>
 
@@ -16519,24 +16620,23 @@ export namespace core {
 }
 
 export namespace discovery {
-  export namespace v1alpha1 {
+  export namespace v1beta1 {
     /**
      * Endpoint represents a single logical "backend" implementing a service.
      */
     export interface Endpoint {
       /**
        * addresses of this endpoint. The contents of this field are interpreted according to the
-       * corresponding EndpointSlice addressType field. This allows for cases like dual-stack (IPv4
-       * and IPv6) networking. Consumers (e.g. kube-proxy) must handle different types of addresses
-       * in the context of their own capabilities. This must contain at least one address but no
-       * more than 100.
+       * corresponding EndpointSlice addressType field. Consumers must handle different types of
+       * addresses in the context of their own capabilities. This must contain at least one address
+       * but no more than 100.
        */
       addresses: pulumi.Input<pulumi.Input<string>[]>
 
       /**
        * conditions contains information about the current status of the endpoint.
        */
-      conditions?: pulumi.Input<discovery.v1alpha1.EndpointConditions>
+      conditions?: pulumi.Input<discovery.v1beta1.EndpointConditions>
 
       /**
        * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish
@@ -16588,12 +16688,20 @@ export namespace discovery {
      */
     export interface EndpointPort {
       /**
+       * The application protocol for this port. This field follows standard Kubernetes label
+       * syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
+       * http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
+       * names. Default is empty string.
+       */
+      appProtocol?: pulumi.Input<string>
+
+      /**
        * The name of this port. All ports in an EndpointSlice must have a unique name. If the
        * EndpointSlice is dervied from a Kubernetes service, this corresponds to the
-       * Service.ports[].name. Name must either be an empty string or pass IANA_SVC_NAME validation:
-       * * must be no more than 15 characters long * may contain only [-a-z0-9] * must contain at
-       * least one letter [a-z] * it must not start or end with a hyphen, nor contain adjacent
-       * hyphens Default is empty string.
+       * Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: *
+       * must be no more than 63 characters long. * must consist of lower case alphanumeric
+       * characters or '-'. * must start and end with an alphanumeric character. Default is empty
+       * string.
        */
       name?: pulumi.Input<string>
 
@@ -16618,16 +16726,18 @@ export namespace discovery {
      */
     export interface EndpointSlice {
       /**
+       * addressType specifies the type of address carried by this EndpointSlice. All addresses in
+       * this slice must be the same type. This field is immutable after creation. The following
+       * address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6:
+       * Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+       */
+      addressType: pulumi.Input<string>
+
+      /**
        * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of
        * 1000 endpoints.
        */
-      endpoints: pulumi.Input<pulumi.Input<discovery.v1alpha1.Endpoint>[]>
-
-      /**
-       * addressType specifies the type of address carried by this EndpointSlice. All addresses in
-       * this slice must be the same type. Default is IP
-       */
-      addressType?: pulumi.Input<string>
+      endpoints: pulumi.Input<pulumi.Input<discovery.v1beta1.Endpoint>[]>
 
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -16635,7 +16745,7 @@ export namespace discovery {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"discovery.k8s.io/v1alpha1">
+      apiVersion?: pulumi.Input<"discovery.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16656,12 +16766,12 @@ export namespace discovery {
        * When a port is defined with a nil port value, it indicates "all ports". Each slice may
        * include a maximum of 100 ports.
        */
-      ports?: pulumi.Input<pulumi.Input<discovery.v1alpha1.EndpointPort>[]>
+      ports?: pulumi.Input<pulumi.Input<discovery.v1beta1.EndpointPort>[]>
 
     }
 
     export function isEndpointSlice(o: any): o is EndpointSlice {
-      return o.apiVersion == "discovery.k8s.io/v1alpha1" && o.kind == "EndpointSlice";
+      return o.apiVersion == "discovery.k8s.io/v1beta1" && o.kind == "EndpointSlice";
     }
 
     /**
@@ -16671,7 +16781,7 @@ export namespace discovery {
       /**
        * List of endpoint slices
        */
-      items: pulumi.Input<pulumi.Input<discovery.v1alpha1.EndpointSlice>[]>
+      items: pulumi.Input<pulumi.Input<discovery.v1beta1.EndpointSlice>[]>
 
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -16679,7 +16789,7 @@ export namespace discovery {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"discovery.k8s.io/v1alpha1">
+      apiVersion?: pulumi.Input<"discovery.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16697,7 +16807,7 @@ export namespace discovery {
     }
 
     export function isEndpointSliceList(o: any): o is EndpointSliceList {
-      return o.apiVersion == "discovery.k8s.io/v1alpha1" && o.kind == "EndpointSliceList";
+      return o.apiVersion == "discovery.k8s.io/v1beta1" && o.kind == "EndpointSliceList";
     }
 
   }
@@ -18660,6 +18770,586 @@ export namespace extensions {
 
 }
 
+export namespace flowcontrol {
+  export namespace v1alpha1 {
+    /**
+     * FlowDistinguisherMethod specifies the method of a flow distinguisher.
+     */
+    export interface FlowDistinguisherMethod {
+      /**
+       * `type` is the type of flow distinguisher method The supported types are "ByUser" and
+       * "ByNamespace". Required.
+       */
+      type: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of
+     * inbound API requests with similar attributes and is identified by a pair of strings: the name
+     * of the FlowSchema and a "flow distinguisher".
+     */
+    export interface FlowSchema {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"FlowSchema">
+
+      /**
+       * `metadata` is the standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * `spec` is the specification of the desired behavior of a FlowSchema. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      spec?: pulumi.Input<flowcontrol.v1alpha1.FlowSchemaSpec>
+
+    }
+
+    export function isFlowSchema(o: any): o is FlowSchema {
+      return o.apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && o.kind == "FlowSchema";
+    }
+
+    /**
+     * FlowSchemaCondition describes conditions for a FlowSchema.
+     */
+    export interface FlowSchemaCondition {
+      /**
+       * `lastTransitionTime` is the last time the condition transitioned from one status to
+       * another.
+       */
+      lastTransitionTime?: pulumi.Input<string>
+
+      /**
+       * `message` is a human-readable message indicating details about last transition.
+       */
+      message?: pulumi.Input<string>
+
+      /**
+       * `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+       */
+      reason?: pulumi.Input<string>
+
+      /**
+       * `type` is the type of the condition. Required.
+       */
+      type?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * FlowSchemaList is a list of FlowSchema objects.
+     */
+    export interface FlowSchemaList {
+      /**
+       * `items` is a list of FlowSchemas.
+       */
+      items: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.FlowSchema>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"FlowSchemaList">
+
+      /**
+       * `metadata` is the standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isFlowSchemaList(o: any): o is FlowSchemaList {
+      return o.apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && o.kind == "FlowSchemaList";
+    }
+
+    /**
+     * FlowSchemaSpec describes how the FlowSchema's specification looks like.
+     */
+    export interface FlowSchemaSpec {
+      /**
+       * `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster.
+       * If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid
+       * in its status. Required.
+       */
+      priorityLevelConfiguration: pulumi.Input<flowcontrol.v1alpha1.PriorityLevelConfigurationReference>
+
+      /**
+       * `distinguisherMethod` defines how to compute the flow distinguisher for requests that match
+       * this schema. `nil` specifies that the distinguisher is disabled and thus will always be the
+       * empty string.
+       */
+      distinguisherMethod?: pulumi.Input<flowcontrol.v1alpha1.FlowDistinguisherMethod>
+
+      /**
+       * `matchingPrecedence` is used to choose among the FlowSchemas that match a given request.
+       * The chosen FlowSchema is among those with the numerically lowest (which we take to be
+       * logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative.
+       * Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+       */
+      matchingPrecedence?: pulumi.Input<number>
+
+      /**
+       * `rules` describes which requests will match this flow schema. This FlowSchema matches a
+       * request if and only if at least one member of rules matches the request. if it is an empty
+       * slice, there will be no requests matching the FlowSchema.
+       */
+      rules?: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.PolicyRulesWithSubjects>[]>
+
+    }
+
+
+    /**
+     * FlowSchemaStatus represents the current state of a FlowSchema.
+     */
+    export interface FlowSchemaStatus {
+      /**
+       * `conditions` is a list of the current states of FlowSchema.
+       */
+      conditions?: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.FlowSchemaCondition>[]>
+
+    }
+
+
+    /**
+     * GroupSubject holds detailed information for group-kind subject.
+     */
+    export interface GroupSubject {
+      /**
+       * name is the user group that matches, or "*" to match all user groups. See
+       * https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for
+       * some well-known group names. Required.
+       */
+      name: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * LimitResponse defines how to handle requests that can not be executed right now.
+     */
+    export interface LimitResponse {
+      /**
+       * `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon
+       * arrival are held in a queue until they can be executed or a queuing limit is reached.
+       * "Reject" means that requests that can not be executed upon arrival are rejected. Required.
+       */
+      type: pulumi.Input<string>
+
+      /**
+       * `queuing` holds the configuration parameters for queuing. This field may be non-empty only
+       * if `type` is `"Queue"`.
+       */
+      queuing?: pulumi.Input<flowcontrol.v1alpha1.QueuingConfiguration>
+
+    }
+
+
+    /**
+     * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to
+     * limits. It addresses two issues:
+     *  * How are requests for this priority level limited?
+     *  * What should be done with requests that exceed the limit?
+     */
+    export interface LimitedPriorityLevelConfiguration {
+      /**
+       * `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the
+       * number of requests of this priority level that may be exeucting at a given time.  ACS must
+       * be a positive number. The server's concurrency limit (SCL) is divided among the
+       * concurrency-controlled priority levels in proportion to their assured concurrency shares.
+       * This produces the assured concurrency value (ACV) --- the number of requests that may be
+       * executing at a time --- for each such priority level:
+       * 
+       *             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+       * 
+       * bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other
+       * PL). This field has a default value of 30.
+       */
+      assuredConcurrencyShares?: pulumi.Input<number>
+
+      /**
+       * `limitResponse` indicates what to do with requests that can not be executed right now
+       */
+      limitResponse?: pulumi.Input<flowcontrol.v1alpha1.LimitResponse>
+
+    }
+
+
+    /**
+     * NonResourcePolicyRule is a predicate that matches non-resource requests according to their
+     * verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only
+     * if both (a) at least one member of verbs matches the request and (b) at least one member of
+     * nonResourceURLs matches the request.
+     */
+    export interface NonResourcePolicyRule {
+      /**
+       * `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be
+       * empty. For example:
+       *   - "/healthz" is legal
+       *   - "/hea*" is illegal
+       *   - "/hea" is legal but matches nothing
+       *   - "/hea/*" also matches nothing
+       *   - "/healthz/*" matches all per-component health checks.
+       * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+       */
+      nonResourceURLs: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is
+       * present, it must be the only entry. Required.
+       */
+      verbs: pulumi.Input<pulumi.Input<string>[]>
+
+    }
+
+
+    /**
+     * PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test
+     * considers the subject making the request, the verb being requested, and the resource to be
+     * acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least
+     * one member of subjects matches the request and (b) at least one member of resourceRules or
+     * nonResourceRules matches the request.
+     */
+    export interface PolicyRulesWithSubjects {
+      /**
+       * subjects is the list of normal user, serviceaccount, or group that this rule cares about.
+       * There must be at least one member in this slice. A slice that includes both the
+       * system:authenticated and system:unauthenticated user groups matches every request.
+       * Required.
+       */
+      subjects: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.Subject>[]>
+
+      /**
+       * `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests
+       * according to their verb and the target non-resource URL.
+       */
+      nonResourceRules?: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.NonResourcePolicyRule>[]>
+
+      /**
+       * `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according
+       * to their verb and the target resource. At least one of `resourceRules` and
+       * `nonResourceRules` has to be non-empty.
+       */
+      resourceRules?: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.ResourcePolicyRule>[]>
+
+    }
+
+
+    /**
+     * PriorityLevelConfiguration represents the configuration of a priority level.
+     */
+    export interface PriorityLevelConfiguration {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"PriorityLevelConfiguration">
+
+      /**
+       * `metadata` is the standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * `spec` is the specification of the desired behavior of a "request-priority". More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      spec?: pulumi.Input<flowcontrol.v1alpha1.PriorityLevelConfigurationSpec>
+
+    }
+
+    export function isPriorityLevelConfiguration(o: any): o is PriorityLevelConfiguration {
+      return o.apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && o.kind == "PriorityLevelConfiguration";
+    }
+
+    /**
+     * PriorityLevelConfigurationCondition defines the condition of priority level.
+     */
+    export interface PriorityLevelConfigurationCondition {
+      /**
+       * `lastTransitionTime` is the last time the condition transitioned from one status to
+       * another.
+       */
+      lastTransitionTime?: pulumi.Input<string>
+
+      /**
+       * `message` is a human-readable message indicating details about last transition.
+       */
+      message?: pulumi.Input<string>
+
+      /**
+       * `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+       */
+      reason?: pulumi.Input<string>
+
+      /**
+       * `type` is the type of the condition. Required.
+       */
+      type?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+     */
+    export interface PriorityLevelConfigurationList {
+      /**
+       * `items` is a list of request-priorities.
+       */
+      items: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.PriorityLevelConfiguration>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"PriorityLevelConfigurationList">
+
+      /**
+       * `metadata` is the standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isPriorityLevelConfigurationList(o: any): o is PriorityLevelConfigurationList {
+      return o.apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && o.kind == "PriorityLevelConfigurationList";
+    }
+
+    /**
+     * PriorityLevelConfigurationReference contains information that points to the
+     * "request-priority" being used.
+     */
+    export interface PriorityLevelConfigurationReference {
+      /**
+       * `name` is the name of the priority level configuration being referenced Required.
+       */
+      name: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+     */
+    export interface PriorityLevelConfigurationSpec {
+      /**
+       * `type` indicates whether this priority level is subject to limitation on request execution.
+       * A value of `"Exempt"` means that requests of this priority level are not subject to a limit
+       * (and thus are never queued) and do not detract from the capacity made available to other
+       * priority levels.  A value of `"Limited"` means that (a) requests of this priority level
+       * _are_ subject to limits and (b) some of the server's limited capacity is made available
+       * exclusively to this priority level. Required.
+       */
+      type: pulumi.Input<string>
+
+      /**
+       * `limited` specifies how requests are handled for a Limited priority level. This field must
+       * be non-empty if and only if `type` is `"Limited"`.
+       */
+      limited?: pulumi.Input<flowcontrol.v1alpha1.LimitedPriorityLevelConfiguration>
+
+    }
+
+
+    /**
+     * PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+     */
+    export interface PriorityLevelConfigurationStatus {
+      /**
+       * `conditions` is the current state of "request-priority".
+       */
+      conditions?: pulumi.Input<pulumi.Input<flowcontrol.v1alpha1.PriorityLevelConfigurationCondition>[]>
+
+    }
+
+
+    /**
+     * QueuingConfiguration holds the configuration parameters for queuing
+     */
+    export interface QueuingConfiguration {
+      /**
+       * `handSize` is a small positive number that configures the shuffle sharding of requests into
+       * queues.  When enqueuing a request at this priority level the request's flow identifier (a
+       * string pair) is hashed and the hash value is used to shuffle the list of queues and deal a
+       * hand of the size specified here.  The request is put into one of the shortest queues in
+       * that hand. `handSize` must be no larger than `queues`, and should be significantly smaller
+       * (so that a few heavy flows do not saturate most of the queues).  See the user-facing
+       * documentation for more extensive guidance on setting this field.  This field has a default
+       * value of 8.
+       */
+      handSize?: pulumi.Input<number>
+
+      /**
+       * `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue
+       * of this priority level at a time; excess requests are rejected.  This value must be
+       * positive.  If not specified, it will be defaulted to 50.
+       */
+      queueLengthLimit?: pulumi.Input<number>
+
+      /**
+       * `queues` is the number of queues for this priority level. The queues exist independently at
+       * each apiserver. The value must be positive.  Setting it to 1 effectively precludes
+       * shufflesharding and thus makes the distinguisher method of associated flow schemas
+       * irrelevant.  This field has a default value of 64.
+       */
+      queues?: pulumi.Input<number>
+
+    }
+
+
+    /**
+     * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
+     * verb and the target resource. A ResourcePolicyRule matches a resource request if and only if:
+     * (a) at least one member of verbs matches the request, (b) at least one member of apiGroups
+     * matches the request, (c) at least one member of resources matches the request, and (d) least
+     * one member of namespaces matches the request.
+     */
+    export interface ResourcePolicyRule {
+      /**
+       * `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API
+       * groups and, if present, must be the only entry. Required.
+       */
+      apiGroups: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired,
+       * subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*"
+       * matches all resources and, if present, must be the only entry. Required.
+       */
+      resources: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if
+       * present, must be the only entry. Required.
+       */
+      verbs: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * `clusterScope` indicates whether to match requests that do not specify a namespace (which
+       * happens either because the resource is not namespaced or the request targets all
+       * namespaces). If this field is omitted or false then the `namespaces` field must contain a
+       * non-empty list.
+       */
+      clusterScope?: pulumi.Input<boolean>
+
+      /**
+       * `namespaces` is a list of target namespaces that restricts matches.  A request that
+       * specifies a target namespace matches only if either (a) this list contains that target
+       * namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but
+       * does not match a request that _does not specify_ a namespace (see the `clusterScope` field
+       * for that). This list may be empty, but only if `clusterScope` is true.
+       */
+      namespaces?: pulumi.Input<pulumi.Input<string>[]>
+
+    }
+
+
+    /**
+     * ServiceAccountSubject holds detailed information for service-account-kind subject.
+     */
+    export interface ServiceAccountSubject {
+      /**
+       * `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name.
+       * Required.
+       */
+      name: pulumi.Input<string>
+
+      /**
+       * `namespace` is the namespace of matching ServiceAccount objects. Required.
+       */
+      namespace: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * Subject matches the originator of a request, as identified by the request authentication
+     * system. There are three ways of matching an originator; by user, group, or service account.
+     */
+    export interface Subject {
+      /**
+       * Required
+       */
+      kind: pulumi.Input<string>
+
+      
+      group?: pulumi.Input<flowcontrol.v1alpha1.GroupSubject>
+
+      
+      serviceAccount?: pulumi.Input<flowcontrol.v1alpha1.ServiceAccountSubject>
+
+      
+      user?: pulumi.Input<flowcontrol.v1alpha1.UserSubject>
+
+    }
+
+
+    /**
+     * UserSubject holds detailed information for user-kind subject.
+     */
+    export interface UserSubject {
+      /**
+       * `name` is the username that matches, or "*" to match all usernames. Required.
+       */
+      name: pulumi.Input<string>
+
+    }
+
+
+  }
+
+}
+
 export namespace meta {
   export namespace v1 {
     /**
@@ -19179,6 +19869,14 @@ export namespace meta {
        * Must be empty before the object is deleted from the registry. Each entry is an identifier
        * for the responsible component that will remove the entry from the list. If the
        * deletionTimestamp of the object is non-nil, entries in this list can only be removed.
+       * Finalizers may be processed and removed in any order.  Order is NOT enforced because it
+       * introduces significant risk of stuck finalizers. finalizers is a shared field, any actor
+       * with permission can reorder it. If the finalizer list is processed in order, then this can
+       * lead to a situation in which the component responsible for the first finalizer in the list
+       * is waiting for a signal (field value, external system, or other) produced by a component
+       * responsible for a finalizer later in the list, resulting in a deadlock. Without enforced
+       * ordering finalizers are free to order amongst themselves and are not vulnerable to ordering
+       * changes in the list.
        */
       finalizers?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -20609,7 +21307,7 @@ export namespace policy {
 
       /**
        * Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and
-       * other status informatio is valid only if observedGeneration equals to PDB's object
+       * other status information is valid only if observedGeneration equals to PDB's object
        * generation.
        */
       observedGeneration?: pulumi.Input<number>
@@ -21402,7 +22100,8 @@ export namespace rbac {
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-     * unit by a RoleBinding or ClusterRoleBinding.
+     * unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
      */
     export interface ClusterRole {
       /**
@@ -21446,7 +22145,9 @@ export namespace rbac {
 
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-     * ClusterRole in the global namespace, and adds who information via Subject.
+     * ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+     * v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+     * served in v1.20.
      */
     export interface ClusterRoleBinding {
       /**
@@ -21488,7 +22189,8 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleBindingList is a collection of ClusterRoleBindings
+     * ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+     * of rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.20.
      */
     export interface ClusterRoleBindingList {
       /**
@@ -21524,7 +22226,8 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleList is a collection of ClusterRoles
+     * ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
      */
     export interface ClusterRoleList {
       /**
@@ -21604,7 +22307,8 @@ export namespace rbac {
 
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-     * RoleBinding.
+     * RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+     * longer be served in v1.20.
      */
     export interface Role {
       /**
@@ -21643,7 +22347,8 @@ export namespace rbac {
      * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
      * namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
      * namespace information by which namespace it exists in.  RoleBindings in a given namespace
-     * only have effect in that namespace.
+     * only have effect in that namespace. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
      */
     export interface RoleBinding {
       /**
@@ -21685,7 +22390,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleBindingList is a collection of RoleBindings
+     * RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
      */
     export interface RoleBindingList {
       /**
@@ -21721,7 +22427,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleList is a collection of Roles
+     * RoleList is a collection of Roles. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
      */
     export interface RoleList {
       /**
@@ -21834,7 +22541,8 @@ export namespace rbac {
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-     * unit by a RoleBinding or ClusterRoleBinding.
+     * unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
      */
     export interface ClusterRole {
       /**
@@ -21878,7 +22586,9 @@ export namespace rbac {
 
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-     * ClusterRole in the global namespace, and adds who information via Subject.
+     * ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+     * v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+     * served in v1.20.
      */
     export interface ClusterRoleBinding {
       /**
@@ -21920,7 +22630,9 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleBindingList is a collection of ClusterRoleBindings
+     * ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+     * of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in
+     * v1.20.
      */
     export interface ClusterRoleBindingList {
       /**
@@ -21956,7 +22668,8 @@ export namespace rbac {
     }
 
     /**
-     * ClusterRoleList is a collection of ClusterRoles
+     * ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
      */
     export interface ClusterRoleList {
       /**
@@ -22036,7 +22749,8 @@ export namespace rbac {
 
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-     * RoleBinding.
+     * RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+     * longer be served in v1.20.
      */
     export interface Role {
       /**
@@ -22075,7 +22789,8 @@ export namespace rbac {
      * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
      * namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
      * namespace information by which namespace it exists in.  RoleBindings in a given namespace
-     * only have effect in that namespace.
+     * only have effect in that namespace. Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
      */
     export interface RoleBinding {
       /**
@@ -22117,7 +22832,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleBindingList is a collection of RoleBindings
+     * RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
      */
     export interface RoleBindingList {
       /**
@@ -22153,7 +22869,8 @@ export namespace rbac {
     }
 
     /**
-     * RoleList is a collection of Roles
+     * RoleList is a collection of Roles Deprecated in v1.17 in favor of
+     * rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
      */
     export interface RoleList {
       /**
@@ -22665,6 +23382,140 @@ export namespace settings {
 export namespace storage {
   export namespace v1 {
     /**
+     * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
+     * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
+     * container, the kubelet will automatically populate the CSINode object for the CSI driver as
+     * part of kubelet plugin registration. CSINode has the same name as a node. If the object is
+     * missing, it means either there are no CSI Drivers available on the node, or the Kubelet
+     * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
+     * points to the corresponding node object.
+     */
+    export interface CSINode {
+      /**
+       * spec is the specification of CSINode
+       */
+      spec: pulumi.Input<storage.v1.CSINodeSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSINode">
+
+      /**
+       * metadata.name must be the Kubernetes node name.
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isCSINode(o: any): o is CSINode {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "CSINode";
+    }
+
+    /**
+     * CSINodeDriver holds information about the specification of one CSI driver installed on a node
+     */
+    export interface CSINodeDriver {
+      /**
+       * This is the name of the CSI driver that this object refers to. This MUST be the same name
+       * returned by the CSI GetPluginName() call for that driver.
+       */
+      name: pulumi.Input<string>
+
+      /**
+       * nodeID of the node from the driver point of view. This field enables Kubernetes to
+       * communicate with storage systems that do not share the same nomenclature for nodes. For
+       * example, Kubernetes may refer to a given node as "node1", but the storage system may refer
+       * to the same node as "nodeA". When Kubernetes issues a command to the storage system to
+       * attach a volume to a specific node, it can use this field to refer to the node name using
+       * the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field
+       * is required.
+       */
+      nodeID: pulumi.Input<string>
+
+      /**
+       * allocatable represents the volume resources of a node that are available for scheduling.
+       * This field is beta.
+       */
+      allocatable?: pulumi.Input<storage.v1.VolumeNodeResources>
+
+      /**
+       * topologyKeys is the list of keys supported by the driver. When a driver is initialized on a
+       * cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone",
+       * "company.com/region"). When a driver is initialized on a node, it provides the same
+       * topology keys along with values. Kubelet will expose these topology keys as labels on its
+       * own node object. When Kubernetes does topology aware provisioning, it can use this list to
+       * determine which labels it should retrieve from the node object and pass back to the driver.
+       * It is possible for different nodes to use different topology keys. This can be empty if
+       * driver does not support topology.
+       */
+      topologyKeys?: pulumi.Input<pulumi.Input<string>[]>
+
+    }
+
+
+    /**
+     * CSINodeList is a collection of CSINode objects.
+     */
+    export interface CSINodeList {
+      /**
+       * items is the list of CSINode
+       */
+      items: pulumi.Input<pulumi.Input<storage.v1.CSINode>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSINodeList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isCSINodeList(o: any): o is CSINodeList {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "CSINodeList";
+    }
+
+    /**
+     * CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+     */
+    export interface CSINodeSpec {
+      /**
+       * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in
+       * the list are uninstalled, this can become empty.
+       */
+      drivers: pulumi.Input<pulumi.Input<storage.v1.CSINodeDriver>[]>
+
+    }
+
+
+    /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
      * be dynamically provisioned.
      * 
@@ -22951,6 +23802,22 @@ export namespace storage {
        * Time the error was encountered.
        */
       time?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * VolumeNodeResources is a set of resource limits for scheduling of volumes.
+     */
+    export interface VolumeNodeResources {
+      /**
+       * Maximum number of unique volumes managed by the CSI driver that can be used on a node. A
+       * volume that is both attached and mounted on a node is considered to be used once, not
+       * twice. The same rule applies for a unique volume that is shared among multiple pods on the
+       * same node. If this field is not specified, then the supported number of volumes on this
+       * node is unbounded.
+       */
+      count?: pulumi.Input<number>
 
     }
 
@@ -23275,6 +24142,9 @@ export namespace storage {
 
 
     /**
+     * @deprecated storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
+     * storage/v1beta1/CSINode instead.
+     * 
      * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
      * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
      * container, the kubelet will automatically populate the CSINode object for the CSI driver as

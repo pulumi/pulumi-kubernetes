@@ -15,7 +15,9 @@ import { getVersion } from "../../version";
     export class EndpointSlice extends pulumi.CustomResource {
       /**
        * addressType specifies the type of address carried by this EndpointSlice. All addresses in
-       * this slice must be the same type. Default is IP
+       * this slice must be the same type. This field is immutable after creation. The following
+       * address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6:
+       * Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
        */
       public readonly addressType: pulumi.Output<string>;
 
@@ -25,13 +27,13 @@ import { getVersion } from "../../version";
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"discovery.k8s.io/v1alpha1">;
+      public readonly apiVersion: pulumi.Output<"discovery.k8s.io/v1beta1">;
 
       /**
        * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of
        * 1000 endpoints.
        */
-      public readonly endpoints: pulumi.Output<outputs.discovery.v1alpha1.Endpoint[]>;
+      public readonly endpoints: pulumi.Output<outputs.discovery.v1beta1.Endpoint[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -52,7 +54,7 @@ import { getVersion } from "../../version";
        * When a port is defined with a nil port value, it indicates "all ports". Each slice may
        * include a maximum of 100 ports.
        */
-      public readonly ports: pulumi.Output<outputs.discovery.v1alpha1.EndpointPort[]>;
+      public readonly ports: pulumi.Output<outputs.discovery.v1beta1.EndpointPort[]>;
 
       /**
        * Get the state of an existing `EndpointSlice` resource, as identified by `id`.
@@ -70,7 +72,7 @@ import { getVersion } from "../../version";
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:discovery.k8s.io/v1alpha1:EndpointSlice";
+      private static readonly __pulumiType = "kubernetes:discovery.k8s.io/v1beta1:EndpointSlice";
 
       /**
        * Returns true if the given object is an instance of EndpointSlice.  This is designed to work even
@@ -85,18 +87,18 @@ import { getVersion } from "../../version";
       }
 
       /**
-       * Create a discovery.v1alpha1.EndpointSlice resource with the given unique name, arguments, and options.
+       * Create a discovery.v1beta1.EndpointSlice resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.discovery.v1alpha1.EndpointSlice, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.discovery.v1beta1.EndpointSlice, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
+          props["addressType"] = args && args.addressType || undefined;
           props["endpoints"] = args && args.endpoints || undefined;
 
-          props["addressType"] = args && args.addressType || undefined;
-          props["apiVersion"] = "discovery.k8s.io/v1alpha1";
+          props["apiVersion"] = "discovery.k8s.io/v1beta1";
           props["kind"] = "EndpointSlice";
           props["metadata"] = args && args.metadata || undefined;
           props["ports"] = args && args.ports || undefined;

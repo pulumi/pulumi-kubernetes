@@ -13,7 +13,8 @@ from ... import tables, version
 
 class ClusterRoleBindingList(pulumi.CustomResource):
     """
-    ClusterRoleBindingList is a collection of ClusterRoleBindings
+    ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of
+    rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.20.
     """
 
     apiVersion: pulumi.Output[str]

@@ -853,7 +853,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration
       public readonly ImmutableArray<AdmissionRegistration.V1Beta1.RuleWithOperations> Rules;
 
       /// <summary>
-        /// SideEffects states whether this webhookk has side effects. Acceptable values are:
+        /// SideEffects states whether this webhook has side effects. Acceptable values are:
         /// Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a
         /// reconciliation system, since a request may be rejected by a future step in the admission
         /// change and the side effects therefore need to be undone. Requests with the dryRun
@@ -1219,7 +1219,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration
       public readonly ImmutableArray<AdmissionRegistration.V1Beta1.RuleWithOperations> Rules;
 
       /// <summary>
-        /// SideEffects states whether this webhookk has side effects. Acceptable values are:
+        /// SideEffects states whether this webhook has side effects. Acceptable values are:
         /// Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a
         /// reconciliation system, since a request may be rejected by a future step in the admission
         /// change and the side effects therefore need to be undone. Requests with the dryRun
@@ -1760,7 +1760,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
 
       /// <summary>
         /// scope indicates whether the defined custom resource is cluster- or namespace-scoped.
-        /// Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
+        /// Allowed values are `Cluster` and `Namespaced`.
         /// </summary>
       public readonly string Scope;
 
@@ -2068,7 +2068,37 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
       
       public readonly ApiExtensions.V1.ExternalDocumentation ExternalDocs;
 
-      
+      /// <summary>
+        /// format is an OpenAPI v3 format string. Unknown formats are ignored. The following
+        /// formats are validated:
+        /// 
+        /// - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as
+        /// parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+        /// net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+        /// defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+        /// net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed
+        /// by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an
+        /// UUID that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+        /// that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an
+        /// UUID4 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5:
+        /// an UUID5 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+        /// ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+        /// number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041"
+        /// - creditcard: a credit card number defined by the regex
+        /// ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+        /// with any non digit characters mixed in - ssn: a U.S. social security number following
+        /// the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like
+        /// "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB
+        /// color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data -
+        /// password: any kind of string - date: a date string like "2006-01-02" as defined by
+        /// full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang
+        /// time.ParseDuration or compatible with Scala duration format - datetime: a date time
+        /// string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+        /// </summary>
       public readonly string Format;
 
       
@@ -2178,7 +2208,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         ///      may be used on any type of list (struct, scalar, ...).
         /// 2) `set`:
         ///      Sets are lists that must not have multiple items with the same value. Each
-        ///      value must be a scalar (or another atomic type).
+        ///      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+        ///      array with x-kubernetes-list-type `atomic`.
         /// 3) `map`:
         ///      These lists are like maps in that their elements have a non-index key
         ///      used to identify them. Order is preserved upon merge. The map tag
@@ -2186,6 +2217,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         /// Defaults to atomic for arrays.
         /// </summary>
       public readonly string X_kubernetes_list_type;
+
+      /// <summary>
+        /// x-kubernetes-map-type annotates an object to further describe its topology. This
+        /// extension must only be used when type is object and may have 2 possible values:
+        /// 
+        /// 1) `granular`:
+        ///      These maps are actual maps (key-value pairs) and each fields are independent
+        ///      from each other (they can each be manipulated by separate actors). This is
+        ///      the default behaviour for all maps.
+        /// 2) `atomic`: the list is treated as a single entity, like a scalar.
+        ///      Atomic maps will be entirely replaced when updated.
+        /// </summary>
+      public readonly string X_kubernetes_map_type;
 
       /// <summary>
         /// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning
@@ -2239,6 +2283,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
           bool @x_kubernetes_int_or_string,
           ImmutableArray<string> @x_kubernetes_list_map_keys,
           string @x_kubernetes_list_type,
+          string @x_kubernetes_map_type,
           bool @x_kubernetes_preserve_unknown_fields)
       {
           this.Ref = @ref;
@@ -2282,6 +2327,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
           this.X_kubernetes_int_or_string = @x_kubernetes_int_or_string;
           this.X_kubernetes_list_map_keys = @x_kubernetes_list_map_keys;
           this.X_kubernetes_list_type = @x_kubernetes_list_type;
+          this.X_kubernetes_map_type = @x_kubernetes_map_type;
           this.X_kubernetes_preserve_unknown_fields = @x_kubernetes_preserve_unknown_fields;
       }
 
@@ -3128,7 +3174,37 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
       
       public readonly ApiExtensions.V1Beta1.ExternalDocumentation ExternalDocs;
 
-      
+      /// <summary>
+        /// format is an OpenAPI v3 format string. Unknown formats are ignored. The following
+        /// formats are validated:
+        /// 
+        /// - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as
+        /// parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang
+        /// net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as
+        /// defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang
+        /// net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed
+        /// by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an
+        /// UUID that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3
+        /// that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an
+        /// UUID4 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5:
+        /// an UUID5 that allows uppercase defined by the regex
+        /// (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an
+        /// ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10
+        /// number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041"
+        /// - creditcard: a credit card number defined by the regex
+        /// ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$
+        /// with any non digit characters mixed in - ssn: a U.S. social security number following
+        /// the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like
+        /// "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB
+        /// color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data -
+        /// password: any kind of string - date: a date string like "2006-01-02" as defined by
+        /// full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang
+        /// time.ParseDuration or compatible with Scala duration format - datetime: a date time
+        /// string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+        /// </summary>
       public readonly string Format;
 
       
@@ -3238,7 +3314,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         ///      may be used on any type of list (struct, scalar, ...).
         /// 2) `set`:
         ///      Sets are lists that must not have multiple items with the same value. Each
-        ///      value must be a scalar (or another atomic type).
+        ///      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+        ///      array with x-kubernetes-list-type `atomic`.
         /// 3) `map`:
         ///      These lists are like maps in that their elements have a non-index key
         ///      used to identify them. Order is preserved upon merge. The map tag
@@ -3246,6 +3323,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
         /// Defaults to atomic for arrays.
         /// </summary>
       public readonly string X_kubernetes_list_type;
+
+      /// <summary>
+        /// x-kubernetes-map-type annotates an object to further describe its topology. This
+        /// extension must only be used when type is object and may have 2 possible values:
+        /// 
+        /// 1) `granular`:
+        ///      These maps are actual maps (key-value pairs) and each fields are independent
+        ///      from each other (they can each be manipulated by separate actors). This is
+        ///      the default behaviour for all maps.
+        /// 2) `atomic`: the list is treated as a single entity, like a scalar.
+        ///      Atomic maps will be entirely replaced when updated.
+        /// </summary>
+      public readonly string X_kubernetes_map_type;
 
       /// <summary>
         /// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning
@@ -3299,6 +3389,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
           bool @x_kubernetes_int_or_string,
           ImmutableArray<string> @x_kubernetes_list_map_keys,
           string @x_kubernetes_list_type,
+          string @x_kubernetes_map_type,
           bool @x_kubernetes_preserve_unknown_fields)
       {
           this.Ref = @ref;
@@ -3342,6 +3433,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions
           this.X_kubernetes_int_or_string = @x_kubernetes_int_or_string;
           this.X_kubernetes_list_map_keys = @x_kubernetes_list_map_keys;
           this.X_kubernetes_list_type = @x_kubernetes_list_type;
+          this.X_kubernetes_map_type = @x_kubernetes_map_type;
           this.X_kubernetes_preserve_unknown_fields = @x_kubernetes_preserve_unknown_fields;
       }
 
@@ -15449,7 +15541,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
       /// <summary>
         /// Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels,
         /// metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP,
-        /// status.podIP.
+        /// status.podIP, status.podIPs.
         /// </summary>
       public readonly Core.V1.ObjectFieldSelector FieldRef;
 
@@ -19456,8 +19548,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
         /// Share a single process namespace between all of the containers in a pod. When this is
         /// set containers will be able to view and signal processes from other containers in the
         /// same pod, and the first process in each container will not be assigned PID 1. HostPID
-        /// and ShareProcessNamespace cannot both be set. Optional: Default to false. This field is
-        /// beta-level and may be disabled with the PodShareProcessNamespace feature.
+        /// and ShareProcessNamespace cannot both be set. Optional: Default to false.
         /// </summary>
       public readonly bool ShareProcessNamespace;
 
@@ -21838,6 +21929,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
       public readonly Core.V1.SessionAffinityConfig SessionAffinityConfig;
 
       /// <summary>
+        /// topologyKeys is a preference-order list of topology keys which implementations of
+        /// services should use to preferentially sort endpoints when accessing this Service, it can
+        /// not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid
+        /// label keys and at most 16 keys may be specified. Endpoints are chosen based on the first
+        /// topology key with available backends. If this field is specified and all entries have no
+        /// backends that match the topology of the client, the service has no backends for that
+        /// client and connections should fail. The special value "*" may be used to mean "any
+        /// topology". This catch-all value, if used, only makes sense as the last value in the
+        /// list. If this is not specified or empty, no topology constraints will be applied.
+        /// </summary>
+      public readonly ImmutableArray<string> TopologyKeys;
+
+      /// <summary>
         /// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are
         /// ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the
         /// specified externalName. "ClusterIP" allocates a cluster-internal IP address for
@@ -21867,6 +21971,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
           ImmutableDictionary<string, string> @selector,
           string @sessionAffinity,
           Core.V1.SessionAffinityConfig @sessionAffinityConfig,
+          ImmutableArray<string> @topologyKeys,
           string @type)
       {
           this.ClusterIP = @clusterIP;
@@ -21882,6 +21987,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
           this.Selector = @selector;
           this.SessionAffinity = @sessionAffinity;
           this.SessionAffinityConfig = @sessionAffinityConfig;
+          this.TopologyKeys = @topologyKeys;
           this.Type = @type;
       }
 
@@ -22638,7 +22744,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
         /// Expanded path within the volume from which the container's volume should be mounted.
         /// Behaves similarly to SubPath but environment variable references $(VAR_NAME) are
         /// expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr
-        /// and SubPath are mutually exclusive. This field is beta in 1.15.
+        /// and SubPath are mutually exclusive.
         /// </summary>
       public readonly string SubPathExpr;
 
@@ -22812,8 +22918,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
         /// The UserName in Windows to run the entrypoint of the container process. Defaults to the
         /// user specified in image metadata if unspecified. May also be set in PodSecurityContext.
         /// If set in both SecurityContext and PodSecurityContext, the value specified in
-        /// SecurityContext takes precedence. This field is alpha-level and it is only honored by
-        /// servers that enable the WindowsRunAsUserName feature flag.
+        /// SecurityContext takes precedence. This field is beta-level and may be disabled with the
+        /// WindowsRunAsUserName feature flag.
         /// </summary>
       public readonly string RunAsUserName;
 
@@ -22835,7 +22941,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
 
 namespace Pulumi.Kubernetes.Types.Outputs.Discovery
 {
-  namespace V1Alpha1
+  namespace V1Beta1
   {
     /// <summary>
     /// Endpoint represents a single logical "backend" implementing a service.
@@ -22845,8 +22951,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
     {
       /// <summary>
         /// addresses of this endpoint. The contents of this field are interpreted according to the
-        /// corresponding EndpointSlice addressType field. This allows for cases like dual-stack
-        /// (IPv4 and IPv6) networking. Consumers (e.g. kube-proxy) must handle different types of
+        /// corresponding EndpointSlice addressType field. Consumers must handle different types of
         /// addresses in the context of their own capabilities. This must contain at least one
         /// address but no more than 100.
         /// </summary>
@@ -22855,7 +22960,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
       /// <summary>
         /// conditions contains information about the current status of the endpoint.
         /// </summary>
-      public readonly Discovery.V1Alpha1.EndpointConditions Conditions;
+      public readonly Discovery.V1Beta1.EndpointConditions Conditions;
 
       /// <summary>
         /// hostname of this endpoint. This field may be used by consumers of endpoints to
@@ -22889,7 +22994,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
       [OutputConstructor]
       private Endpoint(
           ImmutableArray<string> @addresses,
-          Discovery.V1Alpha1.EndpointConditions @conditions,
+          Discovery.V1Beta1.EndpointConditions @conditions,
           string @hostname,
           Core.V1.ObjectReference @targetRef,
           ImmutableDictionary<string, string> @topology)
@@ -22930,12 +23035,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
     public sealed class EndpointPort
     {
       /// <summary>
+        /// The application protocol for this port. This field follows standard Kubernetes label
+        /// syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335
+        /// and http://www.iana.org/assignments/service-names). Non-standard protocols should use
+        /// prefixed names. Default is empty string.
+        /// </summary>
+      public readonly string AppProtocol;
+
+      /// <summary>
         /// The name of this port. All ports in an EndpointSlice must have a unique name. If the
         /// EndpointSlice is dervied from a Kubernetes service, this corresponds to the
-        /// Service.ports[].name. Name must either be an empty string or pass IANA_SVC_NAME
-        /// validation: * must be no more than 15 characters long * may contain only [-a-z0-9] *
-        /// must contain at least one letter [a-z] * it must not start or end with a hyphen, nor
-        /// contain adjacent hyphens Default is empty string.
+        /// Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation:
+        /// * must be no more than 63 characters long. * must consist of lower case alphanumeric
+        /// characters or '-'. * must start and end with an alphanumeric character. Default is empty
+        /// string.
         /// </summary>
       public readonly string Name;
 
@@ -22952,10 +23065,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
 
       [OutputConstructor]
       private EndpointPort(
+          string @appProtocol,
           string @name,
           int @port,
           string @protocol)
       {
+          this.AppProtocol = @appProtocol;
           this.Name = @name;
           this.Port = @port;
           this.Protocol = @protocol;
@@ -22972,7 +23087,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
     {
       /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses
-        /// in this slice must be the same type. Default is IP
+        /// in this slice must be the same type. This field is immutable after creation. The
+        /// following address types are currently supported: * IPv4: Represents an IPv4 Address. *
+        /// IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
         /// </summary>
       public readonly string AddressType;
 
@@ -22988,7 +23105,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
         /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
         /// of 1000 endpoints.
         /// </summary>
-      public readonly ImmutableArray<Discovery.V1Alpha1.Endpoint> Endpoints;
+      public readonly ImmutableArray<Discovery.V1Beta1.Endpoint> Endpoints;
 
       /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -23009,16 +23126,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
         /// defined ports. When a port is defined with a nil port value, it indicates "all ports".
         /// Each slice may include a maximum of 100 ports.
         /// </summary>
-      public readonly ImmutableArray<Discovery.V1Alpha1.EndpointPort> Ports;
+      public readonly ImmutableArray<Discovery.V1Beta1.EndpointPort> Ports;
 
       [OutputConstructor]
       private EndpointSlice(
           string @addressType,
           string @apiVersion,
-          ImmutableArray<Discovery.V1Alpha1.Endpoint> @endpoints,
+          ImmutableArray<Discovery.V1Beta1.Endpoint> @endpoints,
           string @kind,
           Meta.V1.ObjectMeta @metadata,
-          ImmutableArray<Discovery.V1Alpha1.EndpointPort> @ports)
+          ImmutableArray<Discovery.V1Beta1.EndpointPort> @ports)
       {
           this.AddressType = @addressType;
           this.ApiVersion = @apiVersion;
@@ -23046,7 +23163,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
       /// <summary>
         /// List of endpoint slices
         /// </summary>
-      public readonly ImmutableArray<Discovery.V1Alpha1.EndpointSlice> Items;
+      public readonly ImmutableArray<Discovery.V1Beta1.EndpointSlice> Items;
 
       /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -23064,7 +23181,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
       [OutputConstructor]
       private EndpointSliceList(
           string @apiVersion,
-          ImmutableArray<Discovery.V1Alpha1.EndpointSlice> @items,
+          ImmutableArray<Discovery.V1Beta1.EndpointSlice> @items,
           string @kind,
           Meta.V1.ListMeta @metadata)
       {
@@ -25782,6 +25899,837 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions
 
 }
 
+namespace Pulumi.Kubernetes.Types.Outputs.FlowControl
+{
+  namespace V1Alpha1
+  {
+    /// <summary>
+    /// FlowDistinguisherMethod specifies the method of a flow distinguisher.
+    /// </summary>
+    [OutputType]
+    public sealed class FlowDistinguisherMethod
+    {
+      /// <summary>
+        /// `type` is the type of flow distinguisher method The supported types are "ByUser" and
+        /// "ByNamespace". Required.
+        /// </summary>
+      public readonly string Type;
+
+      [OutputConstructor]
+      private FlowDistinguisherMethod(
+          string @type)
+      {
+          this.Type = @type;
+      }
+
+    }
+    /// <summary>
+    /// FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of
+    /// inbound API requests with similar attributes and is identified by a pair of strings: the
+    /// name of the FlowSchema and a "flow distinguisher".
+    /// </summary>
+    [OutputType]
+    public sealed class FlowSchema
+    {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
+        /// `metadata` is the standard object's metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+      public readonly Meta.V1.ObjectMeta Metadata;
+
+      /// <summary>
+        /// `spec` is the specification of the desired behavior of a FlowSchema. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.FlowSchemaSpec Spec;
+
+      /// <summary>
+        /// `status` is the current status of a FlowSchema. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.FlowSchemaStatus Status;
+
+      [OutputConstructor]
+      private FlowSchema(
+          string @apiVersion,
+          string @kind,
+          Meta.V1.ObjectMeta @metadata,
+          FlowControl.V1Alpha1.FlowSchemaSpec @spec,
+          FlowControl.V1Alpha1.FlowSchemaStatus @status)
+      {
+          this.ApiVersion = @apiVersion;
+          this.Kind = @kind;
+          this.Metadata = @metadata;
+          this.Spec = @spec;
+          this.Status = @status;
+      }
+
+    }
+    /// <summary>
+    /// FlowSchemaCondition describes conditions for a FlowSchema.
+    /// </summary>
+    [OutputType]
+    public sealed class FlowSchemaCondition
+    {
+      /// <summary>
+        /// `lastTransitionTime` is the last time the condition transitioned from one status to
+        /// another.
+        /// </summary>
+      public readonly string LastTransitionTime;
+
+      /// <summary>
+        /// `message` is a human-readable message indicating details about last transition.
+        /// </summary>
+      public readonly string Message;
+
+      /// <summary>
+        /// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+        /// </summary>
+      public readonly string Reason;
+
+      /// <summary>
+        /// `status` is the status of the condition. Can be True, False, Unknown. Required.
+        /// </summary>
+      public readonly string Status;
+
+      /// <summary>
+        /// `type` is the type of the condition. Required.
+        /// </summary>
+      public readonly string Type;
+
+      [OutputConstructor]
+      private FlowSchemaCondition(
+          string @lastTransitionTime,
+          string @message,
+          string @reason,
+          string @status,
+          string @type)
+      {
+          this.LastTransitionTime = @lastTransitionTime;
+          this.Message = @message;
+          this.Reason = @reason;
+          this.Status = @status;
+          this.Type = @type;
+      }
+
+    }
+    /// <summary>
+    /// FlowSchemaList is a list of FlowSchema objects.
+    /// </summary>
+    [OutputType]
+    public sealed class FlowSchemaList
+    {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// `items` is a list of FlowSchemas.
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.FlowSchema> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
+        /// `metadata` is the standard list metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+      public readonly Meta.V1.ListMeta Metadata;
+
+      [OutputConstructor]
+      private FlowSchemaList(
+          string @apiVersion,
+          ImmutableArray<FlowControl.V1Alpha1.FlowSchema> @items,
+          string @kind,
+          Meta.V1.ListMeta @metadata)
+      {
+          this.ApiVersion = @apiVersion;
+          this.Items = @items;
+          this.Kind = @kind;
+          this.Metadata = @metadata;
+      }
+
+    }
+    /// <summary>
+    /// FlowSchemaSpec describes how the FlowSchema's specification looks like.
+    /// </summary>
+    [OutputType]
+    public sealed class FlowSchemaSpec
+    {
+      /// <summary>
+        /// `distinguisherMethod` defines how to compute the flow distinguisher for requests that
+        /// match this schema. `nil` specifies that the distinguisher is disabled and thus will
+        /// always be the empty string.
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.FlowDistinguisherMethod DistinguisherMethod;
+
+      /// <summary>
+        /// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request.
+        /// The chosen FlowSchema is among those with the numerically lowest (which we take to be
+        /// logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be
+        /// non-negative. Note that if the precedence is not specified or zero, it will be set to
+        /// 1000 as default.
+        /// </summary>
+      public readonly int MatchingPrecedence;
+
+      /// <summary>
+        /// `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the
+        /// cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked
+        /// as invalid in its status. Required.
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.PriorityLevelConfigurationReference PriorityLevelConfiguration;
+
+      /// <summary>
+        /// `rules` describes which requests will match this flow schema. This FlowSchema matches a
+        /// request if and only if at least one member of rules matches the request. if it is an
+        /// empty slice, there will be no requests matching the FlowSchema.
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.PolicyRulesWithSubjects> Rules;
+
+      [OutputConstructor]
+      private FlowSchemaSpec(
+          FlowControl.V1Alpha1.FlowDistinguisherMethod @distinguisherMethod,
+          int @matchingPrecedence,
+          FlowControl.V1Alpha1.PriorityLevelConfigurationReference @priorityLevelConfiguration,
+          ImmutableArray<FlowControl.V1Alpha1.PolicyRulesWithSubjects> @rules)
+      {
+          this.DistinguisherMethod = @distinguisherMethod;
+          this.MatchingPrecedence = @matchingPrecedence;
+          this.PriorityLevelConfiguration = @priorityLevelConfiguration;
+          this.Rules = @rules;
+      }
+
+    }
+    /// <summary>
+    /// FlowSchemaStatus represents the current state of a FlowSchema.
+    /// </summary>
+    [OutputType]
+    public sealed class FlowSchemaStatus
+    {
+      /// <summary>
+        /// `conditions` is a list of the current states of FlowSchema.
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.FlowSchemaCondition> Conditions;
+
+      [OutputConstructor]
+      private FlowSchemaStatus(
+          ImmutableArray<FlowControl.V1Alpha1.FlowSchemaCondition> @conditions)
+      {
+          this.Conditions = @conditions;
+      }
+
+    }
+    /// <summary>
+    /// GroupSubject holds detailed information for group-kind subject.
+    /// </summary>
+    [OutputType]
+    public sealed class GroupSubject
+    {
+      /// <summary>
+        /// name is the user group that matches, or "*" to match all user groups. See
+        /// https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for
+        /// some well-known group names. Required.
+        /// </summary>
+      public readonly string Name;
+
+      [OutputConstructor]
+      private GroupSubject(
+          string @name)
+      {
+          this.Name = @name;
+      }
+
+    }
+    /// <summary>
+    /// LimitResponse defines how to handle requests that can not be executed right now.
+    /// </summary>
+    [OutputType]
+    public sealed class LimitResponse
+    {
+      /// <summary>
+        /// `queuing` holds the configuration parameters for queuing. This field may be non-empty
+        /// only if `type` is `"Queue"`.
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.QueuingConfiguration Queuing;
+
+      /// <summary>
+        /// `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon
+        /// arrival are held in a queue until they can be executed or a queuing limit is reached.
+        /// "Reject" means that requests that can not be executed upon arrival are rejected.
+        /// Required.
+        /// </summary>
+      public readonly string Type;
+
+      [OutputConstructor]
+      private LimitResponse(
+          FlowControl.V1Alpha1.QueuingConfiguration @queuing,
+          string @type)
+      {
+          this.Queuing = @queuing;
+          this.Type = @type;
+      }
+
+    }
+    /// <summary>
+    /// LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to
+    /// limits. It addresses two issues:
+    ///  * How are requests for this priority level limited?
+    ///  * What should be done with requests that exceed the limit?
+    /// </summary>
+    [OutputType]
+    public sealed class LimitedPriorityLevelConfiguration
+    {
+      /// <summary>
+        /// `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the
+        /// number of requests of this priority level that may be exeucting at a given time.  ACS
+        /// must be a positive number. The server's concurrency limit (SCL) is divided among the
+        /// concurrency-controlled priority levels in proportion to their assured concurrency
+        /// shares. This produces the assured concurrency value (ACV) --- the number of requests
+        /// that may be executing at a time --- for each such priority level:
+        /// 
+        ///             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+        /// 
+        /// bigger numbers of ACS mean more reserved concurrent requests (at the expense of every
+        /// other PL). This field has a default value of 30.
+        /// </summary>
+      public readonly int AssuredConcurrencyShares;
+
+      /// <summary>
+        /// `limitResponse` indicates what to do with requests that can not be executed right now
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.LimitResponse LimitResponse;
+
+      [OutputConstructor]
+      private LimitedPriorityLevelConfiguration(
+          int @assuredConcurrencyShares,
+          FlowControl.V1Alpha1.LimitResponse @limitResponse)
+      {
+          this.AssuredConcurrencyShares = @assuredConcurrencyShares;
+          this.LimitResponse = @limitResponse;
+      }
+
+    }
+    /// <summary>
+    /// NonResourcePolicyRule is a predicate that matches non-resource requests according to their
+    /// verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only
+    /// if both (a) at least one member of verbs matches the request and (b) at least one member of
+    /// nonResourceURLs matches the request.
+    /// </summary>
+    [OutputType]
+    public sealed class NonResourcePolicyRule
+    {
+      /// <summary>
+        /// `nonResourceURLs` is a set of url prefixes that a user should have access to and may not
+        /// be empty. For example:
+        ///   - "/healthz" is legal
+        ///   - "/hea*" is illegal
+        ///   - "/hea" is legal but matches nothing
+        ///   - "/hea/*" also matches nothing
+        ///   - "/healthz/*" matches all per-component health checks.
+        /// "*" matches all non-resource urls. if it is present, it must be the only entry.
+        /// Required.
+        /// </summary>
+      public readonly ImmutableArray<string> NonResourceURLs;
+
+      /// <summary>
+        /// `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it
+        /// is present, it must be the only entry. Required.
+        /// </summary>
+      public readonly ImmutableArray<string> Verbs;
+
+      [OutputConstructor]
+      private NonResourcePolicyRule(
+          ImmutableArray<string> @nonResourceURLs,
+          ImmutableArray<string> @verbs)
+      {
+          this.NonResourceURLs = @nonResourceURLs;
+          this.Verbs = @verbs;
+      }
+
+    }
+    /// <summary>
+    /// PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The
+    /// test considers the subject making the request, the verb being requested, and the resource to
+    /// be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at
+    /// least one member of subjects matches the request and (b) at least one member of
+    /// resourceRules or nonResourceRules matches the request.
+    /// </summary>
+    [OutputType]
+    public sealed class PolicyRulesWithSubjects
+    {
+      /// <summary>
+        /// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests
+        /// according to their verb and the target non-resource URL.
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.NonResourcePolicyRule> NonResourceRules;
+
+      /// <summary>
+        /// `resourceRules` is a slice of ResourcePolicyRules that identify matching requests
+        /// according to their verb and the target resource. At least one of `resourceRules` and
+        /// `nonResourceRules` has to be non-empty.
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.ResourcePolicyRule> ResourceRules;
+
+      /// <summary>
+        /// subjects is the list of normal user, serviceaccount, or group that this rule cares
+        /// about. There must be at least one member in this slice. A slice that includes both the
+        /// system:authenticated and system:unauthenticated user groups matches every request.
+        /// Required.
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.Subject> Subjects;
+
+      [OutputConstructor]
+      private PolicyRulesWithSubjects(
+          ImmutableArray<FlowControl.V1Alpha1.NonResourcePolicyRule> @nonResourceRules,
+          ImmutableArray<FlowControl.V1Alpha1.ResourcePolicyRule> @resourceRules,
+          ImmutableArray<FlowControl.V1Alpha1.Subject> @subjects)
+      {
+          this.NonResourceRules = @nonResourceRules;
+          this.ResourceRules = @resourceRules;
+          this.Subjects = @subjects;
+      }
+
+    }
+    /// <summary>
+    /// PriorityLevelConfiguration represents the configuration of a priority level.
+    /// </summary>
+    [OutputType]
+    public sealed class PriorityLevelConfiguration
+    {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
+        /// `metadata` is the standard object's metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+      public readonly Meta.V1.ObjectMeta Metadata;
+
+      /// <summary>
+        /// `spec` is the specification of the desired behavior of a "request-priority". More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.PriorityLevelConfigurationSpec Spec;
+
+      /// <summary>
+        /// `status` is the current status of a "request-priority". More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.PriorityLevelConfigurationStatus Status;
+
+      [OutputConstructor]
+      private PriorityLevelConfiguration(
+          string @apiVersion,
+          string @kind,
+          Meta.V1.ObjectMeta @metadata,
+          FlowControl.V1Alpha1.PriorityLevelConfigurationSpec @spec,
+          FlowControl.V1Alpha1.PriorityLevelConfigurationStatus @status)
+      {
+          this.ApiVersion = @apiVersion;
+          this.Kind = @kind;
+          this.Metadata = @metadata;
+          this.Spec = @spec;
+          this.Status = @status;
+      }
+
+    }
+    /// <summary>
+    /// PriorityLevelConfigurationCondition defines the condition of priority level.
+    /// </summary>
+    [OutputType]
+    public sealed class PriorityLevelConfigurationCondition
+    {
+      /// <summary>
+        /// `lastTransitionTime` is the last time the condition transitioned from one status to
+        /// another.
+        /// </summary>
+      public readonly string LastTransitionTime;
+
+      /// <summary>
+        /// `message` is a human-readable message indicating details about last transition.
+        /// </summary>
+      public readonly string Message;
+
+      /// <summary>
+        /// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+        /// </summary>
+      public readonly string Reason;
+
+      /// <summary>
+        /// `status` is the status of the condition. Can be True, False, Unknown. Required.
+        /// </summary>
+      public readonly string Status;
+
+      /// <summary>
+        /// `type` is the type of the condition. Required.
+        /// </summary>
+      public readonly string Type;
+
+      [OutputConstructor]
+      private PriorityLevelConfigurationCondition(
+          string @lastTransitionTime,
+          string @message,
+          string @reason,
+          string @status,
+          string @type)
+      {
+          this.LastTransitionTime = @lastTransitionTime;
+          this.Message = @message;
+          this.Reason = @reason;
+          this.Status = @status;
+          this.Type = @type;
+      }
+
+    }
+    /// <summary>
+    /// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+    /// </summary>
+    [OutputType]
+    public sealed class PriorityLevelConfigurationList
+    {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// `items` is a list of request-priorities.
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.PriorityLevelConfiguration> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
+        /// `metadata` is the standard object's metadata. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+      public readonly Meta.V1.ListMeta Metadata;
+
+      [OutputConstructor]
+      private PriorityLevelConfigurationList(
+          string @apiVersion,
+          ImmutableArray<FlowControl.V1Alpha1.PriorityLevelConfiguration> @items,
+          string @kind,
+          Meta.V1.ListMeta @metadata)
+      {
+          this.ApiVersion = @apiVersion;
+          this.Items = @items;
+          this.Kind = @kind;
+          this.Metadata = @metadata;
+      }
+
+    }
+    /// <summary>
+    /// PriorityLevelConfigurationReference contains information that points to the
+    /// "request-priority" being used.
+    /// </summary>
+    [OutputType]
+    public sealed class PriorityLevelConfigurationReference
+    {
+      /// <summary>
+        /// `name` is the name of the priority level configuration being referenced Required.
+        /// </summary>
+      public readonly string Name;
+
+      [OutputConstructor]
+      private PriorityLevelConfigurationReference(
+          string @name)
+      {
+          this.Name = @name;
+      }
+
+    }
+    /// <summary>
+    /// PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+    /// </summary>
+    [OutputType]
+    public sealed class PriorityLevelConfigurationSpec
+    {
+      /// <summary>
+        /// `limited` specifies how requests are handled for a Limited priority level. This field
+        /// must be non-empty if and only if `type` is `"Limited"`.
+        /// </summary>
+      public readonly FlowControl.V1Alpha1.LimitedPriorityLevelConfiguration Limited;
+
+      /// <summary>
+        /// `type` indicates whether this priority level is subject to limitation on request
+        /// execution.  A value of `"Exempt"` means that requests of this priority level are not
+        /// subject to a limit (and thus are never queued) and do not detract from the capacity made
+        /// available to other priority levels.  A value of `"Limited"` means that (a) requests of
+        /// this priority level _are_ subject to limits and (b) some of the server's limited
+        /// capacity is made available exclusively to this priority level. Required.
+        /// </summary>
+      public readonly string Type;
+
+      [OutputConstructor]
+      private PriorityLevelConfigurationSpec(
+          FlowControl.V1Alpha1.LimitedPriorityLevelConfiguration @limited,
+          string @type)
+      {
+          this.Limited = @limited;
+          this.Type = @type;
+      }
+
+    }
+    /// <summary>
+    /// PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+    /// </summary>
+    [OutputType]
+    public sealed class PriorityLevelConfigurationStatus
+    {
+      /// <summary>
+        /// `conditions` is the current state of "request-priority".
+        /// </summary>
+      public readonly ImmutableArray<FlowControl.V1Alpha1.PriorityLevelConfigurationCondition> Conditions;
+
+      [OutputConstructor]
+      private PriorityLevelConfigurationStatus(
+          ImmutableArray<FlowControl.V1Alpha1.PriorityLevelConfigurationCondition> @conditions)
+      {
+          this.Conditions = @conditions;
+      }
+
+    }
+    /// <summary>
+    /// QueuingConfiguration holds the configuration parameters for queuing
+    /// </summary>
+    [OutputType]
+    public sealed class QueuingConfiguration
+    {
+      /// <summary>
+        /// `handSize` is a small positive number that configures the shuffle sharding of requests
+        /// into queues.  When enqueuing a request at this priority level the request's flow
+        /// identifier (a string pair) is hashed and the hash value is used to shuffle the list of
+        /// queues and deal a hand of the size specified here.  The request is put into one of the
+        /// shortest queues in that hand. `handSize` must be no larger than `queues`, and should be
+        /// significantly smaller (so that a few heavy flows do not saturate most of the queues).
+        /// See the user-facing documentation for more extensive guidance on setting this field.
+        /// This field has a default value of 8.
+        /// </summary>
+      public readonly int HandSize;
+
+      /// <summary>
+        /// `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given
+        /// queue of this priority level at a time; excess requests are rejected.  This value must
+        /// be positive.  If not specified, it will be defaulted to 50.
+        /// </summary>
+      public readonly int QueueLengthLimit;
+
+      /// <summary>
+        /// `queues` is the number of queues for this priority level. The queues exist independently
+        /// at each apiserver. The value must be positive.  Setting it to 1 effectively precludes
+        /// shufflesharding and thus makes the distinguisher method of associated flow schemas
+        /// irrelevant.  This field has a default value of 64.
+        /// </summary>
+      public readonly int Queues;
+
+      [OutputConstructor]
+      private QueuingConfiguration(
+          int @handSize,
+          int @queueLengthLimit,
+          int @queues)
+      {
+          this.HandSize = @handSize;
+          this.QueueLengthLimit = @queueLengthLimit;
+          this.Queues = @queues;
+      }
+
+    }
+    /// <summary>
+    /// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
+    /// verb and the target resource. A ResourcePolicyRule matches a resource request if and only
+    /// if: (a) at least one member of verbs matches the request, (b) at least one member of
+    /// apiGroups matches the request, (c) at least one member of resources matches the request, and
+    /// (d) least one member of namespaces matches the request.
+    /// </summary>
+    [OutputType]
+    public sealed class ResourcePolicyRule
+    {
+      /// <summary>
+        /// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API
+        /// groups and, if present, must be the only entry. Required.
+        /// </summary>
+      public readonly ImmutableArray<string> ApiGroups;
+
+      /// <summary>
+        /// `clusterScope` indicates whether to match requests that do not specify a namespace
+        /// (which happens either because the resource is not namespaced or the request targets all
+        /// namespaces). If this field is omitted or false then the `namespaces` field must contain
+        /// a non-empty list.
+        /// </summary>
+      public readonly bool ClusterScope;
+
+      /// <summary>
+        /// `namespaces` is a list of target namespaces that restricts matches.  A request that
+        /// specifies a target namespace matches only if either (a) this list contains that target
+        /// namespace or (b) this list contains "*".  Note that "*" matches any specified namespace
+        /// but does not match a request that _does not specify_ a namespace (see the `clusterScope`
+        /// field for that). This list may be empty, but only if `clusterScope` is true.
+        /// </summary>
+      public readonly ImmutableArray<string> Namespaces;
+
+      /// <summary>
+        /// `resources` is a list of matching resources (i.e., lowercase and plural) with, if
+        /// desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not
+        /// be empty. "*" matches all resources and, if present, must be the only entry. Required.
+        /// </summary>
+      public readonly ImmutableArray<string> Resources;
+
+      /// <summary>
+        /// `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if
+        /// present, must be the only entry. Required.
+        /// </summary>
+      public readonly ImmutableArray<string> Verbs;
+
+      [OutputConstructor]
+      private ResourcePolicyRule(
+          ImmutableArray<string> @apiGroups,
+          bool @clusterScope,
+          ImmutableArray<string> @namespaces,
+          ImmutableArray<string> @resources,
+          ImmutableArray<string> @verbs)
+      {
+          this.ApiGroups = @apiGroups;
+          this.ClusterScope = @clusterScope;
+          this.Namespaces = @namespaces;
+          this.Resources = @resources;
+          this.Verbs = @verbs;
+      }
+
+    }
+    /// <summary>
+    /// ServiceAccountSubject holds detailed information for service-account-kind subject.
+    /// </summary>
+    [OutputType]
+    public sealed class ServiceAccountSubject
+    {
+      /// <summary>
+        /// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of
+        /// name. Required.
+        /// </summary>
+      public readonly string Name;
+
+      /// <summary>
+        /// `namespace` is the namespace of matching ServiceAccount objects. Required.
+        /// </summary>
+      public readonly string Namespace;
+
+      [OutputConstructor]
+      private ServiceAccountSubject(
+          string @name,
+          string @namespace)
+      {
+          this.Name = @name;
+          this.Namespace = @namespace;
+      }
+
+    }
+    /// <summary>
+    /// Subject matches the originator of a request, as identified by the request authentication
+    /// system. There are three ways of matching an originator; by user, group, or service account.
+    /// </summary>
+    [OutputType]
+    public sealed class Subject
+    {
+      
+      public readonly FlowControl.V1Alpha1.GroupSubject Group;
+
+      /// <summary>
+        /// Required
+        /// </summary>
+      public readonly string Kind;
+
+      
+      public readonly FlowControl.V1Alpha1.ServiceAccountSubject ServiceAccount;
+
+      
+      public readonly FlowControl.V1Alpha1.UserSubject User;
+
+      [OutputConstructor]
+      private Subject(
+          FlowControl.V1Alpha1.GroupSubject @group,
+          string @kind,
+          FlowControl.V1Alpha1.ServiceAccountSubject @serviceAccount,
+          FlowControl.V1Alpha1.UserSubject @user)
+      {
+          this.Group = @group;
+          this.Kind = @kind;
+          this.ServiceAccount = @serviceAccount;
+          this.User = @user;
+      }
+
+    }
+    /// <summary>
+    /// UserSubject holds detailed information for user-kind subject.
+    /// </summary>
+    [OutputType]
+    public sealed class UserSubject
+    {
+      /// <summary>
+        /// `name` is the username that matches, or "*" to match all usernames. Required.
+        /// </summary>
+      public readonly string Name;
+
+      [OutputConstructor]
+      private UserSubject(
+          string @name)
+      {
+          this.Name = @name;
+      }
+
+    }
+  }
+
+}
+
 namespace Pulumi.Kubernetes.Types.Outputs.Meta
 {
   namespace V1
@@ -26449,7 +27397,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta
         /// Must be empty before the object is deleted from the registry. Each entry is an
         /// identifier for the responsible component that will remove the entry from the list. If
         /// the deletionTimestamp of the object is non-nil, entries in this list can only be
-        /// removed.
+        /// removed. Finalizers may be processed and removed in any order.  Order is NOT enforced
+        /// because it introduces significant risk of stuck finalizers. finalizers is a shared
+        /// field, any actor with permission can reorder it. If the finalizer list is processed in
+        /// order, then this can lead to a situation in which the component responsible for the
+        /// first finalizer in the list is waiting for a signal (field value, external system, or
+        /// other) produced by a component responsible for a finalizer later in the list, resulting
+        /// in a deadlock. Without enforced ordering finalizers are free to order amongst themselves
+        /// and are not vulnerable to ordering changes in the list.
         /// </summary>
       public readonly ImmutableArray<string> Finalizers;
 
@@ -28401,7 +29356,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy
 
       /// <summary>
         /// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and
-        /// other status informatio is valid only if observedGeneration equals to PDB's object
+        /// other status information is valid only if observedGeneration equals to PDB's object
         /// generation.
         /// </summary>
       public readonly int ObservedGeneration;
@@ -29476,7 +30431,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     }
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-    /// unit by a RoleBinding or ClusterRoleBinding.
+    /// unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRole
@@ -29532,7 +30488,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     }
     /// <summary>
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-    /// ClusterRole in the global namespace, and adds who information via Subject.
+    /// ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+    /// v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+    /// served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRoleBinding
@@ -29586,7 +30544,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+    /// of rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRoleBindingList
@@ -29632,7 +30591,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// ClusterRoleList is a collection of ClusterRoles
+    /// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRoleList
@@ -29738,7 +30698,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     }
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-    /// RoleBinding.
+    /// RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+    /// longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class Role
@@ -29787,7 +30748,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     /// RoleBinding references a role, but does not contain it.  It can reference a Role in the same
     /// namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
-    /// only have effect in that namespace.
+    /// only have effect in that namespace. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class RoleBinding
@@ -29841,7 +30803,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// RoleBindingList is a collection of RoleBindings
+    /// RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class RoleBindingList
@@ -29887,7 +30850,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// RoleList is a collection of Roles
+    /// RoleList is a collection of Roles. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class RoleList
@@ -30039,7 +31003,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     }
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
-    /// unit by a RoleBinding or ClusterRoleBinding.
+    /// unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRole
@@ -30095,7 +31060,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     }
     /// <summary>
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
-    /// ClusterRole in the global namespace, and adds who information via Subject.
+    /// ClusterRole in the global namespace, and adds who information via Subject. Deprecated in
+    /// v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be
+    /// served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRoleBinding
@@ -30149,7 +31116,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
+    /// of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in
+    /// v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRoleBindingList
@@ -30195,7 +31164,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// ClusterRoleList is a collection of ClusterRoles
+    /// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class ClusterRoleList
@@ -30300,7 +31270,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     }
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-    /// RoleBinding.
+    /// RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no
+    /// longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class Role
@@ -30349,7 +31320,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
     /// RoleBinding references a role, but does not contain it.  It can reference a Role in the same
     /// namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
-    /// only have effect in that namespace.
+    /// only have effect in that namespace. Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class RoleBinding
@@ -30403,7 +31375,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// RoleBindingList is a collection of RoleBindings
+    /// RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class RoleBindingList
@@ -30449,7 +31422,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
     }
     /// <summary>
-    /// RoleList is a collection of Roles
+    /// RoleList is a collection of Roles Deprecated in v1.17 in favor of
+    /// rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
     /// </summary>
     [OutputType]
     public sealed class RoleList
@@ -31120,6 +32094,181 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage
   namespace V1
   {
     /// <summary>
+    /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
+    /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
+    /// container, the kubelet will automatically populate the CSINode object for the CSI driver as
+    /// part of kubelet plugin registration. CSINode has the same name as a node. If the object is
+    /// missing, it means either there are no CSI Drivers available on the node, or the Kubelet
+    /// version is low enough that it doesn't create this object. CSINode has an OwnerReference that
+    /// points to the corresponding node object.
+    /// </summary>
+    [OutputType]
+    public sealed class CSINode
+    {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
+        /// metadata.name must be the Kubernetes node name.
+        /// </summary>
+      public readonly Meta.V1.ObjectMeta Metadata;
+
+      /// <summary>
+        /// spec is the specification of CSINode
+        /// </summary>
+      public readonly Storage.V1.CSINodeSpec Spec;
+
+      [OutputConstructor]
+      private CSINode(
+          string @apiVersion,
+          string @kind,
+          Meta.V1.ObjectMeta @metadata,
+          Storage.V1.CSINodeSpec @spec)
+      {
+          this.ApiVersion = @apiVersion;
+          this.Kind = @kind;
+          this.Metadata = @metadata;
+          this.Spec = @spec;
+      }
+
+    }
+    /// <summary>
+    /// CSINodeDriver holds information about the specification of one CSI driver installed on a
+    /// node
+    /// </summary>
+    [OutputType]
+    public sealed class CSINodeDriver
+    {
+      /// <summary>
+        /// allocatable represents the volume resources of a node that are available for scheduling.
+        /// This field is beta.
+        /// </summary>
+      public readonly Storage.V1.VolumeNodeResources Allocatable;
+
+      /// <summary>
+        /// This is the name of the CSI driver that this object refers to. This MUST be the same
+        /// name returned by the CSI GetPluginName() call for that driver.
+        /// </summary>
+      public readonly string Name;
+
+      /// <summary>
+        /// nodeID of the node from the driver point of view. This field enables Kubernetes to
+        /// communicate with storage systems that do not share the same nomenclature for nodes. For
+        /// example, Kubernetes may refer to a given node as "node1", but the storage system may
+        /// refer to the same node as "nodeA". When Kubernetes issues a command to the storage
+        /// system to attach a volume to a specific node, it can use this field to refer to the node
+        /// name using the ID that the storage system will understand, e.g. "nodeA" instead of
+        /// "node1". This field is required.
+        /// </summary>
+      public readonly string NodeID;
+
+      /// <summary>
+        /// topologyKeys is the list of keys supported by the driver. When a driver is initialized
+        /// on a cluster, it provides a set of topology keys that it understands (e.g.
+        /// "company.com/zone", "company.com/region"). When a driver is initialized on a node, it
+        /// provides the same topology keys along with values. Kubelet will expose these topology
+        /// keys as labels on its own node object. When Kubernetes does topology aware provisioning,
+        /// it can use this list to determine which labels it should retrieve from the node object
+        /// and pass back to the driver. It is possible for different nodes to use different
+        /// topology keys. This can be empty if driver does not support topology.
+        /// </summary>
+      public readonly ImmutableArray<string> TopologyKeys;
+
+      [OutputConstructor]
+      private CSINodeDriver(
+          Storage.V1.VolumeNodeResources @allocatable,
+          string @name,
+          string @nodeID,
+          ImmutableArray<string> @topologyKeys)
+      {
+          this.Allocatable = @allocatable;
+          this.Name = @name;
+          this.NodeID = @nodeID;
+          this.TopologyKeys = @topologyKeys;
+      }
+
+    }
+    /// <summary>
+    /// CSINodeList is a collection of CSINode objects.
+    /// </summary>
+    [OutputType]
+    public sealed class CSINodeList
+    {
+      /// <summary>
+        /// APIVersion defines the versioned schema of this representation of an object. Servers
+        /// should convert recognized schemas to the latest internal value, and may reject
+        /// unrecognized values. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        /// </summary>
+      public readonly string ApiVersion;
+
+      /// <summary>
+        /// items is the list of CSINode
+        /// </summary>
+      public readonly ImmutableArray<Storage.V1.CSINode> Items;
+
+      /// <summary>
+        /// Kind is a string value representing the REST resource this object represents. Servers
+        /// may infer this from the endpoint the client submits requests to. Cannot be updated. In
+        /// CamelCase. More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// </summary>
+      public readonly string Kind;
+
+      /// <summary>
+        /// Standard list metadata More info:
+        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+      public readonly Meta.V1.ListMeta Metadata;
+
+      [OutputConstructor]
+      private CSINodeList(
+          string @apiVersion,
+          ImmutableArray<Storage.V1.CSINode> @items,
+          string @kind,
+          Meta.V1.ListMeta @metadata)
+      {
+          this.ApiVersion = @apiVersion;
+          this.Items = @items;
+          this.Kind = @kind;
+          this.Metadata = @metadata;
+      }
+
+    }
+    /// <summary>
+    /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+    /// </summary>
+    [OutputType]
+    public sealed class CSINodeSpec
+    {
+      /// <summary>
+        /// drivers is a list of information of all CSI Drivers existing on a node. If all drivers
+        /// in the list are uninstalled, this can become empty.
+        /// </summary>
+      public readonly ImmutableArray<Storage.V1.CSINodeDriver> Drivers;
+
+      [OutputConstructor]
+      private CSINodeSpec(
+          ImmutableArray<Storage.V1.CSINodeDriver> @drivers)
+      {
+          this.Drivers = @drivers;
+      }
+
+    }
+    /// <summary>
     /// StorageClass describes the parameters for a class of storage for which PersistentVolumes can
     /// be dynamically provisioned.
     /// 
@@ -31510,6 +32659,29 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage
       {
           this.Message = @message;
           this.Time = @time;
+      }
+
+    }
+    /// <summary>
+    /// VolumeNodeResources is a set of resource limits for scheduling of volumes.
+    /// </summary>
+    [OutputType]
+    public sealed class VolumeNodeResources
+    {
+      /// <summary>
+        /// Maximum number of unique volumes managed by the CSI driver that can be used on a node. A
+        /// volume that is both attached and mounted on a node is considered to be used once, not
+        /// twice. The same rule applies for a unique volume that is shared among multiple pods on
+        /// the same node. If this field is not specified, then the supported number of volumes on
+        /// this node is unbounded.
+        /// </summary>
+      public readonly int Count;
+
+      [OutputConstructor]
+      private VolumeNodeResources(
+          int @count)
+      {
+          this.Count = @count;
       }
 
     }
@@ -31937,6 +33109,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage
 
     }
     /// <summary>
+    /// DEPRECATED - storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
+    /// storage/v1beta1/CSINode instead.
+    /// 
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
     /// container, the kubelet will automatically populate the CSINode object for the CSI driver as
