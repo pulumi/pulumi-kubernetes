@@ -72,7 +72,8 @@ const (
 	streamInvokeList     = "kubernetes:kubernetes:list"
 	streamInvokeWatch    = "kubernetes:kubernetes:watch"
 	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
-	invokeLoadYaml       = "kubernetes:yaml:load"
+	invokeExpandGlob     = "kubernetes:glob:expand"
+	invokeParseYaml      = "kubernetes:yaml:parse"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialApiVersionKey = "__initialApiVersion"
 )
@@ -387,13 +388,40 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 	}
 
 	switch tok {
-	case invokeLoadYaml:
+	case invokeExpandGlob:
+		var glob string
+		if args["glob"].HasValue() {
+			glob = args["glob"].StringValue()
+		}
+
+		result, err := expandGlob(glob)
+		if err != nil {
+			return nil, err
+		}
+
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+
+	case invokeParseYaml:
 		var path string
 		if args["path"].HasValue() {
 			path = args["path"].StringValue()
 		}
 
-		result, err := loadYaml(path)
+		text, err := loadPath(path)
+		if err != nil {
+			return nil, err
+		}
+
+		result, err := parseYaml(text)
 		if err != nil {
 			return nil, err
 		}

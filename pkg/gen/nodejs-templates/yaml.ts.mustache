@@ -137,19 +137,12 @@ import * as outputs from "../types/output";
 
         if (config.files !== undefined) {
             let files: string[] = [];
-            if (typeof config.files === 'string') {
-                if (isUrl(config.files)) {
-                    files = [config.files];
+            for (const file of config.files) {
+                if (isUrl(file)) {
+                    files.push(file);
                 } else {
-                    files = glob.sync(config.files);
-                }
-            } else {
-                for (const file of config.files) {
-                    if (isUrl(file)) {
-                        files.push(file);
-                    } else {
-                        files.push(...glob.sync(file));
-                    }
+                    // TODO: glob invoke
+                    files.push(...glob.sync(file));
                 }
             }
 
@@ -306,7 +299,7 @@ import * as outputs from "../types/output";
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             const path = config && config.file || name;
 
-            const promise = pulumi.runtime.invoke("kubernetes:yaml:load", {path}, {async: true});
+            const promise = pulumi.runtime.invoke("kubernetes:yaml:parse", {path}, {async: true});
 
             this.resources = pulumi.output(promise).apply(p => parseYamlDocument({
                 objs: p.result,
