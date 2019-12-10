@@ -48,11 +48,7 @@ to the full API surface, including deprecated endpoints.
 The SDK API is 100% compatible with the Kubernetes API, and is
 schematically identical to what Kubernetes users expect.
 
-At a minimum, we support the [current Kubernetes version](https://kubernetes.io/docs/setup/release/) and the previous two versions.
-Older versions will likely work as well, but are not officially supported.
-
-See the [CHANGELOG](https://github.com/pulumi/pulumi-kubernetes/blob/master/CHANGELOG.md) for details
-on supported versions of Kubernetes for each version of the `pulumi-kubernetes` package.
+We support Kubernetes clusters with version >=1.9.0.
 
 #### How does API support for Kubernetes work?
 
