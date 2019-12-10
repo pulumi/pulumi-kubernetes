@@ -128,6 +128,9 @@ import * as outputs from "../types/output";
         if (config.files !== undefined) {
             let files: string[] = [];
             for (const file of config.files) {
+                const promise = pulumi.output(pulumi.runtime.invoke(
+                    "kubernetes:glob:expand", {glob: file}, {async: true}));
+                promise.apply()
                 if (isUrl(file)) {
                     files.push(file);
                 } else {

@@ -25,11 +25,6 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
-func expandGlob(glob string) ([]string, error) {
-	// TODO: implement
-	return nil, nil
-}
-
 // loadPath accepts a path (either a file or a URL), and then returns a string containing the loaded content.
 func loadPath(path string) (string, error) {
 	if len(path) == 0 {

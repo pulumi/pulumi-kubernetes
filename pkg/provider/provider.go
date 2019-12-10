@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"sync"
@@ -395,7 +396,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 			glob = args["glob"].StringValue()
 		}
 
-		result, err := expandGlob(glob)
+		result, err := filepath.Glob(glob)
 		if err != nil {
 			return nil, err
 		}
