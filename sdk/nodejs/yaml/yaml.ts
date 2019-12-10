@@ -126,31 +126,32 @@ import * as outputs from "../types/output";
         let resources = pulumi.output<{[key: string]: pulumi.CustomResource}>({});
 
         if (config.files !== undefined) {
-            let files: string[] = [];
+            let files = pulumi.output<string[]>([]);
+
             for (const file of config.files) {
                 const promise = pulumi.output(pulumi.runtime.invoke(
                     "kubernetes:glob:expand", {glob: file}, {async: true}));
-                promise.apply()
-                if (isUrl(file)) {
-                    files.push(file);
-                } else {
-                    // TODO: glob invoke
-                    files.push(...glob.sync(file));
-                }
+                files = pulumi.all([files, promise]).apply(([files, promise]) => {
+                    return [...files, ...promise.result]
+                });
             }
 
-            for (const file of files) {
-                const cf = new ConfigFile(
-                    file,
-                    {
-                        file: file,
-                        transformations: config.transformations,
-                        resourcePrefix: config.resourcePrefix
-                    },
-                    opts
-                );
-                resources = pulumi.all([resources, cf.resources]).apply(([rs, cfrs]) => ({...rs, ...cfrs}));
-            }
+            resources = pulumi.all([files, resources]).apply(([files, resources]) => {
+                let rs = {};
+                for (const file of files) {
+                    const cf = new ConfigFile(
+                        file,
+                        {
+                            file: file,
+                            transformations: config.transformations,
+                            resourcePrefix: config.resourcePrefix
+                        },
+                        opts
+                    );
+                    rs = {...rs, ...cf.resources};
+                }
+                return {...resources, ...rs}
+            });
         }
 
         if (config.yaml !== undefined) {
@@ -2446,10 +2447,6 @@ import * as outputs from "../types/output";
                 resourcePrefix: config && config.resourcePrefix || undefined
             }, {parent: this}));
         }
-    }
-
-    /** @ignore */ function isUrl(s: string): boolean {
-        return s.startsWith("http://") || s.startsWith("https://")
     }
 
     /** @ignore */ function parseYamlDocument(
