@@ -48,9 +48,7 @@ to the full API surface, including deprecated endpoints.
 The SDK API is 100% compatible with the Kubernetes API, and is
 schematically identical to what Kubernetes users expect.
 
-At a minimum, we support the [current Kubernetes version](https://kubernetes.io/docs/setup/release/)
-and the previous two versions. Although not tested regularly against older versions, this provider
-should work with any Kubernetes cluster with version >1.9.0.
+We support Kubernetes clusters with version >=1.9.0.
 
 #### How does API support for Kubernetes work?
 
