@@ -120,16 +120,6 @@ import * as outputs from "../types/output";
         resourcePrefix?: string;
     }
 
-    function yamlLoadAll(text: string): any[] {
-        // NOTE[pulumi-kubernetes#501]: Use `loadAll` with `JSON_SCHEMA` here instead of
-        // `safeLoadAll` because the latter is incompatible with `JSON_SCHEMA`. It is
-        // important to use `JSON_SCHEMA` here because the fields of the Kubernetes core
-        // API types are all tagged with `json:`, and they don't deal very well with things
-        // like dates.
-        // TODO: delete me
-        return [];
-    }
-
     /** @ignore */ export function parse(
         config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions
     ): pulumi.Output<{[key: string]: pulumi.CustomResource}> {
@@ -169,13 +159,17 @@ import * as outputs from "../types/output";
             }
 
             for (const text of yamlTexts) {
-                const docResources = parseYamlDocument({
-                        objs: yamlLoadAll(text),
-                        transformations: config.transformations,
-                        resourcePrefix: config.resourcePrefix
-                    },
-                    opts);
-                resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
+                const promise = pulumi.output(pulumi.runtime.invoke(
+                    "kubernetes:yaml:parseString", {text}, {async: true}));
+                resources = pulumi.all([resources, promise]).apply(([resources, promise]) => {
+                    const docResources = parseYamlDocument({
+                            objs: promise.result,
+                            transformations: config.transformations,
+                            resourcePrefix: config.resourcePrefix
+                        },
+                        opts);
+                    return {...resources, ...docResources}
+                });
             }
         }
 
@@ -299,7 +293,7 @@ import * as outputs from "../types/output";
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             const path = config && config.file || name;
 
-            const promise = pulumi.runtime.invoke("kubernetes:yaml:parse", {path}, {async: true});
+            const promise = pulumi.runtime.invoke("kubernetes:yaml:parseFromPath", {path}, {async: true});
 
             this.resources = pulumi.output(promise).apply(p => parseYamlDocument({
                 objs: p.result,

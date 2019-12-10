@@ -69,13 +69,14 @@ import (
 // --------------------------------------------------------------------------
 
 const (
-	streamInvokeList     = "kubernetes:kubernetes:list"
-	streamInvokeWatch    = "kubernetes:kubernetes:watch"
-	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
-	invokeExpandGlob     = "kubernetes:glob:expand"
-	invokeParseYaml      = "kubernetes:yaml:parse"
-	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
-	initialApiVersionKey = "__initialApiVersion"
+	streamInvokeList        = "kubernetes:kubernetes:list"
+	streamInvokeWatch       = "kubernetes:kubernetes:watch"
+	streamInvokePodLogs     = "kubernetes:kubernetes:podLogs"
+	invokeExpandGlob        = "kubernetes:glob:expand"
+	invokeParseYamlFromPath = "kubernetes:yaml:parseFromPath"
+	invokeParseYamlString   = "kubernetes:yaml:parseString"
+	lastAppliedConfigKey    = "kubectl.kubernetes.io/last-applied-configuration"
+	initialApiVersionKey    = "__initialApiVersion"
 )
 
 type cancellationContext struct {
@@ -410,7 +411,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 		return &pulumirpc.InvokeResponse{Return: objProps}, nil
 
-	case invokeParseYaml:
+	case invokeParseYamlFromPath:
 		var path string
 		if args["path"].HasValue() {
 			path = args["path"].StringValue()
@@ -419,6 +420,28 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		text, err := loadPath(path)
 		if err != nil {
 			return nil, err
+		}
+
+		result, err := parseYaml(text)
+		if err != nil {
+			return nil, err
+		}
+
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+
+	case invokeParseYamlString:
+		var text string
+		if args["text"].HasValue() {
+			text = args["text"].StringValue()
 		}
 
 		result, err := parseYaml(text)
