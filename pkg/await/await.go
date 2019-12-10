@@ -36,7 +36,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
-	k8sopenapi "k8s.io/kubernetes/pkg/kubectl/cmd/util/openapi"
+	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 )
 
 // --------------------------------------------------------------------------

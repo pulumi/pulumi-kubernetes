@@ -55,7 +55,7 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
-	k8sopenapi "k8s.io/kubernetes/pkg/kubectl/cmd/util/openapi"
+	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 )
 
 // --------------------------------------------------------------------------
