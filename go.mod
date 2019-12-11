@@ -17,11 +17,11 @@ require (
 	github.com/pulumi/pulumi v1.5.2-0.20191119200129-f9085bf79966
 	github.com/stretchr/testify v1.4.0
 	google.golang.org/grpc v1.21.1
-	k8s.io/api v0.0.0-20191206001707-7edad22604e1
-	k8s.io/apimachinery v0.0.0-20191203211716-adc6f4cd9e7d
-	k8s.io/client-go v0.0.0-20191209161527-3922ef290939
+	k8s.io/api v0.17.0
+	k8s.io/apimachinery v0.17.0
+	k8s.io/client-go v0.17.0
 	k8s.io/kube-openapi v0.0.0-20191107075043-30be4d16710a
-	k8s.io/kubectl v0.0.0-20191210004632-846b394714fe
+	k8s.io/kubectl v0.17.0
 )
 
 replace github.com/Azure/go-autorest => github.com/Azure/go-autorest v13.3.1+incompatible
