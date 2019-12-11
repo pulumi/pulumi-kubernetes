@@ -8,8 +8,8 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Extensions.V1Beta1
 {
     /// <summary>
-    /// DEPRECATED - extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/DaemonSet instead.
+    /// DEPRECATED - extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not
+    /// supported by Kubernetes v1.16+ clusters.
     /// 
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>

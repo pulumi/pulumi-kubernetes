@@ -4113,8 +4113,8 @@ export namespace apps {
 
   export namespace v1beta1 {
     /**
-     * @deprecated apps/v1beta1/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
-     * Use apps/v1/ControllerRevision instead.
+     * @deprecated apps/v1beta1/ControllerRevision is deprecated by apps/v1/ControllerRevision and
+     * not supported by Kubernetes v1.16+ clusters.
      * 
      * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
      * for serializing and deserializing the objects that contain their internal state. Once a
@@ -4202,8 +4202,8 @@ export namespace apps {
     }
 
     /**
-     * @deprecated apps/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/Deployment instead.
+     * @deprecated apps/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by
+     * Kubernetes v1.16+ clusters.
      * 
      * Deployment enables declarative updates for Pods and ReplicaSets.
      */
@@ -4622,8 +4622,8 @@ export namespace apps {
 
 
     /**
-     * @deprecated apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/StatefulSet instead.
+     * @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+     * by Kubernetes v1.16+ clusters.
      * 
      * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.
@@ -4880,8 +4880,8 @@ export namespace apps {
 
   export namespace v1beta2 {
     /**
-     * @deprecated apps/v1beta2/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
-     * Use apps/v1/ControllerRevision instead.
+     * @deprecated apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and
+     * not supported by Kubernetes v1.16+ clusters.
      * 
      * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
      * for serializing and deserializing the objects that contain their internal state. Once a
@@ -4969,8 +4969,8 @@ export namespace apps {
     }
 
     /**
-     * @deprecated apps/v1beta2/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/DaemonSet instead.
+     * @deprecated apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by
+     * Kubernetes v1.16+ clusters.
      * 
      * DaemonSet represents the configuration of a daemon set.
      */
@@ -5202,8 +5202,8 @@ export namespace apps {
 
 
     /**
-     * @deprecated apps/v1beta2/Deployment is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/Deployment instead.
+     * @deprecated apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by
+     * Kubernetes v1.16+ clusters.
      * 
      * Deployment enables declarative updates for Pods and ReplicaSets.
      */
@@ -5441,8 +5441,8 @@ export namespace apps {
 
 
     /**
-     * @deprecated apps/v1beta2/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/ReplicaSet instead.
+     * @deprecated apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by
+     * Kubernetes v1.16+ clusters.
      * 
      * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */
@@ -5772,8 +5772,8 @@ export namespace apps {
 
 
     /**
-     * @deprecated apps/v1beta2/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/StatefulSet instead.
+     * @deprecated apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+     * by Kubernetes v1.16+ clusters.
      * 
      * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.
@@ -17037,8 +17037,8 @@ export namespace extensions {
 
 
     /**
-     * @deprecated extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/DaemonSet instead.
+     * @deprecated extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not supported
+     * by Kubernetes v1.16+ clusters.
      * 
      * DaemonSet represents the configuration of a daemon set.
      */
@@ -17276,8 +17276,8 @@ export namespace extensions {
 
 
     /**
-     * @deprecated extensions/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/Deployment instead.
+     * @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not
+     * supported by Kubernetes v1.16+ clusters.
      * 
      * Deployment enables declarative updates for Pods and ReplicaSets.
      */
@@ -17678,8 +17678,8 @@ export namespace extensions {
 
 
     /**
-     * @deprecated extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
-     * networking/v1beta1/Ingress instead.
+     * @deprecated extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not
+     * supported by Kubernetes v1.20+ clusters.
      * 
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
      * defined by a backend. An Ingress can be configured to give services externally-reachable
@@ -18339,8 +18339,8 @@ export namespace extensions {
 
 
     /**
-     * @deprecated extensions/v1beta1/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/ReplicaSet instead.
+     * @deprecated extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not
+     * supported by Kubernetes v1.16+ clusters.
      * 
      * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */
@@ -24142,8 +24142,8 @@ export namespace storage {
 
 
     /**
-     * @deprecated storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
-     * storage/v1beta1/CSINode instead.
+     * @deprecated storage/v1beta1/CSINode is deprecated by storage/v1beta1/CSINode and not
+     * supported by Kubernetes v<nil>+ clusters.
      * 
      * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
      * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar

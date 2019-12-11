@@ -30,21 +30,37 @@ func DeprecatedApiVersion(gvk schema.GroupVersionKind) bool {
 	return SuggestedApiVersion(gvk) != gvkStr(gvk)
 }
 
-// RemovedApiVersion returns true if the given GVK has been removed in the given k8s version, and the corresponding
-// ServerVersion where the GVK was removed.
-func RemovedApiVersion(gvk schema.GroupVersionKind, version cluster.ServerVersion) (bool, *cluster.ServerVersion) {
+// RemovedInVersion returns the ServerVersion of k8s that a GVK is removed in. The return value is
+// nil if the GVK is not scheduled for removal.
+func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	var removedIn cluster.ServerVersion
 
 	switch gvk.GroupVersion() {
 	case schema.GroupVersion{Group: "extensions", Version: "v1beta1"},
 		schema.GroupVersion{Group: "apps", Version: "v1beta1"},
 		schema.GroupVersion{Group: "apps", Version: "v1beta2"}:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 16}
+
+		if gvk.Kind == "Ingress" {
+			removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
+		} else {
+			removedIn = cluster.ServerVersion{Major: 1, Minor: 16}
+		}
 	default:
-		return false, nil
+		return nil
 	}
 
-	return version.Compare(removedIn) >= 0, &removedIn
+	return &removedIn
+}
+
+// RemovedApiVersion returns true if the given GVK has been removed in the given k8s version, and the corresponding
+// ServerVersion where the GVK was removed.
+func RemovedApiVersion(gvk schema.GroupVersionKind, version cluster.ServerVersion) (bool, *cluster.ServerVersion) {
+	removedIn := RemovedInVersion(gvk)
+
+	if removedIn == nil {
+		return false, nil
+	}
+	return version.Compare(*removedIn) >= 0, removedIn
 }
 
 // SuggestedApiVersion returns a string with the suggested apiVersion for a given GVK.

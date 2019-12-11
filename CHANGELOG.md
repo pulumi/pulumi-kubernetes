@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Fix deprecation warnings and docs. (https://github.com/pulumi/pulumi-kubernetes/pull/918).
+
 ## 1.4.0 (December 9, 2019)
 
 ### Important

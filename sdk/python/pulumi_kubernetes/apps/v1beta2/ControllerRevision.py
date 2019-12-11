@@ -13,8 +13,8 @@ from ... import tables, version
 
 class ControllerRevision(pulumi.CustomResource):
     """
-    DEPRECATED - apps/v1beta2/ControllerRevision is not supported by Kubernetes 1.16+ clusters. Use
-    apps/v1/ControllerRevision instead.
+    DEPRECATED - apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and not
+    supported by Kubernetes v1.16+ clusters.
     
     ControllerRevision implements an immutable snapshot of state data. Clients are responsible for
     serializing and deserializing the objects that contain their internal state. Once a

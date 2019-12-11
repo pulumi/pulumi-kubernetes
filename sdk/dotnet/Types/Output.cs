@@ -5579,8 +5579,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
   namespace V1Beta1
   {
     /// <summary>
-    /// DEPRECATED - apps/v1beta1/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
-    /// Use apps/v1/ControllerRevision instead.
+    /// DEPRECATED - apps/v1beta1/ControllerRevision is deprecated by apps/v1/ControllerRevision and
+    /// not supported by Kubernetes v1.16+ clusters.
     /// 
     /// ControllerRevision implements an immutable snapshot of state data. Clients are responsible
     /// for serializing and deserializing the objects that contain their internal state. Once a
@@ -5690,8 +5690,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
 
     }
     /// <summary>
-    /// DEPRECATED - apps/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/Deployment instead.
+    /// DEPRECATED - apps/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported
+    /// by Kubernetes v1.16+ clusters.
     /// 
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
@@ -6280,8 +6280,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
 
     }
     /// <summary>
-    /// DEPRECATED - apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/StatefulSet instead.
+    /// DEPRECATED - apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+    /// by Kubernetes v1.16+ clusters.
     /// 
     /// StatefulSet represents a set of pods with consistent identities. Identities are defined as:
     ///  - Network: A single stable DNS and hostname.
@@ -6636,8 +6636,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
   namespace V1Beta2
   {
     /// <summary>
-    /// DEPRECATED - apps/v1beta2/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
-    /// Use apps/v1/ControllerRevision instead.
+    /// DEPRECATED - apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and
+    /// not supported by Kubernetes v1.16+ clusters.
     /// 
     /// ControllerRevision implements an immutable snapshot of state data. Clients are responsible
     /// for serializing and deserializing the objects that contain their internal state. Once a
@@ -6747,8 +6747,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
 
     }
     /// <summary>
-    /// DEPRECATED - apps/v1beta2/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/DaemonSet instead.
+    /// DEPRECATED - apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by
+    /// Kubernetes v1.16+ clusters.
     /// 
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
@@ -7076,8 +7076,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
 
     }
     /// <summary>
-    /// DEPRECATED - apps/v1beta2/Deployment is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/Deployment instead.
+    /// DEPRECATED - apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported
+    /// by Kubernetes v1.16+ clusters.
     /// 
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
@@ -7411,8 +7411,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
 
     }
     /// <summary>
-    /// DEPRECATED - apps/v1beta2/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/ReplicaSet instead.
+    /// DEPRECATED - apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported
+    /// by Kubernetes v1.16+ clusters.
     /// 
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
@@ -7877,8 +7877,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps
 
     }
     /// <summary>
-    /// DEPRECATED - apps/v1beta2/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/StatefulSet instead.
+    /// DEPRECATED - apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+    /// by Kubernetes v1.16+ clusters.
     /// 
     /// StatefulSet represents a set of pods with consistent identities. Identities are defined as:
     ///  - Network: A single stable DNS and hostname.
@@ -23503,8 +23503,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions
 
     }
     /// <summary>
-    /// DEPRECATED - extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/DaemonSet instead.
+    /// DEPRECATED - extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not
+    /// supported by Kubernetes v1.16+ clusters.
     /// 
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
@@ -23839,8 +23839,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions
 
     }
     /// <summary>
-    /// DEPRECATED - extensions/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters.
-    /// Use apps/v1/Deployment instead.
+    /// DEPRECATED - extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not
+    /// supported by Kubernetes v1.16+ clusters.
     /// 
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
@@ -24405,8 +24405,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions
 
     }
     /// <summary>
-    /// DEPRECATED - extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
-    /// networking/v1beta1/Ingress instead.
+    /// DEPRECATED - extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not
+    /// supported by Kubernetes v1.20+ clusters.
     /// 
     /// Ingress is a collection of rules that allow inbound connections to reach the endpoints
     /// defined by a backend. An Ingress can be configured to give services externally-reachable
@@ -25285,8 +25285,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions
 
     }
     /// <summary>
-    /// DEPRECATED - extensions/v1beta1/ReplicaSet is not supported by Kubernetes 1.16+ clusters.
-    /// Use apps/v1/ReplicaSet instead.
+    /// DEPRECATED - extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not
+    /// supported by Kubernetes v1.16+ clusters.
     /// 
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
@@ -33109,8 +33109,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage
 
     }
     /// <summary>
-    /// DEPRECATED - storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
-    /// storage/v1beta1/CSINode instead.
+    /// DEPRECATED - storage/v1beta1/CSINode is deprecated by storage/v1beta1/CSINode and not
+    /// supported by Kubernetes v&amp;lt;nil&amp;gt;+ clusters.
     /// 
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar

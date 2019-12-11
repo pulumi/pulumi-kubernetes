@@ -8,8 +8,8 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Apps.V1Beta2
 {
     /// <summary>
-    /// DEPRECATED - apps/v1beta2/Deployment is not supported by Kubernetes 1.16+ clusters. Use
-    /// apps/v1/Deployment instead.
+    /// DEPRECATED - apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported
+    /// by Kubernetes v1.16+ clusters.
     /// 
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// 

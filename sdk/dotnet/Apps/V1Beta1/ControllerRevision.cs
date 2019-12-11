@@ -8,8 +8,8 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Apps.V1Beta1
 {
     /// <summary>
-    /// DEPRECATED - apps/v1beta1/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
-    /// Use apps/v1/ControllerRevision instead.
+    /// DEPRECATED - apps/v1beta1/ControllerRevision is deprecated by apps/v1/ControllerRevision and
+    /// not supported by Kubernetes v1.16+ clusters.
     /// 
     /// ControllerRevision implements an immutable snapshot of state data. Clients are responsible
     /// for serializing and deserializing the objects that contain their internal state. Once a

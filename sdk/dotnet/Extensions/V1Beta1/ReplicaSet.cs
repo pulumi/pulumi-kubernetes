@@ -8,8 +8,8 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Extensions.V1Beta1
 {
     /// <summary>
-    /// DEPRECATED - extensions/v1beta1/ReplicaSet is not supported by Kubernetes 1.16+ clusters.
-    /// Use apps/v1/ReplicaSet instead.
+    /// DEPRECATED - extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not
+    /// supported by Kubernetes v1.16+ clusters.
     /// 
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
