@@ -2475,7 +2475,7 @@ import * as outputs from "../types/output";
         }
     }
 
-    /** @ignore */ function parseYamlDocument(
+    /** @ignore */ export function parseYamlDocument(
         config: ConfigOpts,
         opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
