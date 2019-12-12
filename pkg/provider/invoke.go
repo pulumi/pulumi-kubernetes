@@ -89,44 +89,6 @@ func loadFromFile(path string) (string, error) {
 	return string(b), nil
 }
 
-// loadPath accepts a path (either a file or a URL), and then returns a string containing the loaded content.
-func loadPath(path string) (string, error) {
-	if len(path) == 0 {
-		return "", fmt.Errorf("empty path for loadPath")
-	}
-
-	var text string
-	isUrl := func(path string) bool {
-		return strings.HasPrefix(path, "http://") || strings.HasPrefix(path, "https://")
-	}
-	if isUrl(path) {
-		resp, err := http.Get(path)
-		if err != nil {
-			return "", pkgerrors.Wrapf(err, "failed to fetch URL: %q", path)
-		}
-		defer resp.Body.Close()
-
-		if resp.StatusCode == http.StatusOK {
-			bodyBytes, err := ioutil.ReadAll(resp.Body)
-			if err != nil {
-				return "", pkgerrors.Wrapf(err, "failed to read response from HTTP Get at URL: %q", path)
-			}
-			text = string(bodyBytes)
-		} else {
-			return "", fmt.Errorf("HTTP Get for %q returned status: %s", path, resp.Status)
-		}
-	} else {
-		b, err := ioutil.ReadFile(path)
-		if err != nil {
-			return "", pkgerrors.Wrapf(err, "failed to read file from path: %q", path)
-		}
-
-		text = string(b)
-	}
-
-	return text, nil
-}
-
 // parseYaml parses a YAML string, and then returns a slice of untyped structs that can be marshalled into
 // Pulumi RPC calls.
 func parseYaml(text string) ([]interface{}, error) {
