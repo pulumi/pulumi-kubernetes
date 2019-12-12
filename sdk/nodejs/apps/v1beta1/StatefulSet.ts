@@ -8,8 +8,8 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * @deprecated apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/StatefulSet instead.
+     * @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+     * by Kubernetes v1.16+ clusters.
      * 
      * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.

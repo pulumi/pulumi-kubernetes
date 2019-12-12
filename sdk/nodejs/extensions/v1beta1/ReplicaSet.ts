@@ -8,8 +8,8 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * @deprecated extensions/v1beta1/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
-     * apps/v1/ReplicaSet instead.
+     * @deprecated extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not
+     * supported by Kubernetes v1.16+ clusters.
      * 
      * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */

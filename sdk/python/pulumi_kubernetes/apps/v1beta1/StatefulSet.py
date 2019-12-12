@@ -13,8 +13,8 @@ from ... import tables, version
 
 class StatefulSet(pulumi.CustomResource):
     """
-    DEPRECATED - apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
-    apps/v1/StatefulSet instead.
+    DEPRECATED - apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by
+    Kubernetes v1.16+ clusters.
     
     StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      - Network: A single stable DNS and hostname.

@@ -87,6 +87,32 @@ func TestSuggestedApiVersion(t *testing.T) {
 	}
 }
 
+func TestRemovedInVersion(t *testing.T) {
+	type args struct {
+		gvk GroupVersionKind
+	}
+	tests := []struct {
+		name        string
+		args        args
+		wantVersion *cluster.ServerVersion
+	}{
+		{"extensions/v1beta1:Deployment", args{
+			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Deployment"},
+		}, &cluster.ServerVersion{Major: 1, Minor: 16}},
+		{"extensions/v1beta1:Ingress", args{
+			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Ingress"},
+		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := RemovedInVersion(tt.args.gvk)
+			if !reflect.DeepEqual(got, tt.wantVersion) {
+				t.Errorf("RemovedInVersion() got = %v, want %v", got, tt.wantVersion)
+			}
+		})
+	}
+}
+
 func TestRemovedApiVersion(t *testing.T) {
 	type args struct {
 		gvk     GroupVersionKind

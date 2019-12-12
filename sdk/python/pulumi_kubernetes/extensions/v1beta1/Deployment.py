@@ -13,8 +13,8 @@ from ... import tables, version
 
 class Deployment(pulumi.CustomResource):
     """
-    DEPRECATED - extensions/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters. Use
-    apps/v1/Deployment instead.
+    DEPRECATED - extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported
+    by Kubernetes v1.16+ clusters.
     
     Deployment enables declarative updates for Pods and ReplicaSets.
     

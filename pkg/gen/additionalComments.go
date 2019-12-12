@@ -164,9 +164,10 @@ func PulumiComment(kind string) string {
 }
 
 func ApiVersionComment(gvk schema.GroupVersionKind) string {
-	const template = `%s is not supported by Kubernetes 1.16+ clusters. Use %s instead.
+	const template = `%s is deprecated by %s and not supported by Kubernetes v%v+ clusters.
 
 `
 	gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
-	return fmt.Sprintf(template, gvkStr, kinds.SuggestedApiVersion(gvk))
+	removedIn := kinds.RemovedInVersion(gvk)
+	return fmt.Sprintf(template, gvkStr, kinds.SuggestedApiVersion(gvk), removedIn)
 }
