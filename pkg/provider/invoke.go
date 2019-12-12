@@ -31,6 +31,11 @@ type yamlText struct {
 	Text string
 }
 
+// getYaml loads the contents of a variety of input sources, and returns a slice of named strings, or an error.
+// The following input types are supported:
+// 1. File path
+// 2. File path glob (e.g., *.yaml)
+// 3. URL
 func getYaml(input string) ([]yamlText, error) {
 	paths, err := filepath.Glob(input)
 	if err != nil || len(paths) == 0 {
@@ -58,10 +63,13 @@ func getYaml(input string) ([]yamlText, error) {
 	return yamlTexts, nil
 }
 
+// isUrl returns true if the input string has a URL prefix, false otherwise.
 func isUrl(input string) bool {
 	return strings.HasPrefix(input, "http://") || strings.HasPrefix(input, "https://")
 }
 
+// loadFromURL makes an HTTP GET request at the specified URL and returns the result as a string, or returns
+// an error.
 func loadFromURL(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -80,6 +88,7 @@ func loadFromURL(url string) (string, error) {
 	}
 }
 
+// loadFromFile returns the contents of the specified file as a string, or returns an error.
 func loadFromFile(path string) (string, error) {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {

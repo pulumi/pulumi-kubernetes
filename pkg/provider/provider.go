@@ -383,27 +383,33 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 	args, err := plugin.UnmarshalProperties(
 		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args during an StreamInvoke call", tok)
+		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args during an Invoke call", tok)
 	}
 
 	switch tok {
 	case invokeParseYaml:
+		// invokeParseYaml is used by the YAML and Helm SDKs to load YAML from a variety of input sources,
+		// parse this input into structs, and then return the results in a data structure that can be
+		// turned into Pulumi resources.
+		//
+		// Input can be one of the following types:
+		// 1. File path
+		// 2. File path glob (e.g., *.yaml)
+		// 3. URL
+		// 4. Literal YAML string
+		//
+		// Output is of the following form:
+		// { name: { path: [Object] } }
+
 		// input: []{ name: string, type: "yaml" | "path", value: string }
 		var input []resource.PropertyValue
 		if args["input"].HasValue() {
 			input = args["input"].ArrayValue()
 		}
 
-		// Input can be one of the following types:
-		// 1. File path
-		// 2. File path glob (e.g., *.yaml)
-		// 3. URL
-		// 4. Literal YAML string
-
 		// result: { name: { path: []interface{} } }
 		result := map[string]map[string]interface{}{}
 
-		// time.Sleep(5 * time.Second)
 		for _, v := range input {
 			obj := v.ObjectValue()
 
