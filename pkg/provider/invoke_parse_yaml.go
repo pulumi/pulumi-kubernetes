@@ -20,9 +20,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
@@ -101,17 +103,110 @@ func loadFromFile(path string) (string, error) {
 // parseYaml parses a YAML string, and then returns a slice of untyped structs that can be marshalled into
 // Pulumi RPC calls.
 func parseYaml(text string) ([]interface{}, error) {
-	var result []interface{}
+	var resources []unstructured.Unstructured
 
 	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(strings.NewReader(text)), 128)
 	for {
-		var value interface{}
+		var value map[string]interface{}
 		err := dec.Decode(&value)
 		if err == io.EOF {
 			break
 		}
-		result = append(result, value)
+		resources = append(resources, unstructured.Unstructured{Object: value})
+	}
+
+	// Sort the resources by Kind to minimize retries on creation.
+	ks := newKindSorter(resources)
+	sort.Sort(ks)
+
+	result := make([]interface{}, len(ks.resources))
+	for _, resource := range ks.resources {
+		result = append(result, resource.Object)
 	}
 
 	return result, nil
+}
+
+type kindSorter struct {
+	ordering  map[string]int
+	resources []unstructured.Unstructured
+}
+
+func newKindSorter(m []unstructured.Unstructured) *kindSorter {
+	// This slice defines the sort order of resources, with higher priority given to resources that should be
+	// created first. This code was derived from
+	// https://github.com/helm/helm/blob/09ebcde05c5331743713af16777768de854ac972/pkg/releaseutil/kind_sorter.go
+	s := []string{
+		"Namespace",
+		"NetworkPolicy",
+		"ResourceQuota",
+		"LimitRange",
+		"PodSecurityPolicy",
+		"PodDisruptionBudget",
+		"Secret",
+		"ConfigMap",
+		"StorageClass",
+		"PersistentVolume",
+		"PersistentVolumeClaim",
+		"ServiceAccount",
+		"CustomResourceDefinition",
+		"ClusterRole",
+		"ClusterRoleList",
+		"ClusterRoleBinding",
+		"ClusterRoleBindingList",
+		"Role",
+		"RoleList",
+		"RoleBinding",
+		"RoleBindingList",
+		"Service",
+		"DaemonSet",
+		"Pod",
+		"ReplicationController",
+		"ReplicaSet",
+		"Deployment",
+		"HorizontalPodAutoscaler",
+		"StatefulSet",
+		"Job",
+		"CronJob",
+		"Ingress",
+		"APIService",
+	}
+
+	o := make(map[string]int, len(s))
+	for v, k := range s {
+		o[k] = v
+	}
+
+	return &kindSorter{
+		resources: m,
+		ordering:  o,
+	}
+}
+
+func (k *kindSorter) Len() int { return len(k.resources) }
+
+func (k *kindSorter) Swap(i, j int) { k.resources[i], k.resources[j] = k.resources[j], k.resources[i] }
+
+func (k *kindSorter) Less(i, j int) bool {
+	a := k.resources[i]
+	b := k.resources[j]
+	first, aok := k.ordering[a.GroupVersionKind().Kind]
+	second, bok := k.ordering[b.GroupVersionKind().Kind]
+	// if same kind (including unknown) sub sort alphanumeric
+	if first == second {
+		// if both are unknown and of different kind sort by kind alphabetically
+		if !aok && !bok && a.GroupVersionKind().Kind != b.GroupVersionKind().Kind {
+			return a.GroupVersionKind().Kind < b.GroupVersionKind().Kind
+		}
+		return a.GetName() < b.GetName()
+	}
+	// unknown kind is last
+	if !aok {
+		return false
+	}
+	if !bok {
+		return true
+	}
+	// sort different kinds
+	return first < second
 }
