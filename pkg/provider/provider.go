@@ -74,6 +74,7 @@ const (
 	streamInvokeWatch       = "kubernetes:kubernetes:watch"
 	streamInvokePodLogs     = "kubernetes:kubernetes:podLogs"
 	invokeExpandGlob        = "kubernetes:glob:expand"
+	invokeParseYaml         = "kubernetes:yaml:parse"
 	invokeParseYamlFromPath = "kubernetes:yaml:parseFromPath"
 	invokeParseYamlString   = "kubernetes:yaml:parseString"
 	lastAppliedConfigKey    = "kubectl.kubernetes.io/last-applied-configuration"
@@ -399,6 +400,87 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		result, err := filepath.Glob(glob)
 		if err != nil {
 			return nil, err
+		}
+
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+
+	case invokeParseYaml:
+		// input: []{ name: string, type: "yaml" | "path", value: string }
+		var input []resource.PropertyValue
+		if args["input"].HasValue() {
+			input = args["input"].ArrayValue()
+		}
+
+		// Input can be one of the following types:
+		// 1. File path
+		// 2. File path glob (e.g., *.yaml)
+		// 3. URL
+		// 4. Literal YAML string
+
+		// result: { name: { path: []interface{} } }
+		result := map[string]map[string]interface{}{}
+
+		// time.Sleep(5 * time.Second)
+		for _, v := range input {
+			obj := v.ObjectValue()
+
+			var name, T, value string
+			if obj["name"].HasValue() {
+				name = obj["name"].StringValue()
+			} else {
+				return nil, fmt.Errorf("missing 'name' on input: %#v", v)
+			}
+
+			if obj["type"].HasValue() {
+				T = obj["type"].StringValue()
+			} else {
+				return nil, fmt.Errorf("missing 'type' on input: %#v", v)
+			}
+
+			if obj["value"].HasValue() {
+				value = obj["value"].StringValue()
+			} else {
+				return nil, fmt.Errorf("missing 'value' on input: %#v", v)
+			}
+
+			var texts []yamlText
+			rawYamlCount := 0
+			switch T {
+			case "yaml":
+				texts = []yamlText{{
+					Name: fmt.Sprintf("__yaml_%d", rawYamlCount),
+					Text: value,
+				}}
+				rawYamlCount++
+			case "path":
+				texts, err = getYaml(value)
+				if err != nil {
+					return nil, err
+				}
+			default:
+				return nil, fmt.Errorf("unknown 'type': %s", T)
+			}
+
+			for _, text := range texts {
+				parsed, err := parseYaml(text.Text)
+				if err != nil {
+					return nil, err
+				}
+
+				if result[name] == nil {
+					result[name] = map[string]interface{}{}
+				}
+				result[name][text.Name] = parsed
+			}
 		}
 
 		objProps, err := plugin.MarshalProperties(

@@ -120,72 +120,6 @@ import * as outputs from "../types/output";
         resourcePrefix?: string;
     }
 
-    /** @ignore */ export function parse(
-        config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions
-    ): pulumi.Output<{[key: string]: pulumi.CustomResource}> {
-        let resources = pulumi.output<{[key: string]: pulumi.CustomResource}>({});
-
-        if (config.files !== undefined) {
-            let files = pulumi.output<string[]>([]);
-
-            for (const file of config.files) {
-                const promise = pulumi.output(pulumi.runtime.invoke(
-                    "kubernetes:glob:expand", {glob: file}, {async: true}));
-                files = pulumi.all([files, promise]).apply(([files, promise]) => {
-                    return [...files, ...promise.result]
-                });
-            }
-
-            resources = pulumi.all([files, resources]).apply(([files, resources]) => {
-                let rs = {};
-                for (const file of files) {
-                    const cf = new ConfigFile(
-                        file,
-                        {
-                            file: file,
-                            transformations: config.transformations,
-                            resourcePrefix: config.resourcePrefix
-                        },
-                        opts
-                    );
-                    rs = {...rs, ...cf.resources};
-                }
-                return {...resources, ...rs}
-            });
-        }
-
-        if (config.yaml !== undefined) {
-            let yamlTexts: string[] = [];
-            if (typeof config.yaml === 'string') {
-                yamlTexts.push(config.yaml);
-            } else {
-                yamlTexts.push(...config.yaml);
-            }
-
-            for (const text of yamlTexts) {
-                const promise = pulumi.output(pulumi.runtime.invoke(
-                    "kubernetes:yaml:parseString", {text}, {async: true}));
-                resources = pulumi.all([resources, promise]).apply(([resources, promise]) => {
-                    const docResources = parseYamlDocument({
-                            objs: promise.result,
-                            transformations: config.transformations,
-                            resourcePrefix: config.resourcePrefix
-                        },
-                        opts);
-                    return {...resources, ...docResources}
-                });
-            }
-        }
-
-        if (config.objs !== undefined) {
-            const objs= Array.isArray(config.objs) ? config.objs: [config.objs];
-                const docResources = parseYamlDocument({objs: objs, transformations: config.transformations}, opts);
-                resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
-        }
-
-        return resources;
-    }
-
     export abstract class CollectionComponentResource extends pulumi.ComponentResource {
         resources: pulumi.Output<{ [key: string]: pulumi.CustomResource }>;
 
@@ -2400,6 +2334,12 @@ import * as outputs from "../types/output";
         }
     }
 
+    type parseInput = {
+        name: string,
+        type: "path" | "yaml",
+        value: string,
+    }
+
     /**
      * ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
      * may be supplied using any of the following `ConfigGroupOpts`:
@@ -2419,7 +2359,87 @@ import * as outputs from "../types/output";
     export class ConfigGroup extends CollectionComponentResource {
         constructor(name: string, config: ConfigGroupOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigGroup", name, config, opts);
-            this.resources = parse(config, {parent: this});
+
+            let vals: parseInput[] = [];
+            if (config.files) {
+                for (const file of config.files) {
+                    vals.push({name: name, type: "path", value: file})
+                }
+            }
+
+            if (config.yaml) {
+                if (typeof config.yaml === 'string') {
+                    vals.push({name: name, type: "yaml", value: config.yaml});
+                } else {
+                    for (const text of config.yaml) {
+                        vals.push({name: name, type: "yaml", value: text})
+                    }
+                }
+            }
+
+            const promise = pulumi.output(pulumi.runtime.invoke(
+                "kubernetes:yaml:parse", {input: vals}, {async: true}));
+
+            this.resources = promise.apply(p => {
+                let rs = {};
+                Object.keys(p.result).forEach((name: string) => {
+                    Object.keys(p.result[name]).forEach((path: string) => {
+                        if (path.startsWith("__yaml")) {
+                            const resources = parseYamlDocument({
+                                    objs: p.result[name][path],
+                                    transformations: config && config.transformations || [],
+                                    resourcePrefix: config && config.resourcePrefix,
+                                },
+                                pulumi.mergeOptions(opts, {parent: this}));
+                            rs = {...rs, ...resources}
+                        } else {
+                            const cf = new _ConfigFile(
+                                path,
+                                p.result[name][path],
+                                {
+                                    transformations: config.transformations,
+                                    resourcePrefix: config.resourcePrefix
+                                },
+                                pulumi.mergeOptions(opts, {parent: this})
+                            );
+                            rs = {...rs, ...cf.resources}
+                        }
+                    });
+                });
+                return rs
+            });
+
+            if (config.objs) {
+                const objs= Array.isArray(config.objs) ? config.objs: [config.objs];
+                const docResources = parseYamlDocument({
+                    objs: objs,
+                    transformations: config.transformations
+                },
+                    pulumi.mergeOptions(opts, {parent: this}));
+                this.resources = pulumi.all([this.resources, docResources])
+                    .apply(([rs, drs]) => ({...rs, ...drs}));
+            }
+        }
+    }
+
+    export class _ConfigFile extends CollectionComponentResource {
+        constructor(
+            name: string,
+            parseOutput: any[],
+            config?: ConfigFileOpts,
+            opts?: pulumi.ComponentResourceOptions
+        ) {
+            if (config && config.resourcePrefix !== undefined) {
+                name = `${config.resourcePrefix}-${name}`
+            }
+            super("kubernetes:yaml:ConfigFile", name, config, opts);
+
+            this.resources = parseYamlDocument({
+                        objs: parseOutput,
+                        transformations: config && config.transformations || [],
+                        resourcePrefix: config && config.resourcePrefix,
+                    },
+                    pulumi.mergeOptions(opts, {parent: this}));
         }
     }
 
@@ -2439,13 +2459,19 @@ import * as outputs from "../types/output";
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             const path = config && config.file || name;
 
-            const promise = pulumi.runtime.invoke("kubernetes:yaml:parseFromPath", {path}, {async: true});
+            const promise = pulumi.output(pulumi.runtime.invoke(
+                "kubernetes:yaml:parse",
+                {input: [{name: name, type: "path", value: path}]},
+                {async: true}));
 
-            this.resources = pulumi.output(promise).apply(p => parseYamlDocument({
-                objs: p.result,
-                transformations: config && config.transformations || [],
-                resourcePrefix: config && config.resourcePrefix || undefined
-            }, {parent: this}));
+            this.resources = promise.apply(p => {
+                return parseYamlDocument({
+                        objs: p.result[name][path],
+                        transformations: config && config.transformations || [],
+                        resourcePrefix: config && config.resourcePrefix,
+                    },
+                    pulumi.mergeOptions(opts, {parent: this}));
+            });
         }
     }
 
