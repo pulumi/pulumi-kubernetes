@@ -21,6 +21,36 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+//
+// Reference links:
+//
+// GVK	/ Deprecated Version / Removed Version
+// Upstream Docs Link
+// -----------------------------------------------------------
+// extensions/v1beta1/DaemonSet / 1.14 / 1.16
+// apps/v1beta1/DaemonSet / 1.14 / 1.16
+// apps/v1beta2/DaemonSet / 1.14 / 1.16
+// extensions/v1beta1/Deployment / 1.14 / 1.16
+// apps/v1beta1/Deployment / 1.14 / 1.16
+// apps/v1beta2/Deployment / 1.14 / 1.16
+// extensions/v1beta1/NetworkPolicy / 1.14 / 1.16
+// extensions/v1beta1/PodSecurityPolicy / 1.14 / 1.16
+// extensions/v1beta1/ReplicaSet / 1.14 / 1.16
+// apps/v1beta1/ReplicaSet / 1.14 / 1.16
+// apps/v1beta2/ReplicaSet / 1.14 / 1.16
+// https://git.k8s.io/kubernetes/CHANGELOG-1.14.md#deprecations
+//
+// scheduling/v1alpha1/PriorityClass / 1.14 / 1.17
+// scheduling/v1beta1/PriorityClass / 1.14 / 1.17
+// https://git.k8s.io/kubernetes/CHANGELOG-1.14.md#deprecations
+//
+// extensions/v1beta1/Ingress / 1.14 / 1.18
+// https://git.k8s.io/kubernetes/CHANGELOG-1.14.md#deprecations
+//
+// rbac/v1alpha1/* / 1.17 / 1.20
+// rbac/v1beta1/* / 1.17 / 1.20
+// https://git.k8s.io/kubernetes/CHANGELOG-1.17.md#deprecations-and-removals
+
 func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
 }
@@ -48,6 +78,9 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	case schema.GroupVersion{Group: "rbac", Version: "v1beta1"},
 		schema.GroupVersion{Group: "rbac", Version: "v1alpha1"}:
 		removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
+	case schema.GroupVersion{Group: "scheduling", Version: "v1beta1"},
+		schema.GroupVersion{Group: "scheduling", Version: "v1alpha1"}:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 17}
 	default:
 		return nil
 	}
@@ -89,6 +122,9 @@ func SuggestedApiVersion(gvk schema.GroupVersionKind) string {
 	case schema.GroupVersion{Group: "rbac", Version: "v1beta1"},
 		schema.GroupVersion{Group: "rbac", Version: "v1alpha1"}:
 		return "rbac/v1/" + gvk.Kind
+	case schema.GroupVersion{Group: "scheduling", Version: "v1beta1"},
+		schema.GroupVersion{Group: "scheduling", Version: "v1alpha1"}:
+		return "scheduling/v1/" + gvk.Kind
 	default:
 		return gvkStr(gvk)
 	}
@@ -99,6 +135,8 @@ func upstreamDocsLink(version cluster.ServerVersion) string {
 	switch version {
 	case cluster.ServerVersion{Major: 1, Minor: 16}:
 		return "https://git.k8s.io/kubernetes/CHANGELOG-1.16.md#deprecations-and-removals"
+	case cluster.ServerVersion{Major: 1, Minor: 17}:
+		return "https://git.k8s.io/kubernetes/CHANGELOG-1.17.md#deprecations-and-removals"
 	default:
 		return ""
 	}

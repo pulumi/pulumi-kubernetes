@@ -86,6 +86,14 @@ func TestSuggestedApiVersion(t *testing.T) {
 			GroupVersionKind{Group: "rbac", Version: "v1beta1", Kind: "ClusterRole"},
 			"rbac/v1/ClusterRole",
 		},
+		{
+			GroupVersionKind{Group: "scheduling", Version: "v1beta1", Kind: "PriorityClass"},
+			"scheduling/v1/PriorityClass",
+		},
+		{
+			GroupVersionKind{Group: "scheduling", Version: "v1alpha1", Kind: "PriorityClass"},
+			"scheduling/v1/PriorityClass",
+		},
 		// Current ApiVersions return the same version string.
 		{
 			GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
@@ -122,6 +130,12 @@ func TestRemovedInVersion(t *testing.T) {
 		{"rbac/v1alpha1:ClusterRole", args{
 			GroupVersionKind{Group: "rbac", Version: "v1alpha1", Kind: "ClusterRole"},
 		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
+		{"scheduling/v1beta1:PriorityClass", args{
+			GroupVersionKind{Group: "scheduling", Version: "v1beta1", Kind: "PriorityClass"},
+		}, &cluster.ServerVersion{Major: 1, Minor: 17}},
+		{"scheduling/v1alpha1:PriorityClass", args{
+			GroupVersionKind{Group: "scheduling", Version: "v1alpha1", Kind: "PriorityClass"},
+		}, &cluster.ServerVersion{Major: 1, Minor: 17}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
