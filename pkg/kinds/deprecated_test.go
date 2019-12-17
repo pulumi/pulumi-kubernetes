@@ -36,6 +36,8 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "NetworkPolicy"}, true},
 		{GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "PodSecurityPolicy"}, true},
 		{GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "ReplicaSet"}, true},
+		{GroupVersionKind{Group: "rbac", Version: "v1alpha1", Kind: "ClusterRole"}, true},
+		{GroupVersionKind{Group: "rbac", Version: "v1beta1", Kind: "ClusterRole"}, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
@@ -72,6 +74,14 @@ func TestSuggestedApiVersion(t *testing.T) {
 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "PodSecurityPolicy"},
 			"policy/v1beta1/PodSecurityPolicy",
 		},
+		{
+			GroupVersionKind{Group: "rbac", Version: "v1alpha1", Kind: "ClusterRole"},
+			"rbac/v1/ClusterRole",
+		},
+		{
+			GroupVersionKind{Group: "rbac", Version: "v1beta1", Kind: "ClusterRole"},
+			"rbac/v1/ClusterRole",
+		},
 		// Current ApiVersions return the same version string.
 		{
 			GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
@@ -101,6 +111,12 @@ func TestRemovedInVersion(t *testing.T) {
 		}, &cluster.ServerVersion{Major: 1, Minor: 16}},
 		{"extensions/v1beta1:Ingress", args{
 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Ingress"},
+		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
+		{"rbac/v1beta1:ClusterRole", args{
+			GroupVersionKind{Group: "rbac", Version: "v1beta1", Kind: "ClusterRole"},
+		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
+		{"rbac/v1alpha1:ClusterRole", args{
+			GroupVersionKind{Group: "rbac", Version: "v1alpha1", Kind: "ClusterRole"},
 		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
 	}
 	for _, tt := range tests {

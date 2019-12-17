@@ -45,6 +45,9 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		} else {
 			removedIn = cluster.ServerVersion{Major: 1, Minor: 16}
 		}
+	case schema.GroupVersion{Group: "rbac", Version: "v1beta1"},
+		schema.GroupVersion{Group: "rbac", Version: "v1alpha1"}:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
 	default:
 		return nil
 	}
@@ -81,6 +84,9 @@ func SuggestedApiVersion(gvk schema.GroupVersionKind) string {
 		default:
 			return gvkStr(gvk)
 		}
+	case schema.GroupVersion{Group: "rbac", Version: "v1beta1"},
+		schema.GroupVersion{Group: "rbac", Version: "v1alpha1"}:
+		return "rbac/v1/" + gvk.Kind
 	default:
 		return gvkStr(gvk)
 	}

@@ -93,6 +93,13 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(NetworkPolicy.__pulumiType, name, props, opts);
+          const _opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:networking/v1:NetworkPolicy", name: name },
+                  { parent: opts.parent, type: "kubernetes:extensions/v1beta1:NetworkPolicy", name: name },
+              ],
+          });
+
+          super(NetworkPolicy.__pulumiType, name, props, _opts);
       }
     }

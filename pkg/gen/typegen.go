@@ -1225,6 +1225,22 @@ func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 			"kubernetes:networking/v1beta1:Ingress",
 			"kubernetes:extensions/v1beta1:Ingress",
 		}
+	case kinds.NetworkPolicy:
+		return []string{
+			"kubernetes:networking/v1:NetworkPolicy",
+			"kubernetes:extensions/v1beta1:NetworkPolicy",
+		}
+	case kinds.PodSecurityPolicy:
+		return []string{
+			"kubernetes:policy/v1beta1:PodSecurityPolicy",
+			"kubernetes:extensions/v1beta1:PodSecurityPolicy",
+		}
+	case kinds.PriorityClass:
+		return []string{
+			"kubernetes:scheduling/v1:PriorityClass",
+			"kubernetes:scheduling/v1beta1:PriorityClass",
+			"kubernetes:scheduling/v1alpha1:PriorityClass",
+		}
 	case kinds.ReplicaSet:
 		return []string{
 			"kubernetes:apps/v1:ReplicaSet",
