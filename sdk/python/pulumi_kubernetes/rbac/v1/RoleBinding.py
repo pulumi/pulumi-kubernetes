@@ -85,8 +85,15 @@ class RoleBinding(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+            pulumi.Alias(parent=parent, type_="kubernetes:rbac/v1:RoleBinding", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:rbac/v1beta1:RoleBinding", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:rbac/v1alpha1:RoleBinding", name=resource_name),
+        ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
+            aliases=aliases,
         ))
 
         super(RoleBinding, self).__init__(

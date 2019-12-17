@@ -102,6 +102,14 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(ClusterRoleBinding.__pulumiType, name, props, opts);
+          const _opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:rbac/v1:ClusterRoleBinding", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac/v1beta1:ClusterRoleBinding", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac/v1alpha1:ClusterRoleBinding", name: name },
+              ],
+          });
+
+          super(ClusterRoleBinding.__pulumiType, name, props, _opts);
       }
     }

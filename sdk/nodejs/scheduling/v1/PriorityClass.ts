@@ -120,6 +120,14 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(PriorityClass.__pulumiType, name, props, opts);
+          const _opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:scheduling/v1:PriorityClass", name: name },
+                  { parent: opts.parent, type: "kubernetes:scheduling/v1beta1:PriorityClass", name: name },
+                  { parent: opts.parent, type: "kubernetes:scheduling/v1alpha1:PriorityClass", name: name },
+              ],
+          });
+
+          super(PriorityClass.__pulumiType, name, props, _opts);
       }
     }

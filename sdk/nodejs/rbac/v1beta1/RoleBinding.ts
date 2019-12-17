@@ -103,6 +103,14 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(RoleBinding.__pulumiType, name, props, opts);
+          const _opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:rbac/v1:RoleBinding", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac/v1beta1:RoleBinding", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac/v1alpha1:RoleBinding", name: name },
+              ],
+          });
+
+          super(RoleBinding.__pulumiType, name, props, _opts);
       }
     }

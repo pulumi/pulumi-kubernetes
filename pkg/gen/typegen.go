@@ -1207,36 +1207,45 @@ func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 	kind := kinds.Kind(gvk.Kind)
 
 	switch kind {
-	case kinds.DaemonSet:
+	case kinds.ClusterRole, kinds.ClusterRoleBinding, kinds.Role, kinds.RoleBinding:
 		return []string{
-			"kubernetes:apps/v1:DaemonSet",
-			"kubernetes:apps/v1beta2:DaemonSet",
-			"kubernetes:extensions/v1beta1:DaemonSet",
+			fmt.Sprintf("kubernetes:rbac/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:rbac/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:rbac/v1alpha1:%s", gvk.Kind),
 		}
-	case kinds.Deployment:
+	case kinds.DaemonSet, kinds.ReplicaSet:
 		return []string{
-			"kubernetes:apps/v1:Deployment",
-			"kubernetes:apps/v1beta1:Deployment",
-			"kubernetes:apps/v1beta2:Deployment",
-			"kubernetes:extensions/v1beta1:Deployment",
+			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
+		}
+	case kinds.Deployment, kinds.StatefulSet:
+		return []string{
+			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:apps/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
 		}
 	case kinds.Ingress:
 		return []string{
-			"kubernetes:networking/v1beta1:Ingress",
-			"kubernetes:extensions/v1beta1:Ingress",
+			fmt.Sprintf("kubernetes:networking/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
 		}
-	case kinds.ReplicaSet:
+	case kinds.NetworkPolicy:
 		return []string{
-			"kubernetes:apps/v1:ReplicaSet",
-			"kubernetes:apps/v1beta2:ReplicaSet",
-			"kubernetes:extensions/v1beta1:ReplicaSet",
+			fmt.Sprintf("kubernetes:networking/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
 		}
-	case kinds.StatefulSet:
+	case kinds.PodSecurityPolicy:
 		return []string{
-			"kubernetes:apps/v1:StatefulSet",
-			"kubernetes:apps/v1beta1:StatefulSet",
-			"kubernetes:apps/v1beta2:StatefulSet",
-			"kubernetes:extensions/v1beta1:StatefulSet",
+			fmt.Sprintf("kubernetes:policy/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
+		}
+	case kinds.PriorityClass:
+		return []string{
+			fmt.Sprintf("kubernetes:scheduling/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:scheduling/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:scheduling/v1alpha1:%s", gvk.Kind),
 		}
 	default:
 		return []string{}
