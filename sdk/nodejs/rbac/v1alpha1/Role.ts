@@ -94,6 +94,14 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(Role.__pulumiType, name, props, opts);
+          const _opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:rbac/v1:Role", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac/v1beta1:Role", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac/v1alpha1:Role", name: name },
+              ],
+          });
+
+          super(Role.__pulumiType, name, props, _opts);
       }
     }
