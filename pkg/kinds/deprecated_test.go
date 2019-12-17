@@ -71,6 +71,10 @@ func TestSuggestedApiVersion(t *testing.T) {
 			"networking/v1beta1/Ingress",
 		},
 		{
+			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "NetworkPolicy"},
+			"networking/v1/NetworkPolicy",
+		},
+		{
 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "PodSecurityPolicy"},
 			"policy/v1beta1/PodSecurityPolicy",
 		},

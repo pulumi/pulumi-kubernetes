@@ -75,10 +75,12 @@ func SuggestedApiVersion(gvk schema.GroupVersionKind) string {
 		return "apps/v1/" + gvk.Kind
 	case schema.GroupVersion{Group: "extensions", Version: "v1beta1"}:
 		switch Kind(gvk.Kind) {
-		case DaemonSet, Deployment, NetworkPolicy, ReplicaSet:
+		case DaemonSet, Deployment, ReplicaSet:
 			return "apps/v1/" + gvk.Kind
 		case Ingress:
 			return "networking/v1beta1/" + gvk.Kind
+		case NetworkPolicy:
+			return "networking/v1/" + gvk.Kind
 		case PodSecurityPolicy:
 			return "policy/v1beta1/" + gvk.Kind
 		default:
