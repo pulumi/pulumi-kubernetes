@@ -87,7 +87,7 @@ import * as outputs from "../types/output";
 
     export interface ConfigOpts {
         /** JavaScript objects representing Kubernetes resources. */
-        objs: pulumi.Output<any[]>;
+        objs: pulumi.Input<pulumi.Input<any>[]>;
 
         /**
          * A set of transformations to apply to Kubernetes resource definitions before registering
@@ -120,10 +120,10 @@ import * as outputs from "../types/output";
         resourcePrefix?: string;
     }
 
-    function yamlLoadAll(text: string): pulumi.Output<any[]> {
-        const promise = pulumi.output(pulumi.runtime.invoke(
-            "kubernetes:yaml:decode", {text}, {async: true}));
-        return promise.apply<any[]>(p => p.result);
+    function yamlLoadAll(text: string): Promise<any[]> {
+        const promise = pulumi.runtime.invoke(
+            "kubernetes:yaml:decode", {text}, {async: true});
+        return promise.then(p => p.result);
     }
 
     /** @ignore */ export function parse(
@@ -184,7 +184,7 @@ import * as outputs from "../types/output";
 
         if (config.objs !== undefined) {
             const objs= Array.isArray(config.objs) ? config.objs: [config.objs];
-                const docResources = parseYamlDocument({objs: pulumi.output(objs), transformations: config.transformations}, opts);
+                const docResources = parseYamlDocument({objs: objs, transformations: config.transformations}, opts);
                 resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
         }
 
@@ -336,21 +336,22 @@ import * as outputs from "../types/output";
         config: ConfigOpts,
         opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
-        const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
-
-        pulumi.all([config.objs]).apply(([configObjs]) => {
+        const objs: pulumi.Output<pulumi.Output<{name: string, resource: pulumi.CustomResource}>[]> = pulumi
+            .all([config.objs]).apply(([configObjs]) => {
+            const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
             for (const obj of configObjs) {
-                const fileObjects: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] =
-                    parseYamlObject(obj, config.transformations, config.resourcePrefix, opts);
+                const fileObjects = parseYamlObject(obj, config.transformations, config.resourcePrefix, opts);
                 for (const fileObject of fileObjects) {
                     objs.push(fileObject);
                 }
             }
+            return objs;
         });
-        return pulumi.all(objs).apply(xs => {
+
+        return pulumi.all([objs]).apply(([objs]) => {
             let resources: {[key: string]: pulumi.CustomResource} = {};
-            for (const x of xs) {
-                resources[x.name] = x.resource
+            for (const obj of objs) {
+                resources[obj.name] = obj.resource
             }
             return resources;
         });
