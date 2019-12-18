@@ -180,7 +180,12 @@ func (jia *jobInitAwaiter) Read() error {
 }
 
 func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
-	job, err := clients.JobFromUnstructured(event.Object.(*unstructured.Unstructured))
+	uns, ok := event.Object.(*unstructured.Unstructured)
+	if !ok {
+		glog.V(3).Infof("received event with nil Object: %#v", event)
+		return nil
+	}
+	job, err := clients.JobFromUnstructured(uns)
 	if err != nil {
 		glog.V(3).Infof("Failed to unmarshal Job event: %v", err)
 		return nil
