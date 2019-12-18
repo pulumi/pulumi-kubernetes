@@ -20,8 +20,6 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests"
-	"github.com/pulumi/pulumi/pkg/resource"
-	"github.com/pulumi/pulumi/pkg/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 	"github.com/stretchr/testify/assert"
 )
@@ -39,15 +37,9 @@ func TestAliases(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
-
-			stackRes := stackInfo.Deployment.Resources[3]
-			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-			provRes := stackInfo.Deployment.Resources[2]
-			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			deployment := stackInfo.Deployment.Resources[0]
 			assert.Equal(t, "alias-test", string(deployment.URN.Name()))
@@ -59,15 +51,9 @@ func TestAliases(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
-
-					stackRes := stackInfo.Deployment.Resources[3]
-					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-					provRes := stackInfo.Deployment.Resources[2]
-					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					deployment := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, "alias-test", string(deployment.URN.Name()))
@@ -83,15 +69,9 @@ func TestAliases(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
-
-					stackRes := stackInfo.Deployment.Resources[3]
-					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-					provRes := stackInfo.Deployment.Resources[2]
-					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					deployment := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, "alias-test", string(deployment.URN.Name()))
