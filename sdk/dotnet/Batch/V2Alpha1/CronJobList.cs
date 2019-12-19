@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
         /// items is the list of CronJobs.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Batch.V2Alpha1.CronJob[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Batch.V2Alpha1.CronJob>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

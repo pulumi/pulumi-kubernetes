@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// List of endpoints.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Core.V1.Endpoints[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Core.V1.Endpoints>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

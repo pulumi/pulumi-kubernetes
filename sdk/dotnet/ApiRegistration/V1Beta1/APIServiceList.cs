@@ -23,7 +23,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
 
         
         [Output("items")]
-        public Output<Types.Outputs.ApiRegistration.V1Beta1.APIService[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.ApiRegistration.V1Beta1.APIService>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

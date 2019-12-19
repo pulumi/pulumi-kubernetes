@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// https://kubernetes.io/docs/concepts/policy/resource-quotas/
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Core.V1.ResourceQuota[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Core.V1.ResourceQuota>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

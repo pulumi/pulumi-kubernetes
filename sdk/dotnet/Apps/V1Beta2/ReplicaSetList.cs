@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
         /// https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Apps.V1Beta2.ReplicaSet[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Apps.V1Beta2.ReplicaSet>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

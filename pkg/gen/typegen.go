@@ -634,8 +634,8 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			switch gentype {
 			case provider:
 				elemType := makeDotnetType(
-					resourceType, propName, prop["items"].(map[string]interface{}), gentype, forceNoWrap)
-				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
+					resourceType, propName, prop["items"].(map[string]interface{}), gentype, true)
+				return fmt.Sprintf("Output<ImmutableArray<%s>>", elemType)
 			case outputsAPI:
 				elemType := makeDotnetType(
 					resourceType, propName, prop["items"].(map[string]interface{}), gentype, forceNoWrap)

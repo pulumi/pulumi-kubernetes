@@ -49,7 +49,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
         /// Rules holds all the PolicyRules for this ClusterRole
         /// </summary>
         [Output("rules")]
-        public Output<Types.Outputs.Rbac.V1.PolicyRule[]> Rules { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Rbac.V1.PolicyRule>> Rules { get; private set; } = null!;
 
 
         /// <summary>
