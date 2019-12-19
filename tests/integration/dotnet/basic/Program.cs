@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Pulumi;
 using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Apps.V1;
+using Pulumi.Kubernetes.Rbac.V1;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
+using Pulumi.Kubernetes.Types.Inputs.Rbac.V1;
 using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1;
 
 class Program
@@ -92,6 +94,44 @@ class Program
                         },
                     },
                 }
+            });
+
+            var role = new Role("role", new RoleArgs
+            {
+                Metadata = new ObjectMetaArgs {
+                    Name = "secret-reader",
+                },
+                Rules = {
+                    new PolicyRuleArgs
+                    {
+                        ApiGroups = { "" },
+                        Resources = { "secrets" },
+                        Verbs = { "get", "watch", "list" }, 
+                    },
+                }
+            });
+
+            var binding = new RoleBinding("binding", new RoleBindingArgs
+            {   
+                Metadata = new ObjectMetaArgs
+                {
+                    Name = "read-secrets",
+                    Namespace = "default",
+                },
+                Subjects = {
+                    new SubjectArgs
+                    {
+                        Kind = "User",
+                        Name = "dave",
+                        ApiGroup = "rbac.authorization.k8s.io",
+                    },
+                },
+                RoleRef = new RoleRefArgs
+                {
+                    Kind = "ClusterRole",
+                    Name = "secret-reader",
+                    ApiGroup = "rbac.authorization.k8s.io",
+                },
             });
 
             var ns = Pulumi.Kubernetes.Core.V1.Namespace.Get("default", "default");
