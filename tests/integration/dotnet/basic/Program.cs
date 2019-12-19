@@ -127,7 +127,7 @@ class Program
                 },
                 RoleRef = new RoleRefArgs
                 {
-                    Kind = "ClusterRole",
+                    Kind = "Role",
                     Name = role.Metadata.Apply(metadata => metadata.Name),
                     ApiGroup = "rbac.authorization.k8s.io",
                 },
