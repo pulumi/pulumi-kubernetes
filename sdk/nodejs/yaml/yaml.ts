@@ -2478,24 +2478,13 @@ import * as outputs from "../types/output";
         config: ConfigOpts,
         opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
-        const objs: pulumi.Output<pulumi.Output<{name: string, resource: pulumi.CustomResource}>[]> = pulumi
-            .all([config.objs]).apply(([configObjs]) => {
-            const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
-            for (const obj of configObjs) {
-                const fileObjects = parseYamlObject(obj, config.transformations, config.resourcePrefix, opts);
-                for (const fileObject of fileObjects) {
-                    objs.push(fileObject);
-                }
-            }
-            return objs;
-        });
+        return pulumi.output(config.objs).apply(configObjs => {
+            const objs = configObjs
+                .map(obj => parseYamlObject(obj, config.transformations, config.resourcePrefix, opts))
+                .reduce((array, objs) => (array.concat(...objs)), []);
 
-        return pulumi.all([objs]).apply(([objs]) => {
-            let resources: {[key: string]: pulumi.CustomResource} = {};
-            for (const obj of objs) {
-                resources[obj.name] = obj.resource
-            }
-            return resources;
+            return pulumi.output(objs).apply(objs => objs
+                .reduce((map: {[key: string]: pulumi.CustomResource}, val) => (map[val.name] = val.resource, map), {}))
         });
     }
 
