@@ -106,7 +106,7 @@ class Program
                     {
                         ApiGroups = { "" },
                         Resources = { "secrets" },
-                        Verbs = { "get", "watch", "list" }, 
+                        Verbs = { "get", "list" }, 
                     },
                 }
             });
@@ -116,7 +116,6 @@ class Program
                 Metadata = new ObjectMetaArgs
                 {
                     Name = "read-secrets",
-                    Namespace = "default",
                 },
                 Subjects = {
                     new SubjectArgs
@@ -129,7 +128,7 @@ class Program
                 RoleRef = new RoleRefArgs
                 {
                     Kind = "ClusterRole",
-                    Name = "secret-reader",
+                    Name = role.Metadata.Apply(metadata => metadata.Name),
                     ApiGroup = "rbac.authorization.k8s.io",
                 },
             });
