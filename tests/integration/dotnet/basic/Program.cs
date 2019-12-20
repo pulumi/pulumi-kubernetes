@@ -104,7 +104,7 @@ class Program
                 Rules = {
                     new PolicyRuleArgs
                     {
-                        ApiGroups = { "" },
+                        ApiGroups = { "namespace" },
                         Resources = { "secrets" },
                         Verbs = { "get", "list" }, 
                     },
@@ -138,6 +138,7 @@ class Program
             return new Dictionary<string, object>{
                 { "namespacePhase", ns.Status.Apply(status => status.Phase) },
                 { "revisionData", revision.Data },
+                { "subjects", binding.Subjects.Apply(subjs => subjs.Select(subj => subj.Name).ToArray()) },
             };
 
         });
