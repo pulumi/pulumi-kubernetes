@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
         [Output("subjects")]
-        public Output<Types.Outputs.Rbac.V1Alpha1.Subject[]> Subjects { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Rbac.V1Alpha1.Subject>> Subjects { get; private set; } = null!;
 
 
         /// <summary>

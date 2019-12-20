@@ -23,7 +23,7 @@ namespace Pulumi.Kubernetes.Apps.V1
 
         
         [Output("items")]
-        public Output<Types.Outputs.Apps.V1.StatefulSet[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Apps.V1.StatefulSet>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

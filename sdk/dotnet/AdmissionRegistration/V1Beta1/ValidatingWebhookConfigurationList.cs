@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
         /// List of ValidatingWebhookConfiguration.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

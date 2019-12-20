@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2
         /// items is the list of horizontal pod autoscaler objects.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Autoscaling.V2Beta2.HorizontalPodAutoscaler[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Autoscaling.V2Beta2.HorizontalPodAutoscaler>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
         /// List of endpoint slices
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Discovery.V1Beta1.EndpointSlice[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Discovery.V1Beta1.EndpointSlice>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

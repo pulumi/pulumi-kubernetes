@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// enable the VolumeScheduling feature.
         /// </summary>
         [Output("allowedTopologies")]
-        public Output<Types.Outputs.Core.V1.TopologySelectorTerm[]> AllowedTopologies { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Core.V1.TopologySelectorTerm>> AllowedTopologies { get; private set; } = null!;
 
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -62,7 +62,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// one is invalid.
         /// </summary>
         [Output("mountOptions")]
-        public Output<string[]> MountOptions { get; private set; } = null!;
+        public Output<ImmutableArray<string>> MountOptions { get; private set; } = null!;
 
         /// <summary>
         /// Parameters holds the parameters for the provisioner that should create volumes of this
