@@ -3,6 +3,7 @@
 ### Bug fixes
 
 -   Fix panic condition in Ingress await logic. (https://github.com/pulumi/pulumi-kubernetes/pull/928).
+-   Fix deprecation warnings and docs. (https://github.com/pulumi/pulumi-kubernetes/pull/929).
 -   Fix projection of array-valued output properties in .NET. (https://github.com/pulumi/pulumi-kubernetes/pull/931)
 
 ## 1.4.1 (December 17, 2019)
