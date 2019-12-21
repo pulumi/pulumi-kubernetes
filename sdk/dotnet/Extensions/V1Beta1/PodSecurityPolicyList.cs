@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// items is a list of schema objects.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Extensions.V1Beta1.PodSecurityPolicy[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Extensions.V1Beta1.PodSecurityPolicy>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

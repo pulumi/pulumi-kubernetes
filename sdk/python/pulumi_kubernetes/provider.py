@@ -23,19 +23,23 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
         :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to True, enable server-side diff
-                                                  calculations. This feature is in developer preview, and is disabled by
-                                                  default.
+                                  calculations. This feature is in developer preview, and is disabled by default.
+                                  This config can be specified in the following ways, using this precedence:
+                                  1. This `enableDryRun` parameter.
+                                  2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file.
-                                             If this is set, this config will be used instead of $KUBECONFIG.
+                                 If this is set, this config will be used instead of $KUBECONFIG.
         :param pulumi.Input[str] namespace: If present, the default namespace to use.
-                                            This flag is ignored for cluster-scoped resources.
-                                            A namespace can be specified in multiple places, and the precedence is
-                                            as follows:
-                                            1. `.metadata.namespace` set on the resource.
-                                            2. This `namespace` parameter.
-                                            3. `namespace` set for the active context in the kubeconfig.
+                                 This flag is ignored for cluster-scoped resources.
+                                 A namespace can be specified in multiple places, and the precedence is as follows:
+                                 1. `.metadata.namespace` set on the resource.
+                                 2. This `namespace` parameter.
+                                 3. `namespace` set for the active context in the kubeconfig.
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to True, suppress apiVersion
-                                                                 deprecation warnings from the CLI.
+                                  deprecation warnings from the CLI.
+                                  This config can be specified in the following ways, using this precedence:
+                                  1. This `suppressDeprecationWarnings` parameter.
+                                  2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
         """
         __props__ = {
             "cluster": cluster,

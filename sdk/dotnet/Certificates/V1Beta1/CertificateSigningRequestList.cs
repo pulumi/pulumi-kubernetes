@@ -23,7 +23,7 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
 
         
         [Output("items")]
-        public Output<Types.Outputs.Certificates.V1Beta1.CertificateSigningRequest[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Certificates.V1Beta1.CertificateSigningRequest>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

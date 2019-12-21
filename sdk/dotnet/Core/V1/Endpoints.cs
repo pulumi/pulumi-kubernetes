@@ -57,7 +57,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// addresses and ports that comprise a service.
         /// </summary>
         [Output("subsets")]
-        public Output<Types.Outputs.Core.V1.EndpointSubset[]> Subsets { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Core.V1.EndpointSubset>> Subsets { get; private set; } = null!;
 
 
         /// <summary>

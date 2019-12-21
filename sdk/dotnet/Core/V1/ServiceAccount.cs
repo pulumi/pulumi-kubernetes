@@ -38,7 +38,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         /// </summary>
         [Output("imagePullSecrets")]
-        public Output<Types.Outputs.Core.V1.LocalObjectReference[]> ImagePullSecrets { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Core.V1.LocalObjectReference>> ImagePullSecrets { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
         /// </summary>
         [Output("secrets")]
-        public Output<Types.Outputs.Core.V1.ObjectReference[]> Secrets { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Core.V1.ObjectReference>> Secrets { get; private set; } = null!;
 
 
         /// <summary>

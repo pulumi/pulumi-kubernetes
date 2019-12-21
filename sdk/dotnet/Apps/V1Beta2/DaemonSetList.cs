@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
         /// A list of daemon sets.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Apps.V1Beta2.DaemonSet[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Apps.V1Beta2.DaemonSet>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

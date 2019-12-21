@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Rbac.V1Beta1
         /// Items is a list of Roles
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Rbac.V1Beta1.Role[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Rbac.V1Beta1.Role>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

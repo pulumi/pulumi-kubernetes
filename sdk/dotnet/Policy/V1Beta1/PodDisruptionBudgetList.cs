@@ -23,7 +23,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
 
         
         [Output("items")]
-        public Output<Types.Outputs.Policy.V1Beta1.PodDisruptionBudget[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Policy.V1Beta1.PodDisruptionBudget>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

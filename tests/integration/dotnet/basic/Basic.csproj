@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pulumi.Kubernetes" Version="1.4.0-preview-alpha.1574471668" />
+    <PackageReference Include="Pulumi.Kubernetes" Version="1.5.0-preview-alpha.1576717735" />
   </ItemGroup>
 
 </Project>

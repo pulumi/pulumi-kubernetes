@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
         /// items list individual CustomResourceDefinition objects
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.ApiExtensions.V1Beta1.CustomResourceDefinition[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.ApiExtensions.V1Beta1.CustomResourceDefinition>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
