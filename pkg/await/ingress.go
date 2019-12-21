@@ -319,6 +319,11 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 	}
 
 	for _, rule := range obj.Spec.Rules {
+		if rule.HTTP == nil {
+			iia.config.logStatus(diag.Error, fmt.Sprintf("expected value %q is unset for ingress: %s",
+				".spec.rules[*].http", obj.Name))
+			return false
+		}
 		for _, path := range rule.HTTP.Paths {
 			// Ignore ExternalName services
 			if iia.knownExternalNameServices.Has(path.Backend.ServiceName) {
