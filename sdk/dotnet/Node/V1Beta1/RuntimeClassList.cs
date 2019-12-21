@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Node.V1Beta1
         /// Items is a list of schema objects.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Node.V1Beta1.RuntimeClass[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Node.V1Beta1.RuntimeClass>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

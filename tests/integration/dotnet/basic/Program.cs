@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Pulumi;
 using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Apps.V1;
+using Pulumi.Kubernetes.Rbac.V1;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
+using Pulumi.Kubernetes.Types.Inputs.Rbac.V1;
 using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1;
 
 class Program
@@ -94,11 +96,50 @@ class Program
                 }
             });
 
+            // TODO: Re-enable these tests once CI GKE account has the appropriate permissions to create the RoleBinding below.
+            // var role = new Role("role", new RoleArgs
+            // {
+            //     Metadata = new ObjectMetaArgs {
+            //         Name = "secret-reader",
+            //     },
+            //     Rules = {
+            //         new PolicyRuleArgs
+            //         {
+            //             ApiGroups = { "" },
+            //             Resources = { "secrets" },
+            //             Verbs = { "get", "list" }, 
+            //         },
+            //     }
+            // });
+
+            // var binding = new RoleBinding("binding", new RoleBindingArgs
+            // {   
+            //     Metadata = new ObjectMetaArgs
+            //     {
+            //         Name = "read-secrets",
+            //     },
+            //     Subjects = {
+            //         new SubjectArgs
+            //         {
+            //             Kind = "User",
+            //             Name = "dave",
+            //             ApiGroup = "rbac.authorization.k8s.io",
+            //         },
+            //     },
+            //     RoleRef = new RoleRefArgs
+            //     {
+            //         Kind = "Role",
+            //         Name = role.Metadata.Apply(metadata => metadata.Name),
+            //         ApiGroup = "rbac.authorization.k8s.io",
+            //     },
+            // });
+
             var ns = Pulumi.Kubernetes.Core.V1.Namespace.Get("default", "default");
 
             return new Dictionary<string, object>{
                 { "namespacePhase", ns.Status.Apply(status => status.Phase) },
                 { "revisionData", revision.Data },
+                // { "subjects", binding.Subjects.Apply(subjs => subjs.Select(subj => subj.Name).ToArray()) },
             };
 
         });

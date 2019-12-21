@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// `items` is a list of FlowSchemas.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.FlowControl.V1Alpha1.FlowSchema[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.FlowControl.V1Alpha1.FlowSchema>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

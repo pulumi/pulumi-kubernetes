@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
         /// Items is a list of schema objects.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Coordination.V1.Lease[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Coordination.V1.Lease>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

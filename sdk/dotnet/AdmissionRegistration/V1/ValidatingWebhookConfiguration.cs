@@ -42,7 +42,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         /// Webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
         [Output("webhooks")]
-        public Output<Types.Outputs.AdmissionRegistration.V1.ValidatingWebhook[]> Webhooks { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.AdmissionRegistration.V1.ValidatingWebhook>> Webhooks { get; private set; } = null!;
 
 
         /// <summary>

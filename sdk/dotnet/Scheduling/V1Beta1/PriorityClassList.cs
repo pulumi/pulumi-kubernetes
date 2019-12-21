@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
         /// items is the list of PriorityClasses
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Scheduling.V1Beta1.PriorityClass[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Scheduling.V1Beta1.PriorityClass>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

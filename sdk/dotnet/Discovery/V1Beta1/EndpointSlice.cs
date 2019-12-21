@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
         /// of 1000 endpoints.
         /// </summary>
         [Output("endpoints")]
-        public Output<Types.Outputs.Discovery.V1Beta1.Endpoint[]> Endpoints { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Discovery.V1Beta1.Endpoint>> Endpoints { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers
@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
         /// Each slice may include a maximum of 100 ports.
         /// </summary>
         [Output("ports")]
-        public Output<Types.Outputs.Discovery.V1Beta1.EndpointPort[]> Ports { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Discovery.V1Beta1.EndpointPort>> Ports { get; private set; } = null!;
 
 
         /// <summary>

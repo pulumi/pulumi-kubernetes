@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
         /// Items is a list of schema objects.
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Settings.V1Alpha1.PodPreset[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Settings.V1Alpha1.PodPreset>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

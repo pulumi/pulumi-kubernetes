@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// Items is the list of StorageClasses
         /// </summary>
         [Output("items")]
-        public Output<Types.Outputs.Storage.V1.StorageClass[]> Items { get; private set; } = null!;
+        public Output<ImmutableArray<Types.Outputs.Storage.V1.StorageClass>> Items { get; private set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers

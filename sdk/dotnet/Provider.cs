@@ -57,7 +57,11 @@ namespace Pulumi.Kubernetes
 
         /// <summary>
         /// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
-        /// Note: if .metadata.namespace is set on a resource, that value takes precedence over the provider default.
+        ///
+        /// A namespace can be specified in multiple places, and the precedence is as follows:
+        /// 1. `.metadata.namespace` set on the resource.
+        /// 2. This `namespace` parameter.
+        /// 3. `namespace` set for the active context in the kubeconfig.
         /// </summary>
         [Input("namespace")]
         public Input<string>? Namespace { get; set; }
@@ -65,12 +69,20 @@ namespace Pulumi.Kubernetes
         /// <summary>
         /// BETA FEATURE - If present and set to true, enable server-side diff calculations.
         /// This feature is in developer preview, and is disabled by default.
+        ///
+        /// This config can be specified in the following ways, using this precedence:
+        /// 1. This `enableDryRun` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
         /// </summary>
         [Input("enableDryRun")]
         public Input<bool>? EnableDryRun { get; set; }
 
         /// <summary>
         /// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
+        ///
+        /// This config can be specified in the following ways, using this precedence:
+        /// 1. This `suppressDeprecationWarnings` parameter.
+        /// 2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
         /// </summary>
         [Input("suppressDeprecationWarnings")]
         public Input<bool>? SuppressDeprecationWarnings { get; set; }
