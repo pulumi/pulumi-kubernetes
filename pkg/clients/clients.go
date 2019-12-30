@@ -163,6 +163,11 @@ func (dcs *DynamicClientSet) IsNamespacedKind(gvk schema.GroupVersionKind) (bool
 		gv = "v1"
 	}
 
+	if known, namespaced := kinds.Kind(gvk.Kind).Namespaced(); known {
+		return namespaced, nil
+	}
+
+	// If the Kind is not known, attempt to look up from the API server. This applies to Kinds defined using a CRD.
 	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
 	if err != nil {
 		return false, &NoNamespaceInfoErr{gvk}

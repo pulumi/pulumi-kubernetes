@@ -387,14 +387,17 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 	switch tok {
 	case invokeDecodeYaml:
-		var text string
+		var text, defaultNamespace string
 		if args["text"].HasValue() {
 			text = args["text"].StringValue()
 		} else {
 			return nil, fmt.Errorf("missing required field 'text' on input: %#v", args)
 		}
+		if args["defaultNamespace"].HasValue() {
+			defaultNamespace = args["defaultNamespace"].StringValue()
+		}
 
-		result, err := decodeYaml(text)
+		result, err := decodeYaml(text, defaultNamespace, k.clientSet)
 		if err != nil {
 			return nil, err
 		}

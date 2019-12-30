@@ -16,7 +16,7 @@ import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
 
 import { k8sProvider } from "./cluster";
-import { istio } from "./istio";
+import { crd10, crd11, crd12, istio } from "./istio";
 
 new k8s.core.v1.Namespace(
     "bookinfo",
@@ -33,13 +33,13 @@ function addNamespace(o: any) {
 const bookinfo = new k8s.yaml.ConfigFile(
     "yaml/bookinfo.yaml",
     { transformations: [addNamespace] },
-    { dependsOn: istio, providers: { kubernetes: k8sProvider } }
+    { dependsOn: [crd10, crd11, crd12], providers: { kubernetes: k8sProvider } }
 );
 
 new k8s.yaml.ConfigFile(
     "yaml/bookinfo-gateway.yaml",
     { transformations: [addNamespace] },
-    { dependsOn: bookinfo, providers: { kubernetes: k8sProvider } }
+    { dependsOn: [crd10, crd11, crd12], providers: { kubernetes: k8sProvider } }
 );
 
 export const port = istio
