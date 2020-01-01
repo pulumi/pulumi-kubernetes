@@ -8,7 +8,6 @@ from typing import Callable, Dict, List, Optional
 
 import pulumi.runtime
 import requests
-import yaml
 from pulumi_kubernetes.apiextensions import CustomResource
 
 from . import tables
@@ -61,7 +60,8 @@ class ConfigFile(pulumi.ComponentResource):
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        self.resources = _parse_yaml_document(yaml.safe_load_all(text), opts, transformations, resource_prefix)
+        __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}).value['result']
+        self.resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
