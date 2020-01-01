@@ -237,64 +237,6 @@ export class Chart extends yaml.CollectionComponentResource {
     }
 }
 
-// helmSort is a JavaScript implementation of the Helm Kind sorter[1]. It provides a
-// best-effort topology of Kubernetes kinds, which in most cases should ensure that resources
-// that must be created first, are.
-//
-// [1]: https://github.com/helm/helm/blob/094b97ab5d7e2f6eda6d0ab0f2ede9cf578c003c/pkg/tiller/kind_sorter.go
-/** @ignore */ export function helmSort(a: { kind: string }, b: { kind: string }): number {
-    const installOrder = [
-        "Namespace",
-        "ResourceQuota",
-        "LimitRange",
-        "PodSecurityPolicy",
-        "Secret",
-        "ConfigMap",
-        "StorageClass",
-        "PersistentVolume",
-        "PersistentVolumeClaim",
-        "ServiceAccount",
-        "CustomResourceDefinition",
-        "ClusterRole",
-        "ClusterRoleBinding",
-        "Role",
-        "RoleBinding",
-        "Service",
-        "DaemonSet",
-        "Pod",
-        "ReplicationController",
-        "ReplicaSet",
-        "Deployment",
-        "StatefulSet",
-        "Job",
-        "CronJob",
-        "Ingress",
-        "APIService"
-    ];
-
-    const ordering: { [key: string]: number } = {};
-    installOrder.forEach((_, i) => {
-        ordering[installOrder[i]] = i;
-    });
-
-    const aKind = a["kind"];
-    const bKind = b["kind"];
-
-    if (!(aKind in ordering) && !(bKind in ordering)) {
-        return aKind.localeCompare(bKind);
-    }
-
-    if (!(aKind in ordering)) {
-        return 1;
-    }
-
-    if (!(bKind in ordering)) {
-        return -1;
-    }
-
-    return ordering[aKind] - ordering[bKind];
-}
-
 /**
  * Additional options to customize the fetching of the Helm chart.
  */
