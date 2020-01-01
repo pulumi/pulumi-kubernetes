@@ -219,32 +219,21 @@ export class Chart extends yaml.CollectionComponentResource {
     }
 
     parseTemplate(
-        yamlStream: string,
+        text: string,
         transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] | undefined,
         resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
-        // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the code
-        // and the spec, it looks like a YAML stream is delimited by `^---`, though it is difficult
-        // to know for sure.
-        //
-        // NOTE: We use `{json: true, schema: jsyaml.CORE_SCHEMA}` here so that we conform to Helm's
-        // YAML parsing semantics. Specifically, `json: true` to ensure that a duplicate key
-        // overrides its predecessory, rather than throwing an exception, and `schema:
-        // jsyaml.CORE_SCHEMA` to avoid using additional YAML parsing rules not supported by the
-        // YAML parser used by Kubernetes.
-        const objs = yamlStream.split(/^---/m)
-            .map(yaml => jsyaml.safeLoad(yaml, {json: true, schema: jsyaml.CORE_SCHEMA}))
-            .filter(a => a != null && "kind" in a)
-            .sort(helmSort);
-        return yaml.parse(
+        const promise = pulumi.runtime.invoke(
+            "kubernetes:yaml:decode", {text}, {async: true});
+        return pulumi.output(promise).apply(p => yaml.parse(
             {
                 resourcePrefix: resourcePrefix,
-                yaml: objs.map(o => jsyaml.safeDump(o)),
+                objs: p.result,
                 transformations: transformations || [],
             },
             { parent: this, dependsOn: dependsOn }
-        );
+        ));
     }
 }
 
