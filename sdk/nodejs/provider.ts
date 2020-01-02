@@ -18,7 +18,9 @@ export class Provider extends pulumi.ProviderResource {
             "kubeconfig": args ? args.kubeconfig : undefined,
             "namespace": args ? args.namespace : undefined,
             "enableDryRun": args && args.enableDryRun ? "true" : undefined,
-            "suppressDeprecationWarnings": args && args.suppressDeprecationWarnings ? "true" : undefined
+            "suppressDeprecationWarnings": args && args.suppressDeprecationWarnings ? "true" : undefined,
+            "renderYamlToDirectory": args ? args.renderYamlToDirectory : undefined,
+            "skipDeploy": args && args.skipDeploy ? "true" : undefined,
         };
         super("kubernetes", name, props, opts);
     }
@@ -66,4 +68,12 @@ export interface ProviderArgs {
      * 2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
      */
     readonly suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    /**
+     * TODO: docs
+     */
+    readonly renderYamlToDirectory?: pulumi.Input<string>;
+    /**
+     * TODO: docs
+     */
+    readonly skipDeploy?: pulumi.Input<boolean>;
 }

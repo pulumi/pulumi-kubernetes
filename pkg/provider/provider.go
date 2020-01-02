@@ -19,8 +19,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/url"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"sync"
@@ -56,6 +58,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
+	"sigs.k8s.io/yaml"
 )
 
 // --------------------------------------------------------------------------
@@ -104,8 +107,9 @@ type kubeProvider struct {
 	defaultNamespace string
 
 	enableDryRun                bool
-	suppressDeprecationWarnings bool
 	enableSecrets               bool
+	suppressDeprecationWarnings bool
+	yamlDirectory               string
 
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
@@ -230,6 +234,9 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if olds["enableDryRun"] != news["enableDryRun"] {
 		diffs = append(diffs, "enableDryRun")
 	}
+	if olds["skipDeploy"] != news["skipDeploy"] {
+		diffs = append(diffs, "skipDeploy")
+	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
 	// changed. k8s clusters do not have a well defined identity, so the best we can do is check
@@ -319,6 +326,15 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	if suppressDeprecationWarnings() {
 		k.suppressDeprecationWarnings = true
 	}
+
+	renderYamlToDirectory := func() string {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists {
+			return directory
+		}
+		return ""
+	}
+	k.yamlDirectory = renderYamlToDirectory()
 
 	var kubeconfig clientcmd.ClientConfig
 	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
@@ -1234,6 +1250,47 @@ func (k *kubeProvider) Create(
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
+	}
+
+	if len(k.yamlDirectory) > 0 {
+		jsonBytes, err := annotatedInputs.MarshalJSON()
+		if err != nil {
+			return nil, pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", k.yamlDirectory)
+		}
+		yamlBytes, err := yaml.JSONToYAML(jsonBytes)
+		if err != nil {
+			return nil, pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", k.yamlDirectory)
+		}
+
+		fileName := fmt.Sprintf("%s-%s.yaml",
+			strings.ToLower(annotatedInputs.GetKind()), annotatedInputs.GetName())
+
+		file := filepath.Join(k.yamlDirectory, fileName)
+		err = os.MkdirAll(k.yamlDirectory, 0700)
+		if err != nil {
+			return nil, pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q",
+				k.yamlDirectory)
+		}
+		err = ioutil.WriteFile(file, yamlBytes, 0644)
+		if err != nil {
+			return nil, pkgerrors.Wrapf(err, "failed to write YAML file: %q", file)
+		}
+
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
+		inputsAndComputed, err := plugin.MarshalProperties(
+			obj, plugin.MarshalOptions{
+				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+				KeepUnknowns: true,
+				SkipNulls:    true,
+				KeepSecrets:  k.enableSecrets,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.CreateResponse{
+			Id: fqObjName(annotatedInputs), Properties: inputsAndComputed,
+		}, nil
 	}
 
 	initialized, awaitErr := await.Creation(config)
