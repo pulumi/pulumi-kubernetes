@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Move YAML decode logic into provider. (https://github.com/pulumi/pulumi-kubernetes/pull/925).
+
 ### Bug fixes
 
 -   Fix panic condition in Ingress await logic. (https://github.com/pulumi/pulumi-kubernetes/pull/928).
@@ -7,10 +11,6 @@
 -   Fix projection of array-valued output properties in .NET. (https://github.com/pulumi/pulumi-kubernetes/pull/931)
 
 ## 1.4.1 (December 17, 2019)
-
-### Improvements
-
--   Move YAML decode logic into provider. (https://github.com/pulumi/pulumi-kubernetes/pull/925).
 
 ### Bug fixes
 
