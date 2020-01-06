@@ -234,8 +234,11 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if olds["enableDryRun"] != news["enableDryRun"] {
 		diffs = append(diffs, "enableDryRun")
 	}
-	if olds["skipDeploy"] != news["skipDeploy"] {
-		diffs = append(diffs, "skipDeploy")
+	if olds["renderYamlToDirectory"] != news["renderYamlToDirectory"] {
+		diffs = append(diffs, "renderYamlToDirectory")
+
+		// If the render directory changes, all of the manifests will be replaced.
+		replaces = diffs
 	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
@@ -1253,28 +1256,12 @@ func (k *kubeProvider) Create(
 	}
 
 	if len(k.yamlDirectory) > 0 {
-		jsonBytes, err := annotatedInputs.MarshalJSON()
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", k.yamlDirectory)
-		}
-		yamlBytes, err := yaml.JSONToYAML(jsonBytes)
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", k.yamlDirectory)
-		}
-
-		fileName := fmt.Sprintf("%s-%s.yaml",
-			strings.ToLower(annotatedInputs.GetKind()), annotatedInputs.GetName())
-
-		file := filepath.Join(k.yamlDirectory, fileName)
 		err = os.MkdirAll(k.yamlDirectory, 0700)
 		if err != nil {
-			return nil, pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q",
-				k.yamlDirectory)
+			return nil, pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", k.yamlDirectory)
 		}
-		err = ioutil.WriteFile(file, yamlBytes, 0644)
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err, "failed to write YAML file: %q", file)
-		}
+
+		err := renderYaml(annotatedInputs, k.yamlDirectory)
 
 		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
 		inputsAndComputed, err := plugin.MarshalProperties(
@@ -1630,6 +1617,25 @@ func (k *kubeProvider) Update(
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
+
+	if len(k.yamlDirectory) > 0 {
+		err := renderYaml(annotatedInputs, k.yamlDirectory)
+
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
+		inputsAndComputed, err := plugin.MarshalProperties(
+			obj, plugin.MarshalOptions{
+				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+				KeepUnknowns: true,
+				SkipNulls:    true,
+				KeepSecrets:  k.enableSecrets,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
+	}
+
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:           k.canceler.context,
@@ -1732,6 +1738,20 @@ func (k *kubeProvider) Delete(
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
+
+	if len(k.yamlDirectory) > 0 {
+		file := yamlFilePath(current, k.yamlDirectory)
+		err := os.Remove(file)
+		if err != nil {
+			// Most of the time, errors will be because the file was already deleted. In this case,
+			// the operation succeeds. It's also possible that deletion fails due to file permission if
+			// the user changed the directory out-of-band, so log the error to help debug this scenario.
+			glog.V(3).Infof("Failed to delete YAML file: %q - %v", file, err)
+		}
+
+		return &pbempty.Empty{}, nil
+	}
+
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:           k.canceler.context, // TODO: should this just be ctx from the args?
@@ -2409,4 +2429,30 @@ func annotateSecrets(outs, ins resource.PropertyMap) {
 			outs[key] = resource.MakeSecret(outValue)
 		}
 	}
+}
+
+// renderYaml marshals an Unstructured resource to YAML and writes it to the specified path on disk or returns an error.
+func renderYaml(resource *unstructured.Unstructured, path string) error {
+	jsonBytes, err := resource.MarshalJSON()
+	if err != nil {
+		return pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", path)
+	}
+	yamlBytes, err := yaml.JSONToYAML(jsonBytes)
+	if err != nil {
+		return pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", path)
+	}
+
+	file := yamlFilePath(resource, path)
+
+	err = ioutil.WriteFile(file, yamlBytes, 0644)
+	if err != nil {
+		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", file)
+	}
+
+	return nil
+}
+
+func yamlFilePath(resource *unstructured.Unstructured, path string) string {
+	fileName := fmt.Sprintf("%s-%s.yaml", strings.ToLower(resource.GetKind()), resource.GetName())
+	return filepath.Join(path, fileName)
 }

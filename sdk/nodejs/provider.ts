@@ -20,7 +20,6 @@ export class Provider extends pulumi.ProviderResource {
             "enableDryRun": args && args.enableDryRun ? "true" : undefined,
             "suppressDeprecationWarnings": args && args.suppressDeprecationWarnings ? "true" : undefined,
             "renderYamlToDirectory": args ? args.renderYamlToDirectory : undefined,
-            "skipDeploy": args && args.skipDeploy ? "true" : undefined,
         };
         super("kubernetes", name, props, opts);
     }
@@ -69,11 +68,9 @@ export interface ProviderArgs {
      */
     readonly suppressDeprecationWarnings?: pulumi.Input<boolean>;
     /**
-     * TODO: docs
+     * If present, render resource manifests to this directory. In this mode, resources will not
+     * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
+     * to the Pulumi program.
      */
     readonly renderYamlToDirectory?: pulumi.Input<string>;
-    /**
-     * TODO: docs
-     */
-    readonly skipDeploy?: pulumi.Input<boolean>;
 }
