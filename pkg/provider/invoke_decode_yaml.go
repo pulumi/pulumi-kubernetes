@@ -31,9 +31,11 @@ func decodeYaml(text string) ([]interface{}, error) {
 	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(strings.NewReader(text)), 128)
 	for {
 		var value map[string]interface{}
-		err := dec.Decode(&value)
-		if err == io.EOF {
-			break
+		if err := dec.Decode(&value); err != nil {
+			if err == io.EOF {
+				break
+			}
+			return nil, err
 		}
 		resources = append(resources, unstructured.Unstructured{Object: value})
 	}
