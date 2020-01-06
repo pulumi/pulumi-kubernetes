@@ -8,8 +8,6 @@ from typing import Callable, Dict, List, Optional
 
 import pulumi.runtime
 import requests
-import yaml
-import pulumi_kubernetes
 from pulumi_kubernetes.apiextensions import CustomResource
 
 from . import tables
@@ -24,7 +22,6 @@ class ConfigFile(pulumi.ComponentResource):
     """
     Kubernetes resources contained in this ConfigFile.
     """
-
 
     def __init__(self, name, file_id, opts=None, transformations=None, resource_prefix=None):
         """
@@ -63,7 +60,8 @@ class ConfigFile(pulumi.ComponentResource):
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        self.resources = _parse_yaml_document(yaml.safe_load_all(text), opts, transformations, resource_prefix)
+        __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}).value['result']
+        self.resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
@@ -84,11 +82,12 @@ class ConfigFile(pulumi.ComponentResource):
 
         # `id` will either be `${name}` or `${namespace}/${name}`.
         id = pulumi.Output.from_input(name)
-        if namespace != None:
+        if namespace is not None:
             id = pulumi.Output.concat(namespace, '/', name)
 
         resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
         return resource_id.apply(lambda x: self.resources[x])
+
 
 def _read_url(url: str) -> str:
     response = requests.get(url)

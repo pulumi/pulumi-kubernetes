@@ -8,6 +8,10 @@
 
 ## 1.4.1 (December 17, 2019)
 
+### Improvements
+
+-   Move YAML decode logic into provider. (https://github.com/pulumi/pulumi-kubernetes/pull/925).
+
 ### Bug fixes
 
 -   Fix deprecation warnings and docs. (https://github.com/pulumi/pulumi-kubernetes/pull/918 and https://github.com /pulumi/pulumi-kubernetes/pull/921).

@@ -219,91 +219,22 @@ export class Chart extends yaml.CollectionComponentResource {
     }
 
     parseTemplate(
-        yamlStream: string,
+        text: string,
         transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] | undefined,
         resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
-        // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the code
-        // and the spec, it looks like a YAML stream is delimited by `^---`, though it is difficult
-        // to know for sure.
-        //
-        // NOTE: We use `{json: true, schema: jsyaml.CORE_SCHEMA}` here so that we conform to Helm's
-        // YAML parsing semantics. Specifically, `json: true` to ensure that a duplicate key
-        // overrides its predecessory, rather than throwing an exception, and `schema:
-        // jsyaml.CORE_SCHEMA` to avoid using additional YAML parsing rules not supported by the
-        // YAML parser used by Kubernetes.
-        const objs = yamlStream.split(/^---/m)
-            .map(yaml => jsyaml.safeLoad(yaml, {json: true, schema: jsyaml.CORE_SCHEMA}))
-            .filter(a => a != null && "kind" in a)
-            .sort(helmSort);
-        return yaml.parse(
+        const promise = pulumi.runtime.invoke(
+            "kubernetes:yaml:decode", {text}, {async: true});
+        return pulumi.output(promise).apply(p => yaml.parse(
             {
                 resourcePrefix: resourcePrefix,
-                yaml: objs.map(o => jsyaml.safeDump(o)),
+                objs: p.result,
                 transformations: transformations || [],
             },
             { parent: this, dependsOn: dependsOn }
-        );
+        ));
     }
-}
-
-// helmSort is a JavaScript implementation of the Helm Kind sorter[1]. It provides a
-// best-effort topology of Kubernetes kinds, which in most cases should ensure that resources
-// that must be created first, are.
-//
-// [1]: https://github.com/helm/helm/blob/094b97ab5d7e2f6eda6d0ab0f2ede9cf578c003c/pkg/tiller/kind_sorter.go
-/** @ignore */ export function helmSort(a: { kind: string }, b: { kind: string }): number {
-    const installOrder = [
-        "Namespace",
-        "ResourceQuota",
-        "LimitRange",
-        "PodSecurityPolicy",
-        "Secret",
-        "ConfigMap",
-        "StorageClass",
-        "PersistentVolume",
-        "PersistentVolumeClaim",
-        "ServiceAccount",
-        "CustomResourceDefinition",
-        "ClusterRole",
-        "ClusterRoleBinding",
-        "Role",
-        "RoleBinding",
-        "Service",
-        "DaemonSet",
-        "Pod",
-        "ReplicationController",
-        "ReplicaSet",
-        "Deployment",
-        "StatefulSet",
-        "Job",
-        "CronJob",
-        "Ingress",
-        "APIService"
-    ];
-
-    const ordering: { [key: string]: number } = {};
-    installOrder.forEach((_, i) => {
-        ordering[installOrder[i]] = i;
-    });
-
-    const aKind = a["kind"];
-    const bKind = b["kind"];
-
-    if (!(aKind in ordering) && !(bKind in ordering)) {
-        return aKind.localeCompare(bKind);
-    }
-
-    if (!(aKind in ordering)) {
-        return 1;
-    }
-
-    if (!(bKind in ordering)) {
-        return -1;
-    }
-
-    return ordering[aKind] - ordering[bKind];
 }
 
 /**

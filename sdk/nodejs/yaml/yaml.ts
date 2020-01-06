@@ -87,7 +87,7 @@ import * as outputs from "../types/output";
 
     export interface ConfigOpts {
         /** JavaScript objects representing Kubernetes resources. */
-        objs: any[];
+        objs: pulumi.Input<pulumi.Input<any>[]>;
 
         /**
          * A set of transformations to apply to Kubernetes resource definitions before registering
@@ -120,14 +120,10 @@ import * as outputs from "../types/output";
         resourcePrefix?: string;
     }
 
-    function yamlLoadAll(text: string): any[] {
-        // NOTE[pulumi-kubernetes#501]: Use `loadAll` with `JSON_SCHEMA` here instead of
-        // `safeLoadAll` because the latter is incompatible with `JSON_SCHEMA`. It is
-        // important to use `JSON_SCHEMA` here because the fields of the Kubernetes core
-        // API types are all tagged with `json:`, and they don't deal very well with things
-        // like dates.
-        const jsyaml = require("js-yaml");
-        return jsyaml.loadAll(text, undefined, {schema: jsyaml.JSON_SCHEMA});
+    function yamlLoadAll(text: string): Promise<any[]> {
+        const promise = pulumi.runtime.invoke(
+            "kubernetes:yaml:decode", {text}, {async: true});
+        return promise.then(p => p.result);
     }
 
     /** @ignore */ export function parse(
@@ -2482,22 +2478,13 @@ import * as outputs from "../types/output";
         config: ConfigOpts,
         opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
-        const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
+        return pulumi.output(config.objs).apply(configObjs => {
+            const objs = configObjs
+                .map(obj => parseYamlObject(obj, config.transformations, config.resourcePrefix, opts))
+                .reduce((array, objs) => (array.concat(...objs)), []);
 
-        for (const obj of config.objs) {
-            const fileObjects: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] =
-                parseYamlObject(obj, config.transformations, config.resourcePrefix, opts);
-            for (const fileObject of fileObjects) {
-                objs.push(fileObject);
-            }
-        }
-        return pulumi.all(objs).apply(xs => {
-            let resources: {[key: string]: pulumi.CustomResource} = {};
-            for (const x of xs) {
-                resources[x.name] = x.resource
-            }
-
-            return resources;
+            return pulumi.output(objs).apply(objs => objs
+                .reduce((map: {[key: string]: pulumi.CustomResource}, val) => (map[val.name] = val.resource, map), {}))
         });
     }
 
