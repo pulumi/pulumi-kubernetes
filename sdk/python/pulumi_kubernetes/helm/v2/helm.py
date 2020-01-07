@@ -348,7 +348,8 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
     chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
     objects = chart_resources.apply(
-        lambda text: pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}).value['result'])
+        lambda text: pulumi.runtime.invoke('kubernetes:yaml:decode', {
+            'text': text, 'defaultNamespace': config.namespace}).value['result'])
 
     # Parse the manifest and create the specified resources.
     resources = objects.apply(
@@ -473,7 +474,7 @@ class Chart(pulumi.ComponentResource):
 
         # `id` will either be `${name}` or `${namespace}/${name}`.
         id = pulumi.Output.from_input(name)
-        if namespace != None:
+        if namespace is not None:
             id = pulumi.Output.concat(namespace, '/', name)
 
         resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')

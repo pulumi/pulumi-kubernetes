@@ -23,6 +23,7 @@ function chart(resourcePrefix?: string): k8s.helm.v2.Chart {
         // Represents chart `stable/nginx-lego@v0.3.1`.
         path: "nginx-lego",
         version: "0.3.1",
+        namespace: namespaceName,
         resourcePrefix: resourcePrefix,
         values: {
             // Override for the Chart's `values.yml` file. Use `null` to zero out resource requests so it
@@ -42,14 +43,6 @@ function chart(resourcePrefix?: string): k8s.helm.v2.Chart {
                     }
                 }
             },
-            // Put every resource in the created namespace.
-            (obj: any) => {
-                if (obj.metadata !== undefined) {
-                    obj.metadata.namespace = namespaceName;
-                } else {
-                    obj.metadata = {namespace: namespaceName};
-                }
-            }
         ]
     });
 }
