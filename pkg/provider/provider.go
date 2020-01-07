@@ -1256,11 +1256,6 @@ func (k *kubeProvider) Create(
 	}
 
 	if len(k.yamlDirectory) > 0 {
-		err = os.MkdirAll(k.yamlDirectory, 0700)
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", k.yamlDirectory)
-		}
-
 		err := renderYaml(annotatedInputs, k.yamlDirectory)
 
 		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
@@ -1276,7 +1271,7 @@ func (k *kubeProvider) Create(
 		}
 
 		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
-			"rendered %s", yamlFilePath(annotatedInputs, k.yamlDirectory)))
+			"rendered %s", renderPathForResource(annotatedInputs, k.yamlDirectory)))
 
 		return &pulumirpc.CreateResponse{
 			Id: fqObjName(annotatedInputs), Properties: inputsAndComputed,
@@ -1637,7 +1632,7 @@ func (k *kubeProvider) Update(
 		}
 
 		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
-			"rendered %s", yamlFilePath(annotatedInputs, k.yamlDirectory)))
+			"rendered %s", renderPathForResource(annotatedInputs, k.yamlDirectory)))
 
 		return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 	}
@@ -1746,7 +1741,7 @@ func (k *kubeProvider) Delete(
 	}
 
 	if len(k.yamlDirectory) > 0 {
-		file := yamlFilePath(current, k.yamlDirectory)
+		file := renderPathForResource(current, k.yamlDirectory)
 		err := os.Remove(file)
 		if err != nil {
 			// Most of the time, errors will be because the file was already deleted. In this case,
@@ -2440,27 +2435,55 @@ func annotateSecrets(outs, ins resource.PropertyMap) {
 }
 
 // renderYaml marshals an Unstructured resource to YAML and writes it to the specified path on disk or returns an error.
-func renderYaml(resource *unstructured.Unstructured, path string) error {
+func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error {
 	jsonBytes, err := resource.MarshalJSON()
 	if err != nil {
-		return pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", path)
+		return pkgerrors.Wrapf(err, "failed to render YAML file: %q", yamlDirectory)
 	}
 	yamlBytes, err := yaml.JSONToYAML(jsonBytes)
 	if err != nil {
-		return pkgerrors.Wrapf(err, "failed to render YAML to directory: %q", path)
+		return pkgerrors.Wrapf(err, "failed to render YAML file: %q", yamlDirectory)
 	}
 
-	file := yamlFilePath(resource, path)
+	crdDirectory := filepath.Join(yamlDirectory, "0-crd")
+	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 
-	err = ioutil.WriteFile(file, yamlBytes, 0644)
+	if _, err := os.Stat(crdDirectory); os.IsNotExist(err) {
+		err = os.MkdirAll(crdDirectory, 0700)
+		if err != nil {
+			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", crdDirectory)
+		}
+	}
+	if _, err := os.Stat(manifestDirectory); os.IsNotExist(err) {
+		err = os.MkdirAll(manifestDirectory, 0700)
+		if err != nil {
+			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", manifestDirectory)
+		}
+	}
+
+	path := renderPathForResource(resource, yamlDirectory)
+	err = ioutil.WriteFile(path, yamlBytes, 0644)
 	if err != nil {
-		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", file)
+		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", path)
 	}
 
 	return nil
 }
 
-func yamlFilePath(resource *unstructured.Unstructured, path string) string {
+// renderPathForResource determines the appropriate YAML render path depending on the resource kind.
+func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory string) string {
+	crdDirectory := filepath.Join(yamlDirectory, "0-crd")
+	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
+
 	fileName := fmt.Sprintf("%s-%s.yaml", strings.ToLower(resource.GetKind()), resource.GetName())
-	return filepath.Join(path, fileName)
+	filepath.Join(yamlDirectory, fileName)
+
+	var path string
+	if kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
+		path = filepath.Join(crdDirectory, fileName)
+	} else {
+		path = filepath.Join(manifestDirectory, fileName)
+	}
+
+	return path
 }
