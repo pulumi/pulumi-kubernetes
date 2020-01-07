@@ -1275,6 +1275,9 @@ func (k *kubeProvider) Create(
 			return nil, err
 		}
 
+		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
+			"rendered %s", yamlFilePath(annotatedInputs, k.yamlDirectory)))
+
 		return &pulumirpc.CreateResponse{
 			Id: fqObjName(annotatedInputs), Properties: inputsAndComputed,
 		}, nil
@@ -1633,6 +1636,9 @@ func (k *kubeProvider) Update(
 			return nil, err
 		}
 
+		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
+			"rendered %s", yamlFilePath(annotatedInputs, k.yamlDirectory)))
+
 		return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 	}
 
@@ -1748,6 +1754,8 @@ func (k *kubeProvider) Delete(
 			// the user changed the directory out-of-band, so log the error to help debug this scenario.
 			glog.V(3).Infof("Failed to delete YAML file: %q - %v", file, err)
 		}
+
+		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("deleted %s", file))
 
 		return &pbempty.Empty{}, nil
 	}
