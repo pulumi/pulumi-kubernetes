@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 1.4.2 (January 7, 2020)
+
 ### Improvements
 
 -   Move YAML decode logic into provider. (https://github.com/pulumi/pulumi-kubernetes/pull/925).
