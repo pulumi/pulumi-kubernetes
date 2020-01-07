@@ -74,6 +74,7 @@ const (
 // queried separately from the k8s API server.
 func (k Kind) Namespaced() (known bool, namespaced bool) {
 	switch k {
+	// Note: Use `kubectl api-resources --namespaced=true -o name` to retrieve a list of namespace-scoped resources.
 	case Binding,
 		ConfigMap,
 		ControllerRevision,
@@ -103,6 +104,7 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		ServiceAccount,
 		StatefulSet:
 		known, namespaced = true, true
+	// Note: Use `kubectl api-resources --namespaced=false -o name` to retrieve a list of cluster-scoped resources.
 	case APIService,
 		CertificateSigningRequest,
 		ClusterRole,
