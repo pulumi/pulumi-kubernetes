@@ -1,0 +1,4 @@
+deprecated: true
+description: Chart to test .Capabilities.APIVersions
+name: apiversions-test
+version: 0.0.1
