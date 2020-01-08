@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: api-versions-test
+  namespace: {{ .Release.Namespace }}
 spec:
   containers:
   - name: api-versions-test
