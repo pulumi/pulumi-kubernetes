@@ -155,6 +155,7 @@ func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
 // `apps/v1beta1/Deployment`).
 type KindConfig struct {
 	kind                    string
+	deprecationComment      string
 	comment                 string
 	pulumiComment           string
 	properties              []*Property
@@ -174,6 +175,9 @@ type KindConfig struct {
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
 // `apps/v1beta1/Deployment`).
 func (kc *KindConfig) Kind() string { return kc.kind }
+
+// DeprecationComment returns the deprecation comment for deprecated APIs, otherwise an empty string.
+func (kc *KindConfig) DeprecationComment() string { return kc.deprecationComment }
 
 // Comment returns the comments associated with some Kubernetes API kind.
 func (kc *KindConfig) Comment() string { return kc.comment }
@@ -292,31 +296,38 @@ func stripPrefix(name string) string {
 	return strings.TrimPrefix(name, prefix)
 }
 
-func replaceDeprecationComment(comment string, gvk schema.GroupVersionKind, language language) string {
-	// The deprecation warning doesn't always appear in the same place in the OpenAPI comments.
-	// Standardize the message and where it appears in our docs.
-	re1 := regexp.MustCompile(`^DEPRECATED - .* is deprecated by .* for more information\.\s*`)
-	re2 := regexp.MustCompile(`DEPRECATED - .* is deprecated by .* for more information\.\s*`)
+// extractDeprecationComment returns the comment with deprecation comment removed and the extracted deprecation
+// comment, fixed-up for the specified language.
+func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind, language language) (string, string) {
+	if comment == nil {
+		return "", ""
+	}
 
-	var prefix, replacement string
+	commentstr, _ := comment.(string)
+	if commentstr == "" {
+		return "", ""
+	}
+
+	re := regexp.MustCompile(`DEPRECATED - .* is deprecated by .* for more information\.\s*`)
+
+	var prefix, suffix string
 	switch language {
 	case typescript:
-		prefix = "@deprecated "
-		replacement = prefix + ApiVersionComment(gvk)
+		prefix = "\n\n@deprecated "
+		suffix = ""
 	case python, dotnet:
 		prefix = "DEPRECATED - "
-		replacement = prefix + ApiVersionComment(gvk)
+		suffix = "\n\n"
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
 
-	if re1.MatchString(comment) {
-		return re1.ReplaceAllString(comment, replacement)
-	} else if re2.MatchString(comment) {
-		return prefix + ApiVersionComment(gvk) + re2.ReplaceAllString(comment, "")
-	} else {
-		return comment
+	if re.MatchString(commentstr) {
+		deprecationMessage := prefix + ApiVersionComment(gvk) + suffix
+		return re.ReplaceAllString(commentstr, ""), deprecationMessage
 	}
+
+	return commentstr, ""
 }
 
 func fmtComment(
@@ -389,8 +400,6 @@ func fmtComment(
 			`https://git.k8s.io/community/contributors/devel/api-conventions.md`,
 			`https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md`,
 			-1)
-
-		commentstr = replaceDeprecationComment(commentstr, gvk, opts.language)
 
 		split := strings.Split(commentstr, "\n")
 		var lines []string
@@ -1086,12 +1095,15 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
+			comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk, opts.language)
+
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:                 fmtComment(d.data["description"], "    ", true, opts, d.gvk),
+					deprecationComment:      fmtComment(deprecationComment, "    ", true, opts, d.gvk),
+					comment:                 fmtComment(comment, "    ", true, opts, d.gvk),
 					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), "    ", true, opts, d.gvk),
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,

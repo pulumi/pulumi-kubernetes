@@ -8,9 +8,6 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not
-     * supported by Kubernetes v1.16+ clusters.
-     * 
      * Deployment enables declarative updates for Pods and ReplicaSets.
      * 
      * This resource waits until its status is ready before registering success
@@ -34,6 +31,9 @@ import { getVersion } from "../../version";
      * If the Deployment has not reached a Ready state after 10 minutes, it will
      * time out and mark the resource update as Failed. You can override the default timeout value
      * by setting the 'customTimeouts' option on the resource.
+     * 
+     * @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not
+     * supported by Kubernetes v1.16+ clusters.
      */
     export class Deployment extends pulumi.CustomResource {
       /**

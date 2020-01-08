@@ -8,9 +8,6 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * @deprecated extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not
-     * supported by Kubernetes v1.20+ clusters.
-     * 
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
      * defined by a backend. An Ingress can be configured to give services externally-reachable
      * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
@@ -28,6 +25,9 @@ import { getVersion } from "../../version";
      * If the Ingress has not reached a Ready state after 10 minutes, it will
      * time out and mark the resource update as Failed. You can override the default timeout value
      * by setting the 'customTimeouts' option on the resource.
+     * 
+     * @deprecated extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not
+     * supported by Kubernetes v1.20+ clusters.
      */
     export class Ingress extends pulumi.CustomResource {
       /**
