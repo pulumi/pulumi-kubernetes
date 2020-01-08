@@ -9,6 +9,7 @@ from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
 import pulumi.runtime
+import yaml
 from pulumi_kubernetes.yaml import _parse_yaml_document
 
 
@@ -347,12 +348,10 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     cmd.extend(home_arg)
 
     chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
-    objects = chart_resources.apply(
-        lambda text: pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}).value['result'])
 
     # Parse the manifest and create the specified resources.
-    resources = objects.apply(
-        lambda objects: _parse_yaml_document(objects, opts, config.transformations))
+    resources = chart_resources.apply(
+        lambda yaml_str: _parse_yaml_document(yaml.safe_load_all(yaml_str), opts, config.transformations))
 
     pulumi.Output.all(file, chart_dir, resources).apply(_cleanup_temp_dir)
     return resources
