@@ -5,6 +5,7 @@
 ### Improvements
 
 -   Move YAML decode logic into provider. (https://github.com/pulumi/pulumi-kubernetes/pull/925).
+-   Improve handling of default namespaces for Helm charts. (https://github.com/pulumi/pulumi-kubernetes/pull/934).
 
 ### Bug fixes
 
