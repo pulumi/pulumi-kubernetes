@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Revert invoke changes. (https://github.com/pulumi/pulumi-kubernetes/pull/941).
+
 ## 1.4.2 (January 7, 2020)
 
 ### Improvements
