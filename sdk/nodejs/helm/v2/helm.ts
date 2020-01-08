@@ -29,7 +29,7 @@ interface BaseChartOpts {
     /**
      * The optional kubernetes api versions used for Capabilities.APIVersions.
      */
-    apiVersions?: pulumi.Input<string[]>;
+    apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The optional namespace to install chart resources into.
      */
