@@ -23,7 +23,6 @@ const nginx = new k8s.helm.v2.Chart("simple-nginx", {
     repo: "stable",
     chart: "nginx-lego",
     version: "0.3.1",
-    namespace: namespaceName,
     values: {
         // Override for the Chart's `values.yml` file. Use `null` to zero out resource requests so it
         // can be scheduled on our (wimpy) CI cluster. (Setting these values to `null` is the "normal"
@@ -42,6 +41,14 @@ const nginx = new k8s.helm.v2.Chart("simple-nginx", {
                 }
             }
         },
+        // Put every resource in the created namespace.
+        (obj: any) => {
+            if (obj.metadata !== undefined) {
+                obj.metadata.namespace = namespaceName
+            } else {
+                obj.metadata = {namespace: namespaceName}
+            }
+        }, 
         (obj: any, opts: pulumi.CustomResourceOptions) => {
             if (obj.kind == "Service" && obj.apiVersion == "v1") {
                 opts.additionalSecretOutputs = ["status"];

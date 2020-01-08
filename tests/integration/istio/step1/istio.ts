@@ -52,9 +52,9 @@ export const istio_init = new k8s.helm.v2.Chart(
     { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
 );
 
-export const crd10 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-10");
-export const crd11 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-11");
-export const crd12 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-12");
+const crd10 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-10");
+const crd11 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-11");
+const crd12 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-12");
 
 export const istio = new k8s.helm.v2.Chart(
     appName,

@@ -19,14 +19,13 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
 // decodeYaml parses a YAML string, and then returns a slice of untyped structs that can be marshalled into
-// Pulumi RPC calls. If a default namespace is specified, set that on the relevant decoded objects.
-func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]interface{}, error) {
+// Pulumi RPC calls.
+func decodeYaml(text string) ([]interface{}, error) {
 	var resources []unstructured.Unstructured
 
 	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(strings.NewReader(text)), 128)
@@ -38,30 +37,7 @@ func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientS
 			}
 			return nil, err
 		}
-		resource := unstructured.Unstructured{Object: value}
-
-		// Sometimes manifests include empty resources, so skip these.
-		if len(resource.GetKind()) == 0 || len(resource.GetAPIVersion()) == 0 {
-			continue
-		}
-
-		if len(defaultNamespace) > 0 {
-			namespaced, err := clientSet.IsNamespacedKind(resource.GroupVersionKind())
-			if err != nil {
-				if clients.IsNoNamespaceInfoErr(err) {
-					// Assume resource is namespaced.
-					namespaced = true
-				} else {
-					return nil, err
-				}
-			}
-
-			// Set namespace if resource Kind is namespaced and namespace is not already set.
-			if namespaced && len(resource.GetNamespace()) == 0 {
-				resource.SetNamespace(defaultNamespace)
-			}
-		}
-		resources = append(resources, resource)
+		resources = append(resources, unstructured.Unstructured{Object: value})
 	}
 
 	result := make([]interface{}, len(resources))

@@ -206,8 +206,7 @@ export class Chart extends yaml.CollectionComponentResource {
                         maxBuffer: 512 * 1024 * 1024 // 512 MB
                     },
                 ).toString();
-                return this.parseTemplate(
-                    yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps, cfg.namespace);
+                return this.parseTemplate(yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps);
             } catch (e) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
@@ -224,10 +223,9 @@ export class Chart extends yaml.CollectionComponentResource {
         transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] | undefined,
         resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
-        defaultNamespace: string | undefined,
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
         const promise = pulumi.runtime.invoke(
-            "kubernetes:yaml:decode", {text, defaultNamespace}, {async: true});
+            "kubernetes:yaml:decode", {text}, {async: true});
         return pulumi.output(promise).apply(p => yaml.parse(
             {
                 resourcePrefix: resourcePrefix,
