@@ -33109,8 +33109,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage
 
     }
     /// <summary>
-    /// DEPRECATED - storage/v1beta1/CSINode is deprecated by storage/v1beta1/CSINode and not
-    /// supported by Kubernetes v&amp;lt;nil&amp;gt;+ clusters.
+    /// DEPRECATED - storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.
     /// 
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
