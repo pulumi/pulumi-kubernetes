@@ -175,7 +175,6 @@ func ApiVersionComment(gvk schema.GroupVersionKind) string {
 	} else {
 		comment += "."
 	}
-	comment += "\n\n"
 
 	return comment
 }

@@ -8,9 +8,6 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
-     * by Kubernetes v1.16+ clusters.
-     * 
      * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.
      *  - Storage: As many VolumeClaims as requested.
@@ -29,6 +26,9 @@ import { getVersion } from "../../version";
      * If the StatefulSet has not reached a Ready state after 10 minutes, it will
      * time out and mark the resource update as Failed. You can override the default timeout value
      * by setting the 'customTimeouts' option on the resource.
+     * 
+     * @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+     * by Kubernetes v1.16+ clusters.
      */
     export class StatefulSet extends pulumi.CustomResource {
       /**

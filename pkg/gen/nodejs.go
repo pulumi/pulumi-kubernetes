@@ -81,6 +81,7 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 					versionTS.Kinds = make(map[string]string)
 				}
 				inputMap := map[string]interface{}{
+					"DeprecationComment":      kind.DeprecationComment(),
 					"Comment":                 kind.Comment(),
 					"Group":                   group.Group(),
 					"Kind":                    kind.Kind(),
@@ -91,7 +92,7 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 					"Aliases":                 kind.Aliases(),
 					"URNAPIVersion":           kind.URNAPIVersion(),
 					"Version":                 version.Version(),
-					"PulumiComment":           kind.pulumiComment,
+					"PulumiComment":           kind.PulumiComment(),
 				}
 				// Since mustache templates are logic-less, we have to add some extra variables
 				// to selectively disable code generation for empty lists.

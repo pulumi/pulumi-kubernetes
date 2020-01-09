@@ -105,6 +105,7 @@ func DotnetClient(
 			for _, kind := range version.TopLevelKinds() {
 				inputMap := map[string]interface{}{
 					"RawAPIVersion":           kind.RawAPIVersion(),
+					"DeprecationComment":      kind.DeprecationComment(),
 					"Comment":                 kind.Comment(),
 					"Group":                   group.Group(),
 					"Kind":                    kind.Kind(),
@@ -115,7 +116,7 @@ func DotnetClient(
 					"Aliases":                 kind.Aliases(),
 					"URNAPIVersion":           kind.URNAPIVersion(),
 					"Version":                 version.Version(),
-					"PulumiComment":           kind.pulumiComment,
+					"PulumiComment":           kind.PulumiComment(),
 				}
 				// Since mustache templates are logic-less, we have to add some extra variables
 				// to selectively disable code generation for empty lists.

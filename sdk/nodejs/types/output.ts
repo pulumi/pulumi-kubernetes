@@ -4002,9 +4002,6 @@ export namespace apps {
 
   export namespace v1beta1 {
     /**
-     * @deprecated apps/v1beta1/ControllerRevision is deprecated by apps/v1/ControllerRevision and
-     * not supported by Kubernetes v1.16+ clusters.
-     * 
      * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
      * for serializing and deserializing the objects that contain their internal state. Once a
      * ControllerRevision has been successfully created, it can not be updated. The API Server will
@@ -4013,6 +4010,9 @@ export namespace apps {
      * controllers for update and rollback, this object is beta. However, it may be subject to name
      * and representation changes in future releases, and clients should not depend on its
      * stability. It is primarily for internal use by controllers.
+     * 
+     * @deprecated apps/v1beta1/ControllerRevision is deprecated by apps/v1/ControllerRevision and
+     * not supported by Kubernetes v1.16+ clusters.
      */
     export interface ControllerRevision {
       /**
@@ -4083,10 +4083,10 @@ export namespace apps {
     }
 
     /**
+     * Deployment enables declarative updates for Pods and ReplicaSets.
+     * 
      * @deprecated apps/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by
      * Kubernetes v1.16+ clusters.
-     * 
-     * Deployment enables declarative updates for Pods and ReplicaSets.
      */
     export interface Deployment {
       /**
@@ -4490,14 +4490,14 @@ export namespace apps {
     }
 
     /**
-     * @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
-     * by Kubernetes v1.16+ clusters.
-     * 
      * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.
      *  - Storage: As many VolumeClaims as requested.
      * The StatefulSet guarantees that a given network identity will always map to the same storage
      * identity.
+     * 
+     * @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+     * by Kubernetes v1.16+ clusters.
      */
     export interface StatefulSet {
       /**
@@ -4742,9 +4742,6 @@ export namespace apps {
 
   export namespace v1beta2 {
     /**
-     * @deprecated apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and
-     * not supported by Kubernetes v1.16+ clusters.
-     * 
      * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
      * for serializing and deserializing the objects that contain their internal state. Once a
      * ControllerRevision has been successfully created, it can not be updated. The API Server will
@@ -4753,6 +4750,9 @@ export namespace apps {
      * controllers for update and rollback, this object is beta. However, it may be subject to name
      * and representation changes in future releases, and clients should not depend on its
      * stability. It is primarily for internal use by controllers.
+     * 
+     * @deprecated apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and
+     * not supported by Kubernetes v1.16+ clusters.
      */
     export interface ControllerRevision {
       /**
@@ -4823,10 +4823,10 @@ export namespace apps {
     }
 
     /**
+     * DaemonSet represents the configuration of a daemon set.
+     * 
      * @deprecated apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by
      * Kubernetes v1.16+ clusters.
-     * 
-     * DaemonSet represents the configuration of a daemon set.
      */
     export interface DaemonSet {
       /**
@@ -5051,10 +5051,10 @@ export namespace apps {
     }
 
     /**
+     * Deployment enables declarative updates for Pods and ReplicaSets.
+     * 
      * @deprecated apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by
      * Kubernetes v1.16+ clusters.
-     * 
-     * Deployment enables declarative updates for Pods and ReplicaSets.
      */
     export interface Deployment {
       /**
@@ -5283,10 +5283,10 @@ export namespace apps {
     }
 
     /**
+     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+     * 
      * @deprecated apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by
      * Kubernetes v1.16+ clusters.
-     * 
-     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */
     export interface ReplicaSet {
       /**
@@ -5608,14 +5608,14 @@ export namespace apps {
     }
 
     /**
-     * @deprecated apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
-     * by Kubernetes v1.16+ clusters.
-     * 
      * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.
      *  - Storage: As many VolumeClaims as requested.
      * The StatefulSet guarantees that a given network identity will always map to the same storage
      * identity.
+     * 
+     * @deprecated apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported
+     * by Kubernetes v1.16+ clusters.
      */
     export interface StatefulSet {
       /**
@@ -16483,10 +16483,10 @@ export namespace extensions {
     }
 
     /**
+     * DaemonSet represents the configuration of a daemon set.
+     * 
      * @deprecated extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not supported
      * by Kubernetes v1.16+ clusters.
-     * 
-     * DaemonSet represents the configuration of a daemon set.
      */
     export interface DaemonSet {
       /**
@@ -16717,10 +16717,10 @@ export namespace extensions {
     }
 
     /**
+     * Deployment enables declarative updates for Pods and ReplicaSets.
+     * 
      * @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not
      * supported by Kubernetes v1.16+ clusters.
-     * 
-     * Deployment enables declarative updates for Pods and ReplicaSets.
      */
     export interface Deployment {
       /**
@@ -17102,12 +17102,12 @@ export namespace extensions {
     }
 
     /**
-     * @deprecated extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not
-     * supported by Kubernetes v1.20+ clusters.
-     * 
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
      * defined by a backend. An Ingress can be configured to give services externally-reachable
      * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
+     * 
+     * @deprecated extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not
+     * supported by Kubernetes v1.20+ clusters.
      */
     export interface Ingress {
       /**
@@ -17734,10 +17734,10 @@ export namespace extensions {
     }
 
     /**
+     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+     * 
      * @deprecated extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not
      * supported by Kubernetes v1.16+ clusters.
-     * 
-     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */
     export interface ReplicaSet {
       /**
@@ -23219,8 +23219,6 @@ export namespace storage {
     }
 
     /**
-     * @deprecated storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.
-     * 
      * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
      * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
      * container, the kubelet will automatically populate the CSINode object for the CSI driver as
@@ -23228,6 +23226,8 @@ export namespace storage {
      * missing, it means either there are no CSI Drivers available on the node, or the Kubelet
      * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
      * points to the corresponding node object.
+     * 
+     * @deprecated storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.
      */
     export interface CSINode {
       /**
