@@ -106,7 +106,8 @@ type kubeProvider struct {
 	suppressDeprecationWarnings bool
 	enableSecrets               bool
 
-	config *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
+	clusterReachable bool         // Kubernetes cluster is reachable
+	config           *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
 
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
@@ -316,18 +317,23 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.suppressDeprecationWarnings = true
 	}
 
+	// Assume cluster is reachable. We will verify later in this function.
+	k.clusterReachable = true
+
 	var kubeconfig clientcmd.ClientConfig
 	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
 		config, err := clientcmd.Load([]byte(configJSON))
 		if err != nil {
-			return nil, pkgerrors.Wrap(err, "failed to parse kubeconfig data in "+
+			k.clusterReachable = false
+			glog.V(3).Infof(fmt.Sprintf("failed to parse kubeconfig data in "+
 				"`kubernetes:config:kubeconfig`; this must be a YAML literal string and not "+
-				"a filename or path")
-		}
-		kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
-		configurationNamespace, _, err := kubeconfig.Namespace()
-		if err == nil {
-			k.defaultNamespace = configurationNamespace
+				"a filename or path - %v", err))
+		} else {
+			kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
+			configurationNamespace, _, err := kubeconfig.Namespace()
+			if err == nil {
+				k.defaultNamespace = configurationNamespace
+			}
 		}
 	} else {
 		// Use client-go to resolve the final configuration values for the client. Typically these
@@ -343,28 +349,36 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.defaultNamespace = defaultNamespace
 	}
 
-	config, err := kubeconfig.ClientConfig()
-	if err != nil {
-		return nil, fmt.Errorf("unable to load Kubernetes client configuration from kubeconfig file: %v", err)
+	if kubeconfig == nil {
+		k.clusterReachable = false
+	} else {
+		config, err := kubeconfig.ClientConfig()
+		if err != nil {
+			glog.V(3).Infof("unable to load Kubernetes client configuration from kubeconfig file: %v", err)
+			k.clusterReachable = false
+		} else {
+			k.config = config
+		}
 	}
-	k.config = config
 
-	cs, err := clients.NewDynamicClientSet(k.config)
-	if err != nil {
-		return nil, err
-	}
-	k.clientSet = cs
+	if k.clusterReachable {
+		cs, err := clients.NewDynamicClientSet(k.config)
+		if err != nil {
+			return nil, err
+		}
+		k.clientSet = cs
 
-	lc, err := clients.NewLogClient(k.config)
-	if err != nil {
-		return nil, err
-	}
-	k.logClient = lc
+		lc, err := clients.NewLogClient(k.config)
+		if err != nil {
+			return nil, err
+		}
+		k.logClient = lc
 
-	k.k8sVersion = cluster.GetServerVersion(cs.DiscoveryClientCached)
+		k.k8sVersion = cluster.GetServerVersion(cs.DiscoveryClientCached)
 
-	if _, err = k.getResources(); err != nil {
-		return nil, fmt.Errorf("unable to load schema information from the API server: %v", err)
+		if _, err = k.getResources(); err != nil {
+			return nil, fmt.Errorf("unable to load schema information from the API server: %v", err)
+		}
 	}
 
 	return &pulumirpc.ConfigureResponse{
@@ -376,6 +390,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 func (k *kubeProvider) Invoke(ctx context.Context,
 	req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 
+	if !k.clusterReachable {
+		return nil, fmt.Errorf("kubernetes cluster is unreachable")
+	}
+
 	// Always fail.
 	tok := req.GetTok()
 	return nil, fmt.Errorf("Unknown Invoke type '%s'", tok)
@@ -385,6 +403,10 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 // back as a series of messages.
 func (k *kubeProvider) StreamInvoke(
 	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
+
+	if !k.clusterReachable {
+		return fmt.Errorf("kubernetes cluster is unreachable")
+	}
 
 	// Unmarshal arguments.
 	tok := req.GetTok()
@@ -705,6 +727,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// is given to it if it's not already provided.
 	//
 
+	if !k.clusterReachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+	}
+
 	// Utilities for determining whether a resource's GVK exists.
 	gvkExists := func(gvk schema.GroupVersionKind) bool {
 		knownGVKs := sets.NewString()
@@ -913,6 +939,10 @@ func (k *kubeProvider) Diff(
 	// (which is not true of the old computed values).
 	//
 
+	if !k.clusterReachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+	}
+
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
@@ -1104,6 +1134,11 @@ func (k *kubeProvider) Create(
 	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
 	//   comments in those methods for details.
 	//
+
+	if !k.clusterReachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+	}
+
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
@@ -1226,6 +1261,10 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
 	//   comments in those methods for details.
 	//
+
+	if !k.clusterReachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+	}
 
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Read(%s)", k.label(), urn)
@@ -1432,6 +1471,10 @@ func (k *kubeProvider) Update(
 	// - [ ] Support server-side apply, when it comes out.
 	//
 
+	if !k.clusterReachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+	}
+
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
@@ -1546,6 +1589,11 @@ func (k *kubeProvider) Update(
 func (k *kubeProvider) Delete(
 	ctx context.Context, req *pulumirpc.DeleteRequest,
 ) (*pbempty.Empty, error) {
+
+	if !k.clusterReachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+	}
+
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Delete(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
