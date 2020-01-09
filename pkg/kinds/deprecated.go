@@ -125,6 +125,13 @@ func SuggestedApiVersion(gvk schema.GroupVersionKind) string {
 	case schema.GroupVersion{Group: "scheduling", Version: "v1beta1"},
 		schema.GroupVersion{Group: "scheduling", Version: "v1alpha1"}:
 		return "scheduling/v1/" + gvk.Kind
+	case schema.GroupVersion{Group: "storage", Version: "v1beta1"}:
+		switch Kind(gvk.Kind) {
+		case CSINode:
+			return "storage/v1/" + gvk.Kind
+		default:
+			return gvkStr(gvk)
+		}
 	default:
 		return gvkStr(gvk)
 	}

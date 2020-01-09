@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Fix deprecation notice for CSINode. (https://github.com/pulumi/pulumi-kubernetes/pull/944).
+
 ## 1.4.3 (January 8, 2020)
 
 ### Bug fixes

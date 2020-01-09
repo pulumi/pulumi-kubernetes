@@ -25,6 +25,7 @@ const (
 	CustomResourceDefinition       Kind = "CustomResourceDefinition"
 	ConfigMap                      Kind = "ConfigMap"
 	CronJob                        Kind = "CronJob"
+	CSINode                        Kind = "CSINode"
 	DaemonSet                      Kind = "DaemonSet"
 	Deployment                     Kind = "Deployment"
 	Endpoints                      Kind = "Endpoints"
