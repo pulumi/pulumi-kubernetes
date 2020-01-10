@@ -198,9 +198,7 @@ export class Chart extends yaml.CollectionComponentResource {
                     ? `--api-versions={${cfg.apiVersions
                         .map(apiVersion => shell.quote([apiVersion]))
                         .join(',')}}`
-                    : `--api-versions=${cfg.apiVersions
-                        .map(apiVersion => shell.quote([apiVersion]))
-                        .join(',')}`
+                    : `--api-versions=${shell.quote(cfg.apiVersions)}`
                   : '';
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
