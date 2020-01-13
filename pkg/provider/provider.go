@@ -823,7 +823,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
 	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
 	if k.defaultNamespace != "" && len(newInputs.GetNamespace()) == 0 {
-		namespacedKind, err := k.clientSet.IsNamespacedKind(gvk)
+		namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
 				// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -946,7 +946,7 @@ func (k *kubeProvider) Diff(
 		return nil, err
 	}
 
-	namespacedKind, err := k.clientSet.IsNamespacedKind(gvk)
+	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 	if err != nil {
 		if clients.IsNoNamespaceInfoErr(err) {
 			// This is probably a CustomResource without a registered CustomResourceDefinition.

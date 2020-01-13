@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Improve namespaced Kind check. (https://github.com/pulumi/pulumi-kubernetes/pull/947).
+
 ### Bug fixes
 
 -   Fix deprecation notice for CSINode. (https://github.com/pulumi/pulumi-kubernetes/pull/944).
