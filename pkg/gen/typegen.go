@@ -16,6 +16,7 @@
 package gen
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -28,6 +29,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 
 	pycodegen "github.com/pulumi/pulumi/pkg/codegen/python"
+	pschema "github.com/pulumi/pulumi/pkg/codegen/schema"
+	"github.com/pulumi/pulumi/pkg/util/contract"
 )
 
 const (
@@ -62,6 +65,14 @@ type GroupConfig struct {
 
 // Group returns the name of the group (e.g., `core` for core, etc.)
 func (gc GroupConfig) Group() string { return gc.group }
+
+// URNGroup returns a group version that can be used in a URN.
+func (gc *GroupConfig) URNGroup() string {
+	if strings.HasPrefix(gc.group, apiRegistration) {
+		return "apiregistration" + strings.TrimPrefix(gc.group, apiRegistration)
+	}
+	return gc.group
+}
 
 // Versions returns the set of version for some Kubernetes API group. For example, the `apps` group
 // has `v1beta1`, `v1beta2`, and `v1`.
@@ -320,6 +331,8 @@ func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind,
 	case python, dotnet:
 		prefix = "DEPRECATED - "
 		suffix = "\n\n"
+	case pulumiSchema:
+		// do nothing
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
@@ -386,6 +399,13 @@ func fmtComment(
 				return fmt.Sprintf("/// <summary>\n%s/// %s\n%s/// </summary>", prefix, joined, prefix)
 			}
 			return joined
+		}
+	case pulumiSchema:
+		wrapParagraph = func(paragraph string) []string {
+			return strings.Split(paragraph, "\n")
+		}
+		renderComment = func(lines []string) string {
+			return strings.Join(lines, "\n")
 		}
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
@@ -777,6 +797,88 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(gvkRefStr)
 }
 
+func makeSchemaTypeSpec(resourceType, propName string, prop map[string]interface{}) pschema.TypeSpec {
+	if t, exists := prop["type"]; exists {
+		switch t := t.(string); t {
+		case "array":
+			elemSpec := makeSchemaTypeSpec(resourceType, propName, prop["items"].(map[string]interface{}))
+			return pschema.TypeSpec{
+				Type:  "array",
+				Items: &elemSpec,
+			}
+		case "object":
+			additionalProperties, ok := prop["additionalProperties"]
+			if !ok {
+				return pschema.TypeSpec{Type: "object"}
+			}
+
+			elemSpec := makeSchemaTypeSpec(resourceType, propName, additionalProperties.(map[string]interface{}))
+			return pschema.TypeSpec{
+				Type:                 "object",
+				AdditionalProperties: &elemSpec,
+			}
+		default:
+			return pschema.TypeSpec{Type: t}
+		}
+	}
+
+	ref := stripPrefix(prop["$ref"].(string))
+	switch ref {
+	case quantity:
+		return pschema.TypeSpec{Type: "string"}
+	case intOrString:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Type: "number"},
+			{Type: "string"},
+		}}
+	case v1Fields, v1FieldsV1, rawExtension:
+		return pschema.TypeSpec{
+			Type:                 "object",
+			AdditionalProperties: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+		}
+	case v1Time, v1MicroTime:
+		return pschema.TypeSpec{Type: "string"}
+	case v1beta1JSONSchemaPropsOrBool:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions/v1beta1/JSONSchemaProps:JSONSchemaProps"},
+			{Type: "boolean"},
+		}}
+	case v1JSONSchemaPropsOrBool:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions/v1/JSONSchemaProps:JSONSchemaProps"},
+			{Type: "boolean"},
+		}}
+	case v1beta1JSONSchemaPropsOrArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions/v1beta1/JSONSchemaProps:JSONSchemaProps"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+			},
+		}}
+	case v1JSONSchemaPropsOrArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions/v1/JSONSchemaProps:JSONSchemaProps"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+			},
+		}}
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+		return pschema.TypeSpec{Ref: "pulumi.json#/Any"}
+	}
+
+	gvk := gvkFromRef(ref)
+	return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s", gvk.Group, gvk.Version, gvk.Kind)}
+}
+
+func makeSchemaType(resourceType, propName string, prop map[string]interface{}) string {
+	spec := makeSchemaTypeSpec(resourceType, propName, prop)
+	b, err := json.Marshal(spec)
+	contract.Assert(err == nil)
+	return string(b)
+}
+
 func makeTypes(resourceType, propName string, prop map[string]interface{}, language language) (string, string, string) {
 	inputsAPIType := makeType(resourceType, propName, prop, language, inputsAPI)
 	outputsAPIType := makeType(resourceType, propName, prop, language, outputsAPI)
@@ -792,6 +894,8 @@ func makeType(resourceType, propName string, prop map[string]interface{}, langua
 		return makePythonType(resourceType, propName, prop, gentype)
 	case dotnet:
 		return makeDotnetType(resourceType, propName, prop, gentype, false)
+	case pulumiSchema:
+		return makeSchemaType(resourceType, propName, prop)
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
@@ -893,6 +997,7 @@ const (
 	python     language = "python"
 	typescript language = "typescript"
 	dotnet     language = "dotnet"
+	pulumiSchema language = "pulumi"
 )
 
 type groupOpts struct {
@@ -902,6 +1007,7 @@ type groupOpts struct {
 func nodeJSOpts() groupOpts { return groupOpts{language: typescript} }
 func pythonOpts() groupOpts { return groupOpts{language: python} }
 func dotnetOpts() groupOpts { return groupOpts{language: dotnet} }
+func schemaOpts() groupOpts { return groupOpts{language: pulumiSchema} }
 
 func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
@@ -1046,6 +1152,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 						if strings.HasPrefix(inputsAPIType, "InputList") || strings.HasPrefix(inputsAPIType, "InputMap") {
 							isListOrMap = true
 						}
+					case pulumiSchema:
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, pulumiSchema)
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
@@ -1095,6 +1203,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 						}
 						defaultValue = ""
 						dotnetVarName = "@" + name
+					case pulumiSchema:
+						languageName = propName
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}

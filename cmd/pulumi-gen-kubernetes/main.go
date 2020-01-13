@@ -70,6 +70,8 @@ func main() {
 		writePythonClient(data, outdir, templateDir)
 	case "dotnet":
 		writeDotnetClient(data, outdir, templateDir)
+	case "pulumi":
+		writePulumiSchema(data)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -304,6 +306,15 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	err = CopyFile(
 		filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(outdir, "Pulumi.Kubernetes.csproj"))
 	if err != nil {
+		panic(err)
+	}
+}
+
+func writePulumiSchema(data map[string]interface{}) {
+	pkg := gen.PulumiSchema(data)
+	enc := json.NewEncoder(os.Stdout)
+	enc.SetIndent("", "    ")
+	if err := enc.Encode(pkg); err != nil {
 		panic(err)
 	}
 }
