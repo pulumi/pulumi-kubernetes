@@ -390,8 +390,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 func (k *kubeProvider) Invoke(ctx context.Context,
 	req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 
+	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
+	// inputs may not have resolved yet. Rather than returning an error here, any invoke logic must
+	// not assume that a cluster is accessible.
 	if !k.clusterReachable {
-		return nil, fmt.Errorf("kubernetes cluster is unreachable")
+		glog.V(3).Infof(
+			"configured Kubernetes cluster is unreachable. Invoke call logic may operate in a degraded state.")
 	}
 
 	// Always fail.
@@ -404,8 +408,13 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 func (k *kubeProvider) StreamInvoke(
 	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
 
+	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
+	// inputs may not have resolved yet. Rather than returning an error here, any invoke logic must
+	// not assume that a cluster is accessible.
 	if !k.clusterReachable {
-		return fmt.Errorf("kubernetes cluster is unreachable")
+		glog.V(3).Infof(
+			"configured Kubernetes cluster is unreachable. StreamInvoke call logic may operate " +
+				"in a degraded state.")
 	}
 
 	// Unmarshal arguments.
