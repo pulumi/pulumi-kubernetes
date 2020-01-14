@@ -90,7 +90,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	// For namespaced Kinds, create a namespaced client. If no namespace is provided, use the "default" namespace.
-	namespaced, err := dcs.IsNamespacedKind(gvk)
+	namespaced, err := IsNamespacedKind(gvk, dcs)
 	if err != nil {
 		return nil, err
 	}
@@ -157,13 +157,25 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 	return nil, nil, false
 }
 
-func (dcs *DynamicClientSet) IsNamespacedKind(gvk schema.GroupVersionKind) (bool, error) {
+// IsNamespacedKind checks if a given GVK is namespace-scoped. Known GVKs are compared against a static lookup table.
+// For GVKs not in the table, attempt to look up the GVK from the API server. If the GVK cannot be found, a
+// NoNamespaceInfoErr is returned.
+func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet) (bool, error) {
 	gv := gvk.GroupVersion().String()
 	if strings.Contains(gv, "core/v1") {
 		gv = "v1"
 	}
 
-	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
+	if known, namespaced := kinds.Kind(gvk.Kind).Namespaced(); known {
+		return namespaced, nil
+	}
+
+	// If the Kind is not known, attempt to look up from the API server. This applies to Kinds defined using a CRD.
+	// If the API server is not reachable, return an error.
+	if clientSet == nil {
+		return false, &NoNamespaceInfoErr{gvk}
+	}
+	resourceList, err := clientSet.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
 	if err != nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
