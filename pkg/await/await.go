@@ -432,7 +432,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	err = deleteResource(c.Name, client, cluster.GetServerVersion(c.ClientSet.DiscoveryClientCached))
+	err = deleteResource(c.Name, client, cluster.TryGetServerVersion(c.ClientSet.DiscoveryClientCached))
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}

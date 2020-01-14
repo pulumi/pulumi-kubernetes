@@ -141,7 +141,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	}
 	defer endpointWatcher.Stop()
 
-	version := cluster.GetServerVersion(sia.config.clientSet.DiscoveryClientCached)
+	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
 	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultServiceTimeoutMins*60)
 	return sia.await(serviceWatcher, endpointWatcher, time.After(timeout), make(chan struct{}), version)
@@ -176,7 +176,7 @@ func (sia *serviceInitAwaiter) Read() error {
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	version := cluster.GetServerVersion(sia.config.clientSet.DiscoveryClientCached)
+	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
 	return sia.read(service, endpointList, version)
 }
