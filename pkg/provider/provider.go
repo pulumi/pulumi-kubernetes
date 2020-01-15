@@ -371,7 +371,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.k8sVersion = cluster.TryGetServerVersion(cs.DiscoveryClientCached)
 
 		if _, err = k.getResources(); err != nil {
-			return nil, fmt.Errorf("unable to load schema information from the API server: %v", err)
+			k.clusterUnreachable = true
+			glog.V(3).Infof("unable to load schema information from the API server: %v", err)
 		}
 	}
 
