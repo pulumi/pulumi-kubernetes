@@ -321,14 +321,19 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
 		config, err := clientcmd.Load([]byte(configJSON))
 		if err != nil {
-			return nil, pkgerrors.Wrap(err, "failed to parse kubeconfig data in "+
+			// Rather than erroring out here, mark the cluster as unreachable and conditionally bail out on
+			// operations that require a valid cluster. This will allow us to perform invoke operations
+			// using the default provider.
+			k.clusterUnreachable = true
+			glog.V(3).Infof(fmt.Sprintf("failed to parse kubeconfig data in "+
 				"`kubernetes:config:kubeconfig`; this must be a YAML literal string and not "+
-				"a filename or path")
-		}
-		kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
-		configurationNamespace, _, err := kubeconfig.Namespace()
-		if err == nil {
-			k.defaultNamespace = configurationNamespace
+				"a filename or path - %v", err))
+		} else {
+			kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
+			configurationNamespace, _, err := kubeconfig.Namespace()
+			if err == nil {
+				k.defaultNamespace = configurationNamespace
+			}
 		}
 	} else {
 		// Use client-go to resolve the final configuration values for the client. Typically these
@@ -344,28 +349,30 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.defaultNamespace = defaultNamespace
 	}
 
-	config, err := kubeconfig.ClientConfig()
-	if err != nil {
-		return nil, fmt.Errorf("unable to load Kubernetes client configuration from kubeconfig file: %v", err)
-	}
-	k.config = config
+	if !k.clusterUnreachable {
+		config, err := kubeconfig.ClientConfig()
+		if err != nil {
+			return nil, fmt.Errorf("unable to load Kubernetes client configuration from kubeconfig file: %v", err)
+		}
+		k.config = config
 
-	cs, err := clients.NewDynamicClientSet(k.config)
-	if err != nil {
-		return nil, err
-	}
-	k.clientSet = cs
+		cs, err := clients.NewDynamicClientSet(k.config)
+		if err != nil {
+			return nil, err
+		}
+		k.clientSet = cs
 
-	lc, err := clients.NewLogClient(k.config)
-	if err != nil {
-		return nil, err
-	}
-	k.logClient = lc
+		lc, err := clients.NewLogClient(k.config)
+		if err != nil {
+			return nil, err
+		}
+		k.logClient = lc
 
-	k.k8sVersion = cluster.TryGetServerVersion(cs.DiscoveryClientCached)
+		k.k8sVersion = cluster.TryGetServerVersion(cs.DiscoveryClientCached)
 
-	if _, err = k.getResources(); err != nil {
-		return nil, fmt.Errorf("unable to load schema information from the API server: %v", err)
+		if _, err = k.getResources(); err != nil {
+			return nil, fmt.Errorf("unable to load schema information from the API server: %v", err)
+		}
 	}
 
 	return &pulumirpc.ConfigureResponse{
