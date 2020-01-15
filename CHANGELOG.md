@@ -6,7 +6,7 @@
 
 ### Bug fixes
 
--   Return error from provider for inaccessible k8s cluster. (https://github.com/pulumi/pulumi-kubernetes/pull/946).
+-   Gracefully handle unreachable k8s cluster. (https://github.com/pulumi/pulumi-kubernetes/pull/946).
 -   Fix deprecation notice for CSINode. (https://github.com/pulumi/pulumi-kubernetes/pull/944).
 
 ## 1.4.3 (January 8, 2020)
