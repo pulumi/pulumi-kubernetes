@@ -83,12 +83,5 @@ func TestProvider(t *testing.T) {
 			assert.NotEqual(t, providerNsName.(string), namespacedPodNamespace.(string))
 			assert.Equal(t, ns2Name.(string), namespacedPodNamespace.(string))
 		},
-		EditDirs: []integration.EditDir{
-			{
-				Dir:           "step2",
-				Additive:      false,
-				ExpectFailure: true,
-			},
-		},
 	})
 }
