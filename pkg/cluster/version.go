@@ -54,9 +54,9 @@ func (v ServerVersion) Compare(version ServerVersion) int {
 	return res
 }
 
-// GetServerVersion attempts to retrieve the server version from k8s.
+// TryGetServerVersion attempts to retrieve the server version from k8s.
 // Returns the configured default version in case this fails.
-func GetServerVersion(cdi discovery.CachedDiscoveryInterface) ServerVersion {
+func TryGetServerVersion(cdi discovery.CachedDiscoveryInterface) ServerVersion {
 	defaultSV := ServerVersion{
 		Major: 1,
 		Minor: 14,
