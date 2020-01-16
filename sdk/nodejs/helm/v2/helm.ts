@@ -27,6 +27,10 @@ import * as yaml from "../../yaml/index";
 
 interface BaseChartOpts {
     /**
+     * The optional kubernetes api versions used for Capabilities.APIVersions.
+     */
+    apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
      * The optional namespace to install chart resources into.
      */
     namespace?: pulumi.Input<string>;
@@ -189,10 +193,17 @@ export class Chart extends yaml.CollectionComponentResource {
                 // > is done.
                 const release = shell.quote([releaseName]);
                 const values = path.quotePath(overrides.name);
+                const apiVersionsArgs = cfg.apiVersions
+                  ? cfg.apiVersions.length > 1
+                    ? `--api-versions={${cfg.apiVersions
+                        .map(apiVersion => shell.quote([apiVersion]))
+                        .join(',')}}`
+                    : `--api-versions=${shell.quote(cfg.apiVersions)}`
+                  : '';
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
-                let cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`;
+                let cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
 
                 // Use the HELM_HOME environment variable value if set.
                 const home = process.env.HELM_HOME || undefined;
