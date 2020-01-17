@@ -120,7 +120,7 @@ import * as outputs from "../types/output";
         resourcePrefix?: string;
     }
 
-    function yamlLoadAll(text: string, provider?: pulumi.ProviderResource | undefined): Promise<any[]> {
+    function yamlLoadAll(text: string): Promise<any[]> {
         const promise = pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, {async: true});
         return promise.then(p => p.result);
     }
