@@ -4,9 +4,9 @@
         "@types/node": "latest"
     },
     "dependencies": {
-        "@pulumi/gcp": "latest",
+        "@pulumi/gcp": "feature-2.0",
         "@pulumi/kubernetes": "latest",
-        "@pulumi/pulumi": "latest",
-        "@pulumi/random": "latest"
+        "@pulumi/pulumi": "feature-2.0",
+        "@pulumi/random": "feature-2.0"
     }
 }
