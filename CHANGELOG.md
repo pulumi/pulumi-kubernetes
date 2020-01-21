@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 1.4.4 (January 21, 2020)
+
 ### Improvements
 
 -   Improve namespaced Kind check. (https://github.com/pulumi/pulumi-kubernetes/pull/947).
