@@ -164,7 +164,7 @@ func TestAccHelmApiVersions(t *testing.T) {
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
 				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
+				assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
 			},
 		})
 
@@ -181,7 +181,7 @@ func TestAccHelmLocal(t *testing.T) {
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
 				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
+				assert.Equal(t, 16, len(stackInfo.Deployment.Resources))
 			},
 		})
 

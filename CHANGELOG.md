@@ -3,6 +3,9 @@
 ### Improvements
 
 -   Improve namespaced Kind check. (https://github.com/pulumi/pulumi-kubernetes/pull/947).
+-   Add helm template `apiVersions` flag. (https://github.com/pulumi/pulumi-kubernetes/pull/894)
+-   Move YAML decode logic into provider and improve handling of default namespaces for Helm charts. (https://github.com
+/pulumi/pulumi-kubernetes/pull/952).
 
 ### Bug fixes
 
@@ -27,10 +30,6 @@
 -   Fix panic condition in Ingress await logic. (https://github.com/pulumi/pulumi-kubernetes/pull/928).
 -   Fix deprecation warnings and docs. (https://github.com/pulumi/pulumi-kubernetes/pull/929).
 -   Fix projection of array-valued output properties in .NET. (https://github.com/pulumi/pulumi-kubernetes/pull/931)
-
-### Improvements
-
--   Add helm template `apiVersions` flag. (https://github.com/pulumi/pulumi-kubernetes/pull/894)
 
 ## 1.4.1 (December 17, 2019)
 
