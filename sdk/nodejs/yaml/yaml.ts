@@ -182,9 +182,9 @@ import * as outputs from "../types/output";
         }
 
         if (config.objs !== undefined) {
-            const objs= Array.isArray(config.objs) ? config.objs: [config.objs];
-                const docResources = parseYamlDocument({objs: objs, transformations: config.transformations}, opts);
-                resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
+            const objs = Array.isArray(config.objs) ? config.objs: [config.objs];
+            const docResources = parseYamlDocument({objs, transformations: config.transformations}, opts);
+            resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
         }
 
         return resources;

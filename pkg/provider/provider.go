@@ -404,7 +404,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		if textArg := args["text"]; textArg.HasValue() && textArg.IsString() {
 			text = textArg.StringValue()
 		} else {
-			return nil, fmt.Errorf("missing required field 'text' on input: %#v", args)
+			return nil, pkgerrors.New("missing required field 'text' of type string")
 		}
 		if defaultNsArg := args["defaultNamespace"]; defaultNsArg.HasValue() && defaultNsArg.IsString() {
 			defaultNamespace = defaultNsArg.StringValue()
