@@ -83,11 +83,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.node.v1alpha1.RuntimeClass, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["spec"] = args && args.spec || undefined;
+          props["spec"] = args?.spec;
 
           props["apiVersion"] = "node.k8s.io/v1alpha1";
           props["kind"] = "RuntimeClass";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

@@ -95,13 +95,13 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.discovery.v1beta1.EndpointSlice, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["addressType"] = args && args.addressType || undefined;
-          props["endpoints"] = args && args.endpoints || undefined;
+          props["addressType"] = args?.addressType;
+          props["endpoints"] = args?.endpoints;
 
           props["apiVersion"] = "discovery.k8s.io/v1beta1";
           props["kind"] = "EndpointSlice";
-          props["metadata"] = args && args.metadata || undefined;
-          props["ports"] = args && args.ports || undefined;
+          props["metadata"] = args?.metadata;
+          props["ports"] = args?.ports;
 
           props["status"] = undefined;
 

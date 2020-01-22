@@ -72,11 +72,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "policy/v1beta1";
           props["kind"] = "PodDisruptionBudgetList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

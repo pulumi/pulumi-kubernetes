@@ -92,12 +92,12 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.apps.v1beta2.ControllerRevision, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["revision"] = args && args.revision || undefined;
+          props["revision"] = args?.revision;
 
           props["apiVersion"] = "apps/v1beta2";
-          props["data"] = args && args.data || undefined;
+          props["data"] = args?.data;
           props["kind"] = "ControllerRevision";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

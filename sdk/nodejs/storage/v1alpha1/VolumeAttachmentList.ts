@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "storage.k8s.io/v1alpha1";
           props["kind"] = "VolumeAttachmentList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

@@ -120,17 +120,17 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.storage.v1.StorageClass, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["provisioner"] = args && args.provisioner || undefined;
+          props["provisioner"] = args?.provisioner;
 
-          props["allowVolumeExpansion"] = args && args.allowVolumeExpansion || undefined;
-          props["allowedTopologies"] = args && args.allowedTopologies || undefined;
+          props["allowVolumeExpansion"] = args?.allowVolumeExpansion;
+          props["allowedTopologies"] = args?.allowedTopologies;
           props["apiVersion"] = "storage.k8s.io/v1";
           props["kind"] = "StorageClass";
-          props["metadata"] = args && args.metadata || undefined;
-          props["mountOptions"] = args && args.mountOptions || undefined;
-          props["parameters"] = args && args.parameters || undefined;
-          props["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
-          props["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
+          props["metadata"] = args?.metadata;
+          props["mountOptions"] = args?.mountOptions;
+          props["parameters"] = args?.parameters;
+          props["reclaimPolicy"] = args?.reclaimPolicy;
+          props["volumeBindingMode"] = args?.volumeBindingMode;
 
           props["status"] = undefined;
 

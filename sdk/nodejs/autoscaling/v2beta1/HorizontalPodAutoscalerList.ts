@@ -76,11 +76,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "autoscaling/v2beta1";
           props["kind"] = "HorizontalPodAutoscalerList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

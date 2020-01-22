@@ -82,8 +82,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "apiregistration.k8s.io/v1beta1";
           props["kind"] = "APIService";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

@@ -80,8 +80,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "rbac.authorization.k8s.io/v1";
           props["kind"] = "Role";
-          props["metadata"] = args && args.metadata || undefined;
-          props["rules"] = args && args.rules || undefined;
+          props["metadata"] = args?.metadata;
+          props["rules"] = args?.rules;
 
           props["status"] = undefined;
 

@@ -78,11 +78,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.core.v1.Binding, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["target"] = args && args.target || undefined;
+          props["target"] = args?.target;
 
           props["apiVersion"] = "v1";
           props["kind"] = "Binding";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

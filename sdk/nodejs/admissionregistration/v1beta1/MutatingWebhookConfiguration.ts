@@ -82,8 +82,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           props["kind"] = "MutatingWebhookConfiguration";
-          props["metadata"] = args && args.metadata || undefined;
-          props["webhooks"] = args && args.webhooks || undefined;
+          props["metadata"] = args?.metadata;
+          props["webhooks"] = args?.webhooks;
 
           props["status"] = undefined;
 

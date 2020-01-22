@@ -143,24 +143,24 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.core.v1.Event, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["involvedObject"] = args && args.involvedObject || undefined;
-          props["metadata"] = args && args.metadata || undefined;
+          props["involvedObject"] = args?.involvedObject;
+          props["metadata"] = args?.metadata;
 
-          props["action"] = args && args.action || undefined;
+          props["action"] = args?.action;
           props["apiVersion"] = "v1";
-          props["count"] = args && args.count || undefined;
-          props["eventTime"] = args && args.eventTime || undefined;
-          props["firstTimestamp"] = args && args.firstTimestamp || undefined;
+          props["count"] = args?.count;
+          props["eventTime"] = args?.eventTime;
+          props["firstTimestamp"] = args?.firstTimestamp;
           props["kind"] = "Event";
-          props["lastTimestamp"] = args && args.lastTimestamp || undefined;
-          props["message"] = args && args.message || undefined;
-          props["reason"] = args && args.reason || undefined;
-          props["related"] = args && args.related || undefined;
-          props["reportingComponent"] = args && args.reportingComponent || undefined;
-          props["reportingInstance"] = args && args.reportingInstance || undefined;
-          props["series"] = args && args.series || undefined;
-          props["source"] = args && args.source || undefined;
-          props["type"] = args && args.type || undefined;
+          props["lastTimestamp"] = args?.lastTimestamp;
+          props["message"] = args?.message;
+          props["reason"] = args?.reason;
+          props["related"] = args?.related;
+          props["reportingComponent"] = args?.reportingComponent;
+          props["reportingInstance"] = args?.reportingInstance;
+          props["series"] = args?.series;
+          props["source"] = args?.source;
+          props["type"] = args?.type;
 
           props["status"] = undefined;
 

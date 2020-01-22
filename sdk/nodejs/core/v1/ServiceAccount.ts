@@ -97,11 +97,11 @@ import { getVersion } from "../../version";
           const props: pulumi.Inputs = {};
 
           props["apiVersion"] = "v1";
-          props["automountServiceAccountToken"] = args && args.automountServiceAccountToken || undefined;
-          props["imagePullSecrets"] = args && args.imagePullSecrets || undefined;
+          props["automountServiceAccountToken"] = args?.automountServiceAccountToken;
+          props["imagePullSecrets"] = args?.imagePullSecrets;
           props["kind"] = "ServiceAccount";
-          props["metadata"] = args && args.metadata || undefined;
-          props["secrets"] = args && args.secrets || undefined;
+          props["metadata"] = args?.metadata;
+          props["secrets"] = args?.secrets;
 
           props["status"] = undefined;
 

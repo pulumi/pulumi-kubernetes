@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.settings.v1alpha1.PodPresetList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "settings.k8s.io/v1alpha1";
           props["kind"] = "PodPresetList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

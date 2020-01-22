@@ -81,8 +81,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "coordination.k8s.io/v1";
           props["kind"] = "Lease";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

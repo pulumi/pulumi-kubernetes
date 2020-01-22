@@ -144,24 +144,24 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.events.v1beta1.Event, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["eventTime"] = args && args.eventTime || undefined;
+          props["eventTime"] = args?.eventTime;
 
-          props["action"] = args && args.action || undefined;
+          props["action"] = args?.action;
           props["apiVersion"] = "events.k8s.io/v1beta1";
-          props["deprecatedCount"] = args && args.deprecatedCount || undefined;
-          props["deprecatedFirstTimestamp"] = args && args.deprecatedFirstTimestamp || undefined;
-          props["deprecatedLastTimestamp"] = args && args.deprecatedLastTimestamp || undefined;
-          props["deprecatedSource"] = args && args.deprecatedSource || undefined;
+          props["deprecatedCount"] = args?.deprecatedCount;
+          props["deprecatedFirstTimestamp"] = args?.deprecatedFirstTimestamp;
+          props["deprecatedLastTimestamp"] = args?.deprecatedLastTimestamp;
+          props["deprecatedSource"] = args?.deprecatedSource;
           props["kind"] = "Event";
-          props["metadata"] = args && args.metadata || undefined;
-          props["note"] = args && args.note || undefined;
-          props["reason"] = args && args.reason || undefined;
-          props["regarding"] = args && args.regarding || undefined;
-          props["related"] = args && args.related || undefined;
-          props["reportingController"] = args && args.reportingController || undefined;
-          props["reportingInstance"] = args && args.reportingInstance || undefined;
-          props["series"] = args && args.series || undefined;
-          props["type"] = args && args.type || undefined;
+          props["metadata"] = args?.metadata;
+          props["note"] = args?.note;
+          props["reason"] = args?.reason;
+          props["regarding"] = args?.regarding;
+          props["related"] = args?.related;
+          props["reportingController"] = args?.reportingController;
+          props["reportingInstance"] = args?.reportingInstance;
+          props["series"] = args?.series;
+          props["type"] = args?.type;
 
           props["status"] = undefined;
 

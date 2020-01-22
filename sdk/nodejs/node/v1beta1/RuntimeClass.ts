@@ -104,13 +104,13 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.node.v1beta1.RuntimeClass, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["handler"] = args && args.handler || undefined;
+          props["handler"] = args?.handler;
 
           props["apiVersion"] = "node.k8s.io/v1beta1";
           props["kind"] = "RuntimeClass";
-          props["metadata"] = args && args.metadata || undefined;
-          props["overhead"] = args && args.overhead || undefined;
-          props["scheduling"] = args && args.scheduling || undefined;
+          props["metadata"] = args?.metadata;
+          props["overhead"] = args?.overhead;
+          props["scheduling"] = args?.scheduling;
 
           props["status"] = undefined;
 

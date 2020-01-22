@@ -995,7 +995,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					propName = strings.ReplaceAll(propName, "-", "_")
 
 					// Create a default value for the field.
-					defaultValue := fmt.Sprintf("args && args.%s || undefined", propName)
+					defaultValue := fmt.Sprintf("args?.%s", propName)
 					switch propName {
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)

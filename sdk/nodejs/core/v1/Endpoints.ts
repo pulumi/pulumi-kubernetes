@@ -96,8 +96,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "v1";
           props["kind"] = "Endpoints";
-          props["metadata"] = args && args.metadata || undefined;
-          props["subsets"] = args && args.subsets || undefined;
+          props["metadata"] = args?.metadata;
+          props["subsets"] = args?.subsets;
 
           props["status"] = undefined;
 
