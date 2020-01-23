@@ -107,8 +107,10 @@ type kubeProvider struct {
 	suppressDeprecationWarnings bool
 	enableSecrets               bool
 
-	clusterUnreachable bool         // Kubernetes cluster is unreachable
-	config             *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
+	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
+	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
+
+	config *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
 
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
@@ -326,9 +328,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			// operations that require a valid cluster. This will allow us to perform invoke operations
 			// using the default provider.
 			k.clusterUnreachable = true
-			glog.V(3).Infof(fmt.Sprintf("failed to parse kubeconfig data in "+
+			k.clusterUnreachableReason = fmt.Sprintf("failed to parse kubeconfig data in "+
 				"`kubernetes:config:kubeconfig`; this must be a YAML literal string and not "+
-				"a filename or path - %v", err))
+				"a filename or path - %v", err)
 		} else {
 			kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()
@@ -350,13 +352,20 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.defaultNamespace = defaultNamespace
 	}
 
+	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	if !k.clusterUnreachable {
 		config, err := kubeconfig.ClientConfig()
 		if err != nil {
-			return nil, fmt.Errorf("unable to load Kubernetes client configuration from kubeconfig file: %v", err)
+			k.clusterUnreachable = true
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"unable to load Kubernetes client configuration from kubeconfig file: %v", err)
+		} else {
+			k.config = config
 		}
-		k.config = config
+	}
 
+	// These operations require a reachable cluster.
+	if !k.clusterUnreachable {
 		cs, err := clients.NewDynamicClientSet(k.config)
 		if err != nil {
 			return nil, err
@@ -373,7 +382,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 		if _, err = k.getResources(); err != nil {
 			k.clusterUnreachable = true
-			glog.V(3).Infof("unable to load schema information from the API server: %v", err)
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"unable to load schema information from the API server: %v", err)
 		}
 	}
 
@@ -476,7 +486,7 @@ func (k *kubeProvider) StreamInvoke(
 		//
 
 		if k.clusterUnreachable {
-			return fmt.Errorf("configured Kubernetes cluster is unreachable")
+			return fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 		}
 
 		namespace := ""
@@ -570,7 +580,7 @@ func (k *kubeProvider) StreamInvoke(
 		//
 
 		if k.clusterUnreachable {
-			return fmt.Errorf("configured Kubernetes cluster is unreachable")
+			return fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 		}
 
 		namespace := ""
@@ -654,7 +664,7 @@ func (k *kubeProvider) StreamInvoke(
 		//
 
 		if k.clusterUnreachable {
-			return fmt.Errorf("configured Kubernetes cluster is unreachable")
+			return fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 		}
 
 		namespace := "default"
@@ -1182,7 +1192,7 @@ func (k *kubeProvider) Create(
 
 	// Create requires a connection to a k8s cluster, so bail out immediately if it is unreachable.
 	if k.clusterUnreachable {
-		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
 
 	// Parse inputs
@@ -1310,7 +1320,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// If the cluster is unreachable, consider the resource deleted and inform the user.
 	if k.clusterUnreachable {
-		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("configured Kubernetes cluster is unreachable"))
+		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
 		return deleteResponse, nil
 	}
 
@@ -1520,7 +1531,7 @@ func (k *kubeProvider) Update(
 
 	// Update requires a connection to a k8s cluster, so bail out immediately if it is unreachable.
 	if k.clusterUnreachable {
-		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable")
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
 
 	// Obtain old properties, create a Kubernetes `unstructured.Unstructured`.
@@ -1640,7 +1651,7 @@ func (k *kubeProvider) Delete(
 
 	// If the cluster is unreachable, consider the resource deleted and inform the user.
 	if k.clusterUnreachable {
-		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("configured Kubernetes cluster is unreachable"))
+		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
 		return &pbempty.Empty{}, nil
 	}
 

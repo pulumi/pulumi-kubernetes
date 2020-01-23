@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Handle invalid kubeconfig context. (https://github.com/pulumi/pulumi-kubernetes/pull/960).
+
 ## 1.4.4 (January 21, 2020)
 
 ### Improvements
