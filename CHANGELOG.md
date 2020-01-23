@@ -4,6 +4,12 @@
 
 -   Update nodejs SDK to use optional chaining in constructor. (https://github.com/pulumi/pulumi-kubernetes/pull/959).
 
+## 1.4.5 (January 22, 2020)
+
+### Bug fixes
+
+-   Handle invalid kubeconfig context. (https://github.com/pulumi/pulumi-kubernetes/pull/960).
+
 ## 1.4.4 (January 21, 2020)
 
 ### Improvements
