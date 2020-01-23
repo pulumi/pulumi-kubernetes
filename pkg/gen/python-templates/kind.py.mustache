@@ -68,10 +68,10 @@ class {{Kind}}(pulumi.CustomResource):
         {{#RequiredInputProperties}}
         if {{LanguageName}} is None:
             raise TypeError('Missing required property {{LanguageName}}')
-        __props__['{{Name}}'] = {{LanguageName}}
+        __props__['{{Name}}'] = {{DefaultValue}}
         {{/RequiredInputProperties}}
         {{#OptionalInputProperties}}
-        __props__['{{Name}}'] = {{LanguageName}}
+        __props__['{{Name}}'] = {{DefaultValue}}
         {{/OptionalInputProperties}}
 
         __props__['status'] = None

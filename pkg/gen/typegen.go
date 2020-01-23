@@ -1020,6 +1020,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						languageName = propName
 					case python:
 						languageName = pycodegen.PyName(propName)
+						defaultValue = languageName
 					case dotnet:
 						name := propName
 						if name[0] == '$' {
@@ -1035,6 +1036,18 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						dotnetVarName = "@" + name
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
+					}
+
+					// Set Secret input fields to pulumi.secret
+					if d.gvk.Kind == "Secret" && (propName == "stringData" || propName == "data") {
+						switch opts.language {
+						case typescript:
+							defaultValue = fmt.Sprintf(
+								"args?.%s === undefined ? undefined : pulumi.secret(args?.%s)", propName, propName)
+						case python:
+							defaultValue = fmt.Sprintf("pulumi.Output.secret(%s) if %s is not None else None",
+								languageName, languageName)
+						}
 					}
 
 					return &Property{
