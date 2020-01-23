@@ -10,6 +10,7 @@
 
 ### Improvements
 
+-   Optionally render YAML for k8s resources. (https://github.com/pulumi/pulumi-kubernetes/pull/936).
 -   Update nodejs SDK to use optional chaining in constructor. (https://github.com/pulumi/pulumi-kubernetes/pull/959).
 -   Automatically set Secret inputs as pulumi.secret. (https://github.com/pulumi/pulumi-kubernetes/pull/961).
 -   Create helm.v3 alias. (https://github.com/pulumi/pulumi-kubernetes/pull/970).

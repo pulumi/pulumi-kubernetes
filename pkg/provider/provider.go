@@ -989,6 +989,14 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
+	if len(k.yamlDirectory) > 0 {
+		if checkedInputs.ContainsSecrets() {
+			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+				"rendered file %s will contain a secret value in plaintext",
+				renderPathForResource(newInputs, k.yamlDirectory)))
+		}
+	}
+
 	// Return new, possibly-autonamed inputs.
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
@@ -1237,25 +1245,16 @@ func (k *kubeProvider) Create(
 	}
 
 	initialApiVersion := newInputs.GetAPIVersion()
-	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
-	config := await.CreateConfig{
-		ProviderConfig: await.ProviderConfig{
-			Context:           k.canceler.context,
-			Host:              k.host,
-			URN:               urn,
-			InitialApiVersion: initialApiVersion,
-			ClientSet:         k.clientSet,
-			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:         resources,
-		},
-		Inputs:  annotatedInputs,
-		Timeout: req.Timeout,
-	}
 
 	if len(k.yamlDirectory) > 0 {
+		if newResInputs.ContainsSecrets() {
+			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+				"rendered file %s contains a secret value in plaintext",
+				renderPathForResource(annotatedInputs, k.yamlDirectory)))
+		}
 		err := renderYaml(annotatedInputs, k.yamlDirectory)
 
 		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
@@ -1278,6 +1277,20 @@ func (k *kubeProvider) Create(
 		}, nil
 	}
 
+	resources, err := k.getResources()
+	config := await.CreateConfig{
+		ProviderConfig: await.ProviderConfig{
+			Context:           k.canceler.context,
+			Host:              k.host,
+			URN:               urn,
+			InitialApiVersion: initialApiVersion,
+			ClientSet:         k.clientSet,
+			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:         resources,
+		},
+		Inputs:  annotatedInputs,
+		Timeout: req.Timeout,
+	}
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
 		if meta.IsNoMatchError(awaitErr) {
@@ -1611,12 +1624,13 @@ func (k *kubeProvider) Update(
 	if err != nil {
 		return nil, err
 	}
-	resources, err := k.getResources()
-	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
-	}
 
 	if len(k.yamlDirectory) > 0 {
+		if newResInputs.ContainsSecrets() {
+			_ = k.host.LogStatus(ctx, diag.Warning, urn, fmt.Sprintf(
+				"rendered file %s contains a secret value in plaintext",
+				renderPathForResource(annotatedInputs, k.yamlDirectory)))
+		}
 		err := renderYaml(annotatedInputs, k.yamlDirectory)
 
 		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
@@ -1637,6 +1651,10 @@ func (k *kubeProvider) Update(
 		return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 	}
 
+	resources, err := k.getResources()
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+	}
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:           k.canceler.context,
