@@ -80,11 +80,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.authentication.v1.TokenReview, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["spec"] = args && args.spec || undefined;
+          props["spec"] = args?.spec;
 
           props["apiVersion"] = "authentication.k8s.io/v1";
           props["kind"] = "TokenReview";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

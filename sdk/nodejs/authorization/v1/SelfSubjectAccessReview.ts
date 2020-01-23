@@ -81,11 +81,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["spec"] = args && args.spec || undefined;
+          props["spec"] = args?.spec;
 
           props["apiVersion"] = "authorization.k8s.io/v1";
           props["kind"] = "SelfSubjectAccessReview";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

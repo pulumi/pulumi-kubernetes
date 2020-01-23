@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.batch.v1beta1.CronJobList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "batch/v1beta1";
           props["kind"] = "CronJobList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

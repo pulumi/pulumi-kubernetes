@@ -104,12 +104,12 @@ import { getVersion } from "../../version";
           const props: pulumi.Inputs = {};
 
           props["apiVersion"] = "v1";
-          props["code"] = args && args.code || undefined;
-          props["details"] = args && args.details || undefined;
+          props["code"] = args?.code;
+          props["details"] = args?.details;
           props["kind"] = "Status";
-          props["message"] = args && args.message || undefined;
-          props["metadata"] = args && args.metadata || undefined;
-          props["reason"] = args && args.reason || undefined;
+          props["message"] = args?.message;
+          props["metadata"] = args?.metadata;
+          props["reason"] = args?.reason;
 
           props["status"] = undefined;
 

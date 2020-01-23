@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.networking.v1beta1.IngressList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "networking.k8s.io/v1beta1";
           props["kind"] = "IngressList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

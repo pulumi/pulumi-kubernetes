@@ -106,8 +106,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "apps/v1";
           props["kind"] = "Deployment";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

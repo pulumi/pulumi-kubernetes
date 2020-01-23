@@ -81,8 +81,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "v1";
           props["kind"] = "PodTemplate";
-          props["metadata"] = args && args.metadata || undefined;
-          props["template"] = args && args.template || undefined;
+          props["metadata"] = args?.metadata;
+          props["template"] = args?.template;
 
           props["status"] = undefined;
 

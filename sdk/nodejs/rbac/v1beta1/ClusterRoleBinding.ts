@@ -85,12 +85,12 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["roleRef"] = args && args.roleRef || undefined;
+          props["roleRef"] = args?.roleRef;
 
           props["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           props["kind"] = "ClusterRoleBinding";
-          props["metadata"] = args && args.metadata || undefined;
-          props["subjects"] = args && args.subjects || undefined;
+          props["metadata"] = args?.metadata;
+          props["subjects"] = args?.subjects;
 
           props["status"] = undefined;
 

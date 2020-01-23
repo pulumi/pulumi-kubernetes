@@ -83,8 +83,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "policy/v1beta1";
           props["kind"] = "PodDisruptionBudget";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

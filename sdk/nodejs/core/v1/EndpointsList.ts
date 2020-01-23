@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.core.v1.EndpointsList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "v1";
           props["kind"] = "EndpointsList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

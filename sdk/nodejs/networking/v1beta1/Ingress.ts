@@ -103,8 +103,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "networking.k8s.io/v1beta1";
           props["kind"] = "Ingress";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

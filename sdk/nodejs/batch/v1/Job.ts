@@ -102,8 +102,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "batch/v1";
           props["kind"] = "Job";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

@@ -86,11 +86,11 @@ import { getVersion } from "../../version";
       constructor(name: string, args?: inputs.rbac.v1alpha1.ClusterRole, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
 
-          props["aggregationRule"] = args && args.aggregationRule || undefined;
+          props["aggregationRule"] = args?.aggregationRule;
           props["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           props["kind"] = "ClusterRole";
-          props["metadata"] = args && args.metadata || undefined;
-          props["rules"] = args && args.rules || undefined;
+          props["metadata"] = args?.metadata;
+          props["rules"] = args?.rules;
 
           props["status"] = undefined;
 

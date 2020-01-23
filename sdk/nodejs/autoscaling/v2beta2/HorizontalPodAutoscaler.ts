@@ -88,8 +88,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "autoscaling/v2beta2";
           props["kind"] = "HorizontalPodAutoscaler";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

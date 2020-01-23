@@ -105,11 +105,11 @@ import { getVersion } from "../../version";
           const props: pulumi.Inputs = {};
 
           props["apiVersion"] = "v1";
-          props["data"] = args && args.data || undefined;
+          props["data"] = args?.data;
           props["kind"] = "Secret";
-          props["metadata"] = args && args.metadata || undefined;
-          props["stringData"] = args && args.stringData || undefined;
-          props["type"] = args && args.type || undefined;
+          props["metadata"] = args?.metadata;
+          props["stringData"] = args?.stringData;
+          props["type"] = args?.type;
 
           props["status"] = undefined;
 

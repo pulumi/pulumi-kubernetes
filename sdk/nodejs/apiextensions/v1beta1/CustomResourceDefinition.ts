@@ -81,11 +81,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["spec"] = args && args.spec || undefined;
+          props["spec"] = args?.spec;
 
           props["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           props["kind"] = "CustomResourceDefinition";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

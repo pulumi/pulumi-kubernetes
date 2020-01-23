@@ -87,8 +87,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
           props["kind"] = "PriorityLevelConfiguration";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 

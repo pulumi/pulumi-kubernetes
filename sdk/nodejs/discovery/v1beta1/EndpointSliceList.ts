@@ -76,11 +76,11 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.discovery.v1beta1.EndpointSliceList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["items"] = args && args.items || undefined;
+          props["items"] = args?.items;
 
           props["apiVersion"] = "discovery.k8s.io/v1beta1";
           props["kind"] = "EndpointSliceList";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

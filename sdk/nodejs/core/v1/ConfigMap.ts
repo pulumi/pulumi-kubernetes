@@ -90,10 +90,10 @@ import { getVersion } from "../../version";
           const props: pulumi.Inputs = {};
 
           props["apiVersion"] = "v1";
-          props["binaryData"] = args && args.binaryData || undefined;
-          props["data"] = args && args.data || undefined;
+          props["binaryData"] = args?.binaryData;
+          props["data"] = args?.data;
           props["kind"] = "ConfigMap";
-          props["metadata"] = args && args.metadata || undefined;
+          props["metadata"] = args?.metadata;
 
           props["status"] = undefined;
 

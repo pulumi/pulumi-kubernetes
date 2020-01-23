@@ -102,14 +102,14 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.scheduling.v1alpha1.PriorityClass, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["value"] = args && args.value || undefined;
+          props["value"] = args?.value;
 
           props["apiVersion"] = "scheduling.k8s.io/v1alpha1";
-          props["description"] = args && args.description || undefined;
-          props["globalDefault"] = args && args.globalDefault || undefined;
+          props["description"] = args?.description;
+          props["globalDefault"] = args?.globalDefault;
           props["kind"] = "PriorityClass";
-          props["metadata"] = args && args.metadata || undefined;
-          props["preemptionPolicy"] = args && args.preemptionPolicy || undefined;
+          props["metadata"] = args?.metadata;
+          props["preemptionPolicy"] = args?.preemptionPolicy;
 
           props["status"] = undefined;
 

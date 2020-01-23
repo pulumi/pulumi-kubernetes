@@ -82,8 +82,8 @@ import { getVersion } from "../../version";
 
           props["apiVersion"] = "certificates.k8s.io/v1beta1";
           props["kind"] = "CertificateSigningRequest";
-          props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
+          props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 
