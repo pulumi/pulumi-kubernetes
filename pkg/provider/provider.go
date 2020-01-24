@@ -170,6 +170,80 @@ func (k *kubeProvider) invalidateResources() {
 
 // CheckConfig validates the configuration for this provider.
 func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
+	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.olds", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		RejectAssets: true,
+	})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
+	}
+	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.news", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		RejectAssets: true,
+	})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
+	}
+
+	truthyValue := func(argName resource.PropertyKey, props resource.PropertyMap) bool {
+		if arg := props[argName]; arg.HasValue() {
+			switch {
+			case arg.IsString() && len(arg.StringValue()) > 0:
+				return true
+			case arg.IsBool() && arg.BoolValue() == true:
+				return true
+			default:
+				return false
+			}
+		}
+		return false
+	}
+
+	renderYamlEnabled := truthyValue("renderYamlToDirectory", olds) ||
+		truthyValue("renderYamlToDirectory", news)
+
+	errTemplate := `%q arg is not compatible with "renderYamlToDirectory" arg`
+	if renderYamlEnabled {
+		var failures []*pulumirpc.CheckFailure
+
+		if truthyValue("cluster", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "cluster",
+				Reason:   fmt.Sprintf(errTemplate, "cluster"),
+			})
+		}
+		if truthyValue("context", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "context",
+				Reason:   fmt.Sprintf(errTemplate, "context"),
+			})
+		}
+		if truthyValue("kubeconfig", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "kubeconfig",
+				Reason:   fmt.Sprintf(errTemplate, "kubeconfig"),
+			})
+		}
+		if truthyValue("enableDryRun", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "enableDryRun",
+				Reason:   fmt.Sprintf(errTemplate, "enableDryRun"),
+			})
+		}
+
+		if len(failures) > 0 {
+			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
+		}
+	}
+
 	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
@@ -194,7 +268,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		RejectAssets: true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "diffconfig failed because malformed resource inputs")
+		return nil, pkgerrors.Wrapf(err, "DiffConfig failed because of malformed resource inputs")
 	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
@@ -991,9 +1065,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	if len(k.yamlDirectory) > 0 {
 		if checkedInputs.ContainsSecrets() {
-			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
-				"rendered file %s will contain a secret value in plaintext",
-				renderPathForResource(newInputs, k.yamlDirectory)))
+			_ = k.host.Log(ctx, diag.Warning, urn, "rendered YAML will contain a secret value in plaintext")
 		}
 	}
 
