@@ -102,9 +102,9 @@ class Secret(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'v1'
         __props__['kind'] = 'Secret'
-        __props__['data'] = data
+        __props__['data'] = pulumi.Output.secret(data) if data is not None else None
         __props__['metadata'] = metadata
-        __props__['stringData'] = string_data
+        __props__['stringData'] = pulumi.Output.secret(string_data) if string_data is not None else None
         __props__['type'] = type
 
         __props__['status'] = None

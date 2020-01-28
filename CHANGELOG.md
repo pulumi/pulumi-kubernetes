@@ -3,6 +3,7 @@
 ### Improvements
 
 -   Update nodejs SDK to use optional chaining in constructor. (https://github.com/pulumi/pulumi-kubernetes/pull/959).
+-   Automatically set Secret inputs as pulumi.secret. (https://github.com/pulumi/pulumi-kubernetes/pull/961).
 
 ## 1.4.5 (January 22, 2020)
 
