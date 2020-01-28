@@ -198,7 +198,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 			switch {
 			case arg.IsString() && len(arg.StringValue()) > 0:
 				return true
-			case arg.IsBool() && arg.BoolValue() == true:
+			case arg.IsBool() && arg.BoolValue():
 				return true
 			default:
 				return false
@@ -1317,9 +1317,6 @@ func (k *kubeProvider) Create(
 	}
 
 	initialApiVersion := newInputs.GetAPIVersion()
-	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
-	}
 
 	if len(k.yamlDirectory) > 0 {
 		if newResInputs.ContainsSecrets() {
@@ -1328,6 +1325,9 @@ func (k *kubeProvider) Create(
 				renderPathForResource(annotatedInputs, k.yamlDirectory)))
 		}
 		err := renderYaml(annotatedInputs, k.yamlDirectory)
+		if err != nil {
+			return nil, err
+		}
 
 		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
 		inputsAndComputed, err := plugin.MarshalProperties(
@@ -1350,6 +1350,9 @@ func (k *kubeProvider) Create(
 	}
 
 	resources, err := k.getResources()
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+	}
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:           k.canceler.context,
@@ -1704,6 +1707,9 @@ func (k *kubeProvider) Update(
 				renderPathForResource(annotatedInputs, k.yamlDirectory)))
 		}
 		err := renderYaml(annotatedInputs, k.yamlDirectory)
+		if err != nil {
+			return nil, err
+		}
 
 		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
 		inputsAndComputed, err := plugin.MarshalProperties(
