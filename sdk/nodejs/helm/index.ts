@@ -17,7 +17,8 @@
 
 // Import versions:
 import * as v2 from "./v2/index";
+import * as v3 from "./v2/index"; // v3 support is currently identical to v2
 
 // Export sub-modules
 export { v2 };
-
+export { v3 };

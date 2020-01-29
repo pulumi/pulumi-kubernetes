@@ -5,4 +5,5 @@
 # Make subpackages available:
 __all__ = [
     "v2",
+    "v3",
 ]

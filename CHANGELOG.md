@@ -4,6 +4,7 @@
 
 -   Update nodejs SDK to use optional chaining in constructor. (https://github.com/pulumi/pulumi-kubernetes/pull/959).
 -   Automatically set Secret inputs as pulumi.secret. (https://github.com/pulumi/pulumi-kubernetes/pull/961).
+-   Create helm.v3 alias. (https://github.com/pulumi/pulumi-kubernetes/pull/970).
 
 ## 1.4.5 (January 22, 2020)
 
