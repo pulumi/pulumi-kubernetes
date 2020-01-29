@@ -3,6 +3,8 @@
 **/obj/
 **/node_modules/
 **/.vs
+**/.idea
+**/.ionide
 .pulumi
 Pulumi.*.yaml
 /pkg/gen/openapi-specs

@@ -25,8 +25,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}}
         {{{Comment}}}
         public {{{InputsAPIType}}} {{LanguageName}}
         {
-            get => _{{Name}} ?? (_{{Name}} = new {{{InputsAPIType}}}());
-            set => _{{Name}} = value;
+            get => _{{Name}} ?? (_{{Name}} = new {{{InputsAPIType}}}(){{DefaultValue}});
+            set => _{{Name}} = value{{DefaultValue}};
         }
         {{/DotnetIsListOrMap}}
         {{^DotnetIsListOrMap}}
@@ -44,8 +44,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}}
         {{{Comment}}}
         public {{{InputsAPIType}}} {{LanguageName}}
         {
-            get => _{{Name}} ?? (_{{Name}} = new {{{InputsAPIType}}}());
-            set => _{{Name}} = value;
+            get => _{{Name}} ?? (_{{Name}} = new {{{InputsAPIType}}}(){{DefaultValue}});
+            set => _{{Name}} = value{{DefaultValue}};
         }
         {{/DotnetIsListOrMap}}
         {{^DotnetIsListOrMap}}

@@ -18521,8 +18521,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
         /// </summary>
         public InputMap<string> Data
         {
-            get => _data ?? (_data = new InputMap<string>());
-            set => _data = value;
+            get => _data ?? (_data = new InputMap<string>().Apply(Output.CreateSecret));
+            set => _data = value.Apply(Output.CreateSecret);
         }
 
         /// <summary>
@@ -18551,8 +18551,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core
         /// </summary>
         public InputMap<string> StringData
         {
-            get => _stringData ?? (_stringData = new InputMap<string>());
-            set => _stringData = value;
+            get => _stringData ?? (_stringData = new InputMap<string>().Apply(Output.CreateSecret));
+            set => _stringData = value.Apply(Output.CreateSecret);
         }
 
         /// <summary>
