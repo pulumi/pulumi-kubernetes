@@ -87,7 +87,7 @@ import * as outputs from "../types/output";
 
     export interface ConfigOpts {
         /** JavaScript objects representing Kubernetes resources. */
-        objs: pulumi.Input<pulumi.Input<any>[]>;
+        objs: Promise<any[]>;
 
         /**
          * A set of transformations to apply to Kubernetes resource definitions before registering
@@ -182,7 +182,7 @@ import * as outputs from "../types/output";
         }
 
         if (config.objs !== undefined) {
-            const objs = Array.isArray(config.objs) ? config.objs: [config.objs];
+            const objs: Promise<any[]> = Array.isArray(config.objs) ? Promise.resolve(config.objs) : Promise.resolve([config.objs]);
             const docResources = parseYamlDocument({objs, transformations: config.transformations}, opts);
             resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
         }
@@ -2477,14 +2477,13 @@ import * as outputs from "../types/output";
         config: ConfigOpts,
         opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
-        return pulumi.output(config.objs).apply(configObjs => {
-            const objs = configObjs
+        const objs = config.objs.then(configObjs => {
+            return configObjs
                 .map(obj => parseYamlObject(obj, config.transformations, config.resourcePrefix, opts))
                 .reduce((array, objs) => (array.concat(...objs)), []);
-
-            return pulumi.output(objs).apply(objs => objs
-                .reduce((map: {[key: string]: pulumi.CustomResource}, val) => (map[val.name] = val.resource, map), {}))
         });
+        return pulumi.output(objs).apply(objs => objs
+                .reduce((map: {[key: string]: pulumi.CustomResource}, val) => (map[val.name] = val.resource, map), {}));
     }
 
     /** @ignore */ function parseYamlObject(

@@ -64,7 +64,7 @@ func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientS
 		resources = append(resources, resource)
 	}
 
-	result := make([]interface{}, len(resources))
+	result := make([]interface{}, 0, len(resources))
 	for _, resource := range resources {
 		result = append(result, resource.Object)
 	}
