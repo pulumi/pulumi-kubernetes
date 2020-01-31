@@ -1,0 +1,13 @@
+{
+    "name": "performance",
+    "version": "0.1.0",
+    "dependencies": {
+        "@pulumi/pulumi": "latest",
+        "@pulumi/random": "dev"
+    },
+    "devDependencies": {
+    },
+    "peerDependencies": {
+        "@pulumi/kubernetes": "latest"
+    }
+}

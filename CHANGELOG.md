@@ -6,6 +6,10 @@
 -   Automatically set Secret inputs as pulumi.secret. (https://github.com/pulumi/pulumi-kubernetes/pull/961).
 -   Create helm.v3 alias. (https://github.com/pulumi/pulumi-kubernetes/pull/970).
 
+### Bug fixes
+
+-   Fix hang on large YAML files. (https://github.com/pulumi/pulumi-kubernetes/pull/974).
+
 ## 1.4.5 (January 22, 2020)
 
 ### Bug fixes
