@@ -1033,6 +1033,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 							// .NET does not allow properties to be the same as the enclosing class - so special case these
 							languageName = languageName + "Value"
 						}
+						defaultValue = ""
 						dotnetVarName = "@" + name
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
@@ -1047,6 +1048,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						case python:
 							defaultValue = fmt.Sprintf("pulumi.Output.secret(%s) if %s is not None else None",
 								languageName, languageName)
+						case dotnet:
+							defaultValue = ".Apply(Output.CreateSecret)"
 						}
 					}
 
