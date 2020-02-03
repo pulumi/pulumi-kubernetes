@@ -2509,8 +2509,8 @@ import * as outputs from "../types/output";
             throw new Error(`Kubernetes resources require a kind and apiVersion: ${JSON.stringify(obj)}`)
         }
 
-        const kind = obj["kind"];
-        const apiVersion = obj["apiVersion"];
+        const kind = obj.kind;
+        const apiVersion = obj.apiVersion;
 
         // Recursively traverse built-in Kubernetes list types into a single set of "naked" resource
         // definitions that we can register with the Pulumi engine.
@@ -2617,26 +2617,22 @@ import * as outputs from "../types/output";
             || (apiVersion == "storage.k8s.io/v1beta1" && kind == "VolumeAttachmentList")
         ) {
             const objs = [];
-            const items = obj["items"] || [];
+            const items = obj.items ?? [];
             for (const item of items) {
                 objs.push(...parseYamlObject(item, transformations, resourcePrefix, opts));
             }
             return objs;
         }
 
-        if (!("metadata" in obj) || !("name" in obj["metadata"])) {
+        if (!("metadata" in obj) || !("name" in obj.metadata)) {
             throw new Error(`YAML object does not have a .metadata.name: ${obj.apiVersion}/${obj.kind} ${JSON.stringify(obj.metadata)}`)
         }
 
-        const meta = obj["metadata"];
-        let id: pulumi.Output<any> = pulumi.output(meta["name"]);
-        const namespace = meta["namespace"] || undefined;
-        if (namespace !== undefined) {
-            id = pulumi.concat(namespace, "/", id);
-        }
-        if (resourcePrefix !== undefined) {
-            id = pulumi.concat(resourcePrefix, "-", id);
-        }
+        const meta = obj.metadata;
+        const name: string = resourcePrefix ? `${resourcePrefix}-${meta.name}` : meta.name;
+        const namespace = meta?.namespace;
+        const id: pulumi.Output<string> = namespace ? pulumi.concat(namespace, "/", name) : pulumi.output<string>(name);
+
         switch (`${apiVersion}/${kind}`) {
             case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
                 return [id.apply(id => ({
