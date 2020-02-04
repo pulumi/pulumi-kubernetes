@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 1.5.0 (February 4, 2020)
+
 ### Improvements
 
 -   Update nodejs SDK to use optional chaining in constructor. (https://github.com/pulumi/pulumi-kubernetes/pull/959).
