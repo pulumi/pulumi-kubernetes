@@ -183,7 +183,11 @@ import * as outputs from "../types/output";
 
         if (config.objs !== undefined) {
             const objs: Promise<any[]> = Array.isArray(config.objs) ? Promise.resolve(config.objs) : Promise.resolve([config.objs]);
-            const docResources = parseYamlDocument({objs, transformations: config.transformations}, opts);
+            const docResources = parseYamlDocument({
+                objs,
+                transformations: config.transformations,
+                resourcePrefix: config.resourcePrefix
+            }, opts);
             resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
         }
 
