@@ -70,9 +70,12 @@ export interface ProviderArgs {
     /**
      * If present, render resource manifests to this directory. In this mode, resources will not
      * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
-     * to the Pulumi program. Note that some computed Outputs such as status fields will not be populated
-     * since the resources are not created on a Kubernetes cluster. Attempting to reference these Outputs
-     * may result in an error, or the value may be empty/undefined.
+     * to the Pulumi program.
+     *
+     * Note that some computed Outputs such as status fields will not be populated
+     * since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
+     * and may result in an error if they are referenced by other resources. Also note that any secret values
+     * used in these resources will be rendered in plaintext to the resulting YAML.
      */
     readonly renderYamlToDirectory?: pulumi.Input<string>;
 }
