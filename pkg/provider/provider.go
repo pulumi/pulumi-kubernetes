@@ -174,15 +174,6 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
-	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		Label:        fmt.Sprintf("%s.olds", label),
-		KeepUnknowns: true,
-		SkipNulls:    true,
-		RejectAssets: true,
-	})
-	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
-	}
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
@@ -207,8 +198,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		return false
 	}
 
-	renderYamlEnabled := truthyValue("renderYamlToDirectory", olds) ||
-		truthyValue("renderYamlToDirectory", news)
+	renderYamlEnabled := truthyValue("renderYamlToDirectory", news)
 
 	errTemplate := `%q arg is not compatible with "renderYamlToDirectory" arg`
 	if renderYamlEnabled {
