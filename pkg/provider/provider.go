@@ -302,7 +302,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		diffs = append(diffs, "renderYamlToDirectory")
 
 		// If the render directory changes, all of the manifests will be replaced.
-		replaces = diffs
+		replaces = append(replaces, "renderYamlToDirectory")
 	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
@@ -395,7 +395,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	renderYamlToDirectory := func() string {
-		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		// Read the config from the Provider.
 		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists {
 			return directory
 		}
