@@ -9,6 +9,7 @@
 ### Bug fixes
 
 -   Fix hang on large YAML files. (https://github.com/pulumi/pulumi-kubernetes/pull/974).
+-   Use resourcePrefix all code paths. (https://github.com/pulumi/pulumi-kubernetes/pull/977).
 
 ## 1.4.5 (January 22, 2020)
 
