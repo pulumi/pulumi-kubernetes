@@ -14,7 +14,8 @@ class Provider(pulumi.ProviderResource):
                  enable_dry_run=None,
                  kubeconfig=None,
                  namespace=None,
-                 suppress_deprecation_warnings=None):
+                 suppress_deprecation_warnings=None,
+                 render_yaml_to_directory=None):
         """
         Create a Provider resource with the given unique name, arguments, and options.
 
@@ -40,6 +41,12 @@ class Provider(pulumi.ProviderResource):
                                   This config can be specified in the following ways, using this precedence:
                                   1. This `suppressDeprecationWarnings` parameter.
                                   2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
+        :param pulumi.Input[str] render_yaml_to_directory: If present, render resource manifests to this directory.
+                                 In this mode, resources will not be created on a Kubernetes cluster, but the rendered
+                                 manifests will be kept in sync with changes to the Pulumi program. Note that some
+                                 computed Outputs such as status fields will not be populated since the resources are
+                                 not created on a Kubernetes cluster. Attempting to reference these Outputs may result
+                                 in an error, or the value may be empty/undefined.
         """
         __props__ = {
             "cluster": cluster,
@@ -48,5 +55,6 @@ class Provider(pulumi.ProviderResource):
             "kubeconfig": kubeconfig,
             "namespace": namespace,
             "suppress_deprecation_warnings": "true" if suppress_deprecation_warnings else "false",
+            "render_yaml_to_directory": render_yaml_to_directory,
         }
         super(Provider, self).__init__("kubernetes", __name__, __props__, __opts__)
