@@ -18,11 +18,11 @@
 import * as pulumi from "@pulumi/pulumi";
 import { execSync } from "child_process";
 import * as fs from "fs";
-import * as jsyaml from "js-yaml";
 import * as nodepath from "path";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
 import * as path from "../../path";
+import { getVersion } from "../../version";
 import * as yaml from "../../yaml/index";
 
 interface BaseChartOpts {
@@ -218,7 +218,7 @@ export class Chart extends yaml.CollectionComponentResource {
                     },
                 ).toString();
                 return this.parseTemplate(
-                    yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps, cfg.namespace);
+                    yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps, cfg.namespace, opts);
             } catch (e) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
@@ -236,9 +236,20 @@ export class Chart extends yaml.CollectionComponentResource {
         resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
         defaultNamespace: string | undefined,
+        opts?: pulumi.ComponentResourceOptions,
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
+        // Rather than using the default provider for the following invoke call, determine the
+        // provider from the parent if specified, or fallback to using the version specified
+        // in package.json.
+        let invokeOpts: pulumi.InvokeOptions = {async: true};
+        if (opts?.parent) {
+            invokeOpts = {...invokeOpts, parent: opts.parent};
+        } else {
+            invokeOpts = {...invokeOpts, version: getVersion()};
+        }
+
         const promise = pulumi.runtime.invoke(
-            "kubernetes:yaml:decode", {text, defaultNamespace}, {async: true});
+            "kubernetes:yaml:decode", {text, defaultNamespace}, invokeOpts);
         return pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(
             {
                 resourcePrefix: resourcePrefix,

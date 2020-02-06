@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Specify provider version for invokes. (https://github.com/pulumi/pulumi-kubernetes/pull/982).
+
 ## 1.5.0 (February 4, 2020)
 
 ### Improvements
