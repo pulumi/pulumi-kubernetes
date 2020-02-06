@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// <summary>
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
-    public partial class ReplicaSet : Pulumi.CustomResource
+    public partial class ReplicaSet : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -61,7 +61,12 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ReplicaSet(string name, Types.Inputs.Apps.V1.ReplicaSetArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1:ReplicaSet", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:apps/v1:ReplicaSet", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal ReplicaSet(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:apps/v1:ReplicaSet", name, dictionary, options)
         {
         }
 
@@ -73,15 +78,6 @@ namespace Pulumi.Kubernetes.Apps.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing ReplicaSet resource's state with the given name and ID.
         /// </summary>
@@ -90,10 +86,8 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static ReplicaSet Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new ReplicaSet(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new ReplicaSet(name, default(Types.Inputs.Apps.V1.ReplicaSetArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

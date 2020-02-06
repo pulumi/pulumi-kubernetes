@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
     /// </summary>
-    public partial class ComponentStatus : Pulumi.CustomResource
+    public partial class ComponentStatus : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ComponentStatus(string name, Types.Inputs.Core.V1.ComponentStatusArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:ComponentStatus", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:ComponentStatus", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal ComponentStatus(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:ComponentStatus", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing ComponentStatus resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static ComponentStatus Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new ComponentStatus(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new ComponentStatus(name, default(Types.Inputs.Core.V1.ComponentStatusArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

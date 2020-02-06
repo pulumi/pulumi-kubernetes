@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Storage.V1Alpha1
     /// 
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
-    public partial class VolumeAttachment : Pulumi.CustomResource
+    public partial class VolumeAttachment : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -62,7 +62,12 @@ namespace Pulumi.Kubernetes.Storage.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public VolumeAttachment(string name, Types.Inputs.Storage.V1Alpha1.VolumeAttachmentArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal VolumeAttachment(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name, dictionary, options)
         {
         }
 
@@ -74,15 +79,6 @@ namespace Pulumi.Kubernetes.Storage.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing VolumeAttachment resource's state with the given name and ID.
         /// </summary>
@@ -91,10 +87,8 @@ namespace Pulumi.Kubernetes.Storage.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static VolumeAttachment Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new VolumeAttachment(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new VolumeAttachment(name, default(Types.Inputs.Storage.V1Alpha1.VolumeAttachmentArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

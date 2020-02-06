@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// <summary>
     /// IngressList is a collection of Ingress.
     /// </summary>
-    public partial class IngressList : Pulumi.CustomResource
+    public partial class IngressList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public IngressList(string name, Types.Inputs.Extensions.V1Beta1.IngressListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:extensions/v1beta1:IngressList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:extensions/v1beta1:IngressList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal IngressList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:extensions/v1beta1:IngressList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing IngressList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static IngressList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new IngressList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new IngressList(name, default(Types.Inputs.Extensions.V1Beta1.IngressListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

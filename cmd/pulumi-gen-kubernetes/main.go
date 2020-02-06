@@ -221,7 +221,7 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 
 func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) {
 
-	inputAPIcs, ouputAPIcs, kindsCs, err := gen.DotnetClient(data, templateDir)
+	inputAPIcs, ouputAPIcs, yamlcs, kindsCs, err := gen.DotnetClient(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
@@ -243,6 +243,11 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	err = ioutil.WriteFile(fmt.Sprintf("%s/Output.cs", typesDir), []byte(ouputAPIcs), 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("%s/Yaml/Yaml.cs", outdir), []byte(yamlcs), 0777)
 	if err != nil {
 		panic(err)
 	}

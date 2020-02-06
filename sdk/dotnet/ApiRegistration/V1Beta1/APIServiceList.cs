@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
     /// <summary>
     /// APIServiceList is a list of APIService objects.
     /// </summary>
-    public partial class APIServiceList : Pulumi.CustomResource
+    public partial class APIServiceList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -46,7 +46,12 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public APIServiceList(string name, Types.Inputs.ApiRegistration.V1Beta1.APIServiceListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apiregistration/v1beta1:APIServiceList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:apiregistration/v1beta1:APIServiceList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal APIServiceList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:apiregistration/v1beta1:APIServiceList", name, dictionary, options)
         {
         }
 
@@ -58,15 +63,6 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing APIServiceList resource's state with the given name and ID.
         /// </summary>
@@ -75,10 +71,8 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static APIServiceList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new APIServiceList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new APIServiceList(name, default(Types.Inputs.ApiRegistration.V1Beta1.APIServiceListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Authorization.V1
     /// <summary>
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
-    public partial class SubjectAccessReview : Pulumi.CustomResource
+    public partial class SubjectAccessReview : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -54,7 +54,12 @@ namespace Pulumi.Kubernetes.Authorization.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public SubjectAccessReview(string name, Types.Inputs.Authorization.V1.SubjectAccessReviewArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal SubjectAccessReview(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, dictionary, options)
         {
         }
 
@@ -66,15 +71,6 @@ namespace Pulumi.Kubernetes.Authorization.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing SubjectAccessReview resource's state with the given name and ID.
         /// </summary>
@@ -83,10 +79,8 @@ namespace Pulumi.Kubernetes.Authorization.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static SubjectAccessReview Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new SubjectAccessReview(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new SubjectAccessReview(name, default(Types.Inputs.Authorization.V1.SubjectAccessReviewArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

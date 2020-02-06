@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous
     /// to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
     /// </summary>
-    public partial class PersistentVolume : Pulumi.CustomResource
+    public partial class PersistentVolume : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -62,7 +62,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PersistentVolume(string name, Types.Inputs.Core.V1.PersistentVolumeArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:PersistentVolume", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:PersistentVolume", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PersistentVolume(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:PersistentVolume", name, dictionary, options)
         {
         }
 
@@ -74,15 +79,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PersistentVolume resource's state with the given name and ID.
         /// </summary>
@@ -91,10 +87,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PersistentVolume Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PersistentVolume(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PersistentVolume(name, default(Types.Inputs.Core.V1.PersistentVolumeArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

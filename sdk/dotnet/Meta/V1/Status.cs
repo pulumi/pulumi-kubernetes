@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Meta.V1
     /// <summary>
     /// Status is a return value for calls that don't return other objects.
     /// </summary>
-    public partial class Status : Pulumi.CustomResource
+    public partial class Status : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -80,7 +80,12 @@ namespace Pulumi.Kubernetes.Meta.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Status(string name, Types.Inputs.Meta.V1.StatusArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Status", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:Status", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Status(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:Status", name, dictionary, options)
         {
         }
 
@@ -92,15 +97,6 @@ namespace Pulumi.Kubernetes.Meta.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Status resource's state with the given name and ID.
         /// </summary>
@@ -109,10 +105,8 @@ namespace Pulumi.Kubernetes.Meta.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Status Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Status(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Status(name, default(Types.Inputs.Meta.V1.StatusArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

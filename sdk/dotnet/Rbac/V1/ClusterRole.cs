@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
-    public partial class ClusterRole : Pulumi.CustomResource
+    public partial class ClusterRole : KubernetesResource
     {
         /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this
@@ -59,7 +59,12 @@ namespace Pulumi.Kubernetes.Rbac.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ClusterRole(string name, Types.Inputs.Rbac.V1.ClusterRoleArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal ClusterRole(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, dictionary, options)
         {
         }
 
@@ -71,15 +76,6 @@ namespace Pulumi.Kubernetes.Rbac.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing ClusterRole resource's state with the given name and ID.
         /// </summary>
@@ -88,10 +84,8 @@ namespace Pulumi.Kubernetes.Rbac.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static ClusterRole Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new ClusterRole(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new ClusterRole(name, default(Types.Inputs.Rbac.V1.ClusterRoleArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

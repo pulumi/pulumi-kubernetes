@@ -12,7 +12,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
     /// inbound API requests with similar attributes and is identified by a pair of strings: the
     /// name of the FlowSchema and a "flow distinguisher".
     /// </summary>
-    public partial class FlowSchema : Pulumi.CustomResource
+    public partial class FlowSchema : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -61,7 +61,12 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public FlowSchema(string name, Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal FlowSchema(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", name, dictionary, options)
         {
         }
 
@@ -73,15 +78,6 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing FlowSchema resource's state with the given name and ID.
         /// </summary>
@@ -90,10 +86,8 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static FlowSchema Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new FlowSchema(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new FlowSchema(name, default(Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

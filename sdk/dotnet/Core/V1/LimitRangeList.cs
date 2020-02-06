@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// LimitRangeList is a list of LimitRange items.
     /// </summary>
-    public partial class LimitRangeList : Pulumi.CustomResource
+    public partial class LimitRangeList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -52,7 +52,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public LimitRangeList(string name, Types.Inputs.Core.V1.LimitRangeListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:LimitRangeList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:LimitRangeList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal LimitRangeList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:LimitRangeList", name, dictionary, options)
         {
         }
 
@@ -64,15 +69,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing LimitRangeList resource's state with the given name and ID.
         /// </summary>
@@ -81,10 +77,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static LimitRangeList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new LimitRangeList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new LimitRangeList(name, default(Types.Inputs.Core.V1.LimitRangeListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
-    public partial class Job : Pulumi.CustomResource
+    public partial class Job : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -74,7 +74,12 @@ namespace Pulumi.Kubernetes.Batch.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Job(string name, Types.Inputs.Batch.V1.JobArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:batch/v1:Job", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:batch/v1:Job", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Job(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:batch/v1:Job", name, dictionary, options)
         {
         }
 
@@ -86,15 +91,6 @@ namespace Pulumi.Kubernetes.Batch.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Job resource's state with the given name and ID.
         /// </summary>
@@ -103,10 +99,8 @@ namespace Pulumi.Kubernetes.Batch.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Job Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Job(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Job(name, default(Types.Inputs.Batch.V1.JobArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

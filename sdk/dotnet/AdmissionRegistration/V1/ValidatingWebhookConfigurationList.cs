@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
     /// <summary>
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
-    public partial class ValidatingWebhookConfigurationList : Pulumi.CustomResource
+    public partial class ValidatingWebhookConfigurationList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ValidatingWebhookConfigurationList(string name, Types.Inputs.AdmissionRegistration.V1.ValidatingWebhookConfigurationListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal ValidatingWebhookConfigurationList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing ValidatingWebhookConfigurationList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static ValidatingWebhookConfigurationList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new ValidatingWebhookConfigurationList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new ValidatingWebhookConfigurationList(name, default(Types.Inputs.AdmissionRegistration.V1.ValidatingWebhookConfigurationListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
     /// Deprecated in 1.7, please use the bindings subresource of pods instead.
     /// </summary>
-    public partial class Binding : Pulumi.CustomResource
+    public partial class Binding : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -52,7 +52,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Binding(string name, Types.Inputs.Core.V1.BindingArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Binding", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:Binding", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Binding(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:Binding", name, dictionary, options)
         {
         }
 
@@ -64,15 +69,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Binding resource's state with the given name and ID.
         /// </summary>
@@ -81,10 +77,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Binding Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Binding(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Binding(name, default(Types.Inputs.Core.V1.BindingArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

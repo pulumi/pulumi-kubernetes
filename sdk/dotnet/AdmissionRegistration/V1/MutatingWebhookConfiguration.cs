@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
     /// MutatingWebhookConfiguration describes the configuration of and admission webhook that
     /// accept or reject and may change the object.
     /// </summary>
-    public partial class MutatingWebhookConfiguration : Pulumi.CustomResource
+    public partial class MutatingWebhookConfiguration : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -52,7 +52,12 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public MutatingWebhookConfiguration(string name, Types.Inputs.AdmissionRegistration.V1.MutatingWebhookConfigurationArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal MutatingWebhookConfiguration(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration", name, dictionary, options)
         {
         }
 
@@ -64,15 +69,6 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing MutatingWebhookConfiguration resource's state with the given name and ID.
         /// </summary>
@@ -81,10 +77,8 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static MutatingWebhookConfiguration Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new MutatingWebhookConfiguration(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new MutatingWebhookConfiguration(name, default(Types.Inputs.AdmissionRegistration.V1.MutatingWebhookConfigurationArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

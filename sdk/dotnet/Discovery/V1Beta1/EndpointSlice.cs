@@ -12,7 +12,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
     /// service there may be multiple EndpointSlice objects, selected by labels, which must be
     /// joined to produce the full set of endpoints.
     /// </summary>
-    public partial class EndpointSlice : Pulumi.CustomResource
+    public partial class EndpointSlice : KubernetesResource
     {
         /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses
@@ -71,7 +71,12 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public EndpointSlice(string name, Types.Inputs.Discovery.V1Beta1.EndpointSliceArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal EndpointSlice(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", name, dictionary, options)
         {
         }
 
@@ -83,15 +88,6 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing EndpointSlice resource's state with the given name and ID.
         /// </summary>
@@ -100,10 +96,8 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static EndpointSlice Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new EndpointSlice(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new EndpointSlice(name, default(Types.Inputs.Discovery.V1Beta1.EndpointSliceArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

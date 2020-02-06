@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
-    public partial class Ingress : Pulumi.CustomResource
+    public partial class Ingress : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -75,7 +75,12 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Ingress(string name, Types.Inputs.Networking.V1Beta1.IngressArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:networking.k8s.io/v1beta1:Ingress", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:networking.k8s.io/v1beta1:Ingress", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Ingress(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:networking.k8s.io/v1beta1:Ingress", name, dictionary, options)
         {
         }
 
@@ -87,15 +92,6 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Ingress resource's state with the given name and ID.
         /// </summary>
@@ -104,10 +100,8 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Ingress Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Ingress(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Ingress(name, default(Types.Inputs.Networking.V1Beta1.IngressArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
     /// <summary>
     /// configuration of a horizontal pod autoscaler.
     /// </summary>
-    public partial class HorizontalPodAutoscaler : Pulumi.CustomResource
+    public partial class HorizontalPodAutoscaler : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -58,7 +58,12 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public HorizontalPodAutoscaler(string name, Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal HorizontalPodAutoscaler(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, dictionary, options)
         {
         }
 
@@ -70,15 +75,6 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing HorizontalPodAutoscaler resource's state with the given name and ID.
         /// </summary>
@@ -87,10 +83,8 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static HorizontalPodAutoscaler Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new HorizontalPodAutoscaler(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new HorizontalPodAutoscaler(name, default(Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

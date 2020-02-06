@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
-    public partial class ReplicaSetList : Pulumi.CustomResource
+    public partial class ReplicaSetList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -52,7 +52,12 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ReplicaSetList(string name, Types.Inputs.Extensions.V1Beta1.ReplicaSetListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:extensions/v1beta1:ReplicaSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:extensions/v1beta1:ReplicaSetList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal ReplicaSetList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:extensions/v1beta1:ReplicaSetList", name, dictionary, options)
         {
         }
 
@@ -64,15 +69,6 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing ReplicaSetList resource's state with the given name and ID.
         /// </summary>
@@ -81,10 +77,8 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static ReplicaSetList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new ReplicaSetList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new ReplicaSetList(name, default(Types.Inputs.Extensions.V1Beta1.ReplicaSetListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

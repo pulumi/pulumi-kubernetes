@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
     /// <summary>
     /// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
     /// </summary>
-    public partial class PodDisruptionBudgetList : Pulumi.CustomResource
+    public partial class PodDisruptionBudgetList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -46,7 +46,12 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PodDisruptionBudgetList(string name, Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PodDisruptionBudgetList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, dictionary, options)
         {
         }
 
@@ -58,15 +63,6 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PodDisruptionBudgetList resource's state with the given name and ID.
         /// </summary>
@@ -75,10 +71,8 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PodDisruptionBudgetList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PodDisruptionBudgetList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PodDisruptionBudgetList(name, default(Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

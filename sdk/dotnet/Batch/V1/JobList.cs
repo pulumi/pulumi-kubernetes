@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// <summary>
     /// JobList is a collection of jobs.
     /// </summary>
-    public partial class JobList : Pulumi.CustomResource
+    public partial class JobList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Batch.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public JobList(string name, Types.Inputs.Batch.V1.JobListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:batch/v1:JobList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:batch/v1:JobList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal JobList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:batch/v1:JobList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Batch.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing JobList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Batch.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static JobList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new JobList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new JobList(name, default(Types.Inputs.Batch.V1.JobListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PersistentVolumeClaim is a user's request for and claim to a persistent volume
     /// </summary>
-    public partial class PersistentVolumeClaim : Pulumi.CustomResource
+    public partial class PersistentVolumeClaim : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -61,7 +61,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PersistentVolumeClaim(string name, Types.Inputs.Core.V1.PersistentVolumeClaimArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:PersistentVolumeClaim", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:PersistentVolumeClaim", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PersistentVolumeClaim(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:PersistentVolumeClaim", name, dictionary, options)
         {
         }
 
@@ -73,15 +78,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PersistentVolumeClaim resource's state with the given name and ID.
         /// </summary>
@@ -90,10 +86,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PersistentVolumeClaim Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PersistentVolumeClaim(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PersistentVolumeClaim(name, default(Types.Inputs.Core.V1.PersistentVolumeClaimArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// 
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
-    public partial class DaemonSet : Pulumi.CustomResource
+    public partial class DaemonSet : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -63,7 +63,12 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public DaemonSet(string name, Types.Inputs.Extensions.V1Beta1.DaemonSetArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:extensions/v1beta1:DaemonSet", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:extensions/v1beta1:DaemonSet", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal DaemonSet(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:extensions/v1beta1:DaemonSet", name, dictionary, options)
         {
         }
 
@@ -75,15 +80,6 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing DaemonSet resource's state with the given name and ID.
         /// </summary>
@@ -92,10 +88,8 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static DaemonSet Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new DaemonSet(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new DaemonSet(name, default(Types.Inputs.Extensions.V1Beta1.DaemonSetArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

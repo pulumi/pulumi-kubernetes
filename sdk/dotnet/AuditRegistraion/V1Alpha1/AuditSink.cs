@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
     /// <summary>
     /// AuditSink represents a cluster level audit sink
     /// </summary>
-    public partial class AuditSink : Pulumi.CustomResource
+    public partial class AuditSink : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -48,7 +48,12 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public AuditSink(string name, Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal AuditSink(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, dictionary, options)
         {
         }
 
@@ -60,15 +65,6 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing AuditSink resource's state with the given name and ID.
         /// </summary>
@@ -77,10 +73,8 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static AuditSink Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new AuditSink(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new AuditSink(name, default(Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

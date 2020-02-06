@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     /// namespace information by which namespace it exists in.  RoleBindings in a given namespace
     /// only have effect in that namespace.
     /// </summary>
-    public partial class RoleBinding : Pulumi.CustomResource
+    public partial class RoleBinding : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -60,7 +60,12 @@ namespace Pulumi.Kubernetes.Rbac.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public RoleBinding(string name, Types.Inputs.Rbac.V1.RoleBindingArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal RoleBinding(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", name, dictionary, options)
         {
         }
 
@@ -72,15 +77,6 @@ namespace Pulumi.Kubernetes.Rbac.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing RoleBinding resource's state with the given name and ID.
         /// </summary>
@@ -89,10 +85,8 @@ namespace Pulumi.Kubernetes.Rbac.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static RoleBinding Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new RoleBinding(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new RoleBinding(name, default(Types.Inputs.Rbac.V1.RoleBindingArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
-    public partial class CustomResourceDefinitionList : Pulumi.CustomResource
+    public partial class CustomResourceDefinitionList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -48,7 +48,12 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CustomResourceDefinitionList(string name, Types.Inputs.ApiExtensions.V1Beta1.CustomResourceDefinitionListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal CustomResourceDefinitionList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", name, dictionary, options)
         {
         }
 
@@ -60,15 +65,6 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing CustomResourceDefinitionList resource's state with the given name and ID.
         /// </summary>
@@ -77,10 +73,8 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static CustomResourceDefinitionList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CustomResourceDefinitionList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new CustomResourceDefinitionList(name, default(Types.Inputs.ApiExtensions.V1Beta1.CustomResourceDefinitionListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

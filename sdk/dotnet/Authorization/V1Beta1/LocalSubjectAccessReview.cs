@@ -12,7 +12,7 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
     /// given namespace. Having a namespace scoped resource makes it much easier to grant namespace
     /// scoped policy that includes permissions checking.
     /// </summary>
-    public partial class LocalSubjectAccessReview : Pulumi.CustomResource
+    public partial class LocalSubjectAccessReview : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -57,7 +57,12 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public LocalSubjectAccessReview(string name, Types.Inputs.Authorization.V1Beta1.LocalSubjectAccessReviewArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal LocalSubjectAccessReview(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, dictionary, options)
         {
         }
 
@@ -69,15 +74,6 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing LocalSubjectAccessReview resource's state with the given name and ID.
         /// </summary>
@@ -86,10 +82,8 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static LocalSubjectAccessReview Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new LocalSubjectAccessReview(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new LocalSubjectAccessReview(name, default(Types.Inputs.Authorization.V1Beta1.LocalSubjectAccessReviewArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

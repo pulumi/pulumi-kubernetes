@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// <summary>
     /// NetworkPolicy describes what network traffic is allowed for a set of Pods
     /// </summary>
-    public partial class NetworkPolicy : Pulumi.CustomResource
+    public partial class NetworkPolicy : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Networking.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public NetworkPolicy(string name, Types.Inputs.Networking.V1.NetworkPolicyArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal NetworkPolicy(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Networking.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing NetworkPolicy resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Networking.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static NetworkPolicy Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new NetworkPolicy(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new NetworkPolicy(name, default(Types.Inputs.Networking.V1.NetworkPolicyArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

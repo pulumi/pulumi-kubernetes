@@ -1,0 +1,16 @@
+deprecated: true
+description: Chart for nginx-ingress-controller and kube-lego
+engine: gotpl
+keywords:
+- kube-lego
+- nginx-ingress-controller
+- nginx
+- letsencrypt
+maintainers:
+- email: jack.zampolin@gmail.com
+  name: Jack Zampolin
+name: nginx-lego
+sources:
+- https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx
+- https://github.com/jetstack/kube-lego/tree/master/examples/nginx
+version: 0.3.1
