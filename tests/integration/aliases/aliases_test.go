@@ -37,7 +37,7 @@ func TestAliases(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
@@ -51,7 +51,7 @@ func TestAliases(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
@@ -69,7 +69,7 @@ func TestAliases(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
