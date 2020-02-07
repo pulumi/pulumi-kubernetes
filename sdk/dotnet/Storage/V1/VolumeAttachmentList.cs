@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Storage.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1.VolumeAttachmentListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "storage.k8s.io/v1";
-                args.Kind = "VolumeAttachmentList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Storage.V1.VolumeAttachmentListArgs();
+            args.ApiVersion = "storage.k8s.io/v1";
+            args.Kind = "VolumeAttachmentList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

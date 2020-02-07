@@ -56,11 +56,10 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Autoscaling.V2Beta1.HorizontalPodAutoscalerListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "autoscaling/v2beta1";
-                args.Kind = "HorizontalPodAutoscalerList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Autoscaling.V2Beta1.HorizontalPodAutoscalerListArgs();
+            args.ApiVersion = "autoscaling/v2beta1";
+            args.Kind = "HorizontalPodAutoscalerList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

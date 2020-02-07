@@ -32,11 +32,10 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}}
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.{{Group}}.{{Version}}.{{Kind}}Args? args)
         {
-            if (args != null) {
-                args.ApiVersion = "{{RawAPIVersion}}";
-                args.Kind = "{{Kind}}";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.{{Group}}.{{Version}}.{{Kind}}Args();
+            args.ApiVersion = "{{RawAPIVersion}}";
+            args.Kind = "{{Kind}}";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

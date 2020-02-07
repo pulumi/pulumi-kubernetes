@@ -62,11 +62,10 @@ namespace Pulumi.Kubernetes.Authentication.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Authentication.V1.TokenReviewArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "authentication.k8s.io/v1";
-                args.Kind = "TokenReview";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Authentication.V1.TokenReviewArgs();
+            args.ApiVersion = "authentication.k8s.io/v1";
+            args.Kind = "TokenReview";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

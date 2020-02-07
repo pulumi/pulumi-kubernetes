@@ -62,11 +62,10 @@ namespace Pulumi.Kubernetes.Storage.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1.CSINodeArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "storage.k8s.io/v1";
-                args.Kind = "CSINode";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Storage.V1.CSINodeArgs();
+            args.ApiVersion = "storage.k8s.io/v1";
+            args.Kind = "CSINode";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

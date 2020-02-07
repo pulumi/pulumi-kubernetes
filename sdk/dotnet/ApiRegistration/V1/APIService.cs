@@ -60,11 +60,10 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.ApiRegistration.V1.APIServiceArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "apiregistration.k8s.io/v1";
-                args.Kind = "APIService";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.ApiRegistration.V1.APIServiceArgs();
+            args.ApiVersion = "apiregistration.k8s.io/v1";
+            args.Kind = "APIService";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

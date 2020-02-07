@@ -58,11 +58,10 @@ namespace Pulumi.Kubernetes.Coordination.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Coordination.V1.LeaseArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "coordination.k8s.io/v1";
-                args.Kind = "Lease";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Coordination.V1.LeaseArgs();
+            args.ApiVersion = "coordination.k8s.io/v1";
+            args.Kind = "Lease";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

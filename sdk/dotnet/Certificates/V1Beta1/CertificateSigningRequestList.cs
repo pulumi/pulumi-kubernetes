@@ -52,11 +52,10 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Certificates.V1Beta1.CertificateSigningRequestListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "certificates.k8s.io/v1beta1";
-                args.Kind = "CertificateSigningRequestList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Certificates.V1Beta1.CertificateSigningRequestListArgs();
+            args.ApiVersion = "certificates.k8s.io/v1beta1";
+            args.Kind = "CertificateSigningRequestList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

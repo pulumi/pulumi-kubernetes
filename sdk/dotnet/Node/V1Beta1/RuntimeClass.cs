@@ -86,11 +86,10 @@ namespace Pulumi.Kubernetes.Node.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Node.V1Beta1.RuntimeClassArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "node.k8s.io/v1beta1";
-                args.Kind = "RuntimeClass";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Node.V1Beta1.RuntimeClassArgs();
+            args.ApiVersion = "node.k8s.io/v1beta1";
+            args.Kind = "RuntimeClass";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

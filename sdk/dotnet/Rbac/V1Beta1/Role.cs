@@ -58,11 +58,10 @@ namespace Pulumi.Kubernetes.Rbac.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Rbac.V1Beta1.RoleArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "rbac.authorization.k8s.io/v1beta1";
-                args.Kind = "Role";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Rbac.V1Beta1.RoleArgs();
+            args.ApiVersion = "rbac.authorization.k8s.io/v1beta1";
+            args.Kind = "Role";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

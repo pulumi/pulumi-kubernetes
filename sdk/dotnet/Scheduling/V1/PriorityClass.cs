@@ -85,11 +85,10 @@ namespace Pulumi.Kubernetes.Scheduling.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Scheduling.V1.PriorityClassArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "scheduling.k8s.io/v1";
-                args.Kind = "PriorityClass";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Scheduling.V1.PriorityClassArgs();
+            args.ApiVersion = "scheduling.k8s.io/v1";
+            args.Kind = "PriorityClass";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

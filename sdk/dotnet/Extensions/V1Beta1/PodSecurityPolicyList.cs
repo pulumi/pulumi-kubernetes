@@ -58,11 +58,10 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.PodSecurityPolicyListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "extensions/v1beta1";
-                args.Kind = "PodSecurityPolicyList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Extensions.V1Beta1.PodSecurityPolicyListArgs();
+            args.ApiVersion = "extensions/v1beta1";
+            args.Kind = "PodSecurityPolicyList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

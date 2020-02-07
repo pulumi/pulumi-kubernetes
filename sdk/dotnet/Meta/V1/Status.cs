@@ -86,11 +86,10 @@ namespace Pulumi.Kubernetes.Meta.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Meta.V1.StatusArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "v1";
-                args.Kind = "Status";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Meta.V1.StatusArgs();
+            args.ApiVersion = "v1";
+            args.Kind = "Status";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
