@@ -41,9 +41,10 @@ class Provider(pulumi.ProviderResource):
                                   This config can be specified in the following ways, using this precedence:
                                   1. This `suppressDeprecationWarnings` parameter.
                                   2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
-        :param pulumi.Input[str] render_yaml_to_directory: If present, render resource manifests to this directory.
-                                 In this mode, resources will not be created on a Kubernetes cluster, but the rendered
-                                 manifests will be kept in sync with changes to the Pulumi program. Note that some
+        :param pulumi.Input[str] render_yaml_to_directory: BETA FEATURE - If present, render resource manifests to this
+                                 directory. In this mode, resources will not be created on a Kubernetes cluster, but
+                                 the rendered manifests will be kept in sync with changes to the Pulumi program.
+                                 This feature is in developer preview, and is disabled by default. Note that some
                                  computed Outputs such as status fields will not be populated since the resources are
                                  not created on a Kubernetes cluster. These Output values will remain undefined,
                                  and may result in an error if they are referenced by other resources. Also note that

@@ -68,9 +68,9 @@ export interface ProviderArgs {
      */
     readonly suppressDeprecationWarnings?: pulumi.Input<boolean>;
     /**
-     * If present, render resource manifests to this directory. In this mode, resources will not
+     * BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
      * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
-     * to the Pulumi program.
+     * to the Pulumi program. This feature is in developer preview, and is disabled by default.
      *
      * Note that some computed Outputs such as status fields will not be populated
      * since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
