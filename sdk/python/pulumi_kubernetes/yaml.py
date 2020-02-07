@@ -57,10 +57,20 @@ class ConfigFile(pulumi.ComponentResource):
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
 
+        # Rather than using the default provider for the following invoke call, determine the
+        # provider from the parent if specified, or fallback to using the version specified
+        # in package.json.
+        invoke_opts = pulumi.InvokeOptions()
+        if opts.parent is not None:
+            invoke_opts.parent = opts.parent
+        else:
+            invoke_opts.version = get_version()
+
+        __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
+
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}).value['result']
         self.resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
         self.register_outputs({"resources": self.resources})
 

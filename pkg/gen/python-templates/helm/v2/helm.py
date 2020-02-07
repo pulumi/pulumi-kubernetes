@@ -9,6 +9,7 @@ from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
 import pulumi.runtime
+from ...version import get_version
 from pulumi_kubernetes.yaml import _parse_yaml_document
 
 
@@ -347,9 +348,19 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     cmd.extend(home_arg)
 
     chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
+
+    # Rather than using the default provider for the following invoke call, determine the
+    # provider from the parent if specified, or fallback to using the version specified
+    # in package.json.
+    invoke_opts = pulumi.InvokeOptions()
+    if opts.parent is not None:
+        invoke_opts.parent = opts.parent
+    else:
+        invoke_opts.version = get_version()
+
     objects = chart_resources.apply(
         lambda text: pulumi.runtime.invoke('kubernetes:yaml:decode', {
-            'text': text, 'defaultNamespace': config.namespace}).value['result'])
+            'text': text, 'defaultNamespace': config.namespace}, invoke_opts).value['result'])
 
     # Parse the manifest and create the specified resources.
     resources = objects.apply(
