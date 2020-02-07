@@ -18,7 +18,8 @@ export class Provider extends pulumi.ProviderResource {
             "kubeconfig": args ? args.kubeconfig : undefined,
             "namespace": args ? args.namespace : undefined,
             "enableDryRun": args && args.enableDryRun ? "true" : undefined,
-            "suppressDeprecationWarnings": args && args.suppressDeprecationWarnings ? "true" : undefined
+            "suppressDeprecationWarnings": args && args.suppressDeprecationWarnings ? "true" : undefined,
+            "renderYamlToDirectory": args ? args.renderYamlToDirectory : undefined,
         };
         super("kubernetes", name, props, opts);
     }
@@ -66,4 +67,15 @@ export interface ProviderArgs {
      * 2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
      */
     readonly suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    /**
+     * BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
+     * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
+     * to the Pulumi program. This feature is in developer preview, and is disabled by default.
+     *
+     * Note that some computed Outputs such as status fields will not be populated
+     * since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
+     * and may result in an error if they are referenced by other resources. Also note that any secret values
+     * used in these resources will be rendered in plaintext to the resulting YAML.
+     */
+    readonly renderYamlToDirectory?: pulumi.Input<string>;
 }

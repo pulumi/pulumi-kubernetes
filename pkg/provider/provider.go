@@ -19,8 +19,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/url"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"sync"
@@ -56,6 +58,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
+	"sigs.k8s.io/yaml"
 )
 
 // --------------------------------------------------------------------------
@@ -104,8 +107,9 @@ type kubeProvider struct {
 	defaultNamespace string
 
 	enableDryRun                bool
-	suppressDeprecationWarnings bool
 	enableSecrets               bool
+	suppressDeprecationWarnings bool
+	yamlDirectory               string
 
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
@@ -166,6 +170,70 @@ func (k *kubeProvider) invalidateResources() {
 
 // CheckConfig validates the configuration for this provider.
 func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
+	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.news", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		RejectAssets: true,
+	})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
+	}
+
+	truthyValue := func(argName resource.PropertyKey, props resource.PropertyMap) bool {
+		if arg := props[argName]; arg.HasValue() {
+			switch {
+			case arg.IsString() && len(arg.StringValue()) > 0:
+				return true
+			case arg.IsBool() && arg.BoolValue():
+				return true
+			default:
+				return false
+			}
+		}
+		return false
+	}
+
+	renderYamlEnabled := truthyValue("renderYamlToDirectory", news)
+
+	errTemplate := `%q arg is not compatible with "renderYamlToDirectory" arg`
+	if renderYamlEnabled {
+		var failures []*pulumirpc.CheckFailure
+
+		if truthyValue("cluster", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "cluster",
+				Reason:   fmt.Sprintf(errTemplate, "cluster"),
+			})
+		}
+		if truthyValue("context", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "context",
+				Reason:   fmt.Sprintf(errTemplate, "context"),
+			})
+		}
+		if truthyValue("kubeconfig", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "kubeconfig",
+				Reason:   fmt.Sprintf(errTemplate, "kubeconfig"),
+			})
+		}
+		if truthyValue("enableDryRun", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "enableDryRun",
+				Reason:   fmt.Sprintf(errTemplate, "enableDryRun"),
+			})
+		}
+
+		if len(failures) > 0 {
+			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
+		}
+	}
+
 	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
@@ -190,7 +258,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		RejectAssets: true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "diffconfig failed because malformed resource inputs")
+		return nil, pkgerrors.Wrapf(err, "DiffConfig failed because of malformed resource inputs")
 	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
@@ -229,6 +297,12 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 	if olds["enableDryRun"] != news["enableDryRun"] {
 		diffs = append(diffs, "enableDryRun")
+	}
+	if olds["renderYamlToDirectory"] != news["renderYamlToDirectory"] {
+		diffs = append(diffs, "renderYamlToDirectory")
+
+		// If the render directory changes, all of the manifests will be replaced.
+		replaces = append(replaces, "renderYamlToDirectory")
 	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
@@ -319,6 +393,15 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	if suppressDeprecationWarnings() {
 		k.suppressDeprecationWarnings = true
 	}
+
+	renderYamlToDirectory := func() string {
+		// Read the config from the Provider.
+		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists {
+			return directory
+		}
+		return ""
+	}
+	k.yamlDirectory = renderYamlToDirectory()
 
 	var kubeconfig clientcmd.ClientConfig
 	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
@@ -970,6 +1053,12 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
+	if len(k.yamlDirectory) > 0 {
+		if checkedInputs.ContainsSecrets() {
+			_ = k.host.Log(ctx, diag.Warning, urn, "rendered YAML will contain a secret value in plaintext")
+		}
+	}
+
 	// Return new, possibly-autonamed inputs.
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
@@ -1218,6 +1307,38 @@ func (k *kubeProvider) Create(
 	}
 
 	initialApiVersion := newInputs.GetAPIVersion()
+
+	if len(k.yamlDirectory) > 0 {
+		if newResInputs.ContainsSecrets() {
+			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+				"rendered file %s contains a secret value in plaintext",
+				renderPathForResource(annotatedInputs, k.yamlDirectory)))
+		}
+		err := renderYaml(annotatedInputs, k.yamlDirectory)
+		if err != nil {
+			return nil, err
+		}
+
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
+		inputsAndComputed, err := plugin.MarshalProperties(
+			obj, plugin.MarshalOptions{
+				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+				KeepUnknowns: true,
+				SkipNulls:    true,
+				KeepSecrets:  k.enableSecrets,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
+			"rendered %s", renderPathForResource(annotatedInputs, k.yamlDirectory)))
+
+		return &pulumirpc.CreateResponse{
+			Id: fqObjName(annotatedInputs), Properties: inputsAndComputed,
+		}, nil
+	}
+
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -1235,7 +1356,6 @@ func (k *kubeProvider) Create(
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
 	}
-
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
 		if meta.IsNoMatchError(awaitErr) {
@@ -1569,6 +1689,36 @@ func (k *kubeProvider) Update(
 	if err != nil {
 		return nil, err
 	}
+
+	if len(k.yamlDirectory) > 0 {
+		if newResInputs.ContainsSecrets() {
+			_ = k.host.LogStatus(ctx, diag.Warning, urn, fmt.Sprintf(
+				"rendered file %s contains a secret value in plaintext",
+				renderPathForResource(annotatedInputs, k.yamlDirectory)))
+		}
+		err := renderYaml(annotatedInputs, k.yamlDirectory)
+		if err != nil {
+			return nil, err
+		}
+
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
+		inputsAndComputed, err := plugin.MarshalProperties(
+			obj, plugin.MarshalOptions{
+				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+				KeepUnknowns: true,
+				SkipNulls:    true,
+				KeepSecrets:  k.enableSecrets,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
+			"rendered %s", renderPathForResource(annotatedInputs, k.yamlDirectory)))
+
+		return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
+	}
+
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -1675,6 +1825,22 @@ func (k *kubeProvider) Delete(
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
+
+	if len(k.yamlDirectory) > 0 {
+		file := renderPathForResource(current, k.yamlDirectory)
+		err := os.Remove(file)
+		if err != nil {
+			// Most of the time, errors will be because the file was already deleted. In this case,
+			// the operation succeeds. It's also possible that deletion fails due to file permission if
+			// the user changed the directory out-of-band, so log the error to help debug this scenario.
+			glog.V(3).Infof("Failed to delete YAML file: %q - %v", file, err)
+		}
+
+		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("deleted %s", file))
+
+		return &pbempty.Empty{}, nil
+	}
+
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:           k.canceler.context, // TODO: should this just be ctx from the args?
@@ -2352,4 +2518,58 @@ func annotateSecrets(outs, ins resource.PropertyMap) {
 			outs[key] = resource.MakeSecret(outValue)
 		}
 	}
+}
+
+// renderYaml marshals an Unstructured resource to YAML and writes it to the specified path on disk or returns an error.
+func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error {
+	jsonBytes, err := resource.MarshalJSON()
+	if err != nil {
+		return pkgerrors.Wrapf(err, "failed to render YAML file: %q", yamlDirectory)
+	}
+	yamlBytes, err := yaml.JSONToYAML(jsonBytes)
+	if err != nil {
+		return pkgerrors.Wrapf(err, "failed to render YAML file: %q", yamlDirectory)
+	}
+
+	crdDirectory := filepath.Join(yamlDirectory, "0-crd")
+	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
+
+	if _, err := os.Stat(crdDirectory); os.IsNotExist(err) {
+		err = os.MkdirAll(crdDirectory, 0700)
+		if err != nil {
+			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", crdDirectory)
+		}
+	}
+	if _, err := os.Stat(manifestDirectory); os.IsNotExist(err) {
+		err = os.MkdirAll(manifestDirectory, 0700)
+		if err != nil {
+			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", manifestDirectory)
+		}
+	}
+
+	path := renderPathForResource(resource, yamlDirectory)
+	err = ioutil.WriteFile(path, yamlBytes, 0644)
+	if err != nil {
+		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", path)
+	}
+
+	return nil
+}
+
+// renderPathForResource determines the appropriate YAML render path depending on the resource kind.
+func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory string) string {
+	crdDirectory := filepath.Join(yamlDirectory, "0-crd")
+	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
+
+	fileName := fmt.Sprintf("%s-%s.yaml", strings.ToLower(resource.GetKind()), resource.GetName())
+	filepath.Join(yamlDirectory, fileName)
+
+	var path string
+	if kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
+		path = filepath.Join(crdDirectory, fileName)
+	} else {
+		path = filepath.Join(manifestDirectory, fileName)
+	}
+
+	return path
 }

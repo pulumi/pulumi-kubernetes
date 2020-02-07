@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Optionally render YAML for k8s resources. (https://github.com/pulumi/pulumi-kubernetes/pull/936).
+
 ## 1.5.1 (February 7, 2020)
 
 ### Bug fixes
