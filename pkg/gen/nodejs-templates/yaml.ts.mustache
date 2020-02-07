@@ -6,6 +6,7 @@ import * as fs from "fs";
 import * as glob from "glob";
 import fetch from "node-fetch";
 import * as k8s from "../index";
+import { getVersion } from "../version";
 import * as outputs from "../types/output";
 
     export interface ConfigGroupOpts {
@@ -120,9 +121,19 @@ import * as outputs from "../types/output";
         resourcePrefix?: string;
     }
 
-    function yamlLoadAll(text: string): Promise<any[]> {
-        const promise = pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, {async: true});
-        return promise.then(p => p.result);
+    function yamlLoadAll(text: string, opts?: pulumi.CustomResourceOptions): Promise<any[]> {
+        // Rather than using the default provider for the following invoke call, determine the
+        // provider from the parent if specified, or fallback to using the version specified
+        // in package.json.
+        let invokeOpts: pulumi.InvokeOptions = {async: true};
+        if (opts?.parent) {
+            invokeOpts = {...invokeOpts, parent: opts.parent};
+        } else {
+            invokeOpts = {...invokeOpts, version: getVersion()};
+        }
+
+        return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
+            .then((p => p.result));
     }
 
     /** @ignore */ export function parse(
@@ -172,7 +183,7 @@ import * as outputs from "../types/output";
 
             for (const text of yamlTexts) {
                 const docResources = parseYamlDocument({
-                        objs: yamlLoadAll(text),
+                        objs: yamlLoadAll(text, opts),
                         transformations: config.transformations,
                         resourcePrefix: config.resourcePrefix
                     },
@@ -320,7 +331,7 @@ import * as outputs from "../types/output";
             this.resources = pulumi.output(text.then(t => {
                 try {
                     return parseYamlDocument({
-                        objs: yamlLoadAll(t),
+                        objs: yamlLoadAll(t, opts),
                         transformations: config && config.transformations || [],
                         resourcePrefix: config && config.resourcePrefix || undefined
                     }, {parent: this})
