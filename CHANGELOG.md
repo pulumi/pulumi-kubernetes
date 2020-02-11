@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 1.5.3 (February 11, 2020)
+
 ### Bug fixes
 
 -   Change invoke call to always use latest version. (https://github.com/pulumi/pulumi-kubernetes/pull/987).
