@@ -57,8 +57,7 @@ class ConfigFile(pulumi.ComponentResource):
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
 
-        # Rather than using the default provider for the following invoke call, determine the
-        # provider from the parent if specified, or fallback to using the version specified
+        # Rather than using the default provider for the following invoke call, use the version specified
         # in package.json.
         invoke_opts = pulumi.InvokeOptions(version=get_version())
 

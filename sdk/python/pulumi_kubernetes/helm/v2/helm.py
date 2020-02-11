@@ -349,8 +349,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
     chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
 
-    # Rather than using the default provider for the following invoke call, determine the
-    # provider from the parent if specified, or fallback to using the version specified
+    # Rather than using the default provider for the following invoke call, use the version specified
     # in package.json.
     invoke_opts = pulumi.InvokeOptions(version=get_version())
 

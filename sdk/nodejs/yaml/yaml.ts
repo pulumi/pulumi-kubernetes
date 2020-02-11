@@ -122,8 +122,7 @@ import * as outputs from "../types/output";
     }
 
     function yamlLoadAll(text: string): Promise<any[]> {
-        // Rather than using the default provider for the following invoke call, determine the
-        // provider from the parent if specified, or fallback to using the version specified
+        // Rather than using the default provider for the following invoke call, use the version specified
         // in package.json.
         let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
 

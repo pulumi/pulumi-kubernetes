@@ -237,8 +237,7 @@ export class Chart extends yaml.CollectionComponentResource {
         dependsOn: pulumi.Resource[],
         defaultNamespace: string | undefined,
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
-        // Rather than using the default provider for the following invoke call, determine the
-        // provider from the parent if specified, or fallback to using the version specified
+        // Rather than using the default provider for the following invoke call, use the version specified
         // in package.json.
         let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
 
