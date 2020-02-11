@@ -121,16 +121,11 @@ import * as outputs from "../types/output";
         resourcePrefix?: string;
     }
 
-    function yamlLoadAll(text: string, opts?: pulumi.CustomResourceOptions): Promise<any[]> {
+    function yamlLoadAll(text: string): Promise<any[]> {
         // Rather than using the default provider for the following invoke call, determine the
         // provider from the parent if specified, or fallback to using the version specified
         // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = {async: true};
-        if (opts?.parent) {
-            invokeOpts = {...invokeOpts, parent: opts.parent};
-        } else {
-            invokeOpts = {...invokeOpts, version: getVersion()};
-        }
+        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
 
         return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
             .then((p => p.result));
@@ -183,7 +178,7 @@ import * as outputs from "../types/output";
 
             for (const text of yamlTexts) {
                 const docResources = parseYamlDocument({
-                        objs: yamlLoadAll(text, opts),
+                        objs: yamlLoadAll(text),
                         transformations: config.transformations,
                         resourcePrefix: config.resourcePrefix
                     },
@@ -331,7 +326,7 @@ import * as outputs from "../types/output";
             this.resources = pulumi.output(text.then(t => {
                 try {
                     return parseYamlDocument({
-                        objs: yamlLoadAll(t, opts),
+                        objs: yamlLoadAll(t),
                         transformations: config && config.transformations || [],
                         resourcePrefix: config && config.resourcePrefix || undefined
                     }, {parent: this})

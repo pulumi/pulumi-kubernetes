@@ -352,11 +352,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     # Rather than using the default provider for the following invoke call, determine the
     # provider from the parent if specified, or fallback to using the version specified
     # in package.json.
-    invoke_opts = pulumi.InvokeOptions()
-    if opts.parent is not None:
-        invoke_opts.parent = opts.parent
-    else:
-        invoke_opts.version = get_version()
+    invoke_opts = pulumi.InvokeOptions(version=get_version())
 
     objects = chart_resources.apply(
         lambda text: pulumi.runtime.invoke('kubernetes:yaml:decode', {

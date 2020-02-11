@@ -312,7 +312,7 @@ func TestHelm(t *testing.T) {
 		ExpectRefreshChanges: true, // PodDisruptionBudget status gets updated by the Deployment.
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 16, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
 
 			sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 				ri := stackInfo.Deployment.Resources[i]

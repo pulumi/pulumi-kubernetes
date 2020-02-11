@@ -9,8 +9,8 @@ from typing import Callable, Dict, List, Optional
 import pulumi.runtime
 import requests
 from pulumi_kubernetes.apiextensions import CustomResource
-
 from . import tables
+from .version import get_version
 
 
 class ConfigFile(pulumi.ComponentResource):
@@ -60,11 +60,7 @@ class ConfigFile(pulumi.ComponentResource):
         # Rather than using the default provider for the following invoke call, determine the
         # provider from the parent if specified, or fallback to using the version specified
         # in package.json.
-        invoke_opts = pulumi.InvokeOptions()
-        if opts.parent is not None:
-            invoke_opts.parent = opts.parent
-        else:
-            invoke_opts.version = get_version()
+        invoke_opts = pulumi.InvokeOptions(version=get_version())
 
         __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
 
