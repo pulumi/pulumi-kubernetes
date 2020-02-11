@@ -159,11 +159,9 @@ func TestYaml(t *testing.T) {
 			// Verify the provider resources.
 			provRes := stackInfo.Deployment.Resources[12]
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-			provRes = stackInfo.Deployment.Resources[13]
-			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			// Verify root resource.
-			stackRes := stackInfo.Deployment.Resources[14]
+			stackRes := stackInfo.Deployment.Resources[13]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
 			// TODO[pulumi/pulumi#2782] Testing of secrets blocked on a bug in Python support for secrets.
