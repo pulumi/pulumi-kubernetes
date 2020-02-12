@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -1190,36 +1191,56 @@ func (k *kubeProvider) Diff(
 	}
 
 	var patch []byte
-	var isInputPatch bool
+	var isClientSidePatch bool
 	var patchBase *unstructured.Unstructured
 
-	// BETA FEATURE FLAG: We are disabling the dry run behavior by default using the `enableDryRun` feature flag. For
-	// now, this flag defaults to false, but will eventually be default to true.
-	tryDryRun := k.enableDryRun && supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String() &&
-		// TODO: Skipping dry run entirely for resources with computed values is a hack. We will want to address this
+	// Try to compute a server-side patch. Returns true iff the operation succeeded.
+	tryServerSidePatch := func() bool {
+		// If the configuration says to use client-side patch instead.
+		if !k.enableDryRun {
+			return false
+		}
+		// If the cluster does not support the server-side diff feature.
+		if !supportsDryRun {
+			return false
+		}
+		// If the resource's GVK changed, so compute patch using inputs.
+		if oldInputs.GroupVersionKind().String() != gvk.String() {
+			return false
+		}
+		// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
 		// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
 		// bug.
-		!hasComputedValue(newInputs) && !hasComputedValue(oldInputs)
-	if tryDryRun {
-		patch, patchBase, err = k.dryRunPatch(oldInputs, newInputs)
-
-		// Fall back to input patch.
-		se, isStatusError := err.(*errors.StatusError)
-		if isStatusError && se.Status().Code == 400 &&
-			(se.Status().Message == "the dryRun alpha feature is disabled" ||
-				se.Status().Message == "the dryRun beta feature is disabled" ||
-				strings.Contains(se.Status().Message, "does not support dry run")) {
-
-			isInputPatch = true
-			patch, err = k.inputPatch(oldInputs, newInputs)
-			patchBase = oldInputs
+		if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
+			return false
 		}
-	} else {
-		isInputPatch = true
+
+		patch, patchBase, err = k.serverSidePatch(oldInputs, newInputs)
+		if se, isStatusError := err.(*errors.StatusError); isStatusError {
+			// If the cluster doesn't support server-side diff.
+			if se.Status().Code == http.StatusBadRequest &&
+				(se.Status().Message == "the dryRun alpha feature is disabled" ||
+					se.Status().Message == "the dryRun beta feature is disabled" ||
+					strings.Contains(se.Status().Message, "does not support dry run")) {
+				return false
+			}
+			// If the resource field is immutable.
+			if se.Status().Code == http.StatusUnprocessableEntity ||
+				strings.Contains(se.ErrStatus.Message, "field is immutable") {
+				return false
+			}
+		}
+
+		// The server-side patch succeeded.
+		return true
+	}
+	if !tryServerSidePatch() {
+		isClientSidePatch = true
 		patch, err = k.inputPatch(oldInputs, newInputs)
 		patchBase = oldInputs
 	}
-	if isInputPatch {
+
+	if isClientSidePatch {
 		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
 
 	} else {
@@ -1257,7 +1278,7 @@ func (k *kubeProvider) Diff(
 					"converting JSON patch describing resource changes to a diff",
 				newInputs.GetNamespace(), newInputs.GetName())
 		}
-		if isInputPatch {
+		if isClientSidePatch {
 			for _, v := range detailedDiff {
 				v.InputDiff = true
 			}
@@ -1992,7 +2013,7 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 	return rc.Get(context.TODO(), obj.GetName(), metav1.GetOptions{})
 }
 
-func (k *kubeProvider) dryRunPatch(
+func (k *kubeProvider) serverSidePatch(
 	oldInputs, newInputs *unstructured.Unstructured,
 ) ([]byte, *unstructured.Unstructured, error) {
 
@@ -2052,6 +2073,7 @@ func (k *kubeProvider) dryRunPatch(
 	return patch, liveObject, nil
 }
 
+// inputPatch calculates a patch on the client-side by comparing old inputs to the current inputs.
 func (k *kubeProvider) inputPatch(
 	oldInputs, newInputs *unstructured.Unstructured,
 ) ([]byte, error) {
