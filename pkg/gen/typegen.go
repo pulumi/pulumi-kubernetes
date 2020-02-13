@@ -1231,6 +1231,8 @@ func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
 	}
 }
 
+// aliasesForGVK returns a list of alias strings for a given GVK. These values are derived from the Kubernetes
+// API docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/
 func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 	kind := kinds.Kind(gvk.Kind)
 
