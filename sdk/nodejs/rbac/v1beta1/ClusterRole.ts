@@ -104,9 +104,9 @@ import { getVersion } from "../../version";
 
           const _opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:rbac/v1:ClusterRole", name: name },
-                  { parent: opts.parent, type: "kubernetes:rbac/v1beta1:ClusterRole", name: name },
-                  { parent: opts.parent, type: "kubernetes:rbac/v1alpha1:ClusterRole", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole", name: name },
+                  { parent: opts.parent, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", name: name },
               ],
           });
 
