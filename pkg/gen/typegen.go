@@ -1237,9 +1237,9 @@ func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 	switch kind {
 	case kinds.ClusterRole, kinds.ClusterRoleBinding, kinds.Role, kinds.RoleBinding:
 		return []string{
-			fmt.Sprintf("kubernetes:rbac/v1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:rbac/v1beta1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:rbac/v1alpha1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1alpha1:%s", gvk.Kind),
 		}
 	case kinds.DaemonSet, kinds.ReplicaSet:
 		return []string{
@@ -1256,12 +1256,12 @@ func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 		}
 	case kinds.Ingress:
 		return []string{
-			fmt.Sprintf("kubernetes:networking/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:networking.k8s.io/v1beta1:%s", gvk.Kind),
 			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
 		}
 	case kinds.NetworkPolicy:
 		return []string{
-			fmt.Sprintf("kubernetes:networking/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:networking.k8s.io/v1:%s", gvk.Kind),
 			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
 		}
 	case kinds.PodSecurityPolicy:
@@ -1271,9 +1271,9 @@ func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 		}
 	case kinds.PriorityClass:
 		return []string{
-			fmt.Sprintf("kubernetes:scheduling/v1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:scheduling/v1beta1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:scheduling/v1alpha1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1beta1:%s", gvk.Kind),
+			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1alpha1:%s", gvk.Kind),
 		}
 	default:
 		return []string{}

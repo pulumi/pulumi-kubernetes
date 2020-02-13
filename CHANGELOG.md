@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Fix aliases for several resource kinds. (https://github.com/pulumi/pulumi-kubernetes/pull/990).
+
 ## 1.5.3 (February 11, 2020)
 
 ### Bug fixes
