@@ -916,13 +916,13 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 		}).
 		ToSlice(&definitions)
 
-	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV.
+	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV string.
 	// For Kinds with more than one GV, create aliases in the SDKs.
 	type SimpleKind struct {
 		kind       string
 		apiVersion string
 	}
-	kindAPIVersions := map[string][]interface{}{}
+	aliases := map[string][]interface{}{}
 	linq.From(definitions).
 		WhereT(func(d *definition) bool { return isTopLevel(d) && !strings.HasSuffix(d.gvk.Kind, "List") }).
 		OrderByT(func(d *definition) string { return d.gvk.String() }).
@@ -951,19 +951,24 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				fqGroupVersion = gv
 			}
 
-			return linq.From([]*SimpleKind{
+			return linq.From([]SimpleKind{
 				{
 					kind:       d.gvk.Kind,
 					apiVersion: fqGroupVersion,
 				},
 			})
 		}).
-		GroupBy(func(i interface{}) interface{} {
-			return i.(*SimpleKind).kind
-		}, func(i interface{}) interface{} {
-			return i.(*SimpleKind).apiVersion
+		GroupByT(
+			func(kind SimpleKind) string {
+				return kind.kind
+			},
+			func(kind SimpleKind) string {
+				return fmt.Sprintf("kubernetes:%s:%s", kind.apiVersion, kind.kind)
+			}).
+		WhereT(func(group linq.Group) bool {
+			return len(group.Group) > 1
 		}).
-		ToMapBy(&kindAPIVersions,
+		ToMapBy(&aliases,
 			func(i interface{}) interface{} {
 				return i.(linq.Group).Key
 			},
@@ -973,14 +978,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	aliasesForGVK := func(gvk schema.GroupVersionKind) []string {
 		var results []string
 
-		apiVersions, hasValue := kindAPIVersions[gvk.Kind]
-		if !hasValue || len(apiVersions) == 1 {
-			return results
-		}
-
-		for _, apiVersion := range apiVersions {
-			alias := fmt.Sprintf("kubernetes:%s:%s", apiVersion.(string), gvk.Kind)
-			results = append(results, alias)
+		for _, alias := range aliases[gvk.Kind] {
+			results = append(results, alias.(string))
 		}
 		return results
 	}
@@ -1299,54 +1298,3 @@ func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
 		return []string{}
 	}
 }
-
-//// aliasesForGVK returns a list of alias strings for a given GVK. These values are derived from the Kubernetes
-//// API docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/
-//func aliasesForGVK(gvk schema.GroupVersionKind) []string {
-//	kind := kinds.Kind(gvk.Kind)
-//
-//	switch kind {
-//	case kinds.ClusterRole, kinds.ClusterRoleBinding, kinds.Role, kinds.RoleBinding:
-//		return []string{
-//			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1beta1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1alpha1:%s", gvk.Kind),
-//		}
-//	case kinds.DaemonSet, kinds.ReplicaSet:
-//		return []string{
-//			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-//		}
-//	case kinds.Deployment, kinds.StatefulSet:
-//		return []string{
-//			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:apps/v1beta1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-//		}
-//	case kinds.Ingress:
-//		return []string{
-//			fmt.Sprintf("kubernetes:networking.k8s.io/v1beta1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-//		}
-//	case kinds.NetworkPolicy:
-//		return []string{
-//			fmt.Sprintf("kubernetes:networking.k8s.io/v1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-//		}
-//	case kinds.PodSecurityPolicy:
-//		return []string{
-//			fmt.Sprintf("kubernetes:policy/v1beta1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-//		}
-//	case kinds.PriorityClass:
-//		return []string{
-//			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1beta1:%s", gvk.Kind),
-//			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1alpha1:%s", gvk.Kind),
-//		}
-//	default:
-//		return []string{}
-//	}
-//}
