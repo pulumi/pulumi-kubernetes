@@ -927,10 +927,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 		WhereT(func(d *definition) bool { return isTopLevel(d) && !strings.HasSuffix(d.gvk.Kind, "List") }).
 		OrderByT(func(d *definition) string { return d.gvk.String() }).
 		SelectManyT(func(d *definition) linq.Query {
-			// Make fully-qualified and "default" GroupVersion. The "default" GV is the `apiVersion` that
-			// appears when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`), while the
-			// fully-qualified version is the "official" GV (e.g., `core/v1` instead of `v1` or
-			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
+			// Make fully-qualified GroupVersion. The fully-qualified version is the "official" GV
+			// (e.g., `core/v1` instead of `v1` or `admissionregistration.k8s.io/v1alpha1` instead of
+			// `admissionregistration/v1alpha1`).
 			var fqGroupVersion string
 			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
 				gvk := gvks[0].(map[string]interface{})
@@ -943,11 +942,6 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				}
 			} else {
 				gv := d.gvk.GroupVersion().String()
-				if strings.HasPrefix(gv, "apiextensions/") && strings.HasPrefix(d.gvk.Kind, "CustomResource") {
-					// Special case. Kubernetes OpenAPI spec should have an `x-kubernetes-group-version-kind`
-					// CustomResource, but it doesn't. Hence, we hard-code it.
-					gv = fmt.Sprintf("apiextensions.k8s.io/%s", d.gvk.Version)
-				}
 				fqGroupVersion = gv
 			}
 
