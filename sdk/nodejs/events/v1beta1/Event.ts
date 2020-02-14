@@ -173,6 +173,13 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(Event.__pulumiType, name, props, opts);
+          const _opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:core/v1:Event", name: name },
+                  { parent: opts.parent, type: "kubernetes:events.k8s.io/v1beta1:Event", name: name },
+              ],
+          });
+
+          super(Event.__pulumiType, name, props, _opts);
       }
     }

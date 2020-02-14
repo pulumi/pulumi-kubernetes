@@ -102,6 +102,13 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(SelfSubjectRulesReview.__pulumiType, name, props, opts);
+          const _opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", name: name },
+                  { parent: opts.parent, type: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", name: name },
+              ],
+          });
+
+          super(SelfSubjectRulesReview.__pulumiType, name, props, _opts);
       }
     }

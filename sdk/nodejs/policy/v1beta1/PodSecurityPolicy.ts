@@ -96,8 +96,8 @@ import { getVersion } from "../../version";
 
           const _opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:policy/v1beta1:PodSecurityPolicy", name: name },
                   { parent: opts.parent, type: "kubernetes:extensions/v1beta1:PodSecurityPolicy", name: name },
+                  { parent: opts.parent, type: "kubernetes:policy/v1beta1:PodSecurityPolicy", name: name },
               ],
           });
 

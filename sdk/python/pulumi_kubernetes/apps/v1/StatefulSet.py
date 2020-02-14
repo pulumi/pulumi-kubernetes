@@ -97,7 +97,6 @@ class StatefulSet(pulumi.CustomResource):
             pulumi.Alias(parent=parent, type_="kubernetes:apps/v1:StatefulSet", name=resource_name),
             pulumi.Alias(parent=parent, type_="kubernetes:apps/v1beta1:StatefulSet", name=resource_name),
             pulumi.Alias(parent=parent, type_="kubernetes:apps/v1beta2:StatefulSet", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:extensions/v1beta1:StatefulSet", name=resource_name),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

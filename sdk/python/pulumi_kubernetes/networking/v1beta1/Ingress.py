@@ -99,8 +99,8 @@ class Ingress(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:networking.k8s.io/v1beta1:Ingress", name=resource_name),
             pulumi.Alias(parent=parent, type_="kubernetes:extensions/v1beta1:Ingress", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:networking.k8s.io/v1beta1:Ingress", name=resource_name),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

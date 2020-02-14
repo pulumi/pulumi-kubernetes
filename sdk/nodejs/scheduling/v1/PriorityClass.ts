@@ -123,8 +123,8 @@ import { getVersion } from "../../version";
           const _opts = pulumi.mergeOptions(opts, {
               aliases: [
                   { parent: opts.parent, type: "kubernetes:scheduling.k8s.io/v1:PriorityClass", name: name },
-                  { parent: opts.parent, type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name: name },
                   { parent: opts.parent, type: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass", name: name },
+                  { parent: opts.parent, type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name: name },
               ],
           });
 

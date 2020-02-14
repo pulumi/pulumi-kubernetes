@@ -82,8 +82,14 @@ class CronJob(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+            pulumi.Alias(parent=parent, type_="kubernetes:batch/v1beta1:CronJob", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:batch/v2alpha1:CronJob", name=resource_name),
+        ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
+            aliases=aliases,
         ))
 
         super(CronJob, self).__init__(

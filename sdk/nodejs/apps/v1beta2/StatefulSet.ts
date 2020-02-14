@@ -121,7 +121,6 @@ import { getVersion } from "../../version";
                   { parent: opts.parent, type: "kubernetes:apps/v1:StatefulSet", name: name },
                   { parent: opts.parent, type: "kubernetes:apps/v1beta1:StatefulSet", name: name },
                   { parent: opts.parent, type: "kubernetes:apps/v1beta2:StatefulSet", name: name },
-                  { parent: opts.parent, type: "kubernetes:extensions/v1beta1:StatefulSet", name: name },
               ],
           });
 

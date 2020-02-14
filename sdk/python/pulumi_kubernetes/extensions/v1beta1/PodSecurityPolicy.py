@@ -77,8 +77,8 @@ class PodSecurityPolicy(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:policy/v1beta1:PodSecurityPolicy", name=resource_name),
             pulumi.Alias(parent=parent, type_="kubernetes:extensions/v1beta1:PodSecurityPolicy", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:policy/v1beta1:PodSecurityPolicy", name=resource_name),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

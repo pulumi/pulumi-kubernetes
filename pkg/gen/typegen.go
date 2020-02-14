@@ -916,6 +916,75 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 		}).
 		ToSlice(&definitions)
 
+	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV.
+	// For Kinds with more than one GV, create aliases in the SDKs.
+	type SimpleKind struct {
+		kind       string
+		apiVersion string
+	}
+	kindAPIVersions := map[string][]interface{}{}
+	linq.From(definitions).
+		WhereT(func(d *definition) bool { return isTopLevel(d) && !strings.HasSuffix(d.gvk.Kind, "List") }).
+		OrderByT(func(d *definition) string { return d.gvk.String() }).
+		SelectManyT(func(d *definition) linq.Query {
+			// Make fully-qualified and "default" GroupVersion. The "default" GV is the `apiVersion` that
+			// appears when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`), while the
+			// fully-qualified version is the "official" GV (e.g., `core/v1` instead of `v1` or
+			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
+			var fqGroupVersion string
+			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+				gvk := gvks[0].(map[string]interface{})
+				group := gvk["group"].(string)
+				version := gvk["version"].(string)
+				if group == "" {
+					fqGroupVersion = fmt.Sprintf(`core/%s`, version)
+				} else {
+					fqGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
+				}
+			} else {
+				gv := d.gvk.GroupVersion().String()
+				if strings.HasPrefix(gv, "apiextensions/") && strings.HasPrefix(d.gvk.Kind, "CustomResource") {
+					// Special case. Kubernetes OpenAPI spec should have an `x-kubernetes-group-version-kind`
+					// CustomResource, but it doesn't. Hence, we hard-code it.
+					gv = fmt.Sprintf("apiextensions.k8s.io/%s", d.gvk.Version)
+				}
+				fqGroupVersion = gv
+			}
+
+			return linq.From([]*SimpleKind{
+				{
+					kind:       d.gvk.Kind,
+					apiVersion: fqGroupVersion,
+				},
+			})
+		}).
+		GroupBy(func(i interface{}) interface{} {
+			return i.(*SimpleKind).kind
+		}, func(i interface{}) interface{} {
+			return i.(*SimpleKind).apiVersion
+		}).
+		ToMapBy(&kindAPIVersions,
+			func(i interface{}) interface{} {
+				return i.(linq.Group).Key
+			},
+			func(i interface{}) interface{} {
+				return i.(linq.Group).Group
+			})
+	aliasesForGVK := func(gvk schema.GroupVersionKind) []string {
+		var results []string
+
+		apiVersions, hasValue := kindAPIVersions[gvk.Kind]
+		if !hasValue || len(apiVersions) == 1 {
+			return results
+		}
+
+		for _, apiVersion := range apiVersions {
+			alias := fmt.Sprintf("kubernetes:%s:%s", apiVersion.(string), gvk.Kind)
+			results = append(results, alias)
+		}
+		return results
+	}
+
 	//
 	// Assemble a `KindConfig` for each Kubernetes kind.
 	//
@@ -1231,53 +1300,53 @@ func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
 	}
 }
 
-// aliasesForGVK returns a list of alias strings for a given GVK. These values are derived from the Kubernetes
-// API docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/
-func aliasesForGVK(gvk schema.GroupVersionKind) []string {
-	kind := kinds.Kind(gvk.Kind)
-
-	switch kind {
-	case kinds.ClusterRole, kinds.ClusterRoleBinding, kinds.Role, kinds.RoleBinding:
-		return []string{
-			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1beta1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1alpha1:%s", gvk.Kind),
-		}
-	case kinds.DaemonSet, kinds.ReplicaSet:
-		return []string{
-			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-		}
-	case kinds.Deployment, kinds.StatefulSet:
-		return []string{
-			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:apps/v1beta1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-		}
-	case kinds.Ingress:
-		return []string{
-			fmt.Sprintf("kubernetes:networking.k8s.io/v1beta1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-		}
-	case kinds.NetworkPolicy:
-		return []string{
-			fmt.Sprintf("kubernetes:networking.k8s.io/v1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-		}
-	case kinds.PodSecurityPolicy:
-		return []string{
-			fmt.Sprintf("kubernetes:policy/v1beta1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
-		}
-	case kinds.PriorityClass:
-		return []string{
-			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1beta1:%s", gvk.Kind),
-			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1alpha1:%s", gvk.Kind),
-		}
-	default:
-		return []string{}
-	}
-}
+//// aliasesForGVK returns a list of alias strings for a given GVK. These values are derived from the Kubernetes
+//// API docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/
+//func aliasesForGVK(gvk schema.GroupVersionKind) []string {
+//	kind := kinds.Kind(gvk.Kind)
+//
+//	switch kind {
+//	case kinds.ClusterRole, kinds.ClusterRoleBinding, kinds.Role, kinds.RoleBinding:
+//		return []string{
+//			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1beta1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:rbac.authorization.k8s.io/v1alpha1:%s", gvk.Kind),
+//		}
+//	case kinds.DaemonSet, kinds.ReplicaSet:
+//		return []string{
+//			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
+//		}
+//	case kinds.Deployment, kinds.StatefulSet:
+//		return []string{
+//			fmt.Sprintf("kubernetes:apps/v1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:apps/v1beta1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:apps/v1beta2:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
+//		}
+//	case kinds.Ingress:
+//		return []string{
+//			fmt.Sprintf("kubernetes:networking.k8s.io/v1beta1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
+//		}
+//	case kinds.NetworkPolicy:
+//		return []string{
+//			fmt.Sprintf("kubernetes:networking.k8s.io/v1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
+//		}
+//	case kinds.PodSecurityPolicy:
+//		return []string{
+//			fmt.Sprintf("kubernetes:policy/v1beta1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:extensions/v1beta1:%s", gvk.Kind),
+//		}
+//	case kinds.PriorityClass:
+//		return []string{
+//			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1beta1:%s", gvk.Kind),
+//			fmt.Sprintf("kubernetes:scheduling.k8s.io/v1alpha1:%s", gvk.Kind),
+//		}
+//	default:
+//		return []string{}
+//	}
+//}
