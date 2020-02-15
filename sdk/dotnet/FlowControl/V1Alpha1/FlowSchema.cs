@@ -67,11 +67,10 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "flowcontrol.apiserver.k8s.io/v1alpha1";
-                args.Kind = "FlowSchema";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs();
+            args.ApiVersion = "flowcontrol.apiserver.k8s.io/v1alpha1";
+            args.Kind = "FlowSchema";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

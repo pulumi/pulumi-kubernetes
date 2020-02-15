@@ -67,11 +67,10 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Authorization.V1Beta1.SelfSubjectRulesReviewArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "authorization.k8s.io/v1beta1";
-                args.Kind = "SelfSubjectRulesReview";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Authorization.V1Beta1.SelfSubjectRulesReviewArgs();
+            args.ApiVersion = "authorization.k8s.io/v1beta1";
+            args.Kind = "SelfSubjectRulesReview";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

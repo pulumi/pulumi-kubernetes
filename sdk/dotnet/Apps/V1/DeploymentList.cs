@@ -56,11 +56,10 @@ namespace Pulumi.Kubernetes.Apps.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Apps.V1.DeploymentListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "apps/v1";
-                args.Kind = "DeploymentList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Apps.V1.DeploymentListArgs();
+            args.ApiVersion = "apps/v1";
+            args.Kind = "DeploymentList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

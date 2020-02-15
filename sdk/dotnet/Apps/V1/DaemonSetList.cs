@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Apps.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Apps.V1.DaemonSetListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "apps/v1";
-                args.Kind = "DaemonSetList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Apps.V1.DaemonSetListArgs();
+            args.ApiVersion = "apps/v1";
+            args.Kind = "DaemonSetList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

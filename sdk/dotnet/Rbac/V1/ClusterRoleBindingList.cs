@@ -56,11 +56,10 @@ namespace Pulumi.Kubernetes.Rbac.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Rbac.V1.ClusterRoleBindingListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "rbac.authorization.k8s.io/v1";
-                args.Kind = "ClusterRoleBindingList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Rbac.V1.ClusterRoleBindingListArgs();
+            args.ApiVersion = "rbac.authorization.k8s.io/v1";
+            args.Kind = "ClusterRoleBindingList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

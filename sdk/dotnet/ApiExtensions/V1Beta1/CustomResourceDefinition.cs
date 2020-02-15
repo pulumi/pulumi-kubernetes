@@ -63,11 +63,10 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.ApiExtensions.V1Beta1.CustomResourceDefinitionArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "apiextensions.k8s.io/v1beta1";
-                args.Kind = "CustomResourceDefinition";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.ApiExtensions.V1Beta1.CustomResourceDefinitionArgs();
+            args.ApiVersion = "apiextensions.k8s.io/v1beta1";
+            args.Kind = "CustomResourceDefinition";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

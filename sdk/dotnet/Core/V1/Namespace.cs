@@ -65,11 +65,10 @@ namespace Pulumi.Kubernetes.Core.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Core.V1.NamespaceArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "v1";
-                args.Kind = "Namespace";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Core.V1.NamespaceArgs();
+            args.ApiVersion = "v1";
+            args.Kind = "Namespace";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

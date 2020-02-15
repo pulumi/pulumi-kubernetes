@@ -21,6 +21,7 @@ class Program
     {
         return Pulumi.Deployment.RunAsync(() =>
         {
+            var namespace1 = new Namespace("namespace1");
 
             var pod = new Pod("pod", new PodArgs
             {

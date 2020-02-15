@@ -70,11 +70,10 @@ namespace Pulumi.Kubernetes.Core.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Core.V1.ConfigMapArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "v1";
-                args.Kind = "ConfigMap";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Core.V1.ConfigMapArgs();
+            args.ApiVersion = "v1";
+            args.Kind = "ConfigMap";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

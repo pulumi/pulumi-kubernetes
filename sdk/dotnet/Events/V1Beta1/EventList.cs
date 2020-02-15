@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Events.V1Beta1.EventListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "events.k8s.io/v1beta1";
-                args.Kind = "EventList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Events.V1Beta1.EventListArgs();
+            args.ApiVersion = "events.k8s.io/v1beta1";
+            args.Kind = "EventList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

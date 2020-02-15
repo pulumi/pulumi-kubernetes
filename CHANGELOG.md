@@ -3,6 +3,7 @@
 ### Bug fixes
 
 -   Fix aliases for several resource kinds. (https://github.com/pulumi/pulumi-kubernetes/pull/990).
+-   Fix .NET resources with empty arguments. (https://github.com/pulumi/pulumi-kubernetes/pull/983).
 
 ## 1.5.3 (February 11, 2020)
 

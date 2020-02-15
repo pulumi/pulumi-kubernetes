@@ -77,11 +77,10 @@ namespace Pulumi.Kubernetes.Core.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Core.V1.ServiceAccountArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "v1";
-                args.Kind = "ServiceAccount";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Core.V1.ServiceAccountArgs();
+            args.ApiVersion = "v1";
+            args.Kind = "ServiceAccount";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

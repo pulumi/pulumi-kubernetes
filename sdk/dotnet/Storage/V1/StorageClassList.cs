@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Storage.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1.StorageClassListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "storage.k8s.io/v1";
-                args.Kind = "StorageClassList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Storage.V1.StorageClassListArgs();
+            args.ApiVersion = "storage.k8s.io/v1";
+            args.Kind = "StorageClassList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

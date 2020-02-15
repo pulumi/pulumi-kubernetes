@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.FlowControl.V1Alpha1.PriorityLevelConfigurationListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "flowcontrol.apiserver.k8s.io/v1alpha1";
-                args.Kind = "PriorityLevelConfigurationList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.FlowControl.V1Alpha1.PriorityLevelConfigurationListArgs();
+            args.ApiVersion = "flowcontrol.apiserver.k8s.io/v1alpha1";
+            args.Kind = "PriorityLevelConfigurationList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

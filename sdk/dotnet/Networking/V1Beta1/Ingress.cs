@@ -81,11 +81,10 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Networking.V1Beta1.IngressArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "networking.k8s.io/v1beta1";
-                args.Kind = "Ingress";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Networking.V1Beta1.IngressArgs();
+            args.ApiVersion = "networking.k8s.io/v1beta1";
+            args.Kind = "Ingress";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

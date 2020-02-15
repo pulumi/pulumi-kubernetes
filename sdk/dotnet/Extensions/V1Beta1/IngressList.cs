@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Extensions.V1Beta1.IngressListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "extensions/v1beta1";
-                args.Kind = "IngressList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Extensions.V1Beta1.IngressListArgs();
+            args.ApiVersion = "extensions/v1beta1";
+            args.Kind = "IngressList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

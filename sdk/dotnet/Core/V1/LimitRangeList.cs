@@ -58,11 +58,10 @@ namespace Pulumi.Kubernetes.Core.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Core.V1.LimitRangeListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "v1";
-                args.Kind = "LimitRangeList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Core.V1.LimitRangeListArgs();
+            args.ApiVersion = "v1";
+            args.Kind = "LimitRangeList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

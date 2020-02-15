@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Networking.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Networking.V1.NetworkPolicyListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "networking.k8s.io/v1";
-                args.Kind = "NetworkPolicyList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Networking.V1.NetworkPolicyListArgs();
+            args.ApiVersion = "networking.k8s.io/v1";
+            args.Kind = "NetworkPolicyList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

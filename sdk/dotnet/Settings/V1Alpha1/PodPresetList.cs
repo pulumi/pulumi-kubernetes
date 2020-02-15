@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Settings.V1Alpha1.PodPresetListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "settings.k8s.io/v1alpha1";
-                args.Kind = "PodPresetList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Settings.V1Alpha1.PodPresetListArgs();
+            args.ApiVersion = "settings.k8s.io/v1alpha1";
+            args.Kind = "PodPresetList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.Batch.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Batch.V1.JobListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "batch/v1";
-                args.Kind = "JobList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Batch.V1.JobListArgs();
+            args.ApiVersion = "batch/v1";
+            args.Kind = "JobList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

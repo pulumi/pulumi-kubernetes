@@ -56,11 +56,10 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Discovery.V1Beta1.EndpointSliceListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "discovery.k8s.io/v1beta1";
-                args.Kind = "EndpointSliceList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Discovery.V1Beta1.EndpointSliceListArgs();
+            args.ApiVersion = "discovery.k8s.io/v1beta1";
+            args.Kind = "EndpointSliceList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

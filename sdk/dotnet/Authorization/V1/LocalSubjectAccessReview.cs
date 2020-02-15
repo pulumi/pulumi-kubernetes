@@ -63,11 +63,10 @@ namespace Pulumi.Kubernetes.Authorization.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Authorization.V1.LocalSubjectAccessReviewArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "authorization.k8s.io/v1";
-                args.Kind = "LocalSubjectAccessReview";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Authorization.V1.LocalSubjectAccessReviewArgs();
+            args.ApiVersion = "authorization.k8s.io/v1";
+            args.Kind = "LocalSubjectAccessReview";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

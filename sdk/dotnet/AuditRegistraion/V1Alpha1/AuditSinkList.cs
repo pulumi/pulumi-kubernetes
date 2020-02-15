@@ -54,11 +54,10 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "auditregistration.k8s.io/v1alpha1";
-                args.Kind = "AuditSinkList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkListArgs();
+            args.ApiVersion = "auditregistration.k8s.io/v1alpha1";
+            args.Kind = "AuditSinkList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

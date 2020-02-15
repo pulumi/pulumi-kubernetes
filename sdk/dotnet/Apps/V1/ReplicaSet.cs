@@ -67,11 +67,10 @@ namespace Pulumi.Kubernetes.Apps.V1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Apps.V1.ReplicaSetArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "apps/v1";
-                args.Kind = "ReplicaSet";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.Apps.V1.ReplicaSetArgs();
+            args.ApiVersion = "apps/v1";
+            args.Kind = "ReplicaSet";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)

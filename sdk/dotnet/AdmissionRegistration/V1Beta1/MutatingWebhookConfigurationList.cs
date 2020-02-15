@@ -57,11 +57,10 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
 
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.AdmissionRegistration.V1Beta1.MutatingWebhookConfigurationListArgs? args)
         {
-            if (args != null) {
-                args.ApiVersion = "admissionregistration.k8s.io/v1beta1";
-                args.Kind = "MutatingWebhookConfigurationList";
-            }
-            return args ?? ResourceArgs.Empty;
+            args ??= new Types.Inputs.AdmissionRegistration.V1Beta1.MutatingWebhookConfigurationListArgs();
+            args.ApiVersion = "admissionregistration.k8s.io/v1beta1";
+            args.Kind = "MutatingWebhookConfigurationList";
+            return args;
         }
 
         private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
