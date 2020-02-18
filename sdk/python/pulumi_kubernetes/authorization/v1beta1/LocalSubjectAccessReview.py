@@ -82,8 +82,7 @@ class LocalSubjectAccessReview(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name=resource_name),
+            pulumi.Alias(type_="kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

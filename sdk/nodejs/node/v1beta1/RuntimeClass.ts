@@ -122,13 +122,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
+          opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:node.k8s.io/v1alpha1:RuntimeClass", name: name },
-                  { parent: opts.parent, type: "kubernetes:node.k8s.io/v1beta1:RuntimeClass", name: name },
+                  { type: "kubernetes:node.k8s.io/v1alpha1:RuntimeClass" },
               ],
           });
-
-          super(RuntimeClass.__pulumiType, name, props, _opts);
+          super(RuntimeClass.__pulumiType, name, props, opts);
       }
     }

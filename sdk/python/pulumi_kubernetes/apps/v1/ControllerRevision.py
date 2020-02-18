@@ -91,9 +91,8 @@ class ControllerRevision(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1:ControllerRevision", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1beta1:ControllerRevision", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1beta2:ControllerRevision", name=resource_name),
+            pulumi.Alias(type_="kubernetes:apps/v1beta1:ControllerRevision"),
+            pulumi.Alias(type_="kubernetes:apps/v1beta2:ControllerRevision"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

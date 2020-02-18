@@ -89,9 +89,8 @@ class ReplicaSet(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1:ReplicaSet", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1beta2:ReplicaSet", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:extensions/v1beta1:ReplicaSet", name=resource_name),
+            pulumi.Alias(type_="kubernetes:apps/v1:ReplicaSet"),
+            pulumi.Alias(type_="kubernetes:extensions/v1beta1:ReplicaSet"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

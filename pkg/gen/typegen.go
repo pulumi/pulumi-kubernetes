@@ -969,11 +969,17 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			func(i interface{}) interface{} {
 				return i.(linq.Group).Group
 			})
-	aliasesForGVK := func(gvk schema.GroupVersionKind) []string {
+	aliasesForKind := func(kind, fqGroupVersion string) []string {
 		var results []string
 
-		for _, alias := range aliases[gvk.Kind] {
-			results = append(results, alias.(string))
+		for _, alias := range aliases[kind] {
+			aliasString := alias.(string)
+			re := fmt.Sprintf(`:%s:`, fqGroupVersion)
+			match, err := regexp.MatchString(re, aliasString)
+			if err == nil && match {
+				continue
+			}
+			results = append(results, aliasString)
 		}
 		return results
 	}
@@ -1187,7 +1193,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,
 					additionalSecretOutputs: additionalSecretOutputs(d.gvk),
-					aliases:                 aliasesForGVK(d.gvk),
+					aliases:                 aliasesForKind(d.gvk.Kind, fqGroupVersion),
 					gvk:                     &d.gvk,
 					apiVersion:              fqGroupVersion,
 					rawAPIVersion:           defaultGroupVersion,

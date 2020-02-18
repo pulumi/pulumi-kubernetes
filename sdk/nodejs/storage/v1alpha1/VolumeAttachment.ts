@@ -103,14 +103,12 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
+          opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:storage.k8s.io/v1:VolumeAttachment", name: name },
-                  { parent: opts.parent, type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name: name },
-                  { parent: opts.parent, type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", name: name },
+                  { type: "kubernetes:storage.k8s.io/v1:VolumeAttachment" },
+                  { type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment" },
               ],
           });
-
-          super(VolumeAttachment.__pulumiType, name, props, _opts);
+          super(VolumeAttachment.__pulumiType, name, props, opts);
       }
     }

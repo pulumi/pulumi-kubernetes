@@ -174,8 +174,7 @@ class Event(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:core/v1:Event", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:events.k8s.io/v1beta1:Event", name=resource_name),
+            pulumi.Alias(type_="kubernetes:core/v1:Event"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

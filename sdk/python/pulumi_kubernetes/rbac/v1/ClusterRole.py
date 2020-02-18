@@ -85,9 +85,8 @@ class ClusterRole(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole", name=resource_name),
+            pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole"),
+            pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

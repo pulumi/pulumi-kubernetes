@@ -84,9 +84,8 @@ class HorizontalPodAutoscaler(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler", name=resource_name),
+            pulumi.Alias(type_="kubernetes:autoscaling/v1:HorizontalPodAutoscaler"),
+            pulumi.Alias(type_="kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

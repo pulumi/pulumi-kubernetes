@@ -119,15 +119,13 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
+          opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:apps/v1:Deployment", name: name },
-                  { parent: opts.parent, type: "kubernetes:apps/v1beta1:Deployment", name: name },
-                  { parent: opts.parent, type: "kubernetes:apps/v1beta2:Deployment", name: name },
-                  { parent: opts.parent, type: "kubernetes:extensions/v1beta1:Deployment", name: name },
+                  { type: "kubernetes:apps/v1beta1:Deployment" },
+                  { type: "kubernetes:apps/v1beta2:Deployment" },
+                  { type: "kubernetes:extensions/v1beta1:Deployment" },
               ],
           });
-
-          super(Deployment.__pulumiType, name, props, _opts);
+          super(Deployment.__pulumiType, name, props, opts);
       }
     }

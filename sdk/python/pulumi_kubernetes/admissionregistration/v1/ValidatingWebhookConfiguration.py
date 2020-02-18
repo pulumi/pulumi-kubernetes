@@ -76,8 +76,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name=resource_name),
+            pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

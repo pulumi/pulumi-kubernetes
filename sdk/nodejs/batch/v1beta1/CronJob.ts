@@ -100,13 +100,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
+          opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:batch/v1beta1:CronJob", name: name },
-                  { parent: opts.parent, type: "kubernetes:batch/v2alpha1:CronJob", name: name },
+                  { type: "kubernetes:batch/v2alpha1:CronJob" },
               ],
           });
-
-          super(CronJob.__pulumiType, name, props, _opts);
+          super(CronJob.__pulumiType, name, props, opts);
       }
     }

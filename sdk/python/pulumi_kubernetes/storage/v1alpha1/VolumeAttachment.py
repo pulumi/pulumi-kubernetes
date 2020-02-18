@@ -87,9 +87,8 @@ class VolumeAttachment(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:storage.k8s.io/v1:VolumeAttachment", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", name=resource_name),
+            pulumi.Alias(type_="kubernetes:storage.k8s.io/v1:VolumeAttachment"),
+            pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:VolumeAttachment"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

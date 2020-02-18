@@ -94,13 +94,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
+          opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:coordination.k8s.io/v1:Lease", name: name },
-                  { parent: opts.parent, type: "kubernetes:coordination.k8s.io/v1beta1:Lease", name: name },
+                  { type: "kubernetes:coordination.k8s.io/v1beta1:Lease" },
               ],
           });
-
-          super(Lease.__pulumiType, name, props, _opts);
+          super(Lease.__pulumiType, name, props, opts);
       }
     }

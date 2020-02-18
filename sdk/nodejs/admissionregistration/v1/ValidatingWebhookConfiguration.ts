@@ -94,13 +94,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
+          opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { parent: opts.parent, type: "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name: name },
-                  { parent: opts.parent, type: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name: name },
+                  { type: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration" },
               ],
           });
-
-          super(ValidatingWebhookConfiguration.__pulumiType, name, props, _opts);
+          super(ValidatingWebhookConfiguration.__pulumiType, name, props, opts);
       }
     }

@@ -117,9 +117,8 @@ class PriorityClass(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:scheduling.k8s.io/v1:PriorityClass", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name=resource_name),
+            pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1:PriorityClass"),
+            pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1beta1:PriorityClass"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

@@ -77,8 +77,7 @@ class Lease(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(parent=parent, type_="kubernetes:coordination.k8s.io/v1:Lease", name=resource_name),
-            pulumi.Alias(parent=parent, type_="kubernetes:coordination.k8s.io/v1beta1:Lease", name=resource_name),
+            pulumi.Alias(type_="kubernetes:coordination.k8s.io/v1beta1:Lease"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),

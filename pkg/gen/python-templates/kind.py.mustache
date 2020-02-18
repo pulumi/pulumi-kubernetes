@@ -87,7 +87,7 @@ class {{Kind}}(pulumi.CustomResource):
         parent = opts.parent if opts and opts.parent else None
         aliases = [
             {{#Aliases}}
-            pulumi.Alias(parent=parent, type_="{{.}}", name=resource_name),
+            pulumi.Alias(type_="{{.}}"),
             {{/Aliases}}
         ]
         {{/AliasesPresent}}
