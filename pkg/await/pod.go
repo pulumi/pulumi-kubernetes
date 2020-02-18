@@ -197,6 +197,10 @@ func (pia *podInitAwaiter) Read() error {
 }
 
 func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
+	if event.Object == nil {
+		glog.V(3).Infof("received event with nil Object: %#v", event)
+		return
+	}
 	pod, err := clients.PodFromUnstructured(event.Object.(*unstructured.Unstructured))
 	if err != nil {
 		glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
