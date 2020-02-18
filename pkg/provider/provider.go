@@ -109,7 +109,9 @@ type kubeProvider struct {
 	enableDryRun                bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
-	yamlDirectory               string
+
+	yamlRenderMode bool
+	yamlDirectory  string
 
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
@@ -402,6 +404,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return ""
 	}
 	k.yamlDirectory = renderYamlToDirectory()
+	k.yamlRenderMode = len(k.yamlDirectory) > 0
 
 	var kubeconfig clientcmd.ClientConfig
 	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
@@ -1053,7 +1056,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	if len(k.yamlDirectory) > 0 {
+	if k.yamlRenderMode {
 		if checkedInputs.ContainsSecrets() {
 			_ = k.host.Log(ctx, diag.Warning, urn, "rendered YAML will contain a secret value in plaintext")
 		}
@@ -1279,8 +1282,9 @@ func (k *kubeProvider) Create(
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
-	// Create requires a connection to a k8s cluster, so bail out immediately if it is unreachable.
-	if k.clusterUnreachable {
+	// Except in the case of yamlRender mode, Create requires a connection to a k8s cluster, so bail out
+	// immediately if it is unreachable.
+	if k.clusterUnreachable && !k.yamlRenderMode {
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
 
@@ -1308,7 +1312,7 @@ func (k *kubeProvider) Create(
 
 	initialApiVersion := newInputs.GetAPIVersion()
 
-	if len(k.yamlDirectory) > 0 {
+	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
 			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
 				"rendered file %s contains a secret value in plaintext",
@@ -1649,8 +1653,9 @@ func (k *kubeProvider) Update(
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
-	// Update requires a connection to a k8s cluster, so bail out immediately if it is unreachable.
-	if k.clusterUnreachable {
+	// Except in the case of yamlRender mode, Update requires a connection to a k8s cluster, so bail out
+	// immediately if it is unreachable.
+	if k.clusterUnreachable && !k.yamlRenderMode {
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
 
@@ -1690,7 +1695,7 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	if len(k.yamlDirectory) > 0 {
+	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
 			_ = k.host.LogStatus(ctx, diag.Warning, urn, fmt.Sprintf(
 				"rendered file %s contains a secret value in plaintext",
@@ -1826,7 +1831,7 @@ func (k *kubeProvider) Delete(
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
 
-	if len(k.yamlDirectory) > 0 {
+	if k.yamlRenderMode {
 		file := renderPathForResource(current, k.yamlDirectory)
 		err := os.Remove(file)
 		if err != nil {
