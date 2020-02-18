@@ -95,6 +95,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:apiregistration.k8s.io/v1beta1:APIService" },
+              ],
+          });
           super(APIService.__pulumiType, name, props, opts);
       }
     }

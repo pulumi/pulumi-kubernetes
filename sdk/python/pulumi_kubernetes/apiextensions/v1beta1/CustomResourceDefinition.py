@@ -78,8 +78,13 @@ class CustomResourceDefinition(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+            pulumi.Alias(type_="kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition"),
+        ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
+            aliases=aliases,
         ))
 
         super(CustomResourceDefinition, self).__init__(

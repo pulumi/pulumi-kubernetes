@@ -96,6 +96,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:authentication.k8s.io/v1beta1:TokenReview" },
+              ],
+          });
           super(TokenReview.__pulumiType, name, props, opts);
       }
     }

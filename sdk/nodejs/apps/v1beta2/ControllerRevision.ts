@@ -109,6 +109,12 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:apps/v1:ControllerRevision" },
+                  { type: "kubernetes:apps/v1beta1:ControllerRevision" },
+              ],
+          });
           super(ControllerRevision.__pulumiType, name, props, opts);
       }
     }

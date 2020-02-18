@@ -121,13 +121,12 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
+          opts = pulumi.mergeOptions(opts, {
               additionalSecretOutputs: [
                   "data",
                   "stringData",
               ],
           });
-
-          super(Secret.__pulumiType, name, props, _opts);
+          super(Secret.__pulumiType, name, props, opts);
       }
     }

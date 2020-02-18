@@ -79,8 +79,13 @@ class SelfSubjectAccessReview(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+            pulumi.Alias(type_="kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview"),
+        ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
+            aliases=aliases,
         ))
 
         super(SelfSubjectAccessReview, self).__init__(

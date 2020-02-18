@@ -98,6 +98,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:storage.k8s.io/v1beta1:CSINode" },
+              ],
+          });
           super(CSINode.__pulumiType, name, props, opts);
       }
     }

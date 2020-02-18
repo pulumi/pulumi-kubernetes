@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Auto-generate aliases for all resource kinds. (https://github.com/pulumi/pulumi-kubernetes/pull/991).
+
 ### Bug fixes
 
 -   Fix aliases for several resource kinds. (https://github.com/pulumi/pulumi-kubernetes/pull/990).

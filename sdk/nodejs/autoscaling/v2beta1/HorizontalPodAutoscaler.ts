@@ -101,6 +101,12 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:autoscaling/v1:HorizontalPodAutoscaler" },
+                  { type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler" },
+              ],
+          });
           super(HorizontalPodAutoscaler.__pulumiType, name, props, opts);
       }
     }

@@ -95,6 +95,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" },
+              ],
+          });
           super(ValidatingWebhookConfiguration.__pulumiType, name, props, opts);
       }
     }

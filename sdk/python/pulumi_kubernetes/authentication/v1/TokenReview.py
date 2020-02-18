@@ -77,8 +77,13 @@ class TokenReview(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+            pulumi.Alias(type_="kubernetes:authentication.k8s.io/v1beta1:TokenReview"),
+        ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
+            aliases=aliases,
         ))
 
         super(TokenReview, self).__init__(

@@ -98,6 +98,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview" },
+              ],
+          });
           super(LocalSubjectAccessReview.__pulumiType, name, props, opts);
       }
     }

@@ -173,6 +173,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:core/v1:Event" },
+              ],
+          });
           super(Event.__pulumiType, name, props, opts);
       }
     }

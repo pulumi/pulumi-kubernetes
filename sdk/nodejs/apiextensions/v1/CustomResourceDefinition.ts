@@ -96,6 +96,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition" },
+              ],
+          });
           super(CustomResourceDefinition.__pulumiType, name, props, opts);
       }
     }

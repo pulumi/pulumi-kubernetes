@@ -99,6 +99,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:node.k8s.io/v1beta1:RuntimeClass" },
+              ],
+          });
           super(RuntimeClass.__pulumiType, name, props, opts);
       }
     }

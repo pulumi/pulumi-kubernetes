@@ -94,6 +94,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:coordination.k8s.io/v1:Lease" },
+              ],
+          });
           super(Lease.__pulumiType, name, props, opts);
       }
     }
