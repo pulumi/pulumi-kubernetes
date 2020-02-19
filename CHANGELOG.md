@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 1.5.4 (February 19, 2020)
+
 ### Improvements
 
 -   Auto-generate aliases for all resource kinds. (https://github.com/pulumi/pulumi-kubernetes/pull/991).
