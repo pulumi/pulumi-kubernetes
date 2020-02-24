@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Upgrade pulumi/pulumi dep to 1.11.0 (fixes #984). (https://github.com/pulumi/pulumi-kubernetes/pull/1005).
+
 ## 1.5.4 (February 19, 2020)
 
 ### Improvements

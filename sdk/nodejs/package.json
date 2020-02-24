@@ -13,7 +13,7 @@
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/pulumi": "^1.8.1",
+        "@pulumi/pulumi": "^1.11.0",
         "shell-quote": "^1.6.1",
         "tmp": "^0.0.33",
         "@types/tmp": "^0.0.33",
