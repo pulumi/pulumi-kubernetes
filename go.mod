@@ -3,6 +3,7 @@ module github.com/pulumi/pulumi-kubernetes
 go 1.13
 
 require (
+	github.com/RaveNoX/go-jsonmerge v1.0.0
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/cbroglie/mustache v1.0.1
 	github.com/docker/docker v1.13.1 // indirect
