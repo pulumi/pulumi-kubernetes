@@ -10,7 +10,6 @@ using Pulumi.Kubernetes.Helm;
 using Pulumi.Kubernetes.Helm.V2;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Yaml;
-using Pulumi.Serialization;
 
 class HelmStack : Stack
 {
