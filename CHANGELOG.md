@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Replace Daemonset if .spec.selector changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1008).
+
 ## 1.5.5 (February 25, 2020)
 
 ### Bug fixes
