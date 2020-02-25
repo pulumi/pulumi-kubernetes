@@ -17,7 +17,7 @@ package main
 import (
 	"encoding/json"
 
-	"github.com/RaveNoX/go-jsonmerge"
+	"github.com/imdario/mergo"
 )
 
 func mergeSwaggerSpecs(legacyBytes, currentBytes []byte) interface{} {
@@ -31,7 +31,10 @@ func mergeSwaggerSpecs(legacyBytes, currentBytes []byte) interface{} {
 	if err != nil {
 		panic(err)
 	}
-	merged, _ := jsonmerge.Merge(legacyObj, newObj)
+	err = mergo.Merge(&legacyObj, newObj, mergo.WithOverride)
+	if err != nil {
+		panic(err)
+	}
 
-	return merged
+	return legacyObj
 }
