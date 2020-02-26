@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
     /// reference before running the pod.  For more details, see
     /// https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
     /// </summary>
-    public partial class RuntimeClass : Pulumi.CustomResource
+    public partial class RuntimeClass : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -57,7 +57,12 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public RuntimeClass(string name, Types.Inputs.Node.V1Alpha1.RuntimeClassArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal RuntimeClass(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", name, dictionary, options)
         {
         }
 
@@ -69,15 +74,6 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing RuntimeClass resource's state with the given name and ID.
         /// </summary>
@@ -86,10 +82,8 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static RuntimeClass Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new RuntimeClass(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new RuntimeClass(name, default(Types.Inputs.Node.V1Alpha1.RuntimeClassArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

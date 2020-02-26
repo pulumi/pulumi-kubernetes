@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor
     /// of rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.20.
     /// </summary>
-    public partial class ClusterRoleBindingList : Pulumi.CustomResource
+    public partial class ClusterRoleBindingList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ClusterRoleBindingList(string name, Types.Inputs.Rbac.V1Alpha1.ClusterRoleBindingListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal ClusterRoleBindingList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing ClusterRoleBindingList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static ClusterRoleBindingList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new ClusterRoleBindingList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new ClusterRoleBindingList(name, default(Types.Inputs.Rbac.V1Alpha1.ClusterRoleBindingListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

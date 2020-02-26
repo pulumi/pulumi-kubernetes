@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Storage.V1
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
-    public partial class VolumeAttachmentList : Pulumi.CustomResource
+    public partial class VolumeAttachmentList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public VolumeAttachmentList(string name, Types.Inputs.Storage.V1.VolumeAttachmentListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal VolumeAttachmentList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Storage.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing VolumeAttachmentList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static VolumeAttachmentList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new VolumeAttachmentList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new VolumeAttachmentList(name, default(Types.Inputs.Storage.V1.VolumeAttachmentListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

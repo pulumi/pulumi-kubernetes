@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
     /// <summary>
     /// 
     /// </summary>
-    public partial class CertificateSigningRequestList : Pulumi.CustomResource
+    public partial class CertificateSigningRequestList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -46,7 +46,12 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CertificateSigningRequestList(string name, Types.Inputs.Certificates.V1Beta1.CertificateSigningRequestListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal CertificateSigningRequestList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", name, dictionary, options)
         {
         }
 
@@ -58,15 +63,6 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing CertificateSigningRequestList resource's state with the given name and ID.
         /// </summary>
@@ -75,10 +71,8 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static CertificateSigningRequestList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CertificateSigningRequestList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new CertificateSigningRequestList(name, default(Types.Inputs.Certificates.V1Beta1.CertificateSigningRequestListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

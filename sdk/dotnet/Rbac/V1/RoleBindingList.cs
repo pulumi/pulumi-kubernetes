@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     /// <summary>
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
-    public partial class RoleBindingList : Pulumi.CustomResource
+    public partial class RoleBindingList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -50,7 +50,12 @@ namespace Pulumi.Kubernetes.Rbac.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public RoleBindingList(string name, Types.Inputs.Rbac.V1.RoleBindingListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal RoleBindingList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", name, dictionary, options)
         {
         }
 
@@ -62,15 +67,6 @@ namespace Pulumi.Kubernetes.Rbac.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing RoleBindingList resource's state with the given name and ID.
         /// </summary>
@@ -79,10 +75,8 @@ namespace Pulumi.Kubernetes.Rbac.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static RoleBindingList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new RoleBindingList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new RoleBindingList(name, default(Types.Inputs.Rbac.V1.RoleBindingListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

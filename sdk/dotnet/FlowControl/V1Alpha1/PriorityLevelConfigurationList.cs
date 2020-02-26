@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
     /// <summary>
     /// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
     /// </summary>
-    public partial class PriorityLevelConfigurationList : Pulumi.CustomResource
+    public partial class PriorityLevelConfigurationList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PriorityLevelConfigurationList(string name, Types.Inputs.FlowControl.V1Alpha1.PriorityLevelConfigurationListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PriorityLevelConfigurationList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PriorityLevelConfigurationList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PriorityLevelConfigurationList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PriorityLevelConfigurationList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PriorityLevelConfigurationList(name, default(Types.Inputs.FlowControl.V1Alpha1.PriorityLevelConfigurationListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

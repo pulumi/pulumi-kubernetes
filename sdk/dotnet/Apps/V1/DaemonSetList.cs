@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
-    public partial class DaemonSetList : Pulumi.CustomResource
+    public partial class DaemonSetList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public DaemonSetList(string name, Types.Inputs.Apps.V1.DaemonSetListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1:DaemonSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:apps/v1:DaemonSetList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal DaemonSetList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:apps/v1:DaemonSetList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Apps.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing DaemonSetList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static DaemonSetList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new DaemonSetList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new DaemonSetList(name, default(Types.Inputs.Apps.V1.DaemonSetListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
     /// <summary>
     /// Lease defines a lease concept.
     /// </summary>
-    public partial class Lease : Pulumi.CustomResource
+    public partial class Lease : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -52,7 +52,12 @@ namespace Pulumi.Kubernetes.Coordination.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Lease(string name, Types.Inputs.Coordination.V1.LeaseArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:coordination.k8s.io/v1:Lease", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:coordination.k8s.io/v1:Lease", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Lease(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:coordination.k8s.io/v1:Lease", name, dictionary, options)
         {
         }
 
@@ -64,15 +69,6 @@ namespace Pulumi.Kubernetes.Coordination.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Lease resource's state with the given name and ID.
         /// </summary>
@@ -81,10 +77,8 @@ namespace Pulumi.Kubernetes.Coordination.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Lease Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Lease(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Lease(name, default(Types.Inputs.Coordination.V1.LeaseArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

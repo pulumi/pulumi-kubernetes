@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Authorization.V1
     /// SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization
     /// decisions to the API server.
     /// </summary>
-    public partial class SelfSubjectRulesReview : Pulumi.CustomResource
+    public partial class SelfSubjectRulesReview : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -61,7 +61,12 @@ namespace Pulumi.Kubernetes.Authorization.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public SelfSubjectRulesReview(string name, Types.Inputs.Authorization.V1.SelfSubjectRulesReviewArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal SelfSubjectRulesReview(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", name, dictionary, options)
         {
         }
 
@@ -73,15 +78,6 @@ namespace Pulumi.Kubernetes.Authorization.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing SelfSubjectRulesReview resource's state with the given name and ID.
         /// </summary>
@@ -90,10 +86,8 @@ namespace Pulumi.Kubernetes.Authorization.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static SelfSubjectRulesReview Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new SelfSubjectRulesReview(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new SelfSubjectRulesReview(name, default(Types.Inputs.Authorization.V1.SelfSubjectRulesReviewArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

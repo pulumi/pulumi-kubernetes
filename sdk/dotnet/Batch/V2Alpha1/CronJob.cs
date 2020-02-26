@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
     /// <summary>
     /// CronJob represents the configuration of a single cron job.
     /// </summary>
-    public partial class CronJob : Pulumi.CustomResource
+    public partial class CronJob : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -59,7 +59,12 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CronJob(string name, Types.Inputs.Batch.V2Alpha1.CronJobArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:batch/v2alpha1:CronJob", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:batch/v2alpha1:CronJob", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal CronJob(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:batch/v2alpha1:CronJob", name, dictionary, options)
         {
         }
 
@@ -71,15 +76,6 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing CronJob resource's state with the given name and ID.
         /// </summary>
@@ -88,10 +84,8 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static CronJob Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CronJob(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new CronJob(name, default(Types.Inputs.Batch.V2Alpha1.CronJobArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

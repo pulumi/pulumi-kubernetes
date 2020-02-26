@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// and representation changes in future releases, and clients should not depend on its
     /// stability. It is primarily for internal use by controllers.
     /// </summary>
-    public partial class ControllerRevision : Pulumi.CustomResource
+    public partial class ControllerRevision : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -64,7 +64,12 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ControllerRevision(string name, Types.Inputs.Apps.V1.ControllerRevisionArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1:ControllerRevision", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:apps/v1:ControllerRevision", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal ControllerRevision(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:apps/v1:ControllerRevision", name, dictionary, options)
         {
         }
 
@@ -76,15 +81,6 @@ namespace Pulumi.Kubernetes.Apps.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing ControllerRevision resource's state with the given name and ID.
         /// </summary>
@@ -93,10 +89,8 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static ControllerRevision Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new ControllerRevision(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new ControllerRevision(name, default(Types.Inputs.Apps.V1.ControllerRevisionArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

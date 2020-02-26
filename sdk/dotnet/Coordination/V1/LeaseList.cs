@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
     /// <summary>
     /// LeaseList is a list of Lease objects.
     /// </summary>
-    public partial class LeaseList : Pulumi.CustomResource
+    public partial class LeaseList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Coordination.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public LeaseList(string name, Types.Inputs.Coordination.V1.LeaseListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:coordination.k8s.io/v1:LeaseList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:coordination.k8s.io/v1:LeaseList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal LeaseList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:coordination.k8s.io/v1:LeaseList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Coordination.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing LeaseList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Coordination.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static LeaseList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new LeaseList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new LeaseList(name, default(Types.Inputs.Coordination.V1.LeaseListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

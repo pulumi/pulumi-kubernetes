@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
-    public partial class StatefulSetList : Pulumi.CustomResource
+    public partial class StatefulSetList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -46,7 +46,12 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public StatefulSetList(string name, Types.Inputs.Apps.V1Beta2.StatefulSetListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1beta2:StatefulSetList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:apps/v1beta2:StatefulSetList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal StatefulSetList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:apps/v1beta2:StatefulSetList", name, dictionary, options)
         {
         }
 
@@ -58,15 +63,6 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing StatefulSetList resource's state with the given name and ID.
         /// </summary>
@@ -75,10 +71,8 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static StatefulSetList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new StatefulSetList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new StatefulSetList(name, default(Types.Inputs.Apps.V1Beta2.StatefulSetListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }
