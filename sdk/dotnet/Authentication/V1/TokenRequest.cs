@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Authentication.V1
     /// <summary>
     /// TokenRequest requests a token for a given service account.
     /// </summary>
-    public partial class TokenRequest : Pulumi.CustomResource
+    public partial class TokenRequest : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -50,7 +50,12 @@ namespace Pulumi.Kubernetes.Authentication.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public TokenRequest(string name, Types.Inputs.Authentication.V1.TokenRequestArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:authentication.k8s.io/v1:TokenRequest", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:authentication.k8s.io/v1:TokenRequest", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal TokenRequest(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:authentication.k8s.io/v1:TokenRequest", name, dictionary, options)
         {
         }
 
@@ -62,15 +67,6 @@ namespace Pulumi.Kubernetes.Authentication.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing TokenRequest resource's state with the given name and ID.
         /// </summary>
@@ -79,10 +75,8 @@ namespace Pulumi.Kubernetes.Authentication.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static TokenRequest Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new TokenRequest(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new TokenRequest(name, default(Types.Inputs.Authentication.V1.TokenRequestArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

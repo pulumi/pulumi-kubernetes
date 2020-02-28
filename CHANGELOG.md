@@ -3,6 +3,7 @@
 ### Bug fixes
 
 -   Replace Daemonset if .spec.selector changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1008).
+-   Display error when pulumi plugin install fails. (https://github.com/pulumi/pulumi-kubernetes/pull/1010).
 
 ## 1.5.5 (February 25, 2020)
 
@@ -22,6 +23,11 @@
 -   Don't require valid cluster for YAML render mode. (https://github.com/pulumi/pulumi-kubernetes/pull/997).
 -   Fix .NET resources with empty arguments. (https://github.com/pulumi/pulumi-kubernetes/pull/983).
 -   Fix panic condition in Pod await logic. (https://github.com/pulumi/pulumi-kubernetes/pull/998).
+
+### Improvements
+
+-   .NET SDK supports resources to work with YAML Kubernetes files and Helm charts.
+(https://github.com/pulumi/pulumi-kubernetes/pull/980).
 
 ## 1.5.3 (February 11, 2020)
 

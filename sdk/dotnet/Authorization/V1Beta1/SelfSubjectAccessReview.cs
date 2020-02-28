@@ -12,7 +12,7 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
     /// filling in a spec.namespace means "in all namespaces".  Self is a special case, because
     /// users should always be able to check whether they can perform an action
     /// </summary>
-    public partial class SelfSubjectAccessReview : Pulumi.CustomResource
+    public partial class SelfSubjectAccessReview : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -56,7 +56,12 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public SelfSubjectAccessReview(string name, Types.Inputs.Authorization.V1Beta1.SelfSubjectAccessReviewArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal SelfSubjectAccessReview(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", name, dictionary, options)
         {
         }
 
@@ -68,15 +73,6 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing SelfSubjectAccessReview resource's state with the given name and ID.
         /// </summary>
@@ -85,10 +81,8 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static SelfSubjectAccessReview Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new SelfSubjectAccessReview(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new SelfSubjectAccessReview(name, default(Types.Inputs.Authorization.V1Beta1.SelfSubjectAccessReviewArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

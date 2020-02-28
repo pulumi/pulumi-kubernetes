@@ -12,7 +12,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
     /// scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
     /// to the priority integer value. The value can be any valid integer.
     /// </summary>
-    public partial class PriorityClass : Pulumi.CustomResource
+    public partial class PriorityClass : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -80,7 +80,12 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PriorityClass(string name, Types.Inputs.Scheduling.V1Beta1.PriorityClassArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PriorityClass(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, dictionary, options)
         {
         }
 
@@ -92,15 +97,6 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PriorityClass resource's state with the given name and ID.
         /// </summary>
@@ -109,10 +105,8 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PriorityClass Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PriorityClass(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PriorityClass(name, default(Types.Inputs.Scheduling.V1Beta1.PriorityClassArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

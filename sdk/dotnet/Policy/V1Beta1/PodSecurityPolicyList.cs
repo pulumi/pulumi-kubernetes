@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
     /// <summary>
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
     /// </summary>
-    public partial class PodSecurityPolicyList : Pulumi.CustomResource
+    public partial class PodSecurityPolicyList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PodSecurityPolicyList(string name, Types.Inputs.Policy.V1Beta1.PodSecurityPolicyListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:policy/v1beta1:PodSecurityPolicyList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:policy/v1beta1:PodSecurityPolicyList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PodSecurityPolicyList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:policy/v1beta1:PodSecurityPolicyList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PodSecurityPolicyList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PodSecurityPolicyList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PodSecurityPolicyList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PodSecurityPolicyList(name, default(Types.Inputs.Policy.V1Beta1.PodSecurityPolicyListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
     /// Event is a report of an event somewhere in the cluster. It generally denotes some state
     /// change in the system.
     /// </summary>
-    public partial class Event : Pulumi.CustomResource
+    public partial class Event : KubernetesResource
     {
         /// <summary>
         /// What action was taken/failed regarding to the regarding object.
@@ -131,7 +131,12 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Event(string name, Types.Inputs.Events.V1Beta1.EventArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:events.k8s.io/v1beta1:Event", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:events.k8s.io/v1beta1:Event", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Event(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:events.k8s.io/v1beta1:Event", name, dictionary, options)
         {
         }
 
@@ -143,15 +148,6 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Event resource's state with the given name and ID.
         /// </summary>
@@ -160,10 +156,8 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Event Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Event(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Event(name, default(Types.Inputs.Events.V1Beta1.EventArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

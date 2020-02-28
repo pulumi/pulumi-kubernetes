@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
-    public partial class Deployment : Pulumi.CustomResource
+    public partial class Deployment : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -80,7 +80,12 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Deployment(string name, Types.Inputs.Apps.V1.DeploymentArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1:Deployment", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:apps/v1:Deployment", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Deployment(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:apps/v1:Deployment", name, dictionary, options)
         {
         }
 
@@ -92,15 +97,6 @@ namespace Pulumi.Kubernetes.Apps.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Deployment resource's state with the given name and ID.
         /// </summary>
@@ -109,10 +105,8 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Deployment Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Deployment(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Deployment(name, default(Types.Inputs.Apps.V1.DeploymentArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Storage.V1
     /// version is low enough that it doesn't create this object. CSINode has an OwnerReference that
     /// points to the corresponding node object.
     /// </summary>
-    public partial class CSINode : Pulumi.CustomResource
+    public partial class CSINode : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -56,7 +56,12 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CSINode(string name, Types.Inputs.Storage.V1.CSINodeArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1:CSINode", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:storage.k8s.io/v1:CSINode", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal CSINode(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:storage.k8s.io/v1:CSINode", name, dictionary, options)
         {
         }
 
@@ -68,15 +73,6 @@ namespace Pulumi.Kubernetes.Storage.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing CSINode resource's state with the given name and ID.
         /// </summary>
@@ -85,10 +81,8 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static CSINode Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CSINode(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new CSINode(name, default(Types.Inputs.Storage.V1.CSINodeArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
     /// <summary>
     /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
     /// </summary>
-    public partial class PodPreset : Pulumi.CustomResource
+    public partial class PodPreset : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -46,7 +46,12 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PodPreset(string name, Types.Inputs.Settings.V1Alpha1.PodPresetArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PodPreset(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, dictionary, options)
         {
         }
 
@@ -58,15 +63,6 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PodPreset resource's state with the given name and ID.
         /// </summary>
@@ -75,10 +71,8 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PodPreset Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PodPreset(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PodPreset(name, default(Types.Inputs.Settings.V1Alpha1.PodPresetArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

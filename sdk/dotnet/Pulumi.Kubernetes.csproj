@@ -27,6 +27,7 @@
   <ItemGroup>
     <PackageReference Include="Pulumi" Version="1.11.0-preview" />
     <PackageReference Include="System.Collections.Immutable" Version="1.6.0" />
+    <PackageReference Include="Glob" Version="1.1.5" />
   </ItemGroup>
 
   <ItemGroup>

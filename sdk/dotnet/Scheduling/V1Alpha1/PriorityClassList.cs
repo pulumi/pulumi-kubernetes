@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1Alpha1
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
-    public partial class PriorityClassList : Pulumi.CustomResource
+    public partial class PriorityClassList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Scheduling.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PriorityClassList(string name, Types.Inputs.Scheduling.V1Alpha1.PriorityClassListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal PriorityClassList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Scheduling.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing PriorityClassList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Scheduling.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static PriorityClassList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new PriorityClassList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new PriorityClassList(name, default(Types.Inputs.Scheduling.V1Alpha1.PriorityClassListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

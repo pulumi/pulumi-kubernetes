@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache
     /// (i.e. in etcd).
     /// </summary>
-    public partial class Node : Pulumi.CustomResource
+    public partial class Node : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -61,7 +61,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Node(string name, Types.Inputs.Core.V1.NodeArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Node", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:Node", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Node(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:Node", name, dictionary, options)
         {
         }
 
@@ -73,15 +78,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Node resource's state with the given name and ID.
         /// </summary>
@@ -90,10 +86,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Node Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Node(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Node(name, default(Types.Inputs.Core.V1.NodeArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

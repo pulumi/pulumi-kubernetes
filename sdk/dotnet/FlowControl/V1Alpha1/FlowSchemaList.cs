@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
     /// <summary>
     /// FlowSchemaList is a list of FlowSchema objects.
     /// </summary>
-    public partial class FlowSchemaList : Pulumi.CustomResource
+    public partial class FlowSchemaList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public FlowSchemaList(string name, Types.Inputs.FlowControl.V1Alpha1.FlowSchemaListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal FlowSchemaList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing FlowSchemaList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static FlowSchemaList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new FlowSchemaList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new FlowSchemaList(name, default(Types.Inputs.FlowControl.V1Alpha1.FlowSchemaListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
     /// https://kubernetes.io/docs/concepts/configuration/secret/#risks
     /// </summary>
-    public partial class Secret : Pulumi.CustomResource
+    public partial class Secret : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -79,7 +79,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Secret(string name, Types.Inputs.Core.V1.SecretArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Secret", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:Secret", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Secret(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:Secret", name, dictionary, options)
         {
         }
 
@@ -91,15 +96,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Secret resource's state with the given name and ID.
         /// </summary>
@@ -108,10 +104,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Secret Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Secret(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Secret(name, default(Types.Inputs.Core.V1.SecretArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

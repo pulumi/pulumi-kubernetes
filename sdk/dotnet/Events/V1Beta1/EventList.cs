@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
     /// <summary>
     /// EventList is a list of Event objects.
     /// </summary>
-    public partial class EventList : Pulumi.CustomResource
+    public partial class EventList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public EventList(string name, Types.Inputs.Events.V1Beta1.EventListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:events.k8s.io/v1beta1:EventList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:events.k8s.io/v1beta1:EventList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal EventList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:events.k8s.io/v1beta1:EventList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing EventList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static EventList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new EventList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new EventList(name, default(Types.Inputs.Events.V1Beta1.EventListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

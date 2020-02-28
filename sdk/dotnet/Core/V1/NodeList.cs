@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// NodeList is the whole list of all Nodes which have been registered with master.
     /// </summary>
-    public partial class NodeList : Pulumi.CustomResource
+    public partial class NodeList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public NodeList(string name, Types.Inputs.Core.V1.NodeListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:NodeList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:NodeList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal NodeList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:NodeList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing NodeList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static NodeList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new NodeList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new NodeList(name, default(Types.Inputs.Core.V1.NodeListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

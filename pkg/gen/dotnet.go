@@ -78,7 +78,7 @@ func pascalCase(name string) string {
 func DotnetClient(
 	swagger map[string]interface{},
 	templateDir string,
-) (inputsts, outputsts string, groups map[string]string, err error) {
+) (inputsts, outputsts, yaml string, groups map[string]string, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, dotnetOpts())
@@ -92,6 +92,14 @@ func DotnetClient(
 	}
 
 	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesOutput.cs.mustache", templateDir),
+		map[string]interface{}{
+			"Groups": groupsSlice,
+		})
+	if err != nil {
+		return
+	}
+
+	yaml, err = mustache.RenderFile(fmt.Sprintf("%s/Yaml.cs.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
 		})
@@ -129,7 +137,7 @@ func DotnetClient(
 				kindCs, err := mustache.RenderFile(
 					fmt.Sprintf("%s/kind.cs.mustache", templateDir), inputMap)
 				if err != nil {
-					return "", "", nil, err
+					return "", "", "", nil, err
 				}
 
 				groups[filepath.Join(group.Group(), version.Version(), kind.Kind()+".cs")] = kindCs

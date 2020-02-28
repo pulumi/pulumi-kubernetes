@@ -1,13 +1,26 @@
+import errno
+
 from subprocess import check_call
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-
 class InstallPluginCommand(install):
     def run(self):
         install.run(self)
-        check_call(['pulumi', 'plugin', 'install', 'resource', 'kubernetes', '${PLUGIN_VERSION}'])
+        try:
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'kubernetes', '${PLUGIN_VERSION}'])
+        except OSError as error:
+            if error.errno == errno.ENOENT:
+                print("""
+                There was an error installing the kubernetes resource provider plugin.
+                It looks like `pulumi` is not installed on your system.
+                Please visit https://pulumi.com/ to install the Pulumi CLI.
+                You may try manually installing the plugin by running
+                `pulumi plugin install resource kubernetes ${PLUGIN_VERSION}`
+                """)
+            else:
+                raise
 
 
 def readme():

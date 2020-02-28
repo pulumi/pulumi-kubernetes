@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Core.V1
     ///     },
     ///  ]
     /// </summary>
-    public partial class Endpoints : Pulumi.CustomResource
+    public partial class Endpoints : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -67,7 +67,12 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Endpoints(string name, Types.Inputs.Core.V1.EndpointsArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Endpoints", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:core/v1:Endpoints", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal Endpoints(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:Endpoints", name, dictionary, options)
         {
         }
 
@@ -79,15 +84,6 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing Endpoints resource's state with the given name and ID.
         /// </summary>
@@ -96,10 +92,8 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static Endpoints Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Endpoints(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new Endpoints(name, default(Types.Inputs.Core.V1.EndpointsArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }

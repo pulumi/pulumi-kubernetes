@@ -10,7 +10,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
     /// <summary>
     /// CSIDriverList is a collection of CSIDriver objects.
     /// </summary>
-    public partial class CSIDriverList : Pulumi.CustomResource
+    public partial class CSIDriverList : KubernetesResource
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers
@@ -51,7 +51,12 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CSIDriverList(string name, Types.Inputs.Storage.V1Beta1.CSIDriverListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1beta1:CSIDriverList", name, SetAPIKindAndVersion(args), MakeResourceOptions(options))
+            : base("kubernetes:storage.k8s.io/v1beta1:CSIDriverList", name, SetAPIKindAndVersion(args), options)
+        {
+        }
+
+        internal CSIDriverList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
+            : base("kubernetes:storage.k8s.io/v1beta1:CSIDriverList", name, dictionary, options)
         {
         }
 
@@ -63,15 +68,6 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
             return args;
         }
 
-        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options)
-        {
-            var defaultOptions = new CustomResourceOptions
-            {
-                Version = Utilities.Version,
-            };
-            return CustomResourceOptions.Merge(defaultOptions, options);
-        }
-
         /// <summary>
         /// Get an existing CSIDriverList resource's state with the given name and ID.
         /// </summary>
@@ -80,10 +76,8 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static CSIDriverList Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CSIDriverList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
-            {
-                Id = id,
-            }));
+            return new CSIDriverList(name, default(Types.Inputs.Storage.V1Beta1.CSIDriverListArgs),
+                CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
 
     }
