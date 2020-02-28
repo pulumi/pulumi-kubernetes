@@ -170,6 +170,10 @@ func (k *kubeProvider) invalidateResources() {
 	k.resources = nil
 }
 
+func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
+	panic("implement me")
+}
+
 // CheckConfig validates the configuration for this provider.
 func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	urn := resource.URN(req.GetUrn())
