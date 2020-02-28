@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 1.5.6 (February 28, 2020)
+
 ### Bug fixes
 
 -   Replace Daemonset if .spec.selector changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1008).
