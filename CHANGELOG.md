@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Display error when pulumi plugin install fails. (https://github.com/pulumi/pulumi-kubernetes/pull/1010).
+
 ## 1.5.5 (February 25, 2020)
 
 ### Bug fixes
