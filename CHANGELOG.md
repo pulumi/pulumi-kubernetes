@@ -2,6 +2,7 @@
 
 ### Bug fixes
 
+-   Replace Daemonset if .spec.selector changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1008).
 -   Display error when pulumi plugin install fails. (https://github.com/pulumi/pulumi-kubernetes/pull/1010).
 
 ## 1.5.5 (February 25, 2020)
