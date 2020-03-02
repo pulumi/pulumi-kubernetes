@@ -15,7 +15,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -324,13 +323,21 @@ func writePulumiSchema(data map[string]interface{}) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(len(files))
-	//for _, file := range files {
-	//	fmt.Println("foo")
-	//}
-	enc := json.NewEncoder(os.Stdout)
-	enc.SetIndent("", "    ")
-	if err := enc.Encode(pkg); err != nil {
-		panic(err)
+	basepath := "/Users/levi/go/src/github.com/pulumi/pulumi-kubernetes/sdk/go"
+	for filename, contents := range files {
+		path := filepath.Join(basepath, filename)
+
+		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+			panic(err)
+		}
+		err := ioutil.WriteFile(path, contents, 0644)
+		if err != nil {
+			panic(err)
+		}
 	}
+	//enc := json.NewEncoder(os.Stdout)
+	//enc.SetIndent("", "    ")
+	//if err := enc.Encode(pkg); err != nil {
+	//	panic(err)
+	//}
 }

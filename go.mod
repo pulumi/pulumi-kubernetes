@@ -16,7 +16,7 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/pulumi/pulumi v1.10.0
 	github.com/stretchr/testify v1.4.1-0.20191106224347-f1bd0923b832
-	google.golang.org/grpc v1.21.1
+	google.golang.org/grpc v1.27.1
 	k8s.io/api v0.17.0
 	k8s.io/apimachinery v0.17.0
 	k8s.io/client-go v0.17.0
