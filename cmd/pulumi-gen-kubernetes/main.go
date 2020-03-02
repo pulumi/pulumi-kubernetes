@@ -15,11 +15,15 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+
+	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
+	"github.com/pulumi/pulumi/pkg/codegen/schema"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
 )
@@ -311,7 +315,19 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 }
 
 func writePulumiSchema(data map[string]interface{}) {
-	pkg := gen.PulumiSchema(data)
+	pkgSpec := gen.PulumiSchema(data)
+	pkg, err := schema.ImportSpec(pkgSpec)
+	if err != nil {
+		panic(err)
+	}
+	files, err := gogen.GeneratePackage("foo", pkg)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(files))
+	//for _, file := range files {
+	//	fmt.Println("foo")
+	//}
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", "    ")
 	if err := enc.Encode(pkg); err != nil {
