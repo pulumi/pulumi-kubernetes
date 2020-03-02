@@ -1,7 +1,7 @@
 // Copyright 2016-2020, Pulumi Corporation
 
+using System.Collections.Generic;
 using System.Collections.Immutable;
-using TransformationAction = System.Func<System.Collections.Immutable.ImmutableDictionary<string, object>, Pulumi.CustomResourceOptions, System.Collections.Immutable.ImmutableDictionary<string, object>>;
 
 namespace Pulumi.Kubernetes.Yaml
 {
@@ -56,11 +56,17 @@ namespace Pulumi.Kubernetes.Yaml
             set => _objs = value;
         }
 
+        private List<TransformationAction>? _transformations;
+        
         /// <summary>
-        /// A set of transformations to apply to Kubernetes resource definitions before registering
+        /// An optional list of transformations to apply to Kubernetes resource definitions before registering
         /// with engine.
         /// </summary>
-        public TransformationAction[]? Transformations { get; set; }
+        public List<TransformationAction> Transformations
+        {
+            get => _transformations ??= new List<TransformationAction>();
+            set => _transformations = value;
+        }
 
         /// <summary>
         /// An optional prefix for the auto-generated resource names.

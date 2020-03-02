@@ -1,8 +1,8 @@
 // Copyright 2016-2020, Pulumi Corporation
 
 using System;
+using System.Collections.Generic;
 using System.IO;
-using TransformationAction = System.Func<System.Collections.Immutable.ImmutableDictionary<string, object>, Pulumi.CustomResourceOptions, System.Collections.Immutable.ImmutableDictionary<string, object>>;
 
 namespace Pulumi.Kubernetes.Yaml
 {
@@ -46,7 +46,7 @@ namespace Pulumi.Kubernetes.Yaml
                 Parser.ParseYamlDocument(new ParseArgs
                 {
                     Objs = Invokes.YamlDecode(new YamlDecodeArgs {Text = text}),
-                    Transformations = args?.Transformations,
+                    Transformations = args?.Transformations ?? new List<TransformationAction>(),
                     ResourcePrefix = args?.ResourcePrefix
                 }, options));
 
@@ -67,11 +67,17 @@ namespace Pulumi.Kubernetes.Yaml
         /// </summary>
         public Input<string>? File { get; set; }
 
+        private List<TransformationAction>? _transformations;
+        
         /// <summary>
-        /// A set of transformations to apply to Kubernetes resource definitions before registering
+        /// An optional list of transformations to apply to Kubernetes resource definitions before registering
         /// with engine.
         /// </summary>
-        public TransformationAction[]? Transformations { get; set; }
+        public List<TransformationAction> Transformations
+        {
+            get => _transformations ??= new List<TransformationAction>();
+            set => _transformations = value;
+        }
 
         /// <summary>
         /// An optional prefix for the auto-generated resource names.

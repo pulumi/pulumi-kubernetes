@@ -10,42 +10,44 @@ using Pulumi.Kubernetes.Yaml;
 
 class YamlStack : Stack
 {
+    [Output]
+    public Output<string> FileUrns { get; set; }
+    
     public YamlStack()
     {
         // Create two test namespaces to allow test parallelism.
         var namespace1 = new Namespace("test-namespace", new NamespaceArgs());
         var namespace2 = new Namespace("test-namespace2", new NamespaceArgs());
-
+        
         // Create resources from standard Kubernetes guestbook YAML example in the first test namespace.
         var file1 = namespace1.Metadata.Apply(m => m.Name).Apply(ns => MakeConfigFile("guestbook", ns));
 
         // Create resources from standard Kubernetes guestbook YAML example in the second test namespace.
         // Disambiguate resource names with a specified prefix.
         var file2 = namespace2.Metadata.Apply(m => m.Name).Apply(ns => MakeConfigFile("guestbook", ns, "dup"));
-
+        
         this.FileUrns = Output.Format($"{file1.Apply(f => f.Urn)},{file2.Apply(f => f.Urn)}");
     }
-
-    [Output]
-    public Output<string> FileUrns { get; set; }
-
+    
     private ConfigFile MakeConfigFile(string name, string namespaceName, string? resourcePrefix = null)
     {
-        return new ConfigFile(name, new ConfigFileArgs 
+        return new ConfigFile(name, new ConfigFileArgs
         {
-            File = "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
+            File =
+                "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
             ResourcePrefix = resourcePrefix,
-            Transformations = new Func<ImmutableDictionary<string, object>, CustomResourceOptions, ImmutableDictionary<string, object>>[] { AddNamespace }
+            Transformations =
+            {
+                (ImmutableDictionary<string, object> obj, CustomResourceOptions opts) =>
+                {
+                    var result = obj ?? ImmutableDictionary<string, object>.Empty;
+                    var meta = result["metadata"] as ImmutableDictionary<string, object> ??
+                               ImmutableDictionary<string, object>.Empty;
+                    var newMeta = meta.SetItem("namespace", namespaceName);
+                    return result.SetItem("metadata", newMeta);
+                }
+            }
         });
-        
-        ImmutableDictionary<string, object> AddNamespace(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
-        {
-            var result = obj ?? ImmutableDictionary<string, object>.Empty;
-            var meta = (obj["metadata"] as ImmutableDictionary<string, object>) ??
-                       ImmutableDictionary<string, object>.Empty;
-            var newMeta = meta.SetItem("namespace", namespaceName);
-            return result.SetItem("metadata", newMeta);
-        }
     }
 }
 

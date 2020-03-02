@@ -10,8 +10,6 @@ using System.Linq;
 using System.Text.Json;
 using GlobExpressions;
 
-using TransformationAction = System.Func<System.Collections.Immutable.ImmutableDictionary<string, object>, Pulumi.CustomResourceOptions, System.Collections.Immutable.ImmutableDictionary<string, object>>;
-
 namespace Pulumi.Kubernetes.Yaml
 {
     /// <summary>
@@ -357,7 +355,7 @@ namespace Pulumi.Kubernetes.Yaml
         }
 
         private static Output<(string, KubernetesResource)>[] ParseYamlObject(ImmutableDictionary<string, object> obj,
-            TransformationAction[]? transformations, string? resourcePrefix, ComponentResourceOptions? options = null)
+            List<TransformationAction>? transformations, string? resourcePrefix, ComponentResourceOptions? options = null)
         {
             if (obj == null || obj.Count == 0)
                 return new Output<(string, KubernetesResource)>[0];
@@ -1682,11 +1680,17 @@ namespace Pulumi.Kubernetes.Yaml
         /// </summary>
         public InputList<ImmutableDictionary<string, object>> Objs { get; set; } = null!;
 
+        private List<TransformationAction>? _transformations;
+
         /// <summary>
-        /// A set of transformations to apply to Kubernetes resource definitions before registering
+        /// An optional list of transformations to apply to Kubernetes resource definitions before registering
         /// with engine.
         /// </summary>
-        public TransformationAction[]? Transformations { get; set; }
+        public List<TransformationAction> Transformations
+        {
+            get => _transformations ??= new List<TransformationAction>();
+            set => _transformations = value;
+        }
 
         /// <summary>
         /// An optional prefix for the auto-generated resource names.
