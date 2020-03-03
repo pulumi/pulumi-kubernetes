@@ -20,6 +20,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
 	"github.com/pulumi/pulumi/pkg/codegen/schema"
@@ -73,8 +74,8 @@ func main() {
 		writePythonClient(data, outdir, templateDir)
 	case "dotnet":
 		writeDotnetClient(data, outdir, templateDir)
-	case "pulumi":
-		writePulumiSchema(data)
+	case "go":
+		writeGoClient(data, outdir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -313,19 +314,15 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 }
 
-func writePulumiSchema(data map[string]interface{}) {
-	pkgSpec := gen.PulumiSchema(data)
-	pkg, err := schema.ImportSpec(pkgSpec)
+func writeGoClient(data map[string]interface{}, outdir string) {
+	pkg := writePulumiSchema(data)
+	files, err := gogen.GeneratePackage("pulumigen", pkg)
 	if err != nil {
 		panic(err)
 	}
-	files, err := gogen.GeneratePackage("foo", pkg)
-	if err != nil {
-		panic(err)
-	}
-	basepath := "/Users/levi/go/src/github.com/pulumi/pulumi-kubernetes/sdk/go"
 	for filename, contents := range files {
-		path := filepath.Join(basepath, filename)
+		filename = strings.TrimPrefix(filename, "kubernetes/")
+		path := filepath.Join(outdir, filename)
 
 		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
 			panic(err)
@@ -335,9 +332,13 @@ func writePulumiSchema(data map[string]interface{}) {
 			panic(err)
 		}
 	}
-	//enc := json.NewEncoder(os.Stdout)
-	//enc.SetIndent("", "    ")
-	//if err := enc.Encode(pkg); err != nil {
-	//	panic(err)
-	//}
+}
+
+func writePulumiSchema(data map[string]interface{}) *schema.Package {
+	pkgSpec := gen.PulumiSchema(data)
+	pkg, err := schema.ImportSpec(pkgSpec)
+	if err != nil {
+		panic(err)
+	}
+	return pkg
 }
