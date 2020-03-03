@@ -7,9 +7,9 @@ package v1
 import (
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/coordination/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	coordinationv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/coordination/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // Lease defines a lease concept.

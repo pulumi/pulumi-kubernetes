@@ -8,9 +8,9 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/authentication/v1beta1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	authenticationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/authentication/v1beta1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.

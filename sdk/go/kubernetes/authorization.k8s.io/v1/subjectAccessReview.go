@@ -8,9 +8,9 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/authorization/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	authorizationv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/authorization/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.

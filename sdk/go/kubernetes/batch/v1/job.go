@@ -7,9 +7,9 @@ package v1
 import (
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // Job represents the configuration of a single job.

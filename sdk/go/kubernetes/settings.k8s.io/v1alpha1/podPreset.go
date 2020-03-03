@@ -7,10 +7,10 @@ package v1alpha1
 import (
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/settings/v1alpha1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	settingsv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/settings/v1alpha1"
 )
 
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.

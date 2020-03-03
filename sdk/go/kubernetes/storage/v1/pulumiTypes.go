@@ -8,8 +8,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 )
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node

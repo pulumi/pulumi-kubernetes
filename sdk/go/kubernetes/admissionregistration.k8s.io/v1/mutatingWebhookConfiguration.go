@@ -7,9 +7,9 @@ package v1
 import (
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/admissionregistration/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	admissionregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/admissionregistration/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.

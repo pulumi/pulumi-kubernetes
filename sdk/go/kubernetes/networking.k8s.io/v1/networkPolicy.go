@@ -7,9 +7,9 @@ package v1
 import (
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/networking/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/networking/v1"
 )
 
 // NetworkPolicy describes what network traffic is allowed for a set of Pods

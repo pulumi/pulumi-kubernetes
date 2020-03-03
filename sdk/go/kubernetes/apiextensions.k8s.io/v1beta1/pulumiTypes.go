@@ -8,8 +8,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/apiextensions/v1beta1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	apiextensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/apiextensions/v1beta1"
 )
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
