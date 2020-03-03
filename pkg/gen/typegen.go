@@ -994,9 +994,9 @@ const (
 type language string
 
 const (
-	python     language = "python"
-	typescript language = "typescript"
-	dotnet     language = "dotnet"
+	python       language = "python"
+	typescript   language = "typescript"
+	dotnet       language = "dotnet"
 	pulumiSchema language = "pulumi"
 )
 

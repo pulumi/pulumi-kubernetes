@@ -17,6 +17,7 @@ package gen
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	providerVersion "github.com/pulumi/pulumi-kubernetes/pkg/version"
 
@@ -32,7 +33,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
 		License:     "Apache-2.0",
 		Keywords:    []string{"pulumi", "kubernetes"},
-		Homepage:    "https://pulumi.io",
+		Homepage:    "https://pulumi.com",
 		Repository:  "https://github.com/pulumi/pulumi-kubernetes",
 
 		Config: pschema.ConfigSpec{
@@ -103,9 +104,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Language: map[string]json.RawMessage{
 			"nodejs": rawMessage(map[string]interface{}{
 				"dependencies": map[string]string{
-					"@pulumi/pulumi":    "^1.6.0",
-					"@types/js-yaml":    "^3.11.2",
-					"js-yaml":           "^3.12.0",
+					"@pulumi/pulumi":    "^1.11.0",
 					"shell-quote":       "^1.6.1",
 					"tmp":               "^0.0.33",
 					"@types/tmp":        "^0.0.33",
@@ -122,7 +121,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			}),
 			"python": rawMessage(map[string]interface{}{
 				"requires": map[string]string{
-					"pulumi":   ">=1.4.0,<2.0.0",
+					"pulumi":   ">=1.11.0,<2.0.0",
 					"requests": ">=2.21.0,<2.22.0",
 					"pyyaml":   ">=5.1,<5.2",
 					"semver":   ">=2.8.1",
@@ -133,6 +132,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	}
 
 	csharpNamespaces := map[string]string{}
+	goImports := map[string]string{}
 
 	definitions := swagger["definitions"].(map[string]interface{})
 	groupsSlice := createGroups(definitions, schemaOpts())
@@ -140,6 +140,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		for _, version := range group.Versions() {
 			mod := fmt.Sprintf("%s/%s", group.URNGroup(), version.Version())
 			csharpNamespaces[mod] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
+			goImports[mod] = strings.Replace(mod, "/", "", -1)
 
 			for _, kind := range version.Kinds() {
 				tok := fmt.Sprintf("kubernetes:%s:%s", kind.URNAPIVersion(), kind.Kind())
@@ -190,6 +191,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			"System.Collections.Immutable": "1.6.0",
 		},
 		"namespaces": csharpNamespaces,
+	})
+	pkg.Language["go"] = rawMessage(map[string]interface{}{
+		"packages": goImports,
 	})
 
 	return pkg
