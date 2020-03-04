@@ -14,23 +14,24 @@
 
 package ints
 
-import (
-	"os"
-	"testing"
-
-	"github.com/pulumi/pulumi/pkg/testing/integration"
-)
-
-func TestPerformance(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:                  "step1",
-		Dependencies:         []string{"@pulumi/kubernetes"},
-		ExpectRefreshChanges: true, // The Mutating and Validating webhooks update on refresh.
-	})
-}
+// FIXME(levi): Figure out why this test is flaky, and re-enable it in CI. https://github.com/pulumi/pulumi-kubernetes/issues/1016
+//import (
+//	"os"
+//	"testing"
+//
+//	"github.com/pulumi/pulumi/pkg/testing/integration"
+//)
+//
+//func TestPerformance(t *testing.T) {
+//	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+//
+//	if kubectx == "" {
+//		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
+//	}
+//
+//	integration.ProgramTest(t, &integration.ProgramTestOptions{
+//		Dir:                  "step1",
+//		Dependencies:         []string{"@pulumi/kubernetes"},
+//		ExpectRefreshChanges: true, // The Mutating and Validating webhooks update on refresh.
+//	})
+//}
