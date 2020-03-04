@@ -910,10 +910,6 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 
 	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV string.
 	// For Kinds with more than one GV, create aliases in the SDKs.
-	type SimpleKind struct {
-		kind       string
-		apiVersion string
-	}
 	aliases := map[string][]interface{}{}
 	linq.From(definitions).
 		WhereT(func(d definition) bool { return d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") }).
@@ -937,7 +933,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 				fqGroupVersion = gv
 			}
 
-			return linq.From([]SimpleKind{
+			return linq.From([]KindConfig{
 				{
 					kind:       d.gvk.Kind,
 					apiVersion: fqGroupVersion,
@@ -945,10 +941,10 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 			})
 		}).
 		GroupByT(
-			func(kind SimpleKind) string {
+			func(kind KindConfig) string {
 				return kind.kind
 			},
-			func(kind SimpleKind) string {
+			func(kind KindConfig) string {
 				return fmt.Sprintf("kubernetes:%s:%s", kind.apiVersion, kind.kind)
 			}).
 		WhereT(func(group linq.Group) bool {
