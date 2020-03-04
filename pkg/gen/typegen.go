@@ -1010,6 +1010,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				WhereT(func(kv linq.KeyValue) bool {
 					propName := kv.Key.(string)
+					// TODO(levi): This logic will probably be handled by the schema-based codegen.
 					if (opts.language == python) && (propName == "apiVersion" || propName == "kind") {
 						return false
 					}
@@ -1039,6 +1040,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
 
+					// TODO(levi): This special case probably belongs in the schema-based codegen.
 					// `-` is invalid in TS variable names, so replace with `_`
 					propName = strings.ReplaceAll(propName, "-", "_")
 
@@ -1149,6 +1151,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 				return linq.From([]KindConfig{})
 			}
 
+			// TODO(levi): This appears to be specific to TS, and should be moved to the schema-based codegen.
 			var typeGuard string
 			props := d.data["properties"].(map[string]interface{})
 			_, apiVersionExists := props["apiVersion"]
@@ -1159,6 +1162,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
+			// TODO(levi): This should be moved to the schema-based codegen.
 			comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk, opts.language)
 
 			return linq.From([]KindConfig{
