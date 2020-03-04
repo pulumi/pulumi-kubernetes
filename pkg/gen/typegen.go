@@ -896,7 +896,7 @@ func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts grou
 
 func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*GroupConfig {
 	// Map definition JSON object -> `definition` with metadata.
-	definitions := []*definition{}
+	var definitions []*definition
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) *definition {
 			defName := kv.Key.(string)
@@ -980,7 +980,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Assemble a `KindConfig` for each Kubernetes kind.
 	//
 
-	kinds := []*KindConfig{}
+	var kinds []*KindConfig
 	linq.From(definitions).
 		OrderByT(func(d *definition) string { return d.gvk.String() }).
 		SelectManyT(func(d *definition) linq.Query {
@@ -1124,7 +1124,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				})
 
 			// All properties.
-			properties := []*Property{}
+			var properties []*Property
 			ps.ToSlice(&properties)
 			if len(properties) > 0 {
 				properties[len(properties)-1].isLast = true
@@ -1138,7 +1138,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				}
 			}
 
-			requiredInputProperties := []*Property{}
+			var requiredInputProperties []*Property
 			ps.
 				WhereT(func(p *Property) bool {
 					return reqdProps.Has(p.name)
@@ -1195,7 +1195,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Assemble a `VersionConfig` for each group of kinds.
 	//
 
-	versions := []*VersionConfig{}
+	var versions []*VersionConfig
 	linq.From(kinds).
 		GroupByT(
 			func(e *KindConfig) schema.GroupVersion { return e.gvk.GroupVersion() },
@@ -1237,14 +1237,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Assemble a `GroupConfig` for each group of versions.
 	//
 
-	groups := []*GroupConfig{}
+	var groups []*GroupConfig
 	linq.From(versions).
 		GroupByT(
 			func(e *VersionConfig) string { return e.gv.Group },
 			func(e *VersionConfig) *VersionConfig { return e }).
 		OrderByT(func(versions linq.Group) string { return versions.Key.(string) }).
 		SelectManyT(func(versions linq.Group) linq.Query {
-			versionsGroup := []*VersionConfig{}
+			var versionsGroup []*VersionConfig
 			linq.From(versions.Group).ToSlice(&versionsGroup)
 			if len(versionsGroup) == 0 {
 				return linq.From([]*GroupConfig{})
