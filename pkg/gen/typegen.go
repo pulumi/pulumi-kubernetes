@@ -898,14 +898,6 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Map definition JSON object -> `definition` with metadata.
 	definitions := []*definition{}
 	linq.From(definitionsJSON).
-		WhereT(func(kv linq.KeyValue) bool {
-			// Skip these objects, special case. They're deprecated and empty.
-			//
-			// TODO(hausdorff): We can remove these now that we don't emit a `KindConfig` for an object
-			// that has no properties.
-			defName := kv.Key.(string)
-			return !strings.HasPrefix(defName, "io.k8s.kubernetes.pkg")
-		}).
 		SelectT(func(kv linq.KeyValue) *definition {
 			defName := kv.Key.(string)
 			return &definition{
