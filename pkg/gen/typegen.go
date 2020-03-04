@@ -799,6 +799,24 @@ type definition struct {
 	data map[string]interface{}
 }
 
+// fqGroupVersion returns the fully-qualified GroupVersion, which is the "official" GV
+// (e.g., `core/v1` instead of `v1` or `admissionregistration.k8s.io/v1alpha1` instead of
+// `admissionregistration/v1alpha1`).
+func (d definition) fqGroupVersion() string {
+	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+		gvk := gvks[0].(map[string]interface{})
+		group := gvk["group"].(string)
+		version := gvk["version"].(string)
+		if group == "" {
+			return fmt.Sprintf(`core/%s`, version)
+		} else {
+			return fmt.Sprintf(`%s/%s`, group, version)
+		}
+	}
+
+	return d.gvk.GroupVersion().String()
+}
+
 func (d definition) isTopLevel() bool {
 	gvks, gvkExists :=
 		d.data["x-kubernetes-group-version-kind"].([]interface{})
@@ -915,28 +933,10 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 		WhereT(func(d definition) bool { return d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") }).
 		OrderByT(func(d definition) string { return d.gvk.String() }).
 		SelectManyT(func(d definition) linq.Query {
-			// Make fully-qualified GroupVersion. The fully-qualified version is the "official" GV
-			// (e.g., `core/v1` instead of `v1` or `admissionregistration.k8s.io/v1alpha1` instead of
-			// `admissionregistration/v1alpha1`).
-			var fqGroupVersion string
-			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
-				gvk := gvks[0].(map[string]interface{})
-				group := gvk["group"].(string)
-				version := gvk["version"].(string)
-				if group == "" {
-					fqGroupVersion = fmt.Sprintf(`core/%s`, version)
-				} else {
-					fqGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
-				}
-			} else {
-				gv := d.gvk.GroupVersion().String()
-				fqGroupVersion = gv
-			}
-
 			return linq.From([]KindConfig{
 				{
 					kind:       d.gvk.Kind,
-					apiVersion: fqGroupVersion,
+					apiVersion: d.fqGroupVersion(),
 				},
 			})
 		}).
