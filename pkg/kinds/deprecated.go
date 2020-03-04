@@ -141,9 +141,9 @@ func SuggestedApiVersion(gvk schema.GroupVersionKind) string {
 func upstreamDocsLink(version cluster.ServerVersion) string {
 	switch version {
 	case cluster.ServerVersion{Major: 1, Minor: 16}:
-		return "https://git.k8s.io/kubernetes/CHANGELOG-1.16.md#deprecations-and-removals"
+		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals"
 	case cluster.ServerVersion{Major: 1, Minor: 17}:
-		return "https://git.k8s.io/kubernetes/CHANGELOG-1.17.md#deprecations-and-removals"
+		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals"
 	default:
 		return ""
 	}
