@@ -298,6 +298,7 @@ func stripPrefix(name string) string {
 
 // extractDeprecationComment returns the comment with deprecation comment removed and the extracted deprecation
 // comment, fixed-up for the specified language.
+// TODO(levi): Move this logic to schema-based codegen.
 func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind, language language) (string, string) {
 	if comment == nil {
 		return "", ""
@@ -330,6 +331,7 @@ func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind,
 	return commentstr, ""
 }
 
+// TODO(levi): Move this logic to schema-based codegen.
 func fmtComment(
 	comment interface{}, prefix string, bareRender bool, opts groupOpts, gvk schema.GroupVersionKind,
 ) string {
@@ -1248,6 +1250,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 			}
 
 			group := versions.Key.(string)
+			// TODO(levi): Move special-case to schema-based codegen.
 			if opts.language == dotnet {
 				group = pascalCase(group)
 			}
@@ -1272,6 +1275,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 	return groups
 }
 
+// TODO(levi): Should be moved to schema-based codegen.
 func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
 	kind := kinds.Kind(gvk.Kind)
 
