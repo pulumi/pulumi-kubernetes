@@ -817,6 +817,23 @@ func (d definition) fqGroupVersion() string {
 	return d.gvk.GroupVersion().String()
 }
 
+// defaultGroupVersion returns the "default" GroupVersion, which is the `apiVersion` that appears
+// when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`).
+func (d definition) defaultGroupVersion() string {
+	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+		gvk := gvks[0].(map[string]interface{})
+		group := gvk["group"].(string)
+		version := gvk["version"].(string)
+		if group == "" {
+			return version
+		} else {
+			return fmt.Sprintf(`%s/%s`, group, version)
+		}
+	}
+
+	return d.gvk.GroupVersion().String()
+}
+
 func (d definition) isTopLevel() bool {
 	gvks, gvkExists :=
 		d.data["x-kubernetes-group-version-kind"].([]interface{})
@@ -985,29 +1002,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 				return linq.From([]KindConfig{})
 			}
 
-			// Make fully-qualified and "default" GroupVersion. The "default" GV is the `apiVersion` that
-			// appears when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`), while the
-			// fully-qualified version is the "official" GV (e.g., `core/v1` instead of `v1` or
-			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
-			defaultGroupVersion := d.gvk.Group
-			var fqGroupVersion string
+			defaultGroupVersion := d.defaultGroupVersion()
+			fqGroupVersion := d.fqGroupVersion()
 			isTopLevel := d.isTopLevel()
-			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
-				gvk := gvks[0].(map[string]interface{})
-				group := gvk["group"].(string)
-				version := gvk["version"].(string)
-				if group == "" {
-					defaultGroupVersion = version
-					fqGroupVersion = fmt.Sprintf(`core/%s`, version)
-				} else {
-					defaultGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
-					fqGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
-				}
-			} else {
-				gv := d.gvk.GroupVersion().String()
-				defaultGroupVersion = gv
-				fqGroupVersion = gv
-			}
 
 			ps := linq.From(d.data["properties"]).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
