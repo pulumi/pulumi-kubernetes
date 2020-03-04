@@ -46,7 +46,7 @@ namespace Pulumi.Kubernetes.Yaml
                 {{#Groups}}
                 {{#Versions}}
                 {{#TopLevelKindsAndAliases}}
-                type == typeof({{Group}}.{{Version}}.{{Kind}}) ? "{{RawAPIVersion}}/{{Kind}}" :
+                type == typeof({{Group}}.{{Version}}.{{Kind}}) ? "{{DefaultAPIVersion}}/{{Kind}}" :
                 {{/TopLevelKindsAndAliases}}
                 {{/Versions}}
                 {{/Groups}}
@@ -222,7 +222,7 @@ namespace Pulumi.Kubernetes.Yaml
                 {{#Groups}}
                 {{#Versions}}
                 {{#ListTopLevelKindsAndAliases}}
-                || apiVersion == "{{RawAPIVersion}}" && kind == "{{Kind}}"
+                || apiVersion == "{{DefaultAPIVersion}}" && kind == "{{Kind}}"
                 {{/ListTopLevelKindsAndAliases}}
                 {{/Versions}}
                 {{/Groups}}
@@ -256,10 +256,10 @@ namespace Pulumi.Kubernetes.Yaml
                 {{#Groups}}
                 {{#Versions}}
                 {{#TopLevelKindsAndAliases}}
-                    case "{{RawAPIVersion}}/{{Kind}}":
+                    case "{{DefaultAPIVersion}}/{{Kind}}":
                         return new[]
                         {
-                            id.Apply(id => ($"{{RawAPIVersion}}/{{Kind}}::{id}",
+                            id.Apply(id => ($"{{DefaultAPIVersion}}/{{Kind}}::{id}",
                                 new {{Group}}.{{Version}}.{{Kind}}(id, obj!, opts) as KubernetesResource))
                         };
                 {{/TopLevelKindsAndAliases}}

@@ -75,9 +75,9 @@ type VersionConfig struct {
 	version string
 	kinds   []KindConfig
 
-	gv            schema.GroupVersion // Used for sorting.
-	apiVersion    string
-	rawAPIVersion string
+	gv                schema.GroupVersion // Used for sorting.
+	apiVersion        string
+	defaultAPIVersion string
 
 	hasTopLevelKinds bool
 }
@@ -115,8 +115,8 @@ func (vc VersionConfig) TopLevelKindsAndAliases() []KindConfig {
 			if err != nil {
 				panic(err)
 			}
-			rawAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
-			alias.rawAPIVersion = rawAPIVersion
+			defaultAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
+			alias.defaultAPIVersion = defaultAPIVersion
 			kindsAndAliases = append(kindsAndAliases, alias)
 		}
 	}
@@ -148,8 +148,8 @@ func (vc VersionConfig) ListTopLevelKindsAndAliases() []KindConfig {
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (vc VersionConfig) APIVersion() string { return vc.apiVersion }
 
-// RawAPIVersion returns the "raw" apiVersion (e.g., `v1` rather than `core/v1`).
-func (vc VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
+// DefaultAPIVersion returns the default apiVersion (e.g., `v1` rather than `core/v1`).
+func (vc VersionConfig) DefaultAPIVersion() string { return vc.defaultAPIVersion }
 
 // KindConfig represents a Kubernetes API kind (e.g., the `Deployment` type in
 // `apps/v1beta1/Deployment`).
@@ -164,10 +164,10 @@ type KindConfig struct {
 	additionalSecretOutputs []string
 	aliases                 []string
 
-	gvk           schema.GroupVersionKind // Used for sorting.
-	apiVersion    string
-	rawAPIVersion string
-	typeGuard     string
+	gvk               schema.GroupVersionKind // Used for sorting.
+	apiVersion        string
+	defaultAPIVersion string
+	typeGuard         string
 
 	isNested bool
 }
@@ -207,8 +207,8 @@ func (kc KindConfig) Aliases() []string { return kc.aliases }
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc KindConfig) APIVersion() string { return kc.apiVersion }
 
-// RawAPIVersion returns the "raw" apiVersion (e.g., `v1` rather than `core/v1`).
-func (kc KindConfig) RawAPIVersion() string { return kc.rawAPIVersion }
+// DefaultAPIVersion returns the default apiVersion (e.g., `v1` rather than `core/v1`).
+func (kc KindConfig) DefaultAPIVersion() string { return kc.defaultAPIVersion }
 
 // URNAPIVersion returns API version that can be used in a URN (e.g., using the backwards-compatible
 // alias `apiextensions` instead of `apiextensions.k8s.io`).
@@ -1180,7 +1180,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					aliases:                 aliasesForKind(d.gvk.Kind, fqGroupVersion),
 					gvk:                     d.gvk,
 					apiVersion:              fqGroupVersion,
-					rawAPIVersion:           defaultGroupVersion,
+					defaultAPIVersion:       defaultGroupVersion,
 					typeGuard:               typeGuard,
 					isNested:                !isTopLevel,
 				},
@@ -1219,12 +1219,12 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 
 			return linq.From([]VersionConfig{
 				{
-					version:          version,
-					kinds:            kindsGroup,
-					gv:               gv,
-					apiVersion:       kindsGroup[0].apiVersion,    // NOTE: This is safe.
-					rawAPIVersion:    kindsGroup[0].rawAPIVersion, // NOTE: This is safe.
-					hasTopLevelKinds: hasTopLevelKinds,
+					version:           version,
+					kinds:             kindsGroup,
+					gv:                gv,
+					apiVersion:        kindsGroup[0].apiVersion,        // NOTE: This is safe.
+					defaultAPIVersion: kindsGroup[0].defaultAPIVersion, // NOTE: This is safe.
+					hasTopLevelKinds:  hasTopLevelKinds,
 				},
 			})
 		}).

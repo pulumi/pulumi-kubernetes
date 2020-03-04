@@ -38,7 +38,7 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}}
         private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.{{Group}}.{{Version}}.{{Kind}}Args? args)
         {
             args ??= new Types.Inputs.{{Group}}.{{Version}}.{{Kind}}Args();
-            args.ApiVersion = "{{RawAPIVersion}}";
+            args.ApiVersion = "{{DefaultAPIVersion}}";
             args.Kind = "{{Kind}}";
             return args;
         }

@@ -138,7 +138,7 @@ from .CustomResource import (CustomResource)
 
 			for _, kind := range version.TopLevelKinds() {
 				inputMap := map[string]interface{}{
-					"RawAPIVersion":           kind.RawAPIVersion(),
+					"DefaultAPIVersion":       kind.DefaultAPIVersion(),
 					"DeprecationComment":      kind.DeprecationComment(),
 					"Comment":                 kind.Comment(),
 					"Group":                   group.Group(),
