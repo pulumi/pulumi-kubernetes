@@ -78,6 +78,31 @@ var forceNew = _groups{
 var core = _versions{
 	"v1": _kinds{
 		"ConfigMap": properties{".binaryData", ".data"},
+		"PersistentVolume": append(
+			properties{
+				".spec.awsElasticBlockStore",
+				".spec.azureDisk",
+				".spec.azureFile",
+				".spec.cephfs",
+				".spec.cinder",
+				".spec.csi",
+				".spec.fc",
+				".spec.flexVolume",
+				".spec.flocker",
+				".spec.gcePersistentDisk",
+				".spec.glusterfs",
+				".spec.hostPath",
+				".spec.iscsi",
+				".spec.local",
+				".spec.nfs",
+				".spec.photonPersistentDisk",
+				".spec.portworxVolume",
+				".spec.quobyte",
+				".spec.rbd",
+				".spec.scaleIO",
+				".spec.storageos",
+				".spec.vsphereVolume",
+			}),
 		"PersistentVolumeClaim": append(
 			properties{
 				".spec",
