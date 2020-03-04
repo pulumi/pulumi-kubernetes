@@ -803,22 +803,14 @@ type definition struct {
 // (e.g., `core/v1` instead of `v1` or `admissionregistration.k8s.io/v1alpha1` instead of
 // `admissionregistration/v1alpha1`).
 func (d definition) fqGroupVersion() string {
-	// Pull the canonical GVK from the OpenAPI `x-kubernetes-group-version-kind` field if it exists.
-	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
-		gvk := gvks[0].(map[string]interface{})
-		group := gvk["group"].(string)
-		version := gvk["version"].(string)
+	defaultGV := d.defaultGroupVersion()
 
-		// Special case for the `core` group, which was historically called "".
-		if group == "" {
-			return fmt.Sprintf(`core/%s`, version)
-		}
-
-		return fmt.Sprintf(`%s/%s`, group, version)
+	// Special case for the "core" group, which was historically called "".
+	if !strings.Contains(defaultGV, "/") {
+		return fmt.Sprintf(`core/%s`, defaultGV)
 	}
 
-	// Fall back to using a GVK derived from the definition name.
-	return d.gvk.GroupVersion().String()
+	return defaultGV
 }
 
 // defaultGroupVersion returns the "default" GroupVersion, which is the `apiVersion` that appears
