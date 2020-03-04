@@ -787,7 +787,19 @@ func makeType(resourceType, propName string, prop map[string]interface{}, langua
 	}
 }
 
-func isTopLevel(d *definition) bool {
+// --------------------------------------------------------------------------
+
+// Core grouping logic.
+
+// --------------------------------------------------------------------------
+
+type definition struct {
+	gvk  schema.GroupVersionKind
+	name string
+	data map[string]interface{}
+}
+
+func (d *definition) isTopLevel() bool {
 	gvks, gvkExists :=
 		d.data["x-kubernetes-group-version-kind"].([]interface{})
 	hasGVK := gvkExists && len(gvks) > 0
@@ -820,18 +832,6 @@ func isTopLevel(d *definition) bool {
 
 	return ref == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" ||
 		ref == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
-}
-
-// --------------------------------------------------------------------------
-
-// Core grouping logic.
-
-// --------------------------------------------------------------------------
-
-type definition struct {
-	gvk  schema.GroupVersionKind
-	name string
-	data map[string]interface{}
 }
 
 type gentype int
@@ -916,7 +916,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	}
 	aliases := map[string][]interface{}{}
 	linq.From(definitions).
-		WhereT(func(d *definition) bool { return isTopLevel(d) && !strings.HasSuffix(d.gvk.Kind, "List") }).
+		WhereT(func(d *definition) bool { return d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") }).
 		OrderByT(func(d *definition) string { return d.gvk.String() }).
 		SelectManyT(func(d *definition) linq.Query {
 			// Make fully-qualified GroupVersion. The fully-qualified version is the "official" GV
@@ -995,7 +995,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
 			defaultGroupVersion := d.gvk.Group
 			var fqGroupVersion string
-			isTopLevel := isTopLevel(d)
+			isTopLevel := d.isTopLevel()
 			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
 				gvk := gvks[0].(map[string]interface{})
 				group := gvk["group"].(string)
