@@ -803,34 +803,42 @@ type definition struct {
 // (e.g., `core/v1` instead of `v1` or `admissionregistration.k8s.io/v1alpha1` instead of
 // `admissionregistration/v1alpha1`).
 func (d definition) fqGroupVersion() string {
+	// Pull the canonical GVK from the OpenAPI `x-kubernetes-group-version-kind` field if it exists.
 	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
 		gvk := gvks[0].(map[string]interface{})
 		group := gvk["group"].(string)
 		version := gvk["version"].(string)
+
+		// Special case for the `core` group, which was historically called "".
 		if group == "" {
 			return fmt.Sprintf(`core/%s`, version)
-		} else {
-			return fmt.Sprintf(`%s/%s`, group, version)
 		}
+
+		return fmt.Sprintf(`%s/%s`, group, version)
 	}
 
+	// Fall back to using a GVK derived from the definition name.
 	return d.gvk.GroupVersion().String()
 }
 
 // defaultGroupVersion returns the "default" GroupVersion, which is the `apiVersion` that appears
 // when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`).
 func (d definition) defaultGroupVersion() string {
+	// Pull the canonical GVK from the OpenAPI `x-kubernetes-group-version-kind` field if it exists.
 	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
 		gvk := gvks[0].(map[string]interface{})
 		group := gvk["group"].(string)
 		version := gvk["version"].(string)
+
+		// Special case for the "core" group, which was historically called "".
 		if group == "" {
 			return version
-		} else {
-			return fmt.Sprintf(`%s/%s`, group, version)
 		}
+
+		return fmt.Sprintf(`%s/%s`, group, version)
 	}
 
+	// Fall back to using a GVK derived from the definition name.
 	return d.gvk.GroupVersion().String()
 }
 
