@@ -845,9 +845,9 @@ const (
 type language string
 
 const (
-	python     = "python"
-	typescript = "typescript"
-	dotnet     = "dotnet"
+	python     language = "python"
+	typescript language = "typescript"
+	dotnet     language = "dotnet"
 )
 
 type groupOpts struct {
