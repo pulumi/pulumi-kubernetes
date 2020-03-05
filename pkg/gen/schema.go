@@ -134,13 +134,24 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	csharpNamespaces := map[string]string{}
 	goImports := map[string]string{}
 
+	gvToImport := func(gv string) string {
+		importStr := strings.Replace(gv, ".k8s.io", "", -1)
+		importStr = strings.Replace(importStr, "/", "", -1)
+		importStr = strings.Replace(importStr, "alpha", "a", -1)
+		importStr = strings.Replace(importStr, "beta", "b", -1)
+		return importStr
+	}
+
 	definitions := swagger["definitions"].(map[string]interface{})
 	groupsSlice := createGroups(definitions, schemaOpts())
 	for _, group := range groupsSlice {
 		for _, version := range group.Versions() {
-			mod := fmt.Sprintf("%s/%s", group.URNGroup(), version.Version())
+			//mod := version.APIVersion()
+			mod := version.gv.String()
+			//mod = strings.Replace(mod, ".k8s.io", "", -1)
 			csharpNamespaces[mod] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
-			goImports[mod] = strings.Replace(mod, "/", "", -1)
+			//goImports[mod] = gvToImport(version.APIVersion())
+			goImports[mod] = gvToImport(version.gv.String())
 
 			for _, kind := range version.Kinds() {
 				tok := fmt.Sprintf("kubernetes:%s:%s", kind.URNAPIVersion(), kind.Kind())
@@ -199,7 +210,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	return pkg
 }
 
-func genPropertySpec(p *Property) pschema.PropertySpec {
+func genPropertySpec(p Property) pschema.PropertySpec {
 	var typ pschema.TypeSpec
 	err := json.Unmarshal([]byte(p.ProviderType()), &typ)
 	contract.Assert(err == nil)

@@ -22,7 +22,6 @@ import (
 	"strings"
 
 	"github.com/ahmetb/go-linq"
-	"github.com/jinzhu/copier"
 	"github.com/mitchellh/go-wordwrap"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -68,9 +67,9 @@ func (gc GroupConfig) Group() string { return gc.group }
 
 // URNGroup returns a group version that can be used in a URN.
 func (gc *GroupConfig) URNGroup() string {
-	if strings.HasPrefix(gc.group, apiRegistration) {
-		return "apiregistration" + strings.TrimPrefix(gc.group, apiRegistration)
-	}
+	//if strings.HasPrefix(gc.group, apiRegistration) {
+	//	return "apiregistration" + strings.TrimPrefix(gc.group, apiRegistration)
+	//}
 	return gc.group
 }
 
@@ -121,16 +120,16 @@ func (vc VersionConfig) TopLevelKindsAndAliases() []KindConfig {
 	var kindsAndAliases []KindConfig
 	for _, kind := range vc.TopLevelKinds() {
 		kindsAndAliases = append(kindsAndAliases, kind)
-		if strings.HasPrefix(kind.APIVersion(), apiRegistration) {
-			alias := KindConfig{}
-			err := copier.Copy(&alias, kind)
-			if err != nil {
-				panic(err)
-			}
-			defaultAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
-			alias.defaultAPIVersion = defaultAPIVersion
-			kindsAndAliases = append(kindsAndAliases, alias)
-		}
+		//if strings.HasPrefix(kind.APIVersion(), apiRegistration) {
+		//	alias := KindConfig{}
+		//	err := copier.Copy(&alias, kind)
+		//	if err != nil {
+		//		panic(err)
+		//	}
+		//	defaultAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
+		//	alias.defaultAPIVersion = defaultAPIVersion
+		//	kindsAndAliases = append(kindsAndAliases, alias)
+		//}
 	}
 	return kindsAndAliases
 }
@@ -290,11 +289,12 @@ func (p Property) DotnetIsListOrMap() bool { return p.dotnetIsListOrMap }
 func gvkFromRef(ref string) schema.GroupVersionKind {
 	// TODO(hausdorff): Surely there is an official k8s function somewhere for doing this.
 	split := strings.Split(ref, ".")
-	return schema.GroupVersionKind{
+	gvk := schema.GroupVersionKind{
 		Kind:    split[len(split)-1],
 		Version: split[len(split)-2],
 		Group:   split[len(split)-3],
 	}
+	return gvk
 }
 
 func stripPrefix(name string) string {

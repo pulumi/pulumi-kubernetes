@@ -16,14 +16,12 @@ package main
 
 import (
 	"fmt"
+	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
+	"github.com/pulumi/pulumi/pkg/codegen/schema"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
-
-	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
-	"github.com/pulumi/pulumi/pkg/codegen/schema"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
 )
@@ -321,7 +319,7 @@ func writeGoClient(data map[string]interface{}, outdir string) {
 		panic(err)
 	}
 	for filename, contents := range files {
-		filename = strings.TrimPrefix(filename, "kubernetes/")
+		//filename = strings.TrimPrefix(filename, "kubernetes/")
 		path := filepath.Join(outdir, filename)
 
 		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
