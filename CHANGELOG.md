@@ -11,6 +11,7 @@
 
 ### Bug fixes
 
+-   Change URN for apiregistration resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1021).
 -   Replace PersistentVolume if volume source changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1015).
 -   Fix bool Python provider opts. (https://github.com/pulumi/pulumi-kubernetes/pull/1027).
 
