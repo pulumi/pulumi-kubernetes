@@ -211,8 +211,7 @@ func (kc KindConfig) APIVersion() string { return kc.apiVersion }
 // DefaultAPIVersion returns the default apiVersion (e.g., `v1` rather than `core/v1`).
 func (kc KindConfig) DefaultAPIVersion() string { return kc.defaultAPIVersion }
 
-// URNAPIVersion returns API version that can be used in a URN (e.g., using the backwards-compatible
-// alias `apiextensions` instead of `apiextensions.k8s.io`).
+// URNAPIVersion returns API version that can be used in a URN.
 func (kc KindConfig) URNAPIVersion() string { return kc.apiVersion }
 
 // TypeGuard returns the text of a TypeScript type guard for the given kind.
