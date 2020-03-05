@@ -54,47 +54,47 @@ const (
 // GroupConfig represents a Kubernetes API group (e.g., core, apps, extensions, etc.)
 type GroupConfig struct {
 	group    string
-	versions []*VersionConfig
+	versions []VersionConfig
 
 	hasTopLevelKinds bool
 }
 
 // Group returns the name of the group (e.g., `core` for core, etc.)
-func (gc *GroupConfig) Group() string { return gc.group }
+func (gc GroupConfig) Group() string { return gc.group }
 
 // Versions returns the set of version for some Kubernetes API group. For example, the `apps` group
 // has `v1beta1`, `v1beta2`, and `v1`.
-func (gc *GroupConfig) Versions() []*VersionConfig { return gc.versions }
+func (gc GroupConfig) Versions() []VersionConfig { return gc.versions }
 
 // HasTopLevelKinds returns true if this group has top-level kinds.
-func (gc *GroupConfig) HasTopLevelKinds() bool { return gc.hasTopLevelKinds }
+func (gc GroupConfig) HasTopLevelKinds() bool { return gc.hasTopLevelKinds }
 
 // VersionConfig represents a version of a Kubernetes API group (e.g., the `apps` group has
 // `v1beta1`, `v1beta2`, and `v1`.)
 type VersionConfig struct {
 	version string
-	kinds   []*KindConfig
+	kinds   []KindConfig
 
-	gv            *schema.GroupVersion // Used for sorting.
-	apiVersion    string
-	rawAPIVersion string
+	gv                schema.GroupVersion // Used for sorting.
+	apiVersion        string
+	defaultAPIVersion string
 
 	hasTopLevelKinds bool
 }
 
 // Version returns the name of the version (e.g., `apps/v1beta1` would return `v1beta1`).
-func (vc *VersionConfig) Version() string { return vc.version }
+func (vc VersionConfig) Version() string { return vc.version }
 
 // Kinds returns the set of kinds in some Kubernetes API group/version combination (e.g.,
 // `apps/v1beta1` has the `Deployment` kind, etc.).
-func (vc *VersionConfig) Kinds() []*KindConfig { return vc.kinds }
+func (vc VersionConfig) Kinds() []KindConfig { return vc.kinds }
 
 // HasTopLevelKinds returns true if this group has top-level kinds.
-func (vc *VersionConfig) HasTopLevelKinds() bool { return vc.hasTopLevelKinds }
+func (vc VersionConfig) HasTopLevelKinds() bool { return vc.hasTopLevelKinds }
 
 // TopLevelKinds returns the set of kinds that are not nested.
-func (vc *VersionConfig) TopLevelKinds() []*KindConfig {
-	var kinds []*KindConfig
+func (vc VersionConfig) TopLevelKinds() []KindConfig {
+	var kinds []KindConfig
 	for _, k := range vc.kinds {
 		if !k.IsNested() {
 			kinds = append(kinds, k)
@@ -105,8 +105,8 @@ func (vc *VersionConfig) TopLevelKinds() []*KindConfig {
 
 // TopLevelKindsAndAliases will produce a list of kinds, including aliases (e.g., both `apiregistration` and
 // `apiregistration.k8s.io`).
-func (vc *VersionConfig) TopLevelKindsAndAliases() []*KindConfig {
-	kindsAndAliases := []*KindConfig{}
+func (vc VersionConfig) TopLevelKindsAndAliases() []KindConfig {
+	var kindsAndAliases []KindConfig
 	for _, kind := range vc.TopLevelKinds() {
 		kindsAndAliases = append(kindsAndAliases, kind)
 		if strings.HasPrefix(kind.APIVersion(), apiRegistration) {
@@ -115,9 +115,9 @@ func (vc *VersionConfig) TopLevelKindsAndAliases() []*KindConfig {
 			if err != nil {
 				panic(err)
 			}
-			rawAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
-			alias.rawAPIVersion = rawAPIVersion
-			kindsAndAliases = append(kindsAndAliases, &alias)
+			defaultAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
+			alias.defaultAPIVersion = defaultAPIVersion
+			kindsAndAliases = append(kindsAndAliases, alias)
 		}
 	}
 	return kindsAndAliases
@@ -126,8 +126,8 @@ func (vc *VersionConfig) TopLevelKindsAndAliases() []*KindConfig {
 // ListTopLevelKindsAndAliases will return all known `Kind`s that are lists, or aliases of lists. These
 // `Kind`s are not instantiated by the API server, and we must "flatten" them client-side to get an
 // accurate view of what resource operations we need to perform.
-func (vc *VersionConfig) ListTopLevelKindsAndAliases() []*KindConfig {
-	listKinds := []*KindConfig{}
+func (vc VersionConfig) ListTopLevelKindsAndAliases() []KindConfig {
+	var listKinds []KindConfig
 	for _, kind := range vc.TopLevelKindsAndAliases() {
 		hasItems := false
 		for _, prop := range kind.properties {
@@ -146,10 +146,10 @@ func (vc *VersionConfig) ListTopLevelKindsAndAliases() []*KindConfig {
 }
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
-func (vc *VersionConfig) APIVersion() string { return vc.apiVersion }
+func (vc VersionConfig) APIVersion() string { return vc.apiVersion }
 
-// RawAPIVersion returns the "raw" apiVersion (e.g., `v1` rather than `core/v1`).
-func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
+// DefaultAPIVersion returns the default apiVersion (e.g., `v1` rather than `core/v1`).
+func (vc VersionConfig) DefaultAPIVersion() string { return vc.defaultAPIVersion }
 
 // KindConfig represents a Kubernetes API kind (e.g., the `Deployment` type in
 // `apps/v1beta1/Deployment`).
@@ -158,61 +158,61 @@ type KindConfig struct {
 	deprecationComment      string
 	comment                 string
 	pulumiComment           string
-	properties              []*Property
-	requiredInputProperties []*Property
-	optionalInputProperties []*Property
+	properties              []Property
+	requiredInputProperties []Property
+	optionalInputProperties []Property
 	additionalSecretOutputs []string
 	aliases                 []string
 
-	gvk           *schema.GroupVersionKind // Used for sorting.
-	apiVersion    string
-	rawAPIVersion string
-	typeGuard     string
+	gvk               schema.GroupVersionKind // Used for sorting.
+	apiVersion        string
+	defaultAPIVersion string
+	typeGuard         string
 
 	isNested bool
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
 // `apps/v1beta1/Deployment`).
-func (kc *KindConfig) Kind() string { return kc.kind }
+func (kc KindConfig) Kind() string { return kc.kind }
 
 // DeprecationComment returns the deprecation comment for deprecated APIs, otherwise an empty string.
-func (kc *KindConfig) DeprecationComment() string { return kc.deprecationComment }
+func (kc KindConfig) DeprecationComment() string { return kc.deprecationComment }
 
 // Comment returns the comments associated with some Kubernetes API kind.
-func (kc *KindConfig) Comment() string { return kc.comment }
+func (kc KindConfig) Comment() string { return kc.comment }
 
 // PulumiComment returns the await logic documentation associated with some Kubernetes API kind.
-func (kc *KindConfig) PulumiComment() string { return kc.pulumiComment }
+func (kc KindConfig) PulumiComment() string { return kc.pulumiComment }
 
 // Properties returns the list of properties that exist on some Kubernetes API kind (i.e., things
 // that we will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
-func (kc *KindConfig) Properties() []*Property { return kc.properties }
+func (kc KindConfig) Properties() []Property { return kc.properties }
 
 // RequiredInputProperties returns the list of properties that are required input properties on some
 // Kubernetes API kind (i.e., things that we will want to provide, like `thing.metadata`, etc.).
-func (kc *KindConfig) RequiredInputProperties() []*Property { return kc.requiredInputProperties }
+func (kc KindConfig) RequiredInputProperties() []Property { return kc.requiredInputProperties }
 
 // OptionalInputProperties returns the list of properties that are optional input properties on some
 // Kubernetes API kind (i.e., things that we will want to provide, like `thing.metadata`, etc.).
-func (kc *KindConfig) OptionalInputProperties() []*Property { return kc.optionalInputProperties }
+func (kc KindConfig) OptionalInputProperties() []Property { return kc.optionalInputProperties }
 
 // AdditionalSecretOutputs returns the list of strings to set as additionalSecretOutputs on some
 // Kubernetes API kind.
-func (kc *KindConfig) AdditionalSecretOutputs() []string { return kc.additionalSecretOutputs }
+func (kc KindConfig) AdditionalSecretOutputs() []string { return kc.additionalSecretOutputs }
 
 // Aliases returns the list of aliases for a Kubernetes API kind.
-func (kc *KindConfig) Aliases() []string { return kc.aliases }
+func (kc KindConfig) Aliases() []string { return kc.aliases }
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
-func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
+func (kc KindConfig) APIVersion() string { return kc.apiVersion }
 
-// RawAPIVersion returns the "raw" apiVersion (e.g., `v1` rather than `core/v1`).
-func (kc *KindConfig) RawAPIVersion() string { return kc.rawAPIVersion }
+// DefaultAPIVersion returns the default apiVersion (e.g., `v1` rather than `core/v1`).
+func (kc KindConfig) DefaultAPIVersion() string { return kc.defaultAPIVersion }
 
 // URNAPIVersion returns API version that can be used in a URN (e.g., using the backwards-compatible
 // alias `apiextensions` instead of `apiextensions.k8s.io`).
-func (kc *KindConfig) URNAPIVersion() string {
+func (kc KindConfig) URNAPIVersion() string {
 	if strings.HasPrefix(kc.apiVersion, apiRegistration) {
 		return "apiregistration" + strings.TrimPrefix(kc.apiVersion, apiRegistration)
 	}
@@ -220,10 +220,10 @@ func (kc *KindConfig) URNAPIVersion() string {
 }
 
 // TypeGuard returns the text of a TypeScript type guard for the given kind.
-func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
+func (kc KindConfig) TypeGuard() string { return kc.typeGuard }
 
 // IsNested returns true if this is a nested kind.
-func (kc *KindConfig) IsNested() bool { return kc.isNested }
+func (kc KindConfig) IsNested() bool { return kc.isNested }
 
 // Property represents a property we want to expose on a Kubernetes API kind (i.e., things that we
 // will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
@@ -242,38 +242,38 @@ type Property struct {
 }
 
 // Name returns the name of the property.
-func (p *Property) Name() string { return p.name }
+func (p Property) Name() string { return p.name }
 
 // LanguageName returns the name of the property.
-func (p *Property) LanguageName() string { return p.languageName }
+func (p Property) LanguageName() string { return p.languageName }
 
 // Comment returns the comments associated with some property.
-func (p *Property) Comment() string { return p.comment }
+func (p Property) Comment() string { return p.comment }
 
 // PythonConstructorComment returns the comments associated with some property, formatted for Python
 // constructor documentation.
-func (p *Property) PythonConstructorComment() string { return p.pythonConstructorComment }
+func (p Property) PythonConstructorComment() string { return p.pythonConstructorComment }
 
 // InputsAPIType returns the type of the property for the inputs API.
-func (p *Property) InputsAPIType() string { return p.inputsAPIType }
+func (p Property) InputsAPIType() string { return p.inputsAPIType }
 
 // OutputsAPIType returns the type of the property for the outputs API.
-func (p *Property) OutputsAPIType() string { return p.outputsAPIType }
+func (p Property) OutputsAPIType() string { return p.outputsAPIType }
 
 // ProviderType returns the type of the property for the provider API.
-func (p *Property) ProviderType() string { return p.providerType }
+func (p Property) ProviderType() string { return p.providerType }
 
 // DefaultValue returns the type of the property.
-func (p *Property) DefaultValue() string { return p.defaultValue }
+func (p Property) DefaultValue() string { return p.defaultValue }
 
 // IsLast returns whether the property is the last in the list of properties.
-func (p *Property) IsLast() bool { return p.isLast }
+func (p Property) IsLast() bool { return p.isLast }
 
 // DotnetVarName returns a variable name safe to use in .NET (e.g. `@namespace` instead of `namespace`)
-func (p *Property) DotnetVarName() string { return p.dotnetVarName }
+func (p Property) DotnetVarName() string { return p.dotnetVarName }
 
 // DotnetIsListOrMap returns whether the property type is a List or map
-func (p *Property) DotnetIsListOrMap() bool { return p.dotnetIsListOrMap }
+func (p Property) DotnetIsListOrMap() bool { return p.dotnetIsListOrMap }
 
 // --------------------------------------------------------------------------
 
@@ -298,6 +298,7 @@ func stripPrefix(name string) string {
 
 // extractDeprecationComment returns the comment with deprecation comment removed and the extracted deprecation
 // comment, fixed-up for the specified language.
+// TODO(levi): Move this logic to schema-based codegen.
 func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind, language language) (string, string) {
 	if comment == nil {
 		return "", ""
@@ -330,6 +331,7 @@ func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind,
 	return commentstr, ""
 }
 
+// TODO(levi): Move this logic to schema-based codegen.
 func fmtComment(
 	comment interface{}, prefix string, bareRender bool, opts groupOpts, gvk schema.GroupVersionKind,
 ) string {
@@ -787,7 +789,54 @@ func makeType(resourceType, propName string, prop map[string]interface{}, langua
 	}
 }
 
-func isTopLevel(d *definition) bool {
+// --------------------------------------------------------------------------
+
+// Core grouping logic.
+
+// --------------------------------------------------------------------------
+
+type definition struct {
+	gvk  schema.GroupVersionKind
+	name string
+	data map[string]interface{}
+}
+
+// fqGroupVersion returns the fully-qualified GroupVersion, which is the "official" GV
+// (e.g., `core/v1` instead of `v1` or `admissionregistration.k8s.io/v1alpha1` instead of
+// `admissionregistration/v1alpha1`).
+func (d definition) fqGroupVersion() string {
+	defaultGV := d.defaultGroupVersion()
+
+	// Special case for the "core" group, which was historically called "".
+	if !strings.Contains(defaultGV, "/") {
+		return fmt.Sprintf(`core/%s`, defaultGV)
+	}
+
+	return defaultGV
+}
+
+// defaultGroupVersion returns the "default" GroupVersion, which is the `apiVersion` that appears
+// when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`).
+func (d definition) defaultGroupVersion() string {
+	// Pull the canonical GVK from the OpenAPI `x-kubernetes-group-version-kind` field if it exists.
+	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+		gvk := gvks[0].(map[string]interface{})
+		group := gvk["group"].(string)
+		version := gvk["version"].(string)
+
+		// Special case for the "core" group, which was historically called "".
+		if group == "" {
+			return version
+		}
+
+		return fmt.Sprintf(`%s/%s`, group, version)
+	}
+
+	// Fall back to using a GVK derived from the definition name.
+	return d.gvk.GroupVersion().String()
+}
+
+func (d definition) isTopLevel() bool {
 	gvks, gvkExists :=
 		d.data["x-kubernetes-group-version-kind"].([]interface{})
 	hasGVK := gvkExists && len(gvks) > 0
@@ -822,18 +871,6 @@ func isTopLevel(d *definition) bool {
 		ref == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
 }
 
-// --------------------------------------------------------------------------
-
-// Core grouping logic.
-
-// --------------------------------------------------------------------------
-
-type definition struct {
-	gvk  schema.GroupVersionKind
-	name string
-	data map[string]interface{}
-}
-
 type gentype int
 
 const (
@@ -845,9 +882,9 @@ const (
 type language string
 
 const (
-	python     = "python"
-	typescript = "typescript"
-	dotnet     = "dotnet"
+	python     language = "python"
+	typescript language = "typescript"
+	dotnet     language = "dotnet"
 )
 
 type groupOpts struct {
@@ -860,16 +897,16 @@ func dotnetOpts() groupOpts { return groupOpts{language: dotnet} }
 
 func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
-	definitions := make([]*definition, 0)
+	var definitions []definition
 	linq.From(definitionsJSON).
 		WhereT(func(kv linq.KeyValue) bool {
 			// Skip these objects, special case. They're deprecated and empty.
 			defName := kv.Key.(string)
 			return !strings.HasPrefix(defName, "io.k8s.kubernetes.pkg")
 		}).
-		SelectT(func(kv linq.KeyValue) *definition {
+		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			return &definition{
+			return definition{
 				gvk:  gvkFromRef(defName),
 				name: defName,
 				data: definitionsJSON[defName].(map[string]interface{}),
@@ -894,21 +931,13 @@ func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts grou
 	return properties.List()
 }
 
-func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*GroupConfig {
+func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []GroupConfig {
 	// Map definition JSON object -> `definition` with metadata.
-	definitions := []*definition{}
+	var definitions []definition
 	linq.From(definitionsJSON).
-		WhereT(func(kv linq.KeyValue) bool {
-			// Skip these objects, special case. They're deprecated and empty.
-			//
-			// TODO(hausdorff): We can remove these now that we don't emit a `KindConfig` for an object
-			// that has no properties.
+		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			return !strings.HasPrefix(defName, "io.k8s.kubernetes.pkg")
-		}).
-		SelectT(func(kv linq.KeyValue) *definition {
-			defName := kv.Key.(string)
-			return &definition{
+			return definition{
 				gvk:  gvkFromRef(defName),
 				name: defName,
 				data: definitionsJSON[defName].(map[string]interface{}),
@@ -918,45 +947,23 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 
 	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV string.
 	// For Kinds with more than one GV, create aliases in the SDKs.
-	type SimpleKind struct {
-		kind       string
-		apiVersion string
-	}
 	aliases := map[string][]interface{}{}
 	linq.From(definitions).
-		WhereT(func(d *definition) bool { return isTopLevel(d) && !strings.HasSuffix(d.gvk.Kind, "List") }).
-		OrderByT(func(d *definition) string { return d.gvk.String() }).
-		SelectManyT(func(d *definition) linq.Query {
-			// Make fully-qualified GroupVersion. The fully-qualified version is the "official" GV
-			// (e.g., `core/v1` instead of `v1` or `admissionregistration.k8s.io/v1alpha1` instead of
-			// `admissionregistration/v1alpha1`).
-			var fqGroupVersion string
-			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
-				gvk := gvks[0].(map[string]interface{})
-				group := gvk["group"].(string)
-				version := gvk["version"].(string)
-				if group == "" {
-					fqGroupVersion = fmt.Sprintf(`core/%s`, version)
-				} else {
-					fqGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
-				}
-			} else {
-				gv := d.gvk.GroupVersion().String()
-				fqGroupVersion = gv
-			}
-
-			return linq.From([]SimpleKind{
+		WhereT(func(d definition) bool { return d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") }).
+		OrderByT(func(d definition) string { return d.gvk.String() }).
+		SelectManyT(func(d definition) linq.Query {
+			return linq.From([]KindConfig{
 				{
 					kind:       d.gvk.Kind,
-					apiVersion: fqGroupVersion,
+					apiVersion: d.fqGroupVersion(),
 				},
 			})
 		}).
 		GroupByT(
-			func(kind SimpleKind) string {
+			func(kind KindConfig) string {
 				return kind.kind
 			},
-			func(kind SimpleKind) string {
+			func(kind KindConfig) string {
 				return fmt.Sprintf("kubernetes:%s:%s", kind.apiVersion, kind.kind)
 			}).
 		WhereT(func(group linq.Group) bool {
@@ -988,54 +995,30 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Assemble a `KindConfig` for each Kubernetes kind.
 	//
 
-	kinds := []*KindConfig{}
+	var kinds []KindConfig
 	linq.From(definitions).
-		OrderByT(func(d *definition) string { return d.gvk.String() }).
-		SelectManyT(func(d *definition) linq.Query {
+		OrderByT(func(d definition) string { return d.gvk.String() }).
+		SelectManyT(func(d definition) linq.Query {
 			// Skip if there are no properties on the type.
 			if _, exists := d.data["properties"]; !exists {
 				return linq.From([]KindConfig{})
 			}
 
-			// Make fully-qualified and "default" GroupVersion. The "default" GV is the `apiVersion` that
-			// appears when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`), while the
-			// fully-qualified version is the "official" GV (e.g., `core/v1` instead of `v1` or
-			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
-			defaultGroupVersion := d.gvk.Group
-			var fqGroupVersion string
-			isTopLevel := isTopLevel(d)
-			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
-				gvk := gvks[0].(map[string]interface{})
-				group := gvk["group"].(string)
-				version := gvk["version"].(string)
-				if group == "" {
-					defaultGroupVersion = version
-					fqGroupVersion = fmt.Sprintf(`core/%s`, version)
-				} else {
-					defaultGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
-					fqGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
-				}
-			} else {
-				gv := d.gvk.GroupVersion().String()
-				if strings.HasPrefix(gv, "apiextensions/") && strings.HasPrefix(d.gvk.Kind, "CustomResource") {
-					// Special case. Kubernetes OpenAPI spec should have an `x-kubernetes-group-version-kind`
-					// CustomResource, but it doesn't. Hence, we hard-code it.
-					gv = fmt.Sprintf("apiextensions.k8s.io/%s", d.gvk.Version)
-				}
-				defaultGroupVersion = gv
-				fqGroupVersion = gv
-			}
+			defaultGroupVersion := d.defaultGroupVersion()
+			fqGroupVersion := d.fqGroupVersion()
+			isTopLevel := d.isTopLevel()
 
 			ps := linq.From(d.data["properties"]).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				WhereT(func(kv linq.KeyValue) bool {
 					propName := kv.Key.(string)
+					// TODO(levi): This logic will probably be handled by the schema-based codegen.
 					if (opts.language == python) && (propName == "apiVersion" || propName == "kind") {
 						return false
 					}
 					return true
 				}).
-				SelectT(func(kv linq.KeyValue) *Property {
+				SelectT(func(kv linq.KeyValue) Property {
 					propName := kv.Key.(string)
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 
@@ -1059,6 +1042,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
 
+					// TODO(levi): This special case probably belongs in the schema-based codegen.
 					// `-` is invalid in TS variable names, so replace with `_`
 					propName = strings.ReplaceAll(propName, "-", "_")
 
@@ -1121,7 +1105,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						}
 					}
 
-					return &Property{
+					return Property{
 						comment:                  fmtComment(prop["description"], prefix, false, opts, d.gvk),
 						pythonConstructorComment: fmtComment(prop["description"], prefix+prefix+"       ", true, opts, d.gvk),
 						inputsAPIType:            inputsAPIType,
@@ -1137,7 +1121,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				})
 
 			// All properties.
-			properties := []*Property{}
+			var properties []Property
 			ps.ToSlice(&properties)
 			if len(properties) > 0 {
 				properties[len(properties)-1].isLast = true
@@ -1151,24 +1135,25 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				}
 			}
 
-			requiredInputProperties := []*Property{}
+			var requiredInputProperties []Property
 			ps.
-				WhereT(func(p *Property) bool {
+				WhereT(func(p Property) bool {
 					return reqdProps.Has(p.name)
 				}).
 				ToSlice(&requiredInputProperties)
 
-			optionalInputProperties := []*Property{}
+			var optionalInputProperties []Property
 			ps.
-				WhereT(func(p *Property) bool {
+				WhereT(func(p Property) bool {
 					return !reqdProps.Has(p.name) && p.name != "status"
 				}).
 				ToSlice(&optionalInputProperties)
 
 			if len(properties) == 0 {
-				return linq.From([]*KindConfig{})
+				return linq.From([]KindConfig{})
 			}
 
+			// TODO(levi): This appears to be specific to TS, and should be moved to the schema-based codegen.
 			var typeGuard string
 			props := d.data["properties"].(map[string]interface{})
 			_, apiVersionExists := props["apiVersion"]
@@ -1179,9 +1164,10 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
+			// TODO(levi): This should be moved to the schema-based codegen.
 			comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk, opts.language)
 
-			return linq.From([]*KindConfig{
+			return linq.From([]KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
@@ -1194,9 +1180,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					optionalInputProperties: optionalInputProperties,
 					additionalSecretOutputs: additionalSecretOutputs(d.gvk),
 					aliases:                 aliasesForKind(d.gvk.Kind, fqGroupVersion),
-					gvk:                     &d.gvk,
+					gvk:                     d.gvk,
 					apiVersion:              fqGroupVersion,
-					rawAPIVersion:           defaultGroupVersion,
+					defaultAPIVersion:       defaultGroupVersion,
 					typeGuard:               typeGuard,
 					isNested:                !isTopLevel,
 				},
@@ -1208,20 +1194,20 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Assemble a `VersionConfig` for each group of kinds.
 	//
 
-	versions := []*VersionConfig{}
+	var versions []VersionConfig
 	linq.From(kinds).
 		GroupByT(
-			func(e *KindConfig) schema.GroupVersion { return e.gvk.GroupVersion() },
-			func(e *KindConfig) *KindConfig { return e }).
+			func(e KindConfig) schema.GroupVersion { return e.gvk.GroupVersion() },
+			func(e KindConfig) KindConfig { return e }).
 		OrderByT(func(kinds linq.Group) string {
 			return kinds.Key.(schema.GroupVersion).String()
 		}).
 		SelectManyT(func(kinds linq.Group) linq.Query {
 			gv := kinds.Key.(schema.GroupVersion)
-			kindsGroup := []*KindConfig{}
+			var kindsGroup []KindConfig
 			linq.From(kinds.Group).ToSlice(&kindsGroup)
 			if len(kindsGroup) == 0 {
-				return linq.From([]*VersionConfig{})
+				return linq.From([]VersionConfig{})
 			}
 
 			version := gv.Version
@@ -1229,18 +1215,18 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				version = pascalCase(version)
 			}
 
-			hasTopLevelKinds := linq.From(kindsGroup).WhereT(func(k *KindConfig) bool {
+			hasTopLevelKinds := linq.From(kindsGroup).WhereT(func(k KindConfig) bool {
 				return !k.IsNested()
 			}).Any()
 
-			return linq.From([]*VersionConfig{
+			return linq.From([]VersionConfig{
 				{
-					version:          version,
-					kinds:            kindsGroup,
-					gv:               &gv,
-					apiVersion:       kindsGroup[0].apiVersion,    // NOTE: This is safe.
-					rawAPIVersion:    kindsGroup[0].rawAPIVersion, // NOTE: This is safe.
-					hasTopLevelKinds: hasTopLevelKinds,
+					version:           version,
+					kinds:             kindsGroup,
+					gv:                gv,
+					apiVersion:        kindsGroup[0].apiVersion,        // NOTE: This is safe.
+					defaultAPIVersion: kindsGroup[0].defaultAPIVersion, // NOTE: This is safe.
+					hasTopLevelKinds:  hasTopLevelKinds,
 				},
 			})
 		}).
@@ -1250,29 +1236,30 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	// Assemble a `GroupConfig` for each group of versions.
 	//
 
-	groups := []*GroupConfig{}
+	var groups []GroupConfig
 	linq.From(versions).
 		GroupByT(
-			func(e *VersionConfig) string { return e.gv.Group },
-			func(e *VersionConfig) *VersionConfig { return e }).
+			func(e VersionConfig) string { return e.gv.Group },
+			func(e VersionConfig) VersionConfig { return e }).
 		OrderByT(func(versions linq.Group) string { return versions.Key.(string) }).
 		SelectManyT(func(versions linq.Group) linq.Query {
-			versionsGroup := []*VersionConfig{}
+			var versionsGroup []VersionConfig
 			linq.From(versions.Group).ToSlice(&versionsGroup)
 			if len(versionsGroup) == 0 {
-				return linq.From([]*GroupConfig{})
+				return linq.From([]GroupConfig{})
 			}
 
 			group := versions.Key.(string)
+			// TODO(levi): Move special-case to schema-based codegen.
 			if opts.language == dotnet {
 				group = pascalCase(group)
 			}
 
-			hasTopLevelKinds := linq.From(versionsGroup).WhereT(func(v *VersionConfig) bool {
+			hasTopLevelKinds := linq.From(versionsGroup).WhereT(func(v VersionConfig) bool {
 				return v.HasTopLevelKinds()
 			}).Any()
 
-			return linq.From([]*GroupConfig{
+			return linq.From([]GroupConfig{
 				{
 					group:            group,
 					versions:         versionsGroup,
@@ -1280,7 +1267,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				},
 			})
 		}).
-		WhereT(func(gc *GroupConfig) bool {
+		WhereT(func(gc GroupConfig) bool {
 			return len(gc.Versions()) != 0
 		}).
 		ToSlice(&groups)
@@ -1288,6 +1275,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 	return groups
 }
 
+// TODO(levi): Should be moved to schema-based codegen.
 func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
 	kind := kinds.Kind(gvk.Kind)
 

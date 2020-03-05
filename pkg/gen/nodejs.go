@@ -28,7 +28,7 @@ import (
 // --------------------------------------------------------------------------
 
 type GroupTS struct {
-	Versions map[string]*VersionTS
+	Versions map[string]VersionTS
 	Index    string
 }
 
@@ -39,7 +39,7 @@ type VersionTS struct {
 
 // NodeJSClient will generate a Pulumi Kubernetes provider client SDK for nodejs.
 func NodeJSClient(swagger map[string]interface{}, templateDir string,
-) (inputsts, outputsts, indexts, yamlts, packagejson string, groupsts map[string]*GroupTS, err error) {
+) (inputsts, outputsts, indexts, yamlts, packagejson string, groupsts map[string]GroupTS, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, nodeJSOpts())
@@ -60,22 +60,22 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 		return
 	}
 
-	groupsts = make(map[string]*GroupTS)
+	groupsts = make(map[string]GroupTS)
 	for _, group := range groupsSlice {
 		if !group.HasTopLevelKinds() {
 			continue
 		}
 
-		groupTS := &GroupTS{}
+		groupTS := GroupTS{}
 		for _, version := range group.Versions() {
 			if !version.HasTopLevelKinds() {
 				continue
 			}
 
 			if groupTS.Versions == nil {
-				groupTS.Versions = make(map[string]*VersionTS)
+				groupTS.Versions = make(map[string]VersionTS)
 			}
-			versionTS := &VersionTS{}
+			versionTS := VersionTS{}
 			for _, kind := range version.TopLevelKinds() {
 				if versionTS.Kinds == nil {
 					versionTS.Kinds = make(map[string]string)

@@ -193,11 +193,11 @@ def _parse_yaml_object(
 {{#Groups}}
 {{#Versions}}
 {{#TopLevelKinds}}
-    if gvk == "{{RawAPIVersion}}/{{Kind}}":
+    if gvk == "{{DefaultAPIVersion}}/{{Kind}}":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.{{Group}}.{{Version}} import {{Kind}}
         return [identifier.apply(
-            lambda x: (f"{{RawAPIVersion}}/{{Kind}}:{x}",
+            lambda x: (f"{{DefaultAPIVersion}}/{{Kind}}:{x}",
                        {{Kind}}(f"{x}", opts, **obj)))]
 {{/TopLevelKinds}}
 {{/Versions}}
