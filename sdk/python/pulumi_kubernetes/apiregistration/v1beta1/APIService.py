@@ -77,6 +77,8 @@ class APIService(pulumi.CustomResource):
         parent = opts.parent if opts and opts.parent else None
         aliases = [
             pulumi.Alias(type_="kubernetes:apiregistration.k8s.io/v1:APIService"),
+            pulumi.Alias(type_="kubernetes:apiregistration/v1:APIService"),
+            pulumi.Alias(type_="kubernetes:apiregistration/v1beta1:APIService"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
@@ -84,7 +86,7 @@ class APIService(pulumi.CustomResource):
         ))
 
         super(APIService, self).__init__(
-            "kubernetes:apiregistration/v1beta1:APIService",
+            "kubernetes:apiregistration.k8s.io/v1beta1:APIService",
             resource_name,
             __props__,
             opts)

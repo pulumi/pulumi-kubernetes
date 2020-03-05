@@ -222,14 +222,8 @@ func (kc KindConfig) APIVersion() string { return kc.apiVersion }
 // DefaultAPIVersion returns the default apiVersion (e.g., `v1` rather than `core/v1`).
 func (kc KindConfig) DefaultAPIVersion() string { return kc.defaultAPIVersion }
 
-// URNAPIVersion returns API version that can be used in a URN (e.g., using the backwards-compatible
-// alias `apiextensions` instead of `apiextensions.k8s.io`).
-func (kc KindConfig) URNAPIVersion() string {
-	if strings.HasPrefix(kc.apiVersion, apiRegistration) {
-		return "apiregistration" + strings.TrimPrefix(kc.apiVersion, apiRegistration)
-	}
-	return kc.apiVersion
-}
+// URNAPIVersion returns API version that can be used in a URN.
+func (kc KindConfig) URNAPIVersion() string { return kc.apiVersion }
 
 // TypeGuard returns the text of a TypeScript type guard for the given kind.
 func (kc KindConfig) TypeGuard() string { return kc.typeGuard }
@@ -1101,7 +1095,20 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 				continue
 			}
 			results = append(results, aliasString)
+
+			// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
+			if strings.Contains(fqGroupVersion, "apiregistration.k8s.io") {
+				results = append(results,
+					strings.Replace(aliasString, "apiregistration.k8s.io", "apiregistration", -1))
+			}
 		}
+
+		// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
+		if strings.Contains(fqGroupVersion, "apiregistration.k8s.io") {
+			apiVersion := strings.Replace(fqGroupVersion, "apiregistration.k8s.io", "apiregistration", -1)
+			results = append(results, fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind))
+		}
+
 		return results
 	}
 
