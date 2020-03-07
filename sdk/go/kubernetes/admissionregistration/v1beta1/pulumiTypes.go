@@ -9,7 +9,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 )
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -61,9 +61,9 @@ type MutatingWebhook struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
+	NamespaceSelector *corev1.LabelSelector `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector *metav1.LabelSelector `pulumi:"objectSelector"`
+	ObjectSelector *corev1.LabelSelector `pulumi:"objectSelector"`
 	// reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 	//
 	// Never: the webhook will not be called more than once in a single admission evaluation.
@@ -136,9 +136,9 @@ type MutatingWebhookArgs struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
+	NamespaceSelector corev1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector metav1.LabelSelectorPtrInput `pulumi:"objectSelector"`
+	ObjectSelector corev1.LabelSelectorPtrInput `pulumi:"objectSelector"`
 	// reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 	//
 	// Never: the webhook will not be called more than once in a single admission evaluation.
@@ -165,27 +165,6 @@ func (i MutatingWebhookArgs) ToMutatingWebhookOutput() MutatingWebhookOutput {
 
 func (i MutatingWebhookArgs) ToMutatingWebhookOutputWithContext(ctx context.Context) MutatingWebhookOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookOutput)
-}
-
-type MutatingWebhookArrayInput interface {
-	pulumi.Input
-
-	ToMutatingWebhookArrayOutput() MutatingWebhookArrayOutput
-	ToMutatingWebhookArrayOutputWithContext(context.Context) MutatingWebhookArrayOutput
-}
-
-type MutatingWebhookArray []MutatingWebhookInput
-
-func (MutatingWebhookArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]MutatingWebhook)(nil)).Elem()
-}
-
-func (i MutatingWebhookArray) ToMutatingWebhookArrayOutput() MutatingWebhookArrayOutput {
-	return i.ToMutatingWebhookArrayOutputWithContext(context.Background())
-}
-
-func (i MutatingWebhookArray) ToMutatingWebhookArrayOutputWithContext(ctx context.Context) MutatingWebhookArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookArrayOutput)
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -265,13 +244,13 @@ func (o MutatingWebhookOutput) Name() pulumi.StringPtrOutput {
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 //
 // Default to the empty LabelSelector, which matches everything.
-func (o MutatingWebhookOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
+func (o MutatingWebhookOutput) NamespaceSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v MutatingWebhook) *corev1.LabelSelector { return v.NamespaceSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-func (o MutatingWebhookOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
+func (o MutatingWebhookOutput) ObjectSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v MutatingWebhook) *corev1.LabelSelector { return v.ObjectSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
@@ -298,26 +277,6 @@ func (o MutatingWebhookOutput) SideEffects() pulumi.StringPtrOutput {
 // TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 func (o MutatingWebhookOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v MutatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
-}
-
-type MutatingWebhookArrayOutput struct { *pulumi.OutputState}
-
-func (MutatingWebhookArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]MutatingWebhook)(nil)).Elem()
-}
-
-func (o MutatingWebhookArrayOutput) ToMutatingWebhookArrayOutput() MutatingWebhookArrayOutput {
-	return o
-}
-
-func (o MutatingWebhookArrayOutput) ToMutatingWebhookArrayOutputWithContext(ctx context.Context) MutatingWebhookArrayOutput {
-	return o
-}
-
-func (o MutatingWebhookArrayOutput) Index(i pulumi.IntInput) MutatingWebhookOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) MutatingWebhook {
-		return vs[0].([]MutatingWebhook)[vs[1].(int)]
-	}).(MutatingWebhookOutput)
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
@@ -379,27 +338,6 @@ func (i RuleWithOperationsArgs) ToRuleWithOperationsOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsOutput)
 }
 
-type RuleWithOperationsArrayInput interface {
-	pulumi.Input
-
-	ToRuleWithOperationsArrayOutput() RuleWithOperationsArrayOutput
-	ToRuleWithOperationsArrayOutputWithContext(context.Context) RuleWithOperationsArrayOutput
-}
-
-type RuleWithOperationsArray []RuleWithOperationsInput
-
-func (RuleWithOperationsArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]RuleWithOperations)(nil)).Elem()
-}
-
-func (i RuleWithOperationsArray) ToRuleWithOperationsArrayOutput() RuleWithOperationsArrayOutput {
-	return i.ToRuleWithOperationsArrayOutputWithContext(context.Background())
-}
-
-func (i RuleWithOperationsArray) ToRuleWithOperationsArrayOutputWithContext(ctx context.Context) RuleWithOperationsArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsArrayOutput)
-}
-
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
 type RuleWithOperationsOutput struct { *pulumi.OutputState }
 
@@ -446,26 +384,6 @@ func (o RuleWithOperationsOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RuleWithOperations) *string { return v.Scope }).(pulumi.StringPtrOutput)
 }
 
-type RuleWithOperationsArrayOutput struct { *pulumi.OutputState}
-
-func (RuleWithOperationsArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]RuleWithOperations)(nil)).Elem()
-}
-
-func (o RuleWithOperationsArrayOutput) ToRuleWithOperationsArrayOutput() RuleWithOperationsArrayOutput {
-	return o
-}
-
-func (o RuleWithOperationsArrayOutput) ToRuleWithOperationsArrayOutputWithContext(ctx context.Context) RuleWithOperationsArrayOutput {
-	return o
-}
-
-func (o RuleWithOperationsArrayOutput) Index(i pulumi.IntInput) RuleWithOperationsOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) RuleWithOperations {
-		return vs[0].([]RuleWithOperations)[vs[1].(int)]
-	}).(RuleWithOperationsOutput)
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReference struct {
 	// `name` is the name of the service. Required
@@ -509,38 +427,6 @@ func (i ServiceReferenceArgs) ToServiceReferenceOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferenceOutput)
 }
 
-func (i ServiceReferenceArgs) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
-	return i.ToServiceReferencePtrOutputWithContext(context.Background())
-}
-
-func (i ServiceReferenceArgs) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferenceOutput).ToServiceReferencePtrOutputWithContext(ctx)
-}
-
-type ServiceReferencePtrInput interface {
-	pulumi.Input
-
-	ToServiceReferencePtrOutput() ServiceReferencePtrOutput
-	ToServiceReferencePtrOutputWithContext(context.Context) ServiceReferencePtrOutput
-}
-
-type serviceReferencePtrType ServiceReferenceArgs
-
-func ServiceReferencePtr(v *ServiceReferenceArgs) ServiceReferencePtrInput {	return (*serviceReferencePtrType)(v)
-}
-
-func (*serviceReferencePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ServiceReference)(nil)).Elem()
-}
-
-func (i *serviceReferencePtrType) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
-	return i.ToServiceReferencePtrOutputWithContext(context.Background())
-}
-
-func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePtrOutput)
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceOutput struct { *pulumi.OutputState }
 
@@ -556,15 +442,6 @@ func (o ServiceReferenceOutput) ToServiceReferenceOutputWithContext(ctx context.
 	return o
 }
 
-func (o ServiceReferenceOutput) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
-	return o.ToServiceReferencePtrOutputWithContext(context.Background())
-}
-
-func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return o.ApplyT(func(v ServiceReference) *ServiceReference {
-		return &v
-	}).(ServiceReferencePtrOutput)
-}
 // `name` is the name of the service. Required
 func (o ServiceReferenceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
@@ -582,44 +459,6 @@ func (o ServiceReferenceOutput) Path() pulumi.StringPtrOutput {
 
 // If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
 func (o ServiceReferenceOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
-}
-
-type ServiceReferencePtrOutput struct { *pulumi.OutputState}
-
-func (ServiceReferencePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ServiceReference)(nil)).Elem()
-}
-
-func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
-	return o
-}
-
-func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return o
-}
-
-func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func (v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
-}
-
-// `name` is the name of the service. Required
-func (o ServiceReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-// `namespace` is the namespace of the service. Required
-func (o ServiceReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
-}
-
-// `path` is an optional URL path which will be sent in any request to this service.
-func (o ServiceReferencePtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Path }).(pulumi.StringPtrOutput)
-}
-
-// If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
-func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
@@ -672,9 +511,9 @@ type ValidatingWebhook struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
+	NamespaceSelector *corev1.LabelSelector `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector *metav1.LabelSelector `pulumi:"objectSelector"`
+	ObjectSelector *corev1.LabelSelector `pulumi:"objectSelector"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules []RuleWithOperations `pulumi:"rules"`
 	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
@@ -739,9 +578,9 @@ type ValidatingWebhookArgs struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
+	NamespaceSelector corev1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector metav1.LabelSelectorPtrInput `pulumi:"objectSelector"`
+	ObjectSelector corev1.LabelSelectorPtrInput `pulumi:"objectSelector"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules RuleWithOperationsArrayInput `pulumi:"rules"`
 	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
@@ -760,27 +599,6 @@ func (i ValidatingWebhookArgs) ToValidatingWebhookOutput() ValidatingWebhookOutp
 
 func (i ValidatingWebhookArgs) ToValidatingWebhookOutputWithContext(ctx context.Context) ValidatingWebhookOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookOutput)
-}
-
-type ValidatingWebhookArrayInput interface {
-	pulumi.Input
-
-	ToValidatingWebhookArrayOutput() ValidatingWebhookArrayOutput
-	ToValidatingWebhookArrayOutputWithContext(context.Context) ValidatingWebhookArrayOutput
-}
-
-type ValidatingWebhookArray []ValidatingWebhookInput
-
-func (ValidatingWebhookArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ValidatingWebhook)(nil)).Elem()
-}
-
-func (i ValidatingWebhookArray) ToValidatingWebhookArrayOutput() ValidatingWebhookArrayOutput {
-	return i.ToValidatingWebhookArrayOutputWithContext(context.Background())
-}
-
-func (i ValidatingWebhookArray) ToValidatingWebhookArrayOutputWithContext(ctx context.Context) ValidatingWebhookArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookArrayOutput)
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -860,13 +678,13 @@ func (o ValidatingWebhookOutput) Name() pulumi.StringPtrOutput {
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 //
 // Default to the empty LabelSelector, which matches everything.
-func (o ValidatingWebhookOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
+func (o ValidatingWebhookOutput) NamespaceSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhook) *corev1.LabelSelector { return v.NamespaceSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-func (o ValidatingWebhookOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
+func (o ValidatingWebhookOutput) ObjectSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhook) *corev1.LabelSelector { return v.ObjectSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
@@ -882,26 +700,6 @@ func (o ValidatingWebhookOutput) SideEffects() pulumi.StringPtrOutput {
 // TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 func (o ValidatingWebhookOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ValidatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
-}
-
-type ValidatingWebhookArrayOutput struct { *pulumi.OutputState}
-
-func (ValidatingWebhookArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ValidatingWebhook)(nil)).Elem()
-}
-
-func (o ValidatingWebhookArrayOutput) ToValidatingWebhookArrayOutput() ValidatingWebhookArrayOutput {
-	return o
-}
-
-func (o ValidatingWebhookArrayOutput) ToValidatingWebhookArrayOutputWithContext(ctx context.Context) ValidatingWebhookArrayOutput {
-	return o
-}
-
-func (o ValidatingWebhookArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ValidatingWebhook {
-		return vs[0].([]ValidatingWebhook)[vs[1].(int)]
-	}).(ValidatingWebhookOutput)
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
@@ -967,38 +765,6 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigOutput)
 }
 
-func (i WebhookClientConfigArgs) ToWebhookClientConfigPtrOutput() WebhookClientConfigPtrOutput {
-	return i.ToWebhookClientConfigPtrOutputWithContext(context.Background())
-}
-
-func (i WebhookClientConfigArgs) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigOutput).ToWebhookClientConfigPtrOutputWithContext(ctx)
-}
-
-type WebhookClientConfigPtrInput interface {
-	pulumi.Input
-
-	ToWebhookClientConfigPtrOutput() WebhookClientConfigPtrOutput
-	ToWebhookClientConfigPtrOutputWithContext(context.Context) WebhookClientConfigPtrOutput
-}
-
-type webhookClientConfigPtrType WebhookClientConfigArgs
-
-func WebhookClientConfigPtr(v *WebhookClientConfigArgs) WebhookClientConfigPtrInput {	return (*webhookClientConfigPtrType)(v)
-}
-
-func (*webhookClientConfigPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**WebhookClientConfig)(nil)).Elem()
-}
-
-func (i *webhookClientConfigPtrType) ToWebhookClientConfigPtrOutput() WebhookClientConfigPtrOutput {
-	return i.ToWebhookClientConfigPtrOutputWithContext(context.Background())
-}
-
-func (i *webhookClientConfigPtrType) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPtrOutput)
-}
-
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
 type WebhookClientConfigOutput struct { *pulumi.OutputState }
 
@@ -1014,15 +780,6 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigOutputWithContext(ctx co
 	return o
 }
 
-func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutput() WebhookClientConfigPtrOutput {
-	return o.ToWebhookClientConfigPtrOutputWithContext(context.Background())
-}
-
-func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *WebhookClientConfig {
-		return &v
-	}).(WebhookClientConfigPtrOutput)
-}
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 func (o WebhookClientConfigOutput) CaBundle() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
@@ -1050,60 +807,10 @@ func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
 
-type WebhookClientConfigPtrOutput struct { *pulumi.OutputState}
-
-func (WebhookClientConfigPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**WebhookClientConfig)(nil)).Elem()
-}
-
-func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutput() WebhookClientConfigPtrOutput {
-	return o
-}
-
-func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
-	return o
-}
-
-func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
-	return o.ApplyT(func (v *WebhookClientConfig) WebhookClientConfig { return *v }).(WebhookClientConfigOutput)
-}
-
-// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
-func (o WebhookClientConfigPtrOutput) CaBundle() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
-}
-
-// `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
-//
-// If the webhook is running within the cluster, then you should use `service`.
-func (o WebhookClientConfigPtrOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
-}
-
-// `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
-//
-// The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
-//
-// Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
-//
-// The scheme must be "https"; the URL must begin with "https://".
-//
-// A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-//
-// Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
-func (o WebhookClientConfigPtrOutput) Url() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
-}
-
 func init() {
 	pulumi.RegisterOutputType(MutatingWebhookOutput{})
-	pulumi.RegisterOutputType(MutatingWebhookArrayOutput{})
 	pulumi.RegisterOutputType(RuleWithOperationsOutput{})
-	pulumi.RegisterOutputType(RuleWithOperationsArrayOutput{})
 	pulumi.RegisterOutputType(ServiceReferenceOutput{})
-	pulumi.RegisterOutputType(ServiceReferencePtrOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookOutput{})
-	pulumi.RegisterOutputType(ValidatingWebhookArrayOutput{})
 	pulumi.RegisterOutputType(WebhookClientConfigOutput{})
-	pulumi.RegisterOutputType(WebhookClientConfigPtrOutput{})
 }

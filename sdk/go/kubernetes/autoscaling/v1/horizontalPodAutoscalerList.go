@@ -9,7 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 )
 
 // list of horizontal pod autoscaler objects.
@@ -23,7 +23,7 @@ type HorizontalPodAutoscalerList struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard list metadata.
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata corev1.ListMetaPtrOutput `pulumi:"metadata"`
 }
 
 // NewHorizontalPodAutoscalerList registers a new resource with the given unique name, arguments, and options.
@@ -64,7 +64,7 @@ type horizontalPodAutoscalerListState struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata.
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *corev1.ListMeta `pulumi:"metadata"`
 }
 
 type HorizontalPodAutoscalerListState struct {
@@ -75,7 +75,7 @@ type HorizontalPodAutoscalerListState struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard list metadata.
-	Metadata metav1.ListMetaPtrInput
+	Metadata corev1.ListMetaPtrInput
 }
 
 func (HorizontalPodAutoscalerListState) ElementType() reflect.Type {
@@ -90,7 +90,7 @@ type horizontalPodAutoscalerListArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata.
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *corev1.ListMeta `pulumi:"metadata"`
 }
 
 // The set of arguments for constructing a HorizontalPodAutoscalerList resource.
@@ -102,7 +102,7 @@ type HorizontalPodAutoscalerListArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard list metadata.
-	Metadata metav1.ListMetaPtrInput
+	Metadata corev1.ListMetaPtrInput
 }
 
 func (HorizontalPodAutoscalerListArgs) ElementType() reflect.Type {

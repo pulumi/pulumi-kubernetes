@@ -9,7 +9,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 )
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
@@ -160,7 +160,7 @@ type ExternalMetricSource struct {
 	// metricName is the name of the metric in question.
 	MetricName *string `pulumi:"metricName"`
 	// metricSelector is used to identify a specific time series within a given metric.
-	MetricSelector *metav1.LabelSelector `pulumi:"metricSelector"`
+	MetricSelector *corev1.LabelSelector `pulumi:"metricSelector"`
 	// targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
 	TargetAverageValue *string `pulumi:"targetAverageValue"`
 	// targetValue is the target value of the metric (as a quantity). Mutually exclusive with TargetAverageValue.
@@ -179,7 +179,7 @@ type ExternalMetricSourceArgs struct {
 	// metricName is the name of the metric in question.
 	MetricName pulumi.StringPtrInput `pulumi:"metricName"`
 	// metricSelector is used to identify a specific time series within a given metric.
-	MetricSelector metav1.LabelSelectorPtrInput `pulumi:"metricSelector"`
+	MetricSelector corev1.LabelSelectorPtrInput `pulumi:"metricSelector"`
 	// targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
 	TargetAverageValue pulumi.StringPtrInput `pulumi:"targetAverageValue"`
 	// targetValue is the target value of the metric (as a quantity). Mutually exclusive with TargetAverageValue.
@@ -260,8 +260,8 @@ func (o ExternalMetricSourceOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
-func (o ExternalMetricSourceOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+func (o ExternalMetricSourceOutput) MetricSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ExternalMetricSource) *corev1.LabelSelector { return v.MetricSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
@@ -298,8 +298,8 @@ func (o ExternalMetricSourcePtrOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
-func (o ExternalMetricSourcePtrOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+func (o ExternalMetricSourcePtrOutput) MetricSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ExternalMetricSource) *corev1.LabelSelector { return v.MetricSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
@@ -321,7 +321,7 @@ type ExternalMetricStatus struct {
 	// metricName is the name of a metric used for autoscaling in metric system.
 	MetricName *string `pulumi:"metricName"`
 	// metricSelector is used to identify a specific time series within a given metric.
-	MetricSelector *metav1.LabelSelector `pulumi:"metricSelector"`
+	MetricSelector *corev1.LabelSelector `pulumi:"metricSelector"`
 }
 
 type ExternalMetricStatusInput interface {
@@ -340,7 +340,7 @@ type ExternalMetricStatusArgs struct {
 	// metricName is the name of a metric used for autoscaling in metric system.
 	MetricName pulumi.StringPtrInput `pulumi:"metricName"`
 	// metricSelector is used to identify a specific time series within a given metric.
-	MetricSelector metav1.LabelSelectorPtrInput `pulumi:"metricSelector"`
+	MetricSelector corev1.LabelSelectorPtrInput `pulumi:"metricSelector"`
 }
 
 func (ExternalMetricStatusArgs) ElementType() reflect.Type {
@@ -427,8 +427,8 @@ func (o ExternalMetricStatusOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
-func (o ExternalMetricStatusOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+func (o ExternalMetricStatusOutput) MetricSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ExternalMetricStatus) *corev1.LabelSelector { return v.MetricSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 type ExternalMetricStatusPtrOutput struct { *pulumi.OutputState}
@@ -465,8 +465,8 @@ func (o ExternalMetricStatusPtrOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
-func (o ExternalMetricStatusPtrOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+func (o ExternalMetricStatusPtrOutput) MetricSelector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ExternalMetricStatus) *corev1.LabelSelector { return v.MetricSelector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
@@ -1202,7 +1202,7 @@ type ObjectMetricSource struct {
 	// metricName is the name of the metric in question.
 	MetricName *string `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 	// target is the described Kubernetes object.
 	Target *CrossVersionObjectReference `pulumi:"target"`
 	// targetValue is the target value of the metric (as a quantity).
@@ -1223,7 +1223,7 @@ type ObjectMetricSourceArgs struct {
 	// metricName is the name of the metric in question.
 	MetricName pulumi.StringPtrInput `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 	// target is the described Kubernetes object.
 	Target CrossVersionObjectReferencePtrInput `pulumi:"target"`
 	// targetValue is the target value of the metric (as a quantity).
@@ -1309,8 +1309,8 @@ func (o ObjectMetricSourceOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-func (o ObjectMetricSourceOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o ObjectMetricSourceOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ObjectMetricSource) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
@@ -1352,8 +1352,8 @@ func (o ObjectMetricSourcePtrOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-func (o ObjectMetricSourcePtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o ObjectMetricSourcePtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ObjectMetricSource) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
@@ -1375,7 +1375,7 @@ type ObjectMetricStatus struct {
 	// metricName is the name of the metric in question.
 	MetricName *string `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the ObjectMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 	// target is the described Kubernetes object.
 	Target *CrossVersionObjectReference `pulumi:"target"`
 }
@@ -1396,7 +1396,7 @@ type ObjectMetricStatusArgs struct {
 	// metricName is the name of the metric in question.
 	MetricName pulumi.StringPtrInput `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the ObjectMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 	// target is the described Kubernetes object.
 	Target CrossVersionObjectReferencePtrInput `pulumi:"target"`
 }
@@ -1485,8 +1485,8 @@ func (o ObjectMetricStatusOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the ObjectMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-func (o ObjectMetricStatusOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o ObjectMetricStatusOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ObjectMetricStatus) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
@@ -1528,8 +1528,8 @@ func (o ObjectMetricStatusPtrOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the ObjectMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-func (o ObjectMetricStatusPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o ObjectMetricStatusPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ObjectMetricStatus) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
@@ -1542,7 +1542,7 @@ type PodsMetricSource struct {
 	// metricName is the name of the metric in question
 	MetricName *string `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 	// targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 	TargetAverageValue *string `pulumi:"targetAverageValue"`
 }
@@ -1559,7 +1559,7 @@ type PodsMetricSourceArgs struct {
 	// metricName is the name of the metric in question
 	MetricName pulumi.StringPtrInput `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 	// targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 	TargetAverageValue pulumi.StringPtrInput `pulumi:"targetAverageValue"`
 }
@@ -1638,8 +1638,8 @@ func (o PodsMetricSourceOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-func (o PodsMetricSourceOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o PodsMetricSourceOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v PodsMetricSource) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
@@ -1671,8 +1671,8 @@ func (o PodsMetricSourcePtrOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
-func (o PodsMetricSourcePtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o PodsMetricSourcePtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v PodsMetricSource) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
@@ -1687,7 +1687,7 @@ type PodsMetricStatus struct {
 	// metricName is the name of the metric in question
 	MetricName *string `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 }
 
 type PodsMetricStatusInput interface {
@@ -1704,7 +1704,7 @@ type PodsMetricStatusArgs struct {
 	// metricName is the name of the metric in question
 	MetricName pulumi.StringPtrInput `pulumi:"metricName"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 }
 
 func (PodsMetricStatusArgs) ElementType() reflect.Type {
@@ -1786,8 +1786,8 @@ func (o PodsMetricStatusOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-func (o PodsMetricStatusOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o PodsMetricStatusOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v PodsMetricStatus) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 type PodsMetricStatusPtrOutput struct { *pulumi.OutputState}
@@ -1819,8 +1819,8 @@ func (o PodsMetricStatusPtrOutput) MetricName() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-func (o PodsMetricStatusPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o PodsMetricStatusPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v PodsMetricStatus) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.

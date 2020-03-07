@@ -10,7 +10,6 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // JobCondition describes current state of a job.
@@ -163,7 +162,7 @@ type JobSpec struct {
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism *int `pulumi:"parallelism"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template *corev1.PodTemplateSpec `pulumi:"template"`
 	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
@@ -190,7 +189,7 @@ type JobSpecArgs struct {
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
 	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
@@ -291,8 +290,8 @@ func (o JobSpecOutput) Parallelism() pulumi.IntPtrOutput {
 }
 
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o JobSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v JobSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
@@ -349,8 +348,8 @@ func (o JobSpecPtrOutput) Parallelism() pulumi.IntPtrOutput {
 }
 
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o JobSpecPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v JobSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/

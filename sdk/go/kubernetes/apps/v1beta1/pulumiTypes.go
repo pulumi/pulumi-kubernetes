@@ -10,7 +10,6 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // DeploymentCondition describes the state of a deployment at a certain point.
@@ -252,7 +251,7 @@ type DeploymentSpec struct {
 	// DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
 	RollbackTo *RollbackConfig `pulumi:"rollbackTo"`
 	// Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy *DeploymentStrategy `pulumi:"strategy"`
 	// Template describes the pods that will be created.
@@ -281,7 +280,7 @@ type DeploymentSpecArgs struct {
 	// DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
 	RollbackTo RollbackConfigPtrInput `pulumi:"rollbackTo"`
 	// Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy DeploymentStrategyPtrInput `pulumi:"strategy"`
 	// Template describes the pods that will be created.
@@ -387,8 +386,8 @@ func (o DeploymentSpecOutput) RollbackTo() RollbackConfigPtrOutput {
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-func (o DeploymentSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o DeploymentSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v DeploymentSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
@@ -450,8 +449,8 @@ func (o DeploymentSpecPtrOutput) RollbackTo() RollbackConfigPtrOutput {
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-func (o DeploymentSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o DeploymentSpecPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v DeploymentSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
@@ -1172,7 +1171,7 @@ type Scale struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata *corev1.ObjectMeta `pulumi:"metadata"`
 	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec *ScaleSpec `pulumi:"spec"`
 	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
@@ -1193,7 +1192,7 @@ type ScaleArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata corev1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec ScaleSpecPtrInput `pulumi:"spec"`
 	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
@@ -1238,8 +1237,8 @@ func (o ScaleOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-func (o ScaleOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v Scale) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ScaleOutput) Metadata() corev1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v Scale) *corev1.ObjectMeta { return v.Metadata }).(corev1.ObjectMetaPtrOutput)
 }
 
 // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
@@ -1647,7 +1646,7 @@ type StatefulSetSpec struct {
 	// revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
 	RevisionHistoryLimit *int `pulumi:"revisionHistoryLimit"`
 	// selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName *string `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
@@ -1674,7 +1673,7 @@ type StatefulSetSpecArgs struct {
 	// revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
 	RevisionHistoryLimit pulumi.IntPtrInput `pulumi:"revisionHistoryLimit"`
 	// selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
@@ -1769,8 +1768,8 @@ func (o StatefulSetSpecOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o StatefulSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v StatefulSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o StatefulSetSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v StatefulSetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
@@ -1827,8 +1826,8 @@ func (o StatefulSetSpecPtrOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o StatefulSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v StatefulSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o StatefulSetSpecPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v StatefulSetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.

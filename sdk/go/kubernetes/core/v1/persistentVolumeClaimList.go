@@ -9,7 +9,6 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
@@ -23,7 +22,7 @@ type PersistentVolumeClaimList struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata ListMetaPtrOutput `pulumi:"metadata"`
 }
 
 // NewPersistentVolumeClaimList registers a new resource with the given unique name, arguments, and options.
@@ -64,7 +63,7 @@ type persistentVolumeClaimListState struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *ListMeta `pulumi:"metadata"`
 }
 
 type PersistentVolumeClaimListState struct {
@@ -75,7 +74,7 @@ type PersistentVolumeClaimListState struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrInput
+	Metadata ListMetaPtrInput
 }
 
 func (PersistentVolumeClaimListState) ElementType() reflect.Type {
@@ -90,7 +89,7 @@ type persistentVolumeClaimListArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *ListMeta `pulumi:"metadata"`
 }
 
 // The set of arguments for constructing a PersistentVolumeClaimList resource.
@@ -102,7 +101,7 @@ type PersistentVolumeClaimListArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrInput
+	Metadata ListMetaPtrInput
 }
 
 func (PersistentVolumeClaimListArgs) ElementType() reflect.Type {

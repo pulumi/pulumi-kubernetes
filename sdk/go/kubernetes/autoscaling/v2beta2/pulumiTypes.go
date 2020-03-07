@@ -9,7 +9,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 )
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
@@ -888,7 +888,7 @@ type MetricIdentifier struct {
 	// name is the name of the given metric
 	Name *string `pulumi:"name"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector *corev1.LabelSelector `pulumi:"selector"`
 }
 
 type MetricIdentifierInput interface {
@@ -903,7 +903,7 @@ type MetricIdentifierArgs struct {
 	// name is the name of the given metric
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
 }
 
 func (MetricIdentifierArgs) ElementType() reflect.Type {
@@ -980,8 +980,8 @@ func (o MetricIdentifierOutput) Name() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-func (o MetricIdentifierOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MetricIdentifier) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o MetricIdentifierOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v MetricIdentifier) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 type MetricIdentifierPtrOutput struct { *pulumi.OutputState}
@@ -1008,8 +1008,8 @@ func (o MetricIdentifierPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
-func (o MetricIdentifierPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MetricIdentifier) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o MetricIdentifierPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v MetricIdentifier) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
 }
 
 // MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).

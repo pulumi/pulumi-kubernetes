@@ -132,15 +132,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	}
 
 	csharpNamespaces := map[string]string{}
-	goImports := map[string]string{}
-
-	gvToImport := func(gv string) string {
-		importStr := strings.Replace(gv, ".k8s.io", "", -1)
-		importStr = strings.Replace(importStr, "/", "", -1)
-		importStr = strings.Replace(importStr, "alpha", "a", -1)
-		importStr = strings.Replace(importStr, "beta", "b", -1)
-		return importStr
-	}
+	modToPkg := map[string]string{}
+	pkgImportAliases := map[string]string{}
 
 	definitions := swagger["definitions"].(map[string]interface{})
 	groupsSlice := createGroups(definitions, schemaOpts())
@@ -148,13 +141,13 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		for _, version := range group.Versions() {
 			//mod := version.APIVersion()
 			mod := version.gv.String()
-			//mod = strings.Replace(mod, ".k8s.io", "", -1)
 			csharpNamespaces[mod] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
-			//goImports[mod] = gvToImport(version.APIVersion())
-			goImports[mod] = gvToImport(version.gv.String())
 
 			for _, kind := range version.Kinds() {
-				tok := fmt.Sprintf("kubernetes:%s:%s", kind.URNAPIVersion(), kind.Kind())
+				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.canonicalGV, kind.kind)
+
+				modToPkg[kind.canonicalGV] = kind.schemaPkgName
+				pkgImportAliases[kind.schemaPkgName] = strings.Replace(kind.schemaPkgName, "/", "", -1)
 
 				objectSpec := pschema.ObjectTypeSpec{
 					Description: kind.Comment(),
@@ -204,7 +197,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"namespaces": csharpNamespaces,
 	})
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
-		"packages": goImports,
+		"moduleToPackage":      modToPkg,
+		"packageImportAliases": pkgImportAliases,
 	})
 
 	return pkg

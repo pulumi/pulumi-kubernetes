@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // Status is a return value for calls that don't return other objects.
@@ -20,13 +19,13 @@ type Status struct {
 	// Suggested HTTP return code for this status, 0 if not set.
 	Code pulumi.IntPtrOutput `pulumi:"code"`
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details metav1.StatusDetailsPtrOutput `pulumi:"details"`
+	Details StatusDetailsPtrOutput `pulumi:"details"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrOutput `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata ListMetaPtrOutput `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
 	Reason pulumi.StringPtrOutput `pulumi:"reason"`
 	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -40,7 +39,7 @@ func NewStatus(ctx *pulumi.Context,
 		args = &StatusArgs{}
 	}
 	var resource Status
-	err := ctx.RegisterResource("kubernetes:core/v1:Status", name, args, &resource, opts...)
+	err := ctx.RegisterResource("kubernetes:meta/v1:Status", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +51,7 @@ func NewStatus(ctx *pulumi.Context,
 func GetStatus(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *StatusState, opts ...pulumi.ResourceOption) (*Status, error) {
 	var resource Status
-	err := ctx.ReadResource("kubernetes:core/v1:Status", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("kubernetes:meta/v1:Status", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,13 +65,13 @@ type statusState struct {
 	// Suggested HTTP return code for this status, 0 if not set.
 	Code *int `pulumi:"code"`
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details *metav1.StatusDetails `pulumi:"details"`
+	Details *StatusDetails `pulumi:"details"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// A human-readable description of the status of this operation.
 	Message *string `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *ListMeta `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
 	Reason *string `pulumi:"reason"`
 	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -85,13 +84,13 @@ type StatusState struct {
 	// Suggested HTTP return code for this status, 0 if not set.
 	Code pulumi.IntPtrInput
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details metav1.StatusDetailsPtrInput
+	Details StatusDetailsPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrInput
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrInput
+	Metadata ListMetaPtrInput
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
 	Reason pulumi.StringPtrInput
 	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -108,13 +107,13 @@ type statusArgs struct {
 	// Suggested HTTP return code for this status, 0 if not set.
 	Code *int `pulumi:"code"`
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details *metav1.StatusDetails `pulumi:"details"`
+	Details *StatusDetails `pulumi:"details"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// A human-readable description of the status of this operation.
 	Message *string `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *ListMeta `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
 	Reason *string `pulumi:"reason"`
 }
@@ -126,13 +125,13 @@ type StatusArgs struct {
 	// Suggested HTTP return code for this status, 0 if not set.
 	Code pulumi.IntPtrInput
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details metav1.StatusDetailsPtrInput
+	Details StatusDetailsPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrInput
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrInput
+	Metadata ListMetaPtrInput
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
 	Reason pulumi.StringPtrInput
 }

@@ -181,6 +181,9 @@ type KindConfig struct {
 	typeGuard         string
 
 	isNested bool
+
+	canonicalGV   string
+	schemaPkgName string
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
@@ -862,6 +865,7 @@ func makeSchemaTypeSpec(resourceType, propName string, prop map[string]interface
 		return pschema.TypeSpec{Ref: "pulumi.json#/Any"}
 	}
 
+	// Fixme: this should normalize the refs to canonical form
 	gvk := gvkFromRef(ref)
 	return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s", gvk.Group, gvk.Version, gvk.Kind)}
 }
@@ -902,9 +906,24 @@ func makeType(resourceType, propName string, prop map[string]interface{}, langua
 // --------------------------------------------------------------------------
 
 type definition struct {
-	gvk  schema.GroupVersionKind
-	name string
-	data map[string]interface{}
+	gvk            schema.GroupVersionKind
+	name           string
+	data           map[string]interface{}
+	canonicalGroup string
+}
+
+// canonicalGV creates a GV string in the canonical format.
+func (d definition) canonicalGV(canonicalGroups map[string]string) string {
+	gvFmt := `%s/%s`
+
+	// If the canonical group is set for this definition (i.e., it is a top-level resource), use that.
+	if d.canonicalGroup != "" {
+		return fmt.Sprintf(gvFmt, d.canonicalGroup, d.gvk.Version)
+	}
+
+	// Otherwise, look up the canonical group and use it.
+	canonicalGroup := canonicalGroups[d.gvk.Group]
+	return fmt.Sprintf(gvFmt, canonicalGroup, d.gvk.Version)
 }
 
 // fqGroupVersion returns the fully-qualified GroupVersion, which is the "official" GV
@@ -1045,13 +1064,39 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			return definition{
-				gvk:  gvkFromRef(defName),
+			gvk := gvkFromRef(defName)
+			def := definition{
+				gvk:  gvk,
 				name: defName,
 				data: definitionsJSON[defName].(map[string]interface{}),
 			}
+
+			// Top-level kinds include a canonical GVK.
+			if gvks, gvkExists := def.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+				gvk := gvks[0].(map[string]interface{})
+				group := gvk["group"].(string)
+				// The "core" group shows up as "" in the OpenAPI spec.
+				if group == "" {
+					group = "core"
+				}
+				def.canonicalGroup = group
+			}
+
+			// "meta" group doesn't include the `x-kubernetes-group-version-kind` field.
+			if gvk.Group == "meta" {
+				def.canonicalGroup = "meta"
+			}
+
+			return def
 		}).
 		ToSlice(&definitions)
+
+	canonicalGroups := map[string]string{}
+	linq.From(definitions).
+		WhereT(func(d definition) bool { return d.canonicalGroup != "" }).
+		ToMapByT(&canonicalGroups,
+			func(d definition) string { return d.gvk.Group },
+			func(d definition) string { return d.canonicalGroup })
 
 	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV string.
 	// For Kinds with more than one GV, create aliases in the SDKs.
@@ -1160,6 +1205,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 							isListOrMap = true
 						}
 					case pulumiSchema:
+						// TODO: update here?
 						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, pulumiSchema)
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
@@ -1310,6 +1356,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					defaultAPIVersion:       defaultGroupVersion,
 					typeGuard:               typeGuard,
 					isNested:                !isTopLevel,
+
+					canonicalGV:   d.canonicalGV(canonicalGroups),
+					schemaPkgName: strings.Replace(d.fqGroupVersion(), ".k8s.io", "", -1),
 				},
 			})
 		}).
