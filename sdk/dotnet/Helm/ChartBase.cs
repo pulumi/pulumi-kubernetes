@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text.Json;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Utilities;
-using TransformationAction = System.Func<System.Collections.Immutable.ImmutableDictionary<string, object>, Pulumi.CustomResourceOptions, System.Collections.Immutable.ImmutableDictionary<string, object>>;
 
 namespace Pulumi.Kubernetes.Helm
 {
@@ -229,7 +228,7 @@ namespace Pulumi.Kubernetes.Helm
         }
         
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
-            TransformationAction[]? transformations, string? resourcePrefix, ImmutableHashSet<Resource> dependsOn,
+            List<TransformationAction> transformations, string? resourcePrefix, ImmutableHashSet<Resource> dependsOn,
             string? defaultNamespace)
         {
             return Invokes
@@ -277,11 +276,17 @@ namespace Pulumi.Kubernetes.Helm
             set => _values = value;
         }
         
+        private List<TransformationAction>? _transformations;
+        
         /// <summary>
         /// Optional array of transformations to apply to resources that will be created by this chart prior to
         /// creation. Allows customization of the chart behaviour without directly modifying the chart itself.
         /// </summary>
-        public TransformationAction[]? Transformations { get; set; }
+        public List<TransformationAction> Transformations
+        {
+            get => _transformations ??= new List<TransformationAction>();
+            set => _transformations = value;
+        }
 
         /// <summary>
         /// An optional prefix for the auto-generated resource names.

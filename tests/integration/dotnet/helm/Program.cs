@@ -30,11 +30,11 @@ class HelmStack : Stack
                 // Override for the Chart's `values.yml` file. Use `null` to zero out resource requests so it
                 // can be scheduled on our (wimpy) CI cluster. (Setting these values to `null` is the "normal"
                 // way to delete values.)
-                { "nginx", new { resources = (Array)null } },
-                { "default", new { resources = (Array)null } },
-                { "lego", new { resources = (Array)null } }
+                { "nginx", new { resources = (Array?)null } },
+                { "default", new { resources = (Array?)null } },
+                { "lego", new { resources = (Array?)null } }
             },
-            Transformations = new Func<ImmutableDictionary<string, object>, CustomResourceOptions, ImmutableDictionary<string, object>>[]
+            Transformations =
             {
                 LoadBalancerToClusterIP,
                 StatusToSecret

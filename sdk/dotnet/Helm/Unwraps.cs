@@ -1,7 +1,8 @@
 // Copyright 2016-2020, Pulumi Corporation
 
+using System.Collections.Generic;
 using System.Collections.Immutable;
-using TransformationAction = System.Func<System.Collections.Immutable.ImmutableDictionary<string, object>, Pulumi.CustomResourceOptions, System.Collections.Immutable.ImmutableDictionary<string, object>>;
+using Pulumi.Kubernetes.Yaml;
 
 namespace Pulumi.Kubernetes.Helm
 {
@@ -10,7 +11,7 @@ namespace Pulumi.Kubernetes.Helm
         public ImmutableArray<string> ApiVersions { get; set; }
         public string? Namespace { get; set; }
         public ImmutableDictionary<string, object> Values { get; set; } = null!;
-        public TransformationAction[]? Transformations { get; set; }
+        public List<TransformationAction> Transformations { get; set; } = null!;
         public string? ResourcePrefix { get; set; }
     }
 
