@@ -54,10 +54,10 @@ class Provider(pulumi.ProviderResource):
         __props__ = {
             "cluster": cluster,
             "context": context,
-            "enableDryRun": "true" if enable_dry_run else "false",
+            "enableDryRun": enable_dry_run,
             "kubeconfig": kubeconfig,
             "namespace": namespace,
-            "suppress_deprecation_warnings": "true" if suppress_deprecation_warnings else "false",
-            "render_yaml_to_directory": render_yaml_to_directory,
+            "suppressDeprecationWarnings": suppress_deprecation_warnings,
+            "renderYamlToDirectory": render_yaml_to_directory,
         }
         super(Provider, self).__init__("kubernetes", __name__, __props__, __opts__)
