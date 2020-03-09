@@ -2,110 +2,117 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // nolint: lll
-package v1beta1
+package v1
 
 import (
 	"reflect"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	rbacv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/rbac/v1"
 )
 
-// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
-type ClusterRoleList struct {
+// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
+type ClusterRole struct {
 	pulumi.CustomResourceState
 
+	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	AggregationRule rbacv1.AggregationRulePtrOutput `pulumi:"aggregationRule"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
-	// Items is a list of ClusterRoles
-	Items ClusterRoleTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	// Rules holds all the PolicyRules for this ClusterRole
+	Rules rbacv1.PolicyRuleArrayOutput `pulumi:"rules"`
 }
 
-// NewClusterRoleList registers a new resource with the given unique name, arguments, and options.
-func NewClusterRoleList(ctx *pulumi.Context,
-	name string, args *ClusterRoleListArgs, opts ...pulumi.ResourceOption) (*ClusterRoleList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
+// NewClusterRole registers a new resource with the given unique name, arguments, and options.
+func NewClusterRole(ctx *pulumi.Context,
+	name string, args *ClusterRoleArgs, opts ...pulumi.ResourceOption) (*ClusterRole, error) {
 	if args == nil {
-		args = &ClusterRoleListArgs{}
+		args = &ClusterRoleArgs{}
 	}
-	var resource ClusterRoleList
-	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", name, args, &resource, opts...)
+	var resource ClusterRole
+	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// GetClusterRoleList gets an existing ClusterRoleList resource's state with the given name, ID, and optional
+// GetClusterRole gets an existing ClusterRole resource's state with the given name, ID, and optional
 // state properties that are used to uniquely qualify the lookup (nil if not required).
-func GetClusterRoleList(ctx *pulumi.Context,
-	name string, id pulumi.IDInput, state *ClusterRoleListState, opts ...pulumi.ResourceOption) (*ClusterRoleList, error) {
-	var resource ClusterRoleList
-	err := ctx.ReadResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", name, id, state, &resource, opts...)
+func GetClusterRole(ctx *pulumi.Context,
+	name string, id pulumi.IDInput, state *ClusterRoleState, opts ...pulumi.ResourceOption) (*ClusterRole, error) {
+	var resource ClusterRole
+	err := ctx.ReadResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// Input properties used for looking up and filtering ClusterRoleList resources.
-type clusterRoleListState struct {
+// Input properties used for looking up and filtering ClusterRole resources.
+type clusterRoleState struct {
+	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	AggregationRule *rbacv1.AggregationRule `pulumi:"aggregationRule"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is a list of ClusterRoles
-	Items []ClusterRoleType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Rules holds all the PolicyRules for this ClusterRole
+	Rules []rbacv1.PolicyRule `pulumi:"rules"`
 }
 
-type ClusterRoleListState struct {
+type ClusterRoleState struct {
+	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	AggregationRule rbacv1.AggregationRulePtrInput
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// Items is a list of ClusterRoles
-	Items ClusterRoleTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ListMetaPtrInput
+	Metadata metav1.ObjectMetaPtrInput
+	// Rules holds all the PolicyRules for this ClusterRole
+	Rules rbacv1.PolicyRuleArrayInput
 }
 
-func (ClusterRoleListState) ElementType() reflect.Type {
-	return reflect.TypeOf((*clusterRoleListState)(nil)).Elem()
+func (ClusterRoleState) ElementType() reflect.Type {
+	return reflect.TypeOf((*clusterRoleState)(nil)).Elem()
 }
 
-type clusterRoleListArgs struct {
+type clusterRoleArgs struct {
+	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	AggregationRule *rbacv1.AggregationRule `pulumi:"aggregationRule"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is a list of ClusterRoles
-	Items []ClusterRoleType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Rules holds all the PolicyRules for this ClusterRole
+	Rules []rbacv1.PolicyRule `pulumi:"rules"`
 }
 
-// The set of arguments for constructing a ClusterRoleList resource.
-type ClusterRoleListArgs struct {
+// The set of arguments for constructing a ClusterRole resource.
+type ClusterRoleArgs struct {
+	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	AggregationRule rbacv1.AggregationRulePtrInput
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// Items is a list of ClusterRoles
-	Items ClusterRoleTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ListMetaPtrInput
+	Metadata metav1.ObjectMetaPtrInput
+	// Rules holds all the PolicyRules for this ClusterRole
+	Rules rbacv1.PolicyRuleArrayInput
 }
 
-func (ClusterRoleListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*clusterRoleListArgs)(nil)).Elem()
+func (ClusterRoleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*clusterRoleArgs)(nil)).Elem()
 }
 

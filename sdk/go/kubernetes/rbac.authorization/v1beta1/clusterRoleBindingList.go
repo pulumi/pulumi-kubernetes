@@ -2,106 +2,110 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // nolint: lll
-package v1alpha1
+package v1beta1
 
 import (
 	"reflect"
 
+	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
-// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
-type Role struct {
+// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.20.
+type ClusterRoleBindingList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	// Items is a list of ClusterRoleBindings
+	Items rbacv1beta1.ClusterRoleBindingArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
-	Rules PolicyRuleArrayOutput `pulumi:"rules"`
+	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
 }
 
-// NewRole registers a new resource with the given unique name, arguments, and options.
-func NewRole(ctx *pulumi.Context,
-	name string, args *RoleArgs, opts ...pulumi.ResourceOption) (*Role, error) {
+// NewClusterRoleBindingList registers a new resource with the given unique name, arguments, and options.
+func NewClusterRoleBindingList(ctx *pulumi.Context,
+	name string, args *ClusterRoleBindingListArgs, opts ...pulumi.ResourceOption) (*ClusterRoleBindingList, error) {
+	if args == nil || args.Items == nil {
+		return nil, errors.New("missing required argument 'Items'")
+	}
 	if args == nil {
-		args = &RoleArgs{}
+		args = &ClusterRoleBindingListArgs{}
 	}
-	var resource Role
-	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", name, args, &resource, opts...)
+	var resource ClusterRoleBindingList
+	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// GetRole gets an existing Role resource's state with the given name, ID, and optional
+// GetClusterRoleBindingList gets an existing ClusterRoleBindingList resource's state with the given name, ID, and optional
 // state properties that are used to uniquely qualify the lookup (nil if not required).
-func GetRole(ctx *pulumi.Context,
-	name string, id pulumi.IDInput, state *RoleState, opts ...pulumi.ResourceOption) (*Role, error) {
-	var resource Role
-	err := ctx.ReadResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", name, id, state, &resource, opts...)
+func GetClusterRoleBindingList(ctx *pulumi.Context,
+	name string, id pulumi.IDInput, state *ClusterRoleBindingListState, opts ...pulumi.ResourceOption) (*ClusterRoleBindingList, error) {
+	var resource ClusterRoleBindingList
+	err := ctx.ReadResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// Input properties used for looking up and filtering Role resources.
-type roleState struct {
+// Input properties used for looking up and filtering ClusterRoleBindingList resources.
+type clusterRoleBindingListState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of ClusterRoleBindings
+	Items []rbacv1beta1.ClusterRoleBinding `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
-	Rules []PolicyRule `pulumi:"rules"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type RoleState struct {
+type ClusterRoleBindingListState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
+	// Items is a list of ClusterRoleBindings
+	Items rbacv1beta1.ClusterRoleBindingArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrInput
-	// Rules holds all the PolicyRules for this Role
-	Rules PolicyRuleArrayInput
+	Metadata metav1.ListMetaPtrInput
 }
 
-func (RoleState) ElementType() reflect.Type {
-	return reflect.TypeOf((*roleState)(nil)).Elem()
+func (ClusterRoleBindingListState) ElementType() reflect.Type {
+	return reflect.TypeOf((*clusterRoleBindingListState)(nil)).Elem()
 }
 
-type roleArgs struct {
+type clusterRoleBindingListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of ClusterRoleBindings
+	Items []rbacv1beta1.ClusterRoleBinding `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
-	Rules []PolicyRule `pulumi:"rules"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// The set of arguments for constructing a Role resource.
-type RoleArgs struct {
+// The set of arguments for constructing a ClusterRoleBindingList resource.
+type ClusterRoleBindingListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
+	// Items is a list of ClusterRoleBindings
+	Items rbacv1beta1.ClusterRoleBindingArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrInput
-	// Rules holds all the PolicyRules for this Role
-	Rules PolicyRuleArrayInput
+	Metadata metav1.ListMetaPtrInput
 }
 
-func (RoleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*roleArgs)(nil)).Elem()
+func (ClusterRoleBindingListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*clusterRoleBindingListArgs)(nil)).Elem()
 }
 

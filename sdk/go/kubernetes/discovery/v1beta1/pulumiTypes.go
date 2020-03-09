@@ -71,6 +71,27 @@ func (i EndpointArgs) ToEndpointOutputWithContext(ctx context.Context) EndpointO
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointOutput)
 }
 
+type EndpointArrayInput interface {
+	pulumi.Input
+
+	ToEndpointArrayOutput() EndpointArrayOutput
+	ToEndpointArrayOutputWithContext(context.Context) EndpointArrayOutput
+}
+
+type EndpointArray []EndpointInput
+
+func (EndpointArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Endpoint)(nil)).Elem()
+}
+
+func (i EndpointArray) ToEndpointArrayOutput() EndpointArrayOutput {
+	return i.ToEndpointArrayOutputWithContext(context.Background())
+}
+
+func (i EndpointArray) ToEndpointArrayOutputWithContext(ctx context.Context) EndpointArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointArrayOutput)
+}
+
 // Endpoint represents a single logical "backend" implementing a service.
 type EndpointOutput struct { *pulumi.OutputState }
 
@@ -117,6 +138,26 @@ func (o EndpointOutput) Topology() pulumi.StringMapOutput {
 	return o.ApplyT(func (v Endpoint) map[string]string { return v.Topology }).(pulumi.StringMapOutput)
 }
 
+type EndpointArrayOutput struct { *pulumi.OutputState}
+
+func (EndpointArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Endpoint)(nil)).Elem()
+}
+
+func (o EndpointArrayOutput) ToEndpointArrayOutput() EndpointArrayOutput {
+	return o
+}
+
+func (o EndpointArrayOutput) ToEndpointArrayOutputWithContext(ctx context.Context) EndpointArrayOutput {
+	return o
+}
+
+func (o EndpointArrayOutput) Index(i pulumi.IntInput) EndpointOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) Endpoint {
+		return vs[0].([]Endpoint)[vs[1].(int)]
+	}).(EndpointOutput)
+}
+
 // EndpointConditions represents the current condition of an endpoint.
 type EndpointConditions struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
@@ -148,6 +189,38 @@ func (i EndpointConditionsArgs) ToEndpointConditionsOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsOutput)
 }
 
+func (i EndpointConditionsArgs) ToEndpointConditionsPtrOutput() EndpointConditionsPtrOutput {
+	return i.ToEndpointConditionsPtrOutputWithContext(context.Background())
+}
+
+func (i EndpointConditionsArgs) ToEndpointConditionsPtrOutputWithContext(ctx context.Context) EndpointConditionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsOutput).ToEndpointConditionsPtrOutputWithContext(ctx)
+}
+
+type EndpointConditionsPtrInput interface {
+	pulumi.Input
+
+	ToEndpointConditionsPtrOutput() EndpointConditionsPtrOutput
+	ToEndpointConditionsPtrOutputWithContext(context.Context) EndpointConditionsPtrOutput
+}
+
+type endpointConditionsPtrType EndpointConditionsArgs
+
+func EndpointConditionsPtr(v *EndpointConditionsArgs) EndpointConditionsPtrInput {	return (*endpointConditionsPtrType)(v)
+}
+
+func (*endpointConditionsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointConditions)(nil)).Elem()
+}
+
+func (i *endpointConditionsPtrType) ToEndpointConditionsPtrOutput() EndpointConditionsPtrOutput {
+	return i.ToEndpointConditionsPtrOutputWithContext(context.Background())
+}
+
+func (i *endpointConditionsPtrType) ToEndpointConditionsPtrOutputWithContext(ctx context.Context) EndpointConditionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsPtrOutput)
+}
+
 // EndpointConditions represents the current condition of an endpoint.
 type EndpointConditionsOutput struct { *pulumi.OutputState }
 
@@ -163,8 +236,40 @@ func (o EndpointConditionsOutput) ToEndpointConditionsOutputWithContext(ctx cont
 	return o
 }
 
+func (o EndpointConditionsOutput) ToEndpointConditionsPtrOutput() EndpointConditionsPtrOutput {
+	return o.ToEndpointConditionsPtrOutputWithContext(context.Background())
+}
+
+func (o EndpointConditionsOutput) ToEndpointConditionsPtrOutputWithContext(ctx context.Context) EndpointConditionsPtrOutput {
+	return o.ApplyT(func(v EndpointConditions) *EndpointConditions {
+		return &v
+	}).(EndpointConditionsPtrOutput)
+}
 // ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 func (o EndpointConditionsOutput) Ready() pulumi.BoolPtrOutput {
+	return o.ApplyT(func (v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
+}
+
+type EndpointConditionsPtrOutput struct { *pulumi.OutputState}
+
+func (EndpointConditionsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointConditions)(nil)).Elem()
+}
+
+func (o EndpointConditionsPtrOutput) ToEndpointConditionsPtrOutput() EndpointConditionsPtrOutput {
+	return o
+}
+
+func (o EndpointConditionsPtrOutput) ToEndpointConditionsPtrOutputWithContext(ctx context.Context) EndpointConditionsPtrOutput {
+	return o
+}
+
+func (o EndpointConditionsPtrOutput) Elem() EndpointConditionsOutput {
+	return o.ApplyT(func (v *EndpointConditions) EndpointConditions { return *v }).(EndpointConditionsOutput)
+}
+
+// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+func (o EndpointConditionsPtrOutput) Ready() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
 }
 
@@ -211,6 +316,27 @@ func (i EndpointPortArgs) ToEndpointPortOutputWithContext(ctx context.Context) E
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortOutput)
 }
 
+type EndpointPortArrayInput interface {
+	pulumi.Input
+
+	ToEndpointPortArrayOutput() EndpointPortArrayOutput
+	ToEndpointPortArrayOutputWithContext(context.Context) EndpointPortArrayOutput
+}
+
+type EndpointPortArray []EndpointPortInput
+
+func (EndpointPortArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointPort)(nil)).Elem()
+}
+
+func (i EndpointPortArray) ToEndpointPortArrayOutput() EndpointPortArrayOutput {
+	return i.ToEndpointPortArrayOutputWithContext(context.Background())
+}
+
+func (i EndpointPortArray) ToEndpointPortArrayOutputWithContext(ctx context.Context) EndpointPortArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortArrayOutput)
+}
+
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPortOutput struct { *pulumi.OutputState }
 
@@ -246,8 +372,31 @@ func (o EndpointPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
+type EndpointPortArrayOutput struct { *pulumi.OutputState}
+
+func (EndpointPortArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointPort)(nil)).Elem()
+}
+
+func (o EndpointPortArrayOutput) ToEndpointPortArrayOutput() EndpointPortArrayOutput {
+	return o
+}
+
+func (o EndpointPortArrayOutput) ToEndpointPortArrayOutputWithContext(ctx context.Context) EndpointPortArrayOutput {
+	return o
+}
+
+func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) EndpointPort {
+		return vs[0].([]EndpointPort)[vs[1].(int)]
+	}).(EndpointPortOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(EndpointOutput{})
+	pulumi.RegisterOutputType(EndpointArrayOutput{})
 	pulumi.RegisterOutputType(EndpointConditionsOutput{})
+	pulumi.RegisterOutputType(EndpointConditionsPtrOutput{})
 	pulumi.RegisterOutputType(EndpointPortOutput{})
+	pulumi.RegisterOutputType(EndpointPortArrayOutput{})
 }

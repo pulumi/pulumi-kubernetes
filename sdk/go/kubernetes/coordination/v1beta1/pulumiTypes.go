@@ -58,6 +58,38 @@ func (i LeaseSpecArgs) ToLeaseSpecOutputWithContext(ctx context.Context) LeaseSp
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseSpecOutput)
 }
 
+func (i LeaseSpecArgs) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
+	return i.ToLeaseSpecPtrOutputWithContext(context.Background())
+}
+
+func (i LeaseSpecArgs) ToLeaseSpecPtrOutputWithContext(ctx context.Context) LeaseSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LeaseSpecOutput).ToLeaseSpecPtrOutputWithContext(ctx)
+}
+
+type LeaseSpecPtrInput interface {
+	pulumi.Input
+
+	ToLeaseSpecPtrOutput() LeaseSpecPtrOutput
+	ToLeaseSpecPtrOutputWithContext(context.Context) LeaseSpecPtrOutput
+}
+
+type leaseSpecPtrType LeaseSpecArgs
+
+func LeaseSpecPtr(v *LeaseSpecArgs) LeaseSpecPtrInput {	return (*leaseSpecPtrType)(v)
+}
+
+func (*leaseSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**LeaseSpec)(nil)).Elem()
+}
+
+func (i *leaseSpecPtrType) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
+	return i.ToLeaseSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *leaseSpecPtrType) ToLeaseSpecPtrOutputWithContext(ctx context.Context) LeaseSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LeaseSpecPtrOutput)
+}
+
 // LeaseSpec is a specification of a Lease.
 type LeaseSpecOutput struct { *pulumi.OutputState }
 
@@ -73,6 +105,15 @@ func (o LeaseSpecOutput) ToLeaseSpecOutputWithContext(ctx context.Context) Lease
 	return o
 }
 
+func (o LeaseSpecOutput) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
+	return o.ToLeaseSpecPtrOutputWithContext(context.Background())
+}
+
+func (o LeaseSpecOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context) LeaseSpecPtrOutput {
+	return o.ApplyT(func(v LeaseSpec) *LeaseSpec {
+		return &v
+	}).(LeaseSpecPtrOutput)
+}
 // acquireTime is a time when the current lease was acquired.
 func (o LeaseSpecOutput) AcquireTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
@@ -98,6 +139,50 @@ func (o LeaseSpecOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
+type LeaseSpecPtrOutput struct { *pulumi.OutputState}
+
+func (LeaseSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LeaseSpec)(nil)).Elem()
+}
+
+func (o LeaseSpecPtrOutput) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
+	return o
+}
+
+func (o LeaseSpecPtrOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context) LeaseSpecPtrOutput {
+	return o
+}
+
+func (o LeaseSpecPtrOutput) Elem() LeaseSpecOutput {
+	return o.ApplyT(func (v *LeaseSpec) LeaseSpec { return *v }).(LeaseSpecOutput)
+}
+
+// acquireTime is a time when the current lease was acquired.
+func (o LeaseSpecPtrOutput) AcquireTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
+}
+
+// holderIdentity contains the identity of the holder of a current lease.
+func (o LeaseSpecPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
+}
+
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+func (o LeaseSpecPtrOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// leaseTransitions is the number of transitions of a lease between holders.
+func (o LeaseSpecPtrOutput) LeaseTransitions() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
+}
+
+// renewTime is a time when the current holder of a lease has last updated the lease.
+func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(LeaseSpecOutput{})
+	pulumi.RegisterOutputType(LeaseSpecPtrOutput{})
 }

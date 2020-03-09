@@ -7,105 +7,108 @@ package v1alpha1
 import (
 	"reflect"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/flowcontrol/v1alpha1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
-// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
-type PriorityLevelConfigurationList struct {
+// PriorityLevelConfiguration represents the configuration of a priority level.
+type PriorityLevelConfiguration struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
-	// `items` is a list of request-priorities.
-	Items PriorityLevelConfigurationTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec flowcontrolv1alpha1.PriorityLevelConfigurationSpecPtrOutput `pulumi:"spec"`
+	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status flowcontrolv1alpha1.PriorityLevelConfigurationStatusPtrOutput `pulumi:"status"`
 }
 
-// NewPriorityLevelConfigurationList registers a new resource with the given unique name, arguments, and options.
-func NewPriorityLevelConfigurationList(ctx *pulumi.Context,
-	name string, args *PriorityLevelConfigurationListArgs, opts ...pulumi.ResourceOption) (*PriorityLevelConfigurationList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
+// NewPriorityLevelConfiguration registers a new resource with the given unique name, arguments, and options.
+func NewPriorityLevelConfiguration(ctx *pulumi.Context,
+	name string, args *PriorityLevelConfigurationArgs, opts ...pulumi.ResourceOption) (*PriorityLevelConfiguration, error) {
 	if args == nil {
-		args = &PriorityLevelConfigurationListArgs{}
+		args = &PriorityLevelConfigurationArgs{}
 	}
-	var resource PriorityLevelConfigurationList
-	err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList", name, args, &resource, opts...)
+	var resource PriorityLevelConfiguration
+	err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// GetPriorityLevelConfigurationList gets an existing PriorityLevelConfigurationList resource's state with the given name, ID, and optional
+// GetPriorityLevelConfiguration gets an existing PriorityLevelConfiguration resource's state with the given name, ID, and optional
 // state properties that are used to uniquely qualify the lookup (nil if not required).
-func GetPriorityLevelConfigurationList(ctx *pulumi.Context,
-	name string, id pulumi.IDInput, state *PriorityLevelConfigurationListState, opts ...pulumi.ResourceOption) (*PriorityLevelConfigurationList, error) {
-	var resource PriorityLevelConfigurationList
-	err := ctx.ReadResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList", name, id, state, &resource, opts...)
+func GetPriorityLevelConfiguration(ctx *pulumi.Context,
+	name string, id pulumi.IDInput, state *PriorityLevelConfigurationState, opts ...pulumi.ResourceOption) (*PriorityLevelConfiguration, error) {
+	var resource PriorityLevelConfiguration
+	err := ctx.ReadResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// Input properties used for looking up and filtering PriorityLevelConfigurationList resources.
-type priorityLevelConfigurationListState struct {
+// Input properties used for looking up and filtering PriorityLevelConfiguration resources.
+type priorityLevelConfigurationState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// `items` is a list of request-priorities.
-	Items []PriorityLevelConfigurationType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *flowcontrolv1alpha1.PriorityLevelConfigurationSpec `pulumi:"spec"`
+	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *flowcontrolv1alpha1.PriorityLevelConfigurationStatus `pulumi:"status"`
 }
 
-type PriorityLevelConfigurationListState struct {
+type PriorityLevelConfigurationState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// `items` is a list of request-priorities.
-	Items PriorityLevelConfigurationTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput
+	Metadata metav1.ObjectMetaPtrInput
+	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec flowcontrolv1alpha1.PriorityLevelConfigurationSpecPtrInput
+	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status flowcontrolv1alpha1.PriorityLevelConfigurationStatusPtrInput
 }
 
-func (PriorityLevelConfigurationListState) ElementType() reflect.Type {
-	return reflect.TypeOf((*priorityLevelConfigurationListState)(nil)).Elem()
+func (PriorityLevelConfigurationState) ElementType() reflect.Type {
+	return reflect.TypeOf((*priorityLevelConfigurationState)(nil)).Elem()
 }
 
-type priorityLevelConfigurationListArgs struct {
+type priorityLevelConfigurationArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// `items` is a list of request-priorities.
-	Items []PriorityLevelConfigurationType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *flowcontrolv1alpha1.PriorityLevelConfigurationSpec `pulumi:"spec"`
 }
 
-// The set of arguments for constructing a PriorityLevelConfigurationList resource.
-type PriorityLevelConfigurationListArgs struct {
+// The set of arguments for constructing a PriorityLevelConfiguration resource.
+type PriorityLevelConfigurationArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// `items` is a list of request-priorities.
-	Items PriorityLevelConfigurationTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput
+	Metadata metav1.ObjectMetaPtrInput
+	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec flowcontrolv1alpha1.PriorityLevelConfigurationSpecPtrInput
 }
 
-func (PriorityLevelConfigurationListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*priorityLevelConfigurationListArgs)(nil)).Elem()
+func (PriorityLevelConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*priorityLevelConfigurationArgs)(nil)).Elem()
 }
 

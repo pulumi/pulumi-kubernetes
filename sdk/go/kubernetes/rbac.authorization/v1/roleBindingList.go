@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // nolint: lll
-package v1beta1
+package v1
 
 import (
 	"reflect"
@@ -12,110 +12,100 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
-// RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
-type RoleBinding struct {
+// RoleBindingList is a collection of RoleBindings
+type RoleBindingList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	// Items is a list of RoleBindings
+	Items rbacv1.RoleBindingArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRefPtrOutput `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
-	Subjects SubjectArrayOutput `pulumi:"subjects"`
+	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
 }
 
-// NewRoleBinding registers a new resource with the given unique name, arguments, and options.
-func NewRoleBinding(ctx *pulumi.Context,
-	name string, args *RoleBindingArgs, opts ...pulumi.ResourceOption) (*RoleBinding, error) {
-	if args == nil || args.RoleRef == nil {
-		return nil, errors.New("missing required argument 'RoleRef'")
+// NewRoleBindingList registers a new resource with the given unique name, arguments, and options.
+func NewRoleBindingList(ctx *pulumi.Context,
+	name string, args *RoleBindingListArgs, opts ...pulumi.ResourceOption) (*RoleBindingList, error) {
+	if args == nil || args.Items == nil {
+		return nil, errors.New("missing required argument 'Items'")
 	}
 	if args == nil {
-		args = &RoleBindingArgs{}
+		args = &RoleBindingListArgs{}
 	}
-	var resource RoleBinding
-	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, args, &resource, opts...)
+	var resource RoleBindingList
+	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// GetRoleBinding gets an existing RoleBinding resource's state with the given name, ID, and optional
+// GetRoleBindingList gets an existing RoleBindingList resource's state with the given name, ID, and optional
 // state properties that are used to uniquely qualify the lookup (nil if not required).
-func GetRoleBinding(ctx *pulumi.Context,
-	name string, id pulumi.IDInput, state *RoleBindingState, opts ...pulumi.ResourceOption) (*RoleBinding, error) {
-	var resource RoleBinding
-	err := ctx.ReadResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, id, state, &resource, opts...)
+func GetRoleBindingList(ctx *pulumi.Context,
+	name string, id pulumi.IDInput, state *RoleBindingListState, opts ...pulumi.ResourceOption) (*RoleBindingList, error) {
+	var resource RoleBindingList
+	err := ctx.ReadResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &resource, nil
 }
 
-// Input properties used for looking up and filtering RoleBinding resources.
-type roleBindingState struct {
+// Input properties used for looking up and filtering RoleBindingList resources.
+type roleBindingListState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of RoleBindings
+	Items []rbacv1.RoleBinding `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef *RoleRef `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
-	Subjects []Subject `pulumi:"subjects"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type RoleBindingState struct {
+type RoleBindingListState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
+	// Items is a list of RoleBindings
+	Items rbacv1.RoleBindingArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrInput
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRefPtrInput
-	// Subjects holds references to the objects the role applies to.
-	Subjects SubjectArrayInput
+	Metadata metav1.ListMetaPtrInput
 }
 
-func (RoleBindingState) ElementType() reflect.Type {
-	return reflect.TypeOf((*roleBindingState)(nil)).Elem()
+func (RoleBindingListState) ElementType() reflect.Type {
+	return reflect.TypeOf((*roleBindingListState)(nil)).Elem()
 }
 
-type roleBindingArgs struct {
+type roleBindingListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of RoleBindings
+	Items []rbacv1.RoleBinding `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRef `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
-	Subjects []Subject `pulumi:"subjects"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// The set of arguments for constructing a RoleBinding resource.
-type RoleBindingArgs struct {
+// The set of arguments for constructing a RoleBindingList resource.
+type RoleBindingListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
+	// Items is a list of RoleBindings
+	Items rbacv1.RoleBindingArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrInput
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRefInput
-	// Subjects holds references to the objects the role applies to.
-	Subjects SubjectArrayInput
+	Metadata metav1.ListMetaPtrInput
 }
 
-func (RoleBindingArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*roleBindingArgs)(nil)).Elem()
+func (RoleBindingListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*roleBindingListArgs)(nil)).Elem()
 }
 

@@ -43,6 +43,38 @@ func (i AggregationRuleArgs) ToAggregationRuleOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(AggregationRuleOutput)
 }
 
+func (i AggregationRuleArgs) ToAggregationRulePtrOutput() AggregationRulePtrOutput {
+	return i.ToAggregationRulePtrOutputWithContext(context.Background())
+}
+
+func (i AggregationRuleArgs) ToAggregationRulePtrOutputWithContext(ctx context.Context) AggregationRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AggregationRuleOutput).ToAggregationRulePtrOutputWithContext(ctx)
+}
+
+type AggregationRulePtrInput interface {
+	pulumi.Input
+
+	ToAggregationRulePtrOutput() AggregationRulePtrOutput
+	ToAggregationRulePtrOutputWithContext(context.Context) AggregationRulePtrOutput
+}
+
+type aggregationRulePtrType AggregationRuleArgs
+
+func AggregationRulePtr(v *AggregationRuleArgs) AggregationRulePtrInput {	return (*aggregationRulePtrType)(v)
+}
+
+func (*aggregationRulePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AggregationRule)(nil)).Elem()
+}
+
+func (i *aggregationRulePtrType) ToAggregationRulePtrOutput() AggregationRulePtrOutput {
+	return i.ToAggregationRulePtrOutputWithContext(context.Background())
+}
+
+func (i *aggregationRulePtrType) ToAggregationRulePtrOutputWithContext(ctx context.Context) AggregationRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AggregationRulePtrOutput)
+}
+
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRuleOutput struct { *pulumi.OutputState }
 
@@ -58,8 +90,40 @@ func (o AggregationRuleOutput) ToAggregationRuleOutputWithContext(ctx context.Co
 	return o
 }
 
+func (o AggregationRuleOutput) ToAggregationRulePtrOutput() AggregationRulePtrOutput {
+	return o.ToAggregationRulePtrOutputWithContext(context.Background())
+}
+
+func (o AggregationRuleOutput) ToAggregationRulePtrOutputWithContext(ctx context.Context) AggregationRulePtrOutput {
+	return o.ApplyT(func(v AggregationRule) *AggregationRule {
+		return &v
+	}).(AggregationRulePtrOutput)
+}
 // ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRuleOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayOutput {
+	return o.ApplyT(func (v AggregationRule) []metav1.LabelSelector { return v.ClusterRoleSelectors }).(metav1.LabelSelectorArrayOutput)
+}
+
+type AggregationRulePtrOutput struct { *pulumi.OutputState}
+
+func (AggregationRulePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AggregationRule)(nil)).Elem()
+}
+
+func (o AggregationRulePtrOutput) ToAggregationRulePtrOutput() AggregationRulePtrOutput {
+	return o
+}
+
+func (o AggregationRulePtrOutput) ToAggregationRulePtrOutputWithContext(ctx context.Context) AggregationRulePtrOutput {
+	return o
+}
+
+func (o AggregationRulePtrOutput) Elem() AggregationRuleOutput {
+	return o.ApplyT(func (v *AggregationRule) AggregationRule { return *v }).(AggregationRuleOutput)
+}
+
+// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+func (o AggregationRulePtrOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayOutput {
 	return o.ApplyT(func (v AggregationRule) []metav1.LabelSelector { return v.ClusterRoleSelectors }).(metav1.LabelSelectorArrayOutput)
 }
 
@@ -110,6 +174,27 @@ func (i PolicyRuleArgs) ToPolicyRuleOutputWithContext(ctx context.Context) Polic
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRuleOutput)
 }
 
+type PolicyRuleArrayInput interface {
+	pulumi.Input
+
+	ToPolicyRuleArrayOutput() PolicyRuleArrayOutput
+	ToPolicyRuleArrayOutputWithContext(context.Context) PolicyRuleArrayOutput
+}
+
+type PolicyRuleArray []PolicyRuleInput
+
+func (PolicyRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PolicyRule)(nil)).Elem()
+}
+
+func (i PolicyRuleArray) ToPolicyRuleArrayOutput() PolicyRuleArrayOutput {
+	return i.ToPolicyRuleArrayOutputWithContext(context.Background())
+}
+
+func (i PolicyRuleArray) ToPolicyRuleArrayOutputWithContext(ctx context.Context) PolicyRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PolicyRuleArrayOutput)
+}
+
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRuleOutput struct { *pulumi.OutputState }
 
@@ -148,6 +233,26 @@ func (o PolicyRuleOutput) Resources() pulumi.StringArrayOutput {
 // Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
 func (o PolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v PolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
+}
+
+type PolicyRuleArrayOutput struct { *pulumi.OutputState}
+
+func (PolicyRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PolicyRule)(nil)).Elem()
+}
+
+func (o PolicyRuleArrayOutput) ToPolicyRuleArrayOutput() PolicyRuleArrayOutput {
+	return o
+}
+
+func (o PolicyRuleArrayOutput) ToPolicyRuleArrayOutputWithContext(ctx context.Context) PolicyRuleArrayOutput {
+	return o
+}
+
+func (o PolicyRuleArrayOutput) Index(i pulumi.IntInput) PolicyRuleOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PolicyRule {
+		return vs[0].([]PolicyRule)[vs[1].(int)]
+	}).(PolicyRuleOutput)
 }
 
 // RoleRef contains information that points to the role being used
@@ -189,6 +294,38 @@ func (i RoleRefArgs) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOutp
 	return pulumi.ToOutputWithContext(ctx, i).(RoleRefOutput)
 }
 
+func (i RoleRefArgs) ToRoleRefPtrOutput() RoleRefPtrOutput {
+	return i.ToRoleRefPtrOutputWithContext(context.Background())
+}
+
+func (i RoleRefArgs) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleRefOutput).ToRoleRefPtrOutputWithContext(ctx)
+}
+
+type RoleRefPtrInput interface {
+	pulumi.Input
+
+	ToRoleRefPtrOutput() RoleRefPtrOutput
+	ToRoleRefPtrOutputWithContext(context.Context) RoleRefPtrOutput
+}
+
+type roleRefPtrType RoleRefArgs
+
+func RoleRefPtr(v *RoleRefArgs) RoleRefPtrInput {	return (*roleRefPtrType)(v)
+}
+
+func (*roleRefPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RoleRef)(nil)).Elem()
+}
+
+func (i *roleRefPtrType) ToRoleRefPtrOutput() RoleRefPtrOutput {
+	return i.ToRoleRefPtrOutputWithContext(context.Background())
+}
+
+func (i *roleRefPtrType) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleRefPtrOutput)
+}
+
 // RoleRef contains information that points to the role being used
 type RoleRefOutput struct { *pulumi.OutputState }
 
@@ -204,6 +341,15 @@ func (o RoleRefOutput) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOu
 	return o
 }
 
+func (o RoleRefOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
+	return o.ToRoleRefPtrOutputWithContext(context.Background())
+}
+
+func (o RoleRefOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
+	return o.ApplyT(func(v RoleRef) *RoleRef {
+		return &v
+	}).(RoleRefPtrOutput)
+}
 // APIGroup is the group for the resource being referenced
 func (o RoleRefOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RoleRef) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
@@ -216,6 +362,39 @@ func (o RoleRefOutput) Kind() pulumi.StringPtrOutput {
 
 // Name is the name of resource being referenced
 func (o RoleRefOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v RoleRef) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type RoleRefPtrOutput struct { *pulumi.OutputState}
+
+func (RoleRefPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RoleRef)(nil)).Elem()
+}
+
+func (o RoleRefPtrOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
+	return o
+}
+
+func (o RoleRefPtrOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
+	return o
+}
+
+func (o RoleRefPtrOutput) Elem() RoleRefOutput {
+	return o.ApplyT(func (v *RoleRef) RoleRef { return *v }).(RoleRefOutput)
+}
+
+// APIGroup is the group for the resource being referenced
+func (o RoleRefPtrOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v RoleRef) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced
+func (o RoleRefPtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v RoleRef) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of resource being referenced
+func (o RoleRefPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RoleRef) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
@@ -262,6 +441,27 @@ func (i SubjectArgs) ToSubjectOutputWithContext(ctx context.Context) SubjectOutp
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectOutput)
 }
 
+type SubjectArrayInput interface {
+	pulumi.Input
+
+	ToSubjectArrayOutput() SubjectArrayOutput
+	ToSubjectArrayOutputWithContext(context.Context) SubjectArrayOutput
+}
+
+type SubjectArray []SubjectInput
+
+func (SubjectArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Subject)(nil)).Elem()
+}
+
+func (i SubjectArray) ToSubjectArrayOutput() SubjectArrayOutput {
+	return i.ToSubjectArrayOutputWithContext(context.Background())
+}
+
+func (i SubjectArray) ToSubjectArrayOutputWithContext(ctx context.Context) SubjectArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SubjectArrayOutput)
+}
+
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 type SubjectOutput struct { *pulumi.OutputState }
 
@@ -297,9 +497,33 @@ func (o SubjectOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v Subject) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
+type SubjectArrayOutput struct { *pulumi.OutputState}
+
+func (SubjectArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Subject)(nil)).Elem()
+}
+
+func (o SubjectArrayOutput) ToSubjectArrayOutput() SubjectArrayOutput {
+	return o
+}
+
+func (o SubjectArrayOutput) ToSubjectArrayOutputWithContext(ctx context.Context) SubjectArrayOutput {
+	return o
+}
+
+func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) Subject {
+		return vs[0].([]Subject)[vs[1].(int)]
+	}).(SubjectOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(AggregationRuleOutput{})
+	pulumi.RegisterOutputType(AggregationRulePtrOutput{})
 	pulumi.RegisterOutputType(PolicyRuleOutput{})
+	pulumi.RegisterOutputType(PolicyRuleArrayOutput{})
 	pulumi.RegisterOutputType(RoleRefOutput{})
+	pulumi.RegisterOutputType(RoleRefPtrOutput{})
 	pulumi.RegisterOutputType(SubjectOutput{})
+	pulumi.RegisterOutputType(SubjectArrayOutput{})
 }

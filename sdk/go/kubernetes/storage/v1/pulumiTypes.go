@@ -55,6 +55,27 @@ func (i CSINodeDriverArgs) ToCSINodeDriverOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeDriverOutput)
 }
 
+type CSINodeDriverArrayInput interface {
+	pulumi.Input
+
+	ToCSINodeDriverArrayOutput() CSINodeDriverArrayOutput
+	ToCSINodeDriverArrayOutputWithContext(context.Context) CSINodeDriverArrayOutput
+}
+
+type CSINodeDriverArray []CSINodeDriverInput
+
+func (CSINodeDriverArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSINodeDriver)(nil)).Elem()
+}
+
+func (i CSINodeDriverArray) ToCSINodeDriverArrayOutput() CSINodeDriverArrayOutput {
+	return i.ToCSINodeDriverArrayOutputWithContext(context.Background())
+}
+
+func (i CSINodeDriverArray) ToCSINodeDriverArrayOutputWithContext(ctx context.Context) CSINodeDriverArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeDriverArrayOutput)
+}
+
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
 type CSINodeDriverOutput struct { *pulumi.OutputState }
 
@@ -90,6 +111,26 @@ func (o CSINodeDriverOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v CSINodeDriver) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
 
+type CSINodeDriverArrayOutput struct { *pulumi.OutputState}
+
+func (CSINodeDriverArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSINodeDriver)(nil)).Elem()
+}
+
+func (o CSINodeDriverArrayOutput) ToCSINodeDriverArrayOutput() CSINodeDriverArrayOutput {
+	return o
+}
+
+func (o CSINodeDriverArrayOutput) ToCSINodeDriverArrayOutputWithContext(ctx context.Context) CSINodeDriverArrayOutput {
+	return o
+}
+
+func (o CSINodeDriverArrayOutput) Index(i pulumi.IntInput) CSINodeDriverOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) CSINodeDriver {
+		return vs[0].([]CSINodeDriver)[vs[1].(int)]
+	}).(CSINodeDriverOutput)
+}
+
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
 type CSINodeSpec struct {
 	// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
@@ -121,6 +162,38 @@ func (i CSINodeSpecArgs) ToCSINodeSpecOutputWithContext(ctx context.Context) CSI
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeSpecOutput)
 }
 
+func (i CSINodeSpecArgs) ToCSINodeSpecPtrOutput() CSINodeSpecPtrOutput {
+	return i.ToCSINodeSpecPtrOutputWithContext(context.Background())
+}
+
+func (i CSINodeSpecArgs) ToCSINodeSpecPtrOutputWithContext(ctx context.Context) CSINodeSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeSpecOutput).ToCSINodeSpecPtrOutputWithContext(ctx)
+}
+
+type CSINodeSpecPtrInput interface {
+	pulumi.Input
+
+	ToCSINodeSpecPtrOutput() CSINodeSpecPtrOutput
+	ToCSINodeSpecPtrOutputWithContext(context.Context) CSINodeSpecPtrOutput
+}
+
+type csinodeSpecPtrType CSINodeSpecArgs
+
+func CSINodeSpecPtr(v *CSINodeSpecArgs) CSINodeSpecPtrInput {	return (*csinodeSpecPtrType)(v)
+}
+
+func (*csinodeSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINodeSpec)(nil)).Elem()
+}
+
+func (i *csinodeSpecPtrType) ToCSINodeSpecPtrOutput() CSINodeSpecPtrOutput {
+	return i.ToCSINodeSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *csinodeSpecPtrType) ToCSINodeSpecPtrOutputWithContext(ctx context.Context) CSINodeSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeSpecPtrOutput)
+}
+
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
 type CSINodeSpecOutput struct { *pulumi.OutputState }
 
@@ -136,8 +209,40 @@ func (o CSINodeSpecOutput) ToCSINodeSpecOutputWithContext(ctx context.Context) C
 	return o
 }
 
+func (o CSINodeSpecOutput) ToCSINodeSpecPtrOutput() CSINodeSpecPtrOutput {
+	return o.ToCSINodeSpecPtrOutputWithContext(context.Background())
+}
+
+func (o CSINodeSpecOutput) ToCSINodeSpecPtrOutputWithContext(ctx context.Context) CSINodeSpecPtrOutput {
+	return o.ApplyT(func(v CSINodeSpec) *CSINodeSpec {
+		return &v
+	}).(CSINodeSpecPtrOutput)
+}
 // drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 func (o CSINodeSpecOutput) Drivers() CSINodeDriverArrayOutput {
+	return o.ApplyT(func (v CSINodeSpec) []CSINodeDriver { return v.Drivers }).(CSINodeDriverArrayOutput)
+}
+
+type CSINodeSpecPtrOutput struct { *pulumi.OutputState}
+
+func (CSINodeSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINodeSpec)(nil)).Elem()
+}
+
+func (o CSINodeSpecPtrOutput) ToCSINodeSpecPtrOutput() CSINodeSpecPtrOutput {
+	return o
+}
+
+func (o CSINodeSpecPtrOutput) ToCSINodeSpecPtrOutputWithContext(ctx context.Context) CSINodeSpecPtrOutput {
+	return o
+}
+
+func (o CSINodeSpecPtrOutput) Elem() CSINodeSpecOutput {
+	return o.ApplyT(func (v *CSINodeSpec) CSINodeSpec { return *v }).(CSINodeSpecOutput)
+}
+
+// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
+func (o CSINodeSpecPtrOutput) Drivers() CSINodeDriverArrayOutput {
 	return o.ApplyT(func (v CSINodeSpec) []CSINodeDriver { return v.Drivers }).(CSINodeDriverArrayOutput)
 }
 
@@ -176,6 +281,38 @@ func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourceOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourceOutput)
 }
 
+func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourcePtrOutput() VolumeAttachmentSourcePtrOutput {
+	return i.ToVolumeAttachmentSourcePtrOutputWithContext(context.Background())
+}
+
+func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourcePtrOutputWithContext(ctx context.Context) VolumeAttachmentSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourceOutput).ToVolumeAttachmentSourcePtrOutputWithContext(ctx)
+}
+
+type VolumeAttachmentSourcePtrInput interface {
+	pulumi.Input
+
+	ToVolumeAttachmentSourcePtrOutput() VolumeAttachmentSourcePtrOutput
+	ToVolumeAttachmentSourcePtrOutputWithContext(context.Context) VolumeAttachmentSourcePtrOutput
+}
+
+type volumeAttachmentSourcePtrType VolumeAttachmentSourceArgs
+
+func VolumeAttachmentSourcePtr(v *VolumeAttachmentSourceArgs) VolumeAttachmentSourcePtrInput {	return (*volumeAttachmentSourcePtrType)(v)
+}
+
+func (*volumeAttachmentSourcePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeAttachmentSource)(nil)).Elem()
+}
+
+func (i *volumeAttachmentSourcePtrType) ToVolumeAttachmentSourcePtrOutput() VolumeAttachmentSourcePtrOutput {
+	return i.ToVolumeAttachmentSourcePtrOutputWithContext(context.Background())
+}
+
+func (i *volumeAttachmentSourcePtrType) ToVolumeAttachmentSourcePtrOutputWithContext(ctx context.Context) VolumeAttachmentSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourcePtrOutput)
+}
+
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourceOutput struct { *pulumi.OutputState }
 
@@ -191,6 +328,15 @@ func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourceOutputWithContext(
 	return o
 }
 
+func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourcePtrOutput() VolumeAttachmentSourcePtrOutput {
+	return o.ToVolumeAttachmentSourcePtrOutputWithContext(context.Background())
+}
+
+func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourcePtrOutputWithContext(ctx context.Context) VolumeAttachmentSourcePtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentSource) *VolumeAttachmentSource {
+		return &v
+	}).(VolumeAttachmentSourcePtrOutput)
+}
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
 func (o VolumeAttachmentSourceOutput) InlineVolumeSpec() corev1.PersistentVolumeSpecPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentSource) *corev1.PersistentVolumeSpec { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPtrOutput)
@@ -198,6 +344,34 @@ func (o VolumeAttachmentSourceOutput) InlineVolumeSpec() corev1.PersistentVolume
 
 // Name of the persistent volume to attach.
 func (o VolumeAttachmentSourceOutput) PersistentVolumeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
+}
+
+type VolumeAttachmentSourcePtrOutput struct { *pulumi.OutputState}
+
+func (VolumeAttachmentSourcePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeAttachmentSource)(nil)).Elem()
+}
+
+func (o VolumeAttachmentSourcePtrOutput) ToVolumeAttachmentSourcePtrOutput() VolumeAttachmentSourcePtrOutput {
+	return o
+}
+
+func (o VolumeAttachmentSourcePtrOutput) ToVolumeAttachmentSourcePtrOutputWithContext(ctx context.Context) VolumeAttachmentSourcePtrOutput {
+	return o
+}
+
+func (o VolumeAttachmentSourcePtrOutput) Elem() VolumeAttachmentSourceOutput {
+	return o.ApplyT(func (v *VolumeAttachmentSource) VolumeAttachmentSource { return *v }).(VolumeAttachmentSourceOutput)
+}
+
+// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
+func (o VolumeAttachmentSourcePtrOutput) InlineVolumeSpec() corev1.PersistentVolumeSpecPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentSource) *corev1.PersistentVolumeSpec { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPtrOutput)
+}
+
+// Name of the persistent volume to attach.
+func (o VolumeAttachmentSourcePtrOutput) PersistentVolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
 }
 
@@ -240,6 +414,38 @@ func (i VolumeAttachmentSpecArgs) ToVolumeAttachmentSpecOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSpecOutput)
 }
 
+func (i VolumeAttachmentSpecArgs) ToVolumeAttachmentSpecPtrOutput() VolumeAttachmentSpecPtrOutput {
+	return i.ToVolumeAttachmentSpecPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeAttachmentSpecArgs) ToVolumeAttachmentSpecPtrOutputWithContext(ctx context.Context) VolumeAttachmentSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSpecOutput).ToVolumeAttachmentSpecPtrOutputWithContext(ctx)
+}
+
+type VolumeAttachmentSpecPtrInput interface {
+	pulumi.Input
+
+	ToVolumeAttachmentSpecPtrOutput() VolumeAttachmentSpecPtrOutput
+	ToVolumeAttachmentSpecPtrOutputWithContext(context.Context) VolumeAttachmentSpecPtrOutput
+}
+
+type volumeAttachmentSpecPtrType VolumeAttachmentSpecArgs
+
+func VolumeAttachmentSpecPtr(v *VolumeAttachmentSpecArgs) VolumeAttachmentSpecPtrInput {	return (*volumeAttachmentSpecPtrType)(v)
+}
+
+func (*volumeAttachmentSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeAttachmentSpec)(nil)).Elem()
+}
+
+func (i *volumeAttachmentSpecPtrType) ToVolumeAttachmentSpecPtrOutput() VolumeAttachmentSpecPtrOutput {
+	return i.ToVolumeAttachmentSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeAttachmentSpecPtrType) ToVolumeAttachmentSpecPtrOutputWithContext(ctx context.Context) VolumeAttachmentSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSpecPtrOutput)
+}
+
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpecOutput struct { *pulumi.OutputState }
 
@@ -255,6 +461,15 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecOutputWithContext(ctx 
 	return o
 }
 
+func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutput() VolumeAttachmentSpecPtrOutput {
+	return o.ToVolumeAttachmentSpecPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutputWithContext(ctx context.Context) VolumeAttachmentSpecPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSpec {
+		return &v
+	}).(VolumeAttachmentSpecPtrOutput)
+}
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
@@ -267,6 +482,39 @@ func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringPtrOutput {
 
 // Source represents the volume that should be attached.
 func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourcePtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
+}
+
+type VolumeAttachmentSpecPtrOutput struct { *pulumi.OutputState}
+
+func (VolumeAttachmentSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeAttachmentSpec)(nil)).Elem()
+}
+
+func (o VolumeAttachmentSpecPtrOutput) ToVolumeAttachmentSpecPtrOutput() VolumeAttachmentSpecPtrOutput {
+	return o
+}
+
+func (o VolumeAttachmentSpecPtrOutput) ToVolumeAttachmentSpecPtrOutputWithContext(ctx context.Context) VolumeAttachmentSpecPtrOutput {
+	return o
+}
+
+func (o VolumeAttachmentSpecPtrOutput) Elem() VolumeAttachmentSpecOutput {
+	return o.ApplyT(func (v *VolumeAttachmentSpec) VolumeAttachmentSpec { return *v }).(VolumeAttachmentSpecOutput)
+}
+
+// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+func (o VolumeAttachmentSpecPtrOutput) Attacher() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
+}
+
+// The node that the volume should be attached to.
+func (o VolumeAttachmentSpecPtrOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// Source represents the volume that should be attached.
+func (o VolumeAttachmentSpecPtrOutput) Source() VolumeAttachmentSourcePtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
 }
 
@@ -313,6 +561,38 @@ func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentStatusOutput)
 }
 
+func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusPtrOutput() VolumeAttachmentStatusPtrOutput {
+	return i.ToVolumeAttachmentStatusPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentStatusOutput).ToVolumeAttachmentStatusPtrOutputWithContext(ctx)
+}
+
+type VolumeAttachmentStatusPtrInput interface {
+	pulumi.Input
+
+	ToVolumeAttachmentStatusPtrOutput() VolumeAttachmentStatusPtrOutput
+	ToVolumeAttachmentStatusPtrOutputWithContext(context.Context) VolumeAttachmentStatusPtrOutput
+}
+
+type volumeAttachmentStatusPtrType VolumeAttachmentStatusArgs
+
+func VolumeAttachmentStatusPtr(v *VolumeAttachmentStatusArgs) VolumeAttachmentStatusPtrInput {	return (*volumeAttachmentStatusPtrType)(v)
+}
+
+func (*volumeAttachmentStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeAttachmentStatus)(nil)).Elem()
+}
+
+func (i *volumeAttachmentStatusPtrType) ToVolumeAttachmentStatusPtrOutput() VolumeAttachmentStatusPtrOutput {
+	return i.ToVolumeAttachmentStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeAttachmentStatusPtrType) ToVolumeAttachmentStatusPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentStatusPtrOutput)
+}
+
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
 type VolumeAttachmentStatusOutput struct { *pulumi.OutputState }
 
@@ -328,6 +608,15 @@ func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusOutputWithContext(
 	return o
 }
 
+func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutput() VolumeAttachmentStatusPtrOutput {
+	return o.ToVolumeAttachmentStatusPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeAttachmentStatus {
+		return &v
+	}).(VolumeAttachmentStatusPtrOutput)
+}
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusOutput) AttachError() VolumeErrorPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.AttachError }).(VolumeErrorPtrOutput)
@@ -345,6 +634,44 @@ func (o VolumeAttachmentStatusOutput) AttachmentMetadata() pulumi.StringMapOutpu
 
 // The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusOutput) DetachError() VolumeErrorPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
+}
+
+type VolumeAttachmentStatusPtrOutput struct { *pulumi.OutputState}
+
+func (VolumeAttachmentStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeAttachmentStatus)(nil)).Elem()
+}
+
+func (o VolumeAttachmentStatusPtrOutput) ToVolumeAttachmentStatusPtrOutput() VolumeAttachmentStatusPtrOutput {
+	return o
+}
+
+func (o VolumeAttachmentStatusPtrOutput) ToVolumeAttachmentStatusPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPtrOutput {
+	return o
+}
+
+func (o VolumeAttachmentStatusPtrOutput) Elem() VolumeAttachmentStatusOutput {
+	return o.ApplyT(func (v *VolumeAttachmentStatus) VolumeAttachmentStatus { return *v }).(VolumeAttachmentStatusOutput)
+}
+
+// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+func (o VolumeAttachmentStatusPtrOutput) AttachError() VolumeErrorPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.AttachError }).(VolumeErrorPtrOutput)
+}
+
+// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+func (o VolumeAttachmentStatusPtrOutput) Attached() pulumi.BoolPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
+}
+
+// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+func (o VolumeAttachmentStatusPtrOutput) AttachmentMetadata() pulumi.StringMapOutput {
+	return o.ApplyT(func (v VolumeAttachmentStatus) map[string]string { return v.AttachmentMetadata }).(pulumi.StringMapOutput)
+}
+
+// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+func (o VolumeAttachmentStatusPtrOutput) DetachError() VolumeErrorPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
 }
 
@@ -383,6 +710,38 @@ func (i VolumeErrorArgs) ToVolumeErrorOutputWithContext(ctx context.Context) Vol
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeErrorOutput)
 }
 
+func (i VolumeErrorArgs) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
+	return i.ToVolumeErrorPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeErrorArgs) ToVolumeErrorPtrOutputWithContext(ctx context.Context) VolumeErrorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeErrorOutput).ToVolumeErrorPtrOutputWithContext(ctx)
+}
+
+type VolumeErrorPtrInput interface {
+	pulumi.Input
+
+	ToVolumeErrorPtrOutput() VolumeErrorPtrOutput
+	ToVolumeErrorPtrOutputWithContext(context.Context) VolumeErrorPtrOutput
+}
+
+type volumeErrorPtrType VolumeErrorArgs
+
+func VolumeErrorPtr(v *VolumeErrorArgs) VolumeErrorPtrInput {	return (*volumeErrorPtrType)(v)
+}
+
+func (*volumeErrorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeError)(nil)).Elem()
+}
+
+func (i *volumeErrorPtrType) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
+	return i.ToVolumeErrorPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeErrorPtrType) ToVolumeErrorPtrOutputWithContext(ctx context.Context) VolumeErrorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeErrorPtrOutput)
+}
+
 // VolumeError captures an error encountered during a volume operation.
 type VolumeErrorOutput struct { *pulumi.OutputState }
 
@@ -398,6 +757,15 @@ func (o VolumeErrorOutput) ToVolumeErrorOutputWithContext(ctx context.Context) V
 	return o
 }
 
+func (o VolumeErrorOutput) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
+	return o.ToVolumeErrorPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeErrorOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context) VolumeErrorPtrOutput {
+	return o.ApplyT(func(v VolumeError) *VolumeError {
+		return &v
+	}).(VolumeErrorPtrOutput)
+}
 // String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 func (o VolumeErrorOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
@@ -405,6 +773,34 @@ func (o VolumeErrorOutput) Message() pulumi.StringPtrOutput {
 
 // Time the error was encountered.
 func (o VolumeErrorOutput) Time() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
+}
+
+type VolumeErrorPtrOutput struct { *pulumi.OutputState}
+
+func (VolumeErrorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeError)(nil)).Elem()
+}
+
+func (o VolumeErrorPtrOutput) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
+	return o
+}
+
+func (o VolumeErrorPtrOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context) VolumeErrorPtrOutput {
+	return o
+}
+
+func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
+	return o.ApplyT(func (v *VolumeError) VolumeError { return *v }).(VolumeErrorOutput)
+}
+
+// String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+func (o VolumeErrorPtrOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// Time the error was encountered.
+func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
 }
 
@@ -439,6 +835,38 @@ func (i VolumeNodeResourcesArgs) ToVolumeNodeResourcesOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeNodeResourcesOutput)
 }
 
+func (i VolumeNodeResourcesArgs) ToVolumeNodeResourcesPtrOutput() VolumeNodeResourcesPtrOutput {
+	return i.ToVolumeNodeResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeNodeResourcesArgs) ToVolumeNodeResourcesPtrOutputWithContext(ctx context.Context) VolumeNodeResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeNodeResourcesOutput).ToVolumeNodeResourcesPtrOutputWithContext(ctx)
+}
+
+type VolumeNodeResourcesPtrInput interface {
+	pulumi.Input
+
+	ToVolumeNodeResourcesPtrOutput() VolumeNodeResourcesPtrOutput
+	ToVolumeNodeResourcesPtrOutputWithContext(context.Context) VolumeNodeResourcesPtrOutput
+}
+
+type volumeNodeResourcesPtrType VolumeNodeResourcesArgs
+
+func VolumeNodeResourcesPtr(v *VolumeNodeResourcesArgs) VolumeNodeResourcesPtrInput {	return (*volumeNodeResourcesPtrType)(v)
+}
+
+func (*volumeNodeResourcesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeNodeResources)(nil)).Elem()
+}
+
+func (i *volumeNodeResourcesPtrType) ToVolumeNodeResourcesPtrOutput() VolumeNodeResourcesPtrOutput {
+	return i.ToVolumeNodeResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeNodeResourcesPtrType) ToVolumeNodeResourcesPtrOutputWithContext(ctx context.Context) VolumeNodeResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeNodeResourcesPtrOutput)
+}
+
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
 type VolumeNodeResourcesOutput struct { *pulumi.OutputState }
 
@@ -454,17 +882,56 @@ func (o VolumeNodeResourcesOutput) ToVolumeNodeResourcesOutputWithContext(ctx co
 	return o
 }
 
+func (o VolumeNodeResourcesOutput) ToVolumeNodeResourcesPtrOutput() VolumeNodeResourcesPtrOutput {
+	return o.ToVolumeNodeResourcesPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeNodeResourcesOutput) ToVolumeNodeResourcesPtrOutputWithContext(ctx context.Context) VolumeNodeResourcesPtrOutput {
+	return o.ApplyT(func(v VolumeNodeResources) *VolumeNodeResources {
+		return &v
+	}).(VolumeNodeResourcesPtrOutput)
+}
 // Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
 func (o VolumeNodeResourcesOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v VolumeNodeResources) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
+type VolumeNodeResourcesPtrOutput struct { *pulumi.OutputState}
+
+func (VolumeNodeResourcesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeNodeResources)(nil)).Elem()
+}
+
+func (o VolumeNodeResourcesPtrOutput) ToVolumeNodeResourcesPtrOutput() VolumeNodeResourcesPtrOutput {
+	return o
+}
+
+func (o VolumeNodeResourcesPtrOutput) ToVolumeNodeResourcesPtrOutputWithContext(ctx context.Context) VolumeNodeResourcesPtrOutput {
+	return o
+}
+
+func (o VolumeNodeResourcesPtrOutput) Elem() VolumeNodeResourcesOutput {
+	return o.ApplyT(func (v *VolumeNodeResources) VolumeNodeResources { return *v }).(VolumeNodeResourcesOutput)
+}
+
+// Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
+func (o VolumeNodeResourcesPtrOutput) Count() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v VolumeNodeResources) *int { return v.Count }).(pulumi.IntPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(CSINodeDriverOutput{})
+	pulumi.RegisterOutputType(CSINodeDriverArrayOutput{})
 	pulumi.RegisterOutputType(CSINodeSpecOutput{})
+	pulumi.RegisterOutputType(CSINodeSpecPtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourceOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentSourcePtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSpecOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentSpecPtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentStatusOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentStatusPtrOutput{})
 	pulumi.RegisterOutputType(VolumeErrorOutput{})
+	pulumi.RegisterOutputType(VolumeErrorPtrOutput{})
 	pulumi.RegisterOutputType(VolumeNodeResourcesOutput{})
+	pulumi.RegisterOutputType(VolumeNodeResourcesPtrOutput{})
 }

@@ -54,6 +54,38 @@ func (i BoundObjectReferenceArgs) ToBoundObjectReferenceOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(BoundObjectReferenceOutput)
 }
 
+func (i BoundObjectReferenceArgs) ToBoundObjectReferencePtrOutput() BoundObjectReferencePtrOutput {
+	return i.ToBoundObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (i BoundObjectReferenceArgs) ToBoundObjectReferencePtrOutputWithContext(ctx context.Context) BoundObjectReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BoundObjectReferenceOutput).ToBoundObjectReferencePtrOutputWithContext(ctx)
+}
+
+type BoundObjectReferencePtrInput interface {
+	pulumi.Input
+
+	ToBoundObjectReferencePtrOutput() BoundObjectReferencePtrOutput
+	ToBoundObjectReferencePtrOutputWithContext(context.Context) BoundObjectReferencePtrOutput
+}
+
+type boundObjectReferencePtrType BoundObjectReferenceArgs
+
+func BoundObjectReferencePtr(v *BoundObjectReferenceArgs) BoundObjectReferencePtrInput {	return (*boundObjectReferencePtrType)(v)
+}
+
+func (*boundObjectReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**BoundObjectReference)(nil)).Elem()
+}
+
+func (i *boundObjectReferencePtrType) ToBoundObjectReferencePtrOutput() BoundObjectReferencePtrOutput {
+	return i.ToBoundObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *boundObjectReferencePtrType) ToBoundObjectReferencePtrOutputWithContext(ctx context.Context) BoundObjectReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BoundObjectReferencePtrOutput)
+}
+
 // BoundObjectReference is a reference to an object that a token is bound to.
 type BoundObjectReferenceOutput struct { *pulumi.OutputState }
 
@@ -69,6 +101,15 @@ func (o BoundObjectReferenceOutput) ToBoundObjectReferenceOutputWithContext(ctx 
 	return o
 }
 
+func (o BoundObjectReferenceOutput) ToBoundObjectReferencePtrOutput() BoundObjectReferencePtrOutput {
+	return o.ToBoundObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (o BoundObjectReferenceOutput) ToBoundObjectReferencePtrOutputWithContext(ctx context.Context) BoundObjectReferencePtrOutput {
+	return o.ApplyT(func(v BoundObjectReference) *BoundObjectReference {
+		return &v
+	}).(BoundObjectReferencePtrOutput)
+}
 // API version of the referent.
 func (o BoundObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v BoundObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
@@ -86,6 +127,44 @@ func (o BoundObjectReferenceOutput) Name() pulumi.StringPtrOutput {
 
 // UID of the referent.
 func (o BoundObjectReferenceOutput) Uid() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v BoundObjectReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
+}
+
+type BoundObjectReferencePtrOutput struct { *pulumi.OutputState}
+
+func (BoundObjectReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**BoundObjectReference)(nil)).Elem()
+}
+
+func (o BoundObjectReferencePtrOutput) ToBoundObjectReferencePtrOutput() BoundObjectReferencePtrOutput {
+	return o
+}
+
+func (o BoundObjectReferencePtrOutput) ToBoundObjectReferencePtrOutputWithContext(ctx context.Context) BoundObjectReferencePtrOutput {
+	return o
+}
+
+func (o BoundObjectReferencePtrOutput) Elem() BoundObjectReferenceOutput {
+	return o.ApplyT(func (v *BoundObjectReference) BoundObjectReference { return *v }).(BoundObjectReferenceOutput)
+}
+
+// API version of the referent.
+func (o BoundObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v BoundObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+func (o BoundObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v BoundObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Name of the referent.
+func (o BoundObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v BoundObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// UID of the referent.
+func (o BoundObjectReferencePtrOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v BoundObjectReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
@@ -128,6 +207,38 @@ func (i TokenRequestSpecArgs) ToTokenRequestSpecOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestSpecOutput)
 }
 
+func (i TokenRequestSpecArgs) ToTokenRequestSpecPtrOutput() TokenRequestSpecPtrOutput {
+	return i.ToTokenRequestSpecPtrOutputWithContext(context.Background())
+}
+
+func (i TokenRequestSpecArgs) ToTokenRequestSpecPtrOutputWithContext(ctx context.Context) TokenRequestSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestSpecOutput).ToTokenRequestSpecPtrOutputWithContext(ctx)
+}
+
+type TokenRequestSpecPtrInput interface {
+	pulumi.Input
+
+	ToTokenRequestSpecPtrOutput() TokenRequestSpecPtrOutput
+	ToTokenRequestSpecPtrOutputWithContext(context.Context) TokenRequestSpecPtrOutput
+}
+
+type tokenRequestSpecPtrType TokenRequestSpecArgs
+
+func TokenRequestSpecPtr(v *TokenRequestSpecArgs) TokenRequestSpecPtrInput {	return (*tokenRequestSpecPtrType)(v)
+}
+
+func (*tokenRequestSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenRequestSpec)(nil)).Elem()
+}
+
+func (i *tokenRequestSpecPtrType) ToTokenRequestSpecPtrOutput() TokenRequestSpecPtrOutput {
+	return i.ToTokenRequestSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *tokenRequestSpecPtrType) ToTokenRequestSpecPtrOutputWithContext(ctx context.Context) TokenRequestSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestSpecPtrOutput)
+}
+
 // TokenRequestSpec contains client provided parameters of a token request.
 type TokenRequestSpecOutput struct { *pulumi.OutputState }
 
@@ -143,6 +254,15 @@ func (o TokenRequestSpecOutput) ToTokenRequestSpecOutputWithContext(ctx context.
 	return o
 }
 
+func (o TokenRequestSpecOutput) ToTokenRequestSpecPtrOutput() TokenRequestSpecPtrOutput {
+	return o.ToTokenRequestSpecPtrOutputWithContext(context.Background())
+}
+
+func (o TokenRequestSpecOutput) ToTokenRequestSpecPtrOutputWithContext(ctx context.Context) TokenRequestSpecPtrOutput {
+	return o.ApplyT(func(v TokenRequestSpec) *TokenRequestSpec {
+		return &v
+	}).(TokenRequestSpecPtrOutput)
+}
 // Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 func (o TokenRequestSpecOutput) Audiences() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v TokenRequestSpec) []string { return v.Audiences }).(pulumi.StringArrayOutput)
@@ -155,6 +275,39 @@ func (o TokenRequestSpecOutput) BoundObjectRef() BoundObjectReferencePtrOutput {
 
 // ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
 func (o TokenRequestSpecOutput) ExpirationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v TokenRequestSpec) *int { return v.ExpirationSeconds }).(pulumi.IntPtrOutput)
+}
+
+type TokenRequestSpecPtrOutput struct { *pulumi.OutputState}
+
+func (TokenRequestSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenRequestSpec)(nil)).Elem()
+}
+
+func (o TokenRequestSpecPtrOutput) ToTokenRequestSpecPtrOutput() TokenRequestSpecPtrOutput {
+	return o
+}
+
+func (o TokenRequestSpecPtrOutput) ToTokenRequestSpecPtrOutputWithContext(ctx context.Context) TokenRequestSpecPtrOutput {
+	return o
+}
+
+func (o TokenRequestSpecPtrOutput) Elem() TokenRequestSpecOutput {
+	return o.ApplyT(func (v *TokenRequestSpec) TokenRequestSpec { return *v }).(TokenRequestSpecOutput)
+}
+
+// Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+func (o TokenRequestSpecPtrOutput) Audiences() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v TokenRequestSpec) []string { return v.Audiences }).(pulumi.StringArrayOutput)
+}
+
+// BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
+func (o TokenRequestSpecPtrOutput) BoundObjectRef() BoundObjectReferencePtrOutput {
+	return o.ApplyT(func (v TokenRequestSpec) *BoundObjectReference { return v.BoundObjectRef }).(BoundObjectReferencePtrOutput)
+}
+
+// ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
+func (o TokenRequestSpecPtrOutput) ExpirationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v TokenRequestSpec) *int { return v.ExpirationSeconds }).(pulumi.IntPtrOutput)
 }
 
@@ -193,6 +346,38 @@ func (i TokenRequestStatusArgs) ToTokenRequestStatusOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestStatusOutput)
 }
 
+func (i TokenRequestStatusArgs) ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput {
+	return i.ToTokenRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i TokenRequestStatusArgs) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestStatusOutput).ToTokenRequestStatusPtrOutputWithContext(ctx)
+}
+
+type TokenRequestStatusPtrInput interface {
+	pulumi.Input
+
+	ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput
+	ToTokenRequestStatusPtrOutputWithContext(context.Context) TokenRequestStatusPtrOutput
+}
+
+type tokenRequestStatusPtrType TokenRequestStatusArgs
+
+func TokenRequestStatusPtr(v *TokenRequestStatusArgs) TokenRequestStatusPtrInput {	return (*tokenRequestStatusPtrType)(v)
+}
+
+func (*tokenRequestStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenRequestStatus)(nil)).Elem()
+}
+
+func (i *tokenRequestStatusPtrType) ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput {
+	return i.ToTokenRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *tokenRequestStatusPtrType) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestStatusPtrOutput)
+}
+
 // TokenRequestStatus is the result of a token request.
 type TokenRequestStatusOutput struct { *pulumi.OutputState }
 
@@ -208,6 +393,15 @@ func (o TokenRequestStatusOutput) ToTokenRequestStatusOutputWithContext(ctx cont
 	return o
 }
 
+func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput {
+	return o.ToTokenRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
+	return o.ApplyT(func(v TokenRequestStatus) *TokenRequestStatus {
+		return &v
+	}).(TokenRequestStatusPtrOutput)
+}
 // ExpirationTimestamp is the time of expiration of the returned token.
 func (o TokenRequestStatusOutput) ExpirationTimestamp() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v TokenRequestStatus) *string { return v.ExpirationTimestamp }).(pulumi.StringPtrOutput)
@@ -215,6 +409,34 @@ func (o TokenRequestStatusOutput) ExpirationTimestamp() pulumi.StringPtrOutput {
 
 // Token is the opaque bearer token.
 func (o TokenRequestStatusOutput) Token() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v TokenRequestStatus) *string { return v.Token }).(pulumi.StringPtrOutput)
+}
+
+type TokenRequestStatusPtrOutput struct { *pulumi.OutputState}
+
+func (TokenRequestStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenRequestStatus)(nil)).Elem()
+}
+
+func (o TokenRequestStatusPtrOutput) ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput {
+	return o
+}
+
+func (o TokenRequestStatusPtrOutput) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
+	return o
+}
+
+func (o TokenRequestStatusPtrOutput) Elem() TokenRequestStatusOutput {
+	return o.ApplyT(func (v *TokenRequestStatus) TokenRequestStatus { return *v }).(TokenRequestStatusOutput)
+}
+
+// ExpirationTimestamp is the time of expiration of the returned token.
+func (o TokenRequestStatusPtrOutput) ExpirationTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v TokenRequestStatus) *string { return v.ExpirationTimestamp }).(pulumi.StringPtrOutput)
+}
+
+// Token is the opaque bearer token.
+func (o TokenRequestStatusPtrOutput) Token() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v TokenRequestStatus) *string { return v.Token }).(pulumi.StringPtrOutput)
 }
 
@@ -253,6 +475,38 @@ func (i TokenReviewSpecArgs) ToTokenReviewSpecOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecOutput)
 }
 
+func (i TokenReviewSpecArgs) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
+	return i.ToTokenReviewSpecPtrOutputWithContext(context.Background())
+}
+
+func (i TokenReviewSpecArgs) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecOutput).ToTokenReviewSpecPtrOutputWithContext(ctx)
+}
+
+type TokenReviewSpecPtrInput interface {
+	pulumi.Input
+
+	ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput
+	ToTokenReviewSpecPtrOutputWithContext(context.Context) TokenReviewSpecPtrOutput
+}
+
+type tokenReviewSpecPtrType TokenReviewSpecArgs
+
+func TokenReviewSpecPtr(v *TokenReviewSpecArgs) TokenReviewSpecPtrInput {	return (*tokenReviewSpecPtrType)(v)
+}
+
+func (*tokenReviewSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenReviewSpec)(nil)).Elem()
+}
+
+func (i *tokenReviewSpecPtrType) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
+	return i.ToTokenReviewSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *tokenReviewSpecPtrType) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecPtrOutput)
+}
+
 // TokenReviewSpec is a description of the token authentication request.
 type TokenReviewSpecOutput struct { *pulumi.OutputState }
 
@@ -268,6 +522,15 @@ func (o TokenReviewSpecOutput) ToTokenReviewSpecOutputWithContext(ctx context.Co
 	return o
 }
 
+func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
+	return o.ToTokenReviewSpecPtrOutputWithContext(context.Background())
+}
+
+func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
+	return o.ApplyT(func(v TokenReviewSpec) *TokenReviewSpec {
+		return &v
+	}).(TokenReviewSpecPtrOutput)
+}
 // Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 func (o TokenReviewSpecOutput) Audiences() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v TokenReviewSpec) []string { return v.Audiences }).(pulumi.StringArrayOutput)
@@ -275,6 +538,34 @@ func (o TokenReviewSpecOutput) Audiences() pulumi.StringArrayOutput {
 
 // Token is the opaque bearer token.
 func (o TokenReviewSpecOutput) Token() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v TokenReviewSpec) *string { return v.Token }).(pulumi.StringPtrOutput)
+}
+
+type TokenReviewSpecPtrOutput struct { *pulumi.OutputState}
+
+func (TokenReviewSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenReviewSpec)(nil)).Elem()
+}
+
+func (o TokenReviewSpecPtrOutput) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
+	return o
+}
+
+func (o TokenReviewSpecPtrOutput) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
+	return o
+}
+
+func (o TokenReviewSpecPtrOutput) Elem() TokenReviewSpecOutput {
+	return o.ApplyT(func (v *TokenReviewSpec) TokenReviewSpec { return *v }).(TokenReviewSpecOutput)
+}
+
+// Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
+func (o TokenReviewSpecPtrOutput) Audiences() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v TokenReviewSpec) []string { return v.Audiences }).(pulumi.StringArrayOutput)
+}
+
+// Token is the opaque bearer token.
+func (o TokenReviewSpecPtrOutput) Token() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v TokenReviewSpec) *string { return v.Token }).(pulumi.StringPtrOutput)
 }
 
@@ -321,6 +612,38 @@ func (i TokenReviewStatusArgs) ToTokenReviewStatusOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusOutput)
 }
 
+func (i TokenReviewStatusArgs) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
+	return i.ToTokenReviewStatusPtrOutputWithContext(context.Background())
+}
+
+func (i TokenReviewStatusArgs) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusOutput).ToTokenReviewStatusPtrOutputWithContext(ctx)
+}
+
+type TokenReviewStatusPtrInput interface {
+	pulumi.Input
+
+	ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput
+	ToTokenReviewStatusPtrOutputWithContext(context.Context) TokenReviewStatusPtrOutput
+}
+
+type tokenReviewStatusPtrType TokenReviewStatusArgs
+
+func TokenReviewStatusPtr(v *TokenReviewStatusArgs) TokenReviewStatusPtrInput {	return (*tokenReviewStatusPtrType)(v)
+}
+
+func (*tokenReviewStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenReviewStatus)(nil)).Elem()
+}
+
+func (i *tokenReviewStatusPtrType) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
+	return i.ToTokenReviewStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *tokenReviewStatusPtrType) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusPtrOutput)
+}
+
 // TokenReviewStatus is the result of the token authentication request.
 type TokenReviewStatusOutput struct { *pulumi.OutputState }
 
@@ -336,6 +659,15 @@ func (o TokenReviewStatusOutput) ToTokenReviewStatusOutputWithContext(ctx contex
 	return o
 }
 
+func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
+	return o.ToTokenReviewStatusPtrOutputWithContext(context.Background())
+}
+
+func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
+	return o.ApplyT(func(v TokenReviewStatus) *TokenReviewStatus {
+		return &v
+	}).(TokenReviewStatusPtrOutput)
+}
 // Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
 func (o TokenReviewStatusOutput) Audiences() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v TokenReviewStatus) []string { return v.Audiences }).(pulumi.StringArrayOutput)
@@ -353,6 +685,44 @@ func (o TokenReviewStatusOutput) Error() pulumi.StringPtrOutput {
 
 // User is the UserInfo associated with the provided token.
 func (o TokenReviewStatusOutput) User() UserInfoPtrOutput {
+	return o.ApplyT(func (v TokenReviewStatus) *UserInfo { return v.User }).(UserInfoPtrOutput)
+}
+
+type TokenReviewStatusPtrOutput struct { *pulumi.OutputState}
+
+func (TokenReviewStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenReviewStatus)(nil)).Elem()
+}
+
+func (o TokenReviewStatusPtrOutput) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
+	return o
+}
+
+func (o TokenReviewStatusPtrOutput) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
+	return o
+}
+
+func (o TokenReviewStatusPtrOutput) Elem() TokenReviewStatusOutput {
+	return o.ApplyT(func (v *TokenReviewStatus) TokenReviewStatus { return *v }).(TokenReviewStatusOutput)
+}
+
+// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
+func (o TokenReviewStatusPtrOutput) Audiences() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v TokenReviewStatus) []string { return v.Audiences }).(pulumi.StringArrayOutput)
+}
+
+// Authenticated indicates that the token was associated with a known user.
+func (o TokenReviewStatusPtrOutput) Authenticated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func (v TokenReviewStatus) *bool { return v.Authenticated }).(pulumi.BoolPtrOutput)
+}
+
+// Error indicates that the token couldn't be checked
+func (o TokenReviewStatusPtrOutput) Error() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v TokenReviewStatus) *string { return v.Error }).(pulumi.StringPtrOutput)
+}
+
+// User is the UserInfo associated with the provided token.
+func (o TokenReviewStatusPtrOutput) User() UserInfoPtrOutput {
 	return o.ApplyT(func (v TokenReviewStatus) *UserInfo { return v.User }).(UserInfoPtrOutput)
 }
 
@@ -399,6 +769,38 @@ func (i UserInfoArgs) ToUserInfoOutputWithContext(ctx context.Context) UserInfoO
 	return pulumi.ToOutputWithContext(ctx, i).(UserInfoOutput)
 }
 
+func (i UserInfoArgs) ToUserInfoPtrOutput() UserInfoPtrOutput {
+	return i.ToUserInfoPtrOutputWithContext(context.Background())
+}
+
+func (i UserInfoArgs) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UserInfoOutput).ToUserInfoPtrOutputWithContext(ctx)
+}
+
+type UserInfoPtrInput interface {
+	pulumi.Input
+
+	ToUserInfoPtrOutput() UserInfoPtrOutput
+	ToUserInfoPtrOutputWithContext(context.Context) UserInfoPtrOutput
+}
+
+type userInfoPtrType UserInfoArgs
+
+func UserInfoPtr(v *UserInfoArgs) UserInfoPtrInput {	return (*userInfoPtrType)(v)
+}
+
+func (*userInfoPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**UserInfo)(nil)).Elem()
+}
+
+func (i *userInfoPtrType) ToUserInfoPtrOutput() UserInfoPtrOutput {
+	return i.ToUserInfoPtrOutputWithContext(context.Background())
+}
+
+func (i *userInfoPtrType) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UserInfoPtrOutput)
+}
+
 // UserInfo holds the information about the user needed to implement the user.Info interface.
 type UserInfoOutput struct { *pulumi.OutputState }
 
@@ -414,6 +816,15 @@ func (o UserInfoOutput) ToUserInfoOutputWithContext(ctx context.Context) UserInf
 	return o
 }
 
+func (o UserInfoOutput) ToUserInfoPtrOutput() UserInfoPtrOutput {
+	return o.ToUserInfoPtrOutputWithContext(context.Background())
+}
+
+func (o UserInfoOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
+	return o.ApplyT(func(v UserInfo) *UserInfo {
+		return &v
+	}).(UserInfoPtrOutput)
+}
 // Any additional information provided by the authenticator.
 func (o UserInfoOutput) Extra() pulumi.StringArrayMapOutput {
 	return o.ApplyT(func (v UserInfo) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
@@ -434,11 +845,55 @@ func (o UserInfoOutput) Username() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v UserInfo) *string { return v.Username }).(pulumi.StringPtrOutput)
 }
 
+type UserInfoPtrOutput struct { *pulumi.OutputState}
+
+func (UserInfoPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**UserInfo)(nil)).Elem()
+}
+
+func (o UserInfoPtrOutput) ToUserInfoPtrOutput() UserInfoPtrOutput {
+	return o
+}
+
+func (o UserInfoPtrOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
+	return o
+}
+
+func (o UserInfoPtrOutput) Elem() UserInfoOutput {
+	return o.ApplyT(func (v *UserInfo) UserInfo { return *v }).(UserInfoOutput)
+}
+
+// Any additional information provided by the authenticator.
+func (o UserInfoPtrOutput) Extra() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func (v UserInfo) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
+}
+
+// The names of groups this user is a part of.
+func (o UserInfoPtrOutput) Groups() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v UserInfo) []string { return v.Groups }).(pulumi.StringArrayOutput)
+}
+
+// A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
+func (o UserInfoPtrOutput) Uid() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v UserInfo) *string { return v.Uid }).(pulumi.StringPtrOutput)
+}
+
+// The name that uniquely identifies this user among all active users.
+func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v UserInfo) *string { return v.Username }).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(BoundObjectReferenceOutput{})
+	pulumi.RegisterOutputType(BoundObjectReferencePtrOutput{})
 	pulumi.RegisterOutputType(TokenRequestSpecOutput{})
+	pulumi.RegisterOutputType(TokenRequestSpecPtrOutput{})
 	pulumi.RegisterOutputType(TokenRequestStatusOutput{})
+	pulumi.RegisterOutputType(TokenRequestStatusPtrOutput{})
 	pulumi.RegisterOutputType(TokenReviewSpecOutput{})
+	pulumi.RegisterOutputType(TokenReviewSpecPtrOutput{})
 	pulumi.RegisterOutputType(TokenReviewStatusOutput{})
+	pulumi.RegisterOutputType(TokenReviewStatusPtrOutput{})
 	pulumi.RegisterOutputType(UserInfoOutput{})
+	pulumi.RegisterOutputType(UserInfoPtrOutput{})
 }

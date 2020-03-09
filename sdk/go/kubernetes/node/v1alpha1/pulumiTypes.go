@@ -43,6 +43,38 @@ func (i OverheadArgs) ToOverheadOutputWithContext(ctx context.Context) OverheadO
 	return pulumi.ToOutputWithContext(ctx, i).(OverheadOutput)
 }
 
+func (i OverheadArgs) ToOverheadPtrOutput() OverheadPtrOutput {
+	return i.ToOverheadPtrOutputWithContext(context.Background())
+}
+
+func (i OverheadArgs) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OverheadOutput).ToOverheadPtrOutputWithContext(ctx)
+}
+
+type OverheadPtrInput interface {
+	pulumi.Input
+
+	ToOverheadPtrOutput() OverheadPtrOutput
+	ToOverheadPtrOutputWithContext(context.Context) OverheadPtrOutput
+}
+
+type overheadPtrType OverheadArgs
+
+func OverheadPtr(v *OverheadArgs) OverheadPtrInput {	return (*overheadPtrType)(v)
+}
+
+func (*overheadPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Overhead)(nil)).Elem()
+}
+
+func (i *overheadPtrType) ToOverheadPtrOutput() OverheadPtrOutput {
+	return i.ToOverheadPtrOutputWithContext(context.Background())
+}
+
+func (i *overheadPtrType) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OverheadPtrOutput)
+}
+
 // Overhead structure represents the resource overhead associated with running a pod.
 type OverheadOutput struct { *pulumi.OutputState }
 
@@ -58,8 +90,40 @@ func (o OverheadOutput) ToOverheadOutputWithContext(ctx context.Context) Overhea
 	return o
 }
 
+func (o OverheadOutput) ToOverheadPtrOutput() OverheadPtrOutput {
+	return o.ToOverheadPtrOutputWithContext(context.Background())
+}
+
+func (o OverheadOutput) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
+	return o.ApplyT(func(v Overhead) *Overhead {
+		return &v
+	}).(OverheadPtrOutput)
+}
 // PodFixed represents the fixed resource overhead associated with running a pod.
 func (o OverheadOutput) PodFixed() pulumi.StringMapOutput {
+	return o.ApplyT(func (v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
+}
+
+type OverheadPtrOutput struct { *pulumi.OutputState}
+
+func (OverheadPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Overhead)(nil)).Elem()
+}
+
+func (o OverheadPtrOutput) ToOverheadPtrOutput() OverheadPtrOutput {
+	return o
+}
+
+func (o OverheadPtrOutput) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
+	return o
+}
+
+func (o OverheadPtrOutput) Elem() OverheadOutput {
+	return o.ApplyT(func (v *Overhead) Overhead { return *v }).(OverheadOutput)
+}
+
+// PodFixed represents the fixed resource overhead associated with running a pod.
+func (o OverheadPtrOutput) PodFixed() pulumi.StringMapOutput {
 	return o.ApplyT(func (v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
 }
 
@@ -102,6 +166,38 @@ func (i RuntimeClassSpecArgs) ToRuntimeClassSpecOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassSpecOutput)
 }
 
+func (i RuntimeClassSpecArgs) ToRuntimeClassSpecPtrOutput() RuntimeClassSpecPtrOutput {
+	return i.ToRuntimeClassSpecPtrOutputWithContext(context.Background())
+}
+
+func (i RuntimeClassSpecArgs) ToRuntimeClassSpecPtrOutputWithContext(ctx context.Context) RuntimeClassSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassSpecOutput).ToRuntimeClassSpecPtrOutputWithContext(ctx)
+}
+
+type RuntimeClassSpecPtrInput interface {
+	pulumi.Input
+
+	ToRuntimeClassSpecPtrOutput() RuntimeClassSpecPtrOutput
+	ToRuntimeClassSpecPtrOutputWithContext(context.Context) RuntimeClassSpecPtrOutput
+}
+
+type runtimeClassSpecPtrType RuntimeClassSpecArgs
+
+func RuntimeClassSpecPtr(v *RuntimeClassSpecArgs) RuntimeClassSpecPtrInput {	return (*runtimeClassSpecPtrType)(v)
+}
+
+func (*runtimeClassSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RuntimeClassSpec)(nil)).Elem()
+}
+
+func (i *runtimeClassSpecPtrType) ToRuntimeClassSpecPtrOutput() RuntimeClassSpecPtrOutput {
+	return i.ToRuntimeClassSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *runtimeClassSpecPtrType) ToRuntimeClassSpecPtrOutputWithContext(ctx context.Context) RuntimeClassSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassSpecPtrOutput)
+}
+
 // RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
 type RuntimeClassSpecOutput struct { *pulumi.OutputState }
 
@@ -117,6 +213,15 @@ func (o RuntimeClassSpecOutput) ToRuntimeClassSpecOutputWithContext(ctx context.
 	return o
 }
 
+func (o RuntimeClassSpecOutput) ToRuntimeClassSpecPtrOutput() RuntimeClassSpecPtrOutput {
+	return o.ToRuntimeClassSpecPtrOutputWithContext(context.Background())
+}
+
+func (o RuntimeClassSpecOutput) ToRuntimeClassSpecPtrOutputWithContext(ctx context.Context) RuntimeClassSpecPtrOutput {
+	return o.ApplyT(func(v RuntimeClassSpec) *RuntimeClassSpec {
+		return &v
+	}).(RuntimeClassSpecPtrOutput)
+}
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
 func (o RuntimeClassSpecOutput) Overhead() OverheadPtrOutput {
 	return o.ApplyT(func (v RuntimeClassSpec) *Overhead { return v.Overhead }).(OverheadPtrOutput)
@@ -129,6 +234,39 @@ func (o RuntimeClassSpecOutput) RuntimeHandler() pulumi.StringPtrOutput {
 
 // Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 func (o RuntimeClassSpecOutput) Scheduling() SchedulingPtrOutput {
+	return o.ApplyT(func (v RuntimeClassSpec) *Scheduling { return v.Scheduling }).(SchedulingPtrOutput)
+}
+
+type RuntimeClassSpecPtrOutput struct { *pulumi.OutputState}
+
+func (RuntimeClassSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RuntimeClassSpec)(nil)).Elem()
+}
+
+func (o RuntimeClassSpecPtrOutput) ToRuntimeClassSpecPtrOutput() RuntimeClassSpecPtrOutput {
+	return o
+}
+
+func (o RuntimeClassSpecPtrOutput) ToRuntimeClassSpecPtrOutputWithContext(ctx context.Context) RuntimeClassSpecPtrOutput {
+	return o
+}
+
+func (o RuntimeClassSpecPtrOutput) Elem() RuntimeClassSpecOutput {
+	return o.ApplyT(func (v *RuntimeClassSpec) RuntimeClassSpec { return *v }).(RuntimeClassSpecOutput)
+}
+
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+func (o RuntimeClassSpecPtrOutput) Overhead() OverheadPtrOutput {
+	return o.ApplyT(func (v RuntimeClassSpec) *Overhead { return v.Overhead }).(OverheadPtrOutput)
+}
+
+// RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
+func (o RuntimeClassSpecPtrOutput) RuntimeHandler() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v RuntimeClassSpec) *string { return v.RuntimeHandler }).(pulumi.StringPtrOutput)
+}
+
+// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+func (o RuntimeClassSpecPtrOutput) Scheduling() SchedulingPtrOutput {
 	return o.ApplyT(func (v RuntimeClassSpec) *Scheduling { return v.Scheduling }).(SchedulingPtrOutput)
 }
 
@@ -167,6 +305,38 @@ func (i SchedulingArgs) ToSchedulingOutputWithContext(ctx context.Context) Sched
 	return pulumi.ToOutputWithContext(ctx, i).(SchedulingOutput)
 }
 
+func (i SchedulingArgs) ToSchedulingPtrOutput() SchedulingPtrOutput {
+	return i.ToSchedulingPtrOutputWithContext(context.Background())
+}
+
+func (i SchedulingArgs) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SchedulingOutput).ToSchedulingPtrOutputWithContext(ctx)
+}
+
+type SchedulingPtrInput interface {
+	pulumi.Input
+
+	ToSchedulingPtrOutput() SchedulingPtrOutput
+	ToSchedulingPtrOutputWithContext(context.Context) SchedulingPtrOutput
+}
+
+type schedulingPtrType SchedulingArgs
+
+func SchedulingPtr(v *SchedulingArgs) SchedulingPtrInput {	return (*schedulingPtrType)(v)
+}
+
+func (*schedulingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Scheduling)(nil)).Elem()
+}
+
+func (i *schedulingPtrType) ToSchedulingPtrOutput() SchedulingPtrOutput {
+	return i.ToSchedulingPtrOutputWithContext(context.Background())
+}
+
+func (i *schedulingPtrType) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SchedulingPtrOutput)
+}
+
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
 type SchedulingOutput struct { *pulumi.OutputState }
 
@@ -182,6 +352,15 @@ func (o SchedulingOutput) ToSchedulingOutputWithContext(ctx context.Context) Sch
 	return o
 }
 
+func (o SchedulingOutput) ToSchedulingPtrOutput() SchedulingPtrOutput {
+	return o.ToSchedulingPtrOutputWithContext(context.Background())
+}
+
+func (o SchedulingOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
+	return o.ApplyT(func(v Scheduling) *Scheduling {
+		return &v
+	}).(SchedulingPtrOutput)
+}
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 func (o SchedulingOutput) NodeSelector() pulumi.StringMapOutput {
 	return o.ApplyT(func (v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
@@ -192,8 +371,39 @@ func (o SchedulingOutput) Tolerations() corev1.TolerationArrayOutput {
 	return o.ApplyT(func (v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
 }
 
+type SchedulingPtrOutput struct { *pulumi.OutputState}
+
+func (SchedulingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Scheduling)(nil)).Elem()
+}
+
+func (o SchedulingPtrOutput) ToSchedulingPtrOutput() SchedulingPtrOutput {
+	return o
+}
+
+func (o SchedulingPtrOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
+	return o
+}
+
+func (o SchedulingPtrOutput) Elem() SchedulingOutput {
+	return o.ApplyT(func (v *Scheduling) Scheduling { return *v }).(SchedulingOutput)
+}
+
+// nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+func (o SchedulingPtrOutput) NodeSelector() pulumi.StringMapOutput {
+	return o.ApplyT(func (v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
+}
+
+// tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+func (o SchedulingPtrOutput) Tolerations() corev1.TolerationArrayOutput {
+	return o.ApplyT(func (v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(OverheadOutput{})
+	pulumi.RegisterOutputType(OverheadPtrOutput{})
 	pulumi.RegisterOutputType(RuntimeClassSpecOutput{})
+	pulumi.RegisterOutputType(RuntimeClassSpecPtrOutput{})
 	pulumi.RegisterOutputType(SchedulingOutput{})
+	pulumi.RegisterOutputType(SchedulingPtrOutput{})
 }

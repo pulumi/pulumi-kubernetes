@@ -50,6 +50,38 @@ func (i EventSeriesArgs) ToEventSeriesOutputWithContext(ctx context.Context) Eve
 	return pulumi.ToOutputWithContext(ctx, i).(EventSeriesOutput)
 }
 
+func (i EventSeriesArgs) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
+	return i.ToEventSeriesPtrOutputWithContext(context.Background())
+}
+
+func (i EventSeriesArgs) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventSeriesOutput).ToEventSeriesPtrOutputWithContext(ctx)
+}
+
+type EventSeriesPtrInput interface {
+	pulumi.Input
+
+	ToEventSeriesPtrOutput() EventSeriesPtrOutput
+	ToEventSeriesPtrOutputWithContext(context.Context) EventSeriesPtrOutput
+}
+
+type eventSeriesPtrType EventSeriesArgs
+
+func EventSeriesPtr(v *EventSeriesArgs) EventSeriesPtrInput {	return (*eventSeriesPtrType)(v)
+}
+
+func (*eventSeriesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**EventSeries)(nil)).Elem()
+}
+
+func (i *eventSeriesPtrType) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
+	return i.ToEventSeriesPtrOutputWithContext(context.Background())
+}
+
+func (i *eventSeriesPtrType) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventSeriesPtrOutput)
+}
+
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
 type EventSeriesOutput struct { *pulumi.OutputState }
 
@@ -65,6 +97,15 @@ func (o EventSeriesOutput) ToEventSeriesOutputWithContext(ctx context.Context) E
 	return o
 }
 
+func (o EventSeriesOutput) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
+	return o.ToEventSeriesPtrOutputWithContext(context.Background())
+}
+
+func (o EventSeriesOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
+	return o.ApplyT(func(v EventSeries) *EventSeries {
+		return &v
+	}).(EventSeriesPtrOutput)
+}
 // Number of occurrences in this series up to the last heartbeat time
 func (o EventSeriesOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
@@ -80,6 +121,40 @@ func (o EventSeriesOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
+type EventSeriesPtrOutput struct { *pulumi.OutputState}
+
+func (EventSeriesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**EventSeries)(nil)).Elem()
+}
+
+func (o EventSeriesPtrOutput) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
+	return o
+}
+
+func (o EventSeriesPtrOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
+	return o
+}
+
+func (o EventSeriesPtrOutput) Elem() EventSeriesOutput {
+	return o.ApplyT(func (v *EventSeries) EventSeries { return *v }).(EventSeriesOutput)
+}
+
+// Number of occurrences in this series up to the last heartbeat time
+func (o EventSeriesPtrOutput) Count() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
+}
+
+// Time when last Event from the series was seen before last heartbeat.
+func (o EventSeriesPtrOutput) LastObservedTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventSeries) *string { return v.LastObservedTime }).(pulumi.StringPtrOutput)
+}
+
+// Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
+func (o EventSeriesPtrOutput) State() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(EventSeriesOutput{})
+	pulumi.RegisterOutputType(EventSeriesPtrOutput{})
 }

@@ -794,11 +794,11 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(gvkRefStr)
 }
 
-func makeSchemaTypeSpec(resourceType, propName string, prop map[string]interface{}) pschema.TypeSpec {
+func makeSchemaTypeSpec(resourceDef definition, propName string, prop map[string]interface{}) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
 		case "array":
-			elemSpec := makeSchemaTypeSpec(resourceType, propName, prop["items"].(map[string]interface{}))
+			elemSpec := makeSchemaTypeSpec(resourceDef, propName, prop["items"].(map[string]interface{}))
 			return pschema.TypeSpec{
 				Type:  "array",
 				Items: &elemSpec,
@@ -809,7 +809,7 @@ func makeSchemaTypeSpec(resourceType, propName string, prop map[string]interface
 				return pschema.TypeSpec{Type: "object"}
 			}
 
-			elemSpec := makeSchemaTypeSpec(resourceType, propName, additionalProperties.(map[string]interface{}))
+			elemSpec := makeSchemaTypeSpec(resourceDef, propName, additionalProperties.(map[string]interface{}))
 			return pschema.TypeSpec{
 				Type:                 "object",
 				AdditionalProperties: &elemSpec,
@@ -870,30 +870,30 @@ func makeSchemaTypeSpec(resourceType, propName string, prop map[string]interface
 	return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s", gvk.Group, gvk.Version, gvk.Kind)}
 }
 
-func makeSchemaType(resourceType, propName string, prop map[string]interface{}) string {
-	spec := makeSchemaTypeSpec(resourceType, propName, prop)
+func makeSchemaType(resourceDef definition, propName string, prop map[string]interface{}) string {
+	spec := makeSchemaTypeSpec(resourceDef, propName, prop)
 	b, err := json.Marshal(spec)
 	contract.Assert(err == nil)
 	return string(b)
 }
 
-func makeTypes(resourceType, propName string, prop map[string]interface{}, language language) (string, string, string) {
-	inputsAPIType := makeType(resourceType, propName, prop, language, inputsAPI)
-	outputsAPIType := makeType(resourceType, propName, prop, language, outputsAPI)
-	providerType := makeType(resourceType, propName, prop, language, provider)
+func makeTypes(resourceDef definition, propName string, prop map[string]interface{}, language language) (string, string, string) {
+	inputsAPIType := makeType(resourceDef, propName, prop, language, inputsAPI)
+	outputsAPIType := makeType(resourceDef, propName, prop, language, outputsAPI)
+	providerType := makeType(resourceDef, propName, prop, language, provider)
 	return inputsAPIType, outputsAPIType, providerType
 }
 
-func makeType(resourceType, propName string, prop map[string]interface{}, language language, gentype gentype) string {
+func makeType(resourceDef definition, propName string, prop map[string]interface{}, language language, gentype gentype) string {
 	switch language {
 	case typescript:
-		return makeTypescriptType(resourceType, propName, prop, gentype)
+		return makeTypescriptType(resourceDef.name, propName, prop, gentype)
 	case python:
-		return makePythonType(resourceType, propName, prop, gentype)
+		return makePythonType(resourceDef.name, propName, prop, gentype)
 	case dotnet:
-		return makeDotnetType(resourceType, propName, prop, gentype, false)
+		return makeDotnetType(resourceDef.name, propName, prop, gentype, false)
 	case pulumiSchema:
-		return makeSchemaType(resourceType, propName, prop)
+		return makeSchemaType(resourceDef, propName, prop)
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
@@ -1080,9 +1080,12 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					group = "core"
 				}
 				def.canonicalGroup = group
-			} else if gvk.Group == "meta" { // "meta" Group doesn't include the `x-kubernetes-group-version-kind` field.
-				def.canonicalGroup = "meta"
+				return def
 			}
+			//else if gvk.Group == "meta" { // "meta" Group doesn't include the `x-kubernetes-group-version-kind` field.
+			//	def.canonicalGroup = "meta"
+			//}
+			def.canonicalGroup = gvk.Group
 
 			return def
 		}).
@@ -1191,19 +1194,19 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					switch opts.language {
 					case typescript:
 						prefix = "      "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typescript)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d, propName, prop, typescript)
 					case python:
 						prefix = "    "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, python)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d, propName, prop, python)
 					case dotnet:
 						prefix = "        "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, dotnet)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d, propName, prop, dotnet)
 						if strings.HasPrefix(inputsAPIType, "InputList") || strings.HasPrefix(inputsAPIType, "InputMap") {
 							isListOrMap = true
 						}
 					case pulumiSchema:
 						// TODO: update here?
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, pulumiSchema)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d, propName, prop, pulumiSchema)
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
