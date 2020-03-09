@@ -10,6 +10,7 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
@@ -308,11 +309,11 @@ type Eviction struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// DeleteOptions may be provided
-	DeleteOptions *corev1.DeleteOptions `pulumi:"deleteOptions"`
+	DeleteOptions *metav1.DeleteOptions `pulumi:"deleteOptions"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// ObjectMeta describes the pod that is being evicted.
-	Metadata *corev1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 }
 
 type EvictionInput interface {
@@ -327,11 +328,11 @@ type EvictionArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// DeleteOptions may be provided
-	DeleteOptions corev1.DeleteOptionsPtrInput `pulumi:"deleteOptions"`
+	DeleteOptions metav1.DeleteOptionsPtrInput `pulumi:"deleteOptions"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// ObjectMeta describes the pod that is being evicted.
-	Metadata corev1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 }
 
 func (EvictionArgs) ElementType() reflect.Type {
@@ -367,8 +368,8 @@ func (o EvictionOutput) ApiVersion() pulumi.StringPtrOutput {
 }
 
 // DeleteOptions may be provided
-func (o EvictionOutput) DeleteOptions() corev1.DeleteOptionsPtrOutput {
-	return o.ApplyT(func (v Eviction) *corev1.DeleteOptions { return v.DeleteOptions }).(corev1.DeleteOptionsPtrOutput)
+func (o EvictionOutput) DeleteOptions() metav1.DeleteOptionsPtrOutput {
+	return o.ApplyT(func (v Eviction) *metav1.DeleteOptions { return v.DeleteOptions }).(metav1.DeleteOptionsPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -377,8 +378,8 @@ func (o EvictionOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // ObjectMeta describes the pod that is being evicted.
-func (o EvictionOutput) Metadata() corev1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v Eviction) *corev1.ObjectMeta { return v.Metadata }).(corev1.ObjectMetaPtrOutput)
+func (o EvictionOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v Eviction) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
@@ -719,7 +720,7 @@ type PodDisruptionBudgetSpec struct {
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable interface{} `pulumi:"minAvailable"`
 	// Label query over pods whose evictions are managed by the disruption budget.
-	Selector *corev1.LabelSelector `pulumi:"selector"`
+	Selector *metav1.LabelSelector `pulumi:"selector"`
 }
 
 type PodDisruptionBudgetSpecInput interface {
@@ -736,7 +737,7 @@ type PodDisruptionBudgetSpecArgs struct {
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
 	// Label query over pods whose evictions are managed by the disruption budget.
-	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 }
 
 func (PodDisruptionBudgetSpecArgs) ElementType() reflect.Type {
@@ -818,8 +819,8 @@ func (o PodDisruptionBudgetSpecOutput) MinAvailable() pulumi.AnyOutput {
 }
 
 // Label query over pods whose evictions are managed by the disruption budget.
-func (o PodDisruptionBudgetSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodDisruptionBudgetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 type PodDisruptionBudgetSpecPtrOutput struct { *pulumi.OutputState}
@@ -851,8 +852,8 @@ func (o PodDisruptionBudgetSpecPtrOutput) MinAvailable() pulumi.AnyOutput {
 }
 
 // Label query over pods whose evictions are managed by the disruption budget.
-func (o PodDisruptionBudgetSpecPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodDisruptionBudgetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.

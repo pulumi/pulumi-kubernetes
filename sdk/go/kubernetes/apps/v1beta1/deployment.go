@@ -9,6 +9,7 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // Deployment enables declarative updates for Pods and ReplicaSets.
@@ -20,7 +21,7 @@ type Deployment struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object metadata.
-	Metadata corev1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
 	Spec DeploymentSpecPtrOutput `pulumi:"spec"`
 	// Most recently observed status of the Deployment.
@@ -60,7 +61,7 @@ type deploymentState struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata.
-	Metadata *corev1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
 	Spec *DeploymentSpec `pulumi:"spec"`
 	// Most recently observed status of the Deployment.
@@ -73,7 +74,7 @@ type DeploymentState struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object metadata.
-	Metadata corev1.ObjectMetaPtrInput
+	Metadata metav1.ObjectMetaPtrInput
 	// Specification of the desired behavior of the Deployment.
 	Spec DeploymentSpecPtrInput
 	// Most recently observed status of the Deployment.
@@ -90,7 +91,7 @@ type deploymentArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata.
-	Metadata *corev1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
 	Spec *DeploymentSpec `pulumi:"spec"`
 }
@@ -102,7 +103,7 @@ type DeploymentArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object metadata.
-	Metadata corev1.ObjectMetaPtrInput
+	Metadata metav1.ObjectMetaPtrInput
 	// Specification of the desired behavior of the Deployment.
 	Spec DeploymentSpecPtrInput
 }

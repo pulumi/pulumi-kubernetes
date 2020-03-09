@@ -9,7 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // StatefulSetList is a collection of StatefulSets.
@@ -21,7 +21,7 @@ type StatefulSetList struct {
 	Items StatefulSetTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
-	Metadata corev1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
 }
 
 // NewStatefulSetList registers a new resource with the given unique name, arguments, and options.
@@ -60,7 +60,7 @@ type statefulSetListState struct {
 	Items []StatefulSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	Metadata *corev1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 type StatefulSetListState struct {
@@ -69,7 +69,7 @@ type StatefulSetListState struct {
 	Items StatefulSetTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	Metadata corev1.ListMetaPtrInput
+	Metadata metav1.ListMetaPtrInput
 }
 
 func (StatefulSetListState) ElementType() reflect.Type {
@@ -82,7 +82,7 @@ type statefulSetListArgs struct {
 	Items []StatefulSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	Metadata *corev1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // The set of arguments for constructing a StatefulSetList resource.
@@ -92,7 +92,7 @@ type StatefulSetListArgs struct {
 	Items StatefulSetTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	Metadata corev1.ListMetaPtrInput
+	Metadata metav1.ListMetaPtrInput
 }
 
 func (StatefulSetListArgs) ElementType() reflect.Type {

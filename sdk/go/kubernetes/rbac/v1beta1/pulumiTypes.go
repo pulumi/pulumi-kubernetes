@@ -9,13 +9,13 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRule struct {
 	// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
-	ClusterRoleSelectors []corev1.LabelSelector `pulumi:"clusterRoleSelectors"`
+	ClusterRoleSelectors []metav1.LabelSelector `pulumi:"clusterRoleSelectors"`
 }
 
 type AggregationRuleInput interface {
@@ -28,7 +28,7 @@ type AggregationRuleInput interface {
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRuleArgs struct {
 	// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
-	ClusterRoleSelectors corev1.LabelSelectorArrayInput `pulumi:"clusterRoleSelectors"`
+	ClusterRoleSelectors metav1.LabelSelectorArrayInput `pulumi:"clusterRoleSelectors"`
 }
 
 func (AggregationRuleArgs) ElementType() reflect.Type {
@@ -59,8 +59,8 @@ func (o AggregationRuleOutput) ToAggregationRuleOutputWithContext(ctx context.Co
 }
 
 // ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
-func (o AggregationRuleOutput) ClusterRoleSelectors() corev1.LabelSelectorArrayOutput {
-	return o.ApplyT(func (v AggregationRule) []corev1.LabelSelector { return v.ClusterRoleSelectors }).(corev1.LabelSelectorArrayOutput)
+func (o AggregationRuleOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayOutput {
+	return o.ApplyT(func (v AggregationRule) []metav1.LabelSelector { return v.ClusterRoleSelectors }).(metav1.LabelSelectorArrayOutput)
 }
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.

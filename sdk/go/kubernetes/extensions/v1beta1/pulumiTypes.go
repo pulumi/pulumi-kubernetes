@@ -10,6 +10,7 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
@@ -438,7 +439,7 @@ type DaemonSetSpec struct {
 	// The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 	RevisionHistoryLimit *int `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *corev1.LabelSelector `pulumi:"selector"`
+	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template *corev1.PodTemplateSpec `pulumi:"template"`
 	// DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
@@ -461,7 +462,7 @@ type DaemonSetSpecArgs struct {
 	// The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 	RevisionHistoryLimit pulumi.IntPtrInput `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
 	// DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
@@ -549,8 +550,8 @@ func (o DaemonSetSpecOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o DaemonSetSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v DaemonSetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o DaemonSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v DaemonSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
@@ -597,8 +598,8 @@ func (o DaemonSetSpecPtrOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o DaemonSetSpecPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v DaemonSetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o DaemonSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v DaemonSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
@@ -1222,7 +1223,7 @@ type DeploymentSpec struct {
 	// DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
 	RollbackTo *RollbackConfig `pulumi:"rollbackTo"`
 	// Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-	Selector *corev1.LabelSelector `pulumi:"selector"`
+	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy *DeploymentStrategy `pulumi:"strategy"`
 	// Template describes the pods that will be created.
@@ -1251,7 +1252,7 @@ type DeploymentSpecArgs struct {
 	// DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
 	RollbackTo RollbackConfigPtrInput `pulumi:"rollbackTo"`
 	// Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy DeploymentStrategyPtrInput `pulumi:"strategy"`
 	// Template describes the pods that will be created.
@@ -1357,8 +1358,8 @@ func (o DeploymentSpecOutput) RollbackTo() RollbackConfigPtrOutput {
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-func (o DeploymentSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v DeploymentSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o DeploymentSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
@@ -1420,8 +1421,8 @@ func (o DeploymentSpecPtrOutput) RollbackTo() RollbackConfigPtrOutput {
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
-func (o DeploymentSpecPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v DeploymentSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o DeploymentSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
@@ -3262,11 +3263,11 @@ type NetworkPolicyPeer struct {
 	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
 	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
-	NamespaceSelector *corev1.LabelSelector `pulumi:"namespaceSelector"`
+	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
 	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
 	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
-	PodSelector *corev1.LabelSelector `pulumi:"podSelector"`
+	PodSelector *metav1.LabelSelector `pulumi:"podSelector"`
 }
 
 type NetworkPolicyPeerInput interface {
@@ -3283,11 +3284,11 @@ type NetworkPolicyPeerArgs struct {
 	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
 	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
-	NamespaceSelector corev1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
+	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
 	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
-	PodSelector corev1.LabelSelectorPtrInput `pulumi:"podSelector"`
+	PodSelector metav1.LabelSelectorPtrInput `pulumi:"podSelector"`
 }
 
 func (NetworkPolicyPeerArgs) ElementType() reflect.Type {
@@ -3346,15 +3347,15 @@ func (o NetworkPolicyPeerOutput) IpBlock() IPBlockPtrOutput {
 // Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 //
 // If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
-func (o NetworkPolicyPeerOutput) NamespaceSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPeer) *corev1.LabelSelector { return v.NamespaceSelector }).(corev1.LabelSelectorPtrOutput)
+func (o NetworkPolicyPeerOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 //
 // If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
-func (o NetworkPolicyPeerOutput) PodSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPeer) *corev1.LabelSelector { return v.PodSelector }).(corev1.LabelSelectorPtrOutput)
+func (o NetworkPolicyPeerOutput) PodSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 type NetworkPolicyPeerArrayOutput struct { *pulumi.OutputState}
@@ -3485,7 +3486,7 @@ type NetworkPolicySpec struct {
 	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
 	Ingress []NetworkPolicyIngressRule `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-	PodSelector *corev1.LabelSelector `pulumi:"podSelector"`
+	PodSelector *metav1.LabelSelector `pulumi:"podSelector"`
 	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes []string `pulumi:"policyTypes"`
 }
@@ -3504,7 +3505,7 @@ type NetworkPolicySpecArgs struct {
 	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
 	Ingress NetworkPolicyIngressRuleArrayInput `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-	PodSelector corev1.LabelSelectorPtrInput `pulumi:"podSelector"`
+	PodSelector metav1.LabelSelectorPtrInput `pulumi:"podSelector"`
 	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes pulumi.StringArrayInput `pulumi:"policyTypes"`
 }
@@ -3588,8 +3589,8 @@ func (o NetworkPolicySpecOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
 }
 
 // Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-func (o NetworkPolicySpecOutput) PodSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) *corev1.LabelSelector { return v.PodSelector }).(corev1.LabelSelectorPtrOutput)
+func (o NetworkPolicySpecOutput) PodSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
@@ -3626,8 +3627,8 @@ func (o NetworkPolicySpecPtrOutput) Ingress() NetworkPolicyIngressRuleArrayOutpu
 }
 
 // Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-func (o NetworkPolicySpecPtrOutput) PodSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) *corev1.LabelSelector { return v.PodSelector }).(corev1.LabelSelectorPtrOutput)
+func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
@@ -4223,7 +4224,7 @@ type ReplicaSetSpec struct {
 	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas *int `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *corev1.LabelSelector `pulumi:"selector"`
+	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template *corev1.PodTemplateSpec `pulumi:"template"`
 }
@@ -4242,7 +4243,7 @@ type ReplicaSetSpecArgs struct {
 	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
 }
@@ -4326,8 +4327,8 @@ func (o ReplicaSetSpecOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o ReplicaSetSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ReplicaSetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o ReplicaSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ReplicaSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
@@ -4364,8 +4365,8 @@ func (o ReplicaSetSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o ReplicaSetSpecPtrOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ReplicaSetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o ReplicaSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ReplicaSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
@@ -5440,7 +5441,7 @@ type Scale struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-	Metadata *corev1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec *ScaleSpec `pulumi:"spec"`
 	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
@@ -5461,7 +5462,7 @@ type ScaleArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-	Metadata corev1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec ScaleSpecPtrInput `pulumi:"spec"`
 	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
@@ -5506,8 +5507,8 @@ func (o ScaleOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-func (o ScaleOutput) Metadata() corev1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v Scale) *corev1.ObjectMeta { return v.Metadata }).(corev1.ObjectMetaPtrOutput)
+func (o ScaleOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v Scale) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.

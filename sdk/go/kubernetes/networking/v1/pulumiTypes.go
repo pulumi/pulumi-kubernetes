@@ -9,7 +9,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
@@ -199,11 +199,11 @@ type NetworkPolicyPeer struct {
 	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
 	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
-	NamespaceSelector *corev1.LabelSelector `pulumi:"namespaceSelector"`
+	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
 	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
 	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
-	PodSelector *corev1.LabelSelector `pulumi:"podSelector"`
+	PodSelector *metav1.LabelSelector `pulumi:"podSelector"`
 }
 
 type NetworkPolicyPeerInput interface {
@@ -220,11 +220,11 @@ type NetworkPolicyPeerArgs struct {
 	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
 	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
-	NamespaceSelector corev1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
+	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
 	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
-	PodSelector corev1.LabelSelectorPtrInput `pulumi:"podSelector"`
+	PodSelector metav1.LabelSelectorPtrInput `pulumi:"podSelector"`
 }
 
 func (NetworkPolicyPeerArgs) ElementType() reflect.Type {
@@ -262,15 +262,15 @@ func (o NetworkPolicyPeerOutput) IpBlock() IPBlockPtrOutput {
 // Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 //
 // If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
-func (o NetworkPolicyPeerOutput) NamespaceSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPeer) *corev1.LabelSelector { return v.NamespaceSelector }).(corev1.LabelSelectorPtrOutput)
+func (o NetworkPolicyPeerOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 //
 // If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
-func (o NetworkPolicyPeerOutput) PodSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPeer) *corev1.LabelSelector { return v.PodSelector }).(corev1.LabelSelectorPtrOutput)
+func (o NetworkPolicyPeerOutput) PodSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // NetworkPolicyPort describes a port to allow traffic on
@@ -340,7 +340,7 @@ type NetworkPolicySpec struct {
 	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 	Ingress []NetworkPolicyIngressRule `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-	PodSelector *corev1.LabelSelector `pulumi:"podSelector"`
+	PodSelector *metav1.LabelSelector `pulumi:"podSelector"`
 	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes []string `pulumi:"policyTypes"`
 }
@@ -359,7 +359,7 @@ type NetworkPolicySpecArgs struct {
 	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 	Ingress NetworkPolicyIngressRuleArrayInput `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-	PodSelector corev1.LabelSelectorPtrInput `pulumi:"podSelector"`
+	PodSelector metav1.LabelSelectorPtrInput `pulumi:"podSelector"`
 	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes pulumi.StringArrayInput `pulumi:"policyTypes"`
 }
@@ -402,8 +402,8 @@ func (o NetworkPolicySpecOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
 }
 
 // Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-func (o NetworkPolicySpecOutput) PodSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) *corev1.LabelSelector { return v.PodSelector }).(corev1.LabelSelectorPtrOutput)
+func (o NetworkPolicySpecOutput) PodSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8

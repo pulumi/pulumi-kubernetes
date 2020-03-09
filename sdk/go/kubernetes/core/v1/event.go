@@ -9,6 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // Event is a report of an event somewhere in the cluster.
@@ -34,7 +35,7 @@ type Event struct {
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrOutput `pulumi:"message"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason pulumi.StringPtrOutput `pulumi:"reason"`
 	// Optional secondary object for more complex actions.
@@ -104,7 +105,7 @@ type eventState struct {
 	// A human-readable description of the status of this operation.
 	Message *string `pulumi:"message"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason *string `pulumi:"reason"`
 	// Optional secondary object for more complex actions.
@@ -141,7 +142,7 @@ type EventState struct {
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata ObjectMetaPtrInput
+	Metadata metav1.ObjectMetaPtrInput
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason pulumi.StringPtrInput
 	// Optional secondary object for more complex actions.
@@ -182,7 +183,7 @@ type eventArgs struct {
 	// A human-readable description of the status of this operation.
 	Message *string `pulumi:"message"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason *string `pulumi:"reason"`
 	// Optional secondary object for more complex actions.
@@ -220,7 +221,7 @@ type EventArgs struct {
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata ObjectMetaInput
+	Metadata metav1.ObjectMetaInput
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason pulumi.StringPtrInput
 	// Optional secondary object for more complex actions.

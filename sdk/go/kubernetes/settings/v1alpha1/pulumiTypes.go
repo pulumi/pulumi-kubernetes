@@ -10,6 +10,7 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // PodPresetSpec is a description of a pod preset.
@@ -19,7 +20,7 @@ type PodPresetSpec struct {
 	// EnvFrom defines the collection of EnvFromSource to inject into containers.
 	EnvFrom []corev1.EnvFromSource `pulumi:"envFrom"`
 	// Selector is a label query over a set of resources, in this case pods. Required.
-	Selector *corev1.LabelSelector `pulumi:"selector"`
+	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// VolumeMounts defines the collection of VolumeMount to inject into containers.
 	VolumeMounts []corev1.VolumeMount `pulumi:"volumeMounts"`
 	// Volumes defines the collection of Volume to inject into the pod.
@@ -40,7 +41,7 @@ type PodPresetSpecArgs struct {
 	// EnvFrom defines the collection of EnvFromSource to inject into containers.
 	EnvFrom corev1.EnvFromSourceArrayInput `pulumi:"envFrom"`
 	// Selector is a label query over a set of resources, in this case pods. Required.
-	Selector corev1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// VolumeMounts defines the collection of VolumeMount to inject into containers.
 	VolumeMounts corev1.VolumeMountArrayInput `pulumi:"volumeMounts"`
 	// Volumes defines the collection of Volume to inject into the pod.
@@ -85,8 +86,8 @@ func (o PodPresetSpecOutput) EnvFrom() corev1.EnvFromSourceArrayOutput {
 }
 
 // Selector is a label query over a set of resources, in this case pods. Required.
-func (o PodPresetSpecOutput) Selector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodPresetSpec) *corev1.LabelSelector { return v.Selector }).(corev1.LabelSelectorPtrOutput)
+func (o PodPresetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v PodPresetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // VolumeMounts defines the collection of VolumeMount to inject into containers.

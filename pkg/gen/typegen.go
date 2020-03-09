@@ -1080,10 +1080,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					group = "core"
 				}
 				def.canonicalGroup = group
-			}
-
-			// "meta" group doesn't include the `x-kubernetes-group-version-kind` field.
-			if gvk.Group == "meta" {
+			} else if gvk.Group == "meta" { // "meta" Group doesn't include the `x-kubernetes-group-version-kind` field.
 				def.canonicalGroup = "meta"
 			}
 

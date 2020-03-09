@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/batch/v1"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
@@ -344,7 +345,7 @@ func (o CronJobStatusPtrOutput) LastScheduleTime() pulumi.StringPtrOutput {
 // JobTemplateSpec describes the data a Job should have when created from a template
 type JobTemplateSpec struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *corev1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *batchv1.JobSpec `pulumi:"spec"`
 }
@@ -359,7 +360,7 @@ type JobTemplateSpecInput interface {
 // JobTemplateSpec describes the data a Job should have when created from a template
 type JobTemplateSpecArgs struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata corev1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec batchv1.JobSpecPtrInput `pulumi:"spec"`
 }
@@ -433,8 +434,8 @@ func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context
 	}).(JobTemplateSpecPtrOutput)
 }
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o JobTemplateSpecOutput) Metadata() corev1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v JobTemplateSpec) *corev1.ObjectMeta { return v.Metadata }).(corev1.ObjectMetaPtrOutput)
+func (o JobTemplateSpecOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v JobTemplateSpec) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -461,8 +462,8 @@ func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
 }
 
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o JobTemplateSpecPtrOutput) Metadata() corev1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v JobTemplateSpec) *corev1.ObjectMeta { return v.Metadata }).(corev1.ObjectMetaPtrOutput)
+func (o JobTemplateSpecPtrOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v JobTemplateSpec) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

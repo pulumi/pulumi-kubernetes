@@ -9,7 +9,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -61,9 +61,9 @@ type MutatingWebhook struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector *corev1.LabelSelector `pulumi:"namespaceSelector"`
+	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector *corev1.LabelSelector `pulumi:"objectSelector"`
+	ObjectSelector *metav1.LabelSelector `pulumi:"objectSelector"`
 	// reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 	//
 	// Never: the webhook will not be called more than once in a single admission evaluation.
@@ -136,9 +136,9 @@ type MutatingWebhookArgs struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector corev1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
+	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector corev1.LabelSelectorPtrInput `pulumi:"objectSelector"`
+	ObjectSelector metav1.LabelSelectorPtrInput `pulumi:"objectSelector"`
 	// reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 	//
 	// Never: the webhook will not be called more than once in a single admission evaluation.
@@ -244,13 +244,13 @@ func (o MutatingWebhookOutput) Name() pulumi.StringPtrOutput {
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 //
 // Default to the empty LabelSelector, which matches everything.
-func (o MutatingWebhookOutput) NamespaceSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *corev1.LabelSelector { return v.NamespaceSelector }).(corev1.LabelSelectorPtrOutput)
+func (o MutatingWebhookOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v MutatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-func (o MutatingWebhookOutput) ObjectSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *corev1.LabelSelector { return v.ObjectSelector }).(corev1.LabelSelectorPtrOutput)
+func (o MutatingWebhookOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v MutatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
@@ -511,9 +511,9 @@ type ValidatingWebhook struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector *corev1.LabelSelector `pulumi:"namespaceSelector"`
+	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector *corev1.LabelSelector `pulumi:"objectSelector"`
+	ObjectSelector *metav1.LabelSelector `pulumi:"objectSelector"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules []RuleWithOperations `pulumi:"rules"`
 	// SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
@@ -578,9 +578,9 @@ type ValidatingWebhookArgs struct {
 	// See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 	//
 	// Default to the empty LabelSelector, which matches everything.
-	NamespaceSelector corev1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
+	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-	ObjectSelector corev1.LabelSelectorPtrInput `pulumi:"objectSelector"`
+	ObjectSelector metav1.LabelSelectorPtrInput `pulumi:"objectSelector"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules RuleWithOperationsArrayInput `pulumi:"rules"`
 	// SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
@@ -678,13 +678,13 @@ func (o ValidatingWebhookOutput) Name() pulumi.StringPtrOutput {
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 //
 // Default to the empty LabelSelector, which matches everything.
-func (o ValidatingWebhookOutput) NamespaceSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *corev1.LabelSelector { return v.NamespaceSelector }).(corev1.LabelSelectorPtrOutput)
+func (o ValidatingWebhookOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-func (o ValidatingWebhookOutput) ObjectSelector() corev1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *corev1.LabelSelector { return v.ObjectSelector }).(corev1.LabelSelectorPtrOutput)
+func (o ValidatingWebhookOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
