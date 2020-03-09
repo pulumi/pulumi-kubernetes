@@ -1,5 +1,10 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+- Automatically populate type aliases and additional secret outputs in the .NET SDK.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/1026).  
+
 ### Bug fixes
 
 -   Replace PersistentVolume if volume source changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1015).
