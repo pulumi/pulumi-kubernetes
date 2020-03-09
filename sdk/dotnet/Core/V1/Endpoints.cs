@@ -67,7 +67,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Endpoints(string name, Types.Inputs.Core.V1.EndpointsArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Endpoints", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:core/v1:Endpoints", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -84,6 +84,11 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing Endpoints resource's state with the given name and ID.
         /// </summary>
@@ -95,6 +100,5 @@ namespace Pulumi.Kubernetes.Core.V1
             return new Endpoints(name, default(Types.Inputs.Core.V1.EndpointsArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

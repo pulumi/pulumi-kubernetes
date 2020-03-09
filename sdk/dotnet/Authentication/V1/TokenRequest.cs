@@ -50,7 +50,7 @@ namespace Pulumi.Kubernetes.Authentication.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public TokenRequest(string name, Types.Inputs.Authentication.V1.TokenRequestArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:authentication.k8s.io/v1:TokenRequest", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:authentication.k8s.io/v1:TokenRequest", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -67,6 +67,11 @@ namespace Pulumi.Kubernetes.Authentication.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing TokenRequest resource's state with the given name and ID.
         /// </summary>
@@ -78,6 +83,5 @@ namespace Pulumi.Kubernetes.Authentication.V1
             return new TokenRequest(name, default(Types.Inputs.Authentication.V1.TokenRequestArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

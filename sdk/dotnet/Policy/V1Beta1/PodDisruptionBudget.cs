@@ -55,7 +55,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PodDisruptionBudget(string name, Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:policy/v1beta1:PodDisruptionBudget", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:policy/v1beta1:PodDisruptionBudget", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -72,6 +72,11 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing PodDisruptionBudget resource's state with the given name and ID.
         /// </summary>
@@ -83,6 +88,5 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
             return new PodDisruptionBudget(name, default(Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

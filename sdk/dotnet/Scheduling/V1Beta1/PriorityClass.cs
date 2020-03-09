@@ -80,7 +80,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PriorityClass(string name, Types.Inputs.Scheduling.V1Beta1.PriorityClassArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -97,6 +97,20 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:scheduling.k8s.io/v1:PriorityClass" },
+                    new Alias { Type = "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing PriorityClass resource's state with the given name and ID.
         /// </summary>
@@ -108,6 +122,5 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
             return new PriorityClass(name, default(Types.Inputs.Scheduling.V1Beta1.PriorityClassArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

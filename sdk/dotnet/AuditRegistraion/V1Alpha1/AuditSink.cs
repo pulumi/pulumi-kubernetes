@@ -48,7 +48,7 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public AuditSink(string name, Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -65,6 +65,11 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing AuditSink resource's state with the given name and ID.
         /// </summary>
@@ -76,6 +81,5 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
             return new AuditSink(name, default(Types.Inputs.AuditRegistraion.V1Alpha1.AuditSinkArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

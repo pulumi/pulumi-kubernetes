@@ -63,7 +63,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public DaemonSet(string name, Types.Inputs.Extensions.V1Beta1.DaemonSetArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:extensions/v1beta1:DaemonSet", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:extensions/v1beta1:DaemonSet", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -80,6 +80,20 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:apps/v1:DaemonSet" },
+                    new Alias { Type = "kubernetes:apps/v1beta2:DaemonSet" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing DaemonSet resource's state with the given name and ID.
         /// </summary>
@@ -91,6 +105,5 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
             return new DaemonSet(name, default(Types.Inputs.Extensions.V1Beta1.DaemonSetArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

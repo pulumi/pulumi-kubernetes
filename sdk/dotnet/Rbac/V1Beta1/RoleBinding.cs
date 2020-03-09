@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.Rbac.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public RoleBinding(string name, Types.Inputs.Rbac.V1Beta1.RoleBindingArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -78,6 +78,20 @@ namespace Pulumi.Kubernetes.Rbac.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1:RoleBinding" },
+                    new Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing RoleBinding resource's state with the given name and ID.
         /// </summary>
@@ -89,6 +103,5 @@ namespace Pulumi.Kubernetes.Rbac.V1Beta1
             return new RoleBinding(name, default(Types.Inputs.Rbac.V1Beta1.RoleBindingArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ClusterRoleBindingList(string name, Types.Inputs.Rbac.V1Alpha1.ClusterRoleBindingListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -68,6 +68,11 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing ClusterRoleBindingList resource's state with the given name and ID.
         /// </summary>
@@ -79,6 +84,5 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
             return new ClusterRoleBindingList(name, default(Types.Inputs.Rbac.V1Alpha1.ClusterRoleBindingListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

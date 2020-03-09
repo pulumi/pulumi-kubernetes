@@ -130,7 +130,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Event(string name, Types.Inputs.Core.V1.EventArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Event", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:core/v1:Event", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -147,6 +147,19 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:events.k8s.io/v1beta1:Event" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing Event resource's state with the given name and ID.
         /// </summary>
@@ -158,6 +171,5 @@ namespace Pulumi.Kubernetes.Core.V1
             return new Event(name, default(Types.Inputs.Core.V1.EventArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

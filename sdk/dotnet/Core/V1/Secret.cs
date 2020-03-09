@@ -79,7 +79,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Secret(string name, Types.Inputs.Core.V1.SecretArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Secret", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:core/v1:Secret", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -96,6 +96,20 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                AdditionalSecretOutputs =
+                {
+                    "data",
+                    "stringData",
+                },
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing Secret resource's state with the given name and ID.
         /// </summary>
@@ -107,6 +121,5 @@ namespace Pulumi.Kubernetes.Core.V1
             return new Secret(name, default(Types.Inputs.Core.V1.SecretArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

@@ -53,7 +53,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ValidatingWebhookConfiguration(string name, Types.Inputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfigurationArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -70,6 +70,19 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing ValidatingWebhookConfiguration resource's state with the given name and ID.
         /// </summary>
@@ -81,6 +94,5 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
             return new ValidatingWebhookConfiguration(name, default(Types.Inputs.AdmissionRegistration.V1Beta1.ValidatingWebhookConfigurationArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

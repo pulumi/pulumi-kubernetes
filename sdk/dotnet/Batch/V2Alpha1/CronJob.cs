@@ -59,7 +59,7 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CronJob(string name, Types.Inputs.Batch.V2Alpha1.CronJobArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:batch/v2alpha1:CronJob", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:batch/v2alpha1:CronJob", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -76,6 +76,19 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:batch/v1beta1:CronJob" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing CronJob resource's state with the given name and ID.
         /// </summary>
@@ -87,6 +100,5 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
             return new CronJob(name, default(Types.Inputs.Batch.V2Alpha1.CronJobArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public NodeList(string name, Types.Inputs.Core.V1.NodeListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:NodeList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:core/v1:NodeList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -68,6 +68,11 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing NodeList resource's state with the given name and ID.
         /// </summary>
@@ -79,6 +84,5 @@ namespace Pulumi.Kubernetes.Core.V1
             return new NodeList(name, default(Types.Inputs.Core.V1.NodeListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

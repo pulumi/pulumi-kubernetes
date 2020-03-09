@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PodSecurityPolicyList(string name, Types.Inputs.Policy.V1Beta1.PodSecurityPolicyListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:policy/v1beta1:PodSecurityPolicyList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:policy/v1beta1:PodSecurityPolicyList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -68,6 +68,11 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing PodSecurityPolicyList resource's state with the given name and ID.
         /// </summary>
@@ -79,6 +84,5 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
             return new PodSecurityPolicyList(name, default(Types.Inputs.Policy.V1Beta1.PodSecurityPolicyListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

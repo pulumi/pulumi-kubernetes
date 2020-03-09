@@ -52,7 +52,7 @@ namespace Pulumi.Kubernetes.Coordination.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Lease(string name, Types.Inputs.Coordination.V1Beta1.LeaseArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:coordination.k8s.io/v1beta1:Lease", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:coordination.k8s.io/v1beta1:Lease", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -69,6 +69,19 @@ namespace Pulumi.Kubernetes.Coordination.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:coordination.k8s.io/v1:Lease" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing Lease resource's state with the given name and ID.
         /// </summary>
@@ -80,6 +93,5 @@ namespace Pulumi.Kubernetes.Coordination.V1Beta1
             return new Lease(name, default(Types.Inputs.Coordination.V1Beta1.LeaseArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

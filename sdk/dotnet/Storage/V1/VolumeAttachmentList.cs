@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public VolumeAttachmentList(string name, Types.Inputs.Storage.V1.VolumeAttachmentListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -68,6 +68,11 @@ namespace Pulumi.Kubernetes.Storage.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing VolumeAttachmentList resource's state with the given name and ID.
         /// </summary>
@@ -79,6 +84,5 @@ namespace Pulumi.Kubernetes.Storage.V1
             return new VolumeAttachmentList(name, default(Types.Inputs.Storage.V1.VolumeAttachmentListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

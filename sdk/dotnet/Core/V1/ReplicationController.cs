@@ -63,7 +63,7 @@ namespace Pulumi.Kubernetes.Core.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ReplicationController(string name, Types.Inputs.Core.V1.ReplicationControllerArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:ReplicationController", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:core/v1:ReplicationController", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -80,6 +80,11 @@ namespace Pulumi.Kubernetes.Core.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing ReplicationController resource's state with the given name and ID.
         /// </summary>
@@ -91,6 +96,5 @@ namespace Pulumi.Kubernetes.Core.V1
             return new ReplicationController(name, default(Types.Inputs.Core.V1.ReplicationControllerArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

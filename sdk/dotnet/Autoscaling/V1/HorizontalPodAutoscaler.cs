@@ -58,7 +58,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public HorizontalPodAutoscaler(string name, Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -75,6 +75,20 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler" },
+                    new Alias { Type = "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing HorizontalPodAutoscaler resource's state with the given name and ID.
         /// </summary>
@@ -86,6 +100,5 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
             return new HorizontalPodAutoscaler(name, default(Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

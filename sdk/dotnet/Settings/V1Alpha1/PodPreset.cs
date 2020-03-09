@@ -46,7 +46,7 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public PodPreset(string name, Types.Inputs.Settings.V1Alpha1.PodPresetArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -63,6 +63,11 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing PodPreset resource's state with the given name and ID.
         /// </summary>
@@ -74,6 +79,5 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
             return new PodPreset(name, default(Types.Inputs.Settings.V1Alpha1.PodPresetArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }
