@@ -861,6 +861,22 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
 			},
 		}}
+	case v1beta1JSONSchemaPropsOrStringArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaPropsOrStringArray"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Type: "string"},
+			},
+		}}
+	case v1JSONSchemaPropsOrStringArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaPropsOrStringArray"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Type: "string"},
+			},
+		}}
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
 		return pschema.TypeSpec{Ref: "pulumi.json#/Any"}
 	}

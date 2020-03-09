@@ -1777,7 +1777,7 @@ type JSONSchemaProps struct {
 	// default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
 	Default interface{} `pulumi:"default"`
 	Definitions map[string]JSONSchemaProps `pulumi:"definitions"`
-	Dependencies map[string]JSONSchemaPropsOrStringArray `pulumi:"dependencies"`
+	Dependencies map[string]interface{} `pulumi:"dependencies"`
 	Description *string `pulumi:"description"`
 	Enum []interface{} `pulumi:"enum"`
 	Example interface{} `pulumi:"example"`
@@ -1872,7 +1872,7 @@ type JSONSchemaPropsArgs struct {
 	// default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
 	Default pulumi.Input `pulumi:"default"`
 	Definitions JSONSchemaPropsMapInput `pulumi:"definitions"`
-	Dependencies JSONSchemaPropsOrStringArrayMapInput `pulumi:"dependencies"`
+	Dependencies pulumi.MapInput `pulumi:"dependencies"`
 	Description pulumi.StringPtrInput `pulumi:"description"`
 	Enum pulumi.ArrayInput `pulumi:"enum"`
 	Example pulumi.Input `pulumi:"example"`
@@ -2086,8 +2086,8 @@ func (o JSONSchemaPropsOutput) Definitions() JSONSchemaPropsMapOutput {
 	return o.ApplyT(func (v JSONSchemaProps) map[string]JSONSchemaProps { return v.Definitions }).(JSONSchemaPropsMapOutput)
 }
 
-func (o JSONSchemaPropsOutput) Dependencies() JSONSchemaPropsOrStringArrayMapOutput {
-	return o.ApplyT(func (v JSONSchemaProps) map[string]JSONSchemaPropsOrStringArray { return v.Dependencies }).(JSONSchemaPropsOrStringArrayMapOutput)
+func (o JSONSchemaPropsOutput) Dependencies() pulumi.MapOutput {
+	return o.ApplyT(func (v JSONSchemaProps) map[string]interface{} { return v.Dependencies }).(pulumi.MapOutput)
 }
 
 func (o JSONSchemaPropsOutput) Description() pulumi.StringPtrOutput {
@@ -2317,8 +2317,8 @@ func (o JSONSchemaPropsPtrOutput) Definitions() JSONSchemaPropsMapOutput {
 	return o.ApplyT(func (v JSONSchemaProps) map[string]JSONSchemaProps { return v.Definitions }).(JSONSchemaPropsMapOutput)
 }
 
-func (o JSONSchemaPropsPtrOutput) Dependencies() JSONSchemaPropsOrStringArrayMapOutput {
-	return o.ApplyT(func (v JSONSchemaProps) map[string]JSONSchemaPropsOrStringArray { return v.Dependencies }).(JSONSchemaPropsOrStringArrayMapOutput)
+func (o JSONSchemaPropsPtrOutput) Dependencies() pulumi.MapOutput {
+	return o.ApplyT(func (v JSONSchemaProps) map[string]interface{} { return v.Dependencies }).(pulumi.MapOutput)
 }
 
 func (o JSONSchemaPropsPtrOutput) Description() pulumi.StringPtrOutput {
