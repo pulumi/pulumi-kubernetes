@@ -13,6 +13,197 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
+// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+type PodPresetType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Spec *PodPresetSpec `pulumi:"spec"`
+}
+
+type PodPresetTypeInput interface {
+	pulumi.Input
+
+	ToPodPresetTypeOutput() PodPresetTypeOutput
+	ToPodPresetTypeOutputWithContext(context.Context) PodPresetTypeOutput
+}
+
+// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+type PodPresetTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Spec PodPresetSpecPtrInput `pulumi:"spec"`
+}
+
+func (PodPresetTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPresetType)(nil)).Elem()
+}
+
+func (i PodPresetTypeArgs) ToPodPresetTypeOutput() PodPresetTypeOutput {
+	return i.ToPodPresetTypeOutputWithContext(context.Background())
+}
+
+func (i PodPresetTypeArgs) ToPodPresetTypeOutputWithContext(ctx context.Context) PodPresetTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodPresetTypeOutput)
+}
+
+type PodPresetTypeArrayInput interface {
+	pulumi.Input
+
+	ToPodPresetTypeArrayOutput() PodPresetTypeArrayOutput
+	ToPodPresetTypeArrayOutputWithContext(context.Context) PodPresetTypeArrayOutput
+}
+
+type PodPresetTypeArray []PodPresetTypeInput
+
+func (PodPresetTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodPresetType)(nil)).Elem()
+}
+
+func (i PodPresetTypeArray) ToPodPresetTypeArrayOutput() PodPresetTypeArrayOutput {
+	return i.ToPodPresetTypeArrayOutputWithContext(context.Background())
+}
+
+func (i PodPresetTypeArray) ToPodPresetTypeArrayOutputWithContext(ctx context.Context) PodPresetTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodPresetTypeArrayOutput)
+}
+
+// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+type PodPresetTypeOutput struct { *pulumi.OutputState }
+
+func (PodPresetTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPresetType)(nil)).Elem()
+}
+
+func (o PodPresetTypeOutput) ToPodPresetTypeOutput() PodPresetTypeOutput {
+	return o
+}
+
+func (o PodPresetTypeOutput) ToPodPresetTypeOutputWithContext(ctx context.Context) PodPresetTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodPresetTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodPresetType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodPresetTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodPresetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o PodPresetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v PodPresetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+func (o PodPresetTypeOutput) Spec() PodPresetSpecPtrOutput {
+	return o.ApplyT(func (v PodPresetType) *PodPresetSpec { return v.Spec }).(PodPresetSpecPtrOutput)
+}
+
+type PodPresetTypeArrayOutput struct { *pulumi.OutputState}
+
+func (PodPresetTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodPresetType)(nil)).Elem()
+}
+
+func (o PodPresetTypeArrayOutput) ToPodPresetTypeArrayOutput() PodPresetTypeArrayOutput {
+	return o
+}
+
+func (o PodPresetTypeArrayOutput) ToPodPresetTypeArrayOutputWithContext(ctx context.Context) PodPresetTypeArrayOutput {
+	return o
+}
+
+func (o PodPresetTypeArrayOutput) Index(i pulumi.IntInput) PodPresetTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PodPresetType {
+		return vs[0].([]PodPresetType)[vs[1].(int)]
+	}).(PodPresetTypeOutput)
+}
+
+// PodPresetList is a list of PodPreset objects.
+type PodPresetListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of schema objects.
+	Items []PodPresetType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type PodPresetListTypeInput interface {
+	pulumi.Input
+
+	ToPodPresetListTypeOutput() PodPresetListTypeOutput
+	ToPodPresetListTypeOutputWithContext(context.Context) PodPresetListTypeOutput
+}
+
+// PodPresetList is a list of PodPreset objects.
+type PodPresetListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is a list of schema objects.
+	Items PodPresetTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (PodPresetListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPresetListType)(nil)).Elem()
+}
+
+func (i PodPresetListTypeArgs) ToPodPresetListTypeOutput() PodPresetListTypeOutput {
+	return i.ToPodPresetListTypeOutputWithContext(context.Background())
+}
+
+func (i PodPresetListTypeArgs) ToPodPresetListTypeOutputWithContext(ctx context.Context) PodPresetListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListTypeOutput)
+}
+
+// PodPresetList is a list of PodPreset objects.
+type PodPresetListTypeOutput struct { *pulumi.OutputState }
+
+func (PodPresetListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPresetListType)(nil)).Elem()
+}
+
+func (o PodPresetListTypeOutput) ToPodPresetListTypeOutput() PodPresetListTypeOutput {
+	return o
+}
+
+func (o PodPresetListTypeOutput) ToPodPresetListTypeOutputWithContext(ctx context.Context) PodPresetListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodPresetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodPresetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of schema objects.
+func (o PodPresetListTypeOutput) Items() PodPresetTypeArrayOutput {
+	return o.ApplyT(func (v PodPresetListType) []PodPresetType { return v.Items }).(PodPresetTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodPresetListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodPresetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodPresetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v PodPresetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // PodPresetSpec is a description of a pod preset.
 type PodPresetSpec struct {
 	// Env defines the collection of EnvVar to inject into containers.
@@ -185,6 +376,9 @@ func (o PodPresetSpecPtrOutput) Volumes() corev1.VolumeArrayOutput {
 }
 
 func init() {
+	pulumi.RegisterOutputType(PodPresetTypeOutput{})
+	pulumi.RegisterOutputType(PodPresetTypeArrayOutput{})
+	pulumi.RegisterOutputType(PodPresetListTypeOutput{})
 	pulumi.RegisterOutputType(PodPresetSpecOutput{})
 	pulumi.RegisterOutputType(PodPresetSpecPtrOutput{})
 }

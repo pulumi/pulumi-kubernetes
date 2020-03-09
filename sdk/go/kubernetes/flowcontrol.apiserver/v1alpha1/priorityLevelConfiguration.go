@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/flowcontrol/v1alpha1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
@@ -23,9 +22,9 @@ type PriorityLevelConfiguration struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec flowcontrolv1alpha1.PriorityLevelConfigurationSpecPtrOutput `pulumi:"spec"`
+	Spec PriorityLevelConfigurationSpecPtrOutput `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status flowcontrolv1alpha1.PriorityLevelConfigurationStatusPtrOutput `pulumi:"status"`
+	Status PriorityLevelConfigurationStatusPtrOutput `pulumi:"status"`
 }
 
 // NewPriorityLevelConfiguration registers a new resource with the given unique name, arguments, and options.
@@ -63,9 +62,9 @@ type priorityLevelConfigurationState struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *flowcontrolv1alpha1.PriorityLevelConfigurationSpec `pulumi:"spec"`
+	Spec *PriorityLevelConfigurationSpec `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *flowcontrolv1alpha1.PriorityLevelConfigurationStatus `pulumi:"status"`
+	Status *PriorityLevelConfigurationStatus `pulumi:"status"`
 }
 
 type PriorityLevelConfigurationState struct {
@@ -76,9 +75,9 @@ type PriorityLevelConfigurationState struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec flowcontrolv1alpha1.PriorityLevelConfigurationSpecPtrInput
+	Spec PriorityLevelConfigurationSpecPtrInput
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status flowcontrolv1alpha1.PriorityLevelConfigurationStatusPtrInput
+	Status PriorityLevelConfigurationStatusPtrInput
 }
 
 func (PriorityLevelConfigurationState) ElementType() reflect.Type {
@@ -93,7 +92,7 @@ type priorityLevelConfigurationArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *flowcontrolv1alpha1.PriorityLevelConfigurationSpec `pulumi:"spec"`
+	Spec *PriorityLevelConfigurationSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a PriorityLevelConfiguration resource.
@@ -105,7 +104,7 @@ type PriorityLevelConfigurationArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec flowcontrolv1alpha1.PriorityLevelConfigurationSpecPtrInput
+	Spec PriorityLevelConfigurationSpecPtrInput
 }
 
 func (PriorityLevelConfigurationArgs) ElementType() reflect.Type {

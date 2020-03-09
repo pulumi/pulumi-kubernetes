@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
-	flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/flowcontrol/v1alpha1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
@@ -23,9 +22,9 @@ type FlowSchema struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec flowcontrolv1alpha1.FlowSchemaSpecPtrOutput `pulumi:"spec"`
+	Spec FlowSchemaSpecPtrOutput `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status flowcontrolv1alpha1.FlowSchemaStatusPtrOutput `pulumi:"status"`
+	Status FlowSchemaStatusPtrOutput `pulumi:"status"`
 }
 
 // NewFlowSchema registers a new resource with the given unique name, arguments, and options.
@@ -63,9 +62,9 @@ type flowSchemaState struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *flowcontrolv1alpha1.FlowSchemaSpec `pulumi:"spec"`
+	Spec *FlowSchemaSpec `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *flowcontrolv1alpha1.FlowSchemaStatus `pulumi:"status"`
+	Status *FlowSchemaStatus `pulumi:"status"`
 }
 
 type FlowSchemaState struct {
@@ -76,9 +75,9 @@ type FlowSchemaState struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec flowcontrolv1alpha1.FlowSchemaSpecPtrInput
+	Spec FlowSchemaSpecPtrInput
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status flowcontrolv1alpha1.FlowSchemaStatusPtrInput
+	Status FlowSchemaStatusPtrInput
 }
 
 func (FlowSchemaState) ElementType() reflect.Type {
@@ -93,7 +92,7 @@ type flowSchemaArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *flowcontrolv1alpha1.FlowSchemaSpec `pulumi:"spec"`
+	Spec *FlowSchemaSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a FlowSchema resource.
@@ -105,7 +104,7 @@ type FlowSchemaArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec flowcontrolv1alpha1.FlowSchemaSpecPtrInput
+	Spec FlowSchemaSpecPtrInput
 }
 
 func (FlowSchemaArgs) ElementType() reflect.Type {

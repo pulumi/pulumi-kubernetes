@@ -9,7 +9,133 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
+
+// APIService represents a server for a particular GroupVersion. Name must be "version.group".
+type APIServiceType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec contains information for locating and communicating with a server
+	Spec *APIServiceSpec `pulumi:"spec"`
+	// Status contains derived information about an API server
+	Status *APIServiceStatus `pulumi:"status"`
+}
+
+type APIServiceTypeInput interface {
+	pulumi.Input
+
+	ToAPIServiceTypeOutput() APIServiceTypeOutput
+	ToAPIServiceTypeOutputWithContext(context.Context) APIServiceTypeOutput
+}
+
+// APIService represents a server for a particular GroupVersion. Name must be "version.group".
+type APIServiceTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec contains information for locating and communicating with a server
+	Spec APIServiceSpecPtrInput `pulumi:"spec"`
+	// Status contains derived information about an API server
+	Status APIServiceStatusPtrInput `pulumi:"status"`
+}
+
+func (APIServiceTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIServiceType)(nil)).Elem()
+}
+
+func (i APIServiceTypeArgs) ToAPIServiceTypeOutput() APIServiceTypeOutput {
+	return i.ToAPIServiceTypeOutputWithContext(context.Background())
+}
+
+func (i APIServiceTypeArgs) ToAPIServiceTypeOutputWithContext(ctx context.Context) APIServiceTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIServiceTypeOutput)
+}
+
+type APIServiceTypeArrayInput interface {
+	pulumi.Input
+
+	ToAPIServiceTypeArrayOutput() APIServiceTypeArrayOutput
+	ToAPIServiceTypeArrayOutputWithContext(context.Context) APIServiceTypeArrayOutput
+}
+
+type APIServiceTypeArray []APIServiceTypeInput
+
+func (APIServiceTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]APIServiceType)(nil)).Elem()
+}
+
+func (i APIServiceTypeArray) ToAPIServiceTypeArrayOutput() APIServiceTypeArrayOutput {
+	return i.ToAPIServiceTypeArrayOutputWithContext(context.Background())
+}
+
+func (i APIServiceTypeArray) ToAPIServiceTypeArrayOutputWithContext(ctx context.Context) APIServiceTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIServiceTypeArrayOutput)
+}
+
+// APIService represents a server for a particular GroupVersion. Name must be "version.group".
+type APIServiceTypeOutput struct { *pulumi.OutputState }
+
+func (APIServiceTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIServiceType)(nil)).Elem()
+}
+
+func (o APIServiceTypeOutput) ToAPIServiceTypeOutput() APIServiceTypeOutput {
+	return o
+}
+
+func (o APIServiceTypeOutput) ToAPIServiceTypeOutputWithContext(ctx context.Context) APIServiceTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o APIServiceTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIServiceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o APIServiceTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIServiceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o APIServiceTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v APIServiceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec contains information for locating and communicating with a server
+func (o APIServiceTypeOutput) Spec() APIServiceSpecPtrOutput {
+	return o.ApplyT(func (v APIServiceType) *APIServiceSpec { return v.Spec }).(APIServiceSpecPtrOutput)
+}
+
+// Status contains derived information about an API server
+func (o APIServiceTypeOutput) Status() APIServiceStatusPtrOutput {
+	return o.ApplyT(func (v APIServiceType) *APIServiceStatus { return v.Status }).(APIServiceStatusPtrOutput)
+}
+
+type APIServiceTypeArrayOutput struct { *pulumi.OutputState}
+
+func (APIServiceTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]APIServiceType)(nil)).Elem()
+}
+
+func (o APIServiceTypeArrayOutput) ToAPIServiceTypeArrayOutput() APIServiceTypeArrayOutput {
+	return o
+}
+
+func (o APIServiceTypeArrayOutput) ToAPIServiceTypeArrayOutputWithContext(ctx context.Context) APIServiceTypeArrayOutput {
+	return o
+}
+
+func (o APIServiceTypeArrayOutput) Index(i pulumi.IntInput) APIServiceTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) APIServiceType {
+		return vs[0].([]APIServiceType)[vs[1].(int)]
+	}).(APIServiceTypeOutput)
+}
 
 // APIServiceCondition describes the state of an APIService at a particular point
 type APIServiceCondition struct {
@@ -137,6 +263,78 @@ func (o APIServiceConditionArrayOutput) Index(i pulumi.IntInput) APIServiceCondi
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) APIServiceCondition {
 		return vs[0].([]APIServiceCondition)[vs[1].(int)]
 	}).(APIServiceConditionOutput)
+}
+
+// APIServiceList is a list of APIService objects.
+type APIServiceListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	Items []APIServiceType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type APIServiceListTypeInput interface {
+	pulumi.Input
+
+	ToAPIServiceListTypeOutput() APIServiceListTypeOutput
+	ToAPIServiceListTypeOutputWithContext(context.Context) APIServiceListTypeOutput
+}
+
+// APIServiceList is a list of APIService objects.
+type APIServiceListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	Items APIServiceTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (APIServiceListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIServiceListType)(nil)).Elem()
+}
+
+func (i APIServiceListTypeArgs) ToAPIServiceListTypeOutput() APIServiceListTypeOutput {
+	return i.ToAPIServiceListTypeOutputWithContext(context.Background())
+}
+
+func (i APIServiceListTypeArgs) ToAPIServiceListTypeOutputWithContext(ctx context.Context) APIServiceListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIServiceListTypeOutput)
+}
+
+// APIServiceList is a list of APIService objects.
+type APIServiceListTypeOutput struct { *pulumi.OutputState }
+
+func (APIServiceListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIServiceListType)(nil)).Elem()
+}
+
+func (o APIServiceListTypeOutput) ToAPIServiceListTypeOutput() APIServiceListTypeOutput {
+	return o
+}
+
+func (o APIServiceListTypeOutput) ToAPIServiceListTypeOutputWithContext(ctx context.Context) APIServiceListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o APIServiceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIServiceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+func (o APIServiceListTypeOutput) Items() APIServiceTypeArrayOutput {
+	return o.ApplyT(func (v APIServiceListType) []APIServiceType { return v.Items }).(APIServiceTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o APIServiceListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIServiceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o APIServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v APIServiceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
@@ -597,8 +795,11 @@ func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterOutputType(APIServiceTypeOutput{})
+	pulumi.RegisterOutputType(APIServiceTypeArrayOutput{})
 	pulumi.RegisterOutputType(APIServiceConditionOutput{})
 	pulumi.RegisterOutputType(APIServiceConditionArrayOutput{})
+	pulumi.RegisterOutputType(APIServiceListTypeOutput{})
 	pulumi.RegisterOutputType(APIServiceSpecOutput{})
 	pulumi.RegisterOutputType(APIServiceSpecPtrOutput{})
 	pulumi.RegisterOutputType(APIServiceStatusOutput{})

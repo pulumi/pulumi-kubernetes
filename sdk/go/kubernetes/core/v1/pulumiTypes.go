@@ -12,327 +12,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
-// APIGroup contains the name, the supported versions, and the preferred version of a group.
-type APIGroup struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// name is the name of the group.
-	Name *string `pulumi:"name"`
-	// preferredVersion is the version preferred by the API server, which probably is the storage version.
-	PreferredVersion *metav1.GroupVersionForDiscovery `pulumi:"preferredVersion"`
-	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
-	ServerAddressByClientCIDRs []metav1.ServerAddressByClientCIDR `pulumi:"serverAddressByClientCIDRs"`
-	// versions are the versions supported in this group.
-	Versions []metav1.GroupVersionForDiscovery `pulumi:"versions"`
-}
-
-type APIGroupInput interface {
-	pulumi.Input
-
-	ToAPIGroupOutput() APIGroupOutput
-	ToAPIGroupOutputWithContext(context.Context) APIGroupOutput
-}
-
-// APIGroup contains the name, the supported versions, and the preferred version of a group.
-type APIGroupArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// name is the name of the group.
-	Name pulumi.StringPtrInput `pulumi:"name"`
-	// preferredVersion is the version preferred by the API server, which probably is the storage version.
-	PreferredVersion metav1.GroupVersionForDiscoveryPtrInput `pulumi:"preferredVersion"`
-	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
-	ServerAddressByClientCIDRs metav1.ServerAddressByClientCIDRArrayInput `pulumi:"serverAddressByClientCIDRs"`
-	// versions are the versions supported in this group.
-	Versions metav1.GroupVersionForDiscoveryArrayInput `pulumi:"versions"`
-}
-
-func (APIGroupArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIGroup)(nil)).Elem()
-}
-
-func (i APIGroupArgs) ToAPIGroupOutput() APIGroupOutput {
-	return i.ToAPIGroupOutputWithContext(context.Background())
-}
-
-func (i APIGroupArgs) ToAPIGroupOutputWithContext(ctx context.Context) APIGroupOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(APIGroupOutput)
-}
-
-// APIGroup contains the name, the supported versions, and the preferred version of a group.
-type APIGroupOutput struct { *pulumi.OutputState }
-
-func (APIGroupOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIGroup)(nil)).Elem()
-}
-
-func (o APIGroupOutput) ToAPIGroupOutput() APIGroupOutput {
-	return o
-}
-
-func (o APIGroupOutput) ToAPIGroupOutputWithContext(ctx context.Context) APIGroupOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o APIGroupOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIGroup) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o APIGroupOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIGroup) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// name is the name of the group.
-func (o APIGroupOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIGroup) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-// preferredVersion is the version preferred by the API server, which probably is the storage version.
-func (o APIGroupOutput) PreferredVersion() metav1.GroupVersionForDiscoveryPtrOutput {
-	return o.ApplyT(func (v APIGroup) *metav1.GroupVersionForDiscovery { return v.PreferredVersion }).(metav1.GroupVersionForDiscoveryPtrOutput)
-}
-
-// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
-func (o APIGroupOutput) ServerAddressByClientCIDRs() metav1.ServerAddressByClientCIDRArrayOutput {
-	return o.ApplyT(func (v APIGroup) []metav1.ServerAddressByClientCIDR { return v.ServerAddressByClientCIDRs }).(metav1.ServerAddressByClientCIDRArrayOutput)
-}
-
-// versions are the versions supported in this group.
-func (o APIGroupOutput) Versions() metav1.GroupVersionForDiscoveryArrayOutput {
-	return o.ApplyT(func (v APIGroup) []metav1.GroupVersionForDiscovery { return v.Versions }).(metav1.GroupVersionForDiscoveryArrayOutput)
-}
-
-// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
-type APIGroupList struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// groups is a list of APIGroup.
-	Groups []metav1.APIGroup `pulumi:"groups"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-}
-
-type APIGroupListInput interface {
-	pulumi.Input
-
-	ToAPIGroupListOutput() APIGroupListOutput
-	ToAPIGroupListOutputWithContext(context.Context) APIGroupListOutput
-}
-
-// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
-type APIGroupListArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// groups is a list of APIGroup.
-	Groups metav1.APIGroupArrayInput `pulumi:"groups"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-}
-
-func (APIGroupListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIGroupList)(nil)).Elem()
-}
-
-func (i APIGroupListArgs) ToAPIGroupListOutput() APIGroupListOutput {
-	return i.ToAPIGroupListOutputWithContext(context.Background())
-}
-
-func (i APIGroupListArgs) ToAPIGroupListOutputWithContext(ctx context.Context) APIGroupListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(APIGroupListOutput)
-}
-
-// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
-type APIGroupListOutput struct { *pulumi.OutputState }
-
-func (APIGroupListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIGroupList)(nil)).Elem()
-}
-
-func (o APIGroupListOutput) ToAPIGroupListOutput() APIGroupListOutput {
-	return o
-}
-
-func (o APIGroupListOutput) ToAPIGroupListOutputWithContext(ctx context.Context) APIGroupListOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o APIGroupListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIGroupList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// groups is a list of APIGroup.
-func (o APIGroupListOutput) Groups() metav1.APIGroupArrayOutput {
-	return o.ApplyT(func (v APIGroupList) []metav1.APIGroup { return v.Groups }).(metav1.APIGroupArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o APIGroupListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIGroupList) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
-type APIResourceList struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// groupVersion is the group and version this APIResourceList is for.
-	GroupVersion *string `pulumi:"groupVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// resources contains the name of the resources and if they are namespaced.
-	Resources []metav1.APIResource `pulumi:"resources"`
-}
-
-type APIResourceListInput interface {
-	pulumi.Input
-
-	ToAPIResourceListOutput() APIResourceListOutput
-	ToAPIResourceListOutputWithContext(context.Context) APIResourceListOutput
-}
-
-// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
-type APIResourceListArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// groupVersion is the group and version this APIResourceList is for.
-	GroupVersion pulumi.StringPtrInput `pulumi:"groupVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// resources contains the name of the resources and if they are namespaced.
-	Resources metav1.APIResourceArrayInput `pulumi:"resources"`
-}
-
-func (APIResourceListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIResourceList)(nil)).Elem()
-}
-
-func (i APIResourceListArgs) ToAPIResourceListOutput() APIResourceListOutput {
-	return i.ToAPIResourceListOutputWithContext(context.Background())
-}
-
-func (i APIResourceListArgs) ToAPIResourceListOutputWithContext(ctx context.Context) APIResourceListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(APIResourceListOutput)
-}
-
-// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
-type APIResourceListOutput struct { *pulumi.OutputState }
-
-func (APIResourceListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIResourceList)(nil)).Elem()
-}
-
-func (o APIResourceListOutput) ToAPIResourceListOutput() APIResourceListOutput {
-	return o
-}
-
-func (o APIResourceListOutput) ToAPIResourceListOutputWithContext(ctx context.Context) APIResourceListOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o APIResourceListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIResourceList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// groupVersion is the group and version this APIResourceList is for.
-func (o APIResourceListOutput) GroupVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIResourceList) *string { return v.GroupVersion }).(pulumi.StringPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o APIResourceListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIResourceList) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// resources contains the name of the resources and if they are namespaced.
-func (o APIResourceListOutput) Resources() metav1.APIResourceArrayOutput {
-	return o.ApplyT(func (v APIResourceList) []metav1.APIResource { return v.Resources }).(metav1.APIResourceArrayOutput)
-}
-
-// APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
-type APIVersions struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
-	ServerAddressByClientCIDRs []metav1.ServerAddressByClientCIDR `pulumi:"serverAddressByClientCIDRs"`
-	// versions are the api versions that are available.
-	Versions []string `pulumi:"versions"`
-}
-
-type APIVersionsInput interface {
-	pulumi.Input
-
-	ToAPIVersionsOutput() APIVersionsOutput
-	ToAPIVersionsOutputWithContext(context.Context) APIVersionsOutput
-}
-
-// APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
-type APIVersionsArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
-	ServerAddressByClientCIDRs metav1.ServerAddressByClientCIDRArrayInput `pulumi:"serverAddressByClientCIDRs"`
-	// versions are the api versions that are available.
-	Versions pulumi.StringArrayInput `pulumi:"versions"`
-}
-
-func (APIVersionsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIVersions)(nil)).Elem()
-}
-
-func (i APIVersionsArgs) ToAPIVersionsOutput() APIVersionsOutput {
-	return i.ToAPIVersionsOutputWithContext(context.Background())
-}
-
-func (i APIVersionsArgs) ToAPIVersionsOutputWithContext(ctx context.Context) APIVersionsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(APIVersionsOutput)
-}
-
-// APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
-type APIVersionsOutput struct { *pulumi.OutputState }
-
-func (APIVersionsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIVersions)(nil)).Elem()
-}
-
-func (o APIVersionsOutput) ToAPIVersionsOutput() APIVersionsOutput {
-	return o
-}
-
-func (o APIVersionsOutput) ToAPIVersionsOutputWithContext(ctx context.Context) APIVersionsOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o APIVersionsOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIVersions) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o APIVersionsOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIVersions) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
-func (o APIVersionsOutput) ServerAddressByClientCIDRs() metav1.ServerAddressByClientCIDRArrayOutput {
-	return o.ApplyT(func (v APIVersions) []metav1.ServerAddressByClientCIDR { return v.ServerAddressByClientCIDRs }).(metav1.ServerAddressByClientCIDRArrayOutput)
-}
-
-// versions are the api versions that are available.
-func (o APIVersionsOutput) Versions() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v APIVersions) []string { return v.Versions }).(pulumi.StringArrayOutput)
-}
-
 // Represents a Persistent Disk resource in AWS.
 //
 // An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
@@ -1223,6 +902,84 @@ func (o AzureFileVolumeSourcePtrOutput) SecretName() pulumi.StringPtrOutput {
 // Share Name
 func (o AzureFileVolumeSourcePtrOutput) ShareName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v AzureFileVolumeSource) *string { return v.ShareName }).(pulumi.StringPtrOutput)
+}
+
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+type BindingType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// The target object that you want to bind to the standard object.
+	Target *ObjectReference `pulumi:"target"`
+}
+
+type BindingTypeInput interface {
+	pulumi.Input
+
+	ToBindingTypeOutput() BindingTypeOutput
+	ToBindingTypeOutputWithContext(context.Context) BindingTypeOutput
+}
+
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+type BindingTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// The target object that you want to bind to the standard object.
+	Target ObjectReferencePtrInput `pulumi:"target"`
+}
+
+func (BindingTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BindingType)(nil)).Elem()
+}
+
+func (i BindingTypeArgs) ToBindingTypeOutput() BindingTypeOutput {
+	return i.ToBindingTypeOutputWithContext(context.Background())
+}
+
+func (i BindingTypeArgs) ToBindingTypeOutputWithContext(ctx context.Context) BindingTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BindingTypeOutput)
+}
+
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+type BindingTypeOutput struct { *pulumi.OutputState }
+
+func (BindingTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BindingType)(nil)).Elem()
+}
+
+func (o BindingTypeOutput) ToBindingTypeOutput() BindingTypeOutput {
+	return o
+}
+
+func (o BindingTypeOutput) ToBindingTypeOutputWithContext(ctx context.Context) BindingTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o BindingTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v BindingType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o BindingTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v BindingType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o BindingTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v BindingType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// The target object that you want to bind to the standard object.
+func (o BindingTypeOutput) Target() ObjectReferencePtrOutput {
+	return o.ApplyT(func (v BindingType) *ObjectReference { return v.Target }).(ObjectReferencePtrOutput)
 }
 
 // Represents storage that is managed by an external CSI volume driver (Beta feature)
@@ -2670,6 +2427,331 @@ func (o ComponentConditionArrayOutput) Index(i pulumi.IntInput) ComponentConditi
 	}).(ComponentConditionOutput)
 }
 
+// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+type ComponentStatusType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of component conditions observed
+	Conditions []ComponentCondition `pulumi:"conditions"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+}
+
+type ComponentStatusTypeInput interface {
+	pulumi.Input
+
+	ToComponentStatusTypeOutput() ComponentStatusTypeOutput
+	ToComponentStatusTypeOutputWithContext(context.Context) ComponentStatusTypeOutput
+}
+
+// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+type ComponentStatusTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of component conditions observed
+	Conditions ComponentConditionArrayInput `pulumi:"conditions"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ComponentStatusTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatusType)(nil)).Elem()
+}
+
+func (i ComponentStatusTypeArgs) ToComponentStatusTypeOutput() ComponentStatusTypeOutput {
+	return i.ToComponentStatusTypeOutputWithContext(context.Background())
+}
+
+func (i ComponentStatusTypeArgs) ToComponentStatusTypeOutputWithContext(ctx context.Context) ComponentStatusTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusTypeOutput)
+}
+
+type ComponentStatusTypeArrayInput interface {
+	pulumi.Input
+
+	ToComponentStatusTypeArrayOutput() ComponentStatusTypeArrayOutput
+	ToComponentStatusTypeArrayOutputWithContext(context.Context) ComponentStatusTypeArrayOutput
+}
+
+type ComponentStatusTypeArray []ComponentStatusTypeInput
+
+func (ComponentStatusTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ComponentStatusType)(nil)).Elem()
+}
+
+func (i ComponentStatusTypeArray) ToComponentStatusTypeArrayOutput() ComponentStatusTypeArrayOutput {
+	return i.ToComponentStatusTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ComponentStatusTypeArray) ToComponentStatusTypeArrayOutputWithContext(ctx context.Context) ComponentStatusTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusTypeArrayOutput)
+}
+
+// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+type ComponentStatusTypeOutput struct { *pulumi.OutputState }
+
+func (ComponentStatusTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatusType)(nil)).Elem()
+}
+
+func (o ComponentStatusTypeOutput) ToComponentStatusTypeOutput() ComponentStatusTypeOutput {
+	return o
+}
+
+func (o ComponentStatusTypeOutput) ToComponentStatusTypeOutputWithContext(ctx context.Context) ComponentStatusTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ComponentStatusTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ComponentStatusType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of component conditions observed
+func (o ComponentStatusTypeOutput) Conditions() ComponentConditionArrayOutput {
+	return o.ApplyT(func (v ComponentStatusType) []ComponentCondition { return v.Conditions }).(ComponentConditionArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ComponentStatusTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ComponentStatusType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ComponentStatusTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v ComponentStatusType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+type ComponentStatusTypeArrayOutput struct { *pulumi.OutputState}
+
+func (ComponentStatusTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ComponentStatusType)(nil)).Elem()
+}
+
+func (o ComponentStatusTypeArrayOutput) ToComponentStatusTypeArrayOutput() ComponentStatusTypeArrayOutput {
+	return o
+}
+
+func (o ComponentStatusTypeArrayOutput) ToComponentStatusTypeArrayOutputWithContext(ctx context.Context) ComponentStatusTypeArrayOutput {
+	return o
+}
+
+func (o ComponentStatusTypeArrayOutput) Index(i pulumi.IntInput) ComponentStatusTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ComponentStatusType {
+		return vs[0].([]ComponentStatusType)[vs[1].(int)]
+	}).(ComponentStatusTypeOutput)
+}
+
+// Status of all the conditions for the component as a list of ComponentStatus objects.
+type ComponentStatusListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of ComponentStatus objects.
+	Items []ComponentStatusType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type ComponentStatusListTypeInput interface {
+	pulumi.Input
+
+	ToComponentStatusListTypeOutput() ComponentStatusListTypeOutput
+	ToComponentStatusListTypeOutputWithContext(context.Context) ComponentStatusListTypeOutput
+}
+
+// Status of all the conditions for the component as a list of ComponentStatus objects.
+type ComponentStatusListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of ComponentStatus objects.
+	Items ComponentStatusTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ComponentStatusListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatusListType)(nil)).Elem()
+}
+
+func (i ComponentStatusListTypeArgs) ToComponentStatusListTypeOutput() ComponentStatusListTypeOutput {
+	return i.ToComponentStatusListTypeOutputWithContext(context.Background())
+}
+
+func (i ComponentStatusListTypeArgs) ToComponentStatusListTypeOutputWithContext(ctx context.Context) ComponentStatusListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusListTypeOutput)
+}
+
+// Status of all the conditions for the component as a list of ComponentStatus objects.
+type ComponentStatusListTypeOutput struct { *pulumi.OutputState }
+
+func (ComponentStatusListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatusListType)(nil)).Elem()
+}
+
+func (o ComponentStatusListTypeOutput) ToComponentStatusListTypeOutput() ComponentStatusListTypeOutput {
+	return o
+}
+
+func (o ComponentStatusListTypeOutput) ToComponentStatusListTypeOutputWithContext(ctx context.Context) ComponentStatusListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ComponentStatusListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ComponentStatusListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of ComponentStatus objects.
+func (o ComponentStatusListTypeOutput) Items() ComponentStatusTypeArrayOutput {
+	return o.ApplyT(func (v ComponentStatusListType) []ComponentStatusType { return v.Items }).(ComponentStatusTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ComponentStatusListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ComponentStatusListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ComponentStatusListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v ComponentStatusListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ConfigMap holds configuration data for pods to consume.
+type ConfigMapType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+	BinaryData map[string]string `pulumi:"binaryData"`
+	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+	Data map[string]string `pulumi:"data"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+}
+
+type ConfigMapTypeInput interface {
+	pulumi.Input
+
+	ToConfigMapTypeOutput() ConfigMapTypeOutput
+	ToConfigMapTypeOutputWithContext(context.Context) ConfigMapTypeOutput
+}
+
+// ConfigMap holds configuration data for pods to consume.
+type ConfigMapTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+	BinaryData pulumi.StringMapInput `pulumi:"binaryData"`
+	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+	Data pulumi.StringMapInput `pulumi:"data"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ConfigMapTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMapType)(nil)).Elem()
+}
+
+func (i ConfigMapTypeArgs) ToConfigMapTypeOutput() ConfigMapTypeOutput {
+	return i.ToConfigMapTypeOutputWithContext(context.Background())
+}
+
+func (i ConfigMapTypeArgs) ToConfigMapTypeOutputWithContext(ctx context.Context) ConfigMapTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapTypeOutput)
+}
+
+type ConfigMapTypeArrayInput interface {
+	pulumi.Input
+
+	ToConfigMapTypeArrayOutput() ConfigMapTypeArrayOutput
+	ToConfigMapTypeArrayOutputWithContext(context.Context) ConfigMapTypeArrayOutput
+}
+
+type ConfigMapTypeArray []ConfigMapTypeInput
+
+func (ConfigMapTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ConfigMapType)(nil)).Elem()
+}
+
+func (i ConfigMapTypeArray) ToConfigMapTypeArrayOutput() ConfigMapTypeArrayOutput {
+	return i.ToConfigMapTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ConfigMapTypeArray) ToConfigMapTypeArrayOutputWithContext(ctx context.Context) ConfigMapTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapTypeArrayOutput)
+}
+
+// ConfigMap holds configuration data for pods to consume.
+type ConfigMapTypeOutput struct { *pulumi.OutputState }
+
+func (ConfigMapTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMapType)(nil)).Elem()
+}
+
+func (o ConfigMapTypeOutput) ToConfigMapTypeOutput() ConfigMapTypeOutput {
+	return o
+}
+
+func (o ConfigMapTypeOutput) ToConfigMapTypeOutputWithContext(ctx context.Context) ConfigMapTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ConfigMapTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ConfigMapType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+func (o ConfigMapTypeOutput) BinaryData() pulumi.StringMapOutput {
+	return o.ApplyT(func (v ConfigMapType) map[string]string { return v.BinaryData }).(pulumi.StringMapOutput)
+}
+
+// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+func (o ConfigMapTypeOutput) Data() pulumi.StringMapOutput {
+	return o.ApplyT(func (v ConfigMapType) map[string]string { return v.Data }).(pulumi.StringMapOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ConfigMapTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ConfigMapType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ConfigMapTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v ConfigMapType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+type ConfigMapTypeArrayOutput struct { *pulumi.OutputState}
+
+func (ConfigMapTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ConfigMapType)(nil)).Elem()
+}
+
+func (o ConfigMapTypeArrayOutput) ToConfigMapTypeArrayOutput() ConfigMapTypeArrayOutput {
+	return o
+}
+
+func (o ConfigMapTypeArrayOutput) ToConfigMapTypeArrayOutputWithContext(ctx context.Context) ConfigMapTypeArrayOutput {
+	return o
+}
+
+func (o ConfigMapTypeArrayOutput) Index(i pulumi.IntInput) ConfigMapTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ConfigMapType {
+		return vs[0].([]ConfigMapType)[vs[1].(int)]
+	}).(ConfigMapTypeOutput)
+}
+
 // ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 //
 // The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
@@ -2946,6 +3028,84 @@ func (o ConfigMapKeySelectorPtrOutput) Name() pulumi.StringPtrOutput {
 // Specify whether the ConfigMap or its key must be defined
 func (o ConfigMapKeySelectorPtrOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v ConfigMapKeySelector) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
+}
+
+// ConfigMapList is a resource containing a list of ConfigMap objects.
+type ConfigMapListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of ConfigMaps.
+	Items []ConfigMapType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type ConfigMapListTypeInput interface {
+	pulumi.Input
+
+	ToConfigMapListTypeOutput() ConfigMapListTypeOutput
+	ToConfigMapListTypeOutputWithContext(context.Context) ConfigMapListTypeOutput
+}
+
+// ConfigMapList is a resource containing a list of ConfigMap objects.
+type ConfigMapListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of ConfigMaps.
+	Items ConfigMapTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ConfigMapListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMapListType)(nil)).Elem()
+}
+
+func (i ConfigMapListTypeArgs) ToConfigMapListTypeOutput() ConfigMapListTypeOutput {
+	return i.ToConfigMapListTypeOutputWithContext(context.Background())
+}
+
+func (i ConfigMapListTypeArgs) ToConfigMapListTypeOutputWithContext(ctx context.Context) ConfigMapListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListTypeOutput)
+}
+
+// ConfigMapList is a resource containing a list of ConfigMap objects.
+type ConfigMapListTypeOutput struct { *pulumi.OutputState }
+
+func (ConfigMapListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMapListType)(nil)).Elem()
+}
+
+func (o ConfigMapListTypeOutput) ToConfigMapListTypeOutput() ConfigMapListTypeOutput {
+	return o
+}
+
+func (o ConfigMapListTypeOutput) ToConfigMapListTypeOutputWithContext(ctx context.Context) ConfigMapListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ConfigMapListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ConfigMapListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of ConfigMaps.
+func (o ConfigMapListTypeOutput) Items() ConfigMapTypeArrayOutput {
+	return o.ApplyT(func (v ConfigMapListType) []ConfigMapType { return v.Items }).(ConfigMapTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ConfigMapListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ConfigMapListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ConfigMapListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v ConfigMapListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.
@@ -4806,111 +4966,6 @@ func (o DaemonEndpointPtrOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v DaemonEndpoint) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-// DeleteOptions may be provided when deleting an API object.
-type DeleteOptions struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-	DryRun []string `pulumi:"dryRun"`
-	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-	GracePeriodSeconds *int `pulumi:"gracePeriodSeconds"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
-	OrphanDependents *bool `pulumi:"orphanDependents"`
-	// Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
-	Preconditions *metav1.Preconditions `pulumi:"preconditions"`
-	// Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-	PropagationPolicy *string `pulumi:"propagationPolicy"`
-}
-
-type DeleteOptionsInput interface {
-	pulumi.Input
-
-	ToDeleteOptionsOutput() DeleteOptionsOutput
-	ToDeleteOptionsOutputWithContext(context.Context) DeleteOptionsOutput
-}
-
-// DeleteOptions may be provided when deleting an API object.
-type DeleteOptionsArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-	DryRun pulumi.StringArrayInput `pulumi:"dryRun"`
-	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-	GracePeriodSeconds pulumi.IntPtrInput `pulumi:"gracePeriodSeconds"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
-	OrphanDependents pulumi.BoolPtrInput `pulumi:"orphanDependents"`
-	// Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
-	Preconditions metav1.PreconditionsPtrInput `pulumi:"preconditions"`
-	// Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-	PropagationPolicy pulumi.StringPtrInput `pulumi:"propagationPolicy"`
-}
-
-func (DeleteOptionsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*DeleteOptions)(nil)).Elem()
-}
-
-func (i DeleteOptionsArgs) ToDeleteOptionsOutput() DeleteOptionsOutput {
-	return i.ToDeleteOptionsOutputWithContext(context.Background())
-}
-
-func (i DeleteOptionsArgs) ToDeleteOptionsOutputWithContext(ctx context.Context) DeleteOptionsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsOutput)
-}
-
-// DeleteOptions may be provided when deleting an API object.
-type DeleteOptionsOutput struct { *pulumi.OutputState }
-
-func (DeleteOptionsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DeleteOptions)(nil)).Elem()
-}
-
-func (o DeleteOptionsOutput) ToDeleteOptionsOutput() DeleteOptionsOutput {
-	return o
-}
-
-func (o DeleteOptionsOutput) ToDeleteOptionsOutputWithContext(ctx context.Context) DeleteOptionsOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o DeleteOptionsOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v DeleteOptions) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-func (o DeleteOptionsOutput) DryRun() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v DeleteOptions) []string { return v.DryRun }).(pulumi.StringArrayOutput)
-}
-
-// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-func (o DeleteOptionsOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v DeleteOptions) *int { return v.GracePeriodSeconds }).(pulumi.IntPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o DeleteOptionsOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v DeleteOptions) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
-func (o DeleteOptionsOutput) OrphanDependents() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v DeleteOptions) *bool { return v.OrphanDependents }).(pulumi.BoolPtrOutput)
-}
-
-// Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
-func (o DeleteOptionsOutput) Preconditions() metav1.PreconditionsPtrOutput {
-	return o.ApplyT(func (v DeleteOptions) *metav1.Preconditions { return v.Preconditions }).(metav1.PreconditionsPtrOutput)
-}
-
-// Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-func (o DeleteOptionsOutput) PropagationPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v DeleteOptions) *string { return v.PropagationPolicy }).(pulumi.StringPtrOutput)
-}
-
 // Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
 type DownwardAPIProjection struct {
 	// Items is a list of DownwardAPIVolume file
@@ -5763,6 +5818,236 @@ func (o EndpointSubsetArrayOutput) Index(i pulumi.IntInput) EndpointSubsetOutput
 	}).(EndpointSubsetOutput)
 }
 
+// Endpoints is a collection of endpoints that implement the actual service. Example:
+//   Name: "mysvc",
+//   Subsets: [
+//     {
+//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//     },
+//     {
+//       Addresses: [{"ip": "10.10.3.3"}],
+//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//     },
+//  ]
+type EndpointsType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
+	Subsets []EndpointSubset `pulumi:"subsets"`
+}
+
+type EndpointsTypeInput interface {
+	pulumi.Input
+
+	ToEndpointsTypeOutput() EndpointsTypeOutput
+	ToEndpointsTypeOutputWithContext(context.Context) EndpointsTypeOutput
+}
+
+// Endpoints is a collection of endpoints that implement the actual service. Example:
+//   Name: "mysvc",
+//   Subsets: [
+//     {
+//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//     },
+//     {
+//       Addresses: [{"ip": "10.10.3.3"}],
+//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//     },
+//  ]
+type EndpointsTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
+	Subsets EndpointSubsetArrayInput `pulumi:"subsets"`
+}
+
+func (EndpointsTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsType)(nil)).Elem()
+}
+
+func (i EndpointsTypeArgs) ToEndpointsTypeOutput() EndpointsTypeOutput {
+	return i.ToEndpointsTypeOutputWithContext(context.Background())
+}
+
+func (i EndpointsTypeArgs) ToEndpointsTypeOutputWithContext(ctx context.Context) EndpointsTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointsTypeOutput)
+}
+
+type EndpointsTypeArrayInput interface {
+	pulumi.Input
+
+	ToEndpointsTypeArrayOutput() EndpointsTypeArrayOutput
+	ToEndpointsTypeArrayOutputWithContext(context.Context) EndpointsTypeArrayOutput
+}
+
+type EndpointsTypeArray []EndpointsTypeInput
+
+func (EndpointsTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointsType)(nil)).Elem()
+}
+
+func (i EndpointsTypeArray) ToEndpointsTypeArrayOutput() EndpointsTypeArrayOutput {
+	return i.ToEndpointsTypeArrayOutputWithContext(context.Background())
+}
+
+func (i EndpointsTypeArray) ToEndpointsTypeArrayOutputWithContext(ctx context.Context) EndpointsTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointsTypeArrayOutput)
+}
+
+// Endpoints is a collection of endpoints that implement the actual service. Example:
+//   Name: "mysvc",
+//   Subsets: [
+//     {
+//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//     },
+//     {
+//       Addresses: [{"ip": "10.10.3.3"}],
+//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//     },
+//  ]
+type EndpointsTypeOutput struct { *pulumi.OutputState }
+
+func (EndpointsTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsType)(nil)).Elem()
+}
+
+func (o EndpointsTypeOutput) ToEndpointsTypeOutput() EndpointsTypeOutput {
+	return o
+}
+
+func (o EndpointsTypeOutput) ToEndpointsTypeOutputWithContext(ctx context.Context) EndpointsTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EndpointsTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EndpointsType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EndpointsTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EndpointsType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o EndpointsTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v EndpointsType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
+func (o EndpointsTypeOutput) Subsets() EndpointSubsetArrayOutput {
+	return o.ApplyT(func (v EndpointsType) []EndpointSubset { return v.Subsets }).(EndpointSubsetArrayOutput)
+}
+
+type EndpointsTypeArrayOutput struct { *pulumi.OutputState}
+
+func (EndpointsTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointsType)(nil)).Elem()
+}
+
+func (o EndpointsTypeArrayOutput) ToEndpointsTypeArrayOutput() EndpointsTypeArrayOutput {
+	return o
+}
+
+func (o EndpointsTypeArrayOutput) ToEndpointsTypeArrayOutputWithContext(ctx context.Context) EndpointsTypeArrayOutput {
+	return o
+}
+
+func (o EndpointsTypeArrayOutput) Index(i pulumi.IntInput) EndpointsTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) EndpointsType {
+		return vs[0].([]EndpointsType)[vs[1].(int)]
+	}).(EndpointsTypeOutput)
+}
+
+// EndpointsList is a list of endpoints.
+type EndpointsListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of endpoints.
+	Items []EndpointsType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type EndpointsListTypeInput interface {
+	pulumi.Input
+
+	ToEndpointsListTypeOutput() EndpointsListTypeOutput
+	ToEndpointsListTypeOutputWithContext(context.Context) EndpointsListTypeOutput
+}
+
+// EndpointsList is a list of endpoints.
+type EndpointsListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of endpoints.
+	Items EndpointsTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (EndpointsListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsListType)(nil)).Elem()
+}
+
+func (i EndpointsListTypeArgs) ToEndpointsListTypeOutput() EndpointsListTypeOutput {
+	return i.ToEndpointsListTypeOutputWithContext(context.Background())
+}
+
+func (i EndpointsListTypeArgs) ToEndpointsListTypeOutputWithContext(ctx context.Context) EndpointsListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListTypeOutput)
+}
+
+// EndpointsList is a list of endpoints.
+type EndpointsListTypeOutput struct { *pulumi.OutputState }
+
+func (EndpointsListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsListType)(nil)).Elem()
+}
+
+func (o EndpointsListTypeOutput) ToEndpointsListTypeOutput() EndpointsListTypeOutput {
+	return o
+}
+
+func (o EndpointsListTypeOutput) ToEndpointsListTypeOutputWithContext(ctx context.Context) EndpointsListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EndpointsListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EndpointsListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of endpoints.
+func (o EndpointsListTypeOutput) Items() EndpointsTypeArrayOutput {
+	return o.ApplyT(func (v EndpointsListType) []EndpointsType { return v.Items }).(EndpointsTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EndpointsListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EndpointsListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EndpointsListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v EndpointsListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // EnvFromSource represents the source of a set of ConfigMaps
 type EnvFromSource struct {
 	// The ConfigMap to select from
@@ -6428,6 +6713,320 @@ func (o EphemeralContainerArrayOutput) Index(i pulumi.IntInput) EphemeralContain
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) EphemeralContainer {
 		return vs[0].([]EphemeralContainer)[vs[1].(int)]
 	}).(EphemeralContainerOutput)
+}
+
+// Event is a report of an event somewhere in the cluster.
+type EventType struct {
+	// What action was taken/failed regarding to the Regarding object.
+	Action *string `pulumi:"action"`
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// The number of times this event has occurred.
+	Count *int `pulumi:"count"`
+	// Time when this Event was first observed.
+	EventTime *string `pulumi:"eventTime"`
+	// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
+	FirstTimestamp *string `pulumi:"firstTimestamp"`
+	// The object that this event is about.
+	InvolvedObject *ObjectReference `pulumi:"involvedObject"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// The time at which the most recent occurrence of this event was recorded.
+	LastTimestamp *string `pulumi:"lastTimestamp"`
+	// A human-readable description of the status of this operation.
+	Message *string `pulumi:"message"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
+	Reason *string `pulumi:"reason"`
+	// Optional secondary object for more complex actions.
+	Related *ObjectReference `pulumi:"related"`
+	// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+	ReportingComponent *string `pulumi:"reportingComponent"`
+	// ID of the controller instance, e.g. `kubelet-xyzf`.
+	ReportingInstance *string `pulumi:"reportingInstance"`
+	// Data about the Event series this event represents or nil if it's a singleton Event.
+	Series *EventSeries `pulumi:"series"`
+	// The component reporting this event. Should be a short machine understandable string.
+	Source *EventSource `pulumi:"source"`
+	// Type of this event (Normal, Warning), new types could be added in the future
+	Type *string `pulumi:"type"`
+}
+
+type EventTypeInput interface {
+	pulumi.Input
+
+	ToEventTypeOutput() EventTypeOutput
+	ToEventTypeOutputWithContext(context.Context) EventTypeOutput
+}
+
+// Event is a report of an event somewhere in the cluster.
+type EventTypeArgs struct {
+	// What action was taken/failed regarding to the Regarding object.
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// The number of times this event has occurred.
+	Count pulumi.IntPtrInput `pulumi:"count"`
+	// Time when this Event was first observed.
+	EventTime pulumi.StringPtrInput `pulumi:"eventTime"`
+	// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
+	FirstTimestamp pulumi.StringPtrInput `pulumi:"firstTimestamp"`
+	// The object that this event is about.
+	InvolvedObject ObjectReferencePtrInput `pulumi:"involvedObject"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// The time at which the most recent occurrence of this event was recorded.
+	LastTimestamp pulumi.StringPtrInput `pulumi:"lastTimestamp"`
+	// A human-readable description of the status of this operation.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// Optional secondary object for more complex actions.
+	Related ObjectReferencePtrInput `pulumi:"related"`
+	// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+	ReportingComponent pulumi.StringPtrInput `pulumi:"reportingComponent"`
+	// ID of the controller instance, e.g. `kubelet-xyzf`.
+	ReportingInstance pulumi.StringPtrInput `pulumi:"reportingInstance"`
+	// Data about the Event series this event represents or nil if it's a singleton Event.
+	Series EventSeriesPtrInput `pulumi:"series"`
+	// The component reporting this event. Should be a short machine understandable string.
+	Source EventSourcePtrInput `pulumi:"source"`
+	// Type of this event (Normal, Warning), new types could be added in the future
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (EventTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventType)(nil)).Elem()
+}
+
+func (i EventTypeArgs) ToEventTypeOutput() EventTypeOutput {
+	return i.ToEventTypeOutputWithContext(context.Background())
+}
+
+func (i EventTypeArgs) ToEventTypeOutputWithContext(ctx context.Context) EventTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventTypeOutput)
+}
+
+type EventTypeArrayInput interface {
+	pulumi.Input
+
+	ToEventTypeArrayOutput() EventTypeArrayOutput
+	ToEventTypeArrayOutputWithContext(context.Context) EventTypeArrayOutput
+}
+
+type EventTypeArray []EventTypeInput
+
+func (EventTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EventType)(nil)).Elem()
+}
+
+func (i EventTypeArray) ToEventTypeArrayOutput() EventTypeArrayOutput {
+	return i.ToEventTypeArrayOutputWithContext(context.Background())
+}
+
+func (i EventTypeArray) ToEventTypeArrayOutputWithContext(ctx context.Context) EventTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventTypeArrayOutput)
+}
+
+// Event is a report of an event somewhere in the cluster.
+type EventTypeOutput struct { *pulumi.OutputState }
+
+func (EventTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventType)(nil)).Elem()
+}
+
+func (o EventTypeOutput) ToEventTypeOutput() EventTypeOutput {
+	return o
+}
+
+func (o EventTypeOutput) ToEventTypeOutputWithContext(ctx context.Context) EventTypeOutput {
+	return o
+}
+
+// What action was taken/failed regarding to the Regarding object.
+func (o EventTypeOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EventTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// The number of times this event has occurred.
+func (o EventTypeOutput) Count() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v EventType) *int { return v.Count }).(pulumi.IntPtrOutput)
+}
+
+// Time when this Event was first observed.
+func (o EventTypeOutput) EventTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.EventTime }).(pulumi.StringPtrOutput)
+}
+
+// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
+func (o EventTypeOutput) FirstTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.FirstTimestamp }).(pulumi.StringPtrOutput)
+}
+
+// The object that this event is about.
+func (o EventTypeOutput) InvolvedObject() ObjectReferencePtrOutput {
+	return o.ApplyT(func (v EventType) *ObjectReference { return v.InvolvedObject }).(ObjectReferencePtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EventTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// The time at which the most recent occurrence of this event was recorded.
+func (o EventTypeOutput) LastTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.LastTimestamp }).(pulumi.StringPtrOutput)
+}
+
+// A human-readable description of the status of this operation.
+func (o EventTypeOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o EventTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v EventType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
+func (o EventTypeOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// Optional secondary object for more complex actions.
+func (o EventTypeOutput) Related() ObjectReferencePtrOutput {
+	return o.ApplyT(func (v EventType) *ObjectReference { return v.Related }).(ObjectReferencePtrOutput)
+}
+
+// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+func (o EventTypeOutput) ReportingComponent() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.ReportingComponent }).(pulumi.StringPtrOutput)
+}
+
+// ID of the controller instance, e.g. `kubelet-xyzf`.
+func (o EventTypeOutput) ReportingInstance() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.ReportingInstance }).(pulumi.StringPtrOutput)
+}
+
+// Data about the Event series this event represents or nil if it's a singleton Event.
+func (o EventTypeOutput) Series() EventSeriesPtrOutput {
+	return o.ApplyT(func (v EventType) *EventSeries { return v.Series }).(EventSeriesPtrOutput)
+}
+
+// The component reporting this event. Should be a short machine understandable string.
+func (o EventTypeOutput) Source() EventSourcePtrOutput {
+	return o.ApplyT(func (v EventType) *EventSource { return v.Source }).(EventSourcePtrOutput)
+}
+
+// Type of this event (Normal, Warning), new types could be added in the future
+func (o EventTypeOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventType) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type EventTypeArrayOutput struct { *pulumi.OutputState}
+
+func (EventTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EventType)(nil)).Elem()
+}
+
+func (o EventTypeArrayOutput) ToEventTypeArrayOutput() EventTypeArrayOutput {
+	return o
+}
+
+func (o EventTypeArrayOutput) ToEventTypeArrayOutputWithContext(ctx context.Context) EventTypeArrayOutput {
+	return o
+}
+
+func (o EventTypeArrayOutput) Index(i pulumi.IntInput) EventTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) EventType {
+		return vs[0].([]EventType)[vs[1].(int)]
+	}).(EventTypeOutput)
+}
+
+// EventList is a list of events.
+type EventListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of events
+	Items []EventType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type EventListTypeInput interface {
+	pulumi.Input
+
+	ToEventListTypeOutput() EventListTypeOutput
+	ToEventListTypeOutputWithContext(context.Context) EventListTypeOutput
+}
+
+// EventList is a list of events.
+type EventListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of events
+	Items EventTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (EventListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventListType)(nil)).Elem()
+}
+
+func (i EventListTypeArgs) ToEventListTypeOutput() EventListTypeOutput {
+	return i.ToEventListTypeOutputWithContext(context.Background())
+}
+
+func (i EventListTypeArgs) ToEventListTypeOutputWithContext(ctx context.Context) EventListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventListTypeOutput)
+}
+
+// EventList is a list of events.
+type EventListTypeOutput struct { *pulumi.OutputState }
+
+func (EventListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventListType)(nil)).Elem()
+}
+
+func (o EventListTypeOutput) ToEventListTypeOutput() EventListTypeOutput {
+	return o
+}
+
+func (o EventListTypeOutput) ToEventListTypeOutputWithContext(ctx context.Context) EventListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EventListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of events
+func (o EventListTypeOutput) Items() EventTypeArrayOutput {
+	return o.ApplyT(func (v EventListType) []EventType { return v.Items }).(EventTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EventListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v EventListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EventListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v EventListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
@@ -9465,6 +10064,125 @@ func (o LifecyclePtrOutput) PreStop() HandlerPtrOutput {
 	return o.ApplyT(func (v Lifecycle) *Handler { return v.PreStop }).(HandlerPtrOutput)
 }
 
+// LimitRange sets resource usage limits for each kind of resource in a Namespace.
+type LimitRangeType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *LimitRangeSpec `pulumi:"spec"`
+}
+
+type LimitRangeTypeInput interface {
+	pulumi.Input
+
+	ToLimitRangeTypeOutput() LimitRangeTypeOutput
+	ToLimitRangeTypeOutputWithContext(context.Context) LimitRangeTypeOutput
+}
+
+// LimitRange sets resource usage limits for each kind of resource in a Namespace.
+type LimitRangeTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec LimitRangeSpecPtrInput `pulumi:"spec"`
+}
+
+func (LimitRangeTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeType)(nil)).Elem()
+}
+
+func (i LimitRangeTypeArgs) ToLimitRangeTypeOutput() LimitRangeTypeOutput {
+	return i.ToLimitRangeTypeOutputWithContext(context.Background())
+}
+
+func (i LimitRangeTypeArgs) ToLimitRangeTypeOutputWithContext(ctx context.Context) LimitRangeTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeTypeOutput)
+}
+
+type LimitRangeTypeArrayInput interface {
+	pulumi.Input
+
+	ToLimitRangeTypeArrayOutput() LimitRangeTypeArrayOutput
+	ToLimitRangeTypeArrayOutputWithContext(context.Context) LimitRangeTypeArrayOutput
+}
+
+type LimitRangeTypeArray []LimitRangeTypeInput
+
+func (LimitRangeTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]LimitRangeType)(nil)).Elem()
+}
+
+func (i LimitRangeTypeArray) ToLimitRangeTypeArrayOutput() LimitRangeTypeArrayOutput {
+	return i.ToLimitRangeTypeArrayOutputWithContext(context.Background())
+}
+
+func (i LimitRangeTypeArray) ToLimitRangeTypeArrayOutputWithContext(ctx context.Context) LimitRangeTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeTypeArrayOutput)
+}
+
+// LimitRange sets resource usage limits for each kind of resource in a Namespace.
+type LimitRangeTypeOutput struct { *pulumi.OutputState }
+
+func (LimitRangeTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeType)(nil)).Elem()
+}
+
+func (o LimitRangeTypeOutput) ToLimitRangeTypeOutput() LimitRangeTypeOutput {
+	return o
+}
+
+func (o LimitRangeTypeOutput) ToLimitRangeTypeOutputWithContext(ctx context.Context) LimitRangeTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o LimitRangeTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v LimitRangeType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o LimitRangeTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v LimitRangeType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o LimitRangeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v LimitRangeType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o LimitRangeTypeOutput) Spec() LimitRangeSpecPtrOutput {
+	return o.ApplyT(func (v LimitRangeType) *LimitRangeSpec { return v.Spec }).(LimitRangeSpecPtrOutput)
+}
+
+type LimitRangeTypeArrayOutput struct { *pulumi.OutputState}
+
+func (LimitRangeTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]LimitRangeType)(nil)).Elem()
+}
+
+func (o LimitRangeTypeArrayOutput) ToLimitRangeTypeArrayOutput() LimitRangeTypeArrayOutput {
+	return o
+}
+
+func (o LimitRangeTypeArrayOutput) ToLimitRangeTypeArrayOutputWithContext(ctx context.Context) LimitRangeTypeArrayOutput {
+	return o
+}
+
+func (o LimitRangeTypeArrayOutput) Index(i pulumi.IntInput) LimitRangeTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) LimitRangeType {
+		return vs[0].([]LimitRangeType)[vs[1].(int)]
+	}).(LimitRangeTypeOutput)
+}
+
 // LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
 type LimitRangeItem struct {
 	// Default resource requirement limit value by resource name if resource limit is omitted.
@@ -9600,6 +10318,84 @@ func (o LimitRangeItemArrayOutput) Index(i pulumi.IntInput) LimitRangeItemOutput
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) LimitRangeItem {
 		return vs[0].([]LimitRangeItem)[vs[1].(int)]
 	}).(LimitRangeItemOutput)
+}
+
+// LimitRangeList is a list of LimitRange items.
+type LimitRangeListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+	Items []LimitRangeType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type LimitRangeListTypeInput interface {
+	pulumi.Input
+
+	ToLimitRangeListTypeOutput() LimitRangeListTypeOutput
+	ToLimitRangeListTypeOutputWithContext(context.Context) LimitRangeListTypeOutput
+}
+
+// LimitRangeList is a list of LimitRange items.
+type LimitRangeListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+	Items LimitRangeTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (LimitRangeListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeListType)(nil)).Elem()
+}
+
+func (i LimitRangeListTypeArgs) ToLimitRangeListTypeOutput() LimitRangeListTypeOutput {
+	return i.ToLimitRangeListTypeOutputWithContext(context.Background())
+}
+
+func (i LimitRangeListTypeArgs) ToLimitRangeListTypeOutputWithContext(ctx context.Context) LimitRangeListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListTypeOutput)
+}
+
+// LimitRangeList is a list of LimitRange items.
+type LimitRangeListTypeOutput struct { *pulumi.OutputState }
+
+func (LimitRangeListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeListType)(nil)).Elem()
+}
+
+func (o LimitRangeListTypeOutput) ToLimitRangeListTypeOutput() LimitRangeListTypeOutput {
+	return o
+}
+
+func (o LimitRangeListTypeOutput) ToLimitRangeListTypeOutputWithContext(ctx context.Context) LimitRangeListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o LimitRangeListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v LimitRangeListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+func (o LimitRangeListTypeOutput) Items() LimitRangeTypeArrayOutput {
+	return o.ApplyT(func (v LimitRangeListType) []LimitRangeType { return v.Items }).(LimitRangeTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o LimitRangeListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v LimitRangeListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o LimitRangeListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v LimitRangeListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // LimitRangeSpec defines a min/max usage limit for resources that match on kind.
@@ -10361,6 +11157,134 @@ func (o NFSVolumeSourcePtrOutput) Server() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NFSVolumeSource) *string { return v.Server }).(pulumi.StringPtrOutput)
 }
 
+// Namespace provides a scope for Names. Use of multiple namespaces is optional.
+type NamespaceType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *NamespaceSpec `pulumi:"spec"`
+	// Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *NamespaceStatus `pulumi:"status"`
+}
+
+type NamespaceTypeInput interface {
+	pulumi.Input
+
+	ToNamespaceTypeOutput() NamespaceTypeOutput
+	ToNamespaceTypeOutputWithContext(context.Context) NamespaceTypeOutput
+}
+
+// Namespace provides a scope for Names. Use of multiple namespaces is optional.
+type NamespaceTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec NamespaceSpecPtrInput `pulumi:"spec"`
+	// Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status NamespaceStatusPtrInput `pulumi:"status"`
+}
+
+func (NamespaceTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceType)(nil)).Elem()
+}
+
+func (i NamespaceTypeArgs) ToNamespaceTypeOutput() NamespaceTypeOutput {
+	return i.ToNamespaceTypeOutputWithContext(context.Background())
+}
+
+func (i NamespaceTypeArgs) ToNamespaceTypeOutputWithContext(ctx context.Context) NamespaceTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamespaceTypeOutput)
+}
+
+type NamespaceTypeArrayInput interface {
+	pulumi.Input
+
+	ToNamespaceTypeArrayOutput() NamespaceTypeArrayOutput
+	ToNamespaceTypeArrayOutputWithContext(context.Context) NamespaceTypeArrayOutput
+}
+
+type NamespaceTypeArray []NamespaceTypeInput
+
+func (NamespaceTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamespaceType)(nil)).Elem()
+}
+
+func (i NamespaceTypeArray) ToNamespaceTypeArrayOutput() NamespaceTypeArrayOutput {
+	return i.ToNamespaceTypeArrayOutputWithContext(context.Background())
+}
+
+func (i NamespaceTypeArray) ToNamespaceTypeArrayOutputWithContext(ctx context.Context) NamespaceTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamespaceTypeArrayOutput)
+}
+
+// Namespace provides a scope for Names. Use of multiple namespaces is optional.
+type NamespaceTypeOutput struct { *pulumi.OutputState }
+
+func (NamespaceTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceType)(nil)).Elem()
+}
+
+func (o NamespaceTypeOutput) ToNamespaceTypeOutput() NamespaceTypeOutput {
+	return o
+}
+
+func (o NamespaceTypeOutput) ToNamespaceTypeOutputWithContext(ctx context.Context) NamespaceTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o NamespaceTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NamespaceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NamespaceTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NamespaceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o NamespaceTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v NamespaceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NamespaceTypeOutput) Spec() NamespaceSpecPtrOutput {
+	return o.ApplyT(func (v NamespaceType) *NamespaceSpec { return v.Spec }).(NamespaceSpecPtrOutput)
+}
+
+// Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NamespaceTypeOutput) Status() NamespaceStatusPtrOutput {
+	return o.ApplyT(func (v NamespaceType) *NamespaceStatus { return v.Status }).(NamespaceStatusPtrOutput)
+}
+
+type NamespaceTypeArrayOutput struct { *pulumi.OutputState}
+
+func (NamespaceTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamespaceType)(nil)).Elem()
+}
+
+func (o NamespaceTypeArrayOutput) ToNamespaceTypeArrayOutput() NamespaceTypeArrayOutput {
+	return o
+}
+
+func (o NamespaceTypeArrayOutput) ToNamespaceTypeArrayOutputWithContext(ctx context.Context) NamespaceTypeArrayOutput {
+	return o
+}
+
+func (o NamespaceTypeArrayOutput) Index(i pulumi.IntInput) NamespaceTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NamespaceType {
+		return vs[0].([]NamespaceType)[vs[1].(int)]
+	}).(NamespaceTypeOutput)
+}
+
 // NamespaceCondition contains details about state of namespace.
 type NamespaceCondition struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -10478,6 +11402,84 @@ func (o NamespaceConditionArrayOutput) Index(i pulumi.IntInput) NamespaceConditi
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NamespaceCondition {
 		return vs[0].([]NamespaceCondition)[vs[1].(int)]
 	}).(NamespaceConditionOutput)
+}
+
+// NamespaceList is a list of Namespaces.
+type NamespaceListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+	Items []NamespaceType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type NamespaceListTypeInput interface {
+	pulumi.Input
+
+	ToNamespaceListTypeOutput() NamespaceListTypeOutput
+	ToNamespaceListTypeOutputWithContext(context.Context) NamespaceListTypeOutput
+}
+
+// NamespaceList is a list of Namespaces.
+type NamespaceListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+	Items NamespaceTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (NamespaceListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceListType)(nil)).Elem()
+}
+
+func (i NamespaceListTypeArgs) ToNamespaceListTypeOutput() NamespaceListTypeOutput {
+	return i.ToNamespaceListTypeOutputWithContext(context.Background())
+}
+
+func (i NamespaceListTypeArgs) ToNamespaceListTypeOutputWithContext(ctx context.Context) NamespaceListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamespaceListTypeOutput)
+}
+
+// NamespaceList is a list of Namespaces.
+type NamespaceListTypeOutput struct { *pulumi.OutputState }
+
+func (NamespaceListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceListType)(nil)).Elem()
+}
+
+func (o NamespaceListTypeOutput) ToNamespaceListTypeOutput() NamespaceListTypeOutput {
+	return o
+}
+
+func (o NamespaceListTypeOutput) ToNamespaceListTypeOutputWithContext(ctx context.Context) NamespaceListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o NamespaceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NamespaceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+func (o NamespaceListTypeOutput) Items() NamespaceTypeArrayOutput {
+	return o.ApplyT(func (v NamespaceListType) []NamespaceType { return v.Items }).(NamespaceTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NamespaceListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NamespaceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NamespaceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v NamespaceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // NamespaceSpec describes the attributes on a Namespace.
@@ -10722,6 +11724,134 @@ func (o NamespaceStatusPtrOutput) Conditions() NamespaceConditionArrayOutput {
 // Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
 func (o NamespaceStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NamespaceStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
+}
+
+// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+type NodeType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *NodeSpec `pulumi:"spec"`
+	// Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *NodeStatus `pulumi:"status"`
+}
+
+type NodeTypeInput interface {
+	pulumi.Input
+
+	ToNodeTypeOutput() NodeTypeOutput
+	ToNodeTypeOutputWithContext(context.Context) NodeTypeOutput
+}
+
+// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+type NodeTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec NodeSpecPtrInput `pulumi:"spec"`
+	// Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status NodeStatusPtrInput `pulumi:"status"`
+}
+
+func (NodeTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeType)(nil)).Elem()
+}
+
+func (i NodeTypeArgs) ToNodeTypeOutput() NodeTypeOutput {
+	return i.ToNodeTypeOutputWithContext(context.Background())
+}
+
+func (i NodeTypeArgs) ToNodeTypeOutputWithContext(ctx context.Context) NodeTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTypeOutput)
+}
+
+type NodeTypeArrayInput interface {
+	pulumi.Input
+
+	ToNodeTypeArrayOutput() NodeTypeArrayOutput
+	ToNodeTypeArrayOutputWithContext(context.Context) NodeTypeArrayOutput
+}
+
+type NodeTypeArray []NodeTypeInput
+
+func (NodeTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeType)(nil)).Elem()
+}
+
+func (i NodeTypeArray) ToNodeTypeArrayOutput() NodeTypeArrayOutput {
+	return i.ToNodeTypeArrayOutputWithContext(context.Background())
+}
+
+func (i NodeTypeArray) ToNodeTypeArrayOutputWithContext(ctx context.Context) NodeTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTypeArrayOutput)
+}
+
+// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+type NodeTypeOutput struct { *pulumi.OutputState }
+
+func (NodeTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeType)(nil)).Elem()
+}
+
+func (o NodeTypeOutput) ToNodeTypeOutput() NodeTypeOutput {
+	return o
+}
+
+func (o NodeTypeOutput) ToNodeTypeOutputWithContext(ctx context.Context) NodeTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o NodeTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NodeType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NodeTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NodeType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o NodeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v NodeType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NodeTypeOutput) Spec() NodeSpecPtrOutput {
+	return o.ApplyT(func (v NodeType) *NodeSpec { return v.Spec }).(NodeSpecPtrOutput)
+}
+
+// Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NodeTypeOutput) Status() NodeStatusPtrOutput {
+	return o.ApplyT(func (v NodeType) *NodeStatus { return v.Status }).(NodeStatusPtrOutput)
+}
+
+type NodeTypeArrayOutput struct { *pulumi.OutputState}
+
+func (NodeTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeType)(nil)).Elem()
+}
+
+func (o NodeTypeArrayOutput) ToNodeTypeArrayOutput() NodeTypeArrayOutput {
+	return o
+}
+
+func (o NodeTypeArrayOutput) ToNodeTypeArrayOutputWithContext(ctx context.Context) NodeTypeArrayOutput {
+	return o
+}
+
+func (o NodeTypeArrayOutput) Index(i pulumi.IntInput) NodeTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NodeType {
+		return vs[0].([]NodeType)[vs[1].(int)]
+	}).(NodeTypeOutput)
 }
 
 // NodeAddress contains information for the node's address.
@@ -11476,6 +12606,84 @@ func (o NodeDaemonEndpointsPtrOutput) Elem() NodeDaemonEndpointsOutput {
 // Endpoint on which Kubelet is listening.
 func (o NodeDaemonEndpointsPtrOutput) KubeletEndpoint() DaemonEndpointPtrOutput {
 	return o.ApplyT(func (v NodeDaemonEndpoints) *DaemonEndpoint { return v.KubeletEndpoint }).(DaemonEndpointPtrOutput)
+}
+
+// NodeList is the whole list of all Nodes which have been registered with master.
+type NodeListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of nodes
+	Items []NodeType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type NodeListTypeInput interface {
+	pulumi.Input
+
+	ToNodeListTypeOutput() NodeListTypeOutput
+	ToNodeListTypeOutputWithContext(context.Context) NodeListTypeOutput
+}
+
+// NodeList is the whole list of all Nodes which have been registered with master.
+type NodeListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of nodes
+	Items NodeTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (NodeListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeListType)(nil)).Elem()
+}
+
+func (i NodeListTypeArgs) ToNodeListTypeOutput() NodeListTypeOutput {
+	return i.ToNodeListTypeOutputWithContext(context.Background())
+}
+
+func (i NodeListTypeArgs) ToNodeListTypeOutputWithContext(ctx context.Context) NodeListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeListTypeOutput)
+}
+
+// NodeList is the whole list of all Nodes which have been registered with master.
+type NodeListTypeOutput struct { *pulumi.OutputState }
+
+func (NodeListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeListType)(nil)).Elem()
+}
+
+func (o NodeListTypeOutput) ToNodeListTypeOutput() NodeListTypeOutput {
+	return o
+}
+
+func (o NodeListTypeOutput) ToNodeListTypeOutputWithContext(ctx context.Context) NodeListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o NodeListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NodeListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of nodes
+func (o NodeListTypeOutput) Items() NodeTypeArrayOutput {
+	return o.ApplyT(func (v NodeListType) []NodeType { return v.Items }).(NodeTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NodeListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v NodeListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NodeListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v NodeListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
@@ -12937,6 +14145,262 @@ func (o ObjectReferenceArrayOutput) Index(i pulumi.IntInput) ObjectReferenceOutp
 	}).(ObjectReferenceOutput)
 }
 
+// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+type PersistentVolumeType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	Spec *PersistentVolumeSpec `pulumi:"spec"`
+	// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	Status *PersistentVolumeStatus `pulumi:"status"`
+}
+
+type PersistentVolumeTypeInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeTypeOutput() PersistentVolumeTypeOutput
+	ToPersistentVolumeTypeOutputWithContext(context.Context) PersistentVolumeTypeOutput
+}
+
+// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+type PersistentVolumeTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	Spec PersistentVolumeSpecPtrInput `pulumi:"spec"`
+	// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	Status PersistentVolumeStatusPtrInput `pulumi:"status"`
+}
+
+func (PersistentVolumeTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeType)(nil)).Elem()
+}
+
+func (i PersistentVolumeTypeArgs) ToPersistentVolumeTypeOutput() PersistentVolumeTypeOutput {
+	return i.ToPersistentVolumeTypeOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeTypeArgs) ToPersistentVolumeTypeOutputWithContext(ctx context.Context) PersistentVolumeTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeTypeOutput)
+}
+
+type PersistentVolumeTypeArrayInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeTypeArrayOutput() PersistentVolumeTypeArrayOutput
+	ToPersistentVolumeTypeArrayOutputWithContext(context.Context) PersistentVolumeTypeArrayOutput
+}
+
+type PersistentVolumeTypeArray []PersistentVolumeTypeInput
+
+func (PersistentVolumeTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PersistentVolumeType)(nil)).Elem()
+}
+
+func (i PersistentVolumeTypeArray) ToPersistentVolumeTypeArrayOutput() PersistentVolumeTypeArrayOutput {
+	return i.ToPersistentVolumeTypeArrayOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeTypeArray) ToPersistentVolumeTypeArrayOutputWithContext(ctx context.Context) PersistentVolumeTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeTypeArrayOutput)
+}
+
+// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+type PersistentVolumeTypeOutput struct { *pulumi.OutputState }
+
+func (PersistentVolumeTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeType)(nil)).Elem()
+}
+
+func (o PersistentVolumeTypeOutput) ToPersistentVolumeTypeOutput() PersistentVolumeTypeOutput {
+	return o
+}
+
+func (o PersistentVolumeTypeOutput) ToPersistentVolumeTypeOutputWithContext(ctx context.Context) PersistentVolumeTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PersistentVolumeTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PersistentVolumeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+func (o PersistentVolumeTypeOutput) Spec() PersistentVolumeSpecPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeType) *PersistentVolumeSpec { return v.Spec }).(PersistentVolumeSpecPtrOutput)
+}
+
+// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+func (o PersistentVolumeTypeOutput) Status() PersistentVolumeStatusPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeType) *PersistentVolumeStatus { return v.Status }).(PersistentVolumeStatusPtrOutput)
+}
+
+type PersistentVolumeTypeArrayOutput struct { *pulumi.OutputState}
+
+func (PersistentVolumeTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PersistentVolumeType)(nil)).Elem()
+}
+
+func (o PersistentVolumeTypeArrayOutput) ToPersistentVolumeTypeArrayOutput() PersistentVolumeTypeArrayOutput {
+	return o
+}
+
+func (o PersistentVolumeTypeArrayOutput) ToPersistentVolumeTypeArrayOutputWithContext(ctx context.Context) PersistentVolumeTypeArrayOutput {
+	return o
+}
+
+func (o PersistentVolumeTypeArrayOutput) Index(i pulumi.IntInput) PersistentVolumeTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PersistentVolumeType {
+		return vs[0].([]PersistentVolumeType)[vs[1].(int)]
+	}).(PersistentVolumeTypeOutput)
+}
+
+// PersistentVolumeClaim is a user's request for and claim to a persistent volume
+type PersistentVolumeClaimType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	Spec *PersistentVolumeClaimSpec `pulumi:"spec"`
+	// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	Status *PersistentVolumeClaimStatus `pulumi:"status"`
+}
+
+type PersistentVolumeClaimTypeInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeClaimTypeOutput() PersistentVolumeClaimTypeOutput
+	ToPersistentVolumeClaimTypeOutputWithContext(context.Context) PersistentVolumeClaimTypeOutput
+}
+
+// PersistentVolumeClaim is a user's request for and claim to a persistent volume
+type PersistentVolumeClaimTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	Spec PersistentVolumeClaimSpecPtrInput `pulumi:"spec"`
+	// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	Status PersistentVolumeClaimStatusPtrInput `pulumi:"status"`
+}
+
+func (PersistentVolumeClaimTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeClaimType)(nil)).Elem()
+}
+
+func (i PersistentVolumeClaimTypeArgs) ToPersistentVolumeClaimTypeOutput() PersistentVolumeClaimTypeOutput {
+	return i.ToPersistentVolumeClaimTypeOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeClaimTypeArgs) ToPersistentVolumeClaimTypeOutputWithContext(ctx context.Context) PersistentVolumeClaimTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimTypeOutput)
+}
+
+type PersistentVolumeClaimTypeArrayInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeClaimTypeArrayOutput() PersistentVolumeClaimTypeArrayOutput
+	ToPersistentVolumeClaimTypeArrayOutputWithContext(context.Context) PersistentVolumeClaimTypeArrayOutput
+}
+
+type PersistentVolumeClaimTypeArray []PersistentVolumeClaimTypeInput
+
+func (PersistentVolumeClaimTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PersistentVolumeClaimType)(nil)).Elem()
+}
+
+func (i PersistentVolumeClaimTypeArray) ToPersistentVolumeClaimTypeArrayOutput() PersistentVolumeClaimTypeArrayOutput {
+	return i.ToPersistentVolumeClaimTypeArrayOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeClaimTypeArray) ToPersistentVolumeClaimTypeArrayOutputWithContext(ctx context.Context) PersistentVolumeClaimTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimTypeArrayOutput)
+}
+
+// PersistentVolumeClaim is a user's request for and claim to a persistent volume
+type PersistentVolumeClaimTypeOutput struct { *pulumi.OutputState }
+
+func (PersistentVolumeClaimTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeClaimType)(nil)).Elem()
+}
+
+func (o PersistentVolumeClaimTypeOutput) ToPersistentVolumeClaimTypeOutput() PersistentVolumeClaimTypeOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimTypeOutput) ToPersistentVolumeClaimTypeOutputWithContext(ctx context.Context) PersistentVolumeClaimTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PersistentVolumeClaimTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeClaimTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PersistentVolumeClaimTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+func (o PersistentVolumeClaimTypeOutput) Spec() PersistentVolumeClaimSpecPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimType) *PersistentVolumeClaimSpec { return v.Spec }).(PersistentVolumeClaimSpecPtrOutput)
+}
+
+// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+func (o PersistentVolumeClaimTypeOutput) Status() PersistentVolumeClaimStatusPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimType) *PersistentVolumeClaimStatus { return v.Status }).(PersistentVolumeClaimStatusPtrOutput)
+}
+
+type PersistentVolumeClaimTypeArrayOutput struct { *pulumi.OutputState}
+
+func (PersistentVolumeClaimTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PersistentVolumeClaimType)(nil)).Elem()
+}
+
+func (o PersistentVolumeClaimTypeArrayOutput) ToPersistentVolumeClaimTypeArrayOutput() PersistentVolumeClaimTypeArrayOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimTypeArrayOutput) ToPersistentVolumeClaimTypeArrayOutputWithContext(ctx context.Context) PersistentVolumeClaimTypeArrayOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimTypeArrayOutput) Index(i pulumi.IntInput) PersistentVolumeClaimTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PersistentVolumeClaimType {
+		return vs[0].([]PersistentVolumeClaimType)[vs[1].(int)]
+	}).(PersistentVolumeClaimTypeOutput)
+}
+
 // PersistentVolumeClaimCondition contails details about state of pvc
 type PersistentVolumeClaimCondition struct {
 	// Last time we probed the condition.
@@ -13066,6 +14530,84 @@ func (o PersistentVolumeClaimConditionArrayOutput) Index(i pulumi.IntInput) Pers
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PersistentVolumeClaimCondition {
 		return vs[0].([]PersistentVolumeClaimCondition)[vs[1].(int)]
 	}).(PersistentVolumeClaimConditionOutput)
+}
+
+// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+type PersistentVolumeClaimListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	Items []PersistentVolumeClaimType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type PersistentVolumeClaimListTypeInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeClaimListTypeOutput() PersistentVolumeClaimListTypeOutput
+	ToPersistentVolumeClaimListTypeOutputWithContext(context.Context) PersistentVolumeClaimListTypeOutput
+}
+
+// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+type PersistentVolumeClaimListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	Items PersistentVolumeClaimTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (PersistentVolumeClaimListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeClaimListType)(nil)).Elem()
+}
+
+func (i PersistentVolumeClaimListTypeArgs) ToPersistentVolumeClaimListTypeOutput() PersistentVolumeClaimListTypeOutput {
+	return i.ToPersistentVolumeClaimListTypeOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeClaimListTypeArgs) ToPersistentVolumeClaimListTypeOutputWithContext(ctx context.Context) PersistentVolumeClaimListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimListTypeOutput)
+}
+
+// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+type PersistentVolumeClaimListTypeOutput struct { *pulumi.OutputState }
+
+func (PersistentVolumeClaimListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeClaimListType)(nil)).Elem()
+}
+
+func (o PersistentVolumeClaimListTypeOutput) ToPersistentVolumeClaimListTypeOutput() PersistentVolumeClaimListTypeOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimListTypeOutput) ToPersistentVolumeClaimListTypeOutputWithContext(ctx context.Context) PersistentVolumeClaimListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PersistentVolumeClaimListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+func (o PersistentVolumeClaimListTypeOutput) Items() PersistentVolumeClaimTypeArrayOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimListType) []PersistentVolumeClaimType { return v.Items }).(PersistentVolumeClaimTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeClaimListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeClaimListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeClaimListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
@@ -13551,6 +15093,84 @@ func (o PersistentVolumeClaimVolumeSourcePtrOutput) ClaimName() pulumi.StringPtr
 // Will force the ReadOnly setting in VolumeMounts. Default false.
 func (o PersistentVolumeClaimVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v PersistentVolumeClaimVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
+}
+
+// PersistentVolumeList is a list of PersistentVolume items.
+type PersistentVolumeListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+	Items []PersistentVolumeType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type PersistentVolumeListTypeInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeListTypeOutput() PersistentVolumeListTypeOutput
+	ToPersistentVolumeListTypeOutputWithContext(context.Context) PersistentVolumeListTypeOutput
+}
+
+// PersistentVolumeList is a list of PersistentVolume items.
+type PersistentVolumeListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+	Items PersistentVolumeTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (PersistentVolumeListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeListType)(nil)).Elem()
+}
+
+func (i PersistentVolumeListTypeArgs) ToPersistentVolumeListTypeOutput() PersistentVolumeListTypeOutput {
+	return i.ToPersistentVolumeListTypeOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeListTypeArgs) ToPersistentVolumeListTypeOutputWithContext(ctx context.Context) PersistentVolumeListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeListTypeOutput)
+}
+
+// PersistentVolumeList is a list of PersistentVolume items.
+type PersistentVolumeListTypeOutput struct { *pulumi.OutputState }
+
+func (PersistentVolumeListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeListType)(nil)).Elem()
+}
+
+func (o PersistentVolumeListTypeOutput) ToPersistentVolumeListTypeOutput() PersistentVolumeListTypeOutput {
+	return o
+}
+
+func (o PersistentVolumeListTypeOutput) ToPersistentVolumeListTypeOutputWithContext(ctx context.Context) PersistentVolumeListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PersistentVolumeListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+func (o PersistentVolumeListTypeOutput) Items() PersistentVolumeTypeArrayOutput {
+	return o.ApplyT(func (v PersistentVolumeListType) []PersistentVolumeType { return v.Items }).(PersistentVolumeTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v PersistentVolumeListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PersistentVolumeSpec is the specification of a persistent volume.
@@ -14344,6 +15964,134 @@ func (o PhotonPersistentDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutp
 // ID that identifies Photon Controller persistent disk
 func (o PhotonPersistentDiskVolumeSourcePtrOutput) PdID() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PhotonPersistentDiskVolumeSource) *string { return v.PdID }).(pulumi.StringPtrOutput)
+}
+
+// Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+type PodType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *PodSpec `pulumi:"spec"`
+	// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *PodStatus `pulumi:"status"`
+}
+
+type PodTypeInput interface {
+	pulumi.Input
+
+	ToPodTypeOutput() PodTypeOutput
+	ToPodTypeOutputWithContext(context.Context) PodTypeOutput
+}
+
+// Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+type PodTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec PodSpecPtrInput `pulumi:"spec"`
+	// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status PodStatusPtrInput `pulumi:"status"`
+}
+
+func (PodTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodType)(nil)).Elem()
+}
+
+func (i PodTypeArgs) ToPodTypeOutput() PodTypeOutput {
+	return i.ToPodTypeOutputWithContext(context.Background())
+}
+
+func (i PodTypeArgs) ToPodTypeOutputWithContext(ctx context.Context) PodTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodTypeOutput)
+}
+
+type PodTypeArrayInput interface {
+	pulumi.Input
+
+	ToPodTypeArrayOutput() PodTypeArrayOutput
+	ToPodTypeArrayOutputWithContext(context.Context) PodTypeArrayOutput
+}
+
+type PodTypeArray []PodTypeInput
+
+func (PodTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodType)(nil)).Elem()
+}
+
+func (i PodTypeArray) ToPodTypeArrayOutput() PodTypeArrayOutput {
+	return i.ToPodTypeArrayOutputWithContext(context.Background())
+}
+
+func (i PodTypeArray) ToPodTypeArrayOutputWithContext(ctx context.Context) PodTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodTypeArrayOutput)
+}
+
+// Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+type PodTypeOutput struct { *pulumi.OutputState }
+
+func (PodTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodType)(nil)).Elem()
+}
+
+func (o PodTypeOutput) ToPodTypeOutput() PodTypeOutput {
+	return o
+}
+
+func (o PodTypeOutput) ToPodTypeOutputWithContext(ctx context.Context) PodTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v PodType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o PodTypeOutput) Spec() PodSpecPtrOutput {
+	return o.ApplyT(func (v PodType) *PodSpec { return v.Spec }).(PodSpecPtrOutput)
+}
+
+// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o PodTypeOutput) Status() PodStatusPtrOutput {
+	return o.ApplyT(func (v PodType) *PodStatus { return v.Status }).(PodStatusPtrOutput)
+}
+
+type PodTypeArrayOutput struct { *pulumi.OutputState}
+
+func (PodTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodType)(nil)).Elem()
+}
+
+func (o PodTypeArrayOutput) ToPodTypeArrayOutput() PodTypeArrayOutput {
+	return o
+}
+
+func (o PodTypeArrayOutput) ToPodTypeArrayOutputWithContext(ctx context.Context) PodTypeArrayOutput {
+	return o
+}
+
+func (o PodTypeArrayOutput) Index(i pulumi.IntInput) PodTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PodType {
+		return vs[0].([]PodType)[vs[1].(int)]
+	}).(PodTypeOutput)
 }
 
 // Pod affinity is a group of inter pod affinity scheduling rules.
@@ -15259,6 +17007,84 @@ func (o PodIPArrayOutput) Index(i pulumi.IntInput) PodIPOutput {
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PodIP {
 		return vs[0].([]PodIP)[vs[1].(int)]
 	}).(PodIPOutput)
+}
+
+// PodList is a list of Pods.
+type PodListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of pods. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md
+	Items []PodType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type PodListTypeInput interface {
+	pulumi.Input
+
+	ToPodListTypeOutput() PodListTypeOutput
+	ToPodListTypeOutputWithContext(context.Context) PodListTypeOutput
+}
+
+// PodList is a list of Pods.
+type PodListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of pods. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md
+	Items PodTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (PodListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodListType)(nil)).Elem()
+}
+
+func (i PodListTypeArgs) ToPodListTypeOutput() PodListTypeOutput {
+	return i.ToPodListTypeOutputWithContext(context.Background())
+}
+
+func (i PodListTypeArgs) ToPodListTypeOutputWithContext(ctx context.Context) PodListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodListTypeOutput)
+}
+
+// PodList is a list of Pods.
+type PodListTypeOutput struct { *pulumi.OutputState }
+
+func (PodListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodListType)(nil)).Elem()
+}
+
+func (o PodListTypeOutput) ToPodListTypeOutput() PodListTypeOutput {
+	return o
+}
+
+func (o PodListTypeOutput) ToPodListTypeOutputWithContext(ctx context.Context) PodListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of pods. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md
+func (o PodListTypeOutput) Items() PodTypeArrayOutput {
+	return o.ApplyT(func (v PodListType) []PodType { return v.Items }).(PodTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v PodListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PodReadinessGate contains the reference to a pod condition
@@ -16456,6 +18282,203 @@ func (o PodStatusPtrOutput) Reason() pulumi.StringPtrOutput {
 // RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 func (o PodStatusPtrOutput) StartTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
+}
+
+// PodTemplate describes a template for creating copies of a predefined pod.
+type PodTemplateType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Template *PodTemplateSpec `pulumi:"template"`
+}
+
+type PodTemplateTypeInput interface {
+	pulumi.Input
+
+	ToPodTemplateTypeOutput() PodTemplateTypeOutput
+	ToPodTemplateTypeOutputWithContext(context.Context) PodTemplateTypeOutput
+}
+
+// PodTemplate describes a template for creating copies of a predefined pod.
+type PodTemplateTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Template PodTemplateSpecPtrInput `pulumi:"template"`
+}
+
+func (PodTemplateTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodTemplateType)(nil)).Elem()
+}
+
+func (i PodTemplateTypeArgs) ToPodTemplateTypeOutput() PodTemplateTypeOutput {
+	return i.ToPodTemplateTypeOutputWithContext(context.Background())
+}
+
+func (i PodTemplateTypeArgs) ToPodTemplateTypeOutputWithContext(ctx context.Context) PodTemplateTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateTypeOutput)
+}
+
+type PodTemplateTypeArrayInput interface {
+	pulumi.Input
+
+	ToPodTemplateTypeArrayOutput() PodTemplateTypeArrayOutput
+	ToPodTemplateTypeArrayOutputWithContext(context.Context) PodTemplateTypeArrayOutput
+}
+
+type PodTemplateTypeArray []PodTemplateTypeInput
+
+func (PodTemplateTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodTemplateType)(nil)).Elem()
+}
+
+func (i PodTemplateTypeArray) ToPodTemplateTypeArrayOutput() PodTemplateTypeArrayOutput {
+	return i.ToPodTemplateTypeArrayOutputWithContext(context.Background())
+}
+
+func (i PodTemplateTypeArray) ToPodTemplateTypeArrayOutputWithContext(ctx context.Context) PodTemplateTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateTypeArrayOutput)
+}
+
+// PodTemplate describes a template for creating copies of a predefined pod.
+type PodTemplateTypeOutput struct { *pulumi.OutputState }
+
+func (PodTemplateTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodTemplateType)(nil)).Elem()
+}
+
+func (o PodTemplateTypeOutput) ToPodTemplateTypeOutput() PodTemplateTypeOutput {
+	return o
+}
+
+func (o PodTemplateTypeOutput) ToPodTemplateTypeOutputWithContext(ctx context.Context) PodTemplateTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodTemplateTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodTemplateType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodTemplateTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodTemplateType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodTemplateTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v PodTemplateType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o PodTemplateTypeOutput) Template() PodTemplateSpecPtrOutput {
+	return o.ApplyT(func (v PodTemplateType) *PodTemplateSpec { return v.Template }).(PodTemplateSpecPtrOutput)
+}
+
+type PodTemplateTypeArrayOutput struct { *pulumi.OutputState}
+
+func (PodTemplateTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodTemplateType)(nil)).Elem()
+}
+
+func (o PodTemplateTypeArrayOutput) ToPodTemplateTypeArrayOutput() PodTemplateTypeArrayOutput {
+	return o
+}
+
+func (o PodTemplateTypeArrayOutput) ToPodTemplateTypeArrayOutputWithContext(ctx context.Context) PodTemplateTypeArrayOutput {
+	return o
+}
+
+func (o PodTemplateTypeArrayOutput) Index(i pulumi.IntInput) PodTemplateTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PodTemplateType {
+		return vs[0].([]PodTemplateType)[vs[1].(int)]
+	}).(PodTemplateTypeOutput)
+}
+
+// PodTemplateList is a list of PodTemplates.
+type PodTemplateListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of pod templates
+	Items []PodTemplateType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type PodTemplateListTypeInput interface {
+	pulumi.Input
+
+	ToPodTemplateListTypeOutput() PodTemplateListTypeOutput
+	ToPodTemplateListTypeOutputWithContext(context.Context) PodTemplateListTypeOutput
+}
+
+// PodTemplateList is a list of PodTemplates.
+type PodTemplateListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of pod templates
+	Items PodTemplateTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (PodTemplateListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodTemplateListType)(nil)).Elem()
+}
+
+func (i PodTemplateListTypeArgs) ToPodTemplateListTypeOutput() PodTemplateListTypeOutput {
+	return i.ToPodTemplateListTypeOutputWithContext(context.Background())
+}
+
+func (i PodTemplateListTypeArgs) ToPodTemplateListTypeOutputWithContext(ctx context.Context) PodTemplateListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListTypeOutput)
+}
+
+// PodTemplateList is a list of PodTemplates.
+type PodTemplateListTypeOutput struct { *pulumi.OutputState }
+
+func (PodTemplateListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodTemplateListType)(nil)).Elem()
+}
+
+func (o PodTemplateListTypeOutput) ToPodTemplateListTypeOutput() PodTemplateListTypeOutput {
+	return o
+}
+
+func (o PodTemplateListTypeOutput) ToPodTemplateListTypeOutputWithContext(ctx context.Context) PodTemplateListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodTemplateListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodTemplateListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of pod templates
+func (o PodTemplateListTypeOutput) Items() PodTemplateTypeArrayOutput {
+	return o.ApplyT(func (v PodTemplateListType) []PodTemplateType { return v.Items }).(PodTemplateTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodTemplateListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v PodTemplateListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodTemplateListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v PodTemplateListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PodTemplateSpec describes the data a pod should have when created from a template
@@ -17784,6 +19807,134 @@ func (o RBDVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RBDVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
+// ReplicationController represents the configuration of a replication controller.
+type ReplicationControllerType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *ReplicationControllerSpec `pulumi:"spec"`
+	// Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *ReplicationControllerStatus `pulumi:"status"`
+}
+
+type ReplicationControllerTypeInput interface {
+	pulumi.Input
+
+	ToReplicationControllerTypeOutput() ReplicationControllerTypeOutput
+	ToReplicationControllerTypeOutputWithContext(context.Context) ReplicationControllerTypeOutput
+}
+
+// ReplicationController represents the configuration of a replication controller.
+type ReplicationControllerTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec ReplicationControllerSpecPtrInput `pulumi:"spec"`
+	// Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status ReplicationControllerStatusPtrInput `pulumi:"status"`
+}
+
+func (ReplicationControllerTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerType)(nil)).Elem()
+}
+
+func (i ReplicationControllerTypeArgs) ToReplicationControllerTypeOutput() ReplicationControllerTypeOutput {
+	return i.ToReplicationControllerTypeOutputWithContext(context.Background())
+}
+
+func (i ReplicationControllerTypeArgs) ToReplicationControllerTypeOutputWithContext(ctx context.Context) ReplicationControllerTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerTypeOutput)
+}
+
+type ReplicationControllerTypeArrayInput interface {
+	pulumi.Input
+
+	ToReplicationControllerTypeArrayOutput() ReplicationControllerTypeArrayOutput
+	ToReplicationControllerTypeArrayOutputWithContext(context.Context) ReplicationControllerTypeArrayOutput
+}
+
+type ReplicationControllerTypeArray []ReplicationControllerTypeInput
+
+func (ReplicationControllerTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ReplicationControllerType)(nil)).Elem()
+}
+
+func (i ReplicationControllerTypeArray) ToReplicationControllerTypeArrayOutput() ReplicationControllerTypeArrayOutput {
+	return i.ToReplicationControllerTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ReplicationControllerTypeArray) ToReplicationControllerTypeArrayOutputWithContext(ctx context.Context) ReplicationControllerTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerTypeArrayOutput)
+}
+
+// ReplicationController represents the configuration of a replication controller.
+type ReplicationControllerTypeOutput struct { *pulumi.OutputState }
+
+func (ReplicationControllerTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerType)(nil)).Elem()
+}
+
+func (o ReplicationControllerTypeOutput) ToReplicationControllerTypeOutput() ReplicationControllerTypeOutput {
+	return o
+}
+
+func (o ReplicationControllerTypeOutput) ToReplicationControllerTypeOutputWithContext(ctx context.Context) ReplicationControllerTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ReplicationControllerTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ReplicationControllerTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ReplicationControllerTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ReplicationControllerTypeOutput) Spec() ReplicationControllerSpecPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerType) *ReplicationControllerSpec { return v.Spec }).(ReplicationControllerSpecPtrOutput)
+}
+
+// Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ReplicationControllerTypeOutput) Status() ReplicationControllerStatusPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerType) *ReplicationControllerStatus { return v.Status }).(ReplicationControllerStatusPtrOutput)
+}
+
+type ReplicationControllerTypeArrayOutput struct { *pulumi.OutputState}
+
+func (ReplicationControllerTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ReplicationControllerType)(nil)).Elem()
+}
+
+func (o ReplicationControllerTypeArrayOutput) ToReplicationControllerTypeArrayOutput() ReplicationControllerTypeArrayOutput {
+	return o
+}
+
+func (o ReplicationControllerTypeArrayOutput) ToReplicationControllerTypeArrayOutputWithContext(ctx context.Context) ReplicationControllerTypeArrayOutput {
+	return o
+}
+
+func (o ReplicationControllerTypeArrayOutput) Index(i pulumi.IntInput) ReplicationControllerTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ReplicationControllerType {
+		return vs[0].([]ReplicationControllerType)[vs[1].(int)]
+	}).(ReplicationControllerTypeOutput)
+}
+
 // ReplicationControllerCondition describes the state of a replication controller at a certain point.
 type ReplicationControllerCondition struct {
 	// The last time the condition transitioned from one status to another.
@@ -17910,6 +20061,84 @@ func (o ReplicationControllerConditionArrayOutput) Index(i pulumi.IntInput) Repl
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ReplicationControllerCondition {
 		return vs[0].([]ReplicationControllerCondition)[vs[1].(int)]
 	}).(ReplicationControllerConditionOutput)
+}
+
+// ReplicationControllerList is a collection of replication controllers.
+type ReplicationControllerListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of replication controllers. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+	Items []ReplicationControllerType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type ReplicationControllerListTypeInput interface {
+	pulumi.Input
+
+	ToReplicationControllerListTypeOutput() ReplicationControllerListTypeOutput
+	ToReplicationControllerListTypeOutputWithContext(context.Context) ReplicationControllerListTypeOutput
+}
+
+// ReplicationControllerList is a collection of replication controllers.
+type ReplicationControllerListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of replication controllers. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+	Items ReplicationControllerTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ReplicationControllerListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerListType)(nil)).Elem()
+}
+
+func (i ReplicationControllerListTypeArgs) ToReplicationControllerListTypeOutput() ReplicationControllerListTypeOutput {
+	return i.ToReplicationControllerListTypeOutputWithContext(context.Background())
+}
+
+func (i ReplicationControllerListTypeArgs) ToReplicationControllerListTypeOutputWithContext(ctx context.Context) ReplicationControllerListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListTypeOutput)
+}
+
+// ReplicationControllerList is a collection of replication controllers.
+type ReplicationControllerListTypeOutput struct { *pulumi.OutputState }
+
+func (ReplicationControllerListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerListType)(nil)).Elem()
+}
+
+func (o ReplicationControllerListTypeOutput) ToReplicationControllerListTypeOutput() ReplicationControllerListTypeOutput {
+	return o
+}
+
+func (o ReplicationControllerListTypeOutput) ToReplicationControllerListTypeOutputWithContext(ctx context.Context) ReplicationControllerListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ReplicationControllerListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of replication controllers. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+func (o ReplicationControllerListTypeOutput) Items() ReplicationControllerTypeArrayOutput {
+	return o.ApplyT(func (v ReplicationControllerListType) []ReplicationControllerType { return v.Items }).(ReplicationControllerTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ReplicationControllerListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ReplicationControllerListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v ReplicationControllerListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // ReplicationControllerSpec is the specification of a replication controller.
@@ -18395,6 +20624,212 @@ func (o ResourceFieldSelectorPtrOutput) Divisor() pulumi.StringPtrOutput {
 // Required: resource to select
 func (o ResourceFieldSelectorPtrOutput) Resource() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ResourceFieldSelector) *string { return v.Resource }).(pulumi.StringPtrOutput)
+}
+
+// ResourceQuota sets aggregate quota restrictions enforced per namespace
+type ResourceQuotaType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *ResourceQuotaSpec `pulumi:"spec"`
+	// Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *ResourceQuotaStatus `pulumi:"status"`
+}
+
+type ResourceQuotaTypeInput interface {
+	pulumi.Input
+
+	ToResourceQuotaTypeOutput() ResourceQuotaTypeOutput
+	ToResourceQuotaTypeOutputWithContext(context.Context) ResourceQuotaTypeOutput
+}
+
+// ResourceQuota sets aggregate quota restrictions enforced per namespace
+type ResourceQuotaTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec ResourceQuotaSpecPtrInput `pulumi:"spec"`
+	// Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status ResourceQuotaStatusPtrInput `pulumi:"status"`
+}
+
+func (ResourceQuotaTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuotaType)(nil)).Elem()
+}
+
+func (i ResourceQuotaTypeArgs) ToResourceQuotaTypeOutput() ResourceQuotaTypeOutput {
+	return i.ToResourceQuotaTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceQuotaTypeArgs) ToResourceQuotaTypeOutputWithContext(ctx context.Context) ResourceQuotaTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaTypeOutput)
+}
+
+type ResourceQuotaTypeArrayInput interface {
+	pulumi.Input
+
+	ToResourceQuotaTypeArrayOutput() ResourceQuotaTypeArrayOutput
+	ToResourceQuotaTypeArrayOutputWithContext(context.Context) ResourceQuotaTypeArrayOutput
+}
+
+type ResourceQuotaTypeArray []ResourceQuotaTypeInput
+
+func (ResourceQuotaTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceQuotaType)(nil)).Elem()
+}
+
+func (i ResourceQuotaTypeArray) ToResourceQuotaTypeArrayOutput() ResourceQuotaTypeArrayOutput {
+	return i.ToResourceQuotaTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceQuotaTypeArray) ToResourceQuotaTypeArrayOutputWithContext(ctx context.Context) ResourceQuotaTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaTypeArrayOutput)
+}
+
+// ResourceQuota sets aggregate quota restrictions enforced per namespace
+type ResourceQuotaTypeOutput struct { *pulumi.OutputState }
+
+func (ResourceQuotaTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuotaType)(nil)).Elem()
+}
+
+func (o ResourceQuotaTypeOutput) ToResourceQuotaTypeOutput() ResourceQuotaTypeOutput {
+	return o
+}
+
+func (o ResourceQuotaTypeOutput) ToResourceQuotaTypeOutputWithContext(ctx context.Context) ResourceQuotaTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceQuotaTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceQuotaTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ResourceQuotaTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ResourceQuotaTypeOutput) Spec() ResourceQuotaSpecPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaType) *ResourceQuotaSpec { return v.Spec }).(ResourceQuotaSpecPtrOutput)
+}
+
+// Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ResourceQuotaTypeOutput) Status() ResourceQuotaStatusPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaType) *ResourceQuotaStatus { return v.Status }).(ResourceQuotaStatusPtrOutput)
+}
+
+type ResourceQuotaTypeArrayOutput struct { *pulumi.OutputState}
+
+func (ResourceQuotaTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceQuotaType)(nil)).Elem()
+}
+
+func (o ResourceQuotaTypeArrayOutput) ToResourceQuotaTypeArrayOutput() ResourceQuotaTypeArrayOutput {
+	return o
+}
+
+func (o ResourceQuotaTypeArrayOutput) ToResourceQuotaTypeArrayOutputWithContext(ctx context.Context) ResourceQuotaTypeArrayOutput {
+	return o
+}
+
+func (o ResourceQuotaTypeArrayOutput) Index(i pulumi.IntInput) ResourceQuotaTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ResourceQuotaType {
+		return vs[0].([]ResourceQuotaType)[vs[1].(int)]
+	}).(ResourceQuotaTypeOutput)
+}
+
+// ResourceQuotaList is a list of ResourceQuota items.
+type ResourceQuotaListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+	Items []ResourceQuotaType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type ResourceQuotaListTypeInput interface {
+	pulumi.Input
+
+	ToResourceQuotaListTypeOutput() ResourceQuotaListTypeOutput
+	ToResourceQuotaListTypeOutputWithContext(context.Context) ResourceQuotaListTypeOutput
+}
+
+// ResourceQuotaList is a list of ResourceQuota items.
+type ResourceQuotaListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+	Items ResourceQuotaTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ResourceQuotaListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuotaListType)(nil)).Elem()
+}
+
+func (i ResourceQuotaListTypeArgs) ToResourceQuotaListTypeOutput() ResourceQuotaListTypeOutput {
+	return i.ToResourceQuotaListTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceQuotaListTypeArgs) ToResourceQuotaListTypeOutputWithContext(ctx context.Context) ResourceQuotaListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListTypeOutput)
+}
+
+// ResourceQuotaList is a list of ResourceQuota items.
+type ResourceQuotaListTypeOutput struct { *pulumi.OutputState }
+
+func (ResourceQuotaListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuotaListType)(nil)).Elem()
+}
+
+func (o ResourceQuotaListTypeOutput) ToResourceQuotaListTypeOutput() ResourceQuotaListTypeOutput {
+	return o
+}
+
+func (o ResourceQuotaListTypeOutput) ToResourceQuotaListTypeOutputWithContext(ctx context.Context) ResourceQuotaListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceQuotaListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+func (o ResourceQuotaListTypeOutput) Items() ResourceQuotaTypeArrayOutput {
+	return o.ApplyT(func (v ResourceQuotaListType) []ResourceQuotaType { return v.Items }).(ResourceQuotaTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceQuotaListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceQuotaListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v ResourceQuotaListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
@@ -19662,6 +22097,143 @@ func (o ScopedResourceSelectorRequirementArrayOutput) Index(i pulumi.IntInput) S
 	}).(ScopedResourceSelectorRequirementOutput)
 }
 
+// Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
+type SecretType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
+	Data map[string]string `pulumi:"data"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.
+	StringData map[string]string `pulumi:"stringData"`
+	// Used to facilitate programmatic handling of secret data.
+	Type *string `pulumi:"type"`
+}
+
+type SecretTypeInput interface {
+	pulumi.Input
+
+	ToSecretTypeOutput() SecretTypeOutput
+	ToSecretTypeOutputWithContext(context.Context) SecretTypeOutput
+}
+
+// Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
+type SecretTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
+	Data pulumi.StringMapInput `pulumi:"data"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.
+	StringData pulumi.StringMapInput `pulumi:"stringData"`
+	// Used to facilitate programmatic handling of secret data.
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (SecretTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretType)(nil)).Elem()
+}
+
+func (i SecretTypeArgs) ToSecretTypeOutput() SecretTypeOutput {
+	return i.ToSecretTypeOutputWithContext(context.Background())
+}
+
+func (i SecretTypeArgs) ToSecretTypeOutputWithContext(ctx context.Context) SecretTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretTypeOutput)
+}
+
+type SecretTypeArrayInput interface {
+	pulumi.Input
+
+	ToSecretTypeArrayOutput() SecretTypeArrayOutput
+	ToSecretTypeArrayOutputWithContext(context.Context) SecretTypeArrayOutput
+}
+
+type SecretTypeArray []SecretTypeInput
+
+func (SecretTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SecretType)(nil)).Elem()
+}
+
+func (i SecretTypeArray) ToSecretTypeArrayOutput() SecretTypeArrayOutput {
+	return i.ToSecretTypeArrayOutputWithContext(context.Background())
+}
+
+func (i SecretTypeArray) ToSecretTypeArrayOutputWithContext(ctx context.Context) SecretTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretTypeArrayOutput)
+}
+
+// Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
+type SecretTypeOutput struct { *pulumi.OutputState }
+
+func (SecretTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretType)(nil)).Elem()
+}
+
+func (o SecretTypeOutput) ToSecretTypeOutput() SecretTypeOutput {
+	return o
+}
+
+func (o SecretTypeOutput) ToSecretTypeOutputWithContext(ctx context.Context) SecretTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o SecretTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v SecretType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
+func (o SecretTypeOutput) Data() pulumi.StringMapOutput {
+	return o.ApplyT(func (v SecretType) map[string]string { return v.Data }).(pulumi.StringMapOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o SecretTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v SecretType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o SecretTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v SecretType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.
+func (o SecretTypeOutput) StringData() pulumi.StringMapOutput {
+	return o.ApplyT(func (v SecretType) map[string]string { return v.StringData }).(pulumi.StringMapOutput)
+}
+
+// Used to facilitate programmatic handling of secret data.
+func (o SecretTypeOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v SecretType) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type SecretTypeArrayOutput struct { *pulumi.OutputState}
+
+func (SecretTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SecretType)(nil)).Elem()
+}
+
+func (o SecretTypeArrayOutput) ToSecretTypeArrayOutput() SecretTypeArrayOutput {
+	return o
+}
+
+func (o SecretTypeArrayOutput) ToSecretTypeArrayOutputWithContext(ctx context.Context) SecretTypeArrayOutput {
+	return o
+}
+
+func (o SecretTypeArrayOutput) Index(i pulumi.IntInput) SecretTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) SecretType {
+		return vs[0].([]SecretType)[vs[1].(int)]
+	}).(SecretTypeOutput)
+}
+
 // SecretEnvSource selects a Secret to populate the environment variables with.
 //
 // The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
@@ -19938,6 +22510,84 @@ func (o SecretKeySelectorPtrOutput) Name() pulumi.StringPtrOutput {
 // Specify whether the Secret or its key must be defined
 func (o SecretKeySelectorPtrOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v SecretKeySelector) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
+}
+
+// SecretList is a list of Secret.
+type SecretListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is a list of secret objects. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	Items []SecretType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type SecretListTypeInput interface {
+	pulumi.Input
+
+	ToSecretListTypeOutput() SecretListTypeOutput
+	ToSecretListTypeOutputWithContext(context.Context) SecretListTypeOutput
+}
+
+// SecretList is a list of Secret.
+type SecretListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is a list of secret objects. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	Items SecretTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (SecretListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretListType)(nil)).Elem()
+}
+
+func (i SecretListTypeArgs) ToSecretListTypeOutput() SecretListTypeOutput {
+	return i.ToSecretListTypeOutputWithContext(context.Background())
+}
+
+func (i SecretListTypeArgs) ToSecretListTypeOutputWithContext(ctx context.Context) SecretListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretListTypeOutput)
+}
+
+// SecretList is a list of Secret.
+type SecretListTypeOutput struct { *pulumi.OutputState }
+
+func (SecretListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretListType)(nil)).Elem()
+}
+
+func (o SecretListTypeOutput) ToSecretListTypeOutput() SecretListTypeOutput {
+	return o
+}
+
+func (o SecretListTypeOutput) ToSecretListTypeOutputWithContext(ctx context.Context) SecretListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o SecretListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v SecretListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of secret objects. More info: https://kubernetes.io/docs/concepts/configuration/secret
+func (o SecretListTypeOutput) Items() SecretTypeArrayOutput {
+	return o.ApplyT(func (v SecretListType) []SecretType { return v.Items }).(SecretTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o SecretListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v SecretListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o SecretListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v SecretListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // Adapts a secret into a projected volume.
@@ -20622,6 +23272,349 @@ func (o SecurityContextPtrOutput) WindowsOptions() WindowsSecurityContextOptions
 	return o.ApplyT(func (v SecurityContext) *WindowsSecurityContextOptions { return v.WindowsOptions }).(WindowsSecurityContextOptionsPtrOutput)
 }
 
+// Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+type ServiceType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *ServiceSpec `pulumi:"spec"`
+	// Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *ServiceStatus `pulumi:"status"`
+}
+
+type ServiceTypeInput interface {
+	pulumi.Input
+
+	ToServiceTypeOutput() ServiceTypeOutput
+	ToServiceTypeOutputWithContext(context.Context) ServiceTypeOutput
+}
+
+// Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+type ServiceTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec ServiceSpecPtrInput `pulumi:"spec"`
+	// Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status ServiceStatusPtrInput `pulumi:"status"`
+}
+
+func (ServiceTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceType)(nil)).Elem()
+}
+
+func (i ServiceTypeArgs) ToServiceTypeOutput() ServiceTypeOutput {
+	return i.ToServiceTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceTypeArgs) ToServiceTypeOutputWithContext(ctx context.Context) ServiceTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceTypeOutput)
+}
+
+type ServiceTypeArrayInput interface {
+	pulumi.Input
+
+	ToServiceTypeArrayOutput() ServiceTypeArrayOutput
+	ToServiceTypeArrayOutputWithContext(context.Context) ServiceTypeArrayOutput
+}
+
+type ServiceTypeArray []ServiceTypeInput
+
+func (ServiceTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceType)(nil)).Elem()
+}
+
+func (i ServiceTypeArray) ToServiceTypeArrayOutput() ServiceTypeArrayOutput {
+	return i.ToServiceTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ServiceTypeArray) ToServiceTypeArrayOutputWithContext(ctx context.Context) ServiceTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceTypeArrayOutput)
+}
+
+// Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+type ServiceTypeOutput struct { *pulumi.OutputState }
+
+func (ServiceTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceType)(nil)).Elem()
+}
+
+func (o ServiceTypeOutput) ToServiceTypeOutput() ServiceTypeOutput {
+	return o
+}
+
+func (o ServiceTypeOutput) ToServiceTypeOutputWithContext(ctx context.Context) ServiceTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v ServiceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceTypeOutput) Spec() ServiceSpecPtrOutput {
+	return o.ApplyT(func (v ServiceType) *ServiceSpec { return v.Spec }).(ServiceSpecPtrOutput)
+}
+
+// Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceTypeOutput) Status() ServiceStatusPtrOutput {
+	return o.ApplyT(func (v ServiceType) *ServiceStatus { return v.Status }).(ServiceStatusPtrOutput)
+}
+
+type ServiceTypeArrayOutput struct { *pulumi.OutputState}
+
+func (ServiceTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceType)(nil)).Elem()
+}
+
+func (o ServiceTypeArrayOutput) ToServiceTypeArrayOutput() ServiceTypeArrayOutput {
+	return o
+}
+
+func (o ServiceTypeArrayOutput) ToServiceTypeArrayOutputWithContext(ctx context.Context) ServiceTypeArrayOutput {
+	return o
+}
+
+func (o ServiceTypeArrayOutput) Index(i pulumi.IntInput) ServiceTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ServiceType {
+		return vs[0].([]ServiceType)[vs[1].(int)]
+	}).(ServiceTypeOutput)
+}
+
+// ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
+type ServiceAccountType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
+	AutomountServiceAccountToken *bool `pulumi:"automountServiceAccountToken"`
+	// ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+	ImagePullSecrets []LocalObjectReference `pulumi:"imagePullSecrets"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	Secrets []ObjectReference `pulumi:"secrets"`
+}
+
+type ServiceAccountTypeInput interface {
+	pulumi.Input
+
+	ToServiceAccountTypeOutput() ServiceAccountTypeOutput
+	ToServiceAccountTypeOutputWithContext(context.Context) ServiceAccountTypeOutput
+}
+
+// ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
+type ServiceAccountTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
+	AutomountServiceAccountToken pulumi.BoolPtrInput `pulumi:"automountServiceAccountToken"`
+	// ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+	ImagePullSecrets LocalObjectReferenceArrayInput `pulumi:"imagePullSecrets"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	Secrets ObjectReferenceArrayInput `pulumi:"secrets"`
+}
+
+func (ServiceAccountTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceAccountType)(nil)).Elem()
+}
+
+func (i ServiceAccountTypeArgs) ToServiceAccountTypeOutput() ServiceAccountTypeOutput {
+	return i.ToServiceAccountTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceAccountTypeArgs) ToServiceAccountTypeOutputWithContext(ctx context.Context) ServiceAccountTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountTypeOutput)
+}
+
+type ServiceAccountTypeArrayInput interface {
+	pulumi.Input
+
+	ToServiceAccountTypeArrayOutput() ServiceAccountTypeArrayOutput
+	ToServiceAccountTypeArrayOutputWithContext(context.Context) ServiceAccountTypeArrayOutput
+}
+
+type ServiceAccountTypeArray []ServiceAccountTypeInput
+
+func (ServiceAccountTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceAccountType)(nil)).Elem()
+}
+
+func (i ServiceAccountTypeArray) ToServiceAccountTypeArrayOutput() ServiceAccountTypeArrayOutput {
+	return i.ToServiceAccountTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ServiceAccountTypeArray) ToServiceAccountTypeArrayOutputWithContext(ctx context.Context) ServiceAccountTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountTypeArrayOutput)
+}
+
+// ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
+type ServiceAccountTypeOutput struct { *pulumi.OutputState }
+
+func (ServiceAccountTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceAccountType)(nil)).Elem()
+}
+
+func (o ServiceAccountTypeOutput) ToServiceAccountTypeOutput() ServiceAccountTypeOutput {
+	return o
+}
+
+func (o ServiceAccountTypeOutput) ToServiceAccountTypeOutputWithContext(ctx context.Context) ServiceAccountTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceAccountTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceAccountType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
+func (o ServiceAccountTypeOutput) AutomountServiceAccountToken() pulumi.BoolPtrOutput {
+	return o.ApplyT(func (v ServiceAccountType) *bool { return v.AutomountServiceAccountToken }).(pulumi.BoolPtrOutput)
+}
+
+// ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+func (o ServiceAccountTypeOutput) ImagePullSecrets() LocalObjectReferenceArrayOutput {
+	return o.ApplyT(func (v ServiceAccountType) []LocalObjectReference { return v.ImagePullSecrets }).(LocalObjectReferenceArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceAccountTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceAccountType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceAccountTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v ServiceAccountType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+func (o ServiceAccountTypeOutput) Secrets() ObjectReferenceArrayOutput {
+	return o.ApplyT(func (v ServiceAccountType) []ObjectReference { return v.Secrets }).(ObjectReferenceArrayOutput)
+}
+
+type ServiceAccountTypeArrayOutput struct { *pulumi.OutputState}
+
+func (ServiceAccountTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceAccountType)(nil)).Elem()
+}
+
+func (o ServiceAccountTypeArrayOutput) ToServiceAccountTypeArrayOutput() ServiceAccountTypeArrayOutput {
+	return o
+}
+
+func (o ServiceAccountTypeArrayOutput) ToServiceAccountTypeArrayOutputWithContext(ctx context.Context) ServiceAccountTypeArrayOutput {
+	return o
+}
+
+func (o ServiceAccountTypeArrayOutput) Index(i pulumi.IntInput) ServiceAccountTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ServiceAccountType {
+		return vs[0].([]ServiceAccountType)[vs[1].(int)]
+	}).(ServiceAccountTypeOutput)
+}
+
+// ServiceAccountList is a list of ServiceAccount objects
+type ServiceAccountListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+	Items []ServiceAccountType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type ServiceAccountListTypeInput interface {
+	pulumi.Input
+
+	ToServiceAccountListTypeOutput() ServiceAccountListTypeOutput
+	ToServiceAccountListTypeOutputWithContext(context.Context) ServiceAccountListTypeOutput
+}
+
+// ServiceAccountList is a list of ServiceAccount objects
+type ServiceAccountListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+	Items ServiceAccountTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ServiceAccountListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceAccountListType)(nil)).Elem()
+}
+
+func (i ServiceAccountListTypeArgs) ToServiceAccountListTypeOutput() ServiceAccountListTypeOutput {
+	return i.ToServiceAccountListTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceAccountListTypeArgs) ToServiceAccountListTypeOutputWithContext(ctx context.Context) ServiceAccountListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountListTypeOutput)
+}
+
+// ServiceAccountList is a list of ServiceAccount objects
+type ServiceAccountListTypeOutput struct { *pulumi.OutputState }
+
+func (ServiceAccountListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceAccountListType)(nil)).Elem()
+}
+
+func (o ServiceAccountListTypeOutput) ToServiceAccountListTypeOutput() ServiceAccountListTypeOutput {
+	return o
+}
+
+func (o ServiceAccountListTypeOutput) ToServiceAccountListTypeOutputWithContext(ctx context.Context) ServiceAccountListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceAccountListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceAccountListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+func (o ServiceAccountListTypeOutput) Items() ServiceAccountTypeArrayOutput {
+	return o.ApplyT(func (v ServiceAccountListType) []ServiceAccountType { return v.Items }).(ServiceAccountTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceAccountListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceAccountListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceAccountListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v ServiceAccountListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
 type ServiceAccountTokenProjection struct {
 	// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
@@ -20763,6 +23756,84 @@ func (o ServiceAccountTokenProjectionPtrOutput) ExpirationSeconds() pulumi.IntPt
 // Path is the path relative to the mount point of the file to project the token into.
 func (o ServiceAccountTokenProjectionPtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ServiceAccountTokenProjection) *string { return v.Path }).(pulumi.StringPtrOutput)
+}
+
+// ServiceList holds a list of services.
+type ServiceListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of services
+	Items []ServiceType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type ServiceListTypeInput interface {
+	pulumi.Input
+
+	ToServiceListTypeOutput() ServiceListTypeOutput
+	ToServiceListTypeOutputWithContext(context.Context) ServiceListTypeOutput
+}
+
+// ServiceList holds a list of services.
+type ServiceListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of services
+	Items ServiceTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ServiceListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceListType)(nil)).Elem()
+}
+
+func (i ServiceListTypeArgs) ToServiceListTypeOutput() ServiceListTypeOutput {
+	return i.ToServiceListTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceListTypeArgs) ToServiceListTypeOutputWithContext(ctx context.Context) ServiceListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceListTypeOutput)
+}
+
+// ServiceList holds a list of services.
+type ServiceListTypeOutput struct { *pulumi.OutputState }
+
+func (ServiceListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceListType)(nil)).Elem()
+}
+
+func (o ServiceListTypeOutput) ToServiceListTypeOutput() ServiceListTypeOutput {
+	return o
+}
+
+func (o ServiceListTypeOutput) ToServiceListTypeOutputWithContext(ctx context.Context) ServiceListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of services
+func (o ServiceListTypeOutput) Items() ServiceTypeArrayOutput {
+	return o.ApplyT(func (v ServiceListType) []ServiceType { return v.Items }).(ServiceTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ServiceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v ServiceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // ServicePort contains information on service's port.
@@ -23681,75 +26752,6 @@ func (o VsphereVirtualDiskVolumeSourcePtrOutput) VolumePath() pulumi.StringPtrOu
 	return o.ApplyT(func (v VsphereVirtualDiskVolumeSource) *string { return v.VolumePath }).(pulumi.StringPtrOutput)
 }
 
-// Event represents a single event to a watched resource.
-type WatchEvent struct {
-	// Object is:
-	//  * If Type is Added or Modified: the new state of the object.
-	//  * If Type is Deleted: the state of the object immediately before deletion.
-	//  * If Type is Error: *Status is recommended; other types may make sense
-	//    depending on context.
-	Object map[string]interface{} `pulumi:"object"`
-	Type *string `pulumi:"type"`
-}
-
-type WatchEventInput interface {
-	pulumi.Input
-
-	ToWatchEventOutput() WatchEventOutput
-	ToWatchEventOutputWithContext(context.Context) WatchEventOutput
-}
-
-// Event represents a single event to a watched resource.
-type WatchEventArgs struct {
-	// Object is:
-	//  * If Type is Added or Modified: the new state of the object.
-	//  * If Type is Deleted: the state of the object immediately before deletion.
-	//  * If Type is Error: *Status is recommended; other types may make sense
-	//    depending on context.
-	Object pulumi.MapInput `pulumi:"object"`
-	Type pulumi.StringPtrInput `pulumi:"type"`
-}
-
-func (WatchEventArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*WatchEvent)(nil)).Elem()
-}
-
-func (i WatchEventArgs) ToWatchEventOutput() WatchEventOutput {
-	return i.ToWatchEventOutputWithContext(context.Background())
-}
-
-func (i WatchEventArgs) ToWatchEventOutputWithContext(ctx context.Context) WatchEventOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(WatchEventOutput)
-}
-
-// Event represents a single event to a watched resource.
-type WatchEventOutput struct { *pulumi.OutputState }
-
-func (WatchEventOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*WatchEvent)(nil)).Elem()
-}
-
-func (o WatchEventOutput) ToWatchEventOutput() WatchEventOutput {
-	return o
-}
-
-func (o WatchEventOutput) ToWatchEventOutputWithContext(ctx context.Context) WatchEventOutput {
-	return o
-}
-
-// Object is:
-//  * If Type is Added or Modified: the new state of the object.
-//  * If Type is Deleted: the state of the object immediately before deletion.
-//  * If Type is Error: *Status is recommended; other types may make sense
-//    depending on context.
-func (o WatchEventOutput) Object() pulumi.MapOutput {
-	return o.ApplyT(func (v WatchEvent) map[string]interface{} { return v.Object }).(pulumi.MapOutput)
-}
-
-func (o WatchEventOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v WatchEvent) *string { return v.Type }).(pulumi.StringPtrOutput)
-}
-
 // The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
 type WeightedPodAffinityTerm struct {
 	// Required. A pod affinity term, associated with the corresponding weight.
@@ -23995,10 +26997,6 @@ func (o WindowsSecurityContextOptionsPtrOutput) RunAsUserName() pulumi.StringPtr
 }
 
 func init() {
-	pulumi.RegisterOutputType(APIGroupOutput{})
-	pulumi.RegisterOutputType(APIGroupListOutput{})
-	pulumi.RegisterOutputType(APIResourceListOutput{})
-	pulumi.RegisterOutputType(APIVersionsOutput{})
 	pulumi.RegisterOutputType(AWSElasticBlockStoreVolumeSourceOutput{})
 	pulumi.RegisterOutputType(AWSElasticBlockStoreVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(AffinityOutput{})
@@ -24011,6 +27009,7 @@ func init() {
 	pulumi.RegisterOutputType(AzureFilePersistentVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(AzureFileVolumeSourceOutput{})
 	pulumi.RegisterOutputType(AzureFileVolumeSourcePtrOutput{})
+	pulumi.RegisterOutputType(BindingTypeOutput{})
 	pulumi.RegisterOutputType(CSIPersistentVolumeSourceOutput{})
 	pulumi.RegisterOutputType(CSIPersistentVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(CSIVolumeSourceOutput{})
@@ -24029,10 +27028,16 @@ func init() {
 	pulumi.RegisterOutputType(ClientIPConfigPtrOutput{})
 	pulumi.RegisterOutputType(ComponentConditionOutput{})
 	pulumi.RegisterOutputType(ComponentConditionArrayOutput{})
+	pulumi.RegisterOutputType(ComponentStatusTypeOutput{})
+	pulumi.RegisterOutputType(ComponentStatusTypeArrayOutput{})
+	pulumi.RegisterOutputType(ComponentStatusListTypeOutput{})
+	pulumi.RegisterOutputType(ConfigMapTypeOutput{})
+	pulumi.RegisterOutputType(ConfigMapTypeArrayOutput{})
 	pulumi.RegisterOutputType(ConfigMapEnvSourceOutput{})
 	pulumi.RegisterOutputType(ConfigMapEnvSourcePtrOutput{})
 	pulumi.RegisterOutputType(ConfigMapKeySelectorOutput{})
 	pulumi.RegisterOutputType(ConfigMapKeySelectorPtrOutput{})
+	pulumi.RegisterOutputType(ConfigMapListTypeOutput{})
 	pulumi.RegisterOutputType(ConfigMapNodeConfigSourceOutput{})
 	pulumi.RegisterOutputType(ConfigMapNodeConfigSourcePtrOutput{})
 	pulumi.RegisterOutputType(ConfigMapProjectionOutput{})
@@ -24057,7 +27062,6 @@ func init() {
 	pulumi.RegisterOutputType(ContainerStatusArrayOutput{})
 	pulumi.RegisterOutputType(DaemonEndpointOutput{})
 	pulumi.RegisterOutputType(DaemonEndpointPtrOutput{})
-	pulumi.RegisterOutputType(DeleteOptionsOutput{})
 	pulumi.RegisterOutputType(DownwardAPIProjectionOutput{})
 	pulumi.RegisterOutputType(DownwardAPIProjectionPtrOutput{})
 	pulumi.RegisterOutputType(DownwardAPIVolumeFileOutput{})
@@ -24072,6 +27076,9 @@ func init() {
 	pulumi.RegisterOutputType(EndpointPortArrayOutput{})
 	pulumi.RegisterOutputType(EndpointSubsetOutput{})
 	pulumi.RegisterOutputType(EndpointSubsetArrayOutput{})
+	pulumi.RegisterOutputType(EndpointsTypeOutput{})
+	pulumi.RegisterOutputType(EndpointsTypeArrayOutput{})
+	pulumi.RegisterOutputType(EndpointsListTypeOutput{})
 	pulumi.RegisterOutputType(EnvFromSourceOutput{})
 	pulumi.RegisterOutputType(EnvFromSourceArrayOutput{})
 	pulumi.RegisterOutputType(EnvVarOutput{})
@@ -24080,6 +27087,9 @@ func init() {
 	pulumi.RegisterOutputType(EnvVarSourcePtrOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerArrayOutput{})
+	pulumi.RegisterOutputType(EventTypeOutput{})
+	pulumi.RegisterOutputType(EventTypeArrayOutput{})
+	pulumi.RegisterOutputType(EventListTypeOutput{})
 	pulumi.RegisterOutputType(EventSeriesOutput{})
 	pulumi.RegisterOutputType(EventSeriesPtrOutput{})
 	pulumi.RegisterOutputType(EventSourceOutput{})
@@ -24120,8 +27130,11 @@ func init() {
 	pulumi.RegisterOutputType(KeyToPathArrayOutput{})
 	pulumi.RegisterOutputType(LifecycleOutput{})
 	pulumi.RegisterOutputType(LifecyclePtrOutput{})
+	pulumi.RegisterOutputType(LimitRangeTypeOutput{})
+	pulumi.RegisterOutputType(LimitRangeTypeArrayOutput{})
 	pulumi.RegisterOutputType(LimitRangeItemOutput{})
 	pulumi.RegisterOutputType(LimitRangeItemArrayOutput{})
+	pulumi.RegisterOutputType(LimitRangeListTypeOutput{})
 	pulumi.RegisterOutputType(LimitRangeSpecOutput{})
 	pulumi.RegisterOutputType(LimitRangeSpecPtrOutput{})
 	pulumi.RegisterOutputType(LoadBalancerIngressOutput{})
@@ -24135,12 +27148,17 @@ func init() {
 	pulumi.RegisterOutputType(LocalVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(NFSVolumeSourceOutput{})
 	pulumi.RegisterOutputType(NFSVolumeSourcePtrOutput{})
+	pulumi.RegisterOutputType(NamespaceTypeOutput{})
+	pulumi.RegisterOutputType(NamespaceTypeArrayOutput{})
 	pulumi.RegisterOutputType(NamespaceConditionOutput{})
 	pulumi.RegisterOutputType(NamespaceConditionArrayOutput{})
+	pulumi.RegisterOutputType(NamespaceListTypeOutput{})
 	pulumi.RegisterOutputType(NamespaceSpecOutput{})
 	pulumi.RegisterOutputType(NamespaceSpecPtrOutput{})
 	pulumi.RegisterOutputType(NamespaceStatusOutput{})
 	pulumi.RegisterOutputType(NamespaceStatusPtrOutput{})
+	pulumi.RegisterOutputType(NodeTypeOutput{})
+	pulumi.RegisterOutputType(NodeTypeArrayOutput{})
 	pulumi.RegisterOutputType(NodeAddressOutput{})
 	pulumi.RegisterOutputType(NodeAddressArrayOutput{})
 	pulumi.RegisterOutputType(NodeAffinityOutput{})
@@ -24153,6 +27171,7 @@ func init() {
 	pulumi.RegisterOutputType(NodeConfigStatusPtrOutput{})
 	pulumi.RegisterOutputType(NodeDaemonEndpointsOutput{})
 	pulumi.RegisterOutputType(NodeDaemonEndpointsPtrOutput{})
+	pulumi.RegisterOutputType(NodeListTypeOutput{})
 	pulumi.RegisterOutputType(NodeSelectorOutput{})
 	pulumi.RegisterOutputType(NodeSelectorPtrOutput{})
 	pulumi.RegisterOutputType(NodeSelectorRequirementOutput{})
@@ -24171,20 +27190,28 @@ func init() {
 	pulumi.RegisterOutputType(ObjectReferenceOutput{})
 	pulumi.RegisterOutputType(ObjectReferencePtrOutput{})
 	pulumi.RegisterOutputType(ObjectReferenceArrayOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeTypeOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeTypeArrayOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeClaimTypeOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeClaimTypeArrayOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimConditionOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimConditionArrayOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeClaimListTypeOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimSpecOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimSpecPtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimStatusOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimStatusPtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimVolumeSourceOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimVolumeSourcePtrOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeListTypeOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeSpecOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeSpecPtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeStatusOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeStatusPtrOutput{})
 	pulumi.RegisterOutputType(PhotonPersistentDiskVolumeSourceOutput{})
 	pulumi.RegisterOutputType(PhotonPersistentDiskVolumeSourcePtrOutput{})
+	pulumi.RegisterOutputType(PodTypeOutput{})
+	pulumi.RegisterOutputType(PodTypeArrayOutput{})
 	pulumi.RegisterOutputType(PodAffinityOutput{})
 	pulumi.RegisterOutputType(PodAffinityPtrOutput{})
 	pulumi.RegisterOutputType(PodAffinityTermOutput{})
@@ -24200,6 +27227,7 @@ func init() {
 	pulumi.RegisterOutputType(PodDNSConfigOptionArrayOutput{})
 	pulumi.RegisterOutputType(PodIPOutput{})
 	pulumi.RegisterOutputType(PodIPArrayOutput{})
+	pulumi.RegisterOutputType(PodListTypeOutput{})
 	pulumi.RegisterOutputType(PodReadinessGateOutput{})
 	pulumi.RegisterOutputType(PodReadinessGateArrayOutput{})
 	pulumi.RegisterOutputType(PodSecurityContextOutput{})
@@ -24208,6 +27236,9 @@ func init() {
 	pulumi.RegisterOutputType(PodSpecPtrOutput{})
 	pulumi.RegisterOutputType(PodStatusOutput{})
 	pulumi.RegisterOutputType(PodStatusPtrOutput{})
+	pulumi.RegisterOutputType(PodTemplateTypeOutput{})
+	pulumi.RegisterOutputType(PodTemplateTypeArrayOutput{})
+	pulumi.RegisterOutputType(PodTemplateListTypeOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecPtrOutput{})
 	pulumi.RegisterOutputType(PortworxVolumeSourceOutput{})
@@ -24224,14 +27255,20 @@ func init() {
 	pulumi.RegisterOutputType(RBDPersistentVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(RBDVolumeSourceOutput{})
 	pulumi.RegisterOutputType(RBDVolumeSourcePtrOutput{})
+	pulumi.RegisterOutputType(ReplicationControllerTypeOutput{})
+	pulumi.RegisterOutputType(ReplicationControllerTypeArrayOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerConditionOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerConditionArrayOutput{})
+	pulumi.RegisterOutputType(ReplicationControllerListTypeOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerSpecOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerSpecPtrOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerStatusOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerStatusPtrOutput{})
 	pulumi.RegisterOutputType(ResourceFieldSelectorOutput{})
 	pulumi.RegisterOutputType(ResourceFieldSelectorPtrOutput{})
+	pulumi.RegisterOutputType(ResourceQuotaTypeOutput{})
+	pulumi.RegisterOutputType(ResourceQuotaTypeArrayOutput{})
+	pulumi.RegisterOutputType(ResourceQuotaListTypeOutput{})
 	pulumi.RegisterOutputType(ResourceQuotaSpecOutput{})
 	pulumi.RegisterOutputType(ResourceQuotaSpecPtrOutput{})
 	pulumi.RegisterOutputType(ResourceQuotaStatusOutput{})
@@ -24248,10 +27285,13 @@ func init() {
 	pulumi.RegisterOutputType(ScopeSelectorPtrOutput{})
 	pulumi.RegisterOutputType(ScopedResourceSelectorRequirementOutput{})
 	pulumi.RegisterOutputType(ScopedResourceSelectorRequirementArrayOutput{})
+	pulumi.RegisterOutputType(SecretTypeOutput{})
+	pulumi.RegisterOutputType(SecretTypeArrayOutput{})
 	pulumi.RegisterOutputType(SecretEnvSourceOutput{})
 	pulumi.RegisterOutputType(SecretEnvSourcePtrOutput{})
 	pulumi.RegisterOutputType(SecretKeySelectorOutput{})
 	pulumi.RegisterOutputType(SecretKeySelectorPtrOutput{})
+	pulumi.RegisterOutputType(SecretListTypeOutput{})
 	pulumi.RegisterOutputType(SecretProjectionOutput{})
 	pulumi.RegisterOutputType(SecretProjectionPtrOutput{})
 	pulumi.RegisterOutputType(SecretReferenceOutput{})
@@ -24260,8 +27300,14 @@ func init() {
 	pulumi.RegisterOutputType(SecretVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(SecurityContextOutput{})
 	pulumi.RegisterOutputType(SecurityContextPtrOutput{})
+	pulumi.RegisterOutputType(ServiceTypeOutput{})
+	pulumi.RegisterOutputType(ServiceTypeArrayOutput{})
+	pulumi.RegisterOutputType(ServiceAccountTypeOutput{})
+	pulumi.RegisterOutputType(ServiceAccountTypeArrayOutput{})
+	pulumi.RegisterOutputType(ServiceAccountListTypeOutput{})
 	pulumi.RegisterOutputType(ServiceAccountTokenProjectionOutput{})
 	pulumi.RegisterOutputType(ServiceAccountTokenProjectionPtrOutput{})
+	pulumi.RegisterOutputType(ServiceListTypeOutput{})
 	pulumi.RegisterOutputType(ServicePortOutput{})
 	pulumi.RegisterOutputType(ServicePortArrayOutput{})
 	pulumi.RegisterOutputType(ServiceSpecOutput{})
@@ -24302,7 +27348,6 @@ func init() {
 	pulumi.RegisterOutputType(VolumeProjectionArrayOutput{})
 	pulumi.RegisterOutputType(VsphereVirtualDiskVolumeSourceOutput{})
 	pulumi.RegisterOutputType(VsphereVirtualDiskVolumeSourcePtrOutput{})
-	pulumi.RegisterOutputType(WatchEventOutput{})
 	pulumi.RegisterOutputType(WeightedPodAffinityTermOutput{})
 	pulumi.RegisterOutputType(WeightedPodAffinityTermArrayOutput{})
 	pulumi.RegisterOutputType(WindowsSecurityContextOptionsOutput{})

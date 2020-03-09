@@ -11,6 +11,212 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
+// APIGroup contains the name, the supported versions, and the preferred version of a group.
+type APIGroup struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// name is the name of the group.
+	Name *string `pulumi:"name"`
+	// preferredVersion is the version preferred by the API server, which probably is the storage version.
+	PreferredVersion *GroupVersionForDiscovery `pulumi:"preferredVersion"`
+	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+	ServerAddressByClientCIDRs []ServerAddressByClientCIDR `pulumi:"serverAddressByClientCIDRs"`
+	// versions are the versions supported in this group.
+	Versions []GroupVersionForDiscovery `pulumi:"versions"`
+}
+
+type APIGroupInput interface {
+	pulumi.Input
+
+	ToAPIGroupOutput() APIGroupOutput
+	ToAPIGroupOutputWithContext(context.Context) APIGroupOutput
+}
+
+// APIGroup contains the name, the supported versions, and the preferred version of a group.
+type APIGroupArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// name is the name of the group.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// preferredVersion is the version preferred by the API server, which probably is the storage version.
+	PreferredVersion GroupVersionForDiscoveryPtrInput `pulumi:"preferredVersion"`
+	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+	ServerAddressByClientCIDRs ServerAddressByClientCIDRArrayInput `pulumi:"serverAddressByClientCIDRs"`
+	// versions are the versions supported in this group.
+	Versions GroupVersionForDiscoveryArrayInput `pulumi:"versions"`
+}
+
+func (APIGroupArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIGroup)(nil)).Elem()
+}
+
+func (i APIGroupArgs) ToAPIGroupOutput() APIGroupOutput {
+	return i.ToAPIGroupOutputWithContext(context.Background())
+}
+
+func (i APIGroupArgs) ToAPIGroupOutputWithContext(ctx context.Context) APIGroupOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIGroupOutput)
+}
+
+type APIGroupArrayInput interface {
+	pulumi.Input
+
+	ToAPIGroupArrayOutput() APIGroupArrayOutput
+	ToAPIGroupArrayOutputWithContext(context.Context) APIGroupArrayOutput
+}
+
+type APIGroupArray []APIGroupInput
+
+func (APIGroupArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]APIGroup)(nil)).Elem()
+}
+
+func (i APIGroupArray) ToAPIGroupArrayOutput() APIGroupArrayOutput {
+	return i.ToAPIGroupArrayOutputWithContext(context.Background())
+}
+
+func (i APIGroupArray) ToAPIGroupArrayOutputWithContext(ctx context.Context) APIGroupArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIGroupArrayOutput)
+}
+
+// APIGroup contains the name, the supported versions, and the preferred version of a group.
+type APIGroupOutput struct { *pulumi.OutputState }
+
+func (APIGroupOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIGroup)(nil)).Elem()
+}
+
+func (o APIGroupOutput) ToAPIGroupOutput() APIGroupOutput {
+	return o
+}
+
+func (o APIGroupOutput) ToAPIGroupOutputWithContext(ctx context.Context) APIGroupOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o APIGroupOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIGroup) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o APIGroupOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIGroup) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// name is the name of the group.
+func (o APIGroupOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIGroup) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// preferredVersion is the version preferred by the API server, which probably is the storage version.
+func (o APIGroupOutput) PreferredVersion() GroupVersionForDiscoveryPtrOutput {
+	return o.ApplyT(func (v APIGroup) *GroupVersionForDiscovery { return v.PreferredVersion }).(GroupVersionForDiscoveryPtrOutput)
+}
+
+// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+func (o APIGroupOutput) ServerAddressByClientCIDRs() ServerAddressByClientCIDRArrayOutput {
+	return o.ApplyT(func (v APIGroup) []ServerAddressByClientCIDR { return v.ServerAddressByClientCIDRs }).(ServerAddressByClientCIDRArrayOutput)
+}
+
+// versions are the versions supported in this group.
+func (o APIGroupOutput) Versions() GroupVersionForDiscoveryArrayOutput {
+	return o.ApplyT(func (v APIGroup) []GroupVersionForDiscovery { return v.Versions }).(GroupVersionForDiscoveryArrayOutput)
+}
+
+type APIGroupArrayOutput struct { *pulumi.OutputState}
+
+func (APIGroupArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]APIGroup)(nil)).Elem()
+}
+
+func (o APIGroupArrayOutput) ToAPIGroupArrayOutput() APIGroupArrayOutput {
+	return o
+}
+
+func (o APIGroupArrayOutput) ToAPIGroupArrayOutputWithContext(ctx context.Context) APIGroupArrayOutput {
+	return o
+}
+
+func (o APIGroupArrayOutput) Index(i pulumi.IntInput) APIGroupOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) APIGroup {
+		return vs[0].([]APIGroup)[vs[1].(int)]
+	}).(APIGroupOutput)
+}
+
+// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
+type APIGroupList struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// groups is a list of APIGroup.
+	Groups []APIGroup `pulumi:"groups"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+}
+
+type APIGroupListInput interface {
+	pulumi.Input
+
+	ToAPIGroupListOutput() APIGroupListOutput
+	ToAPIGroupListOutputWithContext(context.Context) APIGroupListOutput
+}
+
+// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
+type APIGroupListArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// groups is a list of APIGroup.
+	Groups APIGroupArrayInput `pulumi:"groups"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+}
+
+func (APIGroupListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIGroupList)(nil)).Elem()
+}
+
+func (i APIGroupListArgs) ToAPIGroupListOutput() APIGroupListOutput {
+	return i.ToAPIGroupListOutputWithContext(context.Background())
+}
+
+func (i APIGroupListArgs) ToAPIGroupListOutputWithContext(ctx context.Context) APIGroupListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIGroupListOutput)
+}
+
+// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
+type APIGroupListOutput struct { *pulumi.OutputState }
+
+func (APIGroupListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIGroupList)(nil)).Elem()
+}
+
+func (o APIGroupListOutput) ToAPIGroupListOutput() APIGroupListOutput {
+	return o
+}
+
+func (o APIGroupListOutput) ToAPIGroupListOutputWithContext(ctx context.Context) APIGroupListOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o APIGroupListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIGroupList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// groups is a list of APIGroup.
+func (o APIGroupListOutput) Groups() APIGroupArrayOutput {
+	return o.ApplyT(func (v APIGroupList) []APIGroup { return v.Groups }).(APIGroupArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o APIGroupListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIGroupList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
 // APIResource specifies the name of a resource and whether it is namespaced.
 type APIResource struct {
 	// categories is a list of the grouped resources this resource belongs to (e.g. 'all')
@@ -182,6 +388,361 @@ func (o APIResourceArrayOutput) Index(i pulumi.IntInput) APIResourceOutput {
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) APIResource {
 		return vs[0].([]APIResource)[vs[1].(int)]
 	}).(APIResourceOutput)
+}
+
+// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
+type APIResourceList struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// groupVersion is the group and version this APIResourceList is for.
+	GroupVersion *string `pulumi:"groupVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// resources contains the name of the resources and if they are namespaced.
+	Resources []APIResource `pulumi:"resources"`
+}
+
+type APIResourceListInput interface {
+	pulumi.Input
+
+	ToAPIResourceListOutput() APIResourceListOutput
+	ToAPIResourceListOutputWithContext(context.Context) APIResourceListOutput
+}
+
+// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
+type APIResourceListArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// groupVersion is the group and version this APIResourceList is for.
+	GroupVersion pulumi.StringPtrInput `pulumi:"groupVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// resources contains the name of the resources and if they are namespaced.
+	Resources APIResourceArrayInput `pulumi:"resources"`
+}
+
+func (APIResourceListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIResourceList)(nil)).Elem()
+}
+
+func (i APIResourceListArgs) ToAPIResourceListOutput() APIResourceListOutput {
+	return i.ToAPIResourceListOutputWithContext(context.Background())
+}
+
+func (i APIResourceListArgs) ToAPIResourceListOutputWithContext(ctx context.Context) APIResourceListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIResourceListOutput)
+}
+
+// APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
+type APIResourceListOutput struct { *pulumi.OutputState }
+
+func (APIResourceListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIResourceList)(nil)).Elem()
+}
+
+func (o APIResourceListOutput) ToAPIResourceListOutput() APIResourceListOutput {
+	return o
+}
+
+func (o APIResourceListOutput) ToAPIResourceListOutputWithContext(ctx context.Context) APIResourceListOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o APIResourceListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIResourceList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// groupVersion is the group and version this APIResourceList is for.
+func (o APIResourceListOutput) GroupVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIResourceList) *string { return v.GroupVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o APIResourceListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIResourceList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// resources contains the name of the resources and if they are namespaced.
+func (o APIResourceListOutput) Resources() APIResourceArrayOutput {
+	return o.ApplyT(func (v APIResourceList) []APIResource { return v.Resources }).(APIResourceArrayOutput)
+}
+
+// APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
+type APIVersions struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+	ServerAddressByClientCIDRs []ServerAddressByClientCIDR `pulumi:"serverAddressByClientCIDRs"`
+	// versions are the api versions that are available.
+	Versions []string `pulumi:"versions"`
+}
+
+type APIVersionsInput interface {
+	pulumi.Input
+
+	ToAPIVersionsOutput() APIVersionsOutput
+	ToAPIVersionsOutputWithContext(context.Context) APIVersionsOutput
+}
+
+// APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
+type APIVersionsArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+	ServerAddressByClientCIDRs ServerAddressByClientCIDRArrayInput `pulumi:"serverAddressByClientCIDRs"`
+	// versions are the api versions that are available.
+	Versions pulumi.StringArrayInput `pulumi:"versions"`
+}
+
+func (APIVersionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIVersions)(nil)).Elem()
+}
+
+func (i APIVersionsArgs) ToAPIVersionsOutput() APIVersionsOutput {
+	return i.ToAPIVersionsOutputWithContext(context.Background())
+}
+
+func (i APIVersionsArgs) ToAPIVersionsOutputWithContext(ctx context.Context) APIVersionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(APIVersionsOutput)
+}
+
+// APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
+type APIVersionsOutput struct { *pulumi.OutputState }
+
+func (APIVersionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIVersions)(nil)).Elem()
+}
+
+func (o APIVersionsOutput) ToAPIVersionsOutput() APIVersionsOutput {
+	return o
+}
+
+func (o APIVersionsOutput) ToAPIVersionsOutputWithContext(ctx context.Context) APIVersionsOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o APIVersionsOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIVersions) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o APIVersionsOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v APIVersions) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+func (o APIVersionsOutput) ServerAddressByClientCIDRs() ServerAddressByClientCIDRArrayOutput {
+	return o.ApplyT(func (v APIVersions) []ServerAddressByClientCIDR { return v.ServerAddressByClientCIDRs }).(ServerAddressByClientCIDRArrayOutput)
+}
+
+// versions are the api versions that are available.
+func (o APIVersionsOutput) Versions() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v APIVersions) []string { return v.Versions }).(pulumi.StringArrayOutput)
+}
+
+// DeleteOptions may be provided when deleting an API object.
+type DeleteOptions struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+	DryRun []string `pulumi:"dryRun"`
+	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+	GracePeriodSeconds *int `pulumi:"gracePeriodSeconds"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
+	OrphanDependents *bool `pulumi:"orphanDependents"`
+	// Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
+	Preconditions *Preconditions `pulumi:"preconditions"`
+	// Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+	PropagationPolicy *string `pulumi:"propagationPolicy"`
+}
+
+type DeleteOptionsInput interface {
+	pulumi.Input
+
+	ToDeleteOptionsOutput() DeleteOptionsOutput
+	ToDeleteOptionsOutputWithContext(context.Context) DeleteOptionsOutput
+}
+
+// DeleteOptions may be provided when deleting an API object.
+type DeleteOptionsArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+	DryRun pulumi.StringArrayInput `pulumi:"dryRun"`
+	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+	GracePeriodSeconds pulumi.IntPtrInput `pulumi:"gracePeriodSeconds"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
+	OrphanDependents pulumi.BoolPtrInput `pulumi:"orphanDependents"`
+	// Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
+	Preconditions PreconditionsPtrInput `pulumi:"preconditions"`
+	// Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+	PropagationPolicy pulumi.StringPtrInput `pulumi:"propagationPolicy"`
+}
+
+func (DeleteOptionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeleteOptions)(nil)).Elem()
+}
+
+func (i DeleteOptionsArgs) ToDeleteOptionsOutput() DeleteOptionsOutput {
+	return i.ToDeleteOptionsOutputWithContext(context.Background())
+}
+
+func (i DeleteOptionsArgs) ToDeleteOptionsOutputWithContext(ctx context.Context) DeleteOptionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsOutput)
+}
+
+func (i DeleteOptionsArgs) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput {
+	return i.ToDeleteOptionsPtrOutputWithContext(context.Background())
+}
+
+func (i DeleteOptionsArgs) ToDeleteOptionsPtrOutputWithContext(ctx context.Context) DeleteOptionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsOutput).ToDeleteOptionsPtrOutputWithContext(ctx)
+}
+
+type DeleteOptionsPtrInput interface {
+	pulumi.Input
+
+	ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput
+	ToDeleteOptionsPtrOutputWithContext(context.Context) DeleteOptionsPtrOutput
+}
+
+type deleteOptionsPtrType DeleteOptionsArgs
+
+func DeleteOptionsPtr(v *DeleteOptionsArgs) DeleteOptionsPtrInput {	return (*deleteOptionsPtrType)(v)
+}
+
+func (*deleteOptionsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeleteOptions)(nil)).Elem()
+}
+
+func (i *deleteOptionsPtrType) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput {
+	return i.ToDeleteOptionsPtrOutputWithContext(context.Background())
+}
+
+func (i *deleteOptionsPtrType) ToDeleteOptionsPtrOutputWithContext(ctx context.Context) DeleteOptionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsPtrOutput)
+}
+
+// DeleteOptions may be provided when deleting an API object.
+type DeleteOptionsOutput struct { *pulumi.OutputState }
+
+func (DeleteOptionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeleteOptions)(nil)).Elem()
+}
+
+func (o DeleteOptionsOutput) ToDeleteOptionsOutput() DeleteOptionsOutput {
+	return o
+}
+
+func (o DeleteOptionsOutput) ToDeleteOptionsOutputWithContext(ctx context.Context) DeleteOptionsOutput {
+	return o
+}
+
+func (o DeleteOptionsOutput) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput {
+	return o.ToDeleteOptionsPtrOutputWithContext(context.Background())
+}
+
+func (o DeleteOptionsOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.Context) DeleteOptionsPtrOutput {
+	return o.ApplyT(func(v DeleteOptions) *DeleteOptions {
+		return &v
+	}).(DeleteOptionsPtrOutput)
+}
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o DeleteOptionsOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+func (o DeleteOptionsOutput) DryRun() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v DeleteOptions) []string { return v.DryRun }).(pulumi.StringArrayOutput)
+}
+
+// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+func (o DeleteOptionsOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *int { return v.GracePeriodSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o DeleteOptionsOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
+func (o DeleteOptionsOutput) OrphanDependents() pulumi.BoolPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *bool { return v.OrphanDependents }).(pulumi.BoolPtrOutput)
+}
+
+// Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
+func (o DeleteOptionsOutput) Preconditions() PreconditionsPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *Preconditions { return v.Preconditions }).(PreconditionsPtrOutput)
+}
+
+// Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+func (o DeleteOptionsOutput) PropagationPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *string { return v.PropagationPolicy }).(pulumi.StringPtrOutput)
+}
+
+type DeleteOptionsPtrOutput struct { *pulumi.OutputState}
+
+func (DeleteOptionsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeleteOptions)(nil)).Elem()
+}
+
+func (o DeleteOptionsPtrOutput) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput {
+	return o
+}
+
+func (o DeleteOptionsPtrOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.Context) DeleteOptionsPtrOutput {
+	return o
+}
+
+func (o DeleteOptionsPtrOutput) Elem() DeleteOptionsOutput {
+	return o.ApplyT(func (v *DeleteOptions) DeleteOptions { return *v }).(DeleteOptionsOutput)
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o DeleteOptionsPtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+func (o DeleteOptionsPtrOutput) DryRun() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v DeleteOptions) []string { return v.DryRun }).(pulumi.StringArrayOutput)
+}
+
+// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+func (o DeleteOptionsPtrOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *int { return v.GracePeriodSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o DeleteOptionsPtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
+func (o DeleteOptionsPtrOutput) OrphanDependents() pulumi.BoolPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *bool { return v.OrphanDependents }).(pulumi.BoolPtrOutput)
+}
+
+// Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
+func (o DeleteOptionsPtrOutput) Preconditions() PreconditionsPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *Preconditions { return v.Preconditions }).(PreconditionsPtrOutput)
+}
+
+// Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+func (o DeleteOptionsPtrOutput) PropagationPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v DeleteOptions) *string { return v.PropagationPolicy }).(pulumi.StringPtrOutput)
 }
 
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
@@ -1692,6 +2253,120 @@ func (o ServerAddressByClientCIDRArrayOutput) Index(i pulumi.IntInput) ServerAdd
 	}).(ServerAddressByClientCIDROutput)
 }
 
+// Status is a return value for calls that don't return other objects.
+type StatusType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Suggested HTTP return code for this status, 0 if not set.
+	Code *int `pulumi:"code"`
+	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
+	Details *StatusDetails `pulumi:"details"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// A human-readable description of the status of this operation.
+	Message *string `pulumi:"message"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *ListMeta `pulumi:"metadata"`
+	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
+	Reason *string `pulumi:"reason"`
+	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *string `pulumi:"status"`
+}
+
+type StatusTypeInput interface {
+	pulumi.Input
+
+	ToStatusTypeOutput() StatusTypeOutput
+	ToStatusTypeOutputWithContext(context.Context) StatusTypeOutput
+}
+
+// Status is a return value for calls that don't return other objects.
+type StatusTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Suggested HTTP return code for this status, 0 if not set.
+	Code pulumi.IntPtrInput `pulumi:"code"`
+	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
+	Details StatusDetailsPtrInput `pulumi:"details"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// A human-readable description of the status of this operation.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata ListMetaPtrInput `pulumi:"metadata"`
+	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status pulumi.StringPtrInput `pulumi:"status"`
+}
+
+func (StatusTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusType)(nil)).Elem()
+}
+
+func (i StatusTypeArgs) ToStatusTypeOutput() StatusTypeOutput {
+	return i.ToStatusTypeOutputWithContext(context.Background())
+}
+
+func (i StatusTypeArgs) ToStatusTypeOutputWithContext(ctx context.Context) StatusTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusTypeOutput)
+}
+
+// Status is a return value for calls that don't return other objects.
+type StatusTypeOutput struct { *pulumi.OutputState }
+
+func (StatusTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusType)(nil)).Elem()
+}
+
+func (o StatusTypeOutput) ToStatusTypeOutput() StatusTypeOutput {
+	return o
+}
+
+func (o StatusTypeOutput) ToStatusTypeOutputWithContext(ctx context.Context) StatusTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o StatusTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StatusType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Suggested HTTP return code for this status, 0 if not set.
+func (o StatusTypeOutput) Code() pulumi.IntPtrOutput {
+	return o.ApplyT(func (v StatusType) *int { return v.Code }).(pulumi.IntPtrOutput)
+}
+
+// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
+func (o StatusTypeOutput) Details() StatusDetailsPtrOutput {
+	return o.ApplyT(func (v StatusType) *StatusDetails { return v.Details }).(StatusDetailsPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o StatusTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StatusType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// A human-readable description of the status of this operation.
+func (o StatusTypeOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StatusType) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o StatusTypeOutput) Metadata() ListMetaPtrOutput {
+	return o.ApplyT(func (v StatusType) *ListMeta { return v.Metadata }).(ListMetaPtrOutput)
+}
+
+// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
+func (o StatusTypeOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StatusType) *string { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o StatusTypeOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StatusType) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
 // StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
 type StatusCause struct {
 	// The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
@@ -1999,9 +2674,85 @@ func (o StatusDetailsPtrOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v StatusDetails) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
+// Event represents a single event to a watched resource.
+type WatchEvent struct {
+	// Object is:
+	//  * If Type is Added or Modified: the new state of the object.
+	//  * If Type is Deleted: the state of the object immediately before deletion.
+	//  * If Type is Error: *Status is recommended; other types may make sense
+	//    depending on context.
+	Object map[string]interface{} `pulumi:"object"`
+	Type *string `pulumi:"type"`
+}
+
+type WatchEventInput interface {
+	pulumi.Input
+
+	ToWatchEventOutput() WatchEventOutput
+	ToWatchEventOutputWithContext(context.Context) WatchEventOutput
+}
+
+// Event represents a single event to a watched resource.
+type WatchEventArgs struct {
+	// Object is:
+	//  * If Type is Added or Modified: the new state of the object.
+	//  * If Type is Deleted: the state of the object immediately before deletion.
+	//  * If Type is Error: *Status is recommended; other types may make sense
+	//    depending on context.
+	Object pulumi.MapInput `pulumi:"object"`
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (WatchEventArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatchEvent)(nil)).Elem()
+}
+
+func (i WatchEventArgs) ToWatchEventOutput() WatchEventOutput {
+	return i.ToWatchEventOutputWithContext(context.Background())
+}
+
+func (i WatchEventArgs) ToWatchEventOutputWithContext(ctx context.Context) WatchEventOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatchEventOutput)
+}
+
+// Event represents a single event to a watched resource.
+type WatchEventOutput struct { *pulumi.OutputState }
+
+func (WatchEventOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatchEvent)(nil)).Elem()
+}
+
+func (o WatchEventOutput) ToWatchEventOutput() WatchEventOutput {
+	return o
+}
+
+func (o WatchEventOutput) ToWatchEventOutputWithContext(ctx context.Context) WatchEventOutput {
+	return o
+}
+
+// Object is:
+//  * If Type is Added or Modified: the new state of the object.
+//  * If Type is Deleted: the state of the object immediately before deletion.
+//  * If Type is Error: *Status is recommended; other types may make sense
+//    depending on context.
+func (o WatchEventOutput) Object() pulumi.MapOutput {
+	return o.ApplyT(func (v WatchEvent) map[string]interface{} { return v.Object }).(pulumi.MapOutput)
+}
+
+func (o WatchEventOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v WatchEvent) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
 func init() {
+	pulumi.RegisterOutputType(APIGroupOutput{})
+	pulumi.RegisterOutputType(APIGroupArrayOutput{})
+	pulumi.RegisterOutputType(APIGroupListOutput{})
 	pulumi.RegisterOutputType(APIResourceOutput{})
 	pulumi.RegisterOutputType(APIResourceArrayOutput{})
+	pulumi.RegisterOutputType(APIResourceListOutput{})
+	pulumi.RegisterOutputType(APIVersionsOutput{})
+	pulumi.RegisterOutputType(DeleteOptionsOutput{})
+	pulumi.RegisterOutputType(DeleteOptionsPtrOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryPtrOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryArrayOutput{})
@@ -2022,8 +2773,10 @@ func init() {
 	pulumi.RegisterOutputType(PreconditionsPtrOutput{})
 	pulumi.RegisterOutputType(ServerAddressByClientCIDROutput{})
 	pulumi.RegisterOutputType(ServerAddressByClientCIDRArrayOutput{})
+	pulumi.RegisterOutputType(StatusTypeOutput{})
 	pulumi.RegisterOutputType(StatusCauseOutput{})
 	pulumi.RegisterOutputType(StatusCauseArrayOutput{})
 	pulumi.RegisterOutputType(StatusDetailsOutput{})
 	pulumi.RegisterOutputType(StatusDetailsPtrOutput{})
+	pulumi.RegisterOutputType(WatchEventOutput{})
 }

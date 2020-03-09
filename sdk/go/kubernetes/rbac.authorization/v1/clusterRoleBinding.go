@@ -10,7 +10,6 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
-	rbacv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/rbac/v1"
 )
 
 // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
@@ -24,9 +23,9 @@ type ClusterRoleBinding struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef rbacv1.RoleRefPtrOutput `pulumi:"roleRef"`
+	RoleRef RoleRefPtrOutput `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
-	Subjects rbacv1.SubjectArrayOutput `pulumi:"subjects"`
+	Subjects SubjectArrayOutput `pulumi:"subjects"`
 }
 
 // NewClusterRoleBinding registers a new resource with the given unique name, arguments, and options.
@@ -67,9 +66,9 @@ type clusterRoleBindingState struct {
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef *rbacv1.RoleRef `pulumi:"roleRef"`
+	RoleRef *RoleRef `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
-	Subjects []rbacv1.Subject `pulumi:"subjects"`
+	Subjects []Subject `pulumi:"subjects"`
 }
 
 type ClusterRoleBindingState struct {
@@ -80,9 +79,9 @@ type ClusterRoleBindingState struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef rbacv1.RoleRefPtrInput
+	RoleRef RoleRefPtrInput
 	// Subjects holds references to the objects the role applies to.
-	Subjects rbacv1.SubjectArrayInput
+	Subjects SubjectArrayInput
 }
 
 func (ClusterRoleBindingState) ElementType() reflect.Type {
@@ -97,9 +96,9 @@ type clusterRoleBindingArgs struct {
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef rbacv1.RoleRef `pulumi:"roleRef"`
+	RoleRef RoleRef `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
-	Subjects []rbacv1.Subject `pulumi:"subjects"`
+	Subjects []Subject `pulumi:"subjects"`
 }
 
 // The set of arguments for constructing a ClusterRoleBinding resource.
@@ -111,9 +110,9 @@ type ClusterRoleBindingArgs struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef rbacv1.RoleRefInput
+	RoleRef RoleRefInput
 	// Subjects holds references to the objects the role applies to.
-	Subjects rbacv1.SubjectArrayInput
+	Subjects SubjectArrayInput
 }
 
 func (ClusterRoleBindingArgs) ElementType() reflect.Type {

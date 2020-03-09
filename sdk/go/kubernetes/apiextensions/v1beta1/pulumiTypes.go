@@ -9,6 +9,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 )
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
@@ -295,6 +296,131 @@ func (o CustomResourceConversionPtrOutput) WebhookClientConfig() WebhookClientCo
 	return o.ApplyT(func (v CustomResourceConversion) *WebhookClientConfig { return v.WebhookClientConfig }).(WebhookClientConfigPtrOutput)
 }
 
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+type CustomResourceDefinitionType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec describes how the user wants the resources to appear
+	Spec *CustomResourceDefinitionSpec `pulumi:"spec"`
+	// status indicates the actual state of the CustomResourceDefinition
+	Status *CustomResourceDefinitionStatus `pulumi:"status"`
+}
+
+type CustomResourceDefinitionTypeInput interface {
+	pulumi.Input
+
+	ToCustomResourceDefinitionTypeOutput() CustomResourceDefinitionTypeOutput
+	ToCustomResourceDefinitionTypeOutputWithContext(context.Context) CustomResourceDefinitionTypeOutput
+}
+
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+type CustomResourceDefinitionTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec describes how the user wants the resources to appear
+	Spec CustomResourceDefinitionSpecPtrInput `pulumi:"spec"`
+	// status indicates the actual state of the CustomResourceDefinition
+	Status CustomResourceDefinitionStatusPtrInput `pulumi:"status"`
+}
+
+func (CustomResourceDefinitionTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionType)(nil)).Elem()
+}
+
+func (i CustomResourceDefinitionTypeArgs) ToCustomResourceDefinitionTypeOutput() CustomResourceDefinitionTypeOutput {
+	return i.ToCustomResourceDefinitionTypeOutputWithContext(context.Background())
+}
+
+func (i CustomResourceDefinitionTypeArgs) ToCustomResourceDefinitionTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionTypeOutput)
+}
+
+type CustomResourceDefinitionTypeArrayInput interface {
+	pulumi.Input
+
+	ToCustomResourceDefinitionTypeArrayOutput() CustomResourceDefinitionTypeArrayOutput
+	ToCustomResourceDefinitionTypeArrayOutputWithContext(context.Context) CustomResourceDefinitionTypeArrayOutput
+}
+
+type CustomResourceDefinitionTypeArray []CustomResourceDefinitionTypeInput
+
+func (CustomResourceDefinitionTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CustomResourceDefinitionType)(nil)).Elem()
+}
+
+func (i CustomResourceDefinitionTypeArray) ToCustomResourceDefinitionTypeArrayOutput() CustomResourceDefinitionTypeArrayOutput {
+	return i.ToCustomResourceDefinitionTypeArrayOutputWithContext(context.Background())
+}
+
+func (i CustomResourceDefinitionTypeArray) ToCustomResourceDefinitionTypeArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionTypeArrayOutput)
+}
+
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+type CustomResourceDefinitionTypeOutput struct { *pulumi.OutputState }
+
+func (CustomResourceDefinitionTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionType)(nil)).Elem()
+}
+
+func (o CustomResourceDefinitionTypeOutput) ToCustomResourceDefinitionTypeOutput() CustomResourceDefinitionTypeOutput {
+	return o
+}
+
+func (o CustomResourceDefinitionTypeOutput) ToCustomResourceDefinitionTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CustomResourceDefinitionTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CustomResourceDefinitionTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o CustomResourceDefinitionTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec describes how the user wants the resources to appear
+func (o CustomResourceDefinitionTypeOutput) Spec() CustomResourceDefinitionSpecPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionType) *CustomResourceDefinitionSpec { return v.Spec }).(CustomResourceDefinitionSpecPtrOutput)
+}
+
+// status indicates the actual state of the CustomResourceDefinition
+func (o CustomResourceDefinitionTypeOutput) Status() CustomResourceDefinitionStatusPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionType) *CustomResourceDefinitionStatus { return v.Status }).(CustomResourceDefinitionStatusPtrOutput)
+}
+
+type CustomResourceDefinitionTypeArrayOutput struct { *pulumi.OutputState}
+
+func (CustomResourceDefinitionTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CustomResourceDefinitionType)(nil)).Elem()
+}
+
+func (o CustomResourceDefinitionTypeArrayOutput) ToCustomResourceDefinitionTypeArrayOutput() CustomResourceDefinitionTypeArrayOutput {
+	return o
+}
+
+func (o CustomResourceDefinitionTypeArrayOutput) ToCustomResourceDefinitionTypeArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionTypeArrayOutput {
+	return o
+}
+
+func (o CustomResourceDefinitionTypeArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) CustomResourceDefinitionType {
+		return vs[0].([]CustomResourceDefinitionType)[vs[1].(int)]
+	}).(CustomResourceDefinitionTypeOutput)
+}
+
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
 type CustomResourceDefinitionCondition struct {
 	// lastTransitionTime last time the condition transitioned from one status to another.
@@ -421,6 +547,81 @@ func (o CustomResourceDefinitionConditionArrayOutput) Index(i pulumi.IntInput) C
 	return pulumi.All(o, i).ApplyT(func (vs []interface{}) CustomResourceDefinitionCondition {
 		return vs[0].([]CustomResourceDefinitionCondition)[vs[1].(int)]
 	}).(CustomResourceDefinitionConditionOutput)
+}
+
+// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+type CustomResourceDefinitionListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items list individual CustomResourceDefinition objects
+	Items []CustomResourceDefinitionType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type CustomResourceDefinitionListTypeInput interface {
+	pulumi.Input
+
+	ToCustomResourceDefinitionListTypeOutput() CustomResourceDefinitionListTypeOutput
+	ToCustomResourceDefinitionListTypeOutputWithContext(context.Context) CustomResourceDefinitionListTypeOutput
+}
+
+// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+type CustomResourceDefinitionListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items list individual CustomResourceDefinition objects
+	Items CustomResourceDefinitionTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (CustomResourceDefinitionListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionListType)(nil)).Elem()
+}
+
+func (i CustomResourceDefinitionListTypeArgs) ToCustomResourceDefinitionListTypeOutput() CustomResourceDefinitionListTypeOutput {
+	return i.ToCustomResourceDefinitionListTypeOutputWithContext(context.Background())
+}
+
+func (i CustomResourceDefinitionListTypeArgs) ToCustomResourceDefinitionListTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListTypeOutput)
+}
+
+// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+type CustomResourceDefinitionListTypeOutput struct { *pulumi.OutputState }
+
+func (CustomResourceDefinitionListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionListType)(nil)).Elem()
+}
+
+func (o CustomResourceDefinitionListTypeOutput) ToCustomResourceDefinitionListTypeOutput() CustomResourceDefinitionListTypeOutput {
+	return o
+}
+
+func (o CustomResourceDefinitionListTypeOutput) ToCustomResourceDefinitionListTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CustomResourceDefinitionListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items list individual CustomResourceDefinition objects
+func (o CustomResourceDefinitionListTypeOutput) Items() CustomResourceDefinitionTypeArrayOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionListType) []CustomResourceDefinitionType { return v.Items }).(CustomResourceDefinitionTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CustomResourceDefinitionListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o CustomResourceDefinitionListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v CustomResourceDefinitionListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
@@ -1639,8 +1840,6 @@ func (o ExternalDocumentationPtrOutput) Url() pulumi.StringPtrOutput {
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 type JSONSchemaProps struct {
-	$ref *string `pulumi:"$ref"`
-	$schema *string `pulumi:"$schema"`
 	AdditionalItems interface{} `pulumi:"additionalItems"`
 	AdditionalProperties interface{} `pulumi:"additionalProperties"`
 	AllOf []JSONSchemaProps `pulumi:"allOf"`
@@ -1677,6 +1876,8 @@ type JSONSchemaProps struct {
 	PatternProperties map[string]JSONSchemaProps `pulumi:"patternProperties"`
 	Properties map[string]JSONSchemaProps `pulumi:"properties"`
 	Required []string `pulumi:"required"`
+	T_ref *string `pulumi:"t_ref"`
+	T_schema *string `pulumi:"t_schema"`
 	Title *string `pulumi:"title"`
 	Type *string `pulumi:"type"`
 	UniqueItems *bool `pulumi:"uniqueItems"`
@@ -1734,8 +1935,6 @@ type JSONSchemaPropsInput interface {
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 type JSONSchemaPropsArgs struct {
-	$ref pulumi.StringPtrInput `pulumi:"$ref"`
-	$schema pulumi.StringPtrInput `pulumi:"$schema"`
 	AdditionalItems pulumi.Input `pulumi:"additionalItems"`
 	AdditionalProperties pulumi.Input `pulumi:"additionalProperties"`
 	AllOf JSONSchemaPropsArrayInput `pulumi:"allOf"`
@@ -1772,6 +1971,8 @@ type JSONSchemaPropsArgs struct {
 	PatternProperties JSONSchemaPropsMapInput `pulumi:"patternProperties"`
 	Properties JSONSchemaPropsMapInput `pulumi:"properties"`
 	Required pulumi.StringArrayInput `pulumi:"required"`
+	T_ref pulumi.StringPtrInput `pulumi:"t_ref"`
+	T_schema pulumi.StringPtrInput `pulumi:"t_schema"`
 	Title pulumi.StringPtrInput `pulumi:"title"`
 	Type pulumi.StringPtrInput `pulumi:"type"`
 	UniqueItems pulumi.BoolPtrInput `pulumi:"uniqueItems"`
@@ -1930,14 +2131,6 @@ func (o JSONSchemaPropsOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx context
 		return &v
 	}).(JSONSchemaPropsPtrOutput)
 }
-func (o JSONSchemaPropsOutput) $ref() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v JSONSchemaProps) *string { return v.$ref }).(pulumi.StringPtrOutput)
-}
-
-func (o JSONSchemaPropsOutput) $schema() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v JSONSchemaProps) *string { return v.$schema }).(pulumi.StringPtrOutput)
-}
-
 func (o JSONSchemaPropsOutput) AdditionalItems() pulumi.AnyOutput {
 	return o.ApplyT(func (v JSONSchemaProps) interface{} { return v.AdditionalItems }).(pulumi.AnyOutput)
 }
@@ -2070,6 +2263,14 @@ func (o JSONSchemaPropsOutput) Required() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v JSONSchemaProps) []string { return v.Required }).(pulumi.StringArrayOutput)
 }
 
+func (o JSONSchemaPropsOutput) T_ref() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v JSONSchemaProps) *string { return v.T_ref }).(pulumi.StringPtrOutput)
+}
+
+func (o JSONSchemaPropsOutput) T_schema() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v JSONSchemaProps) *string { return v.T_schema }).(pulumi.StringPtrOutput)
+}
+
 func (o JSONSchemaPropsOutput) Title() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v JSONSchemaProps) *string { return v.Title }).(pulumi.StringPtrOutput)
 }
@@ -2159,14 +2360,6 @@ func (o JSONSchemaPropsPtrOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx cont
 
 func (o JSONSchemaPropsPtrOutput) Elem() JSONSchemaPropsOutput {
 	return o.ApplyT(func (v *JSONSchemaProps) JSONSchemaProps { return *v }).(JSONSchemaPropsOutput)
-}
-
-func (o JSONSchemaPropsPtrOutput) $ref() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v JSONSchemaProps) *string { return v.$ref }).(pulumi.StringPtrOutput)
-}
-
-func (o JSONSchemaPropsPtrOutput) $schema() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v JSONSchemaProps) *string { return v.$schema }).(pulumi.StringPtrOutput)
 }
 
 func (o JSONSchemaPropsPtrOutput) AdditionalItems() pulumi.AnyOutput {
@@ -2299,6 +2492,14 @@ func (o JSONSchemaPropsPtrOutput) Properties() JSONSchemaPropsMapOutput {
 
 func (o JSONSchemaPropsPtrOutput) Required() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v JSONSchemaProps) []string { return v.Required }).(pulumi.StringArrayOutput)
+}
+
+func (o JSONSchemaPropsPtrOutput) T_ref() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v JSONSchemaProps) *string { return v.T_ref }).(pulumi.StringPtrOutput)
+}
+
+func (o JSONSchemaPropsPtrOutput) T_schema() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v JSONSchemaProps) *string { return v.T_schema }).(pulumi.StringPtrOutput)
 }
 
 func (o JSONSchemaPropsPtrOutput) Title() pulumi.StringPtrOutput {
@@ -2767,8 +2968,11 @@ func init() {
 	pulumi.RegisterOutputType(CustomResourceColumnDefinitionArrayOutput{})
 	pulumi.RegisterOutputType(CustomResourceConversionOutput{})
 	pulumi.RegisterOutputType(CustomResourceConversionPtrOutput{})
+	pulumi.RegisterOutputType(CustomResourceDefinitionTypeOutput{})
+	pulumi.RegisterOutputType(CustomResourceDefinitionTypeArrayOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionConditionOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionConditionArrayOutput{})
+	pulumi.RegisterOutputType(CustomResourceDefinitionListTypeOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionNamesOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionNamesPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionSpecOutput{})

@@ -9,7 +9,6 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
-	rbacv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/rbac/v1beta1"
 )
 
 // Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
@@ -23,7 +22,7 @@ type Role struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Rules holds all the PolicyRules for this Role
-	Rules rbacv1beta1.PolicyRuleArrayOutput `pulumi:"rules"`
+	Rules PolicyRuleArrayOutput `pulumi:"rules"`
 }
 
 // NewRole registers a new resource with the given unique name, arguments, and options.
@@ -61,7 +60,7 @@ type roleState struct {
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Rules holds all the PolicyRules for this Role
-	Rules []rbacv1beta1.PolicyRule `pulumi:"rules"`
+	Rules []PolicyRule `pulumi:"rules"`
 }
 
 type RoleState struct {
@@ -72,7 +71,7 @@ type RoleState struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// Rules holds all the PolicyRules for this Role
-	Rules rbacv1beta1.PolicyRuleArrayInput
+	Rules PolicyRuleArrayInput
 }
 
 func (RoleState) ElementType() reflect.Type {
@@ -87,7 +86,7 @@ type roleArgs struct {
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Rules holds all the PolicyRules for this Role
-	Rules []rbacv1beta1.PolicyRule `pulumi:"rules"`
+	Rules []PolicyRule `pulumi:"rules"`
 }
 
 // The set of arguments for constructing a Role resource.
@@ -99,7 +98,7 @@ type RoleArgs struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// Rules holds all the PolicyRules for this Role
-	Rules rbacv1beta1.PolicyRuleArrayInput
+	Rules PolicyRuleArrayInput
 }
 
 func (RoleArgs) ElementType() reflect.Type {

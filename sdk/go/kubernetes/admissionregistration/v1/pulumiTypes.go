@@ -320,6 +320,203 @@ func (o MutatingWebhookArrayOutput) Index(i pulumi.IntInput) MutatingWebhookOutp
 	}).(MutatingWebhookOutput)
 }
 
+// MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
+type MutatingWebhookConfigurationType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Webhooks is a list of webhooks and the affected resources and operations.
+	Webhooks []MutatingWebhook `pulumi:"webhooks"`
+}
+
+type MutatingWebhookConfigurationTypeInput interface {
+	pulumi.Input
+
+	ToMutatingWebhookConfigurationTypeOutput() MutatingWebhookConfigurationTypeOutput
+	ToMutatingWebhookConfigurationTypeOutputWithContext(context.Context) MutatingWebhookConfigurationTypeOutput
+}
+
+// MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
+type MutatingWebhookConfigurationTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Webhooks is a list of webhooks and the affected resources and operations.
+	Webhooks MutatingWebhookArrayInput `pulumi:"webhooks"`
+}
+
+func (MutatingWebhookConfigurationTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationTypeOutput() MutatingWebhookConfigurationTypeOutput {
+	return i.ToMutatingWebhookConfigurationTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeOutput)
+}
+
+type MutatingWebhookConfigurationTypeArrayInput interface {
+	pulumi.Input
+
+	ToMutatingWebhookConfigurationTypeArrayOutput() MutatingWebhookConfigurationTypeArrayOutput
+	ToMutatingWebhookConfigurationTypeArrayOutputWithContext(context.Context) MutatingWebhookConfigurationTypeArrayOutput
+}
+
+type MutatingWebhookConfigurationTypeArray []MutatingWebhookConfigurationTypeInput
+
+func (MutatingWebhookConfigurationTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (i MutatingWebhookConfigurationTypeArray) ToMutatingWebhookConfigurationTypeArrayOutput() MutatingWebhookConfigurationTypeArrayOutput {
+	return i.ToMutatingWebhookConfigurationTypeArrayOutputWithContext(context.Background())
+}
+
+func (i MutatingWebhookConfigurationTypeArray) ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeArrayOutput)
+}
+
+// MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
+type MutatingWebhookConfigurationTypeOutput struct { *pulumi.OutputState }
+
+func (MutatingWebhookConfigurationTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTypeOutput() MutatingWebhookConfigurationTypeOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingWebhookConfigurationTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingWebhookConfigurationTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+func (o MutatingWebhookConfigurationTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Webhooks is a list of webhooks and the affected resources and operations.
+func (o MutatingWebhookConfigurationTypeOutput) Webhooks() MutatingWebhookArrayOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationType) []MutatingWebhook { return v.Webhooks }).(MutatingWebhookArrayOutput)
+}
+
+type MutatingWebhookConfigurationTypeArrayOutput struct { *pulumi.OutputState}
+
+func (MutatingWebhookConfigurationTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurationTypeArrayOutput() MutatingWebhookConfigurationTypeArrayOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeArrayOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) MutatingWebhookConfigurationTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) MutatingWebhookConfigurationType {
+		return vs[0].([]MutatingWebhookConfigurationType)[vs[1].(int)]
+	}).(MutatingWebhookConfigurationTypeOutput)
+}
+
+// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+type MutatingWebhookConfigurationListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of MutatingWebhookConfiguration.
+	Items []MutatingWebhookConfigurationType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type MutatingWebhookConfigurationListTypeInput interface {
+	pulumi.Input
+
+	ToMutatingWebhookConfigurationListTypeOutput() MutatingWebhookConfigurationListTypeOutput
+	ToMutatingWebhookConfigurationListTypeOutputWithContext(context.Context) MutatingWebhookConfigurationListTypeOutput
+}
+
+// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+type MutatingWebhookConfigurationListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of MutatingWebhookConfiguration.
+	Items MutatingWebhookConfigurationTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (MutatingWebhookConfigurationListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationListType)(nil)).Elem()
+}
+
+func (i MutatingWebhookConfigurationListTypeArgs) ToMutatingWebhookConfigurationListTypeOutput() MutatingWebhookConfigurationListTypeOutput {
+	return i.ToMutatingWebhookConfigurationListTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingWebhookConfigurationListTypeArgs) ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListTypeOutput)
+}
+
+// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+type MutatingWebhookConfigurationListTypeOutput struct { *pulumi.OutputState }
+
+func (MutatingWebhookConfigurationListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationListType)(nil)).Elem()
+}
+
+func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurationListTypeOutput() MutatingWebhookConfigurationListTypeOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingWebhookConfigurationListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of MutatingWebhookConfiguration.
+func (o MutatingWebhookConfigurationListTypeOutput) Items() MutatingWebhookConfigurationTypeArrayOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationListType) []MutatingWebhookConfigurationType { return v.Items }).(MutatingWebhookConfigurationTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingWebhookConfigurationListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingWebhookConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v MutatingWebhookConfigurationListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
 type RuleWithOperations struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
@@ -904,6 +1101,203 @@ func (o ValidatingWebhookArrayOutput) Index(i pulumi.IntInput) ValidatingWebhook
 	}).(ValidatingWebhookOutput)
 }
 
+// ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+type ValidatingWebhookConfigurationType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Webhooks is a list of webhooks and the affected resources and operations.
+	Webhooks []ValidatingWebhook `pulumi:"webhooks"`
+}
+
+type ValidatingWebhookConfigurationTypeInput interface {
+	pulumi.Input
+
+	ToValidatingWebhookConfigurationTypeOutput() ValidatingWebhookConfigurationTypeOutput
+	ToValidatingWebhookConfigurationTypeOutputWithContext(context.Context) ValidatingWebhookConfigurationTypeOutput
+}
+
+// ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+type ValidatingWebhookConfigurationTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Webhooks is a list of webhooks and the affected resources and operations.
+	Webhooks ValidatingWebhookArrayInput `pulumi:"webhooks"`
+}
+
+func (ValidatingWebhookConfigurationTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfigurationTypeOutput() ValidatingWebhookConfigurationTypeOutput {
+	return i.ToValidatingWebhookConfigurationTypeOutputWithContext(context.Background())
+}
+
+func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeOutput)
+}
+
+type ValidatingWebhookConfigurationTypeArrayInput interface {
+	pulumi.Input
+
+	ToValidatingWebhookConfigurationTypeArrayOutput() ValidatingWebhookConfigurationTypeArrayOutput
+	ToValidatingWebhookConfigurationTypeArrayOutputWithContext(context.Context) ValidatingWebhookConfigurationTypeArrayOutput
+}
+
+type ValidatingWebhookConfigurationTypeArray []ValidatingWebhookConfigurationTypeInput
+
+func (ValidatingWebhookConfigurationTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ValidatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (i ValidatingWebhookConfigurationTypeArray) ToValidatingWebhookConfigurationTypeArrayOutput() ValidatingWebhookConfigurationTypeArrayOutput {
+	return i.ToValidatingWebhookConfigurationTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ValidatingWebhookConfigurationTypeArray) ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeArrayOutput)
+}
+
+// ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+type ValidatingWebhookConfigurationTypeOutput struct { *pulumi.OutputState }
+
+func (ValidatingWebhookConfigurationTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurationTypeOutput() ValidatingWebhookConfigurationTypeOutput {
+	return o
+}
+
+func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ValidatingWebhookConfigurationTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ValidatingWebhookConfigurationTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+func (o ValidatingWebhookConfigurationTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Webhooks is a list of webhooks and the affected resources and operations.
+func (o ValidatingWebhookConfigurationTypeOutput) Webhooks() ValidatingWebhookArrayOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationType) []ValidatingWebhook { return v.Webhooks }).(ValidatingWebhookArrayOutput)
+}
+
+type ValidatingWebhookConfigurationTypeArrayOutput struct { *pulumi.OutputState}
+
+func (ValidatingWebhookConfigurationTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ValidatingWebhookConfigurationType)(nil)).Elem()
+}
+
+func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfigurationTypeArrayOutput() ValidatingWebhookConfigurationTypeArrayOutput {
+	return o
+}
+
+func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeArrayOutput {
+	return o
+}
+
+func (o ValidatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationTypeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ValidatingWebhookConfigurationType {
+		return vs[0].([]ValidatingWebhookConfigurationType)[vs[1].(int)]
+	}).(ValidatingWebhookConfigurationTypeOutput)
+}
+
+// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+type ValidatingWebhookConfigurationListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of ValidatingWebhookConfiguration.
+	Items []ValidatingWebhookConfigurationType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type ValidatingWebhookConfigurationListTypeInput interface {
+	pulumi.Input
+
+	ToValidatingWebhookConfigurationListTypeOutput() ValidatingWebhookConfigurationListTypeOutput
+	ToValidatingWebhookConfigurationListTypeOutputWithContext(context.Context) ValidatingWebhookConfigurationListTypeOutput
+}
+
+// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+type ValidatingWebhookConfigurationListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of ValidatingWebhookConfiguration.
+	Items ValidatingWebhookConfigurationTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ValidatingWebhookConfigurationListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationListType)(nil)).Elem()
+}
+
+func (i ValidatingWebhookConfigurationListTypeArgs) ToValidatingWebhookConfigurationListTypeOutput() ValidatingWebhookConfigurationListTypeOutput {
+	return i.ToValidatingWebhookConfigurationListTypeOutputWithContext(context.Background())
+}
+
+func (i ValidatingWebhookConfigurationListTypeArgs) ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationListTypeOutput)
+}
+
+// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+type ValidatingWebhookConfigurationListTypeOutput struct { *pulumi.OutputState }
+
+func (ValidatingWebhookConfigurationListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationListType)(nil)).Elem()
+}
+
+func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigurationListTypeOutput() ValidatingWebhookConfigurationListTypeOutput {
+	return o
+}
+
+func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ValidatingWebhookConfigurationListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of ValidatingWebhookConfiguration.
+func (o ValidatingWebhookConfigurationListTypeOutput) Items() ValidatingWebhookConfigurationTypeArrayOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationListType) []ValidatingWebhookConfigurationType { return v.Items }).(ValidatingWebhookConfigurationTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ValidatingWebhookConfigurationListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ValidatingWebhookConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v ValidatingWebhookConfigurationListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
 type WebhookClientConfig struct {
 	// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -1098,12 +1492,18 @@ func (o WebhookClientConfigPtrOutput) Url() pulumi.StringPtrOutput {
 func init() {
 	pulumi.RegisterOutputType(MutatingWebhookOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookArrayOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationTypeOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationTypeArrayOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationListTypeOutput{})
 	pulumi.RegisterOutputType(RuleWithOperationsOutput{})
 	pulumi.RegisterOutputType(RuleWithOperationsArrayOutput{})
 	pulumi.RegisterOutputType(ServiceReferenceOutput{})
 	pulumi.RegisterOutputType(ServiceReferencePtrOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookArrayOutput{})
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationTypeOutput{})
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationTypeArrayOutput{})
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationListTypeOutput{})
 	pulumi.RegisterOutputType(WebhookClientConfigOutput{})
 	pulumi.RegisterOutputType(WebhookClientConfigPtrOutput{})
 }

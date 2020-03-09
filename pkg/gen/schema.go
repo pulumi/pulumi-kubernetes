@@ -156,12 +156,15 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				for _, p := range kind.Properties() {
+					if strings.HasPrefix(p.name, "$") {
+						p.name = "t_" + p.name[1:]
+					}
 					objectSpec.Properties[p.name] = genPropertySpec(p)
 					//objectSpec.Required = append(objectSpec.Required, p.name)
 				}
 
+				pkg.Types[tok] = objectSpec
 				if kind.IsNested() {
-					pkg.Types[tok] = objectSpec
 					continue
 				}
 
@@ -172,10 +175,16 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
+					if strings.HasPrefix(p.name, "$") {
+						p.name = "t_" + p.name[1:]
+					}
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
 					resourceSpec.RequiredInputs = append(resourceSpec.RequiredInputs, p.name)
 				}
 				for _, p := range kind.OptionalInputProperties() {
+					if strings.HasPrefix(p.name, "$") {
+						p.name = "t_" + p.name[1:]
+					}
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
 				}
 
