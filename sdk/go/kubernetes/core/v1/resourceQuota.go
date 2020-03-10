@@ -110,4 +110,3 @@ type ResourceQuotaArgs struct {
 func (ResourceQuotaArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*resourceQuotaArgs)(nil)).Elem()
 }
-

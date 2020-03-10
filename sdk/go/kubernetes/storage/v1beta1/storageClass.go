@@ -171,4 +171,3 @@ type StorageClassArgs struct {
 func (StorageClassArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*storageClassArgs)(nil)).Elem()
 }
-

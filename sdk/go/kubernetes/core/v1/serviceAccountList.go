@@ -108,4 +108,3 @@ type ServiceAccountListArgs struct {
 func (ServiceAccountListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*serviceAccountListArgs)(nil)).Elem()
 }
-

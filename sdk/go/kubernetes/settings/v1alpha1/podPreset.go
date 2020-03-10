@@ -7,7 +7,6 @@ package v1alpha1
 import (
 	"reflect"
 
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
@@ -19,9 +18,9 @@ type PodPreset struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
-	Spec PodPresetSpecPtrOutput `pulumi:"spec"`
+	Spec     PodPresetSpecPtrOutput     `pulumi:"spec"`
 }
 
 // NewPodPreset registers a new resource with the given unique name, arguments, and options.
@@ -55,18 +54,18 @@ type podPresetState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	Spec *PodPresetSpec `pulumi:"spec"`
+	Spec     *PodPresetSpec     `pulumi:"spec"`
 }
 
 type PodPresetState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput
+	Kind     pulumi.StringPtrInput
 	Metadata metav1.ObjectMetaPtrInput
-	Spec PodPresetSpecPtrInput
+	Spec     PodPresetSpecPtrInput
 }
 
 func (PodPresetState) ElementType() reflect.Type {
@@ -77,9 +76,9 @@ type podPresetArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	Spec *PodPresetSpec `pulumi:"spec"`
+	Spec     *PodPresetSpec     `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a PodPreset resource.
@@ -87,12 +86,11 @@ type PodPresetArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput
+	Kind     pulumi.StringPtrInput
 	Metadata metav1.ObjectMetaPtrInput
-	Spec PodPresetSpecPtrInput
+	Spec     PodPresetSpecPtrInput
 }
 
 func (PodPresetArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podPresetArgs)(nil)).Elem()
 }
-

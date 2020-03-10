@@ -110,4 +110,3 @@ type ReplicationControllerArgs struct {
 func (ReplicationControllerArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*replicationControllerArgs)(nil)).Elem()
 }
-

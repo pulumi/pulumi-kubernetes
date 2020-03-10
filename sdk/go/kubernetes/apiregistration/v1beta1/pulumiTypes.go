@@ -17,7 +17,7 @@ type APIServiceType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec contains information for locating and communicating with a server
 	Spec *APIServiceSpec `pulumi:"spec"`
@@ -37,7 +37,7 @@ type APIServiceTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec contains information for locating and communicating with a server
 	Spec APIServiceSpecPtrInput `pulumi:"spec"`
@@ -79,7 +79,7 @@ func (i APIServiceTypeArray) ToAPIServiceTypeArrayOutputWithContext(ctx context.
 }
 
 // APIService represents a server for a particular GroupVersion. Name must be "version.group".
-type APIServiceTypeOutput struct { *pulumi.OutputState }
+type APIServiceTypeOutput struct{ *pulumi.OutputState }
 
 func (APIServiceTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*APIServiceType)(nil)).Elem()
@@ -95,29 +95,29 @@ func (o APIServiceTypeOutput) ToAPIServiceTypeOutputWithContext(ctx context.Cont
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o APIServiceTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o APIServiceTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 func (o APIServiceTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v APIServiceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v APIServiceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec contains information for locating and communicating with a server
 func (o APIServiceTypeOutput) Spec() APIServiceSpecPtrOutput {
-	return o.ApplyT(func (v APIServiceType) *APIServiceSpec { return v.Spec }).(APIServiceSpecPtrOutput)
+	return o.ApplyT(func(v APIServiceType) *APIServiceSpec { return v.Spec }).(APIServiceSpecPtrOutput)
 }
 
 // Status contains derived information about an API server
 func (o APIServiceTypeOutput) Status() APIServiceStatusPtrOutput {
-	return o.ApplyT(func (v APIServiceType) *APIServiceStatus { return v.Status }).(APIServiceStatusPtrOutput)
+	return o.ApplyT(func(v APIServiceType) *APIServiceStatus { return v.Status }).(APIServiceStatusPtrOutput)
 }
 
-type APIServiceTypeArrayOutput struct { *pulumi.OutputState }
+type APIServiceTypeArrayOutput struct{ *pulumi.OutputState }
 
 func (APIServiceTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]APIServiceType)(nil)).Elem()
@@ -132,7 +132,7 @@ func (o APIServiceTypeArrayOutput) ToAPIServiceTypeArrayOutputWithContext(ctx co
 }
 
 func (o APIServiceTypeArrayOutput) Index(i pulumi.IntInput) APIServiceTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) APIServiceType {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) APIServiceType {
 		return vs[0].([]APIServiceType)[vs[1].(int)]
 	}).(APIServiceTypeOutput)
 }
@@ -206,7 +206,7 @@ func (i APIServiceConditionArray) ToAPIServiceConditionArrayOutputWithContext(ct
 }
 
 // APIServiceCondition describes the state of an APIService at a particular point
-type APIServiceConditionOutput struct { *pulumi.OutputState }
+type APIServiceConditionOutput struct{ *pulumi.OutputState }
 
 func (APIServiceConditionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*APIServiceCondition)(nil)).Elem()
@@ -222,30 +222,30 @@ func (o APIServiceConditionOutput) ToAPIServiceConditionOutputWithContext(ctx co
 
 // Last time the condition transitioned from one status to another.
 func (o APIServiceConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
 // Human-readable message indicating details about last transition.
 func (o APIServiceConditionOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // Unique, one-word, CamelCase reason for the condition's last transition.
 func (o APIServiceConditionOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // Status is the status of the condition. Can be True, False, Unknown.
 func (o APIServiceConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // Type is the type of the condition.
 func (o APIServiceConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type APIServiceConditionArrayOutput struct { *pulumi.OutputState }
+type APIServiceConditionArrayOutput struct{ *pulumi.OutputState }
 
 func (APIServiceConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]APIServiceCondition)(nil)).Elem()
@@ -260,7 +260,7 @@ func (o APIServiceConditionArrayOutput) ToAPIServiceConditionArrayOutputWithCont
 }
 
 func (o APIServiceConditionArrayOutput) Index(i pulumi.IntInput) APIServiceConditionOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) APIServiceCondition {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) APIServiceCondition {
 		return vs[0].([]APIServiceCondition)[vs[1].(int)]
 	}).(APIServiceConditionOutput)
 }
@@ -268,10 +268,10 @@ func (o APIServiceConditionArrayOutput) Index(i pulumi.IntInput) APIServiceCondi
 // APIServiceList is a list of APIService objects.
 type APIServiceListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	Items []APIServiceType `pulumi:"items"`
+	ApiVersion *string          `pulumi:"apiVersion"`
+	Items      []APIServiceType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string          `pulumi:"kind"`
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -285,10 +285,10 @@ type APIServiceListTypeInput interface {
 // APIServiceList is a list of APIService objects.
 type APIServiceListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	Items APIServiceTypeArrayInput `pulumi:"items"`
+	ApiVersion pulumi.StringPtrInput    `pulumi:"apiVersion"`
+	Items      APIServiceTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -305,7 +305,7 @@ func (i APIServiceListTypeArgs) ToAPIServiceListTypeOutputWithContext(ctx contex
 }
 
 // APIServiceList is a list of APIService objects.
-type APIServiceListTypeOutput struct { *pulumi.OutputState }
+type APIServiceListTypeOutput struct{ *pulumi.OutputState }
 
 func (APIServiceListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*APIServiceListType)(nil)).Elem()
@@ -321,20 +321,20 @@ func (o APIServiceListTypeOutput) ToAPIServiceListTypeOutputWithContext(ctx cont
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o APIServiceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 func (o APIServiceListTypeOutput) Items() APIServiceTypeArrayOutput {
-	return o.ApplyT(func (v APIServiceListType) []APIServiceType { return v.Items }).(APIServiceTypeArrayOutput)
+	return o.ApplyT(func(v APIServiceListType) []APIServiceType { return v.Items }).(APIServiceTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o APIServiceListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 func (o APIServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v APIServiceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func(v APIServiceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
@@ -409,7 +409,8 @@ type APIServiceSpecPtrInput interface {
 
 type apiserviceSpecPtrType APIServiceSpecArgs
 
-func APIServiceSpecPtr(v *APIServiceSpecArgs) APIServiceSpecPtrInput {	return (*apiserviceSpecPtrType)(v)
+func APIServiceSpecPtr(v *APIServiceSpecArgs) APIServiceSpecPtrInput {
+	return (*apiserviceSpecPtrType)(v)
 }
 
 func (*apiserviceSpecPtrType) ElementType() reflect.Type {
@@ -425,7 +426,7 @@ func (i *apiserviceSpecPtrType) ToAPIServiceSpecPtrOutputWithContext(ctx context
 }
 
 // APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
-type APIServiceSpecOutput struct { *pulumi.OutputState }
+type APIServiceSpecOutput struct{ *pulumi.OutputState }
 
 func (APIServiceSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*APIServiceSpec)(nil)).Elem()
@@ -448,42 +449,43 @@ func (o APIServiceSpecOutput) ToAPIServiceSpecPtrOutputWithContext(ctx context.C
 		return &v
 	}).(APIServiceSpecPtrOutput)
 }
+
 // CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
 func (o APIServiceSpecOutput) CaBundle() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
 }
 
 // Group is the API group name this server hosts
 func (o APIServiceSpecOutput) Group() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *string { return v.Group }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *string { return v.Group }).(pulumi.StringPtrOutput)
 }
 
 // GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
 func (o APIServiceSpecOutput) GroupPriorityMinimum() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *int { return v.GroupPriorityMinimum }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *int { return v.GroupPriorityMinimum }).(pulumi.IntPtrOutput)
 }
 
 // InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
 func (o APIServiceSpecOutput) InsecureSkipTLSVerify() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *bool { return v.InsecureSkipTLSVerify }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *bool { return v.InsecureSkipTLSVerify }).(pulumi.BoolPtrOutput)
 }
 
 // Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
 func (o APIServiceSpecOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
 }
 
 // Version is the API version this server hosts.  For example, "v1"
 func (o APIServiceSpecOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *string { return v.Version }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
 // VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 func (o APIServiceSpecOutput) VersionPriority() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *int { return v.VersionPriority }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *int { return v.VersionPriority }).(pulumi.IntPtrOutput)
 }
 
-type APIServiceSpecPtrOutput struct { *pulumi.OutputState }
+type APIServiceSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (APIServiceSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**APIServiceSpec)(nil)).Elem()
@@ -498,42 +500,42 @@ func (o APIServiceSpecPtrOutput) ToAPIServiceSpecPtrOutputWithContext(ctx contex
 }
 
 func (o APIServiceSpecPtrOutput) Elem() APIServiceSpecOutput {
-	return o.ApplyT(func (v *APIServiceSpec) APIServiceSpec { return *v }).(APIServiceSpecOutput)
+	return o.ApplyT(func(v *APIServiceSpec) APIServiceSpec { return *v }).(APIServiceSpecOutput)
 }
 
 // CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
 func (o APIServiceSpecPtrOutput) CaBundle() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
 }
 
 // Group is the API group name this server hosts
 func (o APIServiceSpecPtrOutput) Group() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *string { return v.Group }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *string { return v.Group }).(pulumi.StringPtrOutput)
 }
 
 // GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
 func (o APIServiceSpecPtrOutput) GroupPriorityMinimum() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *int { return v.GroupPriorityMinimum }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *int { return v.GroupPriorityMinimum }).(pulumi.IntPtrOutput)
 }
 
 // InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
 func (o APIServiceSpecPtrOutput) InsecureSkipTLSVerify() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *bool { return v.InsecureSkipTLSVerify }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *bool { return v.InsecureSkipTLSVerify }).(pulumi.BoolPtrOutput)
 }
 
 // Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
 func (o APIServiceSpecPtrOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
 }
 
 // Version is the API version this server hosts.  For example, "v1"
 func (o APIServiceSpecPtrOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *string { return v.Version }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
 // VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 func (o APIServiceSpecPtrOutput) VersionPriority() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v APIServiceSpec) *int { return v.VersionPriority }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v APIServiceSpec) *int { return v.VersionPriority }).(pulumi.IntPtrOutput)
 }
 
 // APIServiceStatus contains derived information about an API server
@@ -584,7 +586,8 @@ type APIServiceStatusPtrInput interface {
 
 type apiserviceStatusPtrType APIServiceStatusArgs
 
-func APIServiceStatusPtr(v *APIServiceStatusArgs) APIServiceStatusPtrInput {	return (*apiserviceStatusPtrType)(v)
+func APIServiceStatusPtr(v *APIServiceStatusArgs) APIServiceStatusPtrInput {
+	return (*apiserviceStatusPtrType)(v)
 }
 
 func (*apiserviceStatusPtrType) ElementType() reflect.Type {
@@ -600,7 +603,7 @@ func (i *apiserviceStatusPtrType) ToAPIServiceStatusPtrOutputWithContext(ctx con
 }
 
 // APIServiceStatus contains derived information about an API server
-type APIServiceStatusOutput struct { *pulumi.OutputState }
+type APIServiceStatusOutput struct{ *pulumi.OutputState }
 
 func (APIServiceStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*APIServiceStatus)(nil)).Elem()
@@ -623,12 +626,13 @@ func (o APIServiceStatusOutput) ToAPIServiceStatusPtrOutputWithContext(ctx conte
 		return &v
 	}).(APIServiceStatusPtrOutput)
 }
+
 // Current service state of apiService.
 func (o APIServiceStatusOutput) Conditions() APIServiceConditionArrayOutput {
-	return o.ApplyT(func (v APIServiceStatus) []APIServiceCondition { return v.Conditions }).(APIServiceConditionArrayOutput)
+	return o.ApplyT(func(v APIServiceStatus) []APIServiceCondition { return v.Conditions }).(APIServiceConditionArrayOutput)
 }
 
-type APIServiceStatusPtrOutput struct { *pulumi.OutputState }
+type APIServiceStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (APIServiceStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**APIServiceStatus)(nil)).Elem()
@@ -643,12 +647,12 @@ func (o APIServiceStatusPtrOutput) ToAPIServiceStatusPtrOutputWithContext(ctx co
 }
 
 func (o APIServiceStatusPtrOutput) Elem() APIServiceStatusOutput {
-	return o.ApplyT(func (v *APIServiceStatus) APIServiceStatus { return *v }).(APIServiceStatusOutput)
+	return o.ApplyT(func(v *APIServiceStatus) APIServiceStatus { return *v }).(APIServiceStatusOutput)
 }
 
 // Current service state of apiService.
 func (o APIServiceStatusPtrOutput) Conditions() APIServiceConditionArrayOutput {
-	return o.ApplyT(func (v APIServiceStatus) []APIServiceCondition { return v.Conditions }).(APIServiceConditionArrayOutput)
+	return o.ApplyT(func(v APIServiceStatus) []APIServiceCondition { return v.Conditions }).(APIServiceConditionArrayOutput)
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
@@ -707,7 +711,8 @@ type ServiceReferencePtrInput interface {
 
 type serviceReferencePtrType ServiceReferenceArgs
 
-func ServiceReferencePtr(v *ServiceReferenceArgs) ServiceReferencePtrInput {	return (*serviceReferencePtrType)(v)
+func ServiceReferencePtr(v *ServiceReferenceArgs) ServiceReferencePtrInput {
+	return (*serviceReferencePtrType)(v)
 }
 
 func (*serviceReferencePtrType) ElementType() reflect.Type {
@@ -723,7 +728,7 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
-type ServiceReferenceOutput struct { *pulumi.OutputState }
+type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferenceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ServiceReference)(nil)).Elem()
@@ -746,22 +751,23 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 		return &v
 	}).(ServiceReferencePtrOutput)
 }
+
 // Name is the name of the service
 func (o ServiceReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // Namespace is the namespace of the service
 func (o ServiceReferenceOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
 // If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
 func (o ServiceReferenceOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-type ServiceReferencePtrOutput struct { *pulumi.OutputState }
+type ServiceReferencePtrOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceReference)(nil)).Elem()
@@ -776,22 +782,22 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx co
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func (v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
+	return o.ApplyT(func(v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
 }
 
 // Name is the name of the service
 func (o ServiceReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // Namespace is the namespace of the service
 func (o ServiceReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
 // If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
 func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
 func init() {

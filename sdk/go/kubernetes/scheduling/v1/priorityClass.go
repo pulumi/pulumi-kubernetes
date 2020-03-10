@@ -138,4 +138,3 @@ type PriorityClassArgs struct {
 func (PriorityClassArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*priorityClassArgs)(nil)).Elem()
 }
-

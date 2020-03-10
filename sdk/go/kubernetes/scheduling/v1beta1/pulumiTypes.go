@@ -89,7 +89,7 @@ func (i PriorityClassTypeArray) ToPriorityClassTypeArrayOutputWithContext(ctx co
 }
 
 // DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
-type PriorityClassTypeOutput struct { *pulumi.OutputState }
+type PriorityClassTypeOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PriorityClassType)(nil)).Elem()
@@ -105,40 +105,40 @@ func (o PriorityClassTypeOutput) ToPriorityClassTypeOutputWithContext(ctx contex
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o PriorityClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PriorityClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PriorityClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // description is an arbitrary string that usually provides guidelines on when this priority class should be used.
 func (o PriorityClassTypeOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PriorityClassType) *string { return v.Description }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PriorityClassType) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 // globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
 func (o PriorityClassTypeOutput) GlobalDefault() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v PriorityClassType) *bool { return v.GlobalDefault }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v PriorityClassType) *bool { return v.GlobalDefault }).(pulumi.BoolPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o PriorityClassTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PriorityClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PriorityClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PriorityClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v PriorityClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v PriorityClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
 func (o PriorityClassTypeOutput) PreemptionPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PriorityClassType) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PriorityClassType) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
 
 // The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 func (o PriorityClassTypeOutput) Value() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v PriorityClassType) *int { return v.Value }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v PriorityClassType) *int { return v.Value }).(pulumi.IntPtrOutput)
 }
 
-type PriorityClassTypeArrayOutput struct { *pulumi.OutputState }
+type PriorityClassTypeArrayOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PriorityClassType)(nil)).Elem()
@@ -153,7 +153,7 @@ func (o PriorityClassTypeArrayOutput) ToPriorityClassTypeArrayOutputWithContext(
 }
 
 func (o PriorityClassTypeArrayOutput) Index(i pulumi.IntInput) PriorityClassTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) PriorityClassType {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PriorityClassType {
 		return vs[0].([]PriorityClassType)[vs[1].(int)]
 	}).(PriorityClassTypeOutput)
 }
@@ -202,7 +202,7 @@ func (i PriorityClassListTypeArgs) ToPriorityClassListTypeOutputWithContext(ctx 
 }
 
 // PriorityClassList is a collection of priority classes.
-type PriorityClassListTypeOutput struct { *pulumi.OutputState }
+type PriorityClassListTypeOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PriorityClassListType)(nil)).Elem()
@@ -218,22 +218,22 @@ func (o PriorityClassListTypeOutput) ToPriorityClassListTypeOutputWithContext(ct
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o PriorityClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PriorityClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PriorityClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // items is the list of PriorityClasses
 func (o PriorityClassListTypeOutput) Items() PriorityClassTypeArrayOutput {
-	return o.ApplyT(func (v PriorityClassListType) []PriorityClassType { return v.Items }).(PriorityClassTypeArrayOutput)
+	return o.ApplyT(func(v PriorityClassListType) []PriorityClassType { return v.Items }).(PriorityClassTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o PriorityClassListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PriorityClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PriorityClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PriorityClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v PriorityClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func(v PriorityClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 func init() {

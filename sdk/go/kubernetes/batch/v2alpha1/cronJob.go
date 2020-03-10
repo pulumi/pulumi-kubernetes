@@ -7,8 +7,6 @@ package v2alpha1
 import (
 	"reflect"
 
-	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/batch/v1"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
@@ -112,4 +110,3 @@ type CronJobArgs struct {
 func (CronJobArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*cronJobArgs)(nil)).Elem()
 }
-

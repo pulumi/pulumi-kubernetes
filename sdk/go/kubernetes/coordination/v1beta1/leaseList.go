@@ -108,4 +108,3 @@ type LeaseListArgs struct {
 func (LeaseListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*leaseListArgs)(nil)).Elem()
 }
-

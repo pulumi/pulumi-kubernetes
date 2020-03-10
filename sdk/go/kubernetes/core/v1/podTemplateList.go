@@ -108,4 +108,3 @@ type PodTemplateListArgs struct {
 func (PodTemplateListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podTemplateListArgs)(nil)).Elem()
 }
-

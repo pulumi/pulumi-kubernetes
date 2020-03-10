@@ -108,4 +108,3 @@ type EventListArgs struct {
 func (EventListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*eventListArgs)(nil)).Elem()
 }
-

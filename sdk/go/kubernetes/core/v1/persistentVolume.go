@@ -110,4 +110,3 @@ type PersistentVolumeArgs struct {
 func (PersistentVolumeArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*persistentVolumeArgs)(nil)).Elem()
 }
-

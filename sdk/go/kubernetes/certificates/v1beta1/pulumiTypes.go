@@ -17,7 +17,7 @@ type CertificateSigningRequestType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// The certificate request itself and any additional information.
 	Spec *CertificateSigningRequestSpec `pulumi:"spec"`
@@ -37,7 +37,7 @@ type CertificateSigningRequestTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// The certificate request itself and any additional information.
 	Spec CertificateSigningRequestSpecPtrInput `pulumi:"spec"`
@@ -79,7 +79,7 @@ func (i CertificateSigningRequestTypeArray) ToCertificateSigningRequestTypeArray
 }
 
 // Describes a certificate signing request
-type CertificateSigningRequestTypeOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestTypeOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CertificateSigningRequestType)(nil)).Elem()
@@ -95,29 +95,29 @@ func (o CertificateSigningRequestTypeOutput) ToCertificateSigningRequestTypeOutp
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o CertificateSigningRequestTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CertificateSigningRequestTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 func (o CertificateSigningRequestTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // The certificate request itself and any additional information.
 func (o CertificateSigningRequestTypeOutput) Spec() CertificateSigningRequestSpecPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestType) *CertificateSigningRequestSpec { return v.Spec }).(CertificateSigningRequestSpecPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestType) *CertificateSigningRequestSpec { return v.Spec }).(CertificateSigningRequestSpecPtrOutput)
 }
 
 // Derived information about the request.
 func (o CertificateSigningRequestTypeOutput) Status() CertificateSigningRequestStatusPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestType) *CertificateSigningRequestStatus { return v.Status }).(CertificateSigningRequestStatusPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestType) *CertificateSigningRequestStatus { return v.Status }).(CertificateSigningRequestStatusPtrOutput)
 }
 
-type CertificateSigningRequestTypeArrayOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestTypeArrayOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CertificateSigningRequestType)(nil)).Elem()
@@ -132,7 +132,7 @@ func (o CertificateSigningRequestTypeArrayOutput) ToCertificateSigningRequestTyp
 }
 
 func (o CertificateSigningRequestTypeArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) CertificateSigningRequestType {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CertificateSigningRequestType {
 		return vs[0].([]CertificateSigningRequestType)[vs[1].(int)]
 	}).(CertificateSigningRequestTypeOutput)
 }
@@ -199,7 +199,7 @@ func (i CertificateSigningRequestConditionArray) ToCertificateSigningRequestCond
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestConditionArrayOutput)
 }
 
-type CertificateSigningRequestConditionOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestConditionOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestConditionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CertificateSigningRequestCondition)(nil)).Elem()
@@ -215,25 +215,25 @@ func (o CertificateSigningRequestConditionOutput) ToCertificateSigningRequestCon
 
 // timestamp for the last update to this condition
 func (o CertificateSigningRequestConditionOutput) LastUpdateTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestCondition) *string { return v.LastUpdateTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestCondition) *string { return v.LastUpdateTime }).(pulumi.StringPtrOutput)
 }
 
 // human readable message with details about the request state
 func (o CertificateSigningRequestConditionOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // brief reason for the request state
 func (o CertificateSigningRequestConditionOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // request approval state, currently Approved or Denied.
 func (o CertificateSigningRequestConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type CertificateSigningRequestConditionArrayOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestConditionArrayOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CertificateSigningRequestCondition)(nil)).Elem()
@@ -248,17 +248,17 @@ func (o CertificateSigningRequestConditionArrayOutput) ToCertificateSigningReque
 }
 
 func (o CertificateSigningRequestConditionArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestConditionOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) CertificateSigningRequestCondition {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CertificateSigningRequestCondition {
 		return vs[0].([]CertificateSigningRequestCondition)[vs[1].(int)]
 	}).(CertificateSigningRequestConditionOutput)
 }
 
 type CertificateSigningRequestListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	Items []CertificateSigningRequestType `pulumi:"items"`
+	ApiVersion *string                         `pulumi:"apiVersion"`
+	Items      []CertificateSigningRequestType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string          `pulumi:"kind"`
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -271,10 +271,10 @@ type CertificateSigningRequestListTypeInput interface {
 
 type CertificateSigningRequestListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	Items CertificateSigningRequestTypeArrayInput `pulumi:"items"`
+	ApiVersion pulumi.StringPtrInput                   `pulumi:"apiVersion"`
+	Items      CertificateSigningRequestTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -290,7 +290,7 @@ func (i CertificateSigningRequestListTypeArgs) ToCertificateSigningRequestListTy
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListTypeOutput)
 }
 
-type CertificateSigningRequestListTypeOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestListTypeOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CertificateSigningRequestListType)(nil)).Elem()
@@ -306,20 +306,20 @@ func (o CertificateSigningRequestListTypeOutput) ToCertificateSigningRequestList
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o CertificateSigningRequestListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 func (o CertificateSigningRequestListTypeOutput) Items() CertificateSigningRequestTypeArrayOutput {
-	return o.ApplyT(func (v CertificateSigningRequestListType) []CertificateSigningRequestType { return v.Items }).(CertificateSigningRequestTypeArrayOutput)
+	return o.ApplyT(func(v CertificateSigningRequestListType) []CertificateSigningRequestType { return v.Items }).(CertificateSigningRequestTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CertificateSigningRequestListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 func (o CertificateSigningRequestListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
@@ -392,7 +392,8 @@ type CertificateSigningRequestSpecPtrInput interface {
 
 type certificateSigningRequestSpecPtrType CertificateSigningRequestSpecArgs
 
-func CertificateSigningRequestSpecPtr(v *CertificateSigningRequestSpecArgs) CertificateSigningRequestSpecPtrInput {	return (*certificateSigningRequestSpecPtrType)(v)
+func CertificateSigningRequestSpecPtr(v *CertificateSigningRequestSpecArgs) CertificateSigningRequestSpecPtrInput {
+	return (*certificateSigningRequestSpecPtrType)(v)
 }
 
 func (*certificateSigningRequestSpecPtrType) ElementType() reflect.Type {
@@ -408,7 +409,7 @@ func (i *certificateSigningRequestSpecPtrType) ToCertificateSigningRequestSpecPt
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
-type CertificateSigningRequestSpecOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestSpecOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CertificateSigningRequestSpec)(nil)).Elem()
@@ -431,38 +432,39 @@ func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecPtrO
 		return &v
 	}).(CertificateSigningRequestSpecPtrOutput)
 }
+
 // Extra information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecOutput) Extra() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
 }
 
 // Group information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecOutput) Groups() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) []string { return v.Groups }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Groups }).(pulumi.StringArrayOutput)
 }
 
 // Base64-encoded PKCS#10 CSR data
 func (o CertificateSigningRequestSpecOutput) Request() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) *string { return v.Request }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Request }).(pulumi.StringPtrOutput)
 }
 
 // UID information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) *string { return v.Uid }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 //      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
 func (o CertificateSigningRequestSpecOutput) Usages() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
 }
 
 // Information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecOutput) Username() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) *string { return v.Username }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Username }).(pulumi.StringPtrOutput)
 }
 
-type CertificateSigningRequestSpecPtrOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CertificateSigningRequestSpec)(nil)).Elem()
@@ -477,38 +479,38 @@ func (o CertificateSigningRequestSpecPtrOutput) ToCertificateSigningRequestSpecP
 }
 
 func (o CertificateSigningRequestSpecPtrOutput) Elem() CertificateSigningRequestSpecOutput {
-	return o.ApplyT(func (v *CertificateSigningRequestSpec) CertificateSigningRequestSpec { return *v }).(CertificateSigningRequestSpecOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) CertificateSigningRequestSpec { return *v }).(CertificateSigningRequestSpecOutput)
 }
 
 // Extra information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Extra() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
 }
 
 // Group information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Groups() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) []string { return v.Groups }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Groups }).(pulumi.StringArrayOutput)
 }
 
 // Base64-encoded PKCS#10 CSR data
 func (o CertificateSigningRequestSpecPtrOutput) Request() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) *string { return v.Request }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Request }).(pulumi.StringPtrOutput)
 }
 
 // UID information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) *string { return v.Uid }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 //      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
 func (o CertificateSigningRequestSpecPtrOutput) Usages() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
 }
 
 // Information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Username() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestSpec) *string { return v.Username }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Username }).(pulumi.StringPtrOutput)
 }
 
 type CertificateSigningRequestStatus struct {
@@ -561,7 +563,8 @@ type CertificateSigningRequestStatusPtrInput interface {
 
 type certificateSigningRequestStatusPtrType CertificateSigningRequestStatusArgs
 
-func CertificateSigningRequestStatusPtr(v *CertificateSigningRequestStatusArgs) CertificateSigningRequestStatusPtrInput {	return (*certificateSigningRequestStatusPtrType)(v)
+func CertificateSigningRequestStatusPtr(v *CertificateSigningRequestStatusArgs) CertificateSigningRequestStatusPtrInput {
+	return (*certificateSigningRequestStatusPtrType)(v)
 }
 
 func (*certificateSigningRequestStatusPtrType) ElementType() reflect.Type {
@@ -576,7 +579,7 @@ func (i *certificateSigningRequestStatusPtrType) ToCertificateSigningRequestStat
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestStatusPtrOutput)
 }
 
-type CertificateSigningRequestStatusOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestStatusOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CertificateSigningRequestStatus)(nil)).Elem()
@@ -599,17 +602,18 @@ func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatus
 		return &v
 	}).(CertificateSigningRequestStatusPtrOutput)
 }
+
 // If request was approved, the controller will place the issued certificate here.
 func (o CertificateSigningRequestStatusOutput) Certificate() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestStatus) *string { return v.Certificate }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestStatus) *string { return v.Certificate }).(pulumi.StringPtrOutput)
 }
 
 // Conditions applied to the request, such as approval or denial.
 func (o CertificateSigningRequestStatusOutput) Conditions() CertificateSigningRequestConditionArrayOutput {
-	return o.ApplyT(func (v CertificateSigningRequestStatus) []CertificateSigningRequestCondition { return v.Conditions }).(CertificateSigningRequestConditionArrayOutput)
+	return o.ApplyT(func(v CertificateSigningRequestStatus) []CertificateSigningRequestCondition { return v.Conditions }).(CertificateSigningRequestConditionArrayOutput)
 }
 
-type CertificateSigningRequestStatusPtrOutput struct { *pulumi.OutputState }
+type CertificateSigningRequestStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CertificateSigningRequestStatus)(nil)).Elem()
@@ -624,17 +628,17 @@ func (o CertificateSigningRequestStatusPtrOutput) ToCertificateSigningRequestSta
 }
 
 func (o CertificateSigningRequestStatusPtrOutput) Elem() CertificateSigningRequestStatusOutput {
-	return o.ApplyT(func (v *CertificateSigningRequestStatus) CertificateSigningRequestStatus { return *v }).(CertificateSigningRequestStatusOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestStatus) CertificateSigningRequestStatus { return *v }).(CertificateSigningRequestStatusOutput)
 }
 
 // If request was approved, the controller will place the issued certificate here.
 func (o CertificateSigningRequestStatusPtrOutput) Certificate() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CertificateSigningRequestStatus) *string { return v.Certificate }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CertificateSigningRequestStatus) *string { return v.Certificate }).(pulumi.StringPtrOutput)
 }
 
 // Conditions applied to the request, such as approval or denial.
 func (o CertificateSigningRequestStatusPtrOutput) Conditions() CertificateSigningRequestConditionArrayOutput {
-	return o.ApplyT(func (v CertificateSigningRequestStatus) []CertificateSigningRequestCondition { return v.Conditions }).(CertificateSigningRequestConditionArrayOutput)
+	return o.ApplyT(func(v CertificateSigningRequestStatus) []CertificateSigningRequestCondition { return v.Conditions }).(CertificateSigningRequestConditionArrayOutput)
 }
 
 func init() {

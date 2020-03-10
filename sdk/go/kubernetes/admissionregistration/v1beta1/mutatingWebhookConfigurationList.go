@@ -108,4 +108,3 @@ type MutatingWebhookConfigurationListArgs struct {
 func (MutatingWebhookConfigurationListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*mutatingWebhookConfigurationListArgs)(nil)).Elem()
 }
-

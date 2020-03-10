@@ -7,7 +7,6 @@ package v1
 import (
 	"reflect"
 
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
@@ -111,4 +110,3 @@ type DeploymentArgs struct {
 func (DeploymentArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*deploymentArgs)(nil)).Elem()
 }
-

@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
@@ -109,4 +108,3 @@ type PodSecurityPolicyListArgs struct {
 func (PodSecurityPolicyListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podSecurityPolicyListArgs)(nil)).Elem()
 }
-

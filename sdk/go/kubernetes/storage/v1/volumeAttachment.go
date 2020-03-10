@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
@@ -117,4 +116,3 @@ type VolumeAttachmentArgs struct {
 func (VolumeAttachmentArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*volumeAttachmentArgs)(nil)).Elem()
 }
-

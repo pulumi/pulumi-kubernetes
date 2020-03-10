@@ -114,4 +114,3 @@ type ConfigMapArgs struct {
 func (ConfigMapArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*configMapArgs)(nil)).Elem()
 }
-

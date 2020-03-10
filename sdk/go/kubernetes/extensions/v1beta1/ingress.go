@@ -7,12 +7,11 @@ package v1beta1
 import (
 	"reflect"
 
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
-// Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
+// Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
 type Ingress struct {
 	pulumi.CustomResourceState
 
@@ -111,4 +110,3 @@ type IngressArgs struct {
 func (IngressArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*ingressArgs)(nil)).Elem()
 }
-

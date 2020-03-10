@@ -68,7 +68,8 @@ type CrossVersionObjectReferencePtrInput interface {
 
 type crossVersionObjectReferencePtrType CrossVersionObjectReferenceArgs
 
-func CrossVersionObjectReferencePtr(v *CrossVersionObjectReferenceArgs) CrossVersionObjectReferencePtrInput {	return (*crossVersionObjectReferencePtrType)(v)
+func CrossVersionObjectReferencePtr(v *CrossVersionObjectReferenceArgs) CrossVersionObjectReferencePtrInput {
+	return (*crossVersionObjectReferencePtrType)(v)
 }
 
 func (*crossVersionObjectReferencePtrType) ElementType() reflect.Type {
@@ -84,7 +85,7 @@ func (i *crossVersionObjectReferencePtrType) ToCrossVersionObjectReferencePtrOut
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
-type CrossVersionObjectReferenceOutput struct { *pulumi.OutputState }
+type CrossVersionObjectReferenceOutput struct{ *pulumi.OutputState }
 
 func (CrossVersionObjectReferenceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CrossVersionObjectReference)(nil)).Elem()
@@ -107,22 +108,23 @@ func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutpu
 		return &v
 	}).(CrossVersionObjectReferencePtrOutput)
 }
+
 // API version of the referent
 func (o CrossVersionObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
 func (o CrossVersionObjectReferenceOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 func (o CrossVersionObjectReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type CrossVersionObjectReferencePtrOutput struct { *pulumi.OutputState }
+type CrossVersionObjectReferencePtrOutput struct{ *pulumi.OutputState }
 
 func (CrossVersionObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CrossVersionObjectReference)(nil)).Elem()
@@ -137,22 +139,22 @@ func (o CrossVersionObjectReferencePtrOutput) ToCrossVersionObjectReferencePtrOu
 }
 
 func (o CrossVersionObjectReferencePtrOutput) Elem() CrossVersionObjectReferenceOutput {
-	return o.ApplyT(func (v *CrossVersionObjectReference) CrossVersionObjectReference { return *v }).(CrossVersionObjectReferenceOutput)
+	return o.ApplyT(func(v *CrossVersionObjectReference) CrossVersionObjectReference { return *v }).(CrossVersionObjectReferenceOutput)
 }
 
 // API version of the referent
 func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
 func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster). Exactly one "target" type should be set.
@@ -215,7 +217,8 @@ type ExternalMetricSourcePtrInput interface {
 
 type externalMetricSourcePtrType ExternalMetricSourceArgs
 
-func ExternalMetricSourcePtr(v *ExternalMetricSourceArgs) ExternalMetricSourcePtrInput {	return (*externalMetricSourcePtrType)(v)
+func ExternalMetricSourcePtr(v *ExternalMetricSourceArgs) ExternalMetricSourcePtrInput {
+	return (*externalMetricSourcePtrType)(v)
 }
 
 func (*externalMetricSourcePtrType) ElementType() reflect.Type {
@@ -231,7 +234,7 @@ func (i *externalMetricSourcePtrType) ToExternalMetricSourcePtrOutputWithContext
 }
 
 // ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster). Exactly one "target" type should be set.
-type ExternalMetricSourceOutput struct { *pulumi.OutputState }
+type ExternalMetricSourceOutput struct{ *pulumi.OutputState }
 
 func (ExternalMetricSourceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ExternalMetricSource)(nil)).Elem()
@@ -254,27 +257,28 @@ func (o ExternalMetricSourceOutput) ToExternalMetricSourcePtrOutputWithContext(c
 		return &v
 	}).(ExternalMetricSourcePtrOutput)
 }
+
 // metricName is the name of the metric in question.
 func (o ExternalMetricSourceOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
 func (o ExternalMetricSourceOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
 func (o ExternalMetricSourceOutput) TargetAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // targetValue is the target value of the metric (as a quantity). Mutually exclusive with TargetAverageValue.
 func (o ExternalMetricSourceOutput) TargetValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
 }
 
-type ExternalMetricSourcePtrOutput struct { *pulumi.OutputState }
+type ExternalMetricSourcePtrOutput struct{ *pulumi.OutputState }
 
 func (ExternalMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ExternalMetricSource)(nil)).Elem()
@@ -289,27 +293,27 @@ func (o ExternalMetricSourcePtrOutput) ToExternalMetricSourcePtrOutputWithContex
 }
 
 func (o ExternalMetricSourcePtrOutput) Elem() ExternalMetricSourceOutput {
-	return o.ApplyT(func (v *ExternalMetricSource) ExternalMetricSource { return *v }).(ExternalMetricSourceOutput)
+	return o.ApplyT(func(v *ExternalMetricSource) ExternalMetricSource { return *v }).(ExternalMetricSourceOutput)
 }
 
 // metricName is the name of the metric in question.
 func (o ExternalMetricSourcePtrOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
 func (o ExternalMetricSourcePtrOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
 func (o ExternalMetricSourcePtrOutput) TargetAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // targetValue is the target value of the metric (as a quantity). Mutually exclusive with TargetAverageValue.
 func (o ExternalMetricSourcePtrOutput) TargetValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
 }
 
 // ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
@@ -372,7 +376,8 @@ type ExternalMetricStatusPtrInput interface {
 
 type externalMetricStatusPtrType ExternalMetricStatusArgs
 
-func ExternalMetricStatusPtr(v *ExternalMetricStatusArgs) ExternalMetricStatusPtrInput {	return (*externalMetricStatusPtrType)(v)
+func ExternalMetricStatusPtr(v *ExternalMetricStatusArgs) ExternalMetricStatusPtrInput {
+	return (*externalMetricStatusPtrType)(v)
 }
 
 func (*externalMetricStatusPtrType) ElementType() reflect.Type {
@@ -388,7 +393,7 @@ func (i *externalMetricStatusPtrType) ToExternalMetricStatusPtrOutputWithContext
 }
 
 // ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
-type ExternalMetricStatusOutput struct { *pulumi.OutputState }
+type ExternalMetricStatusOutput struct{ *pulumi.OutputState }
 
 func (ExternalMetricStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ExternalMetricStatus)(nil)).Elem()
@@ -411,27 +416,28 @@ func (o ExternalMetricStatusOutput) ToExternalMetricStatusPtrOutputWithContext(c
 		return &v
 	}).(ExternalMetricStatusPtrOutput)
 }
+
 // currentAverageValue is the current value of metric averaged over autoscaled pods.
 func (o ExternalMetricStatusOutput) CurrentAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // currentValue is the current value of the metric (as a quantity)
 func (o ExternalMetricStatusOutput) CurrentValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of a metric used for autoscaling in metric system.
 func (o ExternalMetricStatusOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
 func (o ExternalMetricStatusOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-type ExternalMetricStatusPtrOutput struct { *pulumi.OutputState }
+type ExternalMetricStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (ExternalMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ExternalMetricStatus)(nil)).Elem()
@@ -446,27 +452,27 @@ func (o ExternalMetricStatusPtrOutput) ToExternalMetricStatusPtrOutputWithContex
 }
 
 func (o ExternalMetricStatusPtrOutput) Elem() ExternalMetricStatusOutput {
-	return o.ApplyT(func (v *ExternalMetricStatus) ExternalMetricStatus { return *v }).(ExternalMetricStatusOutput)
+	return o.ApplyT(func(v *ExternalMetricStatus) ExternalMetricStatus { return *v }).(ExternalMetricStatusOutput)
 }
 
 // currentAverageValue is the current value of metric averaged over autoscaled pods.
 func (o ExternalMetricStatusPtrOutput) CurrentAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // currentValue is the current value of the metric (as a quantity)
 func (o ExternalMetricStatusPtrOutput) CurrentValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of a metric used for autoscaling in metric system.
 func (o ExternalMetricStatusPtrOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // metricSelector is used to identify a specific time series within a given metric.
 func (o ExternalMetricStatusPtrOutput) MetricSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ExternalMetricStatus) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ExternalMetricStatus) *metav1.LabelSelector { return v.MetricSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
@@ -538,7 +544,7 @@ func (i HorizontalPodAutoscalerTypeArray) ToHorizontalPodAutoscalerTypeArrayOutp
 }
 
 // HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
-type HorizontalPodAutoscalerTypeOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerTypeOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HorizontalPodAutoscalerType)(nil)).Elem()
@@ -554,30 +560,30 @@ func (o HorizontalPodAutoscalerTypeOutput) ToHorizontalPodAutoscalerTypeOutputWi
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o HorizontalPodAutoscalerTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o HorizontalPodAutoscalerTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o HorizontalPodAutoscalerTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o HorizontalPodAutoscalerTypeOutput) Spec() HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
 }
 
 // status is the current information about the autoscaler.
 func (o HorizontalPodAutoscalerTypeOutput) Status() HorizontalPodAutoscalerStatusPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerStatus { return v.Status }).(HorizontalPodAutoscalerStatusPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerStatus { return v.Status }).(HorizontalPodAutoscalerStatusPtrOutput)
 }
 
-type HorizontalPodAutoscalerTypeArrayOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerTypeArrayOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HorizontalPodAutoscalerType)(nil)).Elem()
@@ -592,7 +598,7 @@ func (o HorizontalPodAutoscalerTypeArrayOutput) ToHorizontalPodAutoscalerTypeArr
 }
 
 func (o HorizontalPodAutoscalerTypeArrayOutput) Index(i pulumi.IntInput) HorizontalPodAutoscalerTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) HorizontalPodAutoscalerType {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HorizontalPodAutoscalerType {
 		return vs[0].([]HorizontalPodAutoscalerType)[vs[1].(int)]
 	}).(HorizontalPodAutoscalerTypeOutput)
 }
@@ -666,7 +672,7 @@ func (i HorizontalPodAutoscalerConditionArray) ToHorizontalPodAutoscalerConditio
 }
 
 // HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
-type HorizontalPodAutoscalerConditionOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerConditionOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerConditionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HorizontalPodAutoscalerCondition)(nil)).Elem()
@@ -682,30 +688,30 @@ func (o HorizontalPodAutoscalerConditionOutput) ToHorizontalPodAutoscalerConditi
 
 // lastTransitionTime is the last time the condition transitioned from one status to another
 func (o HorizontalPodAutoscalerConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
 // message is a human-readable explanation containing details about the transition
 func (o HorizontalPodAutoscalerConditionOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // reason is the reason for the condition's last transition.
 func (o HorizontalPodAutoscalerConditionOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // status is the status of the condition (True, False, Unknown)
 func (o HorizontalPodAutoscalerConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // type describes the current condition
 func (o HorizontalPodAutoscalerConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type HorizontalPodAutoscalerConditionArrayOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerConditionArrayOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HorizontalPodAutoscalerCondition)(nil)).Elem()
@@ -720,7 +726,7 @@ func (o HorizontalPodAutoscalerConditionArrayOutput) ToHorizontalPodAutoscalerCo
 }
 
 func (o HorizontalPodAutoscalerConditionArrayOutput) Index(i pulumi.IntInput) HorizontalPodAutoscalerConditionOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) HorizontalPodAutoscalerCondition {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HorizontalPodAutoscalerCondition {
 		return vs[0].([]HorizontalPodAutoscalerCondition)[vs[1].(int)]
 	}).(HorizontalPodAutoscalerConditionOutput)
 }
@@ -769,7 +775,7 @@ func (i HorizontalPodAutoscalerListTypeArgs) ToHorizontalPodAutoscalerListTypeOu
 }
 
 // HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
-type HorizontalPodAutoscalerListTypeOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerListTypeOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HorizontalPodAutoscalerListType)(nil)).Elem()
@@ -785,22 +791,22 @@ func (o HorizontalPodAutoscalerListTypeOutput) ToHorizontalPodAutoscalerListType
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o HorizontalPodAutoscalerListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // items is the list of horizontal pod autoscaler objects.
 func (o HorizontalPodAutoscalerListTypeOutput) Items() HorizontalPodAutoscalerTypeArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerListType) []HorizontalPodAutoscalerType { return v.Items }).(HorizontalPodAutoscalerTypeArrayOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) []HorizontalPodAutoscalerType { return v.Items }).(HorizontalPodAutoscalerTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o HorizontalPodAutoscalerListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // metadata is the standard list metadata.
 func (o HorizontalPodAutoscalerListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
@@ -863,7 +869,8 @@ type HorizontalPodAutoscalerSpecPtrInput interface {
 
 type horizontalPodAutoscalerSpecPtrType HorizontalPodAutoscalerSpecArgs
 
-func HorizontalPodAutoscalerSpecPtr(v *HorizontalPodAutoscalerSpecArgs) HorizontalPodAutoscalerSpecPtrInput {	return (*horizontalPodAutoscalerSpecPtrType)(v)
+func HorizontalPodAutoscalerSpecPtr(v *HorizontalPodAutoscalerSpecArgs) HorizontalPodAutoscalerSpecPtrInput {
+	return (*horizontalPodAutoscalerSpecPtrType)(v)
 }
 
 func (*horizontalPodAutoscalerSpecPtrType) ElementType() reflect.Type {
@@ -879,7 +886,7 @@ func (i *horizontalPodAutoscalerSpecPtrType) ToHorizontalPodAutoscalerSpecPtrOut
 }
 
 // HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
-type HorizontalPodAutoscalerSpecOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerSpecOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HorizontalPodAutoscalerSpec)(nil)).Elem()
@@ -902,27 +909,28 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutpu
 		return &v
 	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
+
 // maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
 func (o HorizontalPodAutoscalerSpecOutput) MaxReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
 }
 
 // metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond.
 func (o HorizontalPodAutoscalerSpecOutput) Metrics() MetricSpecArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) []MetricSpec { return v.Metrics }).(MetricSpecArrayOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) []MetricSpec { return v.Metrics }).(MetricSpecArrayOutput)
 }
 
 // minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 func (o HorizontalPodAutoscalerSpecOutput) MinReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
 }
 
 // scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
 func (o HorizontalPodAutoscalerSpecOutput) ScaleTargetRef() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
 }
 
-type HorizontalPodAutoscalerSpecPtrOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
@@ -937,27 +945,27 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOu
 }
 
 func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpecOutput {
-	return o.ApplyT(func (v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec { return *v }).(HorizontalPodAutoscalerSpecOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec { return *v }).(HorizontalPodAutoscalerSpecOutput)
 }
 
 // maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
 func (o HorizontalPodAutoscalerSpecPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
 }
 
 // metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond.
 func (o HorizontalPodAutoscalerSpecPtrOutput) Metrics() MetricSpecArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) []MetricSpec { return v.Metrics }).(MetricSpecArrayOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) []MetricSpec { return v.Metrics }).(MetricSpecArrayOutput)
 }
 
 // minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 func (o HorizontalPodAutoscalerSpecPtrOutput) MinReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
 }
 
 // scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
 func (o HorizontalPodAutoscalerSpecPtrOutput) ScaleTargetRef() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
 }
 
 // HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
@@ -1028,7 +1036,8 @@ type HorizontalPodAutoscalerStatusPtrInput interface {
 
 type horizontalPodAutoscalerStatusPtrType HorizontalPodAutoscalerStatusArgs
 
-func HorizontalPodAutoscalerStatusPtr(v *HorizontalPodAutoscalerStatusArgs) HorizontalPodAutoscalerStatusPtrInput {	return (*horizontalPodAutoscalerStatusPtrType)(v)
+func HorizontalPodAutoscalerStatusPtr(v *HorizontalPodAutoscalerStatusArgs) HorizontalPodAutoscalerStatusPtrInput {
+	return (*horizontalPodAutoscalerStatusPtrType)(v)
 }
 
 func (*horizontalPodAutoscalerStatusPtrType) ElementType() reflect.Type {
@@ -1044,7 +1053,7 @@ func (i *horizontalPodAutoscalerStatusPtrType) ToHorizontalPodAutoscalerStatusPt
 }
 
 // HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
-type HorizontalPodAutoscalerStatusOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerStatusOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HorizontalPodAutoscalerStatus)(nil)).Elem()
@@ -1067,37 +1076,38 @@ func (o HorizontalPodAutoscalerStatusOutput) ToHorizontalPodAutoscalerStatusPtrO
 		return &v
 	}).(HorizontalPodAutoscalerStatusPtrOutput)
 }
+
 // conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
 func (o HorizontalPodAutoscalerStatusOutput) Conditions() HorizontalPodAutoscalerConditionArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) []HorizontalPodAutoscalerCondition { return v.Conditions }).(HorizontalPodAutoscalerConditionArrayOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) []HorizontalPodAutoscalerCondition { return v.Conditions }).(HorizontalPodAutoscalerConditionArrayOutput)
 }
 
 // currentMetrics is the last read state of the metrics used by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) CurrentMetrics() MetricStatusArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) []MetricStatus { return v.CurrentMetrics }).(MetricStatusArrayOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) []MetricStatus { return v.CurrentMetrics }).(MetricStatusArrayOutput)
 }
 
 // currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) CurrentReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
 }
 
 // desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) DesiredReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
 }
 
 // lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusOutput) LastScaleTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
 }
 
 // observedGeneration is the most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-type HorizontalPodAutoscalerStatusPtrOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerStatus)(nil)).Elem()
@@ -1112,37 +1122,37 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) ToHorizontalPodAutoscalerStatusP
 }
 
 func (o HorizontalPodAutoscalerStatusPtrOutput) Elem() HorizontalPodAutoscalerStatusOutput {
-	return o.ApplyT(func (v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus { return *v }).(HorizontalPodAutoscalerStatusOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus { return *v }).(HorizontalPodAutoscalerStatusOutput)
 }
 
 // conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
 func (o HorizontalPodAutoscalerStatusPtrOutput) Conditions() HorizontalPodAutoscalerConditionArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) []HorizontalPodAutoscalerCondition { return v.Conditions }).(HorizontalPodAutoscalerConditionArrayOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) []HorizontalPodAutoscalerCondition { return v.Conditions }).(HorizontalPodAutoscalerConditionArrayOutput)
 }
 
 // currentMetrics is the last read state of the metrics used by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentMetrics() MetricStatusArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) []MetricStatus { return v.CurrentMetrics }).(MetricStatusArrayOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) []MetricStatus { return v.CurrentMetrics }).(MetricStatusArrayOutput)
 }
 
 // currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
 }
 
 // desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) DesiredReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
 }
 
 // lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusPtrOutput) LastScaleTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
 }
 
 // observedGeneration is the most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
@@ -1214,7 +1224,7 @@ func (i MetricSpecArray) ToMetricSpecArrayOutputWithContext(ctx context.Context)
 }
 
 // MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
-type MetricSpecOutput struct { *pulumi.OutputState }
+type MetricSpecOutput struct{ *pulumi.OutputState }
 
 func (MetricSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*MetricSpec)(nil)).Elem()
@@ -1230,30 +1240,30 @@ func (o MetricSpecOutput) ToMetricSpecOutputWithContext(ctx context.Context) Met
 
 // external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 func (o MetricSpecOutput) External() ExternalMetricSourcePtrOutput {
-	return o.ApplyT(func (v MetricSpec) *ExternalMetricSource { return v.External }).(ExternalMetricSourcePtrOutput)
+	return o.ApplyT(func(v MetricSpec) *ExternalMetricSource { return v.External }).(ExternalMetricSourcePtrOutput)
 }
 
 // object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
 func (o MetricSpecOutput) Object() ObjectMetricSourcePtrOutput {
-	return o.ApplyT(func (v MetricSpec) *ObjectMetricSource { return v.Object }).(ObjectMetricSourcePtrOutput)
+	return o.ApplyT(func(v MetricSpec) *ObjectMetricSource { return v.Object }).(ObjectMetricSourcePtrOutput)
 }
 
 // pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
 func (o MetricSpecOutput) Pods() PodsMetricSourcePtrOutput {
-	return o.ApplyT(func (v MetricSpec) *PodsMetricSource { return v.Pods }).(PodsMetricSourcePtrOutput)
+	return o.ApplyT(func(v MetricSpec) *PodsMetricSource { return v.Pods }).(PodsMetricSourcePtrOutput)
 }
 
 // resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 func (o MetricSpecOutput) Resource() ResourceMetricSourcePtrOutput {
-	return o.ApplyT(func (v MetricSpec) *ResourceMetricSource { return v.Resource }).(ResourceMetricSourcePtrOutput)
+	return o.ApplyT(func(v MetricSpec) *ResourceMetricSource { return v.Resource }).(ResourceMetricSourcePtrOutput)
 }
 
 // type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
 func (o MetricSpecOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MetricSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v MetricSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type MetricSpecArrayOutput struct { *pulumi.OutputState }
+type MetricSpecArrayOutput struct{ *pulumi.OutputState }
 
 func (MetricSpecArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]MetricSpec)(nil)).Elem()
@@ -1268,7 +1278,7 @@ func (o MetricSpecArrayOutput) ToMetricSpecArrayOutputWithContext(ctx context.Co
 }
 
 func (o MetricSpecArrayOutput) Index(i pulumi.IntInput) MetricSpecOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) MetricSpec {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MetricSpec {
 		return vs[0].([]MetricSpec)[vs[1].(int)]
 	}).(MetricSpecOutput)
 }
@@ -1342,7 +1352,7 @@ func (i MetricStatusArray) ToMetricStatusArrayOutputWithContext(ctx context.Cont
 }
 
 // MetricStatus describes the last-read state of a single metric.
-type MetricStatusOutput struct { *pulumi.OutputState }
+type MetricStatusOutput struct{ *pulumi.OutputState }
 
 func (MetricStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*MetricStatus)(nil)).Elem()
@@ -1358,30 +1368,30 @@ func (o MetricStatusOutput) ToMetricStatusOutputWithContext(ctx context.Context)
 
 // external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 func (o MetricStatusOutput) External() ExternalMetricStatusPtrOutput {
-	return o.ApplyT(func (v MetricStatus) *ExternalMetricStatus { return v.External }).(ExternalMetricStatusPtrOutput)
+	return o.ApplyT(func(v MetricStatus) *ExternalMetricStatus { return v.External }).(ExternalMetricStatusPtrOutput)
 }
 
 // object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
 func (o MetricStatusOutput) Object() ObjectMetricStatusPtrOutput {
-	return o.ApplyT(func (v MetricStatus) *ObjectMetricStatus { return v.Object }).(ObjectMetricStatusPtrOutput)
+	return o.ApplyT(func(v MetricStatus) *ObjectMetricStatus { return v.Object }).(ObjectMetricStatusPtrOutput)
 }
 
 // pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
 func (o MetricStatusOutput) Pods() PodsMetricStatusPtrOutput {
-	return o.ApplyT(func (v MetricStatus) *PodsMetricStatus { return v.Pods }).(PodsMetricStatusPtrOutput)
+	return o.ApplyT(func(v MetricStatus) *PodsMetricStatus { return v.Pods }).(PodsMetricStatusPtrOutput)
 }
 
 // resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 func (o MetricStatusOutput) Resource() ResourceMetricStatusPtrOutput {
-	return o.ApplyT(func (v MetricStatus) *ResourceMetricStatus { return v.Resource }).(ResourceMetricStatusPtrOutput)
+	return o.ApplyT(func(v MetricStatus) *ResourceMetricStatus { return v.Resource }).(ResourceMetricStatusPtrOutput)
 }
 
 // type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
 func (o MetricStatusOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MetricStatus) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v MetricStatus) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type MetricStatusArrayOutput struct { *pulumi.OutputState }
+type MetricStatusArrayOutput struct{ *pulumi.OutputState }
 
 func (MetricStatusArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]MetricStatus)(nil)).Elem()
@@ -1396,7 +1406,7 @@ func (o MetricStatusArrayOutput) ToMetricStatusArrayOutputWithContext(ctx contex
 }
 
 func (o MetricStatusArrayOutput) Index(i pulumi.IntInput) MetricStatusOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) MetricStatus {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MetricStatus {
 		return vs[0].([]MetricStatus)[vs[1].(int)]
 	}).(MetricStatusOutput)
 }
@@ -1465,7 +1475,8 @@ type ObjectMetricSourcePtrInput interface {
 
 type objectMetricSourcePtrType ObjectMetricSourceArgs
 
-func ObjectMetricSourcePtr(v *ObjectMetricSourceArgs) ObjectMetricSourcePtrInput {	return (*objectMetricSourcePtrType)(v)
+func ObjectMetricSourcePtr(v *ObjectMetricSourceArgs) ObjectMetricSourcePtrInput {
+	return (*objectMetricSourcePtrType)(v)
 }
 
 func (*objectMetricSourcePtrType) ElementType() reflect.Type {
@@ -1481,7 +1492,7 @@ func (i *objectMetricSourcePtrType) ToObjectMetricSourcePtrOutputWithContext(ctx
 }
 
 // ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
-type ObjectMetricSourceOutput struct { *pulumi.OutputState }
+type ObjectMetricSourceOutput struct{ *pulumi.OutputState }
 
 func (ObjectMetricSourceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ObjectMetricSource)(nil)).Elem()
@@ -1504,32 +1515,33 @@ func (o ObjectMetricSourceOutput) ToObjectMetricSourcePtrOutputWithContext(ctx c
 		return &v
 	}).(ObjectMetricSourcePtrOutput)
 }
+
 // averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 func (o ObjectMetricSourceOutput) AverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of the metric in question.
 func (o ObjectMetricSourceOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
 func (o ObjectMetricSourceOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
 func (o ObjectMetricSourceOutput) Target() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
 }
 
 // targetValue is the target value of the metric (as a quantity).
 func (o ObjectMetricSourceOutput) TargetValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
 }
 
-type ObjectMetricSourcePtrOutput struct { *pulumi.OutputState }
+type ObjectMetricSourcePtrOutput struct{ *pulumi.OutputState }
 
 func (ObjectMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ObjectMetricSource)(nil)).Elem()
@@ -1544,32 +1556,32 @@ func (o ObjectMetricSourcePtrOutput) ToObjectMetricSourcePtrOutputWithContext(ct
 }
 
 func (o ObjectMetricSourcePtrOutput) Elem() ObjectMetricSourceOutput {
-	return o.ApplyT(func (v *ObjectMetricSource) ObjectMetricSource { return *v }).(ObjectMetricSourceOutput)
+	return o.ApplyT(func(v *ObjectMetricSource) ObjectMetricSource { return *v }).(ObjectMetricSourceOutput)
 }
 
 // averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 func (o ObjectMetricSourcePtrOutput) AverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of the metric in question.
 func (o ObjectMetricSourcePtrOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
 func (o ObjectMetricSourcePtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
 func (o ObjectMetricSourcePtrOutput) Target() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
 }
 
 // targetValue is the target value of the metric (as a quantity).
 func (o ObjectMetricSourcePtrOutput) TargetValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricSource) *string { return v.TargetValue }).(pulumi.StringPtrOutput)
 }
 
 // ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1636,7 +1648,8 @@ type ObjectMetricStatusPtrInput interface {
 
 type objectMetricStatusPtrType ObjectMetricStatusArgs
 
-func ObjectMetricStatusPtr(v *ObjectMetricStatusArgs) ObjectMetricStatusPtrInput {	return (*objectMetricStatusPtrType)(v)
+func ObjectMetricStatusPtr(v *ObjectMetricStatusArgs) ObjectMetricStatusPtrInput {
+	return (*objectMetricStatusPtrType)(v)
 }
 
 func (*objectMetricStatusPtrType) ElementType() reflect.Type {
@@ -1652,7 +1665,7 @@ func (i *objectMetricStatusPtrType) ToObjectMetricStatusPtrOutputWithContext(ctx
 }
 
 // ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
-type ObjectMetricStatusOutput struct { *pulumi.OutputState }
+type ObjectMetricStatusOutput struct{ *pulumi.OutputState }
 
 func (ObjectMetricStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ObjectMetricStatus)(nil)).Elem()
@@ -1675,32 +1688,33 @@ func (o ObjectMetricStatusOutput) ToObjectMetricStatusPtrOutputWithContext(ctx c
 		return &v
 	}).(ObjectMetricStatusPtrOutput)
 }
+
 // averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 func (o ObjectMetricStatusOutput) AverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
 }
 
 // currentValue is the current value of the metric (as a quantity).
 func (o ObjectMetricStatusOutput) CurrentValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of the metric in question.
 func (o ObjectMetricStatusOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the ObjectMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 func (o ObjectMetricStatusOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
 func (o ObjectMetricStatusOutput) Target() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
 }
 
-type ObjectMetricStatusPtrOutput struct { *pulumi.OutputState }
+type ObjectMetricStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (ObjectMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ObjectMetricStatus)(nil)).Elem()
@@ -1715,32 +1729,32 @@ func (o ObjectMetricStatusPtrOutput) ToObjectMetricStatusPtrOutputWithContext(ct
 }
 
 func (o ObjectMetricStatusPtrOutput) Elem() ObjectMetricStatusOutput {
-	return o.ApplyT(func (v *ObjectMetricStatus) ObjectMetricStatus { return *v }).(ObjectMetricStatusOutput)
+	return o.ApplyT(func(v *ObjectMetricStatus) ObjectMetricStatus { return *v }).(ObjectMetricStatusOutput)
 }
 
 // averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 func (o ObjectMetricStatusPtrOutput) AverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *string { return v.AverageValue }).(pulumi.StringPtrOutput)
 }
 
 // currentValue is the current value of the metric (as a quantity).
 func (o ObjectMetricStatusPtrOutput) CurrentValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *string { return v.CurrentValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of the metric in question.
 func (o ObjectMetricStatusPtrOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the ObjectMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 func (o ObjectMetricStatusPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // target is the described Kubernetes object.
 func (o ObjectMetricStatusPtrOutput) Target() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v ObjectMetricStatus) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v ObjectMetricStatus) *CrossVersionObjectReference { return v.Target }).(CrossVersionObjectReferencePtrOutput)
 }
 
 // PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
@@ -1799,7 +1813,8 @@ type PodsMetricSourcePtrInput interface {
 
 type podsMetricSourcePtrType PodsMetricSourceArgs
 
-func PodsMetricSourcePtr(v *PodsMetricSourceArgs) PodsMetricSourcePtrInput {	return (*podsMetricSourcePtrType)(v)
+func PodsMetricSourcePtr(v *PodsMetricSourceArgs) PodsMetricSourcePtrInput {
+	return (*podsMetricSourcePtrType)(v)
 }
 
 func (*podsMetricSourcePtrType) ElementType() reflect.Type {
@@ -1815,7 +1830,7 @@ func (i *podsMetricSourcePtrType) ToPodsMetricSourcePtrOutputWithContext(ctx con
 }
 
 // PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
-type PodsMetricSourceOutput struct { *pulumi.OutputState }
+type PodsMetricSourceOutput struct{ *pulumi.OutputState }
 
 func (PodsMetricSourceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodsMetricSource)(nil)).Elem()
@@ -1838,22 +1853,23 @@ func (o PodsMetricSourceOutput) ToPodsMetricSourcePtrOutputWithContext(ctx conte
 		return &v
 	}).(PodsMetricSourcePtrOutput)
 }
+
 // metricName is the name of the metric in question
 func (o PodsMetricSourceOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
 func (o PodsMetricSourceOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v PodsMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 func (o PodsMetricSourceOutput) TargetAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
 }
 
-type PodsMetricSourcePtrOutput struct { *pulumi.OutputState }
+type PodsMetricSourcePtrOutput struct{ *pulumi.OutputState }
 
 func (PodsMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodsMetricSource)(nil)).Elem()
@@ -1868,22 +1884,22 @@ func (o PodsMetricSourcePtrOutput) ToPodsMetricSourcePtrOutputWithContext(ctx co
 }
 
 func (o PodsMetricSourcePtrOutput) Elem() PodsMetricSourceOutput {
-	return o.ApplyT(func (v *PodsMetricSource) PodsMetricSource { return *v }).(PodsMetricSourceOutput)
+	return o.ApplyT(func(v *PodsMetricSource) PodsMetricSource { return *v }).(PodsMetricSourceOutput)
 }
 
 // metricName is the name of the metric in question
 func (o PodsMetricSourcePtrOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricSource) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
 func (o PodsMetricSourcePtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v PodsMetricSource) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 func (o PodsMetricSourcePtrOutput) TargetAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
@@ -1942,7 +1958,8 @@ type PodsMetricStatusPtrInput interface {
 
 type podsMetricStatusPtrType PodsMetricStatusArgs
 
-func PodsMetricStatusPtr(v *PodsMetricStatusArgs) PodsMetricStatusPtrInput {	return (*podsMetricStatusPtrType)(v)
+func PodsMetricStatusPtr(v *PodsMetricStatusArgs) PodsMetricStatusPtrInput {
+	return (*podsMetricStatusPtrType)(v)
 }
 
 func (*podsMetricStatusPtrType) ElementType() reflect.Type {
@@ -1958,7 +1975,7 @@ func (i *podsMetricStatusPtrType) ToPodsMetricStatusPtrOutputWithContext(ctx con
 }
 
 // PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
-type PodsMetricStatusOutput struct { *pulumi.OutputState }
+type PodsMetricStatusOutput struct{ *pulumi.OutputState }
 
 func (PodsMetricStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodsMetricStatus)(nil)).Elem()
@@ -1981,22 +1998,23 @@ func (o PodsMetricStatusOutput) ToPodsMetricStatusPtrOutputWithContext(ctx conte
 		return &v
 	}).(PodsMetricStatusPtrOutput)
 }
+
 // currentAverageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 func (o PodsMetricStatusOutput) CurrentAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of the metric in question
 func (o PodsMetricStatusOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 func (o PodsMetricStatusOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v PodsMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
-type PodsMetricStatusPtrOutput struct { *pulumi.OutputState }
+type PodsMetricStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (PodsMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodsMetricStatus)(nil)).Elem()
@@ -2011,22 +2029,22 @@ func (o PodsMetricStatusPtrOutput) ToPodsMetricStatusPtrOutputWithContext(ctx co
 }
 
 func (o PodsMetricStatusPtrOutput) Elem() PodsMetricStatusOutput {
-	return o.ApplyT(func (v *PodsMetricStatus) PodsMetricStatus { return *v }).(PodsMetricStatusOutput)
+	return o.ApplyT(func(v *PodsMetricStatus) PodsMetricStatus { return *v }).(PodsMetricStatusOutput)
 }
 
 // currentAverageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 func (o PodsMetricStatusPtrOutput) CurrentAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // metricName is the name of the metric in question
 func (o PodsMetricStatusPtrOutput) MetricName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v PodsMetricStatus) *string { return v.MetricName }).(pulumi.StringPtrOutput)
 }
 
 // selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 func (o PodsMetricStatusPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v PodsMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v PodsMetricStatus) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
@@ -2085,7 +2103,8 @@ type ResourceMetricSourcePtrInput interface {
 
 type resourceMetricSourcePtrType ResourceMetricSourceArgs
 
-func ResourceMetricSourcePtr(v *ResourceMetricSourceArgs) ResourceMetricSourcePtrInput {	return (*resourceMetricSourcePtrType)(v)
+func ResourceMetricSourcePtr(v *ResourceMetricSourceArgs) ResourceMetricSourcePtrInput {
+	return (*resourceMetricSourcePtrType)(v)
 }
 
 func (*resourceMetricSourcePtrType) ElementType() reflect.Type {
@@ -2101,7 +2120,7 @@ func (i *resourceMetricSourcePtrType) ToResourceMetricSourcePtrOutputWithContext
 }
 
 // ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
-type ResourceMetricSourceOutput struct { *pulumi.OutputState }
+type ResourceMetricSourceOutput struct{ *pulumi.OutputState }
 
 func (ResourceMetricSourceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ResourceMetricSource)(nil)).Elem()
@@ -2124,22 +2143,23 @@ func (o ResourceMetricSourceOutput) ToResourceMetricSourcePtrOutputWithContext(c
 		return &v
 	}).(ResourceMetricSourcePtrOutput)
 }
+
 // name is the name of the resource in question.
 func (o ResourceMetricSourceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricSource) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricSource) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 func (o ResourceMetricSourceOutput) TargetAverageUtilization() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ResourceMetricSource) *int { return v.TargetAverageUtilization }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ResourceMetricSource) *int { return v.TargetAverageUtilization }).(pulumi.IntPtrOutput)
 }
 
 // targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
 func (o ResourceMetricSourceOutput) TargetAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
 }
 
-type ResourceMetricSourcePtrOutput struct { *pulumi.OutputState }
+type ResourceMetricSourcePtrOutput struct{ *pulumi.OutputState }
 
 func (ResourceMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceMetricSource)(nil)).Elem()
@@ -2154,22 +2174,22 @@ func (o ResourceMetricSourcePtrOutput) ToResourceMetricSourcePtrOutputWithContex
 }
 
 func (o ResourceMetricSourcePtrOutput) Elem() ResourceMetricSourceOutput {
-	return o.ApplyT(func (v *ResourceMetricSource) ResourceMetricSource { return *v }).(ResourceMetricSourceOutput)
+	return o.ApplyT(func(v *ResourceMetricSource) ResourceMetricSource { return *v }).(ResourceMetricSourceOutput)
 }
 
 // name is the name of the resource in question.
 func (o ResourceMetricSourcePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricSource) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricSource) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 func (o ResourceMetricSourcePtrOutput) TargetAverageUtilization() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ResourceMetricSource) *int { return v.TargetAverageUtilization }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ResourceMetricSource) *int { return v.TargetAverageUtilization }).(pulumi.IntPtrOutput)
 }
 
 // targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
 func (o ResourceMetricSourcePtrOutput) TargetAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
@@ -2228,7 +2248,8 @@ type ResourceMetricStatusPtrInput interface {
 
 type resourceMetricStatusPtrType ResourceMetricStatusArgs
 
-func ResourceMetricStatusPtr(v *ResourceMetricStatusArgs) ResourceMetricStatusPtrInput {	return (*resourceMetricStatusPtrType)(v)
+func ResourceMetricStatusPtr(v *ResourceMetricStatusArgs) ResourceMetricStatusPtrInput {
+	return (*resourceMetricStatusPtrType)(v)
 }
 
 func (*resourceMetricStatusPtrType) ElementType() reflect.Type {
@@ -2244,7 +2265,7 @@ func (i *resourceMetricStatusPtrType) ToResourceMetricStatusPtrOutputWithContext
 }
 
 // ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
-type ResourceMetricStatusOutput struct { *pulumi.OutputState }
+type ResourceMetricStatusOutput struct{ *pulumi.OutputState }
 
 func (ResourceMetricStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ResourceMetricStatus)(nil)).Elem()
@@ -2267,22 +2288,23 @@ func (o ResourceMetricStatusOutput) ToResourceMetricStatusPtrOutputWithContext(c
 		return &v
 	}).(ResourceMetricStatusPtrOutput)
 }
+
 // currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
 func (o ResourceMetricStatusOutput) CurrentAverageUtilization() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ResourceMetricStatus) *int { return v.CurrentAverageUtilization }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ResourceMetricStatus) *int { return v.CurrentAverageUtilization }).(pulumi.IntPtrOutput)
 }
 
 // currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
 func (o ResourceMetricStatusOutput) CurrentAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // name is the name of the resource in question.
 func (o ResourceMetricStatusOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricStatus) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricStatus) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type ResourceMetricStatusPtrOutput struct { *pulumi.OutputState }
+type ResourceMetricStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (ResourceMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceMetricStatus)(nil)).Elem()
@@ -2297,22 +2319,22 @@ func (o ResourceMetricStatusPtrOutput) ToResourceMetricStatusPtrOutputWithContex
 }
 
 func (o ResourceMetricStatusPtrOutput) Elem() ResourceMetricStatusOutput {
-	return o.ApplyT(func (v *ResourceMetricStatus) ResourceMetricStatus { return *v }).(ResourceMetricStatusOutput)
+	return o.ApplyT(func(v *ResourceMetricStatus) ResourceMetricStatus { return *v }).(ResourceMetricStatusOutput)
 }
 
 // currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
 func (o ResourceMetricStatusPtrOutput) CurrentAverageUtilization() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ResourceMetricStatus) *int { return v.CurrentAverageUtilization }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ResourceMetricStatus) *int { return v.CurrentAverageUtilization }).(pulumi.IntPtrOutput)
 }
 
 // currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
 func (o ResourceMetricStatusPtrOutput) CurrentAverageValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricStatus) *string { return v.CurrentAverageValue }).(pulumi.StringPtrOutput)
 }
 
 // name is the name of the resource in question.
 func (o ResourceMetricStatusPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ResourceMetricStatus) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ResourceMetricStatus) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 func init() {

@@ -108,4 +108,3 @@ type PersistentVolumeClaimListArgs struct {
 func (PersistentVolumeClaimListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*persistentVolumeClaimListArgs)(nil)).Elem()
 }
-

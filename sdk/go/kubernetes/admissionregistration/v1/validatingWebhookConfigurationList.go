@@ -108,4 +108,3 @@ type ValidatingWebhookConfigurationListArgs struct {
 func (ValidatingWebhookConfigurationListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*validatingWebhookConfigurationListArgs)(nil)).Elem()
 }
-

@@ -108,4 +108,3 @@ type NodeListArgs struct {
 func (NodeListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*nodeListArgs)(nil)).Elem()
 }
-

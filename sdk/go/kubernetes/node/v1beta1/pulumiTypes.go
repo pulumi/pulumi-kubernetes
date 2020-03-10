@@ -61,7 +61,8 @@ type OverheadPtrInput interface {
 
 type overheadPtrType OverheadArgs
 
-func OverheadPtr(v *OverheadArgs) OverheadPtrInput {	return (*overheadPtrType)(v)
+func OverheadPtr(v *OverheadArgs) OverheadPtrInput {
+	return (*overheadPtrType)(v)
 }
 
 func (*overheadPtrType) ElementType() reflect.Type {
@@ -77,7 +78,7 @@ func (i *overheadPtrType) ToOverheadPtrOutputWithContext(ctx context.Context) Ov
 }
 
 // Overhead structure represents the resource overhead associated with running a pod.
-type OverheadOutput struct { *pulumi.OutputState }
+type OverheadOutput struct{ *pulumi.OutputState }
 
 func (OverheadOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Overhead)(nil)).Elem()
@@ -100,12 +101,13 @@ func (o OverheadOutput) ToOverheadPtrOutputWithContext(ctx context.Context) Over
 		return &v
 	}).(OverheadPtrOutput)
 }
+
 // PodFixed represents the fixed resource overhead associated with running a pod.
 func (o OverheadOutput) PodFixed() pulumi.StringMapOutput {
-	return o.ApplyT(func (v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
 }
 
-type OverheadPtrOutput struct { *pulumi.OutputState }
+type OverheadPtrOutput struct{ *pulumi.OutputState }
 
 func (OverheadPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Overhead)(nil)).Elem()
@@ -120,12 +122,12 @@ func (o OverheadPtrOutput) ToOverheadPtrOutputWithContext(ctx context.Context) O
 }
 
 func (o OverheadPtrOutput) Elem() OverheadOutput {
-	return o.ApplyT(func (v *Overhead) Overhead { return *v }).(OverheadOutput)
+	return o.ApplyT(func(v *Overhead) Overhead { return *v }).(OverheadOutput)
 }
 
 // PodFixed represents the fixed resource overhead associated with running a pod.
 func (o OverheadPtrOutput) PodFixed() pulumi.StringMapOutput {
-	return o.ApplyT(func (v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
@@ -201,7 +203,7 @@ func (i RuntimeClassTypeArray) ToRuntimeClassTypeArrayOutputWithContext(ctx cont
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
-type RuntimeClassTypeOutput struct { *pulumi.OutputState }
+type RuntimeClassTypeOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RuntimeClassType)(nil)).Elem()
@@ -217,35 +219,35 @@ func (o RuntimeClassTypeOutput) ToRuntimeClassTypeOutputWithContext(ctx context.
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o RuntimeClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v RuntimeClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v RuntimeClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.
 func (o RuntimeClassTypeOutput) Handler() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v RuntimeClassType) *string { return v.Handler }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v RuntimeClassType) *string { return v.Handler }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o RuntimeClassTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v RuntimeClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v RuntimeClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o RuntimeClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v RuntimeClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v RuntimeClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
 func (o RuntimeClassTypeOutput) Overhead() OverheadPtrOutput {
-	return o.ApplyT(func (v RuntimeClassType) *Overhead { return v.Overhead }).(OverheadPtrOutput)
+	return o.ApplyT(func(v RuntimeClassType) *Overhead { return v.Overhead }).(OverheadPtrOutput)
 }
 
 // Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 func (o RuntimeClassTypeOutput) Scheduling() SchedulingPtrOutput {
-	return o.ApplyT(func (v RuntimeClassType) *Scheduling { return v.Scheduling }).(SchedulingPtrOutput)
+	return o.ApplyT(func(v RuntimeClassType) *Scheduling { return v.Scheduling }).(SchedulingPtrOutput)
 }
 
-type RuntimeClassTypeArrayOutput struct { *pulumi.OutputState }
+type RuntimeClassTypeArrayOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]RuntimeClassType)(nil)).Elem()
@@ -260,7 +262,7 @@ func (o RuntimeClassTypeArrayOutput) ToRuntimeClassTypeArrayOutputWithContext(ct
 }
 
 func (o RuntimeClassTypeArrayOutput) Index(i pulumi.IntInput) RuntimeClassTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) RuntimeClassType {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RuntimeClassType {
 		return vs[0].([]RuntimeClassType)[vs[1].(int)]
 	}).(RuntimeClassTypeOutput)
 }
@@ -309,7 +311,7 @@ func (i RuntimeClassListTypeArgs) ToRuntimeClassListTypeOutputWithContext(ctx co
 }
 
 // RuntimeClassList is a list of RuntimeClass objects.
-type RuntimeClassListTypeOutput struct { *pulumi.OutputState }
+type RuntimeClassListTypeOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RuntimeClassListType)(nil)).Elem()
@@ -325,22 +327,22 @@ func (o RuntimeClassListTypeOutput) ToRuntimeClassListTypeOutputWithContext(ctx 
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o RuntimeClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v RuntimeClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v RuntimeClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is a list of schema objects.
 func (o RuntimeClassListTypeOutput) Items() RuntimeClassTypeArrayOutput {
-	return o.ApplyT(func (v RuntimeClassListType) []RuntimeClassType { return v.Items }).(RuntimeClassTypeArrayOutput)
+	return o.ApplyT(func(v RuntimeClassListType) []RuntimeClassType { return v.Items }).(RuntimeClassTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o RuntimeClassListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v RuntimeClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v RuntimeClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o RuntimeClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v RuntimeClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func(v RuntimeClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
@@ -395,7 +397,8 @@ type SchedulingPtrInput interface {
 
 type schedulingPtrType SchedulingArgs
 
-func SchedulingPtr(v *SchedulingArgs) SchedulingPtrInput {	return (*schedulingPtrType)(v)
+func SchedulingPtr(v *SchedulingArgs) SchedulingPtrInput {
+	return (*schedulingPtrType)(v)
 }
 
 func (*schedulingPtrType) ElementType() reflect.Type {
@@ -411,7 +414,7 @@ func (i *schedulingPtrType) ToSchedulingPtrOutputWithContext(ctx context.Context
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
-type SchedulingOutput struct { *pulumi.OutputState }
+type SchedulingOutput struct{ *pulumi.OutputState }
 
 func (SchedulingOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Scheduling)(nil)).Elem()
@@ -434,17 +437,18 @@ func (o SchedulingOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) 
 		return &v
 	}).(SchedulingPtrOutput)
 }
+
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 func (o SchedulingOutput) NodeSelector() pulumi.StringMapOutput {
-	return o.ApplyT(func (v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
 }
 
 // tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
 func (o SchedulingOutput) Tolerations() corev1.TolerationArrayOutput {
-	return o.ApplyT(func (v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
+	return o.ApplyT(func(v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
 }
 
-type SchedulingPtrOutput struct { *pulumi.OutputState }
+type SchedulingPtrOutput struct{ *pulumi.OutputState }
 
 func (SchedulingPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Scheduling)(nil)).Elem()
@@ -459,17 +463,17 @@ func (o SchedulingPtrOutput) ToSchedulingPtrOutputWithContext(ctx context.Contex
 }
 
 func (o SchedulingPtrOutput) Elem() SchedulingOutput {
-	return o.ApplyT(func (v *Scheduling) Scheduling { return *v }).(SchedulingOutput)
+	return o.ApplyT(func(v *Scheduling) Scheduling { return *v }).(SchedulingOutput)
 }
 
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 func (o SchedulingPtrOutput) NodeSelector() pulumi.StringMapOutput {
-	return o.ApplyT(func (v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
 }
 
 // tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
 func (o SchedulingPtrOutput) Tolerations() corev1.TolerationArrayOutput {
-	return o.ApplyT(func (v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
+	return o.ApplyT(func(v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
 }
 
 func init() {

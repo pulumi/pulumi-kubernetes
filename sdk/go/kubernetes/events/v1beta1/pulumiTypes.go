@@ -30,7 +30,7 @@ type EventType struct {
 	// Required. Time when this Event was first observed.
 	EventTime *string `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note *string `pulumi:"note"`
@@ -74,7 +74,7 @@ type EventTypeArgs struct {
 	// Required. Time when this Event was first observed.
 	EventTime pulumi.StringPtrInput `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrInput `pulumi:"note"`
@@ -128,7 +128,7 @@ func (i EventTypeArray) ToEventTypeArrayOutputWithContext(ctx context.Context) E
 }
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
-type EventTypeOutput struct { *pulumi.OutputState }
+type EventTypeOutput struct{ *pulumi.OutputState }
 
 func (EventTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*EventType)(nil)).Elem()
@@ -144,89 +144,89 @@ func (o EventTypeOutput) ToEventTypeOutputWithContext(ctx context.Context) Event
 
 // What action was taken/failed regarding to the regarding object.
 func (o EventTypeOutput) Action() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.Action }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.Action }).(pulumi.StringPtrOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o EventTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
 func (o EventTypeOutput) DeprecatedCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v EventType) *int { return v.DeprecatedCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v EventType) *int { return v.DeprecatedCount }).(pulumi.IntPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
 func (o EventTypeOutput) DeprecatedFirstTimestamp() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.DeprecatedFirstTimestamp }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.DeprecatedFirstTimestamp }).(pulumi.StringPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
 func (o EventTypeOutput) DeprecatedLastTimestamp() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.DeprecatedLastTimestamp }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.DeprecatedLastTimestamp }).(pulumi.StringPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
 func (o EventTypeOutput) DeprecatedSource() corev1.EventSourcePtrOutput {
-	return o.ApplyT(func (v EventType) *corev1.EventSource { return v.DeprecatedSource }).(corev1.EventSourcePtrOutput)
+	return o.ApplyT(func(v EventType) *corev1.EventSource { return v.DeprecatedSource }).(corev1.EventSourcePtrOutput)
 }
 
 // Required. Time when this Event was first observed.
 func (o EventTypeOutput) EventTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.EventTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.EventTime }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o EventTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 func (o EventTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v EventType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v EventType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 func (o EventTypeOutput) Note() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.Note }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.Note }).(pulumi.StringPtrOutput)
 }
 
 // Why the action was taken.
 func (o EventTypeOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 func (o EventTypeOutput) Regarding() corev1.ObjectReferencePtrOutput {
-	return o.ApplyT(func (v EventType) *corev1.ObjectReference { return v.Regarding }).(corev1.ObjectReferencePtrOutput)
+	return o.ApplyT(func(v EventType) *corev1.ObjectReference { return v.Regarding }).(corev1.ObjectReferencePtrOutput)
 }
 
 // Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
 func (o EventTypeOutput) Related() corev1.ObjectReferencePtrOutput {
-	return o.ApplyT(func (v EventType) *corev1.ObjectReference { return v.Related }).(corev1.ObjectReferencePtrOutput)
+	return o.ApplyT(func(v EventType) *corev1.ObjectReference { return v.Related }).(corev1.ObjectReferencePtrOutput)
 }
 
 // Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
 func (o EventTypeOutput) ReportingController() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.ReportingController }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.ReportingController }).(pulumi.StringPtrOutput)
 }
 
 // ID of the controller instance, e.g. `kubelet-xyzf`.
 func (o EventTypeOutput) ReportingInstance() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.ReportingInstance }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.ReportingInstance }).(pulumi.StringPtrOutput)
 }
 
 // Data about the Event series this event represents or nil if it's a singleton Event.
 func (o EventTypeOutput) Series() EventSeriesPtrOutput {
-	return o.ApplyT(func (v EventType) *EventSeries { return v.Series }).(EventSeriesPtrOutput)
+	return o.ApplyT(func(v EventType) *EventSeries { return v.Series }).(EventSeriesPtrOutput)
 }
 
 // Type of this event (Normal, Warning), new types could be added in the future.
 func (o EventTypeOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventType) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventType) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type EventTypeArrayOutput struct { *pulumi.OutputState }
+type EventTypeArrayOutput struct{ *pulumi.OutputState }
 
 func (EventTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EventType)(nil)).Elem()
@@ -241,7 +241,7 @@ func (o EventTypeArrayOutput) ToEventTypeArrayOutputWithContext(ctx context.Cont
 }
 
 func (o EventTypeArrayOutput) Index(i pulumi.IntInput) EventTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) EventType {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EventType {
 		return vs[0].([]EventType)[vs[1].(int)]
 	}).(EventTypeOutput)
 }
@@ -290,7 +290,7 @@ func (i EventListTypeArgs) ToEventListTypeOutputWithContext(ctx context.Context)
 }
 
 // EventList is a list of Event objects.
-type EventListTypeOutput struct { *pulumi.OutputState }
+type EventListTypeOutput struct{ *pulumi.OutputState }
 
 func (EventListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*EventListType)(nil)).Elem()
@@ -306,22 +306,22 @@ func (o EventListTypeOutput) ToEventListTypeOutputWithContext(ctx context.Contex
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o EventListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is a list of schema objects.
 func (o EventListTypeOutput) Items() EventTypeArrayOutput {
-	return o.ApplyT(func (v EventListType) []EventType { return v.Items }).(EventTypeArrayOutput)
+	return o.ApplyT(func(v EventListType) []EventType { return v.Items }).(EventTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o EventListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o EventListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v EventListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func(v EventListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
@@ -380,7 +380,8 @@ type EventSeriesPtrInput interface {
 
 type eventSeriesPtrType EventSeriesArgs
 
-func EventSeriesPtr(v *EventSeriesArgs) EventSeriesPtrInput {	return (*eventSeriesPtrType)(v)
+func EventSeriesPtr(v *EventSeriesArgs) EventSeriesPtrInput {
+	return (*eventSeriesPtrType)(v)
 }
 
 func (*eventSeriesPtrType) ElementType() reflect.Type {
@@ -396,7 +397,7 @@ func (i *eventSeriesPtrType) ToEventSeriesPtrOutputWithContext(ctx context.Conte
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-type EventSeriesOutput struct { *pulumi.OutputState }
+type EventSeriesOutput struct{ *pulumi.OutputState }
 
 func (EventSeriesOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*EventSeries)(nil)).Elem()
@@ -419,22 +420,23 @@ func (o EventSeriesOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context
 		return &v
 	}).(EventSeriesPtrOutput)
 }
+
 // Number of occurrences in this series up to the last heartbeat time
 func (o EventSeriesOutput) Count() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
 // Time when last Event from the series was seen before last heartbeat.
 func (o EventSeriesOutput) LastObservedTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventSeries) *string { return v.LastObservedTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventSeries) *string { return v.LastObservedTime }).(pulumi.StringPtrOutput)
 }
 
 // Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
 func (o EventSeriesOutput) State() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
-type EventSeriesPtrOutput struct { *pulumi.OutputState }
+type EventSeriesPtrOutput struct{ *pulumi.OutputState }
 
 func (EventSeriesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EventSeries)(nil)).Elem()
@@ -449,22 +451,22 @@ func (o EventSeriesPtrOutput) ToEventSeriesPtrOutputWithContext(ctx context.Cont
 }
 
 func (o EventSeriesPtrOutput) Elem() EventSeriesOutput {
-	return o.ApplyT(func (v *EventSeries) EventSeries { return *v }).(EventSeriesOutput)
+	return o.ApplyT(func(v *EventSeries) EventSeries { return *v }).(EventSeriesOutput)
 }
 
 // Number of occurrences in this series up to the last heartbeat time
 func (o EventSeriesPtrOutput) Count() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
 // Time when last Event from the series was seen before last heartbeat.
 func (o EventSeriesPtrOutput) LastObservedTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventSeries) *string { return v.LastObservedTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventSeries) *string { return v.LastObservedTime }).(pulumi.StringPtrOutput)
 }
 
 // Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
 func (o EventSeriesPtrOutput) State() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
 func init() {

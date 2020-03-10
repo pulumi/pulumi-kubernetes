@@ -108,4 +108,3 @@ type FlowSchemaListArgs struct {
 func (FlowSchemaListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*flowSchemaListArgs)(nil)).Elem()
 }
-
