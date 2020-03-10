@@ -110,3 +110,4 @@ type IngressArgs struct {
 func (IngressArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*ingressArgs)(nil)).Elem()
 }
+

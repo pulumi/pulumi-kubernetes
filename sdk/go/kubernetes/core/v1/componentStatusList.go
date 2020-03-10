@@ -108,3 +108,4 @@ type ComponentStatusListArgs struct {
 func (ComponentStatusListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*componentStatusListArgs)(nil)).Elem()
 }
+

@@ -108,3 +108,4 @@ type IngressListArgs struct {
 func (IngressListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*ingressListArgs)(nil)).Elem()
 }
+

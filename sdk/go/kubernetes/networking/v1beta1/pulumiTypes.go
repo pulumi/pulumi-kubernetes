@@ -70,7 +70,7 @@ func (i HTTPIngressPathArray) ToHTTPIngressPathArrayOutputWithContext(ctx contex
 }
 
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
-type HTTPIngressPathOutput struct{ *pulumi.OutputState }
+type HTTPIngressPathOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressPathOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HTTPIngressPath)(nil)).Elem()
@@ -86,15 +86,15 @@ func (o HTTPIngressPathOutput) ToHTTPIngressPathOutputWithContext(ctx context.Co
 
 // Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 func (o HTTPIngressPathOutput) Backend() IngressBackendPtrOutput {
-	return o.ApplyT(func(v HTTPIngressPath) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
+	return o.ApplyT(func (v HTTPIngressPath) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
 }
 
 // Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
 func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-type HTTPIngressPathArrayOutput struct{ *pulumi.OutputState }
+type HTTPIngressPathArrayOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressPathArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HTTPIngressPath)(nil)).Elem()
@@ -109,7 +109,7 @@ func (o HTTPIngressPathArrayOutput) ToHTTPIngressPathArrayOutputWithContext(ctx 
 }
 
 func (o HTTPIngressPathArrayOutput) Index(i pulumi.IntInput) HTTPIngressPathOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HTTPIngressPath {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) HTTPIngressPath {
 		return vs[0].([]HTTPIngressPath)[vs[1].(int)]
 	}).(HTTPIngressPathOutput)
 }
@@ -162,8 +162,7 @@ type HTTPIngressRuleValuePtrInput interface {
 
 type httpingressRuleValuePtrType HTTPIngressRuleValueArgs
 
-func HTTPIngressRuleValuePtr(v *HTTPIngressRuleValueArgs) HTTPIngressRuleValuePtrInput {
-	return (*httpingressRuleValuePtrType)(v)
+func HTTPIngressRuleValuePtr(v *HTTPIngressRuleValueArgs) HTTPIngressRuleValuePtrInput {	return (*httpingressRuleValuePtrType)(v)
 }
 
 func (*httpingressRuleValuePtrType) ElementType() reflect.Type {
@@ -179,7 +178,7 @@ func (i *httpingressRuleValuePtrType) ToHTTPIngressRuleValuePtrOutputWithContext
 }
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
-type HTTPIngressRuleValueOutput struct{ *pulumi.OutputState }
+type HTTPIngressRuleValueOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressRuleValueOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HTTPIngressRuleValue)(nil)).Elem()
@@ -202,13 +201,12 @@ func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutputWithContext(c
 		return &v
 	}).(HTTPIngressRuleValuePtrOutput)
 }
-
 // A collection of paths that map requests to backends.
 func (o HTTPIngressRuleValueOutput) Paths() HTTPIngressPathArrayOutput {
-	return o.ApplyT(func(v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
+	return o.ApplyT(func (v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
 }
 
-type HTTPIngressRuleValuePtrOutput struct{ *pulumi.OutputState }
+type HTTPIngressRuleValuePtrOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressRuleValuePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HTTPIngressRuleValue)(nil)).Elem()
@@ -223,12 +221,12 @@ func (o HTTPIngressRuleValuePtrOutput) ToHTTPIngressRuleValuePtrOutputWithContex
 }
 
 func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
-	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue { return *v }).(HTTPIngressRuleValueOutput)
+	return o.ApplyT(func (v *HTTPIngressRuleValue) HTTPIngressRuleValue { return *v }).(HTTPIngressRuleValueOutput)
 }
 
 // A collection of paths that map requests to backends.
 func (o HTTPIngressRuleValuePtrOutput) Paths() HTTPIngressPathArrayOutput {
-	return o.ApplyT(func(v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
+	return o.ApplyT(func (v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
 }
 
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
@@ -300,7 +298,7 @@ func (i IngressTypeArray) ToIngressTypeArrayOutputWithContext(ctx context.Contex
 }
 
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
-type IngressTypeOutput struct{ *pulumi.OutputState }
+type IngressTypeOutput struct { *pulumi.OutputState }
 
 func (IngressTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressType)(nil)).Elem()
@@ -316,30 +314,30 @@ func (o IngressTypeOutput) ToIngressTypeOutputWithContext(ctx context.Context) I
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o IngressTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o IngressTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IngressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v IngressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func (v IngressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressTypeOutput) Spec() IngressSpecPtrOutput {
-	return o.ApplyT(func(v IngressType) *IngressSpec { return v.Spec }).(IngressSpecPtrOutput)
+	return o.ApplyT(func (v IngressType) *IngressSpec { return v.Spec }).(IngressSpecPtrOutput)
 }
 
 // Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressTypeOutput) Status() IngressStatusPtrOutput {
-	return o.ApplyT(func(v IngressType) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
+	return o.ApplyT(func (v IngressType) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
 }
 
-type IngressTypeArrayOutput struct{ *pulumi.OutputState }
+type IngressTypeArrayOutput struct { *pulumi.OutputState }
 
 func (IngressTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressType)(nil)).Elem()
@@ -354,7 +352,7 @@ func (o IngressTypeArrayOutput) ToIngressTypeArrayOutputWithContext(ctx context.
 }
 
 func (o IngressTypeArrayOutput) Index(i pulumi.IntInput) IngressTypeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressType {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) IngressType {
 		return vs[0].([]IngressType)[vs[1].(int)]
 	}).(IngressTypeOutput)
 }
@@ -411,8 +409,7 @@ type IngressBackendPtrInput interface {
 
 type ingressBackendPtrType IngressBackendArgs
 
-func IngressBackendPtr(v *IngressBackendArgs) IngressBackendPtrInput {
-	return (*ingressBackendPtrType)(v)
+func IngressBackendPtr(v *IngressBackendArgs) IngressBackendPtrInput {	return (*ingressBackendPtrType)(v)
 }
 
 func (*ingressBackendPtrType) ElementType() reflect.Type {
@@ -428,7 +425,7 @@ func (i *ingressBackendPtrType) ToIngressBackendPtrOutputWithContext(ctx context
 }
 
 // IngressBackend describes all endpoints for a given service and port.
-type IngressBackendOutput struct{ *pulumi.OutputState }
+type IngressBackendOutput struct { *pulumi.OutputState }
 
 func (IngressBackendOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressBackend)(nil)).Elem()
@@ -451,18 +448,17 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.C
 		return &v
 	}).(IngressBackendPtrOutput)
 }
-
 // Specifies the name of the referenced service.
 func (o IngressBackendOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
 // Specifies the port of the referenced service.
 func (o IngressBackendOutput) ServicePort() pulumi.AnyOutput {
-	return o.ApplyT(func(v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
+	return o.ApplyT(func (v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
 }
 
-type IngressBackendPtrOutput struct{ *pulumi.OutputState }
+type IngressBackendPtrOutput struct { *pulumi.OutputState }
 
 func (IngressBackendPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressBackend)(nil)).Elem()
@@ -477,17 +473,17 @@ func (o IngressBackendPtrOutput) ToIngressBackendPtrOutputWithContext(ctx contex
 }
 
 func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
-	return o.ApplyT(func(v *IngressBackend) IngressBackend { return *v }).(IngressBackendOutput)
+	return o.ApplyT(func (v *IngressBackend) IngressBackend { return *v }).(IngressBackendOutput)
 }
 
 // Specifies the name of the referenced service.
 func (o IngressBackendPtrOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
 // Specifies the port of the referenced service.
 func (o IngressBackendPtrOutput) ServicePort() pulumi.AnyOutput {
-	return o.ApplyT(func(v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
+	return o.ApplyT(func (v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
 }
 
 // IngressList is a collection of Ingress.
@@ -534,7 +530,7 @@ func (i IngressListTypeArgs) ToIngressListTypeOutputWithContext(ctx context.Cont
 }
 
 // IngressList is a collection of Ingress.
-type IngressListTypeOutput struct{ *pulumi.OutputState }
+type IngressListTypeOutput struct { *pulumi.OutputState }
 
 func (IngressListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressListType)(nil)).Elem()
@@ -550,22 +546,22 @@ func (o IngressListTypeOutput) ToIngressListTypeOutputWithContext(ctx context.Co
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o IngressListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of Ingress.
 func (o IngressListTypeOutput) Items() IngressTypeArrayOutput {
-	return o.ApplyT(func(v IngressListType) []IngressType { return v.Items }).(IngressTypeArrayOutput)
+	return o.ApplyT(func (v IngressListType) []IngressType { return v.Items }).(IngressTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o IngressListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v IngressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func (v IngressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
@@ -576,7 +572,7 @@ type IngressRule struct {
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-	Host *string               `pulumi:"host"`
+	Host *string `pulumi:"host"`
 	Http *HTTPIngressRuleValue `pulumi:"http"`
 }
 
@@ -595,7 +591,7 @@ type IngressRuleArgs struct {
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-	Host pulumi.StringPtrInput        `pulumi:"host"`
+	Host pulumi.StringPtrInput `pulumi:"host"`
 	Http HTTPIngressRuleValuePtrInput `pulumi:"http"`
 }
 
@@ -633,7 +629,7 @@ func (i IngressRuleArray) ToIngressRuleArrayOutputWithContext(ctx context.Contex
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
-type IngressRuleOutput struct{ *pulumi.OutputState }
+type IngressRuleOutput struct { *pulumi.OutputState }
 
 func (IngressRuleOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressRule)(nil)).Elem()
@@ -654,14 +650,14 @@ func (o IngressRuleOutput) ToIngressRuleOutputWithContext(ctx context.Context) I
 // 	  :443 for https.
 // Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 func (o IngressRuleOutput) Host() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressRule) *string { return v.Host }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressRule) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
 
 func (o IngressRuleOutput) Http() HTTPIngressRuleValuePtrOutput {
-	return o.ApplyT(func(v IngressRule) *HTTPIngressRuleValue { return v.Http }).(HTTPIngressRuleValuePtrOutput)
+	return o.ApplyT(func (v IngressRule) *HTTPIngressRuleValue { return v.Http }).(HTTPIngressRuleValuePtrOutput)
 }
 
-type IngressRuleArrayOutput struct{ *pulumi.OutputState }
+type IngressRuleArrayOutput struct { *pulumi.OutputState }
 
 func (IngressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressRule)(nil)).Elem()
@@ -676,7 +672,7 @@ func (o IngressRuleArrayOutput) ToIngressRuleArrayOutputWithContext(ctx context.
 }
 
 func (o IngressRuleArrayOutput) Index(i pulumi.IntInput) IngressRuleOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressRule {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) IngressRule {
 		return vs[0].([]IngressRule)[vs[1].(int)]
 	}).(IngressRuleOutput)
 }
@@ -737,8 +733,7 @@ type IngressSpecPtrInput interface {
 
 type ingressSpecPtrType IngressSpecArgs
 
-func IngressSpecPtr(v *IngressSpecArgs) IngressSpecPtrInput {
-	return (*ingressSpecPtrType)(v)
+func IngressSpecPtr(v *IngressSpecArgs) IngressSpecPtrInput {	return (*ingressSpecPtrType)(v)
 }
 
 func (*ingressSpecPtrType) ElementType() reflect.Type {
@@ -754,7 +749,7 @@ func (i *ingressSpecPtrType) ToIngressSpecPtrOutputWithContext(ctx context.Conte
 }
 
 // IngressSpec describes the Ingress the user wishes to exist.
-type IngressSpecOutput struct{ *pulumi.OutputState }
+type IngressSpecOutput struct { *pulumi.OutputState }
 
 func (IngressSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressSpec)(nil)).Elem()
@@ -777,23 +772,22 @@ func (o IngressSpecOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context
 		return &v
 	}).(IngressSpecPtrOutput)
 }
-
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 func (o IngressSpecOutput) Backend() IngressBackendPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
+	return o.ApplyT(func (v IngressSpec) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
 }
 
 // A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecOutput) Rules() IngressRuleArrayOutput {
-	return o.ApplyT(func(v IngressSpec) []IngressRule { return v.Rules }).(IngressRuleArrayOutput)
+	return o.ApplyT(func (v IngressSpec) []IngressRule { return v.Rules }).(IngressRuleArrayOutput)
 }
 
 // TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 func (o IngressSpecOutput) Tls() IngressTLSArrayOutput {
-	return o.ApplyT(func(v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
+	return o.ApplyT(func (v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
 }
 
-type IngressSpecPtrOutput struct{ *pulumi.OutputState }
+type IngressSpecPtrOutput struct { *pulumi.OutputState }
 
 func (IngressSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressSpec)(nil)).Elem()
@@ -808,22 +802,22 @@ func (o IngressSpecPtrOutput) ToIngressSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
-	return o.ApplyT(func(v *IngressSpec) IngressSpec { return *v }).(IngressSpecOutput)
+	return o.ApplyT(func (v *IngressSpec) IngressSpec { return *v }).(IngressSpecOutput)
 }
 
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 func (o IngressSpecPtrOutput) Backend() IngressBackendPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
+	return o.ApplyT(func (v IngressSpec) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
 }
 
 // A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecPtrOutput) Rules() IngressRuleArrayOutput {
-	return o.ApplyT(func(v IngressSpec) []IngressRule { return v.Rules }).(IngressRuleArrayOutput)
+	return o.ApplyT(func (v IngressSpec) []IngressRule { return v.Rules }).(IngressRuleArrayOutput)
 }
 
 // TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 func (o IngressSpecPtrOutput) Tls() IngressTLSArrayOutput {
-	return o.ApplyT(func(v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
+	return o.ApplyT(func (v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
 }
 
 // IngressStatus describe the current state of the Ingress.
@@ -874,8 +868,7 @@ type IngressStatusPtrInput interface {
 
 type ingressStatusPtrType IngressStatusArgs
 
-func IngressStatusPtr(v *IngressStatusArgs) IngressStatusPtrInput {
-	return (*ingressStatusPtrType)(v)
+func IngressStatusPtr(v *IngressStatusArgs) IngressStatusPtrInput {	return (*ingressStatusPtrType)(v)
 }
 
 func (*ingressStatusPtrType) ElementType() reflect.Type {
@@ -891,7 +884,7 @@ func (i *ingressStatusPtrType) ToIngressStatusPtrOutputWithContext(ctx context.C
 }
 
 // IngressStatus describe the current state of the Ingress.
-type IngressStatusOutput struct{ *pulumi.OutputState }
+type IngressStatusOutput struct { *pulumi.OutputState }
 
 func (IngressStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressStatus)(nil)).Elem()
@@ -914,13 +907,12 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Con
 		return &v
 	}).(IngressStatusPtrOutput)
 }
-
 // LoadBalancer contains the current status of the load-balancer.
 func (o IngressStatusOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
+	return o.ApplyT(func (v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
 }
 
-type IngressStatusPtrOutput struct{ *pulumi.OutputState }
+type IngressStatusPtrOutput struct { *pulumi.OutputState }
 
 func (IngressStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressStatus)(nil)).Elem()
@@ -935,12 +927,12 @@ func (o IngressStatusPtrOutput) ToIngressStatusPtrOutputWithContext(ctx context.
 }
 
 func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
-	return o.ApplyT(func(v *IngressStatus) IngressStatus { return *v }).(IngressStatusOutput)
+	return o.ApplyT(func (v *IngressStatus) IngressStatus { return *v }).(IngressStatusOutput)
 }
 
 // LoadBalancer contains the current status of the load-balancer.
 func (o IngressStatusPtrOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
+	return o.ApplyT(func (v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
@@ -1000,7 +992,7 @@ func (i IngressTLSArray) ToIngressTLSArrayOutputWithContext(ctx context.Context)
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
-type IngressTLSOutput struct{ *pulumi.OutputState }
+type IngressTLSOutput struct { *pulumi.OutputState }
 
 func (IngressTLSOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressTLS)(nil)).Elem()
@@ -1016,15 +1008,15 @@ func (o IngressTLSOutput) ToIngressTLSOutputWithContext(ctx context.Context) Ing
 
 // Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 func (o IngressTLSOutput) Hosts() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v IngressTLS) []string { return v.Hosts }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func (v IngressTLS) []string { return v.Hosts }).(pulumi.StringArrayOutput)
 }
 
 // SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
 func (o IngressTLSOutput) SecretName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressTLS) *string { return v.SecretName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v IngressTLS) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
 
-type IngressTLSArrayOutput struct{ *pulumi.OutputState }
+type IngressTLSArrayOutput struct { *pulumi.OutputState }
 
 func (IngressTLSArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressTLS)(nil)).Elem()
@@ -1039,7 +1031,7 @@ func (o IngressTLSArrayOutput) ToIngressTLSArrayOutputWithContext(ctx context.Co
 }
 
 func (o IngressTLSArrayOutput) Index(i pulumi.IntInput) IngressTLSOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressTLS {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) IngressTLS {
 		return vs[0].([]IngressTLS)[vs[1].(int)]
 	}).(IngressTLSOutput)
 }

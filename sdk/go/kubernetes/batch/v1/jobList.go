@@ -108,3 +108,4 @@ type JobListArgs struct {
 func (JobListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*jobListArgs)(nil)).Elem()
 }
+

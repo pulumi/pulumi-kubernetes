@@ -116,3 +116,4 @@ type VolumeAttachmentArgs struct {
 func (VolumeAttachmentArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*volumeAttachmentArgs)(nil)).Elem()
 }
+

@@ -108,3 +108,4 @@ type ReplicaSetListArgs struct {
 func (ReplicaSetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*replicaSetListArgs)(nil)).Elem()
 }
+

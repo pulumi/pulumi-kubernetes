@@ -108,3 +108,4 @@ type DeploymentListArgs struct {
 func (DeploymentListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*deploymentListArgs)(nil)).Elem()
 }
+

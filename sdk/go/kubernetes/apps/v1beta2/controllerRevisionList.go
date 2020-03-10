@@ -108,3 +108,4 @@ type ControllerRevisionListArgs struct {
 func (ControllerRevisionListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*controllerRevisionListArgs)(nil)).Elem()
 }
+

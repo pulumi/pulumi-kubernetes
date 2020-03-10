@@ -108,3 +108,4 @@ type RoleListArgs struct {
 func (RoleListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*roleListArgs)(nil)).Elem()
 }
+

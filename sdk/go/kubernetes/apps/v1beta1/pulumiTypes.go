@@ -82,7 +82,7 @@ func (i ControllerRevisionTypeArray) ToControllerRevisionTypeArrayOutputWithCont
 }
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
-type ControllerRevisionTypeOutput struct{ *pulumi.OutputState }
+type ControllerRevisionTypeOutput struct { *pulumi.OutputState }
 
 func (ControllerRevisionTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ControllerRevisionType)(nil)).Elem()
@@ -98,30 +98,30 @@ func (o ControllerRevisionTypeOutput) ToControllerRevisionTypeOutputWithContext(
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o ControllerRevisionTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v ControllerRevisionType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Data is the serialized representation of the state.
 func (o ControllerRevisionTypeOutput) Data() pulumi.MapOutput {
-	return o.ApplyT(func(v ControllerRevisionType) map[string]interface{} { return v.Data }).(pulumi.MapOutput)
+	return o.ApplyT(func (v ControllerRevisionType) map[string]interface{} { return v.Data }).(pulumi.MapOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o ControllerRevisionTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v ControllerRevisionType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o ControllerRevisionTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func (v ControllerRevisionType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Revision indicates the revision of the state represented by Data.
 func (o ControllerRevisionTypeOutput) Revision() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionType) *int { return v.Revision }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v ControllerRevisionType) *int { return v.Revision }).(pulumi.IntPtrOutput)
 }
 
-type ControllerRevisionTypeArrayOutput struct{ *pulumi.OutputState }
+type ControllerRevisionTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ControllerRevisionTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ControllerRevisionType)(nil)).Elem()
@@ -136,7 +136,7 @@ func (o ControllerRevisionTypeArrayOutput) ToControllerRevisionTypeArrayOutputWi
 }
 
 func (o ControllerRevisionTypeArrayOutput) Index(i pulumi.IntInput) ControllerRevisionTypeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ControllerRevisionType {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ControllerRevisionType {
 		return vs[0].([]ControllerRevisionType)[vs[1].(int)]
 	}).(ControllerRevisionTypeOutput)
 }
@@ -185,7 +185,7 @@ func (i ControllerRevisionListTypeArgs) ToControllerRevisionListTypeOutputWithCo
 }
 
 // ControllerRevisionList is a resource containing a list of ControllerRevision objects.
-type ControllerRevisionListTypeOutput struct{ *pulumi.OutputState }
+type ControllerRevisionListTypeOutput struct { *pulumi.OutputState }
 
 func (ControllerRevisionListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ControllerRevisionListType)(nil)).Elem()
@@ -201,22 +201,22 @@ func (o ControllerRevisionListTypeOutput) ToControllerRevisionListTypeOutputWith
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o ControllerRevisionListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v ControllerRevisionListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of ControllerRevisions
 func (o ControllerRevisionListTypeOutput) Items() ControllerRevisionTypeArrayOutput {
-	return o.ApplyT(func(v ControllerRevisionListType) []ControllerRevisionType { return v.Items }).(ControllerRevisionTypeArrayOutput)
+	return o.ApplyT(func (v ControllerRevisionListType) []ControllerRevisionType { return v.Items }).(ControllerRevisionTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o ControllerRevisionListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v ControllerRevisionListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o ControllerRevisionListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func (v ControllerRevisionListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // Deployment enables declarative updates for Pods and ReplicaSets.
@@ -288,7 +288,7 @@ func (i DeploymentTypeArray) ToDeploymentTypeArrayOutputWithContext(ctx context.
 }
 
 // Deployment enables declarative updates for Pods and ReplicaSets.
-type DeploymentTypeOutput struct{ *pulumi.OutputState }
+type DeploymentTypeOutput struct { *pulumi.OutputState }
 
 func (DeploymentTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentType)(nil)).Elem()
@@ -304,30 +304,30 @@ func (o DeploymentTypeOutput) ToDeploymentTypeOutputWithContext(ctx context.Cont
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o DeploymentTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o DeploymentTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata.
 func (o DeploymentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func (v DeploymentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior of the Deployment.
 func (o DeploymentTypeOutput) Spec() DeploymentSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *DeploymentSpec { return v.Spec }).(DeploymentSpecPtrOutput)
+	return o.ApplyT(func (v DeploymentType) *DeploymentSpec { return v.Spec }).(DeploymentSpecPtrOutput)
 }
 
 // Most recently observed status of the Deployment.
 func (o DeploymentTypeOutput) Status() DeploymentStatusPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *DeploymentStatus { return v.Status }).(DeploymentStatusPtrOutput)
+	return o.ApplyT(func (v DeploymentType) *DeploymentStatus { return v.Status }).(DeploymentStatusPtrOutput)
 }
 
-type DeploymentTypeArrayOutput struct{ *pulumi.OutputState }
+type DeploymentTypeArrayOutput struct { *pulumi.OutputState }
 
 func (DeploymentTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DeploymentType)(nil)).Elem()
@@ -342,7 +342,7 @@ func (o DeploymentTypeArrayOutput) ToDeploymentTypeArrayOutputWithContext(ctx co
 }
 
 func (o DeploymentTypeArrayOutput) Index(i pulumi.IntInput) DeploymentTypeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeploymentType {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) DeploymentType {
 		return vs[0].([]DeploymentType)[vs[1].(int)]
 	}).(DeploymentTypeOutput)
 }
@@ -420,7 +420,7 @@ func (i DeploymentConditionArray) ToDeploymentConditionArrayOutputWithContext(ct
 }
 
 // DeploymentCondition describes the state of a deployment at a certain point.
-type DeploymentConditionOutput struct{ *pulumi.OutputState }
+type DeploymentConditionOutput struct { *pulumi.OutputState }
 
 func (DeploymentConditionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentCondition)(nil)).Elem()
@@ -436,35 +436,35 @@ func (o DeploymentConditionOutput) ToDeploymentConditionOutputWithContext(ctx co
 
 // Last time the condition transitioned from one status to another.
 func (o DeploymentConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
 // The last time this condition was updated.
 func (o DeploymentConditionOutput) LastUpdateTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.LastUpdateTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentCondition) *string { return v.LastUpdateTime }).(pulumi.StringPtrOutput)
 }
 
 // A human readable message indicating details about the transition.
 func (o DeploymentConditionOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // The reason for the condition's last transition.
 func (o DeploymentConditionOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // Status of the condition, one of True, False, Unknown.
 func (o DeploymentConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // Type of deployment condition.
 func (o DeploymentConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DeploymentConditionArrayOutput struct{ *pulumi.OutputState }
+type DeploymentConditionArrayOutput struct { *pulumi.OutputState }
 
 func (DeploymentConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DeploymentCondition)(nil)).Elem()
@@ -479,7 +479,7 @@ func (o DeploymentConditionArrayOutput) ToDeploymentConditionArrayOutputWithCont
 }
 
 func (o DeploymentConditionArrayOutput) Index(i pulumi.IntInput) DeploymentConditionOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeploymentCondition {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) DeploymentCondition {
 		return vs[0].([]DeploymentCondition)[vs[1].(int)]
 	}).(DeploymentConditionOutput)
 }
@@ -528,7 +528,7 @@ func (i DeploymentListTypeArgs) ToDeploymentListTypeOutputWithContext(ctx contex
 }
 
 // DeploymentList is a list of Deployments.
-type DeploymentListTypeOutput struct{ *pulumi.OutputState }
+type DeploymentListTypeOutput struct { *pulumi.OutputState }
 
 func (DeploymentListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentListType)(nil)).Elem()
@@ -544,22 +544,22 @@ func (o DeploymentListTypeOutput) ToDeploymentListTypeOutputWithContext(ctx cont
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o DeploymentListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of Deployments.
 func (o DeploymentListTypeOutput) Items() DeploymentTypeArrayOutput {
-	return o.ApplyT(func(v DeploymentListType) []DeploymentType { return v.Items }).(DeploymentTypeArrayOutput)
+	return o.ApplyT(func (v DeploymentListType) []DeploymentType { return v.Items }).(DeploymentTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o DeploymentListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata.
 func (o DeploymentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v DeploymentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func (v DeploymentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
@@ -610,7 +610,7 @@ func (i DeploymentRollbackArgs) ToDeploymentRollbackOutputWithContext(ctx contex
 }
 
 // DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
-type DeploymentRollbackOutput struct{ *pulumi.OutputState }
+type DeploymentRollbackOutput struct { *pulumi.OutputState }
 
 func (DeploymentRollbackOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentRollback)(nil)).Elem()
@@ -626,27 +626,27 @@ func (o DeploymentRollbackOutput) ToDeploymentRollbackOutputWithContext(ctx cont
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o DeploymentRollbackOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentRollback) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o DeploymentRollbackOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentRollback) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Required: This must match the Name of a deployment.
 func (o DeploymentRollbackOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentRollback) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // The config of this deployment rollback.
 func (o DeploymentRollbackOutput) RollbackTo() RollbackConfigPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
+	return o.ApplyT(func (v DeploymentRollback) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
 }
 
 // The annotations to be updated to a deployment
 func (o DeploymentRollbackOutput) UpdatedAnnotations() pulumi.StringMapOutput {
-	return o.ApplyT(func(v DeploymentRollback) map[string]string { return v.UpdatedAnnotations }).(pulumi.StringMapOutput)
+	return o.ApplyT(func (v DeploymentRollback) map[string]string { return v.UpdatedAnnotations }).(pulumi.StringMapOutput)
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
@@ -729,8 +729,7 @@ type DeploymentSpecPtrInput interface {
 
 type deploymentSpecPtrType DeploymentSpecArgs
 
-func DeploymentSpecPtr(v *DeploymentSpecArgs) DeploymentSpecPtrInput {
-	return (*deploymentSpecPtrType)(v)
+func DeploymentSpecPtr(v *DeploymentSpecArgs) DeploymentSpecPtrInput {	return (*deploymentSpecPtrType)(v)
 }
 
 func (*deploymentSpecPtrType) ElementType() reflect.Type {
@@ -746,7 +745,7 @@ func (i *deploymentSpecPtrType) ToDeploymentSpecPtrOutputWithContext(ctx context
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
-type DeploymentSpecOutput struct{ *pulumi.OutputState }
+type DeploymentSpecOutput struct { *pulumi.OutputState }
 
 func (DeploymentSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentSpec)(nil)).Elem()
@@ -769,53 +768,52 @@ func (o DeploymentSpecOutput) ToDeploymentSpecPtrOutputWithContext(ctx context.C
 		return &v
 	}).(DeploymentSpecPtrOutput)
 }
-
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o DeploymentSpecOutput) MinReadySeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
 // Indicates that the deployment is paused.
 func (o DeploymentSpecOutput) Paused() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *bool { return v.Paused }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *bool { return v.Paused }).(pulumi.BoolPtrOutput)
 }
 
 // The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
 func (o DeploymentSpecOutput) ProgressDeadlineSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.ProgressDeadlineSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.ProgressDeadlineSeconds }).(pulumi.IntPtrOutput)
 }
 
 // Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
 func (o DeploymentSpecOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 2.
 func (o DeploymentSpecOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
 }
 
 // DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
 func (o DeploymentSpecOutput) RollbackTo() RollbackConfigPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
 func (o DeploymentSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
 func (o DeploymentSpecOutput) Strategy() DeploymentStrategyPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *DeploymentStrategy { return v.Strategy }).(DeploymentStrategyPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *DeploymentStrategy { return v.Strategy }).(DeploymentStrategyPtrOutput)
 }
 
 // Template describes the pods that will be created.
 func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
-type DeploymentSpecPtrOutput struct{ *pulumi.OutputState }
+type DeploymentSpecPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentSpec)(nil)).Elem()
@@ -830,52 +828,52 @@ func (o DeploymentSpecPtrOutput) ToDeploymentSpecPtrOutputWithContext(ctx contex
 }
 
 func (o DeploymentSpecPtrOutput) Elem() DeploymentSpecOutput {
-	return o.ApplyT(func(v *DeploymentSpec) DeploymentSpec { return *v }).(DeploymentSpecOutput)
+	return o.ApplyT(func (v *DeploymentSpec) DeploymentSpec { return *v }).(DeploymentSpecOutput)
 }
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o DeploymentSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
 // Indicates that the deployment is paused.
 func (o DeploymentSpecPtrOutput) Paused() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *bool { return v.Paused }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *bool { return v.Paused }).(pulumi.BoolPtrOutput)
 }
 
 // The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
 func (o DeploymentSpecPtrOutput) ProgressDeadlineSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.ProgressDeadlineSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.ProgressDeadlineSeconds }).(pulumi.IntPtrOutput)
 }
 
 // Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
 func (o DeploymentSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 2.
 func (o DeploymentSpecPtrOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
 }
 
 // DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
 func (o DeploymentSpecPtrOutput) RollbackTo() RollbackConfigPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
 func (o DeploymentSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
 func (o DeploymentSpecPtrOutput) Strategy() DeploymentStrategyPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *DeploymentStrategy { return v.Strategy }).(DeploymentStrategyPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *DeploymentStrategy { return v.Strategy }).(DeploymentStrategyPtrOutput)
 }
 
 // Template describes the pods that will be created.
 func (o DeploymentSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func (v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
@@ -954,8 +952,7 @@ type DeploymentStatusPtrInput interface {
 
 type deploymentStatusPtrType DeploymentStatusArgs
 
-func DeploymentStatusPtr(v *DeploymentStatusArgs) DeploymentStatusPtrInput {
-	return (*deploymentStatusPtrType)(v)
+func DeploymentStatusPtr(v *DeploymentStatusArgs) DeploymentStatusPtrInput {	return (*deploymentStatusPtrType)(v)
 }
 
 func (*deploymentStatusPtrType) ElementType() reflect.Type {
@@ -971,7 +968,7 @@ func (i *deploymentStatusPtrType) ToDeploymentStatusPtrOutputWithContext(ctx con
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
-type DeploymentStatusOutput struct{ *pulumi.OutputState }
+type DeploymentStatusOutput struct { *pulumi.OutputState }
 
 func (DeploymentStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentStatus)(nil)).Elem()
@@ -994,48 +991,47 @@ func (o DeploymentStatusOutput) ToDeploymentStatusPtrOutputWithContext(ctx conte
 		return &v
 	}).(DeploymentStatusPtrOutput)
 }
-
 // Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
 func (o DeploymentStatusOutput) AvailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
 func (o DeploymentStatusOutput) CollisionCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
 }
 
 // Represents the latest available observations of a deployment's current state.
 func (o DeploymentStatusOutput) Conditions() DeploymentConditionArrayOutput {
-	return o.ApplyT(func(v DeploymentStatus) []DeploymentCondition { return v.Conditions }).(DeploymentConditionArrayOutput)
+	return o.ApplyT(func (v DeploymentStatus) []DeploymentCondition { return v.Conditions }).(DeploymentConditionArrayOutput)
 }
 
 // The generation observed by the deployment controller.
 func (o DeploymentStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // Total number of ready pods targeted by this deployment.
 func (o DeploymentStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of non-terminated pods targeted by this deployment (their labels match the selector).
 func (o DeploymentStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 func (o DeploymentStatusOutput) UnavailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.UnavailableReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.UnavailableReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of non-terminated pods targeted by this deployment that have the desired template spec.
 func (o DeploymentStatusOutput) UpdatedReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
 
-type DeploymentStatusPtrOutput struct{ *pulumi.OutputState }
+type DeploymentStatusPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentStatus)(nil)).Elem()
@@ -1050,47 +1046,47 @@ func (o DeploymentStatusPtrOutput) ToDeploymentStatusPtrOutputWithContext(ctx co
 }
 
 func (o DeploymentStatusPtrOutput) Elem() DeploymentStatusOutput {
-	return o.ApplyT(func(v *DeploymentStatus) DeploymentStatus { return *v }).(DeploymentStatusOutput)
+	return o.ApplyT(func (v *DeploymentStatus) DeploymentStatus { return *v }).(DeploymentStatusOutput)
 }
 
 // Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
 func (o DeploymentStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
 func (o DeploymentStatusPtrOutput) CollisionCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
 }
 
 // Represents the latest available observations of a deployment's current state.
 func (o DeploymentStatusPtrOutput) Conditions() DeploymentConditionArrayOutput {
-	return o.ApplyT(func(v DeploymentStatus) []DeploymentCondition { return v.Conditions }).(DeploymentConditionArrayOutput)
+	return o.ApplyT(func (v DeploymentStatus) []DeploymentCondition { return v.Conditions }).(DeploymentConditionArrayOutput)
 }
 
 // The generation observed by the deployment controller.
 func (o DeploymentStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // Total number of ready pods targeted by this deployment.
 func (o DeploymentStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of non-terminated pods targeted by this deployment (their labels match the selector).
 func (o DeploymentStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 func (o DeploymentStatusPtrOutput) UnavailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.UnavailableReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.UnavailableReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of non-terminated pods targeted by this deployment that have the desired template spec.
 func (o DeploymentStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
@@ -1145,8 +1141,7 @@ type DeploymentStrategyPtrInput interface {
 
 type deploymentStrategyPtrType DeploymentStrategyArgs
 
-func DeploymentStrategyPtr(v *DeploymentStrategyArgs) DeploymentStrategyPtrInput {
-	return (*deploymentStrategyPtrType)(v)
+func DeploymentStrategyPtr(v *DeploymentStrategyArgs) DeploymentStrategyPtrInput {	return (*deploymentStrategyPtrType)(v)
 }
 
 func (*deploymentStrategyPtrType) ElementType() reflect.Type {
@@ -1162,7 +1157,7 @@ func (i *deploymentStrategyPtrType) ToDeploymentStrategyPtrOutputWithContext(ctx
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
-type DeploymentStrategyOutput struct{ *pulumi.OutputState }
+type DeploymentStrategyOutput struct { *pulumi.OutputState }
 
 func (DeploymentStrategyOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentStrategy)(nil)).Elem()
@@ -1185,18 +1180,17 @@ func (o DeploymentStrategyOutput) ToDeploymentStrategyPtrOutputWithContext(ctx c
 		return &v
 	}).(DeploymentStrategyPtrOutput)
 }
-
 // Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 func (o DeploymentStrategyOutput) RollingUpdate() RollingUpdateDeploymentPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *RollingUpdateDeployment { return v.RollingUpdate }).(RollingUpdateDeploymentPtrOutput)
+	return o.ApplyT(func (v DeploymentStrategy) *RollingUpdateDeployment { return v.RollingUpdate }).(RollingUpdateDeploymentPtrOutput)
 }
 
 // Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
 func (o DeploymentStrategyOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DeploymentStrategyPtrOutput struct{ *pulumi.OutputState }
+type DeploymentStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentStrategy)(nil)).Elem()
@@ -1211,17 +1205,17 @@ func (o DeploymentStrategyPtrOutput) ToDeploymentStrategyPtrOutputWithContext(ct
 }
 
 func (o DeploymentStrategyPtrOutput) Elem() DeploymentStrategyOutput {
-	return o.ApplyT(func(v *DeploymentStrategy) DeploymentStrategy { return *v }).(DeploymentStrategyOutput)
+	return o.ApplyT(func (v *DeploymentStrategy) DeploymentStrategy { return *v }).(DeploymentStrategyOutput)
 }
 
 // Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 func (o DeploymentStrategyPtrOutput) RollingUpdate() RollingUpdateDeploymentPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *RollingUpdateDeployment { return v.RollingUpdate }).(RollingUpdateDeploymentPtrOutput)
+	return o.ApplyT(func (v DeploymentStrategy) *RollingUpdateDeployment { return v.RollingUpdate }).(RollingUpdateDeploymentPtrOutput)
 }
 
 // Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
 func (o DeploymentStrategyPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
 // DEPRECATED.
@@ -1272,8 +1266,7 @@ type RollbackConfigPtrInput interface {
 
 type rollbackConfigPtrType RollbackConfigArgs
 
-func RollbackConfigPtr(v *RollbackConfigArgs) RollbackConfigPtrInput {
-	return (*rollbackConfigPtrType)(v)
+func RollbackConfigPtr(v *RollbackConfigArgs) RollbackConfigPtrInput {	return (*rollbackConfigPtrType)(v)
 }
 
 func (*rollbackConfigPtrType) ElementType() reflect.Type {
@@ -1289,7 +1282,7 @@ func (i *rollbackConfigPtrType) ToRollbackConfigPtrOutputWithContext(ctx context
 }
 
 // DEPRECATED.
-type RollbackConfigOutput struct{ *pulumi.OutputState }
+type RollbackConfigOutput struct { *pulumi.OutputState }
 
 func (RollbackConfigOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RollbackConfig)(nil)).Elem()
@@ -1312,13 +1305,12 @@ func (o RollbackConfigOutput) ToRollbackConfigPtrOutputWithContext(ctx context.C
 		return &v
 	}).(RollbackConfigPtrOutput)
 }
-
 // The revision to rollback to. If set to 0, rollback to the last revision.
 func (o RollbackConfigOutput) Revision() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v RollbackConfig) *int { return v.Revision }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v RollbackConfig) *int { return v.Revision }).(pulumi.IntPtrOutput)
 }
 
-type RollbackConfigPtrOutput struct{ *pulumi.OutputState }
+type RollbackConfigPtrOutput struct { *pulumi.OutputState }
 
 func (RollbackConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollbackConfig)(nil)).Elem()
@@ -1333,12 +1325,12 @@ func (o RollbackConfigPtrOutput) ToRollbackConfigPtrOutputWithContext(ctx contex
 }
 
 func (o RollbackConfigPtrOutput) Elem() RollbackConfigOutput {
-	return o.ApplyT(func(v *RollbackConfig) RollbackConfig { return *v }).(RollbackConfigOutput)
+	return o.ApplyT(func (v *RollbackConfig) RollbackConfig { return *v }).(RollbackConfigOutput)
 }
 
 // The revision to rollback to. If set to 0, rollback to the last revision.
 func (o RollbackConfigPtrOutput) Revision() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v RollbackConfig) *int { return v.Revision }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v RollbackConfig) *int { return v.Revision }).(pulumi.IntPtrOutput)
 }
 
 // Spec to control the desired behavior of rolling update.
@@ -1393,8 +1385,7 @@ type RollingUpdateDeploymentPtrInput interface {
 
 type rollingUpdateDeploymentPtrType RollingUpdateDeploymentArgs
 
-func RollingUpdateDeploymentPtr(v *RollingUpdateDeploymentArgs) RollingUpdateDeploymentPtrInput {
-	return (*rollingUpdateDeploymentPtrType)(v)
+func RollingUpdateDeploymentPtr(v *RollingUpdateDeploymentArgs) RollingUpdateDeploymentPtrInput {	return (*rollingUpdateDeploymentPtrType)(v)
 }
 
 func (*rollingUpdateDeploymentPtrType) ElementType() reflect.Type {
@@ -1410,7 +1401,7 @@ func (i *rollingUpdateDeploymentPtrType) ToRollingUpdateDeploymentPtrOutputWithC
 }
 
 // Spec to control the desired behavior of rolling update.
-type RollingUpdateDeploymentOutput struct{ *pulumi.OutputState }
+type RollingUpdateDeploymentOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateDeploymentOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RollingUpdateDeployment)(nil)).Elem()
@@ -1433,18 +1424,17 @@ func (o RollingUpdateDeploymentOutput) ToRollingUpdateDeploymentPtrOutputWithCon
 		return &v
 	}).(RollingUpdateDeploymentPtrOutput)
 }
-
 // The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 func (o RollingUpdateDeploymentOutput) MaxSurge() pulumi.AnyOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
+	return o.ApplyT(func (v RollingUpdateDeployment) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
 }
 
 // The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
 func (o RollingUpdateDeploymentOutput) MaxUnavailable() pulumi.AnyOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
+	return o.ApplyT(func (v RollingUpdateDeployment) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
 
-type RollingUpdateDeploymentPtrOutput struct{ *pulumi.OutputState }
+type RollingUpdateDeploymentPtrOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateDeploymentPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollingUpdateDeployment)(nil)).Elem()
@@ -1459,17 +1449,17 @@ func (o RollingUpdateDeploymentPtrOutput) ToRollingUpdateDeploymentPtrOutputWith
 }
 
 func (o RollingUpdateDeploymentPtrOutput) Elem() RollingUpdateDeploymentOutput {
-	return o.ApplyT(func(v *RollingUpdateDeployment) RollingUpdateDeployment { return *v }).(RollingUpdateDeploymentOutput)
+	return o.ApplyT(func (v *RollingUpdateDeployment) RollingUpdateDeployment { return *v }).(RollingUpdateDeploymentOutput)
 }
 
 // The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 func (o RollingUpdateDeploymentPtrOutput) MaxSurge() pulumi.AnyOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
+	return o.ApplyT(func (v RollingUpdateDeployment) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
 }
 
 // The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
 func (o RollingUpdateDeploymentPtrOutput) MaxUnavailable() pulumi.AnyOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
+	return o.ApplyT(func (v RollingUpdateDeployment) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
@@ -1520,8 +1510,7 @@ type RollingUpdateStatefulSetStrategyPtrInput interface {
 
 type rollingUpdateStatefulSetStrategyPtrType RollingUpdateStatefulSetStrategyArgs
 
-func RollingUpdateStatefulSetStrategyPtr(v *RollingUpdateStatefulSetStrategyArgs) RollingUpdateStatefulSetStrategyPtrInput {
-	return (*rollingUpdateStatefulSetStrategyPtrType)(v)
+func RollingUpdateStatefulSetStrategyPtr(v *RollingUpdateStatefulSetStrategyArgs) RollingUpdateStatefulSetStrategyPtrInput {	return (*rollingUpdateStatefulSetStrategyPtrType)(v)
 }
 
 func (*rollingUpdateStatefulSetStrategyPtrType) ElementType() reflect.Type {
@@ -1537,7 +1526,7 @@ func (i *rollingUpdateStatefulSetStrategyPtrType) ToRollingUpdateStatefulSetStra
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
-type RollingUpdateStatefulSetStrategyOutput struct{ *pulumi.OutputState }
+type RollingUpdateStatefulSetStrategyOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateStatefulSetStrategyOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RollingUpdateStatefulSetStrategy)(nil)).Elem()
@@ -1560,13 +1549,12 @@ func (o RollingUpdateStatefulSetStrategyOutput) ToRollingUpdateStatefulSetStrate
 		return &v
 	}).(RollingUpdateStatefulSetStrategyPtrOutput)
 }
-
 // Partition indicates the ordinal at which the StatefulSet should be partitioned.
 func (o RollingUpdateStatefulSetStrategyOutput) Partition() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v RollingUpdateStatefulSetStrategy) *int { return v.Partition }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v RollingUpdateStatefulSetStrategy) *int { return v.Partition }).(pulumi.IntPtrOutput)
 }
 
-type RollingUpdateStatefulSetStrategyPtrOutput struct{ *pulumi.OutputState }
+type RollingUpdateStatefulSetStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateStatefulSetStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollingUpdateStatefulSetStrategy)(nil)).Elem()
@@ -1581,12 +1569,12 @@ func (o RollingUpdateStatefulSetStrategyPtrOutput) ToRollingUpdateStatefulSetStr
 }
 
 func (o RollingUpdateStatefulSetStrategyPtrOutput) Elem() RollingUpdateStatefulSetStrategyOutput {
-	return o.ApplyT(func(v *RollingUpdateStatefulSetStrategy) RollingUpdateStatefulSetStrategy { return *v }).(RollingUpdateStatefulSetStrategyOutput)
+	return o.ApplyT(func (v *RollingUpdateStatefulSetStrategy) RollingUpdateStatefulSetStrategy { return *v }).(RollingUpdateStatefulSetStrategyOutput)
 }
 
 // Partition indicates the ordinal at which the StatefulSet should be partitioned.
 func (o RollingUpdateStatefulSetStrategyPtrOutput) Partition() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v RollingUpdateStatefulSetStrategy) *int { return v.Partition }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v RollingUpdateStatefulSetStrategy) *int { return v.Partition }).(pulumi.IntPtrOutput)
 }
 
 // Scale represents a scaling request for a resource.
@@ -1637,7 +1625,7 @@ func (i ScaleArgs) ToScaleOutputWithContext(ctx context.Context) ScaleOutput {
 }
 
 // Scale represents a scaling request for a resource.
-type ScaleOutput struct{ *pulumi.OutputState }
+type ScaleOutput struct { *pulumi.OutputState }
 
 func (ScaleOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Scale)(nil)).Elem()
@@ -1653,27 +1641,27 @@ func (o ScaleOutput) ToScaleOutputWithContext(ctx context.Context) ScaleOutput {
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o ScaleOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Scale) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v Scale) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o ScaleOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Scale) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v Scale) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o ScaleOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v Scale) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func (v Scale) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o ScaleOutput) Spec() ScaleSpecPtrOutput {
-	return o.ApplyT(func(v Scale) *ScaleSpec { return v.Spec }).(ScaleSpecPtrOutput)
+	return o.ApplyT(func (v Scale) *ScaleSpec { return v.Spec }).(ScaleSpecPtrOutput)
 }
 
 // current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 func (o ScaleOutput) Status() ScaleStatusPtrOutput {
-	return o.ApplyT(func(v Scale) *ScaleStatus { return v.Status }).(ScaleStatusPtrOutput)
+	return o.ApplyT(func (v Scale) *ScaleStatus { return v.Status }).(ScaleStatusPtrOutput)
 }
 
 // ScaleSpec describes the attributes of a scale subresource
@@ -1724,8 +1712,7 @@ type ScaleSpecPtrInput interface {
 
 type scaleSpecPtrType ScaleSpecArgs
 
-func ScaleSpecPtr(v *ScaleSpecArgs) ScaleSpecPtrInput {
-	return (*scaleSpecPtrType)(v)
+func ScaleSpecPtr(v *ScaleSpecArgs) ScaleSpecPtrInput {	return (*scaleSpecPtrType)(v)
 }
 
 func (*scaleSpecPtrType) ElementType() reflect.Type {
@@ -1741,7 +1728,7 @@ func (i *scaleSpecPtrType) ToScaleSpecPtrOutputWithContext(ctx context.Context) 
 }
 
 // ScaleSpec describes the attributes of a scale subresource
-type ScaleSpecOutput struct{ *pulumi.OutputState }
+type ScaleSpecOutput struct { *pulumi.OutputState }
 
 func (ScaleSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ScaleSpec)(nil)).Elem()
@@ -1764,13 +1751,12 @@ func (o ScaleSpecOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context) Sc
 		return &v
 	}).(ScaleSpecPtrOutput)
 }
-
 // desired number of instances for the scaled object.
 func (o ScaleSpecOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-type ScaleSpecPtrOutput struct{ *pulumi.OutputState }
+type ScaleSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleSpec)(nil)).Elem()
@@ -1785,12 +1771,12 @@ func (o ScaleSpecPtrOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context)
 }
 
 func (o ScaleSpecPtrOutput) Elem() ScaleSpecOutput {
-	return o.ApplyT(func(v *ScaleSpec) ScaleSpec { return *v }).(ScaleSpecOutput)
+	return o.ApplyT(func (v *ScaleSpec) ScaleSpec { return *v }).(ScaleSpecOutput)
 }
 
 // desired number of instances for the scaled object.
 func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // ScaleStatus represents the current status of a scale subresource.
@@ -1849,8 +1835,7 @@ type ScaleStatusPtrInput interface {
 
 type scaleStatusPtrType ScaleStatusArgs
 
-func ScaleStatusPtr(v *ScaleStatusArgs) ScaleStatusPtrInput {
-	return (*scaleStatusPtrType)(v)
+func ScaleStatusPtr(v *ScaleStatusArgs) ScaleStatusPtrInput {	return (*scaleStatusPtrType)(v)
 }
 
 func (*scaleStatusPtrType) ElementType() reflect.Type {
@@ -1866,7 +1851,7 @@ func (i *scaleStatusPtrType) ToScaleStatusPtrOutputWithContext(ctx context.Conte
 }
 
 // ScaleStatus represents the current status of a scale subresource.
-type ScaleStatusOutput struct{ *pulumi.OutputState }
+type ScaleStatusOutput struct { *pulumi.OutputState }
 
 func (ScaleStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ScaleStatus)(nil)).Elem()
@@ -1889,23 +1874,22 @@ func (o ScaleStatusOutput) ToScaleStatusPtrOutputWithContext(ctx context.Context
 		return &v
 	}).(ScaleStatusPtrOutput)
 }
-
 // actual number of observed instances of the scaled object.
 func (o ScaleStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
 func (o ScaleStatusOutput) Selector() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ScaleStatus) map[string]string { return v.Selector }).(pulumi.StringMapOutput)
+	return o.ApplyT(func (v ScaleStatus) map[string]string { return v.Selector }).(pulumi.StringMapOutput)
 }
 
 // label selector for pods that should match the replicas count. This is a serializated version of both map-based and more expressive set-based selectors. This is done to avoid introspection in the clients. The string will be in the same format as the query-param syntax. If the target type only supports map-based selectors, both this field and map-based selector field are populated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o ScaleStatusOutput) TargetSelector() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *string { return v.TargetSelector }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v ScaleStatus) *string { return v.TargetSelector }).(pulumi.StringPtrOutput)
 }
 
-type ScaleStatusPtrOutput struct{ *pulumi.OutputState }
+type ScaleStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleStatus)(nil)).Elem()
@@ -1920,22 +1904,22 @@ func (o ScaleStatusPtrOutput) ToScaleStatusPtrOutputWithContext(ctx context.Cont
 }
 
 func (o ScaleStatusPtrOutput) Elem() ScaleStatusOutput {
-	return o.ApplyT(func(v *ScaleStatus) ScaleStatus { return *v }).(ScaleStatusOutput)
+	return o.ApplyT(func (v *ScaleStatus) ScaleStatus { return *v }).(ScaleStatusOutput)
 }
 
 // actual number of observed instances of the scaled object.
 func (o ScaleStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
 func (o ScaleStatusPtrOutput) Selector() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ScaleStatus) map[string]string { return v.Selector }).(pulumi.StringMapOutput)
+	return o.ApplyT(func (v ScaleStatus) map[string]string { return v.Selector }).(pulumi.StringMapOutput)
 }
 
 // label selector for pods that should match the replicas count. This is a serializated version of both map-based and more expressive set-based selectors. This is done to avoid introspection in the clients. The string will be in the same format as the query-param syntax. If the target type only supports map-based selectors, both this field and map-based selector field are populated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o ScaleStatusPtrOutput) TargetSelector() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *string { return v.TargetSelector }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v ScaleStatus) *string { return v.TargetSelector }).(pulumi.StringPtrOutput)
 }
 
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
@@ -1946,7 +1930,7 @@ type StatefulSetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec defines the desired identities of pods in this set.
 	Spec *StatefulSetSpec `pulumi:"spec"`
@@ -1969,7 +1953,7 @@ type StatefulSetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec defines the desired identities of pods in this set.
 	Spec StatefulSetSpecPtrInput `pulumi:"spec"`
@@ -2014,7 +1998,7 @@ func (i StatefulSetTypeArray) ToStatefulSetTypeArrayOutputWithContext(ctx contex
 //  - Network: A single stable DNS and hostname.
 //  - Storage: As many VolumeClaims as requested.
 // The StatefulSet guarantees that a given network identity will always map to the same storage identity.
-type StatefulSetTypeOutput struct{ *pulumi.OutputState }
+type StatefulSetTypeOutput struct { *pulumi.OutputState }
 
 func (StatefulSetTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSetType)(nil)).Elem()
@@ -2030,29 +2014,29 @@ func (o StatefulSetTypeOutput) ToStatefulSetTypeOutputWithContext(ctx context.Co
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o StatefulSetTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o StatefulSetTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 func (o StatefulSetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v StatefulSetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func (v StatefulSetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec defines the desired identities of pods in this set.
 func (o StatefulSetTypeOutput) Spec() StatefulSetSpecPtrOutput {
-	return o.ApplyT(func(v StatefulSetType) *StatefulSetSpec { return v.Spec }).(StatefulSetSpecPtrOutput)
+	return o.ApplyT(func (v StatefulSetType) *StatefulSetSpec { return v.Spec }).(StatefulSetSpecPtrOutput)
 }
 
 // Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
 func (o StatefulSetTypeOutput) Status() StatefulSetStatusPtrOutput {
-	return o.ApplyT(func(v StatefulSetType) *StatefulSetStatus { return v.Status }).(StatefulSetStatusPtrOutput)
+	return o.ApplyT(func (v StatefulSetType) *StatefulSetStatus { return v.Status }).(StatefulSetStatusPtrOutput)
 }
 
-type StatefulSetTypeArrayOutput struct{ *pulumi.OutputState }
+type StatefulSetTypeArrayOutput struct { *pulumi.OutputState }
 
 func (StatefulSetTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]StatefulSetType)(nil)).Elem()
@@ -2067,7 +2051,7 @@ func (o StatefulSetTypeArrayOutput) ToStatefulSetTypeArrayOutputWithContext(ctx 
 }
 
 func (o StatefulSetTypeArrayOutput) Index(i pulumi.IntInput) StatefulSetTypeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StatefulSetType {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) StatefulSetType {
 		return vs[0].([]StatefulSetType)[vs[1].(int)]
 	}).(StatefulSetTypeOutput)
 }
@@ -2141,7 +2125,7 @@ func (i StatefulSetConditionArray) ToStatefulSetConditionArrayOutputWithContext(
 }
 
 // StatefulSetCondition describes the state of a statefulset at a certain point.
-type StatefulSetConditionOutput struct{ *pulumi.OutputState }
+type StatefulSetConditionOutput struct { *pulumi.OutputState }
 
 func (StatefulSetConditionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSetCondition)(nil)).Elem()
@@ -2157,30 +2141,30 @@ func (o StatefulSetConditionOutput) ToStatefulSetConditionOutputWithContext(ctx 
 
 // Last time the condition transitioned from one status to another.
 func (o StatefulSetConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
 // A human readable message indicating details about the transition.
 func (o StatefulSetConditionOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // The reason for the condition's last transition.
 func (o StatefulSetConditionOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // Status of the condition, one of True, False, Unknown.
 func (o StatefulSetConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // Type of statefulset condition.
 func (o StatefulSetConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type StatefulSetConditionArrayOutput struct{ *pulumi.OutputState }
+type StatefulSetConditionArrayOutput struct { *pulumi.OutputState }
 
 func (StatefulSetConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]StatefulSetCondition)(nil)).Elem()
@@ -2195,7 +2179,7 @@ func (o StatefulSetConditionArrayOutput) ToStatefulSetConditionArrayOutputWithCo
 }
 
 func (o StatefulSetConditionArrayOutput) Index(i pulumi.IntInput) StatefulSetConditionOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StatefulSetCondition {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) StatefulSetCondition {
 		return vs[0].([]StatefulSetCondition)[vs[1].(int)]
 	}).(StatefulSetConditionOutput)
 }
@@ -2203,10 +2187,10 @@ func (o StatefulSetConditionArrayOutput) Index(i pulumi.IntInput) StatefulSetCon
 // StatefulSetList is a collection of StatefulSets.
 type StatefulSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string           `pulumi:"apiVersion"`
-	Items      []StatefulSetType `pulumi:"items"`
+	ApiVersion *string `pulumi:"apiVersion"`
+	Items []StatefulSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -2220,10 +2204,10 @@ type StatefulSetListTypeInput interface {
 // StatefulSetList is a collection of StatefulSets.
 type StatefulSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput     `pulumi:"apiVersion"`
-	Items      StatefulSetTypeArrayInput `pulumi:"items"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	Items StatefulSetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -2240,7 +2224,7 @@ func (i StatefulSetListTypeArgs) ToStatefulSetListTypeOutputWithContext(ctx cont
 }
 
 // StatefulSetList is a collection of StatefulSets.
-type StatefulSetListTypeOutput struct{ *pulumi.OutputState }
+type StatefulSetListTypeOutput struct { *pulumi.OutputState }
 
 func (StatefulSetListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSetListType)(nil)).Elem()
@@ -2256,20 +2240,20 @@ func (o StatefulSetListTypeOutput) ToStatefulSetListTypeOutputWithContext(ctx co
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o StatefulSetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 func (o StatefulSetListTypeOutput) Items() StatefulSetTypeArrayOutput {
-	return o.ApplyT(func(v StatefulSetListType) []StatefulSetType { return v.Items }).(StatefulSetTypeArrayOutput)
+	return o.ApplyT(func (v StatefulSetListType) []StatefulSetType { return v.Items }).(StatefulSetTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o StatefulSetListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 func (o StatefulSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v StatefulSetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func (v StatefulSetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
@@ -2348,8 +2332,7 @@ type StatefulSetSpecPtrInput interface {
 
 type statefulSetSpecPtrType StatefulSetSpecArgs
 
-func StatefulSetSpecPtr(v *StatefulSetSpecArgs) StatefulSetSpecPtrInput {
-	return (*statefulSetSpecPtrType)(v)
+func StatefulSetSpecPtr(v *StatefulSetSpecArgs) StatefulSetSpecPtrInput {	return (*statefulSetSpecPtrType)(v)
 }
 
 func (*statefulSetSpecPtrType) ElementType() reflect.Type {
@@ -2365,7 +2348,7 @@ func (i *statefulSetSpecPtrType) ToStatefulSetSpecPtrOutputWithContext(ctx conte
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
-type StatefulSetSpecOutput struct{ *pulumi.OutputState }
+type StatefulSetSpecOutput struct { *pulumi.OutputState }
 
 func (StatefulSetSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSetSpec)(nil)).Elem()
@@ -2388,48 +2371,47 @@ func (o StatefulSetSpecOutput) ToStatefulSetSpecPtrOutputWithContext(ctx context
 		return &v
 	}).(StatefulSetSpecPtrOutput)
 }
-
 // podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 func (o StatefulSetSpecOutput) PodManagementPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *string { return v.PodManagementPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *string { return v.PodManagementPolicy }).(pulumi.StringPtrOutput)
 }
 
 // replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
 func (o StatefulSetSpecOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
 func (o StatefulSetSpecOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
 }
 
 // selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o StatefulSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 func (o StatefulSetSpecOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
 // template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
 func (o StatefulSetSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 func (o StatefulSetSpecOutput) UpdateStrategy() StatefulSetUpdateStrategyPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetUpdateStrategy { return v.UpdateStrategy }).(StatefulSetUpdateStrategyPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *StatefulSetUpdateStrategy { return v.UpdateStrategy }).(StatefulSetUpdateStrategyPtrOutput)
 }
 
 // volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
 func (o StatefulSetSpecOutput) VolumeClaimTemplates() corev1.PersistentVolumeClaimArrayOutput {
-	return o.ApplyT(func(v StatefulSetSpec) []corev1.PersistentVolumeClaim { return v.VolumeClaimTemplates }).(corev1.PersistentVolumeClaimArrayOutput)
+	return o.ApplyT(func (v StatefulSetSpec) []corev1.PersistentVolumeClaim { return v.VolumeClaimTemplates }).(corev1.PersistentVolumeClaimArrayOutput)
 }
 
-type StatefulSetSpecPtrOutput struct{ *pulumi.OutputState }
+type StatefulSetSpecPtrOutput struct { *pulumi.OutputState }
 
 func (StatefulSetSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSetSpec)(nil)).Elem()
@@ -2444,47 +2426,47 @@ func (o StatefulSetSpecPtrOutput) ToStatefulSetSpecPtrOutputWithContext(ctx cont
 }
 
 func (o StatefulSetSpecPtrOutput) Elem() StatefulSetSpecOutput {
-	return o.ApplyT(func(v *StatefulSetSpec) StatefulSetSpec { return *v }).(StatefulSetSpecOutput)
+	return o.ApplyT(func (v *StatefulSetSpec) StatefulSetSpec { return *v }).(StatefulSetSpecOutput)
 }
 
 // podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 func (o StatefulSetSpecPtrOutput) PodManagementPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *string { return v.PodManagementPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *string { return v.PodManagementPolicy }).(pulumi.StringPtrOutput)
 }
 
 // replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
 func (o StatefulSetSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
 func (o StatefulSetSpecPtrOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
 }
 
 // selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o StatefulSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 func (o StatefulSetSpecPtrOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
 // template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
 func (o StatefulSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 func (o StatefulSetSpecPtrOutput) UpdateStrategy() StatefulSetUpdateStrategyPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetUpdateStrategy { return v.UpdateStrategy }).(StatefulSetUpdateStrategyPtrOutput)
+	return o.ApplyT(func (v StatefulSetSpec) *StatefulSetUpdateStrategy { return v.UpdateStrategy }).(StatefulSetUpdateStrategyPtrOutput)
 }
 
 // volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
 func (o StatefulSetSpecPtrOutput) VolumeClaimTemplates() corev1.PersistentVolumeClaimArrayOutput {
-	return o.ApplyT(func(v StatefulSetSpec) []corev1.PersistentVolumeClaim { return v.VolumeClaimTemplates }).(corev1.PersistentVolumeClaimArrayOutput)
+	return o.ApplyT(func (v StatefulSetSpec) []corev1.PersistentVolumeClaim { return v.VolumeClaimTemplates }).(corev1.PersistentVolumeClaimArrayOutput)
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
@@ -2567,8 +2549,7 @@ type StatefulSetStatusPtrInput interface {
 
 type statefulSetStatusPtrType StatefulSetStatusArgs
 
-func StatefulSetStatusPtr(v *StatefulSetStatusArgs) StatefulSetStatusPtrInput {
-	return (*statefulSetStatusPtrType)(v)
+func StatefulSetStatusPtr(v *StatefulSetStatusArgs) StatefulSetStatusPtrInput {	return (*statefulSetStatusPtrType)(v)
 }
 
 func (*statefulSetStatusPtrType) ElementType() reflect.Type {
@@ -2584,7 +2565,7 @@ func (i *statefulSetStatusPtrType) ToStatefulSetStatusPtrOutputWithContext(ctx c
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
-type StatefulSetStatusOutput struct{ *pulumi.OutputState }
+type StatefulSetStatusOutput struct { *pulumi.OutputState }
 
 func (StatefulSetStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSetStatus)(nil)).Elem()
@@ -2607,53 +2588,52 @@ func (o StatefulSetStatusOutput) ToStatefulSetStatusPtrOutputWithContext(ctx con
 		return &v
 	}).(StatefulSetStatusPtrOutput)
 }
-
 // collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 func (o StatefulSetStatusOutput) CollisionCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
 }
 
 // Represents the latest available observations of a statefulset's current state.
 func (o StatefulSetStatusOutput) Conditions() StatefulSetConditionArrayOutput {
-	return o.ApplyT(func(v StatefulSetStatus) []StatefulSetCondition { return v.Conditions }).(StatefulSetConditionArrayOutput)
+	return o.ApplyT(func (v StatefulSetStatus) []StatefulSetCondition { return v.Conditions }).(StatefulSetConditionArrayOutput)
 }
 
 // currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
 func (o StatefulSetStatusOutput) CurrentReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
 }
 
 // currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
 func (o StatefulSetStatusOutput) CurrentRevision() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *string { return v.CurrentRevision }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *string { return v.CurrentRevision }).(pulumi.StringPtrOutput)
 }
 
 // observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
 func (o StatefulSetStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
 func (o StatefulSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
 // replicas is the number of Pods created by the StatefulSet controller.
 func (o StatefulSetStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
 func (o StatefulSetStatusOutput) UpdateRevision() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *string { return v.UpdateRevision }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *string { return v.UpdateRevision }).(pulumi.StringPtrOutput)
 }
 
 // updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
 func (o StatefulSetStatusOutput) UpdatedReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
 
-type StatefulSetStatusPtrOutput struct{ *pulumi.OutputState }
+type StatefulSetStatusPtrOutput struct { *pulumi.OutputState }
 
 func (StatefulSetStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSetStatus)(nil)).Elem()
@@ -2668,52 +2648,52 @@ func (o StatefulSetStatusPtrOutput) ToStatefulSetStatusPtrOutputWithContext(ctx 
 }
 
 func (o StatefulSetStatusPtrOutput) Elem() StatefulSetStatusOutput {
-	return o.ApplyT(func(v *StatefulSetStatus) StatefulSetStatus { return *v }).(StatefulSetStatusOutput)
+	return o.ApplyT(func (v *StatefulSetStatus) StatefulSetStatus { return *v }).(StatefulSetStatusOutput)
 }
 
 // collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 func (o StatefulSetStatusPtrOutput) CollisionCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
 }
 
 // Represents the latest available observations of a statefulset's current state.
 func (o StatefulSetStatusPtrOutput) Conditions() StatefulSetConditionArrayOutput {
-	return o.ApplyT(func(v StatefulSetStatus) []StatefulSetCondition { return v.Conditions }).(StatefulSetConditionArrayOutput)
+	return o.ApplyT(func (v StatefulSetStatus) []StatefulSetCondition { return v.Conditions }).(StatefulSetConditionArrayOutput)
 }
 
 // currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
 func (o StatefulSetStatusPtrOutput) CurrentReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
 }
 
 // currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
 func (o StatefulSetStatusPtrOutput) CurrentRevision() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *string { return v.CurrentRevision }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *string { return v.CurrentRevision }).(pulumi.StringPtrOutput)
 }
 
 // observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
 func (o StatefulSetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
 func (o StatefulSetStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
 // replicas is the number of Pods created by the StatefulSet controller.
 func (o StatefulSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
 func (o StatefulSetStatusPtrOutput) UpdateRevision() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *string { return v.UpdateRevision }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *string { return v.UpdateRevision }).(pulumi.StringPtrOutput)
 }
 
 // updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
 func (o StatefulSetStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v StatefulSetStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
@@ -2768,8 +2748,7 @@ type StatefulSetUpdateStrategyPtrInput interface {
 
 type statefulSetUpdateStrategyPtrType StatefulSetUpdateStrategyArgs
 
-func StatefulSetUpdateStrategyPtr(v *StatefulSetUpdateStrategyArgs) StatefulSetUpdateStrategyPtrInput {
-	return (*statefulSetUpdateStrategyPtrType)(v)
+func StatefulSetUpdateStrategyPtr(v *StatefulSetUpdateStrategyArgs) StatefulSetUpdateStrategyPtrInput {	return (*statefulSetUpdateStrategyPtrType)(v)
 }
 
 func (*statefulSetUpdateStrategyPtrType) ElementType() reflect.Type {
@@ -2785,7 +2764,7 @@ func (i *statefulSetUpdateStrategyPtrType) ToStatefulSetUpdateStrategyPtrOutputW
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
-type StatefulSetUpdateStrategyOutput struct{ *pulumi.OutputState }
+type StatefulSetUpdateStrategyOutput struct { *pulumi.OutputState }
 
 func (StatefulSetUpdateStrategyOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSetUpdateStrategy)(nil)).Elem()
@@ -2808,18 +2787,17 @@ func (o StatefulSetUpdateStrategyOutput) ToStatefulSetUpdateStrategyPtrOutputWit
 		return &v
 	}).(StatefulSetUpdateStrategyPtrOutput)
 }
-
 // RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 func (o StatefulSetUpdateStrategyOutput) RollingUpdate() RollingUpdateStatefulSetStrategyPtrOutput {
-	return o.ApplyT(func(v StatefulSetUpdateStrategy) *RollingUpdateStatefulSetStrategy { return v.RollingUpdate }).(RollingUpdateStatefulSetStrategyPtrOutput)
+	return o.ApplyT(func (v StatefulSetUpdateStrategy) *RollingUpdateStatefulSetStrategy { return v.RollingUpdate }).(RollingUpdateStatefulSetStrategyPtrOutput)
 }
 
 // Type indicates the type of the StatefulSetUpdateStrategy.
 func (o StatefulSetUpdateStrategyOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type StatefulSetUpdateStrategyPtrOutput struct{ *pulumi.OutputState }
+type StatefulSetUpdateStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (StatefulSetUpdateStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSetUpdateStrategy)(nil)).Elem()
@@ -2834,17 +2812,17 @@ func (o StatefulSetUpdateStrategyPtrOutput) ToStatefulSetUpdateStrategyPtrOutput
 }
 
 func (o StatefulSetUpdateStrategyPtrOutput) Elem() StatefulSetUpdateStrategyOutput {
-	return o.ApplyT(func(v *StatefulSetUpdateStrategy) StatefulSetUpdateStrategy { return *v }).(StatefulSetUpdateStrategyOutput)
+	return o.ApplyT(func (v *StatefulSetUpdateStrategy) StatefulSetUpdateStrategy { return *v }).(StatefulSetUpdateStrategyOutput)
 }
 
 // RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 func (o StatefulSetUpdateStrategyPtrOutput) RollingUpdate() RollingUpdateStatefulSetStrategyPtrOutput {
-	return o.ApplyT(func(v StatefulSetUpdateStrategy) *RollingUpdateStatefulSetStrategy { return v.RollingUpdate }).(RollingUpdateStatefulSetStrategyPtrOutput)
+	return o.ApplyT(func (v StatefulSetUpdateStrategy) *RollingUpdateStatefulSetStrategy { return v.RollingUpdate }).(RollingUpdateStatefulSetStrategyPtrOutput)
 }
 
 // Type indicates the type of the StatefulSetUpdateStrategy.
 func (o StatefulSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v StatefulSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
 func init() {

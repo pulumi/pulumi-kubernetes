@@ -110,3 +110,4 @@ type HorizontalPodAutoscalerArgs struct {
 func (HorizontalPodAutoscalerArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*horizontalPodAutoscalerArgs)(nil)).Elem()
 }
+

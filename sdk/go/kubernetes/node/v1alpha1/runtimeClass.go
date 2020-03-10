@@ -108,3 +108,4 @@ type RuntimeClassArgs struct {
 func (RuntimeClassArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*runtimeClassArgs)(nil)).Elem()
 }
+

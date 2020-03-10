@@ -82,7 +82,7 @@ func (i JobTypeArray) ToJobTypeArrayOutputWithContext(ctx context.Context) JobTy
 }
 
 // Job represents the configuration of a single job.
-type JobTypeOutput struct{ *pulumi.OutputState }
+type JobTypeOutput struct { *pulumi.OutputState }
 
 func (JobTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*JobType)(nil)).Elem()
@@ -98,30 +98,30 @@ func (o JobTypeOutput) ToJobTypeOutputWithContext(ctx context.Context) JobTypeOu
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o JobTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o JobTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v JobType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func (v JobType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o JobTypeOutput) Spec() JobSpecPtrOutput {
-	return o.ApplyT(func(v JobType) *JobSpec { return v.Spec }).(JobSpecPtrOutput)
+	return o.ApplyT(func (v JobType) *JobSpec { return v.Spec }).(JobSpecPtrOutput)
 }
 
 // Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o JobTypeOutput) Status() JobStatusPtrOutput {
-	return o.ApplyT(func(v JobType) *JobStatus { return v.Status }).(JobStatusPtrOutput)
+	return o.ApplyT(func (v JobType) *JobStatus { return v.Status }).(JobStatusPtrOutput)
 }
 
-type JobTypeArrayOutput struct{ *pulumi.OutputState }
+type JobTypeArrayOutput struct { *pulumi.OutputState }
 
 func (JobTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]JobType)(nil)).Elem()
@@ -136,7 +136,7 @@ func (o JobTypeArrayOutput) ToJobTypeArrayOutputWithContext(ctx context.Context)
 }
 
 func (o JobTypeArrayOutput) Index(i pulumi.IntInput) JobTypeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) JobType {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) JobType {
 		return vs[0].([]JobType)[vs[1].(int)]
 	}).(JobTypeOutput)
 }
@@ -214,7 +214,7 @@ func (i JobConditionArray) ToJobConditionArrayOutputWithContext(ctx context.Cont
 }
 
 // JobCondition describes current state of a job.
-type JobConditionOutput struct{ *pulumi.OutputState }
+type JobConditionOutput struct { *pulumi.OutputState }
 
 func (JobConditionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*JobCondition)(nil)).Elem()
@@ -230,35 +230,35 @@ func (o JobConditionOutput) ToJobConditionOutputWithContext(ctx context.Context)
 
 // Last time the condition was checked.
 func (o JobConditionOutput) LastProbeTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.LastProbeTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobCondition) *string { return v.LastProbeTime }).(pulumi.StringPtrOutput)
 }
 
 // Last time the condition transit from one status to another.
 func (o JobConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
 // Human readable message indicating details about last transition.
 func (o JobConditionOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // (brief) reason for the condition's last transition.
 func (o JobConditionOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // Status of the condition, one of True, False, Unknown.
 func (o JobConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // Type of job condition, Complete or Failed.
 func (o JobConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type JobConditionArrayOutput struct{ *pulumi.OutputState }
+type JobConditionArrayOutput struct { *pulumi.OutputState }
 
 func (JobConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]JobCondition)(nil)).Elem()
@@ -273,7 +273,7 @@ func (o JobConditionArrayOutput) ToJobConditionArrayOutputWithContext(ctx contex
 }
 
 func (o JobConditionArrayOutput) Index(i pulumi.IntInput) JobConditionOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) JobCondition {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) JobCondition {
 		return vs[0].([]JobCondition)[vs[1].(int)]
 	}).(JobConditionOutput)
 }
@@ -322,7 +322,7 @@ func (i JobListTypeArgs) ToJobListTypeOutputWithContext(ctx context.Context) Job
 }
 
 // JobList is a collection of jobs.
-type JobListTypeOutput struct{ *pulumi.OutputState }
+type JobListTypeOutput struct { *pulumi.OutputState }
 
 func (JobListTypeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*JobListType)(nil)).Elem()
@@ -338,22 +338,22 @@ func (o JobListTypeOutput) ToJobListTypeOutputWithContext(ctx context.Context) J
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o JobListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // items is the list of Jobs.
 func (o JobListTypeOutput) Items() JobTypeArrayOutput {
-	return o.ApplyT(func(v JobListType) []JobType { return v.Items }).(JobTypeArrayOutput)
+	return o.ApplyT(func (v JobListType) []JobType { return v.Items }).(JobTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o JobListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v JobListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+	return o.ApplyT(func (v JobListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // JobSpec describes how the job execution will look like.
@@ -432,8 +432,7 @@ type JobSpecPtrInput interface {
 
 type jobSpecPtrType JobSpecArgs
 
-func JobSpecPtr(v *JobSpecArgs) JobSpecPtrInput {
-	return (*jobSpecPtrType)(v)
+func JobSpecPtr(v *JobSpecArgs) JobSpecPtrInput {	return (*jobSpecPtrType)(v)
 }
 
 func (*jobSpecPtrType) ElementType() reflect.Type {
@@ -449,7 +448,7 @@ func (i *jobSpecPtrType) ToJobSpecPtrOutputWithContext(ctx context.Context) JobS
 }
 
 // JobSpec describes how the job execution will look like.
-type JobSpecOutput struct{ *pulumi.OutputState }
+type JobSpecOutput struct { *pulumi.OutputState }
 
 func (JobSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*JobSpec)(nil)).Elem()
@@ -472,48 +471,47 @@ func (o JobSpecOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) JobSpe
 		return &v
 	}).(JobSpecPtrOutput)
 }
-
 // Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
 func (o JobSpecOutput) ActiveDeadlineSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.ActiveDeadlineSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.ActiveDeadlineSeconds }).(pulumi.IntPtrOutput)
 }
 
 // Specifies the number of retries before marking this job failed. Defaults to 6
 func (o JobSpecOutput) BackoffLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
 
 // Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecOutput) Completions() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.Completions }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.Completions }).(pulumi.IntPtrOutput)
 }
 
 // manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 func (o JobSpecOutput) ManualSelector() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v JobSpec) *bool { return v.ManualSelector }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func (v JobSpec) *bool { return v.ManualSelector }).(pulumi.BoolPtrOutput)
 }
 
 // Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecOutput) Parallelism() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.Parallelism }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.Parallelism }).(pulumi.IntPtrOutput)
 }
 
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func (v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v JobSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func (v JobSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
 func (o JobSpecOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.TtlSecondsAfterFinished }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.TtlSecondsAfterFinished }).(pulumi.IntPtrOutput)
 }
 
-type JobSpecPtrOutput struct{ *pulumi.OutputState }
+type JobSpecPtrOutput struct { *pulumi.OutputState }
 
 func (JobSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**JobSpec)(nil)).Elem()
@@ -528,47 +526,47 @@ func (o JobSpecPtrOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) Job
 }
 
 func (o JobSpecPtrOutput) Elem() JobSpecOutput {
-	return o.ApplyT(func(v *JobSpec) JobSpec { return *v }).(JobSpecOutput)
+	return o.ApplyT(func (v *JobSpec) JobSpec { return *v }).(JobSpecOutput)
 }
 
 // Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
 func (o JobSpecPtrOutput) ActiveDeadlineSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.ActiveDeadlineSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.ActiveDeadlineSeconds }).(pulumi.IntPtrOutput)
 }
 
 // Specifies the number of retries before marking this job failed. Defaults to 6
 func (o JobSpecPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
 
 // Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecPtrOutput) Completions() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.Completions }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.Completions }).(pulumi.IntPtrOutput)
 }
 
 // manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 func (o JobSpecPtrOutput) ManualSelector() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v JobSpec) *bool { return v.ManualSelector }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func (v JobSpec) *bool { return v.ManualSelector }).(pulumi.BoolPtrOutput)
 }
 
 // Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecPtrOutput) Parallelism() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.Parallelism }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.Parallelism }).(pulumi.IntPtrOutput)
 }
 
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func (v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v JobSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func (v JobSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
 func (o JobSpecPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobSpec) *int { return v.TtlSecondsAfterFinished }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobSpec) *int { return v.TtlSecondsAfterFinished }).(pulumi.IntPtrOutput)
 }
 
 // JobStatus represents the current state of a Job.
@@ -639,8 +637,7 @@ type JobStatusPtrInput interface {
 
 type jobStatusPtrType JobStatusArgs
 
-func JobStatusPtr(v *JobStatusArgs) JobStatusPtrInput {
-	return (*jobStatusPtrType)(v)
+func JobStatusPtr(v *JobStatusArgs) JobStatusPtrInput {	return (*jobStatusPtrType)(v)
 }
 
 func (*jobStatusPtrType) ElementType() reflect.Type {
@@ -656,7 +653,7 @@ func (i *jobStatusPtrType) ToJobStatusPtrOutputWithContext(ctx context.Context) 
 }
 
 // JobStatus represents the current state of a Job.
-type JobStatusOutput struct{ *pulumi.OutputState }
+type JobStatusOutput struct { *pulumi.OutputState }
 
 func (JobStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*JobStatus)(nil)).Elem()
@@ -679,38 +676,37 @@ func (o JobStatusOutput) ToJobStatusPtrOutputWithContext(ctx context.Context) Jo
 		return &v
 	}).(JobStatusPtrOutput)
 }
-
 // The number of actively running pods.
 func (o JobStatusOutput) Active() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobStatus) *int { return v.Active }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobStatus) *int { return v.Active }).(pulumi.IntPtrOutput)
 }
 
 // Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
 func (o JobStatusOutput) CompletionTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobStatus) *string { return v.CompletionTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobStatus) *string { return v.CompletionTime }).(pulumi.StringPtrOutput)
 }
 
 // The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobStatusOutput) Conditions() JobConditionArrayOutput {
-	return o.ApplyT(func(v JobStatus) []JobCondition { return v.Conditions }).(JobConditionArrayOutput)
+	return o.ApplyT(func (v JobStatus) []JobCondition { return v.Conditions }).(JobConditionArrayOutput)
 }
 
 // The number of pods which reached phase Failed.
 func (o JobStatusOutput) Failed() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobStatus) *int { return v.Failed }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobStatus) *int { return v.Failed }).(pulumi.IntPtrOutput)
 }
 
 // Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
 func (o JobStatusOutput) StartTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
 }
 
 // The number of pods which reached phase Succeeded.
 func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobStatus) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobStatus) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
 }
 
-type JobStatusPtrOutput struct{ *pulumi.OutputState }
+type JobStatusPtrOutput struct { *pulumi.OutputState }
 
 func (JobStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**JobStatus)(nil)).Elem()
@@ -725,37 +721,37 @@ func (o JobStatusPtrOutput) ToJobStatusPtrOutputWithContext(ctx context.Context)
 }
 
 func (o JobStatusPtrOutput) Elem() JobStatusOutput {
-	return o.ApplyT(func(v *JobStatus) JobStatus { return *v }).(JobStatusOutput)
+	return o.ApplyT(func (v *JobStatus) JobStatus { return *v }).(JobStatusOutput)
 }
 
 // The number of actively running pods.
 func (o JobStatusPtrOutput) Active() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobStatus) *int { return v.Active }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobStatus) *int { return v.Active }).(pulumi.IntPtrOutput)
 }
 
 // Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
 func (o JobStatusPtrOutput) CompletionTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobStatus) *string { return v.CompletionTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobStatus) *string { return v.CompletionTime }).(pulumi.StringPtrOutput)
 }
 
 // The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobStatusPtrOutput) Conditions() JobConditionArrayOutput {
-	return o.ApplyT(func(v JobStatus) []JobCondition { return v.Conditions }).(JobConditionArrayOutput)
+	return o.ApplyT(func (v JobStatus) []JobCondition { return v.Conditions }).(JobConditionArrayOutput)
 }
 
 // The number of pods which reached phase Failed.
 func (o JobStatusPtrOutput) Failed() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobStatus) *int { return v.Failed }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobStatus) *int { return v.Failed }).(pulumi.IntPtrOutput)
 }
 
 // Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
 func (o JobStatusPtrOutput) StartTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func (v JobStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
 }
 
 // The number of pods which reached phase Succeeded.
 func (o JobStatusPtrOutput) Succeeded() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v JobStatus) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func (v JobStatus) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
 }
 
 func init() {

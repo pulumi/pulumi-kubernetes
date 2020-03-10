@@ -108,3 +108,4 @@ type DaemonSetListArgs struct {
 func (DaemonSetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*daemonSetListArgs)(nil)).Elem()
 }
+

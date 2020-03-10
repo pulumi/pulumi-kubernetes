@@ -108,3 +108,4 @@ type PriorityLevelConfigurationListArgs struct {
 func (PriorityLevelConfigurationListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*priorityLevelConfigurationListArgs)(nil)).Elem()
 }
+

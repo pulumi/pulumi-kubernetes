@@ -115,3 +115,4 @@ type EndpointsArgs struct {
 func (EndpointsArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*endpointsArgs)(nil)).Elem()
 }
+

@@ -108,3 +108,4 @@ type BindingArgs struct {
 func (BindingArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*bindingArgs)(nil)).Elem()
 }
+

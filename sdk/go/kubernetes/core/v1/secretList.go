@@ -108,3 +108,4 @@ type SecretListArgs struct {
 func (SecretListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*secretListArgs)(nil)).Elem()
 }
+
