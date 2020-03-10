@@ -886,7 +886,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
 			canonicalGroup, gvk.Version, gvk.Kind)}
 	}
-	return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s", gvk.Group, gvk.Version, gvk.Kind)}
+	panic("Canonical group not set for ref: " + ref)
 }
 
 func makeSchemaType(prop map[string]interface{}, canonicalGroups map[string]string) string {

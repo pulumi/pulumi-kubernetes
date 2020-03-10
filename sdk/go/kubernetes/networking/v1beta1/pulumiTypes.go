@@ -94,7 +94,7 @@ func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-type HTTPIngressPathArrayOutput struct { *pulumi.OutputState}
+type HTTPIngressPathArrayOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressPathArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HTTPIngressPath)(nil)).Elem()
@@ -206,7 +206,7 @@ func (o HTTPIngressRuleValueOutput) Paths() HTTPIngressPathArrayOutput {
 	return o.ApplyT(func (v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
 }
 
-type HTTPIngressRuleValuePtrOutput struct { *pulumi.OutputState}
+type HTTPIngressRuleValuePtrOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressRuleValuePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HTTPIngressRuleValue)(nil)).Elem()
@@ -337,7 +337,7 @@ func (o IngressTypeOutput) Status() IngressStatusPtrOutput {
 	return o.ApplyT(func (v IngressType) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
 }
 
-type IngressTypeArrayOutput struct { *pulumi.OutputState}
+type IngressTypeArrayOutput struct { *pulumi.OutputState }
 
 func (IngressTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressType)(nil)).Elem()
@@ -458,7 +458,7 @@ func (o IngressBackendOutput) ServicePort() pulumi.AnyOutput {
 	return o.ApplyT(func (v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
 }
 
-type IngressBackendPtrOutput struct { *pulumi.OutputState}
+type IngressBackendPtrOutput struct { *pulumi.OutputState }
 
 func (IngressBackendPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressBackend)(nil)).Elem()
@@ -657,7 +657,7 @@ func (o IngressRuleOutput) Http() HTTPIngressRuleValuePtrOutput {
 	return o.ApplyT(func (v IngressRule) *HTTPIngressRuleValue { return v.Http }).(HTTPIngressRuleValuePtrOutput)
 }
 
-type IngressRuleArrayOutput struct { *pulumi.OutputState}
+type IngressRuleArrayOutput struct { *pulumi.OutputState }
 
 func (IngressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressRule)(nil)).Elem()
@@ -787,7 +787,7 @@ func (o IngressSpecOutput) Tls() IngressTLSArrayOutput {
 	return o.ApplyT(func (v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
 }
 
-type IngressSpecPtrOutput struct { *pulumi.OutputState}
+type IngressSpecPtrOutput struct { *pulumi.OutputState }
 
 func (IngressSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressSpec)(nil)).Elem()
@@ -912,7 +912,7 @@ func (o IngressStatusOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
 	return o.ApplyT(func (v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
 }
 
-type IngressStatusPtrOutput struct { *pulumi.OutputState}
+type IngressStatusPtrOutput struct { *pulumi.OutputState }
 
 func (IngressStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressStatus)(nil)).Elem()
@@ -1016,7 +1016,7 @@ func (o IngressTLSOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v IngressTLS) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
 
-type IngressTLSArrayOutput struct { *pulumi.OutputState}
+type IngressTLSArrayOutput struct { *pulumi.OutputState }
 
 func (IngressTLSArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressTLS)(nil)).Elem()

@@ -108,7 +108,7 @@ func (o AuditSinkTypeOutput) Spec() AuditSinkSpecPtrOutput {
 	return o.ApplyT(func (v AuditSinkType) *AuditSinkSpec { return v.Spec }).(AuditSinkSpecPtrOutput)
 }
 
-type AuditSinkTypeArrayOutput struct { *pulumi.OutputState}
+type AuditSinkTypeArrayOutput struct { *pulumi.OutputState }
 
 func (AuditSinkTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AuditSinkType)(nil)).Elem()
@@ -304,7 +304,7 @@ func (o AuditSinkSpecOutput) Webhook() WebhookPtrOutput {
 	return o.ApplyT(func (v AuditSinkSpec) *Webhook { return v.Webhook }).(WebhookPtrOutput)
 }
 
-type AuditSinkSpecPtrOutput struct { *pulumi.OutputState}
+type AuditSinkSpecPtrOutput struct { *pulumi.OutputState }
 
 func (AuditSinkSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**AuditSinkSpec)(nil)).Elem()
@@ -433,7 +433,7 @@ func (o PolicyOutput) Stages() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v Policy) []string { return v.Stages }).(pulumi.StringArrayOutput)
 }
 
-type PolicyPtrOutput struct { *pulumi.OutputState}
+type PolicyPtrOutput struct { *pulumi.OutputState }
 
 func (PolicyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Policy)(nil)).Elem()
@@ -580,7 +580,7 @@ func (o ServiceReferenceOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-type ServiceReferencePtrOutput struct { *pulumi.OutputState}
+type ServiceReferencePtrOutput struct { *pulumi.OutputState }
 
 func (ServiceReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceReference)(nil)).Elem()
@@ -719,7 +719,7 @@ func (o WebhookOutput) Throttle() WebhookThrottleConfigPtrOutput {
 	return o.ApplyT(func (v Webhook) *WebhookThrottleConfig { return v.Throttle }).(WebhookThrottleConfigPtrOutput)
 }
 
-type WebhookPtrOutput struct { *pulumi.OutputState}
+type WebhookPtrOutput struct { *pulumi.OutputState }
 
 func (WebhookPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Webhook)(nil)).Elem()
@@ -893,7 +893,7 @@ func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
 
-type WebhookClientConfigPtrOutput struct { *pulumi.OutputState}
+type WebhookClientConfigPtrOutput struct { *pulumi.OutputState }
 
 func (WebhookClientConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**WebhookClientConfig)(nil)).Elem()
@@ -1039,7 +1039,7 @@ func (o WebhookThrottleConfigOutput) Qps() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v WebhookThrottleConfig) *int { return v.Qps }).(pulumi.IntPtrOutput)
 }
 
-type WebhookThrottleConfigPtrOutput struct { *pulumi.OutputState}
+type WebhookThrottleConfigPtrOutput struct { *pulumi.OutputState }
 
 func (WebhookThrottleConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**WebhookThrottleConfig)(nil)).Elem()

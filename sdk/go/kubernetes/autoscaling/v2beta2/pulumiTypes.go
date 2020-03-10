@@ -122,7 +122,7 @@ func (o CrossVersionObjectReferenceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type CrossVersionObjectReferencePtrOutput struct { *pulumi.OutputState}
+type CrossVersionObjectReferencePtrOutput struct { *pulumi.OutputState }
 
 func (CrossVersionObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CrossVersionObjectReference)(nil)).Elem()
@@ -256,7 +256,7 @@ func (o ExternalMetricSourceOutput) Target() MetricTargetPtrOutput {
 	return o.ApplyT(func (v ExternalMetricSource) *MetricTarget { return v.Target }).(MetricTargetPtrOutput)
 }
 
-type ExternalMetricSourcePtrOutput struct { *pulumi.OutputState}
+type ExternalMetricSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ExternalMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ExternalMetricSource)(nil)).Elem()
@@ -385,7 +385,7 @@ func (o ExternalMetricStatusOutput) Metric() MetricIdentifierPtrOutput {
 	return o.ApplyT(func (v ExternalMetricStatus) *MetricIdentifier { return v.Metric }).(MetricIdentifierPtrOutput)
 }
 
-type ExternalMetricStatusPtrOutput struct { *pulumi.OutputState}
+type ExternalMetricStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ExternalMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ExternalMetricStatus)(nil)).Elem()
@@ -521,7 +521,7 @@ func (o HorizontalPodAutoscalerTypeOutput) Status() HorizontalPodAutoscalerStatu
 	return o.ApplyT(func (v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerStatus { return v.Status }).(HorizontalPodAutoscalerStatusPtrOutput)
 }
 
-type HorizontalPodAutoscalerTypeArrayOutput struct { *pulumi.OutputState}
+type HorizontalPodAutoscalerTypeArrayOutput struct { *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HorizontalPodAutoscalerType)(nil)).Elem()
@@ -649,7 +649,7 @@ func (o HorizontalPodAutoscalerConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v HorizontalPodAutoscalerCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type HorizontalPodAutoscalerConditionArrayOutput struct { *pulumi.OutputState}
+type HorizontalPodAutoscalerConditionArrayOutput struct { *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HorizontalPodAutoscalerCondition)(nil)).Elem()
@@ -866,7 +866,7 @@ func (o HorizontalPodAutoscalerSpecOutput) ScaleTargetRef() CrossVersionObjectRe
 	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
 }
 
-type HorizontalPodAutoscalerSpecPtrOutput struct { *pulumi.OutputState}
+type HorizontalPodAutoscalerSpecPtrOutput struct { *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
@@ -1041,7 +1041,7 @@ func (o HorizontalPodAutoscalerStatusOutput) ObservedGeneration() pulumi.IntPtrO
 	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-type HorizontalPodAutoscalerStatusPtrOutput struct { *pulumi.OutputState}
+type HorizontalPodAutoscalerStatusPtrOutput struct { *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerStatus)(nil)).Elem()
@@ -1190,7 +1190,7 @@ func (o MetricIdentifierOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func (v MetricIdentifier) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
-type MetricIdentifierPtrOutput struct { *pulumi.OutputState}
+type MetricIdentifierPtrOutput struct { *pulumi.OutputState }
 
 func (MetricIdentifierPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**MetricIdentifier)(nil)).Elem()
@@ -1326,7 +1326,7 @@ func (o MetricSpecOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v MetricSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type MetricSpecArrayOutput struct { *pulumi.OutputState}
+type MetricSpecArrayOutput struct { *pulumi.OutputState }
 
 func (MetricSpecArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]MetricSpec)(nil)).Elem()
@@ -1454,7 +1454,7 @@ func (o MetricStatusOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v MetricStatus) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type MetricStatusArrayOutput struct { *pulumi.OutputState}
+type MetricStatusArrayOutput struct { *pulumi.OutputState }
 
 func (MetricStatusArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]MetricStatus)(nil)).Elem()
@@ -1593,7 +1593,7 @@ func (o MetricTargetOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v MetricTarget) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-type MetricTargetPtrOutput struct { *pulumi.OutputState}
+type MetricTargetPtrOutput struct { *pulumi.OutputState }
 
 func (MetricTargetPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**MetricTarget)(nil)).Elem()
@@ -1741,7 +1741,7 @@ func (o MetricValueStatusOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v MetricValueStatus) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-type MetricValueStatusPtrOutput struct { *pulumi.OutputState}
+type MetricValueStatusPtrOutput struct { *pulumi.OutputState }
 
 func (MetricValueStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**MetricValueStatus)(nil)).Elem()
@@ -1881,7 +1881,7 @@ func (o ObjectMetricSourceOutput) Target() MetricTargetPtrOutput {
 	return o.ApplyT(func (v ObjectMetricSource) *MetricTarget { return v.Target }).(MetricTargetPtrOutput)
 }
 
-type ObjectMetricSourcePtrOutput struct { *pulumi.OutputState}
+type ObjectMetricSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ObjectMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ObjectMetricSource)(nil)).Elem()
@@ -2020,7 +2020,7 @@ func (o ObjectMetricStatusOutput) Metric() MetricIdentifierPtrOutput {
 	return o.ApplyT(func (v ObjectMetricStatus) *MetricIdentifier { return v.Metric }).(MetricIdentifierPtrOutput)
 }
 
-type ObjectMetricStatusPtrOutput struct { *pulumi.OutputState}
+type ObjectMetricStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ObjectMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ObjectMetricStatus)(nil)).Elem()
@@ -2153,7 +2153,7 @@ func (o PodsMetricSourceOutput) Target() MetricTargetPtrOutput {
 	return o.ApplyT(func (v PodsMetricSource) *MetricTarget { return v.Target }).(MetricTargetPtrOutput)
 }
 
-type PodsMetricSourcePtrOutput struct { *pulumi.OutputState}
+type PodsMetricSourcePtrOutput struct { *pulumi.OutputState }
 
 func (PodsMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodsMetricSource)(nil)).Elem()
@@ -2282,7 +2282,7 @@ func (o PodsMetricStatusOutput) Metric() MetricIdentifierPtrOutput {
 	return o.ApplyT(func (v PodsMetricStatus) *MetricIdentifier { return v.Metric }).(MetricIdentifierPtrOutput)
 }
 
-type PodsMetricStatusPtrOutput struct { *pulumi.OutputState}
+type PodsMetricStatusPtrOutput struct { *pulumi.OutputState }
 
 func (PodsMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodsMetricStatus)(nil)).Elem()
@@ -2411,7 +2411,7 @@ func (o ResourceMetricSourceOutput) Target() MetricTargetPtrOutput {
 	return o.ApplyT(func (v ResourceMetricSource) *MetricTarget { return v.Target }).(MetricTargetPtrOutput)
 }
 
-type ResourceMetricSourcePtrOutput struct { *pulumi.OutputState}
+type ResourceMetricSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ResourceMetricSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceMetricSource)(nil)).Elem()
@@ -2540,7 +2540,7 @@ func (o ResourceMetricStatusOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ResourceMetricStatus) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type ResourceMetricStatusPtrOutput struct { *pulumi.OutputState}
+type ResourceMetricStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ResourceMetricStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceMetricStatus)(nil)).Elem()

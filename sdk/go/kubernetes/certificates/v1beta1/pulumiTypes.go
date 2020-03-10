@@ -117,7 +117,7 @@ func (o CertificateSigningRequestTypeOutput) Status() CertificateSigningRequestS
 	return o.ApplyT(func (v CertificateSigningRequestType) *CertificateSigningRequestStatus { return v.Status }).(CertificateSigningRequestStatusPtrOutput)
 }
 
-type CertificateSigningRequestTypeArrayOutput struct { *pulumi.OutputState}
+type CertificateSigningRequestTypeArrayOutput struct { *pulumi.OutputState }
 
 func (CertificateSigningRequestTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CertificateSigningRequestType)(nil)).Elem()
@@ -233,7 +233,7 @@ func (o CertificateSigningRequestConditionOutput) Type() pulumi.StringPtrOutput 
 	return o.ApplyT(func (v CertificateSigningRequestCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type CertificateSigningRequestConditionArrayOutput struct { *pulumi.OutputState}
+type CertificateSigningRequestConditionArrayOutput struct { *pulumi.OutputState }
 
 func (CertificateSigningRequestConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CertificateSigningRequestCondition)(nil)).Elem()
@@ -462,7 +462,7 @@ func (o CertificateSigningRequestSpecOutput) Username() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CertificateSigningRequestSpec) *string { return v.Username }).(pulumi.StringPtrOutput)
 }
 
-type CertificateSigningRequestSpecPtrOutput struct { *pulumi.OutputState}
+type CertificateSigningRequestSpecPtrOutput struct { *pulumi.OutputState }
 
 func (CertificateSigningRequestSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CertificateSigningRequestSpec)(nil)).Elem()
@@ -609,7 +609,7 @@ func (o CertificateSigningRequestStatusOutput) Conditions() CertificateSigningRe
 	return o.ApplyT(func (v CertificateSigningRequestStatus) []CertificateSigningRequestCondition { return v.Conditions }).(CertificateSigningRequestConditionArrayOutput)
 }
 
-type CertificateSigningRequestStatusPtrOutput struct { *pulumi.OutputState}
+type CertificateSigningRequestStatusPtrOutput struct { *pulumi.OutputState }
 
 func (CertificateSigningRequestStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CertificateSigningRequestStatus)(nil)).Elem()

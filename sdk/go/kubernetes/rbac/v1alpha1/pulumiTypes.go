@@ -104,7 +104,7 @@ func (o AggregationRuleOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayO
 	return o.ApplyT(func (v AggregationRule) []metav1.LabelSelector { return v.ClusterRoleSelectors }).(metav1.LabelSelectorArrayOutput)
 }
 
-type AggregationRulePtrOutput struct { *pulumi.OutputState}
+type AggregationRulePtrOutput struct { *pulumi.OutputState }
 
 func (AggregationRulePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**AggregationRule)(nil)).Elem()
@@ -235,7 +235,7 @@ func (o ClusterRoleTypeOutput) Rules() PolicyRuleArrayOutput {
 	return o.ApplyT(func (v ClusterRoleType) []PolicyRule { return v.Rules }).(PolicyRuleArrayOutput)
 }
 
-type ClusterRoleTypeArrayOutput struct { *pulumi.OutputState}
+type ClusterRoleTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ClusterRoleTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ClusterRoleType)(nil)).Elem()
@@ -363,7 +363,7 @@ func (o ClusterRoleBindingTypeOutput) Subjects() SubjectArrayOutput {
 	return o.ApplyT(func (v ClusterRoleBindingType) []Subject { return v.Subjects }).(SubjectArrayOutput)
 }
 
-type ClusterRoleBindingTypeArrayOutput struct { *pulumi.OutputState}
+type ClusterRoleBindingTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ClusterRoleBindingTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ClusterRoleBindingType)(nil)).Elem()
@@ -647,7 +647,7 @@ func (o PolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v PolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
 
-type PolicyRuleArrayOutput struct { *pulumi.OutputState}
+type PolicyRuleArrayOutput struct { *pulumi.OutputState }
 
 func (PolicyRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PolicyRule)(nil)).Elem()
@@ -766,7 +766,7 @@ func (o RoleTypeOutput) Rules() PolicyRuleArrayOutput {
 	return o.ApplyT(func (v RoleType) []PolicyRule { return v.Rules }).(PolicyRuleArrayOutput)
 }
 
-type RoleTypeArrayOutput struct { *pulumi.OutputState}
+type RoleTypeArrayOutput struct { *pulumi.OutputState }
 
 func (RoleTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]RoleType)(nil)).Elem()
@@ -894,7 +894,7 @@ func (o RoleBindingTypeOutput) Subjects() SubjectArrayOutput {
 	return o.ApplyT(func (v RoleBindingType) []Subject { return v.Subjects }).(SubjectArrayOutput)
 }
 
-type RoleBindingTypeArrayOutput struct { *pulumi.OutputState}
+type RoleBindingTypeArrayOutput struct { *pulumi.OutputState }
 
 func (RoleBindingTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]RoleBindingType)(nil)).Elem()
@@ -1180,7 +1180,7 @@ func (o RoleRefOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RoleRef) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type RoleRefPtrOutput struct { *pulumi.OutputState}
+type RoleRefPtrOutput struct { *pulumi.OutputState }
 
 func (RoleRefPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RoleRef)(nil)).Elem()
@@ -1312,7 +1312,7 @@ func (o SubjectOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v Subject) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-type SubjectArrayOutput struct { *pulumi.OutputState}
+type SubjectArrayOutput struct { *pulumi.OutputState }
 
 func (SubjectArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Subject)(nil)).Elem()

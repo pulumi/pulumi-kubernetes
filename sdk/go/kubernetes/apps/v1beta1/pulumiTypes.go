@@ -121,7 +121,7 @@ func (o ControllerRevisionTypeOutput) Revision() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ControllerRevisionType) *int { return v.Revision }).(pulumi.IntPtrOutput)
 }
 
-type ControllerRevisionTypeArrayOutput struct { *pulumi.OutputState}
+type ControllerRevisionTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ControllerRevisionTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ControllerRevisionType)(nil)).Elem()
@@ -327,7 +327,7 @@ func (o DeploymentTypeOutput) Status() DeploymentStatusPtrOutput {
 	return o.ApplyT(func (v DeploymentType) *DeploymentStatus { return v.Status }).(DeploymentStatusPtrOutput)
 }
 
-type DeploymentTypeArrayOutput struct { *pulumi.OutputState}
+type DeploymentTypeArrayOutput struct { *pulumi.OutputState }
 
 func (DeploymentTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DeploymentType)(nil)).Elem()
@@ -464,7 +464,7 @@ func (o DeploymentConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v DeploymentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DeploymentConditionArrayOutput struct { *pulumi.OutputState}
+type DeploymentConditionArrayOutput struct { *pulumi.OutputState }
 
 func (DeploymentConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DeploymentCondition)(nil)).Elem()
@@ -813,7 +813,7 @@ func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func (v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
-type DeploymentSpecPtrOutput struct { *pulumi.OutputState}
+type DeploymentSpecPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentSpec)(nil)).Elem()
@@ -1031,7 +1031,7 @@ func (o DeploymentStatusOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
 
-type DeploymentStatusPtrOutput struct { *pulumi.OutputState}
+type DeploymentStatusPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentStatus)(nil)).Elem()
@@ -1190,7 +1190,7 @@ func (o DeploymentStrategyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DeploymentStrategyPtrOutput struct { *pulumi.OutputState}
+type DeploymentStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentStrategy)(nil)).Elem()
@@ -1310,7 +1310,7 @@ func (o RollbackConfigOutput) Revision() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v RollbackConfig) *int { return v.Revision }).(pulumi.IntPtrOutput)
 }
 
-type RollbackConfigPtrOutput struct { *pulumi.OutputState}
+type RollbackConfigPtrOutput struct { *pulumi.OutputState }
 
 func (RollbackConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollbackConfig)(nil)).Elem()
@@ -1434,7 +1434,7 @@ func (o RollingUpdateDeploymentOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func (v RollingUpdateDeployment) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
 
-type RollingUpdateDeploymentPtrOutput struct { *pulumi.OutputState}
+type RollingUpdateDeploymentPtrOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateDeploymentPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollingUpdateDeployment)(nil)).Elem()
@@ -1554,7 +1554,7 @@ func (o RollingUpdateStatefulSetStrategyOutput) Partition() pulumi.IntPtrOutput 
 	return o.ApplyT(func (v RollingUpdateStatefulSetStrategy) *int { return v.Partition }).(pulumi.IntPtrOutput)
 }
 
-type RollingUpdateStatefulSetStrategyPtrOutput struct { *pulumi.OutputState}
+type RollingUpdateStatefulSetStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateStatefulSetStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollingUpdateStatefulSetStrategy)(nil)).Elem()
@@ -1756,7 +1756,7 @@ func (o ScaleSpecOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-type ScaleSpecPtrOutput struct { *pulumi.OutputState}
+type ScaleSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleSpec)(nil)).Elem()
@@ -1889,7 +1889,7 @@ func (o ScaleStatusOutput) TargetSelector() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ScaleStatus) *string { return v.TargetSelector }).(pulumi.StringPtrOutput)
 }
 
-type ScaleStatusPtrOutput struct { *pulumi.OutputState}
+type ScaleStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleStatus)(nil)).Elem()
@@ -2036,7 +2036,7 @@ func (o StatefulSetTypeOutput) Status() StatefulSetStatusPtrOutput {
 	return o.ApplyT(func (v StatefulSetType) *StatefulSetStatus { return v.Status }).(StatefulSetStatusPtrOutput)
 }
 
-type StatefulSetTypeArrayOutput struct { *pulumi.OutputState}
+type StatefulSetTypeArrayOutput struct { *pulumi.OutputState }
 
 func (StatefulSetTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]StatefulSetType)(nil)).Elem()
@@ -2164,7 +2164,7 @@ func (o StatefulSetConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v StatefulSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type StatefulSetConditionArrayOutput struct { *pulumi.OutputState}
+type StatefulSetConditionArrayOutput struct { *pulumi.OutputState }
 
 func (StatefulSetConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]StatefulSetCondition)(nil)).Elem()
@@ -2411,7 +2411,7 @@ func (o StatefulSetSpecOutput) VolumeClaimTemplates() corev1.PersistentVolumeCla
 	return o.ApplyT(func (v StatefulSetSpec) []corev1.PersistentVolumeClaim { return v.VolumeClaimTemplates }).(corev1.PersistentVolumeClaimArrayOutput)
 }
 
-type StatefulSetSpecPtrOutput struct { *pulumi.OutputState}
+type StatefulSetSpecPtrOutput struct { *pulumi.OutputState }
 
 func (StatefulSetSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSetSpec)(nil)).Elem()
@@ -2633,7 +2633,7 @@ func (o StatefulSetStatusOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v StatefulSetStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
 
-type StatefulSetStatusPtrOutput struct { *pulumi.OutputState}
+type StatefulSetStatusPtrOutput struct { *pulumi.OutputState }
 
 func (StatefulSetStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSetStatus)(nil)).Elem()
@@ -2797,7 +2797,7 @@ func (o StatefulSetUpdateStrategyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v StatefulSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type StatefulSetUpdateStrategyPtrOutput struct { *pulumi.OutputState}
+type StatefulSetUpdateStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (StatefulSetUpdateStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSetUpdateStrategy)(nil)).Elem()

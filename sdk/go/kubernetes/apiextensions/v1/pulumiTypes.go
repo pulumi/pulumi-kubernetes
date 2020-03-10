@@ -129,7 +129,7 @@ func (o CustomResourceColumnDefinitionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CustomResourceColumnDefinition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type CustomResourceColumnDefinitionArrayOutput struct { *pulumi.OutputState}
+type CustomResourceColumnDefinitionArrayOutput struct { *pulumi.OutputState }
 
 func (CustomResourceColumnDefinitionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CustomResourceColumnDefinition)(nil)).Elem()
@@ -253,7 +253,7 @@ func (o CustomResourceConversionOutput) Webhook() WebhookConversionPtrOutput {
 	return o.ApplyT(func (v CustomResourceConversion) *WebhookConversion { return v.Webhook }).(WebhookConversionPtrOutput)
 }
 
-type CustomResourceConversionPtrOutput struct { *pulumi.OutputState}
+type CustomResourceConversionPtrOutput struct { *pulumi.OutputState }
 
 func (CustomResourceConversionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceConversion)(nil)).Elem()
@@ -387,7 +387,7 @@ func (o CustomResourceDefinitionTypeOutput) Status() CustomResourceDefinitionSta
 	return o.ApplyT(func (v CustomResourceDefinitionType) *CustomResourceDefinitionStatus { return v.Status }).(CustomResourceDefinitionStatusPtrOutput)
 }
 
-type CustomResourceDefinitionTypeArrayOutput struct { *pulumi.OutputState}
+type CustomResourceDefinitionTypeArrayOutput struct { *pulumi.OutputState }
 
 func (CustomResourceDefinitionTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CustomResourceDefinitionType)(nil)).Elem()
@@ -515,7 +515,7 @@ func (o CustomResourceDefinitionConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CustomResourceDefinitionCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type CustomResourceDefinitionConditionArrayOutput struct { *pulumi.OutputState}
+type CustomResourceDefinitionConditionArrayOutput struct { *pulumi.OutputState }
 
 func (CustomResourceDefinitionConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CustomResourceDefinitionCondition)(nil)).Elem()
@@ -747,7 +747,7 @@ func (o CustomResourceDefinitionNamesOutput) Singular() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CustomResourceDefinitionNames) *string { return v.Singular }).(pulumi.StringPtrOutput)
 }
 
-type CustomResourceDefinitionNamesPtrOutput struct { *pulumi.OutputState}
+type CustomResourceDefinitionNamesPtrOutput struct { *pulumi.OutputState }
 
 func (CustomResourceDefinitionNamesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceDefinitionNames)(nil)).Elem()
@@ -932,7 +932,7 @@ func (o CustomResourceDefinitionSpecOutput) Versions() CustomResourceDefinitionV
 	return o.ApplyT(func (v CustomResourceDefinitionSpec) []CustomResourceDefinitionVersion { return v.Versions }).(CustomResourceDefinitionVersionArrayOutput)
 }
 
-type CustomResourceDefinitionSpecPtrOutput struct { *pulumi.OutputState}
+type CustomResourceDefinitionSpecPtrOutput struct { *pulumi.OutputState }
 
 func (CustomResourceDefinitionSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceDefinitionSpec)(nil)).Elem()
@@ -1090,7 +1090,7 @@ func (o CustomResourceDefinitionStatusOutput) StoredVersions() pulumi.StringArra
 	return o.ApplyT(func (v CustomResourceDefinitionStatus) []string { return v.StoredVersions }).(pulumi.StringArrayOutput)
 }
 
-type CustomResourceDefinitionStatusPtrOutput struct { *pulumi.OutputState}
+type CustomResourceDefinitionStatusPtrOutput struct { *pulumi.OutputState }
 
 func (CustomResourceDefinitionStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceDefinitionStatus)(nil)).Elem()
@@ -1240,7 +1240,7 @@ func (o CustomResourceDefinitionVersionOutput) Subresources() CustomResourceSubr
 	return o.ApplyT(func (v CustomResourceDefinitionVersion) *CustomResourceSubresources { return v.Subresources }).(CustomResourceSubresourcesPtrOutput)
 }
 
-type CustomResourceDefinitionVersionArrayOutput struct { *pulumi.OutputState}
+type CustomResourceDefinitionVersionArrayOutput struct { *pulumi.OutputState }
 
 func (CustomResourceDefinitionVersionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CustomResourceDefinitionVersion)(nil)).Elem()
@@ -1370,7 +1370,7 @@ func (o CustomResourceSubresourceScaleOutput) StatusReplicasPath() pulumi.String
 	return o.ApplyT(func (v CustomResourceSubresourceScale) *string { return v.StatusReplicasPath }).(pulumi.StringPtrOutput)
 }
 
-type CustomResourceSubresourceScalePtrOutput struct { *pulumi.OutputState}
+type CustomResourceSubresourceScalePtrOutput struct { *pulumi.OutputState }
 
 func (CustomResourceSubresourceScalePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceSubresourceScale)(nil)).Elem()
@@ -1504,7 +1504,7 @@ func (o CustomResourceSubresourcesOutput) Status() pulumi.AnyOutput {
 	return o.ApplyT(func (v CustomResourceSubresources) interface{} { return v.Status }).(pulumi.AnyOutput)
 }
 
-type CustomResourceSubresourcesPtrOutput struct { *pulumi.OutputState}
+type CustomResourceSubresourcesPtrOutput struct { *pulumi.OutputState }
 
 func (CustomResourceSubresourcesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceSubresources)(nil)).Elem()
@@ -1624,7 +1624,7 @@ func (o CustomResourceValidationOutput) OpenAPIV3Schema() JSONSchemaPropsPtrOutp
 	return o.ApplyT(func (v CustomResourceValidation) *JSONSchemaProps { return v.OpenAPIV3Schema }).(JSONSchemaPropsPtrOutput)
 }
 
-type CustomResourceValidationPtrOutput struct { *pulumi.OutputState}
+type CustomResourceValidationPtrOutput struct { *pulumi.OutputState }
 
 func (CustomResourceValidationPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceValidation)(nil)).Elem()
@@ -1742,7 +1742,7 @@ func (o ExternalDocumentationOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ExternalDocumentation) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
 
-type ExternalDocumentationPtrOutput struct { *pulumi.OutputState}
+type ExternalDocumentationPtrOutput struct { *pulumi.OutputState }
 
 func (ExternalDocumentationPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ExternalDocumentation)(nil)).Elem()
@@ -2274,7 +2274,7 @@ func (o JSONSchemaPropsOutput) X_kubernetes_preserve_unknown_fields() pulumi.Boo
 	return o.ApplyT(func (v JSONSchemaProps) *bool { return v.X_kubernetes_preserve_unknown_fields }).(pulumi.BoolPtrOutput)
 }
 
-type JSONSchemaPropsPtrOutput struct { *pulumi.OutputState}
+type JSONSchemaPropsPtrOutput struct { *pulumi.OutputState }
 
 func (JSONSchemaPropsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**JSONSchemaProps)(nil)).Elem()
@@ -2505,7 +2505,7 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_preserve_unknown_fields() pulumi.
 	return o.ApplyT(func (v JSONSchemaProps) *bool { return v.X_kubernetes_preserve_unknown_fields }).(pulumi.BoolPtrOutput)
 }
 
-type JSONSchemaPropsArrayOutput struct { *pulumi.OutputState}
+type JSONSchemaPropsArrayOutput struct { *pulumi.OutputState }
 
 func (JSONSchemaPropsArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]JSONSchemaProps)(nil)).Elem()
@@ -2525,7 +2525,7 @@ func (o JSONSchemaPropsArrayOutput) Index(i pulumi.IntInput) JSONSchemaPropsOutp
 	}).(JSONSchemaPropsOutput)
 }
 
-type JSONSchemaPropsMapOutput struct { *pulumi.OutputState}
+type JSONSchemaPropsMapOutput struct { *pulumi.OutputState }
 
 func (JSONSchemaPropsMapOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*map[string]JSONSchemaProps)(nil)).Elem()
@@ -2664,7 +2664,7 @@ func (o ServiceReferenceOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-type ServiceReferencePtrOutput struct { *pulumi.OutputState}
+type ServiceReferencePtrOutput struct { *pulumi.OutputState }
 
 func (ServiceReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceReference)(nil)).Elem()
@@ -2848,7 +2848,7 @@ func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
 
-type WebhookClientConfigPtrOutput struct { *pulumi.OutputState}
+type WebhookClientConfigPtrOutput struct { *pulumi.OutputState }
 
 func (WebhookClientConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**WebhookClientConfig)(nil)).Elem()
@@ -2994,7 +2994,7 @@ func (o WebhookConversionOutput) ConversionReviewVersions() pulumi.StringArrayOu
 	return o.ApplyT(func (v WebhookConversion) []string { return v.ConversionReviewVersions }).(pulumi.StringArrayOutput)
 }
 
-type WebhookConversionPtrOutput struct { *pulumi.OutputState}
+type WebhookConversionPtrOutput struct { *pulumi.OutputState }
 
 func (WebhookConversionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**WebhookConversion)(nil)).Elem()

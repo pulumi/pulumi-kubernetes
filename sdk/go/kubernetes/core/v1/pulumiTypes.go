@@ -137,7 +137,7 @@ func (o AWSElasticBlockStoreVolumeSourceOutput) VolumeID() pulumi.StringPtrOutpu
 	return o.ApplyT(func (v AWSElasticBlockStoreVolumeSource) *string { return v.VolumeID }).(pulumi.StringPtrOutput)
 }
 
-type AWSElasticBlockStoreVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type AWSElasticBlockStoreVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (AWSElasticBlockStoreVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**AWSElasticBlockStoreVolumeSource)(nil)).Elem()
@@ -285,7 +285,7 @@ func (o AffinityOutput) PodAntiAffinity() PodAntiAffinityPtrOutput {
 	return o.ApplyT(func (v Affinity) *PodAntiAffinity { return v.PodAntiAffinity }).(PodAntiAffinityPtrOutput)
 }
 
-type AffinityPtrOutput struct { *pulumi.OutputState}
+type AffinityPtrOutput struct { *pulumi.OutputState }
 
 func (AffinityPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Affinity)(nil)).Elem()
@@ -399,7 +399,7 @@ func (o AttachedVolumeOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v AttachedVolume) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type AttachedVolumeArrayOutput struct { *pulumi.OutputState}
+type AttachedVolumeArrayOutput struct { *pulumi.OutputState }
 
 func (AttachedVolumeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AttachedVolume)(nil)).Elem()
@@ -556,7 +556,7 @@ func (o AzureDiskVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v AzureDiskVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-type AzureDiskVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type AzureDiskVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (AzureDiskVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**AzureDiskVolumeSource)(nil)).Elem()
@@ -723,7 +723,7 @@ func (o AzureFilePersistentVolumeSourceOutput) ShareName() pulumi.StringPtrOutpu
 	return o.ApplyT(func (v AzureFilePersistentVolumeSource) *string { return v.ShareName }).(pulumi.StringPtrOutput)
 }
 
-type AzureFilePersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type AzureFilePersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (AzureFilePersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**AzureFilePersistentVolumeSource)(nil)).Elem()
@@ -871,7 +871,7 @@ func (o AzureFileVolumeSourceOutput) ShareName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v AzureFileVolumeSource) *string { return v.ShareName }).(pulumi.StringPtrOutput)
 }
 
-type AzureFileVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type AzureFileVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (AzureFileVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**AzureFileVolumeSource)(nil)).Elem()
@@ -1146,7 +1146,7 @@ func (o CSIPersistentVolumeSourceOutput) VolumeHandle() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CSIPersistentVolumeSource) *string { return v.VolumeHandle }).(pulumi.StringPtrOutput)
 }
 
-type CSIPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type CSIPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (CSIPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CSIPersistentVolumeSource)(nil)).Elem()
@@ -1337,7 +1337,7 @@ func (o CSIVolumeSourceOutput) VolumeAttributes() pulumi.StringMapOutput {
 	return o.ApplyT(func (v CSIVolumeSource) map[string]string { return v.VolumeAttributes }).(pulumi.StringMapOutput)
 }
 
-type CSIVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type CSIVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (CSIVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CSIVolumeSource)(nil)).Elem()
@@ -1481,7 +1481,7 @@ func (o CapabilitiesOutput) Drop() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v Capabilities) []string { return v.Drop }).(pulumi.StringArrayOutput)
 }
 
-type CapabilitiesPtrOutput struct { *pulumi.OutputState}
+type CapabilitiesPtrOutput struct { *pulumi.OutputState }
 
 func (CapabilitiesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Capabilities)(nil)).Elem()
@@ -1646,7 +1646,7 @@ func (o CephFSPersistentVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CephFSPersistentVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-type CephFSPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type CephFSPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (CephFSPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CephFSPersistentVolumeSource)(nil)).Elem()
@@ -1831,7 +1831,7 @@ func (o CephFSVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CephFSVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-type CephFSVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type CephFSVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (CephFSVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CephFSVolumeSource)(nil)).Elem()
@@ -1998,7 +1998,7 @@ func (o CinderPersistentVolumeSourceOutput) VolumeID() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CinderPersistentVolumeSource) *string { return v.VolumeID }).(pulumi.StringPtrOutput)
 }
 
-type CinderPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type CinderPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (CinderPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CinderPersistentVolumeSource)(nil)).Elem()
@@ -2155,7 +2155,7 @@ func (o CinderVolumeSourceOutput) VolumeID() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CinderVolumeSource) *string { return v.VolumeID }).(pulumi.StringPtrOutput)
 }
 
-type CinderVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type CinderVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (CinderVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CinderVolumeSource)(nil)).Elem()
@@ -2285,7 +2285,7 @@ func (o ClientIPConfigOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ClientIPConfig) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
 }
 
-type ClientIPConfigPtrOutput struct { *pulumi.OutputState}
+type ClientIPConfigPtrOutput struct { *pulumi.OutputState }
 
 func (ClientIPConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ClientIPConfig)(nil)).Elem()
@@ -2407,7 +2407,7 @@ func (o ComponentConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ComponentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type ComponentConditionArrayOutput struct { *pulumi.OutputState}
+type ComponentConditionArrayOutput struct { *pulumi.OutputState }
 
 func (ComponentConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ComponentCondition)(nil)).Elem()
@@ -2526,7 +2526,7 @@ func (o ComponentStatusTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func (v ComponentStatusType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-type ComponentStatusTypeArrayOutput struct { *pulumi.OutputState}
+type ComponentStatusTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ComponentStatusTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ComponentStatusType)(nil)).Elem()
@@ -2732,7 +2732,7 @@ func (o ConfigMapTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func (v ConfigMapType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-type ConfigMapTypeArrayOutput struct { *pulumi.OutputState}
+type ConfigMapTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ConfigMapTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ConfigMapType)(nil)).Elem()
@@ -2859,7 +2859,7 @@ func (o ConfigMapEnvSourceOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v ConfigMapEnvSource) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-type ConfigMapEnvSourcePtrOutput struct { *pulumi.OutputState}
+type ConfigMapEnvSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ConfigMapEnvSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ConfigMapEnvSource)(nil)).Elem()
@@ -2997,7 +2997,7 @@ func (o ConfigMapKeySelectorOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v ConfigMapKeySelector) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-type ConfigMapKeySelectorPtrOutput struct { *pulumi.OutputState}
+type ConfigMapKeySelectorPtrOutput struct { *pulumi.OutputState }
 
 func (ConfigMapKeySelectorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ConfigMapKeySelector)(nil)).Elem()
@@ -3236,7 +3236,7 @@ func (o ConfigMapNodeConfigSourceOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ConfigMapNodeConfigSource) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type ConfigMapNodeConfigSourcePtrOutput struct { *pulumi.OutputState}
+type ConfigMapNodeConfigSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ConfigMapNodeConfigSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ConfigMapNodeConfigSource)(nil)).Elem()
@@ -3395,7 +3395,7 @@ func (o ConfigMapProjectionOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v ConfigMapProjection) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-type ConfigMapProjectionPtrOutput struct { *pulumi.OutputState}
+type ConfigMapProjectionPtrOutput struct { *pulumi.OutputState }
 
 func (ConfigMapProjectionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ConfigMapProjection)(nil)).Elem()
@@ -3553,7 +3553,7 @@ func (o ConfigMapVolumeSourceOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v ConfigMapVolumeSource) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-type ConfigMapVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type ConfigMapVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ConfigMapVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ConfigMapVolumeSource)(nil)).Elem()
@@ -3852,7 +3852,7 @@ func (o ContainerOutput) WorkingDir() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v Container) *string { return v.WorkingDir }).(pulumi.StringPtrOutput)
 }
 
-type ContainerArrayOutput struct { *pulumi.OutputState}
+type ContainerArrayOutput struct { *pulumi.OutputState }
 
 func (ContainerArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Container)(nil)).Elem()
@@ -3953,7 +3953,7 @@ func (o ContainerImageOutput) SizeBytes() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ContainerImage) *int { return v.SizeBytes }).(pulumi.IntPtrOutput)
 }
 
-type ContainerImageArrayOutput struct { *pulumi.OutputState}
+type ContainerImageArrayOutput struct { *pulumi.OutputState }
 
 func (ContainerImageArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ContainerImage)(nil)).Elem()
@@ -4081,7 +4081,7 @@ func (o ContainerPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ContainerPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-type ContainerPortArrayOutput struct { *pulumi.OutputState}
+type ContainerPortArrayOutput struct { *pulumi.OutputState }
 
 func (ContainerPortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ContainerPort)(nil)).Elem()
@@ -4211,7 +4211,7 @@ func (o ContainerStateOutput) Waiting() ContainerStateWaitingPtrOutput {
 	return o.ApplyT(func (v ContainerState) *ContainerStateWaiting { return v.Waiting }).(ContainerStateWaitingPtrOutput)
 }
 
-type ContainerStatePtrOutput struct { *pulumi.OutputState}
+type ContainerStatePtrOutput struct { *pulumi.OutputState }
 
 func (ContainerStatePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ContainerState)(nil)).Elem()
@@ -4336,7 +4336,7 @@ func (o ContainerStateRunningOutput) StartedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ContainerStateRunning) *string { return v.StartedAt }).(pulumi.StringPtrOutput)
 }
 
-type ContainerStateRunningPtrOutput struct { *pulumi.OutputState}
+type ContainerStateRunningPtrOutput struct { *pulumi.OutputState }
 
 func (ContainerStateRunningPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ContainerStateRunning)(nil)).Elem()
@@ -4505,7 +4505,7 @@ func (o ContainerStateTerminatedOutput) StartedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ContainerStateTerminated) *string { return v.StartedAt }).(pulumi.StringPtrOutput)
 }
 
-type ContainerStateTerminatedPtrOutput struct { *pulumi.OutputState}
+type ContainerStateTerminatedPtrOutput struct { *pulumi.OutputState }
 
 func (ContainerStateTerminatedPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ContainerStateTerminated)(nil)).Elem()
@@ -4659,7 +4659,7 @@ func (o ContainerStateWaitingOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ContainerStateWaiting) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-type ContainerStateWaitingPtrOutput struct { *pulumi.OutputState}
+type ContainerStateWaitingPtrOutput struct { *pulumi.OutputState }
 
 func (ContainerStateWaitingPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ContainerStateWaiting)(nil)).Elem()
@@ -4831,7 +4831,7 @@ func (o ContainerStatusOutput) State() ContainerStatePtrOutput {
 	return o.ApplyT(func (v ContainerStatus) *ContainerState { return v.State }).(ContainerStatePtrOutput)
 }
 
-type ContainerStatusArrayOutput struct { *pulumi.OutputState}
+type ContainerStatusArrayOutput struct { *pulumi.OutputState }
 
 func (ContainerStatusArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ContainerStatus)(nil)).Elem()
@@ -4943,7 +4943,7 @@ func (o DaemonEndpointOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v DaemonEndpoint) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-type DaemonEndpointPtrOutput struct { *pulumi.OutputState}
+type DaemonEndpointPtrOutput struct { *pulumi.OutputState }
 
 func (DaemonEndpointPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DaemonEndpoint)(nil)).Elem()
@@ -5058,7 +5058,7 @@ func (o DownwardAPIProjectionOutput) Items() DownwardAPIVolumeFileArrayOutput {
 	return o.ApplyT(func (v DownwardAPIProjection) []DownwardAPIVolumeFile { return v.Items }).(DownwardAPIVolumeFileArrayOutput)
 }
 
-type DownwardAPIProjectionPtrOutput struct { *pulumi.OutputState}
+type DownwardAPIProjectionPtrOutput struct { *pulumi.OutputState }
 
 func (DownwardAPIProjectionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DownwardAPIProjection)(nil)).Elem()
@@ -5180,7 +5180,7 @@ func (o DownwardAPIVolumeFileOutput) ResourceFieldRef() ResourceFieldSelectorPtr
 	return o.ApplyT(func (v DownwardAPIVolumeFile) *ResourceFieldSelector { return v.ResourceFieldRef }).(ResourceFieldSelectorPtrOutput)
 }
 
-type DownwardAPIVolumeFileArrayOutput struct { *pulumi.OutputState}
+type DownwardAPIVolumeFileArrayOutput struct { *pulumi.OutputState }
 
 func (DownwardAPIVolumeFileArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DownwardAPIVolumeFile)(nil)).Elem()
@@ -5301,7 +5301,7 @@ func (o DownwardAPIVolumeSourceOutput) Items() DownwardAPIVolumeFileArrayOutput 
 	return o.ApplyT(func (v DownwardAPIVolumeSource) []DownwardAPIVolumeFile { return v.Items }).(DownwardAPIVolumeFileArrayOutput)
 }
 
-type DownwardAPIVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type DownwardAPIVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (DownwardAPIVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DownwardAPIVolumeSource)(nil)).Elem()
@@ -5430,7 +5430,7 @@ func (o EmptyDirVolumeSourceOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EmptyDirVolumeSource) *string { return v.SizeLimit }).(pulumi.StringPtrOutput)
 }
 
-type EmptyDirVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type EmptyDirVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (EmptyDirVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EmptyDirVolumeSource)(nil)).Elem()
@@ -5557,7 +5557,7 @@ func (o EndpointAddressOutput) TargetRef() ObjectReferencePtrOutput {
 	return o.ApplyT(func (v EndpointAddress) *ObjectReference { return v.TargetRef }).(ObjectReferencePtrOutput)
 }
 
-type EndpointAddressArrayOutput struct { *pulumi.OutputState}
+type EndpointAddressArrayOutput struct { *pulumi.OutputState }
 
 func (EndpointAddressArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EndpointAddress)(nil)).Elem()
@@ -5667,7 +5667,7 @@ func (o EndpointPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-type EndpointPortArrayOutput struct { *pulumi.OutputState}
+type EndpointPortArrayOutput struct { *pulumi.OutputState }
 
 func (EndpointPortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EndpointPort)(nil)).Elem()
@@ -5798,7 +5798,7 @@ func (o EndpointSubsetOutput) Ports() EndpointPortArrayOutput {
 	return o.ApplyT(func (v EndpointSubset) []EndpointPort { return v.Ports }).(EndpointPortArrayOutput)
 }
 
-type EndpointSubsetArrayOutput struct { *pulumi.OutputState}
+type EndpointSubsetArrayOutput struct { *pulumi.OutputState }
 
 func (EndpointSubsetArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EndpointSubset)(nil)).Elem()
@@ -5950,7 +5950,7 @@ func (o EndpointsTypeOutput) Subsets() EndpointSubsetArrayOutput {
 	return o.ApplyT(func (v EndpointsType) []EndpointSubset { return v.Subsets }).(EndpointSubsetArrayOutput)
 }
 
-type EndpointsTypeArrayOutput struct { *pulumi.OutputState}
+type EndpointsTypeArrayOutput struct { *pulumi.OutputState }
 
 func (EndpointsTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EndpointsType)(nil)).Elem()
@@ -6138,7 +6138,7 @@ func (o EnvFromSourceOutput) SecretRef() SecretEnvSourcePtrOutput {
 	return o.ApplyT(func (v EnvFromSource) *SecretEnvSource { return v.SecretRef }).(SecretEnvSourcePtrOutput)
 }
 
-type EnvFromSourceArrayOutput struct { *pulumi.OutputState}
+type EnvFromSourceArrayOutput struct { *pulumi.OutputState }
 
 func (EnvFromSourceArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EnvFromSource)(nil)).Elem()
@@ -6248,7 +6248,7 @@ func (o EnvVarOutput) ValueFrom() EnvVarSourcePtrOutput {
 	return o.ApplyT(func (v EnvVar) *EnvVarSource { return v.ValueFrom }).(EnvVarSourcePtrOutput)
 }
 
-type EnvVarArrayOutput struct { *pulumi.OutputState}
+type EnvVarArrayOutput struct { *pulumi.OutputState }
 
 func (EnvVarArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EnvVar)(nil)).Elem()
@@ -6387,7 +6387,7 @@ func (o EnvVarSourceOutput) SecretKeyRef() SecretKeySelectorPtrOutput {
 	return o.ApplyT(func (v EnvVarSource) *SecretKeySelector { return v.SecretKeyRef }).(SecretKeySelectorPtrOutput)
 }
 
-type EnvVarSourcePtrOutput struct { *pulumi.OutputState}
+type EnvVarSourcePtrOutput struct { *pulumi.OutputState }
 
 func (EnvVarSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EnvVarSource)(nil)).Elem()
@@ -6695,7 +6695,7 @@ func (o EphemeralContainerOutput) WorkingDir() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EphemeralContainer) *string { return v.WorkingDir }).(pulumi.StringPtrOutput)
 }
 
-type EphemeralContainerArrayOutput struct { *pulumi.OutputState}
+type EphemeralContainerArrayOutput struct { *pulumi.OutputState }
 
 func (EphemeralContainerArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EphemeralContainer)(nil)).Elem()
@@ -6931,7 +6931,7 @@ func (o EventTypeOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EventType) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type EventTypeArrayOutput struct { *pulumi.OutputState}
+type EventTypeArrayOutput struct { *pulumi.OutputState }
 
 func (EventTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EventType)(nil)).Elem()
@@ -7139,7 +7139,7 @@ func (o EventSeriesOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
-type EventSeriesPtrOutput struct { *pulumi.OutputState}
+type EventSeriesPtrOutput struct { *pulumi.OutputState }
 
 func (EventSeriesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EventSeries)(nil)).Elem()
@@ -7273,7 +7273,7 @@ func (o EventSourceOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EventSource) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
 
-type EventSourcePtrOutput struct { *pulumi.OutputState}
+type EventSourcePtrOutput struct { *pulumi.OutputState }
 
 func (EventSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EventSource)(nil)).Elem()
@@ -7393,7 +7393,7 @@ func (o ExecActionOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v ExecAction) []string { return v.Command }).(pulumi.StringArrayOutput)
 }
 
-type ExecActionPtrOutput struct { *pulumi.OutputState}
+type ExecActionPtrOutput struct { *pulumi.OutputState }
 
 func (ExecActionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ExecAction)(nil)).Elem()
@@ -7544,7 +7544,7 @@ func (o FCVolumeSourceOutput) Wwids() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v FCVolumeSource) []string { return v.Wwids }).(pulumi.StringArrayOutput)
 }
 
-type FCVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type FCVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (FCVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FCVolumeSource)(nil)).Elem()
@@ -7715,7 +7715,7 @@ func (o FlexPersistentVolumeSourceOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func (v FlexPersistentVolumeSource) *SecretReference { return v.SecretRef }).(SecretReferencePtrOutput)
 }
 
-type FlexPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type FlexPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (FlexPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FlexPersistentVolumeSource)(nil)).Elem()
@@ -7886,7 +7886,7 @@ func (o FlexVolumeSourceOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func (v FlexVolumeSource) *LocalObjectReference { return v.SecretRef }).(LocalObjectReferencePtrOutput)
 }
 
-type FlexVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type FlexVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (FlexVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FlexVolumeSource)(nil)).Elem()
@@ -8030,7 +8030,7 @@ func (o FlockerVolumeSourceOutput) DatasetUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v FlockerVolumeSource) *string { return v.DatasetUUID }).(pulumi.StringPtrOutput)
 }
 
-type FlockerVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type FlockerVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (FlockerVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FlockerVolumeSource)(nil)).Elem()
@@ -8183,7 +8183,7 @@ func (o GCEPersistentDiskVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v GCEPersistentDiskVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-type GCEPersistentDiskVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type GCEPersistentDiskVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (GCEPersistentDiskVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**GCEPersistentDiskVolumeSource)(nil)).Elem()
@@ -8337,7 +8337,7 @@ func (o GitRepoVolumeSourceOutput) Revision() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v GitRepoVolumeSource) *string { return v.Revision }).(pulumi.StringPtrOutput)
 }
 
-type GitRepoVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type GitRepoVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (GitRepoVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**GitRepoVolumeSource)(nil)).Elem()
@@ -8489,7 +8489,7 @@ func (o GlusterfsPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v GlusterfsPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-type GlusterfsPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type GlusterfsPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (GlusterfsPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**GlusterfsPersistentVolumeSource)(nil)).Elem()
@@ -8637,7 +8637,7 @@ func (o GlusterfsVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v GlusterfsVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-type GlusterfsVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type GlusterfsVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (GlusterfsVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**GlusterfsVolumeSource)(nil)).Elem()
@@ -8798,7 +8798,7 @@ func (o HTTPGetActionOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v HTTPGetAction) *string { return v.Scheme }).(pulumi.StringPtrOutput)
 }
 
-type HTTPGetActionPtrOutput struct { *pulumi.OutputState}
+type HTTPGetActionPtrOutput struct { *pulumi.OutputState }
 
 func (HTTPGetActionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HTTPGetAction)(nil)).Elem()
@@ -8922,7 +8922,7 @@ func (o HTTPHeaderOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v HTTPHeader) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-type HTTPHeaderArrayOutput struct { *pulumi.OutputState}
+type HTTPHeaderArrayOutput struct { *pulumi.OutputState }
 
 func (HTTPHeaderArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HTTPHeader)(nil)).Elem()
@@ -9052,7 +9052,7 @@ func (o HandlerOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func (v Handler) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
 }
 
-type HandlerPtrOutput struct { *pulumi.OutputState}
+type HandlerPtrOutput struct { *pulumi.OutputState }
 
 func (HandlerPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Handler)(nil)).Elem()
@@ -9166,7 +9166,7 @@ func (o HostAliasOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v HostAlias) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
-type HostAliasArrayOutput struct { *pulumi.OutputState}
+type HostAliasArrayOutput struct { *pulumi.OutputState }
 
 func (HostAliasArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HostAlias)(nil)).Elem()
@@ -9287,7 +9287,7 @@ func (o HostPathVolumeSourceOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v HostPathVolumeSource) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type HostPathVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type HostPathVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (HostPathVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HostPathVolumeSource)(nil)).Elem()
@@ -9497,7 +9497,7 @@ func (o ISCSIPersistentVolumeSourceOutput) TargetPortal() pulumi.StringPtrOutput
 	return o.ApplyT(func (v ISCSIPersistentVolumeSource) *string { return v.TargetPortal }).(pulumi.StringPtrOutput)
 }
 
-type ISCSIPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type ISCSIPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ISCSIPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ISCSIPersistentVolumeSource)(nil)).Elem()
@@ -9752,7 +9752,7 @@ func (o ISCSIVolumeSourceOutput) TargetPortal() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ISCSIVolumeSource) *string { return v.TargetPortal }).(pulumi.StringPtrOutput)
 }
 
-type ISCSIVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type ISCSIVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ISCSIVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ISCSIVolumeSource)(nil)).Elem()
@@ -9915,7 +9915,7 @@ func (o KeyToPathOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v KeyToPath) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-type KeyToPathArrayOutput struct { *pulumi.OutputState}
+type KeyToPathArrayOutput struct { *pulumi.OutputState }
 
 func (KeyToPathArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]KeyToPath)(nil)).Elem()
@@ -10036,7 +10036,7 @@ func (o LifecycleOutput) PreStop() HandlerPtrOutput {
 	return o.ApplyT(func (v Lifecycle) *Handler { return v.PreStop }).(HandlerPtrOutput)
 }
 
-type LifecyclePtrOutput struct { *pulumi.OutputState}
+type LifecyclePtrOutput struct { *pulumi.OutputState }
 
 func (LifecyclePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Lifecycle)(nil)).Elem()
@@ -10163,7 +10163,7 @@ func (o LimitRangeTypeOutput) Spec() LimitRangeSpecPtrOutput {
 	return o.ApplyT(func (v LimitRangeType) *LimitRangeSpec { return v.Spec }).(LimitRangeSpecPtrOutput)
 }
 
-type LimitRangeTypeArrayOutput struct { *pulumi.OutputState}
+type LimitRangeTypeArrayOutput struct { *pulumi.OutputState }
 
 func (LimitRangeTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]LimitRangeType)(nil)).Elem()
@@ -10300,7 +10300,7 @@ func (o LimitRangeItemOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LimitRangeItem) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type LimitRangeItemArrayOutput struct { *pulumi.OutputState}
+type LimitRangeItemArrayOutput struct { *pulumi.OutputState }
 
 func (LimitRangeItemArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]LimitRangeItem)(nil)).Elem()
@@ -10490,7 +10490,7 @@ func (o LimitRangeSpecOutput) Limits() LimitRangeItemArrayOutput {
 	return o.ApplyT(func (v LimitRangeSpec) []LimitRangeItem { return v.Limits }).(LimitRangeItemArrayOutput)
 }
 
-type LimitRangeSpecPtrOutput struct { *pulumi.OutputState}
+type LimitRangeSpecPtrOutput struct { *pulumi.OutputState }
 
 func (LimitRangeSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LimitRangeSpec)(nil)).Elem()
@@ -10594,7 +10594,7 @@ func (o LoadBalancerIngressOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LoadBalancerIngress) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
-type LoadBalancerIngressArrayOutput struct { *pulumi.OutputState}
+type LoadBalancerIngressArrayOutput struct { *pulumi.OutputState }
 
 func (LoadBalancerIngressArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]LoadBalancerIngress)(nil)).Elem()
@@ -10706,7 +10706,7 @@ func (o LoadBalancerStatusOutput) Ingress() LoadBalancerIngressArrayOutput {
 	return o.ApplyT(func (v LoadBalancerStatus) []LoadBalancerIngress { return v.Ingress }).(LoadBalancerIngressArrayOutput)
 }
 
-type LoadBalancerStatusPtrOutput struct { *pulumi.OutputState}
+type LoadBalancerStatusPtrOutput struct { *pulumi.OutputState }
 
 func (LoadBalancerStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LoadBalancerStatus)(nil)).Elem()
@@ -10842,7 +10842,7 @@ func (o LocalObjectReferenceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LocalObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type LocalObjectReferencePtrOutput struct { *pulumi.OutputState}
+type LocalObjectReferencePtrOutput struct { *pulumi.OutputState }
 
 func (LocalObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LocalObjectReference)(nil)).Elem()
@@ -10865,7 +10865,7 @@ func (o LocalObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LocalObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type LocalObjectReferenceArrayOutput struct { *pulumi.OutputState}
+type LocalObjectReferenceArrayOutput struct { *pulumi.OutputState }
 
 func (LocalObjectReferenceArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]LocalObjectReference)(nil)).Elem()
@@ -10986,7 +10986,7 @@ func (o LocalVolumeSourceOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LocalVolumeSource) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-type LocalVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type LocalVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (LocalVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LocalVolumeSource)(nil)).Elem()
@@ -11124,7 +11124,7 @@ func (o NFSVolumeSourceOutput) Server() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NFSVolumeSource) *string { return v.Server }).(pulumi.StringPtrOutput)
 }
 
-type NFSVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type NFSVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (NFSVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NFSVolumeSource)(nil)).Elem()
@@ -11265,7 +11265,7 @@ func (o NamespaceTypeOutput) Status() NamespaceStatusPtrOutput {
 	return o.ApplyT(func (v NamespaceType) *NamespaceStatus { return v.Status }).(NamespaceStatusPtrOutput)
 }
 
-type NamespaceTypeArrayOutput struct { *pulumi.OutputState}
+type NamespaceTypeArrayOutput struct { *pulumi.OutputState }
 
 func (NamespaceTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NamespaceType)(nil)).Elem()
@@ -11384,7 +11384,7 @@ func (o NamespaceConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NamespaceCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type NamespaceConditionArrayOutput struct { *pulumi.OutputState}
+type NamespaceConditionArrayOutput struct { *pulumi.OutputState }
 
 func (NamespaceConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NamespaceCondition)(nil)).Elem()
@@ -11574,7 +11574,7 @@ func (o NamespaceSpecOutput) Finalizers() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v NamespaceSpec) []string { return v.Finalizers }).(pulumi.StringArrayOutput)
 }
 
-type NamespaceSpecPtrOutput struct { *pulumi.OutputState}
+type NamespaceSpecPtrOutput struct { *pulumi.OutputState }
 
 func (NamespaceSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NamespaceSpec)(nil)).Elem()
@@ -11698,7 +11698,7 @@ func (o NamespaceStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NamespaceStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
 
-type NamespaceStatusPtrOutput struct { *pulumi.OutputState}
+type NamespaceStatusPtrOutput struct { *pulumi.OutputState }
 
 func (NamespaceStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NamespaceStatus)(nil)).Elem()
@@ -11834,7 +11834,7 @@ func (o NodeTypeOutput) Status() NodeStatusPtrOutput {
 	return o.ApplyT(func (v NodeType) *NodeStatus { return v.Status }).(NodeStatusPtrOutput)
 }
 
-type NodeTypeArrayOutput struct { *pulumi.OutputState}
+type NodeTypeArrayOutput struct { *pulumi.OutputState }
 
 func (NodeTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NodeType)(nil)).Elem()
@@ -11935,7 +11935,7 @@ func (o NodeAddressOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NodeAddress) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type NodeAddressArrayOutput struct { *pulumi.OutputState}
+type NodeAddressArrayOutput struct { *pulumi.OutputState }
 
 func (NodeAddressArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NodeAddress)(nil)).Elem()
@@ -12056,7 +12056,7 @@ func (o NodeAffinityOutput) RequiredDuringSchedulingIgnoredDuringExecution() Nod
 	return o.ApplyT(func (v NodeAffinity) *NodeSelector { return v.RequiredDuringSchedulingIgnoredDuringExecution }).(NodeSelectorPtrOutput)
 }
 
-type NodeAffinityPtrOutput struct { *pulumi.OutputState}
+type NodeAffinityPtrOutput struct { *pulumi.OutputState }
 
 func (NodeAffinityPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeAffinity)(nil)).Elem()
@@ -12201,7 +12201,7 @@ func (o NodeConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NodeCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type NodeConditionArrayOutput struct { *pulumi.OutputState}
+type NodeConditionArrayOutput struct { *pulumi.OutputState }
 
 func (NodeConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NodeCondition)(nil)).Elem()
@@ -12313,7 +12313,7 @@ func (o NodeConfigSourceOutput) ConfigMap() ConfigMapNodeConfigSourcePtrOutput {
 	return o.ApplyT(func (v NodeConfigSource) *ConfigMapNodeConfigSource { return v.ConfigMap }).(ConfigMapNodeConfigSourcePtrOutput)
 }
 
-type NodeConfigSourcePtrOutput struct { *pulumi.OutputState}
+type NodeConfigSourcePtrOutput struct { *pulumi.OutputState }
 
 func (NodeConfigSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeConfigSource)(nil)).Elem()
@@ -12455,7 +12455,7 @@ func (o NodeConfigStatusOutput) LastKnownGood() NodeConfigSourcePtrOutput {
 	return o.ApplyT(func (v NodeConfigStatus) *NodeConfigSource { return v.LastKnownGood }).(NodeConfigSourcePtrOutput)
 }
 
-type NodeConfigStatusPtrOutput struct { *pulumi.OutputState}
+type NodeConfigStatusPtrOutput struct { *pulumi.OutputState }
 
 func (NodeConfigStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeConfigStatus)(nil)).Elem()
@@ -12585,7 +12585,7 @@ func (o NodeDaemonEndpointsOutput) KubeletEndpoint() DaemonEndpointPtrOutput {
 	return o.ApplyT(func (v NodeDaemonEndpoints) *DaemonEndpoint { return v.KubeletEndpoint }).(DaemonEndpointPtrOutput)
 }
 
-type NodeDaemonEndpointsPtrOutput struct { *pulumi.OutputState}
+type NodeDaemonEndpointsPtrOutput struct { *pulumi.OutputState }
 
 func (NodeDaemonEndpointsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeDaemonEndpoints)(nil)).Elem()
@@ -12778,7 +12778,7 @@ func (o NodeSelectorOutput) NodeSelectorTerms() NodeSelectorTermArrayOutput {
 	return o.ApplyT(func (v NodeSelector) []NodeSelectorTerm { return v.NodeSelectorTerms }).(NodeSelectorTermArrayOutput)
 }
 
-type NodeSelectorPtrOutput struct { *pulumi.OutputState}
+type NodeSelectorPtrOutput struct { *pulumi.OutputState }
 
 func (NodeSelectorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeSelector)(nil)).Elem()
@@ -12891,7 +12891,7 @@ func (o NodeSelectorRequirementOutput) Values() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v NodeSelectorRequirement) []string { return v.Values }).(pulumi.StringArrayOutput)
 }
 
-type NodeSelectorRequirementArrayOutput struct { *pulumi.OutputState}
+type NodeSelectorRequirementArrayOutput struct { *pulumi.OutputState }
 
 func (NodeSelectorRequirementArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NodeSelectorRequirement)(nil)).Elem()
@@ -13033,7 +13033,7 @@ func (o NodeSelectorTermOutput) MatchFields() NodeSelectorRequirementArrayOutput
 	return o.ApplyT(func (v NodeSelectorTerm) []NodeSelectorRequirement { return v.MatchFields }).(NodeSelectorRequirementArrayOutput)
 }
 
-type NodeSelectorTermPtrOutput struct { *pulumi.OutputState}
+type NodeSelectorTermPtrOutput struct { *pulumi.OutputState }
 
 func (NodeSelectorTermPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeSelectorTerm)(nil)).Elem()
@@ -13061,7 +13061,7 @@ func (o NodeSelectorTermPtrOutput) MatchFields() NodeSelectorRequirementArrayOut
 	return o.ApplyT(func (v NodeSelectorTerm) []NodeSelectorRequirement { return v.MatchFields }).(NodeSelectorRequirementArrayOutput)
 }
 
-type NodeSelectorTermArrayOutput struct { *pulumi.OutputState}
+type NodeSelectorTermArrayOutput struct { *pulumi.OutputState }
 
 func (NodeSelectorTermArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NodeSelectorTerm)(nil)).Elem()
@@ -13227,7 +13227,7 @@ func (o NodeSpecOutput) Unschedulable() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v NodeSpec) *bool { return v.Unschedulable }).(pulumi.BoolPtrOutput)
 }
 
-type NodeSpecPtrOutput struct { *pulumi.OutputState}
+type NodeSpecPtrOutput struct { *pulumi.OutputState }
 
 func (NodeSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeSpec)(nil)).Elem()
@@ -13462,7 +13462,7 @@ func (o NodeStatusOutput) VolumesInUse() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v NodeStatus) []string { return v.VolumesInUse }).(pulumi.StringArrayOutput)
 }
 
-type NodeStatusPtrOutput struct { *pulumi.OutputState}
+type NodeStatusPtrOutput struct { *pulumi.OutputState }
 
 func (NodeStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeStatus)(nil)).Elem()
@@ -13708,7 +13708,7 @@ func (o NodeSystemInfoOutput) SystemUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NodeSystemInfo) *string { return v.SystemUUID }).(pulumi.StringPtrOutput)
 }
 
-type NodeSystemInfoPtrOutput struct { *pulumi.OutputState}
+type NodeSystemInfoPtrOutput struct { *pulumi.OutputState }
 
 func (NodeSystemInfoPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeSystemInfo)(nil)).Elem()
@@ -13877,7 +13877,7 @@ func (o ObjectFieldSelectorOutput) FieldPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ObjectFieldSelector) *string { return v.FieldPath }).(pulumi.StringPtrOutput)
 }
 
-type ObjectFieldSelectorPtrOutput struct { *pulumi.OutputState}
+type ObjectFieldSelectorPtrOutput struct { *pulumi.OutputState }
 
 func (ObjectFieldSelectorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ObjectFieldSelector)(nil)).Elem()
@@ -14072,7 +14072,7 @@ func (o ObjectReferenceOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ObjectReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type ObjectReferencePtrOutput struct { *pulumi.OutputState}
+type ObjectReferencePtrOutput struct { *pulumi.OutputState }
 
 func (ObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ObjectReference)(nil)).Elem()
@@ -14125,7 +14125,7 @@ func (o ObjectReferencePtrOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ObjectReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type ObjectReferenceArrayOutput struct { *pulumi.OutputState}
+type ObjectReferenceArrayOutput struct { *pulumi.OutputState }
 
 func (ObjectReferenceArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ObjectReference)(nil)).Elem()
@@ -14253,7 +14253,7 @@ func (o PersistentVolumeTypeOutput) Status() PersistentVolumeStatusPtrOutput {
 	return o.ApplyT(func (v PersistentVolumeType) *PersistentVolumeStatus { return v.Status }).(PersistentVolumeStatusPtrOutput)
 }
 
-type PersistentVolumeTypeArrayOutput struct { *pulumi.OutputState}
+type PersistentVolumeTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PersistentVolumeType)(nil)).Elem()
@@ -14381,7 +14381,7 @@ func (o PersistentVolumeClaimTypeOutput) Status() PersistentVolumeClaimStatusPtr
 	return o.ApplyT(func (v PersistentVolumeClaimType) *PersistentVolumeClaimStatus { return v.Status }).(PersistentVolumeClaimStatusPtrOutput)
 }
 
-type PersistentVolumeClaimTypeArrayOutput struct { *pulumi.OutputState}
+type PersistentVolumeClaimTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeClaimTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PersistentVolumeClaimType)(nil)).Elem()
@@ -14512,7 +14512,7 @@ func (o PersistentVolumeClaimConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PersistentVolumeClaimCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type PersistentVolumeClaimConditionArrayOutput struct { *pulumi.OutputState}
+type PersistentVolumeClaimConditionArrayOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeClaimConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PersistentVolumeClaimCondition)(nil)).Elem()
@@ -14756,7 +14756,7 @@ func (o PersistentVolumeClaimSpecOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PersistentVolumeClaimSpec) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
 
-type PersistentVolumeClaimSpecPtrOutput struct { *pulumi.OutputState}
+type PersistentVolumeClaimSpecPtrOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeClaimSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PersistentVolumeClaimSpec)(nil)).Elem()
@@ -14928,7 +14928,7 @@ func (o PersistentVolumeClaimStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PersistentVolumeClaimStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
 
-type PersistentVolumeClaimStatusPtrOutput struct { *pulumi.OutputState}
+type PersistentVolumeClaimStatusPtrOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeClaimStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PersistentVolumeClaimStatus)(nil)).Elem()
@@ -15067,7 +15067,7 @@ func (o PersistentVolumeClaimVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput
 	return o.ApplyT(func (v PersistentVolumeClaimVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-type PersistentVolumeClaimVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type PersistentVolumeClaimVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeClaimVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PersistentVolumeClaimVolumeSource)(nil)).Elem()
@@ -15526,7 +15526,7 @@ func (o PersistentVolumeSpecOutput) VsphereVolume() VsphereVirtualDiskVolumeSour
 	return o.ApplyT(func (v PersistentVolumeSpec) *VsphereVirtualDiskVolumeSource { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
 
-type PersistentVolumeSpecPtrOutput struct { *pulumi.OutputState}
+type PersistentVolumeSpecPtrOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PersistentVolumeSpec)(nil)).Elem()
@@ -15804,7 +15804,7 @@ func (o PersistentVolumeStatusOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PersistentVolumeStatus) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-type PersistentVolumeStatusPtrOutput struct { *pulumi.OutputState}
+type PersistentVolumeStatusPtrOutput struct { *pulumi.OutputState }
 
 func (PersistentVolumeStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PersistentVolumeStatus)(nil)).Elem()
@@ -15938,7 +15938,7 @@ func (o PhotonPersistentDiskVolumeSourceOutput) PdID() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PhotonPersistentDiskVolumeSource) *string { return v.PdID }).(pulumi.StringPtrOutput)
 }
 
-type PhotonPersistentDiskVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type PhotonPersistentDiskVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (PhotonPersistentDiskVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PhotonPersistentDiskVolumeSource)(nil)).Elem()
@@ -16074,7 +16074,7 @@ func (o PodTypeOutput) Status() PodStatusPtrOutput {
 	return o.ApplyT(func (v PodType) *PodStatus { return v.Status }).(PodStatusPtrOutput)
 }
 
-type PodTypeArrayOutput struct { *pulumi.OutputState}
+type PodTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PodTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodType)(nil)).Elem()
@@ -16195,7 +16195,7 @@ func (o PodAffinityOutput) RequiredDuringSchedulingIgnoredDuringExecution() PodA
 	return o.ApplyT(func (v PodAffinity) []PodAffinityTerm { return v.RequiredDuringSchedulingIgnoredDuringExecution }).(PodAffinityTermArrayOutput)
 }
 
-type PodAffinityPtrOutput struct { *pulumi.OutputState}
+type PodAffinityPtrOutput struct { *pulumi.OutputState }
 
 func (PodAffinityPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodAffinity)(nil)).Elem()
@@ -16354,7 +16354,7 @@ func (o PodAffinityTermOutput) TopologyKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodAffinityTerm) *string { return v.TopologyKey }).(pulumi.StringPtrOutput)
 }
 
-type PodAffinityTermPtrOutput struct { *pulumi.OutputState}
+type PodAffinityTermPtrOutput struct { *pulumi.OutputState }
 
 func (PodAffinityTermPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodAffinityTerm)(nil)).Elem()
@@ -16387,7 +16387,7 @@ func (o PodAffinityTermPtrOutput) TopologyKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodAffinityTerm) *string { return v.TopologyKey }).(pulumi.StringPtrOutput)
 }
 
-type PodAffinityTermArrayOutput struct { *pulumi.OutputState}
+type PodAffinityTermArrayOutput struct { *pulumi.OutputState }
 
 func (PodAffinityTermArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodAffinityTerm)(nil)).Elem()
@@ -16508,7 +16508,7 @@ func (o PodAntiAffinityOutput) RequiredDuringSchedulingIgnoredDuringExecution() 
 	return o.ApplyT(func (v PodAntiAffinity) []PodAffinityTerm { return v.RequiredDuringSchedulingIgnoredDuringExecution }).(PodAffinityTermArrayOutput)
 }
 
-type PodAntiAffinityPtrOutput struct { *pulumi.OutputState}
+type PodAntiAffinityPtrOutput struct { *pulumi.OutputState }
 
 func (PodAntiAffinityPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodAntiAffinity)(nil)).Elem()
@@ -16653,7 +16653,7 @@ func (o PodConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type PodConditionArrayOutput struct { *pulumi.OutputState}
+type PodConditionArrayOutput struct { *pulumi.OutputState }
 
 func (PodConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodCondition)(nil)).Elem()
@@ -16783,7 +16783,7 @@ func (o PodDNSConfigOutput) Searches() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v PodDNSConfig) []string { return v.Searches }).(pulumi.StringArrayOutput)
 }
 
-type PodDNSConfigPtrOutput struct { *pulumi.OutputState}
+type PodDNSConfigPtrOutput struct { *pulumi.OutputState }
 
 func (PodDNSConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodDNSConfig)(nil)).Elem()
@@ -16894,7 +16894,7 @@ func (o PodDNSConfigOptionOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodDNSConfigOption) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-type PodDNSConfigOptionArrayOutput struct { *pulumi.OutputState}
+type PodDNSConfigOptionArrayOutput struct { *pulumi.OutputState }
 
 func (PodDNSConfigOptionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodDNSConfigOption)(nil)).Elem()
@@ -16989,7 +16989,7 @@ func (o PodIPOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodIP) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
-type PodIPArrayOutput struct { *pulumi.OutputState}
+type PodIPArrayOutput struct { *pulumi.OutputState }
 
 func (PodIPArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodIP)(nil)).Elem()
@@ -17159,7 +17159,7 @@ func (o PodReadinessGateOutput) ConditionType() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodReadinessGate) *string { return v.ConditionType }).(pulumi.StringPtrOutput)
 }
 
-type PodReadinessGateArrayOutput struct { *pulumi.OutputState}
+type PodReadinessGateArrayOutput struct { *pulumi.OutputState }
 
 func (PodReadinessGateArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodReadinessGate)(nil)).Elem()
@@ -17346,7 +17346,7 @@ func (o PodSecurityContextOutput) WindowsOptions() WindowsSecurityContextOptions
 	return o.ApplyT(func (v PodSecurityContext) *WindowsSecurityContextOptions { return v.WindowsOptions }).(WindowsSecurityContextOptionsPtrOutput)
 }
 
-type PodSecurityContextPtrOutput struct { *pulumi.OutputState}
+type PodSecurityContextPtrOutput struct { *pulumi.OutputState }
 
 func (PodSecurityContextPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodSecurityContext)(nil)).Elem()
@@ -17797,7 +17797,7 @@ func (o PodSpecOutput) Volumes() VolumeArrayOutput {
 	return o.ApplyT(func (v PodSpec) []Volume { return v.Volumes }).(VolumeArrayOutput)
 }
 
-type PodSpecPtrOutput struct { *pulumi.OutputState}
+type PodSpecPtrOutput struct { *pulumi.OutputState }
 
 func (PodSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodSpec)(nil)).Elem()
@@ -18197,7 +18197,7 @@ func (o PodStatusOutput) StartTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PodStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
 }
 
-type PodStatusPtrOutput struct { *pulumi.OutputState}
+type PodStatusPtrOutput struct { *pulumi.OutputState }
 
 func (PodStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodStatus)(nil)).Elem()
@@ -18383,7 +18383,7 @@ func (o PodTemplateTypeOutput) Template() PodTemplateSpecPtrOutput {
 	return o.ApplyT(func (v PodTemplateType) *PodTemplateSpec { return v.Template }).(PodTemplateSpecPtrOutput)
 }
 
-type PodTemplateTypeArrayOutput struct { *pulumi.OutputState}
+type PodTemplateTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PodTemplateTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodTemplateType)(nil)).Elem()
@@ -18582,7 +18582,7 @@ func (o PodTemplateSpecOutput) Spec() PodSpecPtrOutput {
 	return o.ApplyT(func (v PodTemplateSpec) *PodSpec { return v.Spec }).(PodSpecPtrOutput)
 }
 
-type PodTemplateSpecPtrOutput struct { *pulumi.OutputState}
+type PodTemplateSpecPtrOutput struct { *pulumi.OutputState }
 
 func (PodTemplateSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodTemplateSpec)(nil)).Elem()
@@ -18720,7 +18720,7 @@ func (o PortworxVolumeSourceOutput) VolumeID() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PortworxVolumeSource) *string { return v.VolumeID }).(pulumi.StringPtrOutput)
 }
 
-type PortworxVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type PortworxVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (PortworxVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PortworxVolumeSource)(nil)).Elem()
@@ -18834,7 +18834,7 @@ func (o PreferredSchedulingTermOutput) Weight() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v PreferredSchedulingTerm) *int { return v.Weight }).(pulumi.IntPtrOutput)
 }
 
-type PreferredSchedulingTermArrayOutput struct { *pulumi.OutputState}
+type PreferredSchedulingTermArrayOutput struct { *pulumi.OutputState }
 
 func (PreferredSchedulingTermArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PreferredSchedulingTerm)(nil)).Elem()
@@ -19009,7 +19009,7 @@ func (o ProbeOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v Probe) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
 }
 
-type ProbePtrOutput struct { *pulumi.OutputState}
+type ProbePtrOutput struct { *pulumi.OutputState }
 
 func (ProbePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Probe)(nil)).Elem()
@@ -19168,7 +19168,7 @@ func (o ProjectedVolumeSourceOutput) Sources() VolumeProjectionArrayOutput {
 	return o.ApplyT(func (v ProjectedVolumeSource) []VolumeProjection { return v.Sources }).(VolumeProjectionArrayOutput)
 }
 
-type ProjectedVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type ProjectedVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ProjectedVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ProjectedVolumeSource)(nil)).Elem()
@@ -19333,7 +19333,7 @@ func (o QuobyteVolumeSourceOutput) Volume() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v QuobyteVolumeSource) *string { return v.Volume }).(pulumi.StringPtrOutput)
 }
 
-type QuobyteVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type QuobyteVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (QuobyteVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**QuobyteVolumeSource)(nil)).Elem()
@@ -19536,7 +19536,7 @@ func (o RBDPersistentVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RBDPersistentVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-type RBDPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type RBDPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (RBDPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RBDPersistentVolumeSource)(nil)).Elem()
@@ -19749,7 +19749,7 @@ func (o RBDVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RBDVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-type RBDVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type RBDVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (RBDVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RBDVolumeSource)(nil)).Elem()
@@ -19915,7 +19915,7 @@ func (o ReplicationControllerTypeOutput) Status() ReplicationControllerStatusPtr
 	return o.ApplyT(func (v ReplicationControllerType) *ReplicationControllerStatus { return v.Status }).(ReplicationControllerStatusPtrOutput)
 }
 
-type ReplicationControllerTypeArrayOutput struct { *pulumi.OutputState}
+type ReplicationControllerTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ReplicationControllerTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ReplicationControllerType)(nil)).Elem()
@@ -20043,7 +20043,7 @@ func (o ReplicationControllerConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ReplicationControllerCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type ReplicationControllerConditionArrayOutput struct { *pulumi.OutputState}
+type ReplicationControllerConditionArrayOutput struct { *pulumi.OutputState }
 
 func (ReplicationControllerConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ReplicationControllerCondition)(nil)).Elem()
@@ -20260,7 +20260,7 @@ func (o ReplicationControllerSpecOutput) Template() PodTemplateSpecPtrOutput {
 	return o.ApplyT(func (v ReplicationControllerSpec) *PodTemplateSpec { return v.Template }).(PodTemplateSpecPtrOutput)
 }
 
-type ReplicationControllerSpecPtrOutput struct { *pulumi.OutputState}
+type ReplicationControllerSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ReplicationControllerSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ReplicationControllerSpec)(nil)).Elem()
@@ -20435,7 +20435,7 @@ func (o ReplicationControllerStatusOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ReplicationControllerStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-type ReplicationControllerStatusPtrOutput struct { *pulumi.OutputState}
+type ReplicationControllerStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ReplicationControllerStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ReplicationControllerStatus)(nil)).Elem()
@@ -20593,7 +20593,7 @@ func (o ResourceFieldSelectorOutput) Resource() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ResourceFieldSelector) *string { return v.Resource }).(pulumi.StringPtrOutput)
 }
 
-type ResourceFieldSelectorPtrOutput struct { *pulumi.OutputState}
+type ResourceFieldSelectorPtrOutput struct { *pulumi.OutputState }
 
 func (ResourceFieldSelectorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceFieldSelector)(nil)).Elem()
@@ -20734,7 +20734,7 @@ func (o ResourceQuotaTypeOutput) Status() ResourceQuotaStatusPtrOutput {
 	return o.ApplyT(func (v ResourceQuotaType) *ResourceQuotaStatus { return v.Status }).(ResourceQuotaStatusPtrOutput)
 }
 
-type ResourceQuotaTypeArrayOutput struct { *pulumi.OutputState}
+type ResourceQuotaTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ResourceQuotaTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ResourceQuotaType)(nil)).Elem()
@@ -20942,7 +20942,7 @@ func (o ResourceQuotaSpecOutput) Scopes() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v ResourceQuotaSpec) []string { return v.Scopes }).(pulumi.StringArrayOutput)
 }
 
-type ResourceQuotaSpecPtrOutput struct { *pulumi.OutputState}
+type ResourceQuotaSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ResourceQuotaSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceQuotaSpec)(nil)).Elem()
@@ -21076,7 +21076,7 @@ func (o ResourceQuotaStatusOutput) Used() pulumi.StringMapOutput {
 	return o.ApplyT(func (v ResourceQuotaStatus) map[string]string { return v.Used }).(pulumi.StringMapOutput)
 }
 
-type ResourceQuotaStatusPtrOutput struct { *pulumi.OutputState}
+type ResourceQuotaStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ResourceQuotaStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceQuotaStatus)(nil)).Elem()
@@ -21205,7 +21205,7 @@ func (o ResourceRequirementsOutput) Requests() pulumi.StringMapOutput {
 	return o.ApplyT(func (v ResourceRequirements) map[string]string { return v.Requests }).(pulumi.StringMapOutput)
 }
 
-type ResourceRequirementsPtrOutput struct { *pulumi.OutputState}
+type ResourceRequirementsPtrOutput struct { *pulumi.OutputState }
 
 func (ResourceRequirementsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceRequirements)(nil)).Elem()
@@ -21352,7 +21352,7 @@ func (o SELinuxOptionsOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SELinuxOptions) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-type SELinuxOptionsPtrOutput struct { *pulumi.OutputState}
+type SELinuxOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (SELinuxOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SELinuxOptions)(nil)).Elem()
@@ -21563,7 +21563,7 @@ func (o ScaleIOPersistentVolumeSourceOutput) VolumeName() pulumi.StringPtrOutput
 	return o.ApplyT(func (v ScaleIOPersistentVolumeSource) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
 
-type ScaleIOPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type ScaleIOPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ScaleIOPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleIOPersistentVolumeSource)(nil)).Elem()
@@ -21804,7 +21804,7 @@ func (o ScaleIOVolumeSourceOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ScaleIOVolumeSource) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
 
-type ScaleIOVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type ScaleIOVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (ScaleIOVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleIOVolumeSource)(nil)).Elem()
@@ -21964,7 +21964,7 @@ func (o ScopeSelectorOutput) MatchExpressions() ScopedResourceSelectorRequiremen
 	return o.ApplyT(func (v ScopeSelector) []ScopedResourceSelectorRequirement { return v.MatchExpressions }).(ScopedResourceSelectorRequirementArrayOutput)
 }
 
-type ScopeSelectorPtrOutput struct { *pulumi.OutputState}
+type ScopeSelectorPtrOutput struct { *pulumi.OutputState }
 
 func (ScopeSelectorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScopeSelector)(nil)).Elem()
@@ -22077,7 +22077,7 @@ func (o ScopedResourceSelectorRequirementOutput) Values() pulumi.StringArrayOutp
 	return o.ApplyT(func (v ScopedResourceSelectorRequirement) []string { return v.Values }).(pulumi.StringArrayOutput)
 }
 
-type ScopedResourceSelectorRequirementArrayOutput struct { *pulumi.OutputState}
+type ScopedResourceSelectorRequirementArrayOutput struct { *pulumi.OutputState }
 
 func (ScopedResourceSelectorRequirementArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ScopedResourceSelectorRequirement)(nil)).Elem()
@@ -22214,7 +22214,7 @@ func (o SecretTypeOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SecretType) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type SecretTypeArrayOutput struct { *pulumi.OutputState}
+type SecretTypeArrayOutput struct { *pulumi.OutputState }
 
 func (SecretTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]SecretType)(nil)).Elem()
@@ -22341,7 +22341,7 @@ func (o SecretEnvSourceOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v SecretEnvSource) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-type SecretEnvSourcePtrOutput struct { *pulumi.OutputState}
+type SecretEnvSourcePtrOutput struct { *pulumi.OutputState }
 
 func (SecretEnvSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SecretEnvSource)(nil)).Elem()
@@ -22479,7 +22479,7 @@ func (o SecretKeySelectorOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v SecretKeySelector) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-type SecretKeySelectorPtrOutput struct { *pulumi.OutputState}
+type SecretKeySelectorPtrOutput struct { *pulumi.OutputState }
 
 func (SecretKeySelectorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SecretKeySelector)(nil)).Elem()
@@ -22706,7 +22706,7 @@ func (o SecretProjectionOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v SecretProjection) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-type SecretProjectionPtrOutput struct { *pulumi.OutputState}
+type SecretProjectionPtrOutput struct { *pulumi.OutputState }
 
 func (SecretProjectionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SecretProjection)(nil)).Elem()
@@ -22840,7 +22840,7 @@ func (o SecretReferenceOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SecretReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-type SecretReferencePtrOutput struct { *pulumi.OutputState}
+type SecretReferencePtrOutput struct { *pulumi.OutputState }
 
 func (SecretReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SecretReference)(nil)).Elem()
@@ -22993,7 +22993,7 @@ func (o SecretVolumeSourceOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SecretVolumeSource) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
 
-type SecretVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type SecretVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (SecretVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SecretVolumeSource)(nil)).Elem()
@@ -23204,7 +23204,7 @@ func (o SecurityContextOutput) WindowsOptions() WindowsSecurityContextOptionsPtr
 	return o.ApplyT(func (v SecurityContext) *WindowsSecurityContextOptions { return v.WindowsOptions }).(WindowsSecurityContextOptionsPtrOutput)
 }
 
-type SecurityContextPtrOutput struct { *pulumi.OutputState}
+type SecurityContextPtrOutput struct { *pulumi.OutputState }
 
 func (SecurityContextPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SecurityContext)(nil)).Elem()
@@ -23380,7 +23380,7 @@ func (o ServiceTypeOutput) Status() ServiceStatusPtrOutput {
 	return o.ApplyT(func (v ServiceType) *ServiceStatus { return v.Status }).(ServiceStatusPtrOutput)
 }
 
-type ServiceTypeArrayOutput struct { *pulumi.OutputState}
+type ServiceTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ServiceTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ServiceType)(nil)).Elem()
@@ -23517,7 +23517,7 @@ func (o ServiceAccountTypeOutput) Secrets() ObjectReferenceArrayOutput {
 	return o.ApplyT(func (v ServiceAccountType) []ObjectReference { return v.Secrets }).(ObjectReferenceArrayOutput)
 }
 
-type ServiceAccountTypeArrayOutput struct { *pulumi.OutputState}
+type ServiceAccountTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ServiceAccountTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ServiceAccountType)(nil)).Elem()
@@ -23725,7 +23725,7 @@ func (o ServiceAccountTokenProjectionOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ServiceAccountTokenProjection) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-type ServiceAccountTokenProjectionPtrOutput struct { *pulumi.OutputState}
+type ServiceAccountTokenProjectionPtrOutput struct { *pulumi.OutputState }
 
 func (ServiceAccountTokenProjectionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceAccountTokenProjection)(nil)).Elem()
@@ -23944,7 +23944,7 @@ func (o ServicePortOutput) TargetPort() pulumi.AnyOutput {
 	return o.ApplyT(func (v ServicePort) interface{} { return v.TargetPort }).(pulumi.AnyOutput)
 }
 
-type ServicePortArrayOutput struct { *pulumi.OutputState}
+type ServicePortArrayOutput struct { *pulumi.OutputState }
 
 func (ServicePortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ServicePort)(nil)).Elem()
@@ -24182,7 +24182,7 @@ func (o ServiceSpecOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ServiceSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type ServiceSpecPtrOutput struct { *pulumi.OutputState}
+type ServiceSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ServiceSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceSpec)(nil)).Elem()
@@ -24367,7 +24367,7 @@ func (o ServiceStatusOutput) LoadBalancer() LoadBalancerStatusPtrOutput {
 	return o.ApplyT(func (v ServiceStatus) *LoadBalancerStatus { return v.LoadBalancer }).(LoadBalancerStatusPtrOutput)
 }
 
-type ServiceStatusPtrOutput struct { *pulumi.OutputState}
+type ServiceStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ServiceStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceStatus)(nil)).Elem()
@@ -24482,7 +24482,7 @@ func (o SessionAffinityConfigOutput) ClientIP() ClientIPConfigPtrOutput {
 	return o.ApplyT(func (v SessionAffinityConfig) *ClientIPConfig { return v.ClientIP }).(ClientIPConfigPtrOutput)
 }
 
-type SessionAffinityConfigPtrOutput struct { *pulumi.OutputState}
+type SessionAffinityConfigPtrOutput struct { *pulumi.OutputState }
 
 func (SessionAffinityConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SessionAffinityConfig)(nil)).Elem()
@@ -24633,7 +24633,7 @@ func (o StorageOSPersistentVolumeSourceOutput) VolumeNamespace() pulumi.StringPt
 	return o.ApplyT(func (v StorageOSPersistentVolumeSource) *string { return v.VolumeNamespace }).(pulumi.StringPtrOutput)
 }
 
-type StorageOSPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type StorageOSPersistentVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (StorageOSPersistentVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StorageOSPersistentVolumeSource)(nil)).Elem()
@@ -24804,7 +24804,7 @@ func (o StorageOSVolumeSourceOutput) VolumeNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v StorageOSVolumeSource) *string { return v.VolumeNamespace }).(pulumi.StringPtrOutput)
 }
 
-type StorageOSVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type StorageOSVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (StorageOSVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StorageOSVolumeSource)(nil)).Elem()
@@ -24928,7 +24928,7 @@ func (o SysctlOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v Sysctl) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-type SysctlArrayOutput struct { *pulumi.OutputState}
+type SysctlArrayOutput struct { *pulumi.OutputState }
 
 func (SysctlArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Sysctl)(nil)).Elem()
@@ -25049,7 +25049,7 @@ func (o TCPSocketActionOutput) Port() pulumi.AnyOutput {
 	return o.ApplyT(func (v TCPSocketAction) interface{} { return v.Port }).(pulumi.AnyOutput)
 }
 
-type TCPSocketActionPtrOutput struct { *pulumi.OutputState}
+type TCPSocketActionPtrOutput struct { *pulumi.OutputState }
 
 func (TCPSocketActionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TCPSocketAction)(nil)).Elem()
@@ -25176,7 +25176,7 @@ func (o TaintOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v Taint) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-type TaintArrayOutput struct { *pulumi.OutputState}
+type TaintArrayOutput struct { *pulumi.OutputState }
 
 func (TaintArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Taint)(nil)).Elem()
@@ -25304,7 +25304,7 @@ func (o TolerationOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v Toleration) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-type TolerationArrayOutput struct { *pulumi.OutputState}
+type TolerationArrayOutput struct { *pulumi.OutputState }
 
 func (TolerationArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Toleration)(nil)).Elem()
@@ -25405,7 +25405,7 @@ func (o TopologySelectorLabelRequirementOutput) Values() pulumi.StringArrayOutpu
 	return o.ApplyT(func (v TopologySelectorLabelRequirement) []string { return v.Values }).(pulumi.StringArrayOutput)
 }
 
-type TopologySelectorLabelRequirementArrayOutput struct { *pulumi.OutputState}
+type TopologySelectorLabelRequirementArrayOutput struct { *pulumi.OutputState }
 
 func (TopologySelectorLabelRequirementArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]TopologySelectorLabelRequirement)(nil)).Elem()
@@ -25497,7 +25497,7 @@ func (o TopologySelectorTermOutput) MatchLabelExpressions() TopologySelectorLabe
 	return o.ApplyT(func (v TopologySelectorTerm) []TopologySelectorLabelRequirement { return v.MatchLabelExpressions }).(TopologySelectorLabelRequirementArrayOutput)
 }
 
-type TopologySelectorTermArrayOutput struct { *pulumi.OutputState}
+type TopologySelectorTermArrayOutput struct { *pulumi.OutputState }
 
 func (TopologySelectorTermArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]TopologySelectorTerm)(nil)).Elem()
@@ -25616,7 +25616,7 @@ func (o TopologySpreadConstraintOutput) WhenUnsatisfiable() pulumi.StringPtrOutp
 	return o.ApplyT(func (v TopologySpreadConstraint) *string { return v.WhenUnsatisfiable }).(pulumi.StringPtrOutput)
 }
 
-type TopologySpreadConstraintArrayOutput struct { *pulumi.OutputState}
+type TopologySpreadConstraintArrayOutput struct { *pulumi.OutputState }
 
 func (TopologySpreadConstraintArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]TopologySpreadConstraint)(nil)).Elem()
@@ -25746,7 +25746,7 @@ func (o TypedLocalObjectReferenceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v TypedLocalObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type TypedLocalObjectReferencePtrOutput struct { *pulumi.OutputState}
+type TypedLocalObjectReferencePtrOutput struct { *pulumi.OutputState }
 
 func (TypedLocalObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TypedLocalObjectReference)(nil)).Elem()
@@ -26103,7 +26103,7 @@ func (o VolumeOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func (v Volume) *VsphereVirtualDiskVolumeSource { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
 
-type VolumeArrayOutput struct { *pulumi.OutputState}
+type VolumeArrayOutput struct { *pulumi.OutputState }
 
 func (VolumeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Volume)(nil)).Elem()
@@ -26204,7 +26204,7 @@ func (o VolumeDeviceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeDevice) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type VolumeDeviceArrayOutput struct { *pulumi.OutputState}
+type VolumeDeviceArrayOutput struct { *pulumi.OutputState }
 
 func (VolumeDeviceArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]VolumeDevice)(nil)).Elem()
@@ -26341,7 +26341,7 @@ func (o VolumeMountOutput) SubPathExpr() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeMount) *string { return v.SubPathExpr }).(pulumi.StringPtrOutput)
 }
 
-type VolumeMountArrayOutput struct { *pulumi.OutputState}
+type VolumeMountArrayOutput struct { *pulumi.OutputState }
 
 func (VolumeMountArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]VolumeMount)(nil)).Elem()
@@ -26453,7 +26453,7 @@ func (o VolumeNodeAffinityOutput) Required() NodeSelectorPtrOutput {
 	return o.ApplyT(func (v VolumeNodeAffinity) *NodeSelector { return v.Required }).(NodeSelectorPtrOutput)
 }
 
-type VolumeNodeAffinityPtrOutput struct { *pulumi.OutputState}
+type VolumeNodeAffinityPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeNodeAffinityPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeNodeAffinity)(nil)).Elem()
@@ -26575,7 +26575,7 @@ func (o VolumeProjectionOutput) ServiceAccountToken() ServiceAccountTokenProject
 	return o.ApplyT(func (v VolumeProjection) *ServiceAccountTokenProjection { return v.ServiceAccountToken }).(ServiceAccountTokenProjectionPtrOutput)
 }
 
-type VolumeProjectionArrayOutput struct { *pulumi.OutputState}
+type VolumeProjectionArrayOutput struct { *pulumi.OutputState }
 
 func (VolumeProjectionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]VolumeProjection)(nil)).Elem()
@@ -26714,7 +26714,7 @@ func (o VsphereVirtualDiskVolumeSourceOutput) VolumePath() pulumi.StringPtrOutpu
 	return o.ApplyT(func (v VsphereVirtualDiskVolumeSource) *string { return v.VolumePath }).(pulumi.StringPtrOutput)
 }
 
-type VsphereVirtualDiskVolumeSourcePtrOutput struct { *pulumi.OutputState}
+type VsphereVirtualDiskVolumeSourcePtrOutput struct { *pulumi.OutputState }
 
 func (VsphereVirtualDiskVolumeSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VsphereVirtualDiskVolumeSource)(nil)).Elem()
@@ -26833,7 +26833,7 @@ func (o WeightedPodAffinityTermOutput) Weight() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v WeightedPodAffinityTerm) *int { return v.Weight }).(pulumi.IntPtrOutput)
 }
 
-type WeightedPodAffinityTermArrayOutput struct { *pulumi.OutputState}
+type WeightedPodAffinityTermArrayOutput struct { *pulumi.OutputState }
 
 func (WeightedPodAffinityTermArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]WeightedPodAffinityTerm)(nil)).Elem()
@@ -26963,7 +26963,7 @@ func (o WindowsSecurityContextOptionsOutput) RunAsUserName() pulumi.StringPtrOut
 	return o.ApplyT(func (v WindowsSecurityContextOptions) *string { return v.RunAsUserName }).(pulumi.StringPtrOutput)
 }
 
-type WindowsSecurityContextOptionsPtrOutput struct { *pulumi.OutputState}
+type WindowsSecurityContextOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (WindowsSecurityContextOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**WindowsSecurityContextOptions)(nil)).Elem()

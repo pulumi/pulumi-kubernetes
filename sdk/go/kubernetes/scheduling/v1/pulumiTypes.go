@@ -138,7 +138,7 @@ func (o PriorityClassTypeOutput) Value() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v PriorityClassType) *int { return v.Value }).(pulumi.IntPtrOutput)
 }
 
-type PriorityClassTypeArrayOutput struct { *pulumi.OutputState}
+type PriorityClassTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PriorityClassTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PriorityClassType)(nil)).Elem()

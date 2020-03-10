@@ -104,7 +104,7 @@ func (o FlowDistinguisherMethodOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v FlowDistinguisherMethod) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type FlowDistinguisherMethodPtrOutput struct { *pulumi.OutputState}
+type FlowDistinguisherMethodPtrOutput struct { *pulumi.OutputState }
 
 func (FlowDistinguisherMethodPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FlowDistinguisherMethod)(nil)).Elem()
@@ -235,7 +235,7 @@ func (o FlowSchemaTypeOutput) Status() FlowSchemaStatusPtrOutput {
 	return o.ApplyT(func (v FlowSchemaType) *FlowSchemaStatus { return v.Status }).(FlowSchemaStatusPtrOutput)
 }
 
-type FlowSchemaTypeArrayOutput struct { *pulumi.OutputState}
+type FlowSchemaTypeArrayOutput struct { *pulumi.OutputState }
 
 func (FlowSchemaTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]FlowSchemaType)(nil)).Elem()
@@ -363,7 +363,7 @@ func (o FlowSchemaConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v FlowSchemaCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type FlowSchemaConditionArrayOutput struct { *pulumi.OutputState}
+type FlowSchemaConditionArrayOutput struct { *pulumi.OutputState }
 
 func (FlowSchemaConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]FlowSchemaCondition)(nil)).Elem()
@@ -580,7 +580,7 @@ func (o FlowSchemaSpecOutput) Rules() PolicyRulesWithSubjectsArrayOutput {
 	return o.ApplyT(func (v FlowSchemaSpec) []PolicyRulesWithSubjects { return v.Rules }).(PolicyRulesWithSubjectsArrayOutput)
 }
 
-type FlowSchemaSpecPtrOutput struct { *pulumi.OutputState}
+type FlowSchemaSpecPtrOutput struct { *pulumi.OutputState }
 
 func (FlowSchemaSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FlowSchemaSpec)(nil)).Elem()
@@ -710,7 +710,7 @@ func (o FlowSchemaStatusOutput) Conditions() FlowSchemaConditionArrayOutput {
 	return o.ApplyT(func (v FlowSchemaStatus) []FlowSchemaCondition { return v.Conditions }).(FlowSchemaConditionArrayOutput)
 }
 
-type FlowSchemaStatusPtrOutput struct { *pulumi.OutputState}
+type FlowSchemaStatusPtrOutput struct { *pulumi.OutputState }
 
 func (FlowSchemaStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FlowSchemaStatus)(nil)).Elem()
@@ -825,7 +825,7 @@ func (o GroupSubjectOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v GroupSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type GroupSubjectPtrOutput struct { *pulumi.OutputState}
+type GroupSubjectPtrOutput struct { *pulumi.OutputState }
 
 func (GroupSubjectPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**GroupSubject)(nil)).Elem()
@@ -949,7 +949,7 @@ func (o LimitResponseOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LimitResponse) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type LimitResponsePtrOutput struct { *pulumi.OutputState}
+type LimitResponsePtrOutput struct { *pulumi.OutputState }
 
 func (LimitResponsePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LimitResponse)(nil)).Elem()
@@ -1096,7 +1096,7 @@ func (o LimitedPriorityLevelConfigurationOutput) LimitResponse() LimitResponsePt
 	return o.ApplyT(func (v LimitedPriorityLevelConfiguration) *LimitResponse { return v.LimitResponse }).(LimitResponsePtrOutput)
 }
 
-type LimitedPriorityLevelConfigurationPtrOutput struct { *pulumi.OutputState}
+type LimitedPriorityLevelConfigurationPtrOutput struct { *pulumi.OutputState }
 
 func (LimitedPriorityLevelConfigurationPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LimitedPriorityLevelConfiguration)(nil)).Elem()
@@ -1227,7 +1227,7 @@ func (o NonResourcePolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v NonResourcePolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
 
-type NonResourcePolicyRuleArrayOutput struct { *pulumi.OutputState}
+type NonResourcePolicyRuleArrayOutput struct { *pulumi.OutputState }
 
 func (NonResourcePolicyRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NonResourcePolicyRule)(nil)).Elem()
@@ -1337,7 +1337,7 @@ func (o PolicyRulesWithSubjectsOutput) Subjects() SubjectArrayOutput {
 	return o.ApplyT(func (v PolicyRulesWithSubjects) []Subject { return v.Subjects }).(SubjectArrayOutput)
 }
 
-type PolicyRulesWithSubjectsArrayOutput struct { *pulumi.OutputState}
+type PolicyRulesWithSubjectsArrayOutput struct { *pulumi.OutputState }
 
 func (PolicyRulesWithSubjectsArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PolicyRulesWithSubjects)(nil)).Elem()
@@ -1465,7 +1465,7 @@ func (o PriorityLevelConfigurationTypeOutput) Status() PriorityLevelConfiguratio
 	return o.ApplyT(func (v PriorityLevelConfigurationType) *PriorityLevelConfigurationStatus { return v.Status }).(PriorityLevelConfigurationStatusPtrOutput)
 }
 
-type PriorityLevelConfigurationTypeArrayOutput struct { *pulumi.OutputState}
+type PriorityLevelConfigurationTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PriorityLevelConfigurationTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PriorityLevelConfigurationType)(nil)).Elem()
@@ -1593,7 +1593,7 @@ func (o PriorityLevelConfigurationConditionOutput) Type() pulumi.StringPtrOutput
 	return o.ApplyT(func (v PriorityLevelConfigurationCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type PriorityLevelConfigurationConditionArrayOutput struct { *pulumi.OutputState}
+type PriorityLevelConfigurationConditionArrayOutput struct { *pulumi.OutputState }
 
 func (PriorityLevelConfigurationConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PriorityLevelConfigurationCondition)(nil)).Elem()
@@ -1783,7 +1783,7 @@ func (o PriorityLevelConfigurationReferenceOutput) Name() pulumi.StringPtrOutput
 	return o.ApplyT(func (v PriorityLevelConfigurationReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type PriorityLevelConfigurationReferencePtrOutput struct { *pulumi.OutputState}
+type PriorityLevelConfigurationReferencePtrOutput struct { *pulumi.OutputState }
 
 func (PriorityLevelConfigurationReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PriorityLevelConfigurationReference)(nil)).Elem()
@@ -1907,7 +1907,7 @@ func (o PriorityLevelConfigurationSpecOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v PriorityLevelConfigurationSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type PriorityLevelConfigurationSpecPtrOutput struct { *pulumi.OutputState}
+type PriorityLevelConfigurationSpecPtrOutput struct { *pulumi.OutputState }
 
 func (PriorityLevelConfigurationSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PriorityLevelConfigurationSpec)(nil)).Elem()
@@ -2027,7 +2027,7 @@ func (o PriorityLevelConfigurationStatusOutput) Conditions() PriorityLevelConfig
 	return o.ApplyT(func (v PriorityLevelConfigurationStatus) []PriorityLevelConfigurationCondition { return v.Conditions }).(PriorityLevelConfigurationConditionArrayOutput)
 }
 
-type PriorityLevelConfigurationStatusPtrOutput struct { *pulumi.OutputState}
+type PriorityLevelConfigurationStatusPtrOutput struct { *pulumi.OutputState }
 
 func (PriorityLevelConfigurationStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PriorityLevelConfigurationStatus)(nil)).Elem()
@@ -2160,7 +2160,7 @@ func (o QueuingConfigurationOutput) Queues() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v QueuingConfiguration) *int { return v.Queues }).(pulumi.IntPtrOutput)
 }
 
-type QueuingConfigurationPtrOutput struct { *pulumi.OutputState}
+type QueuingConfigurationPtrOutput struct { *pulumi.OutputState }
 
 func (QueuingConfigurationPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**QueuingConfiguration)(nil)).Elem()
@@ -2301,7 +2301,7 @@ func (o ResourcePolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v ResourcePolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
 
-type ResourcePolicyRuleArrayOutput struct { *pulumi.OutputState}
+type ResourcePolicyRuleArrayOutput struct { *pulumi.OutputState }
 
 func (ResourcePolicyRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ResourcePolicyRule)(nil)).Elem()
@@ -2422,7 +2422,7 @@ func (o ServiceAccountSubjectOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ServiceAccountSubject) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-type ServiceAccountSubjectPtrOutput struct { *pulumi.OutputState}
+type ServiceAccountSubjectPtrOutput struct { *pulumi.OutputState }
 
 func (ServiceAccountSubjectPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceAccountSubject)(nil)).Elem()
@@ -2540,7 +2540,7 @@ func (o SubjectOutput) User() UserSubjectPtrOutput {
 	return o.ApplyT(func (v Subject) *UserSubject { return v.User }).(UserSubjectPtrOutput)
 }
 
-type SubjectArrayOutput struct { *pulumi.OutputState}
+type SubjectArrayOutput struct { *pulumi.OutputState }
 
 func (SubjectArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Subject)(nil)).Elem()
@@ -2652,7 +2652,7 @@ func (o UserSubjectOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v UserSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type UserSubjectPtrOutput struct { *pulumi.OutputState}
+type UserSubjectPtrOutput struct { *pulumi.OutputState }
 
 func (UserSubjectPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**UserSubject)(nil)).Elem()

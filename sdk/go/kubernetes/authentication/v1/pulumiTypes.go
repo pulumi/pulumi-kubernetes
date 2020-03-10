@@ -131,7 +131,7 @@ func (o BoundObjectReferenceOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v BoundObjectReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type BoundObjectReferencePtrOutput struct { *pulumi.OutputState}
+type BoundObjectReferencePtrOutput struct { *pulumi.OutputState }
 
 func (BoundObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**BoundObjectReference)(nil)).Elem()
@@ -357,7 +357,7 @@ func (o TokenRequestSpecOutput) ExpirationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v TokenRequestSpec) *int { return v.ExpirationSeconds }).(pulumi.IntPtrOutput)
 }
 
-type TokenRequestSpecPtrOutput struct { *pulumi.OutputState}
+type TokenRequestSpecPtrOutput struct { *pulumi.OutputState }
 
 func (TokenRequestSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TokenRequestSpec)(nil)).Elem()
@@ -491,7 +491,7 @@ func (o TokenRequestStatusOutput) Token() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v TokenRequestStatus) *string { return v.Token }).(pulumi.StringPtrOutput)
 }
 
-type TokenRequestStatusPtrOutput struct { *pulumi.OutputState}
+type TokenRequestStatusPtrOutput struct { *pulumi.OutputState }
 
 func (TokenRequestStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TokenRequestStatus)(nil)).Elem()
@@ -704,7 +704,7 @@ func (o TokenReviewSpecOutput) Token() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v TokenReviewSpec) *string { return v.Token }).(pulumi.StringPtrOutput)
 }
 
-type TokenReviewSpecPtrOutput struct { *pulumi.OutputState}
+type TokenReviewSpecPtrOutput struct { *pulumi.OutputState }
 
 func (TokenReviewSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TokenReviewSpec)(nil)).Elem()
@@ -851,7 +851,7 @@ func (o TokenReviewStatusOutput) User() UserInfoPtrOutput {
 	return o.ApplyT(func (v TokenReviewStatus) *UserInfo { return v.User }).(UserInfoPtrOutput)
 }
 
-type TokenReviewStatusPtrOutput struct { *pulumi.OutputState}
+type TokenReviewStatusPtrOutput struct { *pulumi.OutputState }
 
 func (TokenReviewStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TokenReviewStatus)(nil)).Elem()
@@ -1008,7 +1008,7 @@ func (o UserInfoOutput) Username() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v UserInfo) *string { return v.Username }).(pulumi.StringPtrOutput)
 }
 
-type UserInfoPtrOutput struct { *pulumi.OutputState}
+type UserInfoPtrOutput struct { *pulumi.OutputState }
 
 func (UserInfoPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**UserInfo)(nil)).Elem()

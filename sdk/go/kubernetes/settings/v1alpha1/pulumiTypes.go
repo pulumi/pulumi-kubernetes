@@ -106,7 +106,7 @@ func (o PodPresetTypeOutput) Spec() PodPresetSpecPtrOutput {
 	return o.ApplyT(func (v PodPresetType) *PodPresetSpec { return v.Spec }).(PodPresetSpecPtrOutput)
 }
 
-type PodPresetTypeArrayOutput struct { *pulumi.OutputState}
+type PodPresetTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PodPresetTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodPresetType)(nil)).Elem()
@@ -332,7 +332,7 @@ func (o PodPresetSpecOutput) Volumes() corev1.VolumeArrayOutput {
 	return o.ApplyT(func (v PodPresetSpec) []corev1.Volume { return v.Volumes }).(corev1.VolumeArrayOutput)
 }
 
-type PodPresetSpecPtrOutput struct { *pulumi.OutputState}
+type PodPresetSpecPtrOutput struct { *pulumi.OutputState }
 
 func (PodPresetSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodPresetSpec)(nil)).Elem()

@@ -139,7 +139,6 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	groupsSlice := createGroups(definitions, schemaOpts())
 	for _, group := range groupsSlice {
 		for _, version := range group.Versions() {
-			//mod := version.APIVersion()
 			mod := version.gv.String()
 			csharpNamespaces[mod] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
 
@@ -156,6 +155,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				for _, p := range kind.Properties() {
+					// JSONSchema type includes `$ref` and `$schema` properties, and $ is an invalid character in
+					// the generated names.
 					if strings.HasPrefix(p.name, "$") {
 						p.name = "t_" + p.name[1:]
 					}
@@ -175,16 +176,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
-					if strings.HasPrefix(p.name, "$") {
-						p.name = "t_" + p.name[1:]
-					}
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
 					resourceSpec.RequiredInputs = append(resourceSpec.RequiredInputs, p.name)
 				}
 				for _, p := range kind.OptionalInputProperties() {
-					if strings.HasPrefix(p.name, "$") {
-						p.name = "t_" + p.name[1:]
-					}
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
 				}
 

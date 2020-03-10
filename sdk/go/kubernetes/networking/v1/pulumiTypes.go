@@ -113,7 +113,7 @@ func (o IPBlockOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
 
-type IPBlockPtrOutput struct { *pulumi.OutputState}
+type IPBlockPtrOutput struct { *pulumi.OutputState }
 
 func (IPBlockPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IPBlock)(nil)).Elem()
@@ -240,7 +240,7 @@ func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
 	return o.ApplyT(func (v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
 }
 
-type NetworkPolicyTypeArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyTypeArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyType)(nil)).Elem()
@@ -341,7 +341,7 @@ func (o NetworkPolicyEgressRuleOutput) To() NetworkPolicyPeerArrayOutput {
 	return o.ApplyT(func (v NetworkPolicyEgressRule) []NetworkPolicyPeer { return v.To }).(NetworkPolicyPeerArrayOutput)
 }
 
-type NetworkPolicyEgressRuleArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyEgressRuleArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyEgressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyEgressRule)(nil)).Elem()
@@ -442,7 +442,7 @@ func (o NetworkPolicyIngressRuleOutput) Ports() NetworkPolicyPortArrayOutput {
 	return o.ApplyT(func (v NetworkPolicyIngressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
 }
 
-type NetworkPolicyIngressRuleArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyIngressRuleArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyIngressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyIngressRule)(nil)).Elem()
@@ -642,7 +642,7 @@ func (o NetworkPolicyPeerOutput) PodSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-type NetworkPolicyPeerArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyPeerArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyPeerArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyPeer)(nil)).Elem()
@@ -743,7 +743,7 @@ func (o NetworkPolicyPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NetworkPolicyPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-type NetworkPolicyPortArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyPortArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyPortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyPort)(nil)).Elem()
@@ -882,7 +882,7 @@ func (o NetworkPolicySpecOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
 }
 
-type NetworkPolicySpecPtrOutput struct { *pulumi.OutputState}
+type NetworkPolicySpecPtrOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicySpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NetworkPolicySpec)(nil)).Elem()

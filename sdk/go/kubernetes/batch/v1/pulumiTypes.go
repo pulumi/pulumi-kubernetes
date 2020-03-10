@@ -121,7 +121,7 @@ func (o JobTypeOutput) Status() JobStatusPtrOutput {
 	return o.ApplyT(func (v JobType) *JobStatus { return v.Status }).(JobStatusPtrOutput)
 }
 
-type JobTypeArrayOutput struct { *pulumi.OutputState}
+type JobTypeArrayOutput struct { *pulumi.OutputState }
 
 func (JobTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]JobType)(nil)).Elem()
@@ -258,7 +258,7 @@ func (o JobConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v JobCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type JobConditionArrayOutput struct { *pulumi.OutputState}
+type JobConditionArrayOutput struct { *pulumi.OutputState }
 
 func (JobConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]JobCondition)(nil)).Elem()
@@ -511,7 +511,7 @@ func (o JobSpecOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v JobSpec) *int { return v.TtlSecondsAfterFinished }).(pulumi.IntPtrOutput)
 }
 
-type JobSpecPtrOutput struct { *pulumi.OutputState}
+type JobSpecPtrOutput struct { *pulumi.OutputState }
 
 func (JobSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**JobSpec)(nil)).Elem()
@@ -706,7 +706,7 @@ func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v JobStatus) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
 }
 
-type JobStatusPtrOutput struct { *pulumi.OutputState}
+type JobStatusPtrOutput struct { *pulumi.OutputState }
 
 func (JobStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**JobStatus)(nil)).Elem()

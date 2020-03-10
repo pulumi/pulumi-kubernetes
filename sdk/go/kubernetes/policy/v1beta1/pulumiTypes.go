@@ -85,7 +85,7 @@ func (o AllowedCSIDriverOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v AllowedCSIDriver) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type AllowedCSIDriverArrayOutput struct { *pulumi.OutputState}
+type AllowedCSIDriverArrayOutput struct { *pulumi.OutputState }
 
 func (AllowedCSIDriverArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AllowedCSIDriver)(nil)).Elem()
@@ -177,7 +177,7 @@ func (o AllowedFlexVolumeOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v AllowedFlexVolume) *string { return v.Driver }).(pulumi.StringPtrOutput)
 }
 
-type AllowedFlexVolumeArrayOutput struct { *pulumi.OutputState}
+type AllowedFlexVolumeArrayOutput struct { *pulumi.OutputState }
 
 func (AllowedFlexVolumeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AllowedFlexVolume)(nil)).Elem()
@@ -284,7 +284,7 @@ func (o AllowedHostPathOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v AllowedHostPath) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-type AllowedHostPathArrayOutput struct { *pulumi.OutputState}
+type AllowedHostPathArrayOutput struct { *pulumi.OutputState }
 
 func (AllowedHostPathArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AllowedHostPath)(nil)).Elem()
@@ -483,7 +483,7 @@ func (o FSGroupStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v FSGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type FSGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type FSGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (FSGroupStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FSGroupStrategyOptions)(nil)).Elem()
@@ -592,7 +592,7 @@ func (o HostPortRangeOutput) Min() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v HostPortRange) *int { return v.Min }).(pulumi.IntPtrOutput)
 }
 
-type HostPortRangeArrayOutput struct { *pulumi.OutputState}
+type HostPortRangeArrayOutput struct { *pulumi.OutputState }
 
 func (HostPortRangeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HostPortRange)(nil)).Elem()
@@ -693,7 +693,7 @@ func (o IDRangeOutput) Min() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v IDRange) *int { return v.Min }).(pulumi.IntPtrOutput)
 }
 
-type IDRangeArrayOutput struct { *pulumi.OutputState}
+type IDRangeArrayOutput struct { *pulumi.OutputState }
 
 func (IDRangeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IDRange)(nil)).Elem()
@@ -818,7 +818,7 @@ func (o PodDisruptionBudgetTypeOutput) Status() PodDisruptionBudgetStatusPtrOutp
 	return o.ApplyT(func (v PodDisruptionBudgetType) *PodDisruptionBudgetStatus { return v.Status }).(PodDisruptionBudgetStatusPtrOutput)
 }
 
-type PodDisruptionBudgetTypeArrayOutput struct { *pulumi.OutputState}
+type PodDisruptionBudgetTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PodDisruptionBudgetTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodDisruptionBudgetType)(nil)).Elem()
@@ -1020,7 +1020,7 @@ func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput 
 	return o.ApplyT(func (v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
-type PodDisruptionBudgetSpecPtrOutput struct { *pulumi.OutputState}
+type PodDisruptionBudgetSpecPtrOutput struct { *pulumi.OutputState }
 
 func (PodDisruptionBudgetSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodDisruptionBudgetSpec)(nil)).Elem()
@@ -1190,7 +1190,7 @@ func (o PodDisruptionBudgetStatusOutput) ObservedGeneration() pulumi.IntPtrOutpu
 	return o.ApplyT(func (v PodDisruptionBudgetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-type PodDisruptionBudgetStatusPtrOutput struct { *pulumi.OutputState}
+type PodDisruptionBudgetStatusPtrOutput struct { *pulumi.OutputState }
 
 func (PodDisruptionBudgetStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodDisruptionBudgetStatus)(nil)).Elem()
@@ -1337,7 +1337,7 @@ func (o PodSecurityPolicyTypeOutput) Spec() PodSecurityPolicySpecPtrOutput {
 	return o.ApplyT(func (v PodSecurityPolicyType) *PodSecurityPolicySpec { return v.Spec }).(PodSecurityPolicySpecPtrOutput)
 }
 
-type PodSecurityPolicyTypeArrayOutput struct { *pulumi.OutputState}
+type PodSecurityPolicyTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PodSecurityPolicyTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodSecurityPolicyType)(nil)).Elem()
@@ -1746,7 +1746,7 @@ func (o PodSecurityPolicySpecOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v PodSecurityPolicySpec) []string { return v.Volumes }).(pulumi.StringArrayOutput)
 }
 
-type PodSecurityPolicySpecPtrOutput struct { *pulumi.OutputState}
+type PodSecurityPolicySpecPtrOutput struct { *pulumi.OutputState }
 
 func (PodSecurityPolicySpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodSecurityPolicySpec)(nil)).Elem()
@@ -1989,7 +1989,7 @@ func (o RunAsGroupStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RunAsGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type RunAsGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type RunAsGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (RunAsGroupStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RunAsGroupStrategyOptions)(nil)).Elem()
@@ -2118,7 +2118,7 @@ func (o RunAsUserStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RunAsUserStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type RunAsUserStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type RunAsUserStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (RunAsUserStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RunAsUserStrategyOptions)(nil)).Elem()
@@ -2247,7 +2247,7 @@ func (o RuntimeClassStrategyOptionsOutput) DefaultRuntimeClassName() pulumi.Stri
 	return o.ApplyT(func (v RuntimeClassStrategyOptions) *string { return v.DefaultRuntimeClassName }).(pulumi.StringPtrOutput)
 }
 
-type RuntimeClassStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type RuntimeClassStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (RuntimeClassStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RuntimeClassStrategyOptions)(nil)).Elem()
@@ -2376,7 +2376,7 @@ func (o SELinuxStrategyOptionsOutput) SeLinuxOptions() corev1.SELinuxOptionsPtrO
 	return o.ApplyT(func (v SELinuxStrategyOptions) *corev1.SELinuxOptions { return v.SeLinuxOptions }).(corev1.SELinuxOptionsPtrOutput)
 }
 
-type SELinuxStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type SELinuxStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (SELinuxStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SELinuxStrategyOptions)(nil)).Elem()
@@ -2505,7 +2505,7 @@ func (o SupplementalGroupsStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SupplementalGroupsStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type SupplementalGroupsStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type SupplementalGroupsStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (SupplementalGroupsStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SupplementalGroupsStrategyOptions)(nil)).Elem()

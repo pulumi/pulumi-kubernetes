@@ -112,7 +112,7 @@ func (o CSINodeTypeOutput) Spec() CSINodeSpecPtrOutput {
 	return o.ApplyT(func (v CSINodeType) *CSINodeSpec { return v.Spec }).(CSINodeSpecPtrOutput)
 }
 
-type CSINodeTypeArrayOutput struct { *pulumi.OutputState}
+type CSINodeTypeArrayOutput struct { *pulumi.OutputState }
 
 func (CSINodeTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CSINodeType)(nil)).Elem()
@@ -231,7 +231,7 @@ func (o CSINodeDriverOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v CSINodeDriver) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
 
-type CSINodeDriverArrayOutput struct { *pulumi.OutputState}
+type CSINodeDriverArrayOutput struct { *pulumi.OutputState }
 
 func (CSINodeDriverArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CSINodeDriver)(nil)).Elem()
@@ -421,7 +421,7 @@ func (o CSINodeSpecOutput) Drivers() CSINodeDriverArrayOutput {
 	return o.ApplyT(func (v CSINodeSpec) []CSINodeDriver { return v.Drivers }).(CSINodeDriverArrayOutput)
 }
 
-type CSINodeSpecPtrOutput struct { *pulumi.OutputState}
+type CSINodeSpecPtrOutput struct { *pulumi.OutputState }
 
 func (CSINodeSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CSINodeSpec)(nil)).Elem()
@@ -603,7 +603,7 @@ func (o StorageClassTypeOutput) VolumeBindingMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v StorageClassType) *string { return v.VolumeBindingMode }).(pulumi.StringPtrOutput)
 }
 
-type StorageClassTypeArrayOutput struct { *pulumi.OutputState}
+type StorageClassTypeArrayOutput struct { *pulumi.OutputState }
 
 func (StorageClassTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]StorageClassType)(nil)).Elem()
@@ -815,7 +815,7 @@ func (o VolumeAttachmentTypeOutput) Status() VolumeAttachmentStatusPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentType) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
 }
 
-type VolumeAttachmentTypeArrayOutput struct { *pulumi.OutputState}
+type VolumeAttachmentTypeArrayOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
@@ -1014,7 +1014,7 @@ func (o VolumeAttachmentSourceOutput) PersistentVolumeName() pulumi.StringPtrOut
 	return o.ApplyT(func (v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
 }
 
-type VolumeAttachmentSourcePtrOutput struct { *pulumi.OutputState}
+type VolumeAttachmentSourcePtrOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentSource)(nil)).Elem()
@@ -1152,7 +1152,7 @@ func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourcePtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
 }
 
-type VolumeAttachmentSpecPtrOutput struct { *pulumi.OutputState}
+type VolumeAttachmentSpecPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentSpec)(nil)).Elem()
@@ -1304,7 +1304,7 @@ func (o VolumeAttachmentStatusOutput) DetachError() VolumeErrorPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
 }
 
-type VolumeAttachmentStatusPtrOutput struct { *pulumi.OutputState}
+type VolumeAttachmentStatusPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentStatus)(nil)).Elem()
@@ -1443,7 +1443,7 @@ func (o VolumeErrorOutput) Time() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
 }
 
-type VolumeErrorPtrOutput struct { *pulumi.OutputState}
+type VolumeErrorPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeErrorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeError)(nil)).Elem()
@@ -1563,7 +1563,7 @@ func (o VolumeNodeResourcesOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v VolumeNodeResources) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
-type VolumeNodeResourcesPtrOutput struct { *pulumi.OutputState}
+type VolumeNodeResourcesPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeNodeResourcesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeNodeResources)(nil)).Elem()

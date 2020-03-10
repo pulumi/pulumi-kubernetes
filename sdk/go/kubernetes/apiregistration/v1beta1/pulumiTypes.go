@@ -117,7 +117,7 @@ func (o APIServiceTypeOutput) Status() APIServiceStatusPtrOutput {
 	return o.ApplyT(func (v APIServiceType) *APIServiceStatus { return v.Status }).(APIServiceStatusPtrOutput)
 }
 
-type APIServiceTypeArrayOutput struct { *pulumi.OutputState}
+type APIServiceTypeArrayOutput struct { *pulumi.OutputState }
 
 func (APIServiceTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]APIServiceType)(nil)).Elem()
@@ -245,7 +245,7 @@ func (o APIServiceConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v APIServiceCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type APIServiceConditionArrayOutput struct { *pulumi.OutputState}
+type APIServiceConditionArrayOutput struct { *pulumi.OutputState }
 
 func (APIServiceConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]APIServiceCondition)(nil)).Elem()
@@ -483,7 +483,7 @@ func (o APIServiceSpecOutput) VersionPriority() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v APIServiceSpec) *int { return v.VersionPriority }).(pulumi.IntPtrOutput)
 }
 
-type APIServiceSpecPtrOutput struct { *pulumi.OutputState}
+type APIServiceSpecPtrOutput struct { *pulumi.OutputState }
 
 func (APIServiceSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**APIServiceSpec)(nil)).Elem()
@@ -628,7 +628,7 @@ func (o APIServiceStatusOutput) Conditions() APIServiceConditionArrayOutput {
 	return o.ApplyT(func (v APIServiceStatus) []APIServiceCondition { return v.Conditions }).(APIServiceConditionArrayOutput)
 }
 
-type APIServiceStatusPtrOutput struct { *pulumi.OutputState}
+type APIServiceStatusPtrOutput struct { *pulumi.OutputState }
 
 func (APIServiceStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**APIServiceStatus)(nil)).Elem()
@@ -761,7 +761,7 @@ func (o ServiceReferenceOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-type ServiceReferencePtrOutput struct { *pulumi.OutputState}
+type ServiceReferencePtrOutput struct { *pulumi.OutputState }
 
 func (ServiceReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceReference)(nil)).Elem()

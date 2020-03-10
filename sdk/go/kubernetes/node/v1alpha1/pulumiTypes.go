@@ -105,7 +105,7 @@ func (o OverheadOutput) PodFixed() pulumi.StringMapOutput {
 	return o.ApplyT(func (v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
 }
 
-type OverheadPtrOutput struct { *pulumi.OutputState}
+type OverheadPtrOutput struct { *pulumi.OutputState }
 
 func (OverheadPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Overhead)(nil)).Elem()
@@ -227,7 +227,7 @@ func (o RuntimeClassTypeOutput) Spec() RuntimeClassSpecPtrOutput {
 	return o.ApplyT(func (v RuntimeClassType) *RuntimeClassSpec { return v.Spec }).(RuntimeClassSpecPtrOutput)
 }
 
-type RuntimeClassTypeArrayOutput struct { *pulumi.OutputState}
+type RuntimeClassTypeArrayOutput struct { *pulumi.OutputState }
 
 func (RuntimeClassTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]RuntimeClassType)(nil)).Elem()
@@ -435,7 +435,7 @@ func (o RuntimeClassSpecOutput) Scheduling() SchedulingPtrOutput {
 	return o.ApplyT(func (v RuntimeClassSpec) *Scheduling { return v.Scheduling }).(SchedulingPtrOutput)
 }
 
-type RuntimeClassSpecPtrOutput struct { *pulumi.OutputState}
+type RuntimeClassSpecPtrOutput struct { *pulumi.OutputState }
 
 func (RuntimeClassSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RuntimeClassSpec)(nil)).Elem()
@@ -569,7 +569,7 @@ func (o SchedulingOutput) Tolerations() corev1.TolerationArrayOutput {
 	return o.ApplyT(func (v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
 }
 
-type SchedulingPtrOutput struct { *pulumi.OutputState}
+type SchedulingPtrOutput struct { *pulumi.OutputState }
 
 func (SchedulingPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Scheduling)(nil)).Elem()

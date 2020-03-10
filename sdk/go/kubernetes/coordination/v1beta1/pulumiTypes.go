@@ -111,7 +111,7 @@ func (o LeaseTypeOutput) Spec() LeaseSpecPtrOutput {
 	return o.ApplyT(func (v LeaseType) *LeaseSpec { return v.Spec }).(LeaseSpecPtrOutput)
 }
 
-type LeaseTypeArrayOutput struct { *pulumi.OutputState}
+type LeaseTypeArrayOutput struct { *pulumi.OutputState }
 
 func (LeaseTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]LeaseType)(nil)).Elem()
@@ -337,7 +337,7 @@ func (o LeaseSpecOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-type LeaseSpecPtrOutput struct { *pulumi.OutputState}
+type LeaseSpecPtrOutput struct { *pulumi.OutputState }
 
 func (LeaseSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LeaseSpec)(nil)).Elem()

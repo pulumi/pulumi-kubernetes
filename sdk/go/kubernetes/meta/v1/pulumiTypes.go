@@ -128,7 +128,7 @@ func (o APIGroupOutput) Versions() GroupVersionForDiscoveryArrayOutput {
 	return o.ApplyT(func (v APIGroup) []GroupVersionForDiscovery { return v.Versions }).(GroupVersionForDiscoveryArrayOutput)
 }
 
-type APIGroupArrayOutput struct { *pulumi.OutputState}
+type APIGroupArrayOutput struct { *pulumi.OutputState }
 
 func (APIGroupArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]APIGroup)(nil)).Elem()
@@ -370,7 +370,7 @@ func (o APIResourceOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v APIResource) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
-type APIResourceArrayOutput struct { *pulumi.OutputState}
+type APIResourceArrayOutput struct { *pulumi.OutputState }
 
 func (APIResourceArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]APIResource)(nil)).Elem()
@@ -692,7 +692,7 @@ func (o DeleteOptionsOutput) PropagationPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v DeleteOptions) *string { return v.PropagationPolicy }).(pulumi.StringPtrOutput)
 }
 
-type DeleteOptionsPtrOutput struct { *pulumi.OutputState}
+type DeleteOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (DeleteOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeleteOptions)(nil)).Elem()
@@ -867,7 +867,7 @@ func (o GroupVersionForDiscoveryOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v GroupVersionForDiscovery) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
-type GroupVersionForDiscoveryPtrOutput struct { *pulumi.OutputState}
+type GroupVersionForDiscoveryPtrOutput struct { *pulumi.OutputState }
 
 func (GroupVersionForDiscoveryPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**GroupVersionForDiscovery)(nil)).Elem()
@@ -895,7 +895,7 @@ func (o GroupVersionForDiscoveryPtrOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v GroupVersionForDiscovery) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
-type GroupVersionForDiscoveryArrayOutput struct { *pulumi.OutputState}
+type GroupVersionForDiscoveryArrayOutput struct { *pulumi.OutputState }
 
 func (GroupVersionForDiscoveryArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]GroupVersionForDiscovery)(nil)).Elem()
@@ -1037,7 +1037,7 @@ func (o LabelSelectorOutput) MatchLabels() pulumi.StringMapOutput {
 	return o.ApplyT(func (v LabelSelector) map[string]string { return v.MatchLabels }).(pulumi.StringMapOutput)
 }
 
-type LabelSelectorPtrOutput struct { *pulumi.OutputState}
+type LabelSelectorPtrOutput struct { *pulumi.OutputState }
 
 func (LabelSelectorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LabelSelector)(nil)).Elem()
@@ -1065,7 +1065,7 @@ func (o LabelSelectorPtrOutput) MatchLabels() pulumi.StringMapOutput {
 	return o.ApplyT(func (v LabelSelector) map[string]string { return v.MatchLabels }).(pulumi.StringMapOutput)
 }
 
-type LabelSelectorArrayOutput struct { *pulumi.OutputState}
+type LabelSelectorArrayOutput struct { *pulumi.OutputState }
 
 func (LabelSelectorArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]LabelSelector)(nil)).Elem()
@@ -1175,7 +1175,7 @@ func (o LabelSelectorRequirementOutput) Values() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v LabelSelectorRequirement) []string { return v.Values }).(pulumi.StringArrayOutput)
 }
 
-type LabelSelectorRequirementArrayOutput struct { *pulumi.OutputState}
+type LabelSelectorRequirementArrayOutput struct { *pulumi.OutputState }
 
 func (LabelSelectorRequirementArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]LabelSelectorRequirement)(nil)).Elem()
@@ -1320,7 +1320,7 @@ func (o ListMetaOutput) SelfLink() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ListMeta) *string { return v.SelfLink }).(pulumi.StringPtrOutput)
 }
 
-type ListMetaPtrOutput struct { *pulumi.OutputState}
+type ListMetaPtrOutput struct { *pulumi.OutputState }
 
 func (ListMetaPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ListMeta)(nil)).Elem()
@@ -1477,7 +1477,7 @@ func (o ManagedFieldsEntryOutput) Time() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ManagedFieldsEntry) *string { return v.Time }).(pulumi.StringPtrOutput)
 }
 
-type ManagedFieldsEntryArrayOutput struct { *pulumi.OutputState}
+type ManagedFieldsEntryArrayOutput struct { *pulumi.OutputState }
 
 func (ManagedFieldsEntryArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ManagedFieldsEntry)(nil)).Elem()
@@ -1772,7 +1772,7 @@ func (o ObjectMetaOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ObjectMeta) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type ObjectMetaPtrOutput struct { *pulumi.OutputState}
+type ObjectMetaPtrOutput struct { *pulumi.OutputState }
 
 func (ObjectMetaPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ObjectMeta)(nil)).Elem()
@@ -2003,7 +2003,7 @@ func (o OwnerReferenceOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v OwnerReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type OwnerReferenceArrayOutput struct { *pulumi.OutputState}
+type OwnerReferenceArrayOutput struct { *pulumi.OutputState }
 
 func (OwnerReferenceArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]OwnerReference)(nil)).Elem()
@@ -2124,7 +2124,7 @@ func (o PreconditionsOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v Preconditions) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type PreconditionsPtrOutput struct { *pulumi.OutputState}
+type PreconditionsPtrOutput struct { *pulumi.OutputState }
 
 func (PreconditionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Preconditions)(nil)).Elem()
@@ -2233,7 +2233,7 @@ func (o ServerAddressByClientCIDROutput) ServerAddress() pulumi.StringPtrOutput 
 	return o.ApplyT(func (v ServerAddressByClientCIDR) *string { return v.ServerAddress }).(pulumi.StringPtrOutput)
 }
 
-type ServerAddressByClientCIDRArrayOutput struct { *pulumi.OutputState}
+type ServerAddressByClientCIDRArrayOutput struct { *pulumi.OutputState }
 
 func (ServerAddressByClientCIDRArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ServerAddressByClientCIDR)(nil)).Elem()
@@ -2469,7 +2469,7 @@ func (o StatusCauseOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v StatusCause) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-type StatusCauseArrayOutput struct { *pulumi.OutputState}
+type StatusCauseArrayOutput struct { *pulumi.OutputState }
 
 func (StatusCauseArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]StatusCause)(nil)).Elem()
@@ -2626,7 +2626,7 @@ func (o StatusDetailsOutput) Uid() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v StatusDetails) *string { return v.Uid }).(pulumi.StringPtrOutput)
 }
 
-type StatusDetailsPtrOutput struct { *pulumi.OutputState}
+type StatusDetailsPtrOutput struct { *pulumi.OutputState }
 
 func (StatusDetailsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatusDetails)(nil)).Elem()

@@ -226,7 +226,7 @@ func (o EventTypeOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EventType) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type EventTypeArrayOutput struct { *pulumi.OutputState}
+type EventTypeArrayOutput struct { *pulumi.OutputState }
 
 func (EventTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EventType)(nil)).Elem()
@@ -434,7 +434,7 @@ func (o EventSeriesOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
-type EventSeriesPtrOutput struct { *pulumi.OutputState}
+type EventSeriesPtrOutput struct { *pulumi.OutputState }
 
 func (EventSeriesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EventSeries)(nil)).Elem()

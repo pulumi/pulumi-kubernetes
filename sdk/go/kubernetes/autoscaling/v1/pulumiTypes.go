@@ -122,7 +122,7 @@ func (o CrossVersionObjectReferenceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type CrossVersionObjectReferencePtrOutput struct { *pulumi.OutputState}
+type CrossVersionObjectReferencePtrOutput struct { *pulumi.OutputState }
 
 func (CrossVersionObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CrossVersionObjectReference)(nil)).Elem()
@@ -263,7 +263,7 @@ func (o HorizontalPodAutoscalerTypeOutput) Status() HorizontalPodAutoscalerStatu
 	return o.ApplyT(func (v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerStatus { return v.Status }).(HorizontalPodAutoscalerStatusPtrOutput)
 }
 
-type HorizontalPodAutoscalerTypeArrayOutput struct { *pulumi.OutputState}
+type HorizontalPodAutoscalerTypeArrayOutput struct { *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HorizontalPodAutoscalerType)(nil)).Elem()
@@ -480,7 +480,7 @@ func (o HorizontalPodAutoscalerSpecOutput) TargetCPUUtilizationPercentage() pulu
 	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
 
-type HorizontalPodAutoscalerSpecPtrOutput struct { *pulumi.OutputState}
+type HorizontalPodAutoscalerSpecPtrOutput struct { *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
@@ -646,7 +646,7 @@ func (o HorizontalPodAutoscalerStatusOutput) ObservedGeneration() pulumi.IntPtrO
 	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-type HorizontalPodAutoscalerStatusPtrOutput struct { *pulumi.OutputState}
+type HorizontalPodAutoscalerStatusPtrOutput struct { *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerStatus)(nil)).Elem()
@@ -868,7 +868,7 @@ func (o ScaleSpecOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-type ScaleSpecPtrOutput struct { *pulumi.OutputState}
+type ScaleSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleSpec)(nil)).Elem()
@@ -992,7 +992,7 @@ func (o ScaleStatusOutput) Selector() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ScaleStatus) *string { return v.Selector }).(pulumi.StringPtrOutput)
 }
 
-type ScaleStatusPtrOutput struct { *pulumi.OutputState}
+type ScaleStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleStatus)(nil)).Elem()

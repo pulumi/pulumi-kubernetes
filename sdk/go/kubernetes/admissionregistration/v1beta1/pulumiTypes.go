@@ -300,7 +300,7 @@ func (o MutatingWebhookOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v MutatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
 }
 
-type MutatingWebhookArrayOutput struct { *pulumi.OutputState}
+type MutatingWebhookArrayOutput struct { *pulumi.OutputState }
 
 func (MutatingWebhookArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]MutatingWebhook)(nil)).Elem()
@@ -419,7 +419,7 @@ func (o MutatingWebhookConfigurationTypeOutput) Webhooks() MutatingWebhookArrayO
 	return o.ApplyT(func (v MutatingWebhookConfigurationType) []MutatingWebhook { return v.Webhooks }).(MutatingWebhookArrayOutput)
 }
 
-type MutatingWebhookConfigurationTypeArrayOutput struct { *pulumi.OutputState}
+type MutatingWebhookConfigurationTypeArrayOutput struct { *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]MutatingWebhookConfigurationType)(nil)).Elem()
@@ -643,7 +643,7 @@ func (o RuleWithOperationsOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RuleWithOperations) *string { return v.Scope }).(pulumi.StringPtrOutput)
 }
 
-type RuleWithOperationsArrayOutput struct { *pulumi.OutputState}
+type RuleWithOperationsArrayOutput struct { *pulumi.OutputState }
 
 func (RuleWithOperationsArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]RuleWithOperations)(nil)).Elem()
@@ -782,7 +782,7 @@ func (o ServiceReferenceOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-type ServiceReferencePtrOutput struct { *pulumi.OutputState}
+type ServiceReferencePtrOutput struct { *pulumi.OutputState }
 
 func (ServiceReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceReference)(nil)).Elem()
@@ -1081,7 +1081,7 @@ func (o ValidatingWebhookOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ValidatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
 }
 
-type ValidatingWebhookArrayOutput struct { *pulumi.OutputState}
+type ValidatingWebhookArrayOutput struct { *pulumi.OutputState }
 
 func (ValidatingWebhookArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ValidatingWebhook)(nil)).Elem()
@@ -1200,7 +1200,7 @@ func (o ValidatingWebhookConfigurationTypeOutput) Webhooks() ValidatingWebhookAr
 	return o.ApplyT(func (v ValidatingWebhookConfigurationType) []ValidatingWebhook { return v.Webhooks }).(ValidatingWebhookArrayOutput)
 }
 
-type ValidatingWebhookConfigurationTypeArrayOutput struct { *pulumi.OutputState}
+type ValidatingWebhookConfigurationTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ValidatingWebhookConfigurationType)(nil)).Elem()
@@ -1444,7 +1444,7 @@ func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
 
-type WebhookClientConfigPtrOutput struct { *pulumi.OutputState}
+type WebhookClientConfigPtrOutput struct { *pulumi.OutputState }
 
 func (WebhookClientConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**WebhookClientConfig)(nil)).Elem()

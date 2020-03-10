@@ -197,7 +197,7 @@ func (o NonResourceAttributesOutput) Verb() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NonResourceAttributes) *string { return v.Verb }).(pulumi.StringPtrOutput)
 }
 
-type NonResourceAttributesPtrOutput struct { *pulumi.OutputState}
+type NonResourceAttributesPtrOutput struct { *pulumi.OutputState }
 
 func (NonResourceAttributesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NonResourceAttributes)(nil)).Elem()
@@ -306,7 +306,7 @@ func (o NonResourceRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v NonResourceRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
 
-type NonResourceRuleArrayOutput struct { *pulumi.OutputState}
+type NonResourceRuleArrayOutput struct { *pulumi.OutputState }
 
 func (NonResourceRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NonResourceRule)(nil)).Elem()
@@ -472,7 +472,7 @@ func (o ResourceAttributesOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ResourceAttributes) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
-type ResourceAttributesPtrOutput struct { *pulumi.OutputState}
+type ResourceAttributesPtrOutput struct { *pulumi.OutputState }
 
 func (ResourceAttributesPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceAttributes)(nil)).Elem()
@@ -627,7 +627,7 @@ func (o ResourceRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v ResourceRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
 
-type ResourceRuleArrayOutput struct { *pulumi.OutputState}
+type ResourceRuleArrayOutput struct { *pulumi.OutputState }
 
 func (ResourceRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ResourceRule)(nil)).Elem()
@@ -832,7 +832,7 @@ func (o SelfSubjectAccessReviewSpecOutput) ResourceAttributes() ResourceAttribut
 	return o.ApplyT(func (v SelfSubjectAccessReviewSpec) *ResourceAttributes { return v.ResourceAttributes }).(ResourceAttributesPtrOutput)
 }
 
-type SelfSubjectAccessReviewSpecPtrOutput struct { *pulumi.OutputState}
+type SelfSubjectAccessReviewSpecPtrOutput struct { *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SelfSubjectAccessReviewSpec)(nil)).Elem()
@@ -1033,7 +1033,7 @@ func (o SelfSubjectRulesReviewSpecOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SelfSubjectRulesReviewSpec) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-type SelfSubjectRulesReviewSpecPtrOutput struct { *pulumi.OutputState}
+type SelfSubjectRulesReviewSpecPtrOutput struct { *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SelfSubjectRulesReviewSpec)(nil)).Elem()
@@ -1277,7 +1277,7 @@ func (o SubjectAccessReviewSpecOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SubjectAccessReviewSpec) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-type SubjectAccessReviewSpecPtrOutput struct { *pulumi.OutputState}
+type SubjectAccessReviewSpecPtrOutput struct { *pulumi.OutputState }
 
 func (SubjectAccessReviewSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SubjectAccessReviewSpec)(nil)).Elem()
@@ -1444,7 +1444,7 @@ func (o SubjectAccessReviewStatusOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SubjectAccessReviewStatus) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-type SubjectAccessReviewStatusPtrOutput struct { *pulumi.OutputState}
+type SubjectAccessReviewStatusPtrOutput struct { *pulumi.OutputState }
 
 func (SubjectAccessReviewStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SubjectAccessReviewStatus)(nil)).Elem()
@@ -1601,7 +1601,7 @@ func (o SubjectRulesReviewStatusOutput) ResourceRules() ResourceRuleArrayOutput 
 	return o.ApplyT(func (v SubjectRulesReviewStatus) []ResourceRule { return v.ResourceRules }).(ResourceRuleArrayOutput)
 }
 
-type SubjectRulesReviewStatusPtrOutput struct { *pulumi.OutputState}
+type SubjectRulesReviewStatusPtrOutput struct { *pulumi.OutputState }
 
 func (SubjectRulesReviewStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SubjectRulesReviewStatus)(nil)).Elem()

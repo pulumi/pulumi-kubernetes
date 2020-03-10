@@ -127,7 +127,7 @@ func (o VolumeAttachmentTypeOutput) Status() VolumeAttachmentStatusPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentType) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
 }
 
-type VolumeAttachmentTypeArrayOutput struct { *pulumi.OutputState}
+type VolumeAttachmentTypeArrayOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
@@ -326,7 +326,7 @@ func (o VolumeAttachmentSourceOutput) PersistentVolumeName() pulumi.StringPtrOut
 	return o.ApplyT(func (v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
 }
 
-type VolumeAttachmentSourcePtrOutput struct { *pulumi.OutputState}
+type VolumeAttachmentSourcePtrOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentSource)(nil)).Elem()
@@ -464,7 +464,7 @@ func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourcePtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
 }
 
-type VolumeAttachmentSpecPtrOutput struct { *pulumi.OutputState}
+type VolumeAttachmentSpecPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentSpec)(nil)).Elem()
@@ -616,7 +616,7 @@ func (o VolumeAttachmentStatusOutput) DetachError() VolumeErrorPtrOutput {
 	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
 }
 
-type VolumeAttachmentStatusPtrOutput struct { *pulumi.OutputState}
+type VolumeAttachmentStatusPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeAttachmentStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentStatus)(nil)).Elem()
@@ -755,7 +755,7 @@ func (o VolumeErrorOutput) Time() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
 }
 
-type VolumeErrorPtrOutput struct { *pulumi.OutputState}
+type VolumeErrorPtrOutput struct { *pulumi.OutputState }
 
 func (VolumeErrorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeError)(nil)).Elem()

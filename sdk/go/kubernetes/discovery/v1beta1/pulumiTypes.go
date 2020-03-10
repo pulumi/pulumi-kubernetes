@@ -139,7 +139,7 @@ func (o EndpointOutput) Topology() pulumi.StringMapOutput {
 	return o.ApplyT(func (v Endpoint) map[string]string { return v.Topology }).(pulumi.StringMapOutput)
 }
 
-type EndpointArrayOutput struct { *pulumi.OutputState}
+type EndpointArrayOutput struct { *pulumi.OutputState }
 
 func (EndpointArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Endpoint)(nil)).Elem()
@@ -251,7 +251,7 @@ func (o EndpointConditionsOutput) Ready() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
 }
 
-type EndpointConditionsPtrOutput struct { *pulumi.OutputState}
+type EndpointConditionsPtrOutput struct { *pulumi.OutputState }
 
 func (EndpointConditionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EndpointConditions)(nil)).Elem()
@@ -373,7 +373,7 @@ func (o EndpointPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-type EndpointPortArrayOutput struct { *pulumi.OutputState}
+type EndpointPortArrayOutput struct { *pulumi.OutputState }
 
 func (EndpointPortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EndpointPort)(nil)).Elem()
@@ -510,7 +510,7 @@ func (o EndpointSliceTypeOutput) Ports() EndpointPortArrayOutput {
 	return o.ApplyT(func (v EndpointSliceType) []EndpointPort { return v.Ports }).(EndpointPortArrayOutput)
 }
 
-type EndpointSliceTypeArrayOutput struct { *pulumi.OutputState}
+type EndpointSliceTypeArrayOutput struct { *pulumi.OutputState }
 
 func (EndpointSliceTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EndpointSliceType)(nil)).Elem()

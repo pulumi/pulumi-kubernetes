@@ -122,7 +122,7 @@ func (o CronJobTypeOutput) Status() CronJobStatusPtrOutput {
 	return o.ApplyT(func (v CronJobType) *CronJobStatus { return v.Status }).(CronJobStatusPtrOutput)
 }
 
-type CronJobTypeArrayOutput struct { *pulumi.OutputState}
+type CronJobTypeArrayOutput struct { *pulumi.OutputState }
 
 func (CronJobTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]CronJobType)(nil)).Elem()
@@ -366,7 +366,7 @@ func (o CronJobSpecOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v CronJobSpec) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
 
-type CronJobSpecPtrOutput struct { *pulumi.OutputState}
+type CronJobSpecPtrOutput struct { *pulumi.OutputState }
 
 func (CronJobSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CronJobSpec)(nil)).Elem()
@@ -520,7 +520,7 @@ func (o CronJobStatusOutput) LastScheduleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v CronJobStatus) *string { return v.LastScheduleTime }).(pulumi.StringPtrOutput)
 }
 
-type CronJobStatusPtrOutput struct { *pulumi.OutputState}
+type CronJobStatusPtrOutput struct { *pulumi.OutputState }
 
 func (CronJobStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CronJobStatus)(nil)).Elem()
@@ -649,7 +649,7 @@ func (o JobTemplateSpecOutput) Spec() batchv1.JobSpecPtrOutput {
 	return o.ApplyT(func (v JobTemplateSpec) *batchv1.JobSpec { return v.Spec }).(batchv1.JobSpecPtrOutput)
 }
 
-type JobTemplateSpecPtrOutput struct { *pulumi.OutputState}
+type JobTemplateSpecPtrOutput struct { *pulumi.OutputState }
 
 func (JobTemplateSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**JobTemplateSpec)(nil)).Elem()

@@ -85,7 +85,7 @@ func (o AllowedCSIDriverOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v AllowedCSIDriver) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type AllowedCSIDriverArrayOutput struct { *pulumi.OutputState}
+type AllowedCSIDriverArrayOutput struct { *pulumi.OutputState }
 
 func (AllowedCSIDriverArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AllowedCSIDriver)(nil)).Elem()
@@ -177,7 +177,7 @@ func (o AllowedFlexVolumeOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v AllowedFlexVolume) *string { return v.Driver }).(pulumi.StringPtrOutput)
 }
 
-type AllowedFlexVolumeArrayOutput struct { *pulumi.OutputState}
+type AllowedFlexVolumeArrayOutput struct { *pulumi.OutputState }
 
 func (AllowedFlexVolumeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AllowedFlexVolume)(nil)).Elem()
@@ -284,7 +284,7 @@ func (o AllowedHostPathOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func (v AllowedHostPath) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-type AllowedHostPathArrayOutput struct { *pulumi.OutputState}
+type AllowedHostPathArrayOutput struct { *pulumi.OutputState }
 
 func (AllowedHostPathArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]AllowedHostPath)(nil)).Elem()
@@ -412,7 +412,7 @@ func (o DaemonSetTypeOutput) Status() DaemonSetStatusPtrOutput {
 	return o.ApplyT(func (v DaemonSetType) *DaemonSetStatus { return v.Status }).(DaemonSetStatusPtrOutput)
 }
 
-type DaemonSetTypeArrayOutput struct { *pulumi.OutputState}
+type DaemonSetTypeArrayOutput struct { *pulumi.OutputState }
 
 func (DaemonSetTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DaemonSetType)(nil)).Elem()
@@ -540,7 +540,7 @@ func (o DaemonSetConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v DaemonSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DaemonSetConditionArrayOutput struct { *pulumi.OutputState}
+type DaemonSetConditionArrayOutput struct { *pulumi.OutputState }
 
 func (DaemonSetConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DaemonSetCondition)(nil)).Elem()
@@ -775,7 +775,7 @@ func (o DaemonSetSpecOutput) UpdateStrategy() DaemonSetUpdateStrategyPtrOutput {
 	return o.ApplyT(func (v DaemonSetSpec) *DaemonSetUpdateStrategy { return v.UpdateStrategy }).(DaemonSetUpdateStrategyPtrOutput)
 }
 
-type DaemonSetSpecPtrOutput struct { *pulumi.OutputState}
+type DaemonSetSpecPtrOutput struct { *pulumi.OutputState }
 
 func (DaemonSetSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DaemonSetSpec)(nil)).Elem()
@@ -996,7 +996,7 @@ func (o DaemonSetStatusOutput) UpdatedNumberScheduled() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v DaemonSetStatus) *int { return v.UpdatedNumberScheduled }).(pulumi.IntPtrOutput)
 }
 
-type DaemonSetStatusPtrOutput struct { *pulumi.OutputState}
+type DaemonSetStatusPtrOutput struct { *pulumi.OutputState }
 
 func (DaemonSetStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DaemonSetStatus)(nil)).Elem()
@@ -1162,7 +1162,7 @@ func (o DaemonSetUpdateStrategyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v DaemonSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DaemonSetUpdateStrategyPtrOutput struct { *pulumi.OutputState}
+type DaemonSetUpdateStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (DaemonSetUpdateStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DaemonSetUpdateStrategy)(nil)).Elem()
@@ -1298,7 +1298,7 @@ func (o DeploymentTypeOutput) Status() DeploymentStatusPtrOutput {
 	return o.ApplyT(func (v DeploymentType) *DeploymentStatus { return v.Status }).(DeploymentStatusPtrOutput)
 }
 
-type DeploymentTypeArrayOutput struct { *pulumi.OutputState}
+type DeploymentTypeArrayOutput struct { *pulumi.OutputState }
 
 func (DeploymentTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DeploymentType)(nil)).Elem()
@@ -1435,7 +1435,7 @@ func (o DeploymentConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v DeploymentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DeploymentConditionArrayOutput struct { *pulumi.OutputState}
+type DeploymentConditionArrayOutput struct { *pulumi.OutputState }
 
 func (DeploymentConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]DeploymentCondition)(nil)).Elem()
@@ -1784,7 +1784,7 @@ func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func (v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
-type DeploymentSpecPtrOutput struct { *pulumi.OutputState}
+type DeploymentSpecPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentSpec)(nil)).Elem()
@@ -2002,7 +2002,7 @@ func (o DeploymentStatusOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
 
-type DeploymentStatusPtrOutput struct { *pulumi.OutputState}
+type DeploymentStatusPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentStatus)(nil)).Elem()
@@ -2161,7 +2161,7 @@ func (o DeploymentStrategyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type DeploymentStrategyPtrOutput struct { *pulumi.OutputState}
+type DeploymentStrategyPtrOutput struct { *pulumi.OutputState }
 
 func (DeploymentStrategyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentStrategy)(nil)).Elem()
@@ -2290,7 +2290,7 @@ func (o FSGroupStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v FSGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type FSGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type FSGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (FSGroupStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FSGroupStrategyOptions)(nil)).Elem()
@@ -2399,7 +2399,7 @@ func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-type HTTPIngressPathArrayOutput struct { *pulumi.OutputState}
+type HTTPIngressPathArrayOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressPathArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HTTPIngressPath)(nil)).Elem()
@@ -2511,7 +2511,7 @@ func (o HTTPIngressRuleValueOutput) Paths() HTTPIngressPathArrayOutput {
 	return o.ApplyT(func (v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
 }
 
-type HTTPIngressRuleValuePtrOutput struct { *pulumi.OutputState}
+type HTTPIngressRuleValuePtrOutput struct { *pulumi.OutputState }
 
 func (HTTPIngressRuleValuePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HTTPIngressRuleValue)(nil)).Elem()
@@ -2615,7 +2615,7 @@ func (o HostPortRangeOutput) Min() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v HostPortRange) *int { return v.Min }).(pulumi.IntPtrOutput)
 }
 
-type HostPortRangeArrayOutput struct { *pulumi.OutputState}
+type HostPortRangeArrayOutput struct { *pulumi.OutputState }
 
 func (HostPortRangeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]HostPortRange)(nil)).Elem()
@@ -2716,7 +2716,7 @@ func (o IDRangeOutput) Min() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v IDRange) *int { return v.Min }).(pulumi.IntPtrOutput)
 }
 
-type IDRangeArrayOutput struct { *pulumi.OutputState}
+type IDRangeArrayOutput struct { *pulumi.OutputState }
 
 func (IDRangeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IDRange)(nil)).Elem()
@@ -2837,7 +2837,7 @@ func (o IPBlockOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
 
-type IPBlockPtrOutput struct { *pulumi.OutputState}
+type IPBlockPtrOutput struct { *pulumi.OutputState }
 
 func (IPBlockPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IPBlock)(nil)).Elem()
@@ -2973,7 +2973,7 @@ func (o IngressTypeOutput) Status() IngressStatusPtrOutput {
 	return o.ApplyT(func (v IngressType) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
 }
 
-type IngressTypeArrayOutput struct { *pulumi.OutputState}
+type IngressTypeArrayOutput struct { *pulumi.OutputState }
 
 func (IngressTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressType)(nil)).Elem()
@@ -3094,7 +3094,7 @@ func (o IngressBackendOutput) ServicePort() pulumi.AnyOutput {
 	return o.ApplyT(func (v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
 }
 
-type IngressBackendPtrOutput struct { *pulumi.OutputState}
+type IngressBackendPtrOutput struct { *pulumi.OutputState }
 
 func (IngressBackendPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressBackend)(nil)).Elem()
@@ -3293,7 +3293,7 @@ func (o IngressRuleOutput) Http() HTTPIngressRuleValuePtrOutput {
 	return o.ApplyT(func (v IngressRule) *HTTPIngressRuleValue { return v.Http }).(HTTPIngressRuleValuePtrOutput)
 }
 
-type IngressRuleArrayOutput struct { *pulumi.OutputState}
+type IngressRuleArrayOutput struct { *pulumi.OutputState }
 
 func (IngressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressRule)(nil)).Elem()
@@ -3423,7 +3423,7 @@ func (o IngressSpecOutput) Tls() IngressTLSArrayOutput {
 	return o.ApplyT(func (v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
 }
 
-type IngressSpecPtrOutput struct { *pulumi.OutputState}
+type IngressSpecPtrOutput struct { *pulumi.OutputState }
 
 func (IngressSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressSpec)(nil)).Elem()
@@ -3548,7 +3548,7 @@ func (o IngressStatusOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
 	return o.ApplyT(func (v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
 }
 
-type IngressStatusPtrOutput struct { *pulumi.OutputState}
+type IngressStatusPtrOutput struct { *pulumi.OutputState }
 
 func (IngressStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressStatus)(nil)).Elem()
@@ -3652,7 +3652,7 @@ func (o IngressTLSOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v IngressTLS) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
 
-type IngressTLSArrayOutput struct { *pulumi.OutputState}
+type IngressTLSArrayOutput struct { *pulumi.OutputState }
 
 func (IngressTLSArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]IngressTLS)(nil)).Elem()
@@ -3771,7 +3771,7 @@ func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
 	return o.ApplyT(func (v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
 }
 
-type NetworkPolicyTypeArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyTypeArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyType)(nil)).Elem()
@@ -3872,7 +3872,7 @@ func (o NetworkPolicyEgressRuleOutput) To() NetworkPolicyPeerArrayOutput {
 	return o.ApplyT(func (v NetworkPolicyEgressRule) []NetworkPolicyPeer { return v.To }).(NetworkPolicyPeerArrayOutput)
 }
 
-type NetworkPolicyEgressRuleArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyEgressRuleArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyEgressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyEgressRule)(nil)).Elem()
@@ -3973,7 +3973,7 @@ func (o NetworkPolicyIngressRuleOutput) Ports() NetworkPolicyPortArrayOutput {
 	return o.ApplyT(func (v NetworkPolicyIngressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
 }
 
-type NetworkPolicyIngressRuleArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyIngressRuleArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyIngressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyIngressRule)(nil)).Elem()
@@ -4173,7 +4173,7 @@ func (o NetworkPolicyPeerOutput) PodSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-type NetworkPolicyPeerArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyPeerArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyPeerArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyPeer)(nil)).Elem()
@@ -4274,7 +4274,7 @@ func (o NetworkPolicyPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v NetworkPolicyPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-type NetworkPolicyPortArrayOutput struct { *pulumi.OutputState}
+type NetworkPolicyPortArrayOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicyPortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyPort)(nil)).Elem()
@@ -4413,7 +4413,7 @@ func (o NetworkPolicySpecOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
 }
 
-type NetworkPolicySpecPtrOutput struct { *pulumi.OutputState}
+type NetworkPolicySpecPtrOutput struct { *pulumi.OutputState }
 
 func (NetworkPolicySpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NetworkPolicySpec)(nil)).Elem()
@@ -4550,7 +4550,7 @@ func (o PodSecurityPolicyTypeOutput) Spec() PodSecurityPolicySpecPtrOutput {
 	return o.ApplyT(func (v PodSecurityPolicyType) *PodSecurityPolicySpec { return v.Spec }).(PodSecurityPolicySpecPtrOutput)
 }
 
-type PodSecurityPolicyTypeArrayOutput struct { *pulumi.OutputState}
+type PodSecurityPolicyTypeArrayOutput struct { *pulumi.OutputState }
 
 func (PodSecurityPolicyTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]PodSecurityPolicyType)(nil)).Elem()
@@ -4959,7 +4959,7 @@ func (o PodSecurityPolicySpecOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func (v PodSecurityPolicySpec) []string { return v.Volumes }).(pulumi.StringArrayOutput)
 }
 
-type PodSecurityPolicySpecPtrOutput struct { *pulumi.OutputState}
+type PodSecurityPolicySpecPtrOutput struct { *pulumi.OutputState }
 
 func (PodSecurityPolicySpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodSecurityPolicySpec)(nil)).Elem()
@@ -5209,7 +5209,7 @@ func (o ReplicaSetTypeOutput) Status() ReplicaSetStatusPtrOutput {
 	return o.ApplyT(func (v ReplicaSetType) *ReplicaSetStatus { return v.Status }).(ReplicaSetStatusPtrOutput)
 }
 
-type ReplicaSetTypeArrayOutput struct { *pulumi.OutputState}
+type ReplicaSetTypeArrayOutput struct { *pulumi.OutputState }
 
 func (ReplicaSetTypeArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ReplicaSetType)(nil)).Elem()
@@ -5337,7 +5337,7 @@ func (o ReplicaSetConditionOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ReplicaSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-type ReplicaSetConditionArrayOutput struct { *pulumi.OutputState}
+type ReplicaSetConditionArrayOutput struct { *pulumi.OutputState }
 
 func (ReplicaSetConditionArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ReplicaSetCondition)(nil)).Elem()
@@ -5554,7 +5554,7 @@ func (o ReplicaSetSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func (v ReplicaSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
 
-type ReplicaSetSpecPtrOutput struct { *pulumi.OutputState}
+type ReplicaSetSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ReplicaSetSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ReplicaSetSpec)(nil)).Elem()
@@ -5729,7 +5729,7 @@ func (o ReplicaSetStatusOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ReplicaSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-type ReplicaSetStatusPtrOutput struct { *pulumi.OutputState}
+type ReplicaSetStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ReplicaSetStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ReplicaSetStatus)(nil)).Elem()
@@ -5869,7 +5869,7 @@ func (o RollbackConfigOutput) Revision() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v RollbackConfig) *int { return v.Revision }).(pulumi.IntPtrOutput)
 }
 
-type RollbackConfigPtrOutput struct { *pulumi.OutputState}
+type RollbackConfigPtrOutput struct { *pulumi.OutputState }
 
 func (RollbackConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollbackConfig)(nil)).Elem()
@@ -5984,7 +5984,7 @@ func (o RollingUpdateDaemonSetOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func (v RollingUpdateDaemonSet) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
 
-type RollingUpdateDaemonSetPtrOutput struct { *pulumi.OutputState}
+type RollingUpdateDaemonSetPtrOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateDaemonSetPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollingUpdateDaemonSet)(nil)).Elem()
@@ -6108,7 +6108,7 @@ func (o RollingUpdateDeploymentOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func (v RollingUpdateDeployment) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
 
-type RollingUpdateDeploymentPtrOutput struct { *pulumi.OutputState}
+type RollingUpdateDeploymentPtrOutput struct { *pulumi.OutputState }
 
 func (RollingUpdateDeploymentPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RollingUpdateDeployment)(nil)).Elem()
@@ -6237,7 +6237,7 @@ func (o RunAsGroupStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RunAsGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type RunAsGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type RunAsGroupStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (RunAsGroupStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RunAsGroupStrategyOptions)(nil)).Elem()
@@ -6366,7 +6366,7 @@ func (o RunAsUserStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v RunAsUserStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type RunAsUserStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type RunAsUserStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (RunAsUserStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RunAsUserStrategyOptions)(nil)).Elem()
@@ -6495,7 +6495,7 @@ func (o RuntimeClassStrategyOptionsOutput) DefaultRuntimeClassName() pulumi.Stri
 	return o.ApplyT(func (v RuntimeClassStrategyOptions) *string { return v.DefaultRuntimeClassName }).(pulumi.StringPtrOutput)
 }
 
-type RuntimeClassStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type RuntimeClassStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (RuntimeClassStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RuntimeClassStrategyOptions)(nil)).Elem()
@@ -6624,7 +6624,7 @@ func (o SELinuxStrategyOptionsOutput) SeLinuxOptions() corev1.SELinuxOptionsPtrO
 	return o.ApplyT(func (v SELinuxStrategyOptions) *corev1.SELinuxOptions { return v.SeLinuxOptions }).(corev1.SELinuxOptionsPtrOutput)
 }
 
-type SELinuxStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type SELinuxStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (SELinuxStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SELinuxStrategyOptions)(nil)).Elem()
@@ -6831,7 +6831,7 @@ func (o ScaleSpecOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func (v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-type ScaleSpecPtrOutput struct { *pulumi.OutputState}
+type ScaleSpecPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleSpec)(nil)).Elem()
@@ -6964,7 +6964,7 @@ func (o ScaleStatusOutput) TargetSelector() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v ScaleStatus) *string { return v.TargetSelector }).(pulumi.StringPtrOutput)
 }
 
-type ScaleStatusPtrOutput struct { *pulumi.OutputState}
+type ScaleStatusPtrOutput struct { *pulumi.OutputState }
 
 func (ScaleStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleStatus)(nil)).Elem()
@@ -7098,7 +7098,7 @@ func (o SupplementalGroupsStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func (v SupplementalGroupsStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }
 
-type SupplementalGroupsStrategyOptionsPtrOutput struct { *pulumi.OutputState}
+type SupplementalGroupsStrategyOptionsPtrOutput struct { *pulumi.OutputState }
 
 func (SupplementalGroupsStrategyOptionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SupplementalGroupsStrategyOptions)(nil)).Elem()
