@@ -8,8 +8,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
 // APIService represents a server for a particular GroupVersion. Name must be "version.group".

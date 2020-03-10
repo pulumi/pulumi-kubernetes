@@ -8,8 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
 // HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.

@@ -8,9 +8,9 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.

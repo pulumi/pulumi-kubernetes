@@ -7,9 +7,9 @@ package v1beta1
 import (
 	"reflect"
 
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.

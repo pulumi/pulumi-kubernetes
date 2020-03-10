@@ -7,8 +7,8 @@ package v1
 import (
 	"reflect"
 
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
 // Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
