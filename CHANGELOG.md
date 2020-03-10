@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 1.5.7 (March 10, 2020)
+
 ### Bug fixes
 
 -   Replace PersistentVolume if volume source changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1015).
