@@ -35,6 +35,12 @@ func NewCSINode(ctx *pulumi.Context,
 	if args == nil {
 		args = &CSINodeArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("CSINode")
+	}
 	var resource CSINode
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSINode", name, args, &resource, opts...)
 	if err != nil {

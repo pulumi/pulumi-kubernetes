@@ -35,6 +35,12 @@ func NewStorageClassList(ctx *pulumi.Context,
 	if args == nil {
 		args = &StorageClassListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("StorageClassList")
+	}
 	var resource StorageClassList
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:StorageClassList", name, args, &resource, opts...)
 	if err != nil {

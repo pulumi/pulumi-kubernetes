@@ -42,6 +42,12 @@ func NewEndpointSlice(ctx *pulumi.Context,
 	if args == nil {
 		args = &EndpointSliceArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("discovery.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("EndpointSlice")
+	}
 	var resource EndpointSlice
 	err := ctx.RegisterResource("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", name, args, &resource, opts...)
 	if err != nil {

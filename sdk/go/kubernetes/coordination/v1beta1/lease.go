@@ -31,6 +31,12 @@ func NewLease(ctx *pulumi.Context,
 	if args == nil {
 		args = &LeaseArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("coordination.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Lease")
+	}
 	var resource Lease
 	err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:Lease", name, args, &resource, opts...)
 	if err != nil {

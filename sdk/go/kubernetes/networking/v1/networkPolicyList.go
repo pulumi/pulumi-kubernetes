@@ -35,6 +35,12 @@ func NewNetworkPolicyList(ctx *pulumi.Context,
 	if args == nil {
 		args = &NetworkPolicyListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("NetworkPolicyList")
+	}
 	var resource NetworkPolicyList
 	err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, args, &resource, opts...)
 	if err != nil {

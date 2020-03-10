@@ -41,6 +41,12 @@ func NewPriorityClass(ctx *pulumi.Context,
 	if args == nil {
 		args = &PriorityClassArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("scheduling.k8s.io/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("PriorityClass")
+	}
 	var resource PriorityClass
 	err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1:PriorityClass", name, args, &resource, opts...)
 	if err != nil {

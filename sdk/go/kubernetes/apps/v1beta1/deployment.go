@@ -33,6 +33,12 @@ func NewDeployment(ctx *pulumi.Context,
 	if args == nil {
 		args = &DeploymentArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("apps/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Deployment")
+	}
 	var resource Deployment
 	err := ctx.RegisterResource("kubernetes:apps/v1beta1:Deployment", name, args, &resource, opts...)
 	if err != nil {

@@ -35,6 +35,12 @@ func NewClusterRoleList(ctx *pulumi.Context,
 	if args == nil {
 		args = &ClusterRoleListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ClusterRoleList")
+	}
 	var resource ClusterRoleList
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", name, args, &resource, opts...)
 	if err != nil {

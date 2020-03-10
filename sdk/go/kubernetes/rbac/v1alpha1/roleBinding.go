@@ -37,6 +37,12 @@ func NewRoleBinding(ctx *pulumi.Context,
 	if args == nil {
 		args = &RoleBindingArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1alpha1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("RoleBinding")
+	}
 	var resource RoleBinding
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", name, args, &resource, opts...)
 	if err != nil {

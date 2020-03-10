@@ -32,6 +32,12 @@ func NewCertificateSigningRequestList(ctx *pulumi.Context,
 	if args == nil {
 		args = &CertificateSigningRequestListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("certificates.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("CertificateSigningRequestList")
+	}
 	var resource CertificateSigningRequestList
 	err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", name, args, &resource, opts...)
 	if err != nil {

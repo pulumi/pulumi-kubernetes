@@ -35,6 +35,12 @@ func NewComponentStatusList(ctx *pulumi.Context,
 	if args == nil {
 		args = &ComponentStatusListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ComponentStatusList")
+	}
 	var resource ComponentStatusList
 	err := ctx.RegisterResource("kubernetes:core/v1:ComponentStatusList", name, args, &resource, opts...)
 	if err != nil {

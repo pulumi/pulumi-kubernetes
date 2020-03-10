@@ -35,6 +35,12 @@ func NewControllerRevisionList(ctx *pulumi.Context,
 	if args == nil {
 		args = &ControllerRevisionListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("apps/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ControllerRevisionList")
+	}
 	var resource ControllerRevisionList
 	err := ctx.RegisterResource("kubernetes:apps/v1:ControllerRevisionList", name, args, &resource, opts...)
 	if err != nil {

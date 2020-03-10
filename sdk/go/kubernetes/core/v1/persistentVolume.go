@@ -33,6 +33,12 @@ func NewPersistentVolume(ctx *pulumi.Context,
 	if args == nil {
 		args = &PersistentVolumeArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("PersistentVolume")
+	}
 	var resource PersistentVolume
 	err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolume", name, args, &resource, opts...)
 	if err != nil {

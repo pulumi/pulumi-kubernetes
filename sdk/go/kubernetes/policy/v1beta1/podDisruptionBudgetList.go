@@ -33,6 +33,12 @@ func NewPodDisruptionBudgetList(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodDisruptionBudgetListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("policy/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("PodDisruptionBudgetList")
+	}
 	var resource PodDisruptionBudgetList
 	err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, args, &resource, opts...)
 	if err != nil {

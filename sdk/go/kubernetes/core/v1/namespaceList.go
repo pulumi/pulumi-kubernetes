@@ -35,6 +35,12 @@ func NewNamespaceList(ctx *pulumi.Context,
 	if args == nil {
 		args = &NamespaceListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("NamespaceList")
+	}
 	var resource NamespaceList
 	err := ctx.RegisterResource("kubernetes:core/v1:NamespaceList", name, args, &resource, opts...)
 	if err != nil {

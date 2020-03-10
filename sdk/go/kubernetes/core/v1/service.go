@@ -33,6 +33,12 @@ func NewService(ctx *pulumi.Context,
 	if args == nil {
 		args = &ServiceArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Service")
+	}
 	var resource Service
 	err := ctx.RegisterResource("kubernetes:core/v1:Service", name, args, &resource, opts...)
 	if err != nil {

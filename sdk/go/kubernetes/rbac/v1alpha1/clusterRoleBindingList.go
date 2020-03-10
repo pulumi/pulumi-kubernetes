@@ -35,6 +35,12 @@ func NewClusterRoleBindingList(ctx *pulumi.Context,
 	if args == nil {
 		args = &ClusterRoleBindingListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1alpha1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ClusterRoleBindingList")
+	}
 	var resource ClusterRoleBindingList
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, args, &resource, opts...)
 	if err != nil {

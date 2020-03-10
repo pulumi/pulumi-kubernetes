@@ -35,6 +35,12 @@ func NewPodTemplateList(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodTemplateListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("PodTemplateList")
+	}
 	var resource PodTemplateList
 	err := ctx.RegisterResource("kubernetes:core/v1:PodTemplateList", name, args, &resource, opts...)
 	if err != nil {

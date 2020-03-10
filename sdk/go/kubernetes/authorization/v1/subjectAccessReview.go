@@ -36,6 +36,12 @@ func NewSubjectAccessReview(ctx *pulumi.Context,
 	if args == nil {
 		args = &SubjectAccessReviewArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("authorization.k8s.io/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("SubjectAccessReview")
+	}
 	var resource SubjectAccessReview
 	err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, args, &resource, opts...)
 	if err != nil {

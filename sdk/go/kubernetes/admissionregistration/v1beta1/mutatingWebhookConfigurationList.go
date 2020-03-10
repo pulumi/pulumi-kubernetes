@@ -35,6 +35,12 @@ func NewMutatingWebhookConfigurationList(ctx *pulumi.Context,
 	if args == nil {
 		args = &MutatingWebhookConfigurationListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("MutatingWebhookConfigurationList")
+	}
 	var resource MutatingWebhookConfigurationList
 	err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList", name, args, &resource, opts...)
 	if err != nil {

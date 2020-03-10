@@ -35,6 +35,12 @@ func NewHorizontalPodAutoscalerList(ctx *pulumi.Context,
 	if args == nil {
 		args = &HorizontalPodAutoscalerListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("autoscaling/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("HorizontalPodAutoscalerList")
+	}
 	var resource HorizontalPodAutoscalerList
 	err := ctx.RegisterResource("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", name, args, &resource, opts...)
 	if err != nil {

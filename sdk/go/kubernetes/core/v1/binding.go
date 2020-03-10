@@ -35,6 +35,12 @@ func NewBinding(ctx *pulumi.Context,
 	if args == nil {
 		args = &BindingArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Binding")
+	}
 	var resource Binding
 	err := ctx.RegisterResource("kubernetes:core/v1:Binding", name, args, &resource, opts...)
 	if err != nil {

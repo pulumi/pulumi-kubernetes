@@ -35,6 +35,12 @@ func NewServiceAccount(ctx *pulumi.Context,
 	if args == nil {
 		args = &ServiceAccountArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ServiceAccount")
+	}
 	var resource ServiceAccount
 	err := ctx.RegisterResource("kubernetes:core/v1:ServiceAccount", name, args, &resource, opts...)
 	if err != nil {

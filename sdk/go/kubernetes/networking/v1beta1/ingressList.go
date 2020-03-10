@@ -35,6 +35,12 @@ func NewIngressList(ctx *pulumi.Context,
 	if args == nil {
 		args = &IngressListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("IngressList")
+	}
 	var resource IngressList
 	err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:IngressList", name, args, &resource, opts...)
 	if err != nil {

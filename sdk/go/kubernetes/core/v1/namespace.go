@@ -33,6 +33,12 @@ func NewNamespace(ctx *pulumi.Context,
 	if args == nil {
 		args = &NamespaceArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Namespace")
+	}
 	var resource Namespace
 	err := ctx.RegisterResource("kubernetes:core/v1:Namespace", name, args, &resource, opts...)
 	if err != nil {

@@ -33,6 +33,12 @@ func NewIngress(ctx *pulumi.Context,
 	if args == nil {
 		args = &IngressArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("extensions/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Ingress")
+	}
 	var resource Ingress
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:Ingress", name, args, &resource, opts...)
 	if err != nil {

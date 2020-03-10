@@ -31,6 +31,12 @@ func NewNetworkPolicy(ctx *pulumi.Context,
 	if args == nil {
 		args = &NetworkPolicyArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("extensions/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("NetworkPolicy")
+	}
 	var resource NetworkPolicy
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:NetworkPolicy", name, args, &resource, opts...)
 	if err != nil {

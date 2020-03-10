@@ -35,6 +35,12 @@ func NewLimitRangeList(ctx *pulumi.Context,
 	if args == nil {
 		args = &LimitRangeListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("LimitRangeList")
+	}
 	var resource LimitRangeList
 	err := ctx.RegisterResource("kubernetes:core/v1:LimitRangeList", name, args, &resource, opts...)
 	if err != nil {

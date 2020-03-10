@@ -33,6 +33,12 @@ func NewDaemonSet(ctx *pulumi.Context,
 	if args == nil {
 		args = &DaemonSetArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("apps/v1beta2")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("DaemonSet")
+	}
 	var resource DaemonSet
 	err := ctx.RegisterResource("kubernetes:apps/v1beta2:DaemonSet", name, args, &resource, opts...)
 	if err != nil {

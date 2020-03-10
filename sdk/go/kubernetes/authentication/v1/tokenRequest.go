@@ -34,6 +34,12 @@ func NewTokenRequest(ctx *pulumi.Context,
 	if args == nil {
 		args = &TokenRequestArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("authentication.k8s.io/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("TokenRequest")
+	}
 	var resource TokenRequest
 	err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenRequest", name, args, &resource, opts...)
 	if err != nil {

@@ -31,6 +31,12 @@ func NewRole(ctx *pulumi.Context,
 	if args == nil {
 		args = &RoleArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Role")
+	}
 	var resource Role
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:Role", name, args, &resource, opts...)
 	if err != nil {

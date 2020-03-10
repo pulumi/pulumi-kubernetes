@@ -29,6 +29,12 @@ func NewPodPreset(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodPresetArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("settings.k8s.io/v1alpha1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("PodPreset")
+	}
 	var resource PodPreset
 	err := ctx.RegisterResource("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, args, &resource, opts...)
 	if err != nil {

@@ -35,6 +35,12 @@ func NewRuntimeClassList(ctx *pulumi.Context,
 	if args == nil {
 		args = &RuntimeClassListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("node.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("RuntimeClassList")
+	}
 	var resource RuntimeClassList
 	err := ctx.RegisterResource("kubernetes:node.k8s.io/v1beta1:RuntimeClassList", name, args, &resource, opts...)
 	if err != nil {

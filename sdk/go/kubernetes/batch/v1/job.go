@@ -33,6 +33,12 @@ func NewJob(ctx *pulumi.Context,
 	if args == nil {
 		args = &JobArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("batch/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Job")
+	}
 	var resource Job
 	err := ctx.RegisterResource("kubernetes:batch/v1:Job", name, args, &resource, opts...)
 	if err != nil {

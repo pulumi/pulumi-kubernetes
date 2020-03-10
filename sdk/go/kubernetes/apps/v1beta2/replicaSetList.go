@@ -35,6 +35,12 @@ func NewReplicaSetList(ctx *pulumi.Context,
 	if args == nil {
 		args = &ReplicaSetListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("apps/v1beta2")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ReplicaSetList")
+	}
 	var resource ReplicaSetList
 	err := ctx.RegisterResource("kubernetes:apps/v1beta2:ReplicaSetList", name, args, &resource, opts...)
 	if err != nil {

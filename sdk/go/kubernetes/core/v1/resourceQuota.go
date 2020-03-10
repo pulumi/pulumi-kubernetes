@@ -33,6 +33,12 @@ func NewResourceQuota(ctx *pulumi.Context,
 	if args == nil {
 		args = &ResourceQuotaArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ResourceQuota")
+	}
 	var resource ResourceQuota
 	err := ctx.RegisterResource("kubernetes:core/v1:ResourceQuota", name, args, &resource, opts...)
 	if err != nil {

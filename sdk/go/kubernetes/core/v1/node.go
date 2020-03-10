@@ -33,6 +33,12 @@ func NewNode(ctx *pulumi.Context,
 	if args == nil {
 		args = &NodeArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Node")
+	}
 	var resource Node
 	err := ctx.RegisterResource("kubernetes:core/v1:Node", name, args, &resource, opts...)
 	if err != nil {

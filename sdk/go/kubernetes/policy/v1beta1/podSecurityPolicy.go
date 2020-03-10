@@ -31,6 +31,12 @@ func NewPodSecurityPolicy(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodSecurityPolicyArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("policy/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("PodSecurityPolicy")
+	}
 	var resource PodSecurityPolicy
 	err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodSecurityPolicy", name, args, &resource, opts...)
 	if err != nil {

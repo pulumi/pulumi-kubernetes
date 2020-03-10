@@ -42,6 +42,12 @@ func NewEndpoints(ctx *pulumi.Context,
 	if args == nil {
 		args = &EndpointsArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Endpoints")
+	}
 	var resource Endpoints
 	err := ctx.RegisterResource("kubernetes:core/v1:Endpoints", name, args, &resource, opts...)
 	if err != nil {

@@ -33,6 +33,12 @@ func NewStatefulSetList(ctx *pulumi.Context,
 	if args == nil {
 		args = &StatefulSetListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("apps/v1beta2")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("StatefulSetList")
+	}
 	var resource StatefulSetList
 	err := ctx.RegisterResource("kubernetes:apps/v1beta2:StatefulSetList", name, args, &resource, opts...)
 	if err != nil {

@@ -35,6 +35,12 @@ func NewRuntimeClass(ctx *pulumi.Context,
 	if args == nil {
 		args = &RuntimeClassArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("node.k8s.io/v1alpha1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("RuntimeClass")
+	}
 	var resource RuntimeClass
 	err := ctx.RegisterResource("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", name, args, &resource, opts...)
 	if err != nil {

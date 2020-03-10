@@ -34,6 +34,12 @@ func NewCustomResourceDefinitionList(ctx *pulumi.Context,
 	if args == nil {
 		args = &CustomResourceDefinitionListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("apiextensions.k8s.io/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("CustomResourceDefinitionList")
+	}
 	var resource CustomResourceDefinitionList
 	err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", name, args, &resource, opts...)
 	if err != nil {

@@ -35,6 +35,12 @@ func NewCSIDriverList(ctx *pulumi.Context,
 	if args == nil {
 		args = &CSIDriverListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("CSIDriverList")
+	}
 	var resource CSIDriverList
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSIDriverList", name, args, &resource, opts...)
 	if err != nil {

@@ -160,7 +160,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					if strings.HasPrefix(p.name, "$") {
 						p.name = "t_" + p.name[1:]
 					}
-					objectSpec.Properties[p.name] = genPropertySpec(p)
+					objectSpec.Properties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
 					//objectSpec.Required = append(objectSpec.Required, p.name)
 				}
 
@@ -176,11 +176,11 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
-					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
+					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
 					resourceSpec.RequiredInputs = append(resourceSpec.RequiredInputs, p.name)
 				}
 				for _, p := range kind.OptionalInputProperties() {
-					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
+					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
 				}
 
 				for _, t := range kind.Aliases() {
@@ -208,16 +208,34 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	return pkg
 }
 
-func genPropertySpec(p Property) pschema.PropertySpec {
+func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema.PropertySpec {
 	var typ pschema.TypeSpec
 	err := json.Unmarshal([]byte(p.ProviderType()), &typ)
 	contract.Assert(err == nil)
 
-	return pschema.PropertySpec{
+	defaultValue := func() *string {
+		if p.name == "apiVersion" {
+			if strings.HasPrefix(resourceGV, "core/") {
+				dv := strings.TrimPrefix(resourceGV, "core/")
+				return &dv
+			}
+			return &resourceGV
+		}
+		if p.name == "kind" {
+			return &resourceKind
+		}
+
+		return nil
+	}
+
+	propertySpec := pschema.PropertySpec{
 		Description: p.Comment(),
 		TypeSpec:    typ,
-		//Default:     p.DefaultValue(),
 	}
+	if dv := defaultValue(); dv != nil {
+		propertySpec.Default = *dv
+	}
+	return propertySpec
 }
 
 func rawMessage(v interface{}) json.RawMessage {

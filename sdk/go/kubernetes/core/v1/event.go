@@ -64,6 +64,12 @@ func NewEvent(ctx *pulumi.Context,
 	if args == nil {
 		args = &EventArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("Event")
+	}
 	var resource Event
 	err := ctx.RegisterResource("kubernetes:core/v1:Event", name, args, &resource, opts...)
 	if err != nil {

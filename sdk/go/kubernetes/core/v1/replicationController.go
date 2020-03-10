@@ -33,6 +33,12 @@ func NewReplicationController(ctx *pulumi.Context,
 	if args == nil {
 		args = &ReplicationControllerArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("ReplicationController")
+	}
 	var resource ReplicationController
 	err := ctx.RegisterResource("kubernetes:core/v1:ReplicationController", name, args, &resource, opts...)
 	if err != nil {

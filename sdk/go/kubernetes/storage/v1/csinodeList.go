@@ -35,6 +35,12 @@ func NewCSINodeList(ctx *pulumi.Context,
 	if args == nil {
 		args = &CSINodeListArgs{}
 	}
+	if args.ApiVersion == nil {
+		args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1")
+	}
+	if args.Kind == nil {
+		args.Kind = pulumi.StringPtr("CSINodeList")
+	}
 	var resource CSINodeList
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSINodeList", name, args, &resource, opts...)
 	if err != nil {
