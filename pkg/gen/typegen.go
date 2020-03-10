@@ -1369,6 +1369,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 			comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk, opts.language)
 
 			canonicalGV := d.canonicalGV(canonicalGroups)
+			schemaPkgName := func(gv string) string {
+				pkgName := strings.Replace(gv, ".k8s.io", "", -1)
+				parts := strings.Split(pkgName, "/")
+				contract.Assert(len(parts) == 2)
+				g, v := parts[0], parts[1]
+				gParts := strings.Split(g, ".")
+				return fmt.Sprintf("%s/%s", gParts[0], v)
+			}
 			return linq.From([]KindConfig{
 				{
 					kind: d.gvk.Kind,
@@ -1389,7 +1397,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					isNested:                !isTopLevel,
 
 					canonicalGV:   canonicalGV,
-					schemaPkgName: strings.Replace(canonicalGV, ".k8s.io", "", -1),
+					schemaPkgName: schemaPkgName(canonicalGV),
 				},
 			})
 		}).
