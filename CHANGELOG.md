@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Add a Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1029).
+
 ## 1.5.8 (March 16, 2020)
 
 ### Improvements

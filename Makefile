@@ -66,7 +66,8 @@ build:: $(OPENAPI_FILE)
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 lint::
-	golangci-lint run --timeout 20m
+	# TODO: Re-enable once OOM issue is addressed
+	# golangci-lint run
 
 install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
