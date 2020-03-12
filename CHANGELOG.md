@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- Update to Pulumi NuGet 1.12.1 and .NET Core 3.1
 
 ## 1.5.7 (March 10, 2020)
 

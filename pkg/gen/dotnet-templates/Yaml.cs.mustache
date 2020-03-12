@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Yaml
     {
         internal Output<ImmutableDictionary<string, KubernetesResource>> Resources { get; private set; } = null!;
 
-        protected CollectionComponentResource(string type, string name, ResourceOptions? options = null)
+        protected CollectionComponentResource(string type, string name, ComponentResourceOptions? options = null)
             : base(type, name, options)
         {
         }
