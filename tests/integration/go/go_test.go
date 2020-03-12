@@ -29,10 +29,10 @@ func TestDotnet_Basic(t *testing.T) {
 	}
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "basic",
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
-		// The CRD sometimes, but not always, has changes during refresh.
-		ExpectRefreshChanges: true,
+		Dir: "basic",
+		Dependencies: []string{
+			"github.com/pulumi/pulumi-kubernetes",
+		},
+		Quick: true,
 	})
 }
