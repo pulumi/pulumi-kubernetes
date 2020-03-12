@@ -66,7 +66,7 @@ build:: $(OPENAPI_FILE)
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 lint::
-	golangci-lint run
+	golangci-lint run --timeout 20m
 
 install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
