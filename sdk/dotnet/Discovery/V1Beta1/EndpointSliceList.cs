@@ -50,7 +50,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public EndpointSliceList(string name, Types.Inputs.Discovery.V1Beta1.EndpointSliceListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -67,6 +67,11 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing EndpointSliceList resource's state with the given name and ID.
         /// </summary>
@@ -78,6 +83,5 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
             return new EndpointSliceList(name, default(Types.Inputs.Discovery.V1Beta1.EndpointSliceListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public FlowSchema(string name, Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -78,6 +78,11 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing FlowSchema resource's state with the given name and ID.
         /// </summary>
@@ -89,6 +94,5 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
             return new FlowSchema(name, default(Types.Inputs.FlowControl.V1Alpha1.FlowSchemaArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

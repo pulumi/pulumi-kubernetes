@@ -64,7 +64,7 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ControllerRevision(string name, Types.Inputs.Apps.V1.ControllerRevisionArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1:ControllerRevision", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:apps/v1:ControllerRevision", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -81,6 +81,20 @@ namespace Pulumi.Kubernetes.Apps.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:apps/v1beta1:ControllerRevision" },
+                    new Alias { Type = "kubernetes:apps/v1beta2:ControllerRevision" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing ControllerRevision resource's state with the given name and ID.
         /// </summary>
@@ -92,6 +106,5 @@ namespace Pulumi.Kubernetes.Apps.V1
             return new ControllerRevision(name, default(Types.Inputs.Apps.V1.ControllerRevisionArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

@@ -80,7 +80,7 @@ namespace Pulumi.Kubernetes.Meta.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Status(string name, Types.Inputs.Meta.V1.StatusArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:core/v1:Status", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:core/v1:Status", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -97,6 +97,11 @@ namespace Pulumi.Kubernetes.Meta.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing Status resource's state with the given name and ID.
         /// </summary>
@@ -108,6 +113,5 @@ namespace Pulumi.Kubernetes.Meta.V1
             return new Status(name, default(Types.Inputs.Meta.V1.StatusArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

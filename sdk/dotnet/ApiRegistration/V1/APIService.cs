@@ -54,7 +54,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public APIService(string name, Types.Inputs.ApiRegistration.V1.APIServiceArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apiregistration/v1:APIService", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:apiregistration/v1:APIService", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -71,6 +71,19 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:apiregistration.k8s.io/v1beta1:APIService" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing APIService resource's state with the given name and ID.
         /// </summary>
@@ -82,6 +95,5 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
             return new APIService(name, default(Types.Inputs.ApiRegistration.V1.APIServiceArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

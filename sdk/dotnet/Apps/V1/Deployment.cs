@@ -80,7 +80,7 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Deployment(string name, Types.Inputs.Apps.V1.DeploymentArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1:Deployment", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:apps/v1:Deployment", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -97,6 +97,21 @@ namespace Pulumi.Kubernetes.Apps.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:apps/v1beta1:Deployment" },
+                    new Alias { Type = "kubernetes:apps/v1beta2:Deployment" },
+                    new Alias { Type = "kubernetes:extensions/v1beta1:Deployment" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing Deployment resource's state with the given name and ID.
         /// </summary>
@@ -108,6 +123,5 @@ namespace Pulumi.Kubernetes.Apps.V1
             return new Deployment(name, default(Types.Inputs.Apps.V1.DeploymentArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

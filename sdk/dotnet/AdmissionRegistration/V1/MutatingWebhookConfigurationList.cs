@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public MutatingWebhookConfigurationList(string name, Types.Inputs.AdmissionRegistration.V1.MutatingWebhookConfigurationListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -68,6 +68,11 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing MutatingWebhookConfigurationList resource's state with the given name and ID.
         /// </summary>
@@ -79,6 +84,5 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
             return new MutatingWebhookConfigurationList(name, default(Types.Inputs.AdmissionRegistration.V1.MutatingWebhookConfigurationListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

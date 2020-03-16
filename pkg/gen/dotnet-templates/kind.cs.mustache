@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}}
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public {{Kind}}(string name, Types.Inputs.{{Group}}.{{Version}}.{{Kind}}Args? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:{{URNAPIVersion}}:{{Kind}}", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:{{URNAPIVersion}}:{{Kind}}", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -43,6 +43,36 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}}
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            {{#MergeOptsRequired}}
+            var extraOptions = new CustomResourceOptions
+            {
+                {{#AdditionalSecretOutputsPresent}}
+                AdditionalSecretOutputs =
+                {
+                    {{#AdditionalSecretOutputs}}
+                    "{{.}}",
+                    {{/AdditionalSecretOutputs}}
+                },
+                {{/AdditionalSecretOutputsPresent}}
+                {{#AliasesPresent}}
+                Aliases =
+                {
+                    {{#Aliases}}
+                    new Alias { Type = "{{.}}" },
+                    {{/Aliases}}
+                }
+                {{/AliasesPresent}}
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+            {{/MergeOptsRequired}}
+            {{^MergeOptsRequired}}
+            return options;
+            {{/MergeOptsRequired}}
+        }
+
         /// <summary>
         /// Get an existing {{Kind}} resource's state with the given name and ID.
         /// </summary>
@@ -54,6 +84,5 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}}
             return new {{Kind}}(name, default(Types.Inputs.{{Group}}.{{Version}}.{{Kind}}Args),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

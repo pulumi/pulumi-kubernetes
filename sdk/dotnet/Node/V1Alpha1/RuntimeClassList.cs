@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public RuntimeClassList(string name, Types.Inputs.Node.V1Alpha1.RuntimeClassListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:node.k8s.io/v1alpha1:RuntimeClassList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:node.k8s.io/v1alpha1:RuntimeClassList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -68,6 +68,11 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing RuntimeClassList resource's state with the given name and ID.
         /// </summary>
@@ -79,6 +84,5 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
             return new RuntimeClassList(name, default(Types.Inputs.Node.V1Alpha1.RuntimeClassListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

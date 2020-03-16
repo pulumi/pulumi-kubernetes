@@ -52,7 +52,7 @@ namespace Pulumi.Kubernetes.Apps.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ReplicaSetList(string name, Types.Inputs.Apps.V1.ReplicaSetListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apps/v1:ReplicaSetList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:apps/v1:ReplicaSetList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -69,6 +69,11 @@ namespace Pulumi.Kubernetes.Apps.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing ReplicaSetList resource's state with the given name and ID.
         /// </summary>
@@ -80,6 +85,5 @@ namespace Pulumi.Kubernetes.Apps.V1
             return new ReplicaSetList(name, default(Types.Inputs.Apps.V1.ReplicaSetListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

@@ -74,7 +74,7 @@ namespace Pulumi.Kubernetes.Batch.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Job(string name, Types.Inputs.Batch.V1.JobArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:batch/v1:Job", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:batch/v1:Job", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -91,6 +91,11 @@ namespace Pulumi.Kubernetes.Batch.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing Job resource's state with the given name and ID.
         /// </summary>
@@ -102,6 +107,5 @@ namespace Pulumi.Kubernetes.Batch.V1
             return new Job(name, default(Types.Inputs.Batch.V1.JobArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

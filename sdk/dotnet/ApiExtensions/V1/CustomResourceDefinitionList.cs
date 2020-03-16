@@ -48,7 +48,7 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CustomResourceDefinitionList(string name, Types.Inputs.ApiExtensions.V1.CustomResourceDefinitionListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -65,6 +65,11 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing CustomResourceDefinitionList resource's state with the given name and ID.
         /// </summary>
@@ -76,6 +81,5 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1
             return new CustomResourceDefinitionList(name, default(Types.Inputs.ApiExtensions.V1.CustomResourceDefinitionListArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CSIDriver(string name, Types.Inputs.Storage.V1Beta1.CSIDriverArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -78,6 +78,11 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            return options;
+        }
+
         /// <summary>
         /// Get an existing CSIDriver resource's state with the given name and ID.
         /// </summary>
@@ -89,6 +94,5 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
             return new CSIDriver(name, default(Types.Inputs.Storage.V1Beta1.CSIDriverArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }

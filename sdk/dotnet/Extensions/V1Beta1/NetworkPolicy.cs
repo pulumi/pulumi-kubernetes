@@ -53,7 +53,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public NetworkPolicy(string name, Types.Inputs.Extensions.V1Beta1.NetworkPolicyArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:extensions/v1beta1:NetworkPolicy", name, SetAPIKindAndVersion(args), options)
+            : base("kubernetes:extensions/v1beta1:NetworkPolicy", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
@@ -70,6 +70,19 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
             return args;
         }
 
+        private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
+        {
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:networking.k8s.io/v1:NetworkPolicy" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
+        }
+
         /// <summary>
         /// Get an existing NetworkPolicy resource's state with the given name and ID.
         /// </summary>
@@ -81,6 +94,5 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
             return new NetworkPolicy(name, default(Types.Inputs.Extensions.V1Beta1.NetworkPolicyArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
-
     }
 }
