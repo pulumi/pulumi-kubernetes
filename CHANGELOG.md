@@ -1,12 +1,13 @@
 ## HEAD (Unreleased)
-- Update to Pulumi NuGet 1.12.1 and .NET Core 3.1
 
-## 1.5.7 (March 10, 2020)
+## 1.5.8 (March 16, 2020)
 
 ### Improvements
 
-- Automatically populate type aliases and additional secret outputs in the .NET SDK.
-  (https://github.com/pulumi/pulumi-kubernetes/pull/1026).  
+-   Automatically populate type aliases and additional secret outputs in the .NET SDK.  (https://github.com/pulumi/pulumi-kubernetes/pull/1026).  
+-   Update to Pulumi NuGet 1.12.1 and .NET Core 3.1.  (https://github.com/pulumi/pulumi-kubernetes/pull/1030).
+
+## 1.5.7 (March 10, 2020)
 
 ### Bug fixes
 
