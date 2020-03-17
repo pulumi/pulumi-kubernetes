@@ -46,12 +46,12 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public APIServiceList(string name, Types.Inputs.ApiRegistration.V1.APIServiceListArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:apiregistration/v1:APIServiceList", name, SetAPIKindAndVersion(args), MakeOptions(options))
+            : base("kubernetes:apiregistration.k8s.io/v1:APIServiceList", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
         internal APIServiceList(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
-            : base("kubernetes:apiregistration/v1:APIServiceList", name, dictionary, options)
+            : base("kubernetes:apiregistration.k8s.io/v1:APIServiceList", name, dictionary, options)
         {
         }
 
@@ -65,7 +65,15 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
 
         private static CustomResourceOptions? MakeOptions(CustomResourceOptions? options)
         {
-            return options;
+            var extraOptions = new CustomResourceOptions
+            {
+                Aliases =
+                {
+                    new Alias { Type = "kubernetes:apiregistration/v1:APIServiceList" },
+                }
+            };
+
+            return CustomResourceOptions.Merge(options, extraOptions);
         }
 
         /// <summary>
