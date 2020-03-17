@@ -131,6 +131,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		},
 	}
 
+	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes"
+
 	csharpNamespaces := map[string]string{}
 	modToPkg := map[string]string{}
 	pkgImportAliases := map[string]string{}
@@ -146,7 +148,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.canonicalGV, kind.kind)
 
 				modToPkg[kind.canonicalGV] = kind.schemaPkgName
-				pkgImportAliases[kind.schemaPkgName] = strings.Replace(kind.schemaPkgName, "/", "", -1)
+				pkgImportAliases[fmt.Sprintf("%s/%s", goImportPath, kind.schemaPkgName)] = strings.Replace(
+					kind.schemaPkgName, "/", "", -1)
 
 				objectSpec := pschema.ObjectTypeSpec{
 					Description: kind.Comment(),
@@ -201,6 +204,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"namespaces": csharpNamespaces,
 	})
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
+		"importBasePath":       goImportPath,
 		"moduleToPackage":      modToPkg,
 		"packageImportAliases": pkgImportAliases,
 	})
