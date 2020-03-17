@@ -21,7 +21,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 )
 
-func TestDotnet_Basic(t *testing.T) {
+func TestGo_Basic(t *testing.T) {
 	kubectx := os.Getenv("KUBERNETES_CONTEXT")
 
 	if kubectx == "" {
