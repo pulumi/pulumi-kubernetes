@@ -43,10 +43,6 @@ const (
 	pyAnyT    = "Any"
 )
 
-const (
-	apiRegistration = "apiregistration.k8s.io"
-)
-
 // --------------------------------------------------------------------------
 
 // A collection of data structures and utility functions to transform an OpenAPI spec for the
