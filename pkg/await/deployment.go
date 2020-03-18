@@ -854,5 +854,5 @@ func (dia *deploymentInitAwaiter) makeClients() (
 		return nil, nil, nil, nil, err
 	}
 
-	return nil, nil, nil, nil, err
+	return
 }
