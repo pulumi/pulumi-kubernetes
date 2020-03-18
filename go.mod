@@ -13,7 +13,7 @@ require (
 	github.com/imdario/mergo v0.3.8
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi v1.12.1
+	github.com/pulumi/pulumi v1.12.2-0.20200317200943-655839009a98
 	github.com/stretchr/testify v1.4.1-0.20191106224347-f1bd0923b832
 	google.golang.org/grpc v1.27.1
 	k8s.io/api v0.17.0
@@ -25,7 +25,3 @@ require (
 )
 
 replace github.com/Azure/go-autorest => github.com/Azure/go-autorest v13.3.1+incompatible
-
-// Temporarily pin to this commit to support schema-based Go SDK generation.
-// Can remove this and update the pulumi/pulumi module requirement once v1.12.2 is released.
-replace github.com/pulumi/pulumi => github.com/pulumi/pulumi v1.12.2-0.20200317200943-655839009a98
