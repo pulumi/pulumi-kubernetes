@@ -97,9 +97,9 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 
 	if namespaced {
 		return dcs.GenericClient.Resource(m.Resource).Namespace(NamespaceOrDefault(namespace)), nil
-	} else {
-		return dcs.GenericClient.Resource(m.Resource), nil
 	}
+
+	return dcs.GenericClient.Resource(m.Resource), nil
 }
 
 func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructured,
@@ -128,13 +128,13 @@ func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKi
 			fallbackResourceList = gvResources
 			continue
 		}
-		versionKind, err, done := dcs.searchKindInGVResources(gvResources, kind)
+		versionKind, done, err := dcs.searchKindInGVResources(gvResources, kind)
 		if done {
 			return versionKind, err
 		}
 	}
 
-	versionKind, err, done := dcs.searchKindInGVResources(fallbackResourceList, kind)
+	versionKind, done, err := dcs.searchKindInGVResources(fallbackResourceList, kind)
 	if done {
 		return versionKind, err
 	}
@@ -143,18 +143,18 @@ func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKi
 }
 
 func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResourceList, kind kinds.Kind,
-) (*schema.GroupVersionKind, error, bool) {
+) (*schema.GroupVersionKind, bool, error) {
 	for _, resource := range gvResources.APIResources {
 		if resource.Kind == string(kind) {
 			var gv schema.GroupVersion
 			gv, err := schema.ParseGroupVersion(gvResources.GroupVersion)
 			if err != nil {
-				return nil, err, true
+				return nil, true, err
 			}
-			return &schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: resource.Kind}, nil, true
+			return &schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: resource.Kind}, true, nil
 		}
 	}
-	return nil, nil, false
+	return nil, false, nil
 }
 
 // IsNamespacedKind checks if a given GVK is namespace-scoped. Known GVKs are compared against a static lookup table.

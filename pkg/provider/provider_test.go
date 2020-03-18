@@ -31,9 +31,9 @@ var (
 		},
 	}
 	objLive = map[string]interface{}{
-		initialApiVersionKey: "",
-		"oof": "bar",
-		"zab": float64(4321),
+		initialAPIVersionKey: "",
+		"oof":                "bar",
+		"zab":                float64(4321),
 		"xuq": map[string]interface{}{
 			"qux": "foo",
 		},

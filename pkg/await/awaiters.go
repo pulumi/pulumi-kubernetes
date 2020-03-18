@@ -46,7 +46,7 @@ type createAwaitConfig struct {
 	host              *provider.HostClient
 	ctx               context.Context
 	urn               resource.URN
-	initialApiVersion string
+	initialAPIVersion string
 	logger            *logging.DedupLogger
 	clientSet         *clients.DynamicClientSet
 	currentInputs     *unstructured.Unstructured

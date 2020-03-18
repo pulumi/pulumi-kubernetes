@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// nolint: lll
 package gen
 
 import (
@@ -324,7 +325,7 @@ func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind,
 	}
 
 	if re.MatchString(commentstr) {
-		deprecationMessage := prefix + ApiVersionComment(gvk) + suffix
+		deprecationMessage := prefix + APIVersionComment(gvk) + suffix
 		return re.ReplaceAllString(commentstr, ""), deprecationMessage
 	}
 
@@ -435,6 +436,13 @@ const (
 	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
+const (
+	arrayType   string = "array"
+	booleanType string = "boolean"
+	integerType string = "integer"
+	stringType  string = "string"
+)
+
 func makeTypescriptType(resourceType, propName string, prop map[string]interface{}, gentype gentype) string {
 	wrapType := func(typ string) string {
 		switch gentype {
@@ -456,7 +464,7 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
-		if tstr == "array" {
+		if tstr == arrayType {
 			elemType := makeTypescriptType(
 				resourceType, propName, prop["items"].(map[string]interface{}), gentype)
 			switch gentype {
@@ -467,7 +475,7 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 			case inputsAPI:
 				return fmt.Sprintf("pulumi.Input<%s[]>", elemType)
 			}
-		} else if tstr == "integer" {
+		} else if tstr == integerType {
 			return wrapType("number")
 		} else if tstr == tsObject {
 			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
@@ -485,7 +493,7 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 					}
 				}
 			}
-		} else if tstr == "string" && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
+		} else if tstr == stringType && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
 			// Special case: `.metadata.namespace` should either take a string or a namespace object
 			// itself.
 
@@ -495,7 +503,7 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 				// return "pulumi.Input<string> | Namespace"
 				return "pulumi.Input<string>"
 			case outputsAPI:
-				return "string"
+				return stringType
 			}
 		}
 
@@ -560,15 +568,15 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
-		if tstr == "array" {
+		if tstr == arrayType {
 			return wrapType(pyListT)
-		} else if tstr == "integer" {
+		} else if tstr == integerType {
 			return wrapType(pyIntT)
 		} else if tstr == tsObject {
 			return wrapType(pyDictT)
-		} else if tstr == "string" {
+		} else if tstr == stringType {
 			return wrapType(pyStringT)
-		} else if tstr == "boolean" {
+		} else if tstr == booleanType {
 			return wrapType(pyBoolT)
 		}
 
@@ -641,7 +649,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
-		if tstr == "array" {
+		if tstr == arrayType {
 			switch gentype {
 			case provider:
 				elemType := makeDotnetType(
@@ -656,14 +664,14 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 					resourceType, propName, prop["items"].(map[string]interface{}), gentype, true)
 				return fmt.Sprintf("InputList<%s>", elemType)
 			}
-		} else if tstr == "integer" {
+		} else if tstr == integerType {
 			return wrapType("int")
-		} else if tstr == "boolean" {
+		} else if tstr == booleanType {
 			return wrapType("bool")
 		} else if tstr == "number" {
 			return wrapType("double")
 		} else if tstr == "object" {
-			vtype := "string"
+			vtype := stringType
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
 				switch gentype {
 				case provider:
@@ -685,7 +693,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			case provider:
 				return fmt.Sprintf("Output<ImmutableDictionary<string, %s>>", vtype)
 			}
-		} else if tstr == "string" && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
+		} else if tstr == stringType && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
 			// Special case: `.metadata.namespace` should either take a string or a namespace object
 			// itself.
 
@@ -695,7 +703,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 				// return "pulumi.Input<string> | Namespace"
 				return "Input<string>"
 			case outputsAPI:
-				return "string"
+				return stringType
 			}
 		}
 
@@ -726,13 +734,13 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	isSimpleRef := true
 	switch ref {
 	case quantity:
-		ref = "string"
+		ref = stringType
 	case intOrString:
-		return oneOf("int", "string")
+		return oneOf("int", stringType)
 	case v1Fields, v1FieldsV1, rawExtension:
 		return jsonType
 	case v1Time, v1MicroTime:
-		ref = "string"
+		ref = stringType
 	case v1beta1JSONSchemaPropsOrBool:
 		return oneOf("ApiExtensions.V1Beta1.JSONSchemaProps"+argsSuffix, "bool")
 	case v1JSONSchemaPropsOrBool:

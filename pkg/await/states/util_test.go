@@ -76,4 +76,3 @@ func mustCheckIfRecordingsReady(recordingPaths []string, checker *StateChecker) 
 
 	return false, messages
 }
-

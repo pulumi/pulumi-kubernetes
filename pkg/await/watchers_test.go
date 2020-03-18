@@ -51,7 +51,7 @@ func TestRelatedResource(t *testing.T) {
 		},
 	}
 	type args struct {
-		owner  ResourceId
+		owner  ResourceID
 		object v1.Object
 	}
 	tests := []struct {
@@ -60,7 +60,7 @@ func TestRelatedResource(t *testing.T) {
 		want bool
 	}{
 		{"Matching pod", args{
-			owner: ResourceId{
+			owner: ResourceID{
 				Name:       "baz",
 				Namespace:  "bar",
 				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},
@@ -69,7 +69,7 @@ func TestRelatedResource(t *testing.T) {
 			object: pod,
 		}, true},
 		{"Different namespace", args{
-			owner: ResourceId{
+			owner: ResourceID{
 				Name:       "baz",
 				Namespace:  "default",
 				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},
@@ -78,7 +78,7 @@ func TestRelatedResource(t *testing.T) {
 			object: pod,
 		}, false},
 		{"Different name", args{
-			owner: ResourceId{
+			owner: ResourceID{
 				Name:       "different",
 				Namespace:  "bar",
 				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},
@@ -87,7 +87,7 @@ func TestRelatedResource(t *testing.T) {
 			object: pod,
 		}, false},
 		{"Different GVK", args{
-			owner: ResourceId{
+			owner: ResourceID{
 				Name:       "baz",
 				Namespace:  "bar",
 				GVK:        schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"},
@@ -96,7 +96,7 @@ func TestRelatedResource(t *testing.T) {
 			object: pod,
 		}, false},
 		{"Different generation", args{
-			owner: ResourceId{
+			owner: ResourceID{
 				Name:       "baz",
 				Namespace:  "bar",
 				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},

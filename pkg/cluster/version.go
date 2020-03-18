@@ -65,9 +65,9 @@ func TryGetServerVersion(cdi discovery.CachedDiscoveryInterface) ServerVersion {
 	if sv, err := cdi.ServerVersion(); err == nil {
 		if v, err := parseVersion(sv); err == nil {
 			return v
-		} else {
-			return defaultSV
 		}
+
+		return defaultSV
 	}
 
 	return defaultSV

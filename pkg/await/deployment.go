@@ -89,6 +89,7 @@ import (
 const (
 	revision                     = "deployment.kubernetes.io/revision"
 	DefaultDeploymentTimeoutMins = 10
+	extensionsv1b1ApiVersion     = "extensions/v1beta1"
 )
 
 type deploymentInitAwaiter struct {
@@ -393,7 +394,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	// Note: We must use the annotated creation apiVersion rather than the API-reported apiVersion, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	extensionsV1Beta1API := dia.config.initialApiVersion == "extensions/v1beta1"
+	extensionsV1Beta1API := dia.config.initialAPIVersion == extensionsv1b1ApiVersion
 
 	// Get generation of the Deployment's ReplicaSet.
 	dia.replicaSetGeneration = deployment.GetAnnotations()[revision]
@@ -549,7 +550,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	// Note: We must use the annotated apiVersion rather than the API-reported apiVersion, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	extensionsV1Beta1API := dia.config.initialApiVersion == "extensions/v1beta1"
+	extensionsV1Beta1API := dia.config.initialAPIVersion == extensionsv1b1ApiVersion
 	if extensionsV1Beta1API {
 		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
 		readyReplicas, _ = rawReadyReplicas.(int64)
@@ -828,29 +829,29 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch Deployment %q",
 			dia.config.currentInputs.GetName())
-		return
+		return nil, nil, nil, nil, err
 	}
 	replicaSetClient, err = clients.ResourceClient(
 		kinds.ReplicaSet, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch ReplicaSets associated with Deployment %q",
 			dia.config.currentInputs.GetName())
-		return
+		return nil, nil, nil, nil, err
 	}
 	podClient, err = clients.ResourceClient(
 		kinds.Pod, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch Pods associated with Deployment %q",
 			dia.config.currentInputs.GetName())
-		return
+		return nil, nil, nil, nil, err
 	}
 	pvcClient, err = clients.ResourceClient(
 		kinds.PersistentVolumeClaim, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch PVCs associated with Deployment %q",
 			dia.config.currentInputs.GetName())
-		return
+		return nil, nil, nil, nil, err
 	}
 
-	return
+	return nil, nil, nil, nil, err
 }

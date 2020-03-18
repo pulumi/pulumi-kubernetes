@@ -27,6 +27,7 @@ type retrier struct {
 	backOffFactor uint
 }
 
+// nolint: golint
 func SleepingRetry(try func(uint) error) *retrier {
 	return &retrier{
 		try:           try,
@@ -57,7 +58,7 @@ func (r *retrier) Do(allowedErrFuncs ...func(error) bool) error {
 		shouldRetry := false
 		for _, errFunc := range allowedErrFuncs {
 			if errFunc(err) {
-			    shouldRetry = true
+				shouldRetry = true
 				break
 			}
 		}

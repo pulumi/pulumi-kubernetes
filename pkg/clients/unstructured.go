@@ -64,14 +64,14 @@ func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
 }
 
 func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
-	const expectedApiVersion = "v1"
+	const expectedAPIVersion = "v1"
 
 	kind := kinds.Kind(uns.GetKind())
 	if kind != kinds.Pod {
 		return nil, fmt.Errorf("expected Pod, got %s", kind)
 	}
-	if version := uns.GetAPIVersion(); version != expectedApiVersion {
-		return nil, fmt.Errorf(`expected apiVersion = "%s", got %s`, expectedApiVersion, version)
+	if version := uns.GetAPIVersion(); version != expectedAPIVersion {
+		return nil, fmt.Errorf(`expected apiVersion = "%s", got %s`, expectedAPIVersion, version)
 	}
 	obj, err := FromUnstructured(uns)
 	if err != nil {
@@ -82,14 +82,14 @@ func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
 }
 
 func JobFromUnstructured(uns *unstructured.Unstructured) (*batchv1.Job, error) {
-	const expectedApiVersion = "batch/v1"
+	const expectedAPIVersion = "batch/v1"
 
 	kind := kinds.Kind(uns.GetKind())
 	if kind != kinds.Job {
 		return nil, fmt.Errorf("expected Job, got %s", kind)
 	}
-	if version := uns.GetAPIVersion(); version != expectedApiVersion {
-		return nil, fmt.Errorf(`expected apiVersion = "%s", got %s`, expectedApiVersion, version)
+	if version := uns.GetAPIVersion(); version != expectedAPIVersion {
+		return nil, fmt.Errorf(`expected apiVersion = "%s", got %s`, expectedAPIVersion, version)
 	}
 	obj, err := FromUnstructured(uns)
 	if err != nil {

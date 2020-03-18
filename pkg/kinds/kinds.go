@@ -103,7 +103,7 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		Service,
 		ServiceAccount,
 		StatefulSet:
-		known, namespaced = true, true
+		return true, true
 	// Note: Use `kubectl api-resources --namespaced=false -o name` to retrieve a list of cluster-scoped resources.
 	case APIService,
 		CertificateSigningRequest,
@@ -127,10 +127,8 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		TokenReview,
 		ValidatingWebhookConfiguration,
 		VolumeAttachment:
-		known, namespaced = true, false
+		return true, false
 	default:
-		known = false
+		return false, false
 	}
-
-	return
 }

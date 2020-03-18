@@ -80,7 +80,7 @@ type jobInitAwaiter struct {
 	config   createAwaitConfig
 	state    *states.StateChecker
 	errors   logging.TimeOrderedLogSet
-	resource ResourceId
+	resource ResourceID
 }
 
 func makeJobInitAwaiter(c createAwaitConfig) *jobInitAwaiter {
@@ -88,7 +88,7 @@ func makeJobInitAwaiter(c createAwaitConfig) *jobInitAwaiter {
 		config:   c,
 		job:      c.currentOutputs,
 		state:    states.NewJobChecker(),
-		resource: ResourceIdFromUnstructured(c.currentOutputs),
+		resource: ResourceIDFromUnstructured(c.currentOutputs),
 	}
 }
 
@@ -106,7 +106,7 @@ func (jia *jobInitAwaiter) Await() error {
 	}
 	defer jobWatcher.Stop()
 
-	podAggregator, err := NewPodAggregator(ResourceIdFromUnstructured(jia.job), jia.config.clientSet)
+	podAggregator, err := NewPodAggregator(ResourceIDFromUnstructured(jia.job), jia.config.clientSet)
 	if err != nil {
 		return errors.Wrapf(err, "Could not create PodAggregator for %s", jia.resource.GVKString())
 	}
@@ -163,7 +163,7 @@ func (jia *jobInitAwaiter) Read() error {
 		return nil
 	}
 
-	podAggregator, err := NewPodAggregator(ResourceIdFromUnstructured(jia.job), jia.config.clientSet)
+	podAggregator, err := NewPodAggregator(ResourceIDFromUnstructured(jia.job), jia.config.clientSet)
 	if err != nil {
 		return errors.Wrapf(err, "Could not create PodAggregator for %s", jia.resource.GVKString())
 	}

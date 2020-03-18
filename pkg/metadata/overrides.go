@@ -26,7 +26,7 @@ func SkipAwaitLogic(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationSkipAwait)
 }
 
-// TimeoutDuration returns the timeout duration for the resource. There are a number of things it can do here in this order
+// TimeoutDuration returns the resource timeout duration. There are a number of things it can do here in this order
 // 1. Return the timeout as specified in the customResource options
 // 2. Return the timeout as specified in `pulumi.com/timeoutSeconds` annotation,
 // 3. Return a defaultSeconds value
