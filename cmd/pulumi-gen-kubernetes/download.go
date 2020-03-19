@@ -29,12 +29,13 @@ func DownloadFile(filepath string, url string) (err error) {
 
 	// Create the file
 	out, err := os.Create(filepath)
-	if err != nil  {
+	if err != nil {
 		return err
 	}
 	defer out.Close()
 
 	// Get the data
+	// nolint: gosec
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
@@ -48,7 +49,7 @@ func DownloadFile(filepath string, url string) (err error) {
 
 	// Writer the body to file
 	_, err = io.Copy(out, resp.Body)
-	if err != nil  {
+	if err != nil {
 		return err
 	}
 

@@ -31,6 +31,7 @@ type podBasic struct {
 }
 
 // PodBasic returns a corev1.Pod struct and a corresponding Unstructured struct.
+//nolint: golint
 func PodBasic() *podBasic {
 	return &podBasic{
 		&corev1.Pod{
@@ -73,6 +74,7 @@ type deploymentBasic struct {
 	Unstructured *unstructured.Unstructured
 }
 
+//nolint: golint
 func DeploymentBasic() *deploymentBasic {
 	return &deploymentBasic{
 		&appsv1.Deployment{

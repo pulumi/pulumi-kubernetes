@@ -55,7 +55,7 @@ type ProviderConfig struct {
 	Context           context.Context
 	Host              *pulumiprovider.HostClient
 	URN               resource.URN
-	InitialApiVersion string
+	InitialAPIVersion string
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -88,26 +88,26 @@ type DeleteConfig struct {
 	Timeout float64
 }
 
-type ResourceId struct {
+type ResourceID struct {
 	Name       string
 	Namespace  string // Namespace should never be "" (use "default" instead).
 	GVK        schema.GroupVersionKind
 	Generation int64
 }
 
-func (r ResourceId) String() string {
+func (r ResourceID) String() string {
 	if len(r.Namespace) > 0 {
 		return r.Namespace + "/" + r.Name
 	}
 	return r.Name
 }
 
-func (r ResourceId) GVKString() string {
+func (r ResourceID) GVKString() string {
 	return fmt.Sprintf(`'[%s] %s'`, r.GVK, r.String())
 }
 
-func ResourceIdFromUnstructured(uns *unstructured.Unstructured) ResourceId {
-	return ResourceId{
+func ResourceIDFromUnstructured(uns *unstructured.Unstructured) ResourceID {
+	return ResourceID{
 		Namespace:  clients.NamespaceOrDefault(uns.GetNamespace()),
 		Name:       uns.GetName(),
 		GVK:        uns.GroupVersionKind(),
@@ -180,7 +180,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					host:              c.Host,
 					ctx:               c.Context,
 					urn:               c.URN,
-					initialApiVersion: c.InitialApiVersion,
+					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
@@ -235,7 +235,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					host:              c.Host,
 					ctx:               c.Context,
 					urn:               c.URN,
-					initialApiVersion: c.InitialApiVersion,
+					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
@@ -357,7 +357,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						host:              c.Host,
 						ctx:               c.Context,
 						urn:               c.URN,
-						initialApiVersion: c.InitialApiVersion,
+						initialAPIVersion: c.InitialAPIVersion,
 						clientSet:         c.ClientSet,
 						currentInputs:     c.Inputs,
 						currentOutputs:    currentOutputs,
@@ -451,7 +451,7 @@ func Deletion(c DeleteConfig) error {
 					host:              c.Host,
 					ctx:               c.Context,
 					urn:               c.URN,
-					initialApiVersion: c.InitialApiVersion,
+					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
 					currentInputs:     c.Inputs,
 					logger:            c.DedupLogger,
@@ -465,16 +465,17 @@ func Deletion(c DeleteConfig) error {
 			select {
 			case event, ok := <-watcher.ResultChan():
 				if !ok {
-					if deleted, obj := checkIfResourceDeleted(c.Name, client); deleted {
+					deleted, obj := checkIfResourceDeleted(c.Name, client)
+					if deleted {
 						_ = clearStatus(c.Context, c.Host, c.URN)
 						return nil
-					} else {
-						return &timeoutError{
-							object: obj,
-							subErrors: []string{
-								fmt.Sprintf("Timed out waiting for deletion of %s %q", id, c.Name),
-							},
-						}
+					}
+
+					return &timeoutError{
+						object: obj,
+						subErrors: []string{
+							fmt.Sprintf("Timed out waiting for deletion of %s %q", id, c.Name),
+						},
 					}
 				}
 
@@ -483,26 +484,27 @@ func Deletion(c DeleteConfig) error {
 					_ = clearStatus(c.Context, c.Host, c.URN)
 					return nil
 				case watch.Error:
-					if deleted, obj := checkIfResourceDeleted(c.Name, client); deleted {
+					deleted, obj := checkIfResourceDeleted(c.Name, client)
+					if deleted {
 						_ = clearStatus(c.Context, c.Host, c.URN)
 						return nil
-					} else {
-						return &initializationError{
-							object:    obj,
-							subErrors: []string{errors.FromObject(event.Object).Error()},
-						}
+					}
+					return &initializationError{
+						object:    obj,
+						subErrors: []string{errors.FromObject(event.Object).Error()},
 					}
 				}
 			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
 				watcher.Stop()
 				glog.V(3).Infof("Received error deleting object %q: %#v", id, err)
-				if deleted, obj := checkIfResourceDeleted(c.Name, client); deleted {
+				deleted, obj := checkIfResourceDeleted(c.Name, client)
+				if deleted {
 					_ = clearStatus(c.Context, c.Host, c.URN)
 					return nil
-				} else {
-					return &cancellationError{
-						object: obj,
-					}
+				}
+
+				return &cancellationError{
+					object: obj,
 				}
 			}
 		}

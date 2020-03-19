@@ -41,8 +41,8 @@ func TestDeprecatedApiVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
-			if got := DeprecatedApiVersion(tt.gvk); got != tt.want {
-				t.Errorf("DeprecatedApiVersion() = %v, want %v", got, tt.want)
+			if got := DeprecatedAPIVersion(tt.gvk); got != tt.want {
+				t.Errorf("DeprecatedAPIVersion() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -102,8 +102,8 @@ func TestSuggestedApiVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
-			if got := SuggestedApiVersion(tt.gvk); got != tt.want {
-				t.Errorf("SuggestedApiVersion() = %v, want %v", got, tt.want)
+			if got := SuggestedAPIVersion(tt.gvk); got != tt.want {
+				t.Errorf("SuggestedAPIVersion() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -168,12 +168,12 @@ func TestRemovedApiVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := RemovedApiVersion(tt.args.gvk, tt.args.version)
+			got, got1 := RemovedAPIVersion(tt.args.gvk, tt.args.version)
 			if got != tt.wantRemoved {
-				t.Errorf("RemovedApiVersion() got = %v, want %v", got, tt.wantRemoved)
+				t.Errorf("RemovedAPIVersion() got = %v, want %v", got, tt.wantRemoved)
 			}
 			if !reflect.DeepEqual(got1, tt.wantVersion) {
-				t.Errorf("RemovedApiVersion() got1 = %v, want %v", got1, tt.wantVersion)
+				t.Errorf("RemovedAPIVersion() got1 = %v, want %v", got1, tt.wantVersion)
 			}
 		})
 	}

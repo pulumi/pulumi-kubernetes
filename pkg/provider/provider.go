@@ -77,7 +77,7 @@ const (
 	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
 	invokeDecodeYaml     = "kubernetes:yaml:decode"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
-	initialApiVersionKey = "__initialApiVersion"
+	initialAPIVersionKey = "__initialApiVersion"
 )
 
 type cancellationContext struct {
@@ -341,6 +341,8 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 
 // Configure configures the resource provider with "globals" that control its behavior.
 func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
+	const trueStr = "true"
+
 	vars := req.GetVariables()
 
 	//
@@ -348,7 +350,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	//
 
 	k.opts = kubeOpts{
-		rejectUnknownResources: vars["kubernetes:config:rejectUnknownResources"] == "true",
+		rejectUnknownResources: vars["kubernetes:config:rejectUnknownResources"] == trueStr,
 	}
 	k.enableSecrets = req.GetAcceptSecrets()
 
@@ -367,11 +369,11 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	enableDryRun := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
 		if enabled, exists := vars["kubernetes:config:enableDryRun"]; exists {
-			return enabled == "true"
+			return enabled == trueStr
 		}
 		// If the provider flag is not set, fall back to the ENV var.
 		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_DRY_RUN"); exists {
-			return enabled == "true"
+			return enabled == trueStr
 		}
 		// Default to false.
 		return false
@@ -383,11 +385,11 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	suppressDeprecationWarnings := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
 		if enabled, exists := vars["kubernetes:config:suppressDeprecationWarnings"]; exists {
-			return enabled == "true"
+			return enabled == trueStr
 		}
 		// If the provider flag is not set, fall back to the ENV var.
 		if enabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"); exists {
-			return enabled == "true"
+			return enabled == trueStr
 		}
 		// Default to false.
 		return false
@@ -928,12 +930,12 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	annotatedInputs, err := legacyInitialApiVersion(oldInputs, newInputs)
+	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
 				"`.metadata.annotations`",
-			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationInitialApiVersion)
+			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationInitialAPIVersion)
 	}
 	newInputs = annotatedInputs
 
@@ -977,11 +979,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	// Skip the API version check if the cluster is unreachable.
 	if !k.clusterUnreachable {
-		if removed, version := kinds.RemovedApiVersion(gvk, k.k8sVersion); removed {
-			return nil, &kinds.RemovedApiError{GVK: gvk, Version: version}
+		if removed, version := kinds.RemovedAPIVersion(gvk, k.k8sVersion); removed {
+			return nil, &kinds.RemovedAPIError{GVK: gvk, Version: version}
 		}
-		if !k.suppressDeprecationWarnings && kinds.DeprecatedApiVersion(gvk) {
-			_ = k.host.Log(ctx, diag.Warning, urn, gen.ApiVersionComment(gvk))
+		if !k.suppressDeprecationWarnings && kinds.DeprecatedAPIVersion(gvk) {
+			_ = k.host.Log(ctx, diag.Warning, urn, gen.APIVersionComment(gvk))
 		}
 	}
 
@@ -1310,7 +1312,7 @@ func (k *kubeProvider) Create(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
-	initialApiVersion := newInputs.GetAPIVersion()
+	initialAPIVersion := newInputs.GetAPIVersion()
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -1323,7 +1325,7 @@ func (k *kubeProvider) Create(
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1352,7 +1354,7 @@ func (k *kubeProvider) Create(
 			Context:           k.canceler.context,
 			Host:              k.host,
 			URN:               urn,
-			InitialApiVersion: initialApiVersion,
+			InitialAPIVersion: initialAPIVersion,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
@@ -1383,7 +1385,7 @@ func (k *kubeProvider) Create(
 		initialized = partialErr.Object()
 	}
 
-	obj := checkpointObject(newInputs, initialized, newResInputs, initialApiVersion)
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1491,7 +1493,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		oldInputs.SetNamespace(namespace)
 	}
 
-	initialApiVersion, err := initialApiVersion(oldState, oldInputs)
+	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
 	if err != nil {
 		return nil, err
 	}
@@ -1504,7 +1506,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			Context:           k.canceler.context,
 			Host:              k.host,
 			URN:               urn,
-			InitialApiVersion: initialApiVersion,
+			InitialAPIVersion: initialAPIVersion,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
@@ -1555,7 +1557,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointObject(liveInputs, liveObj, oldInputsPM, initialApiVersion), plugin.MarshalOptions{
+		checkpointObject(liveInputs, liveObj, oldInputsPM, initialAPIVersion), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -1690,7 +1692,7 @@ func (k *kubeProvider) Update(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
-	initialApiVersion, err := initialApiVersion(oldState, oldInputs)
+	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
 	if err != nil {
 		return nil, err
 	}
@@ -1706,7 +1708,7 @@ func (k *kubeProvider) Update(
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialApiVersion)
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1733,7 +1735,7 @@ func (k *kubeProvider) Update(
 			Context:           k.canceler.context,
 			Host:              k.host,
 			URN:               urn,
-			InitialApiVersion: initialApiVersion,
+			InitialAPIVersion: initialAPIVersion,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
@@ -1767,7 +1769,7 @@ func (k *kubeProvider) Update(
 		// initialize.
 	}
 	// Return a new "checkpoint object".
-	obj := checkpointObject(newInputs, initialized, newResInputs, initialApiVersion)
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1822,7 +1824,7 @@ func (k *kubeProvider) Delete(
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
 
-	initialApiVersion, err := initialApiVersion(oldState, &unstructured.Unstructured{})
+	initialAPIVersion, err := initialAPIVersion(oldState, &unstructured.Unstructured{})
 	if err != nil {
 		return nil, err
 	}
@@ -1851,7 +1853,7 @@ func (k *kubeProvider) Delete(
 			Context:           k.canceler.context, // TODO: should this just be ctx from the args?
 			Host:              k.host,
 			URN:               urn,
-			InitialApiVersion: initialApiVersion,
+			InitialAPIVersion: initialAPIVersion,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
@@ -1878,7 +1880,7 @@ func (k *kubeProvider) Delete(
 		lastKnownState := partialErr.Object()
 
 		inputsAndComputed, err := plugin.MarshalProperties(
-			checkpointObject(current, lastKnownState, oldState, initialApiVersion), plugin.MarshalOptions{
+			checkpointObject(current, lastKnownState, oldState, initialAPIVersion), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -2052,17 +2054,17 @@ func getAnnotations(config *unstructured.Unstructured) map[string]string {
 	return annotations
 }
 
-// legacyInitialApiVersion maintains backward compatibility with behavior introduced in the 1.2.0 release. This
+// legacyInitialAPIVersion maintains backward compatibility with behavior introduced in the 1.2.0 release. This
 // information is now stored in the checkpoint file and the annotation is no longer used by the provider.
-func legacyInitialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+func legacyInitialAPIVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	oldAnnotations := getAnnotations(oldConfig)
 	newAnnotations := getAnnotations(newConfig)
 
-	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialApiVersion]
+	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialAPIVersion]
 	if exists {
 		// Keep the annotation if it was already created previously to minimize further disruption
 		// to existing resources.
-		newAnnotations[metadata.AnnotationInitialApiVersion] = apiVersion
+		newAnnotations[metadata.AnnotationInitialAPIVersion] = apiVersion
 	}
 
 	if len(newConfig.GetAnnotations()) > 0 {
@@ -2072,15 +2074,15 @@ func legacyInitialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*
 	return newConfig, nil
 }
 
-// initialApiVersion retrieves the initialApiVersion property from the checkpoint file and falls back to using
-// the `pulumi.com/initialApiVersion` annotation if that property is not present.
-func initialApiVersion(state resource.PropertyMap, oldConfig *unstructured.Unstructured) (string, error) {
-	if v, ok := state[initialApiVersionKey]; ok {
+// initialAPIVersion retrieves the initialAPIVersion property from the checkpoint file and falls back to using
+// the `pulumi.com/initialAPIVersion` annotation if that property is not present.
+func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstructured) (string, error) {
+	if v, ok := state[initialAPIVersionKey]; ok {
 		return v.StringValue(), nil
 	}
 
 	oldAnnotations := getAnnotations(oldConfig)
-	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialApiVersion]
+	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialAPIVersion]
 	if exists {
 		return apiVersion, nil
 	}
@@ -2105,7 +2107,7 @@ func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Uns
 	return config, nil
 }
 
-func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap, initialApiVersion string) resource.PropertyMap {
+func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap, initialAPIVersion string) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -2146,7 +2148,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	}
 
 	object["__inputs"] = resource.NewObjectProperty(inputsPM)
-	object[initialApiVersionKey] = resource.NewStringProperty(initialApiVersion)
+	object[initialAPIVersionKey] = resource.NewStringProperty(initialAPIVersion)
 
 	return object
 }

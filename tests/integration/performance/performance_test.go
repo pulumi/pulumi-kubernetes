@@ -14,7 +14,9 @@
 
 package ints
 
-// FIXME(levi): Figure out why this test is flaky, and re-enable it in CI. https://github.com/pulumi/pulumi-kubernetes/issues/1016
+// FIXME(levi): Figure out why this test is flaky, and re-enable it in CI.
+//  https://github.com/pulumi/pulumi-kubernetes/issues/1016
+
 //import (
 //	"os"
 //	"testing"

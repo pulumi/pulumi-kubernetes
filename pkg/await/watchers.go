@@ -38,7 +38,7 @@ type PodAggregator struct {
 	stopped bool
 
 	// Owner identity
-	owner ResourceId
+	owner ResourceID
 
 	// Pod checker
 	checker *states.StateChecker
@@ -52,7 +52,7 @@ type PodAggregator struct {
 }
 
 // NewPodAggregator returns an initialized PodAggregator.
-func NewPodAggregator(owner ResourceId, clientset *clients.DynamicClientSet) (*PodAggregator, error) {
+func NewPodAggregator(owner ResourceID, clientset *clients.DynamicClientSet) (*PodAggregator, error) {
 	client, err := clients.ResourceClient(kinds.Pod, owner.Namespace, clientset)
 	if err != nil {
 		return nil, err
@@ -172,7 +172,7 @@ func (pa *PodAggregator) ResultChan() <-chan logging.Messages {
 }
 
 // relatedResource returns true if a resource ownerReference and metadata matches the provided owner
-// ResourceId, false otherwise.
+// ResourceID, false otherwise.
 //
 // Example ownerReference:
 // {
@@ -183,7 +183,7 @@ func (pa *PodAggregator) ResultChan() <-chan logging.Messages {
 //     "name": "foo",
 //     "uid": "14ba58cc-cf83-11e9-8c3a-025000000001"
 // }
-func relatedResource(owner ResourceId, object metav1.Object) bool {
+func relatedResource(owner ResourceID, object metav1.Object) bool {
 	if owner.Namespace != object.GetNamespace() {
 		return false
 	}

@@ -40,11 +40,11 @@ var forceNew = _groups{
 		// NOTE: .spec.selector triggers a replacement in Deployment/Daemonset only AFTER v1beta1.
 		"v1beta1": _kinds{"StatefulSet": statefulSet},
 		"v1beta2": _kinds{
-			"Daemonset": daemonset,
+			"Daemonset":   daemonset,
 			"Deployment":  deployment,
 			"StatefulSet": statefulSet},
 		"v1": _kinds{
-			"Daemonset": daemonset,
+			"Daemonset":   daemonset,
 			"Deployment":  deployment,
 			"StatefulSet": statefulSet},
 	},
