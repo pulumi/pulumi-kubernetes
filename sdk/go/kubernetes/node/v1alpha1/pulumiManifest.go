@@ -9,5 +9,5 @@ import (
 )
 
 func init() {
-	pulumi.RegisterPackage(pulumi.PackageInfo{Name: "kubernetes", Version: "1.6.0-alpha.1584588219+g534a59cb.dirty"})
+	pulumi.RegisterPackage(pulumi.PackageInfo{Name: "kubernetes", Version: "1.6.0-alpha.1584631386+ga3b52ad7.dirty"})
 }
