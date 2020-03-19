@@ -68,7 +68,8 @@ type CrossVersionObjectReferencePtrInput interface {
 
 type crossVersionObjectReferencePtrType CrossVersionObjectReferenceArgs
 
-func CrossVersionObjectReferencePtr(v *CrossVersionObjectReferenceArgs) CrossVersionObjectReferencePtrInput {	return (*crossVersionObjectReferencePtrType)(v)
+func CrossVersionObjectReferencePtr(v *CrossVersionObjectReferenceArgs) CrossVersionObjectReferencePtrInput {
+	return (*crossVersionObjectReferencePtrType)(v)
 }
 
 func (*crossVersionObjectReferencePtrType) ElementType() reflect.Type {
@@ -84,7 +85,7 @@ func (i *crossVersionObjectReferencePtrType) ToCrossVersionObjectReferencePtrOut
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
-type CrossVersionObjectReferenceOutput struct { *pulumi.OutputState }
+type CrossVersionObjectReferenceOutput struct{ *pulumi.OutputState }
 
 func (CrossVersionObjectReferenceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CrossVersionObjectReference)(nil)).Elem()
@@ -107,22 +108,23 @@ func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutpu
 		return &v
 	}).(CrossVersionObjectReferencePtrOutput)
 }
+
 // API version of the referent
 func (o CrossVersionObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
 func (o CrossVersionObjectReferenceOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 func (o CrossVersionObjectReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-type CrossVersionObjectReferencePtrOutput struct { *pulumi.OutputState }
+type CrossVersionObjectReferencePtrOutput struct{ *pulumi.OutputState }
 
 func (CrossVersionObjectReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CrossVersionObjectReference)(nil)).Elem()
@@ -137,26 +139,26 @@ func (o CrossVersionObjectReferencePtrOutput) ToCrossVersionObjectReferencePtrOu
 }
 
 func (o CrossVersionObjectReferencePtrOutput) Elem() CrossVersionObjectReferenceOutput {
-	return o.ApplyT(func (v *CrossVersionObjectReference) CrossVersionObjectReference { return *v }).(CrossVersionObjectReferenceOutput)
+	return o.ApplyT(func(v *CrossVersionObjectReference) CrossVersionObjectReference { return *v }).(CrossVersionObjectReferenceOutput)
 }
 
 // API version of the referent
 func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
 func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // configuration of a horizontal pod autoscaler.
-type HorizontalPodAutoscaler struct {
+type HorizontalPodAutoscalerType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -169,15 +171,15 @@ type HorizontalPodAutoscaler struct {
 	Status *HorizontalPodAutoscalerStatus `pulumi:"status"`
 }
 
-type HorizontalPodAutoscalerInput interface {
+type HorizontalPodAutoscalerTypeInput interface {
 	pulumi.Input
 
-	ToHorizontalPodAutoscalerOutput() HorizontalPodAutoscalerOutput
-	ToHorizontalPodAutoscalerOutputWithContext(context.Context) HorizontalPodAutoscalerOutput
+	ToHorizontalPodAutoscalerTypeOutput() HorizontalPodAutoscalerTypeOutput
+	ToHorizontalPodAutoscalerTypeOutputWithContext(context.Context) HorizontalPodAutoscalerTypeOutput
 }
 
 // configuration of a horizontal pod autoscaler.
-type HorizontalPodAutoscalerArgs struct {
+type HorizontalPodAutoscalerTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -190,175 +192,175 @@ type HorizontalPodAutoscalerArgs struct {
 	Status HorizontalPodAutoscalerStatusPtrInput `pulumi:"status"`
 }
 
-func (HorizontalPodAutoscalerArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*HorizontalPodAutoscaler)(nil)).Elem()
+func (HorizontalPodAutoscalerTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerType)(nil)).Elem()
 }
 
-func (i HorizontalPodAutoscalerArgs) ToHorizontalPodAutoscalerOutput() HorizontalPodAutoscalerOutput {
-	return i.ToHorizontalPodAutoscalerOutputWithContext(context.Background())
+func (i HorizontalPodAutoscalerTypeArgs) ToHorizontalPodAutoscalerTypeOutput() HorizontalPodAutoscalerTypeOutput {
+	return i.ToHorizontalPodAutoscalerTypeOutputWithContext(context.Background())
 }
 
-func (i HorizontalPodAutoscalerArgs) ToHorizontalPodAutoscalerOutputWithContext(ctx context.Context) HorizontalPodAutoscalerOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerOutput)
+func (i HorizontalPodAutoscalerTypeArgs) ToHorizontalPodAutoscalerTypeOutputWithContext(ctx context.Context) HorizontalPodAutoscalerTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerTypeOutput)
 }
 
-type HorizontalPodAutoscalerArrayInput interface {
+type HorizontalPodAutoscalerTypeArrayInput interface {
 	pulumi.Input
 
-	ToHorizontalPodAutoscalerArrayOutput() HorizontalPodAutoscalerArrayOutput
-	ToHorizontalPodAutoscalerArrayOutputWithContext(context.Context) HorizontalPodAutoscalerArrayOutput
+	ToHorizontalPodAutoscalerTypeArrayOutput() HorizontalPodAutoscalerTypeArrayOutput
+	ToHorizontalPodAutoscalerTypeArrayOutputWithContext(context.Context) HorizontalPodAutoscalerTypeArrayOutput
 }
 
-type HorizontalPodAutoscalerArray []HorizontalPodAutoscalerInput
+type HorizontalPodAutoscalerTypeArray []HorizontalPodAutoscalerTypeInput
 
-func (HorizontalPodAutoscalerArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]HorizontalPodAutoscaler)(nil)).Elem()
+func (HorizontalPodAutoscalerTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HorizontalPodAutoscalerType)(nil)).Elem()
 }
 
-func (i HorizontalPodAutoscalerArray) ToHorizontalPodAutoscalerArrayOutput() HorizontalPodAutoscalerArrayOutput {
-	return i.ToHorizontalPodAutoscalerArrayOutputWithContext(context.Background())
+func (i HorizontalPodAutoscalerTypeArray) ToHorizontalPodAutoscalerTypeArrayOutput() HorizontalPodAutoscalerTypeArrayOutput {
+	return i.ToHorizontalPodAutoscalerTypeArrayOutputWithContext(context.Background())
 }
 
-func (i HorizontalPodAutoscalerArray) ToHorizontalPodAutoscalerArrayOutputWithContext(ctx context.Context) HorizontalPodAutoscalerArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerArrayOutput)
+func (i HorizontalPodAutoscalerTypeArray) ToHorizontalPodAutoscalerTypeArrayOutputWithContext(ctx context.Context) HorizontalPodAutoscalerTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerTypeArrayOutput)
 }
 
 // configuration of a horizontal pod autoscaler.
-type HorizontalPodAutoscalerOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerTypeOutput struct{ *pulumi.OutputState }
 
-func (HorizontalPodAutoscalerOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*HorizontalPodAutoscaler)(nil)).Elem()
+func (HorizontalPodAutoscalerTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerType)(nil)).Elem()
 }
 
-func (o HorizontalPodAutoscalerOutput) ToHorizontalPodAutoscalerOutput() HorizontalPodAutoscalerOutput {
+func (o HorizontalPodAutoscalerTypeOutput) ToHorizontalPodAutoscalerTypeOutput() HorizontalPodAutoscalerTypeOutput {
 	return o
 }
 
-func (o HorizontalPodAutoscalerOutput) ToHorizontalPodAutoscalerOutputWithContext(ctx context.Context) HorizontalPodAutoscalerOutput {
+func (o HorizontalPodAutoscalerTypeOutput) ToHorizontalPodAutoscalerTypeOutputWithContext(ctx context.Context) HorizontalPodAutoscalerTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o HorizontalPodAutoscalerOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscaler) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o HorizontalPodAutoscalerTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o HorizontalPodAutoscalerOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscaler) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o HorizontalPodAutoscalerTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o HorizontalPodAutoscalerOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscaler) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o HorizontalPodAutoscalerTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-func (o HorizontalPodAutoscalerOutput) Spec() HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscaler) *HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
+func (o HorizontalPodAutoscalerTypeOutput) Spec() HorizontalPodAutoscalerSpecPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
 }
 
 // current information about the autoscaler.
-func (o HorizontalPodAutoscalerOutput) Status() HorizontalPodAutoscalerStatusPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscaler) *HorizontalPodAutoscalerStatus { return v.Status }).(HorizontalPodAutoscalerStatusPtrOutput)
+func (o HorizontalPodAutoscalerTypeOutput) Status() HorizontalPodAutoscalerStatusPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerStatus { return v.Status }).(HorizontalPodAutoscalerStatusPtrOutput)
 }
 
-type HorizontalPodAutoscalerArrayOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerTypeArrayOutput struct{ *pulumi.OutputState }
 
-func (HorizontalPodAutoscalerArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]HorizontalPodAutoscaler)(nil)).Elem()
+func (HorizontalPodAutoscalerTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HorizontalPodAutoscalerType)(nil)).Elem()
 }
 
-func (o HorizontalPodAutoscalerArrayOutput) ToHorizontalPodAutoscalerArrayOutput() HorizontalPodAutoscalerArrayOutput {
+func (o HorizontalPodAutoscalerTypeArrayOutput) ToHorizontalPodAutoscalerTypeArrayOutput() HorizontalPodAutoscalerTypeArrayOutput {
 	return o
 }
 
-func (o HorizontalPodAutoscalerArrayOutput) ToHorizontalPodAutoscalerArrayOutputWithContext(ctx context.Context) HorizontalPodAutoscalerArrayOutput {
+func (o HorizontalPodAutoscalerTypeArrayOutput) ToHorizontalPodAutoscalerTypeArrayOutputWithContext(ctx context.Context) HorizontalPodAutoscalerTypeArrayOutput {
 	return o
 }
 
-func (o HorizontalPodAutoscalerArrayOutput) Index(i pulumi.IntInput) HorizontalPodAutoscalerOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) HorizontalPodAutoscaler {
-		return vs[0].([]HorizontalPodAutoscaler)[vs[1].(int)]
-	}).(HorizontalPodAutoscalerOutput)
+func (o HorizontalPodAutoscalerTypeArrayOutput) Index(i pulumi.IntInput) HorizontalPodAutoscalerTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HorizontalPodAutoscalerType {
+		return vs[0].([]HorizontalPodAutoscalerType)[vs[1].(int)]
+	}).(HorizontalPodAutoscalerTypeOutput)
 }
 
 // list of horizontal pod autoscaler objects.
-type HorizontalPodAutoscalerList struct {
+type HorizontalPodAutoscalerListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// list of horizontal pod autoscaler objects.
-	Items []HorizontalPodAutoscaler `pulumi:"items"`
+	Items []HorizontalPodAutoscalerType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata.
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type HorizontalPodAutoscalerListInput interface {
+type HorizontalPodAutoscalerListTypeInput interface {
 	pulumi.Input
 
-	ToHorizontalPodAutoscalerListOutput() HorizontalPodAutoscalerListOutput
-	ToHorizontalPodAutoscalerListOutputWithContext(context.Context) HorizontalPodAutoscalerListOutput
+	ToHorizontalPodAutoscalerListTypeOutput() HorizontalPodAutoscalerListTypeOutput
+	ToHorizontalPodAutoscalerListTypeOutputWithContext(context.Context) HorizontalPodAutoscalerListTypeOutput
 }
 
 // list of horizontal pod autoscaler objects.
-type HorizontalPodAutoscalerListArgs struct {
+type HorizontalPodAutoscalerListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// list of horizontal pod autoscaler objects.
-	Items HorizontalPodAutoscalerArrayInput `pulumi:"items"`
+	Items HorizontalPodAutoscalerTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata.
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (HorizontalPodAutoscalerListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*HorizontalPodAutoscalerList)(nil)).Elem()
+func (HorizontalPodAutoscalerListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerListType)(nil)).Elem()
 }
 
-func (i HorizontalPodAutoscalerListArgs) ToHorizontalPodAutoscalerListOutput() HorizontalPodAutoscalerListOutput {
-	return i.ToHorizontalPodAutoscalerListOutputWithContext(context.Background())
+func (i HorizontalPodAutoscalerListTypeArgs) ToHorizontalPodAutoscalerListTypeOutput() HorizontalPodAutoscalerListTypeOutput {
+	return i.ToHorizontalPodAutoscalerListTypeOutputWithContext(context.Background())
 }
 
-func (i HorizontalPodAutoscalerListArgs) ToHorizontalPodAutoscalerListOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerListOutput)
+func (i HorizontalPodAutoscalerListTypeArgs) ToHorizontalPodAutoscalerListTypeOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerListTypeOutput)
 }
 
 // list of horizontal pod autoscaler objects.
-type HorizontalPodAutoscalerListOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerListTypeOutput struct{ *pulumi.OutputState }
 
-func (HorizontalPodAutoscalerListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*HorizontalPodAutoscalerList)(nil)).Elem()
+func (HorizontalPodAutoscalerListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerListType)(nil)).Elem()
 }
 
-func (o HorizontalPodAutoscalerListOutput) ToHorizontalPodAutoscalerListOutput() HorizontalPodAutoscalerListOutput {
+func (o HorizontalPodAutoscalerListTypeOutput) ToHorizontalPodAutoscalerListTypeOutput() HorizontalPodAutoscalerListTypeOutput {
 	return o
 }
 
-func (o HorizontalPodAutoscalerListOutput) ToHorizontalPodAutoscalerListOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListOutput {
+func (o HorizontalPodAutoscalerListTypeOutput) ToHorizontalPodAutoscalerListTypeOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o HorizontalPodAutoscalerListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o HorizontalPodAutoscalerListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // list of horizontal pod autoscaler objects.
-func (o HorizontalPodAutoscalerListOutput) Items() HorizontalPodAutoscalerArrayOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerList) []HorizontalPodAutoscaler { return v.Items }).(HorizontalPodAutoscalerArrayOutput)
+func (o HorizontalPodAutoscalerListTypeOutput) Items() HorizontalPodAutoscalerTypeArrayOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) []HorizontalPodAutoscalerType { return v.Items }).(HorizontalPodAutoscalerTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o HorizontalPodAutoscalerListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o HorizontalPodAutoscalerListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata.
-func (o HorizontalPodAutoscalerListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o HorizontalPodAutoscalerListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // specification of a horizontal pod autoscaler.
@@ -421,7 +423,8 @@ type HorizontalPodAutoscalerSpecPtrInput interface {
 
 type horizontalPodAutoscalerSpecPtrType HorizontalPodAutoscalerSpecArgs
 
-func HorizontalPodAutoscalerSpecPtr(v *HorizontalPodAutoscalerSpecArgs) HorizontalPodAutoscalerSpecPtrInput {	return (*horizontalPodAutoscalerSpecPtrType)(v)
+func HorizontalPodAutoscalerSpecPtr(v *HorizontalPodAutoscalerSpecArgs) HorizontalPodAutoscalerSpecPtrInput {
+	return (*horizontalPodAutoscalerSpecPtrType)(v)
 }
 
 func (*horizontalPodAutoscalerSpecPtrType) ElementType() reflect.Type {
@@ -437,7 +440,7 @@ func (i *horizontalPodAutoscalerSpecPtrType) ToHorizontalPodAutoscalerSpecPtrOut
 }
 
 // specification of a horizontal pod autoscaler.
-type HorizontalPodAutoscalerSpecOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerSpecOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HorizontalPodAutoscalerSpec)(nil)).Elem()
@@ -460,27 +463,28 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutpu
 		return &v
 	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
+
 // upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 func (o HorizontalPodAutoscalerSpecOutput) MaxReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
 }
 
 // minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 func (o HorizontalPodAutoscalerSpecOutput) MinReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
 }
 
 // reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
 func (o HorizontalPodAutoscalerSpecOutput) ScaleTargetRef() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
 }
 
 // target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 func (o HorizontalPodAutoscalerSpecOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
 
-type HorizontalPodAutoscalerSpecPtrOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
@@ -495,27 +499,27 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOu
 }
 
 func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpecOutput {
-	return o.ApplyT(func (v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec { return *v }).(HorizontalPodAutoscalerSpecOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec { return *v }).(HorizontalPodAutoscalerSpecOutput)
 }
 
 // upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 func (o HorizontalPodAutoscalerSpecPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
 }
 
 // minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 func (o HorizontalPodAutoscalerSpecPtrOutput) MinReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
 }
 
 // reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
 func (o HorizontalPodAutoscalerSpecPtrOutput) ScaleTargetRef() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferencePtrOutput)
 }
 
 // target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 func (o HorizontalPodAutoscalerSpecPtrOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerSpec) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
 
 // current status of a horizontal pod autoscaler
@@ -582,7 +586,8 @@ type HorizontalPodAutoscalerStatusPtrInput interface {
 
 type horizontalPodAutoscalerStatusPtrType HorizontalPodAutoscalerStatusArgs
 
-func HorizontalPodAutoscalerStatusPtr(v *HorizontalPodAutoscalerStatusArgs) HorizontalPodAutoscalerStatusPtrInput {	return (*horizontalPodAutoscalerStatusPtrType)(v)
+func HorizontalPodAutoscalerStatusPtr(v *HorizontalPodAutoscalerStatusArgs) HorizontalPodAutoscalerStatusPtrInput {
+	return (*horizontalPodAutoscalerStatusPtrType)(v)
 }
 
 func (*horizontalPodAutoscalerStatusPtrType) ElementType() reflect.Type {
@@ -598,7 +603,7 @@ func (i *horizontalPodAutoscalerStatusPtrType) ToHorizontalPodAutoscalerStatusPt
 }
 
 // current status of a horizontal pod autoscaler
-type HorizontalPodAutoscalerStatusOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerStatusOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*HorizontalPodAutoscalerStatus)(nil)).Elem()
@@ -621,32 +626,33 @@ func (o HorizontalPodAutoscalerStatusOutput) ToHorizontalPodAutoscalerStatusPtrO
 		return &v
 	}).(HorizontalPodAutoscalerStatusPtrOutput)
 }
+
 // current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 func (o HorizontalPodAutoscalerStatusOutput) CurrentCPUUtilizationPercentage() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.CurrentCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.CurrentCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
 
 // current number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) CurrentReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
 }
 
 // desired number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) DesiredReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
 }
 
 // last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusOutput) LastScaleTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
 }
 
 // most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-type HorizontalPodAutoscalerStatusPtrOutput struct { *pulumi.OutputState }
+type HorizontalPodAutoscalerStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**HorizontalPodAutoscalerStatus)(nil)).Elem()
@@ -661,32 +667,32 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) ToHorizontalPodAutoscalerStatusP
 }
 
 func (o HorizontalPodAutoscalerStatusPtrOutput) Elem() HorizontalPodAutoscalerStatusOutput {
-	return o.ApplyT(func (v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus { return *v }).(HorizontalPodAutoscalerStatusOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus { return *v }).(HorizontalPodAutoscalerStatusOutput)
 }
 
 // current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentCPUUtilizationPercentage() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.CurrentCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.CurrentCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
 
 // current number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
 }
 
 // desired number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) DesiredReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
 }
 
 // last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusPtrOutput) LastScaleTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
 }
 
 // most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // Scale represents a scaling request for a resource.
@@ -737,7 +743,7 @@ func (i ScaleArgs) ToScaleOutputWithContext(ctx context.Context) ScaleOutput {
 }
 
 // Scale represents a scaling request for a resource.
-type ScaleOutput struct { *pulumi.OutputState }
+type ScaleOutput struct{ *pulumi.OutputState }
 
 func (ScaleOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Scale)(nil)).Elem()
@@ -753,27 +759,27 @@ func (o ScaleOutput) ToScaleOutputWithContext(ctx context.Context) ScaleOutput {
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o ScaleOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v Scale) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v Scale) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o ScaleOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v Scale) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v Scale) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o ScaleOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v Scale) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v Scale) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o ScaleOutput) Spec() ScaleSpecPtrOutput {
-	return o.ApplyT(func (v Scale) *ScaleSpec { return v.Spec }).(ScaleSpecPtrOutput)
+	return o.ApplyT(func(v Scale) *ScaleSpec { return v.Spec }).(ScaleSpecPtrOutput)
 }
 
 // current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 func (o ScaleOutput) Status() ScaleStatusPtrOutput {
-	return o.ApplyT(func (v Scale) *ScaleStatus { return v.Status }).(ScaleStatusPtrOutput)
+	return o.ApplyT(func(v Scale) *ScaleStatus { return v.Status }).(ScaleStatusPtrOutput)
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
@@ -824,7 +830,8 @@ type ScaleSpecPtrInput interface {
 
 type scaleSpecPtrType ScaleSpecArgs
 
-func ScaleSpecPtr(v *ScaleSpecArgs) ScaleSpecPtrInput {	return (*scaleSpecPtrType)(v)
+func ScaleSpecPtr(v *ScaleSpecArgs) ScaleSpecPtrInput {
+	return (*scaleSpecPtrType)(v)
 }
 
 func (*scaleSpecPtrType) ElementType() reflect.Type {
@@ -840,7 +847,7 @@ func (i *scaleSpecPtrType) ToScaleSpecPtrOutputWithContext(ctx context.Context) 
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
-type ScaleSpecOutput struct { *pulumi.OutputState }
+type ScaleSpecOutput struct{ *pulumi.OutputState }
 
 func (ScaleSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ScaleSpec)(nil)).Elem()
@@ -863,12 +870,13 @@ func (o ScaleSpecOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context) Sc
 		return &v
 	}).(ScaleSpecPtrOutput)
 }
+
 // desired number of instances for the scaled object.
 func (o ScaleSpecOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-type ScaleSpecPtrOutput struct { *pulumi.OutputState }
+type ScaleSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (ScaleSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleSpec)(nil)).Elem()
@@ -883,12 +891,12 @@ func (o ScaleSpecPtrOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context)
 }
 
 func (o ScaleSpecPtrOutput) Elem() ScaleSpecOutput {
-	return o.ApplyT(func (v *ScaleSpec) ScaleSpec { return *v }).(ScaleSpecOutput)
+	return o.ApplyT(func(v *ScaleSpec) ScaleSpec { return *v }).(ScaleSpecOutput)
 }
 
 // desired number of instances for the scaled object.
 func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // ScaleStatus represents the current status of a scale subresource.
@@ -943,7 +951,8 @@ type ScaleStatusPtrInput interface {
 
 type scaleStatusPtrType ScaleStatusArgs
 
-func ScaleStatusPtr(v *ScaleStatusArgs) ScaleStatusPtrInput {	return (*scaleStatusPtrType)(v)
+func ScaleStatusPtr(v *ScaleStatusArgs) ScaleStatusPtrInput {
+	return (*scaleStatusPtrType)(v)
 }
 
 func (*scaleStatusPtrType) ElementType() reflect.Type {
@@ -959,7 +968,7 @@ func (i *scaleStatusPtrType) ToScaleStatusPtrOutputWithContext(ctx context.Conte
 }
 
 // ScaleStatus represents the current status of a scale subresource.
-type ScaleStatusOutput struct { *pulumi.OutputState }
+type ScaleStatusOutput struct{ *pulumi.OutputState }
 
 func (ScaleStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ScaleStatus)(nil)).Elem()
@@ -982,17 +991,18 @@ func (o ScaleStatusOutput) ToScaleStatusPtrOutputWithContext(ctx context.Context
 		return &v
 	}).(ScaleStatusPtrOutput)
 }
+
 // actual number of observed instances of the scaled object.
 func (o ScaleStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
 func (o ScaleStatusOutput) Selector() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ScaleStatus) *string { return v.Selector }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ScaleStatus) *string { return v.Selector }).(pulumi.StringPtrOutput)
 }
 
-type ScaleStatusPtrOutput struct { *pulumi.OutputState }
+type ScaleStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (ScaleStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ScaleStatus)(nil)).Elem()
@@ -1007,25 +1017,25 @@ func (o ScaleStatusPtrOutput) ToScaleStatusPtrOutputWithContext(ctx context.Cont
 }
 
 func (o ScaleStatusPtrOutput) Elem() ScaleStatusOutput {
-	return o.ApplyT(func (v *ScaleStatus) ScaleStatus { return *v }).(ScaleStatusOutput)
+	return o.ApplyT(func(v *ScaleStatus) ScaleStatus { return *v }).(ScaleStatusOutput)
 }
 
 // actual number of observed instances of the scaled object.
 func (o ScaleStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
 // label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
 func (o ScaleStatusPtrOutput) Selector() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ScaleStatus) *string { return v.Selector }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ScaleStatus) *string { return v.Selector }).(pulumi.StringPtrOutput)
 }
 
 func init() {
 	pulumi.RegisterOutputType(CrossVersionObjectReferenceOutput{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferencePtrOutput{})
-	pulumi.RegisterOutputType(HorizontalPodAutoscalerOutput{})
-	pulumi.RegisterOutputType(HorizontalPodAutoscalerArrayOutput{})
-	pulumi.RegisterOutputType(HorizontalPodAutoscalerListOutput{})
+	pulumi.RegisterOutputType(HorizontalPodAutoscalerTypeOutput{})
+	pulumi.RegisterOutputType(HorizontalPodAutoscalerTypeArrayOutput{})
+	pulumi.RegisterOutputType(HorizontalPodAutoscalerListTypeOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerStatusOutput{})

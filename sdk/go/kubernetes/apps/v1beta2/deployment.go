@@ -116,4 +116,3 @@ type DeploymentArgs struct {
 func (DeploymentArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*deploymentArgs)(nil)).Elem()
 }
-

@@ -110,4 +110,3 @@ type PodSecurityPolicyArgs struct {
 func (PodSecurityPolicyArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podSecurityPolicyArgs)(nil)).Elem()
 }
-

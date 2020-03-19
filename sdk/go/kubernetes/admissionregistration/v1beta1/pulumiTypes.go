@@ -189,7 +189,7 @@ func (i MutatingWebhookArray) ToMutatingWebhookArrayOutputWithContext(ctx contex
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
-type MutatingWebhookOutput struct { *pulumi.OutputState }
+type MutatingWebhookOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*MutatingWebhook)(nil)).Elem()
@@ -205,17 +205,17 @@ func (o MutatingWebhookOutput) ToMutatingWebhookOutputWithContext(ctx context.Co
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 func (o MutatingWebhookOutput) AdmissionReviewVersions() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v MutatingWebhook) []string { return v.AdmissionReviewVersions }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v MutatingWebhook) []string { return v.AdmissionReviewVersions }).(pulumi.StringArrayOutput)
 }
 
 // ClientConfig defines how to communicate with the hook. Required
 func (o MutatingWebhookOutput) ClientConfig() WebhookClientConfigPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigPtrOutput)
 }
 
 // FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Ignore.
 func (o MutatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
 }
 
 // matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
@@ -226,12 +226,12 @@ func (o MutatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
 //
 // Defaults to "Exact"
 func (o MutatingWebhookOutput) MatchPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *string { return v.MatchPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *string { return v.MatchPolicy }).(pulumi.StringPtrOutput)
 }
 
 // The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
 func (o MutatingWebhookOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
@@ -266,12 +266,12 @@ func (o MutatingWebhookOutput) Name() pulumi.StringPtrOutput {
 //
 // Default to the empty LabelSelector, which matches everything.
 func (o MutatingWebhookOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 func (o MutatingWebhookOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
@@ -282,25 +282,25 @@ func (o MutatingWebhookOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
 //
 // Defaults to "Never".
 func (o MutatingWebhookOutput) ReinvocationPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *string { return v.ReinvocationPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *string { return v.ReinvocationPolicy }).(pulumi.StringPtrOutput)
 }
 
 // Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 func (o MutatingWebhookOutput) Rules() RuleWithOperationsArrayOutput {
-	return o.ApplyT(func (v MutatingWebhook) []RuleWithOperations { return v.Rules }).(RuleWithOperationsArrayOutput)
+	return o.ApplyT(func(v MutatingWebhook) []RuleWithOperations { return v.Rules }).(RuleWithOperationsArrayOutput)
 }
 
 // SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 func (o MutatingWebhookOutput) SideEffects() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *string { return v.SideEffects }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *string { return v.SideEffects }).(pulumi.StringPtrOutput)
 }
 
 // TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 func (o MutatingWebhookOutput) TimeoutSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v MutatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v MutatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
 }
 
-type MutatingWebhookArrayOutput struct { *pulumi.OutputState }
+type MutatingWebhookArrayOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]MutatingWebhook)(nil)).Elem()
@@ -315,13 +315,13 @@ func (o MutatingWebhookArrayOutput) ToMutatingWebhookArrayOutputWithContext(ctx 
 }
 
 func (o MutatingWebhookArrayOutput) Index(i pulumi.IntInput) MutatingWebhookOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) MutatingWebhook {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingWebhook {
 		return vs[0].([]MutatingWebhook)[vs[1].(int)]
 	}).(MutatingWebhookOutput)
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
-type MutatingWebhookConfiguration struct {
+type MutatingWebhookConfigurationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -332,15 +332,15 @@ type MutatingWebhookConfiguration struct {
 	Webhooks []MutatingWebhook `pulumi:"webhooks"`
 }
 
-type MutatingWebhookConfigurationInput interface {
+type MutatingWebhookConfigurationTypeInput interface {
 	pulumi.Input
 
-	ToMutatingWebhookConfigurationOutput() MutatingWebhookConfigurationOutput
-	ToMutatingWebhookConfigurationOutputWithContext(context.Context) MutatingWebhookConfigurationOutput
+	ToMutatingWebhookConfigurationTypeOutput() MutatingWebhookConfigurationTypeOutput
+	ToMutatingWebhookConfigurationTypeOutputWithContext(context.Context) MutatingWebhookConfigurationTypeOutput
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
-type MutatingWebhookConfigurationArgs struct {
+type MutatingWebhookConfigurationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -351,170 +351,170 @@ type MutatingWebhookConfigurationArgs struct {
 	Webhooks MutatingWebhookArrayInput `pulumi:"webhooks"`
 }
 
-func (MutatingWebhookConfigurationArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MutatingWebhookConfiguration)(nil)).Elem()
+func (MutatingWebhookConfigurationTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (i MutatingWebhookConfigurationArgs) ToMutatingWebhookConfigurationOutput() MutatingWebhookConfigurationOutput {
-	return i.ToMutatingWebhookConfigurationOutputWithContext(context.Background())
+func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationTypeOutput() MutatingWebhookConfigurationTypeOutput {
+	return i.ToMutatingWebhookConfigurationTypeOutputWithContext(context.Background())
 }
 
-func (i MutatingWebhookConfigurationArgs) ToMutatingWebhookConfigurationOutputWithContext(ctx context.Context) MutatingWebhookConfigurationOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationOutput)
+func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeOutput)
 }
 
-type MutatingWebhookConfigurationArrayInput interface {
+type MutatingWebhookConfigurationTypeArrayInput interface {
 	pulumi.Input
 
-	ToMutatingWebhookConfigurationArrayOutput() MutatingWebhookConfigurationArrayOutput
-	ToMutatingWebhookConfigurationArrayOutputWithContext(context.Context) MutatingWebhookConfigurationArrayOutput
+	ToMutatingWebhookConfigurationTypeArrayOutput() MutatingWebhookConfigurationTypeArrayOutput
+	ToMutatingWebhookConfigurationTypeArrayOutputWithContext(context.Context) MutatingWebhookConfigurationTypeArrayOutput
 }
 
-type MutatingWebhookConfigurationArray []MutatingWebhookConfigurationInput
+type MutatingWebhookConfigurationTypeArray []MutatingWebhookConfigurationTypeInput
 
-func (MutatingWebhookConfigurationArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]MutatingWebhookConfiguration)(nil)).Elem()
+func (MutatingWebhookConfigurationTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (i MutatingWebhookConfigurationArray) ToMutatingWebhookConfigurationArrayOutput() MutatingWebhookConfigurationArrayOutput {
-	return i.ToMutatingWebhookConfigurationArrayOutputWithContext(context.Background())
+func (i MutatingWebhookConfigurationTypeArray) ToMutatingWebhookConfigurationTypeArrayOutput() MutatingWebhookConfigurationTypeArrayOutput {
+	return i.ToMutatingWebhookConfigurationTypeArrayOutputWithContext(context.Background())
 }
 
-func (i MutatingWebhookConfigurationArray) ToMutatingWebhookConfigurationArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationArrayOutput)
+func (i MutatingWebhookConfigurationTypeArray) ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeArrayOutput)
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
-type MutatingWebhookConfigurationOutput struct { *pulumi.OutputState }
+type MutatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
-func (MutatingWebhookConfigurationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MutatingWebhookConfiguration)(nil)).Elem()
+func (MutatingWebhookConfigurationTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (o MutatingWebhookConfigurationOutput) ToMutatingWebhookConfigurationOutput() MutatingWebhookConfigurationOutput {
+func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTypeOutput() MutatingWebhookConfigurationTypeOutput {
 	return o
 }
 
-func (o MutatingWebhookConfigurationOutput) ToMutatingWebhookConfigurationOutputWithContext(ctx context.Context) MutatingWebhookConfigurationOutput {
+func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o MutatingWebhookConfigurationOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhookConfiguration) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o MutatingWebhookConfigurationTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o MutatingWebhookConfigurationOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhookConfiguration) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o MutatingWebhookConfigurationTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-func (o MutatingWebhookConfigurationOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v MutatingWebhookConfiguration) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o MutatingWebhookConfigurationTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Webhooks is a list of webhooks and the affected resources and operations.
-func (o MutatingWebhookConfigurationOutput) Webhooks() MutatingWebhookArrayOutput {
-	return o.ApplyT(func (v MutatingWebhookConfiguration) []MutatingWebhook { return v.Webhooks }).(MutatingWebhookArrayOutput)
+func (o MutatingWebhookConfigurationTypeOutput) Webhooks() MutatingWebhookArrayOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationType) []MutatingWebhook { return v.Webhooks }).(MutatingWebhookArrayOutput)
 }
 
-type MutatingWebhookConfigurationArrayOutput struct { *pulumi.OutputState }
+type MutatingWebhookConfigurationTypeArrayOutput struct{ *pulumi.OutputState }
 
-func (MutatingWebhookConfigurationArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]MutatingWebhookConfiguration)(nil)).Elem()
+func (MutatingWebhookConfigurationTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (o MutatingWebhookConfigurationArrayOutput) ToMutatingWebhookConfigurationArrayOutput() MutatingWebhookConfigurationArrayOutput {
+func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurationTypeArrayOutput() MutatingWebhookConfigurationTypeArrayOutput {
 	return o
 }
 
-func (o MutatingWebhookConfigurationArrayOutput) ToMutatingWebhookConfigurationArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationArrayOutput {
+func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeArrayOutput {
 	return o
 }
 
-func (o MutatingWebhookConfigurationArrayOutput) Index(i pulumi.IntInput) MutatingWebhookConfigurationOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) MutatingWebhookConfiguration {
-		return vs[0].([]MutatingWebhookConfiguration)[vs[1].(int)]
-	}).(MutatingWebhookConfigurationOutput)
+func (o MutatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) MutatingWebhookConfigurationTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingWebhookConfigurationType {
+		return vs[0].([]MutatingWebhookConfigurationType)[vs[1].(int)]
+	}).(MutatingWebhookConfigurationTypeOutput)
 }
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
-type MutatingWebhookConfigurationList struct {
+type MutatingWebhookConfigurationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// List of MutatingWebhookConfiguration.
-	Items []MutatingWebhookConfiguration `pulumi:"items"`
+	Items []MutatingWebhookConfigurationType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type MutatingWebhookConfigurationListInput interface {
+type MutatingWebhookConfigurationListTypeInput interface {
 	pulumi.Input
 
-	ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput
-	ToMutatingWebhookConfigurationListOutputWithContext(context.Context) MutatingWebhookConfigurationListOutput
+	ToMutatingWebhookConfigurationListTypeOutput() MutatingWebhookConfigurationListTypeOutput
+	ToMutatingWebhookConfigurationListTypeOutputWithContext(context.Context) MutatingWebhookConfigurationListTypeOutput
 }
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
-type MutatingWebhookConfigurationListArgs struct {
+type MutatingWebhookConfigurationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// List of MutatingWebhookConfiguration.
-	Items MutatingWebhookConfigurationArrayInput `pulumi:"items"`
+	Items MutatingWebhookConfigurationTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (MutatingWebhookConfigurationListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MutatingWebhookConfigurationList)(nil)).Elem()
+func (MutatingWebhookConfigurationListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationListType)(nil)).Elem()
 }
 
-func (i MutatingWebhookConfigurationListArgs) ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput {
-	return i.ToMutatingWebhookConfigurationListOutputWithContext(context.Background())
+func (i MutatingWebhookConfigurationListTypeArgs) ToMutatingWebhookConfigurationListTypeOutput() MutatingWebhookConfigurationListTypeOutput {
+	return i.ToMutatingWebhookConfigurationListTypeOutputWithContext(context.Background())
 }
 
-func (i MutatingWebhookConfigurationListArgs) ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListOutput)
+func (i MutatingWebhookConfigurationListTypeArgs) ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListTypeOutput)
 }
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
-type MutatingWebhookConfigurationListOutput struct { *pulumi.OutputState }
+type MutatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
-func (MutatingWebhookConfigurationListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MutatingWebhookConfigurationList)(nil)).Elem()
+func (MutatingWebhookConfigurationListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationListType)(nil)).Elem()
 }
 
-func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput {
+func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurationListTypeOutput() MutatingWebhookConfigurationListTypeOutput {
 	return o
 }
 
-func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput {
+func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o MutatingWebhookConfigurationListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhookConfigurationList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o MutatingWebhookConfigurationListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // List of MutatingWebhookConfiguration.
-func (o MutatingWebhookConfigurationListOutput) Items() MutatingWebhookConfigurationArrayOutput {
-	return o.ApplyT(func (v MutatingWebhookConfigurationList) []MutatingWebhookConfiguration { return v.Items }).(MutatingWebhookConfigurationArrayOutput)
+func (o MutatingWebhookConfigurationListTypeOutput) Items() MutatingWebhookConfigurationTypeArrayOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationListType) []MutatingWebhookConfigurationType { return v.Items }).(MutatingWebhookConfigurationTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o MutatingWebhookConfigurationListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v MutatingWebhookConfigurationList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o MutatingWebhookConfigurationListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o MutatingWebhookConfigurationListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v MutatingWebhookConfigurationList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o MutatingWebhookConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v MutatingWebhookConfigurationListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
@@ -598,7 +598,7 @@ func (i RuleWithOperationsArray) ToRuleWithOperationsArrayOutputWithContext(ctx 
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
-type RuleWithOperationsOutput struct { *pulumi.OutputState }
+type RuleWithOperationsOutput struct{ *pulumi.OutputState }
 
 func (RuleWithOperationsOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RuleWithOperations)(nil)).Elem()
@@ -614,17 +614,17 @@ func (o RuleWithOperationsOutput) ToRuleWithOperationsOutputWithContext(ctx cont
 
 // APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 func (o RuleWithOperationsOutput) ApiGroups() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v RuleWithOperations) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v RuleWithOperations) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
 }
 
 // APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 func (o RuleWithOperationsOutput) ApiVersions() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v RuleWithOperations) []string { return v.ApiVersions }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v RuleWithOperations) []string { return v.ApiVersions }).(pulumi.StringArrayOutput)
 }
 
 // Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
 func (o RuleWithOperationsOutput) Operations() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v RuleWithOperations) []string { return v.Operations }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v RuleWithOperations) []string { return v.Operations }).(pulumi.StringArrayOutput)
 }
 
 // Resources is a list of resources this rule applies to.
@@ -635,15 +635,15 @@ func (o RuleWithOperationsOutput) Operations() pulumi.StringArrayOutput {
 //
 // Depending on the enclosing object, subresources might not be allowed. Required.
 func (o RuleWithOperationsOutput) Resources() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v RuleWithOperations) []string { return v.Resources }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v RuleWithOperations) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
 
 // scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
 func (o RuleWithOperationsOutput) Scope() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v RuleWithOperations) *string { return v.Scope }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v RuleWithOperations) *string { return v.Scope }).(pulumi.StringPtrOutput)
 }
 
-type RuleWithOperationsArrayOutput struct { *pulumi.OutputState }
+type RuleWithOperationsArrayOutput struct{ *pulumi.OutputState }
 
 func (RuleWithOperationsArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]RuleWithOperations)(nil)).Elem()
@@ -658,7 +658,7 @@ func (o RuleWithOperationsArrayOutput) ToRuleWithOperationsArrayOutputWithContex
 }
 
 func (o RuleWithOperationsArrayOutput) Index(i pulumi.IntInput) RuleWithOperationsOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) RuleWithOperations {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RuleWithOperations {
 		return vs[0].([]RuleWithOperations)[vs[1].(int)]
 	}).(RuleWithOperationsOutput)
 }
@@ -723,7 +723,8 @@ type ServiceReferencePtrInput interface {
 
 type serviceReferencePtrType ServiceReferenceArgs
 
-func ServiceReferencePtr(v *ServiceReferenceArgs) ServiceReferencePtrInput {	return (*serviceReferencePtrType)(v)
+func ServiceReferencePtr(v *ServiceReferenceArgs) ServiceReferencePtrInput {
+	return (*serviceReferencePtrType)(v)
 }
 
 func (*serviceReferencePtrType) ElementType() reflect.Type {
@@ -739,7 +740,7 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
-type ServiceReferenceOutput struct { *pulumi.OutputState }
+type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferenceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ServiceReference)(nil)).Elem()
@@ -762,27 +763,28 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 		return &v
 	}).(ServiceReferencePtrOutput)
 }
+
 // `name` is the name of the service. Required
 func (o ServiceReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // `namespace` is the namespace of the service. Required
 func (o ServiceReferenceOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
 // `path` is an optional URL path which will be sent in any request to this service.
 func (o ServiceReferenceOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Path }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
 // If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
 func (o ServiceReferenceOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-type ServiceReferencePtrOutput struct { *pulumi.OutputState }
+type ServiceReferencePtrOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferencePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceReference)(nil)).Elem()
@@ -797,27 +799,27 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx co
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func (v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
+	return o.ApplyT(func(v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
 }
 
 // `name` is the name of the service. Required
 func (o ServiceReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // `namespace` is the namespace of the service. Required
 func (o ServiceReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
 // `path` is an optional URL path which will be sent in any request to this service.
 func (o ServiceReferencePtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *string { return v.Path }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
 // If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
 func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -981,7 +983,7 @@ func (i ValidatingWebhookArray) ToValidatingWebhookArrayOutputWithContext(ctx co
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
-type ValidatingWebhookOutput struct { *pulumi.OutputState }
+type ValidatingWebhookOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ValidatingWebhook)(nil)).Elem()
@@ -997,17 +999,17 @@ func (o ValidatingWebhookOutput) ToValidatingWebhookOutputWithContext(ctx contex
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 func (o ValidatingWebhookOutput) AdmissionReviewVersions() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v ValidatingWebhook) []string { return v.AdmissionReviewVersions }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v ValidatingWebhook) []string { return v.AdmissionReviewVersions }).(pulumi.StringArrayOutput)
 }
 
 // ClientConfig defines how to communicate with the hook. Required
 func (o ValidatingWebhookOutput) ClientConfig() WebhookClientConfigPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigPtrOutput)
 }
 
 // FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Ignore.
 func (o ValidatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
 }
 
 // matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
@@ -1018,12 +1020,12 @@ func (o ValidatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
 //
 // Defaults to "Exact"
 func (o ValidatingWebhookOutput) MatchPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *string { return v.MatchPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *string { return v.MatchPolicy }).(pulumi.StringPtrOutput)
 }
 
 // The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
 func (o ValidatingWebhookOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
@@ -1058,30 +1060,30 @@ func (o ValidatingWebhookOutput) Name() pulumi.StringPtrOutput {
 //
 // Default to the empty LabelSelector, which matches everything.
 func (o ValidatingWebhookOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 func (o ValidatingWebhookOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 func (o ValidatingWebhookOutput) Rules() RuleWithOperationsArrayOutput {
-	return o.ApplyT(func (v ValidatingWebhook) []RuleWithOperations { return v.Rules }).(RuleWithOperationsArrayOutput)
+	return o.ApplyT(func(v ValidatingWebhook) []RuleWithOperations { return v.Rules }).(RuleWithOperationsArrayOutput)
 }
 
 // SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 func (o ValidatingWebhookOutput) SideEffects() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *string { return v.SideEffects }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *string { return v.SideEffects }).(pulumi.StringPtrOutput)
 }
 
 // TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 func (o ValidatingWebhookOutput) TimeoutSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v ValidatingWebhook) *int { return v.TimeoutSeconds }).(pulumi.IntPtrOutput)
 }
 
-type ValidatingWebhookArrayOutput struct { *pulumi.OutputState }
+type ValidatingWebhookArrayOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]ValidatingWebhook)(nil)).Elem()
@@ -1096,13 +1098,13 @@ func (o ValidatingWebhookArrayOutput) ToValidatingWebhookArrayOutputWithContext(
 }
 
 func (o ValidatingWebhookArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ValidatingWebhook {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidatingWebhook {
 		return vs[0].([]ValidatingWebhook)[vs[1].(int)]
 	}).(ValidatingWebhookOutput)
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
-type ValidatingWebhookConfiguration struct {
+type ValidatingWebhookConfigurationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1113,15 +1115,15 @@ type ValidatingWebhookConfiguration struct {
 	Webhooks []ValidatingWebhook `pulumi:"webhooks"`
 }
 
-type ValidatingWebhookConfigurationInput interface {
+type ValidatingWebhookConfigurationTypeInput interface {
 	pulumi.Input
 
-	ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput
-	ToValidatingWebhookConfigurationOutputWithContext(context.Context) ValidatingWebhookConfigurationOutput
+	ToValidatingWebhookConfigurationTypeOutput() ValidatingWebhookConfigurationTypeOutput
+	ToValidatingWebhookConfigurationTypeOutputWithContext(context.Context) ValidatingWebhookConfigurationTypeOutput
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
-type ValidatingWebhookConfigurationArgs struct {
+type ValidatingWebhookConfigurationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1132,170 +1134,170 @@ type ValidatingWebhookConfigurationArgs struct {
 	Webhooks ValidatingWebhookArrayInput `pulumi:"webhooks"`
 }
 
-func (ValidatingWebhookConfigurationArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ValidatingWebhookConfiguration)(nil)).Elem()
+func (ValidatingWebhookConfigurationTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (i ValidatingWebhookConfigurationArgs) ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput {
-	return i.ToValidatingWebhookConfigurationOutputWithContext(context.Background())
+func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfigurationTypeOutput() ValidatingWebhookConfigurationTypeOutput {
+	return i.ToValidatingWebhookConfigurationTypeOutputWithContext(context.Background())
 }
 
-func (i ValidatingWebhookConfigurationArgs) ToValidatingWebhookConfigurationOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationOutput)
+func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeOutput)
 }
 
-type ValidatingWebhookConfigurationArrayInput interface {
+type ValidatingWebhookConfigurationTypeArrayInput interface {
 	pulumi.Input
 
-	ToValidatingWebhookConfigurationArrayOutput() ValidatingWebhookConfigurationArrayOutput
-	ToValidatingWebhookConfigurationArrayOutputWithContext(context.Context) ValidatingWebhookConfigurationArrayOutput
+	ToValidatingWebhookConfigurationTypeArrayOutput() ValidatingWebhookConfigurationTypeArrayOutput
+	ToValidatingWebhookConfigurationTypeArrayOutputWithContext(context.Context) ValidatingWebhookConfigurationTypeArrayOutput
 }
 
-type ValidatingWebhookConfigurationArray []ValidatingWebhookConfigurationInput
+type ValidatingWebhookConfigurationTypeArray []ValidatingWebhookConfigurationTypeInput
 
-func (ValidatingWebhookConfigurationArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ValidatingWebhookConfiguration)(nil)).Elem()
+func (ValidatingWebhookConfigurationTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ValidatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (i ValidatingWebhookConfigurationArray) ToValidatingWebhookConfigurationArrayOutput() ValidatingWebhookConfigurationArrayOutput {
-	return i.ToValidatingWebhookConfigurationArrayOutputWithContext(context.Background())
+func (i ValidatingWebhookConfigurationTypeArray) ToValidatingWebhookConfigurationTypeArrayOutput() ValidatingWebhookConfigurationTypeArrayOutput {
+	return i.ToValidatingWebhookConfigurationTypeArrayOutputWithContext(context.Background())
 }
 
-func (i ValidatingWebhookConfigurationArray) ToValidatingWebhookConfigurationArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationArrayOutput)
+func (i ValidatingWebhookConfigurationTypeArray) ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeArrayOutput)
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
-type ValidatingWebhookConfigurationOutput struct { *pulumi.OutputState }
+type ValidatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
-func (ValidatingWebhookConfigurationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ValidatingWebhookConfiguration)(nil)).Elem()
+func (ValidatingWebhookConfigurationTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput {
+func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurationTypeOutput() ValidatingWebhookConfigurationTypeOutput {
 	return o
 }
 
-func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationOutput {
+func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ValidatingWebhookConfigurationOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfiguration) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ValidatingWebhookConfigurationTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ValidatingWebhookConfigurationOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfiguration) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ValidatingWebhookConfigurationTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-func (o ValidatingWebhookConfigurationOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfiguration) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ValidatingWebhookConfigurationTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Webhooks is a list of webhooks and the affected resources and operations.
-func (o ValidatingWebhookConfigurationOutput) Webhooks() ValidatingWebhookArrayOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfiguration) []ValidatingWebhook { return v.Webhooks }).(ValidatingWebhookArrayOutput)
+func (o ValidatingWebhookConfigurationTypeOutput) Webhooks() ValidatingWebhookArrayOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationType) []ValidatingWebhook { return v.Webhooks }).(ValidatingWebhookArrayOutput)
 }
 
-type ValidatingWebhookConfigurationArrayOutput struct { *pulumi.OutputState }
+type ValidatingWebhookConfigurationTypeArrayOutput struct{ *pulumi.OutputState }
 
-func (ValidatingWebhookConfigurationArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ValidatingWebhookConfiguration)(nil)).Elem()
+func (ValidatingWebhookConfigurationTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ValidatingWebhookConfigurationType)(nil)).Elem()
 }
 
-func (o ValidatingWebhookConfigurationArrayOutput) ToValidatingWebhookConfigurationArrayOutput() ValidatingWebhookConfigurationArrayOutput {
+func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfigurationTypeArrayOutput() ValidatingWebhookConfigurationTypeArrayOutput {
 	return o
 }
 
-func (o ValidatingWebhookConfigurationArrayOutput) ToValidatingWebhookConfigurationArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationArrayOutput {
+func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeArrayOutput {
 	return o
 }
 
-func (o ValidatingWebhookConfigurationArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) ValidatingWebhookConfiguration {
-		return vs[0].([]ValidatingWebhookConfiguration)[vs[1].(int)]
-	}).(ValidatingWebhookConfigurationOutput)
+func (o ValidatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidatingWebhookConfigurationType {
+		return vs[0].([]ValidatingWebhookConfigurationType)[vs[1].(int)]
+	}).(ValidatingWebhookConfigurationTypeOutput)
 }
 
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
-type ValidatingWebhookConfigurationList struct {
+type ValidatingWebhookConfigurationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// List of ValidatingWebhookConfiguration.
-	Items []ValidatingWebhookConfiguration `pulumi:"items"`
+	Items []ValidatingWebhookConfigurationType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type ValidatingWebhookConfigurationListInput interface {
+type ValidatingWebhookConfigurationListTypeInput interface {
 	pulumi.Input
 
-	ToValidatingWebhookConfigurationListOutput() ValidatingWebhookConfigurationListOutput
-	ToValidatingWebhookConfigurationListOutputWithContext(context.Context) ValidatingWebhookConfigurationListOutput
+	ToValidatingWebhookConfigurationListTypeOutput() ValidatingWebhookConfigurationListTypeOutput
+	ToValidatingWebhookConfigurationListTypeOutputWithContext(context.Context) ValidatingWebhookConfigurationListTypeOutput
 }
 
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
-type ValidatingWebhookConfigurationListArgs struct {
+type ValidatingWebhookConfigurationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// List of ValidatingWebhookConfiguration.
-	Items ValidatingWebhookConfigurationArrayInput `pulumi:"items"`
+	Items ValidatingWebhookConfigurationTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (ValidatingWebhookConfigurationListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ValidatingWebhookConfigurationList)(nil)).Elem()
+func (ValidatingWebhookConfigurationListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationListType)(nil)).Elem()
 }
 
-func (i ValidatingWebhookConfigurationListArgs) ToValidatingWebhookConfigurationListOutput() ValidatingWebhookConfigurationListOutput {
-	return i.ToValidatingWebhookConfigurationListOutputWithContext(context.Background())
+func (i ValidatingWebhookConfigurationListTypeArgs) ToValidatingWebhookConfigurationListTypeOutput() ValidatingWebhookConfigurationListTypeOutput {
+	return i.ToValidatingWebhookConfigurationListTypeOutputWithContext(context.Background())
 }
 
-func (i ValidatingWebhookConfigurationListArgs) ToValidatingWebhookConfigurationListOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationListOutput)
+func (i ValidatingWebhookConfigurationListTypeArgs) ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationListTypeOutput)
 }
 
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
-type ValidatingWebhookConfigurationListOutput struct { *pulumi.OutputState }
+type ValidatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
-func (ValidatingWebhookConfigurationListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ValidatingWebhookConfigurationList)(nil)).Elem()
+func (ValidatingWebhookConfigurationListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationListType)(nil)).Elem()
 }
 
-func (o ValidatingWebhookConfigurationListOutput) ToValidatingWebhookConfigurationListOutput() ValidatingWebhookConfigurationListOutput {
+func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigurationListTypeOutput() ValidatingWebhookConfigurationListTypeOutput {
 	return o
 }
 
-func (o ValidatingWebhookConfigurationListOutput) ToValidatingWebhookConfigurationListOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListOutput {
+func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ValidatingWebhookConfigurationListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfigurationList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ValidatingWebhookConfigurationListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // List of ValidatingWebhookConfiguration.
-func (o ValidatingWebhookConfigurationListOutput) Items() ValidatingWebhookConfigurationArrayOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfigurationList) []ValidatingWebhookConfiguration { return v.Items }).(ValidatingWebhookConfigurationArrayOutput)
+func (o ValidatingWebhookConfigurationListTypeOutput) Items() ValidatingWebhookConfigurationTypeArrayOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationListType) []ValidatingWebhookConfigurationType { return v.Items }).(ValidatingWebhookConfigurationTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ValidatingWebhookConfigurationListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfigurationList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ValidatingWebhookConfigurationListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ValidatingWebhookConfigurationListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v ValidatingWebhookConfigurationList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ValidatingWebhookConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ValidatingWebhookConfigurationListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
@@ -1378,7 +1380,8 @@ type WebhookClientConfigPtrInput interface {
 
 type webhookClientConfigPtrType WebhookClientConfigArgs
 
-func WebhookClientConfigPtr(v *WebhookClientConfigArgs) WebhookClientConfigPtrInput {	return (*webhookClientConfigPtrType)(v)
+func WebhookClientConfigPtr(v *WebhookClientConfigArgs) WebhookClientConfigPtrInput {
+	return (*webhookClientConfigPtrType)(v)
 }
 
 func (*webhookClientConfigPtrType) ElementType() reflect.Type {
@@ -1394,7 +1397,7 @@ func (i *webhookClientConfigPtrType) ToWebhookClientConfigPtrOutputWithContext(c
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
-type WebhookClientConfigOutput struct { *pulumi.OutputState }
+type WebhookClientConfigOutput struct{ *pulumi.OutputState }
 
 func (WebhookClientConfigOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*WebhookClientConfig)(nil)).Elem()
@@ -1417,16 +1420,17 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutputWithContext(ctx
 		return &v
 	}).(WebhookClientConfigPtrOutput)
 }
+
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 func (o WebhookClientConfigOutput) CaBundle() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
 }
 
 // `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 //
 // If the webhook is running within the cluster, then you should use `service`.
 func (o WebhookClientConfigOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
+	return o.ApplyT(func(v WebhookClientConfig) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
 }
 
 // `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
@@ -1441,10 +1445,10 @@ func (o WebhookClientConfigOutput) Service() ServiceReferencePtrOutput {
 //
 // Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
 func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
 
-type WebhookClientConfigPtrOutput struct { *pulumi.OutputState }
+type WebhookClientConfigPtrOutput struct{ *pulumi.OutputState }
 
 func (WebhookClientConfigPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**WebhookClientConfig)(nil)).Elem()
@@ -1459,19 +1463,19 @@ func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutputWithContext(
 }
 
 func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
-	return o.ApplyT(func (v *WebhookClientConfig) WebhookClientConfig { return *v }).(WebhookClientConfigOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) WebhookClientConfig { return *v }).(WebhookClientConfigOutput)
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 func (o WebhookClientConfigPtrOutput) CaBundle() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
 }
 
 // `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 //
 // If the webhook is running within the cluster, then you should use `service`.
 func (o WebhookClientConfigPtrOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
+	return o.ApplyT(func(v WebhookClientConfig) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
 }
 
 // `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
@@ -1486,24 +1490,24 @@ func (o WebhookClientConfigPtrOutput) Service() ServiceReferencePtrOutput {
 //
 // Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
 func (o WebhookClientConfigPtrOutput) Url() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
 
 func init() {
 	pulumi.RegisterOutputType(MutatingWebhookOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookArrayOutput{})
-	pulumi.RegisterOutputType(MutatingWebhookConfigurationOutput{})
-	pulumi.RegisterOutputType(MutatingWebhookConfigurationArrayOutput{})
-	pulumi.RegisterOutputType(MutatingWebhookConfigurationListOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationTypeOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationTypeArrayOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationListTypeOutput{})
 	pulumi.RegisterOutputType(RuleWithOperationsOutput{})
 	pulumi.RegisterOutputType(RuleWithOperationsArrayOutput{})
 	pulumi.RegisterOutputType(ServiceReferenceOutput{})
 	pulumi.RegisterOutputType(ServiceReferencePtrOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookArrayOutput{})
-	pulumi.RegisterOutputType(ValidatingWebhookConfigurationOutput{})
-	pulumi.RegisterOutputType(ValidatingWebhookConfigurationArrayOutput{})
-	pulumi.RegisterOutputType(ValidatingWebhookConfigurationListOutput{})
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationTypeOutput{})
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationTypeArrayOutput{})
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationListTypeOutput{})
 	pulumi.RegisterOutputType(WebhookClientConfigOutput{})
 	pulumi.RegisterOutputType(WebhookClientConfigPtrOutput{})
 }

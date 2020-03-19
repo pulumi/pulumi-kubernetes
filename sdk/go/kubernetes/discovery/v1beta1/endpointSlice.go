@@ -137,4 +137,3 @@ type EndpointSliceArgs struct {
 func (EndpointSliceArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*endpointSliceArgs)(nil)).Elem()
 }
-

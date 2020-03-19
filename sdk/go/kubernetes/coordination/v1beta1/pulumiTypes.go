@@ -13,7 +13,7 @@ import (
 )
 
 // Lease defines a lease concept.
-type Lease struct {
+type LeaseType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -24,15 +24,15 @@ type Lease struct {
 	Spec *LeaseSpec `pulumi:"spec"`
 }
 
-type LeaseInput interface {
+type LeaseTypeInput interface {
 	pulumi.Input
 
-	ToLeaseOutput() LeaseOutput
-	ToLeaseOutputWithContext(context.Context) LeaseOutput
+	ToLeaseTypeOutput() LeaseTypeOutput
+	ToLeaseTypeOutputWithContext(context.Context) LeaseTypeOutput
 }
 
 // Lease defines a lease concept.
-type LeaseArgs struct {
+type LeaseTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -43,170 +43,170 @@ type LeaseArgs struct {
 	Spec LeaseSpecPtrInput `pulumi:"spec"`
 }
 
-func (LeaseArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*Lease)(nil)).Elem()
+func (LeaseTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseType)(nil)).Elem()
 }
 
-func (i LeaseArgs) ToLeaseOutput() LeaseOutput {
-	return i.ToLeaseOutputWithContext(context.Background())
+func (i LeaseTypeArgs) ToLeaseTypeOutput() LeaseTypeOutput {
+	return i.ToLeaseTypeOutputWithContext(context.Background())
 }
 
-func (i LeaseArgs) ToLeaseOutputWithContext(ctx context.Context) LeaseOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LeaseOutput)
+func (i LeaseTypeArgs) ToLeaseTypeOutputWithContext(ctx context.Context) LeaseTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LeaseTypeOutput)
 }
 
-type LeaseArrayInput interface {
+type LeaseTypeArrayInput interface {
 	pulumi.Input
 
-	ToLeaseArrayOutput() LeaseArrayOutput
-	ToLeaseArrayOutputWithContext(context.Context) LeaseArrayOutput
+	ToLeaseTypeArrayOutput() LeaseTypeArrayOutput
+	ToLeaseTypeArrayOutputWithContext(context.Context) LeaseTypeArrayOutput
 }
 
-type LeaseArray []LeaseInput
+type LeaseTypeArray []LeaseTypeInput
 
-func (LeaseArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]Lease)(nil)).Elem()
+func (LeaseTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]LeaseType)(nil)).Elem()
 }
 
-func (i LeaseArray) ToLeaseArrayOutput() LeaseArrayOutput {
-	return i.ToLeaseArrayOutputWithContext(context.Background())
+func (i LeaseTypeArray) ToLeaseTypeArrayOutput() LeaseTypeArrayOutput {
+	return i.ToLeaseTypeArrayOutputWithContext(context.Background())
 }
 
-func (i LeaseArray) ToLeaseArrayOutputWithContext(ctx context.Context) LeaseArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LeaseArrayOutput)
+func (i LeaseTypeArray) ToLeaseTypeArrayOutputWithContext(ctx context.Context) LeaseTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LeaseTypeArrayOutput)
 }
 
 // Lease defines a lease concept.
-type LeaseOutput struct { *pulumi.OutputState }
+type LeaseTypeOutput struct{ *pulumi.OutputState }
 
-func (LeaseOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*Lease)(nil)).Elem()
+func (LeaseTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseType)(nil)).Elem()
 }
 
-func (o LeaseOutput) ToLeaseOutput() LeaseOutput {
+func (o LeaseTypeOutput) ToLeaseTypeOutput() LeaseTypeOutput {
 	return o
 }
 
-func (o LeaseOutput) ToLeaseOutputWithContext(ctx context.Context) LeaseOutput {
+func (o LeaseTypeOutput) ToLeaseTypeOutputWithContext(ctx context.Context) LeaseTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LeaseOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v Lease) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o LeaseTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LeaseOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v Lease) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o LeaseTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o LeaseOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v Lease) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o LeaseTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v LeaseType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o LeaseOutput) Spec() LeaseSpecPtrOutput {
-	return o.ApplyT(func (v Lease) *LeaseSpec { return v.Spec }).(LeaseSpecPtrOutput)
+func (o LeaseTypeOutput) Spec() LeaseSpecPtrOutput {
+	return o.ApplyT(func(v LeaseType) *LeaseSpec { return v.Spec }).(LeaseSpecPtrOutput)
 }
 
-type LeaseArrayOutput struct { *pulumi.OutputState }
+type LeaseTypeArrayOutput struct{ *pulumi.OutputState }
 
-func (LeaseArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]Lease)(nil)).Elem()
+func (LeaseTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]LeaseType)(nil)).Elem()
 }
 
-func (o LeaseArrayOutput) ToLeaseArrayOutput() LeaseArrayOutput {
+func (o LeaseTypeArrayOutput) ToLeaseTypeArrayOutput() LeaseTypeArrayOutput {
 	return o
 }
 
-func (o LeaseArrayOutput) ToLeaseArrayOutputWithContext(ctx context.Context) LeaseArrayOutput {
+func (o LeaseTypeArrayOutput) ToLeaseTypeArrayOutputWithContext(ctx context.Context) LeaseTypeArrayOutput {
 	return o
 }
 
-func (o LeaseArrayOutput) Index(i pulumi.IntInput) LeaseOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) Lease {
-		return vs[0].([]Lease)[vs[1].(int)]
-	}).(LeaseOutput)
+func (o LeaseTypeArrayOutput) Index(i pulumi.IntInput) LeaseTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) LeaseType {
+		return vs[0].([]LeaseType)[vs[1].(int)]
+	}).(LeaseTypeOutput)
 }
 
 // LeaseList is a list of Lease objects.
-type LeaseList struct {
+type LeaseListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
-	Items []Lease `pulumi:"items"`
+	Items []LeaseType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type LeaseListInput interface {
+type LeaseListTypeInput interface {
 	pulumi.Input
 
-	ToLeaseListOutput() LeaseListOutput
-	ToLeaseListOutputWithContext(context.Context) LeaseListOutput
+	ToLeaseListTypeOutput() LeaseListTypeOutput
+	ToLeaseListTypeOutputWithContext(context.Context) LeaseListTypeOutput
 }
 
 // LeaseList is a list of Lease objects.
-type LeaseListArgs struct {
+type LeaseListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
-	Items LeaseArrayInput `pulumi:"items"`
+	Items LeaseTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (LeaseListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*LeaseList)(nil)).Elem()
+func (LeaseListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseListType)(nil)).Elem()
 }
 
-func (i LeaseListArgs) ToLeaseListOutput() LeaseListOutput {
-	return i.ToLeaseListOutputWithContext(context.Background())
+func (i LeaseListTypeArgs) ToLeaseListTypeOutput() LeaseListTypeOutput {
+	return i.ToLeaseListTypeOutputWithContext(context.Background())
 }
 
-func (i LeaseListArgs) ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LeaseListOutput)
+func (i LeaseListTypeArgs) ToLeaseListTypeOutputWithContext(ctx context.Context) LeaseListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LeaseListTypeOutput)
 }
 
 // LeaseList is a list of Lease objects.
-type LeaseListOutput struct { *pulumi.OutputState }
+type LeaseListTypeOutput struct{ *pulumi.OutputState }
 
-func (LeaseListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LeaseList)(nil)).Elem()
+func (LeaseListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseListType)(nil)).Elem()
 }
 
-func (o LeaseListOutput) ToLeaseListOutput() LeaseListOutput {
+func (o LeaseListTypeOutput) ToLeaseListTypeOutput() LeaseListTypeOutput {
 	return o
 }
 
-func (o LeaseListOutput) ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput {
+func (o LeaseListTypeOutput) ToLeaseListTypeOutputWithContext(ctx context.Context) LeaseListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LeaseListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o LeaseListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is a list of schema objects.
-func (o LeaseListOutput) Items() LeaseArrayOutput {
-	return o.ApplyT(func (v LeaseList) []Lease { return v.Items }).(LeaseArrayOutput)
+func (o LeaseListTypeOutput) Items() LeaseTypeArrayOutput {
+	return o.ApplyT(func(v LeaseListType) []LeaseType { return v.Items }).(LeaseTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LeaseListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o LeaseListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o LeaseListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v LeaseList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o LeaseListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // LeaseSpec is a specification of a Lease.
@@ -273,7 +273,8 @@ type LeaseSpecPtrInput interface {
 
 type leaseSpecPtrType LeaseSpecArgs
 
-func LeaseSpecPtr(v *LeaseSpecArgs) LeaseSpecPtrInput {	return (*leaseSpecPtrType)(v)
+func LeaseSpecPtr(v *LeaseSpecArgs) LeaseSpecPtrInput {
+	return (*leaseSpecPtrType)(v)
 }
 
 func (*leaseSpecPtrType) ElementType() reflect.Type {
@@ -289,7 +290,7 @@ func (i *leaseSpecPtrType) ToLeaseSpecPtrOutputWithContext(ctx context.Context) 
 }
 
 // LeaseSpec is a specification of a Lease.
-type LeaseSpecOutput struct { *pulumi.OutputState }
+type LeaseSpecOutput struct{ *pulumi.OutputState }
 
 func (LeaseSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*LeaseSpec)(nil)).Elem()
@@ -312,32 +313,33 @@ func (o LeaseSpecOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context) Le
 		return &v
 	}).(LeaseSpecPtrOutput)
 }
+
 // acquireTime is a time when the current lease was acquired.
 func (o LeaseSpecOutput) AcquireTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
 }
 
 // holderIdentity contains the identity of the holder of a current lease.
 func (o LeaseSpecOutput) HolderIdentity() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
 }
 
 // leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
 func (o LeaseSpecOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
 }
 
 // leaseTransitions is the number of transitions of a lease between holders.
 func (o LeaseSpecOutput) LeaseTransitions() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
 }
 
 // renewTime is a time when the current holder of a lease has last updated the lease.
 func (o LeaseSpecOutput) RenewTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-type LeaseSpecPtrOutput struct { *pulumi.OutputState }
+type LeaseSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (LeaseSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LeaseSpec)(nil)).Elem()
@@ -352,38 +354,38 @@ func (o LeaseSpecPtrOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context)
 }
 
 func (o LeaseSpecPtrOutput) Elem() LeaseSpecOutput {
-	return o.ApplyT(func (v *LeaseSpec) LeaseSpec { return *v }).(LeaseSpecOutput)
+	return o.ApplyT(func(v *LeaseSpec) LeaseSpec { return *v }).(LeaseSpecOutput)
 }
 
 // acquireTime is a time when the current lease was acquired.
 func (o LeaseSpecPtrOutput) AcquireTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
 }
 
 // holderIdentity contains the identity of the holder of a current lease.
 func (o LeaseSpecPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
 }
 
 // leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
 func (o LeaseSpecPtrOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
 }
 
 // leaseTransitions is the number of transitions of a lease between holders.
 func (o LeaseSpecPtrOutput) LeaseTransitions() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
 }
 
 // renewTime is a time when the current holder of a lease has last updated the lease.
 func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
 func init() {
-	pulumi.RegisterOutputType(LeaseOutput{})
-	pulumi.RegisterOutputType(LeaseArrayOutput{})
-	pulumi.RegisterOutputType(LeaseListOutput{})
+	pulumi.RegisterOutputType(LeaseTypeOutput{})
+	pulumi.RegisterOutputType(LeaseTypeArrayOutput{})
+	pulumi.RegisterOutputType(LeaseListTypeOutput{})
 	pulumi.RegisterOutputType(LeaseSpecOutput{})
 	pulumi.RegisterOutputType(LeaseSpecPtrOutput{})
 }

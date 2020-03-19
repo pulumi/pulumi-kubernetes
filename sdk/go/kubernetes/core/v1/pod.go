@@ -116,4 +116,3 @@ type PodArgs struct {
 func (PodArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podArgs)(nil)).Elem()
 }
-

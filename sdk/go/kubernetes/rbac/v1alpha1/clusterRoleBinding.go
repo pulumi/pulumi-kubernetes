@@ -124,4 +124,3 @@ type ClusterRoleBindingArgs struct {
 func (ClusterRoleBindingArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*clusterRoleBindingArgs)(nil)).Elem()
 }
-

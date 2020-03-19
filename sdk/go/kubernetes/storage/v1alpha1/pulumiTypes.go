@@ -16,7 +16,7 @@ import (
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachment struct {
+type VolumeAttachmentType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -29,17 +29,17 @@ type VolumeAttachment struct {
 	Status *VolumeAttachmentStatus `pulumi:"status"`
 }
 
-type VolumeAttachmentInput interface {
+type VolumeAttachmentTypeInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentOutput() VolumeAttachmentOutput
-	ToVolumeAttachmentOutputWithContext(context.Context) VolumeAttachmentOutput
+	ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput
+	ToVolumeAttachmentTypeOutputWithContext(context.Context) VolumeAttachmentTypeOutput
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentArgs struct {
+type VolumeAttachmentTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -52,177 +52,177 @@ type VolumeAttachmentArgs struct {
 	Status VolumeAttachmentStatusPtrInput `pulumi:"status"`
 }
 
-func (VolumeAttachmentArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachment)(nil)).Elem()
+func (VolumeAttachmentTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentType)(nil)).Elem()
 }
 
-func (i VolumeAttachmentArgs) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
-	return i.ToVolumeAttachmentOutputWithContext(context.Background())
+func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput {
+	return i.ToVolumeAttachmentTypeOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentArgs) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentOutput)
+func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutputWithContext(ctx context.Context) VolumeAttachmentTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeOutput)
 }
 
-type VolumeAttachmentArrayInput interface {
+type VolumeAttachmentTypeArrayInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput
-	ToVolumeAttachmentArrayOutputWithContext(context.Context) VolumeAttachmentArrayOutput
+	ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput
+	ToVolumeAttachmentTypeArrayOutputWithContext(context.Context) VolumeAttachmentTypeArrayOutput
 }
 
-type VolumeAttachmentArray []VolumeAttachmentInput
+type VolumeAttachmentTypeArray []VolumeAttachmentTypeInput
 
-func (VolumeAttachmentArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]VolumeAttachment)(nil)).Elem()
+func (VolumeAttachmentTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
 }
 
-func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput {
-	return i.ToVolumeAttachmentArrayOutputWithContext(context.Background())
+func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput {
+	return i.ToVolumeAttachmentTypeArrayOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutputWithContext(ctx context.Context) VolumeAttachmentArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentArrayOutput)
+func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutputWithContext(ctx context.Context) VolumeAttachmentTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeArrayOutput)
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentOutput struct { *pulumi.OutputState }
+type VolumeAttachmentTypeOutput struct{ *pulumi.OutputState }
 
-func (VolumeAttachmentOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachment)(nil)).Elem()
+func (VolumeAttachmentTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentType)(nil)).Elem()
 }
 
-func (o VolumeAttachmentOutput) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
+func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput {
 	return o
 }
 
-func (o VolumeAttachmentOutput) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
+func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutputWithContext(ctx context.Context) VolumeAttachmentTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachment) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachment) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v VolumeAttachment) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-func (o VolumeAttachmentOutput) Spec() VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func (v VolumeAttachment) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
+func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
 }
 
 // Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-func (o VolumeAttachmentOutput) Status() VolumeAttachmentStatusPtrOutput {
-	return o.ApplyT(func (v VolumeAttachment) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
+func (o VolumeAttachmentTypeOutput) Status() VolumeAttachmentStatusPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
 }
 
-type VolumeAttachmentArrayOutput struct { *pulumi.OutputState }
+type VolumeAttachmentTypeArrayOutput struct{ *pulumi.OutputState }
 
-func (VolumeAttachmentArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]VolumeAttachment)(nil)).Elem()
+func (VolumeAttachmentTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
 }
 
-func (o VolumeAttachmentArrayOutput) ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput {
+func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput {
 	return o
 }
 
-func (o VolumeAttachmentArrayOutput) ToVolumeAttachmentArrayOutputWithContext(ctx context.Context) VolumeAttachmentArrayOutput {
+func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutputWithContext(ctx context.Context) VolumeAttachmentTypeArrayOutput {
 	return o
 }
 
-func (o VolumeAttachmentArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) VolumeAttachment {
-		return vs[0].([]VolumeAttachment)[vs[1].(int)]
-	}).(VolumeAttachmentOutput)
+func (o VolumeAttachmentTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VolumeAttachmentType {
+		return vs[0].([]VolumeAttachmentType)[vs[1].(int)]
+	}).(VolumeAttachmentTypeOutput)
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentList struct {
+type VolumeAttachmentListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
-	Items []VolumeAttachment `pulumi:"items"`
+	Items []VolumeAttachmentType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type VolumeAttachmentListInput interface {
+type VolumeAttachmentListTypeInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentListOutput() VolumeAttachmentListOutput
-	ToVolumeAttachmentListOutputWithContext(context.Context) VolumeAttachmentListOutput
+	ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput
+	ToVolumeAttachmentListTypeOutputWithContext(context.Context) VolumeAttachmentListTypeOutput
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListArgs struct {
+type VolumeAttachmentListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
-	Items VolumeAttachmentArrayInput `pulumi:"items"`
+	Items VolumeAttachmentTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (VolumeAttachmentListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentList)(nil)).Elem()
+func (VolumeAttachmentListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
 }
 
-func (i VolumeAttachmentListArgs) ToVolumeAttachmentListOutput() VolumeAttachmentListOutput {
-	return i.ToVolumeAttachmentListOutputWithContext(context.Background())
+func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
+	return i.ToVolumeAttachmentListTypeOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentListArgs) ToVolumeAttachmentListOutputWithContext(ctx context.Context) VolumeAttachmentListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListOutput)
+func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListTypeOutput)
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListOutput struct { *pulumi.OutputState }
+type VolumeAttachmentListTypeOutput struct{ *pulumi.OutputState }
 
-func (VolumeAttachmentListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentList)(nil)).Elem()
+func (VolumeAttachmentListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
 }
 
-func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutput() VolumeAttachmentListOutput {
+func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
 	return o
 }
 
-func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutputWithContext(ctx context.Context) VolumeAttachmentListOutput {
+func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of VolumeAttachments
-func (o VolumeAttachmentListOutput) Items() VolumeAttachmentArrayOutput {
-	return o.ApplyT(func (v VolumeAttachmentList) []VolumeAttachment { return v.Items }).(VolumeAttachmentArrayOutput)
+func (o VolumeAttachmentListTypeOutput) Items() VolumeAttachmentTypeArrayOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) []VolumeAttachmentType { return v.Items }).(VolumeAttachmentTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o VolumeAttachmentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
@@ -277,7 +277,8 @@ type VolumeAttachmentSourcePtrInput interface {
 
 type volumeAttachmentSourcePtrType VolumeAttachmentSourceArgs
 
-func VolumeAttachmentSourcePtr(v *VolumeAttachmentSourceArgs) VolumeAttachmentSourcePtrInput {	return (*volumeAttachmentSourcePtrType)(v)
+func VolumeAttachmentSourcePtr(v *VolumeAttachmentSourceArgs) VolumeAttachmentSourcePtrInput {
+	return (*volumeAttachmentSourcePtrType)(v)
 }
 
 func (*volumeAttachmentSourcePtrType) ElementType() reflect.Type {
@@ -293,7 +294,7 @@ func (i *volumeAttachmentSourcePtrType) ToVolumeAttachmentSourcePtrOutputWithCon
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
-type VolumeAttachmentSourceOutput struct { *pulumi.OutputState }
+type VolumeAttachmentSourceOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSourceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*VolumeAttachmentSource)(nil)).Elem()
@@ -316,17 +317,18 @@ func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourcePtrOutputWithConte
 		return &v
 	}).(VolumeAttachmentSourcePtrOutput)
 }
+
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
 func (o VolumeAttachmentSourceOutput) InlineVolumeSpec() corev1.PersistentVolumeSpecPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSource) *corev1.PersistentVolumeSpec { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSource) *corev1.PersistentVolumeSpec { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPtrOutput)
 }
 
 // Name of the persistent volume to attach.
 func (o VolumeAttachmentSourceOutput) PersistentVolumeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
 }
 
-type VolumeAttachmentSourcePtrOutput struct { *pulumi.OutputState }
+type VolumeAttachmentSourcePtrOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSourcePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentSource)(nil)).Elem()
@@ -341,17 +343,17 @@ func (o VolumeAttachmentSourcePtrOutput) ToVolumeAttachmentSourcePtrOutputWithCo
 }
 
 func (o VolumeAttachmentSourcePtrOutput) Elem() VolumeAttachmentSourceOutput {
-	return o.ApplyT(func (v *VolumeAttachmentSource) VolumeAttachmentSource { return *v }).(VolumeAttachmentSourceOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSource) VolumeAttachmentSource { return *v }).(VolumeAttachmentSourceOutput)
 }
 
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
 func (o VolumeAttachmentSourcePtrOutput) InlineVolumeSpec() corev1.PersistentVolumeSpecPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSource) *corev1.PersistentVolumeSpec { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSource) *corev1.PersistentVolumeSpec { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPtrOutput)
 }
 
 // Name of the persistent volume to attach.
 func (o VolumeAttachmentSourcePtrOutput) PersistentVolumeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
@@ -410,7 +412,8 @@ type VolumeAttachmentSpecPtrInput interface {
 
 type volumeAttachmentSpecPtrType VolumeAttachmentSpecArgs
 
-func VolumeAttachmentSpecPtr(v *VolumeAttachmentSpecArgs) VolumeAttachmentSpecPtrInput {	return (*volumeAttachmentSpecPtrType)(v)
+func VolumeAttachmentSpecPtr(v *VolumeAttachmentSpecArgs) VolumeAttachmentSpecPtrInput {
+	return (*volumeAttachmentSpecPtrType)(v)
 }
 
 func (*volumeAttachmentSpecPtrType) ElementType() reflect.Type {
@@ -426,7 +429,7 @@ func (i *volumeAttachmentSpecPtrType) ToVolumeAttachmentSpecPtrOutputWithContext
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
-type VolumeAttachmentSpecOutput struct { *pulumi.OutputState }
+type VolumeAttachmentSpecOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*VolumeAttachmentSpec)(nil)).Elem()
@@ -449,22 +452,23 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutputWithContext(c
 		return &v
 	}).(VolumeAttachmentSpecPtrOutput)
 }
+
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
 }
 
 // The node that the volume should be attached to.
 func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }
 
 // Source represents the volume that should be attached.
 func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
 }
 
-type VolumeAttachmentSpecPtrOutput struct { *pulumi.OutputState }
+type VolumeAttachmentSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentSpec)(nil)).Elem()
@@ -479,22 +483,22 @@ func (o VolumeAttachmentSpecPtrOutput) ToVolumeAttachmentSpecPtrOutputWithContex
 }
 
 func (o VolumeAttachmentSpecPtrOutput) Elem() VolumeAttachmentSpecOutput {
-	return o.ApplyT(func (v *VolumeAttachmentSpec) VolumeAttachmentSpec { return *v }).(VolumeAttachmentSpecOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSpec) VolumeAttachmentSpec { return *v }).(VolumeAttachmentSpecOutput)
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 func (o VolumeAttachmentSpecPtrOutput) Attacher() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
 }
 
 // The node that the volume should be attached to.
 func (o VolumeAttachmentSpecPtrOutput) NodeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }
 
 // Source represents the volume that should be attached.
 func (o VolumeAttachmentSpecPtrOutput) Source() VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
@@ -557,7 +561,8 @@ type VolumeAttachmentStatusPtrInput interface {
 
 type volumeAttachmentStatusPtrType VolumeAttachmentStatusArgs
 
-func VolumeAttachmentStatusPtr(v *VolumeAttachmentStatusArgs) VolumeAttachmentStatusPtrInput {	return (*volumeAttachmentStatusPtrType)(v)
+func VolumeAttachmentStatusPtr(v *VolumeAttachmentStatusArgs) VolumeAttachmentStatusPtrInput {
+	return (*volumeAttachmentStatusPtrType)(v)
 }
 
 func (*volumeAttachmentStatusPtrType) ElementType() reflect.Type {
@@ -573,7 +578,7 @@ func (i *volumeAttachmentStatusPtrType) ToVolumeAttachmentStatusPtrOutputWithCon
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
-type VolumeAttachmentStatusOutput struct { *pulumi.OutputState }
+type VolumeAttachmentStatusOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentStatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*VolumeAttachmentStatus)(nil)).Elem()
@@ -596,27 +601,28 @@ func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutputWithConte
 		return &v
 	}).(VolumeAttachmentStatusPtrOutput)
 }
+
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusOutput) AttachError() VolumeErrorPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.AttachError }).(VolumeErrorPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeError { return v.AttachError }).(VolumeErrorPtrOutput)
 }
 
 // Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusOutput) Attached() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
 }
 
 // Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusOutput) AttachmentMetadata() pulumi.StringMapOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) map[string]string { return v.AttachmentMetadata }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) map[string]string { return v.AttachmentMetadata }).(pulumi.StringMapOutput)
 }
 
 // The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusOutput) DetachError() VolumeErrorPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
 }
 
-type VolumeAttachmentStatusPtrOutput struct { *pulumi.OutputState }
+type VolumeAttachmentStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentStatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentStatus)(nil)).Elem()
@@ -631,27 +637,27 @@ func (o VolumeAttachmentStatusPtrOutput) ToVolumeAttachmentStatusPtrOutputWithCo
 }
 
 func (o VolumeAttachmentStatusPtrOutput) Elem() VolumeAttachmentStatusOutput {
-	return o.ApplyT(func (v *VolumeAttachmentStatus) VolumeAttachmentStatus { return *v }).(VolumeAttachmentStatusOutput)
+	return o.ApplyT(func(v *VolumeAttachmentStatus) VolumeAttachmentStatus { return *v }).(VolumeAttachmentStatusOutput)
 }
 
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) AttachError() VolumeErrorPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.AttachError }).(VolumeErrorPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeError { return v.AttachError }).(VolumeErrorPtrOutput)
 }
 
 // Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) Attached() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
 }
 
 // Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) AttachmentMetadata() pulumi.StringMapOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) map[string]string { return v.AttachmentMetadata }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) map[string]string { return v.AttachmentMetadata }).(pulumi.StringMapOutput)
 }
 
 // The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) DetachError() VolumeErrorPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
+	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
 }
 
 // VolumeError captures an error encountered during a volume operation.
@@ -706,7 +712,8 @@ type VolumeErrorPtrInput interface {
 
 type volumeErrorPtrType VolumeErrorArgs
 
-func VolumeErrorPtr(v *VolumeErrorArgs) VolumeErrorPtrInput {	return (*volumeErrorPtrType)(v)
+func VolumeErrorPtr(v *VolumeErrorArgs) VolumeErrorPtrInput {
+	return (*volumeErrorPtrType)(v)
 }
 
 func (*volumeErrorPtrType) ElementType() reflect.Type {
@@ -722,7 +729,7 @@ func (i *volumeErrorPtrType) ToVolumeErrorPtrOutputWithContext(ctx context.Conte
 }
 
 // VolumeError captures an error encountered during a volume operation.
-type VolumeErrorOutput struct { *pulumi.OutputState }
+type VolumeErrorOutput struct{ *pulumi.OutputState }
 
 func (VolumeErrorOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*VolumeError)(nil)).Elem()
@@ -745,17 +752,18 @@ func (o VolumeErrorOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context
 		return &v
 	}).(VolumeErrorPtrOutput)
 }
+
 // String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
 func (o VolumeErrorOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // Time the error was encountered.
 func (o VolumeErrorOutput) Time() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
 }
 
-type VolumeErrorPtrOutput struct { *pulumi.OutputState }
+type VolumeErrorPtrOutput struct{ *pulumi.OutputState }
 
 func (VolumeErrorPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeError)(nil)).Elem()
@@ -770,23 +778,23 @@ func (o VolumeErrorPtrOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Cont
 }
 
 func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
-	return o.ApplyT(func (v *VolumeError) VolumeError { return *v }).(VolumeErrorOutput)
+	return o.ApplyT(func(v *VolumeError) VolumeError { return *v }).(VolumeErrorOutput)
 }
 
 // String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
 func (o VolumeErrorPtrOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // Time the error was encountered.
 func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
 }
 
 func init() {
-	pulumi.RegisterOutputType(VolumeAttachmentOutput{})
-	pulumi.RegisterOutputType(VolumeAttachmentArrayOutput{})
-	pulumi.RegisterOutputType(VolumeAttachmentListOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentTypeOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentTypeArrayOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentListTypeOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourceOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourcePtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSpecOutput{})

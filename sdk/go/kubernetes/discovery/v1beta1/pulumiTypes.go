@@ -94,7 +94,7 @@ func (i EndpointArray) ToEndpointArrayOutputWithContext(ctx context.Context) End
 }
 
 // Endpoint represents a single logical "backend" implementing a service.
-type EndpointOutput struct { *pulumi.OutputState }
+type EndpointOutput struct{ *pulumi.OutputState }
 
 func (EndpointOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Endpoint)(nil)).Elem()
@@ -110,22 +110,22 @@ func (o EndpointOutput) ToEndpointOutputWithContext(ctx context.Context) Endpoin
 
 // addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
 func (o EndpointOutput) Addresses() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v Endpoint) []string { return v.Addresses }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v Endpoint) []string { return v.Addresses }).(pulumi.StringArrayOutput)
 }
 
 // conditions contains information about the current status of the endpoint.
 func (o EndpointOutput) Conditions() EndpointConditionsPtrOutput {
-	return o.ApplyT(func (v Endpoint) *EndpointConditions { return v.Conditions }).(EndpointConditionsPtrOutput)
+	return o.ApplyT(func(v Endpoint) *EndpointConditions { return v.Conditions }).(EndpointConditionsPtrOutput)
 }
 
 // hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
 func (o EndpointOutput) Hostname() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v Endpoint) *string { return v.Hostname }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v Endpoint) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
 // targetRef is a reference to a Kubernetes object that represents this endpoint.
 func (o EndpointOutput) TargetRef() corev1.ObjectReferencePtrOutput {
-	return o.ApplyT(func (v Endpoint) *corev1.ObjectReference { return v.TargetRef }).(corev1.ObjectReferencePtrOutput)
+	return o.ApplyT(func(v Endpoint) *corev1.ObjectReference { return v.TargetRef }).(corev1.ObjectReferencePtrOutput)
 }
 
 // topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
@@ -136,10 +136,10 @@ func (o EndpointOutput) TargetRef() corev1.ObjectReferencePtrOutput {
 // * topology.kubernetes.io/region: the value indicates the region where the
 //   endpoint is located. This should match the corresponding node label.
 func (o EndpointOutput) Topology() pulumi.StringMapOutput {
-	return o.ApplyT(func (v Endpoint) map[string]string { return v.Topology }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v Endpoint) map[string]string { return v.Topology }).(pulumi.StringMapOutput)
 }
 
-type EndpointArrayOutput struct { *pulumi.OutputState }
+type EndpointArrayOutput struct{ *pulumi.OutputState }
 
 func (EndpointArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]Endpoint)(nil)).Elem()
@@ -154,7 +154,7 @@ func (o EndpointArrayOutput) ToEndpointArrayOutputWithContext(ctx context.Contex
 }
 
 func (o EndpointArrayOutput) Index(i pulumi.IntInput) EndpointOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) Endpoint {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Endpoint {
 		return vs[0].([]Endpoint)[vs[1].(int)]
 	}).(EndpointOutput)
 }
@@ -207,7 +207,8 @@ type EndpointConditionsPtrInput interface {
 
 type endpointConditionsPtrType EndpointConditionsArgs
 
-func EndpointConditionsPtr(v *EndpointConditionsArgs) EndpointConditionsPtrInput {	return (*endpointConditionsPtrType)(v)
+func EndpointConditionsPtr(v *EndpointConditionsArgs) EndpointConditionsPtrInput {
+	return (*endpointConditionsPtrType)(v)
 }
 
 func (*endpointConditionsPtrType) ElementType() reflect.Type {
@@ -223,7 +224,7 @@ func (i *endpointConditionsPtrType) ToEndpointConditionsPtrOutputWithContext(ctx
 }
 
 // EndpointConditions represents the current condition of an endpoint.
-type EndpointConditionsOutput struct { *pulumi.OutputState }
+type EndpointConditionsOutput struct{ *pulumi.OutputState }
 
 func (EndpointConditionsOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*EndpointConditions)(nil)).Elem()
@@ -246,12 +247,13 @@ func (o EndpointConditionsOutput) ToEndpointConditionsPtrOutputWithContext(ctx c
 		return &v
 	}).(EndpointConditionsPtrOutput)
 }
+
 // ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 func (o EndpointConditionsOutput) Ready() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
 }
 
-type EndpointConditionsPtrOutput struct { *pulumi.OutputState }
+type EndpointConditionsPtrOutput struct{ *pulumi.OutputState }
 
 func (EndpointConditionsPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EndpointConditions)(nil)).Elem()
@@ -266,12 +268,12 @@ func (o EndpointConditionsPtrOutput) ToEndpointConditionsPtrOutputWithContext(ct
 }
 
 func (o EndpointConditionsPtrOutput) Elem() EndpointConditionsOutput {
-	return o.ApplyT(func (v *EndpointConditions) EndpointConditions { return *v }).(EndpointConditionsOutput)
+	return o.ApplyT(func(v *EndpointConditions) EndpointConditions { return *v }).(EndpointConditionsOutput)
 }
 
 // ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 func (o EndpointConditionsPtrOutput) Ready() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
@@ -339,7 +341,7 @@ func (i EndpointPortArray) ToEndpointPortArrayOutputWithContext(ctx context.Cont
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
-type EndpointPortOutput struct { *pulumi.OutputState }
+type EndpointPortOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*EndpointPort)(nil)).Elem()
@@ -355,25 +357,25 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 
 // The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names. Default is empty string.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
 
 // The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 func (o EndpointPortOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointPort) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EndpointPort) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 func (o EndpointPortOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func (v EndpointPort) *int { return v.Port }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v EndpointPort) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
 // The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 func (o EndpointPortOutput) Protocol() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-type EndpointPortArrayOutput struct { *pulumi.OutputState }
+type EndpointPortArrayOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]EndpointPort)(nil)).Elem()
@@ -388,13 +390,13 @@ func (o EndpointPortArrayOutput) ToEndpointPortArrayOutputWithContext(ctx contex
 }
 
 func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) EndpointPort {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EndpointPort {
 		return vs[0].([]EndpointPort)[vs[1].(int)]
 	}).(EndpointPortOutput)
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
-type EndpointSlice struct {
+type EndpointSliceType struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
 	AddressType *string `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -409,15 +411,15 @@ type EndpointSlice struct {
 	Ports []EndpointPort `pulumi:"ports"`
 }
 
-type EndpointSliceInput interface {
+type EndpointSliceTypeInput interface {
 	pulumi.Input
 
-	ToEndpointSliceOutput() EndpointSliceOutput
-	ToEndpointSliceOutputWithContext(context.Context) EndpointSliceOutput
+	ToEndpointSliceTypeOutput() EndpointSliceTypeOutput
+	ToEndpointSliceTypeOutputWithContext(context.Context) EndpointSliceTypeOutput
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
-type EndpointSliceArgs struct {
+type EndpointSliceTypeArgs struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
 	AddressType pulumi.StringPtrInput `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -432,180 +434,180 @@ type EndpointSliceArgs struct {
 	Ports EndpointPortArrayInput `pulumi:"ports"`
 }
 
-func (EndpointSliceArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSlice)(nil)).Elem()
+func (EndpointSliceTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSliceType)(nil)).Elem()
 }
 
-func (i EndpointSliceArgs) ToEndpointSliceOutput() EndpointSliceOutput {
-	return i.ToEndpointSliceOutputWithContext(context.Background())
+func (i EndpointSliceTypeArgs) ToEndpointSliceTypeOutput() EndpointSliceTypeOutput {
+	return i.ToEndpointSliceTypeOutputWithContext(context.Background())
 }
 
-func (i EndpointSliceArgs) ToEndpointSliceOutputWithContext(ctx context.Context) EndpointSliceOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceOutput)
+func (i EndpointSliceTypeArgs) ToEndpointSliceTypeOutputWithContext(ctx context.Context) EndpointSliceTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceTypeOutput)
 }
 
-type EndpointSliceArrayInput interface {
+type EndpointSliceTypeArrayInput interface {
 	pulumi.Input
 
-	ToEndpointSliceArrayOutput() EndpointSliceArrayOutput
-	ToEndpointSliceArrayOutputWithContext(context.Context) EndpointSliceArrayOutput
+	ToEndpointSliceTypeArrayOutput() EndpointSliceTypeArrayOutput
+	ToEndpointSliceTypeArrayOutputWithContext(context.Context) EndpointSliceTypeArrayOutput
 }
 
-type EndpointSliceArray []EndpointSliceInput
+type EndpointSliceTypeArray []EndpointSliceTypeInput
 
-func (EndpointSliceArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]EndpointSlice)(nil)).Elem()
+func (EndpointSliceTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointSliceType)(nil)).Elem()
 }
 
-func (i EndpointSliceArray) ToEndpointSliceArrayOutput() EndpointSliceArrayOutput {
-	return i.ToEndpointSliceArrayOutputWithContext(context.Background())
+func (i EndpointSliceTypeArray) ToEndpointSliceTypeArrayOutput() EndpointSliceTypeArrayOutput {
+	return i.ToEndpointSliceTypeArrayOutputWithContext(context.Background())
 }
 
-func (i EndpointSliceArray) ToEndpointSliceArrayOutputWithContext(ctx context.Context) EndpointSliceArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceArrayOutput)
+func (i EndpointSliceTypeArray) ToEndpointSliceTypeArrayOutputWithContext(ctx context.Context) EndpointSliceTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceTypeArrayOutput)
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
-type EndpointSliceOutput struct { *pulumi.OutputState }
+type EndpointSliceTypeOutput struct{ *pulumi.OutputState }
 
-func (EndpointSliceOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSlice)(nil)).Elem()
+func (EndpointSliceTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSliceType)(nil)).Elem()
 }
 
-func (o EndpointSliceOutput) ToEndpointSliceOutput() EndpointSliceOutput {
+func (o EndpointSliceTypeOutput) ToEndpointSliceTypeOutput() EndpointSliceTypeOutput {
 	return o
 }
 
-func (o EndpointSliceOutput) ToEndpointSliceOutputWithContext(ctx context.Context) EndpointSliceOutput {
+func (o EndpointSliceTypeOutput) ToEndpointSliceTypeOutputWithContext(ctx context.Context) EndpointSliceTypeOutput {
 	return o
 }
 
 // addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-func (o EndpointSliceOutput) AddressType() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointSlice) *string { return v.AddressType }).(pulumi.StringPtrOutput)
+func (o EndpointSliceTypeOutput) AddressType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSliceType) *string { return v.AddressType }).(pulumi.StringPtrOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EndpointSliceOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointSlice) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o EndpointSliceTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSliceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
-func (o EndpointSliceOutput) Endpoints() EndpointArrayOutput {
-	return o.ApplyT(func (v EndpointSlice) []Endpoint { return v.Endpoints }).(EndpointArrayOutput)
+func (o EndpointSliceTypeOutput) Endpoints() EndpointArrayOutput {
+	return o.ApplyT(func(v EndpointSliceType) []Endpoint { return v.Endpoints }).(EndpointArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EndpointSliceOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointSlice) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o EndpointSliceTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSliceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata.
-func (o EndpointSliceOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v EndpointSlice) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o EndpointSliceTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v EndpointSliceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
-func (o EndpointSliceOutput) Ports() EndpointPortArrayOutput {
-	return o.ApplyT(func (v EndpointSlice) []EndpointPort { return v.Ports }).(EndpointPortArrayOutput)
+func (o EndpointSliceTypeOutput) Ports() EndpointPortArrayOutput {
+	return o.ApplyT(func(v EndpointSliceType) []EndpointPort { return v.Ports }).(EndpointPortArrayOutput)
 }
 
-type EndpointSliceArrayOutput struct { *pulumi.OutputState }
+type EndpointSliceTypeArrayOutput struct{ *pulumi.OutputState }
 
-func (EndpointSliceArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]EndpointSlice)(nil)).Elem()
+func (EndpointSliceTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointSliceType)(nil)).Elem()
 }
 
-func (o EndpointSliceArrayOutput) ToEndpointSliceArrayOutput() EndpointSliceArrayOutput {
+func (o EndpointSliceTypeArrayOutput) ToEndpointSliceTypeArrayOutput() EndpointSliceTypeArrayOutput {
 	return o
 }
 
-func (o EndpointSliceArrayOutput) ToEndpointSliceArrayOutputWithContext(ctx context.Context) EndpointSliceArrayOutput {
+func (o EndpointSliceTypeArrayOutput) ToEndpointSliceTypeArrayOutputWithContext(ctx context.Context) EndpointSliceTypeArrayOutput {
 	return o
 }
 
-func (o EndpointSliceArrayOutput) Index(i pulumi.IntInput) EndpointSliceOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) EndpointSlice {
-		return vs[0].([]EndpointSlice)[vs[1].(int)]
-	}).(EndpointSliceOutput)
+func (o EndpointSliceTypeArrayOutput) Index(i pulumi.IntInput) EndpointSliceTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EndpointSliceType {
+		return vs[0].([]EndpointSliceType)[vs[1].(int)]
+	}).(EndpointSliceTypeOutput)
 }
 
 // EndpointSliceList represents a list of endpoint slices
-type EndpointSliceList struct {
+type EndpointSliceListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// List of endpoint slices
-	Items []EndpointSlice `pulumi:"items"`
+	Items []EndpointSliceType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata.
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type EndpointSliceListInput interface {
+type EndpointSliceListTypeInput interface {
 	pulumi.Input
 
-	ToEndpointSliceListOutput() EndpointSliceListOutput
-	ToEndpointSliceListOutputWithContext(context.Context) EndpointSliceListOutput
+	ToEndpointSliceListTypeOutput() EndpointSliceListTypeOutput
+	ToEndpointSliceListTypeOutputWithContext(context.Context) EndpointSliceListTypeOutput
 }
 
 // EndpointSliceList represents a list of endpoint slices
-type EndpointSliceListArgs struct {
+type EndpointSliceListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// List of endpoint slices
-	Items EndpointSliceArrayInput `pulumi:"items"`
+	Items EndpointSliceTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata.
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (EndpointSliceListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSliceList)(nil)).Elem()
+func (EndpointSliceListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSliceListType)(nil)).Elem()
 }
 
-func (i EndpointSliceListArgs) ToEndpointSliceListOutput() EndpointSliceListOutput {
-	return i.ToEndpointSliceListOutputWithContext(context.Background())
+func (i EndpointSliceListTypeArgs) ToEndpointSliceListTypeOutput() EndpointSliceListTypeOutput {
+	return i.ToEndpointSliceListTypeOutputWithContext(context.Background())
 }
 
-func (i EndpointSliceListArgs) ToEndpointSliceListOutputWithContext(ctx context.Context) EndpointSliceListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListOutput)
+func (i EndpointSliceListTypeArgs) ToEndpointSliceListTypeOutputWithContext(ctx context.Context) EndpointSliceListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListTypeOutput)
 }
 
 // EndpointSliceList represents a list of endpoint slices
-type EndpointSliceListOutput struct { *pulumi.OutputState }
+type EndpointSliceListTypeOutput struct{ *pulumi.OutputState }
 
-func (EndpointSliceListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSliceList)(nil)).Elem()
+func (EndpointSliceListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSliceListType)(nil)).Elem()
 }
 
-func (o EndpointSliceListOutput) ToEndpointSliceListOutput() EndpointSliceListOutput {
+func (o EndpointSliceListTypeOutput) ToEndpointSliceListTypeOutput() EndpointSliceListTypeOutput {
 	return o
 }
 
-func (o EndpointSliceListOutput) ToEndpointSliceListOutputWithContext(ctx context.Context) EndpointSliceListOutput {
+func (o EndpointSliceListTypeOutput) ToEndpointSliceListTypeOutputWithContext(ctx context.Context) EndpointSliceListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EndpointSliceListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointSliceList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o EndpointSliceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSliceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // List of endpoint slices
-func (o EndpointSliceListOutput) Items() EndpointSliceArrayOutput {
-	return o.ApplyT(func (v EndpointSliceList) []EndpointSlice { return v.Items }).(EndpointSliceArrayOutput)
+func (o EndpointSliceListTypeOutput) Items() EndpointSliceTypeArrayOutput {
+	return o.ApplyT(func(v EndpointSliceListType) []EndpointSliceType { return v.Items }).(EndpointSliceTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EndpointSliceListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v EndpointSliceList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o EndpointSliceListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSliceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata.
-func (o EndpointSliceListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v EndpointSliceList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o EndpointSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v EndpointSliceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 func init() {
@@ -615,7 +617,7 @@ func init() {
 	pulumi.RegisterOutputType(EndpointConditionsPtrOutput{})
 	pulumi.RegisterOutputType(EndpointPortOutput{})
 	pulumi.RegisterOutputType(EndpointPortArrayOutput{})
-	pulumi.RegisterOutputType(EndpointSliceOutput{})
-	pulumi.RegisterOutputType(EndpointSliceArrayOutput{})
-	pulumi.RegisterOutputType(EndpointSliceListOutput{})
+	pulumi.RegisterOutputType(EndpointSliceTypeOutput{})
+	pulumi.RegisterOutputType(EndpointSliceTypeArrayOutput{})
+	pulumi.RegisterOutputType(EndpointSliceListTypeOutput{})
 }

@@ -116,4 +116,3 @@ type NamespaceArgs struct {
 func (NamespaceArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*namespaceArgs)(nil)).Elem()
 }
-

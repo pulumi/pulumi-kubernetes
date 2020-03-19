@@ -64,7 +64,8 @@ type IPBlockPtrInput interface {
 
 type ipblockPtrType IPBlockArgs
 
-func IPBlockPtr(v *IPBlockArgs) IPBlockPtrInput {	return (*ipblockPtrType)(v)
+func IPBlockPtr(v *IPBlockArgs) IPBlockPtrInput {
+	return (*ipblockPtrType)(v)
 }
 
 func (*ipblockPtrType) ElementType() reflect.Type {
@@ -80,7 +81,7 @@ func (i *ipblockPtrType) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBl
 }
 
 // IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
-type IPBlockOutput struct { *pulumi.OutputState }
+type IPBlockOutput struct{ *pulumi.OutputState }
 
 func (IPBlockOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IPBlock)(nil)).Elem()
@@ -103,17 +104,18 @@ func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBloc
 		return &v
 	}).(IPBlockPtrOutput)
 }
+
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
 func (o IPBlockOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
 }
 
 // Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockOutput) Except() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
 
-type IPBlockPtrOutput struct { *pulumi.OutputState }
+type IPBlockPtrOutput struct{ *pulumi.OutputState }
 
 func (IPBlockPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IPBlock)(nil)).Elem()
@@ -128,21 +130,21 @@ func (o IPBlockPtrOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPB
 }
 
 func (o IPBlockPtrOutput) Elem() IPBlockOutput {
-	return o.ApplyT(func (v *IPBlock) IPBlock { return *v }).(IPBlockOutput)
+	return o.ApplyT(func(v *IPBlock) IPBlock { return *v }).(IPBlockOutput)
 }
 
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
 func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
 }
 
 // Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
 
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
-type NetworkPolicy struct {
+type NetworkPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -153,15 +155,15 @@ type NetworkPolicy struct {
 	Spec *NetworkPolicySpec `pulumi:"spec"`
 }
 
-type NetworkPolicyInput interface {
+type NetworkPolicyTypeInput interface {
 	pulumi.Input
 
-	ToNetworkPolicyOutput() NetworkPolicyOutput
-	ToNetworkPolicyOutputWithContext(context.Context) NetworkPolicyOutput
+	ToNetworkPolicyTypeOutput() NetworkPolicyTypeOutput
+	ToNetworkPolicyTypeOutputWithContext(context.Context) NetworkPolicyTypeOutput
 }
 
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
-type NetworkPolicyArgs struct {
+type NetworkPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -172,92 +174,92 @@ type NetworkPolicyArgs struct {
 	Spec NetworkPolicySpecPtrInput `pulumi:"spec"`
 }
 
-func (NetworkPolicyArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicy)(nil)).Elem()
+func (NetworkPolicyTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyType)(nil)).Elem()
 }
 
-func (i NetworkPolicyArgs) ToNetworkPolicyOutput() NetworkPolicyOutput {
-	return i.ToNetworkPolicyOutputWithContext(context.Background())
+func (i NetworkPolicyTypeArgs) ToNetworkPolicyTypeOutput() NetworkPolicyTypeOutput {
+	return i.ToNetworkPolicyTypeOutputWithContext(context.Background())
 }
 
-func (i NetworkPolicyArgs) ToNetworkPolicyOutputWithContext(ctx context.Context) NetworkPolicyOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyOutput)
+func (i NetworkPolicyTypeArgs) ToNetworkPolicyTypeOutputWithContext(ctx context.Context) NetworkPolicyTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyTypeOutput)
 }
 
-type NetworkPolicyArrayInput interface {
+type NetworkPolicyTypeArrayInput interface {
 	pulumi.Input
 
-	ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutput
-	ToNetworkPolicyArrayOutputWithContext(context.Context) NetworkPolicyArrayOutput
+	ToNetworkPolicyTypeArrayOutput() NetworkPolicyTypeArrayOutput
+	ToNetworkPolicyTypeArrayOutputWithContext(context.Context) NetworkPolicyTypeArrayOutput
 }
 
-type NetworkPolicyArray []NetworkPolicyInput
+type NetworkPolicyTypeArray []NetworkPolicyTypeInput
 
-func (NetworkPolicyArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]NetworkPolicy)(nil)).Elem()
+func (NetworkPolicyTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NetworkPolicyType)(nil)).Elem()
 }
 
-func (i NetworkPolicyArray) ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutput {
-	return i.ToNetworkPolicyArrayOutputWithContext(context.Background())
+func (i NetworkPolicyTypeArray) ToNetworkPolicyTypeArrayOutput() NetworkPolicyTypeArrayOutput {
+	return i.ToNetworkPolicyTypeArrayOutputWithContext(context.Background())
 }
 
-func (i NetworkPolicyArray) ToNetworkPolicyArrayOutputWithContext(ctx context.Context) NetworkPolicyArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyArrayOutput)
+func (i NetworkPolicyTypeArray) ToNetworkPolicyTypeArrayOutputWithContext(ctx context.Context) NetworkPolicyTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyTypeArrayOutput)
 }
 
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
-type NetworkPolicyOutput struct { *pulumi.OutputState }
+type NetworkPolicyTypeOutput struct{ *pulumi.OutputState }
 
-func (NetworkPolicyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicy)(nil)).Elem()
+func (NetworkPolicyTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyType)(nil)).Elem()
 }
 
-func (o NetworkPolicyOutput) ToNetworkPolicyOutput() NetworkPolicyOutput {
+func (o NetworkPolicyTypeOutput) ToNetworkPolicyTypeOutput() NetworkPolicyTypeOutput {
 	return o
 }
 
-func (o NetworkPolicyOutput) ToNetworkPolicyOutputWithContext(ctx context.Context) NetworkPolicyOutput {
+func (o NetworkPolicyTypeOutput) ToNetworkPolicyTypeOutputWithContext(ctx context.Context) NetworkPolicyTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NetworkPolicyOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v NetworkPolicy) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NetworkPolicyOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v NetworkPolicy) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NetworkPolicyOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v NetworkPolicy) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior for this NetworkPolicy.
-func (o NetworkPolicyOutput) Spec() NetworkPolicySpecPtrOutput {
-	return o.ApplyT(func (v NetworkPolicy) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
+func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
 }
 
-type NetworkPolicyArrayOutput struct { *pulumi.OutputState }
+type NetworkPolicyTypeArrayOutput struct{ *pulumi.OutputState }
 
-func (NetworkPolicyArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]NetworkPolicy)(nil)).Elem()
+func (NetworkPolicyTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NetworkPolicyType)(nil)).Elem()
 }
 
-func (o NetworkPolicyArrayOutput) ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutput {
+func (o NetworkPolicyTypeArrayOutput) ToNetworkPolicyTypeArrayOutput() NetworkPolicyTypeArrayOutput {
 	return o
 }
 
-func (o NetworkPolicyArrayOutput) ToNetworkPolicyArrayOutputWithContext(ctx context.Context) NetworkPolicyArrayOutput {
+func (o NetworkPolicyTypeArrayOutput) ToNetworkPolicyTypeArrayOutputWithContext(ctx context.Context) NetworkPolicyTypeArrayOutput {
 	return o
 }
 
-func (o NetworkPolicyArrayOutput) Index(i pulumi.IntInput) NetworkPolicyOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NetworkPolicy {
-		return vs[0].([]NetworkPolicy)[vs[1].(int)]
-	}).(NetworkPolicyOutput)
+func (o NetworkPolicyTypeArrayOutput) Index(i pulumi.IntInput) NetworkPolicyTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NetworkPolicyType {
+		return vs[0].([]NetworkPolicyType)[vs[1].(int)]
+	}).(NetworkPolicyTypeOutput)
 }
 
 // NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
@@ -317,7 +319,7 @@ func (i NetworkPolicyEgressRuleArray) ToNetworkPolicyEgressRuleArrayOutputWithCo
 }
 
 // NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
-type NetworkPolicyEgressRuleOutput struct { *pulumi.OutputState }
+type NetworkPolicyEgressRuleOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyEgressRuleOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*NetworkPolicyEgressRule)(nil)).Elem()
@@ -333,15 +335,15 @@ func (o NetworkPolicyEgressRuleOutput) ToNetworkPolicyEgressRuleOutputWithContex
 
 // List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 func (o NetworkPolicyEgressRuleOutput) Ports() NetworkPolicyPortArrayOutput {
-	return o.ApplyT(func (v NetworkPolicyEgressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
+	return o.ApplyT(func(v NetworkPolicyEgressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
 }
 
 // List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 func (o NetworkPolicyEgressRuleOutput) To() NetworkPolicyPeerArrayOutput {
-	return o.ApplyT(func (v NetworkPolicyEgressRule) []NetworkPolicyPeer { return v.To }).(NetworkPolicyPeerArrayOutput)
+	return o.ApplyT(func(v NetworkPolicyEgressRule) []NetworkPolicyPeer { return v.To }).(NetworkPolicyPeerArrayOutput)
 }
 
-type NetworkPolicyEgressRuleArrayOutput struct { *pulumi.OutputState }
+type NetworkPolicyEgressRuleArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyEgressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyEgressRule)(nil)).Elem()
@@ -356,7 +358,7 @@ func (o NetworkPolicyEgressRuleArrayOutput) ToNetworkPolicyEgressRuleArrayOutput
 }
 
 func (o NetworkPolicyEgressRuleArrayOutput) Index(i pulumi.IntInput) NetworkPolicyEgressRuleOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NetworkPolicyEgressRule {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NetworkPolicyEgressRule {
 		return vs[0].([]NetworkPolicyEgressRule)[vs[1].(int)]
 	}).(NetworkPolicyEgressRuleOutput)
 }
@@ -418,7 +420,7 @@ func (i NetworkPolicyIngressRuleArray) ToNetworkPolicyIngressRuleArrayOutputWith
 }
 
 // NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
-type NetworkPolicyIngressRuleOutput struct { *pulumi.OutputState }
+type NetworkPolicyIngressRuleOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyIngressRuleOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*NetworkPolicyIngressRule)(nil)).Elem()
@@ -434,15 +436,15 @@ func (o NetworkPolicyIngressRuleOutput) ToNetworkPolicyIngressRuleOutputWithCont
 
 // List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 func (o NetworkPolicyIngressRuleOutput) From() NetworkPolicyPeerArrayOutput {
-	return o.ApplyT(func (v NetworkPolicyIngressRule) []NetworkPolicyPeer { return v.From }).(NetworkPolicyPeerArrayOutput)
+	return o.ApplyT(func(v NetworkPolicyIngressRule) []NetworkPolicyPeer { return v.From }).(NetworkPolicyPeerArrayOutput)
 }
 
 // List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 func (o NetworkPolicyIngressRuleOutput) Ports() NetworkPolicyPortArrayOutput {
-	return o.ApplyT(func (v NetworkPolicyIngressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
+	return o.ApplyT(func(v NetworkPolicyIngressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
 }
 
-type NetworkPolicyIngressRuleArrayOutput struct { *pulumi.OutputState }
+type NetworkPolicyIngressRuleArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyIngressRuleArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyIngressRule)(nil)).Elem()
@@ -457,87 +459,87 @@ func (o NetworkPolicyIngressRuleArrayOutput) ToNetworkPolicyIngressRuleArrayOutp
 }
 
 func (o NetworkPolicyIngressRuleArrayOutput) Index(i pulumi.IntInput) NetworkPolicyIngressRuleOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NetworkPolicyIngressRule {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NetworkPolicyIngressRule {
 		return vs[0].([]NetworkPolicyIngressRule)[vs[1].(int)]
 	}).(NetworkPolicyIngressRuleOutput)
 }
 
 // NetworkPolicyList is a list of NetworkPolicy objects.
-type NetworkPolicyList struct {
+type NetworkPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
-	Items []NetworkPolicy `pulumi:"items"`
+	Items []NetworkPolicyType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type NetworkPolicyListInput interface {
+type NetworkPolicyListTypeInput interface {
 	pulumi.Input
 
-	ToNetworkPolicyListOutput() NetworkPolicyListOutput
-	ToNetworkPolicyListOutputWithContext(context.Context) NetworkPolicyListOutput
+	ToNetworkPolicyListTypeOutput() NetworkPolicyListTypeOutput
+	ToNetworkPolicyListTypeOutputWithContext(context.Context) NetworkPolicyListTypeOutput
 }
 
 // NetworkPolicyList is a list of NetworkPolicy objects.
-type NetworkPolicyListArgs struct {
+type NetworkPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
-	Items NetworkPolicyArrayInput `pulumi:"items"`
+	Items NetworkPolicyTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (NetworkPolicyListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicyList)(nil)).Elem()
+func (NetworkPolicyListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyListType)(nil)).Elem()
 }
 
-func (i NetworkPolicyListArgs) ToNetworkPolicyListOutput() NetworkPolicyListOutput {
-	return i.ToNetworkPolicyListOutputWithContext(context.Background())
+func (i NetworkPolicyListTypeArgs) ToNetworkPolicyListTypeOutput() NetworkPolicyListTypeOutput {
+	return i.ToNetworkPolicyListTypeOutputWithContext(context.Background())
 }
 
-func (i NetworkPolicyListArgs) ToNetworkPolicyListOutputWithContext(ctx context.Context) NetworkPolicyListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyListOutput)
+func (i NetworkPolicyListTypeArgs) ToNetworkPolicyListTypeOutputWithContext(ctx context.Context) NetworkPolicyListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyListTypeOutput)
 }
 
 // NetworkPolicyList is a list of NetworkPolicy objects.
-type NetworkPolicyListOutput struct { *pulumi.OutputState }
+type NetworkPolicyListTypeOutput struct{ *pulumi.OutputState }
 
-func (NetworkPolicyListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicyList)(nil)).Elem()
+func (NetworkPolicyListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyListType)(nil)).Elem()
 }
 
-func (o NetworkPolicyListOutput) ToNetworkPolicyListOutput() NetworkPolicyListOutput {
+func (o NetworkPolicyListTypeOutput) ToNetworkPolicyListTypeOutput() NetworkPolicyListTypeOutput {
 	return o
 }
 
-func (o NetworkPolicyListOutput) ToNetworkPolicyListOutputWithContext(ctx context.Context) NetworkPolicyListOutput {
+func (o NetworkPolicyListTypeOutput) ToNetworkPolicyListTypeOutputWithContext(ctx context.Context) NetworkPolicyListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NetworkPolicyListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is a list of schema objects.
-func (o NetworkPolicyListOutput) Items() NetworkPolicyArrayOutput {
-	return o.ApplyT(func (v NetworkPolicyList) []NetworkPolicy { return v.Items }).(NetworkPolicyArrayOutput)
+func (o NetworkPolicyListTypeOutput) Items() NetworkPolicyTypeArrayOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) []NetworkPolicyType { return v.Items }).(NetworkPolicyTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NetworkPolicyListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NetworkPolicyListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o NetworkPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of fields are allowed
@@ -609,7 +611,7 @@ func (i NetworkPolicyPeerArray) ToNetworkPolicyPeerArrayOutputWithContext(ctx co
 }
 
 // NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of fields are allowed
-type NetworkPolicyPeerOutput struct { *pulumi.OutputState }
+type NetworkPolicyPeerOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyPeerOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*NetworkPolicyPeer)(nil)).Elem()
@@ -625,24 +627,24 @@ func (o NetworkPolicyPeerOutput) ToNetworkPolicyPeerOutputWithContext(ctx contex
 
 // IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 func (o NetworkPolicyPeerOutput) IpBlock() IPBlockPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPeer) *IPBlock { return v.IpBlock }).(IPBlockPtrOutput)
+	return o.ApplyT(func(v NetworkPolicyPeer) *IPBlock { return v.IpBlock }).(IPBlockPtrOutput)
 }
 
 // Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 //
 // If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
 func (o NetworkPolicyPeerOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v NetworkPolicyPeer) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 //
 // If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
 func (o NetworkPolicyPeerOutput) PodSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPeer) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v NetworkPolicyPeer) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-type NetworkPolicyPeerArrayOutput struct { *pulumi.OutputState }
+type NetworkPolicyPeerArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyPeerArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyPeer)(nil)).Elem()
@@ -657,7 +659,7 @@ func (o NetworkPolicyPeerArrayOutput) ToNetworkPolicyPeerArrayOutputWithContext(
 }
 
 func (o NetworkPolicyPeerArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPeerOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NetworkPolicyPeer {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NetworkPolicyPeer {
 		return vs[0].([]NetworkPolicyPeer)[vs[1].(int)]
 	}).(NetworkPolicyPeerOutput)
 }
@@ -719,7 +721,7 @@ func (i NetworkPolicyPortArray) ToNetworkPolicyPortArrayOutputWithContext(ctx co
 }
 
 // NetworkPolicyPort describes a port to allow traffic on
-type NetworkPolicyPortOutput struct { *pulumi.OutputState }
+type NetworkPolicyPortOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyPortOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*NetworkPolicyPort)(nil)).Elem()
@@ -735,15 +737,15 @@ func (o NetworkPolicyPortOutput) ToNetworkPolicyPortOutputWithContext(ctx contex
 
 // The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
 func (o NetworkPolicyPortOutput) Port() pulumi.AnyOutput {
-	return o.ApplyT(func (v NetworkPolicyPort) interface{} { return v.Port }).(pulumi.AnyOutput)
+	return o.ApplyT(func(v NetworkPolicyPort) interface{} { return v.Port }).(pulumi.AnyOutput)
 }
 
 // The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 func (o NetworkPolicyPortOutput) Protocol() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v NetworkPolicyPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v NetworkPolicyPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-type NetworkPolicyPortArrayOutput struct { *pulumi.OutputState }
+type NetworkPolicyPortArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyPortArrayOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*[]NetworkPolicyPort)(nil)).Elem()
@@ -758,7 +760,7 @@ func (o NetworkPolicyPortArrayOutput) ToNetworkPolicyPortArrayOutputWithContext(
 }
 
 func (o NetworkPolicyPortArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPortOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) NetworkPolicyPort {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NetworkPolicyPort {
 		return vs[0].([]NetworkPolicyPort)[vs[1].(int)]
 	}).(NetworkPolicyPortOutput)
 }
@@ -823,7 +825,8 @@ type NetworkPolicySpecPtrInput interface {
 
 type networkPolicySpecPtrType NetworkPolicySpecArgs
 
-func NetworkPolicySpecPtr(v *NetworkPolicySpecArgs) NetworkPolicySpecPtrInput {	return (*networkPolicySpecPtrType)(v)
+func NetworkPolicySpecPtr(v *NetworkPolicySpecArgs) NetworkPolicySpecPtrInput {
+	return (*networkPolicySpecPtrType)(v)
 }
 
 func (*networkPolicySpecPtrType) ElementType() reflect.Type {
@@ -839,7 +842,7 @@ func (i *networkPolicySpecPtrType) ToNetworkPolicySpecPtrOutputWithContext(ctx c
 }
 
 // NetworkPolicySpec provides the specification of a NetworkPolicy
-type NetworkPolicySpecOutput struct { *pulumi.OutputState }
+type NetworkPolicySpecOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicySpecOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*NetworkPolicySpec)(nil)).Elem()
@@ -862,27 +865,28 @@ func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx con
 		return &v
 	}).(NetworkPolicySpecPtrOutput)
 }
+
 // List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecOutput) Egress() NetworkPolicyEgressRuleArrayOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) []NetworkPolicyEgressRule { return v.Egress }).(NetworkPolicyEgressRuleArrayOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyEgressRule { return v.Egress }).(NetworkPolicyEgressRuleArrayOutput)
 }
 
 // List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 func (o NetworkPolicySpecOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) []NetworkPolicyIngressRule { return v.Ingress }).(NetworkPolicyIngressRuleArrayOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyIngressRule { return v.Ingress }).(NetworkPolicyIngressRuleArrayOutput)
 }
 
 // Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecOutput) PodSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecOutput) PolicyTypes() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
 }
 
-type NetworkPolicySpecPtrOutput struct { *pulumi.OutputState }
+type NetworkPolicySpecPtrOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicySpecPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NetworkPolicySpec)(nil)).Elem()
@@ -897,39 +901,39 @@ func (o NetworkPolicySpecPtrOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx 
 }
 
 func (o NetworkPolicySpecPtrOutput) Elem() NetworkPolicySpecOutput {
-	return o.ApplyT(func (v *NetworkPolicySpec) NetworkPolicySpec { return *v }).(NetworkPolicySpecOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) NetworkPolicySpec { return *v }).(NetworkPolicySpecOutput)
 }
 
 // List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) Egress() NetworkPolicyEgressRuleArrayOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) []NetworkPolicyEgressRule { return v.Egress }).(NetworkPolicyEgressRuleArrayOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyEgressRule { return v.Egress }).(NetworkPolicyEgressRuleArrayOutput)
 }
 
 // List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 func (o NetworkPolicySpecPtrOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) []NetworkPolicyIngressRule { return v.Ingress }).(NetworkPolicyIngressRuleArrayOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyIngressRule { return v.Ingress }).(NetworkPolicyIngressRuleArrayOutput)
 }
 
 // Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
 }
 
 func init() {
 	pulumi.RegisterOutputType(IPBlockOutput{})
 	pulumi.RegisterOutputType(IPBlockPtrOutput{})
-	pulumi.RegisterOutputType(NetworkPolicyOutput{})
-	pulumi.RegisterOutputType(NetworkPolicyArrayOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyTypeOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyTypeArrayOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyEgressRuleOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyEgressRuleArrayOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyIngressRuleOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyIngressRuleArrayOutput{})
-	pulumi.RegisterOutputType(NetworkPolicyListOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyListTypeOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyPeerOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyPeerArrayOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyPortOutput{})

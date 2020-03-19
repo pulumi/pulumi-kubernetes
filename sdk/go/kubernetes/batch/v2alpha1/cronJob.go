@@ -116,4 +116,3 @@ type CronJobArgs struct {
 func (CronJobArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*cronJobArgs)(nil)).Elem()
 }
-

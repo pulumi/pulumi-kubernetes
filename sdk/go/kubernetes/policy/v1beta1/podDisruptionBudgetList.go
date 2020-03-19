@@ -17,10 +17,10 @@ type PodDisruptionBudgetList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
-	Items PodDisruptionBudgetArrayOutput `pulumi:"items"`
+	ApiVersion pulumi.StringPtrOutput             `pulumi:"apiVersion"`
+	Items      PodDisruptionBudgetTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind     pulumi.StringPtrOutput   `pulumi:"kind"`
 	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
 }
 
@@ -62,19 +62,19 @@ func GetPodDisruptionBudgetList(ctx *pulumi.Context,
 // Input properties used for looking up and filtering PodDisruptionBudgetList resources.
 type podDisruptionBudgetListState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	Items []PodDisruptionBudget `pulumi:"items"`
+	ApiVersion *string                   `pulumi:"apiVersion"`
+	Items      []PodDisruptionBudgetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string          `pulumi:"kind"`
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 type PodDisruptionBudgetListState struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	Items PodDisruptionBudgetArrayInput
+	Items      PodDisruptionBudgetTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput
+	Kind     pulumi.StringPtrInput
 	Metadata metav1.ListMetaPtrInput
 }
 
@@ -84,10 +84,10 @@ func (PodDisruptionBudgetListState) ElementType() reflect.Type {
 
 type podDisruptionBudgetListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	Items []PodDisruptionBudget `pulumi:"items"`
+	ApiVersion *string                   `pulumi:"apiVersion"`
+	Items      []PodDisruptionBudgetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind     *string          `pulumi:"kind"`
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -95,13 +95,12 @@ type podDisruptionBudgetListArgs struct {
 type PodDisruptionBudgetListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	Items PodDisruptionBudgetArrayInput
+	Items      PodDisruptionBudgetTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput
+	Kind     pulumi.StringPtrInput
 	Metadata metav1.ListMetaPtrInput
 }
 
 func (PodDisruptionBudgetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podDisruptionBudgetListArgs)(nil)).Elem()
 }
-

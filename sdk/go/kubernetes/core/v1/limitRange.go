@@ -110,4 +110,3 @@ type LimitRangeArgs struct {
 func (LimitRangeArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*limitRangeArgs)(nil)).Elem()
 }
-

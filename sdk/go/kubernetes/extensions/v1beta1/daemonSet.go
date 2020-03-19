@@ -116,4 +116,3 @@ type DaemonSetArgs struct {
 func (DaemonSetArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*daemonSetArgs)(nil)).Elem()
 }
-

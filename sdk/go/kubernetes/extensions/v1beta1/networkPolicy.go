@@ -110,4 +110,3 @@ type NetworkPolicyArgs struct {
 func (NetworkPolicyArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*networkPolicyArgs)(nil)).Elem()
 }
-

@@ -124,4 +124,3 @@ type RoleBindingArgs struct {
 func (RoleBindingArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*roleBindingArgs)(nil)).Elem()
 }
-
