@@ -66,7 +66,9 @@ build:: $(OPENAPI_FILE)
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 lint::
-	 golangci-lint run
+	for DIR in "cmd" "pkg" "sdk" "tests" ; do \
+		pushd $$DIR && golangci-lint run -c ../.golangci.yml --deadline 5m && popd ; \
+	done
 
 install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
