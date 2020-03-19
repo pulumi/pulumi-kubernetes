@@ -13,7 +13,7 @@ import (
 )
 
 // AuditSink represents a cluster level audit sink
-type AuditSinkType struct {
+type AuditSink struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -23,15 +23,15 @@ type AuditSinkType struct {
 	Spec *AuditSinkSpec `pulumi:"spec"`
 }
 
-type AuditSinkTypeInput interface {
+type AuditSinkInput interface {
 	pulumi.Input
 
-	ToAuditSinkTypeOutput() AuditSinkTypeOutput
-	ToAuditSinkTypeOutputWithContext(context.Context) AuditSinkTypeOutput
+	ToAuditSinkOutput() AuditSinkOutput
+	ToAuditSinkOutputWithContext(context.Context) AuditSinkOutput
 }
 
 // AuditSink represents a cluster level audit sink
-type AuditSinkTypeArgs struct {
+type AuditSinkArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -41,166 +41,166 @@ type AuditSinkTypeArgs struct {
 	Spec AuditSinkSpecPtrInput `pulumi:"spec"`
 }
 
-func (AuditSinkTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSinkType)(nil)).Elem()
+func (AuditSinkArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSink)(nil)).Elem()
 }
 
-func (i AuditSinkTypeArgs) ToAuditSinkTypeOutput() AuditSinkTypeOutput {
-	return i.ToAuditSinkTypeOutputWithContext(context.Background())
+func (i AuditSinkArgs) ToAuditSinkOutput() AuditSinkOutput {
+	return i.ToAuditSinkOutputWithContext(context.Background())
 }
 
-func (i AuditSinkTypeArgs) ToAuditSinkTypeOutputWithContext(ctx context.Context) AuditSinkTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkTypeOutput)
+func (i AuditSinkArgs) ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkOutput)
 }
 
-type AuditSinkTypeArrayInput interface {
+type AuditSinkArrayInput interface {
 	pulumi.Input
 
-	ToAuditSinkTypeArrayOutput() AuditSinkTypeArrayOutput
-	ToAuditSinkTypeArrayOutputWithContext(context.Context) AuditSinkTypeArrayOutput
+	ToAuditSinkArrayOutput() AuditSinkArrayOutput
+	ToAuditSinkArrayOutputWithContext(context.Context) AuditSinkArrayOutput
 }
 
-type AuditSinkTypeArray []AuditSinkTypeInput
+type AuditSinkArray []AuditSinkInput
 
-func (AuditSinkTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]AuditSinkType)(nil)).Elem()
+func (AuditSinkArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AuditSink)(nil)).Elem()
 }
 
-func (i AuditSinkTypeArray) ToAuditSinkTypeArrayOutput() AuditSinkTypeArrayOutput {
-	return i.ToAuditSinkTypeArrayOutputWithContext(context.Background())
+func (i AuditSinkArray) ToAuditSinkArrayOutput() AuditSinkArrayOutput {
+	return i.ToAuditSinkArrayOutputWithContext(context.Background())
 }
 
-func (i AuditSinkTypeArray) ToAuditSinkTypeArrayOutputWithContext(ctx context.Context) AuditSinkTypeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkTypeArrayOutput)
+func (i AuditSinkArray) ToAuditSinkArrayOutputWithContext(ctx context.Context) AuditSinkArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkArrayOutput)
 }
 
 // AuditSink represents a cluster level audit sink
-type AuditSinkTypeOutput struct { *pulumi.OutputState }
+type AuditSinkOutput struct { *pulumi.OutputState }
 
-func (AuditSinkTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSinkType)(nil)).Elem()
+func (AuditSinkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSink)(nil)).Elem()
 }
 
-func (o AuditSinkTypeOutput) ToAuditSinkTypeOutput() AuditSinkTypeOutput {
+func (o AuditSinkOutput) ToAuditSinkOutput() AuditSinkOutput {
 	return o
 }
 
-func (o AuditSinkTypeOutput) ToAuditSinkTypeOutputWithContext(ctx context.Context) AuditSinkTypeOutput {
+func (o AuditSinkOutput) ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o AuditSinkTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v AuditSinkType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o AuditSinkOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v AuditSink) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o AuditSinkTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v AuditSinkType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o AuditSinkOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v AuditSink) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o AuditSinkTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v AuditSinkType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o AuditSinkOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v AuditSink) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec defines the audit configuration spec
-func (o AuditSinkTypeOutput) Spec() AuditSinkSpecPtrOutput {
-	return o.ApplyT(func (v AuditSinkType) *AuditSinkSpec { return v.Spec }).(AuditSinkSpecPtrOutput)
+func (o AuditSinkOutput) Spec() AuditSinkSpecPtrOutput {
+	return o.ApplyT(func (v AuditSink) *AuditSinkSpec { return v.Spec }).(AuditSinkSpecPtrOutput)
 }
 
-type AuditSinkTypeArrayOutput struct { *pulumi.OutputState }
+type AuditSinkArrayOutput struct { *pulumi.OutputState }
 
-func (AuditSinkTypeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]AuditSinkType)(nil)).Elem()
+func (AuditSinkArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AuditSink)(nil)).Elem()
 }
 
-func (o AuditSinkTypeArrayOutput) ToAuditSinkTypeArrayOutput() AuditSinkTypeArrayOutput {
+func (o AuditSinkArrayOutput) ToAuditSinkArrayOutput() AuditSinkArrayOutput {
 	return o
 }
 
-func (o AuditSinkTypeArrayOutput) ToAuditSinkTypeArrayOutputWithContext(ctx context.Context) AuditSinkTypeArrayOutput {
+func (o AuditSinkArrayOutput) ToAuditSinkArrayOutputWithContext(ctx context.Context) AuditSinkArrayOutput {
 	return o
 }
 
-func (o AuditSinkTypeArrayOutput) Index(i pulumi.IntInput) AuditSinkTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) AuditSinkType {
-		return vs[0].([]AuditSinkType)[vs[1].(int)]
-	}).(AuditSinkTypeOutput)
+func (o AuditSinkArrayOutput) Index(i pulumi.IntInput) AuditSinkOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) AuditSink {
+		return vs[0].([]AuditSink)[vs[1].(int)]
+	}).(AuditSinkOutput)
 }
 
 // AuditSinkList is a list of AuditSink items.
-type AuditSinkListType struct {
+type AuditSinkList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// List of audit configurations.
-	Items []AuditSinkType `pulumi:"items"`
+	Items []AuditSink `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type AuditSinkListTypeInput interface {
+type AuditSinkListInput interface {
 	pulumi.Input
 
-	ToAuditSinkListTypeOutput() AuditSinkListTypeOutput
-	ToAuditSinkListTypeOutputWithContext(context.Context) AuditSinkListTypeOutput
+	ToAuditSinkListOutput() AuditSinkListOutput
+	ToAuditSinkListOutputWithContext(context.Context) AuditSinkListOutput
 }
 
 // AuditSinkList is a list of AuditSink items.
-type AuditSinkListTypeArgs struct {
+type AuditSinkListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// List of audit configurations.
-	Items AuditSinkTypeArrayInput `pulumi:"items"`
+	Items AuditSinkArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (AuditSinkListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSinkListType)(nil)).Elem()
+func (AuditSinkListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSinkList)(nil)).Elem()
 }
 
-func (i AuditSinkListTypeArgs) ToAuditSinkListTypeOutput() AuditSinkListTypeOutput {
-	return i.ToAuditSinkListTypeOutputWithContext(context.Background())
+func (i AuditSinkListArgs) ToAuditSinkListOutput() AuditSinkListOutput {
+	return i.ToAuditSinkListOutputWithContext(context.Background())
 }
 
-func (i AuditSinkListTypeArgs) ToAuditSinkListTypeOutputWithContext(ctx context.Context) AuditSinkListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListTypeOutput)
+func (i AuditSinkListArgs) ToAuditSinkListOutputWithContext(ctx context.Context) AuditSinkListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListOutput)
 }
 
 // AuditSinkList is a list of AuditSink items.
-type AuditSinkListTypeOutput struct { *pulumi.OutputState }
+type AuditSinkListOutput struct { *pulumi.OutputState }
 
-func (AuditSinkListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSinkListType)(nil)).Elem()
+func (AuditSinkListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSinkList)(nil)).Elem()
 }
 
-func (o AuditSinkListTypeOutput) ToAuditSinkListTypeOutput() AuditSinkListTypeOutput {
+func (o AuditSinkListOutput) ToAuditSinkListOutput() AuditSinkListOutput {
 	return o
 }
 
-func (o AuditSinkListTypeOutput) ToAuditSinkListTypeOutputWithContext(ctx context.Context) AuditSinkListTypeOutput {
+func (o AuditSinkListOutput) ToAuditSinkListOutputWithContext(ctx context.Context) AuditSinkListOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o AuditSinkListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v AuditSinkListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o AuditSinkListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v AuditSinkList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // List of audit configurations.
-func (o AuditSinkListTypeOutput) Items() AuditSinkTypeArrayOutput {
-	return o.ApplyT(func (v AuditSinkListType) []AuditSinkType { return v.Items }).(AuditSinkTypeArrayOutput)
+func (o AuditSinkListOutput) Items() AuditSinkArrayOutput {
+	return o.ApplyT(func (v AuditSinkList) []AuditSink { return v.Items }).(AuditSinkArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o AuditSinkListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v AuditSinkListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o AuditSinkListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v AuditSinkList) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o AuditSinkListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v AuditSinkListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o AuditSinkListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v AuditSinkList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // AuditSinkSpec holds the spec for the audit sink
@@ -1068,9 +1068,9 @@ func (o WebhookThrottleConfigPtrOutput) Qps() pulumi.IntPtrOutput {
 }
 
 func init() {
-	pulumi.RegisterOutputType(AuditSinkTypeOutput{})
-	pulumi.RegisterOutputType(AuditSinkTypeArrayOutput{})
-	pulumi.RegisterOutputType(AuditSinkListTypeOutput{})
+	pulumi.RegisterOutputType(AuditSinkOutput{})
+	pulumi.RegisterOutputType(AuditSinkArrayOutput{})
+	pulumi.RegisterOutputType(AuditSinkListOutput{})
 	pulumi.RegisterOutputType(AuditSinkSpecOutput{})
 	pulumi.RegisterOutputType(AuditSinkSpecPtrOutput{})
 	pulumi.RegisterOutputType(PolicyOutput{})

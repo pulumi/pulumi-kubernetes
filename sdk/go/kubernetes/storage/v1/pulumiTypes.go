@@ -14,7 +14,7 @@ import (
 )
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
-type CSINodeType struct {
+type CSINode struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -25,15 +25,15 @@ type CSINodeType struct {
 	Spec *CSINodeSpec `pulumi:"spec"`
 }
 
-type CSINodeTypeInput interface {
+type CSINodeInput interface {
 	pulumi.Input
 
-	ToCSINodeTypeOutput() CSINodeTypeOutput
-	ToCSINodeTypeOutputWithContext(context.Context) CSINodeTypeOutput
+	ToCSINodeOutput() CSINodeOutput
+	ToCSINodeOutputWithContext(context.Context) CSINodeOutput
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
-type CSINodeTypeArgs struct {
+type CSINodeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -44,92 +44,92 @@ type CSINodeTypeArgs struct {
 	Spec CSINodeSpecPtrInput `pulumi:"spec"`
 }
 
-func (CSINodeTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeType)(nil)).Elem()
+func (CSINodeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINode)(nil)).Elem()
 }
 
-func (i CSINodeTypeArgs) ToCSINodeTypeOutput() CSINodeTypeOutput {
-	return i.ToCSINodeTypeOutputWithContext(context.Background())
+func (i CSINodeArgs) ToCSINodeOutput() CSINodeOutput {
+	return i.ToCSINodeOutputWithContext(context.Background())
 }
 
-func (i CSINodeTypeArgs) ToCSINodeTypeOutputWithContext(ctx context.Context) CSINodeTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSINodeTypeOutput)
+func (i CSINodeArgs) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeOutput)
 }
 
-type CSINodeTypeArrayInput interface {
+type CSINodeArrayInput interface {
 	pulumi.Input
 
-	ToCSINodeTypeArrayOutput() CSINodeTypeArrayOutput
-	ToCSINodeTypeArrayOutputWithContext(context.Context) CSINodeTypeArrayOutput
+	ToCSINodeArrayOutput() CSINodeArrayOutput
+	ToCSINodeArrayOutputWithContext(context.Context) CSINodeArrayOutput
 }
 
-type CSINodeTypeArray []CSINodeTypeInput
+type CSINodeArray []CSINodeInput
 
-func (CSINodeTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CSINodeType)(nil)).Elem()
+func (CSINodeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSINode)(nil)).Elem()
 }
 
-func (i CSINodeTypeArray) ToCSINodeTypeArrayOutput() CSINodeTypeArrayOutput {
-	return i.ToCSINodeTypeArrayOutputWithContext(context.Background())
+func (i CSINodeArray) ToCSINodeArrayOutput() CSINodeArrayOutput {
+	return i.ToCSINodeArrayOutputWithContext(context.Background())
 }
 
-func (i CSINodeTypeArray) ToCSINodeTypeArrayOutputWithContext(ctx context.Context) CSINodeTypeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSINodeTypeArrayOutput)
+func (i CSINodeArray) ToCSINodeArrayOutputWithContext(ctx context.Context) CSINodeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeArrayOutput)
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
-type CSINodeTypeOutput struct { *pulumi.OutputState }
+type CSINodeOutput struct { *pulumi.OutputState }
 
-func (CSINodeTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeType)(nil)).Elem()
+func (CSINodeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINode)(nil)).Elem()
 }
 
-func (o CSINodeTypeOutput) ToCSINodeTypeOutput() CSINodeTypeOutput {
+func (o CSINodeOutput) ToCSINodeOutput() CSINodeOutput {
 	return o
 }
 
-func (o CSINodeTypeOutput) ToCSINodeTypeOutputWithContext(ctx context.Context) CSINodeTypeOutput {
+func (o CSINodeOutput) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CSINodeTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CSINodeType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CSINodeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CSINode) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CSINodeTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CSINodeType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CSINodeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CSINode) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // metadata.name must be the Kubernetes node name.
-func (o CSINodeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v CSINodeType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o CSINodeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v CSINode) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // spec is the specification of CSINode
-func (o CSINodeTypeOutput) Spec() CSINodeSpecPtrOutput {
-	return o.ApplyT(func (v CSINodeType) *CSINodeSpec { return v.Spec }).(CSINodeSpecPtrOutput)
+func (o CSINodeOutput) Spec() CSINodeSpecPtrOutput {
+	return o.ApplyT(func (v CSINode) *CSINodeSpec { return v.Spec }).(CSINodeSpecPtrOutput)
 }
 
-type CSINodeTypeArrayOutput struct { *pulumi.OutputState }
+type CSINodeArrayOutput struct { *pulumi.OutputState }
 
-func (CSINodeTypeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CSINodeType)(nil)).Elem()
+func (CSINodeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSINode)(nil)).Elem()
 }
 
-func (o CSINodeTypeArrayOutput) ToCSINodeTypeArrayOutput() CSINodeTypeArrayOutput {
+func (o CSINodeArrayOutput) ToCSINodeArrayOutput() CSINodeArrayOutput {
 	return o
 }
 
-func (o CSINodeTypeArrayOutput) ToCSINodeTypeArrayOutputWithContext(ctx context.Context) CSINodeTypeArrayOutput {
+func (o CSINodeArrayOutput) ToCSINodeArrayOutputWithContext(ctx context.Context) CSINodeArrayOutput {
 	return o
 }
 
-func (o CSINodeTypeArrayOutput) Index(i pulumi.IntInput) CSINodeTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) CSINodeType {
-		return vs[0].([]CSINodeType)[vs[1].(int)]
-	}).(CSINodeTypeOutput)
+func (o CSINodeArrayOutput) Index(i pulumi.IntInput) CSINodeOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) CSINode {
+		return vs[0].([]CSINode)[vs[1].(int)]
+	}).(CSINodeOutput)
 }
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
@@ -252,81 +252,81 @@ func (o CSINodeDriverArrayOutput) Index(i pulumi.IntInput) CSINodeDriverOutput {
 }
 
 // CSINodeList is a collection of CSINode objects.
-type CSINodeListType struct {
+type CSINodeList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// items is the list of CSINode
-	Items []CSINodeType `pulumi:"items"`
+	Items []CSINode `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type CSINodeListTypeInput interface {
+type CSINodeListInput interface {
 	pulumi.Input
 
-	ToCSINodeListTypeOutput() CSINodeListTypeOutput
-	ToCSINodeListTypeOutputWithContext(context.Context) CSINodeListTypeOutput
+	ToCSINodeListOutput() CSINodeListOutput
+	ToCSINodeListOutputWithContext(context.Context) CSINodeListOutput
 }
 
 // CSINodeList is a collection of CSINode objects.
-type CSINodeListTypeArgs struct {
+type CSINodeListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// items is the list of CSINode
-	Items CSINodeTypeArrayInput `pulumi:"items"`
+	Items CSINodeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (CSINodeListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeListType)(nil)).Elem()
+func (CSINodeListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeList)(nil)).Elem()
 }
 
-func (i CSINodeListTypeArgs) ToCSINodeListTypeOutput() CSINodeListTypeOutput {
-	return i.ToCSINodeListTypeOutputWithContext(context.Background())
+func (i CSINodeListArgs) ToCSINodeListOutput() CSINodeListOutput {
+	return i.ToCSINodeListOutputWithContext(context.Background())
 }
 
-func (i CSINodeListTypeArgs) ToCSINodeListTypeOutputWithContext(ctx context.Context) CSINodeListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListTypeOutput)
+func (i CSINodeListArgs) ToCSINodeListOutputWithContext(ctx context.Context) CSINodeListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListOutput)
 }
 
 // CSINodeList is a collection of CSINode objects.
-type CSINodeListTypeOutput struct { *pulumi.OutputState }
+type CSINodeListOutput struct { *pulumi.OutputState }
 
-func (CSINodeListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeListType)(nil)).Elem()
+func (CSINodeListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeList)(nil)).Elem()
 }
 
-func (o CSINodeListTypeOutput) ToCSINodeListTypeOutput() CSINodeListTypeOutput {
+func (o CSINodeListOutput) ToCSINodeListOutput() CSINodeListOutput {
 	return o
 }
 
-func (o CSINodeListTypeOutput) ToCSINodeListTypeOutputWithContext(ctx context.Context) CSINodeListTypeOutput {
+func (o CSINodeListOutput) ToCSINodeListOutputWithContext(ctx context.Context) CSINodeListOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CSINodeListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CSINodeListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CSINodeListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CSINodeList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // items is the list of CSINode
-func (o CSINodeListTypeOutput) Items() CSINodeTypeArrayOutput {
-	return o.ApplyT(func (v CSINodeListType) []CSINodeType { return v.Items }).(CSINodeTypeArrayOutput)
+func (o CSINodeListOutput) Items() CSINodeArrayOutput {
+	return o.ApplyT(func (v CSINodeList) []CSINode { return v.Items }).(CSINodeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CSINodeListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v CSINodeListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CSINodeListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v CSINodeList) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o CSINodeListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v CSINodeListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o CSINodeListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v CSINodeList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
@@ -447,7 +447,7 @@ func (o CSINodeSpecPtrOutput) Drivers() CSINodeDriverArrayOutput {
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
-type StorageClassType struct {
+type StorageClass struct {
 	// AllowVolumeExpansion shows whether the storage class allow volume expand
 	AllowVolumeExpansion *bool `pulumi:"allowVolumeExpansion"`
 	// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -470,17 +470,17 @@ type StorageClassType struct {
 	VolumeBindingMode *string `pulumi:"volumeBindingMode"`
 }
 
-type StorageClassTypeInput interface {
+type StorageClassInput interface {
 	pulumi.Input
 
-	ToStorageClassTypeOutput() StorageClassTypeOutput
-	ToStorageClassTypeOutputWithContext(context.Context) StorageClassTypeOutput
+	ToStorageClassOutput() StorageClassOutput
+	ToStorageClassOutputWithContext(context.Context) StorageClassOutput
 }
 
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
-type StorageClassTypeArgs struct {
+type StorageClassArgs struct {
 	// AllowVolumeExpansion shows whether the storage class allow volume expand
 	AllowVolumeExpansion pulumi.BoolPtrInput `pulumi:"allowVolumeExpansion"`
 	// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -503,208 +503,208 @@ type StorageClassTypeArgs struct {
 	VolumeBindingMode pulumi.StringPtrInput `pulumi:"volumeBindingMode"`
 }
 
-func (StorageClassTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*StorageClassType)(nil)).Elem()
+func (StorageClassArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageClass)(nil)).Elem()
 }
 
-func (i StorageClassTypeArgs) ToStorageClassTypeOutput() StorageClassTypeOutput {
-	return i.ToStorageClassTypeOutputWithContext(context.Background())
+func (i StorageClassArgs) ToStorageClassOutput() StorageClassOutput {
+	return i.ToStorageClassOutputWithContext(context.Background())
 }
 
-func (i StorageClassTypeArgs) ToStorageClassTypeOutputWithContext(ctx context.Context) StorageClassTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(StorageClassTypeOutput)
+func (i StorageClassArgs) ToStorageClassOutputWithContext(ctx context.Context) StorageClassOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassOutput)
 }
 
-type StorageClassTypeArrayInput interface {
+type StorageClassArrayInput interface {
 	pulumi.Input
 
-	ToStorageClassTypeArrayOutput() StorageClassTypeArrayOutput
-	ToStorageClassTypeArrayOutputWithContext(context.Context) StorageClassTypeArrayOutput
+	ToStorageClassArrayOutput() StorageClassArrayOutput
+	ToStorageClassArrayOutputWithContext(context.Context) StorageClassArrayOutput
 }
 
-type StorageClassTypeArray []StorageClassTypeInput
+type StorageClassArray []StorageClassInput
 
-func (StorageClassTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]StorageClassType)(nil)).Elem()
+func (StorageClassArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageClass)(nil)).Elem()
 }
 
-func (i StorageClassTypeArray) ToStorageClassTypeArrayOutput() StorageClassTypeArrayOutput {
-	return i.ToStorageClassTypeArrayOutputWithContext(context.Background())
+func (i StorageClassArray) ToStorageClassArrayOutput() StorageClassArrayOutput {
+	return i.ToStorageClassArrayOutputWithContext(context.Background())
 }
 
-func (i StorageClassTypeArray) ToStorageClassTypeArrayOutputWithContext(ctx context.Context) StorageClassTypeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(StorageClassTypeArrayOutput)
+func (i StorageClassArray) ToStorageClassArrayOutputWithContext(ctx context.Context) StorageClassArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassArrayOutput)
 }
 
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
-type StorageClassTypeOutput struct { *pulumi.OutputState }
+type StorageClassOutput struct { *pulumi.OutputState }
 
-func (StorageClassTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*StorageClassType)(nil)).Elem()
+func (StorageClassOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageClass)(nil)).Elem()
 }
 
-func (o StorageClassTypeOutput) ToStorageClassTypeOutput() StorageClassTypeOutput {
+func (o StorageClassOutput) ToStorageClassOutput() StorageClassOutput {
 	return o
 }
 
-func (o StorageClassTypeOutput) ToStorageClassTypeOutputWithContext(ctx context.Context) StorageClassTypeOutput {
+func (o StorageClassOutput) ToStorageClassOutputWithContext(ctx context.Context) StorageClassOutput {
 	return o
 }
 
 // AllowVolumeExpansion shows whether the storage class allow volume expand
-func (o StorageClassTypeOutput) AllowVolumeExpansion() pulumi.BoolPtrOutput {
-	return o.ApplyT(func (v StorageClassType) *bool { return v.AllowVolumeExpansion }).(pulumi.BoolPtrOutput)
+func (o StorageClassOutput) AllowVolumeExpansion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func (v StorageClass) *bool { return v.AllowVolumeExpansion }).(pulumi.BoolPtrOutput)
 }
 
 // Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
-func (o StorageClassTypeOutput) AllowedTopologies() corev1.TopologySelectorTermArrayOutput {
-	return o.ApplyT(func (v StorageClassType) []corev1.TopologySelectorTerm { return v.AllowedTopologies }).(corev1.TopologySelectorTermArrayOutput)
+func (o StorageClassOutput) AllowedTopologies() corev1.TopologySelectorTermArrayOutput {
+	return o.ApplyT(func (v StorageClass) []corev1.TopologySelectorTerm { return v.AllowedTopologies }).(corev1.TopologySelectorTermArrayOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StorageClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v StorageClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StorageClass) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StorageClassTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v StorageClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StorageClass) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o StorageClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v StorageClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o StorageClassOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v StorageClass) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
-func (o StorageClassTypeOutput) MountOptions() pulumi.StringArrayOutput {
-	return o.ApplyT(func (v StorageClassType) []string { return v.MountOptions }).(pulumi.StringArrayOutput)
+func (o StorageClassOutput) MountOptions() pulumi.StringArrayOutput {
+	return o.ApplyT(func (v StorageClass) []string { return v.MountOptions }).(pulumi.StringArrayOutput)
 }
 
 // Parameters holds the parameters for the provisioner that should create volumes of this storage class.
-func (o StorageClassTypeOutput) Parameters() pulumi.StringMapOutput {
-	return o.ApplyT(func (v StorageClassType) map[string]string { return v.Parameters }).(pulumi.StringMapOutput)
+func (o StorageClassOutput) Parameters() pulumi.StringMapOutput {
+	return o.ApplyT(func (v StorageClass) map[string]string { return v.Parameters }).(pulumi.StringMapOutput)
 }
 
 // Provisioner indicates the type of the provisioner.
-func (o StorageClassTypeOutput) Provisioner() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v StorageClassType) *string { return v.Provisioner }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) Provisioner() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StorageClass) *string { return v.Provisioner }).(pulumi.StringPtrOutput)
 }
 
 // Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-func (o StorageClassTypeOutput) ReclaimPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v StorageClassType) *string { return v.ReclaimPolicy }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) ReclaimPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StorageClass) *string { return v.ReclaimPolicy }).(pulumi.StringPtrOutput)
 }
 
 // VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-func (o StorageClassTypeOutput) VolumeBindingMode() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v StorageClassType) *string { return v.VolumeBindingMode }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) VolumeBindingMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StorageClass) *string { return v.VolumeBindingMode }).(pulumi.StringPtrOutput)
 }
 
-type StorageClassTypeArrayOutput struct { *pulumi.OutputState }
+type StorageClassArrayOutput struct { *pulumi.OutputState }
 
-func (StorageClassTypeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]StorageClassType)(nil)).Elem()
+func (StorageClassArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageClass)(nil)).Elem()
 }
 
-func (o StorageClassTypeArrayOutput) ToStorageClassTypeArrayOutput() StorageClassTypeArrayOutput {
+func (o StorageClassArrayOutput) ToStorageClassArrayOutput() StorageClassArrayOutput {
 	return o
 }
 
-func (o StorageClassTypeArrayOutput) ToStorageClassTypeArrayOutputWithContext(ctx context.Context) StorageClassTypeArrayOutput {
+func (o StorageClassArrayOutput) ToStorageClassArrayOutputWithContext(ctx context.Context) StorageClassArrayOutput {
 	return o
 }
 
-func (o StorageClassTypeArrayOutput) Index(i pulumi.IntInput) StorageClassTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) StorageClassType {
-		return vs[0].([]StorageClassType)[vs[1].(int)]
-	}).(StorageClassTypeOutput)
+func (o StorageClassArrayOutput) Index(i pulumi.IntInput) StorageClassOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) StorageClass {
+		return vs[0].([]StorageClass)[vs[1].(int)]
+	}).(StorageClassOutput)
 }
 
 // StorageClassList is a collection of storage classes.
-type StorageClassListType struct {
+type StorageClassList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is the list of StorageClasses
-	Items []StorageClassType `pulumi:"items"`
+	Items []StorageClass `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type StorageClassListTypeInput interface {
+type StorageClassListInput interface {
 	pulumi.Input
 
-	ToStorageClassListTypeOutput() StorageClassListTypeOutput
-	ToStorageClassListTypeOutputWithContext(context.Context) StorageClassListTypeOutput
+	ToStorageClassListOutput() StorageClassListOutput
+	ToStorageClassListOutputWithContext(context.Context) StorageClassListOutput
 }
 
 // StorageClassList is a collection of storage classes.
-type StorageClassListTypeArgs struct {
+type StorageClassListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is the list of StorageClasses
-	Items StorageClassTypeArrayInput `pulumi:"items"`
+	Items StorageClassArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (StorageClassListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*StorageClassListType)(nil)).Elem()
+func (StorageClassListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageClassList)(nil)).Elem()
 }
 
-func (i StorageClassListTypeArgs) ToStorageClassListTypeOutput() StorageClassListTypeOutput {
-	return i.ToStorageClassListTypeOutputWithContext(context.Background())
+func (i StorageClassListArgs) ToStorageClassListOutput() StorageClassListOutput {
+	return i.ToStorageClassListOutputWithContext(context.Background())
 }
 
-func (i StorageClassListTypeArgs) ToStorageClassListTypeOutputWithContext(ctx context.Context) StorageClassListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListTypeOutput)
+func (i StorageClassListArgs) ToStorageClassListOutputWithContext(ctx context.Context) StorageClassListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListOutput)
 }
 
 // StorageClassList is a collection of storage classes.
-type StorageClassListTypeOutput struct { *pulumi.OutputState }
+type StorageClassListOutput struct { *pulumi.OutputState }
 
-func (StorageClassListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*StorageClassListType)(nil)).Elem()
+func (StorageClassListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageClassList)(nil)).Elem()
 }
 
-func (o StorageClassListTypeOutput) ToStorageClassListTypeOutput() StorageClassListTypeOutput {
+func (o StorageClassListOutput) ToStorageClassListOutput() StorageClassListOutput {
 	return o
 }
 
-func (o StorageClassListTypeOutput) ToStorageClassListTypeOutputWithContext(ctx context.Context) StorageClassListTypeOutput {
+func (o StorageClassListOutput) ToStorageClassListOutputWithContext(ctx context.Context) StorageClassListOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StorageClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v StorageClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o StorageClassListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StorageClassList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of StorageClasses
-func (o StorageClassListTypeOutput) Items() StorageClassTypeArrayOutput {
-	return o.ApplyT(func (v StorageClassListType) []StorageClassType { return v.Items }).(StorageClassTypeArrayOutput)
+func (o StorageClassListOutput) Items() StorageClassArrayOutput {
+	return o.ApplyT(func (v StorageClassList) []StorageClass { return v.Items }).(StorageClassArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StorageClassListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v StorageClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o StorageClassListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v StorageClassList) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o StorageClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v StorageClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o StorageClassListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v StorageClassList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentType struct {
+type VolumeAttachment struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -717,17 +717,17 @@ type VolumeAttachmentType struct {
 	Status *VolumeAttachmentStatus `pulumi:"status"`
 }
 
-type VolumeAttachmentTypeInput interface {
+type VolumeAttachmentInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput
-	ToVolumeAttachmentTypeOutputWithContext(context.Context) VolumeAttachmentTypeOutput
+	ToVolumeAttachmentOutput() VolumeAttachmentOutput
+	ToVolumeAttachmentOutputWithContext(context.Context) VolumeAttachmentOutput
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentTypeArgs struct {
+type VolumeAttachmentArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -740,177 +740,177 @@ type VolumeAttachmentTypeArgs struct {
 	Status VolumeAttachmentStatusPtrInput `pulumi:"status"`
 }
 
-func (VolumeAttachmentTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachment)(nil)).Elem()
 }
 
-func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput {
-	return i.ToVolumeAttachmentTypeOutputWithContext(context.Background())
+func (i VolumeAttachmentArgs) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
+	return i.ToVolumeAttachmentOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutputWithContext(ctx context.Context) VolumeAttachmentTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeOutput)
+func (i VolumeAttachmentArgs) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentOutput)
 }
 
-type VolumeAttachmentTypeArrayInput interface {
+type VolumeAttachmentArrayInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput
-	ToVolumeAttachmentTypeArrayOutputWithContext(context.Context) VolumeAttachmentTypeArrayOutput
+	ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput
+	ToVolumeAttachmentArrayOutputWithContext(context.Context) VolumeAttachmentArrayOutput
 }
 
-type VolumeAttachmentTypeArray []VolumeAttachmentTypeInput
+type VolumeAttachmentArray []VolumeAttachmentInput
 
-func (VolumeAttachmentTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttachment)(nil)).Elem()
 }
 
-func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput {
-	return i.ToVolumeAttachmentTypeArrayOutputWithContext(context.Background())
+func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput {
+	return i.ToVolumeAttachmentArrayOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutputWithContext(ctx context.Context) VolumeAttachmentTypeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeArrayOutput)
+func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutputWithContext(ctx context.Context) VolumeAttachmentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentArrayOutput)
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentTypeOutput struct { *pulumi.OutputState }
+type VolumeAttachmentOutput struct { *pulumi.OutputState }
 
-func (VolumeAttachmentTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachment)(nil)).Elem()
 }
 
-func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput {
+func (o VolumeAttachmentOutput) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
 	return o
 }
 
-func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutputWithContext(ctx context.Context) VolumeAttachmentTypeOutput {
+func (o VolumeAttachmentOutput) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o VolumeAttachmentOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
+func (o VolumeAttachmentOutput) Spec() VolumeAttachmentSpecPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
 }
 
 // Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-func (o VolumeAttachmentTypeOutput) Status() VolumeAttachmentStatusPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
+func (o VolumeAttachmentOutput) Status() VolumeAttachmentStatusPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
 }
 
-type VolumeAttachmentTypeArrayOutput struct { *pulumi.OutputState }
+type VolumeAttachmentArrayOutput struct { *pulumi.OutputState }
 
-func (VolumeAttachmentTypeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttachment)(nil)).Elem()
 }
 
-func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput {
+func (o VolumeAttachmentArrayOutput) ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput {
 	return o
 }
 
-func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutputWithContext(ctx context.Context) VolumeAttachmentTypeArrayOutput {
+func (o VolumeAttachmentArrayOutput) ToVolumeAttachmentArrayOutputWithContext(ctx context.Context) VolumeAttachmentArrayOutput {
 	return o
 }
 
-func (o VolumeAttachmentTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) VolumeAttachmentType {
-		return vs[0].([]VolumeAttachmentType)[vs[1].(int)]
-	}).(VolumeAttachmentTypeOutput)
+func (o VolumeAttachmentArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) VolumeAttachment {
+		return vs[0].([]VolumeAttachment)[vs[1].(int)]
+	}).(VolumeAttachmentOutput)
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListType struct {
+type VolumeAttachmentList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
-	Items []VolumeAttachmentType `pulumi:"items"`
+	Items []VolumeAttachment `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type VolumeAttachmentListTypeInput interface {
+type VolumeAttachmentListInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput
-	ToVolumeAttachmentListTypeOutputWithContext(context.Context) VolumeAttachmentListTypeOutput
+	ToVolumeAttachmentListOutput() VolumeAttachmentListOutput
+	ToVolumeAttachmentListOutputWithContext(context.Context) VolumeAttachmentListOutput
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListTypeArgs struct {
+type VolumeAttachmentListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
-	Items VolumeAttachmentTypeArrayInput `pulumi:"items"`
+	Items VolumeAttachmentArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (VolumeAttachmentListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
+func (VolumeAttachmentListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentList)(nil)).Elem()
 }
 
-func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
-	return i.ToVolumeAttachmentListTypeOutputWithContext(context.Background())
+func (i VolumeAttachmentListArgs) ToVolumeAttachmentListOutput() VolumeAttachmentListOutput {
+	return i.ToVolumeAttachmentListOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListTypeOutput)
+func (i VolumeAttachmentListArgs) ToVolumeAttachmentListOutputWithContext(ctx context.Context) VolumeAttachmentListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListOutput)
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListTypeOutput struct { *pulumi.OutputState }
+type VolumeAttachmentListOutput struct { *pulumi.OutputState }
 
-func (VolumeAttachmentListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
+func (VolumeAttachmentListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentList)(nil)).Elem()
 }
 
-func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
+func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutput() VolumeAttachmentListOutput {
 	return o
 }
 
-func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
+func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutputWithContext(ctx context.Context) VolumeAttachmentListOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of VolumeAttachments
-func (o VolumeAttachmentListTypeOutput) Items() VolumeAttachmentTypeArrayOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) []VolumeAttachmentType { return v.Items }).(VolumeAttachmentTypeArrayOutput)
+func (o VolumeAttachmentListOutput) Items() VolumeAttachmentArrayOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) []VolumeAttachment { return v.Items }).(VolumeAttachmentArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o VolumeAttachmentListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
@@ -1587,19 +1587,19 @@ func (o VolumeNodeResourcesPtrOutput) Count() pulumi.IntPtrOutput {
 }
 
 func init() {
-	pulumi.RegisterOutputType(CSINodeTypeOutput{})
-	pulumi.RegisterOutputType(CSINodeTypeArrayOutput{})
+	pulumi.RegisterOutputType(CSINodeOutput{})
+	pulumi.RegisterOutputType(CSINodeArrayOutput{})
 	pulumi.RegisterOutputType(CSINodeDriverOutput{})
 	pulumi.RegisterOutputType(CSINodeDriverArrayOutput{})
-	pulumi.RegisterOutputType(CSINodeListTypeOutput{})
+	pulumi.RegisterOutputType(CSINodeListOutput{})
 	pulumi.RegisterOutputType(CSINodeSpecOutput{})
 	pulumi.RegisterOutputType(CSINodeSpecPtrOutput{})
-	pulumi.RegisterOutputType(StorageClassTypeOutput{})
-	pulumi.RegisterOutputType(StorageClassTypeArrayOutput{})
-	pulumi.RegisterOutputType(StorageClassListTypeOutput{})
-	pulumi.RegisterOutputType(VolumeAttachmentTypeOutput{})
-	pulumi.RegisterOutputType(VolumeAttachmentTypeArrayOutput{})
-	pulumi.RegisterOutputType(VolumeAttachmentListTypeOutput{})
+	pulumi.RegisterOutputType(StorageClassOutput{})
+	pulumi.RegisterOutputType(StorageClassArrayOutput{})
+	pulumi.RegisterOutputType(StorageClassListOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentArrayOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentListOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourceOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourcePtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSpecOutput{})

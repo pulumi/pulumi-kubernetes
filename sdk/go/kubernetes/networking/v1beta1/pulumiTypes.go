@@ -230,7 +230,7 @@ func (o HTTPIngressRuleValuePtrOutput) Paths() HTTPIngressPathArrayOutput {
 }
 
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
-type IngressType struct {
+type Ingress struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -243,15 +243,15 @@ type IngressType struct {
 	Status *IngressStatus `pulumi:"status"`
 }
 
-type IngressTypeInput interface {
+type IngressInput interface {
 	pulumi.Input
 
-	ToIngressTypeOutput() IngressTypeOutput
-	ToIngressTypeOutputWithContext(context.Context) IngressTypeOutput
+	ToIngressOutput() IngressOutput
+	ToIngressOutputWithContext(context.Context) IngressOutput
 }
 
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
-type IngressTypeArgs struct {
+type IngressArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -264,97 +264,97 @@ type IngressTypeArgs struct {
 	Status IngressStatusPtrInput `pulumi:"status"`
 }
 
-func (IngressTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressType)(nil)).Elem()
+func (IngressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Ingress)(nil)).Elem()
 }
 
-func (i IngressTypeArgs) ToIngressTypeOutput() IngressTypeOutput {
-	return i.ToIngressTypeOutputWithContext(context.Background())
+func (i IngressArgs) ToIngressOutput() IngressOutput {
+	return i.ToIngressOutputWithContext(context.Background())
 }
 
-func (i IngressTypeArgs) ToIngressTypeOutputWithContext(ctx context.Context) IngressTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IngressTypeOutput)
+func (i IngressArgs) ToIngressOutputWithContext(ctx context.Context) IngressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressOutput)
 }
 
-type IngressTypeArrayInput interface {
+type IngressArrayInput interface {
 	pulumi.Input
 
-	ToIngressTypeArrayOutput() IngressTypeArrayOutput
-	ToIngressTypeArrayOutputWithContext(context.Context) IngressTypeArrayOutput
+	ToIngressArrayOutput() IngressArrayOutput
+	ToIngressArrayOutputWithContext(context.Context) IngressArrayOutput
 }
 
-type IngressTypeArray []IngressTypeInput
+type IngressArray []IngressInput
 
-func (IngressTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]IngressType)(nil)).Elem()
+func (IngressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Ingress)(nil)).Elem()
 }
 
-func (i IngressTypeArray) ToIngressTypeArrayOutput() IngressTypeArrayOutput {
-	return i.ToIngressTypeArrayOutputWithContext(context.Background())
+func (i IngressArray) ToIngressArrayOutput() IngressArrayOutput {
+	return i.ToIngressArrayOutputWithContext(context.Background())
 }
 
-func (i IngressTypeArray) ToIngressTypeArrayOutputWithContext(ctx context.Context) IngressTypeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IngressTypeArrayOutput)
+func (i IngressArray) ToIngressArrayOutputWithContext(ctx context.Context) IngressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressArrayOutput)
 }
 
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
-type IngressTypeOutput struct { *pulumi.OutputState }
+type IngressOutput struct { *pulumi.OutputState }
 
-func (IngressTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressType)(nil)).Elem()
+func (IngressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Ingress)(nil)).Elem()
 }
 
-func (o IngressTypeOutput) ToIngressTypeOutput() IngressTypeOutput {
+func (o IngressOutput) ToIngressOutput() IngressOutput {
 	return o
 }
 
-func (o IngressTypeOutput) ToIngressTypeOutputWithContext(ctx context.Context) IngressTypeOutput {
+func (o IngressOutput) ToIngressOutputWithContext(ctx context.Context) IngressOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o IngressTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v IngressType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o IngressOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v Ingress) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o IngressTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v IngressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o IngressOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v Ingress) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o IngressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v IngressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o IngressOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v Ingress) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o IngressTypeOutput) Spec() IngressSpecPtrOutput {
-	return o.ApplyT(func (v IngressType) *IngressSpec { return v.Spec }).(IngressSpecPtrOutput)
+func (o IngressOutput) Spec() IngressSpecPtrOutput {
+	return o.ApplyT(func (v Ingress) *IngressSpec { return v.Spec }).(IngressSpecPtrOutput)
 }
 
 // Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o IngressTypeOutput) Status() IngressStatusPtrOutput {
-	return o.ApplyT(func (v IngressType) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
+func (o IngressOutput) Status() IngressStatusPtrOutput {
+	return o.ApplyT(func (v Ingress) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
 }
 
-type IngressTypeArrayOutput struct { *pulumi.OutputState }
+type IngressArrayOutput struct { *pulumi.OutputState }
 
-func (IngressTypeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]IngressType)(nil)).Elem()
+func (IngressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Ingress)(nil)).Elem()
 }
 
-func (o IngressTypeArrayOutput) ToIngressTypeArrayOutput() IngressTypeArrayOutput {
+func (o IngressArrayOutput) ToIngressArrayOutput() IngressArrayOutput {
 	return o
 }
 
-func (o IngressTypeArrayOutput) ToIngressTypeArrayOutputWithContext(ctx context.Context) IngressTypeArrayOutput {
+func (o IngressArrayOutput) ToIngressArrayOutputWithContext(ctx context.Context) IngressArrayOutput {
 	return o
 }
 
-func (o IngressTypeArrayOutput) Index(i pulumi.IntInput) IngressTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) IngressType {
-		return vs[0].([]IngressType)[vs[1].(int)]
-	}).(IngressTypeOutput)
+func (o IngressArrayOutput) Index(i pulumi.IntInput) IngressOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) Ingress {
+		return vs[0].([]Ingress)[vs[1].(int)]
+	}).(IngressOutput)
 }
 
 // IngressBackend describes all endpoints for a given service and port.
@@ -487,81 +487,81 @@ func (o IngressBackendPtrOutput) ServicePort() pulumi.AnyOutput {
 }
 
 // IngressList is a collection of Ingress.
-type IngressListType struct {
+type IngressList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is the list of Ingress.
-	Items []IngressType `pulumi:"items"`
+	Items []Ingress `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type IngressListTypeInput interface {
+type IngressListInput interface {
 	pulumi.Input
 
-	ToIngressListTypeOutput() IngressListTypeOutput
-	ToIngressListTypeOutputWithContext(context.Context) IngressListTypeOutput
+	ToIngressListOutput() IngressListOutput
+	ToIngressListOutputWithContext(context.Context) IngressListOutput
 }
 
 // IngressList is a collection of Ingress.
-type IngressListTypeArgs struct {
+type IngressListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is the list of Ingress.
-	Items IngressTypeArrayInput `pulumi:"items"`
+	Items IngressArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (IngressListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressListType)(nil)).Elem()
+func (IngressListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressList)(nil)).Elem()
 }
 
-func (i IngressListTypeArgs) ToIngressListTypeOutput() IngressListTypeOutput {
-	return i.ToIngressListTypeOutputWithContext(context.Background())
+func (i IngressListArgs) ToIngressListOutput() IngressListOutput {
+	return i.ToIngressListOutputWithContext(context.Background())
 }
 
-func (i IngressListTypeArgs) ToIngressListTypeOutputWithContext(ctx context.Context) IngressListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IngressListTypeOutput)
+func (i IngressListArgs) ToIngressListOutputWithContext(ctx context.Context) IngressListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressListOutput)
 }
 
 // IngressList is a collection of Ingress.
-type IngressListTypeOutput struct { *pulumi.OutputState }
+type IngressListOutput struct { *pulumi.OutputState }
 
-func (IngressListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressListType)(nil)).Elem()
+func (IngressListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressList)(nil)).Elem()
 }
 
-func (o IngressListTypeOutput) ToIngressListTypeOutput() IngressListTypeOutput {
+func (o IngressListOutput) ToIngressListOutput() IngressListOutput {
 	return o
 }
 
-func (o IngressListTypeOutput) ToIngressListTypeOutputWithContext(ctx context.Context) IngressListTypeOutput {
+func (o IngressListOutput) ToIngressListOutputWithContext(ctx context.Context) IngressListOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o IngressListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v IngressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o IngressListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v IngressList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of Ingress.
-func (o IngressListTypeOutput) Items() IngressTypeArrayOutput {
-	return o.ApplyT(func (v IngressListType) []IngressType { return v.Items }).(IngressTypeArrayOutput)
+func (o IngressListOutput) Items() IngressArrayOutput {
+	return o.ApplyT(func (v IngressList) []Ingress { return v.Items }).(IngressArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o IngressListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v IngressListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o IngressListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v IngressList) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v IngressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o IngressListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v IngressList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
@@ -1041,11 +1041,11 @@ func init() {
 	pulumi.RegisterOutputType(HTTPIngressPathArrayOutput{})
 	pulumi.RegisterOutputType(HTTPIngressRuleValueOutput{})
 	pulumi.RegisterOutputType(HTTPIngressRuleValuePtrOutput{})
-	pulumi.RegisterOutputType(IngressTypeOutput{})
-	pulumi.RegisterOutputType(IngressTypeArrayOutput{})
+	pulumi.RegisterOutputType(IngressOutput{})
+	pulumi.RegisterOutputType(IngressArrayOutput{})
 	pulumi.RegisterOutputType(IngressBackendOutput{})
 	pulumi.RegisterOutputType(IngressBackendPtrOutput{})
-	pulumi.RegisterOutputType(IngressListTypeOutput{})
+	pulumi.RegisterOutputType(IngressListOutput{})
 	pulumi.RegisterOutputType(IngressRuleOutput{})
 	pulumi.RegisterOutputType(IngressRuleArrayOutput{})
 	pulumi.RegisterOutputType(IngressSpecOutput{})

@@ -16,7 +16,7 @@ import (
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentType struct {
+type VolumeAttachment struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -29,17 +29,17 @@ type VolumeAttachmentType struct {
 	Status *VolumeAttachmentStatus `pulumi:"status"`
 }
 
-type VolumeAttachmentTypeInput interface {
+type VolumeAttachmentInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput
-	ToVolumeAttachmentTypeOutputWithContext(context.Context) VolumeAttachmentTypeOutput
+	ToVolumeAttachmentOutput() VolumeAttachmentOutput
+	ToVolumeAttachmentOutputWithContext(context.Context) VolumeAttachmentOutput
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentTypeArgs struct {
+type VolumeAttachmentArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -52,177 +52,177 @@ type VolumeAttachmentTypeArgs struct {
 	Status VolumeAttachmentStatusPtrInput `pulumi:"status"`
 }
 
-func (VolumeAttachmentTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachment)(nil)).Elem()
 }
 
-func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput {
-	return i.ToVolumeAttachmentTypeOutputWithContext(context.Background())
+func (i VolumeAttachmentArgs) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
+	return i.ToVolumeAttachmentOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutputWithContext(ctx context.Context) VolumeAttachmentTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeOutput)
+func (i VolumeAttachmentArgs) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentOutput)
 }
 
-type VolumeAttachmentTypeArrayInput interface {
+type VolumeAttachmentArrayInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput
-	ToVolumeAttachmentTypeArrayOutputWithContext(context.Context) VolumeAttachmentTypeArrayOutput
+	ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput
+	ToVolumeAttachmentArrayOutputWithContext(context.Context) VolumeAttachmentArrayOutput
 }
 
-type VolumeAttachmentTypeArray []VolumeAttachmentTypeInput
+type VolumeAttachmentArray []VolumeAttachmentInput
 
-func (VolumeAttachmentTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttachment)(nil)).Elem()
 }
 
-func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput {
-	return i.ToVolumeAttachmentTypeArrayOutputWithContext(context.Background())
+func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput {
+	return i.ToVolumeAttachmentArrayOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutputWithContext(ctx context.Context) VolumeAttachmentTypeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeArrayOutput)
+func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutputWithContext(ctx context.Context) VolumeAttachmentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentArrayOutput)
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
-type VolumeAttachmentTypeOutput struct { *pulumi.OutputState }
+type VolumeAttachmentOutput struct { *pulumi.OutputState }
 
-func (VolumeAttachmentTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachment)(nil)).Elem()
 }
 
-func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutput() VolumeAttachmentTypeOutput {
+func (o VolumeAttachmentOutput) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
 	return o
 }
 
-func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutputWithContext(ctx context.Context) VolumeAttachmentTypeOutput {
+func (o VolumeAttachmentOutput) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o VolumeAttachmentOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
+func (o VolumeAttachmentOutput) Spec() VolumeAttachmentSpecPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
 }
 
 // Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-func (o VolumeAttachmentTypeOutput) Status() VolumeAttachmentStatusPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentType) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
+func (o VolumeAttachmentOutput) Status() VolumeAttachmentStatusPtrOutput {
+	return o.ApplyT(func (v VolumeAttachment) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
 }
 
-type VolumeAttachmentTypeArrayOutput struct { *pulumi.OutputState }
+type VolumeAttachmentArrayOutput struct { *pulumi.OutputState }
 
-func (VolumeAttachmentTypeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]VolumeAttachmentType)(nil)).Elem()
+func (VolumeAttachmentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttachment)(nil)).Elem()
 }
 
-func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutput() VolumeAttachmentTypeArrayOutput {
+func (o VolumeAttachmentArrayOutput) ToVolumeAttachmentArrayOutput() VolumeAttachmentArrayOutput {
 	return o
 }
 
-func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutputWithContext(ctx context.Context) VolumeAttachmentTypeArrayOutput {
+func (o VolumeAttachmentArrayOutput) ToVolumeAttachmentArrayOutputWithContext(ctx context.Context) VolumeAttachmentArrayOutput {
 	return o
 }
 
-func (o VolumeAttachmentTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentTypeOutput {
-	return pulumi.All(o, i).ApplyT(func (vs []interface{}) VolumeAttachmentType {
-		return vs[0].([]VolumeAttachmentType)[vs[1].(int)]
-	}).(VolumeAttachmentTypeOutput)
+func (o VolumeAttachmentArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentOutput {
+	return pulumi.All(o, i).ApplyT(func (vs []interface{}) VolumeAttachment {
+		return vs[0].([]VolumeAttachment)[vs[1].(int)]
+	}).(VolumeAttachmentOutput)
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListType struct {
+type VolumeAttachmentList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
-	Items []VolumeAttachmentType `pulumi:"items"`
+	Items []VolumeAttachment `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-type VolumeAttachmentListTypeInput interface {
+type VolumeAttachmentListInput interface {
 	pulumi.Input
 
-	ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput
-	ToVolumeAttachmentListTypeOutputWithContext(context.Context) VolumeAttachmentListTypeOutput
+	ToVolumeAttachmentListOutput() VolumeAttachmentListOutput
+	ToVolumeAttachmentListOutputWithContext(context.Context) VolumeAttachmentListOutput
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListTypeArgs struct {
+type VolumeAttachmentListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
-	Items VolumeAttachmentTypeArrayInput `pulumi:"items"`
+	Items VolumeAttachmentArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (VolumeAttachmentListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
+func (VolumeAttachmentListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentList)(nil)).Elem()
 }
 
-func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
-	return i.ToVolumeAttachmentListTypeOutputWithContext(context.Background())
+func (i VolumeAttachmentListArgs) ToVolumeAttachmentListOutput() VolumeAttachmentListOutput {
+	return i.ToVolumeAttachmentListOutputWithContext(context.Background())
 }
 
-func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListTypeOutput)
+func (i VolumeAttachmentListArgs) ToVolumeAttachmentListOutputWithContext(ctx context.Context) VolumeAttachmentListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListOutput)
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
-type VolumeAttachmentListTypeOutput struct { *pulumi.OutputState }
+type VolumeAttachmentListOutput struct { *pulumi.OutputState }
 
-func (VolumeAttachmentListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
+func (VolumeAttachmentListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentList)(nil)).Elem()
 }
 
-func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
+func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutput() VolumeAttachmentListOutput {
 	return o
 }
 
-func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
+func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutputWithContext(ctx context.Context) VolumeAttachmentListOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of VolumeAttachments
-func (o VolumeAttachmentListTypeOutput) Items() VolumeAttachmentTypeArrayOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) []VolumeAttachmentType { return v.Items }).(VolumeAttachmentTypeArrayOutput)
+func (o VolumeAttachmentListOutput) Items() VolumeAttachmentArrayOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) []VolumeAttachment { return v.Items }).(VolumeAttachmentArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func (v VolumeAttachmentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o VolumeAttachmentListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func (v VolumeAttachmentList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
@@ -784,9 +784,9 @@ func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 }
 
 func init() {
-	pulumi.RegisterOutputType(VolumeAttachmentTypeOutput{})
-	pulumi.RegisterOutputType(VolumeAttachmentTypeArrayOutput{})
-	pulumi.RegisterOutputType(VolumeAttachmentListTypeOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentArrayOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentListOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourceOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourcePtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSpecOutput{})
