@@ -26,7 +26,7 @@ DOTNET_PREFIX  := $(firstword $(subst -, ,${VERSION:v%=%})) # e.g. 1.5.0
 DOTNET_SUFFIX  := $(word 2,$(subst -, ,${VERSION:v%=%}))    # e.g. alpha.1
 
 # Limit number of default jobs, to avoid the CI builds running out of memory
-GOLINT_JOBS ?= 4
+GOLINT_JOBS ?= 2
 # see https://github.com/golangci/golangci-lint#memory-usage-of-golangci-lint
 GOLINT_GOGC ?= 8
 # options for lint (golangci-lint)
