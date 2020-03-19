@@ -821,6 +821,7 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 	return messages
 }
 
+//nolint: nakedret
 func (dia *deploymentInitAwaiter) makeClients() (
 	deploymentClient, replicaSetClient, podClient, pvcClient dynamic.ResourceInterface, err error,
 ) {
