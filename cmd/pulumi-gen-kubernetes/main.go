@@ -319,7 +319,6 @@ func writeGoClient(data map[string]interface{}, outdir string) {
 		panic(err)
 	}
 	for filename, contents := range files {
-		//filename = strings.TrimPrefix(filename, "kubernetes/")
 		path := filepath.Join(outdir, filename)
 
 		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {

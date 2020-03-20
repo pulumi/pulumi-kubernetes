@@ -4,6 +4,10 @@
 
 -   Add a Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1029).
 
+### Bug fixes
+
+-   Change URN for apiregistration resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1021).
+
 ## 1.5.8 (March 16, 2020)
 
 ### Improvements
@@ -15,7 +19,6 @@
 
 ### Bug fixes
 
--   Change URN for apiregistration resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1021).
 -   Replace PersistentVolume if volume source changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1015).
 -   Fix bool Python provider opts. (https://github.com/pulumi/pulumi-kubernetes/pull/1027).
 

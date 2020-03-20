@@ -63,9 +63,6 @@ func (gc GroupConfig) Group() string { return gc.group }
 
 // URNGroup returns a group version that can be used in a URN.
 func (gc *GroupConfig) URNGroup() string {
-	//if strings.HasPrefix(gc.group, apiRegistration) {
-	//	return "apiregistration" + strings.TrimPrefix(gc.group, apiRegistration)
-	//}
 	return gc.group
 }
 
@@ -110,24 +107,9 @@ func (vc VersionConfig) TopLevelKinds() []KindConfig {
 	return kinds
 }
 
-// TopLevelKindsAndAliases will produce a list of kinds, including aliases (e.g., both `apiregistration` and
-// `apiregistration.k8s.io`).
+// TODO(levi): TopLevelKindsAndAliases will be removed once we move over to schema-based codegen.
 func (vc VersionConfig) TopLevelKindsAndAliases() []KindConfig {
-	var kindsAndAliases []KindConfig
-	for _, kind := range vc.TopLevelKinds() {
-		kindsAndAliases = append(kindsAndAliases, kind)
-		//if strings.HasPrefix(kind.APIVersion(), apiRegistration) {
-		//	alias := KindConfig{}
-		//	err := copier.Copy(&alias, kind)
-		//	if err != nil {
-		//		panic(err)
-		//	}
-		//	defaultAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
-		//	alias.defaultAPIVersion = defaultAPIVersion
-		//	kindsAndAliases = append(kindsAndAliases, alias)
-		//}
-	}
-	return kindsAndAliases
+	return vc.TopLevelKinds()
 }
 
 // ListTopLevelKindsAndAliases will return all known `Kind`s that are lists, or aliases of lists. These
@@ -135,7 +117,7 @@ func (vc VersionConfig) TopLevelKindsAndAliases() []KindConfig {
 // accurate view of what resource operations we need to perform.
 func (vc VersionConfig) ListTopLevelKindsAndAliases() []KindConfig {
 	var listKinds []KindConfig
-	for _, kind := range vc.TopLevelKindsAndAliases() {
+	for _, kind := range vc.TopLevelKinds() {
 		hasItems := false
 		for _, prop := range kind.properties {
 			if prop.name == "items" {
