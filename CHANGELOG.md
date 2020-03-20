@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug fixes
+
+-   Update the Python `Provider` class to use parameter naming consistent with other resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1039).
+
 ## 1.5.8 (March 16, 2020)
 
 ### Improvements
