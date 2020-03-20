@@ -1,3 +1,5 @@
+import warnings
+
 import pulumi
 
 
@@ -7,20 +9,22 @@ class Provider(pulumi.ProviderResource):
     """
 
     def __init__(self,
-                 __name__,
-                 __opts__=None,
+                 resource_name,
+                 opts=None,
                  cluster=None,
                  context=None,
                  enable_dry_run=None,
                  kubeconfig=None,
                  namespace=None,
                  suppress_deprecation_warnings=None,
-                 render_yaml_to_directory=None):
+                 render_yaml_to_directory=None,
+                 __name__=None,
+                 __opts__=None):
         """
         Create a Provider resource with the given unique name, arguments, and options.
 
-        :param str __name__: The unique name of the resource.
-        :param pulumi.ResourceOptions __opts__: An optional bag of options that controls this resource's behavior.
+        :param str resource_name: The unique name of the resource.
+        :param pulumi.ResourceOptions opts: An optional bag of options that controls this resource's behavior.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
         :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to True, enable server-side diff
@@ -51,6 +55,18 @@ class Provider(pulumi.ProviderResource):
                                  any secret values used in these resources will be rendered in plaintext to the
                                  resulting YAML.
         """
+        if __name__ is not None:
+            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
+            resource_name = __name__
+        if __opts__ is not None:
+            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
+            opts = __opts__
+        if not resource_name:
+            raise TypeError('Missing resource name argument (for URN creation)')
+        if not isinstance(resource_name, str):
+            raise TypeError('Expected resource name to be a string')
+        if opts and not isinstance(opts, pulumi.ResourceOptions):
+            raise TypeError('Expected resource options to be a ResourceOptions instance')
         __props__ = {
             "cluster": cluster,
             "context": context,
@@ -60,4 +76,4 @@ class Provider(pulumi.ProviderResource):
             "suppressDeprecationWarnings": suppress_deprecation_warnings,
             "renderYamlToDirectory": render_yaml_to_directory,
         }
-        super(Provider, self).__init__("kubernetes", __name__, __props__, __opts__)
+        super(Provider, self).__init__("kubernetes", resource_name, __props__, opts)
