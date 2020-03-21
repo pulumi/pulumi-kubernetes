@@ -49,7 +49,7 @@ import { getVersion } from "../../version";
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:apiregistration/v1:APIServiceList";
+      private static readonly __pulumiType = "kubernetes:apiregistration.k8s.io/v1:APIServiceList";
 
       /**
        * Returns true if the given object is an instance of APIServiceList.  This is designed to work even
@@ -88,6 +88,11 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
+          opts = pulumi.mergeOptions(opts, {
+              aliases: [
+                  { type: "kubernetes:apiregistration/v1:APIServiceList" },
+              ],
+          });
           super(APIServiceList.__pulumiType, name, props, opts);
       }
     }

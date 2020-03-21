@@ -69,12 +69,17 @@ class APIServiceList(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+            pulumi.Alias(type_="kubernetes:apiregistration/v1beta1:APIServiceList"),
+        ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
+            aliases=aliases,
         ))
 
         super(APIServiceList, self).__init__(
-            "kubernetes:apiregistration/v1beta1:APIServiceList",
+            "kubernetes:apiregistration.k8s.io/v1beta1:APIServiceList",
             resource_name,
             __props__,
             opts)
