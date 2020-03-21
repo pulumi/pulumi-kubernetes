@@ -1152,15 +1152,16 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 
 			// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
 			if strings.Contains(fqGroupVersion, "apiregistration.k8s.io") {
-				results = append(results,
-					strings.Replace(aliasString, "apiregistration.k8s.io", "apiregistration", -1))
+				parts := strings.Split(aliasString, ":")
+				parts[1] = "apiregistration" + strings.TrimPrefix(parts[1], "apiregistration.k8s.io")
+				results = append(results, strings.Join(parts, ":"))
 			}
 		}
 
 		// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
 		if strings.Contains(fqGroupVersion, "apiregistration.k8s.io") {
-			apiVersion := strings.Replace(fqGroupVersion, "apiregistration.k8s.io", "apiregistration", -1)
-			results = append(results, fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind))
+			results = append(results, fmt.Sprintf("kubernetes:%s:%s",
+				"apiregistration"+strings.TrimPrefix(fqGroupVersion, "apiregistration.k8s.io"), kind))
 		}
 
 		return results
