@@ -16,18 +16,20 @@
 package gen
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
 
 	"github.com/ahmetb/go-linq"
-	"github.com/jinzhu/copier"
 	"github.com/mitchellh/go-wordwrap"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 
 	pycodegen "github.com/pulumi/pulumi/pkg/codegen/python"
+	pschema "github.com/pulumi/pulumi/pkg/codegen/schema"
+	"github.com/pulumi/pulumi/pkg/util/contract"
 )
 
 const (
@@ -39,10 +41,6 @@ const (
 	pyListT   = "list"
 	pyBoolT   = "bool"
 	pyAnyT    = "Any"
-)
-
-const (
-	apiRegistration = "apiregistration.k8s.io"
 )
 
 // --------------------------------------------------------------------------
@@ -62,6 +60,11 @@ type GroupConfig struct {
 
 // Group returns the name of the group (e.g., `core` for core, etc.)
 func (gc GroupConfig) Group() string { return gc.group }
+
+// URNGroup returns a group version that can be used in a URN.
+func (gc *GroupConfig) URNGroup() string {
+	return gc.group
+}
 
 // Versions returns the set of version for some Kubernetes API group. For example, the `apps` group
 // has `v1beta1`, `v1beta2`, and `v1`.
@@ -104,24 +107,9 @@ func (vc VersionConfig) TopLevelKinds() []KindConfig {
 	return kinds
 }
 
-// TopLevelKindsAndAliases will produce a list of kinds, including aliases (e.g., both `apiregistration` and
-// `apiregistration.k8s.io`).
+// TODO(levi): TopLevelKindsAndAliases will be removed once we move over to schema-based codegen.
 func (vc VersionConfig) TopLevelKindsAndAliases() []KindConfig {
-	var kindsAndAliases []KindConfig
-	for _, kind := range vc.TopLevelKinds() {
-		kindsAndAliases = append(kindsAndAliases, kind)
-		if strings.HasPrefix(kind.APIVersion(), apiRegistration) {
-			alias := KindConfig{}
-			err := copier.Copy(&alias, kind)
-			if err != nil {
-				panic(err)
-			}
-			defaultAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
-			alias.defaultAPIVersion = defaultAPIVersion
-			kindsAndAliases = append(kindsAndAliases, alias)
-		}
-	}
-	return kindsAndAliases
+	return vc.TopLevelKinds()
 }
 
 // ListTopLevelKindsAndAliases will return all known `Kind`s that are lists, or aliases of lists. These
@@ -129,7 +117,7 @@ func (vc VersionConfig) TopLevelKindsAndAliases() []KindConfig {
 // accurate view of what resource operations we need to perform.
 func (vc VersionConfig) ListTopLevelKindsAndAliases() []KindConfig {
 	var listKinds []KindConfig
-	for _, kind := range vc.TopLevelKindsAndAliases() {
+	for _, kind := range vc.TopLevelKinds() {
 		hasItems := false
 		for _, prop := range kind.properties {
 			if prop.name == "items" {
@@ -171,6 +159,9 @@ type KindConfig struct {
 	typeGuard         string
 
 	isNested bool
+
+	canonicalGV   string
+	schemaPkgName string
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
@@ -279,11 +270,12 @@ func (p Property) DotnetIsListOrMap() bool { return p.dotnetIsListOrMap }
 func gvkFromRef(ref string) schema.GroupVersionKind {
 	// TODO(hausdorff): Surely there is an official k8s function somewhere for doing this.
 	split := strings.Split(ref, ".")
-	return schema.GroupVersionKind{
+	gvk := schema.GroupVersionKind{
 		Kind:    split[len(split)-1],
 		Version: split[len(split)-2],
 		Group:   split[len(split)-3],
 	}
+	return gvk
 }
 
 func stripPrefix(name string) string {
@@ -314,6 +306,8 @@ func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind,
 	case python, dotnet:
 		prefix = "DEPRECATED - "
 		suffix = "\n\n"
+	case pulumiSchema:
+		// do nothing
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
@@ -380,6 +374,13 @@ func fmtComment(
 				return fmt.Sprintf("/// <summary>\n%s/// %s\n%s/// </summary>", prefix, joined, prefix)
 			}
 			return joined
+		}
+	case pulumiSchema:
+		wrapParagraph = func(paragraph string) []string {
+			return strings.Split(paragraph, "\n")
+		}
+		renderComment = func(lines []string) string {
+			return strings.Join(lines, "\n")
 		}
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
@@ -771,14 +772,116 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(gvkRefStr)
 }
 
-func makeTypes(resourceType, propName string, prop map[string]interface{}, language language) (string, string, string) {
-	inputsAPIType := makeType(resourceType, propName, prop, language, inputsAPI)
-	outputsAPIType := makeType(resourceType, propName, prop, language, outputsAPI)
-	providerType := makeType(resourceType, propName, prop, language, provider)
+func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]string) pschema.TypeSpec {
+	if t, exists := prop["type"]; exists {
+		switch t := t.(string); t {
+		case "array":
+			elemSpec := makeSchemaTypeSpec(prop["items"].(map[string]interface{}), canonicalGroups)
+			return pschema.TypeSpec{
+				Type:  "array",
+				Items: &elemSpec,
+			}
+		case "object":
+			additionalProperties, ok := prop["additionalProperties"]
+			if !ok {
+				return pschema.TypeSpec{Type: "object"}
+			}
+
+			elemSpec := makeSchemaTypeSpec(additionalProperties.(map[string]interface{}), canonicalGroups)
+			return pschema.TypeSpec{
+				Type:                 "object",
+				AdditionalProperties: &elemSpec,
+			}
+		default:
+			return pschema.TypeSpec{Type: t}
+		}
+	}
+
+	ref := stripPrefix(prop["$ref"].(string))
+	switch ref {
+	case quantity:
+		return pschema.TypeSpec{Type: "string"}
+	case intOrString:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Type: "number"},
+			{Type: "string"},
+		}}
+	case v1Fields, v1FieldsV1, rawExtension:
+		return pschema.TypeSpec{
+			Type:                 "object",
+			AdditionalProperties: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+		}
+	case v1Time, v1MicroTime:
+		return pschema.TypeSpec{Type: "string"}
+	case v1beta1JSONSchemaPropsOrBool:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaProps"},
+			{Type: "boolean"},
+		}}
+	case v1JSONSchemaPropsOrBool:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaProps"},
+			{Type: "boolean"},
+		}}
+	case v1beta1JSONSchemaPropsOrArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaProps"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+			},
+		}}
+	case v1JSONSchemaPropsOrArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaProps"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+			},
+		}}
+	case v1beta1JSONSchemaPropsOrStringArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaPropsOrStringArray"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Type: "string"},
+			},
+		}}
+	case v1JSONSchemaPropsOrStringArray:
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaPropsOrStringArray"},
+			{
+				Type:  "array",
+				Items: &pschema.TypeSpec{Type: "string"},
+			},
+		}}
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+		return pschema.TypeSpec{Ref: "pulumi.json#/Any"}
+	}
+
+	gvk := gvkFromRef(ref)
+	if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
+		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
+			canonicalGroup, gvk.Version, gvk.Kind)}
+	}
+	panic("Canonical group not set for ref: " + ref)
+}
+
+func makeSchemaType(prop map[string]interface{}, canonicalGroups map[string]string) string {
+	spec := makeSchemaTypeSpec(prop, canonicalGroups)
+	b, err := json.Marshal(spec)
+	contract.Assert(err == nil)
+	return string(b)
+}
+
+func makeTypes(resourceType string, propName string, prop map[string]interface{}, language language, canonicalGroups map[string]string) (string, string, string) {
+	inputsAPIType := makeType(resourceType, propName, prop, language, inputsAPI, canonicalGroups)
+	outputsAPIType := makeType(resourceType, propName, prop, language, outputsAPI, canonicalGroups)
+	providerType := makeType(resourceType, propName, prop, language, provider, canonicalGroups)
 	return inputsAPIType, outputsAPIType, providerType
 }
 
-func makeType(resourceType, propName string, prop map[string]interface{}, language language, gentype gentype) string {
+func makeType(resourceType string, propName string, prop map[string]interface{}, language language, gentype gentype, canonicalGroups map[string]string) string {
 	switch language {
 	case typescript:
 		return makeTypescriptType(resourceType, propName, prop, gentype)
@@ -786,6 +889,8 @@ func makeType(resourceType, propName string, prop map[string]interface{}, langua
 		return makePythonType(resourceType, propName, prop, gentype)
 	case dotnet:
 		return makeDotnetType(resourceType, propName, prop, gentype, false)
+	case pulumiSchema:
+		return makeSchemaType(prop, canonicalGroups)
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
@@ -798,9 +903,24 @@ func makeType(resourceType, propName string, prop map[string]interface{}, langua
 // --------------------------------------------------------------------------
 
 type definition struct {
-	gvk  schema.GroupVersionKind
-	name string
-	data map[string]interface{}
+	gvk            schema.GroupVersionKind
+	name           string
+	data           map[string]interface{}
+	canonicalGroup string
+}
+
+// canonicalGV creates a GV string in the canonical format.
+func (d definition) canonicalGV(canonicalGroups map[string]string) string {
+	gvFmt := `%s/%s`
+
+	// If the canonical group is set for this definition (i.e., it is a top-level resource), use that.
+	if d.canonicalGroup != "" {
+		return fmt.Sprintf(gvFmt, d.canonicalGroup, d.gvk.Version)
+	}
+
+	// Otherwise, look up the canonical group and use it.
+	canonicalGroup := canonicalGroups[d.gvk.Group]
+	return fmt.Sprintf(gvFmt, canonicalGroup, d.gvk.Version)
 }
 
 // fqGroupVersion returns the fully-qualified GroupVersion, which is the "official" GV
@@ -884,9 +1004,10 @@ const (
 type language string
 
 const (
-	python     language = "python"
-	typescript language = "typescript"
-	dotnet     language = "dotnet"
+	python       language = "python"
+	typescript   language = "typescript"
+	dotnet       language = "dotnet"
+	pulumiSchema language = "pulumi"
 )
 
 type groupOpts struct {
@@ -896,6 +1017,7 @@ type groupOpts struct {
 func nodeJSOpts() groupOpts { return groupOpts{language: typescript} }
 func pythonOpts() groupOpts { return groupOpts{language: python} }
 func dotnetOpts() groupOpts { return groupOpts{language: dotnet} }
+func schemaOpts() groupOpts { return groupOpts{language: pulumiSchema} }
 
 func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
@@ -934,16 +1056,54 @@ func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts grou
 }
 
 func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []GroupConfig {
+	// Map Group -> canonical Group
+	// e.g., flowcontrol -> flowcontrol.apiserver.k8s.io
+	canonicalGroups := map[string]string{
+		"meta": "meta", // "meta" Group doesn't include the `x-kubernetes-group-version-kind` field.
+	}
+	linq.From(definitionsJSON).
+		SelectT(func(kv linq.KeyValue) definition {
+			defName := kv.Key.(string)
+			gvk := gvkFromRef(defName)
+			def := definition{
+				gvk:  gvk,
+				name: defName,
+				data: definitionsJSON[defName].(map[string]interface{}),
+			}
+			// Top-level kinds include a canonical GVK.
+			if gvks, gvkExists := def.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+				gvk := gvks[0].(map[string]interface{})
+				group := gvk["group"].(string)
+				// The "core" group shows up as "" in the OpenAPI spec.
+				if group == "" && def.gvk.Group == "core" {
+					group = "core"
+				}
+				def.canonicalGroup = group
+			}
+			return def
+		}).
+		WhereT(func(d definition) bool { return d.canonicalGroup != "" }).
+		ToMapByT(&canonicalGroups,
+			func(d definition) string { return d.gvk.Group },
+			func(d definition) string { return d.canonicalGroup })
+
 	// Map definition JSON object -> `definition` with metadata.
 	var definitions []definition
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			return definition{
-				gvk:  gvkFromRef(defName),
+			gvk := gvkFromRef(defName)
+			def := definition{
+				gvk:  gvk,
 				name: defName,
 				data: definitionsJSON[defName].(map[string]interface{}),
 			}
+			if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
+				def.canonicalGroup = canonicalGroup
+			} else {
+				def.canonicalGroup = gvk.Group
+			}
+			return def
 		}).
 		ToSlice(&definitions)
 
@@ -1044,16 +1204,18 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					switch opts.language {
 					case typescript:
 						prefix = "      "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typescript)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, typescript, canonicalGroups)
 					case python:
 						prefix = "    "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, python)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, python, canonicalGroups)
 					case dotnet:
 						prefix = "        "
-						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, dotnet)
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, dotnet, canonicalGroups)
 						if strings.HasPrefix(inputsAPIType, "InputList") || strings.HasPrefix(inputsAPIType, "InputMap") {
 							isListOrMap = true
 						}
+					case pulumiSchema:
+						inputsAPIType, outputsAPIType, providerType = makeTypes(d.name, propName, prop, pulumiSchema, canonicalGroups)
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
@@ -1103,6 +1265,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 						}
 						defaultValue = ""
 						dotnetVarName = "@" + name
+					case pulumiSchema:
+						languageName = propName
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
@@ -1183,6 +1347,15 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 			// TODO(levi): This should be moved to the schema-based codegen.
 			comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk, opts.language)
 
+			canonicalGV := d.canonicalGV(canonicalGroups)
+			schemaPkgName := func(gv string) string {
+				pkgName := strings.Replace(gv, ".k8s.io", "", -1)
+				parts := strings.Split(pkgName, "/")
+				contract.Assert(len(parts) == 2)
+				g, v := parts[0], parts[1]
+				gParts := strings.Split(g, ".")
+				return fmt.Sprintf("%s/%s", gParts[0], v)
+			}
 			return linq.From([]KindConfig{
 				{
 					kind: d.gvk.Kind,
@@ -1201,6 +1374,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					defaultAPIVersion:       defaultGroupVersion,
 					typeGuard:               typeGuard,
 					isNested:                !isTopLevel,
+
+					canonicalGV:   canonicalGV,
+					schemaPkgName: schemaPkgName(canonicalGV),
 				},
 			})
 		}).

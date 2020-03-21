@@ -54,13 +54,9 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(ApiExtensions.V1Beta1.CustomResourceDefinition) ? "apiextensions.k8s.io/v1beta1/CustomResourceDefinition" :
                 type == typeof(ApiExtensions.V1Beta1.CustomResourceDefinitionList) ? "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList" :
                 type == typeof(ApiRegistration.V1.APIService) ? "apiregistration.k8s.io/v1/APIService" :
-                type == typeof(ApiRegistration.V1.APIService) ? "apiregistration/v1/APIService" :
                 type == typeof(ApiRegistration.V1.APIServiceList) ? "apiregistration.k8s.io/v1/APIServiceList" :
-                type == typeof(ApiRegistration.V1.APIServiceList) ? "apiregistration/v1/APIServiceList" :
                 type == typeof(ApiRegistration.V1Beta1.APIService) ? "apiregistration.k8s.io/v1beta1/APIService" :
-                type == typeof(ApiRegistration.V1Beta1.APIService) ? "apiregistration/v1beta1/APIService" :
                 type == typeof(ApiRegistration.V1Beta1.APIServiceList) ? "apiregistration.k8s.io/v1beta1/APIServiceList" :
-                type == typeof(ApiRegistration.V1Beta1.APIServiceList) ? "apiregistration/v1beta1/APIServiceList" :
                 type == typeof(Apps.V1.ControllerRevision) ? "apps/v1/ControllerRevision" :
                 type == typeof(Apps.V1.ControllerRevisionList) ? "apps/v1/ControllerRevisionList" :
                 type == typeof(Apps.V1.DaemonSet) ? "apps/v1/DaemonSet" :
@@ -408,9 +404,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || apiVersion == "apiextensions.k8s.io/v1" && kind == "CustomResourceDefinitionList"
                 || apiVersion == "apiextensions.k8s.io/v1beta1" && kind == "CustomResourceDefinitionList"
                 || apiVersion == "apiregistration.k8s.io/v1" && kind == "APIServiceList"
-                || apiVersion == "apiregistration/v1" && kind == "APIServiceList"
                 || apiVersion == "apiregistration.k8s.io/v1beta1" && kind == "APIServiceList"
-                || apiVersion == "apiregistration/v1beta1" && kind == "APIServiceList"
                 || apiVersion == "apps/v1" && kind == "ControllerRevisionList"
                 || apiVersion == "apps/v1" && kind == "DaemonSetList"
                 || apiVersion == "apps/v1" && kind == "DeploymentList"
@@ -595,22 +589,10 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"apiregistration.k8s.io/v1/APIService::{id}",
                                 new ApiRegistration.V1.APIService(id, obj!, opts) as KubernetesResource))
                         };
-                    case "apiregistration/v1/APIService":
-                        return new[]
-                        {
-                            id.Apply(id => ($"apiregistration/v1/APIService::{id}",
-                                new ApiRegistration.V1.APIService(id, obj!, opts) as KubernetesResource))
-                        };
                     case "apiregistration.k8s.io/v1/APIServiceList":
                         return new[]
                         {
                             id.Apply(id => ($"apiregistration.k8s.io/v1/APIServiceList::{id}",
-                                new ApiRegistration.V1.APIServiceList(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "apiregistration/v1/APIServiceList":
-                        return new[]
-                        {
-                            id.Apply(id => ($"apiregistration/v1/APIServiceList::{id}",
                                 new ApiRegistration.V1.APIServiceList(id, obj!, opts) as KubernetesResource))
                         };
                     case "apiregistration.k8s.io/v1beta1/APIService":
@@ -619,22 +601,10 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"apiregistration.k8s.io/v1beta1/APIService::{id}",
                                 new ApiRegistration.V1Beta1.APIService(id, obj!, opts) as KubernetesResource))
                         };
-                    case "apiregistration/v1beta1/APIService":
-                        return new[]
-                        {
-                            id.Apply(id => ($"apiregistration/v1beta1/APIService::{id}",
-                                new ApiRegistration.V1Beta1.APIService(id, obj!, opts) as KubernetesResource))
-                        };
                     case "apiregistration.k8s.io/v1beta1/APIServiceList":
                         return new[]
                         {
                             id.Apply(id => ($"apiregistration.k8s.io/v1beta1/APIServiceList::{id}",
-                                new ApiRegistration.V1Beta1.APIServiceList(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "apiregistration/v1beta1/APIServiceList":
-                        return new[]
-                        {
-                            id.Apply(id => ($"apiregistration/v1beta1/APIServiceList::{id}",
                                 new ApiRegistration.V1Beta1.APIServiceList(id, obj!, opts) as KubernetesResource))
                         };
                     case "apps/v1/ControllerRevision":

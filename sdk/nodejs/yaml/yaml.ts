@@ -240,20 +240,12 @@ import * as outputs from "../types/output";
         public getResource(groupVersionKind: "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList", namespace: string, name: string): pulumi.Output<k8s.apiextensions.v1beta1.CustomResourceDefinitionList>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string): pulumi.Output<k8s.apiregistration.v1.APIService>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1.APIService>;
-        public getResource(groupVersionKind: "apiregistration/v1/APIService", name: string): pulumi.Output<k8s.apiregistration.v1.APIService>;
-        public getResource(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1.APIService>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string): pulumi.Output<k8s.apiregistration.v1.APIServiceList>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1.APIServiceList>;
-        public getResource(groupVersionKind: "apiregistration/v1/APIServiceList", name: string): pulumi.Output<k8s.apiregistration.v1.APIServiceList>;
-        public getResource(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1.APIServiceList>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIService>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIService>;
-        public getResource(groupVersionKind: "apiregistration/v1beta1/APIService", name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIService>;
-        public getResource(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIService>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIServiceList>;
         public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIServiceList>;
-        public getResource(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIServiceList>;
-        public getResource(groupVersionKind: "apiregistration/v1beta1/APIServiceList", namespace: string, name: string): pulumi.Output<k8s.apiregistration.v1beta1.APIServiceList>;
         public getResource(groupVersionKind: "apps/v1/ControllerRevision", name: string): pulumi.Output<k8s.apps.v1.ControllerRevision>;
         public getResource(groupVersionKind: "apps/v1/ControllerRevision", namespace: string, name: string): pulumi.Output<k8s.apps.v1.ControllerRevision>;
         public getResource(groupVersionKind: "apps/v1/ControllerRevisionList", name: string): pulumi.Output<k8s.apps.v1.ControllerRevisionList>;
@@ -716,16 +708,6 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.apiregistration.v1.APIServiceSpec>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1.APIServiceStatus>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1.APIServiceStatus>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "kind"): pulumi.Output<"APIService">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "kind"): pulumi.Output<"APIService">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "spec"): pulumi.Output<outputs.apiregistration.v1.APIServiceSpec>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.apiregistration.v1.APIServiceSpec>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1.APIServiceStatus>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1.APIServiceStatus>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string, property: "items"): pulumi.Output<outputs.apiregistration.v1.APIService[]>;
@@ -734,14 +716,6 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string, property: "kind"): pulumi.Output<"APIServiceList">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "items"): pulumi.Output<outputs.apiregistration.v1.APIService[]>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.apiregistration.v1.APIService[]>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "kind"): pulumi.Output<"APIServiceList">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "kind"): pulumi.Output<"APIServiceList">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "kind"): pulumi.Output<"APIService">;
@@ -752,16 +726,6 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.apiregistration.v1beta1.APIServiceSpec>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1beta1.APIServiceStatus>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1beta1.APIServiceStatus>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "kind"): pulumi.Output<"APIService">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "kind"): pulumi.Output<"APIService">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "spec"): pulumi.Output<outputs.apiregistration.v1beta1.APIServiceSpec>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.apiregistration.v1beta1.APIServiceSpec>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1beta1.APIServiceStatus>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputs.apiregistration.v1beta1.APIServiceStatus>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string, property: "items"): pulumi.Output<outputs.apiregistration.v1beta1.APIService[]>;
@@ -770,14 +734,6 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string, property: "kind"): pulumi.Output<"APIServiceList">;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apiregistration.k8s.io/v1beta1">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string, property: "items"): pulumi.Output<outputs.apiregistration.v1beta1.APIService[]>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.apiregistration.v1beta1.APIService[]>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string, property: "kind"): pulumi.Output<"APIServiceList">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", namespace: string, name: string, property: "kind"): pulumi.Output<"APIServiceList">;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-        public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "apps/v1/ControllerRevision", name: string, property: "apiVersion"): pulumi.Output<"apps/v1">;
         public getResourceProperty(groupVersionKind: "apps/v1/ControllerRevision", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"apps/v1">;
         public getResourceProperty(groupVersionKind: "apps/v1/ControllerRevision", name: string, property: "data"): pulumi.Output<object>;
@@ -2541,9 +2497,7 @@ import * as outputs from "../types/output";
             || (apiVersion == "apiextensions.k8s.io/v1" && kind == "CustomResourceDefinitionList")
             || (apiVersion == "apiextensions.k8s.io/v1beta1" && kind == "CustomResourceDefinitionList")
             || (apiVersion == "apiregistration.k8s.io/v1" && kind == "APIServiceList")
-            || (apiVersion == "apiregistration/v1" && kind == "APIServiceList")
             || (apiVersion == "apiregistration.k8s.io/v1beta1" && kind == "APIServiceList")
-            || (apiVersion == "apiregistration/v1beta1" && kind == "APIServiceList")
             || (apiVersion == "apps/v1" && kind == "ControllerRevisionList")
             || (apiVersion == "apps/v1" && kind == "DaemonSetList")
             || (apiVersion == "apps/v1" && kind == "DeploymentList")
@@ -2711,19 +2665,9 @@ import * as outputs from "../types/output";
                     name: `apiregistration.k8s.io/v1/APIService::${id}`,
                     resource: new k8s.apiregistration.v1.APIService(id, obj, opts),
                 }))];
-            case "apiregistration/v1/APIService":
-                return [id.apply(id => ({
-                    name: `apiregistration/v1/APIService::${id}`,
-                    resource: new k8s.apiregistration.v1.APIService(id, obj, opts),
-                }))];
             case "apiregistration.k8s.io/v1/APIServiceList":
                 return [id.apply(id => ({
                     name: `apiregistration.k8s.io/v1/APIServiceList::${id}`,
-                    resource: new k8s.apiregistration.v1.APIServiceList(id, obj, opts),
-                }))];
-            case "apiregistration/v1/APIServiceList":
-                return [id.apply(id => ({
-                    name: `apiregistration/v1/APIServiceList::${id}`,
                     resource: new k8s.apiregistration.v1.APIServiceList(id, obj, opts),
                 }))];
             case "apiregistration.k8s.io/v1beta1/APIService":
@@ -2731,19 +2675,9 @@ import * as outputs from "../types/output";
                     name: `apiregistration.k8s.io/v1beta1/APIService::${id}`,
                     resource: new k8s.apiregistration.v1beta1.APIService(id, obj, opts),
                 }))];
-            case "apiregistration/v1beta1/APIService":
-                return [id.apply(id => ({
-                    name: `apiregistration/v1beta1/APIService::${id}`,
-                    resource: new k8s.apiregistration.v1beta1.APIService(id, obj, opts),
-                }))];
             case "apiregistration.k8s.io/v1beta1/APIServiceList":
                 return [id.apply(id => ({
                     name: `apiregistration.k8s.io/v1beta1/APIServiceList::${id}`,
-                    resource: new k8s.apiregistration.v1beta1.APIServiceList(id, obj, opts),
-                }))];
-            case "apiregistration/v1beta1/APIServiceList":
-                return [id.apply(id => ({
-                    name: `apiregistration/v1beta1/APIServiceList::${id}`,
                     resource: new k8s.apiregistration.v1beta1.APIServiceList(id, obj, opts),
                 }))];
             case "apps/v1/ControllerRevision":

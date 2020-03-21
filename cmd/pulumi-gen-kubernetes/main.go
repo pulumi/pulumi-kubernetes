@@ -16,6 +16,8 @@ package main
 
 import (
 	"fmt"
+	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
+	"github.com/pulumi/pulumi/pkg/codegen/schema"
 	"io/ioutil"
 	"log"
 	"os"
@@ -70,6 +72,8 @@ func main() {
 		writePythonClient(data, outdir, templateDir)
 	case "dotnet":
 		writeDotnetClient(data, outdir, templateDir)
+	case "go":
+		writeGoClient(data, outdir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -306,4 +310,32 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	if err != nil {
 		panic(err)
 	}
+}
+
+func writeGoClient(data map[string]interface{}, outdir string) {
+	pkg := writePulumiSchema(data)
+	files, err := gogen.GeneratePackage("pulumigen", pkg)
+	if err != nil {
+		panic(err)
+	}
+	for filename, contents := range files {
+		path := filepath.Join(outdir, filename)
+
+		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+			panic(err)
+		}
+		err := ioutil.WriteFile(path, contents, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
+func writePulumiSchema(data map[string]interface{}) *schema.Package {
+	pkgSpec := gen.PulumiSchema(data)
+	pkg, err := schema.ImportSpec(pkgSpec)
+	if err != nil {
+		panic(err)
+	}
+	return pkg
 }

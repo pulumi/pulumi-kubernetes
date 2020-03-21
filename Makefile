@@ -46,7 +46,7 @@ build:: $(OPENAPI_FILE)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
-	for LANGUAGE in "dotnet" "nodejs" "python" ; do \
+	for LANGUAGE in "dotnet" "go" "nodejs" "python"; do \
 		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
@@ -66,7 +66,9 @@ build:: $(OPENAPI_FILE)
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 lint::
-	golangci-lint run
+	for DIR in "cmd" "pkg" "sdk" "tests" ; do \
+		pushd $$DIR && golangci-lint run -c ../.golangci.yml --deadline 10m && popd ; \
+	done
 
 install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
