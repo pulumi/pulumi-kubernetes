@@ -16,7 +16,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/go/common/diag"
-	glog "github.com/pulumi/pulumi/sdk/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -216,21 +216,21 @@ func (dia *deploymentInitAwaiter) Read() error {
 
 	rsList, err := replicaSetClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Error retrieving ReplicaSet list for Deployment %q: %v",
+		logger.V(3).Infof("Error retrieving ReplicaSet list for Deployment %q: %v",
 			deployment.GetName(), err)
 		rsList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
 	podList, err := podClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Error retrieving Pod list for Deployment %q: %v",
+		logger.V(3).Infof("Error retrieving Pod list for Deployment %q: %v",
 			deployment.GetName(), err)
 		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
 	pvcList, err := pvcClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Error retrieving PersistentVolumeClaims list for Deployment %q: %v",
+		logger.V(3).Infof("Error retrieving PersistentVolumeClaims list for Deployment %q: %v",
 			deployment.GetName(), err)
 		pvcList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
@@ -248,7 +248,7 @@ func (dia *deploymentInitAwaiter) read(
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment %q: %v",
+		logger.V(3).Infof("Error iterating over ReplicaSet list for Deployment %q: %v",
 			deployment.GetName(), err)
 	}
 
@@ -257,7 +257,7 @@ func (dia *deploymentInitAwaiter) read(
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over Pod list for Deployment %q: %v",
+		logger.V(3).Infof("Error iterating over Pod list for Deployment %q: %v",
 			deployment.GetName(), err)
 	}
 
@@ -266,7 +266,7 @@ func (dia *deploymentInitAwaiter) read(
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over PersistentVolumeClaims list for Deployment %q: %v",
+		logger.V(3).Infof("Error iterating over PersistentVolumeClaims list for Deployment %q: %v",
 			deployment.GetName(), err)
 	}
 
@@ -370,7 +370,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 
 	deployment, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Deployment watch received unknown object type %q",
+		logger.V(3).Infof("Deployment watch received unknown object type %q",
 			reflect.TypeOf(deployment))
 		return
 	}
@@ -485,19 +485,19 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 	rs, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("ReplicaSet watch received unknown object type %q",
+		logger.V(3).Infof("ReplicaSet watch received unknown object type %q",
 			reflect.TypeOf(rs))
 		return
 	}
 
-	glog.V(3).Infof("Received update for ReplicaSet %q", rs.GetName())
+	logger.V(3).Infof("Received update for ReplicaSet %q", rs.GetName())
 
 	// Check whether this ReplicaSet was created by our Deployment.
 	if !isOwnedBy(rs, dia.config.currentInputs) {
 		return
 	}
 
-	glog.V(3).Infof("ReplicaSet %q is owned by %q", rs.GetName(), dia.config.currentInputs.GetName())
+	logger.V(3).Infof("ReplicaSet %q is owned by %q", rs.GetName(), dia.config.currentInputs.GetName())
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	generation := rs.GetAnnotations()[revision]
@@ -512,14 +512,14 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	inputs := dia.config.currentInputs
 
-	glog.V(3).Infof("Checking ReplicaSet status for Deployment %q", inputs.GetName())
+	logger.V(3).Infof("Checking ReplicaSet status for Deployment %q", inputs.GetName())
 
 	rs, updatedReplicaSetCreated := dia.replicaSets[dia.replicaSetGeneration]
 	if dia.replicaSetGeneration == "0" || !updatedReplicaSetCreated {
 		return
 	}
 
-	glog.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
+	logger.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
 		inputs.GetName(), dia.replicaSetGeneration, rs.GetName())
 
 	var lastGeneration string
@@ -527,7 +527,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		lastGeneration = outputs.GetAnnotations()[revision]
 	}
 
-	glog.V(3).Infof("The last generation of Deployment %q was %q", inputs.GetName(), lastGeneration)
+	logger.V(3).Infof("The last generation of Deployment %q was %q", inputs.GetName(), lastGeneration)
 
 	// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
 	// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
@@ -604,7 +604,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 			return specReplicas == 0
 		}
 
-		glog.V(3).Infof("ReplicaSet %q requests '%v' replicas, but has '%v' ready",
+		logger.V(3).Infof("ReplicaSet %q requests '%v' replicas, but has '%v' ready",
 			rs.GetName(), specReplicas, readyReplicas)
 
 		if dia.changeTriggeredRollout() {
@@ -641,7 +641,7 @@ func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 			".spec.template.spec",
 		})
 	if err != nil {
-		glog.V(3).Infof("Failed to check whether Pod template for Deployment %q changed",
+		logger.V(3).Infof("Failed to check whether Pod template for Deployment %q changed",
 			dia.config.currentInputs.GetName())
 		return false
 	}
@@ -652,7 +652,7 @@ func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
 	inputs := dia.config.currentInputs
 
-	glog.V(3).Infof("Checking PersistentVolumeClaims status for Deployment %q", inputs.GetName())
+	logger.V(3).Infof("Checking PersistentVolumeClaims status for Deployment %q", inputs.GetName())
 
 	allPVCsReady := true
 	for _, pvc := range dia.pvcs {
@@ -677,7 +677,7 @@ func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
 func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Pod watch received unknown object type %q",
+		logger.V(3).Infof("Pod watch received unknown object type %q",
 			reflect.TypeOf(pod))
 		return
 	}
@@ -701,12 +701,12 @@ func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch.Event) {
 	pvc, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("PersistentVolumeClaim watch received unknown object type %q",
+		logger.V(3).Infof("PersistentVolumeClaim watch received unknown object type %q",
 			reflect.TypeOf(pvc))
 		return
 	}
 
-	glog.V(3).Infof("Received update for PersistentVolumeClaim %q", pvc.GetName())
+	logger.V(3).Infof("Received update for PersistentVolumeClaim %q", pvc.GetName())
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	uid := string(pvc.GetUID())
@@ -751,7 +751,7 @@ func (dia *deploymentInitAwaiter) aggregatePodErrors() logging.Messages {
 		checker := states.NewPodChecker()
 		pod, err := clients.PodFromUnstructured(unstructuredPod)
 		if err != nil {
-			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return nil
 		}
 		m := checker.Update(pod)

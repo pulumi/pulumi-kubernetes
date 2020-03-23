@@ -28,7 +28,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/sdk/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/go/common/resource"
-	glog "github.com/pulumi/pulumi/sdk/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
 )
@@ -280,7 +280,7 @@ func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting deployment '%s': %#v", d.GetName(), err)
+			logger.V(3).Infof("Received error deleting deployment '%s': %#v", d.GetName(), err)
 			return err
 		}
 
@@ -300,7 +300,7 @@ func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 		return err
 	}
 
-	glog.V(3).Infof("Deployment '%s' deleted", config.currentInputs.GetName())
+	logger.V(3).Infof("Deployment '%s' deleted", config.currentInputs.GetName())
 
 	return nil
 }
@@ -323,7 +323,7 @@ func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting StatefulSet %q: %#v", d.GetName(), err)
+			logger.V(3).Infof("Received error deleting StatefulSet %q: %#v", d.GetName(), err)
 			return err
 		}
 
@@ -343,7 +343,7 @@ func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
 		return err
 	}
 
-	glog.V(3).Infof("StatefulSet %q deleted", config.currentInputs.GetName())
+	logger.V(3).Infof("StatefulSet %q deleted", config.currentInputs.GetName())
 
 	return nil
 }
@@ -382,13 +382,13 @@ func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting namespace %q: %#v",
+			logger.V(3).Infof("Received error deleting namespace %q: %#v",
 				config.currentInputs.GetName(), err)
 			return err
 		}
 
 		statusPhase, _ := openapi.Pluck(ns.Object, "status", "phase")
-		glog.V(3).Infof("Namespace %q status received: %#v", config.currentInputs.GetName(), statusPhase)
+		logger.V(3).Infof("Namespace %q status received: %#v", config.currentInputs.GetName(), statusPhase)
 		if statusPhase == "" {
 			return nil
 		}
@@ -411,7 +411,7 @@ func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
 		statusPhase, _ := openapi.Pluck(pv.Object, "status", "phase")
-		glog.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), statusPhase)
+		logger.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), statusPhase)
 		if statusPhase == statusAvailable {
 			c.logStatus(diag.Info, "✅ PVC marked available")
 		} else if statusPhase == statusBound {
@@ -437,7 +437,7 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 	pvcBound := func(pvc *unstructured.Unstructured) bool {
 		statusPhase, _ := openapi.Pluck(pvc.Object, "status", "phase")
-		glog.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), statusPhase)
+		logger.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), statusPhase)
 		return statusPhase == statusBound
 	}
 
@@ -465,7 +465,7 @@ func untilCoreV1PodDeleted(config deleteAwaitConfig) error {
 		}
 
 		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
-		glog.V(3).Infof("Current state of pod %q: %#v", config.currentInputs.GetName(), statusPhase)
+		logger.V(3).Infof("Current state of pod %q: %#v", config.currentInputs.GetName(), statusPhase)
 		e := fmt.Errorf("pod %q still exists (%v)", config.currentInputs.GetName(), statusPhase)
 		return watcher.RetryableError(e)
 	}
@@ -493,7 +493,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	name := c.currentInputs.GetName()
 
 	replicas, _ := openapi.Pluck(c.currentInputs.Object, "spec", "replicas")
-	glog.V(3).Infof("Waiting for replication controller %q to schedule '%v' replicas",
+	logger.V(3).Infof("Waiting for replication controller %q to schedule '%v' replicas",
 		name, replicas)
 
 	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
@@ -512,7 +512,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	// but that means checking each pod status separately (which can be expensive at scale)
 	// as there's no aggregate data available from the API
 
-	glog.V(3).Infof("Replication controller %q initialized: %#v", c.currentInputs.GetName(),
+	logger.V(3).Infof("Replication controller %q initialized: %#v", c.currentInputs.GetName(),
 		c.currentInputs)
 
 	return nil
@@ -537,7 +537,7 @@ func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting ReplicationController %q: %#v", rc.GetName(), err)
+			logger.V(3).Infof("Received error deleting ReplicationController %q: %#v", rc.GetName(), err)
 			return err
 		}
 
@@ -557,7 +557,7 @@ func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 		return err
 	}
 
-	glog.V(3).Infof("ReplicationController %q deleted", config.currentInputs.GetName())
+	logger.V(3).Infof("ReplicationController %q deleted", config.currentInputs.GetName())
 
 	return nil
 }
@@ -576,11 +576,11 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		hard, hardIsMap := hardRaw.(map[string]interface{})
 		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]interface{})
 		if hardIsMap && hardStatusIsMap && reflect.DeepEqual(hard, hardStatus) {
-			glog.V(3).Infof("ResourceQuota %q initialized: %#v", c.currentInputs.GetName(),
+			logger.V(3).Infof("ResourceQuota %q initialized: %#v", c.currentInputs.GetName(),
 				c.currentInputs)
 			return true
 		}
-		glog.V(3).Infof("Quotas don't match after creation.\nExpected: %#v\nGiven: %#v",
+		logger.V(3).Infof("Quotas don't match after creation.\nExpected: %#v\nGiven: %#v",
 			hard, hardStatus)
 		return false
 	}
@@ -624,10 +624,10 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 
 	defaultSecretAllocated := func(sa *unstructured.Unstructured) bool {
 		secrets, _ := openapi.Pluck(sa.Object, "secrets")
-		glog.V(3).Infof("ServiceAccount %q contains secrets: %#v", sa.GetName(), secrets)
+		logger.V(3).Infof("ServiceAccount %q contains secrets: %#v", sa.GetName(), secrets)
 		if secretsArr, isArr := secrets.([]interface{}); isArr {
 			numSecrets := len(secretsArr)
-			glog.V(3).Infof("ServiceAccount %q has allocated '%d' of '%d' secrets",
+			logger.V(3).Infof("ServiceAccount %q has allocated '%d' of '%d' secrets",
 				sa.GetName(), numSecrets, numSpecSecrets+1)
 			return numSecrets > numSpecSecrets
 		}
@@ -659,14 +659,14 @@ func waitForDesiredReplicasFunc(
 		desiredReplicas, hasReplicasSpec := getReplicasSpec(replicator)
 		fullyLabeledReplicas, hasReplicasStatus := getReplicasStatus(replicator)
 
-		glog.V(3).Infof("Current number of labelled replicas of %q: '%d' (of '%d')\n",
+		logger.V(3).Infof("Current number of labelled replicas of %q: '%d' (of '%d')\n",
 			replicator.GetName(), fullyLabeledReplicas, desiredReplicas)
 
 		if hasReplicasSpec && hasReplicasStatus && fullyLabeledReplicas == desiredReplicas {
 			return true
 		}
 
-		glog.V(3).Infof("Waiting for '%d' replicas of %q to be scheduled (have: '%d')",
+		logger.V(3).Infof("Waiting for '%d' replicas of %q to be scheduled (have: '%d')",
 			desiredReplicas, replicator.GetName(), fullyLabeledReplicas)
 		return false
 	}

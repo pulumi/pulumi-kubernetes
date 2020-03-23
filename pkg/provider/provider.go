@@ -44,7 +44,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
-	glog "github.com/pulumi/pulumi/sdk/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	"github.com/pulumi/pulumi/sdk/go/common/util/rpcutil/rpcerror"
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"google.golang.org/grpc/codes"
@@ -178,7 +178,7 @@ func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRe
 func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
@@ -247,7 +247,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.DiffConfig(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.olds", label),
@@ -328,7 +328,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
 		replaces = diffs
 	}
-	glog.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
+	logger.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
 	if len(diffs) > 0 || len(replaces) > 0 {
 		return &pulumirpc.DiffResponse{
@@ -883,7 +883,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		rls, err := k.clientSet.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
 		if err != nil {
 			if !errors.IsNotFound(err) {
-				glog.V(3).Infof("ServerResourcesForGroupVersion(%q) returned unexpected error %v", gv, err)
+				logger.V(3).Infof("ServerResourcesForGroupVersion(%q) returned unexpected error %v", gv, err)
 			}
 			return false
 		}
@@ -895,7 +895,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Check(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	// Obtain old resource inputs. This is the old version of the resource(s) supplied by the user as
 	// an update.
@@ -1092,7 +1092,7 @@ func (k *kubeProvider) Diff(
 
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	// Get old state. This is an object of the form {inputs: {...}, live: {...}} where `inputs` is the
 	// previous resource inputs supplied by the user, and `live` is the computed state of that inputs
@@ -1190,10 +1190,10 @@ func (k *kubeProvider) Diff(
 		patchBase = oldInputs
 	}
 	if isInputPatch {
-		glog.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
+		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
 
 	} else {
-		glog.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
+		logger.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
 	}
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
@@ -1286,7 +1286,7 @@ func (k *kubeProvider) Create(
 	//
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	// Except in the case of yamlRender mode, Create requires a connection to a k8s cluster, so bail out
 	// immediately if it is unreachable.
@@ -1446,7 +1446,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Read(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	// If the cluster is unreachable, consider the resource deleted and inform the user.
 	if k.clusterUnreachable {
@@ -1520,7 +1520,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	}
 	liveObj, readErr := await.Read(config)
 	if readErr != nil {
-		glog.V(3).Infof("%v", readErr)
+		logger.V(3).Infof("%v", readErr)
 
 		if meta.IsNoMatchError(readErr) {
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
@@ -1584,7 +1584,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if readErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		glog.V(3).Infof("%v", partialError(id, readErr, state, inputs))
+		logger.V(3).Infof("%v", partialError(id, readErr, state, inputs))
 		return nil, partialError(id, readErr, state, inputs)
 	}
 
@@ -1657,7 +1657,7 @@ func (k *kubeProvider) Update(
 	//
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	// Except in the case of yamlRender mode, Update requires a connection to a k8s cluster, so bail out
 	// immediately if it is unreachable.
@@ -1808,7 +1808,7 @@ func (k *kubeProvider) Delete(
 
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Delete(%s)", k.label(), urn)
-	glog.V(9).Infof("%s executing", label)
+	logger.V(9).Infof("%s executing", label)
 
 	// If the cluster is unreachable, consider the resource deleted and inform the user.
 	if k.clusterUnreachable {
@@ -1844,7 +1844,7 @@ func (k *kubeProvider) Delete(
 			// Most of the time, errors will be because the file was already deleted. In this case,
 			// the operation succeeds. It's also possible that deletion fails due to file permission if
 			// the user changed the directory out-of-band, so log the error to help debug this scenario.
-			glog.V(3).Infof("Failed to delete YAML file: %q - %v", file, err)
+			logger.V(3).Infof("Failed to delete YAML file: %q - %v", file, err)
 		}
 
 		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("deleted %s", file))

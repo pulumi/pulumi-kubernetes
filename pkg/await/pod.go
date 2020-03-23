@@ -9,7 +9,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
-	glog "github.com/pulumi/pulumi/sdk/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
@@ -198,12 +198,12 @@ func (pia *podInitAwaiter) Read() error {
 
 func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	if event.Object == nil {
-		glog.V(3).Infof("received event with nil Object: %#v", event)
+		logger.V(3).Infof("received event with nil Object: %#v", event)
 		return
 	}
 	pod, err := clients.PodFromUnstructured(event.Object.(*unstructured.Unstructured))
 	if err != nil {
-		glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+		logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 		return
 	}
 

@@ -27,7 +27,7 @@ import (
 	pulumiprovider "github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/sdk/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/go/common/resource"
-	glog "github.com/pulumi/pulumi/sdk/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -173,7 +173,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
-			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitCreation != nil {
 				conf := createAwaitConfig{
@@ -194,7 +194,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 		}
 	} else {
-		glog.V(1).Infof(
+		logger.V(1).Infof(
 			"No initialization logic found for object of type %q; assuming initialization successful", id)
 	}
 
@@ -228,7 +228,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
-			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitRead != nil {
 				conf := createAwaitConfig{
@@ -249,7 +249,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 		}
 	}
 
-	glog.V(1).Infof(
+	logger.V(1).Infof(
 		"No read logic found for object of type %q; falling back to retrieving object", id)
 
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
@@ -349,7 +349,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
-			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitUpdate != nil {
 				conf := updateAwaitConfig{
@@ -374,11 +374,11 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			}
 		}
 	} else {
-		glog.V(1).Infof("No initialization logic found for object of type %q; assuming initialization successful", id)
+		logger.V(1).Infof("No initialization logic found for object of type %q; assuming initialization successful", id)
 	}
 
 	gvk := c.Inputs.GroupVersionKind()
-	glog.V(3).Infof("Resource %s/%s/%s  '%s.%s' patched and updated", gvk.Group, gvk.Version,
+	logger.V(3).Infof("Resource %s/%s/%s  '%s.%s' patched and updated", gvk.Group, gvk.Version,
 		gvk.Kind, c.Inputs.GetNamespace(), c.Inputs.GetName())
 
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
@@ -444,7 +444,7 @@ func Deletion(c DeleteConfig) error {
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
 		if metadata.SkipAwaitLogic(c.Inputs) {
-			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
@@ -496,7 +496,7 @@ func Deletion(c DeleteConfig) error {
 				}
 			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
 				watcher.Stop()
-				glog.V(3).Infof("Received error deleting object %q: %#v", id, err)
+				logger.V(3).Infof("Received error deleting object %q: %#v", id, err)
 				deleted, obj := checkIfResourceDeleted(c.Name, client)
 				if deleted {
 					_ = clearStatus(c.Context, c.Host, c.URN)
