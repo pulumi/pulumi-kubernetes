@@ -35,8 +35,8 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/golang/glog"
 	"github.com/googleapis/gnostic/OpenAPIv2"
+	glog "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	errorsutil "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/version"

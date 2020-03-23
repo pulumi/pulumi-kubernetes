@@ -18,7 +18,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
@@ -28,6 +27,7 @@ import (
 	pulumiprovider "github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/sdk/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/go/common/resource"
+	glog "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

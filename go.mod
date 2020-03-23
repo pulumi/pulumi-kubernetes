@@ -7,7 +7,6 @@ require (
 	github.com/cbroglie/mustache v1.0.1
 	github.com/docker/docker v1.13.1 // indirect
 	github.com/evanphx/json-patch v4.2.0+incompatible
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.3.5
 	github.com/googleapis/gnostic v0.2.0
 	github.com/imdario/mergo v0.3.8
