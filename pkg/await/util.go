@@ -18,7 +18,7 @@ import (
 	"log"
 	"sort"
 
-	"github.com/golang/glog"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -77,7 +77,7 @@ func getLastWarningsForObject(
 	}
 
 	fs := fields.Set(m).String()
-	glog.V(9).Infof("Looking up events via this selector: %q", fs)
+	logger.V(9).Infof("Looking up events via this selector: %q", fs)
 	out, err := clientForEvents.List(metav1.ListOptions{
 		FieldSelector: fs,
 	})
@@ -110,7 +110,7 @@ func getLastWarningsForObject(
 		return events[i].LastTimestamp.After(events[j].LastTimestamp.Time)
 	})
 
-	glog.V(9).Infof("Received '%d' events for %s/%s (%s)",
+	logger.V(9).Infof("Received '%d' events for %s/%s (%s)",
 		len(events), namespace, name, kind)
 
 	// It would be better to sort & filter on the server-side

@@ -17,8 +17,8 @@ package openapi
 import (
 	"fmt"
 
-	"github.com/golang/glog"
-	"github.com/pulumi/pulumi/pkg/util/contract"
+	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
@@ -95,7 +95,7 @@ func PatchForResourceUpdate(
 	// Try to build a three-way "strategic" merge.
 	gvk := lastSubmitted.GroupVersionKind()
 	if resSchema := resources.LookupResource(gvk); resSchema != nil {
-		glog.V(1).Infof("Attempting to update '%s' '%s/%s' with strategic merge",
+		logger.V(1).Infof("Attempting to update '%s' '%s/%s' with strategic merge",
 			gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
 		patch, patchType, lookupPatchMeta, err := strategicMergePatch(
 			gvk, resSchema, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
@@ -105,7 +105,7 @@ func PatchForResourceUpdate(
 	}
 
 	// Fall back to three-way JSON merge patch.
-	glog.V(1).Infof("Attempting to update '%s' '%s/%s' with JSON merge",
+	logger.V(1).Infof("Attempting to update '%s' '%s/%s' with JSON merge",
 		gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
 	patch, patchType, err := jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 	return patch, patchType, nil, err

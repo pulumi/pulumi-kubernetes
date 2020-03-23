@@ -29,7 +29,7 @@ import (
 
 	pycodegen "github.com/pulumi/pulumi/pkg/codegen/python"
 	pschema "github.com/pulumi/pulumi/pkg/codegen/schema"
-	"github.com/pulumi/pulumi/pkg/util/contract"
+	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 )
 
 const (

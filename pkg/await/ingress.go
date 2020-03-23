@@ -6,15 +6,15 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 
-	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
-	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/sdk/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	"k8s.io/api/extensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -144,13 +144,13 @@ func (iia *ingressInitAwaiter) Read() error {
 	// Get live version of Endpoints.
 	endpointList, err := endpointsClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
+		logger.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
 	serviceList, err := servicesClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
+		logger.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
 		serviceList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
@@ -166,18 +166,18 @@ func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoint
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over endpoint list for service %q: %v", ingress.GetName(), err)
+		logger.V(3).Infof("Error iterating over endpoint list for service %q: %v", ingress.GetName(), err)
 	}
 
 	settled := make(chan struct{})
 
-	glog.V(3).Infof("Processing endpoint list: %#v", endpoints)
+	logger.V(3).Infof("Processing endpoint list: %#v", endpoints)
 	err = endpoints.EachListItem(func(endpoint runtime.Object) error {
 		iia.processEndpointEvent(watchAddedEvent(endpoint.(*unstructured.Unstructured)), settled)
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over endpoint list for ingress %q: %v", ingress.GetName(), err)
+		logger.V(3).Infof("Error iterating over endpoint list for ingress %q: %v", ingress.GetName(), err)
 	}
 
 	iia.endpointsSettled = true
@@ -240,7 +240,7 @@ func (iia *ingressInitAwaiter) await(
 func (iia *ingressInitAwaiter) processServiceEvent(event watch.Event) {
 	service, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Service watch received unknown object type %q",
+		logger.V(3).Infof("Service watch received unknown object type %q",
 			reflect.TypeOf(service))
 		return
 	}
@@ -263,7 +263,7 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 
 	ingress, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Ingress watch received unknown object type %q",
+		logger.V(3).Infof("Ingress watch received unknown object type %q",
 			reflect.TypeOf(ingress))
 		return
 	}
@@ -284,16 +284,16 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 	iia.ingress = ingress
 	obj, err := decodeIngress(ingress)
 	if err != nil {
-		glog.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", ingress)
+		logger.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", ingress)
 		return
 	}
 
-	glog.V(3).Infof("Received status for ingress %q: %#v", inputIngressName, obj.Status)
+	logger.V(3).Infof("Received status for ingress %q: %#v", inputIngressName, obj.Status)
 
 	// Update status of ingress object so that we can check success.
 	iia.ingressReady = len(obj.Status.LoadBalancer.Ingress) > 0
 
-	glog.V(3).Infof("Waiting for ingress %q to update .status.loadBalancer with hostname/IP",
+	logger.V(3).Infof("Waiting for ingress %q to update .status.loadBalancer with hostname/IP",
 		inputIngressName)
 }
 
@@ -314,7 +314,7 @@ func decodeIngress(u *unstructured.Unstructured) (*v1beta1.Ingress, error) {
 func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 	obj, err := decodeIngress(iia.ingress)
 	if err != nil {
-		glog.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", iia.ingress)
+		logger.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", iia.ingress)
 		return false
 	}
 
@@ -368,7 +368,7 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 	// Get endpoint object.
 	endpoint, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Endpoint watch received unknown object type %q",
+		logger.V(3).Infof("Endpoint watch received unknown object type %q",
 			reflect.TypeOf(endpoint))
 		return
 	}

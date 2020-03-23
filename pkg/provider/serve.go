@@ -16,7 +16,7 @@ package provider
 
 import (
 	"github.com/pulumi/pulumi/pkg/resource/provider"
-	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 	lumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 
 	// Load auth plugins. Removing this will likely cause compilation error.

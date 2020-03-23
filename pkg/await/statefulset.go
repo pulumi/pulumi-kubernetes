@@ -5,9 +5,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 
-	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
@@ -15,7 +14,8 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
-	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/sdk/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -194,7 +194,7 @@ func (sia *statefulsetInitAwaiter) Read() error {
 
 	podList, err := podClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Error retrieving Pod list for StatefulSet %q: %v",
+		logger.V(3).Infof("Error retrieving Pod list for StatefulSet %q: %v",
 			statefulset.GetName(), err)
 		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
@@ -213,7 +213,7 @@ func (sia *statefulsetInitAwaiter) read(
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over Pod list for StatefulSet %q: %v",
+		logger.V(3).Infof("Error iterating over Pod list for StatefulSet %q: %v",
 			statefulset.GetName(), err)
 	}
 
@@ -296,7 +296,7 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 
 	statefulset, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("StatefulSet watch received unknown object type %q",
+		logger.V(3).Infof("StatefulSet watch received unknown object type %q",
 			reflect.TypeOf(statefulset))
 		return
 	}
@@ -380,7 +380,7 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 func (sia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Pod watch received unknown object type %q",
+		logger.V(3).Infof("Pod watch received unknown object type %q",
 			reflect.TypeOf(pod))
 		return
 	}
@@ -412,7 +412,7 @@ func (sia *statefulsetInitAwaiter) aggregatePodErrors() logging.Messages {
 		checker := states.NewPodChecker()
 		pod, err := clients.PodFromUnstructured(unstructuredPod)
 		if err != nil {
-			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return nil
 		}
 		messages = append(messages, checker.Update(pod).Warnings()...)

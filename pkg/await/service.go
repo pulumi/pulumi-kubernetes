@@ -6,15 +6,15 @@ import (
 	"time"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/cluster"
-	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 
-	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
-	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/sdk/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -171,7 +171,7 @@ func (sia *serviceInitAwaiter) Read() error {
 	// Create endpoint watcher.
 	endpointList, err := endpointsClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Error retrieving ReplicaSet list for Service %q: %v",
+		logger.V(3).Infof("Error retrieving ReplicaSet list for Service %q: %v",
 			service.GetName(), err)
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
@@ -190,13 +190,13 @@ func (sia *serviceInitAwaiter) read(
 	var err error
 	settled := make(chan struct{})
 
-	glog.V(3).Infof("Processing endpoint list: %#v", endpoints)
+	logger.V(3).Infof("Processing endpoint list: %#v", endpoints)
 	err = endpoints.EachListItem(func(endpoint runtime.Object) error {
 		sia.processEndpointEvent(watchAddedEvent(endpoint.(*unstructured.Unstructured)), settled)
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment %q: %v",
+		logger.V(3).Infof("Error iterating over ReplicaSet list for Deployment %q: %v",
 			service.GetName(), err)
 	}
 
@@ -262,7 +262,7 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 
 	service, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Service watch received unknown object type %q",
+		logger.V(3).Infof("Service watch received unknown object type %q",
 			reflect.TypeOf(service))
 		return
 	}
@@ -287,13 +287,13 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 		lbIngress, _ := openapi.Pluck(service.Object, "status", "loadBalancer", "ingress")
 		status, _ := openapi.Pluck(service.Object, "status")
 
-		glog.V(3).Infof("Received status for service %q: %#v", inputServiceName, status)
+		logger.V(3).Infof("Received status for service %q: %#v", inputServiceName, status)
 		ing, isSlice := lbIngress.([]interface{})
 
 		// Update status of service object so that we can check success.
 		sia.serviceReady = isSlice && len(ing) > 0
 
-		glog.V(3).Infof("Waiting for service %q to assign IP/hostname for a load balancer",
+		logger.V(3).Infof("Waiting for service %q to assign IP/hostname for a load balancer",
 			inputServiceName)
 	} else {
 		// If it's not type `LoadBalancer`, report success.
@@ -307,7 +307,7 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 	// Get endpoint object.
 	endpoint, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Endpoint watch received unknown object type %q",
+		logger.V(3).Infof("Endpoint watch received unknown object type %q",
 			reflect.TypeOf(endpoint))
 		return
 	}

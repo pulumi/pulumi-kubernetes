@@ -17,12 +17,12 @@ package await
 import (
 	"sync"
 
-	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
-	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/sdk/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -84,7 +84,7 @@ func (pa *PodAggregator) run() {
 	checkPod := func(object runtime.Object) {
 		pod, err := clients.PodFromUnstructured(object.(*unstructured.Unstructured))
 		if err != nil {
-			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return
 		}
 		if relatedResource(pa.owner, pod) {
@@ -98,7 +98,7 @@ func (pa *PodAggregator) run() {
 	// Get existing Pods.
 	pods, err := pa.client.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Failed to list existing Pods: %v", err)
+		logger.V(3).Infof("Failed to list existing Pods: %v", err)
 	} else {
 		// Log errors and move on.
 		_ = pods.EachListItem(func(object runtime.Object) error {
@@ -125,7 +125,7 @@ func (pa *PodAggregator) Read() logging.Messages {
 	checkPod := func(object runtime.Object) {
 		pod, err := clients.PodFromUnstructured(object.(*unstructured.Unstructured))
 		if err != nil {
-			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return
 		}
 		if relatedResource(pa.owner, pod) {
@@ -136,7 +136,7 @@ func (pa *PodAggregator) Read() logging.Messages {
 	// Get existing Pods.
 	pods, err := pa.client.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Failed to list existing Pods: %v", err)
+		logger.V(3).Infof("Failed to list existing Pods: %v", err)
 	} else {
 		// Log errors and move on.
 		_ = pods.EachListItem(func(object runtime.Object) error {

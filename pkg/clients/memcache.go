@@ -35,8 +35,8 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/golang/glog"
 	"github.com/googleapis/gnostic/OpenAPIv2"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	errorsutil "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/version"
@@ -115,7 +115,7 @@ func (d *memCacheClient) ServerResourcesForGroupVersion(groupVersion string) (*m
 	if cachedVal.err != nil && isTransientError(cachedVal.err) {
 		r, err := d.serverResourcesForGroupVersion(groupVersion)
 		if err != nil {
-			glog.V(9).Infof("couldn't get resource list for %v: %v", groupVersion, err)
+			logger.V(9).Infof("couldn't get resource list for %v: %v", groupVersion, err)
 		}
 		cachedVal = &cacheEntry{r, err}
 		d.groupToServerResources[groupVersion] = cachedVal
@@ -205,7 +205,7 @@ func (d *memCacheClient) refreshLocked() error {
 	// APIResourceList to have the same GroupVersion, the lists would need merged.
 	gl, err := d.delegate.ServerGroups()
 	if err != nil || len(gl.Groups) == 0 {
-		glog.V(9).Infof("couldn't get current server API group list: %v", err)
+		logger.V(9).Infof("couldn't get current server API group list: %v", err)
 		return err
 	}
 
@@ -215,7 +215,7 @@ func (d *memCacheClient) refreshLocked() error {
 			r, err := d.serverResourcesForGroupVersion(v.GroupVersion)
 			rl[v.GroupVersion] = &cacheEntry{r, err}
 			if err != nil {
-				glog.V(9).Infof("couldn't get resource list for %v: %v", v.GroupVersion, err)
+				logger.V(9).Infof("couldn't get resource list for %v: %v", v.GroupVersion, err)
 			}
 		}
 	}

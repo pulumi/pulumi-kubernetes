@@ -20,7 +20,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/golang/glog"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
@@ -54,7 +54,7 @@ func ForObject(
 			obj, err := clientForResource.Get(name, metav1.GetOptions{})
 			if err != nil {
 				// Log the error.
-				glog.V(3).Infof("Received error polling for %q: %#v", name, err)
+				logger.V(3).Infof("Received error polling for %q: %#v", name, err)
 				return nil, err
 			}
 			return obj, nil
@@ -89,7 +89,7 @@ func (ow *ObjectWatcher) RetryUntil(r Retry, timeout time.Duration) error {
 			if !isRetryable {
 				return true, retryErr
 			}
-			glog.V(3).Infof("Retrying operation with message: %s", rerr.Error())
+			logger.V(3).Infof("Retrying operation with message: %s", rerr.Error())
 
 			// Retryable error. Return false to continue watching.
 			return false, nil
