@@ -15,7 +15,7 @@
 package logging
 
 import (
-	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/sdk/go/common/diag"
 )
 
 // Message stores a log string and the severity for the log message.

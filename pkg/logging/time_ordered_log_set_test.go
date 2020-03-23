@@ -17,7 +17,7 @@ package logging
 import (
 	"testing"
 
-	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/sdk/go/common/diag"
 	"github.com/stretchr/testify/assert"
 )
 

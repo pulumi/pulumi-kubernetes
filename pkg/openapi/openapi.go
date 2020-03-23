@@ -18,7 +18,7 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
-	"github.com/pulumi/pulumi/pkg/util/contract"
+	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"

@@ -18,7 +18,7 @@ import (
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
-	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 	batchv1 "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

@@ -17,7 +17,7 @@ package metadata
 import (
 	"strings"
 
-	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/sdk/go/common/resource"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 

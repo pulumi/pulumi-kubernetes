@@ -8,14 +8,15 @@ require (
 	github.com/docker/docker v1.13.1 // indirect
 	github.com/evanphx/json-patch v4.2.0+incompatible
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/golang/protobuf v1.3.2
+	github.com/golang/protobuf v1.3.5
 	github.com/googleapis/gnostic v0.2.0
 	github.com/imdario/mergo v0.3.8
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi v1.13.1-0.20200319153240-65899569ee27
-	github.com/stretchr/testify v1.4.1-0.20191106224347-f1bd0923b832
-	google.golang.org/grpc v1.27.1
+	github.com/pulumi/pulumi/pkg v0.0.0-20200322194843-61928f04e052
+	github.com/pulumi/pulumi/sdk v0.0.0-20200322194843-61928f04e052
+	github.com/stretchr/testify v1.5.1
+	google.golang.org/grpc v1.28.0
 	k8s.io/api v0.17.0
 	k8s.io/apimachinery v0.17.0
 	k8s.io/client-go v0.17.0

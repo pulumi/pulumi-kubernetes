@@ -19,8 +19,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/pulumi/pulumi/pkg/tokens"
-	"github.com/pulumi/pulumi/pkg/util/contract"
+	"github.com/pulumi/pulumi/sdk/go/common/tokens"
+	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
