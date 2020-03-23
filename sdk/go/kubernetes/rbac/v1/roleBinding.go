@@ -43,6 +43,15 @@ func NewRoleBinding(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("RoleBinding")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding"),
+		},
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource RoleBinding
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", name, args, &resource, opts...)
 	if err != nil {

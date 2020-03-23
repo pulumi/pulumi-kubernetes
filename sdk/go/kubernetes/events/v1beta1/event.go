@@ -67,6 +67,12 @@ func NewEvent(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("Event")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:core/v1:Event"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource Event
 	err := ctx.RegisterResource("kubernetes:events.k8s.io/v1beta1:Event", name, args, &resource, opts...)
 	if err != nil {

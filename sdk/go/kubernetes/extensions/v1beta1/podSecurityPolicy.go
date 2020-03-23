@@ -37,6 +37,12 @@ func NewPodSecurityPolicy(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("PodSecurityPolicy")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:policy/v1beta1:PodSecurityPolicy"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource PodSecurityPolicy
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:PodSecurityPolicy", name, args, &resource, opts...)
 	if err != nil {

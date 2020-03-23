@@ -39,6 +39,12 @@ func NewCronJob(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("CronJob")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:batch/v1beta1:CronJob"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource CronJob
 	err := ctx.RegisterResource("kubernetes:batch/v2alpha1:CronJob", name, args, &resource, opts...)
 	if err != nil {

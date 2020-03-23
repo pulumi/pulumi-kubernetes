@@ -37,6 +37,12 @@ func NewValidatingWebhookConfiguration(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("ValidatingWebhookConfiguration")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource ValidatingWebhookConfiguration
 	err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name, args, &resource, opts...)
 	if err != nil {

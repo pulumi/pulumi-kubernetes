@@ -37,6 +37,12 @@ func NewNetworkPolicy(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("NetworkPolicy")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:networking.k8s.io/v1:NetworkPolicy"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource NetworkPolicy
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:NetworkPolicy", name, args, &resource, opts...)
 	if err != nil {

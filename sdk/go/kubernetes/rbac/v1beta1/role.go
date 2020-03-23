@@ -37,6 +37,15 @@ func NewRole(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("Role")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1:Role"),
+		},
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource Role
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:Role", name, args, &resource, opts...)
 	if err != nil {

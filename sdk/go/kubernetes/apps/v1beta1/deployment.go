@@ -39,6 +39,18 @@ func NewDeployment(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("Deployment")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:apps/v1:Deployment"),
+		},
+		{
+			Type: pulumi.String("kubernetes:apps/v1beta2:Deployment"),
+		},
+		{
+			Type: pulumi.String("kubernetes:extensions/v1beta1:Deployment"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource Deployment
 	err := ctx.RegisterResource("kubernetes:apps/v1beta1:Deployment", name, args, &resource, opts...)
 	if err != nil {

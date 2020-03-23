@@ -42,6 +42,12 @@ func NewTokenReview(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("TokenReview")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:authentication.k8s.io/v1:TokenReview"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource TokenReview
 	err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1beta1:TokenReview", name, args, &resource, opts...)
 	if err != nil {

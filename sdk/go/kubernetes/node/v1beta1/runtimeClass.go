@@ -45,6 +45,12 @@ func NewRuntimeClass(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("RuntimeClass")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:node.k8s.io/v1alpha1:RuntimeClass"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource RuntimeClass
 	err := ctx.RegisterResource("kubernetes:node.k8s.io/v1beta1:RuntimeClass", name, args, &resource, opts...)
 	if err != nil {

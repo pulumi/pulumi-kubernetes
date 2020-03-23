@@ -39,6 +39,12 @@ func NewIngress(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("Ingress")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:networking.k8s.io/v1beta1:Ingress"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource Ingress
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:Ingress", name, args, &resource, opts...)
 	if err != nil {

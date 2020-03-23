@@ -45,6 +45,15 @@ func NewVolumeAttachment(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("VolumeAttachment")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:storage.k8s.io/v1:VolumeAttachment"),
+		},
+		{
+			Type: pulumi.String("kubernetes:storage.k8s.io/v1beta1:VolumeAttachment"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource VolumeAttachment
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name, args, &resource, opts...)
 	if err != nil {
