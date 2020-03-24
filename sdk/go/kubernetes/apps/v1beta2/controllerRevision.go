@@ -43,6 +43,15 @@ func NewControllerRevision(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("ControllerRevision")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:apps/v1:ControllerRevision"),
+		},
+		{
+			Type: pulumi.String("kubernetes:apps/v1beta1:ControllerRevision"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource ControllerRevision
 	err := ctx.RegisterResource("kubernetes:apps/v1beta2:ControllerRevision", name, args, &resource, opts...)
 	if err != nil {

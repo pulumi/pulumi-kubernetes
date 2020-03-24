@@ -39,6 +39,15 @@ func NewClusterRole(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("ClusterRole")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole"),
+		},
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource ClusterRole
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole", name, args, &resource, opts...)
 	if err != nil {

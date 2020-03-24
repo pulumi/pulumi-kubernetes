@@ -56,6 +56,12 @@ func NewStorageClass(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("StorageClass")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:storage.k8s.io/v1:StorageClass"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource StorageClass
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:StorageClass", name, args, &resource, opts...)
 	if err != nil {

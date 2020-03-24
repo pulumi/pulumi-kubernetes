@@ -38,6 +38,18 @@ func NewAPIService(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("APIService")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:apiregistration.k8s.io/v1beta1:APIService"),
+		},
+		{
+			Type: pulumi.String("kubernetes:apiregistration/v1beta1:APIService"),
+		},
+		{
+			Type: pulumi.String("kubernetes:apiregistration/v1:APIService"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource APIService
 	err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1:APIService", name, args, &resource, opts...)
 	if err != nil {

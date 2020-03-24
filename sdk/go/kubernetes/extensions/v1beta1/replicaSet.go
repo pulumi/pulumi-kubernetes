@@ -39,6 +39,15 @@ func NewReplicaSet(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("ReplicaSet")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:apps/v1:ReplicaSet"),
+		},
+		{
+			Type: pulumi.String("kubernetes:apps/v1beta2:ReplicaSet"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource ReplicaSet
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:ReplicaSet", name, args, &resource, opts...)
 	if err != nil {

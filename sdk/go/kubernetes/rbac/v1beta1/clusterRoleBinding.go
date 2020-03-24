@@ -43,6 +43,15 @@ func NewClusterRoleBinding(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("ClusterRoleBinding")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding"),
+		},
+		{
+			Type: pulumi.String("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource ClusterRoleBinding
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding", name, args, &resource, opts...)
 	if err != nil {

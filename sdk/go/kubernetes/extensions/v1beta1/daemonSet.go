@@ -39,6 +39,15 @@ func NewDaemonSet(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("DaemonSet")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:apps/v1:DaemonSet"),
+		},
+		{
+			Type: pulumi.String("kubernetes:apps/v1beta2:DaemonSet"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource DaemonSet
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DaemonSet", name, args, &resource, opts...)
 	if err != nil {

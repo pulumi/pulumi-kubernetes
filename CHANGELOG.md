@@ -2,7 +2,7 @@
 
 ### Improvements
 
--   Add a Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1029).
+-   Add a Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1029) (https://github.com/pulumi/pulumi-kubernetes/pull/1042).
 
 ### Bug fixes
 

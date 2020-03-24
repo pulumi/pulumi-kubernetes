@@ -42,6 +42,12 @@ func NewLocalSubjectAccessReview(ctx *pulumi.Context,
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("LocalSubjectAccessReview")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource LocalSubjectAccessReview
 	err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, args, &resource, opts...)
 	if err != nil {
