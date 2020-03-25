@@ -46,13 +46,20 @@ class ConfigMap(pulumi.CustomResource):
     process.
     """
 
+    immutable: pulumi.Output[bool]
+    """
+    Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only
+    object metadata can be modified). If not set to true, the field can be modified at any time.
+    Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+    """
+
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
-    def __init__(self, resource_name, opts=None, binary_data=None, data=None, metadata=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, binary_data=None, data=None, immutable=None, metadata=None, __name__=None, __opts__=None):
         """
         Create a ConfigMap resource with the given unique name, arguments, and options.
 
@@ -67,6 +74,10 @@ class ConfigMap(pulumi.CustomResource):
                characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the
                BinaryData field. The keys stored in Data must not overlap with the keys in the
                BinaryData field, this is enforced during validation process.
+        :param pulumi.Input[bool] immutable: Immutable, if set to true, ensures that data stored in the ConfigMap cannot be
+               updated (only object metadata can be modified). If not set to true, the field can be
+               modified at any time. Defaulted to nil. This is an alpha field enabled by
+               ImmutableEphemeralVolumes feature gate.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
                https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
@@ -89,6 +100,7 @@ class ConfigMap(pulumi.CustomResource):
         __props__['kind'] = 'ConfigMap'
         __props__['binaryData'] = binary_data
         __props__['data'] = data
+        __props__['immutable'] = immutable
         __props__['metadata'] = metadata
 
         __props__['status'] = None

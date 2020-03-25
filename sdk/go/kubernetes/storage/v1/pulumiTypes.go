@@ -13,6 +13,360 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
+// CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+type CSIDriverType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Specification of the CSI Driver.
+	Spec *CSIDriverSpec `pulumi:"spec"`
+}
+
+type CSIDriverTypeInput interface {
+	pulumi.Input
+
+	ToCSIDriverTypeOutput() CSIDriverTypeOutput
+	ToCSIDriverTypeOutputWithContext(context.Context) CSIDriverTypeOutput
+}
+
+// CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+type CSIDriverTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Specification of the CSI Driver.
+	Spec CSIDriverSpecPtrInput `pulumi:"spec"`
+}
+
+func (CSIDriverTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriverType)(nil)).Elem()
+}
+
+func (i CSIDriverTypeArgs) ToCSIDriverTypeOutput() CSIDriverTypeOutput {
+	return i.ToCSIDriverTypeOutputWithContext(context.Background())
+}
+
+func (i CSIDriverTypeArgs) ToCSIDriverTypeOutputWithContext(ctx context.Context) CSIDriverTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverTypeOutput)
+}
+
+type CSIDriverTypeArrayInput interface {
+	pulumi.Input
+
+	ToCSIDriverTypeArrayOutput() CSIDriverTypeArrayOutput
+	ToCSIDriverTypeArrayOutputWithContext(context.Context) CSIDriverTypeArrayOutput
+}
+
+type CSIDriverTypeArray []CSIDriverTypeInput
+
+func (CSIDriverTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSIDriverType)(nil)).Elem()
+}
+
+func (i CSIDriverTypeArray) ToCSIDriverTypeArrayOutput() CSIDriverTypeArrayOutput {
+	return i.ToCSIDriverTypeArrayOutputWithContext(context.Background())
+}
+
+func (i CSIDriverTypeArray) ToCSIDriverTypeArrayOutputWithContext(ctx context.Context) CSIDriverTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverTypeArrayOutput)
+}
+
+// CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+type CSIDriverTypeOutput struct{ *pulumi.OutputState }
+
+func (CSIDriverTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriverType)(nil)).Elem()
+}
+
+func (o CSIDriverTypeOutput) ToCSIDriverTypeOutput() CSIDriverTypeOutput {
+	return o
+}
+
+func (o CSIDriverTypeOutput) ToCSIDriverTypeOutputWithContext(ctx context.Context) CSIDriverTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CSIDriverTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIDriverType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CSIDriverTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIDriverType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o CSIDriverTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v CSIDriverType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the CSI Driver.
+func (o CSIDriverTypeOutput) Spec() CSIDriverSpecPtrOutput {
+	return o.ApplyT(func(v CSIDriverType) *CSIDriverSpec { return v.Spec }).(CSIDriverSpecPtrOutput)
+}
+
+type CSIDriverTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (CSIDriverTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSIDriverType)(nil)).Elem()
+}
+
+func (o CSIDriverTypeArrayOutput) ToCSIDriverTypeArrayOutput() CSIDriverTypeArrayOutput {
+	return o
+}
+
+func (o CSIDriverTypeArrayOutput) ToCSIDriverTypeArrayOutputWithContext(ctx context.Context) CSIDriverTypeArrayOutput {
+	return o
+}
+
+func (o CSIDriverTypeArrayOutput) Index(i pulumi.IntInput) CSIDriverTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CSIDriverType {
+		return vs[0].([]CSIDriverType)[vs[1].(int)]
+	}).(CSIDriverTypeOutput)
+}
+
+// CSIDriverList is a collection of CSIDriver objects.
+type CSIDriverListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of CSIDriver
+	Items []CSIDriverType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type CSIDriverListTypeInput interface {
+	pulumi.Input
+
+	ToCSIDriverListTypeOutput() CSIDriverListTypeOutput
+	ToCSIDriverListTypeOutputWithContext(context.Context) CSIDriverListTypeOutput
+}
+
+// CSIDriverList is a collection of CSIDriver objects.
+type CSIDriverListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of CSIDriver
+	Items CSIDriverTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (CSIDriverListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriverListType)(nil)).Elem()
+}
+
+func (i CSIDriverListTypeArgs) ToCSIDriverListTypeOutput() CSIDriverListTypeOutput {
+	return i.ToCSIDriverListTypeOutputWithContext(context.Background())
+}
+
+func (i CSIDriverListTypeArgs) ToCSIDriverListTypeOutputWithContext(ctx context.Context) CSIDriverListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverListTypeOutput)
+}
+
+// CSIDriverList is a collection of CSIDriver objects.
+type CSIDriverListTypeOutput struct{ *pulumi.OutputState }
+
+func (CSIDriverListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriverListType)(nil)).Elem()
+}
+
+func (o CSIDriverListTypeOutput) ToCSIDriverListTypeOutput() CSIDriverListTypeOutput {
+	return o
+}
+
+func (o CSIDriverListTypeOutput) ToCSIDriverListTypeOutputWithContext(ctx context.Context) CSIDriverListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CSIDriverListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIDriverListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of CSIDriver
+func (o CSIDriverListTypeOutput) Items() CSIDriverTypeArrayOutput {
+	return o.ApplyT(func(v CSIDriverListType) []CSIDriverType { return v.Items }).(CSIDriverTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CSIDriverListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIDriverListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o CSIDriverListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v CSIDriverListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// CSIDriverSpec is the specification of a CSIDriver.
+type CSIDriverSpec struct {
+	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+	AttachRequired *bool `pulumi:"attachRequired"`
+	// If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
+	//                                 defined by a CSIVolumeSource, otherwise "false"
+	//
+	// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+	PodInfoOnMount *bool `pulumi:"podInfoOnMount"`
+	// volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+	VolumeLifecycleModes []string `pulumi:"volumeLifecycleModes"`
+}
+
+type CSIDriverSpecInput interface {
+	pulumi.Input
+
+	ToCSIDriverSpecOutput() CSIDriverSpecOutput
+	ToCSIDriverSpecOutputWithContext(context.Context) CSIDriverSpecOutput
+}
+
+// CSIDriverSpec is the specification of a CSIDriver.
+type CSIDriverSpecArgs struct {
+	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+	AttachRequired pulumi.BoolPtrInput `pulumi:"attachRequired"`
+	// If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
+	//                                 defined by a CSIVolumeSource, otherwise "false"
+	//
+	// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+	PodInfoOnMount pulumi.BoolPtrInput `pulumi:"podInfoOnMount"`
+	// volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+	VolumeLifecycleModes pulumi.StringArrayInput `pulumi:"volumeLifecycleModes"`
+}
+
+func (CSIDriverSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriverSpec)(nil)).Elem()
+}
+
+func (i CSIDriverSpecArgs) ToCSIDriverSpecOutput() CSIDriverSpecOutput {
+	return i.ToCSIDriverSpecOutputWithContext(context.Background())
+}
+
+func (i CSIDriverSpecArgs) ToCSIDriverSpecOutputWithContext(ctx context.Context) CSIDriverSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverSpecOutput)
+}
+
+func (i CSIDriverSpecArgs) ToCSIDriverSpecPtrOutput() CSIDriverSpecPtrOutput {
+	return i.ToCSIDriverSpecPtrOutputWithContext(context.Background())
+}
+
+func (i CSIDriverSpecArgs) ToCSIDriverSpecPtrOutputWithContext(ctx context.Context) CSIDriverSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverSpecOutput).ToCSIDriverSpecPtrOutputWithContext(ctx)
+}
+
+type CSIDriverSpecPtrInput interface {
+	pulumi.Input
+
+	ToCSIDriverSpecPtrOutput() CSIDriverSpecPtrOutput
+	ToCSIDriverSpecPtrOutputWithContext(context.Context) CSIDriverSpecPtrOutput
+}
+
+type csidriverSpecPtrType CSIDriverSpecArgs
+
+func CSIDriverSpecPtr(v *CSIDriverSpecArgs) CSIDriverSpecPtrInput {
+	return (*csidriverSpecPtrType)(v)
+}
+
+func (*csidriverSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSIDriverSpec)(nil)).Elem()
+}
+
+func (i *csidriverSpecPtrType) ToCSIDriverSpecPtrOutput() CSIDriverSpecPtrOutput {
+	return i.ToCSIDriverSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *csidriverSpecPtrType) ToCSIDriverSpecPtrOutputWithContext(ctx context.Context) CSIDriverSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverSpecPtrOutput)
+}
+
+// CSIDriverSpec is the specification of a CSIDriver.
+type CSIDriverSpecOutput struct{ *pulumi.OutputState }
+
+func (CSIDriverSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriverSpec)(nil)).Elem()
+}
+
+func (o CSIDriverSpecOutput) ToCSIDriverSpecOutput() CSIDriverSpecOutput {
+	return o
+}
+
+func (o CSIDriverSpecOutput) ToCSIDriverSpecOutputWithContext(ctx context.Context) CSIDriverSpecOutput {
+	return o
+}
+
+func (o CSIDriverSpecOutput) ToCSIDriverSpecPtrOutput() CSIDriverSpecPtrOutput {
+	return o.ToCSIDriverSpecPtrOutputWithContext(context.Background())
+}
+
+func (o CSIDriverSpecOutput) ToCSIDriverSpecPtrOutputWithContext(ctx context.Context) CSIDriverSpecPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpec) *CSIDriverSpec {
+		return &v
+	}).(CSIDriverSpecPtrOutput)
+}
+
+// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+func (o CSIDriverSpecOutput) AttachRequired() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.AttachRequired }).(pulumi.BoolPtrOutput)
+}
+
+// If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
+//                                 defined by a CSIVolumeSource, otherwise "false"
+//
+// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+func (o CSIDriverSpecOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.PodInfoOnMount }).(pulumi.BoolPtrOutput)
+}
+
+// volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+func (o CSIDriverSpecOutput) VolumeLifecycleModes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CSIDriverSpec) []string { return v.VolumeLifecycleModes }).(pulumi.StringArrayOutput)
+}
+
+type CSIDriverSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (CSIDriverSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSIDriverSpec)(nil)).Elem()
+}
+
+func (o CSIDriverSpecPtrOutput) ToCSIDriverSpecPtrOutput() CSIDriverSpecPtrOutput {
+	return o
+}
+
+func (o CSIDriverSpecPtrOutput) ToCSIDriverSpecPtrOutputWithContext(ctx context.Context) CSIDriverSpecPtrOutput {
+	return o
+}
+
+func (o CSIDriverSpecPtrOutput) Elem() CSIDriverSpecOutput {
+	return o.ApplyT(func(v *CSIDriverSpec) CSIDriverSpec { return *v }).(CSIDriverSpecOutput)
+}
+
+// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+func (o CSIDriverSpecPtrOutput) AttachRequired() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.AttachRequired }).(pulumi.BoolPtrOutput)
+}
+
+// If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
+//                                 defined by a CSIVolumeSource, otherwise "false"
+//
+// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+func (o CSIDriverSpecPtrOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.PodInfoOnMount }).(pulumi.BoolPtrOutput)
+}
+
+// volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+func (o CSIDriverSpecPtrOutput) VolumeLifecycleModes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CSIDriverSpec) []string { return v.VolumeLifecycleModes }).(pulumi.StringArrayOutput)
+}
+
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
 type CSINodeType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1599,6 +1953,11 @@ func (o VolumeNodeResourcesPtrOutput) Count() pulumi.IntPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterOutputType(CSIDriverTypeOutput{})
+	pulumi.RegisterOutputType(CSIDriverTypeArrayOutput{})
+	pulumi.RegisterOutputType(CSIDriverListTypeOutput{})
+	pulumi.RegisterOutputType(CSIDriverSpecOutput{})
+	pulumi.RegisterOutputType(CSIDriverSpecPtrOutput{})
 	pulumi.RegisterOutputType(CSINodeTypeOutput{})
 	pulumi.RegisterOutputType(CSINodeTypeArrayOutput{})
 	pulumi.RegisterOutputType(CSINodeDriverOutput{})

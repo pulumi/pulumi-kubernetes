@@ -1738,6 +1738,9 @@ export namespace apiextensions {
        * This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to
        * "map". Also, the values specified for this attribute must be a scalar typed field of the
        * child structure (no nesting is supported).
+       * 
+       * The properties specified must either be required or have a default value, to ensure those
+       * properties are present for all list items.
        */
       x_kubernetes_list_map_keys?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -2527,6 +2530,9 @@ export namespace apiextensions {
        * This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to
        * "map". Also, the values specified for this attribute must be a scalar typed field of the
        * child structure (no nesting is supported).
+       * 
+       * The properties specified must either be required or have a default value, to ensure those
+       * properties are present for all list items.
        */
       x_kubernetes_list_map_keys?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -2768,13 +2774,6 @@ export namespace apiregistration {
       groupPriorityMinimum: pulumi.Input<number>
 
       /**
-       * Service is a reference to the service for this API server.  It must communicate on port 443
-       * If the Service is nil, that means the handling for the API groupversion is handled locally
-       * on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-       */
-      service: pulumi.Input<apiregistration.v1.ServiceReference>
-
-      /**
        * VersionPriority controls the ordering of this API version inside of its group.  Must be
        * greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest
        * (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s.
@@ -2805,6 +2804,13 @@ export namespace apiregistration {
        * server. This is strongly discouraged.  You should use the CABundle instead.
        */
       insecureSkipTLSVerify?: pulumi.Input<boolean>
+
+      /**
+       * Service is a reference to the service for this API server.  It must communicate on port 443
+       * If the Service is nil, that means the handling for the API groupversion is handled locally
+       * on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+       */
+      service?: pulumi.Input<apiregistration.v1.ServiceReference>
 
       /**
        * Version is the API version this server hosts.  For example, "v1"
@@ -2968,13 +2974,6 @@ export namespace apiregistration {
       groupPriorityMinimum: pulumi.Input<number>
 
       /**
-       * Service is a reference to the service for this API server.  It must communicate on port 443
-       * If the Service is nil, that means the handling for the API groupversion is handled locally
-       * on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-       */
-      service: pulumi.Input<apiregistration.v1beta1.ServiceReference>
-
-      /**
        * VersionPriority controls the ordering of this API version inside of its group.  Must be
        * greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest
        * (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s.
@@ -3005,6 +3004,13 @@ export namespace apiregistration {
        * server. This is strongly discouraged.  You should use the CABundle instead.
        */
       insecureSkipTLSVerify?: pulumi.Input<boolean>
+
+      /**
+       * Service is a reference to the service for this API server.  It must communicate on port 443
+       * If the Service is nil, that means the handling for the API groupversion is handled locally
+       * on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+       */
+      service?: pulumi.Input<apiregistration.v1beta1.ServiceReference>
 
       /**
        * Version is the API version this server hosts.  For example, "v1"
@@ -8277,6 +8283,62 @@ export namespace autoscaling {
 
 
     /**
+     * HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+     */
+    export interface HPAScalingPolicy {
+      /**
+       * PeriodSeconds specifies the window of time for which the policy should hold true.
+       * PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+       */
+      periodSeconds: pulumi.Input<number>
+
+      /**
+       * Type is used to specify the scaling policy.
+       */
+      type: pulumi.Input<string>
+
+      /**
+       * Value contains the amount of change which is permitted by the policy. It must be greater
+       * than zero
+       */
+      value: pulumi.Input<number>
+
+    }
+
+
+    /**
+     * HPAScalingRules configures the scaling behavior for one direction. These Rules are applied
+     * after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling
+     * velocity by specifying scaling policies. They can prevent flapping by specifying the
+     * stabilization window, so that the number of replicas is not set instantly, instead, the
+     * safest value from the stabilization window is chosen.
+     */
+    export interface HPAScalingRules {
+      /**
+       * policies is a list of potential scaling polices which can be used during scaling. At least
+       * one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+       */
+      policies?: pulumi.Input<pulumi.Input<autoscaling.v2beta2.HPAScalingPolicy>[]>
+
+      /**
+       * selectPolicy is used to specify which policy should be used. If not set, the default value
+       * MaxPolicySelect is used.
+       */
+      selectPolicy?: pulumi.Input<string>
+
+      /**
+       * StabilizationWindowSeconds is the number of seconds for which past recommendations should
+       * be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater
+       * than or equal to zero and less than or equal to 3600 (one hour). If not set, use the
+       * default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300
+       * (i.e. the stabilization window is 300 seconds long).
+       */
+      stabilizationWindowSeconds?: pulumi.Input<number>
+
+    }
+
+
+    /**
      * HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
      * automatically manages the replica count of any resource implementing the scale subresource
      * based on the metrics specified.
@@ -8315,6 +8377,29 @@ export namespace autoscaling {
     export function isHorizontalPodAutoscaler(o: any): o is HorizontalPodAutoscaler {
       return o.apiVersion == "autoscaling/v2beta2" && o.kind == "HorizontalPodAutoscaler";
     }
+
+    /**
+     * HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and
+     * Down directions (scaleUp and scaleDown fields respectively).
+     */
+    export interface HorizontalPodAutoscalerBehavior {
+      /**
+       * scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to
+       * scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest
+       * recommendation for the last 300sec is used).
+       */
+      scaleDown?: pulumi.Input<autoscaling.v2beta2.HPAScalingRules>
+
+      /**
+       * scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+       *   * increase no more than 4 pods per 60 seconds
+       *   * double the number of pods per 60 seconds
+       * No stabilization is used.
+       */
+      scaleUp?: pulumi.Input<autoscaling.v2beta2.HPAScalingRules>
+
+    }
+
 
     /**
      * HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a
@@ -8401,6 +8486,13 @@ export namespace autoscaling {
        * metrics should be collected, as well as to actually change the replica count.
        */
       scaleTargetRef: pulumi.Input<autoscaling.v2beta2.CrossVersionObjectReference>
+
+      /**
+       * behavior configures the scaling behavior of the target in both Up and Down directions
+       * (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for
+       * scale up and scale down are used.
+       */
+      behavior?: pulumi.Input<autoscaling.v2beta2.HorizontalPodAutoscalerBehavior>
 
       /**
        * metrics contains the specifications for which to use to calculate the desired replica count
@@ -9425,6 +9517,19 @@ export namespace certificates {
       groups?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
+       * Requested signer for the request. It is a qualified name in the form:
+       * `scope-hostname.io/name`. If empty, it will be defaulted:
+       *  1. If it's a kubelet client certificate, it is assigned
+       *     "kubernetes.io/kube-apiserver-client-kubelet".
+       *  2. If it's a kubelet serving certificate, it is assigned
+       *     "kubernetes.io/kubelet-serving".
+       *  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
+       * Distribution of trust for signers happens out of band. You can select on this field using
+       * `spec.signerName`.
+       */
+      signerName?: pulumi.Input<string>
+
+      /**
        * UID information about the requesting user. See user.Info interface for details.
        */
       uid?: pulumi.Input<string>
@@ -10323,6 +10428,14 @@ export namespace core {
       data?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
+       * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated
+       * (only object metadata can be modified). If not set to true, the field can be modified at
+       * any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes
+       * feature gate.
+       */
+      immutable?: pulumi.Input<boolean>
+
+      /**
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
@@ -10641,8 +10754,8 @@ export namespace core {
        * probes are executed until this completes successfully. If this probe fails, the Pod will be
        * restarted, just as if the livenessProbe failed. This can be used to provide different probe
        * parameters at the beginning of a Pod's lifecycle, when it might take a long time to load
-       * data or warm a cache, than during steady-state operation. This cannot be updated. This is
-       * an alpha feature enabled by the StartupProbe feature flag. More info:
+       * data or warm a cache, than during steady-state operation. This cannot be updated. This is a
+       * beta feature enabled by the StartupProbe feature flag. More info:
        * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
        */
       startupProbe?: pulumi.Input<core.v1.Probe>
@@ -10690,8 +10803,7 @@ export namespace core {
       tty?: pulumi.Input<boolean>
 
       /**
-       * volumeDevices is the list of block devices to be used by the container. This is a beta
-       * feature.
+       * volumeDevices is the list of block devices to be used by the container.
        */
       volumeDevices?: pulumi.Input<pulumi.Input<core.v1.VolumeDevice>[]>
 
@@ -11058,6 +11170,15 @@ export namespace core {
        * The port number of the endpoint.
        */
       port: pulumi.Input<number>
+
+      /**
+       * The application protocol for this port. This field follows standard Kubernetes label
+       * syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
+       * http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
+       * names such as mycompany.com/my-custom-protocol. Field can be enabled with
+       * ServiceAppProtocol feature gate.
+       */
+      appProtocol?: pulumi.Input<string>
 
       /**
        * The name of this port.  This must match the 'name' field in the corresponding ServicePort.
@@ -11427,8 +11548,7 @@ export namespace core {
       tty?: pulumi.Input<boolean>
 
       /**
-       * volumeDevices is the list of block devices to be used by the container. This is a beta
-       * feature.
+       * volumeDevices is the list of block devices to be used by the container.
        */
       volumeDevices?: pulumi.Input<pulumi.Input<core.v1.VolumeDevice>[]>
 
@@ -12251,6 +12371,11 @@ export namespace core {
      */
     export interface LimitRangeItem {
       /**
+       * Type of resource that this limit applies to.
+       */
+      type: pulumi.Input<string>
+
+      /**
        * Default resource requirement limit value by resource name if resource limit is omitted.
        */
       default?: pulumi.Input<object>
@@ -12277,11 +12402,6 @@ export namespace core {
        * Min usage constraints on this kind by resource name.
        */
       min?: pulumi.Input<object>
-
-      /**
-       * Type of resource that this limit applies to.
-       */
-      type?: pulumi.Input<string>
 
     }
 
@@ -13278,10 +13398,13 @@ export namespace core {
       accessModes?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * This field requires the VolumeSnapshotDataSource alpha feature gate to be enabled and
-       * currently VolumeSnapshot is the only supported data source. If the provisioner can support
-       * VolumeSnapshot data source, it will create a new volume and data will be restored to the
-       * volume at the same time. If the provisioner does not support VolumeSnapshot data source,
+       * This field can be used to specify either: * An existing VolumeSnapshot object
+       * (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) *
+       * An existing custom resource/object that implements data population (Alpha) In order to use
+       * VolumeSnapshot object types, the appropriate feature gate must be enabled
+       * (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external
+       * controller can support the specified data source, it will create a new volume based on the
+       * contents of the specified data source. If the specified data source is not supported, the
        * volume will not be created and the failure will be reported as an event. In the future, we
        * plan to support more data source types and the behavior of the provisioner may change.
        */
@@ -13306,7 +13429,7 @@ export namespace core {
 
       /**
        * volumeMode defines what type of volume is required by the claim. Value of Filesystem is
-       * implied when not included in claim spec. This is a beta feature.
+       * implied when not included in claim spec.
        */
       volumeMode?: pulumi.Input<string>
 
@@ -13583,8 +13706,7 @@ export namespace core {
 
       /**
        * volumeMode defines if a volume is intended to be used with a formatted filesystem or to
-       * remain in raw block state. Value of Filesystem is implied when not included in spec. This
-       * is a beta feature.
+       * remain in raw block state. Value of Filesystem is implied when not included in spec.
        */
       volumeMode?: pulumi.Input<string>
 
@@ -13926,6 +14048,15 @@ export namespace core {
       fsGroup?: pulumi.Input<number>
 
       /**
+       * fsGroupChangePolicy defines behavior of changing ownership and permission of the volume
+       * before being exposed inside Pod. This field will only apply to volume types which support
+       * fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types
+       * such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always".
+       * If not specified defaults to "Always".
+       */
+      fsGroupChangePolicy?: pulumi.Input<string>
+
+      /**
        * The GID to run the entrypoint of the container process. Uses runtime default if unset. May
        * also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the
        * value specified in SecurityContext takes precedence for that container.
@@ -14225,7 +14356,7 @@ export namespace core {
       /**
        * TopologySpreadConstraints describes how a group of pods ought to spread across topology
        * domains. Scheduler will schedule pods in a way which abides by the constraints. This field
-       * is alpha-level and is only honored by clusters that enables the EvenPodsSpread feature. All
+       * is only honored by clusters that enable the EvenPodsSpread feature. All
        * topologySpreadConstraints are ANDed.
        */
       topologySpreadConstraints?: pulumi.Input<pulumi.Input<core.v1.TopologySpreadConstraint>[]>
@@ -15280,6 +15411,14 @@ export namespace core {
       data?: pulumi.Input<object>
 
       /**
+       * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only
+       * object metadata can be modified). If not set to true, the field can be modified at any
+       * time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature
+       * gate.
+       */
+      immutable?: pulumi.Input<boolean>
+
+      /**
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
@@ -15773,6 +15912,15 @@ export namespace core {
       port: pulumi.Input<number>
 
       /**
+       * The application protocol for this port. This field follows standard Kubernetes label
+       * syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
+       * http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
+       * names such as mycompany.com/my-custom-protocol. Field can be enabled with
+       * ServiceAppProtocol feature gate.
+       */
+      appProtocol?: pulumi.Input<string>
+
+      /**
        * The name of this port within the service. This must be a DNS_LABEL. All ports within a
        * ServiceSpec must have unique names. When considering the endpoints for a Service, this must
        * match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on
@@ -16111,7 +16259,7 @@ export namespace core {
       timeAdded?: pulumi.Input<string>
 
       /**
-       * Required. The taint value corresponding to the taint key.
+       * The taint value corresponding to the taint key.
        */
       value?: pulumi.Input<string>
 
@@ -16592,14 +16740,12 @@ export namespace core {
       /**
        * GMSACredentialSpec is where the GMSA admission webhook
        * (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA
-       * credential spec named by the GMSACredentialSpecName field. This field is alpha-level and is
-       * only honored by servers that enable the WindowsGMSA feature flag.
+       * credential spec named by the GMSACredentialSpecName field.
        */
       gmsaCredentialSpec?: pulumi.Input<string>
 
       /**
-       * GMSACredentialSpecName is the name of the GMSA credential spec to use. This field is
-       * alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+       * GMSACredentialSpecName is the name of the GMSA credential spec to use.
        */
       gmsaCredentialSpecName?: pulumi.Input<string>
 
@@ -16607,8 +16753,7 @@ export namespace core {
        * The UserName in Windows to run the entrypoint of the container process. Defaults to the
        * user specified in image metadata if unspecified. May also be set in PodSecurityContext. If
        * set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext
-       * takes precedence. This field is beta-level and may be disabled with the
-       * WindowsRunAsUserName feature flag.
+       * takes precedence.
        */
       runAsUserName?: pulumi.Input<string>
 
@@ -16691,7 +16836,7 @@ export namespace discovery {
        * The application protocol for this port. This field follows standard Kubernetes label
        * syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
        * http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
-       * names. Default is empty string.
+       * names such as mycompany.com/my-custom-protocol.
        */
       appProtocol?: pulumi.Input<string>
 
@@ -17583,7 +17728,7 @@ export namespace extensions {
 
 
     /**
-     * HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
+     * HTTPIngressPath associates a path with a backend. Incoming urls matching the path are
      * forwarded to the backend.
      */
     export interface HTTPIngressPath {
@@ -17593,13 +17738,29 @@ export namespace extensions {
       backend: pulumi.Input<extensions.v1beta1.IngressBackend>
 
       /**
-       * Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the
-       * egrep/unix syntax, not the perl syntax) matched against the path of an incoming request.
-       * Currently it can contain characters disallowed from the conventional "path" part of a URL
-       * as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a
-       * catch all sending traffic to the backend.
+       * Path is matched against the path of an incoming request. Currently it can contain
+       * characters disallowed from the conventional "path" part of a URL as defined by RFC 3986.
+       * Paths must begin with a '/'. When unspecified, all paths from incoming requests are
+       * matched.
        */
       path?: pulumi.Input<string>
+
+      /**
+       * PathType determines the interpretation of the Path matching. PathType can be one of the
+       * following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL
+       * path prefix split by '/'. Matching is
+       *   done on a path element by element basis. A path element refers is the
+       *   list of labels in the path split by the '/' separator. A request is a
+       *   match for path p if every p is an element-wise prefix of p of the
+       *   request path. Note that if the last element of the path is a substring
+       *   of the last element in request path, it is not a match (e.g. /foo/bar
+       *   matches /foo/bar/baz, but does not match /foo/barbaz).
+       * * ImplementationSpecific: Interpretation of the Path matching is up to
+       *   the IngressClass. Implementations can treat this as a separate PathType
+       *   or treat it identically to Prefix or Exact path types.
+       * Implementations are required to support all path types. Defaults to ImplementationSpecific.
+       */
+      pathType?: pulumi.Input<string>
 
     }
 
@@ -17734,6 +17895,12 @@ export namespace extensions {
        */
       servicePort: pulumi.Input<number | string>
 
+      /**
+       * Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress
+       * object. If resource is specified, serviceName and servicePort must not be specified.
+       */
+      resource?: pulumi.Input<core.v1.TypedLocalObjectReference>
+
     }
 
 
@@ -17782,15 +17949,24 @@ export namespace extensions {
     export interface IngressRule {
       /**
        * Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
-       * following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not
-       * allowed. Currently an IngressRuleValue can only apply to the
-       * 	  IP in the Spec of the parent Ingress.
+       * following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not
+       * allowed. Currently an IngressRuleValue can only apply to
+       *    the IP in the Spec of the parent Ingress.
        * 2. The `:` delimiter is not respected because ports are not allowed.
        * 	  Currently the port of an Ingress is implicitly :80 for http and
        * 	  :443 for https.
        * Both these may change in the future. Incoming requests are matched against the host before
        * the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on
        * the specified IngressRuleValue.
+       * 
+       * Host can be "precise" which is a domain name without the terminating dot of a network host
+       * (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard
+       * label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS
+       * label and matches only a single label. You cannot have a wildcard label by itself (e.g.
+       * Host == "*"). Requests will be matched against the Host field in the following way: 1. If
+       * Host is precise, the request matches this rule if the http host header is equal to Host. 2.
+       * If Host is a wildcard, then the request matches this rule if the http host header is to
+       * equal to the suffix (removing the first label) of the wildcard rule.
        */
       host?: pulumi.Input<string>
 
@@ -17810,6 +17986,18 @@ export namespace extensions {
        * controller or defaulting logic to specify a global default.
        */
       backend?: pulumi.Input<extensions.v1beta1.IngressBackend>
+
+      /**
+       * IngressClassName is the name of the IngressClass cluster resource. The associated
+       * IngressClass defines which controller will implement the resource. This replaces the
+       * deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that
+       * annotation is set, it must be given precedence over this field. The controller may emit a
+       * warning if the field and annotation have different values. Implementations of this API
+       * should ignore Ingresses without a class specified. An IngressClass resource may be marked
+       * as default, which can be used to set a default value for this field. For more information,
+       * refer to the IngressClass documentation.
+       */
+      ingressClassName?: pulumi.Input<string>
 
       /**
        * A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all
@@ -18911,8 +19099,8 @@ export namespace flowcontrol {
       /**
        * `matchingPrecedence` is used to choose among the FlowSchemas that match a given request.
        * The chosen FlowSchema is among those with the numerically lowest (which we take to be
-       * logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative.
-       * Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+       * logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in
+       * [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
        */
       matchingPrecedence?: pulumi.Input<number>
 
@@ -20224,19 +20412,21 @@ export namespace meta {
 export namespace networking {
   export namespace v1 {
     /**
-     * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods
-     * matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should
-     * not be included within this rule.
+     * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to
+     * the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that
+     * should not be included within this rule.
      */
     export interface IPBlock {
       /**
-       * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
+       * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or
+       * "2001:db9::/64"
        */
       cidr: pulumi.Input<string>
 
       /**
        * Except is a slice of CIDRs that should not be included within an IP Block Valid examples
-       * are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+       * are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside
+       * the CIDR range
        */
       except?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -20475,7 +20665,7 @@ export namespace networking {
 
   export namespace v1beta1 {
     /**
-     * HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
+     * HTTPIngressPath associates a path with a backend. Incoming urls matching the path are
      * forwarded to the backend.
      */
     export interface HTTPIngressPath {
@@ -20485,13 +20675,29 @@ export namespace networking {
       backend: pulumi.Input<networking.v1beta1.IngressBackend>
 
       /**
-       * Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the
-       * egrep/unix syntax, not the perl syntax) matched against the path of an incoming request.
-       * Currently it can contain characters disallowed from the conventional "path" part of a URL
-       * as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a
-       * catch all sending traffic to the backend.
+       * Path is matched against the path of an incoming request. Currently it can contain
+       * characters disallowed from the conventional "path" part of a URL as defined by RFC 3986.
+       * Paths must begin with a '/'. When unspecified, all paths from incoming requests are
+       * matched.
        */
       path?: pulumi.Input<string>
+
+      /**
+       * PathType determines the interpretation of the Path matching. PathType can be one of the
+       * following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL
+       * path prefix split by '/'. Matching is
+       *   done on a path element by element basis. A path element refers is the
+       *   list of labels in the path split by the '/' separator. A request is a
+       *   match for path p if every p is an element-wise prefix of p of the
+       *   request path. Note that if the last element of the path is a substring
+       *   of the last element in request path, it is not a match (e.g. /foo/bar
+       *   matches /foo/bar/baz, but does not match /foo/barbaz).
+       * * ImplementationSpecific: Interpretation of the Path matching is up to
+       *   the IngressClass. Implementations can treat this as a separate PathType
+       *   or treat it identically to Prefix or Exact path types.
+       * Implementations are required to support all path types. Defaults to ImplementationSpecific.
+       */
+      pathType?: pulumi.Input<string>
 
     }
 
@@ -20565,6 +20771,112 @@ export namespace networking {
        */
       servicePort: pulumi.Input<number | string>
 
+      /**
+       * Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress
+       * object. If resource is specified, serviceName and servicePort must not be specified.
+       */
+      resource?: pulumi.Input<core.v1.TypedLocalObjectReference>
+
+    }
+
+
+    /**
+     * IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The
+     * `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an
+     * IngressClass should be considered default. When a single IngressClass resource has this
+     * annotation set to true, new Ingress resources without a class specified will be assigned this
+     * default class.
+     */
+    export interface IngressClass {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"IngressClass">
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Spec is the desired state of the IngressClass. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       */
+      spec?: pulumi.Input<networking.v1beta1.IngressClassSpec>
+
+    }
+
+    export function isIngressClass(o: any): o is IngressClass {
+      return o.apiVersion == "networking.k8s.io/v1beta1" && o.kind == "IngressClass";
+    }
+
+    /**
+     * IngressClassList is a collection of IngressClasses.
+     */
+    export interface IngressClassList {
+      /**
+       * Items is the list of IngressClasses.
+       */
+      items: pulumi.Input<pulumi.Input<networking.v1beta1.IngressClass>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"IngressClassList">
+
+      /**
+       * Standard list metadata.
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isIngressClassList(o: any): o is IngressClassList {
+      return o.apiVersion == "networking.k8s.io/v1beta1" && o.kind == "IngressClassList";
+    }
+
+    /**
+     * IngressClassSpec provides information about the class of an Ingress.
+     */
+    export interface IngressClassSpec {
+      /**
+       * Controller refers to the name of the controller that should handle this class. This allows
+       * for different "flavors" that are controlled by the same controller. For example, you may
+       * have different Parameters for the same implementing controller. This should be specified as
+       * a domain-prefixed path no more than 250 characters in length, e.g.
+       * "acme.io/ingress-controller". This field is immutable.
+       */
+      controller?: pulumi.Input<string>
+
+      /**
+       * Parameters is a link to a custom resource containing additional configuration for the
+       * controller. This is optional if the controller does not require extra parameters.
+       */
+      parameters?: pulumi.Input<core.v1.TypedLocalObjectReference>
+
     }
 
 
@@ -20613,15 +20925,24 @@ export namespace networking {
     export interface IngressRule {
       /**
        * Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
-       * following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not
-       * allowed. Currently an IngressRuleValue can only apply to the
-       * 	  IP in the Spec of the parent Ingress.
+       * following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not
+       * allowed. Currently an IngressRuleValue can only apply to
+       *    the IP in the Spec of the parent Ingress.
        * 2. The `:` delimiter is not respected because ports are not allowed.
        * 	  Currently the port of an Ingress is implicitly :80 for http and
        * 	  :443 for https.
        * Both these may change in the future. Incoming requests are matched against the host before
        * the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on
        * the specified IngressRuleValue.
+       * 
+       * Host can be "precise" which is a domain name without the terminating dot of a network host
+       * (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard
+       * label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS
+       * label and matches only a single label. You cannot have a wildcard label by itself (e.g.
+       * Host == "*"). Requests will be matched against the Host field in the following way: 1. If
+       * Host is precise, the request matches this rule if the http host header is equal to Host. 2.
+       * If Host is a wildcard, then the request matches this rule if the http host header is to
+       * equal to the suffix (removing the first label) of the wildcard rule.
        */
       host?: pulumi.Input<string>
 
@@ -20641,6 +20962,18 @@ export namespace networking {
        * controller or defaulting logic to specify a global default.
        */
       backend?: pulumi.Input<networking.v1beta1.IngressBackend>
+
+      /**
+       * IngressClassName is the name of the IngressClass cluster resource. The associated
+       * IngressClass defines which controller will implement the resource. This replaces the
+       * deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that
+       * annotation is set, it must be given precedence over this field. The controller may emit a
+       * warning if the field and annotation have different values. Implementations of this API
+       * should ignore Ingresses without a class specified. An IngressClass resource may be marked
+       * as default, which can be used to set a default value for this field. For more information,
+       * refer to the IngressClass documentation.
+       */
+      ingressClassName?: pulumi.Input<string>
 
       /**
        * A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all
@@ -20683,10 +21016,10 @@ export namespace networking {
       hosts?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left
-       * optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener
-       * conflicts with the "Host" header field used by an IngressRule, the SNI host is used for
-       * termination and value of the Host header is used for routing.
+       * SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is
+       * left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a
+       * listener conflicts with the "Host" header field used by an IngressRule, the SNI host is
+       * used for termination and value of the Host header is used for routing.
        */
       secretName?: pulumi.Input<string>
 
@@ -21306,9 +21639,8 @@ export namespace policy {
       disruptedPods?: pulumi.Input<object>
 
       /**
-       * Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and
-       * other status information is valid only if observedGeneration equals to PDB's object
-       * generation.
+       * Most recent generation observed when updating this PDB status. DisruptionsAllowed and other
+       * status information is valid only if observedGeneration equals to PDB's object generation.
        */
       observedGeneration?: pulumi.Input<number>
 
@@ -22282,11 +22614,10 @@ export namespace rbac {
 
       /**
        * NonResourceURLs is a set of partial urls that a user should have access to.  *s are
-       * allowed, but only as the full, final step in the path This name is intentionally different
-       * than the internal type so that the DefaultConvert works nicely and because the ordering may
-       * be different. Since non-resource URLs are not namespaced, this field is only applicable for
-       * ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources
-       * (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+       * allowed, but only as the full, final step in the path Since non-resource URLs are not
+       * namespaced, this field is only applicable for ClusterRoles referenced from a
+       * ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets")
+       * or non-resource URL paths (such as "/api"),  but not both.
        */
       nonResourceURLs?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -23381,6 +23712,142 @@ export namespace settings {
 
 export namespace storage {
   export namespace v1 {
+    /**
+     * CSIDriver captures information about a Container Storage Interface (CSI) volume driver
+     * deployed on the cluster. Kubernetes attach detach controller uses this object to determine
+     * whether attach is required. Kubelet uses this object to determine whether pod information
+     * needs to be passed on mount. CSIDriver objects are non-namespaced.
+     */
+    export interface CSIDriver {
+      /**
+       * Specification of the CSI Driver.
+       */
+      spec: pulumi.Input<storage.v1.CSIDriverSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSIDriver">
+
+      /**
+       * Standard object metadata. metadata.Name indicates the name of the CSI driver that this
+       * object refers to; it MUST be the same name returned by the CSI GetPluginName() call for
+       * that driver. The driver name must be 63 characters or less, beginning and ending with an
+       * alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between.
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isCSIDriver(o: any): o is CSIDriver {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "CSIDriver";
+    }
+
+    /**
+     * CSIDriverList is a collection of CSIDriver objects.
+     */
+    export interface CSIDriverList {
+      /**
+       * items is the list of CSIDriver
+       */
+      items: pulumi.Input<pulumi.Input<storage.v1.CSIDriver>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSIDriverList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isCSIDriverList(o: any): o is CSIDriverList {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "CSIDriverList";
+    }
+
+    /**
+     * CSIDriverSpec is the specification of a CSIDriver.
+     */
+    export interface CSIDriverSpec {
+      /**
+       * attachRequired indicates this CSI volume driver requires an attach operation (because it
+       * implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach
+       * controller should call the attach volume interface which checks the volumeattachment status
+       * and waits until the volume is attached before proceeding to mounting. The CSI
+       * external-attacher coordinates with CSI volume driver and updates the volumeattachment
+       * status when the attach operation is complete. If the CSIDriverRegistry feature gate is
+       * enabled and the value is specified to false, the attach operation will be skipped.
+       * Otherwise the attach operation will be called.
+       */
+      attachRequired?: pulumi.Input<boolean>
+
+      /**
+       * If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod
+       * information (like podName, podUID, etc.) during mount operations. If set to false, pod
+       * information will not be passed on mount. Default is false. The CSI driver specifies
+       * podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as
+       * VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for
+       * parsing and validating the information passed in as VolumeContext. The following
+       * VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the
+       * prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name
+       * "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid":
+       * string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral
+       * inline volume
+       *                                 defined by a CSIVolumeSource, otherwise "false"
+       * 
+       * "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for
+       * drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other
+       * drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't
+       * support this field, drivers can only support one mode when deployed on such a cluster and
+       * the deployment determines which mode that is, for example via a command line parameter of
+       * the driver.
+       */
+      podInfoOnMount?: pulumi.Input<boolean>
+
+      /**
+       * volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The
+       * default if the list is empty is "Persistent", which is the usage defined by the CSI
+       * specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode
+       * is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with
+       * CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to
+       * be aware of this because it is only going to get a NodePublishVolume call for such a
+       * volume. For more information about implementing this mode, see
+       * https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one
+       * or more of these modes and more modes may be added in the future. This field is beta.
+       */
+      volumeLifecycleModes?: pulumi.Input<pulumi.Input<string>[]>
+
+    }
+
+
     /**
      * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
      * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar

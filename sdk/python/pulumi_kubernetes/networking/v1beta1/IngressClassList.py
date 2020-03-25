@@ -11,15 +11,9 @@ from pulumi import Input, ResourceOptions
 from ... import tables, version
 
 
-class CSIDriver(pulumi.CustomResource):
+class IngressClassList(pulumi.CustomResource):
     """
-    CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed
-    on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they
-    may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it
-    automatically creates a CSIDriver object representing the driver. Kubernetes attach detach
-    controller uses this object to determine whether attach is required. Kubelet uses this object to
-    determine whether pod information needs to be passed on mount. CSIDriver objects are
-    non-namespaced.
+    IngressClassList is a collection of IngressClasses.
     """
 
     apiVersion: pulumi.Output[str]
@@ -36,33 +30,24 @@ class CSIDriver(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
+    items: pulumi.Output[list]
+    """
+    Items is the list of IngressClasses.
+    """
+
     metadata: pulumi.Output[dict]
     """
-    Standard object metadata. metadata.Name indicates the name of the CSI driver that this object
-    refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver.
-    The driver name must be 63 characters or less, beginning and ending with an alphanumeric
-    character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info:
-    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    Standard list metadata.
     """
 
-    spec: pulumi.Output[dict]
-    """
-    Specification of the CSI Driver.
-    """
-
-    def __init__(self, resource_name, opts=None, spec=None, metadata=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):
         """
-        Create a CSIDriver resource with the given unique name, arguments, and options.
+        Create a IngressClassList resource with the given unique name, arguments, and options.
 
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[dict] spec: Specification of the CSI Driver.
-        :param pulumi.Input[dict] metadata: Standard object metadata. metadata.Name indicates the name of the CSI driver that
-               this object refers to; it MUST be the same name returned by the CSI GetPluginName()
-               call for that driver. The driver name must be 63 characters or less, beginning and
-               ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and
-               alphanumerics between. More info:
-               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[list] items: Items is the list of IngressClasses.
+        :param pulumi.Input[dict] metadata: Standard list metadata.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -79,26 +64,21 @@ class CSIDriver(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'storage.k8s.io/v1beta1'
-        __props__['kind'] = 'CSIDriver'
-        if spec is None:
-            raise TypeError('Missing required property spec')
-        __props__['spec'] = spec
+        __props__['apiVersion'] = 'networking.k8s.io/v1beta1'
+        __props__['kind'] = 'IngressClassList'
+        if items is None:
+            raise TypeError('Missing required property items')
+        __props__['items'] = items
         __props__['metadata'] = metadata
 
         __props__['status'] = None
 
-        parent = opts.parent if opts and opts.parent else None
-        aliases = [
-            pulumi.Alias(type_="kubernetes:storage.k8s.io/v1:CSIDriver"),
-        ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
-            aliases=aliases,
         ))
 
-        super(CSIDriver, self).__init__(
-            "kubernetes:storage.k8s.io/v1beta1:CSIDriver",
+        super(IngressClassList, self).__init__(
+            "kubernetes:networking.k8s.io/v1beta1:IngressClassList",
             resource_name,
             __props__,
             opts)
@@ -106,7 +86,7 @@ class CSIDriver(pulumi.CustomResource):
     @staticmethod
     def get(resource_name, id, opts=None):
         """
-        Get the state of an existing `CSIDriver` resource, as identified by `id`.
+        Get the state of an existing `IngressClassList` resource, as identified by `id`.
         The ID is of the form `[namespace]/[name]`; if `[namespace]` is omitted,
         then (per Kubernetes convention) the ID becomes `default/[name]`.
 
@@ -119,7 +99,7 @@ class CSIDriver(pulumi.CustomResource):
                resource's behavior.
         """
         opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return CSIDriver(resource_name, opts)
+        return IngressClassList(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

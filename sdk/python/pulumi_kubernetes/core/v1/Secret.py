@@ -49,6 +49,13 @@ class Secret(pulumi.CustomResource):
     https://tools.ietf.org/html/rfc4648#section-4
     """
 
+    immutable: pulumi.Output[bool]
+    """
+    Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object
+    metadata can be modified). If not set to true, the field can be modified at any time. Defaulted
+    to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+    """
+
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
@@ -67,7 +74,7 @@ class Secret(pulumi.CustomResource):
     Used to facilitate programmatic handling of secret data.
     """
 
-    def __init__(self, resource_name, opts=None, data=None, metadata=None, string_data=None, type=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, data=None, immutable=None, metadata=None, string_data=None, type=None, __name__=None, __opts__=None):
         """
         Create a Secret resource with the given unique name, arguments, and options.
 
@@ -77,6 +84,10 @@ class Secret(pulumi.CustomResource):
                '_' or '.'. The serialized form of the secret data is a base64 encoded string,
                representing the arbitrary (possibly non-string) data value here. Described in
                https://tools.ietf.org/html/rfc4648#section-4
+        :param pulumi.Input[bool] immutable: Immutable, if set to true, ensures that data stored in the Secret cannot be updated
+               (only object metadata can be modified). If not set to true, the field can be modified
+               at any time. Defaulted to nil. This is an alpha field enabled by
+               ImmutableEphemeralVolumes feature gate.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
                https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[dict] string_data: stringData allows specifying non-binary secret data in string form. It is provided as
@@ -103,6 +114,7 @@ class Secret(pulumi.CustomResource):
         __props__['apiVersion'] = 'v1'
         __props__['kind'] = 'Secret'
         __props__['data'] = pulumi.Output.secret(data) if data is not None else None
+        __props__['immutable'] = immutable
         __props__['metadata'] = metadata
         __props__['stringData'] = pulumi.Output.secret(string_data) if string_data is not None else None
         __props__['type'] = type

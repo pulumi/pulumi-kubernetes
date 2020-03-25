@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // nolint: lll
-package v1beta1
+package v1
 
 import (
 	"reflect"
@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
-// CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+// CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 type CSIDriver struct {
 	pulumi.CustomResourceState
 
@@ -36,19 +36,19 @@ func NewCSIDriver(ctx *pulumi.Context,
 		args = &CSIDriverArgs{}
 	}
 	if args.ApiVersion == nil {
-		args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
+		args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1")
 	}
 	if args.Kind == nil {
 		args.Kind = pulumi.StringPtr("CSIDriver")
 	}
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
-			Type: pulumi.String("kubernetes:storage.k8s.io/v1:CSIDriver"),
+			Type: pulumi.String("kubernetes:storage.k8s.io/v1beta1:CSIDriver"),
 		},
 	})
 	opts = append(opts, aliases)
 	var resource CSIDriver
-	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, args, &resource, opts...)
+	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIDriver", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func NewCSIDriver(ctx *pulumi.Context,
 func GetCSIDriver(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *CSIDriverState, opts ...pulumi.ResourceOption) (*CSIDriver, error) {
 	var resource CSIDriver
-	err := ctx.ReadResource("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("kubernetes:storage.k8s.io/v1:CSIDriver", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}

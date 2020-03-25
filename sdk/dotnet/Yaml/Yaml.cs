@@ -171,6 +171,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Networking.V1.NetworkPolicy) ? "networking.k8s.io/v1/NetworkPolicy" :
                 type == typeof(Networking.V1.NetworkPolicyList) ? "networking.k8s.io/v1/NetworkPolicyList" :
                 type == typeof(Networking.V1Beta1.Ingress) ? "networking.k8s.io/v1beta1/Ingress" :
+                type == typeof(Networking.V1Beta1.IngressClass) ? "networking.k8s.io/v1beta1/IngressClass" :
+                type == typeof(Networking.V1Beta1.IngressClassList) ? "networking.k8s.io/v1beta1/IngressClassList" :
                 type == typeof(Networking.V1Beta1.IngressList) ? "networking.k8s.io/v1beta1/IngressList" :
                 type == typeof(Node.V1Alpha1.RuntimeClass) ? "node.k8s.io/v1alpha1/RuntimeClass" :
                 type == typeof(Node.V1Alpha1.RuntimeClassList) ? "node.k8s.io/v1alpha1/RuntimeClassList" :
@@ -212,6 +214,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Scheduling.V1Beta1.PriorityClassList) ? "scheduling.k8s.io/v1beta1/PriorityClassList" :
                 type == typeof(Settings.V1Alpha1.PodPreset) ? "settings.k8s.io/v1alpha1/PodPreset" :
                 type == typeof(Settings.V1Alpha1.PodPresetList) ? "settings.k8s.io/v1alpha1/PodPresetList" :
+                type == typeof(Storage.V1.CSIDriver) ? "storage.k8s.io/v1/CSIDriver" :
+                type == typeof(Storage.V1.CSIDriverList) ? "storage.k8s.io/v1/CSIDriverList" :
                 type == typeof(Storage.V1.CSINode) ? "storage.k8s.io/v1/CSINode" :
                 type == typeof(Storage.V1.CSINodeList) ? "storage.k8s.io/v1/CSINodeList" :
                 type == typeof(Storage.V1.StorageClass) ? "storage.k8s.io/v1/StorageClass" :
@@ -455,6 +459,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && kind == "FlowSchemaList"
                 || apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && kind == "PriorityLevelConfigurationList"
                 || apiVersion == "networking.k8s.io/v1" && kind == "NetworkPolicyList"
+                || apiVersion == "networking.k8s.io/v1beta1" && kind == "IngressClassList"
                 || apiVersion == "networking.k8s.io/v1beta1" && kind == "IngressList"
                 || apiVersion == "node.k8s.io/v1alpha1" && kind == "RuntimeClassList"
                 || apiVersion == "node.k8s.io/v1beta1" && kind == "RuntimeClassList"
@@ -476,6 +481,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || apiVersion == "scheduling.k8s.io/v1alpha1" && kind == "PriorityClassList"
                 || apiVersion == "scheduling.k8s.io/v1beta1" && kind == "PriorityClassList"
                 || apiVersion == "settings.k8s.io/v1alpha1" && kind == "PodPresetList"
+                || apiVersion == "storage.k8s.io/v1" && kind == "CSIDriverList"
                 || apiVersion == "storage.k8s.io/v1" && kind == "CSINodeList"
                 || apiVersion == "storage.k8s.io/v1" && kind == "StorageClassList"
                 || apiVersion == "storage.k8s.io/v1" && kind == "VolumeAttachmentList"
@@ -1291,6 +1297,18 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"networking.k8s.io/v1beta1/Ingress::{id}",
                                 new Networking.V1Beta1.Ingress(id, obj!, opts) as KubernetesResource))
                         };
+                    case "networking.k8s.io/v1beta1/IngressClass":
+                        return new[]
+                        {
+                            id.Apply(id => ($"networking.k8s.io/v1beta1/IngressClass::{id}",
+                                new Networking.V1Beta1.IngressClass(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "networking.k8s.io/v1beta1/IngressClassList":
+                        return new[]
+                        {
+                            id.Apply(id => ($"networking.k8s.io/v1beta1/IngressClassList::{id}",
+                                new Networking.V1Beta1.IngressClassList(id, obj!, opts) as KubernetesResource))
+                        };
                     case "networking.k8s.io/v1beta1/IngressList":
                         return new[]
                         {
@@ -1536,6 +1554,18 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"settings.k8s.io/v1alpha1/PodPresetList::{id}",
                                 new Settings.V1Alpha1.PodPresetList(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "storage.k8s.io/v1/CSIDriver":
+                        return new[]
+                        {
+                            id.Apply(id => ($"storage.k8s.io/v1/CSIDriver::{id}",
+                                new Storage.V1.CSIDriver(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "storage.k8s.io/v1/CSIDriverList":
+                        return new[]
+                        {
+                            id.Apply(id => ($"storage.k8s.io/v1/CSIDriverList::{id}",
+                                new Storage.V1.CSIDriverList(id, obj!, opts) as KubernetesResource))
                         };
                     case "storage.k8s.io/v1/CSINode":
                         return new[]

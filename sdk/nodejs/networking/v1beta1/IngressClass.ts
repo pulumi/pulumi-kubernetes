@@ -8,22 +8,20 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * CSIDriver captures information about a Container Storage Interface (CSI) volume driver
-     * deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
-     * Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI
-     * driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach
-     * detach controller uses this object to determine whether attach is required. Kubelet uses this
-     * object to determine whether pod information needs to be passed on mount. CSIDriver objects
-     * are non-namespaced.
+     * IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The
+     * `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an
+     * IngressClass should be considered default. When a single IngressClass resource has this
+     * annotation set to true, new Ingress resources without a class specified will be assigned this
+     * default class.
      */
-    export class CSIDriver extends pulumi.CustomResource {
+    export class IngressClass extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1beta1">;
+      public readonly apiVersion: pulumi.Output<"networking.k8s.io/v1beta1">;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -31,25 +29,22 @@ import { getVersion } from "../../version";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"CSIDriver">;
+      public readonly kind: pulumi.Output<"IngressClass">;
 
       /**
-       * Standard object metadata. metadata.Name indicates the name of the CSI driver that this
-       * object refers to; it MUST be the same name returned by the CSI GetPluginName() call for
-       * that driver. The driver name must be 63 characters or less, beginning and ending with an
-       * alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between.
-       * More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
-       * Specification of the CSI Driver.
+       * Spec is the desired state of the IngressClass. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<outputs.storage.v1beta1.CSIDriverSpec>;
+      public readonly spec: pulumi.Output<outputs.networking.v1beta1.IngressClassSpec>;
 
       /**
-       * Get the state of an existing `CSIDriver` resource, as identified by `id`.
+       * Get the state of an existing `IngressClass` resource, as identified by `id`.
        * The ID is of the form `[namespace]/<name>`; if `namespace` is omitted, then (per
        * Kubernetes convention) the ID becomes `default/<name>`.
        *
@@ -59,39 +54,39 @@ import { getVersion } from "../../version";
        * @param id An ID for the Kubernetes resource to retrieve. Takes the form `[namespace]/<name>`.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CSIDriver {
-          return new CSIDriver(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): IngressClass {
+          return new IngressClass(name, undefined, { ...opts, id: id });
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:CSIDriver";
+      private static readonly __pulumiType = "kubernetes:networking.k8s.io/v1beta1:IngressClass";
 
       /**
-       * Returns true if the given object is an instance of CSIDriver.  This is designed to work even
+       * Returns true if the given object is an instance of IngressClass.  This is designed to work even
        * when multiple copies of the Pulumi SDK have been loaded into the same process.
        */
-      public static isInstance(obj: any): obj is CSIDriver {
+      public static isInstance(obj: any): obj is IngressClass {
           if (obj === undefined || obj === null) {
               return false;
           }
 
-          return obj["__pulumiType"] === CSIDriver.__pulumiType;
+          return obj["__pulumiType"] === IngressClass.__pulumiType;
       }
 
       /**
-       * Create a storage.v1beta1.CSIDriver resource with the given unique name, arguments, and options.
+       * Create a networking.v1beta1.IngressClass resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.storage.v1beta1.CSIDriver, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.networking.v1beta1.IngressClass, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["spec"] = args?.spec;
 
-          props["apiVersion"] = "storage.k8s.io/v1beta1";
-          props["kind"] = "CSIDriver";
+          props["apiVersion"] = "networking.k8s.io/v1beta1";
+          props["kind"] = "IngressClass";
           props["metadata"] = args?.metadata;
+          props["spec"] = args?.spec;
 
           props["status"] = undefined;
 
@@ -103,11 +98,6 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          opts = pulumi.mergeOptions(opts, {
-              aliases: [
-                  { type: "kubernetes:storage.k8s.io/v1:CSIDriver" },
-              ],
-          });
-          super(CSIDriver.__pulumiType, name, props, opts);
+          super(IngressClass.__pulumiType, name, props, opts);
       }
     }

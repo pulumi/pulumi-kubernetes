@@ -9,12 +9,9 @@ import { getVersion } from "../../version";
 
     /**
      * CSIDriver captures information about a Container Storage Interface (CSI) volume driver
-     * deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
-     * Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI
-     * driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach
-     * detach controller uses this object to determine whether attach is required. Kubelet uses this
-     * object to determine whether pod information needs to be passed on mount. CSIDriver objects
-     * are non-namespaced.
+     * deployed on the cluster. Kubernetes attach detach controller uses this object to determine
+     * whether attach is required. Kubelet uses this object to determine whether pod information
+     * needs to be passed on mount. CSIDriver objects are non-namespaced.
      */
     export class CSIDriver extends pulumi.CustomResource {
       /**
@@ -23,7 +20,7 @@ import { getVersion } from "../../version";
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1beta1">;
+      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1">;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -46,7 +43,7 @@ import { getVersion } from "../../version";
       /**
        * Specification of the CSI Driver.
        */
-      public readonly spec: pulumi.Output<outputs.storage.v1beta1.CSIDriverSpec>;
+      public readonly spec: pulumi.Output<outputs.storage.v1.CSIDriverSpec>;
 
       /**
        * Get the state of an existing `CSIDriver` resource, as identified by `id`.
@@ -64,7 +61,7 @@ import { getVersion } from "../../version";
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:CSIDriver";
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1:CSIDriver";
 
       /**
        * Returns true if the given object is an instance of CSIDriver.  This is designed to work even
@@ -79,17 +76,17 @@ import { getVersion } from "../../version";
       }
 
       /**
-       * Create a storage.v1beta1.CSIDriver resource with the given unique name, arguments, and options.
+       * Create a storage.v1.CSIDriver resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.storage.v1beta1.CSIDriver, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.storage.v1.CSIDriver, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
           props["spec"] = args?.spec;
 
-          props["apiVersion"] = "storage.k8s.io/v1beta1";
+          props["apiVersion"] = "storage.k8s.io/v1";
           props["kind"] = "CSIDriver";
           props["metadata"] = args?.metadata;
 
@@ -105,7 +102,7 @@ import { getVersion } from "../../version";
 
           opts = pulumi.mergeOptions(opts, {
               aliases: [
-                  { type: "kubernetes:storage.k8s.io/v1:CSIDriver" },
+                  { type: "kubernetes:storage.k8s.io/v1beta1:CSIDriver" },
               ],
           });
           super(CSIDriver.__pulumiType, name, props, opts);

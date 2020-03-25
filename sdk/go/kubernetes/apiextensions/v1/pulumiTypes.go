@@ -1844,6 +1844,8 @@ type JSONSchemaProps struct {
 	// x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 	//
 	// This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+	//
+	// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 	X_kubernetes_list_map_keys []string `pulumi:"x_kubernetes_list_map_keys"`
 	// x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 	//
@@ -1939,6 +1941,8 @@ type JSONSchemaPropsArgs struct {
 	// x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 	//
 	// This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+	//
+	// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 	X_kubernetes_list_map_keys pulumi.StringArrayInput `pulumi:"x_kubernetes_list_map_keys"`
 	// x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 	//
@@ -2253,6 +2257,8 @@ func (o JSONSchemaPropsOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOutput
 // x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 //
 // This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+//
+// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 func (o JSONSchemaPropsOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v JSONSchemaProps) []string { return v.X_kubernetes_list_map_keys }).(pulumi.StringArrayOutput)
 }
@@ -2484,6 +2490,8 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOut
 // x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 //
 // This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+//
+// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v JSONSchemaProps) []string { return v.X_kubernetes_list_map_keys }).(pulumi.StringArrayOutput)
 }

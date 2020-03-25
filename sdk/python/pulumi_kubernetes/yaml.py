@@ -970,6 +970,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1beta1/Ingress:{x}",
                        Ingress(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1beta1/IngressClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1beta1 import IngressClass
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1beta1/IngressClass:{x}",
+                       IngressClass(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1beta1/IngressClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1beta1 import IngressClassList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1beta1/IngressClassList:{x}",
+                       IngressClassList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/IngressList":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.networking.v1beta1 import IngressList
@@ -1216,6 +1228,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"settings.k8s.io/v1alpha1/PodPresetList:{x}",
                        PodPresetList(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1/CSIDriver":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import CSIDriver
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1/CSIDriver:{x}",
+                       CSIDriver(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1/CSIDriverList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import CSIDriverList
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1/CSIDriverList:{x}",
+                       CSIDriverList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1/CSINode":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.storage.v1 import CSINode
