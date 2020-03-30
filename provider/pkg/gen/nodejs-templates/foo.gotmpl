@@ -1,0 +1,9 @@
+{{range $key, $value := .Resources}}
+    case "{{toURN $key}}":
+                return [id.apply(id => ({
+                    name: `{{toURN $key}}::${id}`,
+                    resource: new k8s.{{index .Properties.apiVersion.Default}}.{{.Properties.kind.Default}}(id, obj, opts),
+                    resource: new k8s.admissionregistration.v1beta1.MutatingWebhookConfigurationList(id, obj, opts),
+                }))];
+   {{ $key }}
+{{end}}

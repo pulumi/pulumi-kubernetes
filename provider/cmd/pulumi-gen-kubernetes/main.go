@@ -24,6 +24,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 	"sort"
 	"text/template"
 
@@ -405,10 +406,39 @@ func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
 
 func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	pkgSpec := gen.PulumiSchema(data)
-	pkg, err := schema.ImportSpec(pkgSpec, nil)
+
+	b, err := ioutil.ReadFile("/Users/levi/go/src/github.com/pulumi/pulumi-kubernetes/pkg/gen/nodejs-templates/foo.gotmpl")
 	if err != nil {
 		panic(err)
 	}
+	funcMap := template.FuncMap{
+		"toURN": func(s string) string {
+			return strings.Replace(s, ":", "/", -1)
+		},
+		"moduleToPackage": func(s string) string {
+			// TODO: figure out how to replace the apiVersion with the package path
+			return strings.Replace(s, ":", "/", -1)
+		},
+		"replace": strings.Replace,
+	}
+	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
+
+	// Execute the template for each recipient.
+	err = t.Execute(os.Stdout, pkgSpec)
+	if err != nil {
+		panic(err)
+	}
+
+
+	pkg, err := schema.ImportSpec(pkgSpec)
+	if err != nil {
+		panic(err)
+	}
+	b, err = json.MarshalIndent(pkgSpec, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	ioutil.WriteFile("schema.json", b, 0644)
 	return pkg
 }
 
