@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go/format"
+	nodejsgen "github.com/pulumi/pulumi/pkg/codegen/nodejs"
 	"io/ioutil"
 	"log"
 	"os"
@@ -95,98 +96,126 @@ func main() {
 }
 
 func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
-	inputAPIts, ouputAPIts, indexts, yamlts, packagejson, groupsts, err := gen.NodeJSClient(
-		data, templateDir)
+	pkgSpec := gen.PulumiSchema(data)
+	pkg, err := schema.ImportSpec(pkgSpec)
 	if err != nil {
 		panic(err)
 	}
 
-	err = os.MkdirAll(outdir, 0700)
+	// TODO: generate overlay files
+
+	foo := `Testing file overlays
+1
+2
+3`
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, map[string][]byte{"foo": []byte(foo)})
 	if err != nil {
 		panic(err)
 	}
+	for filename, contents := range files {
+		path := filepath.Join(outdir, filename)
 
-	typesDir := fmt.Sprintf("%s/types", outdir)
-	err = os.MkdirAll(typesDir, 0700)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/input.ts", typesDir), []byte(inputAPIts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/output.ts", typesDir), []byte(ouputAPIts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/yaml/yaml.ts", outdir), []byte(yamlts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	for groupName, group := range groupsts {
-		groupDir := fmt.Sprintf("%s/%s", outdir, groupName)
-		err = os.MkdirAll(groupDir, 0700)
-		if err != nil {
+		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
 			panic(err)
 		}
-
-		for versionName, version := range group.Versions {
-			versionDir := fmt.Sprintf("%s/%s", groupDir, versionName)
-			err = os.MkdirAll(versionDir, 0700)
-			if err != nil {
-				panic(err)
-			}
-
-			for kindName, kind := range version.Kinds {
-				err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, kindName), []byte(kind), 0777)
-				if err != nil {
-					panic(err)
-				}
-			}
-
-			err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, "index"), []byte(version.Index), 0777)
-			if err != nil {
-				panic(err)
-			}
-		}
-
-		err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", groupDir, "index"), []byte(group.Index), 0777)
+		err := ioutil.WriteFile(path, contents, 0644)
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/index.ts", outdir), []byte(indexts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/package.json", outdir), []byte(packagejson), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyFile(
-		filepath.Join(templateDir, "CustomResource.ts"), filepath.Join(outdir, "apiextensions", "CustomResource.ts"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(outdir, "helm"))
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%s/package.json\n", outdir)
-	fmt.Println(err)
+	//inputAPIts, ouputAPIts, indexts, yamlts, packagejson, groupsts, err := gen.NodeJSClient(
+	//	data, templateDir)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = os.MkdirAll(outdir, 0700)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//typesDir := fmt.Sprintf("%s/types", outdir)
+	//err = os.MkdirAll(typesDir, 0700)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = ioutil.WriteFile(fmt.Sprintf("%s/input.ts", typesDir), []byte(inputAPIts), 0777)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = ioutil.WriteFile(fmt.Sprintf("%s/output.ts", typesDir), []byte(ouputAPIts), 0777)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = ioutil.WriteFile(fmt.Sprintf("%s/yaml/yaml.ts", outdir), []byte(yamlts), 0777)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//for groupName, group := range groupsts {
+	//	groupDir := fmt.Sprintf("%s/%s", outdir, groupName)
+	//	err = os.MkdirAll(groupDir, 0700)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//
+	//	for versionName, version := range group.Versions {
+	//		versionDir := fmt.Sprintf("%s/%s", groupDir, versionName)
+	//		err = os.MkdirAll(versionDir, 0700)
+	//		if err != nil {
+	//			panic(err)
+	//		}
+	//
+	//		for kindName, kind := range version.Kinds {
+	//			err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, kindName), []byte(kind), 0777)
+	//			if err != nil {
+	//				panic(err)
+	//			}
+	//		}
+	//
+	//		err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, "index"), []byte(version.Index), 0777)
+	//		if err != nil {
+	//			panic(err)
+	//		}
+	//	}
+	//
+	//	err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", groupDir, "index"), []byte(group.Index), 0777)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//}
+	//
+	//err = ioutil.WriteFile(fmt.Sprintf("%s/index.ts", outdir), []byte(indexts), 0777)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = ioutil.WriteFile(fmt.Sprintf("%s/package.json", outdir), []byte(packagejson), 0777)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = CopyFile(
+	//	filepath.Join(templateDir, "CustomResource.ts"), filepath.Join(outdir, "apiextensions", "CustomResource.ts"))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(outdir, "helm"))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//fmt.Printf("%s/package.json\n", outdir)
+	//fmt.Println(err)
 }
 
 func writePythonClient(data map[string]interface{}, outdir, templateDir string) {
