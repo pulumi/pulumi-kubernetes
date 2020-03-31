@@ -1876,6 +1876,28 @@ export namespace apps {
 
         /**
          * Deployment enables declarative updates for Pods and ReplicaSets.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The Deployment has begun to be updated by the Deployment controller. If the current
+         *    generation of the Deployment is > 1, then this means that the current generation must
+         *    be different from the generation reported by the last outputs.
+         * 2. There exists a ReplicaSet whose revision is equal to the current revision of the
+         *    Deployment.
+         * 3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+         *    member is set to 'True'.
+         * 4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+         *    'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+         *    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+         *    because it doesn't do a rollout (i.e., it simply creates the Deployment and
+         *    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+         *
+         * If the Deployment has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Deployment {
             /**
@@ -2163,6 +2185,19 @@ export namespace apps {
          *  - Network: A single stable DNS and hostname.
          *  - Storage: As many VolumeClaims as requested.
          * The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+         *    and '.status.readyReplicas'.
+         * 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+         *
+         * If the StatefulSet has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface StatefulSet {
             /**
@@ -2334,6 +2369,28 @@ export namespace apps {
 
         /**
          * Deployment enables declarative updates for Pods and ReplicaSets.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The Deployment has begun to be updated by the Deployment controller. If the current
+         *    generation of the Deployment is > 1, then this means that the current generation must
+         *    be different from the generation reported by the last outputs.
+         * 2. There exists a ReplicaSet whose revision is equal to the current revision of the
+         *    Deployment.
+         * 3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+         *    member is set to 'True'.
+         * 4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+         *    'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+         *    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+         *    because it doesn't do a rollout (i.e., it simply creates the Deployment and
+         *    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+         *
+         * If the Deployment has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Deployment {
             /**
@@ -2521,6 +2578,19 @@ export namespace apps {
          *  - Network: A single stable DNS and hostname.
          *  - Storage: As many VolumeClaims as requested.
          * The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+         *    and '.status.readyReplicas'.
+         * 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+         *
+         * If the StatefulSet has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface StatefulSet {
             /**
@@ -2830,6 +2900,28 @@ export namespace apps {
 
         /**
          * Deployment enables declarative updates for Pods and ReplicaSets.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The Deployment has begun to be updated by the Deployment controller. If the current
+         *    generation of the Deployment is > 1, then this means that the current generation must
+         *    be different from the generation reported by the last outputs.
+         * 2. There exists a ReplicaSet whose revision is equal to the current revision of the
+         *    Deployment.
+         * 3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+         *    member is set to 'True'.
+         * 4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+         *    'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+         *    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+         *    because it doesn't do a rollout (i.e., it simply creates the Deployment and
+         *    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+         *
+         * If the Deployment has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Deployment {
             /**
@@ -3117,6 +3209,19 @@ export namespace apps {
          *  - Network: A single stable DNS and hostname.
          *  - Storage: As many VolumeClaims as requested.
          * The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+         *    and '.status.readyReplicas'.
+         * 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+         *
+         * If the StatefulSet has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface StatefulSet {
             /**
@@ -4467,6 +4572,21 @@ export namespace batch {
     export namespace v1 {
         /**
          * Job represents the configuration of a single job.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+         * 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+         *    to 'True'.
+         * 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+         * 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+         *
+         * If the Job has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Job {
             /**
@@ -7395,6 +7515,21 @@ export namespace core {
 
         /**
          * Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+         * 2. The Pod is initialized ("Initialized" '.status.condition' is true).
+         * 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+         *    set to "Running".
+         * Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+         *
+         * If the Pod has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Pod {
             /**
@@ -8355,6 +8490,16 @@ export namespace core {
 
         /**
          * Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
+         *
+         * Note: While Pulumi automatically encrypts the 'data' and 'stringData'
+         * fields, this encryption only applies to Pulumi's context, including the state file, 
+         * the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
+         * and the contents are visible to users with access to the Secret in Kubernetes using
+         * tools like 'kubectl'.
+         *
+         * For more information on securing Kubernetes Secrets, see the following links:
+         * https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
+         * https://kubernetes.io/docs/concepts/configuration/secret/#risks
          */
         export interface Secret {
             /**
@@ -8523,6 +8668,31 @@ export namespace core {
 
         /**
          * Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. Service object exists.
+         * 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+         *    for any stragglers.
+         * 3. The endpoints objects target some number of living objects (unless the Service is
+         *    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+         * 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+         *
+         * Known limitations: 
+         * Services targeting ReplicaSets (and, by extension, Deployments,
+         * StatefulSets, etc.) with '.spec.replicas' set to 0 are not handled, and will time
+         * out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
+         * '.metadata.annotations' for the Service. Work to handle this case is in progress [2].
+         *
+         * [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+         * [2] https://github.com/pulumi/pulumi-kubernetes/pull/703
+         *
+         * If the Service has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Service {
             /**
@@ -9527,6 +9697,28 @@ export namespace extensions {
 
         /**
          * Deployment enables declarative updates for Pods and ReplicaSets.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1. The Deployment has begun to be updated by the Deployment controller. If the current
+         *    generation of the Deployment is > 1, then this means that the current generation must
+         *    be different from the generation reported by the last outputs.
+         * 2. There exists a ReplicaSet whose revision is equal to the current revision of the
+         *    Deployment.
+         * 3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+         *    member is set to 'True'.
+         * 4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+         *    'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+         *    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+         *    because it doesn't do a rollout (i.e., it simply creates the Deployment and
+         *    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+         *
+         * If the Deployment has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Deployment {
             /**
@@ -9757,6 +9949,20 @@ export namespace extensions {
 
         /**
          * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1.  Ingress object exists.
+         * 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+         *     type is ExternalName).
+         * 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+         *
+         * If the Ingress has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Ingress {
             /**
@@ -11060,6 +11266,20 @@ export namespace networking.k8s.io {
 
         /**
          * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1.  Ingress object exists.
+         * 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+         *     type is ExternalName).
+         * 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+         *
+         * If the Ingress has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
          */
         export interface Ingress {
             /**

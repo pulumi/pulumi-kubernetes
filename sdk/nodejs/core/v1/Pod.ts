@@ -8,6 +8,21 @@ import * as utilities from "../../utilities";
 
 /**
  * Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+ *
+ * This resource waits until its status is ready before registering success
+ * for create/update, and populating output properties from the current state of the resource.
+ * The following conditions are used to determine whether the resource creation has
+ * succeeded or failed:
+ *
+ * 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+ * 2. The Pod is initialized ("Initialized" '.status.condition' is true).
+ * 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+ *    set to "Running".
+ * Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+ *
+ * If the Pod has not reached a Ready state after 10 minutes, it will
+ * time out and mark the resource update as Failed. You can override the default timeout value
+ * by setting the 'customTimeouts' option on the resource.
  */
 export class Pod extends pulumi.CustomResource {
     /**

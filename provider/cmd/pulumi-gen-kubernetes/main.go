@@ -108,7 +108,8 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 1
 2
 3`
-	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, map[string][]byte{"foo": []byte(foo)})
+	overlays := map[string][]byte{"foo": []byte(foo)}
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
 	}

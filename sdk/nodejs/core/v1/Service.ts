@@ -8,6 +8,31 @@ import * as utilities from "../../utilities";
 
 /**
  * Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+ *
+ * This resource waits until its status is ready before registering success
+ * for create/update, and populating output properties from the current state of the resource.
+ * The following conditions are used to determine whether the resource creation has
+ * succeeded or failed:
+ *
+ * 1. Service object exists.
+ * 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+ *    for any stragglers.
+ * 3. The endpoints objects target some number of living objects (unless the Service is
+ *    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+ * 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+ *
+ * Known limitations: 
+ * Services targeting ReplicaSets (and, by extension, Deployments,
+ * StatefulSets, etc.) with '.spec.replicas' set to 0 are not handled, and will time
+ * out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
+ * '.metadata.annotations' for the Service. Work to handle this case is in progress [2].
+ *
+ * [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+ * [2] https://github.com/pulumi/pulumi-kubernetes/pull/703
+ *
+ * If the Service has not reached a Ready state after 10 minutes, it will
+ * time out and mark the resource update as Failed. You can override the default timeout value
+ * by setting the 'customTimeouts' option on the resource.
  */
 export class Service extends pulumi.CustomResource {
     /**
