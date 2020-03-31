@@ -97,8 +97,8 @@ generate_schema:: $(OPENAPI_FILE)
 	$(call STEP_MESSAGE)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
 	echo "Generating Pulumi schema..."
-	$(CODEGEN) schema $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PROJECT)/cmd/$(CODEGEN)
-	echo "Finished generating schema to $(PROJECT)/cmd/$(CODEGEN)/schema.json."
+	$(CODEGEN) schema $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates ./cmd/$(CODEGEN)
+	echo "Finished generating schema."
 
 .PHONY: publish_tgz
 publish_tgz:
