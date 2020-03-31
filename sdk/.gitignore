@@ -1,2 +1,3 @@
 README.md
 go/kubernetes/**/pulumiManifest.go
+schema/

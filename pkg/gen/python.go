@@ -29,7 +29,7 @@ import (
 
 // --------------------------------------------------------------------------
 
-// PythonClient will generate a Pulumi Kubernetes provider client SDK for nodejs.
+// PythonClient will generate a Pulumi Kubernetes provider client SDK for Python.
 func PythonClient(
 	swagger map[string]interface{},
 	templateDir string,

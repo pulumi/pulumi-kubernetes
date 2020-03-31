@@ -15,13 +15,19 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
-	"github.com/pulumi/pulumi/pkg/codegen/schema"
 	"io/ioutil"
 	"log"
 	"os"
+	"path"
 	"path/filepath"
+
+	"github.com/pkg/errors"
+	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
+	"github.com/pulumi/pulumi/pkg/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/go/common/tools"
+	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
 )
@@ -74,6 +80,10 @@ func main() {
 		writeDotnetClient(data, outdir, templateDir)
 	case "go":
 		writeGoClient(data, outdir)
+	case "schema":
+		if err := writePulumiSchema(data, outdir); err != nil {
+			panic(err)
+		}
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -313,7 +323,7 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 }
 
 func writeGoClient(data map[string]interface{}, outdir string) {
-	pkg := writePulumiSchema(data)
+	pkg := genPulumiSchemaPackage(data)
 	files, err := gogen.GeneratePackage("pulumigen", pkg)
 	if err != nil {
 		panic(err)
@@ -331,11 +341,40 @@ func writeGoClient(data map[string]interface{}, outdir string) {
 	}
 }
 
-func writePulumiSchema(data map[string]interface{}) *schema.Package {
+func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	pkgSpec := gen.PulumiSchema(data)
 	pkg, err := schema.ImportSpec(pkgSpec)
 	if err != nil {
 		panic(err)
 	}
 	return pkg
+}
+
+func writePulumiSchema(data map[string]interface{}, outDir string) error {
+	pkgSpec := gen.PulumiSchema(data)
+	schema, err := json.MarshalIndent(pkgSpec, "", "    ")
+	if err != nil {
+		return errors.Wrap(err, "marshaling Pulumi schema")
+	}
+
+	if err := emitFile(outDir, "schema.json", schema); err != nil {
+		return errors.Wrap(err, "emitting schema.json")
+	}
+	return nil
+}
+
+func emitFile(outDir, relPath string, contents []byte) error {
+	p := path.Join(outDir, relPath)
+	if err := tools.EnsureDir(path.Dir(p)); err != nil {
+		return errors.Wrap(err, "creating directory")
+	}
+
+	f, err := os.Create(p)
+	if err != nil {
+		return errors.Wrap(err, "creating file")
+	}
+	defer contract.IgnoreClose(f)
+
+	_, err = f.Write(contents)
+	return err
 }
