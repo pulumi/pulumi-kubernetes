@@ -5,8 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
-import {JSONSchemaPropsOrStringArray} from "../apiextensions.k8s.io/v1";
-import {JSONSchemaPropsOrStringArray} from "../apiextensions.k8s.io/v1beta1";
+import {JSONSchemaPropsOrStringArray} from "../apiextensions/v1";
+import {JSONSchemaPropsOrStringArray} from "../apiextensions/v1beta1";
 
 export namespace admissionregistration.k8s.io {
     export namespace v1 {
