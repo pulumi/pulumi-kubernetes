@@ -20,7 +20,7 @@ export class CSINode extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CSINode {
         pulumi.log.warn("CSINode is deprecated: storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.")
-        return new CSINode(name, undefined{ ...opts, id: id });
+        return new CSINode(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

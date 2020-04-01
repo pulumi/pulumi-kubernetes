@@ -19,7 +19,7 @@ export class PriorityLevelConfigurationList extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PriorityLevelConfigurationList {
-        return new PriorityLevelConfigurationList(name, undefined{ ...opts, id: id });
+        return new PriorityLevelConfigurationList(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

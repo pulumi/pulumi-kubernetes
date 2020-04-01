@@ -34,7 +34,7 @@ export class Ingress extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Ingress {
         pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
-        return new Ingress(name, undefined{ ...opts, id: id });
+        return new Ingress(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

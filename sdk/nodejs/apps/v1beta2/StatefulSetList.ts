@@ -19,7 +19,7 @@ export class StatefulSetList extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSetList {
-        return new StatefulSetList(name, undefined{ ...opts, id: id });
+        return new StatefulSetList(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

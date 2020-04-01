@@ -19,7 +19,7 @@ export class AuditSinkList extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): AuditSinkList {
-        return new AuditSinkList(name, undefined{ ...opts, id: id });
+        return new AuditSinkList(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

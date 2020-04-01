@@ -20,7 +20,7 @@ export class DaemonSet extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSet {
         pulumi.log.warn("DaemonSet is deprecated: apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.")
-        return new DaemonSet(name, undefined{ ...opts, id: id });
+        return new DaemonSet(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

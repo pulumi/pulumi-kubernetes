@@ -20,7 +20,7 @@ export class ControllerRevision extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ControllerRevision {
         pulumi.log.warn("ControllerRevision is deprecated: apps/v1beta1/ControllerRevision is deprecated by apps/v1/ControllerRevision and not supported by Kubernetes v1.16+ clusters.")
-        return new ControllerRevision(name, undefined{ ...opts, id: id });
+        return new ControllerRevision(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

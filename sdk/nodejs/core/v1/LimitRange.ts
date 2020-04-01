@@ -19,7 +19,7 @@ export class LimitRange extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): LimitRange {
-        return new LimitRange(name, undefined{ ...opts, id: id });
+        return new LimitRange(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

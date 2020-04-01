@@ -19,7 +19,7 @@ export class SubjectAccessReview extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SubjectAccessReview {
-        return new SubjectAccessReview(name, undefined{ ...opts, id: id });
+        return new SubjectAccessReview(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

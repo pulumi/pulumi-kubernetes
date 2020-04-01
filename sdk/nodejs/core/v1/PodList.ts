@@ -19,7 +19,7 @@ export class PodList extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodList {
-        return new PodList(name, undefined{ ...opts, id: id });
+        return new PodList(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

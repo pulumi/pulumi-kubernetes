@@ -19,7 +19,7 @@ export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ValidatingWebhookConfiguration {
-        return new ValidatingWebhookConfiguration(name, undefined{ ...opts, id: id });
+        return new ValidatingWebhookConfiguration(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

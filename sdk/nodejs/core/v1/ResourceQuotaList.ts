@@ -19,7 +19,7 @@ export class ResourceQuotaList extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ResourceQuotaList {
-        return new ResourceQuotaList(name, undefined{ ...opts, id: id });
+        return new ResourceQuotaList(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

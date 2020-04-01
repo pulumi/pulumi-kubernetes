@@ -42,7 +42,7 @@ export class Deployment extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Deployment {
         pulumi.log.warn("Deployment is deprecated: apps/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.")
-        return new Deployment(name, undefined{ ...opts, id: id });
+        return new Deployment(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

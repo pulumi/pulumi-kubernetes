@@ -19,7 +19,7 @@ export class PersistentVolumeClaim extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PersistentVolumeClaim {
-        return new PersistentVolumeClaim(name, undefined{ ...opts, id: id });
+        return new PersistentVolumeClaim(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

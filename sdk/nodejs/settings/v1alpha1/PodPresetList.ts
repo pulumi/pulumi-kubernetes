@@ -19,7 +19,7 @@ export class PodPresetList extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodPresetList {
-        return new PodPresetList(name, undefined{ ...opts, id: id });
+        return new PodPresetList(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

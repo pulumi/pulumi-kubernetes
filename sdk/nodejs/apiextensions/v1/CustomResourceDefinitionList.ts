@@ -19,7 +19,7 @@ export class CustomResourceDefinitionList extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CustomResourceDefinitionList {
-        return new CustomResourceDefinitionList(name, undefined{ ...opts, id: id });
+        return new CustomResourceDefinitionList(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

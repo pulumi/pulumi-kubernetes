@@ -19,7 +19,7 @@ export class Namespace extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Namespace {
-        return new Namespace(name, undefined{ ...opts, id: id });
+        return new Namespace(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */

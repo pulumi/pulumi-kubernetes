@@ -34,7 +34,7 @@ export class Job extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Job {
-        return new Job(name, undefined{ ...opts, id: id });
+        return new Job(name, undefined, { ...opts, id: id });
     }
 
     /** @internal */
