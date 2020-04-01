@@ -72,31 +72,18 @@ export class PriorityClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: PriorityClassArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: PriorityClassArgs | PriorityClassState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: PriorityClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as PriorityClassState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["description"] = state ? state.description : undefined;
-            inputs["globalDefault"] = state ? state.globalDefault : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["preemptionPolicy"] = state ? state.preemptionPolicy : undefined;
-            inputs["value"] = state ? state.value : undefined;
-        } else {
-            const args = argsOrState as PriorityClassArgs | undefined;
             if (!args || args.value === undefined) {
                 throw new Error("Missing required property 'value'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "scheduling.k8s.io/v1alpha1";
-            inputs["description"] = args ? args.description : undefined;
-            inputs["globalDefault"] = args ? args.globalDefault : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "PriorityClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["preemptionPolicy"] = args ? args.preemptionPolicy : undefined;
-            inputs["value"] = args ? args.value : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "scheduling.k8s.io/v1alpha1";
+        inputs["description"] = args ? args.description : undefined;
+        inputs["globalDefault"] = args ? args.globalDefault : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "PriorityClass";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["preemptionPolicy"] = args ? args.preemptionPolicy : undefined;
+        inputs["value"] = args ? args.value : undefined;
         if (!opts) {
             opts = {}
         }

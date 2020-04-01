@@ -86,37 +86,21 @@ export class StorageClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: StorageClassArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: StorageClassArgs | StorageClassState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: StorageClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as StorageClassState | undefined;
-            inputs["allowVolumeExpansion"] = state ? state.allowVolumeExpansion : undefined;
-            inputs["allowedTopologies"] = state ? state.allowedTopologies : undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["mountOptions"] = state ? state.mountOptions : undefined;
-            inputs["parameters"] = state ? state.parameters : undefined;
-            inputs["provisioner"] = state ? state.provisioner : undefined;
-            inputs["reclaimPolicy"] = state ? state.reclaimPolicy : undefined;
-            inputs["volumeBindingMode"] = state ? state.volumeBindingMode : undefined;
-        } else {
-            const args = argsOrState as StorageClassArgs | undefined;
             if (!args || args.provisioner === undefined) {
                 throw new Error("Missing required property 'provisioner'");
             }
-            inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
-            inputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "StorageClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["mountOptions"] = args ? args.mountOptions : undefined;
-            inputs["parameters"] = args ? args.parameters : undefined;
-            inputs["provisioner"] = args ? args.provisioner : undefined;
-            inputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
-            inputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
-        }
+        inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
+        inputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "StorageClass";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["mountOptions"] = args ? args.mountOptions : undefined;
+        inputs["parameters"] = args ? args.parameters : undefined;
+        inputs["provisioner"] = args ? args.provisioner : undefined;
+        inputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
+        inputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
         if (!opts) {
             opts = {}
         }

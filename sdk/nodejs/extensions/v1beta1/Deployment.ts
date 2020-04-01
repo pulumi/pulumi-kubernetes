@@ -88,26 +88,14 @@ export class Deployment extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions)
-    /** @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, argsOrState?: DeploymentArgs | DeploymentState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("Deployment is deprecated: extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as DeploymentState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-            inputs["status"] = state ? state.status : undefined;
-        } else {
-            const args = argsOrState as DeploymentArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "extensions/v1beta1";
-            inputs["kind"] = (args ? args.kind : undefined) || "Deployment";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "extensions/v1beta1";
+        inputs["kind"] = (args ? args.kind : undefined) || "Deployment";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
+        inputs["status"] = undefined /*out*/;
         if (!opts) {
             opts = {}
         }

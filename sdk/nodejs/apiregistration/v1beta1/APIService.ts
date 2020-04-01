@@ -61,24 +61,13 @@ export class APIService extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: APIServiceArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: APIServiceArgs | APIServiceState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: APIServiceArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as APIServiceState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-            inputs["status"] = state ? state.status : undefined;
-        } else {
-            const args = argsOrState as APIServiceArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apiregistration.k8s.io/v1beta1";
-            inputs["kind"] = (args ? args.kind : undefined) || "APIService";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apiregistration.k8s.io/v1beta1";
+        inputs["kind"] = (args ? args.kind : undefined) || "APIService";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
+        inputs["status"] = undefined /*out*/;
         if (!opts) {
             opts = {}
         }

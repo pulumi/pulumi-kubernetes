@@ -60,25 +60,15 @@ export class DeploymentList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: DeploymentListArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: DeploymentListArgs | DeploymentListState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: DeploymentListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as DeploymentListState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["items"] = state ? state.items : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-        } else {
-            const args = argsOrState as DeploymentListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta1";
-            inputs["items"] = args ? args.items : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "DeploymentList";
-            inputs["metadata"] = args ? args.metadata : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta1";
+        inputs["items"] = args ? args.items : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "DeploymentList";
+        inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}
         }

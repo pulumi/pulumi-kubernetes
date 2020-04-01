@@ -57,22 +57,12 @@ export class AuditSink extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: AuditSinkArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: AuditSinkArgs | AuditSinkState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: AuditSinkArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as AuditSinkState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-        } else {
-            const args = argsOrState as AuditSinkArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "auditregistration.k8s.io/v1alpha1";
-            inputs["kind"] = (args ? args.kind : undefined) || "AuditSink";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "auditregistration.k8s.io/v1alpha1";
+        inputs["kind"] = (args ? args.kind : undefined) || "AuditSink";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {
             opts = {}
         }

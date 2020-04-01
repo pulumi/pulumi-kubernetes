@@ -109,51 +109,28 @@ export class Event extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: EventArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: EventArgs | EventState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: EventArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as EventState | undefined;
-            inputs["action"] = state ? state.action : undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["deprecatedCount"] = state ? state.deprecatedCount : undefined;
-            inputs["deprecatedFirstTimestamp"] = state ? state.deprecatedFirstTimestamp : undefined;
-            inputs["deprecatedLastTimestamp"] = state ? state.deprecatedLastTimestamp : undefined;
-            inputs["deprecatedSource"] = state ? state.deprecatedSource : undefined;
-            inputs["eventTime"] = state ? state.eventTime : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["note"] = state ? state.note : undefined;
-            inputs["reason"] = state ? state.reason : undefined;
-            inputs["regarding"] = state ? state.regarding : undefined;
-            inputs["related"] = state ? state.related : undefined;
-            inputs["reportingController"] = state ? state.reportingController : undefined;
-            inputs["reportingInstance"] = state ? state.reportingInstance : undefined;
-            inputs["series"] = state ? state.series : undefined;
-            inputs["type"] = state ? state.type : undefined;
-        } else {
-            const args = argsOrState as EventArgs | undefined;
             if (!args || args.eventTime === undefined) {
                 throw new Error("Missing required property 'eventTime'");
             }
-            inputs["action"] = args ? args.action : undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "events.k8s.io/v1beta1";
-            inputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
-            inputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
-            inputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
-            inputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
-            inputs["eventTime"] = args ? args.eventTime : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "Event";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["note"] = args ? args.note : undefined;
-            inputs["reason"] = args ? args.reason : undefined;
-            inputs["regarding"] = args ? args.regarding : undefined;
-            inputs["related"] = args ? args.related : undefined;
-            inputs["reportingController"] = args ? args.reportingController : undefined;
-            inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
-            inputs["series"] = args ? args.series : undefined;
-            inputs["type"] = args ? args.type : undefined;
-        }
+        inputs["action"] = args ? args.action : undefined;
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "events.k8s.io/v1beta1";
+        inputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
+        inputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
+        inputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
+        inputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
+        inputs["eventTime"] = args ? args.eventTime : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "Event";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["note"] = args ? args.note : undefined;
+        inputs["reason"] = args ? args.reason : undefined;
+        inputs["regarding"] = args ? args.regarding : undefined;
+        inputs["related"] = args ? args.related : undefined;
+        inputs["reportingController"] = args ? args.reportingController : undefined;
+        inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
+        inputs["series"] = args ? args.series : undefined;
+        inputs["type"] = args ? args.type : undefined;
         if (!opts) {
             opts = {}
         }

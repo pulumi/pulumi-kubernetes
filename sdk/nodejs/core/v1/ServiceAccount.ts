@@ -68,26 +68,14 @@ export class ServiceAccount extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ServiceAccountArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ServiceAccountArgs | ServiceAccountState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ServiceAccountArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ServiceAccountState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["automountServiceAccountToken"] = state ? state.automountServiceAccountToken : undefined;
-            inputs["imagePullSecrets"] = state ? state.imagePullSecrets : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["secrets"] = state ? state.secrets : undefined;
-        } else {
-            const args = argsOrState as ServiceAccountArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
-            inputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "ServiceAccount";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["secrets"] = args ? args.secrets : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
+        inputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "ServiceAccount";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["secrets"] = args ? args.secrets : undefined;
         if (!opts) {
             opts = {}
         }

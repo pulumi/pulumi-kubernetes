@@ -60,22 +60,12 @@ export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ValidatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ValidatingWebhookConfigurationArgs | ValidatingWebhookConfigurationState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ValidatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ValidatingWebhookConfigurationState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["webhooks"] = state ? state.webhooks : undefined;
-        } else {
-            const args = argsOrState as ValidatingWebhookConfigurationArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "admissionregistration.k8s.io/v1beta1";
-            inputs["kind"] = (args ? args.kind : undefined) || "ValidatingWebhookConfiguration";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["webhooks"] = args ? args.webhooks : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "admissionregistration.k8s.io/v1beta1";
+        inputs["kind"] = (args ? args.kind : undefined) || "ValidatingWebhookConfiguration";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["webhooks"] = args ? args.webhooks : undefined;
         if (!opts) {
             opts = {}
         }

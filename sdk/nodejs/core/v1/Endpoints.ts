@@ -71,22 +71,12 @@ export class Endpoints extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: EndpointsArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: EndpointsArgs | EndpointsState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: EndpointsArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as EndpointsState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["subsets"] = state ? state.subsets : undefined;
-        } else {
-            const args = argsOrState as EndpointsArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "Endpoints";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["subsets"] = args ? args.subsets : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "Endpoints";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["subsets"] = args ? args.subsets : undefined;
         if (!opts) {
             opts = {}
         }

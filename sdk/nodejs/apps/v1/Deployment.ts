@@ -86,24 +86,13 @@ export class Deployment extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: DeploymentArgs | DeploymentState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as DeploymentState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-            inputs["status"] = state ? state.status : undefined;
-        } else {
-            const args = argsOrState as DeploymentArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "Deployment";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "Deployment";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
+        inputs["status"] = undefined /*out*/;
         if (!opts) {
             opts = {}
         }

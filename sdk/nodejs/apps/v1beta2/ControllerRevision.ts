@@ -66,29 +66,17 @@ export class ControllerRevision extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions)
-    /** @deprecated apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, argsOrState?: ControllerRevisionArgs | ControllerRevisionState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("ControllerRevision is deprecated: apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ControllerRevisionState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["data"] = state ? state.data : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["revision"] = state ? state.revision : undefined;
-        } else {
-            const args = argsOrState as ControllerRevisionArgs | undefined;
             if (!args || args.revision === undefined) {
                 throw new Error("Missing required property 'revision'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
-            inputs["data"] = args ? args.data : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "ControllerRevision";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["revision"] = args ? args.revision : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
+        inputs["data"] = args ? args.data : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "ControllerRevision";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["revision"] = args ? args.revision : undefined;
         if (!opts) {
             opts = {}
         }

@@ -78,26 +78,14 @@ export class Secret extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: SecretArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: SecretArgs | SecretState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: SecretArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as SecretState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["data"] = state ? state.data : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["stringData"] = state ? state.stringData : undefined;
-            inputs["type"] = state ? state.type : undefined;
-        } else {
-            const args = argsOrState as SecretArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["data"] = args ? args.data : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "Secret";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["stringData"] = args ? args.stringData : undefined;
-            inputs["type"] = args ? args.type : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["data"] = args ? args.data : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "Secret";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["stringData"] = args ? args.stringData : undefined;
+        inputs["type"] = args ? args.type : undefined;
         if (!opts) {
             opts = {}
         }

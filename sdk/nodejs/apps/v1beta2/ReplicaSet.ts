@@ -66,26 +66,14 @@ export class ReplicaSet extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions)
-    /** @deprecated apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, argsOrState?: ReplicaSetArgs | ReplicaSetState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("ReplicaSet is deprecated: apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ReplicaSetState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-            inputs["status"] = state ? state.status : undefined;
-        } else {
-            const args = argsOrState as ReplicaSetArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
-            inputs["kind"] = (args ? args.kind : undefined) || "ReplicaSet";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
+        inputs["kind"] = (args ? args.kind : undefined) || "ReplicaSet";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
+        inputs["status"] = undefined /*out*/;
         if (!opts) {
             opts = {}
         }

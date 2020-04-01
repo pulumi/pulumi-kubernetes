@@ -64,24 +64,13 @@ export class ConfigMap extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ConfigMapArgs | ConfigMapState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ConfigMapState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["binaryData"] = state ? state.binaryData : undefined;
-            inputs["data"] = state ? state.data : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-        } else {
-            const args = argsOrState as ConfigMapArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["binaryData"] = args ? args.binaryData : undefined;
-            inputs["data"] = args ? args.data : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "ConfigMap";
-            inputs["metadata"] = args ? args.metadata : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["binaryData"] = args ? args.binaryData : undefined;
+        inputs["data"] = args ? args.data : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "ConfigMap";
+        inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}
         }

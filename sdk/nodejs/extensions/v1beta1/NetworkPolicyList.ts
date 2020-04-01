@@ -60,25 +60,15 @@ export class NetworkPolicyList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: NetworkPolicyListArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: NetworkPolicyListArgs | NetworkPolicyListState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: NetworkPolicyListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as NetworkPolicyListState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["items"] = state ? state.items : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-        } else {
-            const args = argsOrState as NetworkPolicyListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "extensions/v1beta1";
-            inputs["items"] = args ? args.items : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "NetworkPolicyList";
-            inputs["metadata"] = args ? args.metadata : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "extensions/v1beta1";
+        inputs["items"] = args ? args.items : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "NetworkPolicyList";
+        inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}
         }

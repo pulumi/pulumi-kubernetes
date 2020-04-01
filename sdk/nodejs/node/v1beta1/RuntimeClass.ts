@@ -68,29 +68,17 @@ export class RuntimeClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: RuntimeClassArgs | RuntimeClassState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as RuntimeClassState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["handler"] = state ? state.handler : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["overhead"] = state ? state.overhead : undefined;
-            inputs["scheduling"] = state ? state.scheduling : undefined;
-        } else {
-            const args = argsOrState as RuntimeClassArgs | undefined;
             if (!args || args.handler === undefined) {
                 throw new Error("Missing required property 'handler'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "node.k8s.io/v1beta1";
-            inputs["handler"] = args ? args.handler : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "RuntimeClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["overhead"] = args ? args.overhead : undefined;
-            inputs["scheduling"] = args ? args.scheduling : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "node.k8s.io/v1beta1";
+        inputs["handler"] = args ? args.handler : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "RuntimeClass";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["overhead"] = args ? args.overhead : undefined;
+        inputs["scheduling"] = args ? args.scheduling : undefined;
         if (!opts) {
             opts = {}
         }

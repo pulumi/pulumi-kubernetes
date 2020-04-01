@@ -60,22 +60,12 @@ export class ComponentStatus extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ComponentStatusArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ComponentStatusArgs | ComponentStatusState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ComponentStatusArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ComponentStatusState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["conditions"] = state ? state.conditions : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-        } else {
-            const args = argsOrState as ComponentStatusArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["conditions"] = args ? args.conditions : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "ComponentStatus";
-            inputs["metadata"] = args ? args.metadata : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["conditions"] = args ? args.conditions : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "ComponentStatus";
+        inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}
         }

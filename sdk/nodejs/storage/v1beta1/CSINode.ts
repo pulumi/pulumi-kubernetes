@@ -62,27 +62,16 @@ export class CSINode extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated storage/v1beta1/CSINode is deprecated by storage/v1/CSINode. */
-    constructor(name: string, args: CSINodeArgs, opts?: pulumi.CustomResourceOptions)
-    /** @deprecated storage/v1beta1/CSINode is deprecated by storage/v1/CSINode. */
-    constructor(name: string, argsOrState?: CSINodeArgs | CSINodeState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: CSINodeArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("CSINode is deprecated: storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.")
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as CSINodeState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-        } else {
-            const args = argsOrState as CSINodeArgs | undefined;
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1beta1";
-            inputs["kind"] = (args ? args.kind : undefined) || "CSINode";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1beta1";
+        inputs["kind"] = (args ? args.kind : undefined) || "CSINode";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {
             opts = {}
         }

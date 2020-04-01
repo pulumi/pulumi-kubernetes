@@ -60,22 +60,12 @@ export class Lease extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: LeaseArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: LeaseArgs | LeaseState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: LeaseArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as LeaseState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-        } else {
-            const args = argsOrState as LeaseArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "coordination.k8s.io/v1beta1";
-            inputs["kind"] = (args ? args.kind : undefined) || "Lease";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "coordination.k8s.io/v1beta1";
+        inputs["kind"] = (args ? args.kind : undefined) || "Lease";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {
             opts = {}
         }

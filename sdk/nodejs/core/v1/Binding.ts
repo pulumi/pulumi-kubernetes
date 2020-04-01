@@ -60,25 +60,15 @@ export class Binding extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: BindingArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: BindingArgs | BindingState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: BindingArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as BindingState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["target"] = state ? state.target : undefined;
-        } else {
-            const args = argsOrState as BindingArgs | undefined;
             if (!args || args.target === undefined) {
                 throw new Error("Missing required property 'target'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "Binding";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["target"] = args ? args.target : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "Binding";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["target"] = args ? args.target : undefined;
         if (!opts) {
             opts = {}
         }

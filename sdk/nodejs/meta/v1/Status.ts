@@ -76,30 +76,16 @@ export class Status extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: StatusArgs | StatusState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as StatusState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["code"] = state ? state.code : undefined;
-            inputs["details"] = state ? state.details : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["message"] = state ? state.message : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["reason"] = state ? state.reason : undefined;
-            inputs["status"] = state ? state.status : undefined;
-        } else {
-            const args = argsOrState as StatusArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "meta/v1";
-            inputs["code"] = args ? args.code : undefined;
-            inputs["details"] = args ? args.details : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "Status";
-            inputs["message"] = args ? args.message : undefined;
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["reason"] = args ? args.reason : undefined;
-            inputs["status"] = undefined /*out*/;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "meta/v1";
+        inputs["code"] = args ? args.code : undefined;
+        inputs["details"] = args ? args.details : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "Status";
+        inputs["message"] = args ? args.message : undefined;
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["reason"] = args ? args.reason : undefined;
+        inputs["status"] = undefined /*out*/;
         if (!opts) {
             opts = {}
         }

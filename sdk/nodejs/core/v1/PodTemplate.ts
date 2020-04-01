@@ -60,22 +60,12 @@ export class PodTemplate extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: PodTemplateArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: PodTemplateArgs | PodTemplateState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: PodTemplateArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as PodTemplateState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["template"] = state ? state.template : undefined;
-        } else {
-            const args = argsOrState as PodTemplateArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "PodTemplate";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["template"] = args ? args.template : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "PodTemplate";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["template"] = args ? args.template : undefined;
         if (!opts) {
             opts = {}
         }

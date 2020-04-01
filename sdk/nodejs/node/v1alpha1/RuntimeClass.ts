@@ -60,25 +60,15 @@ export class RuntimeClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: RuntimeClassArgs | RuntimeClassState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as RuntimeClassState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-        } else {
-            const args = argsOrState as RuntimeClassArgs | undefined;
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "node.k8s.io/v1alpha1";
-            inputs["kind"] = (args ? args.kind : undefined) || "RuntimeClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "node.k8s.io/v1alpha1";
+        inputs["kind"] = (args ? args.kind : undefined) || "RuntimeClass";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {
             opts = {}
         }

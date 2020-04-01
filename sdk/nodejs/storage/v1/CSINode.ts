@@ -60,25 +60,15 @@ export class CSINode extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: CSINodeArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: CSINodeArgs | CSINodeState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: CSINodeArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as CSINodeState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-        } else {
-            const args = argsOrState as CSINodeArgs | undefined;
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "CSINode";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "CSINode";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {
             opts = {}
         }

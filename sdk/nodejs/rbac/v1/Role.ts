@@ -60,22 +60,12 @@ export class Role extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: RoleArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: RoleArgs | RoleState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: RoleArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as RoleState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["rules"] = state ? state.rules : undefined;
-        } else {
-            const args = argsOrState as RoleArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "Role";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["rules"] = args ? args.rules : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "Role";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["rules"] = args ? args.rules : undefined;
         if (!opts) {
             opts = {}
         }

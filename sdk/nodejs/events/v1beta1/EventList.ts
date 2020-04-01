@@ -60,25 +60,15 @@ export class EventList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: EventListArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: EventListArgs | EventListState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: EventListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as EventListState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["items"] = state ? state.items : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-        } else {
-            const args = argsOrState as EventListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "events.k8s.io/v1beta1";
-            inputs["items"] = args ? args.items : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "EventList";
-            inputs["metadata"] = args ? args.metadata : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "events.k8s.io/v1beta1";
+        inputs["items"] = args ? args.items : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "EventList";
+        inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}
         }

@@ -64,24 +64,13 @@ export class ClusterRole extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ClusterRoleArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ClusterRoleArgs | ClusterRoleState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ClusterRoleArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ClusterRoleState | undefined;
-            inputs["aggregationRule"] = state ? state.aggregationRule : undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["rules"] = state ? state.rules : undefined;
-        } else {
-            const args = argsOrState as ClusterRoleArgs | undefined;
-            inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1";
-            inputs["kind"] = (args ? args.kind : undefined) || "ClusterRole";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["rules"] = args ? args.rules : undefined;
-        }
+        inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1";
+        inputs["kind"] = (args ? args.kind : undefined) || "ClusterRole";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["rules"] = args ? args.rules : undefined;
         if (!opts) {
             opts = {}
         }

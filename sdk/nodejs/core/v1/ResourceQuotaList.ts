@@ -60,25 +60,15 @@ export class ResourceQuotaList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ResourceQuotaListArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ResourceQuotaListArgs | ResourceQuotaListState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: ResourceQuotaListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as ResourceQuotaListState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["items"] = state ? state.items : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-        } else {
-            const args = argsOrState as ResourceQuotaListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-            inputs["items"] = args ? args.items : undefined;
-            inputs["kind"] = (args ? args.kind : undefined) || "ResourceQuotaList";
-            inputs["metadata"] = args ? args.metadata : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["items"] = args ? args.items : undefined;
+        inputs["kind"] = (args ? args.kind : undefined) || "ResourceQuotaList";
+        inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}
         }

@@ -64,27 +64,16 @@ export class RoleBinding extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: RoleBindingArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: RoleBindingArgs | RoleBindingState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: RoleBindingArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as RoleBindingState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["roleRef"] = state ? state.roleRef : undefined;
-            inputs["subjects"] = state ? state.subjects : undefined;
-        } else {
-            const args = argsOrState as RoleBindingArgs | undefined;
             if (!args || args.roleRef === undefined) {
                 throw new Error("Missing required property 'roleRef'");
             }
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1alpha1";
-            inputs["kind"] = (args ? args.kind : undefined) || "RoleBinding";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["roleRef"] = args ? args.roleRef : undefined;
-            inputs["subjects"] = args ? args.subjects : undefined;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1alpha1";
+        inputs["kind"] = (args ? args.kind : undefined) || "RoleBinding";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["roleRef"] = args ? args.roleRef : undefined;
+        inputs["subjects"] = args ? args.subjects : undefined;
         if (!opts) {
             opts = {}
         }

@@ -79,26 +79,14 @@ export class StatefulSet extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions)
-    /** @deprecated apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, argsOrState?: StatefulSetArgs | StatefulSetState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("StatefulSet is deprecated: apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
-        if (opts && opts.id) {
-            const state = argsOrState as StatefulSetState | undefined;
-            inputs["apiVersion"] = state ? state.apiVersion : undefined;
-            inputs["kind"] = state ? state.kind : undefined;
-            inputs["metadata"] = state ? state.metadata : undefined;
-            inputs["spec"] = state ? state.spec : undefined;
-            inputs["status"] = state ? state.status : undefined;
-        } else {
-            const args = argsOrState as StatefulSetArgs | undefined;
-            inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
-            inputs["kind"] = (args ? args.kind : undefined) || "StatefulSet";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
-        }
+        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
+        inputs["kind"] = (args ? args.kind : undefined) || "StatefulSet";
+        inputs["metadata"] = args ? args.metadata : undefined;
+        inputs["spec"] = args ? args.spec : undefined;
+        inputs["status"] = undefined /*out*/;
         if (!opts) {
             opts = {}
         }
