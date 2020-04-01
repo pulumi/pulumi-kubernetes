@@ -48,11 +48,11 @@ export class APIService extends pulumi.CustomResource {
     /**
      * Spec contains information for locating and communicating with a server
      */
-    public readonly spec!: pulumi.Output<outputs.apiregistration.k8s.io.v1.APIServiceSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.apiregistration.v1.APIServiceSpec | undefined>;
     /**
      * Status contains derived information about an API server
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.apiregistration.k8s.io.v1.APIServiceStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.apiregistration.v1.APIServiceStatus | undefined>;
 
     /**
      * Create a APIService resource with the given unique name, arguments, and options.
@@ -108,5 +108,5 @@ export interface APIServiceArgs {
     /**
      * Spec contains information for locating and communicating with a server
      */
-    readonly spec?: pulumi.Input<inputs.apiregistration.k8s.io.v1.APIServiceSpec>;
+    readonly spec?: pulumi.Input<inputs.apiregistration.v1.APIServiceSpec>;
 }

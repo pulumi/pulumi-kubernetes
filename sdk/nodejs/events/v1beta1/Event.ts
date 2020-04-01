@@ -96,7 +96,7 @@ export class Event extends pulumi.CustomResource {
     /**
      * Data about the Event series this event represents or nil if it's a singleton Event.
      */
-    public readonly series!: pulumi.Output<outputs.events.k8s.io.v1beta1.EventSeries | undefined>;
+    public readonly series!: pulumi.Output<outputs.events.v1beta1.EventSeries | undefined>;
     /**
      * Type of this event (Normal, Warning), new types could be added in the future.
      */
@@ -231,7 +231,7 @@ export interface EventArgs {
     /**
      * Data about the Event series this event represents or nil if it's a singleton Event.
      */
-    readonly series?: pulumi.Input<inputs.events.k8s.io.v1beta1.EventSeries>;
+    readonly series?: pulumi.Input<inputs.events.v1beta1.EventSeries>;
     /**
      * Type of this event (Normal, Warning), new types could be added in the future.
      */

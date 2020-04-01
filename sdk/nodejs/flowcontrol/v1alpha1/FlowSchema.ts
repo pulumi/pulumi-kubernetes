@@ -51,11 +51,11 @@ export class FlowSchema extends pulumi.CustomResource {
     /**
      * `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchemaSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.flowcontrol.v1alpha1.FlowSchemaSpec | undefined>;
     /**
      * `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchemaStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.flowcontrol.v1alpha1.FlowSchemaStatus | undefined>;
 
     /**
      * Create a FlowSchema resource with the given unique name, arguments, and options.
@@ -112,5 +112,5 @@ export interface FlowSchemaArgs {
     /**
      * `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    readonly spec?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchemaSpec>;
+    readonly spec?: pulumi.Input<inputs.flowcontrol.v1alpha1.FlowSchemaSpec>;
 }

@@ -43,7 +43,7 @@ export class CustomResourceDefinitionList extends pulumi.CustomResource {
     /**
      * items list individual CustomResourceDefinition objects
      */
-    public readonly items!: pulumi.Output<outputs.apiextensions.k8s.io.v1.CustomResourceDefinition[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinition[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -98,7 +98,7 @@ export interface CustomResourceDefinitionListArgs {
     /**
      * items list individual CustomResourceDefinition objects
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinition>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinition>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

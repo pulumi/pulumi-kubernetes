@@ -51,7 +51,7 @@ export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
     /**
      * Webhooks is a list of webhooks and the affected resources and operations.
      */
-    public readonly webhooks!: pulumi.Output<outputs.admissionregistration.k8s.io.v1.ValidatingWebhook[] | undefined>;
+    public readonly webhooks!: pulumi.Output<outputs.admissionregistration.v1.ValidatingWebhook[] | undefined>;
 
     /**
      * Create a ValidatingWebhookConfiguration resource with the given unique name, arguments, and options.
@@ -108,5 +108,5 @@ export interface ValidatingWebhookConfigurationArgs {
     /**
      * Webhooks is a list of webhooks and the affected resources and operations.
      */
-    readonly webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1.ValidatingWebhook>[]>;
+    readonly webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.ValidatingWebhook>[]>;
 }

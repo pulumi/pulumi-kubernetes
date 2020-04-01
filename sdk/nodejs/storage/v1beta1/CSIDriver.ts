@@ -51,7 +51,7 @@ export class CSIDriver extends pulumi.CustomResource {
     /**
      * Specification of the CSI Driver.
      */
-    public readonly spec!: pulumi.Output<outputs.storage.k8s.io.v1beta1.CSIDriverSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.storage.v1beta1.CSIDriverSpec | undefined>;
 
     /**
      * Create a CSIDriver resource with the given unique name, arguments, and options.
@@ -109,5 +109,5 @@ export interface CSIDriverArgs {
     /**
      * Specification of the CSI Driver.
      */
-    readonly spec: pulumi.Input<inputs.storage.k8s.io.v1beta1.CSIDriverSpec>;
+    readonly spec: pulumi.Input<inputs.storage.v1beta1.CSIDriverSpec>;
 }

@@ -8,7 +8,7 @@ import * as outputs from "../types/output";
 import {JSONSchemaPropsOrStringArray} from "../apiextensions/v1";
 import {JSONSchemaPropsOrStringArray} from "../apiextensions/v1beta1";
 
-export namespace admissionregistration.k8s.io {
+export namespace admissionregistration {
     export namespace v1 {
         /**
          * MutatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -21,7 +21,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * ClientConfig defines how to communicate with the hook. Required
              */
-            clientConfig?: pulumi.Input<inputs.admissionregistration.k8s.io.v1.WebhookClientConfig>;
+            clientConfig?: pulumi.Input<inputs.admissionregistration.v1.WebhookClientConfig>;
             /**
              * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
@@ -91,7 +91,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1.RuleWithOperations>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.RuleWithOperations>[]>;
             /**
              * SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
              */
@@ -121,7 +121,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Webhooks is a list of webhooks and the affected resources and operations.
              */
-            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1.MutatingWebhook>[]>;
+            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MutatingWebhook>[]>;
         }
 
         /**
@@ -189,7 +189,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * ClientConfig defines how to communicate with the hook. Required
              */
-            clientConfig?: pulumi.Input<inputs.admissionregistration.k8s.io.v1.WebhookClientConfig>;
+            clientConfig?: pulumi.Input<inputs.admissionregistration.v1.WebhookClientConfig>;
             /**
              * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
@@ -249,7 +249,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1.RuleWithOperations>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.RuleWithOperations>[]>;
             /**
              * SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
              */
@@ -279,7 +279,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Webhooks is a list of webhooks and the affected resources and operations.
              */
-            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1.ValidatingWebhook>[]>;
+            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.ValidatingWebhook>[]>;
         }
 
         /**
@@ -295,7 +295,7 @@ export namespace admissionregistration.k8s.io {
              *
              * If the webhook is running within the cluster, then you should use `service`.
              */
-            service?: pulumi.Input<inputs.admissionregistration.k8s.io.v1.ServiceReference>;
+            service?: pulumi.Input<inputs.admissionregistration.v1.ServiceReference>;
             /**
              * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
              *
@@ -325,7 +325,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * ClientConfig defines how to communicate with the hook. Required
              */
-            clientConfig?: pulumi.Input<inputs.admissionregistration.k8s.io.v1beta1.WebhookClientConfig>;
+            clientConfig?: pulumi.Input<inputs.admissionregistration.v1beta1.WebhookClientConfig>;
             /**
              * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Ignore.
              */
@@ -395,7 +395,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1beta1.RuleWithOperations>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.RuleWithOperations>[]>;
             /**
              * SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
              */
@@ -425,7 +425,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Webhooks is a list of webhooks and the affected resources and operations.
              */
-            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1beta1.MutatingWebhook>[]>;
+            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.MutatingWebhook>[]>;
         }
 
         /**
@@ -493,7 +493,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * ClientConfig defines how to communicate with the hook. Required
              */
-            clientConfig?: pulumi.Input<inputs.admissionregistration.k8s.io.v1beta1.WebhookClientConfig>;
+            clientConfig?: pulumi.Input<inputs.admissionregistration.v1beta1.WebhookClientConfig>;
             /**
              * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Ignore.
              */
@@ -553,7 +553,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1beta1.RuleWithOperations>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.RuleWithOperations>[]>;
             /**
              * SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
              */
@@ -583,7 +583,7 @@ export namespace admissionregistration.k8s.io {
             /**
              * Webhooks is a list of webhooks and the affected resources and operations.
              */
-            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1beta1.ValidatingWebhook>[]>;
+            webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.ValidatingWebhook>[]>;
         }
 
         /**
@@ -599,7 +599,7 @@ export namespace admissionregistration.k8s.io {
              *
              * If the webhook is running within the cluster, then you should use `service`.
              */
-            service?: pulumi.Input<inputs.admissionregistration.k8s.io.v1beta1.ServiceReference>;
+            service?: pulumi.Input<inputs.admissionregistration.v1beta1.ServiceReference>;
             /**
              * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
              *
@@ -619,7 +619,7 @@ export namespace admissionregistration.k8s.io {
 
 }
 
-export namespace apiextensions.k8s.io {
+export namespace apiextensions {
     export namespace v1 {
         /**
          * CustomResourceColumnDefinition specifies a column for server side printing.
@@ -663,7 +663,7 @@ export namespace apiextensions.k8s.io {
             /**
              * webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
              */
-            webhook?: pulumi.Input<inputs.apiextensions.k8s.io.v1.WebhookConversion>;
+            webhook?: pulumi.Input<inputs.apiextensions.v1.WebhookConversion>;
         }
 
         /**
@@ -682,11 +682,11 @@ export namespace apiextensions.k8s.io {
             /**
              * spec describes how the user wants the resources to appear
              */
-            spec?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinitionSpec>;
+            spec?: pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionSpec>;
             /**
              * status indicates the actual state of the CustomResourceDefinition
              */
-            status?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinitionStatus>;
+            status?: pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionStatus>;
         }
 
         /**
@@ -752,7 +752,7 @@ export namespace apiextensions.k8s.io {
             /**
              * conversion defines conversion settings for the CRD.
              */
-            conversion?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceConversion>;
+            conversion?: pulumi.Input<inputs.apiextensions.v1.CustomResourceConversion>;
             /**
              * group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
              */
@@ -760,7 +760,7 @@ export namespace apiextensions.k8s.io {
             /**
              * names specify the resource and kind names for the custom resource.
              */
-            names?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinitionNames>;
+            names?: pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionNames>;
             /**
              * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
              */
@@ -772,7 +772,7 @@ export namespace apiextensions.k8s.io {
             /**
              * versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
              */
-            versions?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinitionVersion>[]>;
+            versions?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionVersion>[]>;
         }
 
         /**
@@ -782,11 +782,11 @@ export namespace apiextensions.k8s.io {
             /**
              * acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
              */
-            acceptedNames?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinitionNames>;
+            acceptedNames?: pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionNames>;
             /**
              * conditions indicate state for particular aspects of a CustomResourceDefinition
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinitionCondition>[]>;
+            conditions?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionCondition>[]>;
             /**
              * storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
              */
@@ -800,7 +800,7 @@ export namespace apiextensions.k8s.io {
             /**
              * additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
              */
-            additionalPrinterColumns?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceColumnDefinition>[]>;
+            additionalPrinterColumns?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.CustomResourceColumnDefinition>[]>;
             /**
              * name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
              */
@@ -808,7 +808,7 @@ export namespace apiextensions.k8s.io {
             /**
              * schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
              */
-            schema?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceValidation>;
+            schema?: pulumi.Input<inputs.apiextensions.v1.CustomResourceValidation>;
             /**
              * served is a flag enabling/disabling this version from being served via REST APIs
              */
@@ -820,7 +820,7 @@ export namespace apiextensions.k8s.io {
             /**
              * subresources specify what subresources this version of the defined custom resource have.
              */
-            subresources?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceSubresources>;
+            subresources?: pulumi.Input<inputs.apiextensions.v1.CustomResourceSubresources>;
         }
 
         /**
@@ -848,7 +848,7 @@ export namespace apiextensions.k8s.io {
             /**
              * scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
              */
-            scale?: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceSubresourceScale>;
+            scale?: pulumi.Input<inputs.apiextensions.v1.CustomResourceSubresourceScale>;
             /**
              * status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
              */
@@ -862,7 +862,7 @@ export namespace apiextensions.k8s.io {
             /**
              * openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
              */
-            openAPIV3Schema?: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>;
+            openAPIV3Schema?: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>;
         }
 
         /**
@@ -877,22 +877,22 @@ export namespace apiextensions.k8s.io {
          * JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
          */
         export interface JSONSchemaProps {
-            additionalItems?: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps> | pulumi.Input<boolean>;
-            additionalProperties?: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps> | pulumi.Input<boolean>;
-            allOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>[]>;
-            anyOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>[]>;
+            additionalItems?: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps> | pulumi.Input<boolean>;
+            additionalProperties?: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps> | pulumi.Input<boolean>;
+            allOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>[]>;
+            anyOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>[]>;
             /**
              * default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
              */
             default?: any;
-            definitions?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>}>;
+            definitions?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>}>;
             dependencies?: pulumi.Input<{[key: string]: pulumi.Input<JSONSchemaPropsOrStringArray> | pulumi.Input<pulumi.Input<string>[]>}>;
             description?: pulumi.Input<string>;
             enum?: pulumi.Input<any[]>;
             example?: any;
             exclusiveMaximum?: pulumi.Input<boolean>;
             exclusiveMinimum?: pulumi.Input<boolean>;
-            externalDocs?: pulumi.Input<inputs.apiextensions.k8s.io.v1.ExternalDocumentation>;
+            externalDocs?: pulumi.Input<inputs.apiextensions.v1.ExternalDocumentation>;
             /**
              * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
              *
@@ -900,7 +900,7 @@ export namespace apiextensions.k8s.io {
              */
             format?: pulumi.Input<string>;
             id?: pulumi.Input<string>;
-            items?: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps> | pulumi.Input<any[]>;
+            items?: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps> | pulumi.Input<any[]>;
             maxItems?: pulumi.Input<number>;
             maxLength?: pulumi.Input<number>;
             maxProperties?: pulumi.Input<number>;
@@ -910,12 +910,12 @@ export namespace apiextensions.k8s.io {
             minProperties?: pulumi.Input<number>;
             minimum?: pulumi.Input<number>;
             multipleOf?: pulumi.Input<number>;
-            not?: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>;
+            not?: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>;
             nullable?: pulumi.Input<boolean>;
-            oneOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>[]>;
+            oneOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>[]>;
             pattern?: pulumi.Input<string>;
-            patternProperties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>}>;
-            properties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.k8s.io.v1.JSONSchemaProps>}>;
+            patternProperties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>}>;
+            properties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>}>;
             required?: pulumi.Input<pulumi.Input<string>[]>;
             t_ref?: pulumi.Input<string>;
             t_schema?: pulumi.Input<string>;
@@ -1014,7 +1014,7 @@ export namespace apiextensions.k8s.io {
              *
              * If the webhook is running within the cluster, then you should use `service`.
              */
-            service?: pulumi.Input<inputs.apiextensions.k8s.io.v1.ServiceReference>;
+            service?: pulumi.Input<inputs.apiextensions.v1.ServiceReference>;
             /**
              * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
              *
@@ -1038,7 +1038,7 @@ export namespace apiextensions.k8s.io {
             /**
              * clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
              */
-            clientConfig?: pulumi.Input<inputs.apiextensions.k8s.io.v1.WebhookClientConfig>;
+            clientConfig?: pulumi.Input<inputs.apiextensions.v1.WebhookClientConfig>;
             /**
              * conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
              */
@@ -1093,7 +1093,7 @@ export namespace apiextensions.k8s.io {
             /**
              * webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`.
              */
-            webhookClientConfig?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.WebhookClientConfig>;
+            webhookClientConfig?: pulumi.Input<inputs.apiextensions.v1beta1.WebhookClientConfig>;
         }
 
         /**
@@ -1112,11 +1112,11 @@ export namespace apiextensions.k8s.io {
             /**
              * spec describes how the user wants the resources to appear
              */
-            spec?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceDefinitionSpec>;
+            spec?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
             /**
              * status indicates the actual state of the CustomResourceDefinition
              */
-            status?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceDefinitionStatus>;
+            status?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
         }
 
         /**
@@ -1182,11 +1182,11 @@ export namespace apiextensions.k8s.io {
             /**
              * additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
              */
-            additionalPrinterColumns?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceColumnDefinition>[]>;
+            additionalPrinterColumns?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceColumnDefinition>[]>;
             /**
              * conversion defines conversion settings for the CRD.
              */
-            conversion?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceConversion>;
+            conversion?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceConversion>;
             /**
              * group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
              */
@@ -1194,7 +1194,7 @@ export namespace apiextensions.k8s.io {
             /**
              * names specify the resource and kind names for the custom resource.
              */
-            names?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceDefinitionNames>;
+            names?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceDefinitionNames>;
             /**
              * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
              */
@@ -1206,11 +1206,11 @@ export namespace apiextensions.k8s.io {
             /**
              * subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
              */
-            subresources?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceSubresources>;
+            subresources?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceSubresources>;
             /**
              * validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive.
              */
-            validation?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceValidation>;
+            validation?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceValidation>;
             /**
              * version is the API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead.
              */
@@ -1218,7 +1218,7 @@ export namespace apiextensions.k8s.io {
             /**
              * versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
              */
-            versions?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceDefinitionVersion>[]>;
+            versions?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceDefinitionVersion>[]>;
         }
 
         /**
@@ -1228,11 +1228,11 @@ export namespace apiextensions.k8s.io {
             /**
              * acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
              */
-            acceptedNames?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceDefinitionNames>;
+            acceptedNames?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceDefinitionNames>;
             /**
              * conditions indicate state for particular aspects of a CustomResourceDefinition
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceDefinitionCondition>[]>;
+            conditions?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceDefinitionCondition>[]>;
             /**
              * storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
              */
@@ -1246,7 +1246,7 @@ export namespace apiextensions.k8s.io {
             /**
              * additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
              */
-            additionalPrinterColumns?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceColumnDefinition>[]>;
+            additionalPrinterColumns?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceColumnDefinition>[]>;
             /**
              * name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
              */
@@ -1254,7 +1254,7 @@ export namespace apiextensions.k8s.io {
             /**
              * schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead).
              */
-            schema?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceValidation>;
+            schema?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceValidation>;
             /**
              * served is a flag enabling/disabling this version from being served via REST APIs
              */
@@ -1266,7 +1266,7 @@ export namespace apiextensions.k8s.io {
             /**
              * subresources specify what subresources this version of the defined custom resource have. Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead).
              */
-            subresources?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceSubresources>;
+            subresources?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceSubresources>;
         }
 
         /**
@@ -1294,7 +1294,7 @@ export namespace apiextensions.k8s.io {
             /**
              * scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
              */
-            scale?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.CustomResourceSubresourceScale>;
+            scale?: pulumi.Input<inputs.apiextensions.v1beta1.CustomResourceSubresourceScale>;
             /**
              * status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
              */
@@ -1308,7 +1308,7 @@ export namespace apiextensions.k8s.io {
             /**
              * openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
              */
-            openAPIV3Schema?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>;
+            openAPIV3Schema?: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>;
         }
 
         /**
@@ -1323,22 +1323,22 @@ export namespace apiextensions.k8s.io {
          * JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
          */
         export interface JSONSchemaProps {
-            additionalItems?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps> | pulumi.Input<boolean>;
-            additionalProperties?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps> | pulumi.Input<boolean>;
-            allOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>[]>;
-            anyOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>[]>;
+            additionalItems?: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps> | pulumi.Input<boolean>;
+            additionalProperties?: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps> | pulumi.Input<boolean>;
+            allOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>[]>;
+            anyOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>[]>;
             /**
              * default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults must be created using the v1 (or newer) CustomResourceDefinition API.
              */
             default?: any;
-            definitions?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>}>;
+            definitions?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>}>;
             dependencies?: pulumi.Input<{[key: string]: pulumi.Input<JSONSchemaPropsOrStringArray> | pulumi.Input<pulumi.Input<string>[]>}>;
             description?: pulumi.Input<string>;
             enum?: pulumi.Input<any[]>;
             example?: any;
             exclusiveMaximum?: pulumi.Input<boolean>;
             exclusiveMinimum?: pulumi.Input<boolean>;
-            externalDocs?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.ExternalDocumentation>;
+            externalDocs?: pulumi.Input<inputs.apiextensions.v1beta1.ExternalDocumentation>;
             /**
              * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
              *
@@ -1346,7 +1346,7 @@ export namespace apiextensions.k8s.io {
              */
             format?: pulumi.Input<string>;
             id?: pulumi.Input<string>;
-            items?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps> | pulumi.Input<any[]>;
+            items?: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps> | pulumi.Input<any[]>;
             maxItems?: pulumi.Input<number>;
             maxLength?: pulumi.Input<number>;
             maxProperties?: pulumi.Input<number>;
@@ -1356,12 +1356,12 @@ export namespace apiextensions.k8s.io {
             minProperties?: pulumi.Input<number>;
             minimum?: pulumi.Input<number>;
             multipleOf?: pulumi.Input<number>;
-            not?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>;
+            not?: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>;
             nullable?: pulumi.Input<boolean>;
-            oneOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>[]>;
+            oneOf?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>[]>;
             pattern?: pulumi.Input<string>;
-            patternProperties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>}>;
-            properties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.JSONSchemaProps>}>;
+            patternProperties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>}>;
+            properties?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>}>;
             required?: pulumi.Input<pulumi.Input<string>[]>;
             t_ref?: pulumi.Input<string>;
             t_schema?: pulumi.Input<string>;
@@ -1460,7 +1460,7 @@ export namespace apiextensions.k8s.io {
              *
              * If the webhook is running within the cluster, then you should use `service`.
              */
-            service?: pulumi.Input<inputs.apiextensions.k8s.io.v1beta1.ServiceReference>;
+            service?: pulumi.Input<inputs.apiextensions.v1beta1.ServiceReference>;
             /**
              * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
              *
@@ -1479,7 +1479,7 @@ export namespace apiextensions.k8s.io {
     }
 
 }
-export namespace apiregistration.k8s.io {
+export namespace apiregistration {
     export namespace v1 {
         /**
          * APIService represents a server for a particular GroupVersion. Name must be "version.group".
@@ -1497,11 +1497,11 @@ export namespace apiregistration.k8s.io {
             /**
              * Spec contains information for locating and communicating with a server
              */
-            spec?: pulumi.Input<inputs.apiregistration.k8s.io.v1.APIServiceSpec>;
+            spec?: pulumi.Input<inputs.apiregistration.v1.APIServiceSpec>;
             /**
              * Status contains derived information about an API server
              */
-            status?: pulumi.Input<inputs.apiregistration.k8s.io.v1.APIServiceStatus>;
+            status?: pulumi.Input<inputs.apiregistration.v1.APIServiceStatus>;
         }
 
         /**
@@ -1553,7 +1553,7 @@ export namespace apiregistration.k8s.io {
             /**
              * Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
              */
-            service?: pulumi.Input<inputs.apiregistration.k8s.io.v1.ServiceReference>;
+            service?: pulumi.Input<inputs.apiregistration.v1.ServiceReference>;
             /**
              * Version is the API version this server hosts.  For example, "v1"
              */
@@ -1571,7 +1571,7 @@ export namespace apiregistration.k8s.io {
             /**
              * Current service state of apiService.
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.apiregistration.k8s.io.v1.APIServiceCondition>[]>;
+            conditions?: pulumi.Input<pulumi.Input<inputs.apiregistration.v1.APIServiceCondition>[]>;
         }
 
         /**
@@ -1610,11 +1610,11 @@ export namespace apiregistration.k8s.io {
             /**
              * Spec contains information for locating and communicating with a server
              */
-            spec?: pulumi.Input<inputs.apiregistration.k8s.io.v1beta1.APIServiceSpec>;
+            spec?: pulumi.Input<inputs.apiregistration.v1beta1.APIServiceSpec>;
             /**
              * Status contains derived information about an API server
              */
-            status?: pulumi.Input<inputs.apiregistration.k8s.io.v1beta1.APIServiceStatus>;
+            status?: pulumi.Input<inputs.apiregistration.v1beta1.APIServiceStatus>;
         }
 
         /**
@@ -1666,7 +1666,7 @@ export namespace apiregistration.k8s.io {
             /**
              * Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
              */
-            service?: pulumi.Input<inputs.apiregistration.k8s.io.v1beta1.ServiceReference>;
+            service?: pulumi.Input<inputs.apiregistration.v1beta1.ServiceReference>;
             /**
              * Version is the API version this server hosts.  For example, "v1"
              */
@@ -1684,7 +1684,7 @@ export namespace apiregistration.k8s.io {
             /**
              * Current service state of apiService.
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.apiregistration.k8s.io.v1beta1.APIServiceCondition>[]>;
+            conditions?: pulumi.Input<pulumi.Input<inputs.apiregistration.v1beta1.APIServiceCondition>[]>;
         }
 
         /**
@@ -3366,7 +3366,7 @@ export namespace apps {
 
 }
 
-export namespace auditregistration.k8s.io {
+export namespace auditregistration {
     export namespace v1alpha1 {
         /**
          * AuditSink represents a cluster level audit sink
@@ -3384,7 +3384,7 @@ export namespace auditregistration.k8s.io {
             /**
              * Spec defines the audit configuration spec
              */
-            spec?: pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.AuditSinkSpec>;
+            spec?: pulumi.Input<inputs.auditregistration.v1alpha1.AuditSinkSpec>;
         }
 
         /**
@@ -3394,11 +3394,11 @@ export namespace auditregistration.k8s.io {
             /**
              * Policy defines the policy for selecting which events should be sent to the webhook required
              */
-            policy?: pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.Policy>;
+            policy?: pulumi.Input<inputs.auditregistration.v1alpha1.Policy>;
             /**
              * Webhook to send events required
              */
-            webhook?: pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.Webhook>;
+            webhook?: pulumi.Input<inputs.auditregistration.v1alpha1.Webhook>;
         }
 
         /**
@@ -3444,11 +3444,11 @@ export namespace auditregistration.k8s.io {
             /**
              * ClientConfig holds the connection parameters for the webhook required
              */
-            clientConfig?: pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.WebhookClientConfig>;
+            clientConfig?: pulumi.Input<inputs.auditregistration.v1alpha1.WebhookClientConfig>;
             /**
              * Throttle holds the options for throttling the webhook
              */
-            throttle?: pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.WebhookThrottleConfig>;
+            throttle?: pulumi.Input<inputs.auditregistration.v1alpha1.WebhookThrottleConfig>;
         }
 
         /**
@@ -3464,7 +3464,7 @@ export namespace auditregistration.k8s.io {
              *
              * If the webhook is running within the cluster, then you should use `service`.
              */
-            service?: pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.ServiceReference>;
+            service?: pulumi.Input<inputs.auditregistration.v1alpha1.ServiceReference>;
             /**
              * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
              *
@@ -3498,7 +3498,7 @@ export namespace auditregistration.k8s.io {
 
 }
 
-export namespace authentication.k8s.io {
+export namespace authentication {
     export namespace v1 {
         /**
          * BoundObjectReference is a reference to an object that a token is bound to.
@@ -3533,7 +3533,7 @@ export namespace authentication.k8s.io {
             /**
              * BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
              */
-            boundObjectRef?: pulumi.Input<inputs.authentication.k8s.io.v1.BoundObjectReference>;
+            boundObjectRef?: pulumi.Input<inputs.authentication.v1.BoundObjectReference>;
             /**
              * ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
              */
@@ -3575,7 +3575,7 @@ export namespace authentication.k8s.io {
 
 }
 
-export namespace authorization.k8s.io {
+export namespace authorization {
     export namespace v1 {
         /**
          * NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
@@ -3632,11 +3632,11 @@ export namespace authorization.k8s.io {
             /**
              * NonResourceAttributes describes information for a non-resource access request
              */
-            nonResourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1.NonResourceAttributes>;
+            nonResourceAttributes?: pulumi.Input<inputs.authorization.v1.NonResourceAttributes>;
             /**
              * ResourceAuthorizationAttributes describes information for a resource access request
              */
-            resourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1.ResourceAttributes>;
+            resourceAttributes?: pulumi.Input<inputs.authorization.v1.ResourceAttributes>;
         }
 
         export interface SelfSubjectRulesReviewSpec {
@@ -3661,11 +3661,11 @@ export namespace authorization.k8s.io {
             /**
              * NonResourceAttributes describes information for a non-resource access request
              */
-            nonResourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1.NonResourceAttributes>;
+            nonResourceAttributes?: pulumi.Input<inputs.authorization.v1.NonResourceAttributes>;
             /**
              * ResourceAuthorizationAttributes describes information for a resource access request
              */
-            resourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1.ResourceAttributes>;
+            resourceAttributes?: pulumi.Input<inputs.authorization.v1.ResourceAttributes>;
             /**
              * UID information about the requesting user.
              */
@@ -3734,11 +3734,11 @@ export namespace authorization.k8s.io {
             /**
              * NonResourceAttributes describes information for a non-resource access request
              */
-            nonResourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1beta1.NonResourceAttributes>;
+            nonResourceAttributes?: pulumi.Input<inputs.authorization.v1beta1.NonResourceAttributes>;
             /**
              * ResourceAuthorizationAttributes describes information for a resource access request
              */
-            resourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1beta1.ResourceAttributes>;
+            resourceAttributes?: pulumi.Input<inputs.authorization.v1beta1.ResourceAttributes>;
         }
 
         export interface SelfSubjectRulesReviewSpec {
@@ -3763,11 +3763,11 @@ export namespace authorization.k8s.io {
             /**
              * NonResourceAttributes describes information for a non-resource access request
              */
-            nonResourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1beta1.NonResourceAttributes>;
+            nonResourceAttributes?: pulumi.Input<inputs.authorization.v1beta1.NonResourceAttributes>;
             /**
              * ResourceAuthorizationAttributes describes information for a resource access request
              */
-            resourceAttributes?: pulumi.Input<inputs.authorization.k8s.io.v1beta1.ResourceAttributes>;
+            resourceAttributes?: pulumi.Input<inputs.authorization.v1beta1.ResourceAttributes>;
             /**
              * UID information about the requesting user.
              */
@@ -4892,7 +4892,7 @@ export namespace batch {
 
 }
 
-export namespace certificates.k8s.io {
+export namespace certificates {
     export namespace v1beta1 {
         /**
          * Describes a certificate signing request
@@ -4910,11 +4910,11 @@ export namespace certificates.k8s.io {
             /**
              * The certificate request itself and any additional information.
              */
-            spec?: pulumi.Input<inputs.certificates.k8s.io.v1beta1.CertificateSigningRequestSpec>;
+            spec?: pulumi.Input<inputs.certificates.v1beta1.CertificateSigningRequestSpec>;
             /**
              * Derived information about the request.
              */
-            status?: pulumi.Input<inputs.certificates.k8s.io.v1beta1.CertificateSigningRequestStatus>;
+            status?: pulumi.Input<inputs.certificates.v1beta1.CertificateSigningRequestStatus>;
         }
 
         export interface CertificateSigningRequestCondition {
@@ -4975,13 +4975,13 @@ export namespace certificates.k8s.io {
             /**
              * Conditions applied to the request, such as approval or denial.
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.certificates.k8s.io.v1beta1.CertificateSigningRequestCondition>[]>;
+            conditions?: pulumi.Input<pulumi.Input<inputs.certificates.v1beta1.CertificateSigningRequestCondition>[]>;
         }
     }
 
 }
 
-export namespace coordination.k8s.io {
+export namespace coordination {
     export namespace v1 {
         /**
          * Lease defines a lease concept.
@@ -5002,7 +5002,7 @@ export namespace coordination.k8s.io {
             /**
              * Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            spec?: pulumi.Input<inputs.coordination.k8s.io.v1.LeaseSpec>;
+            spec?: pulumi.Input<inputs.coordination.v1.LeaseSpec>;
         }
 
         /**
@@ -5052,7 +5052,7 @@ export namespace coordination.k8s.io {
             /**
              * Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            spec?: pulumi.Input<inputs.coordination.k8s.io.v1beta1.LeaseSpec>;
+            spec?: pulumi.Input<inputs.coordination.v1beta1.LeaseSpec>;
         }
 
         /**
@@ -9324,7 +9324,7 @@ export namespace core {
 
 }
 
-export namespace discovery.k8s.io {
+export namespace discovery {
     export namespace v1beta1 {
         /**
          * Endpoint represents a single logical "backend" implementing a service.
@@ -9337,7 +9337,7 @@ export namespace discovery.k8s.io {
             /**
              * conditions contains information about the current status of the endpoint.
              */
-            conditions?: pulumi.Input<inputs.discovery.k8s.io.v1beta1.EndpointConditions>;
+            conditions?: pulumi.Input<inputs.discovery.v1beta1.EndpointConditions>;
             /**
              * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
              */
@@ -9405,7 +9405,7 @@ export namespace discovery.k8s.io {
             /**
              * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
              */
-            endpoints?: pulumi.Input<pulumi.Input<inputs.discovery.k8s.io.v1beta1.Endpoint>[]>;
+            endpoints?: pulumi.Input<pulumi.Input<inputs.discovery.v1beta1.Endpoint>[]>;
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
@@ -9417,14 +9417,14 @@ export namespace discovery.k8s.io {
             /**
              * ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
              */
-            ports?: pulumi.Input<pulumi.Input<inputs.discovery.k8s.io.v1beta1.EndpointPort>[]>;
+            ports?: pulumi.Input<pulumi.Input<inputs.discovery.v1beta1.EndpointPort>[]>;
         }
 
     }
 
 }
 
-export namespace events.k8s.io {
+export namespace events {
     export namespace v1beta1 {
         /**
          * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
@@ -9490,7 +9490,7 @@ export namespace events.k8s.io {
             /**
              * Data about the Event series this event represents or nil if it's a singleton Event.
              */
-            series?: pulumi.Input<inputs.events.k8s.io.v1beta1.EventSeries>;
+            series?: pulumi.Input<inputs.events.v1beta1.EventSeries>;
             /**
              * Type of this event (Normal, Warning), new types could be added in the future.
              */
@@ -10506,7 +10506,7 @@ export namespace extensions {
 
 }
 
-export namespace flowcontrol.apiserver.k8s.io {
+export namespace flowcontrol {
     export namespace v1alpha1 {
         /**
          * FlowDistinguisherMethod specifies the method of a flow distinguisher.
@@ -10537,11 +10537,11 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            spec?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchemaSpec>;
+            spec?: pulumi.Input<inputs.flowcontrol.v1alpha1.FlowSchemaSpec>;
             /**
              * `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            status?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchemaStatus>;
+            status?: pulumi.Input<inputs.flowcontrol.v1alpha1.FlowSchemaStatus>;
         }
 
         /**
@@ -10577,7 +10577,7 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
              */
-            distinguisherMethod?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowDistinguisherMethod>;
+            distinguisherMethod?: pulumi.Input<inputs.flowcontrol.v1alpha1.FlowDistinguisherMethod>;
             /**
              * `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
              */
@@ -10585,11 +10585,11 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
              */
-            priorityLevelConfiguration?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.PriorityLevelConfigurationReference>;
+            priorityLevelConfiguration?: pulumi.Input<inputs.flowcontrol.v1alpha1.PriorityLevelConfigurationReference>;
             /**
              * `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.PolicyRulesWithSubjects>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.PolicyRulesWithSubjects>[]>;
         }
 
         /**
@@ -10599,7 +10599,7 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `conditions` is a list of the current states of FlowSchema.
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchemaCondition>[]>;
+            conditions?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.FlowSchemaCondition>[]>;
         }
 
         /**
@@ -10619,7 +10619,7 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
              */
-            queuing?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.QueuingConfiguration>;
+            queuing?: pulumi.Input<inputs.flowcontrol.v1alpha1.QueuingConfiguration>;
             /**
              * `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
              */
@@ -10643,7 +10643,7 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `limitResponse` indicates what to do with requests that can not be executed right now
              */
-            limitResponse?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.LimitResponse>;
+            limitResponse?: pulumi.Input<inputs.flowcontrol.v1alpha1.LimitResponse>;
         }
 
         /**
@@ -10673,15 +10673,15 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
              */
-            nonResourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.NonResourcePolicyRule>[]>;
+            nonResourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.NonResourcePolicyRule>[]>;
             /**
              * `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
              */
-            resourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.ResourcePolicyRule>[]>;
+            resourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.ResourcePolicyRule>[]>;
             /**
              * subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
              */
-            subjects?: pulumi.Input<pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.Subject>[]>;
+            subjects?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.Subject>[]>;
         }
 
         /**
@@ -10703,11 +10703,11 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            spec?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.PriorityLevelConfigurationSpec>;
+            spec?: pulumi.Input<inputs.flowcontrol.v1alpha1.PriorityLevelConfigurationSpec>;
             /**
              * `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            status?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.PriorityLevelConfigurationStatus>;
+            status?: pulumi.Input<inputs.flowcontrol.v1alpha1.PriorityLevelConfigurationStatus>;
         }
 
         /**
@@ -10753,7 +10753,7 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
              */
-            limited?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.LimitedPriorityLevelConfiguration>;
+            limited?: pulumi.Input<inputs.flowcontrol.v1alpha1.LimitedPriorityLevelConfiguration>;
             /**
              * `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
              */
@@ -10767,7 +10767,7 @@ export namespace flowcontrol.apiserver.k8s.io {
             /**
              * `conditions` is the current state of "request-priority".
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.PriorityLevelConfigurationCondition>[]>;
+            conditions?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.PriorityLevelConfigurationCondition>[]>;
         }
 
         /**
@@ -10832,13 +10832,13 @@ export namespace flowcontrol.apiserver.k8s.io {
          * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
          */
         export interface Subject {
-            group?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.GroupSubject>;
+            group?: pulumi.Input<inputs.flowcontrol.v1alpha1.GroupSubject>;
             /**
              * Required
              */
             kind?: pulumi.Input<string>;
-            serviceAccount?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.ServiceAccountSubject>;
-            user?: pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.UserSubject>;
+            serviceAccount?: pulumi.Input<inputs.flowcontrol.v1alpha1.ServiceAccountSubject>;
+            user?: pulumi.Input<inputs.flowcontrol.v1alpha1.UserSubject>;
         }
 
         /**
@@ -11114,7 +11114,7 @@ export namespace meta {
 
 }
 
-export namespace networking.k8s.io {
+export namespace networking {
     export namespace v1 {
         /**
          * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
@@ -11149,7 +11149,7 @@ export namespace networking.k8s.io {
             /**
              * Specification of the desired behavior for this NetworkPolicy.
              */
-            spec?: pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicySpec>;
+            spec?: pulumi.Input<inputs.networking.v1.NetworkPolicySpec>;
         }
 
         /**
@@ -11159,11 +11159,11 @@ export namespace networking.k8s.io {
             /**
              * List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
              */
-            ports?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicyPort>[]>;
+            ports?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyPort>[]>;
             /**
              * List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
              */
-            to?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicyPeer>[]>;
+            to?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyPeer>[]>;
         }
 
         /**
@@ -11173,11 +11173,11 @@ export namespace networking.k8s.io {
             /**
              * List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
              */
-            from?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicyPeer>[]>;
+            from?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyPeer>[]>;
             /**
              * List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
              */
-            ports?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicyPort>[]>;
+            ports?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyPort>[]>;
         }
 
         /**
@@ -11187,7 +11187,7 @@ export namespace networking.k8s.io {
             /**
              * IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
              */
-            ipBlock?: pulumi.Input<inputs.networking.k8s.io.v1.IPBlock>;
+            ipBlock?: pulumi.Input<inputs.networking.v1.IPBlock>;
             /**
              * Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
              *
@@ -11223,11 +11223,11 @@ export namespace networking.k8s.io {
             /**
              * List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
              */
-            egress?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicyEgressRule>[]>;
+            egress?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyEgressRule>[]>;
             /**
              * List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
              */
-            ingress?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicyIngressRule>[]>;
+            ingress?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyIngressRule>[]>;
             /**
              * Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
              */
@@ -11247,7 +11247,7 @@ export namespace networking.k8s.io {
             /**
              * Backend defines the referenced service endpoint to which the traffic will be forwarded to.
              */
-            backend?: pulumi.Input<inputs.networking.k8s.io.v1beta1.IngressBackend>;
+            backend?: pulumi.Input<inputs.networking.v1beta1.IngressBackend>;
             /**
              * Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
              */
@@ -11261,7 +11261,7 @@ export namespace networking.k8s.io {
             /**
              * A collection of paths that map requests to backends.
              */
-            paths?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1beta1.HTTPIngressPath>[]>;
+            paths?: pulumi.Input<pulumi.Input<inputs.networking.v1beta1.HTTPIngressPath>[]>;
         }
 
         /**
@@ -11297,11 +11297,11 @@ export namespace networking.k8s.io {
             /**
              * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            spec?: pulumi.Input<inputs.networking.k8s.io.v1beta1.IngressSpec>;
+            spec?: pulumi.Input<inputs.networking.v1beta1.IngressSpec>;
             /**
              * Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            status?: pulumi.Input<inputs.networking.k8s.io.v1beta1.IngressStatus>;
+            status?: pulumi.Input<inputs.networking.v1beta1.IngressStatus>;
         }
 
         /**
@@ -11331,7 +11331,7 @@ export namespace networking.k8s.io {
              * Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
              */
             host?: pulumi.Input<string>;
-            http?: pulumi.Input<inputs.networking.k8s.io.v1beta1.HTTPIngressRuleValue>;
+            http?: pulumi.Input<inputs.networking.v1beta1.HTTPIngressRuleValue>;
         }
 
         /**
@@ -11341,15 +11341,15 @@ export namespace networking.k8s.io {
             /**
              * A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
              */
-            backend?: pulumi.Input<inputs.networking.k8s.io.v1beta1.IngressBackend>;
+            backend?: pulumi.Input<inputs.networking.v1beta1.IngressBackend>;
             /**
              * A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1beta1.IngressRule>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.networking.v1beta1.IngressRule>[]>;
             /**
              * TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
              */
-            tls?: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1beta1.IngressTLS>[]>;
+            tls?: pulumi.Input<pulumi.Input<inputs.networking.v1beta1.IngressTLS>[]>;
         }
 
         /**
@@ -11379,7 +11379,7 @@ export namespace networking.k8s.io {
 
 }
 
-export namespace node.k8s.io {
+export namespace node {
     export namespace v1alpha1 {
         /**
          * Overhead structure represents the resource overhead associated with running a pod.
@@ -11410,7 +11410,7 @@ export namespace node.k8s.io {
             /**
              * Specification of the RuntimeClass More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
-            spec?: pulumi.Input<inputs.node.k8s.io.v1alpha1.RuntimeClassSpec>;
+            spec?: pulumi.Input<inputs.node.v1alpha1.RuntimeClassSpec>;
         }
 
         /**
@@ -11420,7 +11420,7 @@ export namespace node.k8s.io {
             /**
              * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
              */
-            overhead?: pulumi.Input<inputs.node.k8s.io.v1alpha1.Overhead>;
+            overhead?: pulumi.Input<inputs.node.v1alpha1.Overhead>;
             /**
              * RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
              */
@@ -11428,7 +11428,7 @@ export namespace node.k8s.io {
             /**
              * Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
              */
-            scheduling?: pulumi.Input<inputs.node.k8s.io.v1alpha1.Scheduling>;
+            scheduling?: pulumi.Input<inputs.node.v1alpha1.Scheduling>;
         }
 
         /**
@@ -11480,11 +11480,11 @@ export namespace node.k8s.io {
             /**
              * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
              */
-            overhead?: pulumi.Input<inputs.node.k8s.io.v1beta1.Overhead>;
+            overhead?: pulumi.Input<inputs.node.v1beta1.Overhead>;
             /**
              * Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
              */
-            scheduling?: pulumi.Input<inputs.node.k8s.io.v1beta1.Scheduling>;
+            scheduling?: pulumi.Input<inputs.node.v1beta1.Scheduling>;
         }
 
         /**
@@ -11862,7 +11862,7 @@ export namespace policy {
 
 }
 
-export namespace rbac.authorization.k8s.io {
+export namespace rbac {
     export namespace v1 {
         /**
          * AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
@@ -11881,7 +11881,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
              */
-            aggregationRule?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1.AggregationRule>;
+            aggregationRule?: pulumi.Input<inputs.rbac.v1.AggregationRule>;
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
@@ -11897,7 +11897,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * Rules holds all the PolicyRules for this ClusterRole
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1.PolicyRule>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1.PolicyRule>[]>;
         }
 
         /**
@@ -11919,11 +11919,11 @@ export namespace rbac.authorization.k8s.io {
             /**
              * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
              */
-            roleRef?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1.RoleRef>;
+            roleRef?: pulumi.Input<inputs.rbac.v1.RoleRef>;
             /**
              * Subjects holds references to the objects the role applies to.
              */
-            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1.Subject>[]>;
+            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1.Subject>[]>;
         }
 
         /**
@@ -11971,7 +11971,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * Rules holds all the PolicyRules for this Role
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1.PolicyRule>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1.PolicyRule>[]>;
         }
 
         /**
@@ -11993,11 +11993,11 @@ export namespace rbac.authorization.k8s.io {
             /**
              * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
              */
-            roleRef?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1.RoleRef>;
+            roleRef?: pulumi.Input<inputs.rbac.v1.RoleRef>;
             /**
              * Subjects holds references to the objects the role applies to.
              */
-            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1.Subject>[]>;
+            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1.Subject>[]>;
         }
 
         /**
@@ -12059,7 +12059,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
              */
-            aggregationRule?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.AggregationRule>;
+            aggregationRule?: pulumi.Input<inputs.rbac.v1alpha1.AggregationRule>;
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
@@ -12075,7 +12075,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * Rules holds all the PolicyRules for this ClusterRole
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.PolicyRule>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1alpha1.PolicyRule>[]>;
         }
 
         /**
@@ -12097,11 +12097,11 @@ export namespace rbac.authorization.k8s.io {
             /**
              * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
              */
-            roleRef?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.RoleRef>;
+            roleRef?: pulumi.Input<inputs.rbac.v1alpha1.RoleRef>;
             /**
              * Subjects holds references to the objects the role applies to.
              */
-            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.Subject>[]>;
+            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1alpha1.Subject>[]>;
         }
 
         /**
@@ -12149,7 +12149,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * Rules holds all the PolicyRules for this Role
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.PolicyRule>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1alpha1.PolicyRule>[]>;
         }
 
         /**
@@ -12171,11 +12171,11 @@ export namespace rbac.authorization.k8s.io {
             /**
              * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
              */
-            roleRef?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.RoleRef>;
+            roleRef?: pulumi.Input<inputs.rbac.v1alpha1.RoleRef>;
             /**
              * Subjects holds references to the objects the role applies to.
              */
-            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.Subject>[]>;
+            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1alpha1.Subject>[]>;
         }
 
         /**
@@ -12237,7 +12237,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
              */
-            aggregationRule?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.AggregationRule>;
+            aggregationRule?: pulumi.Input<inputs.rbac.v1beta1.AggregationRule>;
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
@@ -12253,7 +12253,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * Rules holds all the PolicyRules for this ClusterRole
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.PolicyRule>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1beta1.PolicyRule>[]>;
         }
 
         /**
@@ -12275,11 +12275,11 @@ export namespace rbac.authorization.k8s.io {
             /**
              * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
              */
-            roleRef?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.RoleRef>;
+            roleRef?: pulumi.Input<inputs.rbac.v1beta1.RoleRef>;
             /**
              * Subjects holds references to the objects the role applies to.
              */
-            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.Subject>[]>;
+            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1beta1.Subject>[]>;
         }
 
         /**
@@ -12327,7 +12327,7 @@ export namespace rbac.authorization.k8s.io {
             /**
              * Rules holds all the PolicyRules for this Role
              */
-            rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.PolicyRule>[]>;
+            rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1beta1.PolicyRule>[]>;
         }
 
         /**
@@ -12349,11 +12349,11 @@ export namespace rbac.authorization.k8s.io {
             /**
              * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
              */
-            roleRef?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.RoleRef>;
+            roleRef?: pulumi.Input<inputs.rbac.v1beta1.RoleRef>;
             /**
              * Subjects holds references to the objects the role applies to.
              */
-            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.Subject>[]>;
+            subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1beta1.Subject>[]>;
         }
 
         /**
@@ -12399,7 +12399,7 @@ export namespace rbac.authorization.k8s.io {
 
 }
 
-export namespace scheduling.k8s.io {
+export namespace scheduling {
     export namespace v1 {
         /**
          * PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
@@ -12513,7 +12513,7 @@ export namespace scheduling.k8s.io {
 
 }
 
-export namespace settings.k8s.io {
+export namespace settings {
     export namespace v1alpha1 {
         /**
          * PodPreset is a policy resource that defines additional runtime requirements for a Pod.
@@ -12528,7 +12528,7 @@ export namespace settings.k8s.io {
              */
             kind?: pulumi.Input<string>;
             metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
-            spec?: pulumi.Input<inputs.settings.k8s.io.v1alpha1.PodPresetSpec>;
+            spec?: pulumi.Input<inputs.settings.v1alpha1.PodPresetSpec>;
         }
 
         /**
@@ -12560,7 +12560,7 @@ export namespace settings.k8s.io {
 
 }
 
-export namespace storage.k8s.io {
+export namespace storage {
     export namespace v1 {
         /**
          * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
@@ -12581,7 +12581,7 @@ export namespace storage.k8s.io {
             /**
              * spec is the specification of CSINode
              */
-            spec?: pulumi.Input<inputs.storage.k8s.io.v1.CSINodeSpec>;
+            spec?: pulumi.Input<inputs.storage.v1.CSINodeSpec>;
         }
 
         /**
@@ -12591,7 +12591,7 @@ export namespace storage.k8s.io {
             /**
              * allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
              */
-            allocatable?: pulumi.Input<inputs.storage.k8s.io.v1.VolumeNodeResources>;
+            allocatable?: pulumi.Input<inputs.storage.v1.VolumeNodeResources>;
             /**
              * This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
              */
@@ -12613,7 +12613,7 @@ export namespace storage.k8s.io {
             /**
              * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
              */
-            drivers?: pulumi.Input<pulumi.Input<inputs.storage.k8s.io.v1.CSINodeDriver>[]>;
+            drivers?: pulumi.Input<pulumi.Input<inputs.storage.v1.CSINodeDriver>[]>;
         }
 
         /**
@@ -12685,11 +12685,11 @@ export namespace storage.k8s.io {
             /**
              * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
              */
-            spec?: pulumi.Input<inputs.storage.k8s.io.v1.VolumeAttachmentSpec>;
+            spec?: pulumi.Input<inputs.storage.v1.VolumeAttachmentSpec>;
             /**
              * Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
              */
-            status?: pulumi.Input<inputs.storage.k8s.io.v1.VolumeAttachmentStatus>;
+            status?: pulumi.Input<inputs.storage.v1.VolumeAttachmentStatus>;
         }
 
         /**
@@ -12721,7 +12721,7 @@ export namespace storage.k8s.io {
             /**
              * Source represents the volume that should be attached.
              */
-            source?: pulumi.Input<inputs.storage.k8s.io.v1.VolumeAttachmentSource>;
+            source?: pulumi.Input<inputs.storage.v1.VolumeAttachmentSource>;
         }
 
         /**
@@ -12731,7 +12731,7 @@ export namespace storage.k8s.io {
             /**
              * The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
              */
-            attachError?: pulumi.Input<inputs.storage.k8s.io.v1.VolumeError>;
+            attachError?: pulumi.Input<inputs.storage.v1.VolumeError>;
             /**
              * Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
              */
@@ -12743,7 +12743,7 @@ export namespace storage.k8s.io {
             /**
              * The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
              */
-            detachError?: pulumi.Input<inputs.storage.k8s.io.v1.VolumeError>;
+            detachError?: pulumi.Input<inputs.storage.v1.VolumeError>;
         }
 
         /**
@@ -12793,11 +12793,11 @@ export namespace storage.k8s.io {
             /**
              * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
              */
-            spec?: pulumi.Input<inputs.storage.k8s.io.v1alpha1.VolumeAttachmentSpec>;
+            spec?: pulumi.Input<inputs.storage.v1alpha1.VolumeAttachmentSpec>;
             /**
              * Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
              */
-            status?: pulumi.Input<inputs.storage.k8s.io.v1alpha1.VolumeAttachmentStatus>;
+            status?: pulumi.Input<inputs.storage.v1alpha1.VolumeAttachmentStatus>;
         }
 
         /**
@@ -12829,7 +12829,7 @@ export namespace storage.k8s.io {
             /**
              * Source represents the volume that should be attached.
              */
-            source?: pulumi.Input<inputs.storage.k8s.io.v1alpha1.VolumeAttachmentSource>;
+            source?: pulumi.Input<inputs.storage.v1alpha1.VolumeAttachmentSource>;
         }
 
         /**
@@ -12839,7 +12839,7 @@ export namespace storage.k8s.io {
             /**
              * The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
              */
-            attachError?: pulumi.Input<inputs.storage.k8s.io.v1alpha1.VolumeError>;
+            attachError?: pulumi.Input<inputs.storage.v1alpha1.VolumeError>;
             /**
              * Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
              */
@@ -12851,7 +12851,7 @@ export namespace storage.k8s.io {
             /**
              * The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
              */
-            detachError?: pulumi.Input<inputs.storage.k8s.io.v1alpha1.VolumeError>;
+            detachError?: pulumi.Input<inputs.storage.v1alpha1.VolumeError>;
         }
 
         /**
@@ -12889,7 +12889,7 @@ export namespace storage.k8s.io {
             /**
              * Specification of the CSI Driver.
              */
-            spec?: pulumi.Input<inputs.storage.k8s.io.v1beta1.CSIDriverSpec>;
+            spec?: pulumi.Input<inputs.storage.v1beta1.CSIDriverSpec>;
         }
 
         /**
@@ -12932,7 +12932,7 @@ export namespace storage.k8s.io {
             /**
              * spec is the specification of CSINode
              */
-            spec?: pulumi.Input<inputs.storage.k8s.io.v1beta1.CSINodeSpec>;
+            spec?: pulumi.Input<inputs.storage.v1beta1.CSINodeSpec>;
         }
 
         /**
@@ -12942,7 +12942,7 @@ export namespace storage.k8s.io {
             /**
              * allocatable represents the volume resources of a node that are available for scheduling.
              */
-            allocatable?: pulumi.Input<inputs.storage.k8s.io.v1beta1.VolumeNodeResources>;
+            allocatable?: pulumi.Input<inputs.storage.v1beta1.VolumeNodeResources>;
             /**
              * This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
              */
@@ -12964,7 +12964,7 @@ export namespace storage.k8s.io {
             /**
              * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
              */
-            drivers?: pulumi.Input<pulumi.Input<inputs.storage.k8s.io.v1beta1.CSINodeDriver>[]>;
+            drivers?: pulumi.Input<pulumi.Input<inputs.storage.v1beta1.CSINodeDriver>[]>;
         }
 
         /**
@@ -13036,11 +13036,11 @@ export namespace storage.k8s.io {
             /**
              * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
              */
-            spec?: pulumi.Input<inputs.storage.k8s.io.v1beta1.VolumeAttachmentSpec>;
+            spec?: pulumi.Input<inputs.storage.v1beta1.VolumeAttachmentSpec>;
             /**
              * Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
              */
-            status?: pulumi.Input<inputs.storage.k8s.io.v1beta1.VolumeAttachmentStatus>;
+            status?: pulumi.Input<inputs.storage.v1beta1.VolumeAttachmentStatus>;
         }
 
         /**
@@ -13072,7 +13072,7 @@ export namespace storage.k8s.io {
             /**
              * Source represents the volume that should be attached.
              */
-            source?: pulumi.Input<inputs.storage.k8s.io.v1beta1.VolumeAttachmentSource>;
+            source?: pulumi.Input<inputs.storage.v1beta1.VolumeAttachmentSource>;
         }
 
         /**
@@ -13082,7 +13082,7 @@ export namespace storage.k8s.io {
             /**
              * The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
              */
-            attachError?: pulumi.Input<inputs.storage.k8s.io.v1beta1.VolumeError>;
+            attachError?: pulumi.Input<inputs.storage.v1beta1.VolumeError>;
             /**
              * Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
              */
@@ -13094,7 +13094,7 @@ export namespace storage.k8s.io {
             /**
              * The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
              */
-            detachError?: pulumi.Input<inputs.storage.k8s.io.v1beta1.VolumeError>;
+            detachError?: pulumi.Input<inputs.storage.v1beta1.VolumeError>;
         }
 
         /**

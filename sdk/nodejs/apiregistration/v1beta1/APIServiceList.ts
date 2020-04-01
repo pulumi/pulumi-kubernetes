@@ -40,7 +40,7 @@ export class APIServiceList extends pulumi.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     public readonly apiVersion!: pulumi.Output<string | undefined>;
-    public readonly items!: pulumi.Output<outputs.apiregistration.k8s.io.v1beta1.APIService[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.apiregistration.v1beta1.APIService[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -94,7 +94,7 @@ export interface APIServiceListArgs {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     readonly apiVersion?: pulumi.Input<string>;
-    readonly items: pulumi.Input<pulumi.Input<inputs.apiregistration.k8s.io.v1beta1.APIService>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.apiregistration.v1beta1.APIService>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

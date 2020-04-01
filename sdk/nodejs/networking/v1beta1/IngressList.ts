@@ -43,7 +43,7 @@ export class IngressList extends pulumi.CustomResource {
     /**
      * Items is the list of Ingress.
      */
-    public readonly items!: pulumi.Output<outputs.networking.k8s.io.v1beta1.Ingress[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.networking.v1beta1.Ingress[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface IngressListArgs {
     /**
      * Items is the list of Ingress.
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.networking.k8s.io.v1beta1.Ingress>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.networking.v1beta1.Ingress>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

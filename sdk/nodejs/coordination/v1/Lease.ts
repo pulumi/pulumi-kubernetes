@@ -51,7 +51,7 @@ export class Lease extends pulumi.CustomResource {
     /**
      * Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.coordination.k8s.io.v1.LeaseSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.coordination.v1.LeaseSpec | undefined>;
 
     /**
      * Create a Lease resource with the given unique name, arguments, and options.
@@ -108,5 +108,5 @@ export interface LeaseArgs {
     /**
      * Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    readonly spec?: pulumi.Input<inputs.coordination.k8s.io.v1.LeaseSpec>;
+    readonly spec?: pulumi.Input<inputs.coordination.v1.LeaseSpec>;
 }

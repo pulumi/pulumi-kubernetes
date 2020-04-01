@@ -43,7 +43,7 @@ export class ValidatingWebhookConfigurationList extends pulumi.CustomResource {
     /**
      * List of ValidatingWebhookConfiguration.
      */
-    public readonly items!: pulumi.Output<outputs.admissionregistration.k8s.io.v1.ValidatingWebhookConfiguration[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.admissionregistration.v1.ValidatingWebhookConfiguration[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface ValidatingWebhookConfigurationListArgs {
     /**
      * List of ValidatingWebhookConfiguration.
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1.ValidatingWebhookConfiguration>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.ValidatingWebhookConfiguration>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

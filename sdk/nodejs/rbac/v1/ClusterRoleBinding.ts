@@ -51,11 +51,11 @@ export class ClusterRoleBinding extends pulumi.CustomResource {
     /**
      * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
      */
-    public readonly roleRef!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1.RoleRef | undefined>;
+    public readonly roleRef!: pulumi.Output<outputs.rbac.v1.RoleRef | undefined>;
     /**
      * Subjects holds references to the objects the role applies to.
      */
-    public readonly subjects!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1.Subject[] | undefined>;
+    public readonly subjects!: pulumi.Output<outputs.rbac.v1.Subject[] | undefined>;
 
     /**
      * Create a ClusterRoleBinding resource with the given unique name, arguments, and options.
@@ -117,9 +117,9 @@ export interface ClusterRoleBindingArgs {
     /**
      * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
      */
-    readonly roleRef: pulumi.Input<inputs.rbac.authorization.k8s.io.v1.RoleRef>;
+    readonly roleRef: pulumi.Input<inputs.rbac.v1.RoleRef>;
     /**
      * Subjects holds references to the objects the role applies to.
      */
-    readonly subjects?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1.Subject>[]>;
+    readonly subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1.Subject>[]>;
 }

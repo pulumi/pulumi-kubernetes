@@ -48,11 +48,11 @@ export class CertificateSigningRequest extends pulumi.CustomResource {
     /**
      * The certificate request itself and any additional information.
      */
-    public readonly spec!: pulumi.Output<outputs.certificates.k8s.io.v1beta1.CertificateSigningRequestSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.certificates.v1beta1.CertificateSigningRequestSpec | undefined>;
     /**
      * Derived information about the request.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.certificates.k8s.io.v1beta1.CertificateSigningRequestStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.certificates.v1beta1.CertificateSigningRequestStatus | undefined>;
 
     /**
      * Create a CertificateSigningRequest resource with the given unique name, arguments, and options.
@@ -106,5 +106,5 @@ export interface CertificateSigningRequestArgs {
     /**
      * The certificate request itself and any additional information.
      */
-    readonly spec?: pulumi.Input<inputs.certificates.k8s.io.v1beta1.CertificateSigningRequestSpec>;
+    readonly spec?: pulumi.Input<inputs.certificates.v1beta1.CertificateSigningRequestSpec>;
 }

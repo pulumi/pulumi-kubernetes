@@ -45,8 +45,8 @@ export class TokenRequest extends pulumi.CustomResource {
      */
     public readonly kind!: pulumi.Output<string | undefined>;
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
-    public readonly spec!: pulumi.Output<outputs.authentication.k8s.io.v1.TokenRequestSpec | undefined>;
-    public /*out*/ readonly status!: pulumi.Output<outputs.authentication.k8s.io.v1.TokenRequestStatus | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authentication.v1.TokenRequestSpec | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.authentication.v1.TokenRequestStatus | undefined>;
 
     /**
      * Create a TokenRequest resource with the given unique name, arguments, and options.
@@ -100,5 +100,5 @@ export interface TokenRequestArgs {
      */
     readonly kind?: pulumi.Input<string>;
     readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
-    readonly spec: pulumi.Input<inputs.authentication.k8s.io.v1.TokenRequestSpec>;
+    readonly spec: pulumi.Input<inputs.authentication.v1.TokenRequestSpec>;
 }

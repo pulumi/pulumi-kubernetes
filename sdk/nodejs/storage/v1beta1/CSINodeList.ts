@@ -43,7 +43,7 @@ export class CSINodeList extends pulumi.CustomResource {
     /**
      * items is the list of CSINode
      */
-    public readonly items!: pulumi.Output<outputs.storage.k8s.io.v1beta1.CSINode[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.storage.v1beta1.CSINode[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface CSINodeListArgs {
     /**
      * items is the list of CSINode
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.storage.k8s.io.v1beta1.CSINode>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.storage.v1beta1.CSINode>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

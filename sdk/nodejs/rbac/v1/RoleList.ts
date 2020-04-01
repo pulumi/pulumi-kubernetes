@@ -43,7 +43,7 @@ export class RoleList extends pulumi.CustomResource {
     /**
      * Items is a list of Roles
      */
-    public readonly items!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1.Role[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.rbac.v1.Role[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface RoleListArgs {
     /**
      * Items is a list of Roles
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1.Role>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.rbac.v1.Role>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

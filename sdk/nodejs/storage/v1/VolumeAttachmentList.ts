@@ -43,7 +43,7 @@ export class VolumeAttachmentList extends pulumi.CustomResource {
     /**
      * Items is the list of VolumeAttachments
      */
-    public readonly items!: pulumi.Output<outputs.storage.k8s.io.v1.VolumeAttachment[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.storage.v1.VolumeAttachment[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface VolumeAttachmentListArgs {
     /**
      * Items is the list of VolumeAttachments
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.storage.k8s.io.v1.VolumeAttachment>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.storage.v1.VolumeAttachment>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

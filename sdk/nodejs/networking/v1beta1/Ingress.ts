@@ -65,11 +65,11 @@ export class Ingress extends pulumi.CustomResource {
     /**
      * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.networking.k8s.io.v1beta1.IngressSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.networking.v1beta1.IngressSpec | undefined>;
     /**
      * Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.networking.k8s.io.v1beta1.IngressStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.networking.v1beta1.IngressStatus | undefined>;
 
     /**
      * Create a Ingress resource with the given unique name, arguments, and options.
@@ -128,5 +128,5 @@ export interface IngressArgs {
     /**
      * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    readonly spec?: pulumi.Input<inputs.networking.k8s.io.v1beta1.IngressSpec>;
+    readonly spec?: pulumi.Input<inputs.networking.v1beta1.IngressSpec>;
 }

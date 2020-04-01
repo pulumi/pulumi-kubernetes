@@ -51,7 +51,7 @@ export class Role extends pulumi.CustomResource {
     /**
      * Rules holds all the PolicyRules for this Role
      */
-    public readonly rules!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1beta1.PolicyRule[] | undefined>;
+    public readonly rules!: pulumi.Output<outputs.rbac.v1beta1.PolicyRule[] | undefined>;
 
     /**
      * Create a Role resource with the given unique name, arguments, and options.
@@ -108,5 +108,5 @@ export interface RoleArgs {
     /**
      * Rules holds all the PolicyRules for this Role
      */
-    readonly rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1beta1.PolicyRule>[]>;
+    readonly rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1beta1.PolicyRule>[]>;
 }

@@ -48,7 +48,7 @@ export class AuditSink extends pulumi.CustomResource {
     /**
      * Spec defines the audit configuration spec
      */
-    public readonly spec!: pulumi.Output<outputs.auditregistration.k8s.io.v1alpha1.AuditSinkSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.auditregistration.v1alpha1.AuditSinkSpec | undefined>;
 
     /**
      * Create a AuditSink resource with the given unique name, arguments, and options.
@@ -100,5 +100,5 @@ export interface AuditSinkArgs {
     /**
      * Spec defines the audit configuration spec
      */
-    readonly spec?: pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.AuditSinkSpec>;
+    readonly spec?: pulumi.Input<inputs.auditregistration.v1alpha1.AuditSinkSpec>;
 }

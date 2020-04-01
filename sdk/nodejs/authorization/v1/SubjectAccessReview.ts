@@ -48,11 +48,11 @@ export class SubjectAccessReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated
      */
-    public readonly spec!: pulumi.Output<outputs.authorization.k8s.io.v1.SubjectAccessReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authorization.v1.SubjectAccessReviewSpec | undefined>;
     /**
      * Status is filled in by the server and indicates whether the request is allowed or not
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.authorization.k8s.io.v1.SubjectAccessReviewStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.authorization.v1.SubjectAccessReviewStatus | undefined>;
 
     /**
      * Create a SubjectAccessReview resource with the given unique name, arguments, and options.
@@ -111,5 +111,5 @@ export interface SubjectAccessReviewArgs {
     /**
      * Spec holds information about the request being evaluated
      */
-    readonly spec: pulumi.Input<inputs.authorization.k8s.io.v1.SubjectAccessReviewSpec>;
+    readonly spec: pulumi.Input<inputs.authorization.v1.SubjectAccessReviewSpec>;
 }

@@ -51,7 +51,7 @@ export class MutatingWebhookConfiguration extends pulumi.CustomResource {
     /**
      * Webhooks is a list of webhooks and the affected resources and operations.
      */
-    public readonly webhooks!: pulumi.Output<outputs.admissionregistration.k8s.io.v1.MutatingWebhook[] | undefined>;
+    public readonly webhooks!: pulumi.Output<outputs.admissionregistration.v1.MutatingWebhook[] | undefined>;
 
     /**
      * Create a MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
@@ -108,5 +108,5 @@ export interface MutatingWebhookConfigurationArgs {
     /**
      * Webhooks is a list of webhooks and the affected resources and operations.
      */
-    readonly webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.k8s.io.v1.MutatingWebhook>[]>;
+    readonly webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MutatingWebhook>[]>;
 }

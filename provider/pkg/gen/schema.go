@@ -162,6 +162,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					ObjectTypeSpec:     objectSpec,
 					DeprecationMessage: kind.DeprecationComment(),
 					InputProperties:    map[string]pschema.PropertySpec{},
+					// TODO: missing StateInputs
 				}
 
 				for _, p := range kind.RequiredInputProperties() {

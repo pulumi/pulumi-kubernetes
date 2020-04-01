@@ -43,7 +43,7 @@ export class RoleBindingList extends pulumi.CustomResource {
     /**
      * Items is a list of RoleBindings
      */
-    public readonly items!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1alpha1.RoleBinding[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.rbac.v1alpha1.RoleBinding[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface RoleBindingListArgs {
     /**
      * Items is a list of RoleBindings
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.RoleBinding>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.rbac.v1alpha1.RoleBinding>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

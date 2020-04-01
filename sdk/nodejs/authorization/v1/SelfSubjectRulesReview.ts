@@ -48,11 +48,11 @@ export class SelfSubjectRulesReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated.
      */
-    public readonly spec!: pulumi.Output<outputs.authorization.k8s.io.v1.SelfSubjectRulesReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authorization.v1.SelfSubjectRulesReviewSpec | undefined>;
     /**
      * Status is filled in by the server and indicates the set of actions a user can perform.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.authorization.k8s.io.v1.SubjectRulesReviewStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.authorization.v1.SubjectRulesReviewStatus | undefined>;
 
     /**
      * Create a SelfSubjectRulesReview resource with the given unique name, arguments, and options.
@@ -111,5 +111,5 @@ export interface SelfSubjectRulesReviewArgs {
     /**
      * Spec holds information about the request being evaluated.
      */
-    readonly spec: pulumi.Input<inputs.authorization.k8s.io.v1.SelfSubjectRulesReviewSpec>;
+    readonly spec: pulumi.Input<inputs.authorization.v1.SelfSubjectRulesReviewSpec>;
 }

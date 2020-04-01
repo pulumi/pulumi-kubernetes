@@ -43,7 +43,7 @@ export class AuditSinkList extends pulumi.CustomResource {
     /**
      * List of audit configurations.
      */
-    public readonly items!: pulumi.Output<outputs.auditregistration.k8s.io.v1alpha1.AuditSink[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.auditregistration.v1alpha1.AuditSink[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -98,7 +98,7 @@ export interface AuditSinkListArgs {
     /**
      * List of audit configurations.
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.auditregistration.k8s.io.v1alpha1.AuditSink>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.auditregistration.v1alpha1.AuditSink>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

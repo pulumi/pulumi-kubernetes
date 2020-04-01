@@ -43,7 +43,7 @@ export class FlowSchemaList extends pulumi.CustomResource {
     /**
      * `items` is a list of FlowSchemas.
      */
-    public readonly items!: pulumi.Output<outputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchema[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.flowcontrol.v1alpha1.FlowSchema[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface FlowSchemaListArgs {
     /**
      * `items` is a list of FlowSchemas.
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.flowcontrol.apiserver.k8s.io.v1alpha1.FlowSchema>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.FlowSchema>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

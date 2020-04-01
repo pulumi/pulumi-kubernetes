@@ -45,7 +45,7 @@ export class PodPreset extends pulumi.CustomResource {
      */
     public readonly kind!: pulumi.Output<string | undefined>;
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
-    public readonly spec!: pulumi.Output<outputs.settings.k8s.io.v1alpha1.PodPresetSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.settings.v1alpha1.PodPresetSpec | undefined>;
 
     /**
      * Create a PodPreset resource with the given unique name, arguments, and options.
@@ -94,5 +94,5 @@ export interface PodPresetArgs {
      */
     readonly kind?: pulumi.Input<string>;
     readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
-    readonly spec?: pulumi.Input<inputs.settings.k8s.io.v1alpha1.PodPresetSpec>;
+    readonly spec?: pulumi.Input<inputs.settings.v1alpha1.PodPresetSpec>;
 }

@@ -51,7 +51,7 @@ export class NetworkPolicy extends pulumi.CustomResource {
     /**
      * Specification of the desired behavior for this NetworkPolicy.
      */
-    public readonly spec!: pulumi.Output<outputs.networking.k8s.io.v1.NetworkPolicySpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.networking.v1.NetworkPolicySpec | undefined>;
 
     /**
      * Create a NetworkPolicy resource with the given unique name, arguments, and options.
@@ -108,5 +108,5 @@ export interface NetworkPolicyArgs {
     /**
      * Specification of the desired behavior for this NetworkPolicy.
      */
-    readonly spec?: pulumi.Input<inputs.networking.k8s.io.v1.NetworkPolicySpec>;
+    readonly spec?: pulumi.Input<inputs.networking.v1.NetworkPolicySpec>;
 }

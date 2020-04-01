@@ -48,11 +48,11 @@ export class TokenReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated
      */
-    public readonly spec!: pulumi.Output<outputs.authentication.k8s.io.v1.TokenReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authentication.v1.TokenReviewSpec | undefined>;
     /**
      * Status is filled in by the server and indicates whether the request can be authenticated.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.authentication.k8s.io.v1.TokenReviewStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.authentication.v1.TokenReviewStatus | undefined>;
 
     /**
      * Create a TokenReview resource with the given unique name, arguments, and options.
@@ -111,5 +111,5 @@ export interface TokenReviewArgs {
     /**
      * Spec holds information about the request being evaluated
      */
-    readonly spec: pulumi.Input<inputs.authentication.k8s.io.v1.TokenReviewSpec>;
+    readonly spec: pulumi.Input<inputs.authentication.v1.TokenReviewSpec>;
 }

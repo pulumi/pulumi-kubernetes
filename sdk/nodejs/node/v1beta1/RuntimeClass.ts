@@ -55,11 +55,11 @@ export class RuntimeClass extends pulumi.CustomResource {
     /**
      * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
      */
-    public readonly overhead!: pulumi.Output<outputs.node.k8s.io.v1beta1.Overhead | undefined>;
+    public readonly overhead!: pulumi.Output<outputs.node.v1beta1.Overhead | undefined>;
     /**
      * Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
      */
-    public readonly scheduling!: pulumi.Output<outputs.node.k8s.io.v1beta1.Scheduling | undefined>;
+    public readonly scheduling!: pulumi.Output<outputs.node.v1beta1.Scheduling | undefined>;
 
     /**
      * Create a RuntimeClass resource with the given unique name, arguments, and options.
@@ -127,9 +127,9 @@ export interface RuntimeClassArgs {
     /**
      * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
      */
-    readonly overhead?: pulumi.Input<inputs.node.k8s.io.v1beta1.Overhead>;
+    readonly overhead?: pulumi.Input<inputs.node.v1beta1.Overhead>;
     /**
      * Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
      */
-    readonly scheduling?: pulumi.Input<inputs.node.k8s.io.v1beta1.Scheduling>;
+    readonly scheduling?: pulumi.Input<inputs.node.v1beta1.Scheduling>;
 }

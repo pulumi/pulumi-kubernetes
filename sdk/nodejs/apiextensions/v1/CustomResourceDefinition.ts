@@ -48,11 +48,11 @@ export class CustomResourceDefinition extends pulumi.CustomResource {
     /**
      * spec describes how the user wants the resources to appear
      */
-    public readonly spec!: pulumi.Output<outputs.apiextensions.k8s.io.v1.CustomResourceDefinitionSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinitionSpec | undefined>;
     /**
      * status indicates the actual state of the CustomResourceDefinition
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.apiextensions.k8s.io.v1.CustomResourceDefinitionStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinitionStatus | undefined>;
 
     /**
      * Create a CustomResourceDefinition resource with the given unique name, arguments, and options.
@@ -111,5 +111,5 @@ export interface CustomResourceDefinitionArgs {
     /**
      * spec describes how the user wants the resources to appear
      */
-    readonly spec: pulumi.Input<inputs.apiextensions.k8s.io.v1.CustomResourceDefinitionSpec>;
+    readonly spec: pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionSpec>;
 }

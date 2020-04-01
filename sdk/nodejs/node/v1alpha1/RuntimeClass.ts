@@ -51,7 +51,7 @@ export class RuntimeClass extends pulumi.CustomResource {
     /**
      * Specification of the RuntimeClass More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.node.k8s.io.v1alpha1.RuntimeClassSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.node.v1alpha1.RuntimeClassSpec | undefined>;
 
     /**
      * Create a RuntimeClass resource with the given unique name, arguments, and options.
@@ -111,5 +111,5 @@ export interface RuntimeClassArgs {
     /**
      * Specification of the RuntimeClass More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    readonly spec: pulumi.Input<inputs.node.k8s.io.v1alpha1.RuntimeClassSpec>;
+    readonly spec: pulumi.Input<inputs.node.v1alpha1.RuntimeClassSpec>;
 }

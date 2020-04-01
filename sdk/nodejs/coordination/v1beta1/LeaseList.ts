@@ -43,7 +43,7 @@ export class LeaseList extends pulumi.CustomResource {
     /**
      * Items is a list of schema objects.
      */
-    public readonly items!: pulumi.Output<outputs.coordination.k8s.io.v1beta1.Lease[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.coordination.v1beta1.Lease[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface LeaseListArgs {
     /**
      * Items is a list of schema objects.
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.coordination.k8s.io.v1beta1.Lease>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.coordination.v1beta1.Lease>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

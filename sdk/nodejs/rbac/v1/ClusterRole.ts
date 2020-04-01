@@ -39,7 +39,7 @@ export class ClusterRole extends pulumi.CustomResource {
     /**
      * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      */
-    public readonly aggregationRule!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1.AggregationRule | undefined>;
+    public readonly aggregationRule!: pulumi.Output<outputs.rbac.v1.AggregationRule | undefined>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
@@ -55,7 +55,7 @@ export class ClusterRole extends pulumi.CustomResource {
     /**
      * Rules holds all the PolicyRules for this ClusterRole
      */
-    public readonly rules!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1.PolicyRule[] | undefined>;
+    public readonly rules!: pulumi.Output<outputs.rbac.v1.PolicyRule[] | undefined>;
 
     /**
      * Create a ClusterRole resource with the given unique name, arguments, and options.
@@ -102,7 +102,7 @@ export interface ClusterRoleArgs {
     /**
      * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      */
-    readonly aggregationRule?: pulumi.Input<inputs.rbac.authorization.k8s.io.v1.AggregationRule>;
+    readonly aggregationRule?: pulumi.Input<inputs.rbac.v1.AggregationRule>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
@@ -118,5 +118,5 @@ export interface ClusterRoleArgs {
     /**
      * Rules holds all the PolicyRules for this ClusterRole
      */
-    readonly rules?: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1.PolicyRule>[]>;
+    readonly rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1.PolicyRule>[]>;
 }

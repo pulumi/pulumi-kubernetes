@@ -43,7 +43,7 @@ export class StorageClassList extends pulumi.CustomResource {
     /**
      * Items is the list of StorageClasses
      */
-    public readonly items!: pulumi.Output<outputs.storage.k8s.io.v1.StorageClass[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.storage.v1.StorageClass[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface StorageClassListArgs {
     /**
      * Items is the list of StorageClasses
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.storage.k8s.io.v1.StorageClass>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.storage.v1.StorageClass>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

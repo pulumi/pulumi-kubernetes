@@ -43,7 +43,7 @@ export class ClusterRoleBindingList extends pulumi.CustomResource {
     /**
      * Items is a list of ClusterRoleBindings
      */
-    public readonly items!: pulumi.Output<outputs.rbac.authorization.k8s.io.v1alpha1.ClusterRoleBinding[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.rbac.v1alpha1.ClusterRoleBinding[] | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -101,7 +101,7 @@ export interface ClusterRoleBindingListArgs {
     /**
      * Items is a list of ClusterRoleBindings
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.rbac.authorization.k8s.io.v1alpha1.ClusterRoleBinding>[]>;
+    readonly items: pulumi.Input<pulumi.Input<inputs.rbac.v1alpha1.ClusterRoleBinding>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
