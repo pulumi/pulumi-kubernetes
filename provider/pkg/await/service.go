@@ -5,21 +5,22 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/cluster"
-	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/metadata"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/go/common/diag"
-	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/metadata"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
+	"github.com/pulumi/pulumi/sdk/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
+	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 )
 
 // ------------------------------------------------------------------------------------------------

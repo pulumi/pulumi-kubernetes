@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 

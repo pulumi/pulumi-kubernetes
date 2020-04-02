@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

@@ -7,5 +7,5 @@
 **/.ionide
 .pulumi
 Pulumi.*.yaml
-/pkg/gen/openapi-specs
+/provider/pkg/gen/openapi-specs
 yarn.lock

@@ -18,7 +18,7 @@ import (
 	"fmt"
 
 	"github.com/cbroglie/mustache"
-	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/pkg/version"
+	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version"
 )
 
 // --------------------------------------------------------------------------

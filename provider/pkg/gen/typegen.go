@@ -23,7 +23,7 @@ import (
 
 	"github.com/ahmetb/go-linq"
 	"github.com/mitchellh/go-wordwrap"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 

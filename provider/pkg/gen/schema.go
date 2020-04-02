@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/pkg/version"
+	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version"
 
 	pschema "github.com/pulumi/pulumi/pkg/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/go/common/util/contract"

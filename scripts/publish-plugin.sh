@@ -16,10 +16,10 @@ if [ "$(go env GOOS)" = "windows" ]; then
     BIN_SUFFIX=".exe"
 fi
 
-go build \
-   -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" \
+(cd "${ROOT}/provider" && go build \
+   -ldflags "-X github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version.Version=${VERSION}" \
    -o "${WORK_PATH}/pulumi-resource-kubernetes${BIN_SUFFIX}" \
-   "${ROOT}/cmd/pulumi-resource-kubernetes"
+   "${ROOT}/cmd/pulumi-resource-kubernetes")
 
 # Tar up the plugin
 tar -czf ${PLUGIN_PACKAGE_PATH} -C ${WORK_PATH} .

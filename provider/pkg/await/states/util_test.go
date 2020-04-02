@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/await/recordings"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/await/recordings"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

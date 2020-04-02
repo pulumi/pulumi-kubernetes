@@ -15,13 +15,13 @@
 package ints
 
 import (
-	"github.com/pulumi/pulumi/sdk/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/go/common/tokens"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/testing/integration"
+	"github.com/pulumi/pulumi/sdk/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/go/common/tokens"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestDotnet_Basic(t *testing.T) {

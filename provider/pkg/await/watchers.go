@@ -17,10 +17,10 @@ package await
 import (
 	"sync"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/await/states"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/await/states"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

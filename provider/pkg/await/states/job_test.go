@@ -17,8 +17,8 @@ package states
 import (
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/await/recordings"
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/await/recordings"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
 	batchv1 "k8s.io/api/batch/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

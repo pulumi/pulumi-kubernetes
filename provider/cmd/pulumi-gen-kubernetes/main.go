@@ -29,7 +29,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/common/tools"
 	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/gen"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
 )
 
 // This is the URL for the v1.17.0 swagger spec. This is the last version of the spec containing the following

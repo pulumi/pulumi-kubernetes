@@ -38,7 +38,7 @@ copy_package() {
 }
 
 # Build binaries
-run_go_build "${ROOT}/cmd/pulumi-resource-kubernetes"
+run_go_build "${ROOT}/provider/v2/cmd/pulumi-resource-kubernetes"
 
 # Copy Packages
 copy_package "${ROOT}/sdk/nodejs/bin/." "@pulumi/kubernetes"

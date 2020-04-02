@@ -17,7 +17,7 @@ package states
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
 	batchv1 "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"

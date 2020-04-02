@@ -20,8 +20,8 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/go/common/tokens"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/tests"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v2"
 	"github.com/pulumi/pulumi/pkg/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 	"github.com/pulumi/pulumi/sdk/go/common/resource"

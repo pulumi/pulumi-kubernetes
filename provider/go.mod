@@ -1,11 +1,10 @@
-module github.com/pulumi/pulumi-kubernetes
+module github.com/pulumi/pulumi-kubernetes/provider/v2
 
 go 1.13
 
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/cbroglie/mustache v1.0.1
-	github.com/docker/docker v1.13.1 // indirect
 	github.com/evanphx/json-patch v4.2.0+incompatible
 	github.com/golang/protobuf v1.3.5
 	github.com/googleapis/gnostic v0.2.0
