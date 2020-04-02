@@ -33,9 +33,6 @@ endif
 
 TESTPARALLELISM := 10
 
-# Set NOPROXY to true to skip GOPROXY on 'ensure'
-NOPROXY := false
-
 $(OPENAPI_FILE)::
 	@mkdir -p $(OPENAPI_DIR)
 	test -f $(OPENAPI_FILE) || $(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
