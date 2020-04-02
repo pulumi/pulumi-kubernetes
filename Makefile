@@ -26,9 +26,9 @@ DOTNET_PREFIX  := $(firstword $(subst -, ,${VERSION:v%=%})) # e.g. 1.5.0
 DOTNET_SUFFIX  := $(word 2,$(subst -, ,${VERSION:v%=%}))    # e.g. alpha.1
 
 ifeq ($(strip ${DOTNET_SUFFIX}),)
-	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-preview
+	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})
 else
-	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-preview-$(strip ${DOTNET_SUFFIX})
+	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-$(strip ${DOTNET_SUFFIX})
 endif
 
 TESTPARALLELISM := 10
@@ -96,7 +96,7 @@ test_all::
 
 generate_schema:: $(OPENAPI_FILE)
 	$(call STEP_MESSAGE)
-	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
+	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
 	echo "Generating Pulumi schema..."
 	$(CODEGEN) schema $(OPENAPI_FILE) "" $(PACKDIR)
 	echo "Finished generating schema."
