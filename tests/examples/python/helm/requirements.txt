@@ -1,2 +1,2 @@
-pulumi>=1.8.1,<2.0.0
-pulumi_random>==1.0.1a1566600005
+pulumi>=2.0.0b0,<3.0.0
+pulumi_random>==2.0.0b0
