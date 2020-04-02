@@ -27,9 +27,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 
-	pycodegen "github.com/pulumi/pulumi/pkg/codegen/python"
-	pschema "github.com/pulumi/pulumi/pkg/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
+	pycodegen "github.com/pulumi/pulumi/pkg/v2/codegen/python"
+	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
 const (

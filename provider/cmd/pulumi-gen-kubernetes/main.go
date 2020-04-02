@@ -24,10 +24,10 @@ import (
 	"path/filepath"
 
 	"github.com/pkg/errors"
-	gogen "github.com/pulumi/pulumi/pkg/codegen/go"
-	"github.com/pulumi/pulumi/pkg/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/go/common/tools"
-	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
+	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
+	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/tools"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
 )

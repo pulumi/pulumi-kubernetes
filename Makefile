@@ -32,7 +32,6 @@ else
 endif
 
 TESTPARALLELISM := 10
-TESTABLE_PKGS   := ./provider/pkg/... ./examples/... ./tests/...
 
 # Set NOPROXY to true to skip GOPROXY on 'ensure'
 NOPROXY := false
@@ -88,10 +87,12 @@ install::
 
 test_fast::
 	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
-	$(GO_TEST_FAST) $(TESTABLE_PKGS)
+	cd provider/pkg && $(GO_TEST_FAST) ./...
+	cd tests && $(GO_TEST_FAST) ./...
 
 test_all::
-	$(GO_TEST) $(TESTABLE_PKGS)
+	cd provider/pkg && $(GO_TEST_FAST) ./...
+	cd tests && $(GO_TEST) ./...
 
 generate_schema:: $(OPENAPI_FILE)
 	$(call STEP_MESSAGE)

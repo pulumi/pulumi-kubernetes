@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/cmdutil"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/await/states"
@@ -15,8 +15,8 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/go/common/diag"
-	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"

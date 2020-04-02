@@ -11,8 +11,8 @@ require (
 	github.com/imdario/mergo v0.3.8
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg v1.13.1
-	github.com/pulumi/pulumi/sdk v1.13.1
+	github.com/pulumi/pulumi/pkg/v2 v2.0.0-beta.2.0.20200402101052-1dbf088db686
+	github.com/pulumi/pulumi/sdk/v2 v2.0.0-beta.2.0.20200402101052-1dbf088db686
 	github.com/stretchr/testify v1.5.1
 	google.golang.org/grpc v1.28.0
 	k8s.io/api v0.17.0

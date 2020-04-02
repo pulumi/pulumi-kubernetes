@@ -22,8 +22,8 @@ import (
 
 	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version"
 
-	pschema "github.com/pulumi/pulumi/pkg/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
+	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
@@ -105,7 +105,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Language: map[string]json.RawMessage{
 			"nodejs": rawMessage(map[string]interface{}{
 				"dependencies": map[string]string{
-					"@pulumi/pulumi":    "^1.11.0",
+					"@pulumi/pulumi":    "^2.0.0-beta.2",
 					"shell-quote":       "^1.6.1",
 					"tmp":               "^0.0.33",
 					"@types/tmp":        "^0.0.33",
@@ -122,7 +122,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			}),
 			"python": rawMessage(map[string]interface{}{
 				"requires": map[string]string{
-					"pulumi":   ">=1.11.0,<2.0.0",
+					"pulumi":   ">=2.0.0b2,<3.0.0",
 					"requests": ">=2.21.0,<2.22.0",
 					"pyyaml":   ">=5.1,<5.2",
 					"semver":   ">=2.8.1",
@@ -132,7 +132,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		},
 	}
 
-	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes"
+	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes"
 
 	csharpNamespaces := map[string]string{}
 	modToPkg := map[string]string{}
@@ -199,7 +199,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	pkg.Language["csharp"] = rawMessage(map[string]interface{}{
 		"packageReferences": map[string]string{
-			"Pulumi":                       "1.7.0-preview-alpha.1574743805",
+			"Pulumi":                       "2.0.0-beta.2",
 			"System.Collections.Immutable": "1.6.0",
 		},
 		"namespaces": csharpNamespaces,

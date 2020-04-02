@@ -6,15 +6,15 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi/sdk/go/common/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/cmdutil"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/go/common/diag"
-	logger "github.com/pulumi/pulumi/sdk/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
 	"k8s.io/api/extensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"

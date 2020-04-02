@@ -8,10 +8,10 @@ import (
 	"context"
 	"reflect"
 
-	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/batch/v1"
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/batch/v1"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/core/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
 // CronJob represents the configuration of a single cron job.

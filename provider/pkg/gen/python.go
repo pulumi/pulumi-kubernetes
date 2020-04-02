@@ -20,7 +20,7 @@ import (
 
 	"github.com/cbroglie/mustache"
 
-	pycodegen "github.com/pulumi/pulumi/pkg/codegen/python"
+	pycodegen "github.com/pulumi/pulumi/pkg/v2/codegen/python"
 )
 
 // --------------------------------------------------------------------------
