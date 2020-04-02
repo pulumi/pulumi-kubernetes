@@ -13,7 +13,7 @@ VERSION         ?= $(shell scripts/get-version)
 PYPI_VERSION    := $(shell scripts/get-py-version)
 KUBE_VERSION    ?= v1.18.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
-OPENAPI_DIR     := pkg/gen/openapi-specs
+OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 
 VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}"
@@ -32,7 +32,7 @@ else
 endif
 
 TESTPARALLELISM := 10
-TESTABLE_PKGS   := ./pkg/... ./examples/... ./tests/...
+TESTABLE_PKGS   := ./provider/pkg/... ./examples/... ./tests/...
 
 # Set NOPROXY to true to skip GOPROXY on 'ensure'
 NOPROXY := false
@@ -47,7 +47,7 @@ build:: $(OPENAPI_FILE)
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
 	for LANGUAGE in "dotnet" "go" "nodejs" "python"; do \
-		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
+		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) provider/pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
@@ -66,7 +66,7 @@ build:: $(OPENAPI_FILE)
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 lint::
-	for DIR in "cmd" "pkg" "sdk" "tests" ; do \
+	for DIR in "provider" "sdk" "tests" ; do \
 		pushd $$DIR && golangci-lint run -c ../.golangci.yml --deadline 10m && popd ; \
 	done
 

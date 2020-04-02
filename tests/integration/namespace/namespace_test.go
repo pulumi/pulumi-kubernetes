@@ -19,7 +19,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/pkg/openapi"
 
 	"github.com/pulumi/pulumi/sdk/go/common/tokens"
 
