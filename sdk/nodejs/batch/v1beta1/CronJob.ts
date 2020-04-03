@@ -66,8 +66,8 @@ export class CronJob extends pulumi.CustomResource {
      */
     constructor(name: string, args?: CronJobArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "batch/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "CronJob";
+        inputs["apiVersion"] = "batch/v1beta1";
+        inputs["kind"] = "CronJob";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

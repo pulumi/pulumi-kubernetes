@@ -69,8 +69,8 @@ export class DaemonSet extends pulumi.CustomResource {
     constructor(name: string, args?: DaemonSetArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("DaemonSet is deprecated: extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "extensions/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "DaemonSet";
+        inputs["apiVersion"] = "extensions/v1beta1";
+        inputs["kind"] = "DaemonSet";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

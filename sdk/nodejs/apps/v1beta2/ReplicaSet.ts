@@ -69,8 +69,8 @@ export class ReplicaSet extends pulumi.CustomResource {
     constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("ReplicaSet is deprecated: apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
-        inputs["kind"] = (args ? args.kind : undefined) || "ReplicaSet";
+        inputs["apiVersion"] = "apps/v1beta2";
+        inputs["kind"] = "ReplicaSet";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

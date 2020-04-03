@@ -63,8 +63,8 @@ export class APIService extends pulumi.CustomResource {
      */
     constructor(name: string, args?: APIServiceArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apiregistration.k8s.io/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "APIService";
+        inputs["apiVersion"] = "apiregistration.k8s.io/v1beta1";
+        inputs["kind"] = "APIService";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

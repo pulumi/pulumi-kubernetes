@@ -115,13 +115,13 @@ export class Event extends pulumi.CustomResource {
                 throw new Error("Missing required property 'eventTime'");
             }
         inputs["action"] = args ? args.action : undefined;
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "events.k8s.io/v1beta1";
+        inputs["apiVersion"] = "events.k8s.io/v1beta1";
         inputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
         inputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
         inputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
         inputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
         inputs["eventTime"] = args ? args.eventTime : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "Event";
+        inputs["kind"] = "Event";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["note"] = args ? args.note : undefined;
         inputs["reason"] = args ? args.reason : undefined;

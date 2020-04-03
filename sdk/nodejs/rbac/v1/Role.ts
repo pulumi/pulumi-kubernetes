@@ -62,8 +62,8 @@ export class Role extends pulumi.CustomResource {
      */
     constructor(name: string, args?: RoleArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Role";
+        inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
+        inputs["kind"] = "Role";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["rules"] = args ? args.rules : undefined;
         if (!opts) {

@@ -65,8 +65,8 @@ export class RuntimeClass extends pulumi.CustomResource {
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "node.k8s.io/v1alpha1";
-        inputs["kind"] = (args ? args.kind : undefined) || "RuntimeClass";
+        inputs["apiVersion"] = "node.k8s.io/v1alpha1";
+        inputs["kind"] = "RuntimeClass";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {

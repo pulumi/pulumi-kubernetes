@@ -63,8 +63,8 @@ export class CertificateSigningRequest extends pulumi.CustomResource {
      */
     constructor(name: string, args?: CertificateSigningRequestArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "certificates.k8s.io/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "CertificateSigningRequest";
+        inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
+        inputs["kind"] = "CertificateSigningRequest";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

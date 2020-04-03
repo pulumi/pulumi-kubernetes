@@ -62,8 +62,8 @@ export class NetworkPolicy extends pulumi.CustomResource {
      */
     constructor(name: string, args?: NetworkPolicyArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "networking.k8s.io/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "NetworkPolicy";
+        inputs["apiVersion"] = "networking.k8s.io/v1";
+        inputs["kind"] = "NetworkPolicy";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {

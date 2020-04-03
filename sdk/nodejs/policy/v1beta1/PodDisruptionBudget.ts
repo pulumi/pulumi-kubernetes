@@ -63,8 +63,8 @@ export class PodDisruptionBudget extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PodDisruptionBudgetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "policy/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "PodDisruptionBudget";
+        inputs["apiVersion"] = "policy/v1beta1";
+        inputs["kind"] = "PodDisruptionBudget";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

@@ -66,10 +66,10 @@ export class ConfigMap extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["apiVersion"] = "v1";
         inputs["binaryData"] = args ? args.binaryData : undefined;
         inputs["data"] = args ? args.data : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "ConfigMap";
+        inputs["kind"] = "ConfigMap";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

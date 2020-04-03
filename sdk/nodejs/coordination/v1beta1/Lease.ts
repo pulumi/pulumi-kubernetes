@@ -62,8 +62,8 @@ export class Lease extends pulumi.CustomResource {
      */
     constructor(name: string, args?: LeaseArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "coordination.k8s.io/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Lease";
+        inputs["apiVersion"] = "coordination.k8s.io/v1beta1";
+        inputs["kind"] = "Lease";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {

@@ -78,10 +78,10 @@ export class Status extends pulumi.CustomResource {
      */
     constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "meta/v1";
+        inputs["apiVersion"] = "meta/v1";
         inputs["code"] = args ? args.code : undefined;
         inputs["details"] = args ? args.details : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "Status";
+        inputs["kind"] = "Status";
         inputs["message"] = args ? args.message : undefined;
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["reason"] = args ? args.reason : undefined;

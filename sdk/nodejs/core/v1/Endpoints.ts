@@ -73,8 +73,8 @@ export class Endpoints extends pulumi.CustomResource {
      */
     constructor(name: string, args?: EndpointsArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Endpoints";
+        inputs["apiVersion"] = "v1";
+        inputs["kind"] = "Endpoints";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["subsets"] = args ? args.subsets : undefined;
         if (!opts) {

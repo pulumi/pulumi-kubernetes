@@ -62,8 +62,8 @@ export class LimitRange extends pulumi.CustomResource {
      */
     constructor(name: string, args?: LimitRangeArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "LimitRange";
+        inputs["apiVersion"] = "v1";
+        inputs["kind"] = "LimitRange";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {

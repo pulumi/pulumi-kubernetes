@@ -62,8 +62,8 @@ export class PodSecurityPolicy extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PodSecurityPolicyArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "policy/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "PodSecurityPolicy";
+        inputs["apiVersion"] = "policy/v1beta1";
+        inputs["kind"] = "PodSecurityPolicy";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {

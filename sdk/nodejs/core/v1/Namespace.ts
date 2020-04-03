@@ -66,8 +66,8 @@ export class Namespace extends pulumi.CustomResource {
      */
     constructor(name: string, args?: NamespaceArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Namespace";
+        inputs["apiVersion"] = "v1";
+        inputs["kind"] = "Namespace";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

@@ -65,9 +65,9 @@ export class MutatingWebhookConfigurationList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "admissionregistration.k8s.io/v1";
+        inputs["apiVersion"] = "admissionregistration.k8s.io/v1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "MutatingWebhookConfigurationList";
+        inputs["kind"] = "MutatingWebhookConfigurationList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

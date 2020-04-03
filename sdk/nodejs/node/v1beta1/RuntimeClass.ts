@@ -73,9 +73,9 @@ export class RuntimeClass extends pulumi.CustomResource {
             if (!args || args.handler === undefined) {
                 throw new Error("Missing required property 'handler'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "node.k8s.io/v1beta1";
+        inputs["apiVersion"] = "node.k8s.io/v1beta1";
         inputs["handler"] = args ? args.handler : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "RuntimeClass";
+        inputs["kind"] = "RuntimeClass";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["overhead"] = args ? args.overhead : undefined;
         inputs["scheduling"] = args ? args.scheduling : undefined;

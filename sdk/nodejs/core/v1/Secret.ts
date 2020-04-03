@@ -80,9 +80,9 @@ export class Secret extends pulumi.CustomResource {
      */
     constructor(name: string, args?: SecretArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["apiVersion"] = "v1";
         inputs["data"] = args ? args.data : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "Secret";
+        inputs["kind"] = "Secret";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["stringData"] = args ? args.stringData : undefined;
         inputs["type"] = args ? args.type : undefined;

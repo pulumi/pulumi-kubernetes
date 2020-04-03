@@ -66,8 +66,8 @@ export class SelfSubjectAccessReview extends pulumi.CustomResource {
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "authorization.k8s.io/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "SelfSubjectAccessReview";
+        inputs["apiVersion"] = "authorization.k8s.io/v1";
+        inputs["kind"] = "SelfSubjectAccessReview";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

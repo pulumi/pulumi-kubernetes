@@ -66,8 +66,8 @@ export class ReplicaSet extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "ReplicaSet";
+        inputs["apiVersion"] = "apps/v1";
+        inputs["kind"] = "ReplicaSet";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

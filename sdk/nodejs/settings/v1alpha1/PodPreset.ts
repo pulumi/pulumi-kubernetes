@@ -56,8 +56,8 @@ export class PodPreset extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PodPresetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "settings.k8s.io/v1alpha1";
-        inputs["kind"] = (args ? args.kind : undefined) || "PodPreset";
+        inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
+        inputs["kind"] = "PodPreset";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {

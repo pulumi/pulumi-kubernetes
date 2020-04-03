@@ -91,8 +91,8 @@ export class Deployment extends pulumi.CustomResource {
     constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("Deployment is deprecated: apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta2";
-        inputs["kind"] = (args ? args.kind : undefined) || "Deployment";
+        inputs["apiVersion"] = "apps/v1beta2";
+        inputs["kind"] = "Deployment";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

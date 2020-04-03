@@ -77,9 +77,9 @@ export class EndpointSlice extends pulumi.CustomResource {
                 throw new Error("Missing required property 'endpoints'");
             }
         inputs["addressType"] = args ? args.addressType : undefined;
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "discovery.k8s.io/v1beta1";
+        inputs["apiVersion"] = "discovery.k8s.io/v1beta1";
         inputs["endpoints"] = args ? args.endpoints : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "EndpointSlice";
+        inputs["kind"] = "EndpointSlice";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["ports"] = args ? args.ports : undefined;
         if (!opts) {

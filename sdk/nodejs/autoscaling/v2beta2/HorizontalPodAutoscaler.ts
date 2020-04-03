@@ -66,8 +66,8 @@ export class HorizontalPodAutoscaler extends pulumi.CustomResource {
      */
     constructor(name: string, args?: HorizontalPodAutoscalerArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "autoscaling/v2beta2";
-        inputs["kind"] = (args ? args.kind : undefined) || "HorizontalPodAutoscaler";
+        inputs["apiVersion"] = "autoscaling/v2beta2";
+        inputs["kind"] = "HorizontalPodAutoscaler";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

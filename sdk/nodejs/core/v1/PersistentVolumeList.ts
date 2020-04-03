@@ -65,9 +65,9 @@ export class PersistentVolumeList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["apiVersion"] = "v1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "PersistentVolumeList";
+        inputs["kind"] = "PersistentVolumeList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

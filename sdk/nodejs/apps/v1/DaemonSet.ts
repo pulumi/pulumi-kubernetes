@@ -66,8 +66,8 @@ export class DaemonSet extends pulumi.CustomResource {
      */
     constructor(name: string, args?: DaemonSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "DaemonSet";
+        inputs["apiVersion"] = "apps/v1";
+        inputs["kind"] = "DaemonSet";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

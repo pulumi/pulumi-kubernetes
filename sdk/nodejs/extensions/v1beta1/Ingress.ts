@@ -83,8 +83,8 @@ export class Ingress extends pulumi.CustomResource {
     constructor(name: string, args?: IngressArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "extensions/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Ingress";
+        inputs["apiVersion"] = "extensions/v1beta1";
+        inputs["kind"] = "Ingress";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

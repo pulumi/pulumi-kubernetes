@@ -65,8 +65,8 @@ export class CSIDriver extends pulumi.CustomResource {
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "CSIDriver";
+        inputs["apiVersion"] = "storage.k8s.io/v1beta1";
+        inputs["kind"] = "CSIDriver";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {

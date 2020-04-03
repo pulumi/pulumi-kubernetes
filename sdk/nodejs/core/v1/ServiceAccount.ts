@@ -70,10 +70,10 @@ export class ServiceAccount extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ServiceAccountArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["apiVersion"] = "v1";
         inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
         inputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "ServiceAccount";
+        inputs["kind"] = "ServiceAccount";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["secrets"] = args ? args.secrets : undefined;
         if (!opts) {

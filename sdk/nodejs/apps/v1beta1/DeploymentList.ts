@@ -65,9 +65,9 @@ export class DeploymentList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1beta1";
+        inputs["apiVersion"] = "apps/v1beta1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "DeploymentList";
+        inputs["kind"] = "DeploymentList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

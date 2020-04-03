@@ -65,9 +65,9 @@ export class IngressList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "networking.k8s.io/v1beta1";
+        inputs["apiVersion"] = "networking.k8s.io/v1beta1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "IngressList";
+        inputs["kind"] = "IngressList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

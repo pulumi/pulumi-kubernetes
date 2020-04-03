@@ -69,9 +69,9 @@ export class ControllerRevision extends pulumi.CustomResource {
             if (!args || args.revision === undefined) {
                 throw new Error("Missing required property 'revision'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
+        inputs["apiVersion"] = "apps/v1";
         inputs["data"] = args ? args.data : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "ControllerRevision";
+        inputs["kind"] = "ControllerRevision";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["revision"] = args ? args.revision : undefined;
         if (!opts) {

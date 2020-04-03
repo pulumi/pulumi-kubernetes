@@ -80,8 +80,8 @@ export class Ingress extends pulumi.CustomResource {
      */
     constructor(name: string, args?: IngressArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "networking.k8s.io/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Ingress";
+        inputs["apiVersion"] = "networking.k8s.io/v1beta1";
+        inputs["kind"] = "Ingress";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

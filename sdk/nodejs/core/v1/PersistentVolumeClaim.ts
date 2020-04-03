@@ -66,8 +66,8 @@ export class PersistentVolumeClaim extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PersistentVolumeClaimArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "PersistentVolumeClaim";
+        inputs["apiVersion"] = "v1";
+        inputs["kind"] = "PersistentVolumeClaim";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

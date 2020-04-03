@@ -65,9 +65,9 @@ export class JobList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "batch/v1";
+        inputs["apiVersion"] = "batch/v1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "JobList";
+        inputs["kind"] = "JobList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

@@ -65,9 +65,9 @@ export class ReplicaSetList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "extensions/v1beta1";
+        inputs["apiVersion"] = "extensions/v1beta1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "ReplicaSetList";
+        inputs["kind"] = "ReplicaSetList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

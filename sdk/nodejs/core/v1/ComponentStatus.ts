@@ -62,9 +62,9 @@ export class ComponentStatus extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ComponentStatusArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["apiVersion"] = "v1";
         inputs["conditions"] = args ? args.conditions : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "ComponentStatus";
+        inputs["kind"] = "ComponentStatus";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

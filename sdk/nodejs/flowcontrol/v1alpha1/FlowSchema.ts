@@ -66,8 +66,8 @@ export class FlowSchema extends pulumi.CustomResource {
      */
     constructor(name: string, args?: FlowSchemaArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "flowcontrol.apiserver.k8s.io/v1alpha1";
-        inputs["kind"] = (args ? args.kind : undefined) || "FlowSchema";
+        inputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
+        inputs["kind"] = "FlowSchema";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

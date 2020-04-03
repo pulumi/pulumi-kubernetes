@@ -65,9 +65,9 @@ export class NetworkPolicyList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "networking.k8s.io/v1";
+        inputs["apiVersion"] = "networking.k8s.io/v1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "NetworkPolicyList";
+        inputs["kind"] = "NetworkPolicyList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

@@ -66,8 +66,8 @@ export class PriorityLevelConfiguration extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PriorityLevelConfigurationArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "flowcontrol.apiserver.k8s.io/v1alpha1";
-        inputs["kind"] = (args ? args.kind : undefined) || "PriorityLevelConfiguration";
+        inputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
+        inputs["kind"] = "PriorityLevelConfiguration";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

@@ -93,8 +93,8 @@ export class StorageClass extends pulumi.CustomResource {
             }
         inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
         inputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "storage.k8s.io/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "StorageClass";
+        inputs["apiVersion"] = "storage.k8s.io/v1";
+        inputs["kind"] = "StorageClass";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["mountOptions"] = args ? args.mountOptions : undefined;
         inputs["parameters"] = args ? args.parameters : undefined;

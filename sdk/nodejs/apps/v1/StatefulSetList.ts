@@ -59,9 +59,9 @@ export class StatefulSetList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
+        inputs["apiVersion"] = "apps/v1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "StatefulSetList";
+        inputs["kind"] = "StatefulSetList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

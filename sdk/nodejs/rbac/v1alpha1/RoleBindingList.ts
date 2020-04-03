@@ -65,9 +65,9 @@ export class RoleBindingList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "rbac.authorization.k8s.io/v1alpha1";
+        inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "RoleBindingList";
+        inputs["kind"] = "RoleBindingList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

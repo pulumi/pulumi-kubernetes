@@ -81,8 +81,8 @@ export class Pod extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PodArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Pod";
+        inputs["apiVersion"] = "v1";
+        inputs["kind"] = "Pod";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

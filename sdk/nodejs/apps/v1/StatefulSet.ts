@@ -79,8 +79,8 @@ export class StatefulSet extends pulumi.CustomResource {
      */
     constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "StatefulSet";
+        inputs["apiVersion"] = "apps/v1";
+        inputs["kind"] = "StatefulSet";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

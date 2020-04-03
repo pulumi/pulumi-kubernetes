@@ -91,8 +91,8 @@ export class Service extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ServiceArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Service";
+        inputs["apiVersion"] = "v1";
+        inputs["kind"] = "Service";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

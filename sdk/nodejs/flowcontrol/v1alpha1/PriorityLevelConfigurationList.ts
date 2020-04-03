@@ -65,9 +65,9 @@ export class PriorityLevelConfigurationList extends pulumi.CustomResource {
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "flowcontrol.apiserver.k8s.io/v1alpha1";
+        inputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
         inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "PriorityLevelConfigurationList";
+        inputs["kind"] = "PriorityLevelConfigurationList";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
             opts = {}

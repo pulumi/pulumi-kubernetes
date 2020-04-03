@@ -65,8 +65,8 @@ export class Binding extends pulumi.CustomResource {
             if (!args || args.target === undefined) {
                 throw new Error("Missing required property 'target'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Binding";
+        inputs["apiVersion"] = "v1";
+        inputs["kind"] = "Binding";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["target"] = args ? args.target : undefined;
         if (!opts) {

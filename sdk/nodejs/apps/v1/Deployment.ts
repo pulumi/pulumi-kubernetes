@@ -88,8 +88,8 @@ export class Deployment extends pulumi.CustomResource {
      */
     constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apps/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Deployment";
+        inputs["apiVersion"] = "apps/v1";
+        inputs["kind"] = "Deployment";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

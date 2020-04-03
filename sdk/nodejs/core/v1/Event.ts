@@ -121,12 +121,12 @@ export class Event extends pulumi.CustomResource {
                 throw new Error("Missing required property 'metadata'");
             }
         inputs["action"] = args ? args.action : undefined;
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "v1";
+        inputs["apiVersion"] = "v1";
         inputs["count"] = args ? args.count : undefined;
         inputs["eventTime"] = args ? args.eventTime : undefined;
         inputs["firstTimestamp"] = args ? args.firstTimestamp : undefined;
         inputs["involvedObject"] = args ? args.involvedObject : undefined;
-        inputs["kind"] = (args ? args.kind : undefined) || "Event";
+        inputs["kind"] = "Event";
         inputs["lastTimestamp"] = args ? args.lastTimestamp : undefined;
         inputs["message"] = args ? args.message : undefined;
         inputs["metadata"] = args ? args.metadata : undefined;

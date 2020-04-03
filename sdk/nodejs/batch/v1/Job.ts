@@ -81,8 +81,8 @@ export class Job extends pulumi.CustomResource {
      */
     constructor(name: string, args?: JobArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "batch/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "Job";
+        inputs["apiVersion"] = "batch/v1";
+        inputs["kind"] = "Job";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

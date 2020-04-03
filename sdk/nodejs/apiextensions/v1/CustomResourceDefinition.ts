@@ -66,8 +66,8 @@ export class CustomResourceDefinition extends pulumi.CustomResource {
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "apiextensions.k8s.io/v1";
-        inputs["kind"] = (args ? args.kind : undefined) || "CustomResourceDefinition";
+        inputs["apiVersion"] = "apiextensions.k8s.io/v1";
+        inputs["kind"] = "CustomResourceDefinition";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         inputs["status"] = undefined /*out*/;

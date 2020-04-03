@@ -62,8 +62,8 @@ export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ValidatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "admissionregistration.k8s.io/v1beta1";
-        inputs["kind"] = (args ? args.kind : undefined) || "ValidatingWebhookConfiguration";
+        inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
+        inputs["kind"] = "ValidatingWebhookConfiguration";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["webhooks"] = args ? args.webhooks : undefined;
         if (!opts) {

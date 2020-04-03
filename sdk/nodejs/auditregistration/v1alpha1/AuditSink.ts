@@ -59,8 +59,8 @@ export class AuditSink extends pulumi.CustomResource {
      */
     constructor(name: string, args?: AuditSinkArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = (args ? args.apiVersion : undefined) || "auditregistration.k8s.io/v1alpha1";
-        inputs["kind"] = (args ? args.kind : undefined) || "AuditSink";
+        inputs["apiVersion"] = "auditregistration.k8s.io/v1alpha1";
+        inputs["kind"] = "AuditSink";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["spec"] = args ? args.spec : undefined;
         if (!opts) {
