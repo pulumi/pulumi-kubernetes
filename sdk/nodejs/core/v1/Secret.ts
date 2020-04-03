@@ -55,6 +55,10 @@ export class Secret extends pulumi.CustomResource {
      */
     public readonly data!: pulumi.Output<{[key: string]: string} | undefined>;
     /**
+     * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+     */
+    public readonly immutable!: pulumi.Output<boolean | undefined>;
+    /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     public readonly kind!: pulumi.Output<string | undefined>;
@@ -82,6 +86,7 @@ export class Secret extends pulumi.CustomResource {
         let inputs: pulumi.Inputs = {};
         inputs["apiVersion"] = "v1";
         inputs["data"] = args ? args.data : undefined;
+        inputs["immutable"] = args ? args.immutable : undefined;
         inputs["kind"] = "Secret";
         inputs["metadata"] = args ? args.metadata : undefined;
         inputs["stringData"] = args ? args.stringData : undefined;
@@ -109,6 +114,10 @@ export interface SecretArgs {
      * Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
      */
     readonly data?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+     */
+    readonly immutable?: pulumi.Input<boolean>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

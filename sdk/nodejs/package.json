@@ -11,7 +11,7 @@
     "scripts": {
         "build": "tsc"
     },
-    "peerDependencies": {
+    "dependencies": {
         "@pulumi/pulumi": "^2.0.0",
         "@types/glob": "^5.0.35",
         "@types/node-fetch": "^2.1.4",

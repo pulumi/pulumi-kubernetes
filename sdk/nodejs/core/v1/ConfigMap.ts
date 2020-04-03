@@ -49,6 +49,10 @@ export class ConfigMap extends pulumi.CustomResource {
      */
     public readonly data!: pulumi.Output<{[key: string]: string} | undefined>;
     /**
+     * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+     */
+    public readonly immutable!: pulumi.Output<boolean | undefined>;
+    /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     public readonly kind!: pulumi.Output<string | undefined>;
@@ -69,6 +73,7 @@ export class ConfigMap extends pulumi.CustomResource {
         inputs["apiVersion"] = "v1";
         inputs["binaryData"] = args ? args.binaryData : undefined;
         inputs["data"] = args ? args.data : undefined;
+        inputs["immutable"] = args ? args.immutable : undefined;
         inputs["kind"] = "ConfigMap";
         inputs["metadata"] = args ? args.metadata : undefined;
         if (!opts) {
@@ -98,6 +103,10 @@ export interface ConfigMapArgs {
      * Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
      */
     readonly data?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+     */
+    readonly immutable?: pulumi.Input<boolean>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

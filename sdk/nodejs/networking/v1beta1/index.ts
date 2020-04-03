@@ -3,4 +3,6 @@
 
 // Export members:
 export * from "./ingress";
+export * from "./ingressClass";
+export * from "./ingressClassList";
 export * from "./ingressList";
