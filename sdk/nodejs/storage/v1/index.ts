@@ -2,11 +2,11 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./csidriver";
-export * from "./csidriverList";
-export * from "./csinode";
-export * from "./csinodeList";
-export * from "./storageClass";
-export * from "./storageClassList";
-export * from "./volumeAttachment";
-export * from "./volumeAttachmentList";
+export * from "./CSIDriver";
+export * from "./CSIDriverList";
+export * from "./CSINode";
+export * from "./CSINodeList";
+export * from "./StorageClass";
+export * from "./StorageClassList";
+export * from "./VolumeAttachment";
+export * from "./VolumeAttachmentList";

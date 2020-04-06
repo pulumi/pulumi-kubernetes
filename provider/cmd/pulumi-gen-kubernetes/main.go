@@ -19,15 +19,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"go/format"
-	nodejsgen "github.com/pulumi/pulumi/pkg/codegen/nodejs"
 	"io/ioutil"
 	"log"
 	"os"
 	"path"
 	"path/filepath"
-	"strings"
 	"sort"
-	"text/template"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
@@ -100,11 +97,37 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 
 	// TODO: generate overlay files
 
-	foo := `Testing file overlays
-1
-2
-3`
-	overlays := map[string][]byte{"foo": []byte(foo)}
+	nodejsPath, err := ioutil.ReadFile(filepath.Join(templateDir, "path.ts"))
+	if err != nil {
+		panic(err)
+	}
+	nodejsTests := `
+import * as assert from "assert";
+import * as path from "../path";
+
+describe("path.quoteWindowsPath", () => {
+    it("escapes Windows path with drive prefix correctly", () => {
+        const p = path.quoteWindowsPath("C:\\Users\\grace hopper\\AppData\\Local\\Temp");
+        assert.strictEqual(p, "C:\\Users\\grace hopper\\AppData\\Local\\Temp");
+    });
+    it("escapes Windows path with no drive prefix correctly", () => {
+        const p = path.quoteWindowsPath("\\Users\\grace hopper\\AppData\\Local\\Temp");
+        assert.strictEqual(p, "\\Users\\grace hopper\\AppData\\Local\\Temp");
+    });
+    it("escapes relative Windows path correctly", () => {
+        const p = path.quoteWindowsPath("Users\\grace hopper\\AppData\\Local\\Temp");
+        assert.strictEqual(p, "Users\\grace hopper\\AppData\\Local\\Temp");
+    });
+    it("escapes Windows repo URL correctly", () => {
+        const p = path.quoteWindowsPath("https\://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
+        assert.strictEqual(p, "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
+    });
+});
+`
+	overlays := map[string][]byte{
+		"path.ts":       nodejsPath,
+		"tests/path.ts": []byte(nodejsTests),
+	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
@@ -433,27 +456,27 @@ func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
 func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	pkgSpec := gen.PulumiSchema(data)
 
-	b, err := ioutil.ReadFile("/Users/levi/go/src/github.com/pulumi/pulumi-kubernetes/pkg/gen/nodejs-templates/foo.gotmpl")
-	if err != nil {
-		panic(err)
-	}
-	funcMap := template.FuncMap{
-		"toURN": func(s string) string {
-			return strings.Replace(s, ":", "/", -1)
-		},
-		"moduleToPackage": func(s string) string {
-			// TODO: figure out how to replace the apiVersion with the package path
-			return strings.Replace(s, ":", "/", -1)
-		},
-		"replace": strings.Replace,
-	}
-	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
-
-	// Execute the template for each recipient.
-	err = t.Execute(os.Stdout, pkgSpec)
-	if err != nil {
-		panic(err)
-	}
+	//b, err := ioutil.ReadFile("/Users/levi/go/src/github.com/pulumi/pulumi-kubernetes/pkg/gen/nodejs-templates/foo.gotmpl")
+	//if err != nil {
+	//	panic(err)
+	//}
+	//funcMap := template.FuncMap{
+	//	"toURN": func(s string) string {
+	//		return strings.Replace(s, ":", "/", -1)
+	//	},
+	//	"moduleToPackage": func(s string) string {
+	//		// TODO: figure out how to replace the apiVersion with the package path
+	//		return strings.Replace(s, ":", "/", -1)
+	//	},
+	//	"replace": strings.Replace,
+	//}
+	//t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
+	//
+	//// Execute the template for each recipient.
+	//err = t.Execute(os.Stdout, pkgSpec)
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	pkg, err := schema.ImportSpec(pkgSpec)
 	if err != nil {

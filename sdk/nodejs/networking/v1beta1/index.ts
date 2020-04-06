@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./ingress";
-export * from "./ingressClass";
-export * from "./ingressClassList";
-export * from "./ingressList";
+export * from "./Ingress";
+export * from "./IngressClass";
+export * from "./IngressClassList";
+export * from "./IngressList";

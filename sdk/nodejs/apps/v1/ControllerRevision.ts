@@ -64,7 +64,7 @@ export class ControllerRevision extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
             if (!args || args.revision === undefined) {
                 throw new Error("Missing required property 'revision'");

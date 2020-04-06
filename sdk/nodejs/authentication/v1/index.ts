@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./tokenRequest";
-export * from "./tokenReview";
+export * from "./TokenRequest";
+export * from "./TokenReview";

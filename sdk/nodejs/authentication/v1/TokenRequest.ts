@@ -55,7 +55,7 @@ export class TokenRequest extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: TokenRequestArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: TokenRequestArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");

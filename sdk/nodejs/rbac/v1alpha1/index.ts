@@ -2,11 +2,11 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./clusterRole";
-export * from "./clusterRoleBinding";
-export * from "./clusterRoleBindingList";
-export * from "./clusterRoleList";
-export * from "./role";
-export * from "./roleBinding";
-export * from "./roleBindingList";
-export * from "./roleList";
+export * from "./ClusterRole";
+export * from "./ClusterRoleBinding";
+export * from "./ClusterRoleBindingList";
+export * from "./ClusterRoleList";
+export * from "./Role";
+export * from "./RoleBinding";
+export * from "./RoleBindingList";
+export * from "./RoleList";

@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./mutatingWebhookConfiguration";
-export * from "./mutatingWebhookConfigurationList";
-export * from "./validatingWebhookConfiguration";
-export * from "./validatingWebhookConfigurationList";
+export * from "./MutatingWebhookConfiguration";
+export * from "./MutatingWebhookConfigurationList";
+export * from "./ValidatingWebhookConfiguration";
+export * from "./ValidatingWebhookConfigurationList";

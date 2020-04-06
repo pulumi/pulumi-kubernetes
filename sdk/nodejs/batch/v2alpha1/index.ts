@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./cronJob";
-export * from "./cronJobList";
+export * from "./CronJob";
+export * from "./CronJobList";

@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./localSubjectAccessReview";
-export * from "./selfSubjectAccessReview";
-export * from "./selfSubjectRulesReview";
-export * from "./subjectAccessReview";
+export * from "./LocalSubjectAccessReview";
+export * from "./SelfSubjectAccessReview";
+export * from "./SelfSubjectRulesReview";
+export * from "./SubjectAccessReview";

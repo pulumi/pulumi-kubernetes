@@ -68,7 +68,7 @@ export class EndpointSlice extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: EndpointSliceArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: EndpointSliceArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
             if (!args || args.addressType === undefined) {
                 throw new Error("Missing required property 'addressType'");

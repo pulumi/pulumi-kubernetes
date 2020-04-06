@@ -5,9 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
-import {JSONSchemaPropsOrStringArray} from "../apiextensions/v1";
-import {JSONSchemaPropsOrStringArray} from "../apiextensions/v1beta1";
-
 export namespace admissionregistration {
     export namespace v1 {
         /**
@@ -886,7 +883,7 @@ export namespace apiextensions {
              */
             default?: any;
             definitions?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps>}>;
-            dependencies?: pulumi.Input<{[key: string]: pulumi.Input<JSONSchemaPropsOrStringArray> | pulumi.Input<pulumi.Input<string>[]>}>;
+            dependencies?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1.JSONSchemaProps> | pulumi.Input<pulumi.Input<string>[]>}>;
             description?: pulumi.Input<string>;
             enum?: pulumi.Input<any[]>;
             example?: any;
@@ -1334,7 +1331,7 @@ export namespace apiextensions {
              */
             default?: any;
             definitions?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps>}>;
-            dependencies?: pulumi.Input<{[key: string]: pulumi.Input<JSONSchemaPropsOrStringArray> | pulumi.Input<pulumi.Input<string>[]>}>;
+            dependencies?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apiextensions.v1beta1.JSONSchemaProps> | pulumi.Input<pulumi.Input<string>[]>}>;
             description?: pulumi.Input<string>;
             enum?: pulumi.Input<any[]>;
             example?: any;

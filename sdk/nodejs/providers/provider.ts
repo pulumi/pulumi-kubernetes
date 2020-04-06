@@ -32,15 +32,12 @@ export class Provider extends pulumi.ProviderResource {
      */
     constructor(name: string, args?: ProviderArgs, opts?: pulumi.ResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        {
         inputs["cluster"] = args ? args.cluster : undefined;
         inputs["context"] = args ? args.context : undefined;
-        inputs["enableDryRun"] = pulumi.output(args ? args.enableDryRun : undefined).apply(JSON.stringify)
-;
+        inputs["enableDryRun"] = pulumi.output(args ? args.enableDryRun : undefined).apply(JSON.stringify);
         inputs["kubeconfig"] = args ? args.kubeconfig : undefined;
         inputs["namespace"] = args ? args.namespace : undefined;
-        inputs["suppressDeprecationWarnings"] = pulumi.output(args ? args.suppressDeprecationWarnings : undefined).apply(JSON.stringify)
-;
+        inputs["suppressDeprecationWarnings"] = pulumi.output(args ? args.suppressDeprecationWarnings : undefined).apply(JSON.stringify);
         if (!opts) {
             opts = {}
         }

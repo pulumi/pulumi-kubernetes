@@ -62,7 +62,7 @@ export class CSINode extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated storage/v1beta1/CSINode is deprecated by storage/v1/CSINode. */
-    constructor(name: string, args: CSINodeArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: CSINodeArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("CSINode is deprecated: storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.")
         let inputs: pulumi.Inputs = {};
             if (!args || args.spec === undefined) {

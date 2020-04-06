@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./horizontalPodAutoscaler";
-export * from "./horizontalPodAutoscalerList";
+export * from "./HorizontalPodAutoscaler";
+export * from "./HorizontalPodAutoscalerList";

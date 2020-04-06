@@ -72,7 +72,7 @@ export class PriorityClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: PriorityClassArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: PriorityClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
             if (!args || args.value === undefined) {
                 throw new Error("Missing required property 'value'");

@@ -66,7 +66,7 @@ export class ControllerRevision extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
         pulumi.log.warn("ControllerRevision is deprecated: apps/v1beta2/ControllerRevision is deprecated by apps/v1/ControllerRevision and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
             if (!args || args.revision === undefined) {

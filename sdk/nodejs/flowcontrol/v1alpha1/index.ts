@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./flowSchema";
-export * from "./flowSchemaList";
-export * from "./priorityLevelConfiguration";
-export * from "./priorityLevelConfigurationList";
+export * from "./FlowSchema";
+export * from "./FlowSchemaList";
+export * from "./PriorityLevelConfiguration";
+export * from "./PriorityLevelConfigurationList";

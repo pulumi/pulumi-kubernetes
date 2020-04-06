@@ -60,7 +60,7 @@ export class ConfigMapList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ConfigMapListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ConfigMapListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");

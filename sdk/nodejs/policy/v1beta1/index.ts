@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./podDisruptionBudget";
-export * from "./podDisruptionBudgetList";
-export * from "./podSecurityPolicy";
-export * from "./podSecurityPolicyList";
+export * from "./PodDisruptionBudget";
+export * from "./PodDisruptionBudgetList";
+export * from "./PodSecurityPolicy";
+export * from "./PodSecurityPolicyList";
