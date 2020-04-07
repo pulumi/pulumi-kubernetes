@@ -65,7 +65,8 @@ namespace Pulumi.Kubernetes.Helm
                         fetchOptions.Destination = chartDirectoryName;
                         fetchOptions.Version = cfg.Version;
                         Fetch(chartToFetch, fetchOptions);
-                        var fetchedChart = chartDirectory.GetDirectories()[0];
+                        // Sort the directories into alphabetical order, and choose the first 
+                        var fetchedChart = chartDirectory.GetDirectories().OrderBy(x => x.Name).ToArray()[0];
                         var fetchedChartName = fetchedChart.Name; 
                         chart = fetchedChart.FullName;
                         defaultValues = Path.Join(chartDirectoryName, fetchedChartName, "values.yaml");
