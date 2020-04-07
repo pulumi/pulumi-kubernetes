@@ -256,6 +256,7 @@
         "types/index.ts",
         "types/input.ts",
         "types/output.ts",
-        "utilities.ts"
+        "utilities.ts",
+        "yaml/yaml.ts"
     ]
 }

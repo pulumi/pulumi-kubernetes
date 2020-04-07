@@ -25,6 +25,8 @@ import (
 	"path"
 	"path/filepath"
 	"sort"
+	"strings"
+	"text/template"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
@@ -95,6 +97,8 @@ func main() {
 func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
 	pkg := genPulumiSchemaPackage(data)
 
+	languageResources := nodejsgen.LanguageResources(pkg)
+
 	// TODO: generate overlay files
 
 	nodejsPath, err := ioutil.ReadFile(filepath.Join(templateDir, "path.ts"))
@@ -124,9 +128,64 @@ describe("path.quoteWindowsPath", () => {
     });
 });
 `
+
+	type nodePackageInfo struct {
+		// Map from module -> package name
+		//
+		//    { "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1" }
+		//
+		ModuleToPackage map[string]string `json:"moduleToPackage,omitempty"`
+	}
+	// Decode node-specific info
+	var info nodePackageInfo
+	if node, ok := pkg.Language["nodejs"]; ok {
+		if err := json.Unmarshal(node, &info); err != nil {
+			panic(err)
+		}
+	}
+
+	b, err := ioutil.ReadFile(filepath.Join(templateDir, "yaml.tmpl"))
+	if err != nil {
+		panic(err)
+	}
+	funcMap := template.FuncMap{
+		"toImport": func(s string) string {
+			parts := strings.Split(s, ":")
+			contract.Assert(len(parts) == 3)
+			apiVersion, kind := parts[1], parts[2]
+			pkg, ok := info.ModuleToPackage[apiVersion]
+			if !ok {
+				panic("module to package failed for " + apiVersion)
+			}
+			return strings.Replace(pkg, "/", ".", -1) + "." + kind
+		},
+		"toGVK": func(s string) string {
+			parts := strings.Split(s, ":")
+			contract.Assert(len(parts) == 3)
+			gvk := parts[1] + "/" + parts[2]
+			return strings.TrimPrefix(gvk, "core/")
+		},
+		"propStr": func(s string) string {
+			parts := strings.Split(s, ":")
+			contract.Assert(len(parts) == 3)
+			gvk := parts[1] + "/" + parts[2]
+			return strings.TrimPrefix(gvk, "core/")
+		},
+		"replace": strings.Replace,
+	}
+	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
+
+	// Execute the template for each recipient.
+	var buf bytes.Buffer
+	err = t.Execute(&buf, languageResources)
+	if err != nil {
+		panic(err)
+	}
+
 	overlays := map[string][]byte{
 		"path.ts":       nodejsPath,
 		"tests/path.ts": []byte(nodejsTests),
+		"yaml/yaml.ts":  buf.Bytes(),
 	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
@@ -455,28 +514,6 @@ func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
 
 func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	pkgSpec := gen.PulumiSchema(data)
-
-	//b, err := ioutil.ReadFile("/Users/levi/go/src/github.com/pulumi/pulumi-kubernetes/pkg/gen/nodejs-templates/foo.gotmpl")
-	//if err != nil {
-	//	panic(err)
-	//}
-	//funcMap := template.FuncMap{
-	//	"toURN": func(s string) string {
-	//		return strings.Replace(s, ":", "/", -1)
-	//	},
-	//	"moduleToPackage": func(s string) string {
-	//		// TODO: figure out how to replace the apiVersion with the package path
-	//		return strings.Replace(s, ":", "/", -1)
-	//	},
-	//	"replace": strings.Replace,
-	//}
-	//t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
-	//
-	//// Execute the template for each recipient.
-	//err = t.Execute(os.Stdout, pkgSpec)
-	//if err != nil {
-	//	panic(err)
-	//}
 
 	pkg, err := schema.ImportSpec(pkgSpec)
 	if err != nil {
