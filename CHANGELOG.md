@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Add consts to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1062).
+
 ## 1.6.0 (March 25, 2020)
 
 ### Improvements
