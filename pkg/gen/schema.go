@@ -102,34 +102,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Types:     map[string]pschema.ObjectTypeSpec{},
 		Resources: map[string]pschema.ResourceSpec{},
 		Functions: map[string]pschema.FunctionSpec{},
-		Language: map[string]json.RawMessage{
-			"nodejs": rawMessage(map[string]interface{}{
-				"dependencies": map[string]string{
-					"@pulumi/pulumi":    "^1.11.0",
-					"shell-quote":       "^1.6.1",
-					"tmp":               "^0.0.33",
-					"@types/tmp":        "^0.0.33",
-					"glob":              "^7.1.2",
-					"@types/glob":       "^5.0.35",
-					"node-fetch":        "^2.3.0",
-					"@types/node-fetch": "^2.1.4",
-				},
-				"devDependencies": map[string]string{
-					"mocha":              "^5.2.0",
-					"@types/mocha":       "^5.2.5",
-					"@types/shell-quote": "^1.6.0",
-				},
-			}),
-			"python": rawMessage(map[string]interface{}{
-				"requires": map[string]string{
-					"pulumi":   ">=1.11.0,<2.0.0",
-					"requests": ">=2.21.0,<2.22.0",
-					"pyyaml":   ">=5.1,<5.2",
-					"semver":   ">=2.8.1",
-					"parver":   ">=0.2.1",
-				},
-			}),
-		},
+		Language:  map[string]json.RawMessage{},
 	}
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes"
@@ -153,7 +126,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					kind.schemaPkgName, "/", "", -1)
 
 				objectSpec := pschema.ObjectTypeSpec{
-					Description: kind.Comment(),
+					Description: kind.Comment() + kind.PulumiComment(),
 					Type:        "object",
 					Properties:  map[string]pschema.PropertySpec{},
 				}
@@ -209,6 +182,33 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"moduleToPackage":      modToPkg,
 		"packageImportAliases": pkgImportAliases,
 	})
+	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
+		"dependencies": map[string]string{
+			"@pulumi/pulumi":    "^1.14.0",
+			"shell-quote":       "^1.6.1",
+			"tmp":               "^0.0.33",
+			"@types/tmp":        "^0.0.33",
+			"glob":              "^7.1.2",
+			"@types/glob":       "^5.0.35",
+			"node-fetch":        "^2.3.0",
+			"@types/node-fetch": "^2.1.4",
+		},
+		"devDependencies": map[string]string{
+			"mocha":              "^5.2.0",
+			"@types/mocha":       "^5.2.5",
+			"@types/shell-quote": "^1.6.0",
+		},
+		"moduleToPackage": modToPkg,
+	})
+	pkg.Language["python"] = rawMessage(map[string]interface{}{
+		"requires": map[string]string{
+			"pulumi":   ">=1.11.0,<2.0.0",
+			"requests": ">=2.21.0,<2.22.0",
+			"pyyaml":   ">=5.1,<5.2",
+			"semver":   ">=2.8.1",
+			"parver":   ">=0.2.1",
+		},
+	})
 
 	return pkg
 }
@@ -218,7 +218,7 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	err := json.Unmarshal([]byte(p.ProviderType()), &typ)
 	contract.Assert(err == nil)
 
-	defaultValue := func() *string {
+	constValue := func() *string {
 		if p.name == "apiVersion" {
 			if strings.HasPrefix(resourceGV, "core/") {
 				dv := strings.TrimPrefix(resourceGV, "core/")
@@ -232,10 +232,17 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 
 		return nil
 	}
+	defaultValue := func() *string {
+
+		return nil
+	}
 
 	propertySpec := pschema.PropertySpec{
 		Description: p.Comment(),
 		TypeSpec:    typ,
+	}
+	if cv := constValue(); cv != nil {
+		propertySpec.Const = *cv
 	}
 	if dv := defaultValue(); dv != nil {
 		propertySpec.Default = *dv
