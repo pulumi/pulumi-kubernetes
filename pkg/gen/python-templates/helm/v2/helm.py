@@ -323,7 +323,8 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
         # Fetch the chart.
         _fetch(chart_to_fetch, fetch_opts)
-        fetched_chart_name = os.listdir(chart_dir)[0]
+        # Sort the directories into alphabetical order, and choose the first
+        fetched_chart_name = sorted(os.listdir(chart_dir), key=str.lower)[0]
         chart = os.path.join(chart_dir, fetched_chart_name)
     else:
         chart = config.path

@@ -169,7 +169,7 @@ export class Chart extends yaml.CollectionComponentResource {
                         version: cfg.version
                     });
                     fetch(chartToFetch, fetchOpts);
-                    const fetchedChartName = fs.readdirSync(chartDir.name)[0];
+                    const fetchedChartName = fs.readdirSync(chartDir.name).sort()[0];
                     chart = path.quotePath(nodepath.join(chartDir.name, fetchedChartName));
                     defaultValues = path.quotePath(
                         nodepath.join(chartDir.name, fetchedChartName, "values.yaml")

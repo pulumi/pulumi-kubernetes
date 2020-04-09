@@ -4,6 +4,10 @@
 
 -   Add consts to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1062).
 
+### Bug fixes
+
+-   Sort fetched helm charts into alphabetical order. (https://github.com/pulumi/pulumi-kubernetes/pull/1064)
+
 ## 1.6.0 (March 25, 2020)
 
 ### Improvements
