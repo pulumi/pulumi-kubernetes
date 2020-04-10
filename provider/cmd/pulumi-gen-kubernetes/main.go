@@ -149,29 +149,12 @@ describe("path.quoteWindowsPath", () => {
 		panic(err)
 	}
 	funcMap := template.FuncMap{
-		"toImport": func(s string) string {
-			parts := strings.Split(s, ":")
-			contract.Assert(len(parts) == 3)
-			apiVersion, kind := parts[1], parts[2]
-			pkg, ok := info.ModuleToPackage[apiVersion]
-			if !ok {
-				panic("module to package failed for " + apiVersion)
-			}
-			return strings.Replace(pkg, "/", ".", -1) + "." + kind
-		},
 		"toGVK": func(s string) string {
 			parts := strings.Split(s, ":")
 			contract.Assert(len(parts) == 3)
 			gvk := parts[1] + "/" + parts[2]
 			return strings.TrimPrefix(gvk, "core/")
 		},
-		"propStr": func(s string) string {
-			parts := strings.Split(s, ":")
-			contract.Assert(len(parts) == 3)
-			gvk := parts[1] + "/" + parts[2]
-			return strings.TrimPrefix(gvk, "core/")
-		},
-		"replace": strings.Replace,
 	}
 	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
 
