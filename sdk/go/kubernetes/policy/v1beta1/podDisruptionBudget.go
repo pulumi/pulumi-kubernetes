@@ -6,8 +6,8 @@ package v1beta1
 import (
 	"reflect"
 
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods

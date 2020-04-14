@@ -13,10 +13,10 @@ VERSION         ?= $(shell scripts/get-version)
 PYPI_VERSION    := $(shell scripts/get-py-version)
 KUBE_VERSION    ?= v1.18.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
-OPENAPI_DIR     := pkg/gen/openapi-specs
+OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 
-VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}"
+VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version.Version=${VERSION}"
 
 GO              ?= go
 CURL            ?= curl
@@ -26,28 +26,24 @@ DOTNET_PREFIX  := $(firstword $(subst -, ,${VERSION:v%=%})) # e.g. 1.5.0
 DOTNET_SUFFIX  := $(word 2,$(subst -, ,${VERSION:v%=%}))    # e.g. alpha.1
 
 ifeq ($(strip ${DOTNET_SUFFIX}),)
-	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-preview
+	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})
 else
-	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-preview-$(strip ${DOTNET_SUFFIX})
+	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-$(strip ${DOTNET_SUFFIX})
 endif
 
 TESTPARALLELISM := 10
-TESTABLE_PKGS   := ./pkg/... ./examples/... ./tests/...
-
-# Set NOPROXY to true to skip GOPROXY on 'ensure'
-NOPROXY := false
 
 $(OPENAPI_FILE)::
 	@mkdir -p $(OPENAPI_DIR)
 	test -f $(OPENAPI_FILE) || $(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 build:: $(OPENAPI_FILE)
-	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
-	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
+	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
+	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
 	for LANGUAGE in "dotnet" "go" "nodejs" "python"; do \
-		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
+		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) provider/pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
@@ -66,12 +62,12 @@ build:: $(OPENAPI_FILE)
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 lint::
-	for DIR in "cmd" "pkg" "sdk" "tests" ; do \
-		pushd $$DIR && golangci-lint run -c ../.golangci.yml --deadline 10m && popd ; \
+	for DIR in "provider" "sdk" "tests" ; do \
+		pushd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && popd ; \
 	done
 
 install::
-	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
+	cd provider && GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
 	[ ! -e "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" ] || rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	cp -r sdk/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
@@ -88,14 +84,16 @@ install::
 
 test_fast::
 	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
-	$(GO_TEST_FAST) $(TESTABLE_PKGS)
+	cd provider/pkg && $(GO_TEST_FAST) ./...
+	cd tests && $(GO_TEST_FAST) ./...
 
 test_all::
-	$(GO_TEST) $(TESTABLE_PKGS)
+	cd provider/pkg && $(GO_TEST_FAST) ./...
+	cd tests && $(GO_TEST) ./...
 
 generate_schema:: $(OPENAPI_FILE)
 	$(call STEP_MESSAGE)
-	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
+	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
 	echo "Generating Pulumi schema..."
 	$(CODEGEN) schema $(OPENAPI_FILE) "" $(PACKDIR)
 	echo "Finished generating schema."

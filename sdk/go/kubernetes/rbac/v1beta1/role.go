@@ -6,8 +6,8 @@ package v1beta1
 import (
 	"reflect"
 
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/meta/v1"
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
 // Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.

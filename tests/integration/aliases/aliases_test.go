@@ -18,9 +18,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/tests"
-	"github.com/pulumi/pulumi/pkg/testing/integration"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v2"
+	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
 	"github.com/stretchr/testify/assert"
 )
 

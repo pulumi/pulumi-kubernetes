@@ -1,8 +1,8 @@
 package main
 
 import (
-	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/go/kubernetes/core/v1"
-	"github.com/pulumi/pulumi/sdk/go/pulumi"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/core/v1"
+	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
 func main() {
