@@ -841,7 +841,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 		}}
 	case v1beta1JSONSchemaPropsOrStringArray:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaPropsOrStringArray"},
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaProps"},
 			{
 				Type:  "array",
 				Items: &pschema.TypeSpec{Type: "string"},
@@ -849,7 +849,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 		}}
 	case v1JSONSchemaPropsOrStringArray:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaPropsOrStringArray"},
+			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaProps"},
 			{
 				Type:  "array",
 				Items: &pschema.TypeSpec{Type: "string"},
