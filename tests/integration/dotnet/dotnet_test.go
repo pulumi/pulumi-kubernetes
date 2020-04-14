@@ -158,3 +158,17 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 		},
 	})
 }
+
+func TestDotnet_CustomResource(t *testing.T) {
+	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+
+	if kubectx == "" {
+		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
+	}
+
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir:          "custom-resource",
+		Dependencies: []string{"Pulumi.Kubernetes"},
+		Quick:        true,
+	})
+}
