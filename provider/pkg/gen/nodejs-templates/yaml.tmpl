@@ -384,6 +384,11 @@ export class ConfigFile extends CollectionComponentResource {
     // engine instead.
     if (
            (apiVersion == "v1" && kind == "List")
+{{- range .}}
+    {{- if .IsListKind }}
+            {{.Name}}
+    {{- end }}
+{{- end }}
            // TODO: handle list kinds
     ) {
         const objs = [];

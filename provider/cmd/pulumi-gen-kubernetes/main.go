@@ -94,6 +94,11 @@ func main() {
 	}
 }
 
+type KubernetesResource nodejsgen.Resource
+func (kr *KubernetesResource) IsListKind() bool {
+	return strings.HasSuffix(kr.Name, "List")
+}
+
 func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
 	pkg := genPulumiSchemaPackage(data)
 
