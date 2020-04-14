@@ -16,7 +16,7 @@ class CronTabArgs : CustomResourceArgs
     [Input("spec")]
     public Input<CronTabSpecArgs>? Spec { get; set; }
 
-    public CronTabArgs() : base("stable.example.com/v1", "CronTab")
+    public CronTabArgs() : base("dotnet.example.com/v1", "CronTab")
     {
     }
 }
@@ -38,10 +38,10 @@ class MyStack : Stack
         
         var ct = new CustomResourceDefinition("crontab", new CustomResourceDefinitionArgs
         {
-            Metadata = new ObjectMetaArgs { Name = "crontabs.stable.example.com" },
+            Metadata = new ObjectMetaArgs { Name = "crontabs.dotnet.example.com" },
             Spec = new CustomResourceDefinitionSpecArgs
             {
-                Group = "stable.example.com",
+                Group = "dotnet.example.com",
                 Version = "v1",
                 Scope = "Namespaced",
                 Names = new CustomResourceDefinitionNamesArgs
