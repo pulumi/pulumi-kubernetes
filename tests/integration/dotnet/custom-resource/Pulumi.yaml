@@ -1,0 +1,3 @@
+name: cr_dotnet_kubernetes
+description: An example of CRD and CR usage.
+runtime: dotnet

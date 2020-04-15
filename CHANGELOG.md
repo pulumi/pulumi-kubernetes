@@ -3,6 +3,7 @@
 ### Improvements
 
 -   Add consts to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1062).
+-   Add `CustomResource` to .NET SDK (https://github.com/pulumi/pulumi-kubernetes/pull/1067).
 
 ### Bug fixes
 
