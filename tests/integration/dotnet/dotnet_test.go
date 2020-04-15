@@ -170,5 +170,7 @@ func TestDotnet_CustomResource(t *testing.T) {
 		Dir:          "custom-resource",
 		Dependencies: []string{"Pulumi.Kubernetes"},
 		Quick:        true,
+		// The CRD sometimes, but not always, has changes during refresh.
+		ExpectRefreshChanges: true,
 	})
 }
