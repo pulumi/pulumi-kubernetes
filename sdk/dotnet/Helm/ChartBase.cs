@@ -111,15 +111,8 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add(cfgBase.Namespace);
                     }
 
-                    // Use the HELM_HOME environment variable value if set.
-                    var home = Environment.GetEnvironmentVariable("HELM_HOME");
-                    if (home != null)
-                    {
-                        flags.Add("--home");
-                        flags.Add(home);
-                    }
-
-                    var yaml = Utilities.ExecuteCommand("helm", flags.ToArray());
+                    var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(),
+                        (Dictionary<string, string>)Environment.GetEnvironmentVariables());
                     return ParseTemplate(
                         yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
                 }
@@ -152,9 +145,19 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add("--untar");
             }
 
-            // Fallback to using the HELM_HOME environment variable if opts.home is not set.
-            if (string.IsNullOrEmpty(opts.Home)) {
-                opts.Home = Environment.GetEnvironmentVariable("HELM_HOME");
+            var env = (Dictionary<string, string>)Environment.GetEnvironmentVariables();
+
+            // Helm v3 removed the `--home` flag, so we must use an env var instead.
+            if (!string.IsNullOrEmpty(opts.Home))
+            {
+                if (env.ContainsKey("HELM_HOME"))
+                {
+                    env["HELM_HOME"] = opts.Home;
+                }
+                else
+                {
+                    env.Add("HELM_HOME", opts.Home);
+                }
             }
             
             if (!string.IsNullOrEmpty(opts.Version))
@@ -207,11 +210,6 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add("--username");
                 flags.Add(opts.Username);
             }
-            if (!string.IsNullOrEmpty(opts.Home))
-            {
-                flags.Add("--home");
-                flags.Add(opts.Home);
-            }
             if (opts.Devel == true)
             {
                 flags.Add("--devel");
@@ -225,7 +223,7 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add("--verify");
             }
 
-            Utilities.ExecuteCommand("helm", flags.ToArray());
+            Utilities.ExecuteCommand("helm", flags.ToArray(), env);
         }
         
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
@@ -233,7 +231,7 @@ namespace Pulumi.Kubernetes.Helm
             string? defaultNamespace)
         {
             return Invokes
-                .YamlDecode(new YamlDecodeArgs {Text = text, DefaultNamespace = defaultNamespace})
+                .YamlDecode(new YamlDecodeArgs { Text = text, DefaultNamespace = defaultNamespace })
                 .Apply(objs =>
                 {
                     var args = new ConfigGroupArgs
@@ -242,7 +240,7 @@ namespace Pulumi.Kubernetes.Helm
                         Objs = objs,
                         Transformations = transformations
                     };
-                    var opts = new ComponentResourceOptions {Parent = this, DependsOn = dependsOn.ToArray()};
+                    var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray() };
                     return Parser.Parse(args, opts);
                 });
         }
