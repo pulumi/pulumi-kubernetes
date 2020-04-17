@@ -345,9 +345,8 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         // Untar by default.
         if(opts.untar !== false) { flags.push(`--untar`); }
 
-        // Fallback to using the HELM_HOME environment variable if opts.home is not set.
-        const home = opts.home ?? process.env?.HELM_HOME;
-        if (home) { env['HELM_HOME'] = path.quotePath(home) } // Helm v3 removed the `--home` flag, so use an env var.
+        // Helm v3 removed the `--home` flag, so we must use an env var instead.
+        if (opts.home) { env['HELM_HOME'] = path.quotePath(opts.home) }
 
         // For arguments that are not paths to files, it is sufficient to use shell.quote to quote the arguments.
         // However, for arguments that are actual paths to files we use path.quotePath (note that path here is

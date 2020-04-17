@@ -276,7 +276,7 @@ def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
     cmd, _ = all_config
 
     output = subprocess.run(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True)
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True, env=os.environ)
     yaml_str: str = output.stdout
     return yaml_str
 
@@ -339,14 +339,10 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
 
-    home = os.environ.get('HELM_HOME')
-    home_arg = ['--home', home] if home else []
-
     # Use 'helm template' to create a combined YAML manifest.
     cmd = ['helm', 'template', chart, '--name-template', release_name,
            '--values', default_values, '--values', overrides_filename]
     cmd.extend(namespace_arg)
-    cmd.extend(home_arg)
 
     chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
 
@@ -373,10 +369,10 @@ def _fetch(chart: str, opts: FetchOpts) -> None:
     if opts.untar is not False:
         cmd.append('--untar')
 
+    env = os.environ
+    # Helm v3 removed the `--home` flag, so we must use an env var instead.
     if opts.home:
-        cmd.extend(['--home', opts.home])
-    elif os.environ.get('HELM_HOME'):
-        cmd.extend(['--home', os.environ.get('HELM_HOME')])
+        env['HELM_HOME'] = opts.home
 
     if opts.version:
         cmd.extend(['--version', opts.version])
@@ -405,7 +401,7 @@ def _fetch(chart: str, opts: FetchOpts) -> None:
     if opts.verify:
         cmd.append('--verify')
 
-    subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True)
+    subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True, env=env)
 
 
 class Chart(pulumi.ComponentResource):
