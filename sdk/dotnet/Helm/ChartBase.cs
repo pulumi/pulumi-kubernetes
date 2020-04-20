@@ -24,22 +24,22 @@ namespace Pulumi.Kubernetes.Helm
         {
             releaseName = GetName(args, releaseName);
             var config = args.Unwrap();
-            
+
             var configDeps = Output.Create(OutputUtilities.GetDependenciesAsync(config));
             OutputUtilities.GetIsKnownAsync(config).ContinueWith(isKnown =>
-            { 
+            {
                 if (!isKnown.Result)
                 {
                     // Note that this can only happen during a preview.
                     Log.Info("[Can't preview] all chart values must be known ahead of time to generate an accurate preview.", this);
                 }
-            }); 
+            });
 
             var resources = Output.Tuple(config, configDeps).Apply(values =>
             {
                 var chartArgs = values.Item1;
                 var dependencies = values.Item2;
-                
+
                 // Create temporary directories and files to hold chart data and override values.
                 var overrides = Path.GetTempFileName();
                 var chartDirectoryName = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -67,7 +67,7 @@ namespace Pulumi.Kubernetes.Helm
                         Fetch(chartToFetch, fetchOptions);
                         // Sort the directories into alphabetical order, and choose the first 
                         var fetchedChart = chartDirectory.GetDirectories().OrderBy(x => x.Name).ToArray()[0];
-                        var fetchedChartName = fetchedChart.Name; 
+                        var fetchedChartName = fetchedChart.Name;
                         chart = fetchedChart.FullName;
                         defaultValues = Path.Join(chartDirectoryName, fetchedChartName, "values.yaml");
                         cfgBase = cfg;
@@ -111,8 +111,7 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add(cfgBase.Namespace);
                     }
 
-                    var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(),
-                        (Dictionary<string, string>)Environment.GetEnvironmentVariables());
+                    var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(), Utilities.GetEnvironmentVariables());
                     return ParseTemplate(
                         yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
                 }
@@ -134,32 +133,25 @@ namespace Pulumi.Kubernetes.Helm
             var prefix = config.Match(v => v.ResourcePrefix, v => v.ResourcePrefix);
             return string.IsNullOrEmpty(prefix) ? releaseName : $"{prefix}-{releaseName}";
         }
-        
-        private void Fetch(string chart, ChartFetchArgsUnwrap opts) 
+
+        private void Fetch(string chart, ChartFetchArgsUnwrap opts)
         {
             var flags = new List<string>(new[] { "fetch", chart });
-            
+
             // Untar by default.
             if (opts.Untar != false)
             {
                 flags.Add("--untar");
             }
 
-            var env = (Dictionary<string, string>)Environment.GetEnvironmentVariables();
+            var env = Utilities.GetEnvironmentVariables();
 
             // Helm v3 removed the `--home` flag, so we must use an env var instead.
             if (!string.IsNullOrEmpty(opts.Home))
             {
-                if (env.ContainsKey("HELM_HOME"))
-                {
-                    env["HELM_HOME"] = opts.Home;
-                }
-                else
-                {
-                    env.Add("HELM_HOME", opts.Home);
-                }
+                env["HELM_HOME"] = opts.Home;
             }
-            
+
             if (!string.IsNullOrEmpty(opts.Version))
             {
                 flags.Add("--version");
@@ -176,7 +168,7 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add(opts.CertFile);
             }
             if (!string.IsNullOrEmpty(opts.KeyFile))
-            { 
+            {
                 flags.Add("--key-file");
                 flags.Add(opts.KeyFile);
             }
@@ -225,7 +217,7 @@ namespace Pulumi.Kubernetes.Helm
 
             Utilities.ExecuteCommand("helm", flags.ToArray(), env);
         }
-        
+
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
             List<TransformationAction> transformations, string? resourcePrefix, ImmutableHashSet<Resource> dependsOn,
             string? defaultNamespace)
@@ -245,7 +237,7 @@ namespace Pulumi.Kubernetes.Helm
                 });
         }
     }
-    
+
     public class BaseChartArgs : ResourceArgs
     {
         private InputList<string>? _apiVersions;
@@ -258,12 +250,12 @@ namespace Pulumi.Kubernetes.Helm
             get => _apiVersions ??= new InputList<string>();
             set => _apiVersions = value;
         }
-        
+
         /// <summary>
         /// The optional namespace to install chart resources into.
         /// </summary>
         public Input<string>? Namespace { get; set; }
-        
+
         private InputMap<object>? _values;
 
         /// <summary>
@@ -274,9 +266,9 @@ namespace Pulumi.Kubernetes.Helm
             get => _values ??= new InputMap<object>();
             set => _values = value;
         }
-        
+
         private List<TransformationAction>? _transformations;
-        
+
         /// <summary>
         /// Optional array of transformations to apply to resources that will be created by this chart prior to
         /// creation. Allows customization of the chart behaviour without directly modifying the chart itself.
@@ -314,7 +306,7 @@ namespace Pulumi.Kubernetes.Helm
         /// The version of the chart to deploy. If not provided, the latest version will be deployed.
         /// </summary>
         public Input<string>? Version { get; set; }
-        
+
         /// <summary>
         /// Additional options to customize the fetching of the Helm chart.
         /// </summary>
@@ -328,7 +320,7 @@ namespace Pulumi.Kubernetes.Helm
         /// </summary>
         public string Path { get; set; } = null!;
     }
-    
+
     /// <summary>
     /// Additional options to customize the fetching of the Helm chart.
     /// </summary>

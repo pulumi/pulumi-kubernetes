@@ -3,6 +3,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -40,7 +41,7 @@ namespace Pulumi.Kubernetes
             };
         }
 
-        public static string ExecuteCommand(string command, string[] flags, IDictionary<string, string>? env)
+        public static string ExecuteCommand(string command, string[] flags, IDictionary<string, string> env)
         {
             using var process = new Process
             {
@@ -52,13 +53,12 @@ namespace Pulumi.Kubernetes
                     RedirectStandardError = true
                 }
             };
-            if (env != null)
+
+            foreach (KeyValuePair<string, string> value in env)
             {
-                foreach (KeyValuePair<string, string> value in env)
-                {
-                    process.StartInfo.EnvironmentVariables.Add(value.Key, value.Value);
-                }
+                process.StartInfo.EnvironmentVariables.Add(value.Key, value.Value);
             }
+
             process.Start();
             string output = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
@@ -148,6 +148,23 @@ namespace Pulumi.Kubernetes
             escapedArgument.Append('\"');
 
             return escapedArgument.ToString();
+        }
+
+        /// <summary>
+        /// Get ambient environment variables as a IDictionary.
+        /// </summary>
+        public static IDictionary<string, string> GetEnvironmentVariables()
+        {
+            var result = new Dictionary<string, string>();
+            foreach (var variable in Environment.GetEnvironmentVariables())
+            {
+                if (variable == null) continue;
+
+                var entry = (DictionaryEntry)variable;
+                if (entry.Key is string key && entry.Value is string value)
+                    result.Add(key, value);
+            }
+            return result;
         }
     }
 }
