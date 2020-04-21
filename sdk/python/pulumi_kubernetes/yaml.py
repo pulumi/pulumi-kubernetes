@@ -174,7 +174,7 @@ def _parse_yaml_object(
             api_version, kind, json.dumps(obj)))
 
     # Convert obj keys to Python casing
-    for key in obj:
+    for key in list(obj.keys()):
         new_key = tables._CASING_FORWARD_TABLE.get(key) or key
         if new_key != key:
             obj[new_key] = obj.pop(key)
