@@ -275,8 +275,7 @@ class LocalChartOpts(BaseChartOpts):
 def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
     cmd, _ = all_config
 
-    output = subprocess.run(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True, env=os.environ)
+    output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True)
     yaml_str: str = output.stdout
     return yaml_str
 

@@ -56,7 +56,7 @@ namespace Pulumi.Kubernetes
 
             foreach (KeyValuePair<string, string> value in env)
             {
-                process.StartInfo.EnvironmentVariables.Add(value.Key, value.Value);
+                process.StartInfo.EnvironmentVariables[value.Key] = value.Value;
             }
 
             process.Start();
@@ -148,23 +148,6 @@ namespace Pulumi.Kubernetes
             escapedArgument.Append('\"');
 
             return escapedArgument.ToString();
-        }
-
-        /// <summary>
-        /// Get ambient environment variables as a IDictionary.
-        /// </summary>
-        public static IDictionary<string, string> GetEnvironmentVariables()
-        {
-            var result = new Dictionary<string, string>();
-            foreach (var variable in Environment.GetEnvironmentVariables())
-            {
-                if (variable == null) continue;
-
-                var entry = (DictionaryEntry)variable;
-                if (entry.Key is string key && entry.Value is string value)
-                    result.Add(key, value);
-            }
-            return result;
         }
     }
 }

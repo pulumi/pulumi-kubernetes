@@ -111,7 +111,7 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add(cfgBase.Namespace);
                     }
 
-                    var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(), Utilities.GetEnvironmentVariables());
+                    var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(), new Dictionary<string, string>());
                     return ParseTemplate(
                         yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
                 }
@@ -144,7 +144,7 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add("--untar");
             }
 
-            var env = Utilities.GetEnvironmentVariables();
+            var env = new Dictionary<string, string>();
 
             // Helm v3 removed the `--home` flag, so we must use an env var instead.
             if (!string.IsNullOrEmpty(opts.Home))
