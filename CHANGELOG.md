@@ -1,12 +1,16 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Fix error parsing YAML in python 3.8 (https://github.com/pulumi/pulumi-kubernetes/pull/1079)
+
 ## 2.0.0 (April 16, 2020)
 
 ### Improvements
 
 -   Add consts to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1062).
 -   Add `CustomResource` to .NET SDK (https://github.com/pulumi/pulumi-kubernetes/pull/1067).
--   Upgrade to Pulumi v2.0.0 
+-   Upgrade to Pulumi v2.0.0
 
 ### Bug fixes
 
@@ -28,7 +32,7 @@
 
 ### Improvements
 
--   Automatically populate type aliases and additional secret outputs in the .NET SDK.  (https://github.com/pulumi/pulumi-kubernetes/pull/1026).  
+-   Automatically populate type aliases and additional secret outputs in the .NET SDK.  (https://github.com/pulumi/pulumi-kubernetes/pull/1026).
 -   Update to Pulumi NuGet 1.12.1 and .NET Core 3.1.  (https://github.com/pulumi/pulumi-kubernetes/pull/1030).
 
 ## 1.5.7 (March 10, 2020)
