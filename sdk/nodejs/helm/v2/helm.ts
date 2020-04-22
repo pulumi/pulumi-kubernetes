@@ -205,15 +205,10 @@ export class Chart extends yaml.CollectionComponentResource {
                     : "";
                 let cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
 
-                // Use the HELM_HOME environment variable value if set.
-                const home = process.env.HELM_HOME || undefined;
-                if (home !== undefined) {
-                    cmd += ` --home ${path.quotePath(home)}`;
-                }
-
                 const yamlStream = execSync(
                     cmd,
                     {
+                        env: {...process.env},
                         maxBuffer: 512 * 1024 * 1024 // 512 MB
                     },
                 ).toString();
@@ -345,14 +340,13 @@ interface ResolvedFetchOpts {
  */
 export function fetch(chart: string, opts?: ResolvedFetchOpts) {
     const flags: string[] = [];
+    const env: { [key: string]: string | undefined } = {...process.env};
     if (opts !== undefined) {
         // Untar by default.
         if(opts.untar !== false) { flags.push(`--untar`); }
 
-        // Fallback to using the HELM_HOME environment variable if opts.home is not set.
-        if (!opts.home) {
-            opts.home = process.env.HELM_HOME || undefined;
-        }
+        // Helm v3 removed the `--home` flag, so we must use an env var instead.
+        if (opts.home) { env['HELM_HOME'] = path.quotePath(opts.home) }
 
         // For arguments that are not paths to files, it is sufficient to use shell.quote to quote the arguments.
         // However, for arguments that are actual paths to files we use path.quotePath (note that path here is
@@ -367,10 +361,9 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         if (opts.repo !== undefined)        { flags.push(`--repo ${path.quotePath(opts.repo)}`);               }
         if (opts.untardir !== undefined)    { flags.push(`--untardir ${path.quotePath(opts.untardir)}`);       }
         if (opts.username !== undefined)    { flags.push(`--username ${shell.quote([opts.username])}`);  }
-        if (opts.home !== undefined)        { flags.push(`--home ${path.quotePath(opts.home)}`);               }
         if (opts.devel === true)            { flags.push(`--devel`);                                           }
         if (opts.prov === true)             { flags.push(`--prov`);                                            }
         if (opts.verify === true)           { flags.push(`--verify`);                                          }
     }
-    execSync(`helm fetch ${shell.quote([chart])} ${flags.join(" ")}`);
+    execSync(`helm fetch ${shell.quote([chart])} ${flags.join(" ")}`, { env });
 }

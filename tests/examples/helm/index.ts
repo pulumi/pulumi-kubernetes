@@ -13,17 +13,21 @@
 // limitations under the License.
 
 import * as k8s from "@pulumi/kubernetes";
+import * as os from "os";
 import * as pulumi from "@pulumi/pulumi";
 
 const namespace = new k8s.core.v1.Namespace("test");
 const namespaceName = namespace.metadata.name;
 
-const nginx = new k8s.helm.v2.Chart("simple-nginx", {
+const nginx = new k8s.helm.v3.Chart("simple-nginx", {
     // Represents chart `stable/nginx-lego@v0.3.1`.
     repo: "stable",
     chart: "nginx-lego",
     version: "0.3.1",
     namespace: namespaceName,
+    fetchOpts: {
+        home: os.homedir(),
+    },
     values: {
         // Override for the Chart's `values.yml` file. Use `null` to zero out resource requests so it
         // can be scheduled on our (wimpy) CI cluster. (Setting these values to `null` is the "normal"

@@ -58,7 +58,8 @@ class HelmStack : Stack
             Version = "0.1.0",
             FetchOptions = new ChartFetchArgs
             {
-                Repo = "https://kubernetes-charts-incubator.storage.googleapis.com/"
+                Home = Environment.GetEnvironmentVariable("HOME"),
+                Repo = "https://kubernetes-charts-incubator.storage.googleapis.com/",
             }
         });
         

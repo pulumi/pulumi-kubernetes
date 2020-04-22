@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.helm.v2 import Chart, ChartOpts
+from pulumi_kubernetes.helm.v2 import Chart, ChartOpts, FetchOpts
 from pulumi_random import RandomString
+from os.path import expanduser
 
 namespace = Namespace("test")
 
@@ -29,10 +30,11 @@ values = {
 }
 
 Chart("unbound", ChartOpts(
-    "stable/unbound", values=values, namespace=namespace.metadata["name"], version="1.1.0"))
+    "stable/unbound", values=values, namespace=namespace.metadata["name"], version="1.1.0",
+    fetch_opts=FetchOpts(home=expanduser("~"))))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
 # can be managed in the same stack.
 Chart("unbound", ChartOpts(
     "stable/unbound", resource_prefix="dup", values=values, namespace=namespace.metadata["name"],
-    version="1.1.0"))
+    version="1.1.0", fetch_opts=FetchOpts(home=expanduser("~"))))

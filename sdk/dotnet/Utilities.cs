@@ -3,6 +3,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -39,7 +41,7 @@ namespace Pulumi.Kubernetes
             };
         }
 
-        public static string ExecuteCommand(string command, string[] flags)
+        public static string ExecuteCommand(string command, string[] flags, IDictionary<string, string> env)
         {
             using var process = new Process
             {
@@ -51,6 +53,12 @@ namespace Pulumi.Kubernetes
                     RedirectStandardError = true
                 }
             };
+
+            foreach (KeyValuePair<string, string> value in env)
+            {
+                process.StartInfo.EnvironmentVariables[value.Key] = value.Value;
+            }
+
             process.Start();
             string output = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
