@@ -808,8 +808,8 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 		}}
 	case v1Fields, v1FieldsV1, rawExtension:
 		return pschema.TypeSpec{
-			Type:                 "object",
-			AdditionalProperties: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+			Type: "object",
+			Ref:  "pulumi.json#/Any",
 		}
 	case v1Time, v1MicroTime:
 		return pschema.TypeSpec{Type: "string"}

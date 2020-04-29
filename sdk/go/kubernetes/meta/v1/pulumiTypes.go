@@ -1485,7 +1485,7 @@ type ManagedFieldsEntry struct {
 	// FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
 	FieldsType *string `pulumi:"fieldsType"`
 	// FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
-	FieldsV1 map[string]interface{} `pulumi:"fieldsV1"`
+	FieldsV1 interface{} `pulumi:"fieldsV1"`
 	// Manager is an identifier of the workflow managing these fields.
 	Manager *string `pulumi:"manager"`
 	// Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
@@ -1513,7 +1513,7 @@ type ManagedFieldsEntryArgs struct {
 	// FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
 	FieldsType pulumi.StringPtrInput `pulumi:"fieldsType"`
 	// FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
-	FieldsV1 pulumi.MapInput `pulumi:"fieldsV1"`
+	FieldsV1 pulumi.Input `pulumi:"fieldsV1"`
 	// Manager is an identifier of the workflow managing these fields.
 	Manager pulumi.StringPtrInput `pulumi:"manager"`
 	// Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
@@ -1586,8 +1586,8 @@ func (o ManagedFieldsEntryOutput) FieldsType() pulumi.StringPtrOutput {
 }
 
 // FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
-func (o ManagedFieldsEntryOutput) FieldsV1() pulumi.MapOutput {
-	return o.ApplyT(func(v ManagedFieldsEntry) map[string]interface{} { return v.FieldsV1 }).(pulumi.MapOutput)
+func (o ManagedFieldsEntryOutput) FieldsV1() pulumi.AnyOutput {
+	return o.ApplyT(func(v ManagedFieldsEntry) interface{} { return v.FieldsV1 }).(pulumi.AnyOutput)
 }
 
 // Manager is an identifier of the workflow managing these fields.
@@ -2892,8 +2892,8 @@ type WatchEvent struct {
 	//  * If Type is Deleted: the state of the object immediately before deletion.
 	//  * If Type is Error: *Status is recommended; other types may make sense
 	//    depending on context.
-	Object map[string]interface{} `pulumi:"object"`
-	Type   *string                `pulumi:"type"`
+	Object interface{} `pulumi:"object"`
+	Type   *string     `pulumi:"type"`
 }
 
 // WatchEventInput is an input type that accepts WatchEventArgs and WatchEventOutput values.
@@ -2915,7 +2915,7 @@ type WatchEventArgs struct {
 	//  * If Type is Deleted: the state of the object immediately before deletion.
 	//  * If Type is Error: *Status is recommended; other types may make sense
 	//    depending on context.
-	Object pulumi.MapInput       `pulumi:"object"`
+	Object pulumi.Input          `pulumi:"object"`
 	Type   pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -2951,8 +2951,8 @@ func (o WatchEventOutput) ToWatchEventOutputWithContext(ctx context.Context) Wat
 //  * If Type is Deleted: the state of the object immediately before deletion.
 //  * If Type is Error: *Status is recommended; other types may make sense
 //    depending on context.
-func (o WatchEventOutput) Object() pulumi.MapOutput {
-	return o.ApplyT(func(v WatchEvent) map[string]interface{} { return v.Object }).(pulumi.MapOutput)
+func (o WatchEventOutput) Object() pulumi.AnyOutput {
+	return o.ApplyT(func(v WatchEvent) interface{} { return v.Object }).(pulumi.AnyOutput)
 }
 
 func (o WatchEventOutput) Type() pulumi.StringPtrOutput {

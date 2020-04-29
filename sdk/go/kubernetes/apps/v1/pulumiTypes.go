@@ -17,7 +17,7 @@ type ControllerRevisionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Data is the serialized representation of the state.
-	Data map[string]interface{} `pulumi:"data"`
+	Data interface{} `pulumi:"data"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -43,7 +43,7 @@ type ControllerRevisionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Data is the serialized representation of the state.
-	Data pulumi.MapInput `pulumi:"data"`
+	Data pulumi.Input `pulumi:"data"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -111,8 +111,8 @@ func (o ControllerRevisionTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 }
 
 // Data is the serialized representation of the state.
-func (o ControllerRevisionTypeOutput) Data() pulumi.MapOutput {
-	return o.ApplyT(func(v ControllerRevisionType) map[string]interface{} { return v.Data }).(pulumi.MapOutput)
+func (o ControllerRevisionTypeOutput) Data() pulumi.AnyOutput {
+	return o.ApplyT(func(v ControllerRevisionType) interface{} { return v.Data }).(pulumi.AnyOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
