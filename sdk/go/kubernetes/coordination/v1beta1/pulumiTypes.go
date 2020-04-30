@@ -387,27 +387,52 @@ func (o LeaseSpecPtrOutput) Elem() LeaseSpecOutput {
 
 // acquireTime is a time when the current lease was acquired.
 func (o LeaseSpecPtrOutput) AcquireTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *LeaseSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AcquireTime
+	}).(pulumi.StringPtrOutput)
 }
 
 // holderIdentity contains the identity of the holder of a current lease.
 func (o LeaseSpecPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *LeaseSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HolderIdentity
+	}).(pulumi.StringPtrOutput)
 }
 
 // leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
 func (o LeaseSpecPtrOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *LeaseSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.LeaseDurationSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // leaseTransitions is the number of transitions of a lease between holders.
 func (o LeaseSpecPtrOutput) LeaseTransitions() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *LeaseSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.LeaseTransitions
+	}).(pulumi.IntPtrOutput)
 }
 
 // renewTime is a time when the current holder of a lease has last updated the lease.
 func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *LeaseSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RenewTime
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {

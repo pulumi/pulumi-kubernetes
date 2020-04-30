@@ -139,7 +139,12 @@ func (o AggregationRulePtrOutput) Elem() AggregationRuleOutput {
 
 // ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRulePtrOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayOutput {
-	return o.ApplyT(func(v AggregationRule) []metav1.LabelSelector { return v.ClusterRoleSelectors }).(metav1.LabelSelectorArrayOutput)
+	return o.ApplyT(func(v *AggregationRule) []metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.ClusterRoleSelectors
+	}).(metav1.LabelSelectorArrayOutput)
 }
 
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
@@ -1301,17 +1306,32 @@ func (o RoleRefPtrOutput) Elem() RoleRefOutput {
 
 // APIGroup is the group for the resource being referenced
 func (o RoleRefPtrOutput) ApiGroup() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleRef) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RoleRef) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiGroup
+	}).(pulumi.StringPtrOutput)
 }
 
 // Kind is the type of resource being referenced
 func (o RoleRefPtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleRef) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RoleRef) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Kind
+	}).(pulumi.StringPtrOutput)
 }
 
 // Name is the name of resource being referenced
 func (o RoleRefPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleRef) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RoleRef) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.

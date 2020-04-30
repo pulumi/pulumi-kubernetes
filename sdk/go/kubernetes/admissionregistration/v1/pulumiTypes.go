@@ -852,22 +852,42 @@ func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
 
 // `name` is the name of the service. Required
 func (o ServiceReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // `namespace` is the namespace of the service. Required
 func (o ServiceReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
 }
 
 // `path` is an optional URL path which will be sent in any request to this service.
 func (o ServiceReferencePtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Path }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Path
+	}).(pulumi.StringPtrOutput)
 }
 
 // If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
 func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Port
+	}).(pulumi.IntPtrOutput)
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -1555,14 +1575,24 @@ func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 func (o WebhookClientConfigPtrOutput) CaBundle() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CaBundle
+	}).(pulumi.StringPtrOutput)
 }
 
 // `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 //
 // If the webhook is running within the cluster, then you should use `service`.
 func (o WebhookClientConfigPtrOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) *ServiceReference {
+		if v == nil {
+			return nil
+		}
+		return v.Service
+	}).(ServiceReferencePtrOutput)
 }
 
 // `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
@@ -1577,7 +1607,12 @@ func (o WebhookClientConfigPtrOutput) Service() ServiceReferencePtrOutput {
 //
 // Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
 func (o WebhookClientConfigPtrOutput) Url() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Url
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {

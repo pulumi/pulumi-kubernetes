@@ -139,7 +139,12 @@ func (o FlowDistinguisherMethodPtrOutput) Elem() FlowDistinguisherMethodOutput {
 
 // `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
 func (o FlowDistinguisherMethodPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowDistinguisherMethod) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *FlowDistinguisherMethod) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
@@ -656,22 +661,42 @@ func (o FlowSchemaSpecPtrOutput) Elem() FlowSchemaSpecOutput {
 
 // `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 func (o FlowSchemaSpecPtrOutput) DistinguisherMethod() FlowDistinguisherMethodPtrOutput {
-	return o.ApplyT(func(v FlowSchemaSpec) *FlowDistinguisherMethod { return v.DistinguisherMethod }).(FlowDistinguisherMethodPtrOutput)
+	return o.ApplyT(func(v *FlowSchemaSpec) *FlowDistinguisherMethod {
+		if v == nil {
+			return nil
+		}
+		return v.DistinguisherMethod
+	}).(FlowDistinguisherMethodPtrOutput)
 }
 
 // `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 func (o FlowSchemaSpecPtrOutput) MatchingPrecedence() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlowSchemaSpec) *int { return v.MatchingPrecedence }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *FlowSchemaSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MatchingPrecedence
+	}).(pulumi.IntPtrOutput)
 }
 
 // `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
 func (o FlowSchemaSpecPtrOutput) PriorityLevelConfiguration() PriorityLevelConfigurationReferencePtrOutput {
-	return o.ApplyT(func(v FlowSchemaSpec) *PriorityLevelConfigurationReference { return v.PriorityLevelConfiguration }).(PriorityLevelConfigurationReferencePtrOutput)
+	return o.ApplyT(func(v *FlowSchemaSpec) *PriorityLevelConfigurationReference {
+		if v == nil {
+			return nil
+		}
+		return v.PriorityLevelConfiguration
+	}).(PriorityLevelConfigurationReferencePtrOutput)
 }
 
 // `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
 func (o FlowSchemaSpecPtrOutput) Rules() PolicyRulesWithSubjectsArrayOutput {
-	return o.ApplyT(func(v FlowSchemaSpec) []PolicyRulesWithSubjects { return v.Rules }).(PolicyRulesWithSubjectsArrayOutput)
+	return o.ApplyT(func(v *FlowSchemaSpec) []PolicyRulesWithSubjects {
+		if v == nil {
+			return nil
+		}
+		return v.Rules
+	}).(PolicyRulesWithSubjectsArrayOutput)
 }
 
 // FlowSchemaStatus represents the current state of a FlowSchema.
@@ -802,7 +827,12 @@ func (o FlowSchemaStatusPtrOutput) Elem() FlowSchemaStatusOutput {
 
 // `conditions` is a list of the current states of FlowSchema.
 func (o FlowSchemaStatusPtrOutput) Conditions() FlowSchemaConditionArrayOutput {
-	return o.ApplyT(func(v FlowSchemaStatus) []FlowSchemaCondition { return v.Conditions }).(FlowSchemaConditionArrayOutput)
+	return o.ApplyT(func(v *FlowSchemaStatus) []FlowSchemaCondition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(FlowSchemaConditionArrayOutput)
 }
 
 // GroupSubject holds detailed information for group-kind subject.
@@ -933,7 +963,12 @@ func (o GroupSubjectPtrOutput) Elem() GroupSubjectOutput {
 
 // name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 func (o GroupSubjectPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GroupSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *GroupSubject) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // LimitResponse defines how to handle requests that can not be executed right now.
@@ -1073,12 +1108,22 @@ func (o LimitResponsePtrOutput) Elem() LimitResponseOutput {
 
 // `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 func (o LimitResponsePtrOutput) Queuing() QueuingConfigurationPtrOutput {
-	return o.ApplyT(func(v LimitResponse) *QueuingConfiguration { return v.Queuing }).(QueuingConfigurationPtrOutput)
+	return o.ApplyT(func(v *LimitResponse) *QueuingConfiguration {
+		if v == nil {
+			return nil
+		}
+		return v.Queuing
+	}).(QueuingConfigurationPtrOutput)
 }
 
 // `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
 func (o LimitResponsePtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LimitResponse) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *LimitResponse) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
 }
 
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
@@ -1240,12 +1285,22 @@ func (o LimitedPriorityLevelConfigurationPtrOutput) Elem() LimitedPriorityLevelC
 //
 // bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
 func (o LimitedPriorityLevelConfigurationPtrOutput) AssuredConcurrencyShares() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v LimitedPriorityLevelConfiguration) *int { return v.AssuredConcurrencyShares }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *LimitedPriorityLevelConfiguration) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AssuredConcurrencyShares
+	}).(pulumi.IntPtrOutput)
 }
 
 // `limitResponse` indicates what to do with requests that can not be executed right now
 func (o LimitedPriorityLevelConfigurationPtrOutput) LimitResponse() LimitResponsePtrOutput {
-	return o.ApplyT(func(v LimitedPriorityLevelConfiguration) *LimitResponse { return v.LimitResponse }).(LimitResponsePtrOutput)
+	return o.ApplyT(func(v *LimitedPriorityLevelConfiguration) *LimitResponse {
+		if v == nil {
+			return nil
+		}
+		return v.LimitResponse
+	}).(LimitResponsePtrOutput)
 }
 
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
@@ -1984,7 +2039,12 @@ func (o PriorityLevelConfigurationReferencePtrOutput) Elem() PriorityLevelConfig
 
 // `name` is the name of the priority level configuration being referenced Required.
 func (o PriorityLevelConfigurationReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *PriorityLevelConfigurationReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
@@ -2124,12 +2184,22 @@ func (o PriorityLevelConfigurationSpecPtrOutput) Elem() PriorityLevelConfigurati
 
 // `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 func (o PriorityLevelConfigurationSpecPtrOutput) Limited() LimitedPriorityLevelConfigurationPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationSpec) *LimitedPriorityLevelConfiguration { return v.Limited }).(LimitedPriorityLevelConfigurationPtrOutput)
+	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) *LimitedPriorityLevelConfiguration {
+		if v == nil {
+			return nil
+		}
+		return v.Limited
+	}).(LimitedPriorityLevelConfigurationPtrOutput)
 }
 
 // `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
 func (o PriorityLevelConfigurationSpecPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
 }
 
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
@@ -2260,7 +2330,12 @@ func (o PriorityLevelConfigurationStatusPtrOutput) Elem() PriorityLevelConfigura
 
 // `conditions` is the current state of "request-priority".
 func (o PriorityLevelConfigurationStatusPtrOutput) Conditions() PriorityLevelConfigurationConditionArrayOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationStatus) []PriorityLevelConfigurationCondition { return v.Conditions }).(PriorityLevelConfigurationConditionArrayOutput)
+	return o.ApplyT(func(v *PriorityLevelConfigurationStatus) []PriorityLevelConfigurationCondition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(PriorityLevelConfigurationConditionArrayOutput)
 }
 
 // QueuingConfiguration holds the configuration parameters for queuing
@@ -2409,17 +2484,32 @@ func (o QueuingConfigurationPtrOutput) Elem() QueuingConfigurationOutput {
 
 // `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
 func (o QueuingConfigurationPtrOutput) HandSize() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v QueuingConfiguration) *int { return v.HandSize }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *QueuingConfiguration) *int {
+		if v == nil {
+			return nil
+		}
+		return v.HandSize
+	}).(pulumi.IntPtrOutput)
 }
 
 // `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
 func (o QueuingConfigurationPtrOutput) QueueLengthLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v QueuingConfiguration) *int { return v.QueueLengthLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *QueuingConfiguration) *int {
+		if v == nil {
+			return nil
+		}
+		return v.QueueLengthLimit
+	}).(pulumi.IntPtrOutput)
 }
 
 // `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
 func (o QueuingConfigurationPtrOutput) Queues() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v QueuingConfiguration) *int { return v.Queues }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *QueuingConfiguration) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Queues
+	}).(pulumi.IntPtrOutput)
 }
 
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
@@ -2697,12 +2787,22 @@ func (o ServiceAccountSubjectPtrOutput) Elem() ServiceAccountSubjectOutput {
 
 // `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
 func (o ServiceAccountSubjectPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceAccountSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceAccountSubject) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // `namespace` is the namespace of matching ServiceAccount objects. Required.
 func (o ServiceAccountSubjectPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceAccountSubject) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceAccountSubject) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
 }
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
@@ -2953,7 +3053,12 @@ func (o UserSubjectPtrOutput) Elem() UserSubjectOutput {
 
 // `name` is the username that matches, or "*" to match all usernames. Required.
 func (o UserSubjectPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v UserSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *UserSubject) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {

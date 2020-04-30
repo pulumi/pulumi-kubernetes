@@ -379,7 +379,12 @@ func (o CSIDriverSpecPtrOutput) Elem() CSIDriverSpecOutput {
 
 // attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 func (o CSIDriverSpecPtrOutput) AttachRequired() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.AttachRequired }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *CSIDriverSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AttachRequired
+	}).(pulumi.BoolPtrOutput)
 }
 
 // If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
@@ -387,12 +392,22 @@ func (o CSIDriverSpecPtrOutput) AttachRequired() pulumi.BoolPtrOutput {
 //
 // "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 func (o CSIDriverSpecPtrOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.PodInfoOnMount }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *CSIDriverSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.PodInfoOnMount
+	}).(pulumi.BoolPtrOutput)
 }
 
 // volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
 func (o CSIDriverSpecPtrOutput) VolumeLifecycleModes() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v CSIDriverSpec) []string { return v.VolumeLifecycleModes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *CSIDriverSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeLifecycleModes
+	}).(pulumi.StringArrayOutput)
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
@@ -864,7 +879,12 @@ func (o CSINodeSpecPtrOutput) Elem() CSINodeSpecOutput {
 
 // drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 func (o CSINodeSpecPtrOutput) Drivers() CSINodeDriverArrayOutput {
-	return o.ApplyT(func(v CSINodeSpec) []CSINodeDriver { return v.Drivers }).(CSINodeDriverArrayOutput)
+	return o.ApplyT(func(v *CSINodeSpec) []CSINodeDriver {
+		if v == nil {
+			return nil
+		}
+		return v.Drivers
+	}).(CSINodeDriverArrayOutput)
 }
 
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
@@ -1503,12 +1523,22 @@ func (o VolumeAttachmentSourcePtrOutput) Elem() VolumeAttachmentSourceOutput {
 
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
 func (o VolumeAttachmentSourcePtrOutput) InlineVolumeSpec() corev1.PersistentVolumeSpecPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSource) *corev1.PersistentVolumeSpec { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSource) *corev1.PersistentVolumeSpec {
+		if v == nil {
+			return nil
+		}
+		return v.InlineVolumeSpec
+	}).(corev1.PersistentVolumeSpecPtrOutput)
 }
 
 // Name of the persistent volume to attach.
 func (o VolumeAttachmentSourcePtrOutput) PersistentVolumeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSource) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PersistentVolumeName
+	}).(pulumi.StringPtrOutput)
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
@@ -1657,17 +1687,32 @@ func (o VolumeAttachmentSpecPtrOutput) Elem() VolumeAttachmentSpecOutput {
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 func (o VolumeAttachmentSpecPtrOutput) Attacher() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Attacher
+	}).(pulumi.StringPtrOutput)
 }
 
 // The node that the volume should be attached to.
 func (o VolumeAttachmentSpecPtrOutput) NodeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeName
+	}).(pulumi.StringPtrOutput)
 }
 
 // Source represents the volume that should be attached.
 func (o VolumeAttachmentSpecPtrOutput) Source() VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSpec) *VolumeAttachmentSource {
+		if v == nil {
+			return nil
+		}
+		return v.Source
+	}).(VolumeAttachmentSourcePtrOutput)
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
@@ -1825,22 +1870,42 @@ func (o VolumeAttachmentStatusPtrOutput) Elem() VolumeAttachmentStatusOutput {
 
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) AttachError() VolumeErrorPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeError { return v.AttachError }).(VolumeErrorPtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentStatus) *VolumeError {
+		if v == nil {
+			return nil
+		}
+		return v.AttachError
+	}).(VolumeErrorPtrOutput)
 }
 
 // Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) Attached() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentStatus) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Attached
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) AttachmentMetadata() pulumi.StringMapOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) map[string]string { return v.AttachmentMetadata }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *VolumeAttachmentStatus) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AttachmentMetadata
+	}).(pulumi.StringMapOutput)
 }
 
 // The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
 func (o VolumeAttachmentStatusPtrOutput) DetachError() VolumeErrorPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeError { return v.DetachError }).(VolumeErrorPtrOutput)
+	return o.ApplyT(func(v *VolumeAttachmentStatus) *VolumeError {
+		if v == nil {
+			return nil
+		}
+		return v.DetachError
+	}).(VolumeErrorPtrOutput)
 }
 
 // VolumeError captures an error encountered during a volume operation.
@@ -1980,12 +2045,22 @@ func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
 
 // String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 func (o VolumeErrorPtrOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *VolumeError) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Message
+	}).(pulumi.StringPtrOutput)
 }
 
 // Time the error was encountered.
 func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeError) *string { return v.Time }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *VolumeError) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Time
+	}).(pulumi.StringPtrOutput)
 }
 
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
@@ -2116,7 +2191,12 @@ func (o VolumeNodeResourcesPtrOutput) Elem() VolumeNodeResourcesOutput {
 
 // Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
 func (o VolumeNodeResourcesPtrOutput) Count() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v VolumeNodeResources) *int { return v.Count }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *VolumeNodeResources) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Count
+	}).(pulumi.IntPtrOutput)
 }
 
 func init() {

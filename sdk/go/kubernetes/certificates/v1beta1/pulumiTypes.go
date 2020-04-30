@@ -549,17 +549,32 @@ func (o CertificateSigningRequestSpecPtrOutput) Elem() CertificateSigningRequest
 
 // Extra information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Extra() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) map[string][]string {
+		if v == nil {
+			return nil
+		}
+		return v.Extra
+	}).(pulumi.StringArrayMapOutput)
 }
 
 // Group information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Groups() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Groups }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Groups
+	}).(pulumi.StringArrayOutput)
 }
 
 // Base64-encoded PKCS#10 CSR data
 func (o CertificateSigningRequestSpecPtrOutput) Request() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Request }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Request
+	}).(pulumi.StringPtrOutput)
 }
 
 // Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
@@ -570,23 +585,43 @@ func (o CertificateSigningRequestSpecPtrOutput) Request() pulumi.StringPtrOutput
 //  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
 // Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
 func (o CertificateSigningRequestSpecPtrOutput) SignerName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.SignerName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SignerName
+	}).(pulumi.StringPtrOutput)
 }
 
 // UID information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Uid }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Uid
+	}).(pulumi.StringPtrOutput)
 }
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 //      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
 func (o CertificateSigningRequestSpecPtrOutput) Usages() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Usages
+	}).(pulumi.StringArrayOutput)
 }
 
 // Information about the requesting user. See user.Info interface for details.
 func (o CertificateSigningRequestSpecPtrOutput) Username() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Username }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Username
+	}).(pulumi.StringPtrOutput)
 }
 
 type CertificateSigningRequestStatus struct {
@@ -723,12 +758,22 @@ func (o CertificateSigningRequestStatusPtrOutput) Elem() CertificateSigningReque
 
 // If request was approved, the controller will place the issued certificate here.
 func (o CertificateSigningRequestStatusPtrOutput) Certificate() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestStatus) *string { return v.Certificate }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Certificate
+	}).(pulumi.StringPtrOutput)
 }
 
 // Conditions applied to the request, such as approval or denial.
 func (o CertificateSigningRequestStatusPtrOutput) Conditions() CertificateSigningRequestConditionArrayOutput {
-	return o.ApplyT(func(v CertificateSigningRequestStatus) []CertificateSigningRequestCondition { return v.Conditions }).(CertificateSigningRequestConditionArrayOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestStatus) []CertificateSigningRequestCondition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(CertificateSigningRequestConditionArrayOutput)
 }
 
 func init() {

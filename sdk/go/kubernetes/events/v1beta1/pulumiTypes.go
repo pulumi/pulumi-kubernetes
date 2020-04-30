@@ -484,17 +484,32 @@ func (o EventSeriesPtrOutput) Elem() EventSeriesOutput {
 
 // Number of occurrences in this series up to the last heartbeat time
 func (o EventSeriesPtrOutput) Count() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *EventSeries) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Count
+	}).(pulumi.IntPtrOutput)
 }
 
 // Time when last Event from the series was seen before last heartbeat.
 func (o EventSeriesPtrOutput) LastObservedTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EventSeries) *string { return v.LastObservedTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *EventSeries) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LastObservedTime
+	}).(pulumi.StringPtrOutput)
 }
 
 // Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
 func (o EventSeriesPtrOutput) State() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *EventSeries) *string {
+		if v == nil {
+			return nil
+		}
+		return v.State
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {

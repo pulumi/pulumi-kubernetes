@@ -865,32 +865,62 @@ func (o DaemonSetSpecPtrOutput) Elem() DaemonSetSpecOutput {
 
 // The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
 func (o DaemonSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinReadySeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 func (o DaemonSetSpecPtrOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.RevisionHistoryLimit
+	}).(pulumi.IntPtrOutput)
 }
 
 // A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o DaemonSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(metav1.LabelSelectorPtrOutput)
 }
 
 // An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o DaemonSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) *corev1.PodTemplateSpec {
+		if v == nil {
+			return nil
+		}
+		return v.Template
+	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
 func (o DaemonSetSpecPtrOutput) TemplateGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *int { return v.TemplateGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TemplateGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // An update strategy to replace existing DaemonSet pods with new pods.
 func (o DaemonSetSpecPtrOutput) UpdateStrategy() DaemonSetUpdateStrategyPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *DaemonSetUpdateStrategy { return v.UpdateStrategy }).(DaemonSetUpdateStrategyPtrOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) *DaemonSetUpdateStrategy {
+		if v == nil {
+			return nil
+		}
+		return v.UpdateStrategy
+	}).(DaemonSetUpdateStrategyPtrOutput)
 }
 
 // DaemonSetStatus represents the current status of a daemon set.
@@ -1102,52 +1132,102 @@ func (o DaemonSetStatusPtrOutput) Elem() DaemonSetStatusOutput {
 
 // Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 func (o DaemonSetStatusPtrOutput) CollisionCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.CollisionCount
+	}).(pulumi.IntPtrOutput)
 }
 
 // Represents the latest available observations of a DaemonSet's current state.
 func (o DaemonSetStatusPtrOutput) Conditions() DaemonSetConditionArrayOutput {
-	return o.ApplyT(func(v DaemonSetStatus) []DaemonSetCondition { return v.Conditions }).(DaemonSetConditionArrayOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) []DaemonSetCondition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(DaemonSetConditionArrayOutput)
 }
 
 // The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
 func (o DaemonSetStatusPtrOutput) CurrentNumberScheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.CurrentNumberScheduled }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.CurrentNumberScheduled
+	}).(pulumi.IntPtrOutput)
 }
 
 // The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
 func (o DaemonSetStatusPtrOutput) DesiredNumberScheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.DesiredNumberScheduled }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DesiredNumberScheduled
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
 func (o DaemonSetStatusPtrOutput) NumberAvailable() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberAvailable }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.NumberAvailable
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
 func (o DaemonSetStatusPtrOutput) NumberMisscheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberMisscheduled }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.NumberMisscheduled
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
 func (o DaemonSetStatusPtrOutput) NumberReady() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberReady }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.NumberReady
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 func (o DaemonSetStatusPtrOutput) NumberUnavailable() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberUnavailable }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.NumberUnavailable
+	}).(pulumi.IntPtrOutput)
 }
 
 // The most recent generation observed by the daemon set controller.
 func (o DaemonSetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // The total number of nodes that are running updated daemon pod
 func (o DaemonSetStatusPtrOutput) UpdatedNumberScheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.UpdatedNumberScheduled }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.UpdatedNumberScheduled
+	}).(pulumi.IntPtrOutput)
 }
 
 type DaemonSetUpdateStrategy struct {
@@ -1284,12 +1364,22 @@ func (o DaemonSetUpdateStrategyPtrOutput) Elem() DaemonSetUpdateStrategyOutput {
 
 // Rolling update config params. Present only if type = "RollingUpdate".
 func (o DaemonSetUpdateStrategyPtrOutput) RollingUpdate() RollingUpdateDaemonSetPtrOutput {
-	return o.ApplyT(func(v DaemonSetUpdateStrategy) *RollingUpdateDaemonSet { return v.RollingUpdate }).(RollingUpdateDaemonSetPtrOutput)
+	return o.ApplyT(func(v *DaemonSetUpdateStrategy) *RollingUpdateDaemonSet {
+		if v == nil {
+			return nil
+		}
+		return v.RollingUpdate
+	}).(RollingUpdateDaemonSetPtrOutput)
 }
 
 // Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is OnDelete.
 func (o DaemonSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *DaemonSetUpdateStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
 }
 
 // Deployment enables declarative updates for Pods and ReplicaSets.
@@ -2018,47 +2108,92 @@ func (o DeploymentSpecPtrOutput) Elem() DeploymentSpecOutput {
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o DeploymentSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinReadySeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // Indicates that the deployment is paused and will not be processed by the deployment controller.
 func (o DeploymentSpecPtrOutput) Paused() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *bool { return v.Paused }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Paused
+	}).(pulumi.BoolPtrOutput)
 }
 
 // The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. This is set to the max value of int32 (i.e. 2147483647) by default, which means "no deadline".
 func (o DeploymentSpecPtrOutput) ProgressDeadlineSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.ProgressDeadlineSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ProgressDeadlineSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
 func (o DeploymentSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Replicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. This is set to the max value of int32 (i.e. 2147483647) by default, which means "retaining all old RelicaSets".
 func (o DeploymentSpecPtrOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *int { return v.RevisionHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.RevisionHistoryLimit
+	}).(pulumi.IntPtrOutput)
 }
 
 // DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
 func (o DeploymentSpecPtrOutput) RollbackTo() RollbackConfigPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *RollbackConfig {
+		if v == nil {
+			return nil
+		}
+		return v.RollbackTo
+	}).(RollbackConfigPtrOutput)
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
 func (o DeploymentSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(metav1.LabelSelectorPtrOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
 func (o DeploymentSpecPtrOutput) Strategy() DeploymentStrategyPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *DeploymentStrategy { return v.Strategy }).(DeploymentStrategyPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *DeploymentStrategy {
+		if v == nil {
+			return nil
+		}
+		return v.Strategy
+	}).(DeploymentStrategyPtrOutput)
 }
 
 // Template describes the pods that will be created.
 func (o DeploymentSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func(v *DeploymentSpec) *corev1.PodTemplateSpec {
+		if v == nil {
+			return nil
+		}
+		return v.Template
+	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
@@ -2252,42 +2387,82 @@ func (o DeploymentStatusPtrOutput) Elem() DeploymentStatusOutput {
 
 // Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
 func (o DeploymentStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AvailableReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
 func (o DeploymentStatusPtrOutput) CollisionCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.CollisionCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.CollisionCount
+	}).(pulumi.IntPtrOutput)
 }
 
 // Represents the latest available observations of a deployment's current state.
 func (o DeploymentStatusPtrOutput) Conditions() DeploymentConditionArrayOutput {
-	return o.ApplyT(func(v DeploymentStatus) []DeploymentCondition { return v.Conditions }).(DeploymentConditionArrayOutput)
+	return o.ApplyT(func(v *DeploymentStatus) []DeploymentCondition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(DeploymentConditionArrayOutput)
 }
 
 // The generation observed by the deployment controller.
 func (o DeploymentStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // Total number of ready pods targeted by this deployment.
 func (o DeploymentStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ReadyReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // Total number of non-terminated pods targeted by this deployment (their labels match the selector).
 func (o DeploymentStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Replicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 func (o DeploymentStatusPtrOutput) UnavailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.UnavailableReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.UnavailableReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // Total number of non-terminated pods targeted by this deployment that have the desired template spec.
 func (o DeploymentStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.UpdatedReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
@@ -2427,12 +2602,22 @@ func (o DeploymentStrategyPtrOutput) Elem() DeploymentStrategyOutput {
 
 // Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 func (o DeploymentStrategyPtrOutput) RollingUpdate() RollingUpdateDeploymentPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *RollingUpdateDeployment { return v.RollingUpdate }).(RollingUpdateDeploymentPtrOutput)
+	return o.ApplyT(func(v *DeploymentStrategy) *RollingUpdateDeployment {
+		if v == nil {
+			return nil
+		}
+		return v.RollingUpdate
+	}).(RollingUpdateDeploymentPtrOutput)
 }
 
 // Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
 func (o DeploymentStrategyPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *DeploymentStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use FSGroupStrategyOptions from policy API Group instead.
@@ -2572,12 +2757,22 @@ func (o FSGroupStrategyOptionsPtrOutput) Elem() FSGroupStrategyOptionsOutput {
 
 // ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 func (o FSGroupStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v FSGroupStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *FSGroupStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
 func (o FSGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FSGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *FSGroupStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
@@ -2858,7 +3053,12 @@ func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
 
 // A collection of paths that map requests to backends.
 func (o HTTPIngressRuleValuePtrOutput) Paths() HTTPIngressPathArrayOutput {
-	return o.ApplyT(func(v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
+	return o.ApplyT(func(v *HTTPIngressRuleValue) []HTTPIngressPath {
+		if v == nil {
+			return nil
+		}
+		return v.Paths
+	}).(HTTPIngressPathArrayOutput)
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from policy API Group instead.
@@ -3220,12 +3420,22 @@ func (o IPBlockPtrOutput) Elem() IPBlockOutput {
 
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
 func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *IPBlock) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Cidr
+	}).(pulumi.StringPtrOutput)
 }
 
 // Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *IPBlock) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Except
+	}).(pulumi.StringArrayOutput)
 }
 
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
@@ -3554,17 +3764,32 @@ func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
 
 // Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 func (o IngressBackendPtrOutput) Resource() corev1.TypedLocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v IngressBackend) *corev1.TypedLocalObjectReference { return v.Resource }).(corev1.TypedLocalObjectReferencePtrOutput)
+	return o.ApplyT(func(v *IngressBackend) *corev1.TypedLocalObjectReference {
+		if v == nil {
+			return nil
+		}
+		return v.Resource
+	}).(corev1.TypedLocalObjectReferencePtrOutput)
 }
 
 // Specifies the name of the referenced service.
 func (o IngressBackendPtrOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *IngressBackend) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceName
+	}).(pulumi.StringPtrOutput)
 }
 
 // Specifies the port of the referenced service.
 func (o IngressBackendPtrOutput) ServicePort() pulumi.AnyOutput {
-	return o.ApplyT(func(v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
+	return o.ApplyT(func(v *IngressBackend) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.ServicePort
+	}).(pulumi.AnyOutput)
 }
 
 // IngressList is a collection of Ingress.
@@ -3934,22 +4159,42 @@ func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
 
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 func (o IngressSpecPtrOutput) Backend() IngressBackendPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
+	return o.ApplyT(func(v *IngressSpec) *IngressBackend {
+		if v == nil {
+			return nil
+		}
+		return v.Backend
+	}).(IngressBackendPtrOutput)
 }
 
 // IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
 func (o IngressSpecPtrOutput) IngressClassName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *string { return v.IngressClassName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *IngressSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IngressClassName
+	}).(pulumi.StringPtrOutput)
 }
 
 // A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecPtrOutput) Rules() IngressRuleArrayOutput {
-	return o.ApplyT(func(v IngressSpec) []IngressRule { return v.Rules }).(IngressRuleArrayOutput)
+	return o.ApplyT(func(v *IngressSpec) []IngressRule {
+		if v == nil {
+			return nil
+		}
+		return v.Rules
+	}).(IngressRuleArrayOutput)
 }
 
 // TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 func (o IngressSpecPtrOutput) Tls() IngressTLSArrayOutput {
-	return o.ApplyT(func(v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
+	return o.ApplyT(func(v *IngressSpec) []IngressTLS {
+		if v == nil {
+			return nil
+		}
+		return v.Tls
+	}).(IngressTLSArrayOutput)
 }
 
 // IngressStatus describe the current state of the Ingress.
@@ -4080,7 +4325,12 @@ func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
 
 // LoadBalancer contains the current status of the load-balancer.
 func (o IngressStatusPtrOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
+	return o.ApplyT(func(v *IngressStatus) *corev1.LoadBalancerStatus {
+		if v == nil {
+			return nil
+		}
+		return v.LoadBalancer
+	}).(corev1.LoadBalancerStatusPtrOutput)
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
@@ -5026,22 +5276,42 @@ func (o NetworkPolicySpecPtrOutput) Elem() NetworkPolicySpecOutput {
 
 // List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) Egress() NetworkPolicyEgressRuleArrayOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyEgressRule { return v.Egress }).(NetworkPolicyEgressRuleArrayOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) []NetworkPolicyEgressRule {
+		if v == nil {
+			return nil
+		}
+		return v.Egress
+	}).(NetworkPolicyEgressRuleArrayOutput)
 }
 
 // List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
 func (o NetworkPolicySpecPtrOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyIngressRule { return v.Ingress }).(NetworkPolicyIngressRuleArrayOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) []NetworkPolicyIngressRule {
+		if v == nil {
+			return nil
+		}
+		return v.Ingress
+	}).(NetworkPolicyIngressRuleArrayOutput)
 }
 
 // Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.PodSelector
+	}).(metav1.LabelSelectorPtrOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PolicyTypes
+	}).(pulumi.StringArrayOutput)
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group instead.
@@ -5603,126 +5873,246 @@ func (o PodSecurityPolicySpecPtrOutput) Elem() PodSecurityPolicySpecOutput {
 
 // allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 func (o PodSecurityPolicySpecPtrOutput) AllowPrivilegeEscalation() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.AllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllowPrivilegeEscalation
+	}).(pulumi.BoolPtrOutput)
 }
 
 // AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes.
 func (o PodSecurityPolicySpecPtrOutput) AllowedCSIDrivers() AllowedCSIDriverArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedCSIDriver { return v.AllowedCSIDrivers }).(AllowedCSIDriverArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedCSIDriver {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedCSIDrivers
+	}).(AllowedCSIDriverArrayOutput)
 }
 
 // allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 func (o PodSecurityPolicySpecPtrOutput) AllowedCapabilities() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedCapabilities }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedCapabilities
+	}).(pulumi.StringArrayOutput)
 }
 
 // allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecPtrOutput) AllowedFlexVolumes() AllowedFlexVolumeArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedFlexVolume { return v.AllowedFlexVolumes }).(AllowedFlexVolumeArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedFlexVolume {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedFlexVolumes
+	}).(AllowedFlexVolumeArrayOutput)
 }
 
 // allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecPtrOutput) AllowedHostPaths() AllowedHostPathArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedHostPath { return v.AllowedHostPaths }).(AllowedHostPathArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedHostPath {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedHostPaths
+	}).(AllowedHostPathArrayOutput)
 }
 
 // AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecPtrOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedProcMountTypes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedProcMountTypes
+	}).(pulumi.StringArrayOutput)
 }
 
 // allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPtrOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedUnsafeSysctls }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedUnsafeSysctls
+	}).(pulumi.StringArrayOutput)
 }
 
 // defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
 func (o PodSecurityPolicySpecPtrOutput) DefaultAddCapabilities() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.DefaultAddCapabilities }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultAddCapabilities
+	}).(pulumi.StringArrayOutput)
 }
 
 // defaultAllowPrivilegeEscalation controls the default setting for whether a process can gain more privileges than its parent process.
 func (o PodSecurityPolicySpecPtrOutput) DefaultAllowPrivilegeEscalation() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.DefaultAllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultAllowPrivilegeEscalation
+	}).(pulumi.BoolPtrOutput)
 }
 
 // forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
 //
 // Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPtrOutput) ForbiddenSysctls() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.ForbiddenSysctls }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ForbiddenSysctls
+	}).(pulumi.StringArrayOutput)
 }
 
 // fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
 func (o PodSecurityPolicySpecPtrOutput) FsGroup() FSGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *FSGroupStrategyOptions { return v.FsGroup }).(FSGroupStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *FSGroupStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.FsGroup
+	}).(FSGroupStrategyOptionsPtrOutput)
 }
 
 // hostIPC determines if the policy allows the use of HostIPC in the pod spec.
 func (o PodSecurityPolicySpecPtrOutput) HostIPC() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.HostIPC }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.HostIPC
+	}).(pulumi.BoolPtrOutput)
 }
 
 // hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
 func (o PodSecurityPolicySpecPtrOutput) HostNetwork() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.HostNetwork }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.HostNetwork
+	}).(pulumi.BoolPtrOutput)
 }
 
 // hostPID determines if the policy allows the use of HostPID in the pod spec.
 func (o PodSecurityPolicySpecPtrOutput) HostPID() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.HostPID }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.HostPID
+	}).(pulumi.BoolPtrOutput)
 }
 
 // hostPorts determines which host port ranges are allowed to be exposed.
 func (o PodSecurityPolicySpecPtrOutput) HostPorts() HostPortRangeArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []HostPortRange { return v.HostPorts }).(HostPortRangeArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []HostPortRange {
+		if v == nil {
+			return nil
+		}
+		return v.HostPorts
+	}).(HostPortRangeArrayOutput)
 }
 
 // privileged determines if a pod can request to be run as privileged.
 func (o PodSecurityPolicySpecPtrOutput) Privileged() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.Privileged }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Privileged
+	}).(pulumi.BoolPtrOutput)
 }
 
 // readOnlyRootFilesystem when set to true will force containers to run with a read only root file system.  If the container specifically requests to run with a non-read only root file system the PSP should deny the pod. If set to false the container may run with a read only root file system if it wishes but it will not be forced to.
 func (o PodSecurityPolicySpecPtrOutput) ReadOnlyRootFilesystem() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.ReadOnlyRootFilesystem }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ReadOnlyRootFilesystem
+	}).(pulumi.BoolPtrOutput)
 }
 
 // requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
 func (o PodSecurityPolicySpecPtrOutput) RequiredDropCapabilities() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.RequiredDropCapabilities }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.RequiredDropCapabilities
+	}).(pulumi.StringArrayOutput)
 }
 
 // RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
 func (o PodSecurityPolicySpecPtrOutput) RunAsGroup() RunAsGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RunAsGroupStrategyOptions { return v.RunAsGroup }).(RunAsGroupStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *RunAsGroupStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.RunAsGroup
+	}).(RunAsGroupStrategyOptionsPtrOutput)
 }
 
 // runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
 func (o PodSecurityPolicySpecPtrOutput) RunAsUser() RunAsUserStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RunAsUserStrategyOptions { return v.RunAsUser }).(RunAsUserStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *RunAsUserStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.RunAsUser
+	}).(RunAsUserStrategyOptionsPtrOutput)
 }
 
 // runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
 func (o PodSecurityPolicySpecPtrOutput) RuntimeClass() RuntimeClassStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RuntimeClassStrategyOptions { return v.RuntimeClass }).(RuntimeClassStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *RuntimeClassStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.RuntimeClass
+	}).(RuntimeClassStrategyOptionsPtrOutput)
 }
 
 // seLinux is the strategy that will dictate the allowable labels that may be set.
 func (o PodSecurityPolicySpecPtrOutput) SeLinux() SELinuxStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SELinuxStrategyOptions { return v.SeLinux }).(SELinuxStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *SELinuxStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.SeLinux
+	}).(SELinuxStrategyOptionsPtrOutput)
 }
 
 // supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 func (o PodSecurityPolicySpecPtrOutput) SupplementalGroups() SupplementalGroupsStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *SupplementalGroupsStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.SupplementalGroups
+	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
 // volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecPtrOutput) Volumes() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.Volumes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Volumes
+	}).(pulumi.StringArrayOutput)
 }
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
@@ -6239,22 +6629,42 @@ func (o ReplicaSetSpecPtrOutput) Elem() ReplicaSetSpecOutput {
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o ReplicaSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinReadySeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 func (o ReplicaSetSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Replicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o ReplicaSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v ReplicaSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetSpec) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(metav1.LabelSelectorPtrOutput)
 }
 
 // Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o ReplicaSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v ReplicaSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetSpec) *corev1.PodTemplateSpec {
+		if v == nil {
+			return nil
+		}
+		return v.Template
+	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
@@ -6430,32 +6840,62 @@ func (o ReplicaSetStatusPtrOutput) Elem() ReplicaSetStatusOutput {
 
 // The number of available replicas (ready for at least minReadySeconds) for this replica set.
 func (o ReplicaSetStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AvailableReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // Represents the latest available observations of a replica set's current state.
 func (o ReplicaSetStatusPtrOutput) Conditions() ReplicaSetConditionArrayOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) []ReplicaSetCondition { return v.Conditions }).(ReplicaSetConditionArrayOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) []ReplicaSetCondition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(ReplicaSetConditionArrayOutput)
 }
 
 // The number of pods that have labels matching the labels of the pod template of the replicaset.
 func (o ReplicaSetStatusPtrOutput) FullyLabeledReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.FullyLabeledReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.FullyLabeledReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 func (o ReplicaSetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of ready replicas for this replica set.
 func (o ReplicaSetStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ReadyReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Replicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // DEPRECATED.
@@ -6586,7 +7026,12 @@ func (o RollbackConfigPtrOutput) Elem() RollbackConfigOutput {
 
 // The revision to rollback to. If set to 0, rollback to the last revision.
 func (o RollbackConfigPtrOutput) Revision() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v RollbackConfig) *int { return v.Revision }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *RollbackConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Revision
+	}).(pulumi.IntPtrOutput)
 }
 
 // Spec to control the desired behavior of daemon set rolling update.
@@ -6717,7 +7162,12 @@ func (o RollingUpdateDaemonSetPtrOutput) Elem() RollingUpdateDaemonSetOutput {
 
 // The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 func (o RollingUpdateDaemonSetPtrOutput) MaxUnavailable() pulumi.AnyOutput {
-	return o.ApplyT(func(v RollingUpdateDaemonSet) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
+	return o.ApplyT(func(v *RollingUpdateDaemonSet) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.MaxUnavailable
+	}).(pulumi.AnyOutput)
 }
 
 // Spec to control the desired behavior of rolling update.
@@ -6857,12 +7307,22 @@ func (o RollingUpdateDeploymentPtrOutput) Elem() RollingUpdateDeploymentOutput {
 
 // The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 func (o RollingUpdateDeploymentPtrOutput) MaxSurge() pulumi.AnyOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
+	return o.ApplyT(func(v *RollingUpdateDeployment) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.MaxSurge
+	}).(pulumi.AnyOutput)
 }
 
 // The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
 func (o RollingUpdateDeploymentPtrOutput) MaxUnavailable() pulumi.AnyOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
+	return o.ApplyT(func(v *RollingUpdateDeployment) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.MaxUnavailable
+	}).(pulumi.AnyOutput)
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
@@ -7002,12 +7462,22 @@ func (o RunAsGroupStrategyOptionsPtrOutput) Elem() RunAsGroupStrategyOptionsOutp
 
 // ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsGroupStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *RunAsGroupStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
 func (o RunAsGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RunAsGroupStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
@@ -7147,12 +7617,22 @@ func (o RunAsUserStrategyOptionsPtrOutput) Elem() RunAsUserStrategyOptionsOutput
 
 // ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsUserStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *RunAsUserStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate the allowable RunAsUser values that may be set.
 func (o RunAsUserStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RunAsUserStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
@@ -7292,12 +7772,22 @@ func (o RuntimeClassStrategyOptionsPtrOutput) Elem() RuntimeClassStrategyOptions
 
 // allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsPtrOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v RuntimeClassStrategyOptions) []string { return v.AllowedRuntimeClassNames }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *RuntimeClassStrategyOptions) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedRuntimeClassNames
+	}).(pulumi.StringArrayOutput)
 }
 
 // defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 func (o RuntimeClassStrategyOptionsPtrOutput) DefaultRuntimeClassName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RuntimeClassStrategyOptions) *string { return v.DefaultRuntimeClassName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RuntimeClassStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultRuntimeClassName
+	}).(pulumi.StringPtrOutput)
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
@@ -7437,12 +7927,22 @@ func (o SELinuxStrategyOptionsPtrOutput) Elem() SELinuxStrategyOptionsOutput {
 
 // rule is the strategy that will dictate the allowable labels that may be set.
 func (o SELinuxStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SELinuxStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 func (o SELinuxStrategyOptionsPtrOutput) SeLinuxOptions() corev1.SELinuxOptionsPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *corev1.SELinuxOptions { return v.SeLinuxOptions }).(corev1.SELinuxOptionsPtrOutput)
+	return o.ApplyT(func(v *SELinuxStrategyOptions) *corev1.SELinuxOptions {
+		if v == nil {
+			return nil
+		}
+		return v.SeLinuxOptions
+	}).(corev1.SELinuxOptionsPtrOutput)
 }
 
 // represents a scaling request for a resource.
@@ -7665,7 +8165,12 @@ func (o ScaleSpecPtrOutput) Elem() ScaleSpecOutput {
 
 // desired number of instances for the scaled object.
 func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ScaleSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Replicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // represents the current status of a scale subresource.
@@ -7814,17 +8319,32 @@ func (o ScaleStatusPtrOutput) Elem() ScaleStatusOutput {
 
 // actual number of observed instances of the scaled object.
 func (o ScaleStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ScaleStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Replicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
 func (o ScaleStatusPtrOutput) Selector() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ScaleStatus) map[string]string { return v.Selector }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *ScaleStatus) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(pulumi.StringMapOutput)
 }
 
 // label selector for pods that should match the replicas count. This is a serializated version of both map-based and more expressive set-based selectors. This is done to avoid introspection in the clients. The string will be in the same format as the query-param syntax. If the target type only supports map-based selectors, both this field and map-based selector field are populated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o ScaleStatusPtrOutput) TargetSelector() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *string { return v.TargetSelector }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ScaleStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TargetSelector
+	}).(pulumi.StringPtrOutput)
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
@@ -7964,12 +8484,22 @@ func (o SupplementalGroupsStrategyOptionsPtrOutput) Elem() SupplementalGroupsStr
 
 // ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 func (o SupplementalGroupsStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v SupplementalGroupsStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
 func (o SupplementalGroupsStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SupplementalGroupsStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {
