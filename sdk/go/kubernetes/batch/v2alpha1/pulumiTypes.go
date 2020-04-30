@@ -16,15 +16,15 @@ import (
 // CronJob represents the configuration of a single cron job.
 type CronJobType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *CronJobSpec `pulumi:"spec"`
+	Spec CronJobSpec `pulumi:"spec"`
 	// Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *CronJobStatus `pulumi:"status"`
+	Status CronJobStatus `pulumi:"status"`
 }
 
 // CronJobTypeInput is an input type that accepts CronJobTypeArgs and CronJobTypeOutput values.
@@ -42,15 +42,15 @@ type CronJobTypeInput interface {
 // CronJob represents the configuration of a single cron job.
 type CronJobTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec CronJobSpecPtrInput `pulumi:"spec"`
+	Spec CronJobSpecInput `pulumi:"spec"`
 	// Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status CronJobStatusPtrInput `pulumi:"status"`
+	Status CronJobStatusInput `pulumi:"status"`
 }
 
 func (CronJobTypeArgs) ElementType() reflect.Type {
@@ -107,28 +107,28 @@ func (o CronJobTypeOutput) ToCronJobTypeOutputWithContext(ctx context.Context) C
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CronJobTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CronJobTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v CronJobType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CronJobTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CronJobTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v CronJobType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o CronJobTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v CronJobType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o CronJobTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v CronJobType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o CronJobTypeOutput) Spec() CronJobSpecPtrOutput {
-	return o.ApplyT(func(v CronJobType) *CronJobSpec { return v.Spec }).(CronJobSpecPtrOutput)
+func (o CronJobTypeOutput) Spec() CronJobSpecOutput {
+	return o.ApplyT(func(v CronJobType) CronJobSpec { return v.Spec }).(CronJobSpecOutput)
 }
 
 // Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o CronJobTypeOutput) Status() CronJobStatusPtrOutput {
-	return o.ApplyT(func(v CronJobType) *CronJobStatus { return v.Status }).(CronJobStatusPtrOutput)
+func (o CronJobTypeOutput) Status() CronJobStatusOutput {
+	return o.ApplyT(func(v CronJobType) CronJobStatus { return v.Status }).(CronJobStatusOutput)
 }
 
 type CronJobTypeArrayOutput struct{ *pulumi.OutputState }
@@ -154,13 +154,13 @@ func (o CronJobTypeArrayOutput) Index(i pulumi.IntInput) CronJobTypeOutput {
 // CronJobList is a collection of cron jobs.
 type CronJobListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// items is the list of CronJobs.
 	Items []CronJobType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // CronJobListTypeInput is an input type that accepts CronJobListTypeArgs and CronJobListTypeOutput values.
@@ -178,13 +178,13 @@ type CronJobListTypeInput interface {
 // CronJobList is a collection of cron jobs.
 type CronJobListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// items is the list of CronJobs.
 	Items CronJobTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (CronJobListTypeArgs) ElementType() reflect.Type {
@@ -215,8 +215,8 @@ func (o CronJobListTypeOutput) ToCronJobListTypeOutputWithContext(ctx context.Co
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CronJobListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CronJobListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v CronJobListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // items is the list of CronJobs.
@@ -225,13 +225,13 @@ func (o CronJobListTypeOutput) Items() CronJobTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CronJobListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CronJobListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v CronJobListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o CronJobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v CronJobListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o CronJobListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v CronJobListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
@@ -241,9 +241,9 @@ type CronJobSpec struct {
 	// The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
 	FailedJobsHistoryLimit *int `pulumi:"failedJobsHistoryLimit"`
 	// Specifies the job that will be created when executing a CronJob.
-	JobTemplate *JobTemplateSpec `pulumi:"jobTemplate"`
+	JobTemplate JobTemplateSpec `pulumi:"jobTemplate"`
 	// The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-	Schedule *string `pulumi:"schedule"`
+	Schedule string `pulumi:"schedule"`
 	// Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
 	StartingDeadlineSeconds *int `pulumi:"startingDeadlineSeconds"`
 	// The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
@@ -271,9 +271,9 @@ type CronJobSpecArgs struct {
 	// The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
 	FailedJobsHistoryLimit pulumi.IntPtrInput `pulumi:"failedJobsHistoryLimit"`
 	// Specifies the job that will be created when executing a CronJob.
-	JobTemplate JobTemplateSpecPtrInput `pulumi:"jobTemplate"`
+	JobTemplate JobTemplateSpecInput `pulumi:"jobTemplate"`
 	// The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-	Schedule pulumi.StringPtrInput `pulumi:"schedule"`
+	Schedule pulumi.StringInput `pulumi:"schedule"`
 	// Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
 	StartingDeadlineSeconds pulumi.IntPtrInput `pulumi:"startingDeadlineSeconds"`
 	// The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
@@ -372,13 +372,13 @@ func (o CronJobSpecOutput) FailedJobsHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // Specifies the job that will be created when executing a CronJob.
-func (o CronJobSpecOutput) JobTemplate() JobTemplateSpecPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *JobTemplateSpec { return v.JobTemplate }).(JobTemplateSpecPtrOutput)
+func (o CronJobSpecOutput) JobTemplate() JobTemplateSpecOutput {
+	return o.ApplyT(func(v CronJobSpec) JobTemplateSpec { return v.JobTemplate }).(JobTemplateSpecOutput)
 }
 
 // The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-func (o CronJobSpecOutput) Schedule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *string { return v.Schedule }).(pulumi.StringPtrOutput)
+func (o CronJobSpecOutput) Schedule() pulumi.StringOutput {
+	return o.ApplyT(func(v CronJobSpec) string { return v.Schedule }).(pulumi.StringOutput)
 }
 
 // Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
@@ -440,7 +440,7 @@ func (o CronJobSpecPtrOutput) JobTemplate() JobTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.JobTemplate
+		return &v.JobTemplate
 	}).(JobTemplateSpecPtrOutput)
 }
 
@@ -450,7 +450,7 @@ func (o CronJobSpecPtrOutput) Schedule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Schedule
+		return &v.Schedule
 	}).(pulumi.StringPtrOutput)
 }
 

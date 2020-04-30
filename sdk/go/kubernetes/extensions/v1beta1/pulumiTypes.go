@@ -15,7 +15,7 @@ import (
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
 type AllowedCSIDriver struct {
 	// Name is the registered name of the CSI driver
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 }
 
 // AllowedCSIDriverInput is an input type that accepts AllowedCSIDriverArgs and AllowedCSIDriverOutput values.
@@ -33,7 +33,7 @@ type AllowedCSIDriverInput interface {
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
 type AllowedCSIDriverArgs struct {
 	// Name is the registered name of the CSI driver
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (AllowedCSIDriverArgs) ElementType() reflect.Type {
@@ -90,8 +90,8 @@ func (o AllowedCSIDriverOutput) ToAllowedCSIDriverOutputWithContext(ctx context.
 }
 
 // Name is the registered name of the CSI driver
-func (o AllowedCSIDriverOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AllowedCSIDriver) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o AllowedCSIDriverOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v AllowedCSIDriver) string { return v.Name }).(pulumi.StringOutput)
 }
 
 type AllowedCSIDriverArrayOutput struct{ *pulumi.OutputState }
@@ -117,7 +117,7 @@ func (o AllowedCSIDriverArrayOutput) Index(i pulumi.IntInput) AllowedCSIDriverOu
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use AllowedFlexVolume from policy API Group instead.
 type AllowedFlexVolume struct {
 	// driver is the name of the Flexvolume driver.
-	Driver *string `pulumi:"driver"`
+	Driver string `pulumi:"driver"`
 }
 
 // AllowedFlexVolumeInput is an input type that accepts AllowedFlexVolumeArgs and AllowedFlexVolumeOutput values.
@@ -135,7 +135,7 @@ type AllowedFlexVolumeInput interface {
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use AllowedFlexVolume from policy API Group instead.
 type AllowedFlexVolumeArgs struct {
 	// driver is the name of the Flexvolume driver.
-	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	Driver pulumi.StringInput `pulumi:"driver"`
 }
 
 func (AllowedFlexVolumeArgs) ElementType() reflect.Type {
@@ -192,8 +192,8 @@ func (o AllowedFlexVolumeOutput) ToAllowedFlexVolumeOutputWithContext(ctx contex
 }
 
 // driver is the name of the Flexvolume driver.
-func (o AllowedFlexVolumeOutput) Driver() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AllowedFlexVolume) *string { return v.Driver }).(pulumi.StringPtrOutput)
+func (o AllowedFlexVolumeOutput) Driver() pulumi.StringOutput {
+	return o.ApplyT(func(v AllowedFlexVolume) string { return v.Driver }).(pulumi.StringOutput)
 }
 
 type AllowedFlexVolumeArrayOutput struct{ *pulumi.OutputState }
@@ -336,15 +336,15 @@ func (o AllowedHostPathArrayOutput) Index(i pulumi.IntInput) AllowedHostPathOutp
 // DaemonSet represents the configuration of a daemon set.
 type DaemonSetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *DaemonSetSpec `pulumi:"spec"`
+	Spec DaemonSetSpec `pulumi:"spec"`
 	// The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *DaemonSetStatus `pulumi:"status"`
+	Status DaemonSetStatus `pulumi:"status"`
 }
 
 // DaemonSetTypeInput is an input type that accepts DaemonSetTypeArgs and DaemonSetTypeOutput values.
@@ -362,15 +362,15 @@ type DaemonSetTypeInput interface {
 // DaemonSet represents the configuration of a daemon set.
 type DaemonSetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec DaemonSetSpecPtrInput `pulumi:"spec"`
+	Spec DaemonSetSpecInput `pulumi:"spec"`
 	// The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status DaemonSetStatusPtrInput `pulumi:"status"`
+	Status DaemonSetStatusInput `pulumi:"status"`
 }
 
 func (DaemonSetTypeArgs) ElementType() reflect.Type {
@@ -427,28 +427,28 @@ func (o DaemonSetTypeOutput) ToDaemonSetTypeOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o DaemonSetTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o DaemonSetTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o DaemonSetTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o DaemonSetTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o DaemonSetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v DaemonSetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o DaemonSetTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v DaemonSetType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o DaemonSetTypeOutput) Spec() DaemonSetSpecPtrOutput {
-	return o.ApplyT(func(v DaemonSetType) *DaemonSetSpec { return v.Spec }).(DaemonSetSpecPtrOutput)
+func (o DaemonSetTypeOutput) Spec() DaemonSetSpecOutput {
+	return o.ApplyT(func(v DaemonSetType) DaemonSetSpec { return v.Spec }).(DaemonSetSpecOutput)
 }
 
 // The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o DaemonSetTypeOutput) Status() DaemonSetStatusPtrOutput {
-	return o.ApplyT(func(v DaemonSetType) *DaemonSetStatus { return v.Status }).(DaemonSetStatusPtrOutput)
+func (o DaemonSetTypeOutput) Status() DaemonSetStatusOutput {
+	return o.ApplyT(func(v DaemonSetType) DaemonSetStatus { return v.Status }).(DaemonSetStatusOutput)
 }
 
 type DaemonSetTypeArrayOutput struct{ *pulumi.OutputState }
@@ -480,9 +480,9 @@ type DaemonSetCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of DaemonSet condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // DaemonSetConditionInput is an input type that accepts DaemonSetConditionArgs and DaemonSetConditionOutput values.
@@ -506,9 +506,9 @@ type DaemonSetConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of DaemonSet condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (DaemonSetConditionArgs) ElementType() reflect.Type {
@@ -580,13 +580,13 @@ func (o DaemonSetConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o DaemonSetConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o DaemonSetConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of DaemonSet condition.
-func (o DaemonSetConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o DaemonSetConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type DaemonSetConditionArrayOutput struct{ *pulumi.OutputState }
@@ -612,13 +612,13 @@ func (o DaemonSetConditionArrayOutput) Index(i pulumi.IntInput) DaemonSetConditi
 // DaemonSetList is a collection of daemon sets.
 type DaemonSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// A list of daemon sets.
 	Items []DaemonSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // DaemonSetListTypeInput is an input type that accepts DaemonSetListTypeArgs and DaemonSetListTypeOutput values.
@@ -636,13 +636,13 @@ type DaemonSetListTypeInput interface {
 // DaemonSetList is a collection of daemon sets.
 type DaemonSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// A list of daemon sets.
 	Items DaemonSetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (DaemonSetListTypeArgs) ElementType() reflect.Type {
@@ -673,8 +673,8 @@ func (o DaemonSetListTypeOutput) ToDaemonSetListTypeOutputWithContext(ctx contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o DaemonSetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o DaemonSetListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // A list of daemon sets.
@@ -683,13 +683,13 @@ func (o DaemonSetListTypeOutput) Items() DaemonSetTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o DaemonSetListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o DaemonSetListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o DaemonSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v DaemonSetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o DaemonSetListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v DaemonSetListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // DaemonSetSpec is the specification of a daemon set.
@@ -701,7 +701,7 @@ type DaemonSetSpec struct {
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
 	TemplateGeneration *int `pulumi:"templateGeneration"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
@@ -729,7 +729,7 @@ type DaemonSetSpecArgs struct {
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
 	TemplateGeneration pulumi.IntPtrInput `pulumi:"templateGeneration"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
@@ -831,8 +831,8 @@ func (o DaemonSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 }
 
 // An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-func (o DaemonSetSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o DaemonSetSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v DaemonSetSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 // DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
@@ -899,7 +899,7 @@ func (o DaemonSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
@@ -930,15 +930,15 @@ type DaemonSetStatus struct {
 	// Represents the latest available observations of a DaemonSet's current state.
 	Conditions []DaemonSetCondition `pulumi:"conditions"`
 	// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	CurrentNumberScheduled *int `pulumi:"currentNumberScheduled"`
+	CurrentNumberScheduled int `pulumi:"currentNumberScheduled"`
 	// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	DesiredNumberScheduled *int `pulumi:"desiredNumberScheduled"`
+	DesiredNumberScheduled int `pulumi:"desiredNumberScheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberAvailable *int `pulumi:"numberAvailable"`
 	// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	NumberMisscheduled *int `pulumi:"numberMisscheduled"`
+	NumberMisscheduled int `pulumi:"numberMisscheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-	NumberReady *int `pulumi:"numberReady"`
+	NumberReady int `pulumi:"numberReady"`
 	// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberUnavailable *int `pulumi:"numberUnavailable"`
 	// The most recent generation observed by the daemon set controller.
@@ -966,15 +966,15 @@ type DaemonSetStatusArgs struct {
 	// Represents the latest available observations of a DaemonSet's current state.
 	Conditions DaemonSetConditionArrayInput `pulumi:"conditions"`
 	// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	CurrentNumberScheduled pulumi.IntPtrInput `pulumi:"currentNumberScheduled"`
+	CurrentNumberScheduled pulumi.IntInput `pulumi:"currentNumberScheduled"`
 	// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	DesiredNumberScheduled pulumi.IntPtrInput `pulumi:"desiredNumberScheduled"`
+	DesiredNumberScheduled pulumi.IntInput `pulumi:"desiredNumberScheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberAvailable pulumi.IntPtrInput `pulumi:"numberAvailable"`
 	// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	NumberMisscheduled pulumi.IntPtrInput `pulumi:"numberMisscheduled"`
+	NumberMisscheduled pulumi.IntInput `pulumi:"numberMisscheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-	NumberReady pulumi.IntPtrInput `pulumi:"numberReady"`
+	NumberReady pulumi.IntInput `pulumi:"numberReady"`
 	// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberUnavailable pulumi.IntPtrInput `pulumi:"numberUnavailable"`
 	// The most recent generation observed by the daemon set controller.
@@ -1073,13 +1073,13 @@ func (o DaemonSetStatusOutput) Conditions() DaemonSetConditionArrayOutput {
 }
 
 // The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-func (o DaemonSetStatusOutput) CurrentNumberScheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.CurrentNumberScheduled }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) CurrentNumberScheduled() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.CurrentNumberScheduled }).(pulumi.IntOutput)
 }
 
 // The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-func (o DaemonSetStatusOutput) DesiredNumberScheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.DesiredNumberScheduled }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) DesiredNumberScheduled() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.DesiredNumberScheduled }).(pulumi.IntOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
@@ -1088,13 +1088,13 @@ func (o DaemonSetStatusOutput) NumberAvailable() pulumi.IntPtrOutput {
 }
 
 // The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-func (o DaemonSetStatusOutput) NumberMisscheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberMisscheduled }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) NumberMisscheduled() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.NumberMisscheduled }).(pulumi.IntOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-func (o DaemonSetStatusOutput) NumberReady() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberReady }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) NumberReady() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.NumberReady }).(pulumi.IntOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
@@ -1156,7 +1156,7 @@ func (o DaemonSetStatusPtrOutput) CurrentNumberScheduled() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.CurrentNumberScheduled
+		return &v.CurrentNumberScheduled
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1166,7 +1166,7 @@ func (o DaemonSetStatusPtrOutput) DesiredNumberScheduled() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.DesiredNumberScheduled
+		return &v.DesiredNumberScheduled
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1186,7 +1186,7 @@ func (o DaemonSetStatusPtrOutput) NumberMisscheduled() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.NumberMisscheduled
+		return &v.NumberMisscheduled
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1196,7 +1196,7 @@ func (o DaemonSetStatusPtrOutput) NumberReady() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.NumberReady
+		return &v.NumberReady
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1407,15 +1407,15 @@ func (o DaemonSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 // by setting the 'customTimeouts' option on the resource.
 type DeploymentType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
-	Spec *DeploymentSpec `pulumi:"spec"`
+	Spec DeploymentSpec `pulumi:"spec"`
 	// Most recently observed status of the Deployment.
-	Status *DeploymentStatus `pulumi:"status"`
+	Status DeploymentStatus `pulumi:"status"`
 }
 
 // DeploymentTypeInput is an input type that accepts DeploymentTypeArgs and DeploymentTypeOutput values.
@@ -1455,15 +1455,15 @@ type DeploymentTypeInput interface {
 // by setting the 'customTimeouts' option on the resource.
 type DeploymentTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object metadata.
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
-	Spec DeploymentSpecPtrInput `pulumi:"spec"`
+	Spec DeploymentSpecInput `pulumi:"spec"`
 	// Most recently observed status of the Deployment.
-	Status DeploymentStatusPtrInput `pulumi:"status"`
+	Status DeploymentStatusInput `pulumi:"status"`
 }
 
 func (DeploymentTypeArgs) ElementType() reflect.Type {
@@ -1542,28 +1542,28 @@ func (o DeploymentTypeOutput) ToDeploymentTypeOutputWithContext(ctx context.Cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o DeploymentTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o DeploymentTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o DeploymentTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o DeploymentTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object metadata.
-func (o DeploymentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o DeploymentTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v DeploymentType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Specification of the desired behavior of the Deployment.
-func (o DeploymentTypeOutput) Spec() DeploymentSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *DeploymentSpec { return v.Spec }).(DeploymentSpecPtrOutput)
+func (o DeploymentTypeOutput) Spec() DeploymentSpecOutput {
+	return o.ApplyT(func(v DeploymentType) DeploymentSpec { return v.Spec }).(DeploymentSpecOutput)
 }
 
 // Most recently observed status of the Deployment.
-func (o DeploymentTypeOutput) Status() DeploymentStatusPtrOutput {
-	return o.ApplyT(func(v DeploymentType) *DeploymentStatus { return v.Status }).(DeploymentStatusPtrOutput)
+func (o DeploymentTypeOutput) Status() DeploymentStatusOutput {
+	return o.ApplyT(func(v DeploymentType) DeploymentStatus { return v.Status }).(DeploymentStatusOutput)
 }
 
 type DeploymentTypeArrayOutput struct{ *pulumi.OutputState }
@@ -1597,9 +1597,9 @@ type DeploymentCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of deployment condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // DeploymentConditionInput is an input type that accepts DeploymentConditionArgs and DeploymentConditionOutput values.
@@ -1625,9 +1625,9 @@ type DeploymentConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of deployment condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (DeploymentConditionArgs) ElementType() reflect.Type {
@@ -1704,13 +1704,13 @@ func (o DeploymentConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o DeploymentConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o DeploymentConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of deployment condition.
-func (o DeploymentConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o DeploymentConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type DeploymentConditionArrayOutput struct{ *pulumi.OutputState }
@@ -1736,13 +1736,13 @@ func (o DeploymentConditionArrayOutput) Index(i pulumi.IntInput) DeploymentCondi
 // DeploymentList is a list of Deployments.
 type DeploymentListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Items is the list of Deployments.
 	Items []DeploymentType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata.
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // DeploymentListTypeInput is an input type that accepts DeploymentListTypeArgs and DeploymentListTypeOutput values.
@@ -1760,13 +1760,13 @@ type DeploymentListTypeInput interface {
 // DeploymentList is a list of Deployments.
 type DeploymentListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Items is the list of Deployments.
 	Items DeploymentTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (DeploymentListTypeArgs) ElementType() reflect.Type {
@@ -1797,8 +1797,8 @@ func (o DeploymentListTypeOutput) ToDeploymentListTypeOutputWithContext(ctx cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o DeploymentListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o DeploymentListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is the list of Deployments.
@@ -1807,13 +1807,13 @@ func (o DeploymentListTypeOutput) Items() DeploymentTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o DeploymentListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o DeploymentListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata.
-func (o DeploymentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v DeploymentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o DeploymentListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v DeploymentListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
@@ -1823,9 +1823,9 @@ type DeploymentRollback struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Required: This must match the Name of a deployment.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// The config of this deployment rollback.
-	RollbackTo *RollbackConfig `pulumi:"rollbackTo"`
+	RollbackTo RollbackConfig `pulumi:"rollbackTo"`
 	// The annotations to be updated to a deployment
 	UpdatedAnnotations map[string]string `pulumi:"updatedAnnotations"`
 }
@@ -1849,9 +1849,9 @@ type DeploymentRollbackArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Required: This must match the Name of a deployment.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// The config of this deployment rollback.
-	RollbackTo RollbackConfigPtrInput `pulumi:"rollbackTo"`
+	RollbackTo RollbackConfigInput `pulumi:"rollbackTo"`
 	// The annotations to be updated to a deployment
 	UpdatedAnnotations pulumi.StringMapInput `pulumi:"updatedAnnotations"`
 }
@@ -1894,13 +1894,13 @@ func (o DeploymentRollbackOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // Required: This must match the Name of a deployment.
-func (o DeploymentRollbackOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o DeploymentRollbackOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentRollback) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // The config of this deployment rollback.
-func (o DeploymentRollbackOutput) RollbackTo() RollbackConfigPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
+func (o DeploymentRollbackOutput) RollbackTo() RollbackConfigOutput {
+	return o.ApplyT(func(v DeploymentRollback) RollbackConfig { return v.RollbackTo }).(RollbackConfigOutput)
 }
 
 // The annotations to be updated to a deployment
@@ -1927,7 +1927,7 @@ type DeploymentSpec struct {
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy *DeploymentStrategy `pulumi:"strategy"`
 	// Template describes the pods that will be created.
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 }
 
 // DeploymentSpecInput is an input type that accepts DeploymentSpecArgs and DeploymentSpecOutput values.
@@ -1961,7 +1961,7 @@ type DeploymentSpecArgs struct {
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy DeploymentStrategyPtrInput `pulumi:"strategy"`
 	// Template describes the pods that will be created.
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 }
 
 func (DeploymentSpecArgs) ElementType() reflect.Type {
@@ -2084,8 +2084,8 @@ func (o DeploymentSpecOutput) Strategy() DeploymentStrategyPtrOutput {
 }
 
 // Template describes the pods that will be created.
-func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v DeploymentSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 type DeploymentSpecPtrOutput struct{ *pulumi.OutputState }
@@ -2192,7 +2192,7 @@ func (o DeploymentSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
@@ -2778,7 +2778,7 @@ func (o FSGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPath struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-	Backend *IngressBackend `pulumi:"backend"`
+	Backend IngressBackend `pulumi:"backend"`
 	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 	Path *string `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
@@ -2810,7 +2810,7 @@ type HTTPIngressPathInput interface {
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathArgs struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-	Backend IngressBackendPtrInput `pulumi:"backend"`
+	Backend IngressBackendInput `pulumi:"backend"`
 	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
@@ -2881,8 +2881,8 @@ func (o HTTPIngressPathOutput) ToHTTPIngressPathOutputWithContext(ctx context.Co
 }
 
 // Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-func (o HTTPIngressPathOutput) Backend() IngressBackendPtrOutput {
-	return o.ApplyT(func(v HTTPIngressPath) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
+func (o HTTPIngressPathOutput) Backend() IngressBackendOutput {
+	return o.ApplyT(func(v HTTPIngressPath) IngressBackend { return v.Backend }).(IngressBackendOutput)
 }
 
 // Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
@@ -3064,9 +3064,9 @@ func (o HTTPIngressRuleValuePtrOutput) Paths() HTTPIngressPathArrayOutput {
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from policy API Group instead.
 type HostPortRange struct {
 	// max is the end of the range, inclusive.
-	Max *int `pulumi:"max"`
+	Max int `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min *int `pulumi:"min"`
+	Min int `pulumi:"min"`
 }
 
 // HostPortRangeInput is an input type that accepts HostPortRangeArgs and HostPortRangeOutput values.
@@ -3084,9 +3084,9 @@ type HostPortRangeInput interface {
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from policy API Group instead.
 type HostPortRangeArgs struct {
 	// max is the end of the range, inclusive.
-	Max pulumi.IntPtrInput `pulumi:"max"`
+	Max pulumi.IntInput `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min pulumi.IntPtrInput `pulumi:"min"`
+	Min pulumi.IntInput `pulumi:"min"`
 }
 
 func (HostPortRangeArgs) ElementType() reflect.Type {
@@ -3143,13 +3143,13 @@ func (o HostPortRangeOutput) ToHostPortRangeOutputWithContext(ctx context.Contex
 }
 
 // max is the end of the range, inclusive.
-func (o HostPortRangeOutput) Max() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v HostPortRange) *int { return v.Max }).(pulumi.IntPtrOutput)
+func (o HostPortRangeOutput) Max() pulumi.IntOutput {
+	return o.ApplyT(func(v HostPortRange) int { return v.Max }).(pulumi.IntOutput)
 }
 
 // min is the start of the range, inclusive.
-func (o HostPortRangeOutput) Min() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v HostPortRange) *int { return v.Min }).(pulumi.IntPtrOutput)
+func (o HostPortRangeOutput) Min() pulumi.IntOutput {
+	return o.ApplyT(func(v HostPortRange) int { return v.Min }).(pulumi.IntOutput)
 }
 
 type HostPortRangeArrayOutput struct{ *pulumi.OutputState }
@@ -3175,9 +3175,9 @@ func (o HostPortRangeArrayOutput) Index(i pulumi.IntInput) HostPortRangeOutput {
 // IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.
 type IDRange struct {
 	// max is the end of the range, inclusive.
-	Max *int `pulumi:"max"`
+	Max int `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min *int `pulumi:"min"`
+	Min int `pulumi:"min"`
 }
 
 // IDRangeInput is an input type that accepts IDRangeArgs and IDRangeOutput values.
@@ -3195,9 +3195,9 @@ type IDRangeInput interface {
 // IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.
 type IDRangeArgs struct {
 	// max is the end of the range, inclusive.
-	Max pulumi.IntPtrInput `pulumi:"max"`
+	Max pulumi.IntInput `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min pulumi.IntPtrInput `pulumi:"min"`
+	Min pulumi.IntInput `pulumi:"min"`
 }
 
 func (IDRangeArgs) ElementType() reflect.Type {
@@ -3254,13 +3254,13 @@ func (o IDRangeOutput) ToIDRangeOutputWithContext(ctx context.Context) IDRangeOu
 }
 
 // max is the end of the range, inclusive.
-func (o IDRangeOutput) Max() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v IDRange) *int { return v.Max }).(pulumi.IntPtrOutput)
+func (o IDRangeOutput) Max() pulumi.IntOutput {
+	return o.ApplyT(func(v IDRange) int { return v.Max }).(pulumi.IntOutput)
 }
 
 // min is the start of the range, inclusive.
-func (o IDRangeOutput) Min() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v IDRange) *int { return v.Min }).(pulumi.IntPtrOutput)
+func (o IDRangeOutput) Min() pulumi.IntOutput {
+	return o.ApplyT(func(v IDRange) int { return v.Min }).(pulumi.IntOutput)
 }
 
 type IDRangeArrayOutput struct{ *pulumi.OutputState }
@@ -3286,7 +3286,7 @@ func (o IDRangeArrayOutput) Index(i pulumi.IntInput) IDRangeOutput {
 // DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock. IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlock struct {
 	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
-	Cidr *string `pulumi:"cidr"`
+	Cidr string `pulumi:"cidr"`
 	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
 	Except []string `pulumi:"except"`
 }
@@ -3306,7 +3306,7 @@ type IPBlockInput interface {
 // DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock. IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockArgs struct {
 	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
-	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
+	Cidr pulumi.StringInput `pulumi:"cidr"`
 	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
 	Except pulumi.StringArrayInput `pulumi:"except"`
 }
@@ -3391,8 +3391,8 @@ func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBloc
 }
 
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
-func (o IPBlockOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
+func (o IPBlockOutput) Cidr() pulumi.StringOutput {
+	return o.ApplyT(func(v IPBlock) string { return v.Cidr }).(pulumi.StringOutput)
 }
 
 // Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
@@ -3424,7 +3424,7 @@ func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Cidr
+		return &v.Cidr
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -3455,15 +3455,15 @@ func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
 // by setting the 'customTimeouts' option on the resource.
 type IngressType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *IngressSpec `pulumi:"spec"`
+	Spec IngressSpec `pulumi:"spec"`
 	// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *IngressStatus `pulumi:"status"`
+	Status IngressStatus `pulumi:"status"`
 }
 
 // IngressTypeInput is an input type that accepts IngressTypeArgs and IngressTypeOutput values.
@@ -3495,15 +3495,15 @@ type IngressTypeInput interface {
 // by setting the 'customTimeouts' option on the resource.
 type IngressTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec IngressSpecPtrInput `pulumi:"spec"`
+	Spec IngressSpecInput `pulumi:"spec"`
 	// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status IngressStatusPtrInput `pulumi:"status"`
+	Status IngressStatusInput `pulumi:"status"`
 }
 
 func (IngressTypeArgs) ElementType() reflect.Type {
@@ -3574,28 +3574,28 @@ func (o IngressTypeOutput) ToIngressTypeOutputWithContext(ctx context.Context) I
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o IngressTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o IngressTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o IngressTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o IngressTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o IngressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v IngressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o IngressTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v IngressType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o IngressTypeOutput) Spec() IngressSpecPtrOutput {
-	return o.ApplyT(func(v IngressType) *IngressSpec { return v.Spec }).(IngressSpecPtrOutput)
+func (o IngressTypeOutput) Spec() IngressSpecOutput {
+	return o.ApplyT(func(v IngressType) IngressSpec { return v.Spec }).(IngressSpecOutput)
 }
 
 // Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o IngressTypeOutput) Status() IngressStatusPtrOutput {
-	return o.ApplyT(func(v IngressType) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
+func (o IngressTypeOutput) Status() IngressStatusOutput {
+	return o.ApplyT(func(v IngressType) IngressStatus { return v.Status }).(IngressStatusOutput)
 }
 
 type IngressTypeArrayOutput struct{ *pulumi.OutputState }
@@ -3623,7 +3623,7 @@ type IngressBackend struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource *corev1.TypedLocalObjectReference `pulumi:"resource"`
 	// Specifies the name of the referenced service.
-	ServiceName *string `pulumi:"serviceName"`
+	ServiceName string `pulumi:"serviceName"`
 	// Specifies the port of the referenced service.
 	ServicePort interface{} `pulumi:"servicePort"`
 }
@@ -3645,7 +3645,7 @@ type IngressBackendArgs struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource corev1.TypedLocalObjectReferencePtrInput `pulumi:"resource"`
 	// Specifies the name of the referenced service.
-	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
+	ServiceName pulumi.StringInput `pulumi:"serviceName"`
 	// Specifies the port of the referenced service.
 	ServicePort pulumi.Input `pulumi:"servicePort"`
 }
@@ -3735,8 +3735,8 @@ func (o IngressBackendOutput) Resource() corev1.TypedLocalObjectReferencePtrOutp
 }
 
 // Specifies the name of the referenced service.
-func (o IngressBackendOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+func (o IngressBackendOutput) ServiceName() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressBackend) string { return v.ServiceName }).(pulumi.StringOutput)
 }
 
 // Specifies the port of the referenced service.
@@ -3778,7 +3778,7 @@ func (o IngressBackendPtrOutput) ServiceName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ServiceName
+		return &v.ServiceName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -3795,13 +3795,13 @@ func (o IngressBackendPtrOutput) ServicePort() pulumi.AnyOutput {
 // IngressList is a collection of Ingress.
 type IngressListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Items is the list of Ingress.
 	Items []IngressType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // IngressListTypeInput is an input type that accepts IngressListTypeArgs and IngressListTypeOutput values.
@@ -3819,13 +3819,13 @@ type IngressListTypeInput interface {
 // IngressList is a collection of Ingress.
 type IngressListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Items is the list of Ingress.
 	Items IngressTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (IngressListTypeArgs) ElementType() reflect.Type {
@@ -3856,8 +3856,8 @@ func (o IngressListTypeOutput) ToIngressListTypeOutputWithContext(ctx context.Co
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o IngressListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o IngressListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is the list of Ingress.
@@ -3866,13 +3866,13 @@ func (o IngressListTypeOutput) Items() IngressTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o IngressListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o IngressListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v IngressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o IngressListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v IngressListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
@@ -4447,13 +4447,13 @@ func (o IngressTLSArrayOutput) Index(i pulumi.IntInput) IngressTLSOutput {
 // DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a set of Pods
 type NetworkPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior for this NetworkPolicy.
-	Spec *NetworkPolicySpec `pulumi:"spec"`
+	Spec NetworkPolicySpec `pulumi:"spec"`
 }
 
 // NetworkPolicyTypeInput is an input type that accepts NetworkPolicyTypeArgs and NetworkPolicyTypeOutput values.
@@ -4471,13 +4471,13 @@ type NetworkPolicyTypeInput interface {
 // DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a set of Pods
 type NetworkPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Specification of the desired behavior for this NetworkPolicy.
-	Spec NetworkPolicySpecPtrInput `pulumi:"spec"`
+	Spec NetworkPolicySpecInput `pulumi:"spec"`
 }
 
 func (NetworkPolicyTypeArgs) ElementType() reflect.Type {
@@ -4534,23 +4534,23 @@ func (o NetworkPolicyTypeOutput) ToNetworkPolicyTypeOutputWithContext(ctx contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NetworkPolicyTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v NetworkPolicyType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NetworkPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v NetworkPolicyType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v NetworkPolicyType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Specification of the desired behavior for this NetworkPolicy.
-func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
+func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecOutput {
+	return o.ApplyT(func(v NetworkPolicyType) NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecOutput)
 }
 
 type NetworkPolicyTypeArrayOutput struct{ *pulumi.OutputState }
@@ -4798,13 +4798,13 @@ func (o NetworkPolicyIngressRuleArrayOutput) Index(i pulumi.IntInput) NetworkPol
 // DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
 type NetworkPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items []NetworkPolicyType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // NetworkPolicyListTypeInput is an input type that accepts NetworkPolicyListTypeArgs and NetworkPolicyListTypeOutput values.
@@ -4822,13 +4822,13 @@ type NetworkPolicyListTypeInput interface {
 // DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
 type NetworkPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items NetworkPolicyTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (NetworkPolicyListTypeArgs) ElementType() reflect.Type {
@@ -4859,8 +4859,8 @@ func (o NetworkPolicyListTypeOutput) ToNetworkPolicyListTypeOutputWithContext(ct
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NetworkPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is a list of schema objects.
@@ -4869,13 +4869,13 @@ func (o NetworkPolicyListTypeOutput) Items() NetworkPolicyTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NetworkPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o NetworkPolicyListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NetworkPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o NetworkPolicyListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
@@ -5128,7 +5128,7 @@ type NetworkPolicySpec struct {
 	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
 	Ingress []NetworkPolicyIngressRule `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-	PodSelector *metav1.LabelSelector `pulumi:"podSelector"`
+	PodSelector metav1.LabelSelector `pulumi:"podSelector"`
 	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes []string `pulumi:"policyTypes"`
 }
@@ -5152,7 +5152,7 @@ type NetworkPolicySpecArgs struct {
 	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
 	Ingress NetworkPolicyIngressRuleArrayInput `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-	PodSelector metav1.LabelSelectorPtrInput `pulumi:"podSelector"`
+	PodSelector metav1.LabelSelectorInput `pulumi:"podSelector"`
 	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes pulumi.StringArrayInput `pulumi:"policyTypes"`
 }
@@ -5247,8 +5247,8 @@ func (o NetworkPolicySpecOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
 }
 
 // Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-func (o NetworkPolicySpecOutput) PodSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
+func (o NetworkPolicySpecOutput) PodSelector() metav1.LabelSelectorOutput {
+	return o.ApplyT(func(v NetworkPolicySpec) metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
@@ -5300,7 +5300,7 @@ func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput 
 		if v == nil {
 			return nil
 		}
-		return v.PodSelector
+		return &v.PodSelector
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
@@ -5317,13 +5317,13 @@ func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group instead.
 type PodSecurityPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// spec defines the policy enforced.
-	Spec *PodSecurityPolicySpec `pulumi:"spec"`
+	Spec PodSecurityPolicySpec `pulumi:"spec"`
 }
 
 // PodSecurityPolicyTypeInput is an input type that accepts PodSecurityPolicyTypeArgs and PodSecurityPolicyTypeOutput values.
@@ -5341,13 +5341,13 @@ type PodSecurityPolicyTypeInput interface {
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group instead.
 type PodSecurityPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// spec defines the policy enforced.
-	Spec PodSecurityPolicySpecPtrInput `pulumi:"spec"`
+	Spec PodSecurityPolicySpecInput `pulumi:"spec"`
 }
 
 func (PodSecurityPolicyTypeArgs) ElementType() reflect.Type {
@@ -5404,23 +5404,23 @@ func (o PodSecurityPolicyTypeOutput) ToPodSecurityPolicyTypeOutputWithContext(ct
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodSecurityPolicyTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PodSecurityPolicyTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodSecurityPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PodSecurityPolicyTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodSecurityPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PodSecurityPolicyTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // spec defines the policy enforced.
-func (o PodSecurityPolicyTypeOutput) Spec() PodSecurityPolicySpecPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) *PodSecurityPolicySpec { return v.Spec }).(PodSecurityPolicySpecPtrOutput)
+func (o PodSecurityPolicyTypeOutput) Spec() PodSecurityPolicySpecOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) PodSecurityPolicySpec { return v.Spec }).(PodSecurityPolicySpecOutput)
 }
 
 type PodSecurityPolicyTypeArrayOutput struct{ *pulumi.OutputState }
@@ -5446,13 +5446,13 @@ func (o PodSecurityPolicyTypeArrayOutput) Index(i pulumi.IntInput) PodSecurityPo
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use PodSecurityPolicyList from policy API Group instead.
 type PodSecurityPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// items is a list of schema objects.
 	Items []PodSecurityPolicyType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // PodSecurityPolicyListTypeInput is an input type that accepts PodSecurityPolicyListTypeArgs and PodSecurityPolicyListTypeOutput values.
@@ -5470,13 +5470,13 @@ type PodSecurityPolicyListTypeInput interface {
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use PodSecurityPolicyList from policy API Group instead.
 type PodSecurityPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// items is a list of schema objects.
 	Items PodSecurityPolicyTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (PodSecurityPolicyListTypeArgs) ElementType() reflect.Type {
@@ -5507,8 +5507,8 @@ func (o PodSecurityPolicyListTypeOutput) ToPodSecurityPolicyListTypeOutputWithCo
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodSecurityPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PodSecurityPolicyListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v PodSecurityPolicyListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // items is a list of schema objects.
@@ -5517,13 +5517,13 @@ func (o PodSecurityPolicyListTypeOutput) Items() PodSecurityPolicyTypeArrayOutpu
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodSecurityPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PodSecurityPolicyListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v PodSecurityPolicyListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v PodSecurityPolicyListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // PodSecurityPolicySpec defines the policy enforced. Deprecated: use PodSecurityPolicySpec from policy API Group instead.
@@ -5553,7 +5553,7 @@ type PodSecurityPolicySpec struct {
 	// Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
 	ForbiddenSysctls []string `pulumi:"forbiddenSysctls"`
 	// fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
-	FsGroup *FSGroupStrategyOptions `pulumi:"fsGroup"`
+	FsGroup FSGroupStrategyOptions `pulumi:"fsGroup"`
 	// hostIPC determines if the policy allows the use of HostIPC in the pod spec.
 	HostIPC *bool `pulumi:"hostIPC"`
 	// hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
@@ -5571,13 +5571,13 @@ type PodSecurityPolicySpec struct {
 	// RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
 	RunAsGroup *RunAsGroupStrategyOptions `pulumi:"runAsGroup"`
 	// runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
-	RunAsUser *RunAsUserStrategyOptions `pulumi:"runAsUser"`
+	RunAsUser RunAsUserStrategyOptions `pulumi:"runAsUser"`
 	// runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
 	RuntimeClass *RuntimeClassStrategyOptions `pulumi:"runtimeClass"`
 	// seLinux is the strategy that will dictate the allowable labels that may be set.
-	SeLinux *SELinuxStrategyOptions `pulumi:"seLinux"`
+	SeLinux SELinuxStrategyOptions `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-	SupplementalGroups *SupplementalGroupsStrategyOptions `pulumi:"supplementalGroups"`
+	SupplementalGroups SupplementalGroupsStrategyOptions `pulumi:"supplementalGroups"`
 	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes []string `pulumi:"volumes"`
 }
@@ -5621,7 +5621,7 @@ type PodSecurityPolicySpecArgs struct {
 	// Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
 	ForbiddenSysctls pulumi.StringArrayInput `pulumi:"forbiddenSysctls"`
 	// fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
-	FsGroup FSGroupStrategyOptionsPtrInput `pulumi:"fsGroup"`
+	FsGroup FSGroupStrategyOptionsInput `pulumi:"fsGroup"`
 	// hostIPC determines if the policy allows the use of HostIPC in the pod spec.
 	HostIPC pulumi.BoolPtrInput `pulumi:"hostIPC"`
 	// hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
@@ -5639,13 +5639,13 @@ type PodSecurityPolicySpecArgs struct {
 	// RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
 	RunAsGroup RunAsGroupStrategyOptionsPtrInput `pulumi:"runAsGroup"`
 	// runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
-	RunAsUser RunAsUserStrategyOptionsPtrInput `pulumi:"runAsUser"`
+	RunAsUser RunAsUserStrategyOptionsInput `pulumi:"runAsUser"`
 	// runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
 	RuntimeClass RuntimeClassStrategyOptionsPtrInput `pulumi:"runtimeClass"`
 	// seLinux is the strategy that will dictate the allowable labels that may be set.
-	SeLinux SELinuxStrategyOptionsPtrInput `pulumi:"seLinux"`
+	SeLinux SELinuxStrategyOptionsInput `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-	SupplementalGroups SupplementalGroupsStrategyOptionsPtrInput `pulumi:"supplementalGroups"`
+	SupplementalGroups SupplementalGroupsStrategyOptionsInput `pulumi:"supplementalGroups"`
 	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes pulumi.StringArrayInput `pulumi:"volumes"`
 }
@@ -5784,8 +5784,8 @@ func (o PodSecurityPolicySpecOutput) ForbiddenSysctls() pulumi.StringArrayOutput
 }
 
 // fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
-func (o PodSecurityPolicySpecOutput) FsGroup() FSGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *FSGroupStrategyOptions { return v.FsGroup }).(FSGroupStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) FsGroup() FSGroupStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) FSGroupStrategyOptions { return v.FsGroup }).(FSGroupStrategyOptionsOutput)
 }
 
 // hostIPC determines if the policy allows the use of HostIPC in the pod spec.
@@ -5829,8 +5829,8 @@ func (o PodSecurityPolicySpecOutput) RunAsGroup() RunAsGroupStrategyOptionsPtrOu
 }
 
 // runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
-func (o PodSecurityPolicySpecOutput) RunAsUser() RunAsUserStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RunAsUserStrategyOptions { return v.RunAsUser }).(RunAsUserStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) RunAsUser() RunAsUserStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) RunAsUserStrategyOptions { return v.RunAsUser }).(RunAsUserStrategyOptionsOutput)
 }
 
 // runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
@@ -5839,13 +5839,13 @@ func (o PodSecurityPolicySpecOutput) RuntimeClass() RuntimeClassStrategyOptionsP
 }
 
 // seLinux is the strategy that will dictate the allowable labels that may be set.
-func (o PodSecurityPolicySpecOutput) SeLinux() SELinuxStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SELinuxStrategyOptions { return v.SeLinux }).(SELinuxStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) SeLinux() SELinuxStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) SELinuxStrategyOptions { return v.SeLinux }).(SELinuxStrategyOptionsOutput)
 }
 
 // supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-func (o PodSecurityPolicySpecOutput) SupplementalGroups() SupplementalGroupsStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) SupplementalGroups() SupplementalGroupsStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsOutput)
 }
 
 // volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
@@ -5981,7 +5981,7 @@ func (o PodSecurityPolicySpecPtrOutput) FsGroup() FSGroupStrategyOptionsPtrOutpu
 		if v == nil {
 			return nil
 		}
-		return v.FsGroup
+		return &v.FsGroup
 	}).(FSGroupStrategyOptionsPtrOutput)
 }
 
@@ -6071,7 +6071,7 @@ func (o PodSecurityPolicySpecPtrOutput) RunAsUser() RunAsUserStrategyOptionsPtrO
 		if v == nil {
 			return nil
 		}
-		return v.RunAsUser
+		return &v.RunAsUser
 	}).(RunAsUserStrategyOptionsPtrOutput)
 }
 
@@ -6091,7 +6091,7 @@ func (o PodSecurityPolicySpecPtrOutput) SeLinux() SELinuxStrategyOptionsPtrOutpu
 		if v == nil {
 			return nil
 		}
-		return v.SeLinux
+		return &v.SeLinux
 	}).(SELinuxStrategyOptionsPtrOutput)
 }
 
@@ -6101,7 +6101,7 @@ func (o PodSecurityPolicySpecPtrOutput) SupplementalGroups() SupplementalGroupsS
 		if v == nil {
 			return nil
 		}
-		return v.SupplementalGroups
+		return &v.SupplementalGroups
 	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
@@ -6118,15 +6118,15 @@ func (o PodSecurityPolicySpecPtrOutput) Volumes() pulumi.StringArrayOutput {
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
 type ReplicaSetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *ReplicaSetSpec `pulumi:"spec"`
+	Spec ReplicaSetSpec `pulumi:"spec"`
 	// Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *ReplicaSetStatus `pulumi:"status"`
+	Status ReplicaSetStatus `pulumi:"status"`
 }
 
 // ReplicaSetTypeInput is an input type that accepts ReplicaSetTypeArgs and ReplicaSetTypeOutput values.
@@ -6144,15 +6144,15 @@ type ReplicaSetTypeInput interface {
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
 type ReplicaSetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec ReplicaSetSpecPtrInput `pulumi:"spec"`
+	Spec ReplicaSetSpecInput `pulumi:"spec"`
 	// Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status ReplicaSetStatusPtrInput `pulumi:"status"`
+	Status ReplicaSetStatusInput `pulumi:"status"`
 }
 
 func (ReplicaSetTypeArgs) ElementType() reflect.Type {
@@ -6209,28 +6209,28 @@ func (o ReplicaSetTypeOutput) ToReplicaSetTypeOutputWithContext(ctx context.Cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ReplicaSetTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ReplicaSetTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ReplicaSetTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ReplicaSetTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o ReplicaSetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v ReplicaSetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ReplicaSetTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v ReplicaSetType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o ReplicaSetTypeOutput) Spec() ReplicaSetSpecPtrOutput {
-	return o.ApplyT(func(v ReplicaSetType) *ReplicaSetSpec { return v.Spec }).(ReplicaSetSpecPtrOutput)
+func (o ReplicaSetTypeOutput) Spec() ReplicaSetSpecOutput {
+	return o.ApplyT(func(v ReplicaSetType) ReplicaSetSpec { return v.Spec }).(ReplicaSetSpecOutput)
 }
 
 // Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o ReplicaSetTypeOutput) Status() ReplicaSetStatusPtrOutput {
-	return o.ApplyT(func(v ReplicaSetType) *ReplicaSetStatus { return v.Status }).(ReplicaSetStatusPtrOutput)
+func (o ReplicaSetTypeOutput) Status() ReplicaSetStatusOutput {
+	return o.ApplyT(func(v ReplicaSetType) ReplicaSetStatus { return v.Status }).(ReplicaSetStatusOutput)
 }
 
 type ReplicaSetTypeArrayOutput struct{ *pulumi.OutputState }
@@ -6262,9 +6262,9 @@ type ReplicaSetCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of replica set condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // ReplicaSetConditionInput is an input type that accepts ReplicaSetConditionArgs and ReplicaSetConditionOutput values.
@@ -6288,9 +6288,9 @@ type ReplicaSetConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of replica set condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (ReplicaSetConditionArgs) ElementType() reflect.Type {
@@ -6362,13 +6362,13 @@ func (o ReplicaSetConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o ReplicaSetConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o ReplicaSetConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of replica set condition.
-func (o ReplicaSetConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o ReplicaSetConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type ReplicaSetConditionArrayOutput struct{ *pulumi.OutputState }
@@ -6394,13 +6394,13 @@ func (o ReplicaSetConditionArrayOutput) Index(i pulumi.IntInput) ReplicaSetCondi
 // ReplicaSetList is a collection of ReplicaSets.
 type ReplicaSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
 	Items []ReplicaSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // ReplicaSetListTypeInput is an input type that accepts ReplicaSetListTypeArgs and ReplicaSetListTypeOutput values.
@@ -6418,13 +6418,13 @@ type ReplicaSetListTypeInput interface {
 // ReplicaSetList is a collection of ReplicaSets.
 type ReplicaSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
 	Items ReplicaSetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (ReplicaSetListTypeArgs) ElementType() reflect.Type {
@@ -6455,8 +6455,8 @@ func (o ReplicaSetListTypeOutput) ToReplicaSetListTypeOutputWithContext(ctx cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ReplicaSetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ReplicaSetListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
@@ -6465,13 +6465,13 @@ func (o ReplicaSetListTypeOutput) Items() ReplicaSetTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ReplicaSetListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ReplicaSetListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ReplicaSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v ReplicaSetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ReplicaSetListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v ReplicaSetListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // ReplicaSetSpec is the specification of a ReplicaSet.
@@ -6680,7 +6680,7 @@ type ReplicaSetStatus struct {
 	// The number of ready replicas for this replica set.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
 	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-	Replicas *int `pulumi:"replicas"`
+	Replicas int `pulumi:"replicas"`
 }
 
 // ReplicaSetStatusInput is an input type that accepts ReplicaSetStatusArgs and ReplicaSetStatusOutput values.
@@ -6708,7 +6708,7 @@ type ReplicaSetStatusArgs struct {
 	// The number of ready replicas for this replica set.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
 	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	Replicas pulumi.IntInput `pulumi:"replicas"`
 }
 
 func (ReplicaSetStatusArgs) ElementType() reflect.Type {
@@ -6816,8 +6816,8 @@ func (o ReplicaSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 }
 
 // Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-func (o ReplicaSetStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+func (o ReplicaSetStatusOutput) Replicas() pulumi.IntOutput {
+	return o.ApplyT(func(v ReplicaSetStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
 
 type ReplicaSetStatusPtrOutput struct{ *pulumi.OutputState }
@@ -6894,7 +6894,7 @@ func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Replicas
+		return &v.Replicas
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -7330,7 +7330,7 @@ type RunAsGroupStrategyOptions struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-	Rule *string `pulumi:"rule"`
+	Rule string `pulumi:"rule"`
 }
 
 // RunAsGroupStrategyOptionsInput is an input type that accepts RunAsGroupStrategyOptionsArgs and RunAsGroupStrategyOptionsOutput values.
@@ -7350,7 +7350,7 @@ type RunAsGroupStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-	Rule pulumi.StringPtrInput `pulumi:"rule"`
+	Rule pulumi.StringInput `pulumi:"rule"`
 }
 
 func (RunAsGroupStrategyOptionsArgs) ElementType() reflect.Type {
@@ -7438,8 +7438,8 @@ func (o RunAsGroupStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 }
 
 // rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-func (o RunAsGroupStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+func (o RunAsGroupStrategyOptionsOutput) Rule() pulumi.StringOutput {
+	return o.ApplyT(func(v RunAsGroupStrategyOptions) string { return v.Rule }).(pulumi.StringOutput)
 }
 
 type RunAsGroupStrategyOptionsPtrOutput struct{ *pulumi.OutputState }
@@ -7476,7 +7476,7 @@ func (o RunAsGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Rule
+		return &v.Rule
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -7485,7 +7485,7 @@ type RunAsUserStrategyOptions struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-	Rule *string `pulumi:"rule"`
+	Rule string `pulumi:"rule"`
 }
 
 // RunAsUserStrategyOptionsInput is an input type that accepts RunAsUserStrategyOptionsArgs and RunAsUserStrategyOptionsOutput values.
@@ -7505,7 +7505,7 @@ type RunAsUserStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-	Rule pulumi.StringPtrInput `pulumi:"rule"`
+	Rule pulumi.StringInput `pulumi:"rule"`
 }
 
 func (RunAsUserStrategyOptionsArgs) ElementType() reflect.Type {
@@ -7593,8 +7593,8 @@ func (o RunAsUserStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 }
 
 // rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-func (o RunAsUserStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+func (o RunAsUserStrategyOptionsOutput) Rule() pulumi.StringOutput {
+	return o.ApplyT(func(v RunAsUserStrategyOptions) string { return v.Rule }).(pulumi.StringOutput)
 }
 
 type RunAsUserStrategyOptionsPtrOutput struct{ *pulumi.OutputState }
@@ -7631,7 +7631,7 @@ func (o RunAsUserStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Rule
+		return &v.Rule
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -7793,7 +7793,7 @@ func (o RuntimeClassStrategyOptionsPtrOutput) DefaultRuntimeClassName() pulumi.S
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
 type SELinuxStrategyOptions struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
-	Rule *string `pulumi:"rule"`
+	Rule string `pulumi:"rule"`
 	// seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SeLinuxOptions *corev1.SELinuxOptions `pulumi:"seLinuxOptions"`
 }
@@ -7813,7 +7813,7 @@ type SELinuxStrategyOptionsInput interface {
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
 type SELinuxStrategyOptionsArgs struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
-	Rule pulumi.StringPtrInput `pulumi:"rule"`
+	Rule pulumi.StringInput `pulumi:"rule"`
 	// seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SeLinuxOptions corev1.SELinuxOptionsPtrInput `pulumi:"seLinuxOptions"`
 }
@@ -7898,8 +7898,8 @@ func (o SELinuxStrategyOptionsOutput) ToSELinuxStrategyOptionsPtrOutputWithConte
 }
 
 // rule is the strategy that will dictate the allowable labels that may be set.
-func (o SELinuxStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+func (o SELinuxStrategyOptionsOutput) Rule() pulumi.StringOutput {
+	return o.ApplyT(func(v SELinuxStrategyOptions) string { return v.Rule }).(pulumi.StringOutput)
 }
 
 // seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -7931,7 +7931,7 @@ func (o SELinuxStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Rule
+		return &v.Rule
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -8176,7 +8176,7 @@ func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 // represents the current status of a scale subresource.
 type ScaleStatus struct {
 	// actual number of observed instances of the scaled object.
-	Replicas *int `pulumi:"replicas"`
+	Replicas int `pulumi:"replicas"`
 	// label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
 	Selector map[string]string `pulumi:"selector"`
 	// label selector for pods that should match the replicas count. This is a serializated version of both map-based and more expressive set-based selectors. This is done to avoid introspection in the clients. The string will be in the same format as the query-param syntax. If the target type only supports map-based selectors, both this field and map-based selector field are populated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -8198,7 +8198,7 @@ type ScaleStatusInput interface {
 // represents the current status of a scale subresource.
 type ScaleStatusArgs struct {
 	// actual number of observed instances of the scaled object.
-	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	Replicas pulumi.IntInput `pulumi:"replicas"`
 	// label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
 	Selector pulumi.StringMapInput `pulumi:"selector"`
 	// label selector for pods that should match the replicas count. This is a serializated version of both map-based and more expressive set-based selectors. This is done to avoid introspection in the clients. The string will be in the same format as the query-param syntax. If the target type only supports map-based selectors, both this field and map-based selector field are populated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -8285,8 +8285,8 @@ func (o ScaleStatusOutput) ToScaleStatusPtrOutputWithContext(ctx context.Context
 }
 
 // actual number of observed instances of the scaled object.
-func (o ScaleStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+func (o ScaleStatusOutput) Replicas() pulumi.IntOutput {
+	return o.ApplyT(func(v ScaleStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
 
 // label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
@@ -8323,7 +8323,7 @@ func (o ScaleStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Replicas
+		return &v.Replicas
 	}).(pulumi.IntPtrOutput)
 }
 

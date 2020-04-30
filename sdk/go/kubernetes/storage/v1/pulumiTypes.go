@@ -15,13 +15,13 @@ import (
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 type CSIDriverType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the CSI Driver.
-	Spec *CSIDriverSpec `pulumi:"spec"`
+	Spec CSIDriverSpec `pulumi:"spec"`
 }
 
 // CSIDriverTypeInput is an input type that accepts CSIDriverTypeArgs and CSIDriverTypeOutput values.
@@ -39,13 +39,13 @@ type CSIDriverTypeInput interface {
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 type CSIDriverTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Specification of the CSI Driver.
-	Spec CSIDriverSpecPtrInput `pulumi:"spec"`
+	Spec CSIDriverSpecInput `pulumi:"spec"`
 }
 
 func (CSIDriverTypeArgs) ElementType() reflect.Type {
@@ -102,23 +102,23 @@ func (o CSIDriverTypeOutput) ToCSIDriverTypeOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CSIDriverTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSIDriverType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CSIDriverTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v CSIDriverType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CSIDriverTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSIDriverType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CSIDriverTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v CSIDriverType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o CSIDriverTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v CSIDriverType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o CSIDriverTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v CSIDriverType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Specification of the CSI Driver.
-func (o CSIDriverTypeOutput) Spec() CSIDriverSpecPtrOutput {
-	return o.ApplyT(func(v CSIDriverType) *CSIDriverSpec { return v.Spec }).(CSIDriverSpecPtrOutput)
+func (o CSIDriverTypeOutput) Spec() CSIDriverSpecOutput {
+	return o.ApplyT(func(v CSIDriverType) CSIDriverSpec { return v.Spec }).(CSIDriverSpecOutput)
 }
 
 type CSIDriverTypeArrayOutput struct{ *pulumi.OutputState }
@@ -144,13 +144,13 @@ func (o CSIDriverTypeArrayOutput) Index(i pulumi.IntInput) CSIDriverTypeOutput {
 // CSIDriverList is a collection of CSIDriver objects.
 type CSIDriverListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// items is the list of CSIDriver
 	Items []CSIDriverType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // CSIDriverListTypeInput is an input type that accepts CSIDriverListTypeArgs and CSIDriverListTypeOutput values.
@@ -168,13 +168,13 @@ type CSIDriverListTypeInput interface {
 // CSIDriverList is a collection of CSIDriver objects.
 type CSIDriverListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// items is the list of CSIDriver
 	Items CSIDriverTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (CSIDriverListTypeArgs) ElementType() reflect.Type {
@@ -205,8 +205,8 @@ func (o CSIDriverListTypeOutput) ToCSIDriverListTypeOutputWithContext(ctx contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CSIDriverListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSIDriverListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CSIDriverListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v CSIDriverListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // items is the list of CSIDriver
@@ -215,13 +215,13 @@ func (o CSIDriverListTypeOutput) Items() CSIDriverTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CSIDriverListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSIDriverListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CSIDriverListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v CSIDriverListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o CSIDriverListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v CSIDriverListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o CSIDriverListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v CSIDriverListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // CSIDriverSpec is the specification of a CSIDriver.
@@ -413,13 +413,13 @@ func (o CSIDriverSpecPtrOutput) VolumeLifecycleModes() pulumi.StringArrayOutput 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
 type CSINodeType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// metadata.name must be the Kubernetes node name.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the specification of CSINode
-	Spec *CSINodeSpec `pulumi:"spec"`
+	Spec CSINodeSpec `pulumi:"spec"`
 }
 
 // CSINodeTypeInput is an input type that accepts CSINodeTypeArgs and CSINodeTypeOutput values.
@@ -437,13 +437,13 @@ type CSINodeTypeInput interface {
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
 type CSINodeTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// metadata.name must be the Kubernetes node name.
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// spec is the specification of CSINode
-	Spec CSINodeSpecPtrInput `pulumi:"spec"`
+	Spec CSINodeSpecInput `pulumi:"spec"`
 }
 
 func (CSINodeTypeArgs) ElementType() reflect.Type {
@@ -500,23 +500,23 @@ func (o CSINodeTypeOutput) ToCSINodeTypeOutputWithContext(ctx context.Context) C
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CSINodeTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CSINodeTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CSINodeTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CSINodeTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // metadata.name must be the Kubernetes node name.
-func (o CSINodeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v CSINodeType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o CSINodeTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v CSINodeType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // spec is the specification of CSINode
-func (o CSINodeTypeOutput) Spec() CSINodeSpecPtrOutput {
-	return o.ApplyT(func(v CSINodeType) *CSINodeSpec { return v.Spec }).(CSINodeSpecPtrOutput)
+func (o CSINodeTypeOutput) Spec() CSINodeSpecOutput {
+	return o.ApplyT(func(v CSINodeType) CSINodeSpec { return v.Spec }).(CSINodeSpecOutput)
 }
 
 type CSINodeTypeArrayOutput struct{ *pulumi.OutputState }
@@ -544,9 +544,9 @@ type CSINodeDriver struct {
 	// allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
 	Allocatable *VolumeNodeResources `pulumi:"allocatable"`
 	// This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-	NodeID *string `pulumi:"nodeID"`
+	NodeID string `pulumi:"nodeID"`
 	// topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
 	TopologyKeys []string `pulumi:"topologyKeys"`
 }
@@ -568,9 +568,9 @@ type CSINodeDriverArgs struct {
 	// allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
 	Allocatable VolumeNodeResourcesPtrInput `pulumi:"allocatable"`
 	// This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-	NodeID pulumi.StringPtrInput `pulumi:"nodeID"`
+	NodeID pulumi.StringInput `pulumi:"nodeID"`
 	// topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
 }
@@ -634,13 +634,13 @@ func (o CSINodeDriverOutput) Allocatable() VolumeNodeResourcesPtrOutput {
 }
 
 // This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-func (o CSINodeDriverOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeDriver) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o CSINodeDriverOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeDriver) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-func (o CSINodeDriverOutput) NodeID() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeDriver) *string { return v.NodeID }).(pulumi.StringPtrOutput)
+func (o CSINodeDriverOutput) NodeID() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeDriver) string { return v.NodeID }).(pulumi.StringOutput)
 }
 
 // topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
@@ -671,13 +671,13 @@ func (o CSINodeDriverArrayOutput) Index(i pulumi.IntInput) CSINodeDriverOutput {
 // CSINodeList is a collection of CSINode objects.
 type CSINodeListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// items is the list of CSINode
 	Items []CSINodeType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // CSINodeListTypeInput is an input type that accepts CSINodeListTypeArgs and CSINodeListTypeOutput values.
@@ -695,13 +695,13 @@ type CSINodeListTypeInput interface {
 // CSINodeList is a collection of CSINode objects.
 type CSINodeListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// items is the list of CSINode
 	Items CSINodeTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (CSINodeListTypeArgs) ElementType() reflect.Type {
@@ -732,8 +732,8 @@ func (o CSINodeListTypeOutput) ToCSINodeListTypeOutputWithContext(ctx context.Co
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CSINodeListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CSINodeListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // items is the list of CSINode
@@ -742,13 +742,13 @@ func (o CSINodeListTypeOutput) Items() CSINodeTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CSINodeListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CSINodeListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o CSINodeListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v CSINodeListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o CSINodeListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v CSINodeListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
@@ -892,25 +892,25 @@ func (o CSINodeSpecPtrOutput) Drivers() CSINodeDriverArrayOutput {
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 type StorageClassType struct {
 	// AllowVolumeExpansion shows whether the storage class allow volume expand
-	AllowVolumeExpansion *bool `pulumi:"allowVolumeExpansion"`
+	AllowVolumeExpansion bool `pulumi:"allowVolumeExpansion"`
 	// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
 	AllowedTopologies []corev1.TopologySelectorTerm `pulumi:"allowedTopologies"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions []string `pulumi:"mountOptions"`
 	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
 	Parameters map[string]string `pulumi:"parameters"`
 	// Provisioner indicates the type of the provisioner.
-	Provisioner *string `pulumi:"provisioner"`
+	Provisioner string `pulumi:"provisioner"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-	ReclaimPolicy *string `pulumi:"reclaimPolicy"`
+	ReclaimPolicy string `pulumi:"reclaimPolicy"`
 	// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-	VolumeBindingMode *string `pulumi:"volumeBindingMode"`
+	VolumeBindingMode string `pulumi:"volumeBindingMode"`
 }
 
 // StorageClassTypeInput is an input type that accepts StorageClassTypeArgs and StorageClassTypeOutput values.
@@ -930,25 +930,25 @@ type StorageClassTypeInput interface {
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 type StorageClassTypeArgs struct {
 	// AllowVolumeExpansion shows whether the storage class allow volume expand
-	AllowVolumeExpansion pulumi.BoolPtrInput `pulumi:"allowVolumeExpansion"`
+	AllowVolumeExpansion pulumi.BoolInput `pulumi:"allowVolumeExpansion"`
 	// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
 	AllowedTopologies corev1.TopologySelectorTermArrayInput `pulumi:"allowedTopologies"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions pulumi.StringArrayInput `pulumi:"mountOptions"`
 	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
 	Parameters pulumi.StringMapInput `pulumi:"parameters"`
 	// Provisioner indicates the type of the provisioner.
-	Provisioner pulumi.StringPtrInput `pulumi:"provisioner"`
+	Provisioner pulumi.StringInput `pulumi:"provisioner"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-	ReclaimPolicy pulumi.StringPtrInput `pulumi:"reclaimPolicy"`
+	ReclaimPolicy pulumi.StringInput `pulumi:"reclaimPolicy"`
 	// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-	VolumeBindingMode pulumi.StringPtrInput `pulumi:"volumeBindingMode"`
+	VolumeBindingMode pulumi.StringInput `pulumi:"volumeBindingMode"`
 }
 
 func (StorageClassTypeArgs) ElementType() reflect.Type {
@@ -1007,8 +1007,8 @@ func (o StorageClassTypeOutput) ToStorageClassTypeOutputWithContext(ctx context.
 }
 
 // AllowVolumeExpansion shows whether the storage class allow volume expand
-func (o StorageClassTypeOutput) AllowVolumeExpansion() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *bool { return v.AllowVolumeExpansion }).(pulumi.BoolPtrOutput)
+func (o StorageClassTypeOutput) AllowVolumeExpansion() pulumi.BoolOutput {
+	return o.ApplyT(func(v StorageClassType) bool { return v.AllowVolumeExpansion }).(pulumi.BoolOutput)
 }
 
 // Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -1017,18 +1017,18 @@ func (o StorageClassTypeOutput) AllowedTopologies() corev1.TopologySelectorTermA
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StorageClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o StorageClassTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StorageClassTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o StorageClassTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o StorageClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o StorageClassTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v StorageClassType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
@@ -1042,18 +1042,18 @@ func (o StorageClassTypeOutput) Parameters() pulumi.StringMapOutput {
 }
 
 // Provisioner indicates the type of the provisioner.
-func (o StorageClassTypeOutput) Provisioner() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *string { return v.Provisioner }).(pulumi.StringPtrOutput)
+func (o StorageClassTypeOutput) Provisioner() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassType) string { return v.Provisioner }).(pulumi.StringOutput)
 }
 
 // Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-func (o StorageClassTypeOutput) ReclaimPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *string { return v.ReclaimPolicy }).(pulumi.StringPtrOutput)
+func (o StorageClassTypeOutput) ReclaimPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassType) string { return v.ReclaimPolicy }).(pulumi.StringOutput)
 }
 
 // VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-func (o StorageClassTypeOutput) VolumeBindingMode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *string { return v.VolumeBindingMode }).(pulumi.StringPtrOutput)
+func (o StorageClassTypeOutput) VolumeBindingMode() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassType) string { return v.VolumeBindingMode }).(pulumi.StringOutput)
 }
 
 type StorageClassTypeArrayOutput struct{ *pulumi.OutputState }
@@ -1079,13 +1079,13 @@ func (o StorageClassTypeArrayOutput) Index(i pulumi.IntInput) StorageClassTypeOu
 // StorageClassList is a collection of storage classes.
 type StorageClassListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Items is the list of StorageClasses
 	Items []StorageClassType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // StorageClassListTypeInput is an input type that accepts StorageClassListTypeArgs and StorageClassListTypeOutput values.
@@ -1103,13 +1103,13 @@ type StorageClassListTypeInput interface {
 // StorageClassList is a collection of storage classes.
 type StorageClassListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Items is the list of StorageClasses
 	Items StorageClassTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (StorageClassListTypeArgs) ElementType() reflect.Type {
@@ -1140,8 +1140,8 @@ func (o StorageClassListTypeOutput) ToStorageClassListTypeOutputWithContext(ctx 
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StorageClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o StorageClassListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is the list of StorageClasses
@@ -1150,13 +1150,13 @@ func (o StorageClassListTypeOutput) Items() StorageClassTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StorageClassListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o StorageClassListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o StorageClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v StorageClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o StorageClassListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v StorageClassListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
@@ -1164,15 +1164,15 @@ func (o StorageClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // VolumeAttachment objects are non-namespaced.
 type VolumeAttachmentType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-	Spec *VolumeAttachmentSpec `pulumi:"spec"`
+	Spec VolumeAttachmentSpec `pulumi:"spec"`
 	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-	Status *VolumeAttachmentStatus `pulumi:"status"`
+	Status VolumeAttachmentStatus `pulumi:"status"`
 }
 
 // VolumeAttachmentTypeInput is an input type that accepts VolumeAttachmentTypeArgs and VolumeAttachmentTypeOutput values.
@@ -1192,15 +1192,15 @@ type VolumeAttachmentTypeInput interface {
 // VolumeAttachment objects are non-namespaced.
 type VolumeAttachmentTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-	Spec VolumeAttachmentSpecPtrInput `pulumi:"spec"`
+	Spec VolumeAttachmentSpecInput `pulumi:"spec"`
 	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-	Status VolumeAttachmentStatusPtrInput `pulumi:"status"`
+	Status VolumeAttachmentStatusInput `pulumi:"status"`
 }
 
 func (VolumeAttachmentTypeArgs) ElementType() reflect.Type {
@@ -1259,28 +1259,28 @@ func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutputWithContext(ctx 
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentType) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
+func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecOutput)
 }
 
 // Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
-func (o VolumeAttachmentTypeOutput) Status() VolumeAttachmentStatusPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentType) *VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusPtrOutput)
+func (o VolumeAttachmentTypeOutput) Status() VolumeAttachmentStatusOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) VolumeAttachmentStatus { return v.Status }).(VolumeAttachmentStatusOutput)
 }
 
 type VolumeAttachmentTypeArrayOutput struct{ *pulumi.OutputState }
@@ -1306,13 +1306,13 @@ func (o VolumeAttachmentTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttachme
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
 type VolumeAttachmentListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
 	Items []VolumeAttachmentType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // VolumeAttachmentListTypeInput is an input type that accepts VolumeAttachmentListTypeArgs and VolumeAttachmentListTypeOutput values.
@@ -1330,13 +1330,13 @@ type VolumeAttachmentListTypeInput interface {
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
 type VolumeAttachmentListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Items is the list of VolumeAttachments
 	Items VolumeAttachmentTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (VolumeAttachmentListTypeArgs) ElementType() reflect.Type {
@@ -1367,8 +1367,8 @@ func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutputWithCont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o VolumeAttachmentListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is the list of VolumeAttachments
@@ -1377,13 +1377,13 @@ func (o VolumeAttachmentListTypeOutput) Items() VolumeAttachmentTypeArrayOutput 
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o VolumeAttachmentListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o VolumeAttachmentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o VolumeAttachmentListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
@@ -1544,11 +1544,11 @@ func (o VolumeAttachmentSourcePtrOutput) PersistentVolumeName() pulumi.StringPtr
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpec struct {
 	// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-	Attacher *string `pulumi:"attacher"`
+	Attacher string `pulumi:"attacher"`
 	// The node that the volume should be attached to.
-	NodeName *string `pulumi:"nodeName"`
+	NodeName string `pulumi:"nodeName"`
 	// Source represents the volume that should be attached.
-	Source *VolumeAttachmentSource `pulumi:"source"`
+	Source VolumeAttachmentSource `pulumi:"source"`
 }
 
 // VolumeAttachmentSpecInput is an input type that accepts VolumeAttachmentSpecArgs and VolumeAttachmentSpecOutput values.
@@ -1566,11 +1566,11 @@ type VolumeAttachmentSpecInput interface {
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpecArgs struct {
 	// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-	Attacher pulumi.StringPtrInput `pulumi:"attacher"`
+	Attacher pulumi.StringInput `pulumi:"attacher"`
 	// The node that the volume should be attached to.
-	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	NodeName pulumi.StringInput `pulumi:"nodeName"`
 	// Source represents the volume that should be attached.
-	Source VolumeAttachmentSourcePtrInput `pulumi:"source"`
+	Source VolumeAttachmentSourceInput `pulumi:"source"`
 }
 
 func (VolumeAttachmentSpecArgs) ElementType() reflect.Type {
@@ -1653,18 +1653,18 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutputWithContext(c
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) string { return v.Attacher }).(pulumi.StringOutput)
 }
 
 // The node that the volume should be attached to.
-func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) string { return v.NodeName }).(pulumi.StringOutput)
 }
 
 // Source represents the volume that should be attached.
-func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
+func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourceOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourceOutput)
 }
 
 type VolumeAttachmentSpecPtrOutput struct{ *pulumi.OutputState }
@@ -1691,7 +1691,7 @@ func (o VolumeAttachmentSpecPtrOutput) Attacher() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Attacher
+		return &v.Attacher
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1701,7 +1701,7 @@ func (o VolumeAttachmentSpecPtrOutput) NodeName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.NodeName
+		return &v.NodeName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1711,7 +1711,7 @@ func (o VolumeAttachmentSpecPtrOutput) Source() VolumeAttachmentSourcePtrOutput 
 		if v == nil {
 			return nil
 		}
-		return v.Source
+		return &v.Source
 	}).(VolumeAttachmentSourcePtrOutput)
 }
 
@@ -1720,7 +1720,7 @@ type VolumeAttachmentStatus struct {
 	// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError *VolumeError `pulumi:"attachError"`
 	// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-	Attached *bool `pulumi:"attached"`
+	Attached bool `pulumi:"attached"`
 	// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachmentMetadata map[string]string `pulumi:"attachmentMetadata"`
 	// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
@@ -1744,7 +1744,7 @@ type VolumeAttachmentStatusArgs struct {
 	// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError VolumeErrorPtrInput `pulumi:"attachError"`
 	// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-	Attached pulumi.BoolPtrInput `pulumi:"attached"`
+	Attached pulumi.BoolInput `pulumi:"attached"`
 	// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachmentMetadata pulumi.StringMapInput `pulumi:"attachmentMetadata"`
 	// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
@@ -1836,8 +1836,8 @@ func (o VolumeAttachmentStatusOutput) AttachError() VolumeErrorPtrOutput {
 }
 
 // Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-func (o VolumeAttachmentStatusOutput) Attached() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
+func (o VolumeAttachmentStatusOutput) Attached() pulumi.BoolOutput {
+	return o.ApplyT(func(v VolumeAttachmentStatus) bool { return v.Attached }).(pulumi.BoolOutput)
 }
 
 // Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -1884,7 +1884,7 @@ func (o VolumeAttachmentStatusPtrOutput) Attached() pulumi.BoolPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Attached
+		return &v.Attached
 	}).(pulumi.BoolPtrOutput)
 }
 

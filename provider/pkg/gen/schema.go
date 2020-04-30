@@ -141,7 +141,16 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						p.name = "t_" + p.name[1:]
 					}
 					objectSpec.Properties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
-					//objectSpec.Required = append(objectSpec.Required, p.name)
+				}
+
+				if kind.IsNested() {
+					for _, p := range kind.RequiredInputProperties() {
+						objectSpec.Required = append(objectSpec.Required, p.name)
+					}
+				} else {
+					for _, p := range kind.Properties() {
+						objectSpec.Required = append(objectSpec.Required, p.name)
+					}
 				}
 
 				pkg.Types[tok] = objectSpec

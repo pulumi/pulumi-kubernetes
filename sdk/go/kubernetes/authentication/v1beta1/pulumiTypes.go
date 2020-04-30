@@ -14,14 +14,14 @@ import (
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
 type TokenReviewType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     string            `pulumi:"kind"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec *TokenReviewSpec `pulumi:"spec"`
+	Spec TokenReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
-	Status *TokenReviewStatus `pulumi:"status"`
+	Status TokenReviewStatus `pulumi:"status"`
 }
 
 // TokenReviewTypeInput is an input type that accepts TokenReviewTypeArgs and TokenReviewTypeOutput values.
@@ -39,14 +39,14 @@ type TokenReviewTypeInput interface {
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
 type TokenReviewTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Kind     pulumi.StringInput     `pulumi:"kind"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec TokenReviewSpecPtrInput `pulumi:"spec"`
+	Spec TokenReviewSpecInput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
-	Status TokenReviewStatusPtrInput `pulumi:"status"`
+	Status TokenReviewStatusInput `pulumi:"status"`
 }
 
 func (TokenReviewTypeArgs) ElementType() reflect.Type {
@@ -77,27 +77,27 @@ func (o TokenReviewTypeOutput) ToTokenReviewTypeOutputWithContext(ctx context.Co
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o TokenReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokenReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o TokenReviewTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v TokenReviewType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o TokenReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokenReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o TokenReviewTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v TokenReviewType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-func (o TokenReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v TokenReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o TokenReviewTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v TokenReviewType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec holds information about the request being evaluated
-func (o TokenReviewTypeOutput) Spec() TokenReviewSpecPtrOutput {
-	return o.ApplyT(func(v TokenReviewType) *TokenReviewSpec { return v.Spec }).(TokenReviewSpecPtrOutput)
+func (o TokenReviewTypeOutput) Spec() TokenReviewSpecOutput {
+	return o.ApplyT(func(v TokenReviewType) TokenReviewSpec { return v.Spec }).(TokenReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request can be authenticated.
-func (o TokenReviewTypeOutput) Status() TokenReviewStatusPtrOutput {
-	return o.ApplyT(func(v TokenReviewType) *TokenReviewStatus { return v.Status }).(TokenReviewStatusPtrOutput)
+func (o TokenReviewTypeOutput) Status() TokenReviewStatusOutput {
+	return o.ApplyT(func(v TokenReviewType) TokenReviewStatus { return v.Status }).(TokenReviewStatusOutput)
 }
 
 // TokenReviewSpec is a description of the token authentication request.
