@@ -762,37 +762,72 @@ func (o DeleteOptionsPtrOutput) Elem() DeleteOptionsOutput {
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 func (o DeleteOptionsPtrOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *DeleteOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiVersion
+	}).(pulumi.StringPtrOutput)
 }
 
 // When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
 func (o DeleteOptionsPtrOutput) DryRun() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v DeleteOptions) []string { return v.DryRun }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *DeleteOptions) []string {
+		if v == nil {
+			return nil
+		}
+		return v.DryRun
+	}).(pulumi.StringArrayOutput)
 }
 
 // The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 func (o DeleteOptionsPtrOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *int { return v.GracePeriodSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *DeleteOptions) *int {
+		if v == nil {
+			return nil
+		}
+		return v.GracePeriodSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o DeleteOptionsPtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *DeleteOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Kind
+	}).(pulumi.StringPtrOutput)
 }
 
 // Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
 func (o DeleteOptionsPtrOutput) OrphanDependents() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *bool { return v.OrphanDependents }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *DeleteOptions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.OrphanDependents
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
 func (o DeleteOptionsPtrOutput) Preconditions() PreconditionsPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *Preconditions { return v.Preconditions }).(PreconditionsPtrOutput)
+	return o.ApplyT(func(v *DeleteOptions) *Preconditions {
+		if v == nil {
+			return nil
+		}
+		return v.Preconditions
+	}).(PreconditionsPtrOutput)
 }
 
 // Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
 func (o DeleteOptionsPtrOutput) PropagationPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *string { return v.PropagationPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *DeleteOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PropagationPolicy
+	}).(pulumi.StringPtrOutput)
 }
 
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
@@ -958,12 +993,22 @@ func (o GroupVersionForDiscoveryPtrOutput) Elem() GroupVersionForDiscoveryOutput
 
 // groupVersion specifies the API group and version in the form "group/version"
 func (o GroupVersionForDiscoveryPtrOutput) GroupVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GroupVersionForDiscovery) *string { return v.GroupVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *GroupVersionForDiscovery) *string {
+		if v == nil {
+			return nil
+		}
+		return v.GroupVersion
+	}).(pulumi.StringPtrOutput)
 }
 
 // version specifies the version in the form of "version". This is to save the clients the trouble of splitting the GroupVersion.
 func (o GroupVersionForDiscoveryPtrOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GroupVersionForDiscovery) *string { return v.Version }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *GroupVersionForDiscovery) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Version
+	}).(pulumi.StringPtrOutput)
 }
 
 type GroupVersionForDiscoveryArrayOutput struct{ *pulumi.OutputState }
@@ -1149,12 +1194,22 @@ func (o LabelSelectorPtrOutput) Elem() LabelSelectorOutput {
 
 // matchExpressions is a list of label selector requirements. The requirements are ANDed.
 func (o LabelSelectorPtrOutput) MatchExpressions() LabelSelectorRequirementArrayOutput {
-	return o.ApplyT(func(v LabelSelector) []LabelSelectorRequirement { return v.MatchExpressions }).(LabelSelectorRequirementArrayOutput)
+	return o.ApplyT(func(v *LabelSelector) []LabelSelectorRequirement {
+		if v == nil {
+			return nil
+		}
+		return v.MatchExpressions
+	}).(LabelSelectorRequirementArrayOutput)
 }
 
 // matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 func (o LabelSelectorPtrOutput) MatchLabels() pulumi.StringMapOutput {
-	return o.ApplyT(func(v LabelSelector) map[string]string { return v.MatchLabels }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *LabelSelector) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.MatchLabels
+	}).(pulumi.StringMapOutput)
 }
 
 type LabelSelectorArrayOutput struct{ *pulumi.OutputState }
@@ -1458,24 +1513,44 @@ func (o ListMetaPtrOutput) Elem() ListMetaOutput {
 
 // continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
 func (o ListMetaPtrOutput) Continue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ListMeta) *string { return v.Continue }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ListMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Continue
+	}).(pulumi.StringPtrOutput)
 }
 
 // remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
 func (o ListMetaPtrOutput) RemainingItemCount() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ListMeta) *int { return v.RemainingItemCount }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ListMeta) *int {
+		if v == nil {
+			return nil
+		}
+		return v.RemainingItemCount
+	}).(pulumi.IntPtrOutput)
 }
 
 // String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 func (o ListMetaPtrOutput) ResourceVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ListMeta) *string { return v.ResourceVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ListMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceVersion
+	}).(pulumi.StringPtrOutput)
 }
 
 // selfLink is a URL representing this object. Populated by the system. Read-only.
 //
 // DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
 func (o ListMetaPtrOutput) SelfLink() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ListMeta) *string { return v.SelfLink }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ListMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SelfLink
+	}).(pulumi.StringPtrOutput)
 }
 
 // ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
@@ -1936,36 +2011,66 @@ func (o ObjectMetaPtrOutput) Elem() ObjectMetaOutput {
 
 // Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
 func (o ObjectMetaPtrOutput) Annotations() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ObjectMeta) map[string]string { return v.Annotations }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *ObjectMeta) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Annotations
+	}).(pulumi.StringMapOutput)
 }
 
 // The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 func (o ObjectMetaPtrOutput) ClusterName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.ClusterName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ClusterName
+	}).(pulumi.StringPtrOutput)
 }
 
 // CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 //
 // Populated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o ObjectMetaPtrOutput) CreationTimestamp() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.CreationTimestamp }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CreationTimestamp
+	}).(pulumi.StringPtrOutput)
 }
 
 // Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
 func (o ObjectMetaPtrOutput) DeletionGracePeriodSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *int { return v.DeletionGracePeriodSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DeletionGracePeriodSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.
 //
 // Populated by the system when a graceful deletion is requested. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o ObjectMetaPtrOutput) DeletionTimestamp() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.DeletionTimestamp }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DeletionTimestamp
+	}).(pulumi.StringPtrOutput)
 }
 
 // Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
 func (o ObjectMetaPtrOutput) Finalizers() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ObjectMeta) []string { return v.Finalizers }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *ObjectMeta) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Finalizers
+	}).(pulumi.StringArrayOutput)
 }
 
 // GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
@@ -1974,60 +2079,110 @@ func (o ObjectMetaPtrOutput) Finalizers() pulumi.StringArrayOutput {
 //
 // Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
 func (o ObjectMetaPtrOutput) GenerateName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.GenerateName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.GenerateName
+	}).(pulumi.StringPtrOutput)
 }
 
 // A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
 func (o ObjectMetaPtrOutput) Generation() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *int { return v.Generation }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Generation
+	}).(pulumi.IntPtrOutput)
 }
 
 // Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
 func (o ObjectMetaPtrOutput) Labels() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ObjectMeta) map[string]string { return v.Labels }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *ObjectMeta) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Labels
+	}).(pulumi.StringMapOutput)
 }
 
 // ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
 func (o ObjectMetaPtrOutput) ManagedFields() ManagedFieldsEntryArrayOutput {
-	return o.ApplyT(func(v ObjectMeta) []ManagedFieldsEntry { return v.ManagedFields }).(ManagedFieldsEntryArrayOutput)
+	return o.ApplyT(func(v *ObjectMeta) []ManagedFieldsEntry {
+		if v == nil {
+			return nil
+		}
+		return v.ManagedFields
+	}).(ManagedFieldsEntryArrayOutput)
 }
 
 // Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
 func (o ObjectMetaPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // Namespace defines the space within each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 //
 // Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
 func (o ObjectMetaPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
 }
 
 // List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
 func (o ObjectMetaPtrOutput) OwnerReferences() OwnerReferenceArrayOutput {
-	return o.ApplyT(func(v ObjectMeta) []OwnerReference { return v.OwnerReferences }).(OwnerReferenceArrayOutput)
+	return o.ApplyT(func(v *ObjectMeta) []OwnerReference {
+		if v == nil {
+			return nil
+		}
+		return v.OwnerReferences
+	}).(OwnerReferenceArrayOutput)
 }
 
 // An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
 //
 // Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 func (o ObjectMetaPtrOutput) ResourceVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.ResourceVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceVersion
+	}).(pulumi.StringPtrOutput)
 }
 
 // SelfLink is a URL representing this object. Populated by the system. Read-only.
 //
 // DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
 func (o ObjectMetaPtrOutput) SelfLink() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.SelfLink }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SelfLink
+	}).(pulumi.StringPtrOutput)
 }
 
 // UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
 //
 // Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
 func (o ObjectMetaPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *string { return v.Uid }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ObjectMeta) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Uid
+	}).(pulumi.StringPtrOutput)
 }
 
 // OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
@@ -2314,12 +2469,22 @@ func (o PreconditionsPtrOutput) Elem() PreconditionsOutput {
 
 // Specifies the target ResourceVersion
 func (o PreconditionsPtrOutput) ResourceVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Preconditions) *string { return v.ResourceVersion }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *Preconditions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceVersion
+	}).(pulumi.StringPtrOutput)
 }
 
 // Specifies the target UID.
 func (o PreconditionsPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Preconditions) *string { return v.Uid }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *Preconditions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Uid
+	}).(pulumi.StringPtrOutput)
 }
 
 // ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
@@ -2857,32 +3022,62 @@ func (o StatusDetailsPtrOutput) Elem() StatusDetailsOutput {
 
 // The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
 func (o StatusDetailsPtrOutput) Causes() StatusCauseArrayOutput {
-	return o.ApplyT(func(v StatusDetails) []StatusCause { return v.Causes }).(StatusCauseArrayOutput)
+	return o.ApplyT(func(v *StatusDetails) []StatusCause {
+		if v == nil {
+			return nil
+		}
+		return v.Causes
+	}).(StatusCauseArrayOutput)
 }
 
 // The group attribute of the resource associated with the status StatusReason.
 func (o StatusDetailsPtrOutput) Group() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusDetails) *string { return v.Group }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *StatusDetails) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Group
+	}).(pulumi.StringPtrOutput)
 }
 
 // The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o StatusDetailsPtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusDetails) *string { return v.Kind }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *StatusDetails) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Kind
+	}).(pulumi.StringPtrOutput)
 }
 
 // The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
 func (o StatusDetailsPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusDetails) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *StatusDetails) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
 func (o StatusDetailsPtrOutput) RetryAfterSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatusDetails) *int { return v.RetryAfterSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *StatusDetails) *int {
+		if v == nil {
+			return nil
+		}
+		return v.RetryAfterSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
 func (o StatusDetailsPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusDetails) *string { return v.Uid }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *StatusDetails) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Uid
+	}).(pulumi.StringPtrOutput)
 }
 
 // Event represents a single event to a watched resource.

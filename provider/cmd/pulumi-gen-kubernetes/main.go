@@ -343,7 +343,7 @@ func writeGoClient(data map[string]interface{}, outdir string) {
 
 func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	pkgSpec := gen.PulumiSchema(data)
-	pkg, err := schema.ImportSpec(pkgSpec)
+	pkg, err := schema.ImportSpec(pkgSpec, nil)
 	if err != nil {
 		panic(err)
 	}

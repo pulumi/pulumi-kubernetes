@@ -382,27 +382,52 @@ func (o PodPresetSpecPtrOutput) Elem() PodPresetSpecOutput {
 
 // Env defines the collection of EnvVar to inject into containers.
 func (o PodPresetSpecPtrOutput) Env() corev1.EnvVarArrayOutput {
-	return o.ApplyT(func(v PodPresetSpec) []corev1.EnvVar { return v.Env }).(corev1.EnvVarArrayOutput)
+	return o.ApplyT(func(v *PodPresetSpec) []corev1.EnvVar {
+		if v == nil {
+			return nil
+		}
+		return v.Env
+	}).(corev1.EnvVarArrayOutput)
 }
 
 // EnvFrom defines the collection of EnvFromSource to inject into containers.
 func (o PodPresetSpecPtrOutput) EnvFrom() corev1.EnvFromSourceArrayOutput {
-	return o.ApplyT(func(v PodPresetSpec) []corev1.EnvFromSource { return v.EnvFrom }).(corev1.EnvFromSourceArrayOutput)
+	return o.ApplyT(func(v *PodPresetSpec) []corev1.EnvFromSource {
+		if v == nil {
+			return nil
+		}
+		return v.EnvFrom
+	}).(corev1.EnvFromSourceArrayOutput)
 }
 
 // Selector is a label query over a set of resources, in this case pods. Required.
 func (o PodPresetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v PodPresetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v *PodPresetSpec) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(metav1.LabelSelectorPtrOutput)
 }
 
 // VolumeMounts defines the collection of VolumeMount to inject into containers.
 func (o PodPresetSpecPtrOutput) VolumeMounts() corev1.VolumeMountArrayOutput {
-	return o.ApplyT(func(v PodPresetSpec) []corev1.VolumeMount { return v.VolumeMounts }).(corev1.VolumeMountArrayOutput)
+	return o.ApplyT(func(v *PodPresetSpec) []corev1.VolumeMount {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeMounts
+	}).(corev1.VolumeMountArrayOutput)
 }
 
 // Volumes defines the collection of Volume to inject into the pod.
 func (o PodPresetSpecPtrOutput) Volumes() corev1.VolumeArrayOutput {
-	return o.ApplyT(func(v PodPresetSpec) []corev1.Volume { return v.Volumes }).(corev1.VolumeArrayOutput)
+	return o.ApplyT(func(v *PodPresetSpec) []corev1.Volume {
+		if v == nil {
+			return nil
+		}
+		return v.Volumes
+	}).(corev1.VolumeArrayOutput)
 }
 
 func init() {

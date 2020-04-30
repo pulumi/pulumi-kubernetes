@@ -296,7 +296,12 @@ func (o EndpointConditionsPtrOutput) Elem() EndpointConditionsOutput {
 
 // ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 func (o EndpointConditionsPtrOutput) Ready() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *EndpointConditions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Ready
+	}).(pulumi.BoolPtrOutput)
 }
 
 // EndpointPort represents a Port used by an EndpointSlice

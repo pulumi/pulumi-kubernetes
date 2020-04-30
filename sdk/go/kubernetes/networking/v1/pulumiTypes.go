@@ -148,12 +148,22 @@ func (o IPBlockPtrOutput) Elem() IPBlockOutput {
 
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
 func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *IPBlock) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Cidr
+	}).(pulumi.StringPtrOutput)
 }
 
 // Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *IPBlock) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Except
+	}).(pulumi.StringArrayOutput)
 }
 
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
@@ -988,22 +998,42 @@ func (o NetworkPolicySpecPtrOutput) Elem() NetworkPolicySpecOutput {
 
 // List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) Egress() NetworkPolicyEgressRuleArrayOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyEgressRule { return v.Egress }).(NetworkPolicyEgressRuleArrayOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) []NetworkPolicyEgressRule {
+		if v == nil {
+			return nil
+		}
+		return v.Egress
+	}).(NetworkPolicyEgressRuleArrayOutput)
 }
 
 // List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 func (o NetworkPolicySpecPtrOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyIngressRule { return v.Ingress }).(NetworkPolicyIngressRuleArrayOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) []NetworkPolicyIngressRule {
+		if v == nil {
+			return nil
+		}
+		return v.Ingress
+	}).(NetworkPolicyIngressRuleArrayOutput)
 }
 
 // Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.PodSelector
+	}).(metav1.LabelSelectorPtrOutput)
 }
 
 // List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PolicyTypes
+	}).(pulumi.StringArrayOutput)
 }
 
 func init() {

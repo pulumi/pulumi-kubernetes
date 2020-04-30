@@ -237,12 +237,22 @@ func (o NonResourceAttributesPtrOutput) Elem() NonResourceAttributesOutput {
 
 // Path is the URL path of the request
 func (o NonResourceAttributesPtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NonResourceAttributes) *string { return v.Path }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *NonResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Path
+	}).(pulumi.StringPtrOutput)
 }
 
 // Verb is the standard HTTP verb
 func (o NonResourceAttributesPtrOutput) Verb() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NonResourceAttributes) *string { return v.Verb }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *NonResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Verb
+	}).(pulumi.StringPtrOutput)
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
@@ -538,37 +548,72 @@ func (o ResourceAttributesPtrOutput) Elem() ResourceAttributesOutput {
 
 // Group is the API Group of the Resource.  "*" means all.
 func (o ResourceAttributesPtrOutput) Group() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *string { return v.Group }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Group
+	}).(pulumi.StringPtrOutput)
 }
 
 // Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 func (o ResourceAttributesPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 func (o ResourceAttributesPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
 }
 
 // Resource is one of the existing resource types.  "*" means all.
 func (o ResourceAttributesPtrOutput) Resource() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *string { return v.Resource }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Resource
+	}).(pulumi.StringPtrOutput)
 }
 
 // Subresource is one of the existing resource types.  "" means none.
 func (o ResourceAttributesPtrOutput) Subresource() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *string { return v.Subresource }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Subresource
+	}).(pulumi.StringPtrOutput)
 }
 
 // Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
 func (o ResourceAttributesPtrOutput) Verb() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *string { return v.Verb }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Verb
+	}).(pulumi.StringPtrOutput)
 }
 
 // Version is the API Version of the Resource.  "*" means all.
 func (o ResourceAttributesPtrOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *string { return v.Version }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ResourceAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Version
+	}).(pulumi.StringPtrOutput)
 }
 
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -929,12 +974,22 @@ func (o SelfSubjectAccessReviewSpecPtrOutput) Elem() SelfSubjectAccessReviewSpec
 
 // NonResourceAttributes describes information for a non-resource access request
 func (o SelfSubjectAccessReviewSpecPtrOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *NonResourceAttributes { return v.NonResourceAttributes }).(NonResourceAttributesPtrOutput)
+	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) *NonResourceAttributes {
+		if v == nil {
+			return nil
+		}
+		return v.NonResourceAttributes
+	}).(NonResourceAttributesPtrOutput)
 }
 
 // ResourceAuthorizationAttributes describes information for a resource access request
 func (o SelfSubjectAccessReviewSpecPtrOutput) ResourceAttributes() ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *ResourceAttributes { return v.ResourceAttributes }).(ResourceAttributesPtrOutput)
+	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) *ResourceAttributes {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceAttributes
+	}).(ResourceAttributesPtrOutput)
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
@@ -1151,7 +1206,12 @@ func (o SelfSubjectRulesReviewSpecPtrOutput) Elem() SelfSubjectRulesReviewSpecOu
 
 // Namespace to evaluate rules for. Required.
 func (o SelfSubjectRulesReviewSpecPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewSpec) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
@@ -1416,32 +1476,62 @@ func (o SubjectAccessReviewSpecPtrOutput) Elem() SubjectAccessReviewSpecOutput {
 
 // Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
 func (o SubjectAccessReviewSpecPtrOutput) Extra() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) map[string][]string {
+		if v == nil {
+			return nil
+		}
+		return v.Extra
+	}).(pulumi.StringArrayMapOutput)
 }
 
 // Groups is the groups you're testing for.
 func (o SubjectAccessReviewSpecPtrOutput) Groups() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) []string { return v.Groups }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Groups
+	}).(pulumi.StringArrayOutput)
 }
 
 // NonResourceAttributes describes information for a non-resource access request
 func (o SubjectAccessReviewSpecPtrOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) *NonResourceAttributes { return v.NonResourceAttributes }).(NonResourceAttributesPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) *NonResourceAttributes {
+		if v == nil {
+			return nil
+		}
+		return v.NonResourceAttributes
+	}).(NonResourceAttributesPtrOutput)
 }
 
 // ResourceAuthorizationAttributes describes information for a resource access request
 func (o SubjectAccessReviewSpecPtrOutput) ResourceAttributes() ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) *ResourceAttributes { return v.ResourceAttributes }).(ResourceAttributesPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) *ResourceAttributes {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceAttributes
+	}).(ResourceAttributesPtrOutput)
 }
 
 // UID information about the requesting user.
 func (o SubjectAccessReviewSpecPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) *string { return v.Uid }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Uid
+	}).(pulumi.StringPtrOutput)
 }
 
 // User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
 func (o SubjectAccessReviewSpecPtrOutput) User() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) *string { return v.User }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.User
+	}).(pulumi.StringPtrOutput)
 }
 
 // SubjectAccessReviewStatus
@@ -1599,22 +1689,42 @@ func (o SubjectAccessReviewStatusPtrOutput) Elem() SubjectAccessReviewStatusOutp
 
 // Allowed is required. True if the action would be allowed, false otherwise.
 func (o SubjectAccessReviewStatusPtrOutput) Allowed() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewStatus) *bool { return v.Allowed }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewStatus) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Allowed
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
 func (o SubjectAccessReviewStatusPtrOutput) Denied() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewStatus) *bool { return v.Denied }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewStatus) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Denied
+	}).(pulumi.BoolPtrOutput)
 }
 
 // EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
 func (o SubjectAccessReviewStatusPtrOutput) EvaluationError() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewStatus) *string { return v.EvaluationError }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EvaluationError
+	}).(pulumi.StringPtrOutput)
 }
 
 // Reason is optional.  It indicates why a request was allowed or denied.
 func (o SubjectAccessReviewStatusPtrOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewStatus) *string { return v.Reason }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Reason
+	}).(pulumi.StringPtrOutput)
 }
 
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
@@ -1772,22 +1882,42 @@ func (o SubjectRulesReviewStatusPtrOutput) Elem() SubjectRulesReviewStatusOutput
 
 // EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
 func (o SubjectRulesReviewStatusPtrOutput) EvaluationError() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectRulesReviewStatus) *string { return v.EvaluationError }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SubjectRulesReviewStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EvaluationError
+	}).(pulumi.StringPtrOutput)
 }
 
 // Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
 func (o SubjectRulesReviewStatusPtrOutput) Incomplete() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v SubjectRulesReviewStatus) *bool { return v.Incomplete }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *SubjectRulesReviewStatus) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Incomplete
+	}).(pulumi.BoolPtrOutput)
 }
 
 // NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
 func (o SubjectRulesReviewStatusPtrOutput) NonResourceRules() NonResourceRuleArrayOutput {
-	return o.ApplyT(func(v SubjectRulesReviewStatus) []NonResourceRule { return v.NonResourceRules }).(NonResourceRuleArrayOutput)
+	return o.ApplyT(func(v *SubjectRulesReviewStatus) []NonResourceRule {
+		if v == nil {
+			return nil
+		}
+		return v.NonResourceRules
+	}).(NonResourceRuleArrayOutput)
 }
 
 // ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
 func (o SubjectRulesReviewStatusPtrOutput) ResourceRules() ResourceRuleArrayOutput {
-	return o.ApplyT(func(v SubjectRulesReviewStatus) []ResourceRule { return v.ResourceRules }).(ResourceRuleArrayOutput)
+	return o.ApplyT(func(v *SubjectRulesReviewStatus) []ResourceRule {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceRules
+	}).(ResourceRuleArrayOutput)
 }
 
 func init() {

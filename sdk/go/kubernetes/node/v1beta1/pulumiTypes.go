@@ -140,7 +140,12 @@ func (o OverheadPtrOutput) Elem() OverheadOutput {
 
 // PodFixed represents the fixed resource overhead associated with running a pod.
 func (o OverheadPtrOutput) PodFixed() pulumi.StringMapOutput {
-	return o.ApplyT(func(v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *Overhead) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.PodFixed
+	}).(pulumi.StringMapOutput)
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
@@ -510,12 +515,22 @@ func (o SchedulingPtrOutput) Elem() SchedulingOutput {
 
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 func (o SchedulingPtrOutput) NodeSelector() pulumi.StringMapOutput {
-	return o.ApplyT(func(v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *Scheduling) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeSelector
+	}).(pulumi.StringMapOutput)
 }
 
 // tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
 func (o SchedulingPtrOutput) Tolerations() corev1.TolerationArrayOutput {
-	return o.ApplyT(func(v Scheduling) []corev1.Toleration { return v.Tolerations }).(corev1.TolerationArrayOutput)
+	return o.ApplyT(func(v *Scheduling) []corev1.Toleration {
+		if v == nil {
+			return nil
+		}
+		return v.Tolerations
+	}).(corev1.TolerationArrayOutput)
 }
 
 func init() {

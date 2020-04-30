@@ -416,37 +416,72 @@ func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 func (o CronJobSpecPtrOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *string { return v.ConcurrencyPolicy }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CronJobSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ConcurrencyPolicy
+	}).(pulumi.StringPtrOutput)
 }
 
 // The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
 func (o CronJobSpecPtrOutput) FailedJobsHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *int { return v.FailedJobsHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *CronJobSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.FailedJobsHistoryLimit
+	}).(pulumi.IntPtrOutput)
 }
 
 // Specifies the job that will be created when executing a CronJob.
 func (o CronJobSpecPtrOutput) JobTemplate() JobTemplateSpecPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *JobTemplateSpec { return v.JobTemplate }).(JobTemplateSpecPtrOutput)
+	return o.ApplyT(func(v *CronJobSpec) *JobTemplateSpec {
+		if v == nil {
+			return nil
+		}
+		return v.JobTemplate
+	}).(JobTemplateSpecPtrOutput)
 }
 
 // The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
 func (o CronJobSpecPtrOutput) Schedule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *string { return v.Schedule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CronJobSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Schedule
+	}).(pulumi.StringPtrOutput)
 }
 
 // Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
 func (o CronJobSpecPtrOutput) StartingDeadlineSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *int { return v.StartingDeadlineSeconds }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *CronJobSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.StartingDeadlineSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
 func (o CronJobSpecPtrOutput) SuccessfulJobsHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *int { return v.SuccessfulJobsHistoryLimit }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *CronJobSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.SuccessfulJobsHistoryLimit
+	}).(pulumi.IntPtrOutput)
 }
 
 // This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 func (o CronJobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *CronJobSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Suspend
+	}).(pulumi.BoolPtrOutput)
 }
 
 // CronJobStatus represents the current state of a cron job.
@@ -586,12 +621,22 @@ func (o CronJobStatusPtrOutput) Elem() CronJobStatusOutput {
 
 // A list of pointers to currently running jobs.
 func (o CronJobStatusPtrOutput) Active() corev1.ObjectReferenceArrayOutput {
-	return o.ApplyT(func(v CronJobStatus) []corev1.ObjectReference { return v.Active }).(corev1.ObjectReferenceArrayOutput)
+	return o.ApplyT(func(v *CronJobStatus) []corev1.ObjectReference {
+		if v == nil {
+			return nil
+		}
+		return v.Active
+	}).(corev1.ObjectReferenceArrayOutput)
 }
 
 // Information when was the last time the job was successfully scheduled.
 func (o CronJobStatusPtrOutput) LastScheduleTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobStatus) *string { return v.LastScheduleTime }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *CronJobStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LastScheduleTime
+	}).(pulumi.StringPtrOutput)
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
@@ -731,12 +776,22 @@ func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
 
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobTemplateSpecPtrOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v JobTemplateSpec) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+	return o.ApplyT(func(v *JobTemplateSpec) *metav1.ObjectMeta {
+		if v == nil {
+			return nil
+		}
+		return v.Metadata
+	}).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o JobTemplateSpecPtrOutput) Spec() batchv1.JobSpecPtrOutput {
-	return o.ApplyT(func(v JobTemplateSpec) *batchv1.JobSpec { return v.Spec }).(batchv1.JobSpecPtrOutput)
+	return o.ApplyT(func(v *JobTemplateSpec) *batchv1.JobSpec {
+		if v == nil {
+			return nil
+		}
+		return v.Spec
+	}).(batchv1.JobSpecPtrOutput)
 }
 
 func init() {

@@ -91,6 +91,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"renderYamlToDirectory": {
+					Description: "BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not\nbe created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes\nto the Pulumi program. This feature is in developer preview, and is disabled by default.\n\nNote that some computed Outputs such as status fields will not be populated\nsince the resources are not created on a Kubernetes cluster. These Output values will remain undefined,\nand may result in an error if they are referenced by other resources. Also note that any secret values\nused in these resources will be rendered in plaintext to the resulting YAML.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
 				"suppressDeprecationWarnings": {
 					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressDeprecationWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
@@ -101,34 +105,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Types:     map[string]pschema.ObjectTypeSpec{},
 		Resources: map[string]pschema.ResourceSpec{},
 		Functions: map[string]pschema.FunctionSpec{},
-		Language: map[string]json.RawMessage{
-			"nodejs": rawMessage(map[string]interface{}{
-				"dependencies": map[string]string{
-					"@pulumi/pulumi":    "^2.0.0-beta.3",
-					"shell-quote":       "^1.6.1",
-					"tmp":               "^0.0.33",
-					"@types/tmp":        "^0.0.33",
-					"glob":              "^7.1.2",
-					"@types/glob":       "^5.0.35",
-					"node-fetch":        "^2.3.0",
-					"@types/node-fetch": "^2.1.4",
-				},
-				"devDependencies": map[string]string{
-					"mocha":              "^5.2.0",
-					"@types/mocha":       "^5.2.5",
-					"@types/shell-quote": "^1.6.0",
-				},
-			}),
-			"python": rawMessage(map[string]interface{}{
-				"requires": map[string]string{
-					"pulumi":   ">=2.0.0b2,<3.0.0",
-					"requests": ">=2.21.0,<2.22.0",
-					"pyyaml":   ">=5.1,<5.2",
-					"semver":   ">=2.8.1",
-					"parver":   ">=0.2.1",
-				},
-			}),
-		},
+		Language:  map[string]json.RawMessage{},
 	}
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes"
@@ -210,7 +187,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	})
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"dependencies": map[string]string{
-			"@pulumi/pulumi":    "^1.14.0",
+			"@pulumi/pulumi":    "^2.0.0",
 			"shell-quote":       "^1.6.1",
 			"tmp":               "^0.0.33",
 			"@types/tmp":        "^0.0.33",
@@ -228,7 +205,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	})
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
-			"pulumi":   ">=1.11.0,<2.0.0",
+			"pulumi":   ">=2.0.0,<3.0.0",
 			"requests": ">=2.21.0,<2.22.0",
 			"pyyaml":   ">=5.1,<5.2",
 			"semver":   ">=2.8.1",

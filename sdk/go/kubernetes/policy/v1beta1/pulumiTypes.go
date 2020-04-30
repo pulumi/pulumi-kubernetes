@@ -553,12 +553,22 @@ func (o FSGroupStrategyOptionsPtrOutput) Elem() FSGroupStrategyOptionsOutput {
 
 // ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 func (o FSGroupStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v FSGroupStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *FSGroupStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
 func (o FSGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FSGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *FSGroupStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
@@ -1141,17 +1151,32 @@ func (o PodDisruptionBudgetSpecPtrOutput) Elem() PodDisruptionBudgetSpecOutput {
 
 // An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 func (o PodDisruptionBudgetSpecPtrOutput) MaxUnavailable() pulumi.AnyOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetSpec) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetSpec) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.MaxUnavailable
+	}).(pulumi.AnyOutput)
 }
 
 // An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 func (o PodDisruptionBudgetSpecPtrOutput) MinAvailable() pulumi.AnyOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetSpec) interface{} { return v.MinAvailable }).(pulumi.AnyOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetSpec) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.MinAvailable
+	}).(pulumi.AnyOutput)
 }
 
 // Label query over pods whose evictions are managed by the disruption budget.
 func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetSpec) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(metav1.LabelSelectorPtrOutput)
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
@@ -1327,32 +1352,62 @@ func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutp
 
 // current number of healthy pods
 func (o PodDisruptionBudgetStatusPtrOutput) CurrentHealthy() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.CurrentHealthy }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.CurrentHealthy
+	}).(pulumi.IntPtrOutput)
 }
 
 // minimum desired number of healthy pods
 func (o PodDisruptionBudgetStatusPtrOutput) DesiredHealthy() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.DesiredHealthy }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DesiredHealthy
+	}).(pulumi.IntPtrOutput)
 }
 
 // DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
 func (o PodDisruptionBudgetStatusPtrOutput) DisruptedPods() pulumi.StringMapOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) map[string]string { return v.DisruptedPods }).(pulumi.StringMapOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.DisruptedPods
+	}).(pulumi.StringMapOutput)
 }
 
 // Number of pod disruptions that are currently allowed.
 func (o PodDisruptionBudgetStatusPtrOutput) DisruptionsAllowed() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.DisruptionsAllowed }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DisruptionsAllowed
+	}).(pulumi.IntPtrOutput)
 }
 
 // total number of pods counted by this disruption budget
 func (o PodDisruptionBudgetStatusPtrOutput) ExpectedPods() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ExpectedPods }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ExpectedPods
+	}).(pulumi.IntPtrOutput)
 }
 
 // Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
@@ -1914,126 +1969,246 @@ func (o PodSecurityPolicySpecPtrOutput) Elem() PodSecurityPolicySpecOutput {
 
 // allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 func (o PodSecurityPolicySpecPtrOutput) AllowPrivilegeEscalation() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.AllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllowPrivilegeEscalation
+	}).(pulumi.BoolPtrOutput)
 }
 
 // AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 func (o PodSecurityPolicySpecPtrOutput) AllowedCSIDrivers() AllowedCSIDriverArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedCSIDriver { return v.AllowedCSIDrivers }).(AllowedCSIDriverArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedCSIDriver {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedCSIDrivers
+	}).(AllowedCSIDriverArrayOutput)
 }
 
 // allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 func (o PodSecurityPolicySpecPtrOutput) AllowedCapabilities() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedCapabilities }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedCapabilities
+	}).(pulumi.StringArrayOutput)
 }
 
 // allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecPtrOutput) AllowedFlexVolumes() AllowedFlexVolumeArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedFlexVolume { return v.AllowedFlexVolumes }).(AllowedFlexVolumeArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedFlexVolume {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedFlexVolumes
+	}).(AllowedFlexVolumeArrayOutput)
 }
 
 // allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecPtrOutput) AllowedHostPaths() AllowedHostPathArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedHostPath { return v.AllowedHostPaths }).(AllowedHostPathArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedHostPath {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedHostPaths
+	}).(AllowedHostPathArrayOutput)
 }
 
 // AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecPtrOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedProcMountTypes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedProcMountTypes
+	}).(pulumi.StringArrayOutput)
 }
 
 // allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPtrOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedUnsafeSysctls }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedUnsafeSysctls
+	}).(pulumi.StringArrayOutput)
 }
 
 // defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
 func (o PodSecurityPolicySpecPtrOutput) DefaultAddCapabilities() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.DefaultAddCapabilities }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultAddCapabilities
+	}).(pulumi.StringArrayOutput)
 }
 
 // defaultAllowPrivilegeEscalation controls the default setting for whether a process can gain more privileges than its parent process.
 func (o PodSecurityPolicySpecPtrOutput) DefaultAllowPrivilegeEscalation() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.DefaultAllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultAllowPrivilegeEscalation
+	}).(pulumi.BoolPtrOutput)
 }
 
 // forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
 //
 // Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPtrOutput) ForbiddenSysctls() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.ForbiddenSysctls }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ForbiddenSysctls
+	}).(pulumi.StringArrayOutput)
 }
 
 // fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
 func (o PodSecurityPolicySpecPtrOutput) FsGroup() FSGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *FSGroupStrategyOptions { return v.FsGroup }).(FSGroupStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *FSGroupStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.FsGroup
+	}).(FSGroupStrategyOptionsPtrOutput)
 }
 
 // hostIPC determines if the policy allows the use of HostIPC in the pod spec.
 func (o PodSecurityPolicySpecPtrOutput) HostIPC() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.HostIPC }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.HostIPC
+	}).(pulumi.BoolPtrOutput)
 }
 
 // hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
 func (o PodSecurityPolicySpecPtrOutput) HostNetwork() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.HostNetwork }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.HostNetwork
+	}).(pulumi.BoolPtrOutput)
 }
 
 // hostPID determines if the policy allows the use of HostPID in the pod spec.
 func (o PodSecurityPolicySpecPtrOutput) HostPID() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.HostPID }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.HostPID
+	}).(pulumi.BoolPtrOutput)
 }
 
 // hostPorts determines which host port ranges are allowed to be exposed.
 func (o PodSecurityPolicySpecPtrOutput) HostPorts() HostPortRangeArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []HostPortRange { return v.HostPorts }).(HostPortRangeArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []HostPortRange {
+		if v == nil {
+			return nil
+		}
+		return v.HostPorts
+	}).(HostPortRangeArrayOutput)
 }
 
 // privileged determines if a pod can request to be run as privileged.
 func (o PodSecurityPolicySpecPtrOutput) Privileged() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.Privileged }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Privileged
+	}).(pulumi.BoolPtrOutput)
 }
 
 // readOnlyRootFilesystem when set to true will force containers to run with a read only root file system.  If the container specifically requests to run with a non-read only root file system the PSP should deny the pod. If set to false the container may run with a read only root file system if it wishes but it will not be forced to.
 func (o PodSecurityPolicySpecPtrOutput) ReadOnlyRootFilesystem() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.ReadOnlyRootFilesystem }).(pulumi.BoolPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ReadOnlyRootFilesystem
+	}).(pulumi.BoolPtrOutput)
 }
 
 // requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
 func (o PodSecurityPolicySpecPtrOutput) RequiredDropCapabilities() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.RequiredDropCapabilities }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.RequiredDropCapabilities
+	}).(pulumi.StringArrayOutput)
 }
 
 // RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
 func (o PodSecurityPolicySpecPtrOutput) RunAsGroup() RunAsGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RunAsGroupStrategyOptions { return v.RunAsGroup }).(RunAsGroupStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *RunAsGroupStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.RunAsGroup
+	}).(RunAsGroupStrategyOptionsPtrOutput)
 }
 
 // runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
 func (o PodSecurityPolicySpecPtrOutput) RunAsUser() RunAsUserStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RunAsUserStrategyOptions { return v.RunAsUser }).(RunAsUserStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *RunAsUserStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.RunAsUser
+	}).(RunAsUserStrategyOptionsPtrOutput)
 }
 
 // runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
 func (o PodSecurityPolicySpecPtrOutput) RuntimeClass() RuntimeClassStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RuntimeClassStrategyOptions { return v.RuntimeClass }).(RuntimeClassStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *RuntimeClassStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.RuntimeClass
+	}).(RuntimeClassStrategyOptionsPtrOutput)
 }
 
 // seLinux is the strategy that will dictate the allowable labels that may be set.
 func (o PodSecurityPolicySpecPtrOutput) SeLinux() SELinuxStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SELinuxStrategyOptions { return v.SeLinux }).(SELinuxStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *SELinuxStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.SeLinux
+	}).(SELinuxStrategyOptionsPtrOutput)
 }
 
 // supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 func (o PodSecurityPolicySpecPtrOutput) SupplementalGroups() SupplementalGroupsStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsPtrOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) *SupplementalGroupsStrategyOptions {
+		if v == nil {
+			return nil
+		}
+		return v.SupplementalGroups
+	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
 // volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecPtrOutput) Volumes() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.Volumes }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Volumes
+	}).(pulumi.StringArrayOutput)
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
@@ -2173,12 +2348,22 @@ func (o RunAsGroupStrategyOptionsPtrOutput) Elem() RunAsGroupStrategyOptionsOutp
 
 // ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsGroupStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *RunAsGroupStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
 func (o RunAsGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RunAsGroupStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
@@ -2318,12 +2503,22 @@ func (o RunAsUserStrategyOptionsPtrOutput) Elem() RunAsUserStrategyOptionsOutput
 
 // ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsUserStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *RunAsUserStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate the allowable RunAsUser values that may be set.
 func (o RunAsUserStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RunAsUserStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
@@ -2463,12 +2658,22 @@ func (o RuntimeClassStrategyOptionsPtrOutput) Elem() RuntimeClassStrategyOptions
 
 // allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsPtrOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v RuntimeClassStrategyOptions) []string { return v.AllowedRuntimeClassNames }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *RuntimeClassStrategyOptions) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedRuntimeClassNames
+	}).(pulumi.StringArrayOutput)
 }
 
 // defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 func (o RuntimeClassStrategyOptionsPtrOutput) DefaultRuntimeClassName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RuntimeClassStrategyOptions) *string { return v.DefaultRuntimeClassName }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *RuntimeClassStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultRuntimeClassName
+	}).(pulumi.StringPtrOutput)
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
@@ -2608,12 +2813,22 @@ func (o SELinuxStrategyOptionsPtrOutput) Elem() SELinuxStrategyOptionsOutput {
 
 // rule is the strategy that will dictate the allowable labels that may be set.
 func (o SELinuxStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SELinuxStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 // seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 func (o SELinuxStrategyOptionsPtrOutput) SeLinuxOptions() corev1.SELinuxOptionsPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *corev1.SELinuxOptions { return v.SeLinuxOptions }).(corev1.SELinuxOptionsPtrOutput)
+	return o.ApplyT(func(v *SELinuxStrategyOptions) *corev1.SELinuxOptions {
+		if v == nil {
+			return nil
+		}
+		return v.SeLinuxOptions
+	}).(corev1.SELinuxOptionsPtrOutput)
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
@@ -2753,12 +2968,22 @@ func (o SupplementalGroupsStrategyOptionsPtrOutput) Elem() SupplementalGroupsStr
 
 // ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 func (o SupplementalGroupsStrategyOptionsPtrOutput) Ranges() IDRangeArrayOutput {
-	return o.ApplyT(func(v SupplementalGroupsStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
+	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) []IDRange {
+		if v == nil {
+			return nil
+		}
+		return v.Ranges
+	}).(IDRangeArrayOutput)
 }
 
 // rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
 func (o SupplementalGroupsStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SupplementalGroupsStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Rule
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {

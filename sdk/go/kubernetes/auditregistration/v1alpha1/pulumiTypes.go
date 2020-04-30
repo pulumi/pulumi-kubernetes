@@ -354,12 +354,22 @@ func (o AuditSinkSpecPtrOutput) Elem() AuditSinkSpecOutput {
 
 // Policy defines the policy for selecting which events should be sent to the webhook required
 func (o AuditSinkSpecPtrOutput) Policy() PolicyPtrOutput {
-	return o.ApplyT(func(v AuditSinkSpec) *Policy { return v.Policy }).(PolicyPtrOutput)
+	return o.ApplyT(func(v *AuditSinkSpec) *Policy {
+		if v == nil {
+			return nil
+		}
+		return v.Policy
+	}).(PolicyPtrOutput)
 }
 
 // Webhook to send events required
 func (o AuditSinkSpecPtrOutput) Webhook() WebhookPtrOutput {
-	return o.ApplyT(func(v AuditSinkSpec) *Webhook { return v.Webhook }).(WebhookPtrOutput)
+	return o.ApplyT(func(v *AuditSinkSpec) *Webhook {
+		if v == nil {
+			return nil
+		}
+		return v.Webhook
+	}).(WebhookPtrOutput)
 }
 
 // Policy defines the configuration of how audit events are logged
@@ -499,12 +509,22 @@ func (o PolicyPtrOutput) Elem() PolicyOutput {
 
 // The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
 func (o PolicyPtrOutput) Level() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Policy) *string { return v.Level }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *Policy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Level
+	}).(pulumi.StringPtrOutput)
 }
 
 // Stages is a list of stages for which events are created.
 func (o PolicyPtrOutput) Stages() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v Policy) []string { return v.Stages }).(pulumi.StringArrayOutput)
+	return o.ApplyT(func(v *Policy) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Stages
+	}).(pulumi.StringArrayOutput)
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
@@ -662,22 +682,42 @@ func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
 
 // `name` is the name of the service. Required
 func (o ServiceReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
 }
 
 // `namespace` is the namespace of the service. Required
 func (o ServiceReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
 }
 
 // `path` is an optional URL path which will be sent in any request to this service.
 func (o ServiceReferencePtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Path }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Path
+	}).(pulumi.StringPtrOutput)
 }
 
 // If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
 func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *int { return v.Port }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *ServiceReference) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Port
+	}).(pulumi.IntPtrOutput)
 }
 
 // Webhook holds the configuration of the webhook
@@ -817,12 +857,22 @@ func (o WebhookPtrOutput) Elem() WebhookOutput {
 
 // ClientConfig holds the connection parameters for the webhook required
 func (o WebhookPtrOutput) ClientConfig() WebhookClientConfigPtrOutput {
-	return o.ApplyT(func(v Webhook) *WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigPtrOutput)
+	return o.ApplyT(func(v *Webhook) *WebhookClientConfig {
+		if v == nil {
+			return nil
+		}
+		return v.ClientConfig
+	}).(WebhookClientConfigPtrOutput)
 }
 
 // Throttle holds the options for throttling the webhook
 func (o WebhookPtrOutput) Throttle() WebhookThrottleConfigPtrOutput {
-	return o.ApplyT(func(v Webhook) *WebhookThrottleConfig { return v.Throttle }).(WebhookThrottleConfigPtrOutput)
+	return o.ApplyT(func(v *Webhook) *WebhookThrottleConfig {
+		if v == nil {
+			return nil
+		}
+		return v.Throttle
+	}).(WebhookThrottleConfigPtrOutput)
 }
 
 // WebhookClientConfig contains the information to make a connection with the webhook
@@ -1007,14 +1057,24 @@ func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 func (o WebhookClientConfigPtrOutput) CaBundle() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *string { return v.CaBundle }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CaBundle
+	}).(pulumi.StringPtrOutput)
 }
 
 // `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 //
 // If the webhook is running within the cluster, then you should use `service`.
 func (o WebhookClientConfigPtrOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) *ServiceReference {
+		if v == nil {
+			return nil
+		}
+		return v.Service
+	}).(ServiceReferencePtrOutput)
 }
 
 // `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
@@ -1029,7 +1089,12 @@ func (o WebhookClientConfigPtrOutput) Service() ServiceReferencePtrOutput {
 //
 // Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
 func (o WebhookClientConfigPtrOutput) Url() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *string { return v.Url }).(pulumi.StringPtrOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Url
+	}).(pulumi.StringPtrOutput)
 }
 
 // WebhookThrottleConfig holds the configuration for throttling events
@@ -1169,12 +1234,22 @@ func (o WebhookThrottleConfigPtrOutput) Elem() WebhookThrottleConfigOutput {
 
 // ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
 func (o WebhookThrottleConfigPtrOutput) Burst() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v WebhookThrottleConfig) *int { return v.Burst }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *WebhookThrottleConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Burst
+	}).(pulumi.IntPtrOutput)
 }
 
 // ThrottleQPS maximum number of batches per second default 10 QPS
 func (o WebhookThrottleConfigPtrOutput) Qps() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v WebhookThrottleConfig) *int { return v.Qps }).(pulumi.IntPtrOutput)
+	return o.ApplyT(func(v *WebhookThrottleConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Qps
+	}).(pulumi.IntPtrOutput)
 }
 
 func init() {
