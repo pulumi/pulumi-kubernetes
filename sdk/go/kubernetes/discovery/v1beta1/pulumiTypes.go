@@ -436,15 +436,15 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSliceType struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-	AddressType *string `pulumi:"addressType"`
+	AddressType string `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
 	Endpoints []Endpoint `pulumi:"endpoints"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
 	Ports []EndpointPort `pulumi:"ports"`
 }
@@ -464,15 +464,15 @@ type EndpointSliceTypeInput interface {
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSliceTypeArgs struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-	AddressType pulumi.StringPtrInput `pulumi:"addressType"`
+	AddressType pulumi.StringInput `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
 	Endpoints EndpointArrayInput `pulumi:"endpoints"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
 	Ports EndpointPortArrayInput `pulumi:"ports"`
 }
@@ -531,13 +531,13 @@ func (o EndpointSliceTypeOutput) ToEndpointSliceTypeOutputWithContext(ctx contex
 }
 
 // addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-func (o EndpointSliceTypeOutput) AddressType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceType) *string { return v.AddressType }).(pulumi.StringPtrOutput)
+func (o EndpointSliceTypeOutput) AddressType() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointSliceType) string { return v.AddressType }).(pulumi.StringOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EndpointSliceTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o EndpointSliceTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointSliceType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
@@ -546,13 +546,13 @@ func (o EndpointSliceTypeOutput) Endpoints() EndpointArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EndpointSliceTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o EndpointSliceTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointSliceType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata.
-func (o EndpointSliceTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v EndpointSliceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o EndpointSliceTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v EndpointSliceType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
@@ -583,13 +583,13 @@ func (o EndpointSliceTypeArrayOutput) Index(i pulumi.IntInput) EndpointSliceType
 // EndpointSliceList represents a list of endpoint slices
 type EndpointSliceListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// List of endpoint slices
 	Items []EndpointSliceType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Standard list metadata.
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // EndpointSliceListTypeInput is an input type that accepts EndpointSliceListTypeArgs and EndpointSliceListTypeOutput values.
@@ -607,13 +607,13 @@ type EndpointSliceListTypeInput interface {
 // EndpointSliceList represents a list of endpoint slices
 type EndpointSliceListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// List of endpoint slices
 	Items EndpointSliceTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Standard list metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (EndpointSliceListTypeArgs) ElementType() reflect.Type {
@@ -644,8 +644,8 @@ func (o EndpointSliceListTypeOutput) ToEndpointSliceListTypeOutputWithContext(ct
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EndpointSliceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o EndpointSliceListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointSliceListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of endpoint slices
@@ -654,13 +654,13 @@ func (o EndpointSliceListTypeOutput) Items() EndpointSliceTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EndpointSliceListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o EndpointSliceListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointSliceListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata.
-func (o EndpointSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v EndpointSliceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o EndpointSliceListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v EndpointSliceListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 func init() {

@@ -803,7 +803,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 		return pschema.TypeSpec{Type: "string"}
 	case intOrString:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Type: "number"},
+			{Type: "integer"},
 			{Type: "string"},
 		}}
 	case v1Fields, v1FieldsV1, rawExtension:

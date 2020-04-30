@@ -14,12 +14,12 @@ import (
 // AuditSink represents a cluster level audit sink
 type AuditSinkType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     string            `pulumi:"kind"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec defines the audit configuration spec
-	Spec *AuditSinkSpec `pulumi:"spec"`
+	Spec AuditSinkSpec `pulumi:"spec"`
 }
 
 // AuditSinkTypeInput is an input type that accepts AuditSinkTypeArgs and AuditSinkTypeOutput values.
@@ -37,12 +37,12 @@ type AuditSinkTypeInput interface {
 // AuditSink represents a cluster level audit sink
 type AuditSinkTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Kind     pulumi.StringInput     `pulumi:"kind"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// Spec defines the audit configuration spec
-	Spec AuditSinkSpecPtrInput `pulumi:"spec"`
+	Spec AuditSinkSpecInput `pulumi:"spec"`
 }
 
 func (AuditSinkTypeArgs) ElementType() reflect.Type {
@@ -99,22 +99,22 @@ func (o AuditSinkTypeOutput) ToAuditSinkTypeOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o AuditSinkTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AuditSinkType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o AuditSinkTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditSinkType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o AuditSinkTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AuditSinkType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o AuditSinkTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditSinkType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-func (o AuditSinkTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v AuditSinkType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o AuditSinkTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v AuditSinkType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec defines the audit configuration spec
-func (o AuditSinkTypeOutput) Spec() AuditSinkSpecPtrOutput {
-	return o.ApplyT(func(v AuditSinkType) *AuditSinkSpec { return v.Spec }).(AuditSinkSpecPtrOutput)
+func (o AuditSinkTypeOutput) Spec() AuditSinkSpecOutput {
+	return o.ApplyT(func(v AuditSinkType) AuditSinkSpec { return v.Spec }).(AuditSinkSpecOutput)
 }
 
 type AuditSinkTypeArrayOutput struct{ *pulumi.OutputState }
@@ -140,12 +140,12 @@ func (o AuditSinkTypeArrayOutput) Index(i pulumi.IntInput) AuditSinkTypeOutput {
 // AuditSinkList is a list of AuditSink items.
 type AuditSinkListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// List of audit configurations.
 	Items []AuditSinkType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Kind     string          `pulumi:"kind"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // AuditSinkListTypeInput is an input type that accepts AuditSinkListTypeArgs and AuditSinkListTypeOutput values.
@@ -163,12 +163,12 @@ type AuditSinkListTypeInput interface {
 // AuditSinkList is a list of AuditSink items.
 type AuditSinkListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// List of audit configurations.
 	Items AuditSinkTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Kind     pulumi.StringInput   `pulumi:"kind"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (AuditSinkListTypeArgs) ElementType() reflect.Type {
@@ -199,8 +199,8 @@ func (o AuditSinkListTypeOutput) ToAuditSinkListTypeOutputWithContext(ctx contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o AuditSinkListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AuditSinkListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o AuditSinkListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditSinkListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of audit configurations.
@@ -209,20 +209,20 @@ func (o AuditSinkListTypeOutput) Items() AuditSinkTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o AuditSinkListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AuditSinkListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o AuditSinkListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditSinkListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-func (o AuditSinkListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v AuditSinkListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o AuditSinkListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v AuditSinkListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // AuditSinkSpec holds the spec for the audit sink
 type AuditSinkSpec struct {
 	// Policy defines the policy for selecting which events should be sent to the webhook required
-	Policy *Policy `pulumi:"policy"`
+	Policy Policy `pulumi:"policy"`
 	// Webhook to send events required
-	Webhook *Webhook `pulumi:"webhook"`
+	Webhook Webhook `pulumi:"webhook"`
 }
 
 // AuditSinkSpecInput is an input type that accepts AuditSinkSpecArgs and AuditSinkSpecOutput values.
@@ -240,9 +240,9 @@ type AuditSinkSpecInput interface {
 // AuditSinkSpec holds the spec for the audit sink
 type AuditSinkSpecArgs struct {
 	// Policy defines the policy for selecting which events should be sent to the webhook required
-	Policy PolicyPtrInput `pulumi:"policy"`
+	Policy PolicyInput `pulumi:"policy"`
 	// Webhook to send events required
-	Webhook WebhookPtrInput `pulumi:"webhook"`
+	Webhook WebhookInput `pulumi:"webhook"`
 }
 
 func (AuditSinkSpecArgs) ElementType() reflect.Type {
@@ -325,13 +325,13 @@ func (o AuditSinkSpecOutput) ToAuditSinkSpecPtrOutputWithContext(ctx context.Con
 }
 
 // Policy defines the policy for selecting which events should be sent to the webhook required
-func (o AuditSinkSpecOutput) Policy() PolicyPtrOutput {
-	return o.ApplyT(func(v AuditSinkSpec) *Policy { return v.Policy }).(PolicyPtrOutput)
+func (o AuditSinkSpecOutput) Policy() PolicyOutput {
+	return o.ApplyT(func(v AuditSinkSpec) Policy { return v.Policy }).(PolicyOutput)
 }
 
 // Webhook to send events required
-func (o AuditSinkSpecOutput) Webhook() WebhookPtrOutput {
-	return o.ApplyT(func(v AuditSinkSpec) *Webhook { return v.Webhook }).(WebhookPtrOutput)
+func (o AuditSinkSpecOutput) Webhook() WebhookOutput {
+	return o.ApplyT(func(v AuditSinkSpec) Webhook { return v.Webhook }).(WebhookOutput)
 }
 
 type AuditSinkSpecPtrOutput struct{ *pulumi.OutputState }
@@ -358,7 +358,7 @@ func (o AuditSinkSpecPtrOutput) Policy() PolicyPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Policy
+		return &v.Policy
 	}).(PolicyPtrOutput)
 }
 
@@ -368,14 +368,14 @@ func (o AuditSinkSpecPtrOutput) Webhook() WebhookPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Webhook
+		return &v.Webhook
 	}).(WebhookPtrOutput)
 }
 
 // Policy defines the configuration of how audit events are logged
 type Policy struct {
 	// The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
-	Level *string `pulumi:"level"`
+	Level string `pulumi:"level"`
 	// Stages is a list of stages for which events are created.
 	Stages []string `pulumi:"stages"`
 }
@@ -395,7 +395,7 @@ type PolicyInput interface {
 // Policy defines the configuration of how audit events are logged
 type PolicyArgs struct {
 	// The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
-	Level pulumi.StringPtrInput `pulumi:"level"`
+	Level pulumi.StringInput `pulumi:"level"`
 	// Stages is a list of stages for which events are created.
 	Stages pulumi.StringArrayInput `pulumi:"stages"`
 }
@@ -480,8 +480,8 @@ func (o PolicyOutput) ToPolicyPtrOutputWithContext(ctx context.Context) PolicyPt
 }
 
 // The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
-func (o PolicyOutput) Level() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Policy) *string { return v.Level }).(pulumi.StringPtrOutput)
+func (o PolicyOutput) Level() pulumi.StringOutput {
+	return o.ApplyT(func(v Policy) string { return v.Level }).(pulumi.StringOutput)
 }
 
 // Stages is a list of stages for which events are created.
@@ -513,7 +513,7 @@ func (o PolicyPtrOutput) Level() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Level
+		return &v.Level
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -530,9 +530,9 @@ func (o PolicyPtrOutput) Stages() pulumi.StringArrayOutput {
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReference struct {
 	// `name` is the name of the service. Required
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// `namespace` is the namespace of the service. Required
-	Namespace *string `pulumi:"namespace"`
+	Namespace string `pulumi:"namespace"`
 	// `path` is an optional URL path which will be sent in any request to this service.
 	Path *string `pulumi:"path"`
 	// If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
@@ -554,9 +554,9 @@ type ServiceReferenceInput interface {
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceArgs struct {
 	// `name` is the name of the service. Required
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// `namespace` is the namespace of the service. Required
-	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	Namespace pulumi.StringInput `pulumi:"namespace"`
 	// `path` is an optional URL path which will be sent in any request to this service.
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
@@ -643,13 +643,13 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 }
 
 // `name` is the name of the service. Required
-func (o ServiceReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o ServiceReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ServiceReference) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // `namespace` is the namespace of the service. Required
-func (o ServiceReferenceOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+func (o ServiceReferenceOutput) Namespace() pulumi.StringOutput {
+	return o.ApplyT(func(v ServiceReference) string { return v.Namespace }).(pulumi.StringOutput)
 }
 
 // `path` is an optional URL path which will be sent in any request to this service.
@@ -686,7 +686,7 @@ func (o ServiceReferencePtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -696,7 +696,7 @@ func (o ServiceReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Namespace
+		return &v.Namespace
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -723,7 +723,7 @@ func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
 // Webhook holds the configuration of the webhook
 type Webhook struct {
 	// ClientConfig holds the connection parameters for the webhook required
-	ClientConfig *WebhookClientConfig `pulumi:"clientConfig"`
+	ClientConfig WebhookClientConfig `pulumi:"clientConfig"`
 	// Throttle holds the options for throttling the webhook
 	Throttle *WebhookThrottleConfig `pulumi:"throttle"`
 }
@@ -743,7 +743,7 @@ type WebhookInput interface {
 // Webhook holds the configuration of the webhook
 type WebhookArgs struct {
 	// ClientConfig holds the connection parameters for the webhook required
-	ClientConfig WebhookClientConfigPtrInput `pulumi:"clientConfig"`
+	ClientConfig WebhookClientConfigInput `pulumi:"clientConfig"`
 	// Throttle holds the options for throttling the webhook
 	Throttle WebhookThrottleConfigPtrInput `pulumi:"throttle"`
 }
@@ -828,8 +828,8 @@ func (o WebhookOutput) ToWebhookPtrOutputWithContext(ctx context.Context) Webhoo
 }
 
 // ClientConfig holds the connection parameters for the webhook required
-func (o WebhookOutput) ClientConfig() WebhookClientConfigPtrOutput {
-	return o.ApplyT(func(v Webhook) *WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigPtrOutput)
+func (o WebhookOutput) ClientConfig() WebhookClientConfigOutput {
+	return o.ApplyT(func(v Webhook) WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigOutput)
 }
 
 // Throttle holds the options for throttling the webhook
@@ -861,7 +861,7 @@ func (o WebhookPtrOutput) ClientConfig() WebhookClientConfigPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ClientConfig
+		return &v.ClientConfig
 	}).(WebhookClientConfigPtrOutput)
 }
 

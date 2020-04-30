@@ -41,6 +41,11 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				"kubeconfig": {
 					Description: "The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
+					Language: map[string]json.RawMessage{
+						"csharp": rawMessage(map[string]interface{}{
+							"name": "KubeConfig",
+						}),
+					},
 				},
 				"context": {
 					Description: "If present, the name of the kubeconfig context to use.",
@@ -74,6 +79,11 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				"kubeconfig": {
 					Description: "The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
+					Language: map[string]json.RawMessage{
+						"csharp": rawMessage(map[string]interface{}{
+							"name": "KubeConfig",
+						}),
+					},
 				},
 				"context": {
 					Description: "If present, the name of the kubeconfig context to use.",
@@ -118,12 +128,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	groupsSlice := createGroups(definitions, schemaOpts())
 	for _, group := range groupsSlice {
 		for _, version := range group.Versions() {
-			mod := version.gv.String()
-			csharpNamespaces[mod] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
-
 			for _, kind := range version.Kinds() {
 				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.canonicalGV, kind.kind)
 
+				csharpNamespaces[kind.canonicalGV] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
 				modToPkg[kind.canonicalGV] = kind.schemaPkgName
 				pkgImportAliases[fmt.Sprintf("%s/%s", goImportPath, kind.schemaPkgName)] = strings.Replace(
 					kind.schemaPkgName, "/", "", -1)
@@ -137,11 +145,21 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				for _, p := range kind.Properties() {
 					// JSONSchema type includes `$ref` and `$schema` properties, and $ is an invalid character in
 					// the generated names.
+					// TODO: this replacement is going to be deleted once pulumi/pulumi codegen supports masking $-fields.
 					if strings.HasPrefix(p.name, "$") {
 						p.name = "t_" + p.name[1:]
 					}
 					objectSpec.Properties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
-					//objectSpec.Required = append(objectSpec.Required, p.name)
+				}
+
+				if kind.IsNested() {
+					for _, p := range kind.RequiredInputProperties() {
+						objectSpec.Required = append(objectSpec.Required, p.name)
+					}
+				} else {
+					for _, p := range kind.Properties() {
+						objectSpec.Required = append(objectSpec.Required, p.name)
+					}
 				}
 
 				pkg.Types[tok] = objectSpec
@@ -175,7 +193,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	pkg.Language["csharp"] = rawMessage(map[string]interface{}{
 		"packageReferences": map[string]string{
-			"Pulumi":                       "2.0.0-beta.2",
+			"Glob":                         "1.1.5",
+			"Pulumi":                       "2.*",
 			"System.Collections.Immutable": "1.6.0",
 		},
 		"namespaces": csharpNamespaces,
@@ -249,6 +268,24 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	}
 	if dv := defaultValue(); dv != nil {
 		propertySpec.Default = *dv
+	}
+	languageName := strings.ToUpper(p.name[:1]) + p.name[1:]
+	if languageName == resourceKind {
+		// .NET does not allow properties to be the same as the enclosing class - so special case these
+		propertySpec.Language = map[string]json.RawMessage{
+			"csharp": rawMessage(map[string]interface{}{
+				"name": languageName + "Value",
+			}),
+		}
+	}
+	// JSONSchema type includes `$ref` and `$schema` properties, and $ is an invalid character in
+	// the generated names. Replace them with `Ref` and `Schema`.
+	if strings.HasPrefix(p.name, "$") {
+		propertySpec.Language = map[string]json.RawMessage{
+			"csharp": rawMessage(map[string]interface{}{
+				"name": strings.ToUpper(p.name[1:2]) + p.name[2:],
+			}),
+		}
 	}
 	return propertySpec
 }

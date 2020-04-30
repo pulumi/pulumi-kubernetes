@@ -17,7 +17,7 @@ type APIGroup struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// name is the name of the group.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// preferredVersion is the version preferred by the API server, which probably is the storage version.
 	PreferredVersion *GroupVersionForDiscovery `pulumi:"preferredVersion"`
 	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
@@ -45,7 +45,7 @@ type APIGroupArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// name is the name of the group.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// preferredVersion is the version preferred by the API server, which probably is the storage version.
 	PreferredVersion GroupVersionForDiscoveryPtrInput `pulumi:"preferredVersion"`
 	// a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
@@ -118,8 +118,8 @@ func (o APIGroupOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // name is the name of the group.
-func (o APIGroupOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v APIGroup) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o APIGroupOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v APIGroup) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // preferredVersion is the version preferred by the API server, which probably is the storage version.
@@ -238,15 +238,15 @@ type APIResource struct {
 	// group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale".
 	Group *string `pulumi:"group"`
 	// kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// name is the plural name of the resource.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// namespaced indicates if a resource is namespaced or not.
-	Namespaced *bool `pulumi:"namespaced"`
+	Namespaced bool `pulumi:"namespaced"`
 	// shortNames is a list of suggested short names of the resource.
 	ShortNames []string `pulumi:"shortNames"`
 	// singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the kubectl CLI interface.
-	SingularName *string `pulumi:"singularName"`
+	SingularName string `pulumi:"singularName"`
 	// The hash value of the storage version, the version this resource is converted to when written to the data store. Value must be treated as opaque by clients. Only equality comparison on the value is valid. This is an alpha feature and may change or be removed in the future. The field is populated by the apiserver only if the StorageVersionHash feature gate is enabled. This field will remain optional even if it graduates.
 	StorageVersionHash *string `pulumi:"storageVersionHash"`
 	// verbs is a list of supported kube verbs (this includes get, list, watch, create, update, patch, delete, deletecollection, and proxy)
@@ -274,15 +274,15 @@ type APIResourceArgs struct {
 	// group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale".
 	Group pulumi.StringPtrInput `pulumi:"group"`
 	// kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// name is the plural name of the resource.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// namespaced indicates if a resource is namespaced or not.
-	Namespaced pulumi.BoolPtrInput `pulumi:"namespaced"`
+	Namespaced pulumi.BoolInput `pulumi:"namespaced"`
 	// shortNames is a list of suggested short names of the resource.
 	ShortNames pulumi.StringArrayInput `pulumi:"shortNames"`
 	// singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the kubectl CLI interface.
-	SingularName pulumi.StringPtrInput `pulumi:"singularName"`
+	SingularName pulumi.StringInput `pulumi:"singularName"`
 	// The hash value of the storage version, the version this resource is converted to when written to the data store. Value must be treated as opaque by clients. Only equality comparison on the value is valid. This is an alpha feature and may change or be removed in the future. The field is populated by the apiserver only if the StorageVersionHash feature gate is enabled. This field will remain optional even if it graduates.
 	StorageVersionHash pulumi.StringPtrInput `pulumi:"storageVersionHash"`
 	// verbs is a list of supported kube verbs (this includes get, list, watch, create, update, patch, delete, deletecollection, and proxy)
@@ -355,18 +355,18 @@ func (o APIResourceOutput) Group() pulumi.StringPtrOutput {
 }
 
 // kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
-func (o APIResourceOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v APIResource) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o APIResourceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v APIResource) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // name is the plural name of the resource.
-func (o APIResourceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v APIResource) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o APIResourceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v APIResource) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // namespaced indicates if a resource is namespaced or not.
-func (o APIResourceOutput) Namespaced() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v APIResource) *bool { return v.Namespaced }).(pulumi.BoolPtrOutput)
+func (o APIResourceOutput) Namespaced() pulumi.BoolOutput {
+	return o.ApplyT(func(v APIResource) bool { return v.Namespaced }).(pulumi.BoolOutput)
 }
 
 // shortNames is a list of suggested short names of the resource.
@@ -375,8 +375,8 @@ func (o APIResourceOutput) ShortNames() pulumi.StringArrayOutput {
 }
 
 // singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the kubectl CLI interface.
-func (o APIResourceOutput) SingularName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v APIResource) *string { return v.SingularName }).(pulumi.StringPtrOutput)
+func (o APIResourceOutput) SingularName() pulumi.StringOutput {
+	return o.ApplyT(func(v APIResource) string { return v.SingularName }).(pulumi.StringOutput)
 }
 
 // The hash value of the storage version, the version this resource is converted to when written to the data store. Value must be treated as opaque by clients. Only equality comparison on the value is valid. This is an alpha feature and may change or be removed in the future. The field is populated by the apiserver only if the StorageVersionHash feature gate is enabled. This field will remain optional even if it graduates.
@@ -419,7 +419,7 @@ type APIResourceList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// groupVersion is the group and version this APIResourceList is for.
-	GroupVersion *string `pulumi:"groupVersion"`
+	GroupVersion string `pulumi:"groupVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// resources contains the name of the resources and if they are namespaced.
@@ -443,7 +443,7 @@ type APIResourceListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// groupVersion is the group and version this APIResourceList is for.
-	GroupVersion pulumi.StringPtrInput `pulumi:"groupVersion"`
+	GroupVersion pulumi.StringInput `pulumi:"groupVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// resources contains the name of the resources and if they are namespaced.
@@ -483,8 +483,8 @@ func (o APIResourceListOutput) ApiVersion() pulumi.StringPtrOutput {
 }
 
 // groupVersion is the group and version this APIResourceList is for.
-func (o APIResourceListOutput) GroupVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v APIResourceList) *string { return v.GroupVersion }).(pulumi.StringPtrOutput)
+func (o APIResourceListOutput) GroupVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v APIResourceList) string { return v.GroupVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -833,9 +833,9 @@ func (o DeleteOptionsPtrOutput) PropagationPolicy() pulumi.StringPtrOutput {
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
 type GroupVersionForDiscovery struct {
 	// groupVersion specifies the API group and version in the form "group/version"
-	GroupVersion *string `pulumi:"groupVersion"`
+	GroupVersion string `pulumi:"groupVersion"`
 	// version specifies the version in the form of "version". This is to save the clients the trouble of splitting the GroupVersion.
-	Version *string `pulumi:"version"`
+	Version string `pulumi:"version"`
 }
 
 // GroupVersionForDiscoveryInput is an input type that accepts GroupVersionForDiscoveryArgs and GroupVersionForDiscoveryOutput values.
@@ -853,9 +853,9 @@ type GroupVersionForDiscoveryInput interface {
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
 type GroupVersionForDiscoveryArgs struct {
 	// groupVersion specifies the API group and version in the form "group/version"
-	GroupVersion pulumi.StringPtrInput `pulumi:"groupVersion"`
+	GroupVersion pulumi.StringInput `pulumi:"groupVersion"`
 	// version specifies the version in the form of "version". This is to save the clients the trouble of splitting the GroupVersion.
-	Version pulumi.StringPtrInput `pulumi:"version"`
+	Version pulumi.StringInput `pulumi:"version"`
 }
 
 func (GroupVersionForDiscoveryArgs) ElementType() reflect.Type {
@@ -964,13 +964,13 @@ func (o GroupVersionForDiscoveryOutput) ToGroupVersionForDiscoveryPtrOutputWithC
 }
 
 // groupVersion specifies the API group and version in the form "group/version"
-func (o GroupVersionForDiscoveryOutput) GroupVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GroupVersionForDiscovery) *string { return v.GroupVersion }).(pulumi.StringPtrOutput)
+func (o GroupVersionForDiscoveryOutput) GroupVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v GroupVersionForDiscovery) string { return v.GroupVersion }).(pulumi.StringOutput)
 }
 
 // version specifies the version in the form of "version". This is to save the clients the trouble of splitting the GroupVersion.
-func (o GroupVersionForDiscoveryOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GroupVersionForDiscovery) *string { return v.Version }).(pulumi.StringPtrOutput)
+func (o GroupVersionForDiscoveryOutput) Version() pulumi.StringOutput {
+	return o.ApplyT(func(v GroupVersionForDiscovery) string { return v.Version }).(pulumi.StringOutput)
 }
 
 type GroupVersionForDiscoveryPtrOutput struct{ *pulumi.OutputState }
@@ -997,7 +997,7 @@ func (o GroupVersionForDiscoveryPtrOutput) GroupVersion() pulumi.StringPtrOutput
 		if v == nil {
 			return nil
 		}
-		return v.GroupVersion
+		return &v.GroupVersion
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1007,7 +1007,7 @@ func (o GroupVersionForDiscoveryPtrOutput) Version() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Version
+		return &v.Version
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1235,9 +1235,9 @@ func (o LabelSelectorArrayOutput) Index(i pulumi.IntInput) LabelSelectorOutput {
 // A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 type LabelSelectorRequirement struct {
 	// key is the label key that the selector applies to.
-	Key *string `pulumi:"key"`
+	Key string `pulumi:"key"`
 	// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
-	Operator *string `pulumi:"operator"`
+	Operator string `pulumi:"operator"`
 	// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	Values []string `pulumi:"values"`
 }
@@ -1257,9 +1257,9 @@ type LabelSelectorRequirementInput interface {
 // A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 type LabelSelectorRequirementArgs struct {
 	// key is the label key that the selector applies to.
-	Key pulumi.StringPtrInput `pulumi:"key"`
+	Key pulumi.StringInput `pulumi:"key"`
 	// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
-	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	Operator pulumi.StringInput `pulumi:"operator"`
 	// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	Values pulumi.StringArrayInput `pulumi:"values"`
 }
@@ -1318,13 +1318,13 @@ func (o LabelSelectorRequirementOutput) ToLabelSelectorRequirementOutputWithCont
 }
 
 // key is the label key that the selector applies to.
-func (o LabelSelectorRequirementOutput) Key() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LabelSelectorRequirement) *string { return v.Key }).(pulumi.StringPtrOutput)
+func (o LabelSelectorRequirementOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v LabelSelectorRequirement) string { return v.Key }).(pulumi.StringOutput)
 }
 
 // operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
-func (o LabelSelectorRequirementOutput) Operator() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LabelSelectorRequirement) *string { return v.Operator }).(pulumi.StringPtrOutput)
+func (o LabelSelectorRequirementOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v LabelSelectorRequirement) string { return v.Operator }).(pulumi.StringOutput)
 }
 
 // values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
@@ -2188,17 +2188,17 @@ func (o ObjectMetaPtrOutput) Uid() pulumi.StringPtrOutput {
 // OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 type OwnerReference struct {
 	// API version of the referent.
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
 	BlockOwnerDeletion *bool `pulumi:"blockOwnerDeletion"`
 	// If true, this reference points to the managing controller.
 	Controller *bool `pulumi:"controller"`
 	// Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
-	Uid *string `pulumi:"uid"`
+	Uid string `pulumi:"uid"`
 }
 
 // OwnerReferenceInput is an input type that accepts OwnerReferenceArgs and OwnerReferenceOutput values.
@@ -2216,17 +2216,17 @@ type OwnerReferenceInput interface {
 // OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 type OwnerReferenceArgs struct {
 	// API version of the referent.
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
 	BlockOwnerDeletion pulumi.BoolPtrInput `pulumi:"blockOwnerDeletion"`
 	// If true, this reference points to the managing controller.
 	Controller pulumi.BoolPtrInput `pulumi:"controller"`
 	// Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
-	Uid pulumi.StringPtrInput `pulumi:"uid"`
+	Uid pulumi.StringInput `pulumi:"uid"`
 }
 
 func (OwnerReferenceArgs) ElementType() reflect.Type {
@@ -2283,8 +2283,8 @@ func (o OwnerReferenceOutput) ToOwnerReferenceOutputWithContext(ctx context.Cont
 }
 
 // API version of the referent.
-func (o OwnerReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v OwnerReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o OwnerReferenceOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v OwnerReference) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
@@ -2298,18 +2298,18 @@ func (o OwnerReferenceOutput) Controller() pulumi.BoolPtrOutput {
 }
 
 // Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o OwnerReferenceOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v OwnerReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o OwnerReferenceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v OwnerReference) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-func (o OwnerReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v OwnerReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o OwnerReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v OwnerReference) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
-func (o OwnerReferenceOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v OwnerReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
+func (o OwnerReferenceOutput) Uid() pulumi.StringOutput {
+	return o.ApplyT(func(v OwnerReference) string { return v.Uid }).(pulumi.StringOutput)
 }
 
 type OwnerReferenceArrayOutput struct{ *pulumi.OutputState }
@@ -2490,9 +2490,9 @@ func (o PreconditionsPtrOutput) Uid() pulumi.StringPtrOutput {
 // ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
 type ServerAddressByClientCIDR struct {
 	// The CIDR with which clients can match their IP to figure out the server address that they should use.
-	ClientCIDR *string `pulumi:"clientCIDR"`
+	ClientCIDR string `pulumi:"clientCIDR"`
 	// Address of this server, suitable for a client that matches the above CIDR. This can be a hostname, hostname:port, IP or IP:port.
-	ServerAddress *string `pulumi:"serverAddress"`
+	ServerAddress string `pulumi:"serverAddress"`
 }
 
 // ServerAddressByClientCIDRInput is an input type that accepts ServerAddressByClientCIDRArgs and ServerAddressByClientCIDROutput values.
@@ -2510,9 +2510,9 @@ type ServerAddressByClientCIDRInput interface {
 // ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
 type ServerAddressByClientCIDRArgs struct {
 	// The CIDR with which clients can match their IP to figure out the server address that they should use.
-	ClientCIDR pulumi.StringPtrInput `pulumi:"clientCIDR"`
+	ClientCIDR pulumi.StringInput `pulumi:"clientCIDR"`
 	// Address of this server, suitable for a client that matches the above CIDR. This can be a hostname, hostname:port, IP or IP:port.
-	ServerAddress pulumi.StringPtrInput `pulumi:"serverAddress"`
+	ServerAddress pulumi.StringInput `pulumi:"serverAddress"`
 }
 
 func (ServerAddressByClientCIDRArgs) ElementType() reflect.Type {
@@ -2569,13 +2569,13 @@ func (o ServerAddressByClientCIDROutput) ToServerAddressByClientCIDROutputWithCo
 }
 
 // The CIDR with which clients can match their IP to figure out the server address that they should use.
-func (o ServerAddressByClientCIDROutput) ClientCIDR() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServerAddressByClientCIDR) *string { return v.ClientCIDR }).(pulumi.StringPtrOutput)
+func (o ServerAddressByClientCIDROutput) ClientCIDR() pulumi.StringOutput {
+	return o.ApplyT(func(v ServerAddressByClientCIDR) string { return v.ClientCIDR }).(pulumi.StringOutput)
 }
 
 // Address of this server, suitable for a client that matches the above CIDR. This can be a hostname, hostname:port, IP or IP:port.
-func (o ServerAddressByClientCIDROutput) ServerAddress() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServerAddressByClientCIDR) *string { return v.ServerAddress }).(pulumi.StringPtrOutput)
+func (o ServerAddressByClientCIDROutput) ServerAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v ServerAddressByClientCIDR) string { return v.ServerAddress }).(pulumi.StringOutput)
 }
 
 type ServerAddressByClientCIDRArrayOutput struct{ *pulumi.OutputState }
@@ -2601,21 +2601,21 @@ func (o ServerAddressByClientCIDRArrayOutput) Index(i pulumi.IntInput) ServerAdd
 // Status is a return value for calls that don't return other objects.
 type StatusType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Suggested HTTP return code for this status, 0 if not set.
-	Code *int `pulumi:"code"`
+	Code int `pulumi:"code"`
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details *StatusDetails `pulumi:"details"`
+	Details StatusDetails `pulumi:"details"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// A human-readable description of the status of this operation.
-	Message *string `pulumi:"message"`
+	Message string `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata *ListMeta `pulumi:"metadata"`
+	Metadata ListMeta `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
-	Reason *string `pulumi:"reason"`
+	Reason string `pulumi:"reason"`
 	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 }
 
 // StatusTypeInput is an input type that accepts StatusTypeArgs and StatusTypeOutput values.
@@ -2633,21 +2633,21 @@ type StatusTypeInput interface {
 // Status is a return value for calls that don't return other objects.
 type StatusTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Suggested HTTP return code for this status, 0 if not set.
-	Code pulumi.IntPtrInput `pulumi:"code"`
+	Code pulumi.IntInput `pulumi:"code"`
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details StatusDetailsPtrInput `pulumi:"details"`
+	Details StatusDetailsInput `pulumi:"details"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// A human-readable description of the status of this operation.
-	Message pulumi.StringPtrInput `pulumi:"message"`
+	Message pulumi.StringInput `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata ListMetaPtrInput `pulumi:"metadata"`
+	Metadata ListMetaInput `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
-	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	Reason pulumi.StringInput `pulumi:"reason"`
 	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 }
 
 func (StatusTypeArgs) ElementType() reflect.Type {
@@ -2678,43 +2678,43 @@ func (o StatusTypeOutput) ToStatusTypeOutputWithContext(ctx context.Context) Sta
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StatusTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o StatusTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Suggested HTTP return code for this status, 0 if not set.
-func (o StatusTypeOutput) Code() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatusType) *int { return v.Code }).(pulumi.IntPtrOutput)
+func (o StatusTypeOutput) Code() pulumi.IntOutput {
+	return o.ApplyT(func(v StatusType) int { return v.Code }).(pulumi.IntOutput)
 }
 
 // Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-func (o StatusTypeOutput) Details() StatusDetailsPtrOutput {
-	return o.ApplyT(func(v StatusType) *StatusDetails { return v.Details }).(StatusDetailsPtrOutput)
+func (o StatusTypeOutput) Details() StatusDetailsOutput {
+	return o.ApplyT(func(v StatusType) StatusDetails { return v.Details }).(StatusDetailsOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StatusTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o StatusTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // A human-readable description of the status of this operation.
-func (o StatusTypeOutput) Message() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusType) *string { return v.Message }).(pulumi.StringPtrOutput)
+func (o StatusTypeOutput) Message() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusType) string { return v.Message }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StatusTypeOutput) Metadata() ListMetaPtrOutput {
-	return o.ApplyT(func(v StatusType) *ListMeta { return v.Metadata }).(ListMetaPtrOutput)
+func (o StatusTypeOutput) Metadata() ListMetaOutput {
+	return o.ApplyT(func(v StatusType) ListMeta { return v.Metadata }).(ListMetaOutput)
 }
 
 // A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
-func (o StatusTypeOutput) Reason() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusType) *string { return v.Reason }).(pulumi.StringPtrOutput)
+func (o StatusTypeOutput) Reason() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusType) string { return v.Reason }).(pulumi.StringOutput)
 }
 
 // Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o StatusTypeOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatusType) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o StatusTypeOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusType) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
@@ -3088,7 +3088,7 @@ type WatchEvent struct {
 	//  * If Type is Error: *Status is recommended; other types may make sense
 	//    depending on context.
 	Object interface{} `pulumi:"object"`
-	Type   *string     `pulumi:"type"`
+	Type   string      `pulumi:"type"`
 }
 
 // WatchEventInput is an input type that accepts WatchEventArgs and WatchEventOutput values.
@@ -3110,8 +3110,8 @@ type WatchEventArgs struct {
 	//  * If Type is Deleted: the state of the object immediately before deletion.
 	//  * If Type is Error: *Status is recommended; other types may make sense
 	//    depending on context.
-	Object pulumi.Input          `pulumi:"object"`
-	Type   pulumi.StringPtrInput `pulumi:"type"`
+	Object pulumi.Input       `pulumi:"object"`
+	Type   pulumi.StringInput `pulumi:"type"`
 }
 
 func (WatchEventArgs) ElementType() reflect.Type {
@@ -3150,8 +3150,8 @@ func (o WatchEventOutput) Object() pulumi.AnyOutput {
 	return o.ApplyT(func(v WatchEvent) interface{} { return v.Object }).(pulumi.AnyOutput)
 }
 
-func (o WatchEventOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v WatchEvent) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o WatchEventOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v WatchEvent) string { return v.Type }).(pulumi.StringOutput)
 }
 
 func init() {

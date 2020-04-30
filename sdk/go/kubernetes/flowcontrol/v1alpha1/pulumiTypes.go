@@ -14,7 +14,7 @@ import (
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
 type FlowDistinguisherMethod struct {
 	// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // FlowDistinguisherMethodInput is an input type that accepts FlowDistinguisherMethodArgs and FlowDistinguisherMethodOutput values.
@@ -32,7 +32,7 @@ type FlowDistinguisherMethodInput interface {
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
 type FlowDistinguisherMethodArgs struct {
 	// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (FlowDistinguisherMethodArgs) ElementType() reflect.Type {
@@ -115,8 +115,8 @@ func (o FlowDistinguisherMethodOutput) ToFlowDistinguisherMethodPtrOutputWithCon
 }
 
 // `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
-func (o FlowDistinguisherMethodOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowDistinguisherMethod) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o FlowDistinguisherMethodOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v FlowDistinguisherMethod) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type FlowDistinguisherMethodPtrOutput struct{ *pulumi.OutputState }
@@ -143,22 +143,22 @@ func (o FlowDistinguisherMethodPtrOutput) Type() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Type
+		return &v.Type
 	}).(pulumi.StringPtrOutput)
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 type FlowSchemaType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *FlowSchemaSpec `pulumi:"spec"`
+	Spec FlowSchemaSpec `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *FlowSchemaStatus `pulumi:"status"`
+	Status FlowSchemaStatus `pulumi:"status"`
 }
 
 // FlowSchemaTypeInput is an input type that accepts FlowSchemaTypeArgs and FlowSchemaTypeOutput values.
@@ -176,15 +176,15 @@ type FlowSchemaTypeInput interface {
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 type FlowSchemaTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec FlowSchemaSpecPtrInput `pulumi:"spec"`
+	Spec FlowSchemaSpecInput `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status FlowSchemaStatusPtrInput `pulumi:"status"`
+	Status FlowSchemaStatusInput `pulumi:"status"`
 }
 
 func (FlowSchemaTypeArgs) ElementType() reflect.Type {
@@ -241,28 +241,28 @@ func (o FlowSchemaTypeOutput) ToFlowSchemaTypeOutputWithContext(ctx context.Cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o FlowSchemaTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowSchemaType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o FlowSchemaTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v FlowSchemaType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o FlowSchemaTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowSchemaType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o FlowSchemaTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v FlowSchemaType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o FlowSchemaTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v FlowSchemaType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o FlowSchemaTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v FlowSchemaType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o FlowSchemaTypeOutput) Spec() FlowSchemaSpecPtrOutput {
-	return o.ApplyT(func(v FlowSchemaType) *FlowSchemaSpec { return v.Spec }).(FlowSchemaSpecPtrOutput)
+func (o FlowSchemaTypeOutput) Spec() FlowSchemaSpecOutput {
+	return o.ApplyT(func(v FlowSchemaType) FlowSchemaSpec { return v.Spec }).(FlowSchemaSpecOutput)
 }
 
 // `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o FlowSchemaTypeOutput) Status() FlowSchemaStatusPtrOutput {
-	return o.ApplyT(func(v FlowSchemaType) *FlowSchemaStatus { return v.Status }).(FlowSchemaStatusPtrOutput)
+func (o FlowSchemaTypeOutput) Status() FlowSchemaStatusOutput {
+	return o.ApplyT(func(v FlowSchemaType) FlowSchemaStatus { return v.Status }).(FlowSchemaStatusOutput)
 }
 
 type FlowSchemaTypeArrayOutput struct{ *pulumi.OutputState }
@@ -426,13 +426,13 @@ func (o FlowSchemaConditionArrayOutput) Index(i pulumi.IntInput) FlowSchemaCondi
 // FlowSchemaList is a list of FlowSchema objects.
 type FlowSchemaListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// `items` is a list of FlowSchemas.
 	Items []FlowSchemaType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // FlowSchemaListTypeInput is an input type that accepts FlowSchemaListTypeArgs and FlowSchemaListTypeOutput values.
@@ -450,13 +450,13 @@ type FlowSchemaListTypeInput interface {
 // FlowSchemaList is a list of FlowSchema objects.
 type FlowSchemaListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// `items` is a list of FlowSchemas.
 	Items FlowSchemaTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (FlowSchemaListTypeArgs) ElementType() reflect.Type {
@@ -487,8 +487,8 @@ func (o FlowSchemaListTypeOutput) ToFlowSchemaListTypeOutputWithContext(ctx cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o FlowSchemaListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowSchemaListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o FlowSchemaListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v FlowSchemaListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // `items` is a list of FlowSchemas.
@@ -497,13 +497,13 @@ func (o FlowSchemaListTypeOutput) Items() FlowSchemaTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o FlowSchemaListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowSchemaListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o FlowSchemaListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v FlowSchemaListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o FlowSchemaListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v FlowSchemaListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o FlowSchemaListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v FlowSchemaListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
@@ -513,7 +513,7 @@ type FlowSchemaSpec struct {
 	// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 	MatchingPrecedence *int `pulumi:"matchingPrecedence"`
 	// `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
-	PriorityLevelConfiguration *PriorityLevelConfigurationReference `pulumi:"priorityLevelConfiguration"`
+	PriorityLevelConfiguration PriorityLevelConfigurationReference `pulumi:"priorityLevelConfiguration"`
 	// `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
 	Rules []PolicyRulesWithSubjects `pulumi:"rules"`
 }
@@ -537,7 +537,7 @@ type FlowSchemaSpecArgs struct {
 	// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 	MatchingPrecedence pulumi.IntPtrInput `pulumi:"matchingPrecedence"`
 	// `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
-	PriorityLevelConfiguration PriorityLevelConfigurationReferencePtrInput `pulumi:"priorityLevelConfiguration"`
+	PriorityLevelConfiguration PriorityLevelConfigurationReferenceInput `pulumi:"priorityLevelConfiguration"`
 	// `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
 	Rules PolicyRulesWithSubjectsArrayInput `pulumi:"rules"`
 }
@@ -632,8 +632,8 @@ func (o FlowSchemaSpecOutput) MatchingPrecedence() pulumi.IntPtrOutput {
 }
 
 // `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
-func (o FlowSchemaSpecOutput) PriorityLevelConfiguration() PriorityLevelConfigurationReferencePtrOutput {
-	return o.ApplyT(func(v FlowSchemaSpec) *PriorityLevelConfigurationReference { return v.PriorityLevelConfiguration }).(PriorityLevelConfigurationReferencePtrOutput)
+func (o FlowSchemaSpecOutput) PriorityLevelConfiguration() PriorityLevelConfigurationReferenceOutput {
+	return o.ApplyT(func(v FlowSchemaSpec) PriorityLevelConfigurationReference { return v.PriorityLevelConfiguration }).(PriorityLevelConfigurationReferenceOutput)
 }
 
 // `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
@@ -685,7 +685,7 @@ func (o FlowSchemaSpecPtrOutput) PriorityLevelConfiguration() PriorityLevelConfi
 		if v == nil {
 			return nil
 		}
-		return v.PriorityLevelConfiguration
+		return &v.PriorityLevelConfiguration
 	}).(PriorityLevelConfigurationReferencePtrOutput)
 }
 
@@ -838,7 +838,7 @@ func (o FlowSchemaStatusPtrOutput) Conditions() FlowSchemaConditionArrayOutput {
 // GroupSubject holds detailed information for group-kind subject.
 type GroupSubject struct {
 	// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 }
 
 // GroupSubjectInput is an input type that accepts GroupSubjectArgs and GroupSubjectOutput values.
@@ -856,7 +856,7 @@ type GroupSubjectInput interface {
 // GroupSubject holds detailed information for group-kind subject.
 type GroupSubjectArgs struct {
 	// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (GroupSubjectArgs) ElementType() reflect.Type {
@@ -939,8 +939,8 @@ func (o GroupSubjectOutput) ToGroupSubjectPtrOutputWithContext(ctx context.Conte
 }
 
 // name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
-func (o GroupSubjectOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GroupSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o GroupSubjectOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GroupSubject) string { return v.Name }).(pulumi.StringOutput)
 }
 
 type GroupSubjectPtrOutput struct{ *pulumi.OutputState }
@@ -967,7 +967,7 @@ func (o GroupSubjectPtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -976,7 +976,7 @@ type LimitResponse struct {
 	// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 	Queuing *QueuingConfiguration `pulumi:"queuing"`
 	// `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // LimitResponseInput is an input type that accepts LimitResponseArgs and LimitResponseOutput values.
@@ -996,7 +996,7 @@ type LimitResponseArgs struct {
 	// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 	Queuing QueuingConfigurationPtrInput `pulumi:"queuing"`
 	// `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (LimitResponseArgs) ElementType() reflect.Type {
@@ -1084,8 +1084,8 @@ func (o LimitResponseOutput) Queuing() QueuingConfigurationPtrOutput {
 }
 
 // `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
-func (o LimitResponseOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LimitResponse) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o LimitResponseOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v LimitResponse) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type LimitResponsePtrOutput struct{ *pulumi.OutputState }
@@ -1122,7 +1122,7 @@ func (o LimitResponsePtrOutput) Type() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Type
+		return &v.Type
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1555,15 +1555,15 @@ func (o PolicyRulesWithSubjectsArrayOutput) Index(i pulumi.IntInput) PolicyRules
 // PriorityLevelConfiguration represents the configuration of a priority level.
 type PriorityLevelConfigurationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *PriorityLevelConfigurationSpec `pulumi:"spec"`
+	Spec PriorityLevelConfigurationSpec `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status *PriorityLevelConfigurationStatus `pulumi:"status"`
+	Status PriorityLevelConfigurationStatus `pulumi:"status"`
 }
 
 // PriorityLevelConfigurationTypeInput is an input type that accepts PriorityLevelConfigurationTypeArgs and PriorityLevelConfigurationTypeOutput values.
@@ -1581,15 +1581,15 @@ type PriorityLevelConfigurationTypeInput interface {
 // PriorityLevelConfiguration represents the configuration of a priority level.
 type PriorityLevelConfigurationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec PriorityLevelConfigurationSpecPtrInput `pulumi:"spec"`
+	Spec PriorityLevelConfigurationSpecInput `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status PriorityLevelConfigurationStatusPtrInput `pulumi:"status"`
+	Status PriorityLevelConfigurationStatusInput `pulumi:"status"`
 }
 
 func (PriorityLevelConfigurationTypeArgs) ElementType() reflect.Type {
@@ -1646,28 +1646,28 @@ func (o PriorityLevelConfigurationTypeOutput) ToPriorityLevelConfigurationTypeOu
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityLevelConfigurationTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityLevelConfigurationTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityLevelConfigurationTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PriorityLevelConfigurationTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PriorityLevelConfigurationTypeOutput) Spec() PriorityLevelConfigurationSpecPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) *PriorityLevelConfigurationSpec { return v.Spec }).(PriorityLevelConfigurationSpecPtrOutput)
+func (o PriorityLevelConfigurationTypeOutput) Spec() PriorityLevelConfigurationSpecOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) PriorityLevelConfigurationSpec { return v.Spec }).(PriorityLevelConfigurationSpecOutput)
 }
 
 // `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PriorityLevelConfigurationTypeOutput) Status() PriorityLevelConfigurationStatusPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) *PriorityLevelConfigurationStatus { return v.Status }).(PriorityLevelConfigurationStatusPtrOutput)
+func (o PriorityLevelConfigurationTypeOutput) Status() PriorityLevelConfigurationStatusOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) PriorityLevelConfigurationStatus { return v.Status }).(PriorityLevelConfigurationStatusOutput)
 }
 
 type PriorityLevelConfigurationTypeArrayOutput struct{ *pulumi.OutputState }
@@ -1831,13 +1831,13 @@ func (o PriorityLevelConfigurationConditionArrayOutput) Index(i pulumi.IntInput)
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 type PriorityLevelConfigurationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
+	ApiVersion string `pulumi:"apiVersion"`
 	// `items` is a list of request-priorities.
 	Items []PriorityLevelConfigurationType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
+	Metadata metav1.ListMeta `pulumi:"metadata"`
 }
 
 // PriorityLevelConfigurationListTypeInput is an input type that accepts PriorityLevelConfigurationListTypeArgs and PriorityLevelConfigurationListTypeOutput values.
@@ -1855,13 +1855,13 @@ type PriorityLevelConfigurationListTypeInput interface {
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 type PriorityLevelConfigurationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
 	// `items` is a list of request-priorities.
 	Items PriorityLevelConfigurationTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaInput `pulumi:"metadata"`
 }
 
 func (PriorityLevelConfigurationListTypeArgs) ElementType() reflect.Type {
@@ -1892,8 +1892,8 @@ func (o PriorityLevelConfigurationListTypeOutput) ToPriorityLevelConfigurationLi
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityLevelConfigurationListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationListTypeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationListType) string { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // `items` is a list of request-priorities.
@@ -1902,19 +1902,19 @@ func (o PriorityLevelConfigurationListTypeOutput) Items() PriorityLevelConfigura
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityLevelConfigurationListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationListTypeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationListType) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityLevelConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o PriorityLevelConfigurationListTypeOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
 type PriorityLevelConfigurationReference struct {
 	// `name` is the name of the priority level configuration being referenced Required.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 }
 
 // PriorityLevelConfigurationReferenceInput is an input type that accepts PriorityLevelConfigurationReferenceArgs and PriorityLevelConfigurationReferenceOutput values.
@@ -1932,7 +1932,7 @@ type PriorityLevelConfigurationReferenceInput interface {
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
 type PriorityLevelConfigurationReferenceArgs struct {
 	// `name` is the name of the priority level configuration being referenced Required.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (PriorityLevelConfigurationReferenceArgs) ElementType() reflect.Type {
@@ -2015,8 +2015,8 @@ func (o PriorityLevelConfigurationReferenceOutput) ToPriorityLevelConfigurationR
 }
 
 // `name` is the name of the priority level configuration being referenced Required.
-func (o PriorityLevelConfigurationReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationReference) string { return v.Name }).(pulumi.StringOutput)
 }
 
 type PriorityLevelConfigurationReferencePtrOutput struct{ *pulumi.OutputState }
@@ -2043,7 +2043,7 @@ func (o PriorityLevelConfigurationReferencePtrOutput) Name() pulumi.StringPtrOut
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2052,7 +2052,7 @@ type PriorityLevelConfigurationSpec struct {
 	// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 	Limited *LimitedPriorityLevelConfiguration `pulumi:"limited"`
 	// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // PriorityLevelConfigurationSpecInput is an input type that accepts PriorityLevelConfigurationSpecArgs and PriorityLevelConfigurationSpecOutput values.
@@ -2072,7 +2072,7 @@ type PriorityLevelConfigurationSpecArgs struct {
 	// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 	Limited LimitedPriorityLevelConfigurationPtrInput `pulumi:"limited"`
 	// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (PriorityLevelConfigurationSpecArgs) ElementType() reflect.Type {
@@ -2160,8 +2160,8 @@ func (o PriorityLevelConfigurationSpecOutput) Limited() LimitedPriorityLevelConf
 }
 
 // `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
-func (o PriorityLevelConfigurationSpecOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationSpecOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationSpec) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type PriorityLevelConfigurationSpecPtrOutput struct{ *pulumi.OutputState }
@@ -2198,7 +2198,7 @@ func (o PriorityLevelConfigurationSpecPtrOutput) Type() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Type
+		return &v.Type
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2653,9 +2653,9 @@ func (o ResourcePolicyRuleArrayOutput) Index(i pulumi.IntInput) ResourcePolicyRu
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
 type ServiceAccountSubject struct {
 	// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// `namespace` is the namespace of matching ServiceAccount objects. Required.
-	Namespace *string `pulumi:"namespace"`
+	Namespace string `pulumi:"namespace"`
 }
 
 // ServiceAccountSubjectInput is an input type that accepts ServiceAccountSubjectArgs and ServiceAccountSubjectOutput values.
@@ -2673,9 +2673,9 @@ type ServiceAccountSubjectInput interface {
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
 type ServiceAccountSubjectArgs struct {
 	// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// `namespace` is the namespace of matching ServiceAccount objects. Required.
-	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	Namespace pulumi.StringInput `pulumi:"namespace"`
 }
 
 func (ServiceAccountSubjectArgs) ElementType() reflect.Type {
@@ -2758,13 +2758,13 @@ func (o ServiceAccountSubjectOutput) ToServiceAccountSubjectPtrOutputWithContext
 }
 
 // `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
-func (o ServiceAccountSubjectOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceAccountSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o ServiceAccountSubjectOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ServiceAccountSubject) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // `namespace` is the namespace of matching ServiceAccount objects. Required.
-func (o ServiceAccountSubjectOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceAccountSubject) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+func (o ServiceAccountSubjectOutput) Namespace() pulumi.StringOutput {
+	return o.ApplyT(func(v ServiceAccountSubject) string { return v.Namespace }).(pulumi.StringOutput)
 }
 
 type ServiceAccountSubjectPtrOutput struct{ *pulumi.OutputState }
@@ -2791,7 +2791,7 @@ func (o ServiceAccountSubjectPtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2801,7 +2801,7 @@ func (o ServiceAccountSubjectPtrOutput) Namespace() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Namespace
+		return &v.Namespace
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2809,7 +2809,7 @@ func (o ServiceAccountSubjectPtrOutput) Namespace() pulumi.StringPtrOutput {
 type Subject struct {
 	Group *GroupSubject `pulumi:"group"`
 	// Required
-	Kind           *string                `pulumi:"kind"`
+	Kind           string                 `pulumi:"kind"`
 	ServiceAccount *ServiceAccountSubject `pulumi:"serviceAccount"`
 	User           *UserSubject           `pulumi:"user"`
 }
@@ -2830,7 +2830,7 @@ type SubjectInput interface {
 type SubjectArgs struct {
 	Group GroupSubjectPtrInput `pulumi:"group"`
 	// Required
-	Kind           pulumi.StringPtrInput         `pulumi:"kind"`
+	Kind           pulumi.StringInput            `pulumi:"kind"`
 	ServiceAccount ServiceAccountSubjectPtrInput `pulumi:"serviceAccount"`
 	User           UserSubjectPtrInput           `pulumi:"user"`
 }
@@ -2893,8 +2893,8 @@ func (o SubjectOutput) Group() GroupSubjectPtrOutput {
 }
 
 // Required
-func (o SubjectOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Subject) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SubjectOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v Subject) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 func (o SubjectOutput) ServiceAccount() ServiceAccountSubjectPtrOutput {
@@ -2928,7 +2928,7 @@ func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
 // UserSubject holds detailed information for user-kind subject.
 type UserSubject struct {
 	// `name` is the username that matches, or "*" to match all usernames. Required.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 }
 
 // UserSubjectInput is an input type that accepts UserSubjectArgs and UserSubjectOutput values.
@@ -2946,7 +2946,7 @@ type UserSubjectInput interface {
 // UserSubject holds detailed information for user-kind subject.
 type UserSubjectArgs struct {
 	// `name` is the username that matches, or "*" to match all usernames. Required.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (UserSubjectArgs) ElementType() reflect.Type {
@@ -3029,8 +3029,8 @@ func (o UserSubjectOutput) ToUserSubjectPtrOutputWithContext(ctx context.Context
 }
 
 // `name` is the username that matches, or "*" to match all usernames. Required.
-func (o UserSubjectOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v UserSubject) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o UserSubjectOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v UserSubject) string { return v.Name }).(pulumi.StringOutput)
 }
 
 type UserSubjectPtrOutput struct{ *pulumi.OutputState }
@@ -3057,7 +3057,7 @@ func (o UserSubjectPtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
