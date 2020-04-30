@@ -2,6 +2,7 @@
 
 ### Bug Fixes
 
+-   Update Go SDK using latest codegen packages. (https://github.com/pulumi/pulumi-kubernetes/pull/1089)
 -   Fix schema type for Fields and RawExtension. (https://github.com/pulumi/pulumi-kubernetes/pull/1086)
 -   Fix error parsing YAML in python 3.8 (https://github.com/pulumi/pulumi-kubernetes/pull/1079)
 -   Fix HELM_HOME handling for Helm v3. (https://github.com/pulumi/pulumi-kubernetes/pull/1076)
