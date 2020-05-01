@@ -22,7 +22,7 @@ type CSIDriver struct {
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the CSI Driver.
-	Spec CSIDriverSpecPtrOutput `pulumi:"spec"`
+	Spec CSIDriverSpecOutput `pulumi:"spec"`
 }
 
 // NewCSIDriver registers a new resource with the given unique name, arguments, and options.

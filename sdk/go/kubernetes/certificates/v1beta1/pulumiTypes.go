@@ -154,7 +154,7 @@ type CertificateSigningRequestCondition struct {
 	// brief reason for the request state
 	Reason *string `pulumi:"reason"`
 	// request approval state, currently Approved or Denied.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // CertificateSigningRequestConditionInput is an input type that accepts CertificateSigningRequestConditionArgs and CertificateSigningRequestConditionOutput values.
@@ -177,7 +177,7 @@ type CertificateSigningRequestConditionArgs struct {
 	// brief reason for the request state
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// request approval state, currently Approved or Denied.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (CertificateSigningRequestConditionArgs) ElementType() reflect.Type {
@@ -248,8 +248,8 @@ func (o CertificateSigningRequestConditionOutput) Reason() pulumi.StringPtrOutpu
 }
 
 // request approval state, currently Approved or Denied.
-func (o CertificateSigningRequestConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o CertificateSigningRequestConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CertificateSigningRequestCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type CertificateSigningRequestConditionArrayOutput struct{ *pulumi.OutputState }
@@ -353,7 +353,7 @@ type CertificateSigningRequestSpec struct {
 	// Group information about the requesting user. See user.Info interface for details.
 	Groups []string `pulumi:"groups"`
 	// Base64-encoded PKCS#10 CSR data
-	Request *string `pulumi:"request"`
+	Request string `pulumi:"request"`
 	// Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
 	//  1. If it's a kubelet client certificate, it is assigned
 	//     "kubernetes.io/kube-apiserver-client-kubelet".
@@ -390,7 +390,7 @@ type CertificateSigningRequestSpecArgs struct {
 	// Group information about the requesting user. See user.Info interface for details.
 	Groups pulumi.StringArrayInput `pulumi:"groups"`
 	// Base64-encoded PKCS#10 CSR data
-	Request pulumi.StringPtrInput `pulumi:"request"`
+	Request pulumi.StringInput `pulumi:"request"`
 	// Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
 	//  1. If it's a kubelet client certificate, it is assigned
 	//     "kubernetes.io/kube-apiserver-client-kubelet".
@@ -498,8 +498,8 @@ func (o CertificateSigningRequestSpecOutput) Groups() pulumi.StringArrayOutput {
 }
 
 // Base64-encoded PKCS#10 CSR data
-func (o CertificateSigningRequestSpecOutput) Request() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.Request }).(pulumi.StringPtrOutput)
+func (o CertificateSigningRequestSpecOutput) Request() pulumi.StringOutput {
+	return o.ApplyT(func(v CertificateSigningRequestSpec) string { return v.Request }).(pulumi.StringOutput)
 }
 
 // Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
@@ -573,7 +573,7 @@ func (o CertificateSigningRequestSpecPtrOutput) Request() pulumi.StringPtrOutput
 		if v == nil {
 			return nil
 		}
-		return v.Request
+		return &v.Request
 	}).(pulumi.StringPtrOutput)
 }
 

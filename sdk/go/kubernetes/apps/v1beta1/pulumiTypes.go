@@ -23,7 +23,7 @@ type ControllerRevisionType struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Revision indicates the revision of the state represented by Data.
-	Revision *int `pulumi:"revision"`
+	Revision int `pulumi:"revision"`
 }
 
 // ControllerRevisionTypeInput is an input type that accepts ControllerRevisionTypeArgs and ControllerRevisionTypeOutput values.
@@ -49,7 +49,7 @@ type ControllerRevisionTypeArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Revision indicates the revision of the state represented by Data.
-	Revision pulumi.IntPtrInput `pulumi:"revision"`
+	Revision pulumi.IntInput `pulumi:"revision"`
 }
 
 func (ControllerRevisionTypeArgs) ElementType() reflect.Type {
@@ -126,8 +126,8 @@ func (o ControllerRevisionTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Revision indicates the revision of the state represented by Data.
-func (o ControllerRevisionTypeOutput) Revision() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionType) *int { return v.Revision }).(pulumi.IntPtrOutput)
+func (o ControllerRevisionTypeOutput) Revision() pulumi.IntOutput {
+	return o.ApplyT(func(v ControllerRevisionType) int { return v.Revision }).(pulumi.IntOutput)
 }
 
 type ControllerRevisionTypeArrayOutput struct{ *pulumi.OutputState }
@@ -448,9 +448,9 @@ type DeploymentCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of deployment condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // DeploymentConditionInput is an input type that accepts DeploymentConditionArgs and DeploymentConditionOutput values.
@@ -476,9 +476,9 @@ type DeploymentConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of deployment condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (DeploymentConditionArgs) ElementType() reflect.Type {
@@ -555,13 +555,13 @@ func (o DeploymentConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o DeploymentConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o DeploymentConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of deployment condition.
-func (o DeploymentConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o DeploymentConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type DeploymentConditionArrayOutput struct{ *pulumi.OutputState }
@@ -674,9 +674,9 @@ type DeploymentRollback struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Required: This must match the Name of a deployment.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// The config of this deployment rollback.
-	RollbackTo *RollbackConfig `pulumi:"rollbackTo"`
+	RollbackTo RollbackConfig `pulumi:"rollbackTo"`
 	// The annotations to be updated to a deployment
 	UpdatedAnnotations map[string]string `pulumi:"updatedAnnotations"`
 }
@@ -700,9 +700,9 @@ type DeploymentRollbackArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Required: This must match the Name of a deployment.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// The config of this deployment rollback.
-	RollbackTo RollbackConfigPtrInput `pulumi:"rollbackTo"`
+	RollbackTo RollbackConfigInput `pulumi:"rollbackTo"`
 	// The annotations to be updated to a deployment
 	UpdatedAnnotations pulumi.StringMapInput `pulumi:"updatedAnnotations"`
 }
@@ -745,13 +745,13 @@ func (o DeploymentRollbackOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // Required: This must match the Name of a deployment.
-func (o DeploymentRollbackOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o DeploymentRollbackOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentRollback) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // The config of this deployment rollback.
-func (o DeploymentRollbackOutput) RollbackTo() RollbackConfigPtrOutput {
-	return o.ApplyT(func(v DeploymentRollback) *RollbackConfig { return v.RollbackTo }).(RollbackConfigPtrOutput)
+func (o DeploymentRollbackOutput) RollbackTo() RollbackConfigOutput {
+	return o.ApplyT(func(v DeploymentRollback) RollbackConfig { return v.RollbackTo }).(RollbackConfigOutput)
 }
 
 // The annotations to be updated to a deployment
@@ -778,7 +778,7 @@ type DeploymentSpec struct {
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy *DeploymentStrategy `pulumi:"strategy"`
 	// Template describes the pods that will be created.
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 }
 
 // DeploymentSpecInput is an input type that accepts DeploymentSpecArgs and DeploymentSpecOutput values.
@@ -812,7 +812,7 @@ type DeploymentSpecArgs struct {
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy DeploymentStrategyPtrInput `pulumi:"strategy"`
 	// Template describes the pods that will be created.
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 }
 
 func (DeploymentSpecArgs) ElementType() reflect.Type {
@@ -935,8 +935,8 @@ func (o DeploymentSpecOutput) Strategy() DeploymentStrategyPtrOutput {
 }
 
 // Template describes the pods that will be created.
-func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v DeploymentSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 type DeploymentSpecPtrOutput struct{ *pulumi.OutputState }
@@ -1043,7 +1043,7 @@ func (o DeploymentSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
@@ -2129,7 +2129,7 @@ func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 // ScaleStatus represents the current status of a scale subresource.
 type ScaleStatus struct {
 	// actual number of observed instances of the scaled object.
-	Replicas *int `pulumi:"replicas"`
+	Replicas int `pulumi:"replicas"`
 	// label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
 	Selector map[string]string `pulumi:"selector"`
 	// label selector for pods that should match the replicas count. This is a serializated version of both map-based and more expressive set-based selectors. This is done to avoid introspection in the clients. The string will be in the same format as the query-param syntax. If the target type only supports map-based selectors, both this field and map-based selector field are populated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -2151,7 +2151,7 @@ type ScaleStatusInput interface {
 // ScaleStatus represents the current status of a scale subresource.
 type ScaleStatusArgs struct {
 	// actual number of observed instances of the scaled object.
-	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	Replicas pulumi.IntInput `pulumi:"replicas"`
 	// label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
 	Selector pulumi.StringMapInput `pulumi:"selector"`
 	// label selector for pods that should match the replicas count. This is a serializated version of both map-based and more expressive set-based selectors. This is done to avoid introspection in the clients. The string will be in the same format as the query-param syntax. If the target type only supports map-based selectors, both this field and map-based selector field are populated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -2238,8 +2238,8 @@ func (o ScaleStatusOutput) ToScaleStatusPtrOutputWithContext(ctx context.Context
 }
 
 // actual number of observed instances of the scaled object.
-func (o ScaleStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+func (o ScaleStatusOutput) Replicas() pulumi.IntOutput {
+	return o.ApplyT(func(v ScaleStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
 
 // label query over pods that should match the replicas count. More info: http://kubernetes.io/docs/user-guide/labels#label-selectors
@@ -2276,7 +2276,7 @@ func (o ScaleStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Replicas
+		return &v.Replicas
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -2492,9 +2492,9 @@ type StatefulSetCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of statefulset condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // StatefulSetConditionInput is an input type that accepts StatefulSetConditionArgs and StatefulSetConditionOutput values.
@@ -2518,9 +2518,9 @@ type StatefulSetConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of statefulset condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (StatefulSetConditionArgs) ElementType() reflect.Type {
@@ -2592,13 +2592,13 @@ func (o StatefulSetConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o StatefulSetConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o StatefulSetConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v StatefulSetCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of statefulset condition.
-func (o StatefulSetConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o StatefulSetConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v StatefulSetCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type StatefulSetConditionArrayOutput struct{ *pulumi.OutputState }
@@ -2709,9 +2709,9 @@ type StatefulSetSpec struct {
 	// selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-	ServiceName *string `pulumi:"serviceName"`
+	ServiceName string `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy *StatefulSetUpdateStrategy `pulumi:"updateStrategy"`
 	// volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
@@ -2741,9 +2741,9 @@ type StatefulSetSpecArgs struct {
 	// selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
+	ServiceName pulumi.StringInput `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy StatefulSetUpdateStrategyPtrInput `pulumi:"updateStrategy"`
 	// volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
@@ -2850,13 +2850,13 @@ func (o StatefulSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 }
 
 // serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-func (o StatefulSetSpecOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+func (o StatefulSetSpecOutput) ServiceName() pulumi.StringOutput {
+	return o.ApplyT(func(v StatefulSetSpec) string { return v.ServiceName }).(pulumi.StringOutput)
 }
 
 // template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-func (o StatefulSetSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o StatefulSetSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v StatefulSetSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 // updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
@@ -2933,7 +2933,7 @@ func (o StatefulSetSpecPtrOutput) ServiceName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ServiceName
+		return &v.ServiceName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2943,7 +2943,7 @@ func (o StatefulSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
@@ -2982,7 +2982,7 @@ type StatefulSetStatus struct {
 	// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
 	// replicas is the number of Pods created by the StatefulSet controller.
-	Replicas *int `pulumi:"replicas"`
+	Replicas int `pulumi:"replicas"`
 	// updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
 	UpdateRevision *string `pulumi:"updateRevision"`
 	// updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
@@ -3016,7 +3016,7 @@ type StatefulSetStatusArgs struct {
 	// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
 	// replicas is the number of Pods created by the StatefulSet controller.
-	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	Replicas pulumi.IntInput `pulumi:"replicas"`
 	// updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
 	UpdateRevision pulumi.StringPtrInput `pulumi:"updateRevision"`
 	// updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
@@ -3133,8 +3133,8 @@ func (o StatefulSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 }
 
 // replicas is the number of Pods created by the StatefulSet controller.
-func (o StatefulSetStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+func (o StatefulSetStatusOutput) Replicas() pulumi.IntOutput {
+	return o.ApplyT(func(v StatefulSetStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
 
 // updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
@@ -3231,7 +3231,7 @@ func (o StatefulSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Replicas
+		return &v.Replicas
 	}).(pulumi.IntPtrOutput)
 }
 

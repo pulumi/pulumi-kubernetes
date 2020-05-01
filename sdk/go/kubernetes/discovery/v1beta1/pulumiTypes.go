@@ -436,7 +436,7 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSliceType struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-	AddressType *string `pulumi:"addressType"`
+	AddressType string `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
@@ -464,7 +464,7 @@ type EndpointSliceTypeInput interface {
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSliceTypeArgs struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-	AddressType pulumi.StringPtrInput `pulumi:"addressType"`
+	AddressType pulumi.StringInput `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
@@ -531,8 +531,8 @@ func (o EndpointSliceTypeOutput) ToEndpointSliceTypeOutputWithContext(ctx contex
 }
 
 // addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-func (o EndpointSliceTypeOutput) AddressType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceType) *string { return v.AddressType }).(pulumi.StringPtrOutput)
+func (o EndpointSliceTypeOutput) AddressType() pulumi.StringOutput {
+	return o.ApplyT(func(v EndpointSliceType) string { return v.AddressType }).(pulumi.StringOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

@@ -19,7 +19,7 @@ type LocalSubjectAccessReviewType struct {
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-	Spec *SubjectAccessReviewSpec `pulumi:"spec"`
+	Spec SubjectAccessReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
@@ -44,7 +44,7 @@ type LocalSubjectAccessReviewTypeArgs struct {
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-	Spec SubjectAccessReviewSpecPtrInput `pulumi:"spec"`
+	Spec SubjectAccessReviewSpecInput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
 }
@@ -91,8 +91,8 @@ func (o LocalSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutpu
 }
 
 // Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-func (o LocalSubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecPtrOutput)
+func (o LocalSubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReviewType) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
@@ -756,7 +756,7 @@ type SelfSubjectAccessReviewType struct {
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  user and groups must be empty
-	Spec *SelfSubjectAccessReviewSpec `pulumi:"spec"`
+	Spec SelfSubjectAccessReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
@@ -781,7 +781,7 @@ type SelfSubjectAccessReviewTypeArgs struct {
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  user and groups must be empty
-	Spec SelfSubjectAccessReviewSpecPtrInput `pulumi:"spec"`
+	Spec SelfSubjectAccessReviewSpecInput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
 }
@@ -828,8 +828,8 @@ func (o SelfSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput
 }
 
 // Spec holds information about the request being evaluated.  user and groups must be empty
-func (o SelfSubjectAccessReviewTypeOutput) Spec() SelfSubjectAccessReviewSpecPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *SelfSubjectAccessReviewSpec { return v.Spec }).(SelfSubjectAccessReviewSpecPtrOutput)
+func (o SelfSubjectAccessReviewTypeOutput) Spec() SelfSubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReviewType) SelfSubjectAccessReviewSpec { return v.Spec }).(SelfSubjectAccessReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
@@ -1000,7 +1000,7 @@ type SelfSubjectRulesReviewType struct {
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.
-	Spec *SelfSubjectRulesReviewSpec `pulumi:"spec"`
+	Spec SelfSubjectRulesReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates the set of actions a user can perform.
 	Status *SubjectRulesReviewStatus `pulumi:"status"`
 }
@@ -1025,7 +1025,7 @@ type SelfSubjectRulesReviewTypeArgs struct {
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.
-	Spec SelfSubjectRulesReviewSpecPtrInput `pulumi:"spec"`
+	Spec SelfSubjectRulesReviewSpecInput `pulumi:"spec"`
 	// Status is filled in by the server and indicates the set of actions a user can perform.
 	Status SubjectRulesReviewStatusPtrInput `pulumi:"status"`
 }
@@ -1072,8 +1072,8 @@ func (o SelfSubjectRulesReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput 
 }
 
 // Spec holds information about the request being evaluated.
-func (o SelfSubjectRulesReviewTypeOutput) Spec() SelfSubjectRulesReviewSpecPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *SelfSubjectRulesReviewSpec { return v.Spec }).(SelfSubjectRulesReviewSpecPtrOutput)
+func (o SelfSubjectRulesReviewTypeOutput) Spec() SelfSubjectRulesReviewSpecOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReviewType) SelfSubjectRulesReviewSpec { return v.Spec }).(SelfSubjectRulesReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates the set of actions a user can perform.
@@ -1222,7 +1222,7 @@ type SubjectAccessReviewType struct {
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec *SubjectAccessReviewSpec `pulumi:"spec"`
+	Spec SubjectAccessReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
@@ -1247,7 +1247,7 @@ type SubjectAccessReviewTypeArgs struct {
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec SubjectAccessReviewSpecPtrInput `pulumi:"spec"`
+	Spec SubjectAccessReviewSpecInput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
 }
@@ -1294,8 +1294,8 @@ func (o SubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Spec holds information about the request being evaluated
-func (o SubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecPtrOutput)
+func (o SubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v SubjectAccessReviewType) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
@@ -1537,7 +1537,7 @@ func (o SubjectAccessReviewSpecPtrOutput) User() pulumi.StringPtrOutput {
 // SubjectAccessReviewStatus
 type SubjectAccessReviewStatus struct {
 	// Allowed is required. True if the action would be allowed, false otherwise.
-	Allowed *bool `pulumi:"allowed"`
+	Allowed bool `pulumi:"allowed"`
 	// Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
 	Denied *bool `pulumi:"denied"`
 	// EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
@@ -1561,7 +1561,7 @@ type SubjectAccessReviewStatusInput interface {
 // SubjectAccessReviewStatus
 type SubjectAccessReviewStatusArgs struct {
 	// Allowed is required. True if the action would be allowed, false otherwise.
-	Allowed pulumi.BoolPtrInput `pulumi:"allowed"`
+	Allowed pulumi.BoolInput `pulumi:"allowed"`
 	// Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
 	Denied pulumi.BoolPtrInput `pulumi:"denied"`
 	// EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
@@ -1650,8 +1650,8 @@ func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutputWit
 }
 
 // Allowed is required. True if the action would be allowed, false otherwise.
-func (o SubjectAccessReviewStatusOutput) Allowed() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewStatus) *bool { return v.Allowed }).(pulumi.BoolPtrOutput)
+func (o SubjectAccessReviewStatusOutput) Allowed() pulumi.BoolOutput {
+	return o.ApplyT(func(v SubjectAccessReviewStatus) bool { return v.Allowed }).(pulumi.BoolOutput)
 }
 
 // Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
@@ -1693,7 +1693,7 @@ func (o SubjectAccessReviewStatusPtrOutput) Allowed() pulumi.BoolPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Allowed
+		return &v.Allowed
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -1732,7 +1732,7 @@ type SubjectRulesReviewStatus struct {
 	// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
 	EvaluationError *string `pulumi:"evaluationError"`
 	// Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
-	Incomplete *bool `pulumi:"incomplete"`
+	Incomplete bool `pulumi:"incomplete"`
 	// NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
 	NonResourceRules []NonResourceRule `pulumi:"nonResourceRules"`
 	// ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -1756,7 +1756,7 @@ type SubjectRulesReviewStatusArgs struct {
 	// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
 	EvaluationError pulumi.StringPtrInput `pulumi:"evaluationError"`
 	// Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
-	Incomplete pulumi.BoolPtrInput `pulumi:"incomplete"`
+	Incomplete pulumi.BoolInput `pulumi:"incomplete"`
 	// NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
 	NonResourceRules NonResourceRuleArrayInput `pulumi:"nonResourceRules"`
 	// ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -1848,8 +1848,8 @@ func (o SubjectRulesReviewStatusOutput) EvaluationError() pulumi.StringPtrOutput
 }
 
 // Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
-func (o SubjectRulesReviewStatusOutput) Incomplete() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v SubjectRulesReviewStatus) *bool { return v.Incomplete }).(pulumi.BoolPtrOutput)
+func (o SubjectRulesReviewStatusOutput) Incomplete() pulumi.BoolOutput {
+	return o.ApplyT(func(v SubjectRulesReviewStatus) bool { return v.Incomplete }).(pulumi.BoolOutput)
 }
 
 // NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -1896,7 +1896,7 @@ func (o SubjectRulesReviewStatusPtrOutput) Incomplete() pulumi.BoolPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Incomplete
+		return &v.Incomplete
 	}).(pulumi.BoolPtrOutput)
 }
 

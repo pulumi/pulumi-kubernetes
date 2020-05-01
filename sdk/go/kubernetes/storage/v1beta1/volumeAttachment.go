@@ -24,7 +24,7 @@ type VolumeAttachment struct {
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-	Spec VolumeAttachmentSpecPtrOutput `pulumi:"spec"`
+	Spec VolumeAttachmentSpecOutput `pulumi:"spec"`
 	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 	Status VolumeAttachmentStatusPtrOutput `pulumi:"status"`
 }

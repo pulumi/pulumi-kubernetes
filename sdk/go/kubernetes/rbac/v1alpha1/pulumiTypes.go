@@ -294,7 +294,7 @@ type ClusterRoleBindingType struct {
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef *RoleRef `pulumi:"roleRef"`
+	RoleRef RoleRef `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects []Subject `pulumi:"subjects"`
 }
@@ -320,7 +320,7 @@ type ClusterRoleBindingTypeArgs struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRefPtrInput `pulumi:"roleRef"`
+	RoleRef RoleRefInput `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayInput `pulumi:"subjects"`
 }
@@ -394,8 +394,8 @@ func (o ClusterRoleBindingTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-func (o ClusterRoleBindingTypeOutput) RoleRef() RoleRefPtrOutput {
-	return o.ApplyT(func(v ClusterRoleBindingType) *RoleRef { return v.RoleRef }).(RoleRefPtrOutput)
+func (o ClusterRoleBindingTypeOutput) RoleRef() RoleRefOutput {
+	return o.ApplyT(func(v ClusterRoleBindingType) RoleRef { return v.RoleRef }).(RoleRefOutput)
 }
 
 // Subjects holds references to the objects the role applies to.
@@ -865,7 +865,7 @@ type RoleBindingType struct {
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef *RoleRef `pulumi:"roleRef"`
+	RoleRef RoleRef `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects []Subject `pulumi:"subjects"`
 }
@@ -891,7 +891,7 @@ type RoleBindingTypeArgs struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRefPtrInput `pulumi:"roleRef"`
+	RoleRef RoleRefInput `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayInput `pulumi:"subjects"`
 }
@@ -965,8 +965,8 @@ func (o RoleBindingTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-func (o RoleBindingTypeOutput) RoleRef() RoleRefPtrOutput {
-	return o.ApplyT(func(v RoleBindingType) *RoleRef { return v.RoleRef }).(RoleRefPtrOutput)
+func (o RoleBindingTypeOutput) RoleRef() RoleRefOutput {
+	return o.ApplyT(func(v RoleBindingType) RoleRef { return v.RoleRef }).(RoleRefOutput)
 }
 
 // Subjects holds references to the objects the role applies to.
@@ -1163,11 +1163,11 @@ func (o RoleListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // RoleRef contains information that points to the role being used
 type RoleRef struct {
 	// APIGroup is the group for the resource being referenced
-	ApiGroup *string `pulumi:"apiGroup"`
+	ApiGroup string `pulumi:"apiGroup"`
 	// Kind is the type of resource being referenced
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Name is the name of resource being referenced
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 }
 
 // RoleRefInput is an input type that accepts RoleRefArgs and RoleRefOutput values.
@@ -1185,11 +1185,11 @@ type RoleRefInput interface {
 // RoleRef contains information that points to the role being used
 type RoleRefArgs struct {
 	// APIGroup is the group for the resource being referenced
-	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
+	ApiGroup pulumi.StringInput `pulumi:"apiGroup"`
 	// Kind is the type of resource being referenced
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Name is the name of resource being referenced
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (RoleRefArgs) ElementType() reflect.Type {
@@ -1272,18 +1272,18 @@ func (o RoleRefOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRe
 }
 
 // APIGroup is the group for the resource being referenced
-func (o RoleRefOutput) ApiGroup() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleRef) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+func (o RoleRefOutput) ApiGroup() pulumi.StringOutput {
+	return o.ApplyT(func(v RoleRef) string { return v.ApiGroup }).(pulumi.StringOutput)
 }
 
 // Kind is the type of resource being referenced
-func (o RoleRefOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleRef) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o RoleRefOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v RoleRef) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Name is the name of resource being referenced
-func (o RoleRefOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleRef) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o RoleRefOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v RoleRef) string { return v.Name }).(pulumi.StringOutput)
 }
 
 type RoleRefPtrOutput struct{ *pulumi.OutputState }
@@ -1310,7 +1310,7 @@ func (o RoleRefPtrOutput) ApiGroup() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ApiGroup
+		return &v.ApiGroup
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1320,7 +1320,7 @@ func (o RoleRefPtrOutput) Kind() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Kind
+		return &v.Kind
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1330,7 +1330,7 @@ func (o RoleRefPtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1339,9 +1339,9 @@ type Subject struct {
 	// APIVersion holds the API group and version of the referenced subject. Defaults to "v1" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and Group subjects.
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// Name of the object being referenced.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 	Namespace *string `pulumi:"namespace"`
 }
@@ -1363,9 +1363,9 @@ type SubjectArgs struct {
 	// APIVersion holds the API group and version of the referenced subject. Defaults to "v1" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and Group subjects.
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// Name of the object being referenced.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
 }
@@ -1429,13 +1429,13 @@ func (o SubjectOutput) ApiVersion() pulumi.StringPtrOutput {
 }
 
 // Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-func (o SubjectOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Subject) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SubjectOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v Subject) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Name of the object being referenced.
-func (o SubjectOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Subject) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o SubjectOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v Subject) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.

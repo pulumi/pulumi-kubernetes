@@ -15,7 +15,7 @@ import (
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
 type AllowedCSIDriver struct {
 	// Name is the registered name of the CSI driver
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 }
 
 // AllowedCSIDriverInput is an input type that accepts AllowedCSIDriverArgs and AllowedCSIDriverOutput values.
@@ -33,7 +33,7 @@ type AllowedCSIDriverInput interface {
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
 type AllowedCSIDriverArgs struct {
 	// Name is the registered name of the CSI driver
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (AllowedCSIDriverArgs) ElementType() reflect.Type {
@@ -90,8 +90,8 @@ func (o AllowedCSIDriverOutput) ToAllowedCSIDriverOutputWithContext(ctx context.
 }
 
 // Name is the registered name of the CSI driver
-func (o AllowedCSIDriverOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AllowedCSIDriver) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o AllowedCSIDriverOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v AllowedCSIDriver) string { return v.Name }).(pulumi.StringOutput)
 }
 
 type AllowedCSIDriverArrayOutput struct{ *pulumi.OutputState }
@@ -117,7 +117,7 @@ func (o AllowedCSIDriverArrayOutput) Index(i pulumi.IntInput) AllowedCSIDriverOu
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
 type AllowedFlexVolume struct {
 	// driver is the name of the Flexvolume driver.
-	Driver *string `pulumi:"driver"`
+	Driver string `pulumi:"driver"`
 }
 
 // AllowedFlexVolumeInput is an input type that accepts AllowedFlexVolumeArgs and AllowedFlexVolumeOutput values.
@@ -135,7 +135,7 @@ type AllowedFlexVolumeInput interface {
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
 type AllowedFlexVolumeArgs struct {
 	// driver is the name of the Flexvolume driver.
-	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	Driver pulumi.StringInput `pulumi:"driver"`
 }
 
 func (AllowedFlexVolumeArgs) ElementType() reflect.Type {
@@ -192,8 +192,8 @@ func (o AllowedFlexVolumeOutput) ToAllowedFlexVolumeOutputWithContext(ctx contex
 }
 
 // driver is the name of the Flexvolume driver.
-func (o AllowedFlexVolumeOutput) Driver() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AllowedFlexVolume) *string { return v.Driver }).(pulumi.StringPtrOutput)
+func (o AllowedFlexVolumeOutput) Driver() pulumi.StringOutput {
+	return o.ApplyT(func(v AllowedFlexVolume) string { return v.Driver }).(pulumi.StringOutput)
 }
 
 type AllowedFlexVolumeArrayOutput struct{ *pulumi.OutputState }
@@ -574,9 +574,9 @@ func (o FSGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
 type HostPortRange struct {
 	// max is the end of the range, inclusive.
-	Max *int `pulumi:"max"`
+	Max int `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min *int `pulumi:"min"`
+	Min int `pulumi:"min"`
 }
 
 // HostPortRangeInput is an input type that accepts HostPortRangeArgs and HostPortRangeOutput values.
@@ -594,9 +594,9 @@ type HostPortRangeInput interface {
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
 type HostPortRangeArgs struct {
 	// max is the end of the range, inclusive.
-	Max pulumi.IntPtrInput `pulumi:"max"`
+	Max pulumi.IntInput `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min pulumi.IntPtrInput `pulumi:"min"`
+	Min pulumi.IntInput `pulumi:"min"`
 }
 
 func (HostPortRangeArgs) ElementType() reflect.Type {
@@ -653,13 +653,13 @@ func (o HostPortRangeOutput) ToHostPortRangeOutputWithContext(ctx context.Contex
 }
 
 // max is the end of the range, inclusive.
-func (o HostPortRangeOutput) Max() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v HostPortRange) *int { return v.Max }).(pulumi.IntPtrOutput)
+func (o HostPortRangeOutput) Max() pulumi.IntOutput {
+	return o.ApplyT(func(v HostPortRange) int { return v.Max }).(pulumi.IntOutput)
 }
 
 // min is the start of the range, inclusive.
-func (o HostPortRangeOutput) Min() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v HostPortRange) *int { return v.Min }).(pulumi.IntPtrOutput)
+func (o HostPortRangeOutput) Min() pulumi.IntOutput {
+	return o.ApplyT(func(v HostPortRange) int { return v.Min }).(pulumi.IntOutput)
 }
 
 type HostPortRangeArrayOutput struct{ *pulumi.OutputState }
@@ -685,9 +685,9 @@ func (o HostPortRangeArrayOutput) Index(i pulumi.IntInput) HostPortRangeOutput {
 // IDRange provides a min/max of an allowed range of IDs.
 type IDRange struct {
 	// max is the end of the range, inclusive.
-	Max *int `pulumi:"max"`
+	Max int `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min *int `pulumi:"min"`
+	Min int `pulumi:"min"`
 }
 
 // IDRangeInput is an input type that accepts IDRangeArgs and IDRangeOutput values.
@@ -705,9 +705,9 @@ type IDRangeInput interface {
 // IDRange provides a min/max of an allowed range of IDs.
 type IDRangeArgs struct {
 	// max is the end of the range, inclusive.
-	Max pulumi.IntPtrInput `pulumi:"max"`
+	Max pulumi.IntInput `pulumi:"max"`
 	// min is the start of the range, inclusive.
-	Min pulumi.IntPtrInput `pulumi:"min"`
+	Min pulumi.IntInput `pulumi:"min"`
 }
 
 func (IDRangeArgs) ElementType() reflect.Type {
@@ -764,13 +764,13 @@ func (o IDRangeOutput) ToIDRangeOutputWithContext(ctx context.Context) IDRangeOu
 }
 
 // max is the end of the range, inclusive.
-func (o IDRangeOutput) Max() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v IDRange) *int { return v.Max }).(pulumi.IntPtrOutput)
+func (o IDRangeOutput) Max() pulumi.IntOutput {
+	return o.ApplyT(func(v IDRange) int { return v.Max }).(pulumi.IntOutput)
 }
 
 // min is the start of the range, inclusive.
-func (o IDRangeOutput) Min() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v IDRange) *int { return v.Min }).(pulumi.IntPtrOutput)
+func (o IDRangeOutput) Min() pulumi.IntOutput {
+	return o.ApplyT(func(v IDRange) int { return v.Min }).(pulumi.IntOutput)
 }
 
 type IDRangeArrayOutput struct{ *pulumi.OutputState }
@@ -1182,15 +1182,15 @@ func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutp
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatus struct {
 	// current number of healthy pods
-	CurrentHealthy *int `pulumi:"currentHealthy"`
+	CurrentHealthy int `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
-	DesiredHealthy *int `pulumi:"desiredHealthy"`
+	DesiredHealthy int `pulumi:"desiredHealthy"`
 	// DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
 	DisruptedPods map[string]string `pulumi:"disruptedPods"`
 	// Number of pod disruptions that are currently allowed.
-	DisruptionsAllowed *int `pulumi:"disruptionsAllowed"`
+	DisruptionsAllowed int `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
-	ExpectedPods *int `pulumi:"expectedPods"`
+	ExpectedPods int `pulumi:"expectedPods"`
 	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 }
@@ -1210,15 +1210,15 @@ type PodDisruptionBudgetStatusInput interface {
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusArgs struct {
 	// current number of healthy pods
-	CurrentHealthy pulumi.IntPtrInput `pulumi:"currentHealthy"`
+	CurrentHealthy pulumi.IntInput `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
-	DesiredHealthy pulumi.IntPtrInput `pulumi:"desiredHealthy"`
+	DesiredHealthy pulumi.IntInput `pulumi:"desiredHealthy"`
 	// DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
 	DisruptedPods pulumi.StringMapInput `pulumi:"disruptedPods"`
 	// Number of pod disruptions that are currently allowed.
-	DisruptionsAllowed pulumi.IntPtrInput `pulumi:"disruptionsAllowed"`
+	DisruptionsAllowed pulumi.IntInput `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
-	ExpectedPods pulumi.IntPtrInput `pulumi:"expectedPods"`
+	ExpectedPods pulumi.IntInput `pulumi:"expectedPods"`
 	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 }
@@ -1303,13 +1303,13 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWit
 }
 
 // current number of healthy pods
-func (o PodDisruptionBudgetStatusOutput) CurrentHealthy() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.CurrentHealthy }).(pulumi.IntPtrOutput)
+func (o PodDisruptionBudgetStatusOutput) CurrentHealthy() pulumi.IntOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetStatus) int { return v.CurrentHealthy }).(pulumi.IntOutput)
 }
 
 // minimum desired number of healthy pods
-func (o PodDisruptionBudgetStatusOutput) DesiredHealthy() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.DesiredHealthy }).(pulumi.IntPtrOutput)
+func (o PodDisruptionBudgetStatusOutput) DesiredHealthy() pulumi.IntOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetStatus) int { return v.DesiredHealthy }).(pulumi.IntOutput)
 }
 
 // DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
@@ -1318,13 +1318,13 @@ func (o PodDisruptionBudgetStatusOutput) DisruptedPods() pulumi.StringMapOutput 
 }
 
 // Number of pod disruptions that are currently allowed.
-func (o PodDisruptionBudgetStatusOutput) DisruptionsAllowed() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.DisruptionsAllowed }).(pulumi.IntPtrOutput)
+func (o PodDisruptionBudgetStatusOutput) DisruptionsAllowed() pulumi.IntOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetStatus) int { return v.DisruptionsAllowed }).(pulumi.IntOutput)
 }
 
 // total number of pods counted by this disruption budget
-func (o PodDisruptionBudgetStatusOutput) ExpectedPods() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ExpectedPods }).(pulumi.IntPtrOutput)
+func (o PodDisruptionBudgetStatusOutput) ExpectedPods() pulumi.IntOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetStatus) int { return v.ExpectedPods }).(pulumi.IntOutput)
 }
 
 // Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
@@ -1356,7 +1356,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) CurrentHealthy() pulumi.IntPtrOutput
 		if v == nil {
 			return nil
 		}
-		return v.CurrentHealthy
+		return &v.CurrentHealthy
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1366,7 +1366,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) DesiredHealthy() pulumi.IntPtrOutput
 		if v == nil {
 			return nil
 		}
-		return v.DesiredHealthy
+		return &v.DesiredHealthy
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1386,7 +1386,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) DisruptionsAllowed() pulumi.IntPtrOu
 		if v == nil {
 			return nil
 		}
-		return v.DisruptionsAllowed
+		return &v.DisruptionsAllowed
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1396,7 +1396,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) ExpectedPods() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ExpectedPods
+		return &v.ExpectedPods
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1649,7 +1649,7 @@ type PodSecurityPolicySpec struct {
 	// Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
 	ForbiddenSysctls []string `pulumi:"forbiddenSysctls"`
 	// fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
-	FsGroup *FSGroupStrategyOptions `pulumi:"fsGroup"`
+	FsGroup FSGroupStrategyOptions `pulumi:"fsGroup"`
 	// hostIPC determines if the policy allows the use of HostIPC in the pod spec.
 	HostIPC *bool `pulumi:"hostIPC"`
 	// hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
@@ -1667,13 +1667,13 @@ type PodSecurityPolicySpec struct {
 	// RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
 	RunAsGroup *RunAsGroupStrategyOptions `pulumi:"runAsGroup"`
 	// runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
-	RunAsUser *RunAsUserStrategyOptions `pulumi:"runAsUser"`
+	RunAsUser RunAsUserStrategyOptions `pulumi:"runAsUser"`
 	// runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
 	RuntimeClass *RuntimeClassStrategyOptions `pulumi:"runtimeClass"`
 	// seLinux is the strategy that will dictate the allowable labels that may be set.
-	SeLinux *SELinuxStrategyOptions `pulumi:"seLinux"`
+	SeLinux SELinuxStrategyOptions `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-	SupplementalGroups *SupplementalGroupsStrategyOptions `pulumi:"supplementalGroups"`
+	SupplementalGroups SupplementalGroupsStrategyOptions `pulumi:"supplementalGroups"`
 	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes []string `pulumi:"volumes"`
 }
@@ -1717,7 +1717,7 @@ type PodSecurityPolicySpecArgs struct {
 	// Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
 	ForbiddenSysctls pulumi.StringArrayInput `pulumi:"forbiddenSysctls"`
 	// fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
-	FsGroup FSGroupStrategyOptionsPtrInput `pulumi:"fsGroup"`
+	FsGroup FSGroupStrategyOptionsInput `pulumi:"fsGroup"`
 	// hostIPC determines if the policy allows the use of HostIPC in the pod spec.
 	HostIPC pulumi.BoolPtrInput `pulumi:"hostIPC"`
 	// hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
@@ -1735,13 +1735,13 @@ type PodSecurityPolicySpecArgs struct {
 	// RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
 	RunAsGroup RunAsGroupStrategyOptionsPtrInput `pulumi:"runAsGroup"`
 	// runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
-	RunAsUser RunAsUserStrategyOptionsPtrInput `pulumi:"runAsUser"`
+	RunAsUser RunAsUserStrategyOptionsInput `pulumi:"runAsUser"`
 	// runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
 	RuntimeClass RuntimeClassStrategyOptionsPtrInput `pulumi:"runtimeClass"`
 	// seLinux is the strategy that will dictate the allowable labels that may be set.
-	SeLinux SELinuxStrategyOptionsPtrInput `pulumi:"seLinux"`
+	SeLinux SELinuxStrategyOptionsInput `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-	SupplementalGroups SupplementalGroupsStrategyOptionsPtrInput `pulumi:"supplementalGroups"`
+	SupplementalGroups SupplementalGroupsStrategyOptionsInput `pulumi:"supplementalGroups"`
 	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes pulumi.StringArrayInput `pulumi:"volumes"`
 }
@@ -1880,8 +1880,8 @@ func (o PodSecurityPolicySpecOutput) ForbiddenSysctls() pulumi.StringArrayOutput
 }
 
 // fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
-func (o PodSecurityPolicySpecOutput) FsGroup() FSGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *FSGroupStrategyOptions { return v.FsGroup }).(FSGroupStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) FsGroup() FSGroupStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) FSGroupStrategyOptions { return v.FsGroup }).(FSGroupStrategyOptionsOutput)
 }
 
 // hostIPC determines if the policy allows the use of HostIPC in the pod spec.
@@ -1925,8 +1925,8 @@ func (o PodSecurityPolicySpecOutput) RunAsGroup() RunAsGroupStrategyOptionsPtrOu
 }
 
 // runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
-func (o PodSecurityPolicySpecOutput) RunAsUser() RunAsUserStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *RunAsUserStrategyOptions { return v.RunAsUser }).(RunAsUserStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) RunAsUser() RunAsUserStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) RunAsUserStrategyOptions { return v.RunAsUser }).(RunAsUserStrategyOptionsOutput)
 }
 
 // runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
@@ -1935,13 +1935,13 @@ func (o PodSecurityPolicySpecOutput) RuntimeClass() RuntimeClassStrategyOptionsP
 }
 
 // seLinux is the strategy that will dictate the allowable labels that may be set.
-func (o PodSecurityPolicySpecOutput) SeLinux() SELinuxStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SELinuxStrategyOptions { return v.SeLinux }).(SELinuxStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) SeLinux() SELinuxStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) SELinuxStrategyOptions { return v.SeLinux }).(SELinuxStrategyOptionsOutput)
 }
 
 // supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-func (o PodSecurityPolicySpecOutput) SupplementalGroups() SupplementalGroupsStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsPtrOutput)
+func (o PodSecurityPolicySpecOutput) SupplementalGroups() SupplementalGroupsStrategyOptionsOutput {
+	return o.ApplyT(func(v PodSecurityPolicySpec) SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsOutput)
 }
 
 // volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
@@ -2077,7 +2077,7 @@ func (o PodSecurityPolicySpecPtrOutput) FsGroup() FSGroupStrategyOptionsPtrOutpu
 		if v == nil {
 			return nil
 		}
-		return v.FsGroup
+		return &v.FsGroup
 	}).(FSGroupStrategyOptionsPtrOutput)
 }
 
@@ -2167,7 +2167,7 @@ func (o PodSecurityPolicySpecPtrOutput) RunAsUser() RunAsUserStrategyOptionsPtrO
 		if v == nil {
 			return nil
 		}
-		return v.RunAsUser
+		return &v.RunAsUser
 	}).(RunAsUserStrategyOptionsPtrOutput)
 }
 
@@ -2187,7 +2187,7 @@ func (o PodSecurityPolicySpecPtrOutput) SeLinux() SELinuxStrategyOptionsPtrOutpu
 		if v == nil {
 			return nil
 		}
-		return v.SeLinux
+		return &v.SeLinux
 	}).(SELinuxStrategyOptionsPtrOutput)
 }
 
@@ -2197,7 +2197,7 @@ func (o PodSecurityPolicySpecPtrOutput) SupplementalGroups() SupplementalGroupsS
 		if v == nil {
 			return nil
 		}
-		return v.SupplementalGroups
+		return &v.SupplementalGroups
 	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
@@ -2216,7 +2216,7 @@ type RunAsGroupStrategyOptions struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-	Rule *string `pulumi:"rule"`
+	Rule string `pulumi:"rule"`
 }
 
 // RunAsGroupStrategyOptionsInput is an input type that accepts RunAsGroupStrategyOptionsArgs and RunAsGroupStrategyOptionsOutput values.
@@ -2236,7 +2236,7 @@ type RunAsGroupStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-	Rule pulumi.StringPtrInput `pulumi:"rule"`
+	Rule pulumi.StringInput `pulumi:"rule"`
 }
 
 func (RunAsGroupStrategyOptionsArgs) ElementType() reflect.Type {
@@ -2324,8 +2324,8 @@ func (o RunAsGroupStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 }
 
 // rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-func (o RunAsGroupStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+func (o RunAsGroupStrategyOptionsOutput) Rule() pulumi.StringOutput {
+	return o.ApplyT(func(v RunAsGroupStrategyOptions) string { return v.Rule }).(pulumi.StringOutput)
 }
 
 type RunAsGroupStrategyOptionsPtrOutput struct{ *pulumi.OutputState }
@@ -2362,7 +2362,7 @@ func (o RunAsGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Rule
+		return &v.Rule
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2371,7 +2371,7 @@ type RunAsUserStrategyOptions struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-	Rule *string `pulumi:"rule"`
+	Rule string `pulumi:"rule"`
 }
 
 // RunAsUserStrategyOptionsInput is an input type that accepts RunAsUserStrategyOptionsArgs and RunAsUserStrategyOptionsOutput values.
@@ -2391,7 +2391,7 @@ type RunAsUserStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
 	// rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-	Rule pulumi.StringPtrInput `pulumi:"rule"`
+	Rule pulumi.StringInput `pulumi:"rule"`
 }
 
 func (RunAsUserStrategyOptionsArgs) ElementType() reflect.Type {
@@ -2479,8 +2479,8 @@ func (o RunAsUserStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 }
 
 // rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-func (o RunAsUserStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+func (o RunAsUserStrategyOptionsOutput) Rule() pulumi.StringOutput {
+	return o.ApplyT(func(v RunAsUserStrategyOptions) string { return v.Rule }).(pulumi.StringOutput)
 }
 
 type RunAsUserStrategyOptionsPtrOutput struct{ *pulumi.OutputState }
@@ -2517,7 +2517,7 @@ func (o RunAsUserStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Rule
+		return &v.Rule
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -2679,7 +2679,7 @@ func (o RuntimeClassStrategyOptionsPtrOutput) DefaultRuntimeClassName() pulumi.S
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
 type SELinuxStrategyOptions struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
-	Rule *string `pulumi:"rule"`
+	Rule string `pulumi:"rule"`
 	// seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SeLinuxOptions *corev1.SELinuxOptions `pulumi:"seLinuxOptions"`
 }
@@ -2699,7 +2699,7 @@ type SELinuxStrategyOptionsInput interface {
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
 type SELinuxStrategyOptionsArgs struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
-	Rule pulumi.StringPtrInput `pulumi:"rule"`
+	Rule pulumi.StringInput `pulumi:"rule"`
 	// seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SeLinuxOptions corev1.SELinuxOptionsPtrInput `pulumi:"seLinuxOptions"`
 }
@@ -2784,8 +2784,8 @@ func (o SELinuxStrategyOptionsOutput) ToSELinuxStrategyOptionsPtrOutputWithConte
 }
 
 // rule is the strategy that will dictate the allowable labels that may be set.
-func (o SELinuxStrategyOptionsOutput) Rule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *string { return v.Rule }).(pulumi.StringPtrOutput)
+func (o SELinuxStrategyOptionsOutput) Rule() pulumi.StringOutput {
+	return o.ApplyT(func(v SELinuxStrategyOptions) string { return v.Rule }).(pulumi.StringOutput)
 }
 
 // seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -2817,7 +2817,7 @@ func (o SELinuxStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Rule
+		return &v.Rule
 	}).(pulumi.StringPtrOutput)
 }
 

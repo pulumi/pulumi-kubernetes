@@ -21,7 +21,7 @@ type LocalSubjectAccessReview struct {
 	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-	Spec SubjectAccessReviewSpecPtrOutput `pulumi:"spec"`
+	Spec SubjectAccessReviewSpecOutput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status SubjectAccessReviewStatusPtrOutput `pulumi:"status"`
 }

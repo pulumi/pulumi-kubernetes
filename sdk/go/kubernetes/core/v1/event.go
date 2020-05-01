@@ -26,7 +26,7 @@ type Event struct {
 	// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
 	FirstTimestamp pulumi.StringPtrOutput `pulumi:"firstTimestamp"`
 	// The object that this event is about.
-	InvolvedObject ObjectReferencePtrOutput `pulumi:"involvedObject"`
+	InvolvedObject ObjectReferenceOutput `pulumi:"involvedObject"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// The time at which the most recent occurrence of this event was recorded.
@@ -34,7 +34,7 @@ type Event struct {
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrOutput `pulumi:"message"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason pulumi.StringPtrOutput `pulumi:"reason"`
 	// Optional secondary object for more complex actions.

@@ -241,9 +241,9 @@ type CronJobSpec struct {
 	// The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
 	FailedJobsHistoryLimit *int `pulumi:"failedJobsHistoryLimit"`
 	// Specifies the job that will be created when executing a CronJob.
-	JobTemplate *JobTemplateSpec `pulumi:"jobTemplate"`
+	JobTemplate JobTemplateSpec `pulumi:"jobTemplate"`
 	// The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-	Schedule *string `pulumi:"schedule"`
+	Schedule string `pulumi:"schedule"`
 	// Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
 	StartingDeadlineSeconds *int `pulumi:"startingDeadlineSeconds"`
 	// The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
@@ -271,9 +271,9 @@ type CronJobSpecArgs struct {
 	// The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
 	FailedJobsHistoryLimit pulumi.IntPtrInput `pulumi:"failedJobsHistoryLimit"`
 	// Specifies the job that will be created when executing a CronJob.
-	JobTemplate JobTemplateSpecPtrInput `pulumi:"jobTemplate"`
+	JobTemplate JobTemplateSpecInput `pulumi:"jobTemplate"`
 	// The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-	Schedule pulumi.StringPtrInput `pulumi:"schedule"`
+	Schedule pulumi.StringInput `pulumi:"schedule"`
 	// Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
 	StartingDeadlineSeconds pulumi.IntPtrInput `pulumi:"startingDeadlineSeconds"`
 	// The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
@@ -372,13 +372,13 @@ func (o CronJobSpecOutput) FailedJobsHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // Specifies the job that will be created when executing a CronJob.
-func (o CronJobSpecOutput) JobTemplate() JobTemplateSpecPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *JobTemplateSpec { return v.JobTemplate }).(JobTemplateSpecPtrOutput)
+func (o CronJobSpecOutput) JobTemplate() JobTemplateSpecOutput {
+	return o.ApplyT(func(v CronJobSpec) JobTemplateSpec { return v.JobTemplate }).(JobTemplateSpecOutput)
 }
 
 // The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-func (o CronJobSpecOutput) Schedule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *string { return v.Schedule }).(pulumi.StringPtrOutput)
+func (o CronJobSpecOutput) Schedule() pulumi.StringOutput {
+	return o.ApplyT(func(v CronJobSpec) string { return v.Schedule }).(pulumi.StringOutput)
 }
 
 // Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
@@ -440,7 +440,7 @@ func (o CronJobSpecPtrOutput) JobTemplate() JobTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.JobTemplate
+		return &v.JobTemplate
 	}).(JobTemplateSpecPtrOutput)
 }
 
@@ -450,7 +450,7 @@ func (o CronJobSpecPtrOutput) Schedule() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Schedule
+		return &v.Schedule
 	}).(pulumi.StringPtrOutput)
 }
 

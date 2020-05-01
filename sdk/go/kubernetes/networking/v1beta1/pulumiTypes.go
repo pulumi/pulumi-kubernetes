@@ -15,7 +15,7 @@ import (
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPath struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-	Backend *IngressBackend `pulumi:"backend"`
+	Backend IngressBackend `pulumi:"backend"`
 	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 	Path *string `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
@@ -47,7 +47,7 @@ type HTTPIngressPathInput interface {
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathArgs struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-	Backend IngressBackendPtrInput `pulumi:"backend"`
+	Backend IngressBackendInput `pulumi:"backend"`
 	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
@@ -118,8 +118,8 @@ func (o HTTPIngressPathOutput) ToHTTPIngressPathOutputWithContext(ctx context.Co
 }
 
 // Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-func (o HTTPIngressPathOutput) Backend() IngressBackendPtrOutput {
-	return o.ApplyT(func(v HTTPIngressPath) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
+func (o HTTPIngressPathOutput) Backend() IngressBackendOutput {
+	return o.ApplyT(func(v HTTPIngressPath) IngressBackend { return v.Backend }).(IngressBackendOutput)
 }
 
 // Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
@@ -483,7 +483,7 @@ type IngressBackend struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource *corev1.TypedLocalObjectReference `pulumi:"resource"`
 	// Specifies the name of the referenced service.
-	ServiceName *string `pulumi:"serviceName"`
+	ServiceName string `pulumi:"serviceName"`
 	// Specifies the port of the referenced service.
 	ServicePort interface{} `pulumi:"servicePort"`
 }
@@ -505,7 +505,7 @@ type IngressBackendArgs struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource corev1.TypedLocalObjectReferencePtrInput `pulumi:"resource"`
 	// Specifies the name of the referenced service.
-	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
+	ServiceName pulumi.StringInput `pulumi:"serviceName"`
 	// Specifies the port of the referenced service.
 	ServicePort pulumi.Input `pulumi:"servicePort"`
 }
@@ -595,8 +595,8 @@ func (o IngressBackendOutput) Resource() corev1.TypedLocalObjectReferencePtrOutp
 }
 
 // Specifies the name of the referenced service.
-func (o IngressBackendOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+func (o IngressBackendOutput) ServiceName() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressBackend) string { return v.ServiceName }).(pulumi.StringOutput)
 }
 
 // Specifies the port of the referenced service.
@@ -638,7 +638,7 @@ func (o IngressBackendPtrOutput) ServiceName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ServiceName
+		return &v.ServiceName
 	}).(pulumi.StringPtrOutput)
 }
 

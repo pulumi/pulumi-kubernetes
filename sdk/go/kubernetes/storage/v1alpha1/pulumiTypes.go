@@ -23,7 +23,7 @@ type VolumeAttachmentType struct {
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-	Spec *VolumeAttachmentSpec `pulumi:"spec"`
+	Spec VolumeAttachmentSpec `pulumi:"spec"`
 	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 	Status *VolumeAttachmentStatus `pulumi:"status"`
 }
@@ -51,7 +51,7 @@ type VolumeAttachmentTypeArgs struct {
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-	Spec VolumeAttachmentSpecPtrInput `pulumi:"spec"`
+	Spec VolumeAttachmentSpecInput `pulumi:"spec"`
 	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 	Status VolumeAttachmentStatusPtrInput `pulumi:"status"`
 }
@@ -127,8 +127,8 @@ func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentType) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
+func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecOutput)
 }
 
 // Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
@@ -397,11 +397,11 @@ func (o VolumeAttachmentSourcePtrOutput) PersistentVolumeName() pulumi.StringPtr
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpec struct {
 	// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-	Attacher *string `pulumi:"attacher"`
+	Attacher string `pulumi:"attacher"`
 	// The node that the volume should be attached to.
-	NodeName *string `pulumi:"nodeName"`
+	NodeName string `pulumi:"nodeName"`
 	// Source represents the volume that should be attached.
-	Source *VolumeAttachmentSource `pulumi:"source"`
+	Source VolumeAttachmentSource `pulumi:"source"`
 }
 
 // VolumeAttachmentSpecInput is an input type that accepts VolumeAttachmentSpecArgs and VolumeAttachmentSpecOutput values.
@@ -419,11 +419,11 @@ type VolumeAttachmentSpecInput interface {
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpecArgs struct {
 	// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-	Attacher pulumi.StringPtrInput `pulumi:"attacher"`
+	Attacher pulumi.StringInput `pulumi:"attacher"`
 	// The node that the volume should be attached to.
-	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	NodeName pulumi.StringInput `pulumi:"nodeName"`
 	// Source represents the volume that should be attached.
-	Source VolumeAttachmentSourcePtrInput `pulumi:"source"`
+	Source VolumeAttachmentSourceInput `pulumi:"source"`
 }
 
 func (VolumeAttachmentSpecArgs) ElementType() reflect.Type {
@@ -506,18 +506,18 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutputWithContext(c
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) string { return v.Attacher }).(pulumi.StringOutput)
 }
 
 // The node that the volume should be attached to.
-func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) string { return v.NodeName }).(pulumi.StringOutput)
 }
 
 // Source represents the volume that should be attached.
-func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
+func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourceOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourceOutput)
 }
 
 type VolumeAttachmentSpecPtrOutput struct{ *pulumi.OutputState }
@@ -544,7 +544,7 @@ func (o VolumeAttachmentSpecPtrOutput) Attacher() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Attacher
+		return &v.Attacher
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -554,7 +554,7 @@ func (o VolumeAttachmentSpecPtrOutput) NodeName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.NodeName
+		return &v.NodeName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -564,7 +564,7 @@ func (o VolumeAttachmentSpecPtrOutput) Source() VolumeAttachmentSourcePtrOutput 
 		if v == nil {
 			return nil
 		}
-		return v.Source
+		return &v.Source
 	}).(VolumeAttachmentSourcePtrOutput)
 }
 
@@ -573,7 +573,7 @@ type VolumeAttachmentStatus struct {
 	// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError *VolumeError `pulumi:"attachError"`
 	// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-	Attached *bool `pulumi:"attached"`
+	Attached bool `pulumi:"attached"`
 	// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachmentMetadata map[string]string `pulumi:"attachmentMetadata"`
 	// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
@@ -597,7 +597,7 @@ type VolumeAttachmentStatusArgs struct {
 	// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError VolumeErrorPtrInput `pulumi:"attachError"`
 	// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-	Attached pulumi.BoolPtrInput `pulumi:"attached"`
+	Attached pulumi.BoolInput `pulumi:"attached"`
 	// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachmentMetadata pulumi.StringMapInput `pulumi:"attachmentMetadata"`
 	// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
@@ -689,8 +689,8 @@ func (o VolumeAttachmentStatusOutput) AttachError() VolumeErrorPtrOutput {
 }
 
 // Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-func (o VolumeAttachmentStatusOutput) Attached() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
+func (o VolumeAttachmentStatusOutput) Attached() pulumi.BoolOutput {
+	return o.ApplyT(func(v VolumeAttachmentStatus) bool { return v.Attached }).(pulumi.BoolOutput)
 }
 
 // Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -737,7 +737,7 @@ func (o VolumeAttachmentStatusPtrOutput) Attached() pulumi.BoolPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Attached
+		return &v.Attached
 	}).(pulumi.BoolPtrOutput)
 }
 

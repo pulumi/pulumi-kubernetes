@@ -28,7 +28,7 @@ type PriorityClass struct {
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
 	PreemptionPolicy pulumi.StringPtrOutput `pulumi:"preemptionPolicy"`
 	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
-	Value pulumi.IntPtrOutput `pulumi:"value"`
+	Value pulumi.IntOutput `pulumi:"value"`
 }
 
 // NewPriorityClass registers a new resource with the given unique name, arguments, and options.

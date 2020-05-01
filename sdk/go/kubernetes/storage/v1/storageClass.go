@@ -33,7 +33,7 @@ type StorageClass struct {
 	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
 	Parameters pulumi.StringMapOutput `pulumi:"parameters"`
 	// Provisioner indicates the type of the provisioner.
-	Provisioner pulumi.StringPtrOutput `pulumi:"provisioner"`
+	Provisioner pulumi.StringOutput `pulumi:"provisioner"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
 	ReclaimPolicy pulumi.StringPtrOutput `pulumi:"reclaimPolicy"`
 	// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.

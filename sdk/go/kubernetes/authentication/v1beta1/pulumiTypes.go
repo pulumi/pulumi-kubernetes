@@ -19,7 +19,7 @@ type TokenReviewType struct {
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec *TokenReviewSpec `pulumi:"spec"`
+	Spec TokenReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
 	Status *TokenReviewStatus `pulumi:"status"`
 }
@@ -44,7 +44,7 @@ type TokenReviewTypeArgs struct {
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec TokenReviewSpecPtrInput `pulumi:"spec"`
+	Spec TokenReviewSpecInput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
 	Status TokenReviewStatusPtrInput `pulumi:"status"`
 }
@@ -91,8 +91,8 @@ func (o TokenReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Spec holds information about the request being evaluated
-func (o TokenReviewTypeOutput) Spec() TokenReviewSpecPtrOutput {
-	return o.ApplyT(func(v TokenReviewType) *TokenReviewSpec { return v.Spec }).(TokenReviewSpecPtrOutput)
+func (o TokenReviewTypeOutput) Spec() TokenReviewSpecOutput {
+	return o.ApplyT(func(v TokenReviewType) TokenReviewSpec { return v.Spec }).(TokenReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request can be authenticated.

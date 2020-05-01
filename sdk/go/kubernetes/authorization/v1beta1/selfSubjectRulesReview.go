@@ -21,7 +21,7 @@ type SelfSubjectRulesReview struct {
 	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.
-	Spec SelfSubjectRulesReviewSpecPtrOutput `pulumi:"spec"`
+	Spec SelfSubjectRulesReviewSpecOutput `pulumi:"spec"`
 	// Status is filled in by the server and indicates the set of actions a user can perform.
 	Status SubjectRulesReviewStatusPtrOutput `pulumi:"status"`
 }

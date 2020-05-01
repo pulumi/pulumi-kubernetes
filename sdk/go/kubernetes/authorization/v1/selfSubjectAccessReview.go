@@ -21,7 +21,7 @@ type SelfSubjectAccessReview struct {
 	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  user and groups must be empty
-	Spec SelfSubjectAccessReviewSpecPtrOutput `pulumi:"spec"`
+	Spec SelfSubjectAccessReviewSpecOutput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status SubjectAccessReviewStatusPtrOutput `pulumi:"status"`
 }

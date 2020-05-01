@@ -21,7 +21,7 @@ type CSIDriverType struct {
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the CSI Driver.
-	Spec *CSIDriverSpec `pulumi:"spec"`
+	Spec CSIDriverSpec `pulumi:"spec"`
 }
 
 // CSIDriverTypeInput is an input type that accepts CSIDriverTypeArgs and CSIDriverTypeOutput values.
@@ -45,7 +45,7 @@ type CSIDriverTypeArgs struct {
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the CSI Driver.
-	Spec CSIDriverSpecPtrInput `pulumi:"spec"`
+	Spec CSIDriverSpecInput `pulumi:"spec"`
 }
 
 func (CSIDriverTypeArgs) ElementType() reflect.Type {
@@ -117,8 +117,8 @@ func (o CSIDriverTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Specification of the CSI Driver.
-func (o CSIDriverTypeOutput) Spec() CSIDriverSpecPtrOutput {
-	return o.ApplyT(func(v CSIDriverType) *CSIDriverSpec { return v.Spec }).(CSIDriverSpecPtrOutput)
+func (o CSIDriverTypeOutput) Spec() CSIDriverSpecOutput {
+	return o.ApplyT(func(v CSIDriverType) CSIDriverSpec { return v.Spec }).(CSIDriverSpecOutput)
 }
 
 type CSIDriverTypeArrayOutput struct{ *pulumi.OutputState }
@@ -419,7 +419,7 @@ type CSINodeType struct {
 	// metadata.name must be the Kubernetes node name.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the specification of CSINode
-	Spec *CSINodeSpec `pulumi:"spec"`
+	Spec CSINodeSpec `pulumi:"spec"`
 }
 
 // CSINodeTypeInput is an input type that accepts CSINodeTypeArgs and CSINodeTypeOutput values.
@@ -443,7 +443,7 @@ type CSINodeTypeArgs struct {
 	// metadata.name must be the Kubernetes node name.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec is the specification of CSINode
-	Spec CSINodeSpecPtrInput `pulumi:"spec"`
+	Spec CSINodeSpecInput `pulumi:"spec"`
 }
 
 func (CSINodeTypeArgs) ElementType() reflect.Type {
@@ -515,8 +515,8 @@ func (o CSINodeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // spec is the specification of CSINode
-func (o CSINodeTypeOutput) Spec() CSINodeSpecPtrOutput {
-	return o.ApplyT(func(v CSINodeType) *CSINodeSpec { return v.Spec }).(CSINodeSpecPtrOutput)
+func (o CSINodeTypeOutput) Spec() CSINodeSpecOutput {
+	return o.ApplyT(func(v CSINodeType) CSINodeSpec { return v.Spec }).(CSINodeSpecOutput)
 }
 
 type CSINodeTypeArrayOutput struct{ *pulumi.OutputState }
@@ -544,9 +544,9 @@ type CSINodeDriver struct {
 	// allocatable represents the volume resources of a node that are available for scheduling.
 	Allocatable *VolumeNodeResources `pulumi:"allocatable"`
 	// This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-	NodeID *string `pulumi:"nodeID"`
+	NodeID string `pulumi:"nodeID"`
 	// topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
 	TopologyKeys []string `pulumi:"topologyKeys"`
 }
@@ -568,9 +568,9 @@ type CSINodeDriverArgs struct {
 	// allocatable represents the volume resources of a node that are available for scheduling.
 	Allocatable VolumeNodeResourcesPtrInput `pulumi:"allocatable"`
 	// This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-	NodeID pulumi.StringPtrInput `pulumi:"nodeID"`
+	NodeID pulumi.StringInput `pulumi:"nodeID"`
 	// topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
 }
@@ -634,13 +634,13 @@ func (o CSINodeDriverOutput) Allocatable() VolumeNodeResourcesPtrOutput {
 }
 
 // This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-func (o CSINodeDriverOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeDriver) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o CSINodeDriverOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeDriver) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-func (o CSINodeDriverOutput) NodeID() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CSINodeDriver) *string { return v.NodeID }).(pulumi.StringPtrOutput)
+func (o CSINodeDriverOutput) NodeID() pulumi.StringOutput {
+	return o.ApplyT(func(v CSINodeDriver) string { return v.NodeID }).(pulumi.StringOutput)
 }
 
 // topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
@@ -906,7 +906,7 @@ type StorageClassType struct {
 	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
 	Parameters map[string]string `pulumi:"parameters"`
 	// Provisioner indicates the type of the provisioner.
-	Provisioner *string `pulumi:"provisioner"`
+	Provisioner string `pulumi:"provisioner"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
 	ReclaimPolicy *string `pulumi:"reclaimPolicy"`
 	// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -944,7 +944,7 @@ type StorageClassTypeArgs struct {
 	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
 	Parameters pulumi.StringMapInput `pulumi:"parameters"`
 	// Provisioner indicates the type of the provisioner.
-	Provisioner pulumi.StringPtrInput `pulumi:"provisioner"`
+	Provisioner pulumi.StringInput `pulumi:"provisioner"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
 	ReclaimPolicy pulumi.StringPtrInput `pulumi:"reclaimPolicy"`
 	// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -1042,8 +1042,8 @@ func (o StorageClassTypeOutput) Parameters() pulumi.StringMapOutput {
 }
 
 // Provisioner indicates the type of the provisioner.
-func (o StorageClassTypeOutput) Provisioner() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StorageClassType) *string { return v.Provisioner }).(pulumi.StringPtrOutput)
+func (o StorageClassTypeOutput) Provisioner() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageClassType) string { return v.Provisioner }).(pulumi.StringOutput)
 }
 
 // Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
@@ -1170,7 +1170,7 @@ type VolumeAttachmentType struct {
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-	Spec *VolumeAttachmentSpec `pulumi:"spec"`
+	Spec VolumeAttachmentSpec `pulumi:"spec"`
 	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 	Status *VolumeAttachmentStatus `pulumi:"status"`
 }
@@ -1198,7 +1198,7 @@ type VolumeAttachmentTypeArgs struct {
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-	Spec VolumeAttachmentSpecPtrInput `pulumi:"spec"`
+	Spec VolumeAttachmentSpecInput `pulumi:"spec"`
 	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 	Status VolumeAttachmentStatusPtrInput `pulumi:"status"`
 }
@@ -1274,8 +1274,8 @@ func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
-func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentType) *VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecPtrOutput)
+func (o VolumeAttachmentTypeOutput) Spec() VolumeAttachmentSpecOutput {
+	return o.ApplyT(func(v VolumeAttachmentType) VolumeAttachmentSpec { return v.Spec }).(VolumeAttachmentSpecOutput)
 }
 
 // Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
@@ -1544,11 +1544,11 @@ func (o VolumeAttachmentSourcePtrOutput) PersistentVolumeName() pulumi.StringPtr
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpec struct {
 	// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-	Attacher *string `pulumi:"attacher"`
+	Attacher string `pulumi:"attacher"`
 	// The node that the volume should be attached to.
-	NodeName *string `pulumi:"nodeName"`
+	NodeName string `pulumi:"nodeName"`
 	// Source represents the volume that should be attached.
-	Source *VolumeAttachmentSource `pulumi:"source"`
+	Source VolumeAttachmentSource `pulumi:"source"`
 }
 
 // VolumeAttachmentSpecInput is an input type that accepts VolumeAttachmentSpecArgs and VolumeAttachmentSpecOutput values.
@@ -1566,11 +1566,11 @@ type VolumeAttachmentSpecInput interface {
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpecArgs struct {
 	// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-	Attacher pulumi.StringPtrInput `pulumi:"attacher"`
+	Attacher pulumi.StringInput `pulumi:"attacher"`
 	// The node that the volume should be attached to.
-	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	NodeName pulumi.StringInput `pulumi:"nodeName"`
 	// Source represents the volume that should be attached.
-	Source VolumeAttachmentSourcePtrInput `pulumi:"source"`
+	Source VolumeAttachmentSourceInput `pulumi:"source"`
 }
 
 func (VolumeAttachmentSpecArgs) ElementType() reflect.Type {
@@ -1653,18 +1653,18 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutputWithContext(c
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.Attacher }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentSpecOutput) Attacher() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) string { return v.Attacher }).(pulumi.StringOutput)
 }
 
 // The node that the volume should be attached to.
-func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+func (o VolumeAttachmentSpecOutput) NodeName() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) string { return v.NodeName }).(pulumi.StringOutput)
 }
 
 // Source represents the volume that should be attached.
-func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourcePtrOutput)
+func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourceOutput {
+	return o.ApplyT(func(v VolumeAttachmentSpec) VolumeAttachmentSource { return v.Source }).(VolumeAttachmentSourceOutput)
 }
 
 type VolumeAttachmentSpecPtrOutput struct{ *pulumi.OutputState }
@@ -1691,7 +1691,7 @@ func (o VolumeAttachmentSpecPtrOutput) Attacher() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Attacher
+		return &v.Attacher
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1701,7 +1701,7 @@ func (o VolumeAttachmentSpecPtrOutput) NodeName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.NodeName
+		return &v.NodeName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1711,7 +1711,7 @@ func (o VolumeAttachmentSpecPtrOutput) Source() VolumeAttachmentSourcePtrOutput 
 		if v == nil {
 			return nil
 		}
-		return v.Source
+		return &v.Source
 	}).(VolumeAttachmentSourcePtrOutput)
 }
 
@@ -1720,7 +1720,7 @@ type VolumeAttachmentStatus struct {
 	// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError *VolumeError `pulumi:"attachError"`
 	// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-	Attached *bool `pulumi:"attached"`
+	Attached bool `pulumi:"attached"`
 	// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachmentMetadata map[string]string `pulumi:"attachmentMetadata"`
 	// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
@@ -1744,7 +1744,7 @@ type VolumeAttachmentStatusArgs struct {
 	// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError VolumeErrorPtrInput `pulumi:"attachError"`
 	// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-	Attached pulumi.BoolPtrInput `pulumi:"attached"`
+	Attached pulumi.BoolInput `pulumi:"attached"`
 	// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachmentMetadata pulumi.StringMapInput `pulumi:"attachmentMetadata"`
 	// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
@@ -1836,8 +1836,8 @@ func (o VolumeAttachmentStatusOutput) AttachError() VolumeErrorPtrOutput {
 }
 
 // Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-func (o VolumeAttachmentStatusOutput) Attached() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *bool { return v.Attached }).(pulumi.BoolPtrOutput)
+func (o VolumeAttachmentStatusOutput) Attached() pulumi.BoolOutput {
+	return o.ApplyT(func(v VolumeAttachmentStatus) bool { return v.Attached }).(pulumi.BoolOutput)
 }
 
 // Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -1884,7 +1884,7 @@ func (o VolumeAttachmentStatusPtrOutput) Attached() pulumi.BoolPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Attached
+		return &v.Attached
 	}).(pulumi.BoolPtrOutput)
 }
 

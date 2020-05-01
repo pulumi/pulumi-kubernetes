@@ -21,7 +21,7 @@ type TokenReview struct {
 	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec TokenReviewSpecPtrOutput `pulumi:"spec"`
+	Spec TokenReviewSpecOutput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
 	Status TokenReviewStatusPtrOutput `pulumi:"status"`
 }

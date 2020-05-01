@@ -12,15 +12,15 @@ import (
 
 // Info contains versioning information. how we'll want to distribute that information.
 type Info struct {
-	BuildDate    *string `pulumi:"buildDate"`
-	Compiler     *string `pulumi:"compiler"`
-	GitCommit    *string `pulumi:"gitCommit"`
-	GitTreeState *string `pulumi:"gitTreeState"`
-	GitVersion   *string `pulumi:"gitVersion"`
-	GoVersion    *string `pulumi:"goVersion"`
-	Major        *string `pulumi:"major"`
-	Minor        *string `pulumi:"minor"`
-	Platform     *string `pulumi:"platform"`
+	BuildDate    string `pulumi:"buildDate"`
+	Compiler     string `pulumi:"compiler"`
+	GitCommit    string `pulumi:"gitCommit"`
+	GitTreeState string `pulumi:"gitTreeState"`
+	GitVersion   string `pulumi:"gitVersion"`
+	GoVersion    string `pulumi:"goVersion"`
+	Major        string `pulumi:"major"`
+	Minor        string `pulumi:"minor"`
+	Platform     string `pulumi:"platform"`
 }
 
 // InfoInput is an input type that accepts InfoArgs and InfoOutput values.
@@ -37,15 +37,15 @@ type InfoInput interface {
 
 // Info contains versioning information. how we'll want to distribute that information.
 type InfoArgs struct {
-	BuildDate    pulumi.StringPtrInput `pulumi:"buildDate"`
-	Compiler     pulumi.StringPtrInput `pulumi:"compiler"`
-	GitCommit    pulumi.StringPtrInput `pulumi:"gitCommit"`
-	GitTreeState pulumi.StringPtrInput `pulumi:"gitTreeState"`
-	GitVersion   pulumi.StringPtrInput `pulumi:"gitVersion"`
-	GoVersion    pulumi.StringPtrInput `pulumi:"goVersion"`
-	Major        pulumi.StringPtrInput `pulumi:"major"`
-	Minor        pulumi.StringPtrInput `pulumi:"minor"`
-	Platform     pulumi.StringPtrInput `pulumi:"platform"`
+	BuildDate    pulumi.StringInput `pulumi:"buildDate"`
+	Compiler     pulumi.StringInput `pulumi:"compiler"`
+	GitCommit    pulumi.StringInput `pulumi:"gitCommit"`
+	GitTreeState pulumi.StringInput `pulumi:"gitTreeState"`
+	GitVersion   pulumi.StringInput `pulumi:"gitVersion"`
+	GoVersion    pulumi.StringInput `pulumi:"goVersion"`
+	Major        pulumi.StringInput `pulumi:"major"`
+	Minor        pulumi.StringInput `pulumi:"minor"`
+	Platform     pulumi.StringInput `pulumi:"platform"`
 }
 
 func (InfoArgs) ElementType() reflect.Type {
@@ -75,40 +75,40 @@ func (o InfoOutput) ToInfoOutputWithContext(ctx context.Context) InfoOutput {
 	return o
 }
 
-func (o InfoOutput) BuildDate() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.BuildDate }).(pulumi.StringPtrOutput)
+func (o InfoOutput) BuildDate() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.BuildDate }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) Compiler() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.Compiler }).(pulumi.StringPtrOutput)
+func (o InfoOutput) Compiler() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.Compiler }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) GitCommit() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.GitCommit }).(pulumi.StringPtrOutput)
+func (o InfoOutput) GitCommit() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.GitCommit }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) GitTreeState() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.GitTreeState }).(pulumi.StringPtrOutput)
+func (o InfoOutput) GitTreeState() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.GitTreeState }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) GitVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.GitVersion }).(pulumi.StringPtrOutput)
+func (o InfoOutput) GitVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.GitVersion }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) GoVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.GoVersion }).(pulumi.StringPtrOutput)
+func (o InfoOutput) GoVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.GoVersion }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) Major() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.Major }).(pulumi.StringPtrOutput)
+func (o InfoOutput) Major() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.Major }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) Minor() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.Minor }).(pulumi.StringPtrOutput)
+func (o InfoOutput) Minor() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.Minor }).(pulumi.StringOutput)
 }
 
-func (o InfoOutput) Platform() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Info) *string { return v.Platform }).(pulumi.StringPtrOutput)
+func (o InfoOutput) Platform() pulumi.StringOutput {
+	return o.ApplyT(func(v Info) string { return v.Platform }).(pulumi.StringOutput)
 }
 
 func init() {

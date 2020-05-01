@@ -211,7 +211,7 @@ type TokenRequestType struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     *string             `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta  `pulumi:"metadata"`
-	Spec     *TokenRequestSpec   `pulumi:"spec"`
+	Spec     TokenRequestSpec    `pulumi:"spec"`
 	Status   *TokenRequestStatus `pulumi:"status"`
 }
 
@@ -234,7 +234,7 @@ type TokenRequestTypeArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     pulumi.StringPtrInput      `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput  `pulumi:"metadata"`
-	Spec     TokenRequestSpecPtrInput   `pulumi:"spec"`
+	Spec     TokenRequestSpecInput      `pulumi:"spec"`
 	Status   TokenRequestStatusPtrInput `pulumi:"status"`
 }
 
@@ -279,8 +279,8 @@ func (o TokenRequestTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v TokenRequestType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-func (o TokenRequestTypeOutput) Spec() TokenRequestSpecPtrOutput {
-	return o.ApplyT(func(v TokenRequestType) *TokenRequestSpec { return v.Spec }).(TokenRequestSpecPtrOutput)
+func (o TokenRequestTypeOutput) Spec() TokenRequestSpecOutput {
+	return o.ApplyT(func(v TokenRequestType) TokenRequestSpec { return v.Spec }).(TokenRequestSpecOutput)
 }
 
 func (o TokenRequestTypeOutput) Status() TokenRequestStatusPtrOutput {
@@ -464,9 +464,9 @@ func (o TokenRequestSpecPtrOutput) ExpirationSeconds() pulumi.IntPtrOutput {
 // TokenRequestStatus is the result of a token request.
 type TokenRequestStatus struct {
 	// ExpirationTimestamp is the time of expiration of the returned token.
-	ExpirationTimestamp *string `pulumi:"expirationTimestamp"`
+	ExpirationTimestamp string `pulumi:"expirationTimestamp"`
 	// Token is the opaque bearer token.
-	Token *string `pulumi:"token"`
+	Token string `pulumi:"token"`
 }
 
 // TokenRequestStatusInput is an input type that accepts TokenRequestStatusArgs and TokenRequestStatusOutput values.
@@ -484,9 +484,9 @@ type TokenRequestStatusInput interface {
 // TokenRequestStatus is the result of a token request.
 type TokenRequestStatusArgs struct {
 	// ExpirationTimestamp is the time of expiration of the returned token.
-	ExpirationTimestamp pulumi.StringPtrInput `pulumi:"expirationTimestamp"`
+	ExpirationTimestamp pulumi.StringInput `pulumi:"expirationTimestamp"`
 	// Token is the opaque bearer token.
-	Token pulumi.StringPtrInput `pulumi:"token"`
+	Token pulumi.StringInput `pulumi:"token"`
 }
 
 func (TokenRequestStatusArgs) ElementType() reflect.Type {
@@ -569,13 +569,13 @@ func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutputWithContext(ctx c
 }
 
 // ExpirationTimestamp is the time of expiration of the returned token.
-func (o TokenRequestStatusOutput) ExpirationTimestamp() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokenRequestStatus) *string { return v.ExpirationTimestamp }).(pulumi.StringPtrOutput)
+func (o TokenRequestStatusOutput) ExpirationTimestamp() pulumi.StringOutput {
+	return o.ApplyT(func(v TokenRequestStatus) string { return v.ExpirationTimestamp }).(pulumi.StringOutput)
 }
 
 // Token is the opaque bearer token.
-func (o TokenRequestStatusOutput) Token() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokenRequestStatus) *string { return v.Token }).(pulumi.StringPtrOutput)
+func (o TokenRequestStatusOutput) Token() pulumi.StringOutput {
+	return o.ApplyT(func(v TokenRequestStatus) string { return v.Token }).(pulumi.StringOutput)
 }
 
 type TokenRequestStatusPtrOutput struct{ *pulumi.OutputState }
@@ -602,7 +602,7 @@ func (o TokenRequestStatusPtrOutput) ExpirationTimestamp() pulumi.StringPtrOutpu
 		if v == nil {
 			return nil
 		}
-		return v.ExpirationTimestamp
+		return &v.ExpirationTimestamp
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -612,7 +612,7 @@ func (o TokenRequestStatusPtrOutput) Token() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Token
+		return &v.Token
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -624,7 +624,7 @@ type TokenReviewType struct {
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec *TokenReviewSpec `pulumi:"spec"`
+	Spec TokenReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
 	Status *TokenReviewStatus `pulumi:"status"`
 }
@@ -649,7 +649,7 @@ type TokenReviewTypeArgs struct {
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
-	Spec TokenReviewSpecPtrInput `pulumi:"spec"`
+	Spec TokenReviewSpecInput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
 	Status TokenReviewStatusPtrInput `pulumi:"status"`
 }
@@ -696,8 +696,8 @@ func (o TokenReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Spec holds information about the request being evaluated
-func (o TokenReviewTypeOutput) Spec() TokenReviewSpecPtrOutput {
-	return o.ApplyT(func(v TokenReviewType) *TokenReviewSpec { return v.Spec }).(TokenReviewSpecPtrOutput)
+func (o TokenReviewTypeOutput) Spec() TokenReviewSpecOutput {
+	return o.ApplyT(func(v TokenReviewType) TokenReviewSpec { return v.Spec }).(TokenReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request can be authenticated.

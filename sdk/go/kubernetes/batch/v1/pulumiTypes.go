@@ -206,9 +206,9 @@ type JobCondition struct {
 	// (brief) reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of job condition, Complete or Failed.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // JobConditionInput is an input type that accepts JobConditionArgs and JobConditionOutput values.
@@ -234,9 +234,9 @@ type JobConditionArgs struct {
 	// (brief) reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of job condition, Complete or Failed.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (JobConditionArgs) ElementType() reflect.Type {
@@ -313,13 +313,13 @@ func (o JobConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o JobConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o JobConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v JobCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of job condition, Complete or Failed.
-func (o JobConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JobCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o JobConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v JobCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type JobConditionArrayOutput struct{ *pulumi.OutputState }
@@ -440,7 +440,7 @@ type JobSpec struct {
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
 	TtlSecondsAfterFinished *int `pulumi:"ttlSecondsAfterFinished"`
 }
@@ -472,7 +472,7 @@ type JobSpecArgs struct {
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
 	TtlSecondsAfterFinished pulumi.IntPtrInput `pulumi:"ttlSecondsAfterFinished"`
 }
@@ -587,8 +587,8 @@ func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 }
 
 // Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-func (o JobSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v JobSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o JobSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v JobSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 // ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
@@ -680,7 +680,7 @@ func (o JobSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 

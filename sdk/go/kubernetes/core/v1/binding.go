@@ -22,7 +22,7 @@ type Binding struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// The target object that you want to bind to the standard object.
-	Target ObjectReferencePtrOutput `pulumi:"target"`
+	Target ObjectReferenceOutput `pulumi:"target"`
 }
 
 // NewBinding registers a new resource with the given unique name, arguments, and options.

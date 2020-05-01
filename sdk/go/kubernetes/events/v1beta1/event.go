@@ -29,7 +29,7 @@ type Event struct {
 	// Deprecated field assuring backward compatibility with core.v1 Event type
 	DeprecatedSource corev1.EventSourcePtrOutput `pulumi:"deprecatedSource"`
 	// Required. Time when this Event was first observed.
-	EventTime pulumi.StringPtrOutput `pulumi:"eventTime"`
+	EventTime pulumi.StringOutput `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`

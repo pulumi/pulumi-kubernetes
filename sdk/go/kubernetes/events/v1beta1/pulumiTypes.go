@@ -27,7 +27,7 @@ type EventType struct {
 	// Deprecated field assuring backward compatibility with core.v1 Event type
 	DeprecatedSource *corev1.EventSource `pulumi:"deprecatedSource"`
 	// Required. Time when this Event was first observed.
-	EventTime *string `pulumi:"eventTime"`
+	EventTime string `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
@@ -76,7 +76,7 @@ type EventTypeArgs struct {
 	// Deprecated field assuring backward compatibility with core.v1 Event type
 	DeprecatedSource corev1.EventSourcePtrInput `pulumi:"deprecatedSource"`
 	// Required. Time when this Event was first observed.
-	EventTime pulumi.StringPtrInput `pulumi:"eventTime"`
+	EventTime pulumi.StringInput `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
@@ -182,8 +182,8 @@ func (o EventTypeOutput) DeprecatedSource() corev1.EventSourcePtrOutput {
 }
 
 // Required. Time when this Event was first observed.
-func (o EventTypeOutput) EventTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EventType) *string { return v.EventTime }).(pulumi.StringPtrOutput)
+func (o EventTypeOutput) EventTime() pulumi.StringOutput {
+	return o.ApplyT(func(v EventType) string { return v.EventTime }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -341,11 +341,11 @@ func (o EventListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
 type EventSeries struct {
 	// Number of occurrences in this series up to the last heartbeat time
-	Count *int `pulumi:"count"`
+	Count int `pulumi:"count"`
 	// Time when last Event from the series was seen before last heartbeat.
-	LastObservedTime *string `pulumi:"lastObservedTime"`
+	LastObservedTime string `pulumi:"lastObservedTime"`
 	// Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
-	State *string `pulumi:"state"`
+	State string `pulumi:"state"`
 }
 
 // EventSeriesInput is an input type that accepts EventSeriesArgs and EventSeriesOutput values.
@@ -363,11 +363,11 @@ type EventSeriesInput interface {
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
 type EventSeriesArgs struct {
 	// Number of occurrences in this series up to the last heartbeat time
-	Count pulumi.IntPtrInput `pulumi:"count"`
+	Count pulumi.IntInput `pulumi:"count"`
 	// Time when last Event from the series was seen before last heartbeat.
-	LastObservedTime pulumi.StringPtrInput `pulumi:"lastObservedTime"`
+	LastObservedTime pulumi.StringInput `pulumi:"lastObservedTime"`
 	// Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
-	State pulumi.StringPtrInput `pulumi:"state"`
+	State pulumi.StringInput `pulumi:"state"`
 }
 
 func (EventSeriesArgs) ElementType() reflect.Type {
@@ -450,18 +450,18 @@ func (o EventSeriesOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context
 }
 
 // Number of occurrences in this series up to the last heartbeat time
-func (o EventSeriesOutput) Count() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v EventSeries) *int { return v.Count }).(pulumi.IntPtrOutput)
+func (o EventSeriesOutput) Count() pulumi.IntOutput {
+	return o.ApplyT(func(v EventSeries) int { return v.Count }).(pulumi.IntOutput)
 }
 
 // Time when last Event from the series was seen before last heartbeat.
-func (o EventSeriesOutput) LastObservedTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EventSeries) *string { return v.LastObservedTime }).(pulumi.StringPtrOutput)
+func (o EventSeriesOutput) LastObservedTime() pulumi.StringOutput {
+	return o.ApplyT(func(v EventSeries) string { return v.LastObservedTime }).(pulumi.StringOutput)
 }
 
 // Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
-func (o EventSeriesOutput) State() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EventSeries) *string { return v.State }).(pulumi.StringPtrOutput)
+func (o EventSeriesOutput) State() pulumi.StringOutput {
+	return o.ApplyT(func(v EventSeries) string { return v.State }).(pulumi.StringOutput)
 }
 
 type EventSeriesPtrOutput struct{ *pulumi.OutputState }
@@ -488,7 +488,7 @@ func (o EventSeriesPtrOutput) Count() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Count
+		return &v.Count
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -498,7 +498,7 @@ func (o EventSeriesPtrOutput) LastObservedTime() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.LastObservedTime
+		return &v.LastObservedTime
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -508,7 +508,7 @@ func (o EventSeriesPtrOutput) State() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.State
+		return &v.State
 	}).(pulumi.StringPtrOutput)
 }
 

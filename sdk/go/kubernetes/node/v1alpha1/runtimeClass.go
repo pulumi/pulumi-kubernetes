@@ -22,7 +22,7 @@ type RuntimeClass struct {
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the RuntimeClass More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec RuntimeClassSpecPtrOutput `pulumi:"spec"`
+	Spec RuntimeClassSpecOutput `pulumi:"spec"`
 }
 
 // NewRuntimeClass registers a new resource with the given unique name, arguments, and options.

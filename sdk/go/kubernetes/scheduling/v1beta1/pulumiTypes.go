@@ -26,7 +26,7 @@ type PriorityClassType struct {
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
 	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
-	Value *int `pulumi:"value"`
+	Value int `pulumi:"value"`
 }
 
 // PriorityClassTypeInput is an input type that accepts PriorityClassTypeArgs and PriorityClassTypeOutput values.
@@ -56,7 +56,7 @@ type PriorityClassTypeArgs struct {
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
 	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
-	Value pulumi.IntPtrInput `pulumi:"value"`
+	Value pulumi.IntInput `pulumi:"value"`
 }
 
 func (PriorityClassTypeArgs) ElementType() reflect.Type {
@@ -143,8 +143,8 @@ func (o PriorityClassTypeOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 }
 
 // The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
-func (o PriorityClassTypeOutput) Value() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PriorityClassType) *int { return v.Value }).(pulumi.IntPtrOutput)
+func (o PriorityClassTypeOutput) Value() pulumi.IntOutput {
+	return o.ApplyT(func(v PriorityClassType) int { return v.Value }).(pulumi.IntOutput)
 }
 
 type PriorityClassTypeArrayOutput struct{ *pulumi.OutputState }

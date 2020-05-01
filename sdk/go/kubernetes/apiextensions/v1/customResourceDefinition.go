@@ -21,7 +21,7 @@ type CustomResourceDefinition struct {
 	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
-	Spec CustomResourceDefinitionSpecPtrOutput `pulumi:"spec"`
+	Spec CustomResourceDefinitionSpecOutput `pulumi:"spec"`
 	// status indicates the actual state of the CustomResourceDefinition
 	Status CustomResourceDefinitionStatusPtrOutput `pulumi:"status"`
 }

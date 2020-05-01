@@ -14,17 +14,17 @@ import (
 // CustomResourceColumnDefinition specifies a column for server side printing.
 type CustomResourceColumnDefinition struct {
 	// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
-	JSONPath *string `pulumi:"JSONPath"`
+	JSONPath string `pulumi:"JSONPath"`
 	// description is a human readable description of this column.
 	Description *string `pulumi:"description"`
 	// format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
 	Format *string `pulumi:"format"`
 	// name is a human readable name for the column.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
 	Priority *int `pulumi:"priority"`
 	// type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // CustomResourceColumnDefinitionInput is an input type that accepts CustomResourceColumnDefinitionArgs and CustomResourceColumnDefinitionOutput values.
@@ -42,17 +42,17 @@ type CustomResourceColumnDefinitionInput interface {
 // CustomResourceColumnDefinition specifies a column for server side printing.
 type CustomResourceColumnDefinitionArgs struct {
 	// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
-	JSONPath pulumi.StringPtrInput `pulumi:"JSONPath"`
+	JSONPath pulumi.StringInput `pulumi:"JSONPath"`
 	// description is a human readable description of this column.
 	Description pulumi.StringPtrInput `pulumi:"description"`
 	// format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
 	Format pulumi.StringPtrInput `pulumi:"format"`
 	// name is a human readable name for the column.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
 	Priority pulumi.IntPtrInput `pulumi:"priority"`
 	// type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (CustomResourceColumnDefinitionArgs) ElementType() reflect.Type {
@@ -109,8 +109,8 @@ func (o CustomResourceColumnDefinitionOutput) ToCustomResourceColumnDefinitionOu
 }
 
 // JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
-func (o CustomResourceColumnDefinitionOutput) JSONPath() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceColumnDefinition) *string { return v.JSONPath }).(pulumi.StringPtrOutput)
+func (o CustomResourceColumnDefinitionOutput) JSONPath() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceColumnDefinition) string { return v.JSONPath }).(pulumi.StringOutput)
 }
 
 // description is a human readable description of this column.
@@ -124,8 +124,8 @@ func (o CustomResourceColumnDefinitionOutput) Format() pulumi.StringPtrOutput {
 }
 
 // name is a human readable name for the column.
-func (o CustomResourceColumnDefinitionOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceColumnDefinition) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o CustomResourceColumnDefinitionOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceColumnDefinition) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
@@ -134,8 +134,8 @@ func (o CustomResourceColumnDefinitionOutput) Priority() pulumi.IntPtrOutput {
 }
 
 // type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-func (o CustomResourceColumnDefinitionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceColumnDefinition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o CustomResourceColumnDefinitionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceColumnDefinition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type CustomResourceColumnDefinitionArrayOutput struct{ *pulumi.OutputState }
@@ -164,7 +164,7 @@ type CustomResourceConversion struct {
 	ConversionReviewVersions []string `pulumi:"conversionReviewVersions"`
 	// strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
 	//   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
-	Strategy *string `pulumi:"strategy"`
+	Strategy string `pulumi:"strategy"`
 	// webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`.
 	WebhookClientConfig *WebhookClientConfig `pulumi:"webhookClientConfig"`
 }
@@ -187,7 +187,7 @@ type CustomResourceConversionArgs struct {
 	ConversionReviewVersions pulumi.StringArrayInput `pulumi:"conversionReviewVersions"`
 	// strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
 	//   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
-	Strategy pulumi.StringPtrInput `pulumi:"strategy"`
+	Strategy pulumi.StringInput `pulumi:"strategy"`
 	// webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`.
 	WebhookClientConfig WebhookClientConfigPtrInput `pulumi:"webhookClientConfig"`
 }
@@ -278,8 +278,8 @@ func (o CustomResourceConversionOutput) ConversionReviewVersions() pulumi.String
 
 // strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
 //   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
-func (o CustomResourceConversionOutput) Strategy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceConversion) *string { return v.Strategy }).(pulumi.StringPtrOutput)
+func (o CustomResourceConversionOutput) Strategy() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceConversion) string { return v.Strategy }).(pulumi.StringOutput)
 }
 
 // webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`.
@@ -322,7 +322,7 @@ func (o CustomResourceConversionPtrOutput) Strategy() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Strategy
+		return &v.Strategy
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -344,7 +344,7 @@ type CustomResourceDefinitionType struct {
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
-	Spec *CustomResourceDefinitionSpec `pulumi:"spec"`
+	Spec CustomResourceDefinitionSpec `pulumi:"spec"`
 	// status indicates the actual state of the CustomResourceDefinition
 	Status *CustomResourceDefinitionStatus `pulumi:"status"`
 }
@@ -369,7 +369,7 @@ type CustomResourceDefinitionTypeArgs struct {
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
-	Spec CustomResourceDefinitionSpecPtrInput `pulumi:"spec"`
+	Spec CustomResourceDefinitionSpecInput `pulumi:"spec"`
 	// status indicates the actual state of the CustomResourceDefinition
 	Status CustomResourceDefinitionStatusPtrInput `pulumi:"status"`
 }
@@ -442,8 +442,8 @@ func (o CustomResourceDefinitionTypeOutput) Metadata() metav1.ObjectMetaPtrOutpu
 }
 
 // spec describes how the user wants the resources to appear
-func (o CustomResourceDefinitionTypeOutput) Spec() CustomResourceDefinitionSpecPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionType) *CustomResourceDefinitionSpec { return v.Spec }).(CustomResourceDefinitionSpecPtrOutput)
+func (o CustomResourceDefinitionTypeOutput) Spec() CustomResourceDefinitionSpecOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionType) CustomResourceDefinitionSpec { return v.Spec }).(CustomResourceDefinitionSpecOutput)
 }
 
 // status indicates the actual state of the CustomResourceDefinition
@@ -480,9 +480,9 @@ type CustomResourceDefinitionCondition struct {
 	// reason is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// status is the status of the condition. Can be True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// type is the type of the condition. Types include Established, NamesAccepted and Terminating.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // CustomResourceDefinitionConditionInput is an input type that accepts CustomResourceDefinitionConditionArgs and CustomResourceDefinitionConditionOutput values.
@@ -506,9 +506,9 @@ type CustomResourceDefinitionConditionArgs struct {
 	// reason is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// status is the status of the condition. Can be True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// type is the type of the condition. Types include Established, NamesAccepted and Terminating.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (CustomResourceDefinitionConditionArgs) ElementType() reflect.Type {
@@ -580,13 +580,13 @@ func (o CustomResourceDefinitionConditionOutput) Reason() pulumi.StringPtrOutput
 }
 
 // status is the status of the condition. Can be True, False, Unknown.
-func (o CustomResourceDefinitionConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o CustomResourceDefinitionConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // type is the type of the condition. Types include Established, NamesAccepted and Terminating.
-func (o CustomResourceDefinitionConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o CustomResourceDefinitionConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type CustomResourceDefinitionConditionArrayOutput struct{ *pulumi.OutputState }
@@ -694,11 +694,11 @@ type CustomResourceDefinitionNames struct {
 	// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 	Categories []string `pulumi:"categories"`
 	// kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
-	Kind *string `pulumi:"kind"`
+	Kind string `pulumi:"kind"`
 	// listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
 	ListKind *string `pulumi:"listKind"`
 	// plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
-	Plural *string `pulumi:"plural"`
+	Plural string `pulumi:"plural"`
 	// shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
 	ShortNames []string `pulumi:"shortNames"`
 	// singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
@@ -722,11 +722,11 @@ type CustomResourceDefinitionNamesArgs struct {
 	// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 	Categories pulumi.StringArrayInput `pulumi:"categories"`
 	// kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	Kind pulumi.StringInput `pulumi:"kind"`
 	// listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
 	ListKind pulumi.StringPtrInput `pulumi:"listKind"`
 	// plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
-	Plural pulumi.StringPtrInput `pulumi:"plural"`
+	Plural pulumi.StringInput `pulumi:"plural"`
 	// shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
 	ShortNames pulumi.StringArrayInput `pulumi:"shortNames"`
 	// singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
@@ -818,8 +818,8 @@ func (o CustomResourceDefinitionNamesOutput) Categories() pulumi.StringArrayOutp
 }
 
 // kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
-func (o CustomResourceDefinitionNamesOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionNames) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CustomResourceDefinitionNamesOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionNames) string { return v.Kind }).(pulumi.StringOutput)
 }
 
 // listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
@@ -828,8 +828,8 @@ func (o CustomResourceDefinitionNamesOutput) ListKind() pulumi.StringPtrOutput {
 }
 
 // plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
-func (o CustomResourceDefinitionNamesOutput) Plural() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionNames) *string { return v.Plural }).(pulumi.StringPtrOutput)
+func (o CustomResourceDefinitionNamesOutput) Plural() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionNames) string { return v.Plural }).(pulumi.StringOutput)
 }
 
 // shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
@@ -876,7 +876,7 @@ func (o CustomResourceDefinitionNamesPtrOutput) Kind() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Kind
+		return &v.Kind
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -896,7 +896,7 @@ func (o CustomResourceDefinitionNamesPtrOutput) Plural() pulumi.StringPtrOutput 
 		if v == nil {
 			return nil
 		}
-		return v.Plural
+		return &v.Plural
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -927,13 +927,13 @@ type CustomResourceDefinitionSpec struct {
 	// conversion defines conversion settings for the CRD.
 	Conversion *CustomResourceConversion `pulumi:"conversion"`
 	// group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
-	Group *string `pulumi:"group"`
+	Group string `pulumi:"group"`
 	// names specify the resource and kind names for the custom resource.
-	Names *CustomResourceDefinitionNames `pulumi:"names"`
+	Names CustomResourceDefinitionNames `pulumi:"names"`
 	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
 	PreserveUnknownFields *bool `pulumi:"preserveUnknownFields"`
 	// scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
-	Scope *string `pulumi:"scope"`
+	Scope string `pulumi:"scope"`
 	// subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
 	Subresources *CustomResourceSubresources `pulumi:"subresources"`
 	// validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive.
@@ -963,13 +963,13 @@ type CustomResourceDefinitionSpecArgs struct {
 	// conversion defines conversion settings for the CRD.
 	Conversion CustomResourceConversionPtrInput `pulumi:"conversion"`
 	// group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
-	Group pulumi.StringPtrInput `pulumi:"group"`
+	Group pulumi.StringInput `pulumi:"group"`
 	// names specify the resource and kind names for the custom resource.
-	Names CustomResourceDefinitionNamesPtrInput `pulumi:"names"`
+	Names CustomResourceDefinitionNamesInput `pulumi:"names"`
 	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
 	PreserveUnknownFields pulumi.BoolPtrInput `pulumi:"preserveUnknownFields"`
 	// scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
-	Scope pulumi.StringPtrInput `pulumi:"scope"`
+	Scope pulumi.StringInput `pulumi:"scope"`
 	// subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
 	Subresources CustomResourceSubresourcesPtrInput `pulumi:"subresources"`
 	// validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive.
@@ -1072,13 +1072,13 @@ func (o CustomResourceDefinitionSpecOutput) Conversion() CustomResourceConversio
 }
 
 // group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
-func (o CustomResourceDefinitionSpecOutput) Group() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionSpec) *string { return v.Group }).(pulumi.StringPtrOutput)
+func (o CustomResourceDefinitionSpecOutput) Group() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionSpec) string { return v.Group }).(pulumi.StringOutput)
 }
 
 // names specify the resource and kind names for the custom resource.
-func (o CustomResourceDefinitionSpecOutput) Names() CustomResourceDefinitionNamesPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionSpec) *CustomResourceDefinitionNames { return v.Names }).(CustomResourceDefinitionNamesPtrOutput)
+func (o CustomResourceDefinitionSpecOutput) Names() CustomResourceDefinitionNamesOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionSpec) CustomResourceDefinitionNames { return v.Names }).(CustomResourceDefinitionNamesOutput)
 }
 
 // preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
@@ -1087,8 +1087,8 @@ func (o CustomResourceDefinitionSpecOutput) PreserveUnknownFields() pulumi.BoolP
 }
 
 // scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
-func (o CustomResourceDefinitionSpecOutput) Scope() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionSpec) *string { return v.Scope }).(pulumi.StringPtrOutput)
+func (o CustomResourceDefinitionSpecOutput) Scope() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionSpec) string { return v.Scope }).(pulumi.StringOutput)
 }
 
 // subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
@@ -1155,7 +1155,7 @@ func (o CustomResourceDefinitionSpecPtrOutput) Group() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Group
+		return &v.Group
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1165,7 +1165,7 @@ func (o CustomResourceDefinitionSpecPtrOutput) Names() CustomResourceDefinitionN
 		if v == nil {
 			return nil
 		}
-		return v.Names
+		return &v.Names
 	}).(CustomResourceDefinitionNamesPtrOutput)
 }
 
@@ -1185,7 +1185,7 @@ func (o CustomResourceDefinitionSpecPtrOutput) Scope() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Scope
+		return &v.Scope
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1232,7 +1232,7 @@ func (o CustomResourceDefinitionSpecPtrOutput) Versions() CustomResourceDefiniti
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
 type CustomResourceDefinitionStatus struct {
 	// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
-	AcceptedNames *CustomResourceDefinitionNames `pulumi:"acceptedNames"`
+	AcceptedNames CustomResourceDefinitionNames `pulumi:"acceptedNames"`
 	// conditions indicate state for particular aspects of a CustomResourceDefinition
 	Conditions []CustomResourceDefinitionCondition `pulumi:"conditions"`
 	// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
@@ -1254,7 +1254,7 @@ type CustomResourceDefinitionStatusInput interface {
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
 type CustomResourceDefinitionStatusArgs struct {
 	// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
-	AcceptedNames CustomResourceDefinitionNamesPtrInput `pulumi:"acceptedNames"`
+	AcceptedNames CustomResourceDefinitionNamesInput `pulumi:"acceptedNames"`
 	// conditions indicate state for particular aspects of a CustomResourceDefinition
 	Conditions CustomResourceDefinitionConditionArrayInput `pulumi:"conditions"`
 	// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
@@ -1341,8 +1341,8 @@ func (o CustomResourceDefinitionStatusOutput) ToCustomResourceDefinitionStatusPt
 }
 
 // acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
-func (o CustomResourceDefinitionStatusOutput) AcceptedNames() CustomResourceDefinitionNamesPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionStatus) *CustomResourceDefinitionNames { return v.AcceptedNames }).(CustomResourceDefinitionNamesPtrOutput)
+func (o CustomResourceDefinitionStatusOutput) AcceptedNames() CustomResourceDefinitionNamesOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionStatus) CustomResourceDefinitionNames { return v.AcceptedNames }).(CustomResourceDefinitionNamesOutput)
 }
 
 // conditions indicate state for particular aspects of a CustomResourceDefinition
@@ -1379,7 +1379,7 @@ func (o CustomResourceDefinitionStatusPtrOutput) AcceptedNames() CustomResourceD
 		if v == nil {
 			return nil
 		}
-		return v.AcceptedNames
+		return &v.AcceptedNames
 	}).(CustomResourceDefinitionNamesPtrOutput)
 }
 
@@ -1408,13 +1408,13 @@ type CustomResourceDefinitionVersion struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns []CustomResourceColumnDefinition `pulumi:"additionalPrinterColumns"`
 	// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead).
 	Schema *CustomResourceValidation `pulumi:"schema"`
 	// served is a flag enabling/disabling this version from being served via REST APIs
-	Served *bool `pulumi:"served"`
+	Served bool `pulumi:"served"`
 	// storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
-	Storage *bool `pulumi:"storage"`
+	Storage bool `pulumi:"storage"`
 	// subresources specify what subresources this version of the defined custom resource have. Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead).
 	Subresources *CustomResourceSubresources `pulumi:"subresources"`
 }
@@ -1436,13 +1436,13 @@ type CustomResourceDefinitionVersionArgs struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns CustomResourceColumnDefinitionArrayInput `pulumi:"additionalPrinterColumns"`
 	// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead).
 	Schema CustomResourceValidationPtrInput `pulumi:"schema"`
 	// served is a flag enabling/disabling this version from being served via REST APIs
-	Served pulumi.BoolPtrInput `pulumi:"served"`
+	Served pulumi.BoolInput `pulumi:"served"`
 	// storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
-	Storage pulumi.BoolPtrInput `pulumi:"storage"`
+	Storage pulumi.BoolInput `pulumi:"storage"`
 	// subresources specify what subresources this version of the defined custom resource have. Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead).
 	Subresources CustomResourceSubresourcesPtrInput `pulumi:"subresources"`
 }
@@ -1508,8 +1508,8 @@ func (o CustomResourceDefinitionVersionOutput) AdditionalPrinterColumns() Custom
 }
 
 // name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
-func (o CustomResourceDefinitionVersionOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionVersion) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o CustomResourceDefinitionVersionOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionVersion) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead).
@@ -1518,13 +1518,13 @@ func (o CustomResourceDefinitionVersionOutput) Schema() CustomResourceValidation
 }
 
 // served is a flag enabling/disabling this version from being served via REST APIs
-func (o CustomResourceDefinitionVersionOutput) Served() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionVersion) *bool { return v.Served }).(pulumi.BoolPtrOutput)
+func (o CustomResourceDefinitionVersionOutput) Served() pulumi.BoolOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionVersion) bool { return v.Served }).(pulumi.BoolOutput)
 }
 
 // storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
-func (o CustomResourceDefinitionVersionOutput) Storage() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionVersion) *bool { return v.Storage }).(pulumi.BoolPtrOutput)
+func (o CustomResourceDefinitionVersionOutput) Storage() pulumi.BoolOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionVersion) bool { return v.Storage }).(pulumi.BoolOutput)
 }
 
 // subresources specify what subresources this version of the defined custom resource have. Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead).
@@ -1557,9 +1557,9 @@ type CustomResourceSubresourceScale struct {
 	// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
 	LabelSelectorPath *string `pulumi:"labelSelectorPath"`
 	// specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
-	SpecReplicasPath *string `pulumi:"specReplicasPath"`
+	SpecReplicasPath string `pulumi:"specReplicasPath"`
 	// statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
-	StatusReplicasPath *string `pulumi:"statusReplicasPath"`
+	StatusReplicasPath string `pulumi:"statusReplicasPath"`
 }
 
 // CustomResourceSubresourceScaleInput is an input type that accepts CustomResourceSubresourceScaleArgs and CustomResourceSubresourceScaleOutput values.
@@ -1579,9 +1579,9 @@ type CustomResourceSubresourceScaleArgs struct {
 	// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
 	LabelSelectorPath pulumi.StringPtrInput `pulumi:"labelSelectorPath"`
 	// specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
-	SpecReplicasPath pulumi.StringPtrInput `pulumi:"specReplicasPath"`
+	SpecReplicasPath pulumi.StringInput `pulumi:"specReplicasPath"`
 	// statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
-	StatusReplicasPath pulumi.StringPtrInput `pulumi:"statusReplicasPath"`
+	StatusReplicasPath pulumi.StringInput `pulumi:"statusReplicasPath"`
 }
 
 func (CustomResourceSubresourceScaleArgs) ElementType() reflect.Type {
@@ -1669,13 +1669,13 @@ func (o CustomResourceSubresourceScaleOutput) LabelSelectorPath() pulumi.StringP
 }
 
 // specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
-func (o CustomResourceSubresourceScaleOutput) SpecReplicasPath() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceSubresourceScale) *string { return v.SpecReplicasPath }).(pulumi.StringPtrOutput)
+func (o CustomResourceSubresourceScaleOutput) SpecReplicasPath() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceSubresourceScale) string { return v.SpecReplicasPath }).(pulumi.StringOutput)
 }
 
 // statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
-func (o CustomResourceSubresourceScaleOutput) StatusReplicasPath() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CustomResourceSubresourceScale) *string { return v.StatusReplicasPath }).(pulumi.StringPtrOutput)
+func (o CustomResourceSubresourceScaleOutput) StatusReplicasPath() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomResourceSubresourceScale) string { return v.StatusReplicasPath }).(pulumi.StringOutput)
 }
 
 type CustomResourceSubresourceScalePtrOutput struct{ *pulumi.OutputState }
@@ -1712,7 +1712,7 @@ func (o CustomResourceSubresourceScalePtrOutput) SpecReplicasPath() pulumi.Strin
 		if v == nil {
 			return nil
 		}
-		return v.SpecReplicasPath
+		return &v.SpecReplicasPath
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1722,7 +1722,7 @@ func (o CustomResourceSubresourceScalePtrOutput) StatusReplicasPath() pulumi.Str
 		if v == nil {
 			return nil
 		}
-		return v.StatusReplicasPath
+		return &v.StatusReplicasPath
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -3191,9 +3191,9 @@ func (o JSONSchemaPropsMapOutput) MapIndex(k pulumi.StringInput) JSONSchemaProps
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReference struct {
 	// name is the name of the service. Required
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// namespace is the namespace of the service. Required
-	Namespace *string `pulumi:"namespace"`
+	Namespace string `pulumi:"namespace"`
 	// path is an optional URL path at which the webhook will be contacted.
 	Path *string `pulumi:"path"`
 	// port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
@@ -3215,9 +3215,9 @@ type ServiceReferenceInput interface {
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceArgs struct {
 	// name is the name of the service. Required
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// namespace is the namespace of the service. Required
-	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	Namespace pulumi.StringInput `pulumi:"namespace"`
 	// path is an optional URL path at which the webhook will be contacted.
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
@@ -3304,13 +3304,13 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 }
 
 // name is the name of the service. Required
-func (o ServiceReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o ServiceReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ServiceReference) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // namespace is the namespace of the service. Required
-func (o ServiceReferenceOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ServiceReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+func (o ServiceReferenceOutput) Namespace() pulumi.StringOutput {
+	return o.ApplyT(func(v ServiceReference) string { return v.Namespace }).(pulumi.StringOutput)
 }
 
 // path is an optional URL path at which the webhook will be contacted.
@@ -3347,7 +3347,7 @@ func (o ServiceReferencePtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -3357,7 +3357,7 @@ func (o ServiceReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Namespace
+		return &v.Namespace
 	}).(pulumi.StringPtrOutput)
 }
 

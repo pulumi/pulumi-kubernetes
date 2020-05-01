@@ -16,7 +16,7 @@ type EndpointSlice struct {
 	pulumi.CustomResourceState
 
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-	AddressType pulumi.StringPtrOutput `pulumi:"addressType"`
+	AddressType pulumi.StringOutput `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.

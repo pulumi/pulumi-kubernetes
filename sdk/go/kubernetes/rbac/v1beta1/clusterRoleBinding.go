@@ -22,7 +22,7 @@ type ClusterRoleBinding struct {
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRefPtrOutput `pulumi:"roleRef"`
+	RoleRef RoleRefOutput `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayOutput `pulumi:"subjects"`
 }

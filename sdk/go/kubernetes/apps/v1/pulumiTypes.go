@@ -23,7 +23,7 @@ type ControllerRevisionType struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Revision indicates the revision of the state represented by Data.
-	Revision *int `pulumi:"revision"`
+	Revision int `pulumi:"revision"`
 }
 
 // ControllerRevisionTypeInput is an input type that accepts ControllerRevisionTypeArgs and ControllerRevisionTypeOutput values.
@@ -49,7 +49,7 @@ type ControllerRevisionTypeArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Revision indicates the revision of the state represented by Data.
-	Revision pulumi.IntPtrInput `pulumi:"revision"`
+	Revision pulumi.IntInput `pulumi:"revision"`
 }
 
 func (ControllerRevisionTypeArgs) ElementType() reflect.Type {
@@ -126,8 +126,8 @@ func (o ControllerRevisionTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Revision indicates the revision of the state represented by Data.
-func (o ControllerRevisionTypeOutput) Revision() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ControllerRevisionType) *int { return v.Revision }).(pulumi.IntPtrOutput)
+func (o ControllerRevisionTypeOutput) Revision() pulumi.IntOutput {
+	return o.ApplyT(func(v ControllerRevisionType) int { return v.Revision }).(pulumi.IntOutput)
 }
 
 type ControllerRevisionTypeArrayOutput struct{ *pulumi.OutputState }
@@ -380,9 +380,9 @@ type DaemonSetCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of DaemonSet condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // DaemonSetConditionInput is an input type that accepts DaemonSetConditionArgs and DaemonSetConditionOutput values.
@@ -406,9 +406,9 @@ type DaemonSetConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of DaemonSet condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (DaemonSetConditionArgs) ElementType() reflect.Type {
@@ -480,13 +480,13 @@ func (o DaemonSetConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o DaemonSetConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o DaemonSetConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of DaemonSet condition.
-func (o DaemonSetConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DaemonSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o DaemonSetConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v DaemonSetCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type DaemonSetConditionArrayOutput struct{ *pulumi.OutputState }
@@ -599,9 +599,9 @@ type DaemonSetSpec struct {
 	// The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 	RevisionHistoryLimit *int `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector metav1.LabelSelector `pulumi:"selector"`
 	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
 	UpdateStrategy *DaemonSetUpdateStrategy `pulumi:"updateStrategy"`
 }
@@ -625,9 +625,9 @@ type DaemonSetSpecArgs struct {
 	// The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 	RevisionHistoryLimit pulumi.IntPtrInput `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
 	UpdateStrategy DaemonSetUpdateStrategyPtrInput `pulumi:"updateStrategy"`
 }
@@ -722,13 +722,13 @@ func (o DaemonSetSpecOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o DaemonSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o DaemonSetSpecOutput) Selector() metav1.LabelSelectorOutput {
+	return o.ApplyT(func(v DaemonSetSpec) metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorOutput)
 }
 
 // An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-func (o DaemonSetSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o DaemonSetSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v DaemonSetSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 // An update strategy to replace existing DaemonSet pods with new pods.
@@ -780,7 +780,7 @@ func (o DaemonSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Selector
+		return &v.Selector
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
@@ -790,7 +790,7 @@ func (o DaemonSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
@@ -811,15 +811,15 @@ type DaemonSetStatus struct {
 	// Represents the latest available observations of a DaemonSet's current state.
 	Conditions []DaemonSetCondition `pulumi:"conditions"`
 	// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	CurrentNumberScheduled *int `pulumi:"currentNumberScheduled"`
+	CurrentNumberScheduled int `pulumi:"currentNumberScheduled"`
 	// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	DesiredNumberScheduled *int `pulumi:"desiredNumberScheduled"`
+	DesiredNumberScheduled int `pulumi:"desiredNumberScheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberAvailable *int `pulumi:"numberAvailable"`
 	// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	NumberMisscheduled *int `pulumi:"numberMisscheduled"`
+	NumberMisscheduled int `pulumi:"numberMisscheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-	NumberReady *int `pulumi:"numberReady"`
+	NumberReady int `pulumi:"numberReady"`
 	// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberUnavailable *int `pulumi:"numberUnavailable"`
 	// The most recent generation observed by the daemon set controller.
@@ -847,15 +847,15 @@ type DaemonSetStatusArgs struct {
 	// Represents the latest available observations of a DaemonSet's current state.
 	Conditions DaemonSetConditionArrayInput `pulumi:"conditions"`
 	// The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	CurrentNumberScheduled pulumi.IntPtrInput `pulumi:"currentNumberScheduled"`
+	CurrentNumberScheduled pulumi.IntInput `pulumi:"currentNumberScheduled"`
 	// The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	DesiredNumberScheduled pulumi.IntPtrInput `pulumi:"desiredNumberScheduled"`
+	DesiredNumberScheduled pulumi.IntInput `pulumi:"desiredNumberScheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberAvailable pulumi.IntPtrInput `pulumi:"numberAvailable"`
 	// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-	NumberMisscheduled pulumi.IntPtrInput `pulumi:"numberMisscheduled"`
+	NumberMisscheduled pulumi.IntInput `pulumi:"numberMisscheduled"`
 	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-	NumberReady pulumi.IntPtrInput `pulumi:"numberReady"`
+	NumberReady pulumi.IntInput `pulumi:"numberReady"`
 	// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberUnavailable pulumi.IntPtrInput `pulumi:"numberUnavailable"`
 	// The most recent generation observed by the daemon set controller.
@@ -954,13 +954,13 @@ func (o DaemonSetStatusOutput) Conditions() DaemonSetConditionArrayOutput {
 }
 
 // The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-func (o DaemonSetStatusOutput) CurrentNumberScheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.CurrentNumberScheduled }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) CurrentNumberScheduled() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.CurrentNumberScheduled }).(pulumi.IntOutput)
 }
 
 // The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-func (o DaemonSetStatusOutput) DesiredNumberScheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.DesiredNumberScheduled }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) DesiredNumberScheduled() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.DesiredNumberScheduled }).(pulumi.IntOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
@@ -969,13 +969,13 @@ func (o DaemonSetStatusOutput) NumberAvailable() pulumi.IntPtrOutput {
 }
 
 // The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-func (o DaemonSetStatusOutput) NumberMisscheduled() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberMisscheduled }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) NumberMisscheduled() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.NumberMisscheduled }).(pulumi.IntOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-func (o DaemonSetStatusOutput) NumberReady() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *int { return v.NumberReady }).(pulumi.IntPtrOutput)
+func (o DaemonSetStatusOutput) NumberReady() pulumi.IntOutput {
+	return o.ApplyT(func(v DaemonSetStatus) int { return v.NumberReady }).(pulumi.IntOutput)
 }
 
 // The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
@@ -1037,7 +1037,7 @@ func (o DaemonSetStatusPtrOutput) CurrentNumberScheduled() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.CurrentNumberScheduled
+		return &v.CurrentNumberScheduled
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1047,7 +1047,7 @@ func (o DaemonSetStatusPtrOutput) DesiredNumberScheduled() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.DesiredNumberScheduled
+		return &v.DesiredNumberScheduled
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1067,7 +1067,7 @@ func (o DaemonSetStatusPtrOutput) NumberMisscheduled() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.NumberMisscheduled
+		return &v.NumberMisscheduled
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1077,7 +1077,7 @@ func (o DaemonSetStatusPtrOutput) NumberReady() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.NumberReady
+		return &v.NumberReady
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -1481,9 +1481,9 @@ type DeploymentCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of deployment condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // DeploymentConditionInput is an input type that accepts DeploymentConditionArgs and DeploymentConditionOutput values.
@@ -1509,9 +1509,9 @@ type DeploymentConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of deployment condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (DeploymentConditionArgs) ElementType() reflect.Type {
@@ -1588,13 +1588,13 @@ func (o DeploymentConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o DeploymentConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o DeploymentConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of deployment condition.
-func (o DeploymentConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v DeploymentCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o DeploymentConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v DeploymentCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type DeploymentConditionArrayOutput struct{ *pulumi.OutputState }
@@ -1713,11 +1713,11 @@ type DeploymentSpec struct {
 	// The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 	RevisionHistoryLimit *int `pulumi:"revisionHistoryLimit"`
 	// Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector metav1.LabelSelector `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy *DeploymentStrategy `pulumi:"strategy"`
 	// Template describes the pods that will be created.
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 }
 
 // DeploymentSpecInput is an input type that accepts DeploymentSpecArgs and DeploymentSpecOutput values.
@@ -1745,11 +1745,11 @@ type DeploymentSpecArgs struct {
 	// The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 	RevisionHistoryLimit pulumi.IntPtrInput `pulumi:"revisionHistoryLimit"`
 	// Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy DeploymentStrategyPtrInput `pulumi:"strategy"`
 	// Template describes the pods that will be created.
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 }
 
 func (DeploymentSpecArgs) ElementType() reflect.Type {
@@ -1857,8 +1857,8 @@ func (o DeploymentSpecOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-func (o DeploymentSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o DeploymentSpecOutput) Selector() metav1.LabelSelectorOutput {
+	return o.ApplyT(func(v DeploymentSpec) metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorOutput)
 }
 
 // The deployment strategy to use to replace existing pods with new ones.
@@ -1867,8 +1867,8 @@ func (o DeploymentSpecOutput) Strategy() DeploymentStrategyPtrOutput {
 }
 
 // Template describes the pods that will be created.
-func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v DeploymentSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 type DeploymentSpecPtrOutput struct{ *pulumi.OutputState }
@@ -1945,7 +1945,7 @@ func (o DeploymentSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Selector
+		return &v.Selector
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
@@ -1965,7 +1965,7 @@ func (o DeploymentSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
@@ -2540,9 +2540,9 @@ type ReplicaSetCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of replica set condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // ReplicaSetConditionInput is an input type that accepts ReplicaSetConditionArgs and ReplicaSetConditionOutput values.
@@ -2566,9 +2566,9 @@ type ReplicaSetConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of replica set condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (ReplicaSetConditionArgs) ElementType() reflect.Type {
@@ -2640,13 +2640,13 @@ func (o ReplicaSetConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o ReplicaSetConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o ReplicaSetConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of replica set condition.
-func (o ReplicaSetConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReplicaSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o ReplicaSetConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v ReplicaSetCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type ReplicaSetConditionArrayOutput struct{ *pulumi.OutputState }
@@ -2759,7 +2759,7 @@ type ReplicaSetSpec struct {
 	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas *int `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector metav1.LabelSelector `pulumi:"selector"`
 	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template *corev1.PodTemplateSpec `pulumi:"template"`
 }
@@ -2783,7 +2783,7 @@ type ReplicaSetSpecArgs struct {
 	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
 }
@@ -2878,8 +2878,8 @@ func (o ReplicaSetSpecOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o ReplicaSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v ReplicaSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o ReplicaSetSpecOutput) Selector() metav1.LabelSelectorOutput {
+	return o.ApplyT(func(v ReplicaSetSpec) metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorOutput)
 }
 
 // Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
@@ -2931,7 +2931,7 @@ func (o ReplicaSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Selector
+		return &v.Selector
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
@@ -2958,7 +2958,7 @@ type ReplicaSetStatus struct {
 	// The number of ready replicas for this replica set.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
 	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-	Replicas *int `pulumi:"replicas"`
+	Replicas int `pulumi:"replicas"`
 }
 
 // ReplicaSetStatusInput is an input type that accepts ReplicaSetStatusArgs and ReplicaSetStatusOutput values.
@@ -2986,7 +2986,7 @@ type ReplicaSetStatusArgs struct {
 	// The number of ready replicas for this replica set.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
 	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	Replicas pulumi.IntInput `pulumi:"replicas"`
 }
 
 func (ReplicaSetStatusArgs) ElementType() reflect.Type {
@@ -3094,8 +3094,8 @@ func (o ReplicaSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 }
 
 // Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-func (o ReplicaSetStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+func (o ReplicaSetStatusOutput) Replicas() pulumi.IntOutput {
+	return o.ApplyT(func(v ReplicaSetStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
 
 type ReplicaSetStatusPtrOutput struct{ *pulumi.OutputState }
@@ -3172,7 +3172,7 @@ func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Replicas
+		return &v.Replicas
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -3795,9 +3795,9 @@ type StatefulSetCondition struct {
 	// The reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status *string `pulumi:"status"`
+	Status string `pulumi:"status"`
 	// Type of statefulset condition.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // StatefulSetConditionInput is an input type that accepts StatefulSetConditionArgs and StatefulSetConditionOutput values.
@@ -3821,9 +3821,9 @@ type StatefulSetConditionArgs struct {
 	// The reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
-	Status pulumi.StringPtrInput `pulumi:"status"`
+	Status pulumi.StringInput `pulumi:"status"`
 	// Type of statefulset condition.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (StatefulSetConditionArgs) ElementType() reflect.Type {
@@ -3895,13 +3895,13 @@ func (o StatefulSetConditionOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // Status of the condition, one of True, False, Unknown.
-func (o StatefulSetConditionOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
+func (o StatefulSetConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v StatefulSetCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
 // Type of statefulset condition.
-func (o StatefulSetConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o StatefulSetConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v StatefulSetCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type StatefulSetConditionArrayOutput struct{ *pulumi.OutputState }
@@ -4010,11 +4010,11 @@ type StatefulSetSpec struct {
 	// revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
 	RevisionHistoryLimit *int `pulumi:"revisionHistoryLimit"`
 	// selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *metav1.LabelSelector `pulumi:"selector"`
+	Selector metav1.LabelSelector `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-	ServiceName *string `pulumi:"serviceName"`
+	ServiceName string `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-	Template *corev1.PodTemplateSpec `pulumi:"template"`
+	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy *StatefulSetUpdateStrategy `pulumi:"updateStrategy"`
 	// volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
@@ -4042,11 +4042,11 @@ type StatefulSetSpecArgs struct {
 	// revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
 	RevisionHistoryLimit pulumi.IntPtrInput `pulumi:"revisionHistoryLimit"`
 	// selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
+	ServiceName pulumi.StringInput `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
+	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy StatefulSetUpdateStrategyPtrInput `pulumi:"updateStrategy"`
 	// volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
@@ -4148,18 +4148,18 @@ func (o StatefulSetSpecOutput) RevisionHistoryLimit() pulumi.IntPtrOutput {
 }
 
 // selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-func (o StatefulSetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
+func (o StatefulSetSpecOutput) Selector() metav1.LabelSelectorOutput {
+	return o.ApplyT(func(v StatefulSetSpec) metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorOutput)
 }
 
 // serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-func (o StatefulSetSpecOutput) ServiceName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+func (o StatefulSetSpecOutput) ServiceName() pulumi.StringOutput {
+	return o.ApplyT(func(v StatefulSetSpec) string { return v.ServiceName }).(pulumi.StringOutput)
 }
 
 // template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-func (o StatefulSetSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
+func (o StatefulSetSpecOutput) Template() corev1.PodTemplateSpecOutput {
+	return o.ApplyT(func(v StatefulSetSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
 // updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
@@ -4226,7 +4226,7 @@ func (o StatefulSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Selector
+		return &v.Selector
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
@@ -4236,7 +4236,7 @@ func (o StatefulSetSpecPtrOutput) ServiceName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ServiceName
+		return &v.ServiceName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -4246,7 +4246,7 @@ func (o StatefulSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Template
+		return &v.Template
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
@@ -4285,7 +4285,7 @@ type StatefulSetStatus struct {
 	// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
 	// replicas is the number of Pods created by the StatefulSet controller.
-	Replicas *int `pulumi:"replicas"`
+	Replicas int `pulumi:"replicas"`
 	// updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
 	UpdateRevision *string `pulumi:"updateRevision"`
 	// updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
@@ -4319,7 +4319,7 @@ type StatefulSetStatusArgs struct {
 	// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
 	// replicas is the number of Pods created by the StatefulSet controller.
-	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	Replicas pulumi.IntInput `pulumi:"replicas"`
 	// updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
 	UpdateRevision pulumi.StringPtrInput `pulumi:"updateRevision"`
 	// updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
@@ -4436,8 +4436,8 @@ func (o StatefulSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 }
 
 // replicas is the number of Pods created by the StatefulSet controller.
-func (o StatefulSetStatusOutput) Replicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+func (o StatefulSetStatusOutput) Replicas() pulumi.IntOutput {
+	return o.ApplyT(func(v StatefulSetStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
 
 // updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
@@ -4534,7 +4534,7 @@ func (o StatefulSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Replicas
+		return &v.Replicas
 	}).(pulumi.IntPtrOutput)
 }
 

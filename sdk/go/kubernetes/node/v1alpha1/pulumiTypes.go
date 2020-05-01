@@ -157,7 +157,7 @@ type RuntimeClassType struct {
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the RuntimeClass More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *RuntimeClassSpec `pulumi:"spec"`
+	Spec RuntimeClassSpec `pulumi:"spec"`
 }
 
 // RuntimeClassTypeInput is an input type that accepts RuntimeClassTypeArgs and RuntimeClassTypeOutput values.
@@ -181,7 +181,7 @@ type RuntimeClassTypeArgs struct {
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the RuntimeClass More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec RuntimeClassSpecPtrInput `pulumi:"spec"`
+	Spec RuntimeClassSpecInput `pulumi:"spec"`
 }
 
 func (RuntimeClassTypeArgs) ElementType() reflect.Type {
@@ -253,8 +253,8 @@ func (o RuntimeClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Specification of the RuntimeClass More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o RuntimeClassTypeOutput) Spec() RuntimeClassSpecPtrOutput {
-	return o.ApplyT(func(v RuntimeClassType) *RuntimeClassSpec { return v.Spec }).(RuntimeClassSpecPtrOutput)
+func (o RuntimeClassTypeOutput) Spec() RuntimeClassSpecOutput {
+	return o.ApplyT(func(v RuntimeClassType) RuntimeClassSpec { return v.Spec }).(RuntimeClassSpecOutput)
 }
 
 type RuntimeClassTypeArrayOutput struct{ *pulumi.OutputState }
@@ -365,7 +365,7 @@ type RuntimeClassSpec struct {
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
 	Overhead *Overhead `pulumi:"overhead"`
 	// RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-	RuntimeHandler *string `pulumi:"runtimeHandler"`
+	RuntimeHandler string `pulumi:"runtimeHandler"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling *Scheduling `pulumi:"scheduling"`
 }
@@ -387,7 +387,7 @@ type RuntimeClassSpecArgs struct {
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
 	Overhead OverheadPtrInput `pulumi:"overhead"`
 	// RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-	RuntimeHandler pulumi.StringPtrInput `pulumi:"runtimeHandler"`
+	RuntimeHandler pulumi.StringInput `pulumi:"runtimeHandler"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling SchedulingPtrInput `pulumi:"scheduling"`
 }
@@ -477,8 +477,8 @@ func (o RuntimeClassSpecOutput) Overhead() OverheadPtrOutput {
 }
 
 // RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-func (o RuntimeClassSpecOutput) RuntimeHandler() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RuntimeClassSpec) *string { return v.RuntimeHandler }).(pulumi.StringPtrOutput)
+func (o RuntimeClassSpecOutput) RuntimeHandler() pulumi.StringOutput {
+	return o.ApplyT(func(v RuntimeClassSpec) string { return v.RuntimeHandler }).(pulumi.StringOutput)
 }
 
 // Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
@@ -520,7 +520,7 @@ func (o RuntimeClassSpecPtrOutput) RuntimeHandler() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.RuntimeHandler
+		return &v.RuntimeHandler
 	}).(pulumi.StringPtrOutput)
 }
 

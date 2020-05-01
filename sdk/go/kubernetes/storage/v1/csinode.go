@@ -22,7 +22,7 @@ type CSINode struct {
 	// metadata.name must be the Kubernetes node name.
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// spec is the specification of CSINode
-	Spec CSINodeSpecPtrOutput `pulumi:"spec"`
+	Spec CSINodeSpecOutput `pulumi:"spec"`
 }
 
 // NewCSINode registers a new resource with the given unique name, arguments, and options.
