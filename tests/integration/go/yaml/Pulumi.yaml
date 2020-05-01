@@ -1,0 +1,3 @@
+name: go_yaml_kubernetes
+description: Test Kubernetes YAML package.
+runtime: go
