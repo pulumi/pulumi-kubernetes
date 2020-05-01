@@ -54,7 +54,7 @@ install:
     - helm repo update
 
     # Install Pulumi
-    - curl -fsSL https://get.pulumi.com | bash -s -- --version "2.0.0-beta.2"
+    - curl -fsSL https://get.pulumi.com | bash -s
     - export PATH=$HOME/.pulumi/bin:$PATH
 before_script:
     - ${PULUMI_SCRIPTS}/ci/ensure-dependencies
