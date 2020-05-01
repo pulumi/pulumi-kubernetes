@@ -24,7 +24,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"strings"
+	"sort"
 	"text/template"
 
 	"github.com/pkg/errors"
@@ -333,37 +333,34 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 		panic(err)
 	}
 
-	type TemplateResources struct {
-		Resources map[string]gogen.LanguageResource
-		Imports   []string
-	}
 	resources, err := gogen.LanguageResources("pulumigen", pkg)
 	if err != nil {
 		panic(err)
 	}
+
+	templateResources := gen.TemplateResources{}
 	imports := codegen.StringSet{}
 	for _, resource := range resources {
+		r := gen.TemplateResource{
+			Alias:   resource.Alias,
+			Name:    resource.Name,
+			Package: resource.Package,
+			Token:   resource.Token,
+		}
+		templateResources.Resources = append(templateResources.Resources, r)
 		importPath := fmt.Sprintf(`%s "%s"`, resource.Alias, resource.Package)
 		imports.Add(importPath)
 	}
-	templateResources := TemplateResources{
-		Resources: resources,
-		Imports:   imports.SortedValues(),
-	}
+	templateResources.Imports = imports.SortedValues()
+	sort.Slice(templateResources.Resources, func(i, j int) bool {
+		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
+	})
 
 	b, err := ioutil.ReadFile(filepath.Join(templateDir, "yaml.tmpl"))
 	if err != nil {
 		panic(err)
 	}
-	funcMap := template.FuncMap{
-		"toGVK": func(s string) string {
-			parts := strings.Split(s, ":")
-			contract.Assert(len(parts) == 3)
-			gvk := parts[1] + "/" + parts[2]
-			return strings.TrimPrefix(gvk, "core/")
-		},
-	}
-	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
+	t := template.Must(template.New("resources").Parse(string(b)))
 
 	var buf bytes.Buffer
 	err = t.Execute(&buf, templateResources)

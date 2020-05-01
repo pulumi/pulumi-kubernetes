@@ -158,30 +158,27 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	// Since Kubernetes does not instantiate list types directly, Pulumi also traverses lists
 	// for resource definitions that can be managed by Kubernetes, and registers those with the
 	// engine instead.
-	//if fullKind == "v1/List" {
-	//	// TODO(joe): list of others.
-	//	// This is really Output<map[string]pulumi.CustomResource>
-	//	resources := &pulumi.MapOutput{}
-	//	if items, hasItems := obj["items"]; hasItems {
-	//		if itemsArr, hasItemsArr := items.([]map[string]interface{}); hasItemsArr {
-	//			for _, item := range itemsArr {
-	//				res, err := parseYamlObject(ctx, item, transformations, resourcePrefix, opts...)
-	//				if err != nil {
-	//					return nil, err
-	//				}
-	//				ready := pulumi.All(resources, res)
-	//				ready.ApplyT(func(v []interface{}) (map[string]interface{}, error) {
-	//					resources, res := v[0].(map[string]interface{}), v[1].(map[string]interface{})
-	//					for k, v := range res {
-	//						resources[k] = v
-	//					}
-	//					return resources, nil
-	//				})
-	//			}
-	//		}
-	//	}
-	//	return resources, nil
-	//}
+	switch fullKind {
+	case {{range $idx, $v := .ListKinds -}} {{if $idx}},
+	    {{end}}"{{$v.GVK}}" {{- end}}:
+		var resources []resource
+		if rawItems, hasItems := obj["items"]; hasItems {
+			if items, ok := rawItems.([]interface{}); ok {
+				for _, item := range items {
+					if obj, ok := item.(map[string]interface{}); ok {
+						rs, err := parseYamlObject(ctx, obj, transformations, resourcePrefix, opts...)
+						if err != nil {
+							return nil, err
+						}
+						for _, r := range rs {
+							resources = append(resources, r)
+						}
+					}
+				}
+			}
+		}
+		return resources, nil
+	}
 
 	// If we got here, it's not a recursively traversed type, so process it directly.
 	// First, validate that it has the requisite metadata and name properties.
@@ -210,8 +207,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 
 	// Finally allocate a resource of the correct type.
 	switch fullKind {
-{{- range .Resources}}
-    case "{{toGVK .Token}}":
+{{- range .NonListKinds}}
+    case "{{.GVK}}":
         var res {{.Alias}}.{{.Name}}
 		err := ctx.RegisterResource("{{.Token}}", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {

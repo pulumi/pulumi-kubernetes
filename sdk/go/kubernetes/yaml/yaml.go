@@ -199,30 +199,114 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	// Since Kubernetes does not instantiate list types directly, Pulumi also traverses lists
 	// for resource definitions that can be managed by Kubernetes, and registers those with the
 	// engine instead.
-	//if fullKind == "v1/List" {
-	//	// TODO(joe): list of others.
-	//	// This is really Output<map[string]pulumi.CustomResource>
-	//	resources := &pulumi.MapOutput{}
-	//	if items, hasItems := obj["items"]; hasItems {
-	//		if itemsArr, hasItemsArr := items.([]map[string]interface{}); hasItemsArr {
-	//			for _, item := range itemsArr {
-	//				res, err := parseYamlObject(ctx, item, transformations, resourcePrefix, opts...)
-	//				if err != nil {
-	//					return nil, err
-	//				}
-	//				ready := pulumi.All(resources, res)
-	//				ready.ApplyT(func(v []interface{}) (map[string]interface{}, error) {
-	//					resources, res := v[0].(map[string]interface{}), v[1].(map[string]interface{})
-	//					for k, v := range res {
-	//						resources[k] = v
-	//					}
-	//					return resources, nil
-	//				})
-	//			}
-	//		}
-	//	}
-	//	return resources, nil
-	//}
+	switch fullKind {
+	case "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList",
+		"admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList",
+		"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList",
+		"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList",
+		"apiextensions.k8s.io/v1/CustomResourceDefinitionList",
+		"apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList",
+		"apiregistration.k8s.io/v1/APIServiceList",
+		"apiregistration.k8s.io/v1beta1/APIServiceList",
+		"apps/v1/ControllerRevisionList",
+		"apps/v1/DaemonSetList",
+		"apps/v1/DeploymentList",
+		"apps/v1/ReplicaSetList",
+		"apps/v1/StatefulSetList",
+		"apps/v1beta1/ControllerRevisionList",
+		"apps/v1beta1/DeploymentList",
+		"apps/v1beta1/StatefulSetList",
+		"apps/v1beta2/ControllerRevisionList",
+		"apps/v1beta2/DaemonSetList",
+		"apps/v1beta2/DeploymentList",
+		"apps/v1beta2/ReplicaSetList",
+		"apps/v1beta2/StatefulSetList",
+		"auditregistration.k8s.io/v1alpha1/AuditSinkList",
+		"autoscaling/v1/HorizontalPodAutoscalerList",
+		"autoscaling/v2beta1/HorizontalPodAutoscalerList",
+		"autoscaling/v2beta2/HorizontalPodAutoscalerList",
+		"batch/v1/JobList",
+		"batch/v1beta1/CronJobList",
+		"batch/v2alpha1/CronJobList",
+		"certificates.k8s.io/v1beta1/CertificateSigningRequestList",
+		"coordination.k8s.io/v1/LeaseList",
+		"coordination.k8s.io/v1beta1/LeaseList",
+		"v1/ComponentStatusList",
+		"v1/ConfigMapList",
+		"v1/EndpointsList",
+		"v1/EventList",
+		"v1/LimitRangeList",
+		"v1/NamespaceList",
+		"v1/NodeList",
+		"v1/PersistentVolumeClaimList",
+		"v1/PersistentVolumeList",
+		"v1/PodList",
+		"v1/PodTemplateList",
+		"v1/ReplicationControllerList",
+		"v1/ResourceQuotaList",
+		"v1/SecretList",
+		"v1/ServiceAccountList",
+		"v1/ServiceList",
+		"discovery.k8s.io/v1beta1/EndpointSliceList",
+		"events.k8s.io/v1beta1/EventList",
+		"extensions/v1beta1/DaemonSetList",
+		"extensions/v1beta1/DeploymentList",
+		"extensions/v1beta1/IngressList",
+		"extensions/v1beta1/NetworkPolicyList",
+		"extensions/v1beta1/PodSecurityPolicyList",
+		"extensions/v1beta1/ReplicaSetList",
+		"flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList",
+		"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList",
+		"networking.k8s.io/v1/NetworkPolicyList",
+		"networking.k8s.io/v1beta1/IngressClassList",
+		"networking.k8s.io/v1beta1/IngressList",
+		"node.k8s.io/v1alpha1/RuntimeClassList",
+		"node.k8s.io/v1beta1/RuntimeClassList",
+		"policy/v1beta1/PodDisruptionBudgetList",
+		"policy/v1beta1/PodSecurityPolicyList",
+		"rbac.authorization.k8s.io/v1/ClusterRoleBindingList",
+		"rbac.authorization.k8s.io/v1/ClusterRoleList",
+		"rbac.authorization.k8s.io/v1/RoleBindingList",
+		"rbac.authorization.k8s.io/v1/RoleList",
+		"rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList",
+		"rbac.authorization.k8s.io/v1alpha1/ClusterRoleList",
+		"rbac.authorization.k8s.io/v1alpha1/RoleBindingList",
+		"rbac.authorization.k8s.io/v1alpha1/RoleList",
+		"rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList",
+		"rbac.authorization.k8s.io/v1beta1/ClusterRoleList",
+		"rbac.authorization.k8s.io/v1beta1/RoleBindingList",
+		"rbac.authorization.k8s.io/v1beta1/RoleList",
+		"scheduling.k8s.io/v1/PriorityClassList",
+		"scheduling.k8s.io/v1alpha1/PriorityClassList",
+		"scheduling.k8s.io/v1beta1/PriorityClassList",
+		"settings.k8s.io/v1alpha1/PodPresetList",
+		"storage.k8s.io/v1/CSIDriverList",
+		"storage.k8s.io/v1/CSINodeList",
+		"storage.k8s.io/v1/StorageClassList",
+		"storage.k8s.io/v1/VolumeAttachmentList",
+		"storage.k8s.io/v1alpha1/VolumeAttachmentList",
+		"storage.k8s.io/v1beta1/CSIDriverList",
+		"storage.k8s.io/v1beta1/CSINodeList",
+		"storage.k8s.io/v1beta1/StorageClassList",
+		"storage.k8s.io/v1beta1/VolumeAttachmentList":
+		var resources []resource
+		if rawItems, hasItems := obj["items"]; hasItems {
+			if items, ok := rawItems.([]interface{}); ok {
+				for _, item := range items {
+					if obj, ok := item.(map[string]interface{}); ok {
+						rs, err := parseYamlObject(ctx, obj, transformations, resourcePrefix, opts...)
+						if err != nil {
+							return nil, err
+						}
+						for _, r := range rs {
+							resources = append(resources, r)
+						}
+					}
+				}
+			}
+		}
+		return resources, nil
+	}
 
 	// If we got here, it's not a recursively traversed type, so process it directly.
 	// First, validate that it has the requisite metadata and name properties.
@@ -258,23 +342,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList":
-		var res admissionregistrationv1.MutatingWebhookConfigurationList
-		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
 		var res admissionregistrationv1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList":
-		var res admissionregistrationv1.ValidatingWebhookConfigurationList
-		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -286,23 +356,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
-		var res admissionregistrationv1beta1.MutatingWebhookConfigurationList
-		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
 		var res admissionregistrationv1beta1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
-		var res admissionregistrationv1beta1.ValidatingWebhookConfigurationList
-		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -314,23 +370,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apiextensions.k8s.io/v1/CustomResourceDefinitionList":
-		var res apiextensionsv1.CustomResourceDefinitionList
-		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
 		var res apiextensionsv1beta1.CustomResourceDefinition
 		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
-		var res apiextensionsv1beta1.CustomResourceDefinitionList
-		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -342,23 +384,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apiregistration.k8s.io/v1/APIServiceList":
-		var res apiregistrationv1.APIServiceList
-		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1:APIServiceList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apiregistration.k8s.io/v1beta1/APIService":
 		var res apiregistrationv1beta1.APIService
 		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1beta1:APIService", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apiregistration.k8s.io/v1beta1/APIServiceList":
-		var res apiregistrationv1beta1.APIServiceList
-		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1beta1:APIServiceList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -370,23 +398,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1/ControllerRevisionList":
-		var res appsv1.ControllerRevisionList
-		err := ctx.RegisterResource("kubernetes:apps/v1:ControllerRevisionList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apps/v1/DaemonSet":
 		var res appsv1.DaemonSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1/DaemonSetList":
-		var res appsv1.DaemonSetList
-		err := ctx.RegisterResource("kubernetes:apps/v1:DaemonSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -398,23 +412,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1/DeploymentList":
-		var res appsv1.DeploymentList
-		err := ctx.RegisterResource("kubernetes:apps/v1:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apps/v1/ReplicaSet":
 		var res appsv1.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1/ReplicaSetList":
-		var res appsv1.ReplicaSetList
-		err := ctx.RegisterResource("kubernetes:apps/v1:ReplicaSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -426,23 +426,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1/StatefulSetList":
-		var res appsv1.StatefulSetList
-		err := ctx.RegisterResource("kubernetes:apps/v1:StatefulSetList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta1/ControllerRevision":
 		var res appsv1beta1.ControllerRevision
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:ControllerRevision", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta1/ControllerRevisionList":
-		var res appsv1beta1.ControllerRevisionList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta1:ControllerRevisionList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -454,23 +440,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta1/DeploymentList":
-		var res appsv1beta1.DeploymentList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta1:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta1/StatefulSet":
 		var res appsv1beta1.StatefulSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:StatefulSet", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta1/StatefulSetList":
-		var res appsv1beta1.StatefulSetList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta1:StatefulSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -482,23 +454,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta2/ControllerRevisionList":
-		var res appsv1beta2.ControllerRevisionList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ControllerRevisionList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta2/DaemonSet":
 		var res appsv1beta2.DaemonSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta2/DaemonSetList":
-		var res appsv1beta2.DaemonSetList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta2:DaemonSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -510,23 +468,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta2/DeploymentList":
-		var res appsv1beta2.DeploymentList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta2:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta2/ReplicaSet":
 		var res appsv1beta2.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta2/ReplicaSetList":
-		var res appsv1beta2.ReplicaSetList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ReplicaSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -538,23 +482,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "apps/v1beta2/StatefulSetList":
-		var res appsv1beta2.StatefulSetList
-		err := ctx.RegisterResource("kubernetes:apps/v1beta2:StatefulSetList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "auditregistration.k8s.io/v1alpha1/AuditSink":
 		var res auditregistrationv1alpha1.AuditSink
 		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "auditregistration.k8s.io/v1alpha1/AuditSinkList":
-		var res auditregistrationv1alpha1.AuditSinkList
-		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -643,23 +573,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "autoscaling/v1/HorizontalPodAutoscalerList":
-		var res autoscalingv1.HorizontalPodAutoscalerList
-		err := ctx.RegisterResource("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "autoscaling/v2beta1/HorizontalPodAutoscaler":
 		var res autoscalingv2beta1.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "autoscaling/v2beta1/HorizontalPodAutoscalerList":
-		var res autoscalingv2beta1.HorizontalPodAutoscalerList
-		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -671,23 +587,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "autoscaling/v2beta2/HorizontalPodAutoscalerList":
-		var res autoscalingv2beta2.HorizontalPodAutoscalerList
-		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "batch/v1/Job":
 		var res batchv1.Job
 		err := ctx.RegisterResource("kubernetes:batch/v1:Job", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "batch/v1/JobList":
-		var res batchv1.JobList
-		err := ctx.RegisterResource("kubernetes:batch/v1:JobList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -699,23 +601,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "batch/v1beta1/CronJobList":
-		var res batchv1beta1.CronJobList
-		err := ctx.RegisterResource("kubernetes:batch/v1beta1:CronJobList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "batch/v2alpha1/CronJob":
 		var res batchv2alpha1.CronJob
 		err := ctx.RegisterResource("kubernetes:batch/v2alpha1:CronJob", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "batch/v2alpha1/CronJobList":
-		var res batchv2alpha1.CronJobList
-		err := ctx.RegisterResource("kubernetes:batch/v2alpha1:CronJobList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -727,13 +615,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
-		var res certificatesv1beta1.CertificateSigningRequestList
-		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "coordination.k8s.io/v1/Lease":
 		var res coordinationv1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:Lease", metaName, UntypedArgs(obj), &res, opts...)
@@ -741,23 +622,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "coordination.k8s.io/v1/LeaseList":
-		var res coordinationv1.LeaseList
-		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:LeaseList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "coordination.k8s.io/v1beta1/Lease":
 		var res coordinationv1beta1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:Lease", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "coordination.k8s.io/v1beta1/LeaseList":
-		var res coordinationv1beta1.LeaseList
-		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:LeaseList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -776,23 +643,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/ComponentStatusList":
-		var res corev1.ComponentStatusList
-		err := ctx.RegisterResource("kubernetes:core/v1:ComponentStatusList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "v1/ConfigMap":
 		var res corev1.ConfigMap
 		err := ctx.RegisterResource("kubernetes:core/v1:ConfigMap", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/ConfigMapList":
-		var res corev1.ConfigMapList
-		err := ctx.RegisterResource("kubernetes:core/v1:ConfigMapList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -804,23 +657,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/EndpointsList":
-		var res corev1.EndpointsList
-		err := ctx.RegisterResource("kubernetes:core/v1:EndpointsList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "v1/Event":
 		var res corev1.Event
 		err := ctx.RegisterResource("kubernetes:core/v1:Event", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/EventList":
-		var res corev1.EventList
-		err := ctx.RegisterResource("kubernetes:core/v1:EventList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -832,13 +671,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/LimitRangeList":
-		var res corev1.LimitRangeList
-		err := ctx.RegisterResource("kubernetes:core/v1:LimitRangeList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "v1/Namespace":
 		var res corev1.Namespace
 		err := ctx.RegisterResource("kubernetes:core/v1:Namespace", metaName, UntypedArgs(obj), &res, opts...)
@@ -846,23 +678,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/NamespaceList":
-		var res corev1.NamespaceList
-		err := ctx.RegisterResource("kubernetes:core/v1:NamespaceList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "v1/Node":
 		var res corev1.Node
 		err := ctx.RegisterResource("kubernetes:core/v1:Node", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/NodeList":
-		var res corev1.NodeList
-		err := ctx.RegisterResource("kubernetes:core/v1:NodeList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -881,30 +699,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/PersistentVolumeClaimList":
-		var res corev1.PersistentVolumeClaimList
-		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolumeClaimList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/PersistentVolumeList":
-		var res corev1.PersistentVolumeList
-		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolumeList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "v1/Pod":
 		var res corev1.Pod
 		err := ctx.RegisterResource("kubernetes:core/v1:Pod", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/PodList":
-		var res corev1.PodList
-		err := ctx.RegisterResource("kubernetes:core/v1:PodList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -916,23 +713,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/PodTemplateList":
-		var res corev1.PodTemplateList
-		err := ctx.RegisterResource("kubernetes:core/v1:PodTemplateList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "v1/ReplicationController":
 		var res corev1.ReplicationController
 		err := ctx.RegisterResource("kubernetes:core/v1:ReplicationController", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/ReplicationControllerList":
-		var res corev1.ReplicationControllerList
-		err := ctx.RegisterResource("kubernetes:core/v1:ReplicationControllerList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -944,23 +727,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/ResourceQuotaList":
-		var res corev1.ResourceQuotaList
-		err := ctx.RegisterResource("kubernetes:core/v1:ResourceQuotaList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "v1/Secret":
 		var res corev1.Secret
 		err := ctx.RegisterResource("kubernetes:core/v1:Secret", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/SecretList":
-		var res corev1.SecretList
-		err := ctx.RegisterResource("kubernetes:core/v1:SecretList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -979,30 +748,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/ServiceAccountList":
-		var res corev1.ServiceAccountList
-		err := ctx.RegisterResource("kubernetes:core/v1:ServiceAccountList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "v1/ServiceList":
-		var res corev1.ServiceList
-		err := ctx.RegisterResource("kubernetes:core/v1:ServiceList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "discovery.k8s.io/v1beta1/EndpointSlice":
 		var res discoveryv1beta1.EndpointSlice
 		err := ctx.RegisterResource("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "discovery.k8s.io/v1beta1/EndpointSliceList":
-		var res discoveryv1beta1.EndpointSliceList
-		err := ctx.RegisterResource("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1014,23 +762,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "events.k8s.io/v1beta1/EventList":
-		var res eventsv1beta1.EventList
-		err := ctx.RegisterResource("kubernetes:events.k8s.io/v1beta1:EventList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/DaemonSet":
 		var res extensionsv1beta1.DaemonSet
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "extensions/v1beta1/DaemonSetList":
-		var res extensionsv1beta1.DaemonSetList
-		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DaemonSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1042,23 +776,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "extensions/v1beta1/DeploymentList":
-		var res extensionsv1beta1.DeploymentList
-		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/Ingress":
 		var res extensionsv1beta1.Ingress
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:Ingress", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "extensions/v1beta1/IngressList":
-		var res extensionsv1beta1.IngressList
-		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:IngressList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1070,23 +790,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "extensions/v1beta1/NetworkPolicyList":
-		var res extensionsv1beta1.NetworkPolicyList
-		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:NetworkPolicyList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/PodSecurityPolicy":
 		var res extensionsv1beta1.PodSecurityPolicy
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:PodSecurityPolicy", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "extensions/v1beta1/PodSecurityPolicyList":
-		var res extensionsv1beta1.PodSecurityPolicyList
-		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:PodSecurityPolicyList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1098,13 +804,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "extensions/v1beta1/ReplicaSetList":
-		var res extensionsv1beta1.ReplicaSetList
-		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:ReplicaSetList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
 		var res flowcontrolv1alpha1.FlowSchema
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", metaName, UntypedArgs(obj), &res, opts...)
@@ -1112,23 +811,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList":
-		var res flowcontrolv1alpha1.FlowSchemaList
-		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration":
 		var res flowcontrolv1alpha1.PriorityLevelConfiguration
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList":
-		var res flowcontrolv1alpha1.PriorityLevelConfigurationList
-		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1147,13 +832,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "networking.k8s.io/v1/NetworkPolicyList":
-		var res networkingv1.NetworkPolicyList
-		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicyList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "networking.k8s.io/v1beta1/Ingress":
 		var res networkingv1beta1.Ingress
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:Ingress", metaName, UntypedArgs(obj), &res, opts...)
@@ -1168,30 +846,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "networking.k8s.io/v1beta1/IngressClassList":
-		var res networkingv1beta1.IngressClassList
-		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:IngressClassList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "networking.k8s.io/v1beta1/IngressList":
-		var res networkingv1beta1.IngressList
-		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:IngressList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "node.k8s.io/v1alpha1/RuntimeClass":
 		var res nodev1alpha1.RuntimeClass
 		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "node.k8s.io/v1alpha1/RuntimeClassList":
-		var res nodev1alpha1.RuntimeClassList
-		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1alpha1:RuntimeClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1203,13 +860,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "node.k8s.io/v1beta1/RuntimeClassList":
-		var res nodev1beta1.RuntimeClassList
-		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1beta1:RuntimeClassList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "policy/v1beta1/PodDisruptionBudget":
 		var res policyv1beta1.PodDisruptionBudget
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodDisruptionBudget", metaName, UntypedArgs(obj), &res, opts...)
@@ -1217,23 +867,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "policy/v1beta1/PodDisruptionBudgetList":
-		var res policyv1beta1.PodDisruptionBudgetList
-		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodDisruptionBudgetList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "policy/v1beta1/PodSecurityPolicy":
 		var res policyv1beta1.PodSecurityPolicy
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodSecurityPolicy", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "policy/v1beta1/PodSecurityPolicyList":
-		var res policyv1beta1.PodSecurityPolicyList
-		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodSecurityPolicyList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1252,20 +888,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
-		var res rbacv1.ClusterRoleBindingList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1/ClusterRoleList":
-		var res rbacv1.ClusterRoleList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1/Role":
 		var res rbacv1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:Role", metaName, UntypedArgs(obj), &res, opts...)
@@ -1276,20 +898,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "rbac.authorization.k8s.io/v1/RoleBinding":
 		var res rbacv1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1/RoleBindingList":
-		var res rbacv1.RoleBindingList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1/RoleList":
-		var res rbacv1.RoleList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1308,20 +916,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
-		var res rbacv1alpha1.ClusterRoleBindingList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
-		var res rbacv1alpha1.ClusterRoleList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1alpha1/Role":
 		var res rbacv1alpha1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", metaName, UntypedArgs(obj), &res, opts...)
@@ -1332,20 +926,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
 		var res rbacv1alpha1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
-		var res rbacv1alpha1.RoleBindingList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1alpha1/RoleList":
-		var res rbacv1alpha1.RoleList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1364,20 +944,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
-		var res rbacv1beta1.ClusterRoleBindingList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
-		var res rbacv1beta1.ClusterRoleList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1beta1/Role":
 		var res rbacv1beta1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:Role", metaName, UntypedArgs(obj), &res, opts...)
@@ -1392,30 +958,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
-		var res rbacv1beta1.RoleBindingList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "rbac.authorization.k8s.io/v1beta1/RoleList":
-		var res rbacv1beta1.RoleList
-		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "scheduling.k8s.io/v1/PriorityClass":
 		var res schedulingv1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "scheduling.k8s.io/v1/PriorityClassList":
-		var res schedulingv1.PriorityClassList
-		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1:PriorityClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1427,23 +972,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "scheduling.k8s.io/v1alpha1/PriorityClassList":
-		var res schedulingv1alpha1.PriorityClassList
-		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "scheduling.k8s.io/v1beta1/PriorityClass":
 		var res schedulingv1beta1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "scheduling.k8s.io/v1beta1/PriorityClassList":
-		var res schedulingv1beta1.PriorityClassList
-		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1455,23 +986,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "settings.k8s.io/v1alpha1/PodPresetList":
-		var res settingsv1alpha1.PodPresetList
-		err := ctx.RegisterResource("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1/CSIDriver":
 		var res storagev1.CSIDriver
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIDriver", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1/CSIDriverList":
-		var res storagev1.CSIDriverList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIDriverList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1483,23 +1000,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1/CSINodeList":
-		var res storagev1.CSINodeList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSINodeList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1/StorageClass":
 		var res storagev1.StorageClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:StorageClass", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1/StorageClassList":
-		var res storagev1.StorageClassList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:StorageClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1511,23 +1014,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1/VolumeAttachmentList":
-		var res storagev1.VolumeAttachmentList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1alpha1/VolumeAttachment":
 		var res storagev1alpha1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1alpha1/VolumeAttachmentList":
-		var res storagev1alpha1.VolumeAttachmentList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1539,23 +1028,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1beta1/CSIDriverList":
-		var res storagev1beta1.CSIDriverList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSIDriverList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1beta1/CSINode":
 		var res storagev1beta1.CSINode
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSINode", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1beta1/CSINodeList":
-		var res storagev1beta1.CSINodeList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSINodeList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1567,23 +1042,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1beta1/StorageClassList":
-		var res storagev1beta1.StorageClassList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:StorageClassList", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1beta1/VolumeAttachment":
 		var res storagev1beta1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resource{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1beta1/VolumeAttachmentList":
-		var res storagev1beta1.VolumeAttachmentList
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
