@@ -14,13 +14,13 @@ import (
 // Lease defines a lease concept.
 type LeaseType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec LeaseSpec `pulumi:"spec"`
+	Spec *LeaseSpec `pulumi:"spec"`
 }
 
 // LeaseTypeInput is an input type that accepts LeaseTypeArgs and LeaseTypeOutput values.
@@ -38,13 +38,13 @@ type LeaseTypeInput interface {
 // Lease defines a lease concept.
 type LeaseTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec LeaseSpecInput `pulumi:"spec"`
+	Spec LeaseSpecPtrInput `pulumi:"spec"`
 }
 
 func (LeaseTypeArgs) ElementType() reflect.Type {
@@ -101,23 +101,23 @@ func (o LeaseTypeOutput) ToLeaseTypeOutputWithContext(ctx context.Context) Lease
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LeaseTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v LeaseType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o LeaseTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LeaseTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v LeaseType) string { return v.Kind }).(pulumi.StringOutput)
+func (o LeaseTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o LeaseTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v LeaseType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o LeaseTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v LeaseType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o LeaseTypeOutput) Spec() LeaseSpecOutput {
-	return o.ApplyT(func(v LeaseType) LeaseSpec { return v.Spec }).(LeaseSpecOutput)
+func (o LeaseTypeOutput) Spec() LeaseSpecPtrOutput {
+	return o.ApplyT(func(v LeaseType) *LeaseSpec { return v.Spec }).(LeaseSpecPtrOutput)
 }
 
 type LeaseTypeArrayOutput struct{ *pulumi.OutputState }
@@ -143,13 +143,13 @@ func (o LeaseTypeArrayOutput) Index(i pulumi.IntInput) LeaseTypeOutput {
 // LeaseList is a list of Lease objects.
 type LeaseListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items []LeaseType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // LeaseListTypeInput is an input type that accepts LeaseListTypeArgs and LeaseListTypeOutput values.
@@ -167,13 +167,13 @@ type LeaseListTypeInput interface {
 // LeaseList is a list of Lease objects.
 type LeaseListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items LeaseTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (LeaseListTypeArgs) ElementType() reflect.Type {
@@ -204,8 +204,8 @@ func (o LeaseListTypeOutput) ToLeaseListTypeOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LeaseListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v LeaseListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o LeaseListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is a list of schema objects.
@@ -214,13 +214,13 @@ func (o LeaseListTypeOutput) Items() LeaseTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LeaseListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v LeaseListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o LeaseListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o LeaseListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v LeaseListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o LeaseListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // LeaseSpec is a specification of a Lease.

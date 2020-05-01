@@ -30,15 +30,15 @@ import (
 // by setting the 'customTimeouts' option on the resource.
 type JobType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec JobSpec `pulumi:"spec"`
+	Spec *JobSpec `pulumi:"spec"`
 	// Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status JobStatus `pulumi:"status"`
+	Status *JobStatus `pulumi:"status"`
 }
 
 // JobTypeInput is an input type that accepts JobTypeArgs and JobTypeOutput values.
@@ -71,15 +71,15 @@ type JobTypeInput interface {
 // by setting the 'customTimeouts' option on the resource.
 type JobTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec JobSpecInput `pulumi:"spec"`
+	Spec JobSpecPtrInput `pulumi:"spec"`
 	// Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status JobStatusInput `pulumi:"status"`
+	Status JobStatusPtrInput `pulumi:"status"`
 }
 
 func (JobTypeArgs) ElementType() reflect.Type {
@@ -151,28 +151,28 @@ func (o JobTypeOutput) ToJobTypeOutputWithContext(ctx context.Context) JobTypeOu
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o JobTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v JobType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o JobTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JobType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o JobTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v JobType) string { return v.Kind }).(pulumi.StringOutput)
+func (o JobTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JobType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o JobTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v JobType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o JobTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v JobType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o JobTypeOutput) Spec() JobSpecOutput {
-	return o.ApplyT(func(v JobType) JobSpec { return v.Spec }).(JobSpecOutput)
+func (o JobTypeOutput) Spec() JobSpecPtrOutput {
+	return o.ApplyT(func(v JobType) *JobSpec { return v.Spec }).(JobSpecPtrOutput)
 }
 
 // Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o JobTypeOutput) Status() JobStatusOutput {
-	return o.ApplyT(func(v JobType) JobStatus { return v.Status }).(JobStatusOutput)
+func (o JobTypeOutput) Status() JobStatusPtrOutput {
+	return o.ApplyT(func(v JobType) *JobStatus { return v.Status }).(JobStatusPtrOutput)
 }
 
 type JobTypeArrayOutput struct{ *pulumi.OutputState }
@@ -345,13 +345,13 @@ func (o JobConditionArrayOutput) Index(i pulumi.IntInput) JobConditionOutput {
 // JobList is a collection of jobs.
 type JobListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// items is the list of Jobs.
 	Items []JobType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // JobListTypeInput is an input type that accepts JobListTypeArgs and JobListTypeOutput values.
@@ -369,13 +369,13 @@ type JobListTypeInput interface {
 // JobList is a collection of jobs.
 type JobListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// items is the list of Jobs.
 	Items JobTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (JobListTypeArgs) ElementType() reflect.Type {
@@ -406,8 +406,8 @@ func (o JobListTypeOutput) ToJobListTypeOutputWithContext(ctx context.Context) J
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o JobListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v JobListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o JobListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JobListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // items is the list of Jobs.
@@ -416,13 +416,13 @@ func (o JobListTypeOutput) Items() JobTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o JobListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v JobListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o JobListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JobListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o JobListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v JobListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o JobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v JobListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // JobSpec describes how the job execution will look like.

@@ -169,13 +169,13 @@ func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
 type NetworkPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior for this NetworkPolicy.
-	Spec NetworkPolicySpec `pulumi:"spec"`
+	Spec *NetworkPolicySpec `pulumi:"spec"`
 }
 
 // NetworkPolicyTypeInput is an input type that accepts NetworkPolicyTypeArgs and NetworkPolicyTypeOutput values.
@@ -193,13 +193,13 @@ type NetworkPolicyTypeInput interface {
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
 type NetworkPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior for this NetworkPolicy.
-	Spec NetworkPolicySpecInput `pulumi:"spec"`
+	Spec NetworkPolicySpecPtrInput `pulumi:"spec"`
 }
 
 func (NetworkPolicyTypeArgs) ElementType() reflect.Type {
@@ -256,23 +256,23 @@ func (o NetworkPolicyTypeOutput) ToNetworkPolicyTypeOutputWithContext(ctx contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NetworkPolicyTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v NetworkPolicyType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o NetworkPolicyTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NetworkPolicyTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v NetworkPolicyType) string { return v.Kind }).(pulumi.StringOutput)
+func (o NetworkPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v NetworkPolicyType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior for this NetworkPolicy.
-func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecOutput {
-	return o.ApplyT(func(v NetworkPolicyType) NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecOutput)
+func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
 }
 
 type NetworkPolicyTypeArrayOutput struct{ *pulumi.OutputState }
@@ -520,13 +520,13 @@ func (o NetworkPolicyIngressRuleArrayOutput) Index(i pulumi.IntInput) NetworkPol
 // NetworkPolicyList is a list of NetworkPolicy objects.
 type NetworkPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items []NetworkPolicyType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // NetworkPolicyListTypeInput is an input type that accepts NetworkPolicyListTypeArgs and NetworkPolicyListTypeOutput values.
@@ -544,13 +544,13 @@ type NetworkPolicyListTypeInput interface {
 // NetworkPolicyList is a list of NetworkPolicy objects.
 type NetworkPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items NetworkPolicyTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (NetworkPolicyListTypeArgs) ElementType() reflect.Type {
@@ -581,8 +581,8 @@ func (o NetworkPolicyListTypeOutput) ToNetworkPolicyListTypeOutputWithContext(ct
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NetworkPolicyListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o NetworkPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is a list of schema objects.
@@ -591,13 +591,13 @@ func (o NetworkPolicyListTypeOutput) Items() NetworkPolicyTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NetworkPolicyListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o NetworkPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NetworkPolicyListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o NetworkPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of fields are allowed

@@ -796,14 +796,14 @@ func (o IDRangeArrayOutput) Index(i pulumi.IntInput) IDRangeOutput {
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 type PodDisruptionBudgetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     string            `pulumi:"kind"`
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     *string            `pulumi:"kind"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
-	Spec PodDisruptionBudgetSpec `pulumi:"spec"`
+	Spec *PodDisruptionBudgetSpec `pulumi:"spec"`
 	// Most recently observed status of the PodDisruptionBudget.
-	Status PodDisruptionBudgetStatus `pulumi:"status"`
+	Status *PodDisruptionBudgetStatus `pulumi:"status"`
 }
 
 // PodDisruptionBudgetTypeInput is an input type that accepts PodDisruptionBudgetTypeArgs and PodDisruptionBudgetTypeOutput values.
@@ -821,14 +821,14 @@ type PodDisruptionBudgetTypeInput interface {
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 type PodDisruptionBudgetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
-	Spec PodDisruptionBudgetSpecInput `pulumi:"spec"`
+	Spec PodDisruptionBudgetSpecPtrInput `pulumi:"spec"`
 	// Most recently observed status of the PodDisruptionBudget.
-	Status PodDisruptionBudgetStatusInput `pulumi:"status"`
+	Status PodDisruptionBudgetStatusPtrInput `pulumi:"status"`
 }
 
 func (PodDisruptionBudgetTypeArgs) ElementType() reflect.Type {
@@ -885,27 +885,27 @@ func (o PodDisruptionBudgetTypeOutput) ToPodDisruptionBudgetTypeOutputWithContex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodDisruptionBudgetTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o PodDisruptionBudgetTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodDisruptionBudgetTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetType) string { return v.Kind }).(pulumi.StringOutput)
+func (o PodDisruptionBudgetTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o PodDisruptionBudgetTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o PodDisruptionBudgetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Specification of the desired behavior of the PodDisruptionBudget.
-func (o PodDisruptionBudgetTypeOutput) Spec() PodDisruptionBudgetSpecOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetType) PodDisruptionBudgetSpec { return v.Spec }).(PodDisruptionBudgetSpecOutput)
+func (o PodDisruptionBudgetTypeOutput) Spec() PodDisruptionBudgetSpecPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetType) *PodDisruptionBudgetSpec { return v.Spec }).(PodDisruptionBudgetSpecPtrOutput)
 }
 
 // Most recently observed status of the PodDisruptionBudget.
-func (o PodDisruptionBudgetTypeOutput) Status() PodDisruptionBudgetStatusOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetType) PodDisruptionBudgetStatus { return v.Status }).(PodDisruptionBudgetStatusOutput)
+func (o PodDisruptionBudgetTypeOutput) Status() PodDisruptionBudgetStatusPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetType) *PodDisruptionBudgetStatus { return v.Status }).(PodDisruptionBudgetStatusPtrOutput)
 }
 
 type PodDisruptionBudgetTypeArrayOutput struct{ *pulumi.OutputState }
@@ -931,11 +931,11 @@ func (o PodDisruptionBudgetTypeArrayOutput) Index(i pulumi.IntInput) PodDisrupti
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string                    `pulumi:"apiVersion"`
+	ApiVersion *string                   `pulumi:"apiVersion"`
 	Items      []PodDisruptionBudgetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     string          `pulumi:"kind"`
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Kind     *string          `pulumi:"kind"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // PodDisruptionBudgetListTypeInput is an input type that accepts PodDisruptionBudgetListTypeArgs and PodDisruptionBudgetListTypeOutput values.
@@ -953,11 +953,11 @@ type PodDisruptionBudgetListTypeInput interface {
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput                `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput             `pulumi:"apiVersion"`
 	Items      PodDisruptionBudgetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringInput   `pulumi:"kind"`
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (PodDisruptionBudgetListTypeArgs) ElementType() reflect.Type {
@@ -988,8 +988,8 @@ func (o PodDisruptionBudgetListTypeOutput) ToPodDisruptionBudgetListTypeOutputWi
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodDisruptionBudgetListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o PodDisruptionBudgetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 func (o PodDisruptionBudgetListTypeOutput) Items() PodDisruptionBudgetTypeArrayOutput {
@@ -997,12 +997,12 @@ func (o PodDisruptionBudgetListTypeOutput) Items() PodDisruptionBudgetTypeArrayO
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodDisruptionBudgetListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o PodDisruptionBudgetListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o PodDisruptionBudgetListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o PodDisruptionBudgetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
@@ -1413,13 +1413,13 @@ func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOu
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec defines the policy enforced.
-	Spec PodSecurityPolicySpec `pulumi:"spec"`
+	Spec *PodSecurityPolicySpec `pulumi:"spec"`
 }
 
 // PodSecurityPolicyTypeInput is an input type that accepts PodSecurityPolicyTypeArgs and PodSecurityPolicyTypeOutput values.
@@ -1437,13 +1437,13 @@ type PodSecurityPolicyTypeInput interface {
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec defines the policy enforced.
-	Spec PodSecurityPolicySpecInput `pulumi:"spec"`
+	Spec PodSecurityPolicySpecPtrInput `pulumi:"spec"`
 }
 
 func (PodSecurityPolicyTypeArgs) ElementType() reflect.Type {
@@ -1500,23 +1500,23 @@ func (o PodSecurityPolicyTypeOutput) ToPodSecurityPolicyTypeOutputWithContext(ct
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodSecurityPolicyTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o PodSecurityPolicyTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodSecurityPolicyTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) string { return v.Kind }).(pulumi.StringOutput)
+func (o PodSecurityPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodSecurityPolicyTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o PodSecurityPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // spec defines the policy enforced.
-func (o PodSecurityPolicyTypeOutput) Spec() PodSecurityPolicySpecOutput {
-	return o.ApplyT(func(v PodSecurityPolicyType) PodSecurityPolicySpec { return v.Spec }).(PodSecurityPolicySpecOutput)
+func (o PodSecurityPolicyTypeOutput) Spec() PodSecurityPolicySpecPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicyType) *PodSecurityPolicySpec { return v.Spec }).(PodSecurityPolicySpecPtrOutput)
 }
 
 type PodSecurityPolicyTypeArrayOutput struct{ *pulumi.OutputState }
@@ -1542,13 +1542,13 @@ func (o PodSecurityPolicyTypeArrayOutput) Index(i pulumi.IntInput) PodSecurityPo
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects.
 type PodSecurityPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// items is a list of schema objects.
 	Items []PodSecurityPolicyType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // PodSecurityPolicyListTypeInput is an input type that accepts PodSecurityPolicyListTypeArgs and PodSecurityPolicyListTypeOutput values.
@@ -1566,13 +1566,13 @@ type PodSecurityPolicyListTypeInput interface {
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects.
 type PodSecurityPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// items is a list of schema objects.
 	Items PodSecurityPolicyTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (PodSecurityPolicyListTypeArgs) ElementType() reflect.Type {
@@ -1603,8 +1603,8 @@ func (o PodSecurityPolicyListTypeOutput) ToPodSecurityPolicyListTypeOutputWithCo
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodSecurityPolicyListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o PodSecurityPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // items is a list of schema objects.
@@ -1613,13 +1613,13 @@ func (o PodSecurityPolicyListTypeOutput) Items() PodSecurityPolicyTypeArrayOutpu
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodSecurityPolicyListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o PodSecurityPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PodSecurityPolicySpec defines the policy enforced.

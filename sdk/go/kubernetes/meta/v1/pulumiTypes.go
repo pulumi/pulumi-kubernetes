@@ -2601,21 +2601,21 @@ func (o ServerAddressByClientCIDRArrayOutput) Index(i pulumi.IntInput) ServerAdd
 // Status is a return value for calls that don't return other objects.
 type StatusType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Suggested HTTP return code for this status, 0 if not set.
-	Code int `pulumi:"code"`
+	Code *int `pulumi:"code"`
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details StatusDetails `pulumi:"details"`
+	Details *StatusDetails `pulumi:"details"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// A human-readable description of the status of this operation.
-	Message string `pulumi:"message"`
+	Message *string `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata ListMeta `pulumi:"metadata"`
+	Metadata *ListMeta `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
-	Reason string `pulumi:"reason"`
+	Reason *string `pulumi:"reason"`
 	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status string `pulumi:"status"`
+	Status *string `pulumi:"status"`
 }
 
 // StatusTypeInput is an input type that accepts StatusTypeArgs and StatusTypeOutput values.
@@ -2633,21 +2633,21 @@ type StatusTypeInput interface {
 // Status is a return value for calls that don't return other objects.
 type StatusTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Suggested HTTP return code for this status, 0 if not set.
-	Code pulumi.IntInput `pulumi:"code"`
+	Code pulumi.IntPtrInput `pulumi:"code"`
 	// Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-	Details StatusDetailsInput `pulumi:"details"`
+	Details StatusDetailsPtrInput `pulumi:"details"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// A human-readable description of the status of this operation.
-	Message pulumi.StringInput `pulumi:"message"`
+	Message pulumi.StringPtrInput `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata ListMetaInput `pulumi:"metadata"`
+	Metadata ListMetaPtrInput `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
-	Reason pulumi.StringInput `pulumi:"reason"`
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status pulumi.StringInput `pulumi:"status"`
+	Status pulumi.StringPtrInput `pulumi:"status"`
 }
 
 func (StatusTypeArgs) ElementType() reflect.Type {
@@ -2678,43 +2678,43 @@ func (o StatusTypeOutput) ToStatusTypeOutputWithContext(ctx context.Context) Sta
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StatusTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v StatusType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o StatusTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatusType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Suggested HTTP return code for this status, 0 if not set.
-func (o StatusTypeOutput) Code() pulumi.IntOutput {
-	return o.ApplyT(func(v StatusType) int { return v.Code }).(pulumi.IntOutput)
+func (o StatusTypeOutput) Code() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v StatusType) *int { return v.Code }).(pulumi.IntPtrOutput)
 }
 
 // Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-func (o StatusTypeOutput) Details() StatusDetailsOutput {
-	return o.ApplyT(func(v StatusType) StatusDetails { return v.Details }).(StatusDetailsOutput)
+func (o StatusTypeOutput) Details() StatusDetailsPtrOutput {
+	return o.ApplyT(func(v StatusType) *StatusDetails { return v.Details }).(StatusDetailsPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StatusTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v StatusType) string { return v.Kind }).(pulumi.StringOutput)
+func (o StatusTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatusType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // A human-readable description of the status of this operation.
-func (o StatusTypeOutput) Message() pulumi.StringOutput {
-	return o.ApplyT(func(v StatusType) string { return v.Message }).(pulumi.StringOutput)
+func (o StatusTypeOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatusType) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StatusTypeOutput) Metadata() ListMetaOutput {
-	return o.ApplyT(func(v StatusType) ListMeta { return v.Metadata }).(ListMetaOutput)
+func (o StatusTypeOutput) Metadata() ListMetaPtrOutput {
+	return o.ApplyT(func(v StatusType) *ListMeta { return v.Metadata }).(ListMetaPtrOutput)
 }
 
 // A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
-func (o StatusTypeOutput) Reason() pulumi.StringOutput {
-	return o.ApplyT(func(v StatusType) string { return v.Reason }).(pulumi.StringOutput)
+func (o StatusTypeOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatusType) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o StatusTypeOutput) Status() pulumi.StringOutput {
-	return o.ApplyT(func(v StatusType) string { return v.Status }).(pulumi.StringOutput)
+func (o StatusTypeOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatusType) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.

@@ -15,38 +15,38 @@ import (
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 type EventType struct {
 	// What action was taken/failed regarding to the regarding object.
-	Action string `pulumi:"action"`
+	Action *string `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedCount int `pulumi:"deprecatedCount"`
+	DeprecatedCount *int `pulumi:"deprecatedCount"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedFirstTimestamp string `pulumi:"deprecatedFirstTimestamp"`
+	DeprecatedFirstTimestamp *string `pulumi:"deprecatedFirstTimestamp"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedLastTimestamp string `pulumi:"deprecatedLastTimestamp"`
+	DeprecatedLastTimestamp *string `pulumi:"deprecatedLastTimestamp"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedSource corev1.EventSource `pulumi:"deprecatedSource"`
+	DeprecatedSource *corev1.EventSource `pulumi:"deprecatedSource"`
 	// Required. Time when this Event was first observed.
 	EventTime string `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     string            `pulumi:"kind"`
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     *string            `pulumi:"kind"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-	Note string `pulumi:"note"`
+	Note *string `pulumi:"note"`
 	// Why the action was taken.
-	Reason string `pulumi:"reason"`
+	Reason *string `pulumi:"reason"`
 	// The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-	Regarding corev1.ObjectReference `pulumi:"regarding"`
+	Regarding *corev1.ObjectReference `pulumi:"regarding"`
 	// Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-	Related corev1.ObjectReference `pulumi:"related"`
+	Related *corev1.ObjectReference `pulumi:"related"`
 	// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
-	ReportingController string `pulumi:"reportingController"`
+	ReportingController *string `pulumi:"reportingController"`
 	// ID of the controller instance, e.g. `kubelet-xyzf`.
-	ReportingInstance string `pulumi:"reportingInstance"`
+	ReportingInstance *string `pulumi:"reportingInstance"`
 	// Data about the Event series this event represents or nil if it's a singleton Event.
-	Series EventSeries `pulumi:"series"`
+	Series *EventSeries `pulumi:"series"`
 	// Type of this event (Normal, Warning), new types could be added in the future.
-	Type string `pulumi:"type"`
+	Type *string `pulumi:"type"`
 }
 
 // EventTypeInput is an input type that accepts EventTypeArgs and EventTypeOutput values.
@@ -64,38 +64,38 @@ type EventTypeInput interface {
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 type EventTypeArgs struct {
 	// What action was taken/failed regarding to the regarding object.
-	Action pulumi.StringInput `pulumi:"action"`
+	Action pulumi.StringPtrInput `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedCount pulumi.IntInput `pulumi:"deprecatedCount"`
+	DeprecatedCount pulumi.IntPtrInput `pulumi:"deprecatedCount"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedFirstTimestamp pulumi.StringInput `pulumi:"deprecatedFirstTimestamp"`
+	DeprecatedFirstTimestamp pulumi.StringPtrInput `pulumi:"deprecatedFirstTimestamp"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedLastTimestamp pulumi.StringInput `pulumi:"deprecatedLastTimestamp"`
+	DeprecatedLastTimestamp pulumi.StringPtrInput `pulumi:"deprecatedLastTimestamp"`
 	// Deprecated field assuring backward compatibility with core.v1 Event type
-	DeprecatedSource corev1.EventSourceInput `pulumi:"deprecatedSource"`
+	DeprecatedSource corev1.EventSourcePtrInput `pulumi:"deprecatedSource"`
 	// Required. Time when this Event was first observed.
 	EventTime pulumi.StringInput `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-	Note pulumi.StringInput `pulumi:"note"`
+	Note pulumi.StringPtrInput `pulumi:"note"`
 	// Why the action was taken.
-	Reason pulumi.StringInput `pulumi:"reason"`
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-	Regarding corev1.ObjectReferenceInput `pulumi:"regarding"`
+	Regarding corev1.ObjectReferencePtrInput `pulumi:"regarding"`
 	// Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-	Related corev1.ObjectReferenceInput `pulumi:"related"`
+	Related corev1.ObjectReferencePtrInput `pulumi:"related"`
 	// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
-	ReportingController pulumi.StringInput `pulumi:"reportingController"`
+	ReportingController pulumi.StringPtrInput `pulumi:"reportingController"`
 	// ID of the controller instance, e.g. `kubelet-xyzf`.
-	ReportingInstance pulumi.StringInput `pulumi:"reportingInstance"`
+	ReportingInstance pulumi.StringPtrInput `pulumi:"reportingInstance"`
 	// Data about the Event series this event represents or nil if it's a singleton Event.
-	Series EventSeriesInput `pulumi:"series"`
+	Series EventSeriesPtrInput `pulumi:"series"`
 	// Type of this event (Normal, Warning), new types could be added in the future.
-	Type pulumi.StringInput `pulumi:"type"`
+	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
 func (EventTypeArgs) ElementType() reflect.Type {
@@ -152,33 +152,33 @@ func (o EventTypeOutput) ToEventTypeOutputWithContext(ctx context.Context) Event
 }
 
 // What action was taken/failed regarding to the regarding object.
-func (o EventTypeOutput) Action() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.Action }).(pulumi.StringOutput)
+func (o EventTypeOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.Action }).(pulumi.StringPtrOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EventTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o EventTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
-func (o EventTypeOutput) DeprecatedCount() pulumi.IntOutput {
-	return o.ApplyT(func(v EventType) int { return v.DeprecatedCount }).(pulumi.IntOutput)
+func (o EventTypeOutput) DeprecatedCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v EventType) *int { return v.DeprecatedCount }).(pulumi.IntPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
-func (o EventTypeOutput) DeprecatedFirstTimestamp() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.DeprecatedFirstTimestamp }).(pulumi.StringOutput)
+func (o EventTypeOutput) DeprecatedFirstTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.DeprecatedFirstTimestamp }).(pulumi.StringPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
-func (o EventTypeOutput) DeprecatedLastTimestamp() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.DeprecatedLastTimestamp }).(pulumi.StringOutput)
+func (o EventTypeOutput) DeprecatedLastTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.DeprecatedLastTimestamp }).(pulumi.StringPtrOutput)
 }
 
 // Deprecated field assuring backward compatibility with core.v1 Event type
-func (o EventTypeOutput) DeprecatedSource() corev1.EventSourceOutput {
-	return o.ApplyT(func(v EventType) corev1.EventSource { return v.DeprecatedSource }).(corev1.EventSourceOutput)
+func (o EventTypeOutput) DeprecatedSource() corev1.EventSourcePtrOutput {
+	return o.ApplyT(func(v EventType) *corev1.EventSource { return v.DeprecatedSource }).(corev1.EventSourcePtrOutput)
 }
 
 // Required. Time when this Event was first observed.
@@ -187,52 +187,52 @@ func (o EventTypeOutput) EventTime() pulumi.StringOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EventTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.Kind }).(pulumi.StringOutput)
+func (o EventTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o EventTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v EventType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o EventTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v EventType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-func (o EventTypeOutput) Note() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.Note }).(pulumi.StringOutput)
+func (o EventTypeOutput) Note() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.Note }).(pulumi.StringPtrOutput)
 }
 
 // Why the action was taken.
-func (o EventTypeOutput) Reason() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.Reason }).(pulumi.StringOutput)
+func (o EventTypeOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
 // The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-func (o EventTypeOutput) Regarding() corev1.ObjectReferenceOutput {
-	return o.ApplyT(func(v EventType) corev1.ObjectReference { return v.Regarding }).(corev1.ObjectReferenceOutput)
+func (o EventTypeOutput) Regarding() corev1.ObjectReferencePtrOutput {
+	return o.ApplyT(func(v EventType) *corev1.ObjectReference { return v.Regarding }).(corev1.ObjectReferencePtrOutput)
 }
 
 // Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-func (o EventTypeOutput) Related() corev1.ObjectReferenceOutput {
-	return o.ApplyT(func(v EventType) corev1.ObjectReference { return v.Related }).(corev1.ObjectReferenceOutput)
+func (o EventTypeOutput) Related() corev1.ObjectReferencePtrOutput {
+	return o.ApplyT(func(v EventType) *corev1.ObjectReference { return v.Related }).(corev1.ObjectReferencePtrOutput)
 }
 
 // Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
-func (o EventTypeOutput) ReportingController() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.ReportingController }).(pulumi.StringOutput)
+func (o EventTypeOutput) ReportingController() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.ReportingController }).(pulumi.StringPtrOutput)
 }
 
 // ID of the controller instance, e.g. `kubelet-xyzf`.
-func (o EventTypeOutput) ReportingInstance() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.ReportingInstance }).(pulumi.StringOutput)
+func (o EventTypeOutput) ReportingInstance() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.ReportingInstance }).(pulumi.StringPtrOutput)
 }
 
 // Data about the Event series this event represents or nil if it's a singleton Event.
-func (o EventTypeOutput) Series() EventSeriesOutput {
-	return o.ApplyT(func(v EventType) EventSeries { return v.Series }).(EventSeriesOutput)
+func (o EventTypeOutput) Series() EventSeriesPtrOutput {
+	return o.ApplyT(func(v EventType) *EventSeries { return v.Series }).(EventSeriesPtrOutput)
 }
 
 // Type of this event (Normal, Warning), new types could be added in the future.
-func (o EventTypeOutput) Type() pulumi.StringOutput {
-	return o.ApplyT(func(v EventType) string { return v.Type }).(pulumi.StringOutput)
+func (o EventTypeOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventType) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
 type EventTypeArrayOutput struct{ *pulumi.OutputState }
@@ -258,13 +258,13 @@ func (o EventTypeArrayOutput) Index(i pulumi.IntInput) EventTypeOutput {
 // EventList is a list of Event objects.
 type EventListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items []EventType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // EventListTypeInput is an input type that accepts EventListTypeArgs and EventListTypeOutput values.
@@ -282,13 +282,13 @@ type EventListTypeInput interface {
 // EventList is a list of Event objects.
 type EventListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is a list of schema objects.
 	Items EventTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (EventListTypeArgs) ElementType() reflect.Type {
@@ -319,8 +319,8 @@ func (o EventListTypeOutput) ToEventListTypeOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EventListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v EventListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o EventListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is a list of schema objects.
@@ -329,13 +329,13 @@ func (o EventListTypeOutput) Items() EventTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EventListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v EventListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o EventListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o EventListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v EventListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o EventListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v EventListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.

@@ -339,14 +339,14 @@ func (o CustomResourceConversionPtrOutput) WebhookClientConfig() WebhookClientCo
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     string            `pulumi:"kind"`
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     *string            `pulumi:"kind"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
 	Spec CustomResourceDefinitionSpec `pulumi:"spec"`
 	// status indicates the actual state of the CustomResourceDefinition
-	Status CustomResourceDefinitionStatus `pulumi:"status"`
+	Status *CustomResourceDefinitionStatus `pulumi:"status"`
 }
 
 // CustomResourceDefinitionTypeInput is an input type that accepts CustomResourceDefinitionTypeArgs and CustomResourceDefinitionTypeOutput values.
@@ -364,14 +364,14 @@ type CustomResourceDefinitionTypeInput interface {
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
 	Spec CustomResourceDefinitionSpecInput `pulumi:"spec"`
 	// status indicates the actual state of the CustomResourceDefinition
-	Status CustomResourceDefinitionStatusInput `pulumi:"status"`
+	Status CustomResourceDefinitionStatusPtrInput `pulumi:"status"`
 }
 
 func (CustomResourceDefinitionTypeArgs) ElementType() reflect.Type {
@@ -428,17 +428,17 @@ func (o CustomResourceDefinitionTypeOutput) ToCustomResourceDefinitionTypeOutput
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CustomResourceDefinitionTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o CustomResourceDefinitionTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CustomResourceDefinitionTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionType) string { return v.Kind }).(pulumi.StringOutput)
+func (o CustomResourceDefinitionTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o CustomResourceDefinitionTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o CustomResourceDefinitionTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // spec describes how the user wants the resources to appear
@@ -447,8 +447,8 @@ func (o CustomResourceDefinitionTypeOutput) Spec() CustomResourceDefinitionSpecO
 }
 
 // status indicates the actual state of the CustomResourceDefinition
-func (o CustomResourceDefinitionTypeOutput) Status() CustomResourceDefinitionStatusOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionType) CustomResourceDefinitionStatus { return v.Status }).(CustomResourceDefinitionStatusOutput)
+func (o CustomResourceDefinitionTypeOutput) Status() CustomResourceDefinitionStatusPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionType) *CustomResourceDefinitionStatus { return v.Status }).(CustomResourceDefinitionStatusPtrOutput)
 }
 
 type CustomResourceDefinitionTypeArrayOutput struct{ *pulumi.OutputState }
@@ -612,12 +612,12 @@ func (o CustomResourceDefinitionConditionArrayOutput) Index(i pulumi.IntInput) C
 // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
 type CustomResourceDefinitionListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// items list individual CustomResourceDefinition objects
 	Items []CustomResourceDefinitionType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     string          `pulumi:"kind"`
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Kind     *string          `pulumi:"kind"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // CustomResourceDefinitionListTypeInput is an input type that accepts CustomResourceDefinitionListTypeArgs and CustomResourceDefinitionListTypeOutput values.
@@ -635,12 +635,12 @@ type CustomResourceDefinitionListTypeInput interface {
 // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
 type CustomResourceDefinitionListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// items list individual CustomResourceDefinition objects
 	Items CustomResourceDefinitionTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringInput   `pulumi:"kind"`
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (CustomResourceDefinitionListTypeArgs) ElementType() reflect.Type {
@@ -671,8 +671,8 @@ func (o CustomResourceDefinitionListTypeOutput) ToCustomResourceDefinitionListTy
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CustomResourceDefinitionListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o CustomResourceDefinitionListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // items list individual CustomResourceDefinition objects
@@ -681,12 +681,12 @@ func (o CustomResourceDefinitionListTypeOutput) Items() CustomResourceDefinition
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CustomResourceDefinitionListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o CustomResourceDefinitionListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o CustomResourceDefinitionListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o CustomResourceDefinitionListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition

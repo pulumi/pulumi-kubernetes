@@ -150,15 +150,15 @@ func (o FlowDistinguisherMethodPtrOutput) Type() pulumi.StringPtrOutput {
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 type FlowSchemaType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec FlowSchemaSpec `pulumi:"spec"`
+	Spec *FlowSchemaSpec `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status FlowSchemaStatus `pulumi:"status"`
+	Status *FlowSchemaStatus `pulumi:"status"`
 }
 
 // FlowSchemaTypeInput is an input type that accepts FlowSchemaTypeArgs and FlowSchemaTypeOutput values.
@@ -176,15 +176,15 @@ type FlowSchemaTypeInput interface {
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 type FlowSchemaTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec FlowSchemaSpecInput `pulumi:"spec"`
+	Spec FlowSchemaSpecPtrInput `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status FlowSchemaStatusInput `pulumi:"status"`
+	Status FlowSchemaStatusPtrInput `pulumi:"status"`
 }
 
 func (FlowSchemaTypeArgs) ElementType() reflect.Type {
@@ -241,28 +241,28 @@ func (o FlowSchemaTypeOutput) ToFlowSchemaTypeOutputWithContext(ctx context.Cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o FlowSchemaTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v FlowSchemaType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o FlowSchemaTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlowSchemaType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o FlowSchemaTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v FlowSchemaType) string { return v.Kind }).(pulumi.StringOutput)
+func (o FlowSchemaTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlowSchemaType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o FlowSchemaTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v FlowSchemaType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o FlowSchemaTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v FlowSchemaType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o FlowSchemaTypeOutput) Spec() FlowSchemaSpecOutput {
-	return o.ApplyT(func(v FlowSchemaType) FlowSchemaSpec { return v.Spec }).(FlowSchemaSpecOutput)
+func (o FlowSchemaTypeOutput) Spec() FlowSchemaSpecPtrOutput {
+	return o.ApplyT(func(v FlowSchemaType) *FlowSchemaSpec { return v.Spec }).(FlowSchemaSpecPtrOutput)
 }
 
 // `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o FlowSchemaTypeOutput) Status() FlowSchemaStatusOutput {
-	return o.ApplyT(func(v FlowSchemaType) FlowSchemaStatus { return v.Status }).(FlowSchemaStatusOutput)
+func (o FlowSchemaTypeOutput) Status() FlowSchemaStatusPtrOutput {
+	return o.ApplyT(func(v FlowSchemaType) *FlowSchemaStatus { return v.Status }).(FlowSchemaStatusPtrOutput)
 }
 
 type FlowSchemaTypeArrayOutput struct{ *pulumi.OutputState }
@@ -426,13 +426,13 @@ func (o FlowSchemaConditionArrayOutput) Index(i pulumi.IntInput) FlowSchemaCondi
 // FlowSchemaList is a list of FlowSchema objects.
 type FlowSchemaListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// `items` is a list of FlowSchemas.
 	Items []FlowSchemaType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // FlowSchemaListTypeInput is an input type that accepts FlowSchemaListTypeArgs and FlowSchemaListTypeOutput values.
@@ -450,13 +450,13 @@ type FlowSchemaListTypeInput interface {
 // FlowSchemaList is a list of FlowSchema objects.
 type FlowSchemaListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// `items` is a list of FlowSchemas.
 	Items FlowSchemaTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (FlowSchemaListTypeArgs) ElementType() reflect.Type {
@@ -487,8 +487,8 @@ func (o FlowSchemaListTypeOutput) ToFlowSchemaListTypeOutputWithContext(ctx cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o FlowSchemaListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v FlowSchemaListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o FlowSchemaListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlowSchemaListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // `items` is a list of FlowSchemas.
@@ -497,13 +497,13 @@ func (o FlowSchemaListTypeOutput) Items() FlowSchemaTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o FlowSchemaListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v FlowSchemaListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o FlowSchemaListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlowSchemaListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o FlowSchemaListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v FlowSchemaListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o FlowSchemaListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v FlowSchemaListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
@@ -1555,15 +1555,15 @@ func (o PolicyRulesWithSubjectsArrayOutput) Index(i pulumi.IntInput) PolicyRules
 // PriorityLevelConfiguration represents the configuration of a priority level.
 type PriorityLevelConfigurationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec PriorityLevelConfigurationSpec `pulumi:"spec"`
+	Spec *PriorityLevelConfigurationSpec `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status PriorityLevelConfigurationStatus `pulumi:"status"`
+	Status *PriorityLevelConfigurationStatus `pulumi:"status"`
 }
 
 // PriorityLevelConfigurationTypeInput is an input type that accepts PriorityLevelConfigurationTypeArgs and PriorityLevelConfigurationTypeOutput values.
@@ -1581,15 +1581,15 @@ type PriorityLevelConfigurationTypeInput interface {
 // PriorityLevelConfiguration represents the configuration of a priority level.
 type PriorityLevelConfigurationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec PriorityLevelConfigurationSpecInput `pulumi:"spec"`
+	Spec PriorityLevelConfigurationSpecPtrInput `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Status PriorityLevelConfigurationStatusInput `pulumi:"status"`
+	Status PriorityLevelConfigurationStatusPtrInput `pulumi:"status"`
 }
 
 func (PriorityLevelConfigurationTypeArgs) ElementType() reflect.Type {
@@ -1646,28 +1646,28 @@ func (o PriorityLevelConfigurationTypeOutput) ToPriorityLevelConfigurationTypeOu
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityLevelConfigurationTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o PriorityLevelConfigurationTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityLevelConfigurationTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) string { return v.Kind }).(pulumi.StringOutput)
+func (o PriorityLevelConfigurationTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityLevelConfigurationTypeOutput) Metadata() metav1.ObjectMetaOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+func (o PriorityLevelConfigurationTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PriorityLevelConfigurationTypeOutput) Spec() PriorityLevelConfigurationSpecOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) PriorityLevelConfigurationSpec { return v.Spec }).(PriorityLevelConfigurationSpecOutput)
+func (o PriorityLevelConfigurationTypeOutput) Spec() PriorityLevelConfigurationSpecPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) *PriorityLevelConfigurationSpec { return v.Spec }).(PriorityLevelConfigurationSpecPtrOutput)
 }
 
 // `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PriorityLevelConfigurationTypeOutput) Status() PriorityLevelConfigurationStatusOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) PriorityLevelConfigurationStatus { return v.Status }).(PriorityLevelConfigurationStatusOutput)
+func (o PriorityLevelConfigurationTypeOutput) Status() PriorityLevelConfigurationStatusPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) *PriorityLevelConfigurationStatus { return v.Status }).(PriorityLevelConfigurationStatusPtrOutput)
 }
 
 type PriorityLevelConfigurationTypeArrayOutput struct{ *pulumi.OutputState }
@@ -1831,13 +1831,13 @@ func (o PriorityLevelConfigurationConditionArrayOutput) Index(i pulumi.IntInput)
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 type PriorityLevelConfigurationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string `pulumi:"apiVersion"`
+	ApiVersion *string `pulumi:"apiVersion"`
 	// `items` is a list of request-priorities.
 	Items []PriorityLevelConfigurationType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMeta `pulumi:"metadata"`
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 // PriorityLevelConfigurationListTypeInput is an input type that accepts PriorityLevelConfigurationListTypeArgs and PriorityLevelConfigurationListTypeOutput values.
@@ -1855,13 +1855,13 @@ type PriorityLevelConfigurationListTypeInput interface {
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 type PriorityLevelConfigurationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// `items` is a list of request-priorities.
 	Items PriorityLevelConfigurationTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaInput `pulumi:"metadata"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
 func (PriorityLevelConfigurationListTypeArgs) ElementType() reflect.Type {
@@ -1892,8 +1892,8 @@ func (o PriorityLevelConfigurationListTypeOutput) ToPriorityLevelConfigurationLi
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityLevelConfigurationListTypeOutput) ApiVersion() pulumi.StringOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) string { return v.ApiVersion }).(pulumi.StringOutput)
+func (o PriorityLevelConfigurationListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // `items` is a list of request-priorities.
@@ -1902,13 +1902,13 @@ func (o PriorityLevelConfigurationListTypeOutput) Items() PriorityLevelConfigura
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityLevelConfigurationListTypeOutput) Kind() pulumi.StringOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) string { return v.Kind }).(pulumi.StringOutput)
+func (o PriorityLevelConfigurationListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityLevelConfigurationListTypeOutput) Metadata() metav1.ListMetaOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) metav1.ListMeta { return v.Metadata }).(metav1.ListMetaOutput)
+func (o PriorityLevelConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.

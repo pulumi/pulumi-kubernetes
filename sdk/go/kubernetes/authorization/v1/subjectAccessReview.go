@@ -16,14 +16,14 @@ type SubjectAccessReview struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringOutput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
 	Spec SubjectAccessReviewSpecOutput `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
-	Status SubjectAccessReviewStatusOutput `pulumi:"status"`
+	Status SubjectAccessReviewStatusPtrOutput `pulumi:"status"`
 }
 
 // NewSubjectAccessReview registers a new resource with the given unique name, arguments, and options.
