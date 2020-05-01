@@ -15,6 +15,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -22,14 +23,16 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
+	"text/template"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
+	"github.com/pulumi/pulumi/pkg/v2/codegen"
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/tools"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
-
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
 )
 
 // This is the URL for the v1.17.0 swagger spec. This is the last version of the spec containing the following
@@ -79,7 +82,7 @@ func main() {
 	case "dotnet":
 		writeDotnetClient(data, outdir, templateDir)
 	case "go":
-		writeGoClient(data, outdir)
+		writeGoClient(data, outdir, templateDir)
 	case "schema":
 		if err := writePulumiSchema(data, outdir); err != nil {
 			panic(err)
@@ -322,12 +325,52 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 }
 
-func writeGoClient(data map[string]interface{}, outdir string) {
+func writeGoClient(data map[string]interface{}, outdir string, templateDir string) {
 	pkg := genPulumiSchemaPackage(data)
 	files, err := gogen.GeneratePackage("pulumigen", pkg)
 	if err != nil {
 		panic(err)
 	}
+
+	type TemplateResources struct {
+		Resources map[string]gogen.LanguageResource
+		Imports   []string
+	}
+	resources, err := gogen.LanguageResources("pulumigen", pkg)
+	if err != nil {
+		panic(err)
+	}
+	imports := codegen.StringSet{}
+	for _, resource := range resources {
+		importPath := fmt.Sprintf(`%s "%s"`, resource.Alias, resource.Package)
+		imports.Add(importPath)
+	}
+	templateResources := TemplateResources{
+		Resources: resources,
+		Imports:   imports.SortedValues(),
+	}
+
+	b, err := ioutil.ReadFile(filepath.Join(templateDir, "yaml.tmpl"))
+	if err != nil {
+		panic(err)
+	}
+	funcMap := template.FuncMap{
+		"toGVK": func(s string) string {
+			parts := strings.Split(s, ":")
+			contract.Assert(len(parts) == 3)
+			gvk := parts[1] + "/" + parts[2]
+			return strings.TrimPrefix(gvk, "core/")
+		},
+	}
+	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
+
+	var buf bytes.Buffer
+	err = t.Execute(&buf, templateResources)
+	if err != nil {
+		panic(err)
+	}
+	files["kubernetes/yaml/yaml.go"] = buf.Bytes()
+
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
 
