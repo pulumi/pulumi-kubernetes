@@ -38,6 +38,8 @@ func TestGo_Basic(t *testing.T) {
 }
 
 func TestGo_YAML(t *testing.T) {
+	t.Skip("FIXME: needs to depend on local package rather than latest published")
+
 	kubectx := os.Getenv("KUBERNETES_CONTEXT")
 
 	if kubectx == "" {
