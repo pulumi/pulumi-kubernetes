@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"go/format"
 	"io/ioutil"
 	"log"
 	"os"
@@ -369,7 +370,8 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 	if err != nil {
 		panic(err)
 	}
-	files["kubernetes/yaml/yaml.go"] = buf.Bytes()
+	formattedSource, err := format.Source(buf.Bytes())
+	files["kubernetes/yaml/yaml.go"] = formattedSource
 
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)

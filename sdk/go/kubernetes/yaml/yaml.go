@@ -12,50 +12,50 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-    admissionregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/admissionregistration/v1"
-    admissionregistrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/admissionregistration/v1beta1"
-    apiextensionsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions/v1"
-    apiextensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions/v1beta1"
-    apiregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiregistration/v1"
-    apiregistrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiregistration/v1beta1"
-    appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apps/v1"
-    appsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apps/v1beta1"
-    appsv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apps/v1beta2"
-    auditregistrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/auditregistration/v1alpha1"
-    authenticationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authentication/v1"
-    authenticationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authentication/v1beta1"
-    authorizationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authorization/v1"
-    authorizationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authorization/v1beta1"
-    autoscalingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/autoscaling/v1"
-    autoscalingv2beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/autoscaling/v2beta1"
-    autoscalingv2beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/autoscaling/v2beta2"
-    batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/batch/v1"
-    batchv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/batch/v1beta1"
-    batchv2alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/batch/v2alpha1"
-    certificatesv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/certificates/v1beta1"
-    coordinationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/coordination/v1"
-    coordinationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/coordination/v1beta1"
-    corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/core/v1"
-    discoveryv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/discovery/v1beta1"
-    eventsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/events/v1beta1"
-    extensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/extensions/v1beta1"
-    flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/flowcontrol/v1alpha1"
-    metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
-    networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/networking/v1"
-    networkingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/networking/v1beta1"
-    nodev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/node/v1alpha1"
-    nodev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/node/v1beta1"
-    policyv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/policy/v1beta1"
-    rbacv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/rbac/v1"
-    rbacv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/rbac/v1alpha1"
-    rbacv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/rbac/v1beta1"
-    schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/scheduling/v1"
-    schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/scheduling/v1alpha1"
-    schedulingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/scheduling/v1beta1"
-    settingsv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/settings/v1alpha1"
-    storagev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/storage/v1"
-    storagev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/storage/v1alpha1"
-    storagev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/storage/v1beta1"
+	admissionregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/admissionregistration/v1"
+	admissionregistrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/admissionregistration/v1beta1"
+	apiextensionsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions/v1"
+	apiextensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions/v1beta1"
+	apiregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiregistration/v1"
+	apiregistrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiregistration/v1beta1"
+	appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apps/v1"
+	appsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apps/v1beta1"
+	appsv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apps/v1beta2"
+	auditregistrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/auditregistration/v1alpha1"
+	authenticationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authentication/v1"
+	authenticationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authentication/v1beta1"
+	authorizationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authorization/v1"
+	authorizationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/authorization/v1beta1"
+	autoscalingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/autoscaling/v1"
+	autoscalingv2beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/autoscaling/v2beta1"
+	autoscalingv2beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/autoscaling/v2beta2"
+	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/batch/v1"
+	batchv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/batch/v1beta1"
+	batchv2alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/batch/v2alpha1"
+	certificatesv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/certificates/v1beta1"
+	coordinationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/coordination/v1"
+	coordinationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/coordination/v1beta1"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/core/v1"
+	discoveryv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/discovery/v1beta1"
+	eventsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/events/v1beta1"
+	extensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/extensions/v1beta1"
+	flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/flowcontrol/v1alpha1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
+	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/networking/v1"
+	networkingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/networking/v1beta1"
+	nodev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/node/v1alpha1"
+	nodev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/node/v1beta1"
+	policyv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/policy/v1beta1"
+	rbacv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/rbac/v1"
+	rbacv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/rbac/v1alpha1"
+	rbacv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/rbac/v1beta1"
+	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/scheduling/v1"
+	schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/scheduling/v1alpha1"
+	schedulingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/scheduling/v1beta1"
+	settingsv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/settings/v1alpha1"
+	storagev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/storage/v1"
+	storagev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/storage/v1alpha1"
+	storagev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/storage/v1beta1"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
@@ -251,1338 +251,1338 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 
 	// Finally allocate a resource of the correct type.
 	switch fullKind {
-    case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
-        var res admissionregistrationv1.MutatingWebhookConfiguration
+	case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
+		var res admissionregistrationv1.MutatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList":
-        var res admissionregistrationv1.MutatingWebhookConfigurationList
+	case "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList":
+		var res admissionregistrationv1.MutatingWebhookConfigurationList
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
-        var res admissionregistrationv1.ValidatingWebhookConfiguration
+	case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
+		var res admissionregistrationv1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList":
-        var res admissionregistrationv1.ValidatingWebhookConfigurationList
+	case "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList":
+		var res admissionregistrationv1.ValidatingWebhookConfigurationList
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
-        var res admissionregistrationv1beta1.MutatingWebhookConfiguration
+	case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
+		var res admissionregistrationv1beta1.MutatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
-        var res admissionregistrationv1beta1.MutatingWebhookConfigurationList
+	case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
+		var res admissionregistrationv1beta1.MutatingWebhookConfigurationList
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
-        var res admissionregistrationv1beta1.ValidatingWebhookConfiguration
+	case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
+		var res admissionregistrationv1beta1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
-        var res admissionregistrationv1beta1.ValidatingWebhookConfigurationList
+	case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
+		var res admissionregistrationv1beta1.ValidatingWebhookConfigurationList
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiextensions.k8s.io/v1/CustomResourceDefinition":
-        var res apiextensionsv1.CustomResourceDefinition
+	case "apiextensions.k8s.io/v1/CustomResourceDefinition":
+		var res apiextensionsv1.CustomResourceDefinition
 		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiextensions.k8s.io/v1/CustomResourceDefinitionList":
-        var res apiextensionsv1.CustomResourceDefinitionList
+	case "apiextensions.k8s.io/v1/CustomResourceDefinitionList":
+		var res apiextensionsv1.CustomResourceDefinitionList
 		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
-        var res apiextensionsv1beta1.CustomResourceDefinition
+	case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
+		var res apiextensionsv1beta1.CustomResourceDefinition
 		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
-        var res apiextensionsv1beta1.CustomResourceDefinitionList
+	case "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
+		var res apiextensionsv1beta1.CustomResourceDefinitionList
 		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiregistration.k8s.io/v1/APIService":
-        var res apiregistrationv1.APIService
+	case "apiregistration.k8s.io/v1/APIService":
+		var res apiregistrationv1.APIService
 		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1:APIService", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiregistration.k8s.io/v1/APIServiceList":
-        var res apiregistrationv1.APIServiceList
+	case "apiregistration.k8s.io/v1/APIServiceList":
+		var res apiregistrationv1.APIServiceList
 		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1:APIServiceList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiregistration.k8s.io/v1beta1/APIService":
-        var res apiregistrationv1beta1.APIService
+	case "apiregistration.k8s.io/v1beta1/APIService":
+		var res apiregistrationv1beta1.APIService
 		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1beta1:APIService", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apiregistration.k8s.io/v1beta1/APIServiceList":
-        var res apiregistrationv1beta1.APIServiceList
+	case "apiregistration.k8s.io/v1beta1/APIServiceList":
+		var res apiregistrationv1beta1.APIServiceList
 		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1beta1:APIServiceList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/ControllerRevision":
-        var res appsv1.ControllerRevision
+	case "apps/v1/ControllerRevision":
+		var res appsv1.ControllerRevision
 		err := ctx.RegisterResource("kubernetes:apps/v1:ControllerRevision", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/ControllerRevisionList":
-        var res appsv1.ControllerRevisionList
+	case "apps/v1/ControllerRevisionList":
+		var res appsv1.ControllerRevisionList
 		err := ctx.RegisterResource("kubernetes:apps/v1:ControllerRevisionList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/DaemonSet":
-        var res appsv1.DaemonSet
+	case "apps/v1/DaemonSet":
+		var res appsv1.DaemonSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/DaemonSetList":
-        var res appsv1.DaemonSetList
+	case "apps/v1/DaemonSetList":
+		var res appsv1.DaemonSetList
 		err := ctx.RegisterResource("kubernetes:apps/v1:DaemonSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/Deployment":
-        var res appsv1.Deployment
+	case "apps/v1/Deployment":
+		var res appsv1.Deployment
 		err := ctx.RegisterResource("kubernetes:apps/v1:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/DeploymentList":
-        var res appsv1.DeploymentList
+	case "apps/v1/DeploymentList":
+		var res appsv1.DeploymentList
 		err := ctx.RegisterResource("kubernetes:apps/v1:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/ReplicaSet":
-        var res appsv1.ReplicaSet
+	case "apps/v1/ReplicaSet":
+		var res appsv1.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/ReplicaSetList":
-        var res appsv1.ReplicaSetList
+	case "apps/v1/ReplicaSetList":
+		var res appsv1.ReplicaSetList
 		err := ctx.RegisterResource("kubernetes:apps/v1:ReplicaSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/StatefulSet":
-        var res appsv1.StatefulSet
+	case "apps/v1/StatefulSet":
+		var res appsv1.StatefulSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:StatefulSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1/StatefulSetList":
-        var res appsv1.StatefulSetList
+	case "apps/v1/StatefulSetList":
+		var res appsv1.StatefulSetList
 		err := ctx.RegisterResource("kubernetes:apps/v1:StatefulSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta1/ControllerRevision":
-        var res appsv1beta1.ControllerRevision
+	case "apps/v1beta1/ControllerRevision":
+		var res appsv1beta1.ControllerRevision
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:ControllerRevision", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta1/ControllerRevisionList":
-        var res appsv1beta1.ControllerRevisionList
+	case "apps/v1beta1/ControllerRevisionList":
+		var res appsv1beta1.ControllerRevisionList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:ControllerRevisionList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta1/Deployment":
-        var res appsv1beta1.Deployment
+	case "apps/v1beta1/Deployment":
+		var res appsv1beta1.Deployment
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta1/DeploymentList":
-        var res appsv1beta1.DeploymentList
+	case "apps/v1beta1/DeploymentList":
+		var res appsv1beta1.DeploymentList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta1/StatefulSet":
-        var res appsv1beta1.StatefulSet
+	case "apps/v1beta1/StatefulSet":
+		var res appsv1beta1.StatefulSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:StatefulSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta1/StatefulSetList":
-        var res appsv1beta1.StatefulSetList
+	case "apps/v1beta1/StatefulSetList":
+		var res appsv1beta1.StatefulSetList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:StatefulSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/ControllerRevision":
-        var res appsv1beta2.ControllerRevision
+	case "apps/v1beta2/ControllerRevision":
+		var res appsv1beta2.ControllerRevision
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ControllerRevision", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/ControllerRevisionList":
-        var res appsv1beta2.ControllerRevisionList
+	case "apps/v1beta2/ControllerRevisionList":
+		var res appsv1beta2.ControllerRevisionList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ControllerRevisionList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/DaemonSet":
-        var res appsv1beta2.DaemonSet
+	case "apps/v1beta2/DaemonSet":
+		var res appsv1beta2.DaemonSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/DaemonSetList":
-        var res appsv1beta2.DaemonSetList
+	case "apps/v1beta2/DaemonSetList":
+		var res appsv1beta2.DaemonSetList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:DaemonSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/Deployment":
-        var res appsv1beta2.Deployment
+	case "apps/v1beta2/Deployment":
+		var res appsv1beta2.Deployment
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/DeploymentList":
-        var res appsv1beta2.DeploymentList
+	case "apps/v1beta2/DeploymentList":
+		var res appsv1beta2.DeploymentList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/ReplicaSet":
-        var res appsv1beta2.ReplicaSet
+	case "apps/v1beta2/ReplicaSet":
+		var res appsv1beta2.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/ReplicaSetList":
-        var res appsv1beta2.ReplicaSetList
+	case "apps/v1beta2/ReplicaSetList":
+		var res appsv1beta2.ReplicaSetList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ReplicaSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/StatefulSet":
-        var res appsv1beta2.StatefulSet
+	case "apps/v1beta2/StatefulSet":
+		var res appsv1beta2.StatefulSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:StatefulSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "apps/v1beta2/StatefulSetList":
-        var res appsv1beta2.StatefulSetList
+	case "apps/v1beta2/StatefulSetList":
+		var res appsv1beta2.StatefulSetList
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:StatefulSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "auditregistration.k8s.io/v1alpha1/AuditSink":
-        var res auditregistrationv1alpha1.AuditSink
+	case "auditregistration.k8s.io/v1alpha1/AuditSink":
+		var res auditregistrationv1alpha1.AuditSink
 		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "auditregistration.k8s.io/v1alpha1/AuditSinkList":
-        var res auditregistrationv1alpha1.AuditSinkList
+	case "auditregistration.k8s.io/v1alpha1/AuditSinkList":
+		var res auditregistrationv1alpha1.AuditSinkList
 		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authentication.k8s.io/v1/TokenRequest":
-        var res authenticationv1.TokenRequest
+	case "authentication.k8s.io/v1/TokenRequest":
+		var res authenticationv1.TokenRequest
 		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenRequest", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authentication.k8s.io/v1/TokenReview":
-        var res authenticationv1.TokenReview
+	case "authentication.k8s.io/v1/TokenReview":
+		var res authenticationv1.TokenReview
 		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authentication.k8s.io/v1beta1/TokenReview":
-        var res authenticationv1beta1.TokenReview
+	case "authentication.k8s.io/v1beta1/TokenReview":
+		var res authenticationv1beta1.TokenReview
 		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1beta1:TokenReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1/LocalSubjectAccessReview":
-        var res authorizationv1.LocalSubjectAccessReview
+	case "authorization.k8s.io/v1/LocalSubjectAccessReview":
+		var res authorizationv1.LocalSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1/SelfSubjectAccessReview":
-        var res authorizationv1.SelfSubjectAccessReview
+	case "authorization.k8s.io/v1/SelfSubjectAccessReview":
+		var res authorizationv1.SelfSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1/SelfSubjectRulesReview":
-        var res authorizationv1.SelfSubjectRulesReview
+	case "authorization.k8s.io/v1/SelfSubjectRulesReview":
+		var res authorizationv1.SelfSubjectRulesReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1/SubjectAccessReview":
-        var res authorizationv1.SubjectAccessReview
+	case "authorization.k8s.io/v1/SubjectAccessReview":
+		var res authorizationv1.SubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-        var res authorizationv1beta1.LocalSubjectAccessReview
+	case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
+		var res authorizationv1beta1.LocalSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-        var res authorizationv1beta1.SelfSubjectAccessReview
+	case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
+		var res authorizationv1beta1.SelfSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-        var res authorizationv1beta1.SelfSubjectRulesReview
+	case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
+		var res authorizationv1beta1.SelfSubjectRulesReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "authorization.k8s.io/v1beta1/SubjectAccessReview":
-        var res authorizationv1beta1.SubjectAccessReview
+	case "authorization.k8s.io/v1beta1/SubjectAccessReview":
+		var res authorizationv1beta1.SubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "autoscaling/v1/HorizontalPodAutoscaler":
-        var res autoscalingv1.HorizontalPodAutoscaler
+	case "autoscaling/v1/HorizontalPodAutoscaler":
+		var res autoscalingv1.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "autoscaling/v1/HorizontalPodAutoscalerList":
-        var res autoscalingv1.HorizontalPodAutoscalerList
+	case "autoscaling/v1/HorizontalPodAutoscalerList":
+		var res autoscalingv1.HorizontalPodAutoscalerList
 		err := ctx.RegisterResource("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "autoscaling/v2beta1/HorizontalPodAutoscaler":
-        var res autoscalingv2beta1.HorizontalPodAutoscaler
+	case "autoscaling/v2beta1/HorizontalPodAutoscaler":
+		var res autoscalingv2beta1.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "autoscaling/v2beta1/HorizontalPodAutoscalerList":
-        var res autoscalingv2beta1.HorizontalPodAutoscalerList
+	case "autoscaling/v2beta1/HorizontalPodAutoscalerList":
+		var res autoscalingv2beta1.HorizontalPodAutoscalerList
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "autoscaling/v2beta2/HorizontalPodAutoscaler":
-        var res autoscalingv2beta2.HorizontalPodAutoscaler
+	case "autoscaling/v2beta2/HorizontalPodAutoscaler":
+		var res autoscalingv2beta2.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "autoscaling/v2beta2/HorizontalPodAutoscalerList":
-        var res autoscalingv2beta2.HorizontalPodAutoscalerList
+	case "autoscaling/v2beta2/HorizontalPodAutoscalerList":
+		var res autoscalingv2beta2.HorizontalPodAutoscalerList
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "batch/v1/Job":
-        var res batchv1.Job
+	case "batch/v1/Job":
+		var res batchv1.Job
 		err := ctx.RegisterResource("kubernetes:batch/v1:Job", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "batch/v1/JobList":
-        var res batchv1.JobList
+	case "batch/v1/JobList":
+		var res batchv1.JobList
 		err := ctx.RegisterResource("kubernetes:batch/v1:JobList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "batch/v1beta1/CronJob":
-        var res batchv1beta1.CronJob
+	case "batch/v1beta1/CronJob":
+		var res batchv1beta1.CronJob
 		err := ctx.RegisterResource("kubernetes:batch/v1beta1:CronJob", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "batch/v1beta1/CronJobList":
-        var res batchv1beta1.CronJobList
+	case "batch/v1beta1/CronJobList":
+		var res batchv1beta1.CronJobList
 		err := ctx.RegisterResource("kubernetes:batch/v1beta1:CronJobList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "batch/v2alpha1/CronJob":
-        var res batchv2alpha1.CronJob
+	case "batch/v2alpha1/CronJob":
+		var res batchv2alpha1.CronJob
 		err := ctx.RegisterResource("kubernetes:batch/v2alpha1:CronJob", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "batch/v2alpha1/CronJobList":
-        var res batchv2alpha1.CronJobList
+	case "batch/v2alpha1/CronJobList":
+		var res batchv2alpha1.CronJobList
 		err := ctx.RegisterResource("kubernetes:batch/v2alpha1:CronJobList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
-        var res certificatesv1beta1.CertificateSigningRequest
+	case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
+		var res certificatesv1beta1.CertificateSigningRequest
 		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
-        var res certificatesv1beta1.CertificateSigningRequestList
+	case "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
+		var res certificatesv1beta1.CertificateSigningRequestList
 		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "coordination.k8s.io/v1/Lease":
-        var res coordinationv1.Lease
+	case "coordination.k8s.io/v1/Lease":
+		var res coordinationv1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:Lease", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "coordination.k8s.io/v1/LeaseList":
-        var res coordinationv1.LeaseList
+	case "coordination.k8s.io/v1/LeaseList":
+		var res coordinationv1.LeaseList
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:LeaseList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "coordination.k8s.io/v1beta1/Lease":
-        var res coordinationv1beta1.Lease
+	case "coordination.k8s.io/v1beta1/Lease":
+		var res coordinationv1beta1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:Lease", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "coordination.k8s.io/v1beta1/LeaseList":
-        var res coordinationv1beta1.LeaseList
+	case "coordination.k8s.io/v1beta1/LeaseList":
+		var res coordinationv1beta1.LeaseList
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:LeaseList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Binding":
-        var res corev1.Binding
+	case "v1/Binding":
+		var res corev1.Binding
 		err := ctx.RegisterResource("kubernetes:core/v1:Binding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ComponentStatus":
-        var res corev1.ComponentStatus
+	case "v1/ComponentStatus":
+		var res corev1.ComponentStatus
 		err := ctx.RegisterResource("kubernetes:core/v1:ComponentStatus", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ComponentStatusList":
-        var res corev1.ComponentStatusList
+	case "v1/ComponentStatusList":
+		var res corev1.ComponentStatusList
 		err := ctx.RegisterResource("kubernetes:core/v1:ComponentStatusList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ConfigMap":
-        var res corev1.ConfigMap
+	case "v1/ConfigMap":
+		var res corev1.ConfigMap
 		err := ctx.RegisterResource("kubernetes:core/v1:ConfigMap", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ConfigMapList":
-        var res corev1.ConfigMapList
+	case "v1/ConfigMapList":
+		var res corev1.ConfigMapList
 		err := ctx.RegisterResource("kubernetes:core/v1:ConfigMapList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Endpoints":
-        var res corev1.Endpoints
+	case "v1/Endpoints":
+		var res corev1.Endpoints
 		err := ctx.RegisterResource("kubernetes:core/v1:Endpoints", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/EndpointsList":
-        var res corev1.EndpointsList
+	case "v1/EndpointsList":
+		var res corev1.EndpointsList
 		err := ctx.RegisterResource("kubernetes:core/v1:EndpointsList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Event":
-        var res corev1.Event
+	case "v1/Event":
+		var res corev1.Event
 		err := ctx.RegisterResource("kubernetes:core/v1:Event", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/EventList":
-        var res corev1.EventList
+	case "v1/EventList":
+		var res corev1.EventList
 		err := ctx.RegisterResource("kubernetes:core/v1:EventList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/LimitRange":
-        var res corev1.LimitRange
+	case "v1/LimitRange":
+		var res corev1.LimitRange
 		err := ctx.RegisterResource("kubernetes:core/v1:LimitRange", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/LimitRangeList":
-        var res corev1.LimitRangeList
+	case "v1/LimitRangeList":
+		var res corev1.LimitRangeList
 		err := ctx.RegisterResource("kubernetes:core/v1:LimitRangeList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Namespace":
-        var res corev1.Namespace
+	case "v1/Namespace":
+		var res corev1.Namespace
 		err := ctx.RegisterResource("kubernetes:core/v1:Namespace", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/NamespaceList":
-        var res corev1.NamespaceList
+	case "v1/NamespaceList":
+		var res corev1.NamespaceList
 		err := ctx.RegisterResource("kubernetes:core/v1:NamespaceList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Node":
-        var res corev1.Node
+	case "v1/Node":
+		var res corev1.Node
 		err := ctx.RegisterResource("kubernetes:core/v1:Node", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/NodeList":
-        var res corev1.NodeList
+	case "v1/NodeList":
+		var res corev1.NodeList
 		err := ctx.RegisterResource("kubernetes:core/v1:NodeList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/PersistentVolume":
-        var res corev1.PersistentVolume
+	case "v1/PersistentVolume":
+		var res corev1.PersistentVolume
 		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolume", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/PersistentVolumeClaim":
-        var res corev1.PersistentVolumeClaim
+	case "v1/PersistentVolumeClaim":
+		var res corev1.PersistentVolumeClaim
 		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolumeClaim", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/PersistentVolumeClaimList":
-        var res corev1.PersistentVolumeClaimList
+	case "v1/PersistentVolumeClaimList":
+		var res corev1.PersistentVolumeClaimList
 		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolumeClaimList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/PersistentVolumeList":
-        var res corev1.PersistentVolumeList
+	case "v1/PersistentVolumeList":
+		var res corev1.PersistentVolumeList
 		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolumeList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Pod":
-        var res corev1.Pod
+	case "v1/Pod":
+		var res corev1.Pod
 		err := ctx.RegisterResource("kubernetes:core/v1:Pod", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/PodList":
-        var res corev1.PodList
+	case "v1/PodList":
+		var res corev1.PodList
 		err := ctx.RegisterResource("kubernetes:core/v1:PodList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/PodTemplate":
-        var res corev1.PodTemplate
+	case "v1/PodTemplate":
+		var res corev1.PodTemplate
 		err := ctx.RegisterResource("kubernetes:core/v1:PodTemplate", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/PodTemplateList":
-        var res corev1.PodTemplateList
+	case "v1/PodTemplateList":
+		var res corev1.PodTemplateList
 		err := ctx.RegisterResource("kubernetes:core/v1:PodTemplateList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ReplicationController":
-        var res corev1.ReplicationController
+	case "v1/ReplicationController":
+		var res corev1.ReplicationController
 		err := ctx.RegisterResource("kubernetes:core/v1:ReplicationController", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ReplicationControllerList":
-        var res corev1.ReplicationControllerList
+	case "v1/ReplicationControllerList":
+		var res corev1.ReplicationControllerList
 		err := ctx.RegisterResource("kubernetes:core/v1:ReplicationControllerList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ResourceQuota":
-        var res corev1.ResourceQuota
+	case "v1/ResourceQuota":
+		var res corev1.ResourceQuota
 		err := ctx.RegisterResource("kubernetes:core/v1:ResourceQuota", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ResourceQuotaList":
-        var res corev1.ResourceQuotaList
+	case "v1/ResourceQuotaList":
+		var res corev1.ResourceQuotaList
 		err := ctx.RegisterResource("kubernetes:core/v1:ResourceQuotaList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Secret":
-        var res corev1.Secret
+	case "v1/Secret":
+		var res corev1.Secret
 		err := ctx.RegisterResource("kubernetes:core/v1:Secret", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/SecretList":
-        var res corev1.SecretList
+	case "v1/SecretList":
+		var res corev1.SecretList
 		err := ctx.RegisterResource("kubernetes:core/v1:SecretList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/Service":
-        var res corev1.Service
+	case "v1/Service":
+		var res corev1.Service
 		err := ctx.RegisterResource("kubernetes:core/v1:Service", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ServiceAccount":
-        var res corev1.ServiceAccount
+	case "v1/ServiceAccount":
+		var res corev1.ServiceAccount
 		err := ctx.RegisterResource("kubernetes:core/v1:ServiceAccount", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ServiceAccountList":
-        var res corev1.ServiceAccountList
+	case "v1/ServiceAccountList":
+		var res corev1.ServiceAccountList
 		err := ctx.RegisterResource("kubernetes:core/v1:ServiceAccountList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "v1/ServiceList":
-        var res corev1.ServiceList
+	case "v1/ServiceList":
+		var res corev1.ServiceList
 		err := ctx.RegisterResource("kubernetes:core/v1:ServiceList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "discovery.k8s.io/v1beta1/EndpointSlice":
-        var res discoveryv1beta1.EndpointSlice
+	case "discovery.k8s.io/v1beta1/EndpointSlice":
+		var res discoveryv1beta1.EndpointSlice
 		err := ctx.RegisterResource("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "discovery.k8s.io/v1beta1/EndpointSliceList":
-        var res discoveryv1beta1.EndpointSliceList
+	case "discovery.k8s.io/v1beta1/EndpointSliceList":
+		var res discoveryv1beta1.EndpointSliceList
 		err := ctx.RegisterResource("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "events.k8s.io/v1beta1/Event":
-        var res eventsv1beta1.Event
+	case "events.k8s.io/v1beta1/Event":
+		var res eventsv1beta1.Event
 		err := ctx.RegisterResource("kubernetes:events.k8s.io/v1beta1:Event", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "events.k8s.io/v1beta1/EventList":
-        var res eventsv1beta1.EventList
+	case "events.k8s.io/v1beta1/EventList":
+		var res eventsv1beta1.EventList
 		err := ctx.RegisterResource("kubernetes:events.k8s.io/v1beta1:EventList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/DaemonSet":
-        var res extensionsv1beta1.DaemonSet
+	case "extensions/v1beta1/DaemonSet":
+		var res extensionsv1beta1.DaemonSet
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/DaemonSetList":
-        var res extensionsv1beta1.DaemonSetList
+	case "extensions/v1beta1/DaemonSetList":
+		var res extensionsv1beta1.DaemonSetList
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DaemonSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/Deployment":
-        var res extensionsv1beta1.Deployment
+	case "extensions/v1beta1/Deployment":
+		var res extensionsv1beta1.Deployment
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/DeploymentList":
-        var res extensionsv1beta1.DeploymentList
+	case "extensions/v1beta1/DeploymentList":
+		var res extensionsv1beta1.DeploymentList
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DeploymentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/Ingress":
-        var res extensionsv1beta1.Ingress
+	case "extensions/v1beta1/Ingress":
+		var res extensionsv1beta1.Ingress
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:Ingress", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/IngressList":
-        var res extensionsv1beta1.IngressList
+	case "extensions/v1beta1/IngressList":
+		var res extensionsv1beta1.IngressList
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:IngressList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/NetworkPolicy":
-        var res extensionsv1beta1.NetworkPolicy
+	case "extensions/v1beta1/NetworkPolicy":
+		var res extensionsv1beta1.NetworkPolicy
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:NetworkPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/NetworkPolicyList":
-        var res extensionsv1beta1.NetworkPolicyList
+	case "extensions/v1beta1/NetworkPolicyList":
+		var res extensionsv1beta1.NetworkPolicyList
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:NetworkPolicyList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/PodSecurityPolicy":
-        var res extensionsv1beta1.PodSecurityPolicy
+	case "extensions/v1beta1/PodSecurityPolicy":
+		var res extensionsv1beta1.PodSecurityPolicy
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:PodSecurityPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/PodSecurityPolicyList":
-        var res extensionsv1beta1.PodSecurityPolicyList
+	case "extensions/v1beta1/PodSecurityPolicyList":
+		var res extensionsv1beta1.PodSecurityPolicyList
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:PodSecurityPolicyList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/ReplicaSet":
-        var res extensionsv1beta1.ReplicaSet
+	case "extensions/v1beta1/ReplicaSet":
+		var res extensionsv1beta1.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "extensions/v1beta1/ReplicaSetList":
-        var res extensionsv1beta1.ReplicaSetList
+	case "extensions/v1beta1/ReplicaSetList":
+		var res extensionsv1beta1.ReplicaSetList
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:ReplicaSetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
-        var res flowcontrolv1alpha1.FlowSchema
+	case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
+		var res flowcontrolv1alpha1.FlowSchema
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList":
-        var res flowcontrolv1alpha1.FlowSchemaList
+	case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList":
+		var res flowcontrolv1alpha1.FlowSchemaList
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration":
-        var res flowcontrolv1alpha1.PriorityLevelConfiguration
+	case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration":
+		var res flowcontrolv1alpha1.PriorityLevelConfiguration
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList":
-        var res flowcontrolv1alpha1.PriorityLevelConfigurationList
+	case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList":
+		var res flowcontrolv1alpha1.PriorityLevelConfigurationList
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "meta/v1/Status":
-        var res metav1.Status
+	case "meta/v1/Status":
+		var res metav1.Status
 		err := ctx.RegisterResource("kubernetes:meta/v1:Status", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "networking.k8s.io/v1/NetworkPolicy":
-        var res networkingv1.NetworkPolicy
+	case "networking.k8s.io/v1/NetworkPolicy":
+		var res networkingv1.NetworkPolicy
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "networking.k8s.io/v1/NetworkPolicyList":
-        var res networkingv1.NetworkPolicyList
+	case "networking.k8s.io/v1/NetworkPolicyList":
+		var res networkingv1.NetworkPolicyList
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicyList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "networking.k8s.io/v1beta1/Ingress":
-        var res networkingv1beta1.Ingress
+	case "networking.k8s.io/v1beta1/Ingress":
+		var res networkingv1beta1.Ingress
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:Ingress", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "networking.k8s.io/v1beta1/IngressClass":
-        var res networkingv1beta1.IngressClass
+	case "networking.k8s.io/v1beta1/IngressClass":
+		var res networkingv1beta1.IngressClass
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:IngressClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "networking.k8s.io/v1beta1/IngressClassList":
-        var res networkingv1beta1.IngressClassList
+	case "networking.k8s.io/v1beta1/IngressClassList":
+		var res networkingv1beta1.IngressClassList
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:IngressClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "networking.k8s.io/v1beta1/IngressList":
-        var res networkingv1beta1.IngressList
+	case "networking.k8s.io/v1beta1/IngressList":
+		var res networkingv1beta1.IngressList
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:IngressList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "node.k8s.io/v1alpha1/RuntimeClass":
-        var res nodev1alpha1.RuntimeClass
+	case "node.k8s.io/v1alpha1/RuntimeClass":
+		var res nodev1alpha1.RuntimeClass
 		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "node.k8s.io/v1alpha1/RuntimeClassList":
-        var res nodev1alpha1.RuntimeClassList
+	case "node.k8s.io/v1alpha1/RuntimeClassList":
+		var res nodev1alpha1.RuntimeClassList
 		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1alpha1:RuntimeClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "node.k8s.io/v1beta1/RuntimeClass":
-        var res nodev1beta1.RuntimeClass
+	case "node.k8s.io/v1beta1/RuntimeClass":
+		var res nodev1beta1.RuntimeClass
 		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1beta1:RuntimeClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "node.k8s.io/v1beta1/RuntimeClassList":
-        var res nodev1beta1.RuntimeClassList
+	case "node.k8s.io/v1beta1/RuntimeClassList":
+		var res nodev1beta1.RuntimeClassList
 		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1beta1:RuntimeClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "policy/v1beta1/PodDisruptionBudget":
-        var res policyv1beta1.PodDisruptionBudget
+	case "policy/v1beta1/PodDisruptionBudget":
+		var res policyv1beta1.PodDisruptionBudget
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodDisruptionBudget", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "policy/v1beta1/PodDisruptionBudgetList":
-        var res policyv1beta1.PodDisruptionBudgetList
+	case "policy/v1beta1/PodDisruptionBudgetList":
+		var res policyv1beta1.PodDisruptionBudgetList
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodDisruptionBudgetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "policy/v1beta1/PodSecurityPolicy":
-        var res policyv1beta1.PodSecurityPolicy
+	case "policy/v1beta1/PodSecurityPolicy":
+		var res policyv1beta1.PodSecurityPolicy
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodSecurityPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "policy/v1beta1/PodSecurityPolicyList":
-        var res policyv1beta1.PodSecurityPolicyList
+	case "policy/v1beta1/PodSecurityPolicyList":
+		var res policyv1beta1.PodSecurityPolicyList
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodSecurityPolicyList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/ClusterRole":
-        var res rbacv1.ClusterRole
+	case "rbac.authorization.k8s.io/v1/ClusterRole":
+		var res rbacv1.ClusterRole
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
-        var res rbacv1.ClusterRoleBinding
+	case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
+		var res rbacv1.ClusterRoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
-        var res rbacv1.ClusterRoleBindingList
+	case "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
+		var res rbacv1.ClusterRoleBindingList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/ClusterRoleList":
-        var res rbacv1.ClusterRoleList
+	case "rbac.authorization.k8s.io/v1/ClusterRoleList":
+		var res rbacv1.ClusterRoleList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/Role":
-        var res rbacv1.Role
+	case "rbac.authorization.k8s.io/v1/Role":
+		var res rbacv1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:Role", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/RoleBinding":
-        var res rbacv1.RoleBinding
+	case "rbac.authorization.k8s.io/v1/RoleBinding":
+		var res rbacv1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/RoleBindingList":
-        var res rbacv1.RoleBindingList
+	case "rbac.authorization.k8s.io/v1/RoleBindingList":
+		var res rbacv1.RoleBindingList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1/RoleList":
-        var res rbacv1.RoleList
+	case "rbac.authorization.k8s.io/v1/RoleList":
+		var res rbacv1.RoleList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
-        var res rbacv1alpha1.ClusterRole
+	case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
+		var res rbacv1alpha1.ClusterRole
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
-        var res rbacv1alpha1.ClusterRoleBinding
+	case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
+		var res rbacv1alpha1.ClusterRoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
-        var res rbacv1alpha1.ClusterRoleBindingList
+	case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
+		var res rbacv1alpha1.ClusterRoleBindingList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
-        var res rbacv1alpha1.ClusterRoleList
+	case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
+		var res rbacv1alpha1.ClusterRoleList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/Role":
-        var res rbacv1alpha1.Role
+	case "rbac.authorization.k8s.io/v1alpha1/Role":
+		var res rbacv1alpha1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
-        var res rbacv1alpha1.RoleBinding
+	case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
+		var res rbacv1alpha1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
-        var res rbacv1alpha1.RoleBindingList
+	case "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
+		var res rbacv1alpha1.RoleBindingList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1alpha1/RoleList":
-        var res rbacv1alpha1.RoleList
+	case "rbac.authorization.k8s.io/v1alpha1/RoleList":
+		var res rbacv1alpha1.RoleList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
-        var res rbacv1beta1.ClusterRole
+	case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
+		var res rbacv1beta1.ClusterRole
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
-        var res rbacv1beta1.ClusterRoleBinding
+	case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
+		var res rbacv1beta1.ClusterRoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
-        var res rbacv1beta1.ClusterRoleBindingList
+	case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
+		var res rbacv1beta1.ClusterRoleBindingList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
-        var res rbacv1beta1.ClusterRoleList
+	case "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
+		var res rbacv1beta1.ClusterRoleList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/Role":
-        var res rbacv1beta1.Role
+	case "rbac.authorization.k8s.io/v1beta1/Role":
+		var res rbacv1beta1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:Role", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
-        var res rbacv1beta1.RoleBinding
+	case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
+		var res rbacv1beta1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
-        var res rbacv1beta1.RoleBindingList
+	case "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
+		var res rbacv1beta1.RoleBindingList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "rbac.authorization.k8s.io/v1beta1/RoleList":
-        var res rbacv1beta1.RoleList
+	case "rbac.authorization.k8s.io/v1beta1/RoleList":
+		var res rbacv1beta1.RoleList
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "scheduling.k8s.io/v1/PriorityClass":
-        var res schedulingv1.PriorityClass
+	case "scheduling.k8s.io/v1/PriorityClass":
+		var res schedulingv1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "scheduling.k8s.io/v1/PriorityClassList":
-        var res schedulingv1.PriorityClassList
+	case "scheduling.k8s.io/v1/PriorityClassList":
+		var res schedulingv1.PriorityClassList
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1:PriorityClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "scheduling.k8s.io/v1alpha1/PriorityClass":
-        var res schedulingv1alpha1.PriorityClass
+	case "scheduling.k8s.io/v1alpha1/PriorityClass":
+		var res schedulingv1alpha1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "scheduling.k8s.io/v1alpha1/PriorityClassList":
-        var res schedulingv1alpha1.PriorityClassList
+	case "scheduling.k8s.io/v1alpha1/PriorityClassList":
+		var res schedulingv1alpha1.PriorityClassList
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "scheduling.k8s.io/v1beta1/PriorityClass":
-        var res schedulingv1beta1.PriorityClass
+	case "scheduling.k8s.io/v1beta1/PriorityClass":
+		var res schedulingv1beta1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "scheduling.k8s.io/v1beta1/PriorityClassList":
-        var res schedulingv1beta1.PriorityClassList
+	case "scheduling.k8s.io/v1beta1/PriorityClassList":
+		var res schedulingv1beta1.PriorityClassList
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "settings.k8s.io/v1alpha1/PodPreset":
-        var res settingsv1alpha1.PodPreset
+	case "settings.k8s.io/v1alpha1/PodPreset":
+		var res settingsv1alpha1.PodPreset
 		err := ctx.RegisterResource("kubernetes:settings.k8s.io/v1alpha1:PodPreset", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "settings.k8s.io/v1alpha1/PodPresetList":
-        var res settingsv1alpha1.PodPresetList
+	case "settings.k8s.io/v1alpha1/PodPresetList":
+		var res settingsv1alpha1.PodPresetList
 		err := ctx.RegisterResource("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/CSIDriver":
-        var res storagev1.CSIDriver
+	case "storage.k8s.io/v1/CSIDriver":
+		var res storagev1.CSIDriver
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIDriver", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/CSIDriverList":
-        var res storagev1.CSIDriverList
+	case "storage.k8s.io/v1/CSIDriverList":
+		var res storagev1.CSIDriverList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIDriverList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/CSINode":
-        var res storagev1.CSINode
+	case "storage.k8s.io/v1/CSINode":
+		var res storagev1.CSINode
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSINode", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/CSINodeList":
-        var res storagev1.CSINodeList
+	case "storage.k8s.io/v1/CSINodeList":
+		var res storagev1.CSINodeList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSINodeList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/StorageClass":
-        var res storagev1.StorageClass
+	case "storage.k8s.io/v1/StorageClass":
+		var res storagev1.StorageClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:StorageClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/StorageClassList":
-        var res storagev1.StorageClassList
+	case "storage.k8s.io/v1/StorageClassList":
+		var res storagev1.StorageClassList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:StorageClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/VolumeAttachment":
-        var res storagev1.VolumeAttachment
+	case "storage.k8s.io/v1/VolumeAttachment":
+		var res storagev1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1/VolumeAttachmentList":
-        var res storagev1.VolumeAttachmentList
+	case "storage.k8s.io/v1/VolumeAttachmentList":
+		var res storagev1.VolumeAttachmentList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1alpha1/VolumeAttachment":
-        var res storagev1alpha1.VolumeAttachment
+	case "storage.k8s.io/v1alpha1/VolumeAttachment":
+		var res storagev1alpha1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1alpha1/VolumeAttachmentList":
-        var res storagev1alpha1.VolumeAttachmentList
+	case "storage.k8s.io/v1alpha1/VolumeAttachmentList":
+		var res storagev1alpha1.VolumeAttachmentList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/CSIDriver":
-        var res storagev1beta1.CSIDriver
+	case "storage.k8s.io/v1beta1/CSIDriver":
+		var res storagev1beta1.CSIDriver
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSIDriver", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/CSIDriverList":
-        var res storagev1beta1.CSIDriverList
+	case "storage.k8s.io/v1beta1/CSIDriverList":
+		var res storagev1beta1.CSIDriverList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSIDriverList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/CSINode":
-        var res storagev1beta1.CSINode
+	case "storage.k8s.io/v1beta1/CSINode":
+		var res storagev1beta1.CSINode
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSINode", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/CSINodeList":
-        var res storagev1beta1.CSINodeList
+	case "storage.k8s.io/v1beta1/CSINodeList":
+		var res storagev1beta1.CSINodeList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSINodeList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/StorageClass":
-        var res storagev1beta1.StorageClass
+	case "storage.k8s.io/v1beta1/StorageClass":
+		var res storagev1beta1.StorageClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:StorageClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/StorageClassList":
-        var res storagev1beta1.StorageClassList
+	case "storage.k8s.io/v1beta1/StorageClassList":
+		var res storagev1beta1.StorageClassList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:StorageClassList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/VolumeAttachment":
-        var res storagev1beta1.VolumeAttachment
+	case "storage.k8s.io/v1beta1/VolumeAttachment":
+		var res storagev1beta1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
 		return []resource{{Name: key, Resource: &res}}, nil
-    case "storage.k8s.io/v1beta1/VolumeAttachmentList":
-        var res storagev1beta1.VolumeAttachmentList
+	case "storage.k8s.io/v1beta1/VolumeAttachmentList":
+		var res storagev1beta1.VolumeAttachmentList
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
