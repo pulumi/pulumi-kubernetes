@@ -16,8 +16,8 @@ func main() {
 			return err
 		}
 
-		_, err = yaml.NewConfigGroup(ctx, "guestbook",
-			&yaml.ConfigGroupArgs{Files: []string{filepath.Join("yaml", "*.yaml")}},
+		_, err = yaml.NewConfigGroup(ctx, "manifests",
+			&yaml.ConfigGroupArgs{Files: []string{filepath.Join("manifests", "*.yaml")}},
 		)
 		return err
 	})
