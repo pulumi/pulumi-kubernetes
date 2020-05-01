@@ -356,19 +356,10 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	b, err := ioutil.ReadFile(filepath.Join(templateDir, "yaml.tmpl"))
-	if err != nil {
-		panic(err)
-	}
-	t := template.Must(template.New("resources").Parse(string(b)))
-
-	var buf bytes.Buffer
-	err = t.Execute(&buf, templateResources)
-	if err != nil {
-		panic(err)
-	}
-	formattedSource, err := format.Source(buf.Bytes())
-	files["kubernetes/yaml/yaml.go"] = formattedSource
+	files["kubernetes/yaml/configFile.go"] = mustLoadFile(filepath.Join(templateDir, "configFile.go"))
+	files["kubernetes/yaml/configGroup.go"] = mustLoadFile(filepath.Join(templateDir, "configGroup.go"))
+	files["kubernetes/yaml/transformation.go"] = mustLoadFile(filepath.Join(templateDir, "transformation.go"))
+	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources)
 
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
@@ -381,6 +372,31 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 			panic(err)
 		}
 	}
+}
+
+func mustLoadFile(path string) []byte {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+	return b
+}
+
+func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
+	b := mustLoadFile(path)
+	t := template.Must(template.New("resources").Parse(string(b)))
+
+	var buf bytes.Buffer
+	err := t.Execute(&buf, resources)
+	if err != nil {
+		panic(err)
+	}
+	formattedSource, err := format.Source(buf.Bytes())
+	if err != nil {
+		panic(err)
+	}
+
+	return formattedSource
 }
 
 func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
