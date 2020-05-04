@@ -22,6 +22,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
+// ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
 type ConfigFile struct {
 	pulumi.ResourceState
 
@@ -30,12 +31,11 @@ type ConfigFile struct {
 
 type ConfigFileArgs struct {
 	// File is a path or URL that uniquely identifies a file.
-	// TODO(joe): the .NET client seems to accept an input. Isn't that wrong? It will create resources inside Apply!
 	File string
 	// Transformations is an optional list of transformations to apply to Kubernetes resource definitions
 	// before registering with the engine.
 	Transformations []Transformation
-	// ResourcePrefix isn optional prefix for the auto-generated resource names. For example, a resource named `bar`
+	// ResourcePrefix is an optional prefix for the auto-generated resource names. For example, a resource named `bar`
 	// created with resource prefix of `"foo"` would produce a resource named `"foo-bar"`.
 	ResourcePrefix string
 }
