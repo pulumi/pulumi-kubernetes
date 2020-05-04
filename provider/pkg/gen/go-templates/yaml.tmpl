@@ -111,7 +111,7 @@ func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption)
 func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transformations []Transformation,
 	resourcePrefix string, opts ...pulumi.ResourceOption,
 ) (*pulumi.MapOutput, error) {
-	var intermediates []resource
+	var intermediates pulumi.Array
 	for _, obj := range objs {
 		res, err := parseYamlObject(ctx, obj, transformations, resourcePrefix, opts...)
 		if err != nil {
@@ -124,8 +124,9 @@ func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transf
 
 	v := pulumi.ToOutput(intermediates).ApplyT(func(intermediates interface{}) map[string]interface{} {
 		resources := map[string]interface{}{}
-		for _, i := range intermediates.([]resource) {
-			resources[i.Name] = i.Resource
+		for _, i := range intermediates.([]interface{}) {
+			r := i.(resource)
+			resources[r.Name] = r.Resource
 		}
 		return resources
 	}).(pulumi.MapOutput)
@@ -134,7 +135,25 @@ func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transf
 
 type resource struct {
 	Name     string
-	Resource pulumi.CustomResource
+	Resource ResourceOutput
+}
+
+type resourceOutput struct { *pulumi.OutputState }
+
+func (resourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*resource)(nil)).Elem()
+}
+
+// ResourceOutput is an Output that returns Resource values.
+type ResourceOutput struct{ *pulumi.OutputState }
+
+// ElementType returns the element type of this Output (Resource).
+func (ResourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*pulumi.Resource)(nil)).Elem()
+}
+func init() {
+	pulumi.RegisterOutputType(ResourceOutput{})
+	pulumi.RegisterOutputType(resourceOutput{})
 }
 
 type UntypedArgs map[string]interface{}
@@ -145,7 +164,7 @@ func (UntypedArgs) ElementType() reflect.Type {
 
 func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transformations []Transformation,
 	resourcePrefix string, opts ...pulumi.ResourceOption,
-) ([]resource, error) {
+) ([]resourceOutput, error) {
 
 	// Allow users to change API objects before any validation.
 	for _, t := range transformations {
@@ -175,7 +194,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	switch fullKind {
 	case {{range $idx, $v := .ListKinds -}} {{if $idx}},
 	    {{end}}"{{$v.GVK}}" {{- end}}:
-		var resources []resource
+		var resources []resourceOutput
 		if rawItems, hasItems := obj["items"]; hasItems {
 			if items, ok := rawItems.([]interface{}); ok {
 				for _, item := range items {
@@ -228,7 +247,14 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		if err != nil {
 			return nil, err
 		}
-		{{`return []resource{{Name: key, Resource: &res}}, nil`}}
+		resOutput := pulumi.ToOutput(res).ApplyT(func(x interface{}) pulumi.Resource {
+			return &res
+		}).(ResourceOutput)
+		foo := resource{Name: key, Resource: resOutput}
+		r := pulumi.ToOutput(foo).ApplyT(func(x interface{}) resource {
+			return foo
+		}).(resourceOutput)
+		{{`return []resourceOutput{r}, nil`}}
 {{- end}}
 	default:
 		return nil, errors.Errorf("unrecognized kind %s %+v", fullKind, obj)
