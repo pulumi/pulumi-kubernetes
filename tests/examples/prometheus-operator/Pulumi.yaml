@@ -1,0 +1,3 @@
+name: prometheus-operator
+description: The CoreOS Prometheus Operator
+runtime: nodejs

@@ -17,6 +17,7 @@ package openapi
 import (
 	"fmt"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -75,7 +76,7 @@ func ValidateAgainstSchema(
 // to JSON merge patch.
 func PatchForResourceUpdate(
 	resources openapi.Resources, lastSubmitted, currentSubmitted, liveOldObj *unstructured.Unstructured,
-) ([]byte, types.PatchType, strategicpatch.LookupPatchMeta, error) {
+) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
 	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
 	if err != nil {
@@ -92,23 +93,58 @@ func PatchForResourceUpdate(
 		return nil, "", nil, err
 	}
 
-	// Try to build a three-way "strategic" merge.
+	// Use kinds.Namespaced() to determine if kind is unknown, such as for CRD Kinds.
+	kind := kinds.Kind(lastSubmitted.GetKind())
+	if knownKind, _ := kind.Namespaced(); !knownKind {
+		// Use a JSON merge patch for CRD Kinds.
+		patch, patchType, err = MergePatch(
+			lastSubmitted, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
+		)
+		return patch, patchType, lookupPatchMeta, err
+	}
+
+	// Attempt a three-way strategic merge.
+	patch, patchType, lookupPatchMeta, err = StrategicMergePatch(
+		resources, lastSubmitted, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
+	)
+	// Else, fall back to a three-way JSON merge patch.
+	if err != nil {
+		patch, patchType, err = MergePatch(
+			lastSubmitted, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
+		)
+	}
+	return patch, patchType, lookupPatchMeta, err
+}
+
+// StrategicMergePatch is a helper to use a three-way strategic merge on a resource version.
+// See for more details: https://tools.ietf.org/html/rfc6902
+func StrategicMergePatch(
+	resources openapi.Resources, lastSubmitted *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
+) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
 	gvk := lastSubmitted.GroupVersionKind()
 	if resSchema := resources.LookupResource(gvk); resSchema != nil {
 		logger.V(1).Infof("Attempting to update '%s' '%s/%s' with strategic merge",
 			gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
-		patch, patchType, lookupPatchMeta, err := strategicMergePatch(
+		patch, patchType, lookupPatchMeta, err = strategicMergePatch(
 			gvk, resSchema, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
-		if err == nil {
-			return patch, patchType, lookupPatchMeta, nil
-		}
 	}
+	if err != nil {
+		return patch, patchType, lookupPatchMeta, err
+	}
+	return patch, patchType, lookupPatchMeta, nil
+}
 
+// MergePatch is a helper to use a three-way JSON merge patch on a resource version.
+// See for more details: https://tools.ietf.org/html/rfc7386
+func MergePatch(
+	lastSubmitted *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
+) (patch []byte, patchType types.PatchType, err error) {
+	gvk := lastSubmitted.GroupVersionKind()
 	// Fall back to three-way JSON merge patch.
 	logger.V(1).Infof("Attempting to update '%s' '%s/%s' with JSON merge",
 		gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
-	patch, patchType, err := jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
-	return patch, patchType, nil, err
+	patch, patchType, err = jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
+	return patch, patchType, err
 }
 
 // SupportsDryRun returns true if the given GVK supports dry-run applies.
