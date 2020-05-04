@@ -38,8 +38,6 @@ func TestGo_Basic(t *testing.T) {
 }
 
 func TestGo_YAML(t *testing.T) {
-	t.Skip("FIXME: needs to depend on local package rather than latest published")
-
 	kubectx := os.Getenv("KUBERNETES_CONTEXT")
 
 	if kubectx == "" {
@@ -48,10 +46,6 @@ func TestGo_YAML(t *testing.T) {
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir: "yaml",
-		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-			"github.com/pulumi/pulumi/sdk/v2",
-		},
 		Quick: true,
 	})
 }
