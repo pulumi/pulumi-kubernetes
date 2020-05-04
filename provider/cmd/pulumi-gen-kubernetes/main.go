@@ -356,9 +356,9 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	files["kubernetes/yaml/configFile.go"] = mustLoadFile(filepath.Join(templateDir, "configFile.go"))
-	files["kubernetes/yaml/configGroup.go"] = mustLoadFile(filepath.Join(templateDir, "configGroup.go"))
-	files["kubernetes/yaml/transformation.go"] = mustLoadFile(filepath.Join(templateDir, "transformation.go"))
+	files["kubernetes/yaml/configFile.go"] = mustRenderTemplate(filepath.Join(templateDir, "configFile.tmpl"), templateResources)
+	files["kubernetes/yaml/configGroup.go"] = mustRenderTemplate(filepath.Join(templateDir, "configGroup.tmpl"), templateResources)
+	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "transformation.tmpl"), templateResources)
 	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources)
 
 	for filename, contents := range files {
