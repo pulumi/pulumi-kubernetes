@@ -45,7 +45,7 @@ func TestGo_YAML(t *testing.T) {
 	}
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir: "yaml",
+		Dir:   "yaml",
 		Quick: true,
 	})
 }

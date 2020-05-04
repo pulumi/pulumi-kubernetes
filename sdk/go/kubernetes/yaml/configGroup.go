@@ -22,12 +22,14 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
+// ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML.
 type ConfigGroup struct {
 	pulumi.ResourceState
 
-	resources pulumi.MapOutput
+	Resources pulumi.MapOutput
 }
 
+// The set of arguments for constructing a ConfigGroup resource.
 type ConfigGroupArgs struct {
 	// Files is a set of paths, globs, or URLs that uniquely identify files.
 	Files []string
@@ -38,17 +40,18 @@ type ConfigGroupArgs struct {
 	// Transformations is an optional list of transformations to apply to Kubernetes resource definitions
 	// before registering with the engine.
 	Transformations []Transformation
-	// ResourcePrefix isn optional prefix for the auto-generated resource names. For example, a resource named `bar`
+	// ResourcePrefix is an optional prefix for the auto-generated resource names. For example, a resource named `bar`
 	// created with resource prefix of `"foo"` would produce a resource named `"foo-bar"`.
 	ResourcePrefix string
 }
 
+// NewConfigGroup registers a new resource with the given unique name, arguments, and options.
 func NewConfigGroup(ctx *pulumi.Context,
 	name string, args *ConfigGroupArgs, opts ...pulumi.ResourceOption) (*ConfigGroup, error) {
 
 	// Register the resulting resource state.
 	configGroup := &ConfigGroup{
-		resources: pulumi.MapOutput{},
+		Resources: pulumi.MapOutput{},
 	}
 	err := ctx.RegisterComponentResource("kubernetes:yaml:ConfigGroup", name, configGroup, opts...)
 	if err != nil {
@@ -71,7 +74,7 @@ func NewConfigGroup(ctx *pulumi.Context,
 			return nil, err
 		}
 		if rs != nil {
-			configGroup.resources = *rs
+			configGroup.Resources = *rs
 		}
 
 		// Finally, register all of the resources found.
@@ -84,10 +87,6 @@ func NewConfigGroup(ctx *pulumi.Context,
 	return configGroup, nil
 }
 
-func (cf *ConfigGroup) Resources() pulumi.MapOutput {
-	return cf.resources
-}
-
-func (cf *ConfigGroup) GetResource(key string) pulumi.CustomResource {
-	return cf.resources.MapIndex(pulumi.String(key)).(pulumi.CustomResource)
+func (cf *ConfigGroup) GetResource(key string) pulumi.Output {
+	return cf.Resources.MapIndex(pulumi.String(key))
 }

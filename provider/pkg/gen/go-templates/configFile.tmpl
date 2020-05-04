@@ -26,9 +26,10 @@ import (
 type ConfigFile struct {
 	pulumi.ResourceState
 
-	resources pulumi.MapOutput
+	Resources pulumi.MapOutput
 }
 
+// The set of arguments for constructing a ConfigFile resource.
 type ConfigFileArgs struct {
 	// File is a path or URL that uniquely identifies a file.
 	File string
@@ -40,12 +41,13 @@ type ConfigFileArgs struct {
 	ResourcePrefix string
 }
 
+// NewConfigFile registers a new resource with the given unique name, arguments, and options.
 func NewConfigFile(ctx *pulumi.Context,
 	name string, args *ConfigFileArgs, opts ...pulumi.ResourceOption) (*ConfigFile, error) {
 
 	// Register the resulting resource state.
 	configFile := &ConfigFile{
-		resources: pulumi.MapOutput{},
+		Resources: pulumi.MapOutput{},
 	}
 	err := ctx.RegisterComponentResource("kubernetes:yaml:ConfigFile", name, configFile, opts...)
 	if err != nil {
@@ -72,7 +74,7 @@ func NewConfigFile(ctx *pulumi.Context,
 			return nil, err
 		}
 		if rs != nil {
-			configFile.resources = *rs
+			configFile.Resources = *rs
 		}
 
 		// Finally, register all of the resources found.
@@ -85,10 +87,6 @@ func NewConfigFile(ctx *pulumi.Context,
 	return configFile, nil
 }
 
-func (cf *ConfigFile) Resources() pulumi.MapOutput {
-	return cf.resources
-}
-
-func (cf *ConfigFile) GetResource(key string) pulumi.CustomResource {
-	return cf.resources.MapIndex(pulumi.String(key)).(pulumi.CustomResource)
+func (cf *ConfigFile) GetResource(key string) pulumi.Output {
+	return cf.Resources.MapIndex(pulumi.String(key))
 }
