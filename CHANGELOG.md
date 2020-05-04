@@ -2,6 +2,7 @@
 
 ### Bug Fixes
 
+-   fix(customresources): use a 3-way merge patch instead of strategic merge. (https://github.com/pulumi/pulumi-kubernetes/pull/1094)
 -   Fix required input props in Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1090)
 -   Update Go SDK using latest codegen packages. (https://github.com/pulumi/pulumi-kubernetes/pull/1089)
 -   Fix schema type for Fields and RawExtension. (https://github.com/pulumi/pulumi-kubernetes/pull/1086)
