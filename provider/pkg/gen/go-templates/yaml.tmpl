@@ -125,7 +125,7 @@ func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transf
 	v := pulumi.ToOutput(intermediates).ApplyT(func(intermediates interface{}) map[string]interface{} {
 		resources := map[string]interface{}{}
 		for _, i := range intermediates.([]interface{}) {
-			r := i.(resource)
+			r := i.(resourceTuple)
 			resources[r.Name] = r.Resource
 		}
 		return resources
@@ -133,15 +133,15 @@ func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transf
 	return &v, nil
 }
 
-type resource struct {
+type resourceTuple struct {
 	Name     string
 	Resource ResourceOutput
 }
 
-type resourceOutput struct { *pulumi.OutputState }
+type resourceTupleOutput struct { *pulumi.OutputState }
 
-func (resourceOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*resource)(nil)).Elem()
+func (resourceTupleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*resourceTuple)(nil)).Elem()
 }
 
 // ResourceOutput is an Output that returns Resource values.
@@ -153,7 +153,7 @@ func (ResourceOutput) ElementType() reflect.Type {
 }
 func init() {
 	pulumi.RegisterOutputType(ResourceOutput{})
-	pulumi.RegisterOutputType(resourceOutput{})
+	pulumi.RegisterOutputType(resourceTupleOutput{})
 }
 
 type UntypedArgs map[string]interface{}
@@ -164,7 +164,7 @@ func (UntypedArgs) ElementType() reflect.Type {
 
 func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transformations []Transformation,
 	resourcePrefix string, opts ...pulumi.ResourceOption,
-) ([]resourceOutput, error) {
+) ([]resourceTupleOutput, error) {
 
 	// Allow users to change API objects before any validation.
 	for _, t := range transformations {
@@ -194,7 +194,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	switch fullKind {
 	case {{range $idx, $v := .ListKinds -}} {{if $idx}},
 	    {{end}}"{{$v.GVK}}" {{- end}}:
-		var resources []resourceOutput
+		var resources []resourceTupleOutput
 		if rawItems, hasItems := obj["items"]; hasItems {
 			if items, ok := rawItems.([]interface{}); ok {
 				for _, item := range items {
@@ -247,14 +247,14 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(res).ApplyT(func(x interface{}) pulumi.Resource {
-			return &res
+		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
+			return x.(pulumi.Resource)
 		}).(ResourceOutput)
-		foo := resource{Name: key, Resource: resOutput}
-		r := pulumi.ToOutput(foo).ApplyT(func(x interface{}) resource {
-			return foo
-		}).(resourceOutput)
-		{{`return []resourceOutput{r}, nil`}}
+		rt := resourceTuple{Name: key, Resource: resOutput}
+		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
+			return x.(resourceTuple)
+		}).(resourceTupleOutput)
+		{{`return []resourceTupleOutput{r}, nil`}}
 {{- end}}
 	default:
 		return nil, errors.Errorf("unrecognized kind %s %+v", fullKind, obj)

@@ -29,7 +29,7 @@ func main() {
 				pod := r.(*corev1.Pod)
 				return pod.Status.HostIP(), nil
 			})
-			ctx.Export("status", hostIP)
+			ctx.Export("hostIP", hostIP)
 		}
 		return err
 	})
