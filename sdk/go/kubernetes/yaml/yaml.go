@@ -74,7 +74,7 @@ import (
 )
 
 func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool, opts ...pulumi.ResourceOption,
-) (*pulumi.MapOutput, error) {
+) (pulumi.MapOutput, error) {
 
 	// Start with the provided objects and YAML arrays, if any, and we'll append to them.
 	objs := args.Objs
@@ -89,12 +89,12 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 			// If the string looks like a URL, in that it begins with a scheme, fetch it over the network.
 			resp, err := http.Get(file)
 			if err != nil {
-				return nil, errors.Wrapf(err, "fetching YAML over network")
+				return pulumi.MapOutput{}, errors.Wrapf(err, "fetching YAML over network")
 			}
 			defer resp.Body.Close()
 			yaml, err = ioutil.ReadAll(resp.Body)
 			if err != nil {
-				return nil, errors.Wrapf(err, "reading YAML over network")
+				return pulumi.MapOutput{}, errors.Wrapf(err, "reading YAML over network")
 			}
 			yamls = append(yamls, string(yaml))
 		} else {
@@ -104,7 +104,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 			if glob {
 				files, err = filepath.Glob(file)
 				if err != nil {
-					return nil, errors.Wrapf(err, "expanding glob")
+					return pulumi.MapOutput{}, errors.Wrapf(err, "expanding glob")
 				}
 			} else {
 				files = []string{file}
@@ -112,7 +112,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 			for _, f := range files {
 				yaml, err = ioutil.ReadFile(f)
 				if err != nil {
-					return nil, errors.Wrapf(err, "reading YAML file from disk")
+					return pulumi.MapOutput{}, errors.Wrapf(err, "reading YAML file from disk")
 				}
 				yamls = append(yamls, string(yaml))
 			}
@@ -124,7 +124,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
 		dec, err := yamlDecode(ctx, yaml, opts...)
 		if err != nil {
-			return nil, errors.Wrapf(err, "decoding YAML")
+			return pulumi.MapOutput{}, errors.Wrapf(err, "decoding YAML")
 		}
 		objs = append(objs, dec...)
 	}
@@ -149,12 +149,12 @@ func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption)
 
 func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transformations []Transformation,
 	resourcePrefix string, opts ...pulumi.ResourceOption,
-) (*pulumi.MapOutput, error) {
+) (pulumi.MapOutput, error) {
 	var intermediates pulumi.Array
 	for _, obj := range objs {
 		res, err := parseYamlObject(ctx, obj, transformations, resourcePrefix, opts...)
 		if err != nil {
-			return nil, err
+			return pulumi.MapOutput{}, err
 		}
 		for _, r := range res {
 			intermediates = append(intermediates, r)
@@ -169,7 +169,7 @@ func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transf
 		}
 		return resources
 	}).(pulumi.MapOutput)
-	return &v, nil
+	return v, nil
 }
 
 type resourceTuple struct {
