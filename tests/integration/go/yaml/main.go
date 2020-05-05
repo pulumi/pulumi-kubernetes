@@ -3,6 +3,7 @@ package main
 import (
 	"path/filepath"
 
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
@@ -16,9 +17,20 @@ func main() {
 			return err
 		}
 
-		_, err = yaml.NewConfigGroup(ctx, "manifests",
+		resources, err := yaml.NewConfigGroup(ctx, "manifests",
 			&yaml.ConfigGroupArgs{Files: []string{filepath.Join("manifests", "*.yaml")}},
 		)
+		if err != nil {
+			return err
+		}
+
+		if resources != nil {
+			hostIP := resources.GetResource("v1/Pod::foo").Apply(func(r interface{}) (interface{}, error) {
+				pod := r.(*corev1.Pod)
+				return pod.Status.HostIP(), nil
+			})
+			ctx.Export("status", hostIP)
+		}
 		return err
 	})
 }
