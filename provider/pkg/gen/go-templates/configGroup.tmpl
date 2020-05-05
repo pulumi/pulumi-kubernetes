@@ -18,6 +18,8 @@
 package yaml
 
 import (
+	"fmt"
+
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
@@ -87,6 +89,13 @@ func NewConfigGroup(ctx *pulumi.Context,
 	return configGroup, nil
 }
 
-func (cf *ConfigGroup) GetResource(key string) pulumi.Output {
+// GetResource returns a resource defined by a built-in Kubernetes group/version/kind, name and namespace.
+// For example, GetResource("v1/Pod", "foo", "") would return a Pod called "foo" from the "default" namespace.
+func (cf *ConfigGroup) GetResource(gvk, name, namespace string) pulumi.Output {
+	id := name
+	if len(namespace) > 0 && namespace != "default" {
+		id = fmt.Sprintf("%s/%s", namespace, name)
+	}
+	key := fmt.Sprintf("%s::%s", gvk, id)
 	return cf.Resources.MapIndex(pulumi.String(key))
 }

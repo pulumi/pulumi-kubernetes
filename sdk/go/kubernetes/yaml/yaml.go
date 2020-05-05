@@ -141,8 +141,6 @@ func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption)
 	var ret struct {
 		Result []map[string]interface{} `pulumi:"result"`
 	}
-	// TODO(joe): not clear how to translate ResourceOptions to InvokeOptions (or even get individual
-	//     settings, e.g. opts.Parent).
 	if err := ctx.Invoke("kubernetes:yaml:decode", &args, &ret); err != nil {
 		return nil, err
 	}
