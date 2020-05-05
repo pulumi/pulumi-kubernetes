@@ -207,7 +207,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 
 	// Allow users to change API objects before any validation.
 	for _, t := range transformations {
-		obj = t(obj, opts...)
+		t(obj, opts...)
 	}
 
 	// Ensure there is a kind and API version.

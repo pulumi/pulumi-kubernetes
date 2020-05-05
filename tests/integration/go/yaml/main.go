@@ -18,7 +18,23 @@ func main() {
 		}
 
 		resources, err := yaml.NewConfigGroup(ctx, "manifests",
-			&yaml.ConfigGroupArgs{Files: []string{filepath.Join("manifests", "*.yaml")}},
+			&yaml.ConfigGroupArgs{
+				Files: []string{filepath.Join("manifests", "*.yaml")},
+				Transformations: []yaml.Transformation{
+					func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+						if state["apiVersion"] == "v1" && state["kind"] == "Pod" {
+							metadata := state["metadata"].(map[string]interface{})
+							_, ok := metadata["labels"]
+							if !ok {
+								metadata["labels"] = map[string]string{"foo": "bar"}
+							} else {
+								labels := metadata["labels"].(map[string]string)
+								labels["foo"] = "bar"
+							}
+						}
+					},
+				},
+			},
 		)
 		if err != nil {
 			return err
