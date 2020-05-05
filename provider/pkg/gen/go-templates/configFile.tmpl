@@ -58,9 +58,6 @@ func NewConfigFile(ctx *pulumi.Context,
 
 	// Now provision all child resources by parsing the YAML file.
 	if args != nil {
-		// Make the component the parent of all subsequent resources.
-		opts = append(opts, pulumi.Parent(configFile))
-
 		// Honor the resource name prefix if specified.
 		if args.ResourcePrefix != "" {
 			name = args.ResourcePrefix + "-" + name
@@ -71,7 +68,7 @@ func NewConfigFile(ctx *pulumi.Context,
 			Files:           []string{args.File},
 			Transformations: args.Transformations,
 			ResourcePrefix:  args.ResourcePrefix,
-		}, true, opts...)
+		}, true, pulumi.Parent(configFile))
 		if err != nil {
 			return nil, err
 		}

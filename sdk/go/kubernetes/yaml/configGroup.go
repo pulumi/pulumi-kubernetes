@@ -62,16 +62,13 @@ func NewConfigGroup(ctx *pulumi.Context,
 
 	// Now provision all child resources by parsing the YAML files.
 	if args != nil {
-		// Make the component the parent of all subsequent resources.
-		opts = append(opts, pulumi.Parent(configGroup))
-
 		// Honor the resource name prefix if specified.
 		if args.ResourcePrefix != "" {
 			name = args.ResourcePrefix + "-" + name
 		}
 
 		// Parse and decode the YAML files.
-		rs, err := parseDecodeYamlFiles(ctx, args, true, opts...)
+		rs, err := parseDecodeYamlFiles(ctx, args, true, pulumi.Parent(configGroup))
 		if err != nil {
 			return nil, err
 		}
