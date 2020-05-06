@@ -28,7 +28,7 @@ import (
 type ConfigFile struct {
 	pulumi.ResourceState
 
-	Resources pulumi.MapOutput
+	Resources map[string]pulumi.Resource
 }
 
 // The set of arguments for constructing a ConfigFile resource.
@@ -49,7 +49,7 @@ func NewConfigFile(ctx *pulumi.Context,
 
 	// Register the resulting resource state.
 	configFile := &ConfigFile{
-		Resources: pulumi.MapOutput{},
+		Resources: map[string]pulumi.Resource{},
 	}
 	err := ctx.RegisterComponentResource("kubernetes:yaml:ConfigFile", name, configFile, opts...)
 	if err != nil {
@@ -86,11 +86,11 @@ func NewConfigFile(ctx *pulumi.Context,
 
 // GetResource returns a resource defined by a built-in Kubernetes group/version/kind, name and namespace.
 // For example, GetResource("v1/Pod", "foo", "") would return a Pod called "foo" from the "default" namespace.
-func (cf *ConfigFile) GetResource(gvk, name, namespace string) pulumi.Output {
+func (cf *ConfigFile) GetResource(gvk, name, namespace string) pulumi.Resource {
 	id := name
 	if len(namespace) > 0 && namespace != "default" {
 		id = fmt.Sprintf("%s/%s", namespace, name)
 	}
 	key := fmt.Sprintf("%s::%s", gvk, id)
-	return cf.Resources.MapIndex(pulumi.String(key))
+	return cf.Resources[key]
 }

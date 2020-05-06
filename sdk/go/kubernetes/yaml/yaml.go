@@ -74,7 +74,7 @@ import (
 )
 
 func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool, opts ...pulumi.ResourceOption,
-) (pulumi.MapOutput, error) {
+) (map[string]pulumi.Resource, error) {
 
 	// Start with the provided objects and YAML arrays, if any, and we'll append to them.
 	objs := args.Objs
@@ -89,12 +89,12 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 			// If the string looks like a URL, in that it begins with a scheme, fetch it over the network.
 			resp, err := http.Get(file)
 			if err != nil {
-				return pulumi.MapOutput{}, errors.Wrapf(err, "fetching YAML over network")
+				return nil, errors.Wrapf(err, "fetching YAML over network")
 			}
 			defer resp.Body.Close()
 			yaml, err = ioutil.ReadAll(resp.Body)
 			if err != nil {
-				return pulumi.MapOutput{}, errors.Wrapf(err, "reading YAML over network")
+				return nil, errors.Wrapf(err, "reading YAML over network")
 			}
 			yamls = append(yamls, string(yaml))
 		} else {
@@ -104,7 +104,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 			if glob {
 				files, err = filepath.Glob(file)
 				if err != nil {
-					return pulumi.MapOutput{}, errors.Wrapf(err, "expanding glob")
+					return nil, errors.Wrapf(err, "expanding glob")
 				}
 			} else {
 				files = []string{file}
@@ -112,7 +112,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 			for _, f := range files {
 				yaml, err = ioutil.ReadFile(f)
 				if err != nil {
-					return pulumi.MapOutput{}, errors.Wrapf(err, "reading YAML file from disk")
+					return nil, errors.Wrapf(err, "reading YAML file from disk")
 				}
 				yamls = append(yamls, string(yaml))
 			}
@@ -124,7 +124,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
 		dec, err := yamlDecode(ctx, yaml, opts...)
 		if err != nil {
-			return pulumi.MapOutput{}, errors.Wrapf(err, "decoding YAML")
+			return nil, errors.Wrapf(err, "decoding YAML")
 		}
 		objs = append(objs, dec...)
 	}
@@ -149,31 +149,28 @@ func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption)
 
 func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transformations []Transformation,
 	resourcePrefix string, opts ...pulumi.ResourceOption,
-) (pulumi.MapOutput, error) {
+) (map[string]pulumi.Resource, error) {
 	var intermediates []resourceTuple
 	for _, obj := range objs {
 		res, err := parseYamlObject(ctx, obj, transformations, resourcePrefix, opts...)
 		if err != nil {
-			return pulumi.MapOutput{}, err
+			return nil, err
 		}
 		for _, r := range res {
 			intermediates = append(intermediates, r)
 		}
 	}
 
-	v := pulumi.ToOutput(intermediates).ApplyT(func(intermediates interface{}) map[string]interface{} {
-		resources := map[string]interface{}{}
-		for _, r := range intermediates.([]resourceTuple) {
-			resources[r.Name] = r.Resource
-		}
-		return resources
-	}).(pulumi.MapOutput)
-	return v, nil
+	resources := map[string]pulumi.Resource{}
+	for _, r := range intermediates {
+		resources[r.Name] = r.Resource
+	}
+	return resources, nil
 }
 
 type resourceTuple struct {
 	Name     string
-	Resource pulumi.ResourceOutput
+	Resource pulumi.Resource
 }
 
 type UntypedArgs map[string]interface{}
@@ -353,1020 +350,714 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
 		var res admissionregistrationv1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
 		var res admissionregistrationv1beta1.MutatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
 		var res admissionregistrationv1beta1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apiextensions.k8s.io/v1/CustomResourceDefinition":
 		var res apiextensionsv1.CustomResourceDefinition
 		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
 		var res apiextensionsv1beta1.CustomResourceDefinition
 		err := ctx.RegisterResource("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apiregistration.k8s.io/v1/APIService":
 		var res apiregistrationv1.APIService
 		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1:APIService", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apiregistration.k8s.io/v1beta1/APIService":
 		var res apiregistrationv1beta1.APIService
 		err := ctx.RegisterResource("kubernetes:apiregistration.k8s.io/v1beta1:APIService", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1/ControllerRevision":
 		var res appsv1.ControllerRevision
 		err := ctx.RegisterResource("kubernetes:apps/v1:ControllerRevision", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1/DaemonSet":
 		var res appsv1.DaemonSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1/Deployment":
 		var res appsv1.Deployment
 		err := ctx.RegisterResource("kubernetes:apps/v1:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1/ReplicaSet":
 		var res appsv1.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1/StatefulSet":
 		var res appsv1.StatefulSet
 		err := ctx.RegisterResource("kubernetes:apps/v1:StatefulSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta1/ControllerRevision":
 		var res appsv1beta1.ControllerRevision
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:ControllerRevision", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta1/Deployment":
 		var res appsv1beta1.Deployment
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta1/StatefulSet":
 		var res appsv1beta1.StatefulSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta1:StatefulSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta2/ControllerRevision":
 		var res appsv1beta2.ControllerRevision
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ControllerRevision", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta2/DaemonSet":
 		var res appsv1beta2.DaemonSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta2/Deployment":
 		var res appsv1beta2.Deployment
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta2/ReplicaSet":
 		var res appsv1beta2.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "apps/v1beta2/StatefulSet":
 		var res appsv1beta2.StatefulSet
 		err := ctx.RegisterResource("kubernetes:apps/v1beta2:StatefulSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "auditregistration.k8s.io/v1alpha1/AuditSink":
 		var res auditregistrationv1alpha1.AuditSink
 		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authentication.k8s.io/v1/TokenRequest":
 		var res authenticationv1.TokenRequest
 		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenRequest", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authentication.k8s.io/v1/TokenReview":
 		var res authenticationv1.TokenReview
 		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authentication.k8s.io/v1beta1/TokenReview":
 		var res authenticationv1beta1.TokenReview
 		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1beta1:TokenReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1/LocalSubjectAccessReview":
 		var res authorizationv1.LocalSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1/SelfSubjectAccessReview":
 		var res authorizationv1.SelfSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1/SelfSubjectRulesReview":
 		var res authorizationv1.SelfSubjectRulesReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1/SubjectAccessReview":
 		var res authorizationv1.SubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
 		var res authorizationv1beta1.LocalSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
 		var res authorizationv1beta1.SelfSubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
 		var res authorizationv1beta1.SelfSubjectRulesReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "authorization.k8s.io/v1beta1/SubjectAccessReview":
 		var res authorizationv1beta1.SubjectAccessReview
 		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "autoscaling/v1/HorizontalPodAutoscaler":
 		var res autoscalingv1.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "autoscaling/v2beta1/HorizontalPodAutoscaler":
 		var res autoscalingv2beta1.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "autoscaling/v2beta2/HorizontalPodAutoscaler":
 		var res autoscalingv2beta2.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "batch/v1/Job":
 		var res batchv1.Job
 		err := ctx.RegisterResource("kubernetes:batch/v1:Job", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "batch/v1beta1/CronJob":
 		var res batchv1beta1.CronJob
 		err := ctx.RegisterResource("kubernetes:batch/v1beta1:CronJob", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "batch/v2alpha1/CronJob":
 		var res batchv2alpha1.CronJob
 		err := ctx.RegisterResource("kubernetes:batch/v2alpha1:CronJob", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
 		var res certificatesv1beta1.CertificateSigningRequest
 		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "coordination.k8s.io/v1/Lease":
 		var res coordinationv1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:Lease", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "coordination.k8s.io/v1beta1/Lease":
 		var res coordinationv1beta1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:Lease", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Binding":
 		var res corev1.Binding
 		err := ctx.RegisterResource("kubernetes:core/v1:Binding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/ComponentStatus":
 		var res corev1.ComponentStatus
 		err := ctx.RegisterResource("kubernetes:core/v1:ComponentStatus", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/ConfigMap":
 		var res corev1.ConfigMap
 		err := ctx.RegisterResource("kubernetes:core/v1:ConfigMap", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Endpoints":
 		var res corev1.Endpoints
 		err := ctx.RegisterResource("kubernetes:core/v1:Endpoints", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Event":
 		var res corev1.Event
 		err := ctx.RegisterResource("kubernetes:core/v1:Event", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/LimitRange":
 		var res corev1.LimitRange
 		err := ctx.RegisterResource("kubernetes:core/v1:LimitRange", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Namespace":
 		var res corev1.Namespace
 		err := ctx.RegisterResource("kubernetes:core/v1:Namespace", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Node":
 		var res corev1.Node
 		err := ctx.RegisterResource("kubernetes:core/v1:Node", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/PersistentVolume":
 		var res corev1.PersistentVolume
 		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolume", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/PersistentVolumeClaim":
 		var res corev1.PersistentVolumeClaim
 		err := ctx.RegisterResource("kubernetes:core/v1:PersistentVolumeClaim", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Pod":
 		var res corev1.Pod
 		err := ctx.RegisterResource("kubernetes:core/v1:Pod", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/PodTemplate":
 		var res corev1.PodTemplate
 		err := ctx.RegisterResource("kubernetes:core/v1:PodTemplate", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/ReplicationController":
 		var res corev1.ReplicationController
 		err := ctx.RegisterResource("kubernetes:core/v1:ReplicationController", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/ResourceQuota":
 		var res corev1.ResourceQuota
 		err := ctx.RegisterResource("kubernetes:core/v1:ResourceQuota", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Secret":
 		var res corev1.Secret
 		err := ctx.RegisterResource("kubernetes:core/v1:Secret", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Service":
 		var res corev1.Service
 		err := ctx.RegisterResource("kubernetes:core/v1:Service", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/ServiceAccount":
 		var res corev1.ServiceAccount
 		err := ctx.RegisterResource("kubernetes:core/v1:ServiceAccount", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "discovery.k8s.io/v1beta1/EndpointSlice":
 		var res discoveryv1beta1.EndpointSlice
 		err := ctx.RegisterResource("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "events.k8s.io/v1beta1/Event":
 		var res eventsv1beta1.Event
 		err := ctx.RegisterResource("kubernetes:events.k8s.io/v1beta1:Event", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/DaemonSet":
 		var res extensionsv1beta1.DaemonSet
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DaemonSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/Deployment":
 		var res extensionsv1beta1.Deployment
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:Deployment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/Ingress":
 		var res extensionsv1beta1.Ingress
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:Ingress", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/NetworkPolicy":
 		var res extensionsv1beta1.NetworkPolicy
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:NetworkPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/PodSecurityPolicy":
 		var res extensionsv1beta1.PodSecurityPolicy
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:PodSecurityPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "extensions/v1beta1/ReplicaSet":
 		var res extensionsv1beta1.ReplicaSet
 		err := ctx.RegisterResource("kubernetes:extensions/v1beta1:ReplicaSet", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
 		var res flowcontrolv1alpha1.FlowSchema
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration":
 		var res flowcontrolv1alpha1.PriorityLevelConfiguration
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "meta/v1/Status":
 		var res metav1.Status
 		err := ctx.RegisterResource("kubernetes:meta/v1:Status", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "networking.k8s.io/v1/NetworkPolicy":
 		var res networkingv1.NetworkPolicy
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "networking.k8s.io/v1beta1/Ingress":
 		var res networkingv1beta1.Ingress
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:Ingress", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "networking.k8s.io/v1beta1/IngressClass":
 		var res networkingv1beta1.IngressClass
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1beta1:IngressClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "node.k8s.io/v1alpha1/RuntimeClass":
 		var res nodev1alpha1.RuntimeClass
 		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "node.k8s.io/v1beta1/RuntimeClass":
 		var res nodev1beta1.RuntimeClass
 		err := ctx.RegisterResource("kubernetes:node.k8s.io/v1beta1:RuntimeClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "policy/v1beta1/PodDisruptionBudget":
 		var res policyv1beta1.PodDisruptionBudget
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodDisruptionBudget", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "policy/v1beta1/PodSecurityPolicy":
 		var res policyv1beta1.PodSecurityPolicy
 		err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodSecurityPolicy", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1/ClusterRole":
 		var res rbacv1.ClusterRole
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
 		var res rbacv1.ClusterRoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1/Role":
 		var res rbacv1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:Role", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1/RoleBinding":
 		var res rbacv1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
 		var res rbacv1alpha1.ClusterRole
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
 		var res rbacv1alpha1.ClusterRoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1alpha1/Role":
 		var res rbacv1alpha1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
 		var res rbacv1alpha1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
 		var res rbacv1beta1.ClusterRole
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
 		var res rbacv1beta1.ClusterRoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1beta1/Role":
 		var res rbacv1beta1.Role
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:Role", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
 		var res rbacv1beta1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "scheduling.k8s.io/v1/PriorityClass":
 		var res schedulingv1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "scheduling.k8s.io/v1alpha1/PriorityClass":
 		var res schedulingv1alpha1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "scheduling.k8s.io/v1beta1/PriorityClass":
 		var res schedulingv1beta1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "settings.k8s.io/v1alpha1/PodPreset":
 		var res settingsv1alpha1.PodPreset
 		err := ctx.RegisterResource("kubernetes:settings.k8s.io/v1alpha1:PodPreset", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1/CSIDriver":
 		var res storagev1.CSIDriver
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIDriver", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1/CSINode":
 		var res storagev1.CSINode
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSINode", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1/StorageClass":
 		var res storagev1.StorageClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:StorageClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1/VolumeAttachment":
 		var res storagev1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1alpha1/VolumeAttachment":
 		var res storagev1alpha1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1beta1/CSIDriver":
 		var res storagev1beta1.CSIDriver
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSIDriver", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1beta1/CSINode":
 		var res storagev1beta1.CSINode
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSINode", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1beta1/StorageClass":
 		var res storagev1beta1.StorageClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:StorageClass", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1beta1/VolumeAttachment":
 		var res storagev1beta1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", metaName, UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
-		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
-			return x.(pulumi.Resource)
-		}).(pulumi.ResourceOutput)
-		return []resourceTuple{{Name: key, Resource: resOutput}}, nil
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	default:
 		return nil, errors.Errorf("unrecognized kind %s %+v", fullKind, obj)
 	}

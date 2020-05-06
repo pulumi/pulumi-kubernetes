@@ -41,10 +41,7 @@ func main() {
 		}
 
 		if resources != nil {
-			hostIP := resources.GetResource("v1/Pod", "foo", "").Apply(func(r interface{}) (interface{}, error) {
-				pod := r.(*corev1.Pod)
-				return pod.Status.HostIP(), nil
-			})
+			hostIP := resources.GetResource("v1/Pod", "foo", "").(*corev1.Pod).Status.HostIP()
 			ctx.Export("hostIP", hostIP)
 		}
 		return err
