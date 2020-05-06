@@ -84,6 +84,9 @@ namespace Pulumi.Kubernetes.Helm
                     var data = JsonSerializer.Serialize(cfgBase.Values);
                     File.WriteAllText(overrides, data);
 
+                    // Get helm version
+                    var helmv3 = IsHelmV3();
+
                     // Does not require Tiller. From the `helm template` documentation:
                     //
                     // >  Render chart templates locally and display the output.
@@ -111,6 +114,11 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add(cfgBase.Namespace);
                     }
 
+                    if (helmv3)
+                    {
+                        flags.Add("--include-crds");
+                    }
+
                     var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(), new Dictionary<string, string>());
                     return ParseTemplate(
                         yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
@@ -132,6 +140,20 @@ namespace Pulumi.Kubernetes.Helm
         {
             var prefix = config.Match(v => v.ResourcePrefix, v => v.ResourcePrefix);
             return string.IsNullOrEmpty(prefix) ? releaseName : $"{prefix}-{releaseName}";
+        }
+
+        private static bool IsHelmV3()
+        {
+            var env = new Dictionary<string, string>();
+            string[] flags = {"version", "--short"};
+
+            // Helm v2 returns version like this:
+            // Client: v2.16.7+g5f2584f
+            // Helm v3 returns a version like this:
+            // v3.1.2+gd878d4d
+            // We can reasonably assume helm v2 if the version starts with Client
+            var version = Utilities.ExecuteCommand("helm", flags, env);
+            return !version.StartsWith("Client");
         }
 
         private void Fetch(string chart, ChartFetchArgsUnwrap opts)

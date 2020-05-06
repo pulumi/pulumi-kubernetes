@@ -29,7 +29,7 @@ def readme():
 
 
 setup(name='pulumi_kubernetes',
-      version='${VERSION}',
+      version='99.0.0',
       description='A Pulumi package for creating and managing Kubernetes resources.',
       long_description=readme(),
       long_description_content_type='text/markdown',
