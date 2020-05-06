@@ -31,12 +31,6 @@ func TestGo_Basic(t *testing.T) {
 }
 
 func TestGo_YAML(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:   "yaml",
 		Quick: true,
