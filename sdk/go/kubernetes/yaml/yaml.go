@@ -174,25 +174,13 @@ func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transf
 
 type resourceTuple struct {
 	Name     string
-	Resource ResourceOutput
+	Resource pulumi.ResourceOutput
 }
 
 type resourceTupleOutput struct{ *pulumi.OutputState }
 
 func (resourceTupleOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*resourceTuple)(nil)).Elem()
-}
-
-// ResourceOutput is an Output that returns Resource values.
-type ResourceOutput struct{ *pulumi.OutputState }
-
-// ElementType returns the element type of this Output (Resource).
-func (ResourceOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*pulumi.Resource)(nil)).Elem()
-}
-func init() {
-	pulumi.RegisterOutputType(ResourceOutput{})
-	pulumi.RegisterOutputType(resourceTupleOutput{})
 }
 
 type UntypedArgs map[string]interface{}
@@ -374,7 +362,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -388,7 +376,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -402,7 +390,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -416,7 +404,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -430,7 +418,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -444,7 +432,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -458,7 +446,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -472,7 +460,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -486,7 +474,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -500,7 +488,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -514,7 +502,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -528,7 +516,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -542,7 +530,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -556,7 +544,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -570,7 +558,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -584,7 +572,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -598,7 +586,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -612,7 +600,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -626,7 +614,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -640,7 +628,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -654,7 +642,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -668,7 +656,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -682,7 +670,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -696,7 +684,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -710,7 +698,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -724,7 +712,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -738,7 +726,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -752,7 +740,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -766,7 +754,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -780,7 +768,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -794,7 +782,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -808,7 +796,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -822,7 +810,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -836,7 +824,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -850,7 +838,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -864,7 +852,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -878,7 +866,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -892,7 +880,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -906,7 +894,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -920,7 +908,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -934,7 +922,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -948,7 +936,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -962,7 +950,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -976,7 +964,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -990,7 +978,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1004,7 +992,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1018,7 +1006,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1032,7 +1020,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1046,7 +1034,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1060,7 +1048,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1074,7 +1062,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1088,7 +1076,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1102,7 +1090,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1116,7 +1104,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1130,7 +1118,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1144,7 +1132,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1158,7 +1146,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1172,7 +1160,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1186,7 +1174,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1200,7 +1188,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1214,7 +1202,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1228,7 +1216,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1242,7 +1230,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1256,7 +1244,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1270,7 +1258,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1284,7 +1272,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1298,7 +1286,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1312,7 +1300,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1326,7 +1314,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1340,7 +1328,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1354,7 +1342,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1368,7 +1356,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1382,7 +1370,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1396,7 +1384,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1410,7 +1398,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1424,7 +1412,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1438,7 +1426,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1452,7 +1440,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1466,7 +1454,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1480,7 +1468,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1494,7 +1482,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1508,7 +1496,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1522,7 +1510,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1536,7 +1524,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1550,7 +1538,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1564,7 +1552,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1578,7 +1566,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1592,7 +1580,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1606,7 +1594,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1620,7 +1608,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1634,7 +1622,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1648,7 +1636,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1662,7 +1650,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1676,7 +1664,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1690,7 +1678,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1704,7 +1692,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1718,7 +1706,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1732,7 +1720,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1746,7 +1734,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1760,7 +1748,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1774,7 +1762,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1788,7 +1776,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		resOutput := pulumi.ToOutput(&res).ApplyT(func(x interface{}) pulumi.Resource {
 			return x.(pulumi.Resource)
-		}).(ResourceOutput)
+		}).(pulumi.ResourceOutput)
 		rt := resourceTuple{Name: key, Resource: resOutput}
 		r := pulumi.ToOutput(rt).ApplyT(func(x interface{}) resourceTuple {
 			return x.(resourceTuple)
@@ -1797,4 +1785,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	default:
 		return nil, errors.Errorf("unrecognized kind %s %+v", fullKind, obj)
 	}
+}
+
+func init() {
+	pulumi.RegisterOutputType(resourceTupleOutput{})
 }
