@@ -24,5 +24,5 @@ import (
 // Transformation is the callback signature for YAML-related resources. A transformation is passed a map
 // of resource arguments, resource options, and can modify the state prior to the resource actually being
 // created. The effect will be as though those properties were passed in place of the original call to the
-// resource constructor.
+// resource constructor. Important: any values set on the state must be prompt (not Output values).
 type Transformation = func(state map[string]interface{}, opts ...pulumi.ResourceOption)

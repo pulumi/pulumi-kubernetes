@@ -356,10 +356,10 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	files["kubernetes/yaml/configFile.go"] = mustRenderTemplate(filepath.Join(templateDir, "configFile.tmpl"), templateResources)
-	files["kubernetes/yaml/configGroup.go"] = mustRenderTemplate(filepath.Join(templateDir, "configGroup.tmpl"), templateResources)
-	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "transformation.tmpl"), templateResources)
-	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources)
+	files["kubernetes/yaml/configFile.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
+	files["kubernetes/yaml/configGroup.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
+	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
+	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
 
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
