@@ -17,7 +17,6 @@ package ints
 import (
 	b64 "encoding/base64"
 	json "encoding/json"
-	"os"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
@@ -25,12 +24,6 @@ import (
 )
 
 func TestSecrets(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	secretMessage := "secret message for testing"
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{

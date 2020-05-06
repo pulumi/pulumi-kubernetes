@@ -243,13 +243,6 @@ func skipIfShort(t *testing.T) {
 	}
 }
 
-func checkKubeCtx(t *testing.T) {
-	env := os.Getenv("KUBERNETES_CONTEXT")
-	if env == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT environment variable")
-	}
-}
-
 func getCwd(t *testing.T) string {
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -260,7 +253,6 @@ func getCwd(t *testing.T) string {
 }
 
 func getBaseOptions(t *testing.T) integration.ProgramTestOptions {
-	checkKubeCtx(t)
 	return integration.ProgramTestOptions{
 		Dependencies: []string{
 			"@pulumi/kubernetes",

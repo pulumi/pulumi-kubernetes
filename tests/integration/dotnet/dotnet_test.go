@@ -15,7 +15,6 @@
 package ints
 
 import (
-	"os"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
@@ -25,12 +24,6 @@ import (
 )
 
 func TestDotnet_Basic(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "basic",
 		Dependencies: []string{"Pulumi.Kubernetes"},
@@ -41,12 +34,6 @@ func TestDotnet_Basic(t *testing.T) {
 }
 
 func TestDotnet_Guestbook(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "guestbook",
 		Dependencies: []string{"Pulumi.Kubernetes"},
@@ -55,12 +42,6 @@ func TestDotnet_Guestbook(t *testing.T) {
 }
 
 func TestDotnet_YamlUrl(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "yaml-url",
 		Dependencies: []string{"Pulumi.Kubernetes"},
@@ -75,12 +56,6 @@ func TestDotnet_YamlUrl(t *testing.T) {
 }
 
 func TestDotnet_YamlLocal(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "yaml-local",
 		Dependencies: []string{"Pulumi.Kubernetes"},
@@ -95,12 +70,6 @@ func TestDotnet_YamlLocal(t *testing.T) {
 }
 
 func TestDotnet_Helm(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "helm",
 		Dependencies: []string{"Pulumi.Kubernetes"},
@@ -123,12 +92,6 @@ func TestDotnet_Helm(t *testing.T) {
 }
 
 func TestDotnet_HelmLocal(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "helm-local",
 		Dependencies: []string{"Pulumi.Kubernetes"},
@@ -142,12 +105,6 @@ func TestDotnet_HelmLocal(t *testing.T) {
 }
 
 func TestDotnet_HelmApiVersions(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "helm-api-versions",
 		Dependencies: []string{"Pulumi.Kubernetes"},
@@ -160,12 +117,6 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 }
 
 func TestDotnet_CustomResource(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "custom-resource",
 		Dependencies: []string{"Pulumi.Kubernetes"},
