@@ -15,7 +15,6 @@
 package ints
 
 import (
-	"os"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
@@ -23,12 +22,6 @@ import (
 
 func TestGo_Basic(t *testing.T) {
 	t.Skip("temporarily skip while we make an initial release of the package")
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir: "basic",
 		Dependencies: []string{
