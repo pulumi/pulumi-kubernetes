@@ -37,11 +37,6 @@ var baseOptions = &integration.ProgramTestOptions{
 }
 
 func TestSmoke(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -54,11 +49,6 @@ func TestSmoke(t *testing.T) {
 
 // Smoke test for .get support.
 func TestGet(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -71,11 +61,6 @@ func TestGet(t *testing.T) {
 }
 
 func TestYaml(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -183,11 +168,6 @@ func TestYaml(t *testing.T) {
 }
 
 func TestGuestbook(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -280,11 +260,6 @@ func TestGuestbook(t *testing.T) {
 
 // Smoke test for first-class Kubernetes providers.
 func TestProvider(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -296,11 +271,6 @@ func TestProvider(t *testing.T) {
 }
 
 func TestHelm(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
