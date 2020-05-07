@@ -23,7 +23,6 @@ import (
 	"os"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
@@ -41,74 +40,6 @@ type Chart struct {
 	pulumi.ResourceState
 
 	Resources map[string]pulumi.Resource
-}
-
-// FetchArgs specifies arguments for fetching the Helm chart.
-type FetchArgs struct {
-	// Specific version of a chart. If unset, the latest version is fetched.
-	Version pulumi.StringInput
-	// Verify certificates of HTTPS-enabled servers using this CA bundle.
-	CAFile pulumi.StringInput
-	// Identify HTTPS client using this SSL certificate file.
-	CertFile pulumi.StringInput
-	// Identify HTTPS client using this SSL key file.
-	KeyFile pulumi.StringInput
-	// Location to write the chart. If Destination and UntarDir are specified, UntarDir is
-	// appended to Destination (default ".").
-	Destination pulumi.StringInput
-	// Keyring containing public keys (default "~/.gnupg/pubring.gpg").
-	Keyring pulumi.StringInput
-	// Chart repository password.
-	Password pulumi.StringInput
-	// Chart repository URL for the requested chart.
-	Repo pulumi.StringInput
-	// Location to expand the chart. (default ".").
-	UntarDir pulumi.StringInput
-	// Chart repository username.
-	Username pulumi.StringInput
-	// Location of your Helm config. Overrides $HELM_HOME (default "~/.helm").
-	Home pulumi.StringInput
-	// Use development versions, too. Equivalent to version '>0.0.0-0'. If Version is set,
-	// Devel is ignored.
-	Devel pulumi.BoolInput
-	// Fetch the provenance file, but don't perform verification.
-	Prov pulumi.BoolInput
-	// If false, leave the chart as a tarball after downloading.
-	Untar pulumi.BoolInput
-	// Verify the package against its signature.
-	Verify pulumi.BoolInput
-}
-
-// ChartArgs specifies arguments for constructing a Chart resource.
-type ChartArgs struct {
-	// The optional Kubernetes API versions used for Capabilities.APIVersions.
-	ApiVersions pulumi.StringArrayInput
-	// The optional namespace to install chart resources into.
-	Namespace pulumi.StringInput
-	// Overrides for chart values.
-	Values pulumi.MapInput
-	// Transformations is an optional list of transformations to apply to Kubernetes resource definitions
-	// before registering with the engine.
-	Transformations []yaml.Transformation
-	// ResourcePrefix is an optional prefix for the auto-generated resource names. For example, a resource named `bar`
-	// created with resource prefix of `"foo"` would produce a resource named `"foo-bar"`.
-	ResourcePrefix string
-
-	// (Remote chart) The repository name of the chart to deploy. Example: "stable".
-	Repo pulumi.StringInput
-	// (Remote chart) The name of the chart to deploy.  If Repo is specified, this chart name will be prefixed
-	// by the repo name.
-	// Example: Repo: "stable", Chart: "nginx-ingress" -> "stable/nginx-ingress"
-	// Example: Chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
-	Chart pulumi.StringInput
-	// (Remote chart) The version of the chart to deploy. If not provided, the latest version will be deployed.
-	Version pulumi.StringInput
-	// (Remote chart) Additional options to customize the fetching of the Helm chart.
-	FetchArgs FetchArgs
-
-	// (Local chart) The path to the chart directory which contains the `Chart.yaml` file.
-	// If Path is set, any remote chart args (Repo, Chart, Version, FetchArgs) will be ignored.
-	Path pulumi.StringInput
 }
 
 // NewChart registers a new resource with the given unique name, arguments, and options.
