@@ -18,9 +18,14 @@
 package helm
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
+	"path/filepath"
+	"sort"
+	"strings"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
@@ -44,7 +49,7 @@ type Chart struct {
 
 // NewChart registers a new resource with the given unique name, arguments, and options.
 func NewChart(ctx *pulumi.Context,
-	name string, args *ChartArgs, opts ...pulumi.ResourceOption) (*Chart, error) {
+	name string, args ChartArgs, opts ...pulumi.ResourceOption) (*Chart, error) {
 
 	// Register the resulting resource state.
 	chart := &Chart{
@@ -55,32 +60,31 @@ func NewChart(ctx *pulumi.Context,
 		return nil, err
 	}
 
-	// Now provision all child resources by parsing the YAML file.
-	if args != nil {
-		// Make the component the parent of all subsequent resources.
-		opts = append(opts, pulumi.Parent(chart))
+	// Make the component the parent of all subsequent resources.
+	opts = append(opts, pulumi.Parent(chart))
 
-		// Honor the resource name prefix if specified.
-		if args.ResourcePrefix != "" {
-			name = args.ResourcePrefix + "-" + name
-		}
+	// Honor the resource name prefix if specified.
+	if args.ResourcePrefix != "" {
+		name = args.ResourcePrefix + "-" + name
+	}
 
-		// TODO: Get config
+	resources, err := parseChart(ctx, name, args)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to parse chart")
+	}
+	chart.Resources = resources
 
-		// TODO: make yaml.parse method accessible outside yaml package
-		//yaml.Parse
-
-		// Finally, register all of the resources found.
-		err = ctx.RegisterResourceOutputs(chart, pulumi.Map{})
-		if err != nil {
-			return nil, errors.Wrap(err, "registering child resources")
-		}
+	// Finally, register all of the resources found.
+	err = ctx.RegisterResourceOutputs(chart, pulumi.Map{})
+	if err != nil {
+		return nil, errors.Wrap(err, "registering child resources")
 	}
 
 	return chart, nil
 }
 
-func parseChart(name string, args ChartArgs, opts ...pulumi.ResourceOption) (map[string]pulumi.Resource, error) {
+func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi.ResourceOption,
+) (map[string]pulumi.Resource, error) {
 	// Create temporary directory and file to hold chart data and override values.
 	chartDir, err := ioutil.TempDir("", "")
 	if err != nil {
@@ -94,15 +98,168 @@ func parseChart(name string, args ChartArgs, opts ...pulumi.ResourceOption) (map
 	}
 	defer os.Remove(overrides.Name())
 
-	var chart pulumi.StringInput
-	if args.Path != nil { // Local Chart
-		chart = args.Path
-	} else { // Remote Chart
-		// TODO: Fetch the chart
-	}
+	// TODO: return resources
+	args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
+		var chart string
+		if args.Path != "" { // Local Chart
+			chart = args.Path
+		} else { // Remote Chart
+			if strings.HasPrefix(args.Repo, "http") {
+				return nil, fmt.Errorf("`repo` specifies the name of the Helm chart repo. Use FetchOpts.Repo" +
+					"to specify a URL")
+			}
+
+			chartToFetch := args.Chart
+			if len(args.Repo) > 0 {
+				chartToFetch = fmt.Sprintf("%s/%s", args.Repo, chartToFetch)
+			}
+
+			// Fetch the Chart.
+			err = fetch(chartToFetch, args.FetchArgs)
+			if err != nil {
+				return nil, err
+			}
+
+			// Get the path to the fetched Chart.
+			files, err := ioutil.ReadDir(chartDir)
+			if err != nil {
+				return nil, errors.Wrap(err, "failed to read chart directory")
+			}
+			if len(files) == 0 {
+				return nil, errors.New("chart directory was empty")
+			}
+			sort.Slice(files, func(i, j int) bool {
+				return files[i].Name() < files[j].Name()
+			})
+			fetchedChartName := files[0].Name()
+
+			chart = filepath.Join(chartToFetch, fetchedChartName)
+		}
+
+		defaultVals := filepath.Join(chart, "values.yaml")
+
+		// Write overrides file if Values set.
+		if args.Values != nil {
+			b, err := json.Marshal(args.Values)
+			if err != nil {
+				return nil, errors.Wrap(err, "failed to marshal overrides file")
+			}
+			_, err = overrides.Write(b)
+			if err != nil {
+				return nil, errors.Wrap(err, "failed to write overrides file")
+			}
+		}
+
+		cmd := []string{
+			"helm", "template", chart, "--name-template", name, "--values", defaultVals, "--values", overrides.Name()}
+		if len(args.Namespace) > 0 {
+			cmd = append(cmd, "--namespace", args.Namespace)
+		}
+
+		helmCmd := exec.Command(strings.Join(cmd, " "))
+		yamlBytes, err := helmCmd.Output()
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to run helm template")
+		}
+		resources, err := yamlDecode(ctx, string(yamlBytes), args.Namespace)
+		if err != nil {
+			return nil, err
+		}
+
+		// TODO: parse resources using yaml package
+		return map[string]pulumi.Resource{}, nil
+	})
 
 	resources := map[string]pulumi.Resource{}
 	return resources, nil
+}
+
+// yamlDecode invokes the function to decode a single YAML file and decompose it into object structures.
+func yamlDecode(ctx *pulumi.Context, text, namespace string) ([]map[string]interface{}, error) {
+	args := struct {
+		Text             string `pulumi:"text"`
+		DefaultNamespace string `pulumi:"defaultNamespace"`
+	}{Text: text, DefaultNamespace: namespace}
+	var ret struct {
+		Result []map[string]interface{} `pulumi:"result"`
+	}
+	if err := ctx.Invoke("kubernetes:yaml:decode", &args, &ret); err != nil {
+		return nil, errors.Wrap(err, "failed to decode YAML")
+	}
+	return ret.Result, nil
+}
+
+func fetch(name string, args fetchArgs) error {
+	cmd := []string{"helm", "fetch", name}
+
+	// Untar by default.
+	if args.Untar {
+		cmd = append(cmd, "--untar")
+	}
+
+	env := os.Environ()
+	// Helm v3 removed the `--home` flag, so we must use an env var instead.
+	if len(args.Home) > 0 {
+		found := false
+		for i, v := range env {
+			if strings.HasPrefix(v, "HELM_HOME=") {
+				env[i] = fmt.Sprintf("HELM_HOME=%s", args.Home)
+				found = true
+				break
+			}
+		}
+		if !found {
+			env = append(env, fmt.Sprintf("HELM_HOME=%s", args.Home))
+		}
+	}
+
+	if len(args.Version) > 0 {
+		cmd = append(cmd, "--version", args.Version)
+	}
+	if len(args.CAFile) > 0 {
+		cmd = append(cmd, "--ca-file", args.CAFile)
+	}
+	if len(args.CertFile) > 0 {
+		cmd = append(cmd, "--cert-file", args.CertFile)
+	}
+	if len(args.KeyFile) > 0 {
+		cmd = append(cmd, "--key-file", args.KeyFile)
+	}
+	if len(args.Destination) > 0 {
+		cmd = append(cmd, "--destination", args.Destination)
+	}
+	if len(args.Keyring) > 0 {
+		cmd = append(cmd, "--keyring", args.Keyring)
+	}
+	if len(args.Password) > 0 {
+		cmd = append(cmd, "--password", args.Password)
+	}
+	if len(args.Repo) > 0 {
+		cmd = append(cmd, "--repo", args.Repo)
+	}
+	if len(args.UntarDir) > 0 {
+		cmd = append(cmd, "--untardir", args.UntarDir)
+	}
+	if len(args.Username) > 0 {
+		cmd = append(cmd, "--username", args.Username)
+	}
+	if args.Devel {
+		cmd = append(cmd, "--devel")
+	}
+	if args.Prov {
+		cmd = append(cmd, "--prov")
+	}
+	if args.Verify {
+		cmd = append(cmd, "--verify")
+	}
+
+	helmCmd := exec.Command(strings.Join(cmd, " "))
+	err := helmCmd.Run()
+	if err != nil {
+		return errors.Wrap(err, "failed to fetch Helm chart")
+	}
+
+	return nil
 }
 
 // GetResource returns a resource defined by a built-in Kubernetes group/version/kind, name and namespace.

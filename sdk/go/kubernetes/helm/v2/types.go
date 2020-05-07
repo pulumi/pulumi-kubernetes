@@ -152,7 +152,7 @@ type chartArgs struct {
 	Repo            string                 `pulumi:"repo"`
 	Chart           string                 `pulumi:"chart"`
 	Version         string                 `pulumi:"version"`
-	FetchArgs       FetchArgs              `pulumi:"fetchArgs"`
+	FetchArgs       fetchArgs              `pulumi:"fetchArgs"`
 	Path            string                 `pulumi:"path"`
 }
 
