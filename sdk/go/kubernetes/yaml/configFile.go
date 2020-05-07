@@ -73,12 +73,12 @@ func NewConfigFile(ctx *pulumi.Context,
 			return nil, err
 		}
 		configFile.Resources = rs
+	}
 
-		// Finally, register all of the resources found.
-		err = ctx.RegisterResourceOutputs(configFile, pulumi.Map{})
-		if err != nil {
-			return nil, errors.Wrapf(err, "registering child resources")
-		}
+	// Finally, register all of the resources found.
+	err = ctx.RegisterResourceOutputs(configFile, pulumi.Map{})
+	if err != nil {
+		return nil, errors.Wrapf(err, "registering child resources")
 	}
 
 	return configFile, nil

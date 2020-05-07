@@ -40,10 +40,9 @@ func main() {
 			return err
 		}
 
-		if resources != nil {
-			hostIP := resources.GetResource("v1/Pod", "foo", "").(*corev1.Pod).Status.HostIP()
-			ctx.Export("hostIP", hostIP)
-		}
-		return err
+		hostIP := resources.GetResource("v1/Pod", "foo", "").(*corev1.Pod).Status.HostIP()
+		ctx.Export("hostIP", hostIP)
+
+		return nil
 	})
 }
