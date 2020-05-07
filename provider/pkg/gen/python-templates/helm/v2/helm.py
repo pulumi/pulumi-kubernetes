@@ -290,12 +290,7 @@ def _is_helm_v3() -> bool:
     """
     output = subprocess.run("helm version --short", stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
     version: str = output.stdout
-
-    """ 
-    We return the inverse: if the version string starts with "Client"
-    we are not helm v3
-    """
-    return not version.startswith("Client")
+    return version.startswith("v3")
     
 
 

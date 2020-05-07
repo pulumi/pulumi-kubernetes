@@ -151,9 +151,9 @@ namespace Pulumi.Kubernetes.Helm
             // Client: v2.16.7+g5f2584f
             // Helm v3 returns a version like this:
             // v3.1.2+gd878d4d
-            // We can reasonably assume helm v2 if the version starts with Client
+            // We can reasonably assume helm v3 if the version starts with v3
             var version = Utilities.ExecuteCommand("helm", flags, env);
-            return !version.StartsWith("Client");
+            return version.StartsWith("v3");
         }
 
         private void Fetch(string chart, ChartFetchArgsUnwrap opts)
