@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package ints
+package test
 
 import (
 	"testing"
@@ -21,12 +21,18 @@ import (
 )
 
 func TestGo_Basic(t *testing.T) {
-	t.Skip("temporarily skip while we make an initial release of the package")
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir: "basic",
 		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes",
+			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		},
+		Quick: true,
+	})
+}
+
+func TestGo_YAML(t *testing.T) {
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir:   "yaml",
 		Quick: true,
 	})
 }

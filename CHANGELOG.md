@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Add YAML support to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1093).
+
 ### Bug Fixes
 
 -   fix(customresources): use a 3-way merge patch instead of strategic merge. (https://github.com/pulumi/pulumi-kubernetes/pull/1095)
