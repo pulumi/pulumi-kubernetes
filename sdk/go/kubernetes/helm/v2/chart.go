@@ -18,6 +18,7 @@
 package helm
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -162,9 +163,11 @@ func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi
 		}
 
 		helmCmd := exec.Command("helm", helmArgs...)
+		var stderr bytes.Buffer
+		helmCmd.Stderr = &stderr
 		yamlBytes, err := helmCmd.Output()
 		if err != nil {
-			return nil, errors.Wrap(err, "failed to run helm template")
+			return nil, errors.Wrap(err, fmt.Sprintf("failed to run helm template: %s", stderr.String()))
 		}
 		objs, err := yamlDecode(ctx, string(yamlBytes), args.Namespace)
 		if err != nil {
@@ -261,9 +264,11 @@ func fetch(name string, args fetchArgs) error {
 	}
 
 	helmCmd := exec.Command("helm", helmArgs...)
+	var stderr bytes.Buffer
+	helmCmd.Stderr = &stderr
 	err := helmCmd.Run()
 	if err != nil {
-		return errors.Wrap(err, "failed to fetch Helm chart")
+		return errors.Wrap(err, fmt.Sprintf("failed to fetch Helm chart: %s", stderr.String()))
 	}
 
 	return nil
