@@ -3,6 +3,7 @@
 ### Improvements
 
 -   Add YAML support to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1093).
+-   Add Helm support to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1105).
 
 ### Bug Fixes
 
