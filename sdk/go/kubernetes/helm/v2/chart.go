@@ -60,18 +60,14 @@ func NewChart(ctx *pulumi.Context,
 		return nil, err
 	}
 
-	// Make the component the parent of all subsequent resources.
-	opts = append(opts, pulumi.Parent(chart))
-
 	// Honor the resource name prefix if specified.
 	if args.ResourcePrefix != "" {
 		name = args.ResourcePrefix + "-" + name
 	}
 
-	resources, err := parseChart(ctx, name, args, pulumi.Parent(chart))
-	if err != nil {
-		return nil, errors.Wrap(err, "failed to parse chart")
-	}
+	resources := args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
+		return parseChart(ctx, name, args, pulumi.Parent(chart))
+	})
 	chart.Resources = resources
 
 	// Finally, register all of the resources found.
@@ -85,102 +81,98 @@ func NewChart(ctx *pulumi.Context,
 	return chart, nil
 }
 
-func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi.ResourceOption,
-) (pulumi.Output, error) {
+func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi.ResourceOption,
+) (map[string]pulumi.Resource, error) {
 
-	resources := args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
-		// Create temporary directory and file to hold chart data and override values.
-		chartDir, err := ioutil.TempDir("", "")
-		if err != nil {
-			return nil, errors.Wrap(err, "creating temp directory for chart")
-		}
-		defer os.RemoveAll(chartDir)
-		overrides, err := ioutil.TempFile("", "values.*.yaml")
-		if err != nil {
-			return nil, errors.Wrap(err, "creating temp file for chart values")
-		}
-		defer os.Remove(overrides.Name())
+	// Create temporary directory and file to hold chart data and override values.
+	chartDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		return nil, errors.Wrap(err, "creating temp directory for chart")
+	}
+	defer os.RemoveAll(chartDir)
+	overrides, err := ioutil.TempFile("", "values.*.yaml")
+	if err != nil {
+		return nil, errors.Wrap(err, "creating temp file for chart values")
+	}
+	defer os.Remove(overrides.Name())
 
-		var chart string
-		if args.Path != "" { // Local Chart
-			chart = args.Path
-		} else { // Remote Chart
-			if strings.HasPrefix(args.Repo, "http") {
-				return nil, fmt.Errorf("`repo` specifies the name of the Helm chart repo. Use FetchOpts.Repo" +
-					"to specify a URL")
-			}
-
-			chartToFetch := args.Chart
-			if len(args.Repo) > 0 {
-				chartToFetch = fmt.Sprintf("%s/%s", args.Repo, chartToFetch)
-			}
-
-			// Fetch the Chart.
-			if len(args.FetchArgs.Destination) == 0 {
-				args.FetchArgs.Destination = chartDir
-			}
-			if len(args.FetchArgs.Version) == 0 {
-				args.FetchArgs.Version = args.Version
-			}
-			err = fetch(chartToFetch, args.FetchArgs)
-			if err != nil {
-				return nil, err
-			}
-
-			// Get the path to the fetched Chart.
-			files, err := ioutil.ReadDir(chartDir)
-			if err != nil {
-				return nil, errors.Wrap(err, "failed to read chart directory")
-			}
-			if len(files) == 0 {
-				return nil, errors.New("chart directory was empty")
-			}
-			sort.Slice(files, func(i, j int) bool {
-				return files[i].Name() < files[j].Name()
-			})
-			fetchedChartName := files[0].Name()
-
-			chart = filepath.Join(chartDir, fetchedChartName)
+	var chart string
+	if args.Path != "" { // Local Chart
+		chart = args.Path
+	} else { // Remote Chart
+		if strings.HasPrefix(args.Repo, "http") {
+			return nil, fmt.Errorf("`repo` specifies the name of the Helm chart repo. Use FetchOpts.Repo" +
+				"to specify a URL")
 		}
 
-		defaultVals := filepath.Join(chart, "values.yaml")
-
-		helmArgs := []string{"template", chart, "--name-template", name, "--values", defaultVals}
-		// Write overrides file if Values set.
-		if args.Values != nil {
-			b, err := json.Marshal(args.Values)
-			if err != nil {
-				return nil, errors.Wrap(err, "failed to marshal overrides file")
-			}
-			_, err = overrides.Write(b)
-			if err != nil {
-				return nil, errors.Wrap(err, "failed to write overrides file")
-			}
-			helmArgs = append(helmArgs, "--values", overrides.Name())
-		}
-		if len(args.Namespace) > 0 {
-			helmArgs = append(helmArgs, "--namespace", args.Namespace)
+		chartToFetch := args.Chart
+		if len(args.Repo) > 0 {
+			chartToFetch = fmt.Sprintf("%s/%s", args.Repo, chartToFetch)
 		}
 
-		helmCmd := exec.Command("helm", helmArgs...)
-		var stderr bytes.Buffer
-		helmCmd.Stderr = &stderr
-		yamlBytes, err := helmCmd.Output()
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("failed to run helm template: %s", stderr.String()))
+		// Fetch the Chart.
+		if len(args.FetchArgs.Destination) == 0 {
+			args.FetchArgs.Destination = chartDir
 		}
-		objs, err := yamlDecode(ctx, string(yamlBytes), args.Namespace)
+		if len(args.FetchArgs.Version) == 0 {
+			args.FetchArgs.Version = args.Version
+		}
+		err = fetch(chartToFetch, args.FetchArgs)
 		if err != nil {
 			return nil, err
 		}
 
-		resources, err := yaml.ParseYamlObjects(ctx, objs, args.Transformations, args.ResourcePrefix, opts...)
+		// Get the path to the fetched Chart.
+		files, err := ioutil.ReadDir(chartDir)
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "failed to read chart directory")
 		}
-		return resources, nil
-	})
+		if len(files) == 0 {
+			return nil, errors.New("chart directory was empty")
+		}
+		sort.Slice(files, func(i, j int) bool {
+			return files[i].Name() < files[j].Name()
+		})
+		fetchedChartName := files[0].Name()
 
+		chart = filepath.Join(chartDir, fetchedChartName)
+	}
+
+	defaultVals := filepath.Join(chart, "values.yaml")
+
+	helmArgs := []string{"template", chart, "--name-template", name, "--values", defaultVals}
+	// Write overrides file if Values set.
+	if args.Values != nil {
+		b, err := json.Marshal(args.Values)
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to marshal overrides file")
+		}
+		_, err = overrides.Write(b)
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to write overrides file")
+		}
+		helmArgs = append(helmArgs, "--values", overrides.Name())
+	}
+	if len(args.Namespace) > 0 {
+		helmArgs = append(helmArgs, "--namespace", args.Namespace)
+	}
+
+	helmCmd := exec.Command("helm", helmArgs...)
+	var stderr bytes.Buffer
+	helmCmd.Stderr = &stderr
+	yamlBytes, err := helmCmd.Output()
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("failed to run helm template: %s", stderr.String()))
+	}
+	objs, err := yamlDecode(ctx, string(yamlBytes), args.Namespace)
+	if err != nil {
+		return nil, err
+	}
+
+	resources, err := yaml.ParseYamlObjects(ctx, objs, args.Transformations, args.ResourcePrefix, opts...)
+	if err != nil {
+		return nil, err
+	}
 	return resources, nil
 }
 
