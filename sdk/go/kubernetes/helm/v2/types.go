@@ -135,7 +135,7 @@ type ChartArgs struct {
 	// (Remote chart) The version of the chart to deploy. If not provided, the latest version will be deployed.
 	Version pulumi.StringInput
 	// (Remote chart) Additional options to customize the fetching of the Helm chart.
-	FetchArgs FetchArgs
+	FetchArgs FetchArgsInput
 
 	// (Local chart) The path to the chart directory which contains the `Chart.yaml` file.
 	// If Path is set, any remote chart args (Repo, Chart, Version, FetchArgs) will be ignored.
