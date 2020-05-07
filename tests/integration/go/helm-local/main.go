@@ -9,13 +9,15 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		chart, err := helm.NewChart(ctx, "test", helm.ChartArgs{
-			Path: pulumi.String("nginx-ingress"),
+			Path:           pulumi.String("nginx-ingress"),
+			Values:         pulumi.Map{"controller": pulumi.StringMap{"name": pulumi.String("foo")}},
+			ResourcePrefix: "prefix",
 		})
 		if err != nil {
 			return err
 		}
 
-		svc := chart.GetResource("v1/Service", "test-nginx-ingress-controller", "").
+		svc := chart.GetResource("v1/Service", "prefix-prefix-test-nginx-ingress-foo", "").
 			Apply(func(r interface{}) (interface{}, error) {
 				svc := r.(*corev1.Service)
 				return svc.Status.LoadBalancer(), nil

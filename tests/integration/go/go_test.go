@@ -33,17 +33,20 @@ func TestGo_Basic(t *testing.T) {
 func TestGo_YAML(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:   "yaml",
+		Quick: true,
 	})
 }
 
 func TestGo_HelmLocal(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:   "helm-local",
+		Quick: true,
 	})
 }
 
 func TestGo_Helm(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:   "helm",
+		Quick: true,
 	})
 }
