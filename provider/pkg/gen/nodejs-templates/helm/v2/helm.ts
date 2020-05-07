@@ -210,8 +210,6 @@ export class Chart extends yaml.CollectionComponentResource {
                 const helmVer = execSync(
                     helmVerCmd,
                     {
-                        env: {...process.env},
-                        maxBuffer: 512 * 1024 * 1024, // 512 MB
                         stdio: ['pipe', 'pipe', 'ignore'], // Suppress tiller version error
                     },
                 ).toString();
