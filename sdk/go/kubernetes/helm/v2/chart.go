@@ -271,15 +271,14 @@ func fetch(name string, args fetchArgs) error {
 
 // GetResource returns a resource defined by a built-in Kubernetes group/version/kind, name and namespace.
 // For example, GetResource("v1/Pod", "foo", "") would return a Pod called "foo" from the "default" namespace.
-func (c *Chart) GetResource(gvk, name, namespace string) pulumi.ResourceOutput {
+func (c *Chart) GetResource(gvk, name, namespace string) pulumi.AnyOutput {
 	id := name
 	if len(namespace) > 0 && namespace != "default" {
 		id = fmt.Sprintf("%s/%s", namespace, name)
 	}
 	key := fmt.Sprintf("%s::%s", gvk, id)
-	fmt.Println(key)
-	//return c.Resources[key]
-	//return c.Resources.MapIndex(pulumi.String(key)).(pulumi.ResourceOutput)
-	// TODO: finish this
-	return pulumi.ResourceOutput{}
+	return c.Resources.ApplyT(func(x interface{}) interface{} {
+		resources := x.(map[string]pulumi.Resource)
+		return resources[key]
+	}).(pulumi.AnyOutput)
 }
