@@ -281,6 +281,8 @@ def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
     return yaml_str
 
 def _is_helm_v3() -> bool:
+
+    cmd: List[str] = ['helm', 'version', '--short']
     
     """ 
     Helm v2 returns version like this:
@@ -289,14 +291,13 @@ def _is_helm_v3() -> bool:
     v3.1.2+gd878d4d
     We can reasonably assume helm v2 if the version starts with Client 
     """
-    output = subprocess.run("helm version --short", stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
+    output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
     version: str = output.stdout
     """
     --include-crds is available in helm v3.1+ so check for a regex matching that version
     """
-    if re.search("^v3.[1-9]*", version):
-        return True
-    
+    regexp = re.compile(r'(?:^|\W)v3.[1-9](?:$|\W)')
+    return(bool(regexp.search(version)))
 
 
 def _write_override_file(all_config: Tuple[TextIO, str]) -> None:

@@ -156,7 +156,7 @@ namespace Pulumi.Kubernetes.Helm
             // v3.1.2+gd878d4d
             // We can reasonably assume helm v3 if the version starts with v3
             var version = Utilities.ExecuteCommand("helm", flags, env);
-            Regex r = new Regex(@"^v3.[1-9]*");
+            Regex r = new Regex(@"(?:^|\W)v3.[1-9](?:$|\W)");
             return r.IsMatch(version);
         }
 
