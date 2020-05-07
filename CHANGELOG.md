@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Support helm v3 `include-crds` argument. (https://github.com/pulumi/pulumi-kubernetes/pull/1102)
+
 ### Bug Fixes
 
 -   fix(customresources): use a 3-way merge patch instead of strategic merge. (https://github.com/pulumi/pulumi-kubernetes/pull/1095)
