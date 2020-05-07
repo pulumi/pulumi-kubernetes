@@ -45,7 +45,7 @@ import (
 type Chart struct {
 	pulumi.ResourceState
 
-	Resources map[string]pulumi.Resource
+	Resources pulumi.Output
 }
 
 // NewChart registers a new resource with the given unique name, arguments, and options.
@@ -53,9 +53,7 @@ func NewChart(ctx *pulumi.Context,
 	name string, args ChartArgs, opts ...pulumi.ResourceOption) (*Chart, error) {
 
 	// Register the resulting resource state.
-	chart := &Chart{
-		Resources: map[string]pulumi.Resource{},
-	}
+	chart := &Chart{}
 	err := ctx.RegisterComponentResource("kubernetes:helm.sh/v2:Chart", name, chart, opts...)
 	if err != nil {
 		return nil, err
@@ -76,7 +74,9 @@ func NewChart(ctx *pulumi.Context,
 	chart.Resources = resources
 
 	// Finally, register all of the resources found.
-	err = ctx.RegisterResourceOutputs(chart, pulumi.Map{})
+	// Note: Go requires that we "pull" on our futures in order to get them scheduled for execution. Here, we use
+	// the engine's RegisterResourceOutputs to wait for the resolution of all resources that this Helm chart created.
+	err = ctx.RegisterResourceOutputs(chart, pulumi.Map{"resources": resources})
 	if err != nil {
 		return nil, errors.Wrap(err, "registering child resources")
 	}
@@ -85,7 +85,7 @@ func NewChart(ctx *pulumi.Context,
 }
 
 func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi.ResourceOption,
-) (map[string]pulumi.Resource, error) {
+) (pulumi.Output, error) {
 	// Create temporary directory and file to hold chart data and override values.
 	chartDir, err := ioutil.TempDir("", "")
 	if err != nil {
@@ -99,8 +99,7 @@ func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi
 	}
 	defer os.Remove(overrides.Name())
 
-	// TODO: return resources
-	args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
+	resources := args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
 		var chart string
 		if args.Path != "" { // Local Chart
 			chart = args.Path
@@ -116,6 +115,12 @@ func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi
 			}
 
 			// Fetch the Chart.
+			if len(args.FetchArgs.Destination) == 0 {
+				args.FetchArgs.Destination = chartDir
+			}
+			if len(args.FetchArgs.Version) == 0 {
+				args.FetchArgs.Version = args.Version
+			}
 			err = fetch(chartToFetch, args.FetchArgs)
 			if err != nil {
 				return nil, err
@@ -134,7 +139,7 @@ func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi
 			})
 			fetchedChartName := files[0].Name()
 
-			chart = filepath.Join(chartToFetch, fetchedChartName)
+			chart = filepath.Join(chartDir, fetchedChartName)
 		}
 
 		defaultVals := filepath.Join(chart, "values.yaml")
@@ -173,7 +178,6 @@ func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi
 		return resources, nil
 	})
 
-	resources := map[string]pulumi.Resource{}
 	return resources, nil
 }
 
@@ -196,7 +200,7 @@ func fetch(name string, args fetchArgs) error {
 	helmArgs := []string{"fetch", name}
 
 	// Untar by default.
-	if args.Untar {
+	if args.Untar == nil || !*args.Untar {
 		helmArgs = append(helmArgs, "--untar")
 	}
 
@@ -246,13 +250,13 @@ func fetch(name string, args fetchArgs) error {
 	if len(args.Username) > 0 {
 		helmArgs = append(helmArgs, "--username", args.Username)
 	}
-	if args.Devel {
+	if args.Devel != nil && *args.Devel {
 		helmArgs = append(helmArgs, "--devel")
 	}
-	if args.Prov {
+	if args.Prov != nil && *args.Prov {
 		helmArgs = append(helmArgs, "--prov")
 	}
-	if args.Verify {
+	if args.Verify != nil && *args.Verify {
 		helmArgs = append(helmArgs, "--verify")
 	}
 
@@ -267,11 +271,15 @@ func fetch(name string, args fetchArgs) error {
 
 // GetResource returns a resource defined by a built-in Kubernetes group/version/kind, name and namespace.
 // For example, GetResource("v1/Pod", "foo", "") would return a Pod called "foo" from the "default" namespace.
-func (c *Chart) GetResource(gvk, name, namespace string) pulumi.Resource {
+func (c *Chart) GetResource(gvk, name, namespace string) pulumi.ResourceOutput {
 	id := name
 	if len(namespace) > 0 && namespace != "default" {
 		id = fmt.Sprintf("%s/%s", namespace, name)
 	}
 	key := fmt.Sprintf("%s::%s", gvk, id)
-	return c.Resources[key]
+	fmt.Println(key)
+	//return c.Resources[key]
+	//return c.Resources.MapIndex(pulumi.String(key)).(pulumi.ResourceOutput)
+	// TODO: finish this
+	return pulumi.ResourceOutput{}
 }

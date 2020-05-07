@@ -49,13 +49,13 @@ type FetchArgs struct {
 	Home pulumi.StringInput
 	// Use development versions, too. Equivalent to version '>0.0.0-0'. If Version is set,
 	// Devel is ignored.
-	Devel pulumi.BoolInput
+	Devel pulumi.BoolPtrInput
 	// Fetch the provenance file, but don't perform verification.
-	Prov pulumi.BoolInput
+	Prov pulumi.BoolPtrInput
 	// If false, leave the chart as a tarball after downloading.
-	Untar pulumi.BoolInput
+	Untar pulumi.BoolPtrInput
 	// Verify the package against its signature.
-	Verify pulumi.BoolInput
+	Verify pulumi.BoolPtrInput
 }
 
 // fetchArgs is a copy of FetchArgs but without using TInput in types.
@@ -71,10 +71,10 @@ type fetchArgs struct {
 	UntarDir    string `pulumi:"untarDir"`
 	Username    string `pulumi:"username"`
 	Home        string `pulumi:"home"`
-	Devel       bool   `pulumi:"devel"`
-	Prov        bool   `pulumi:"prov"`
-	Untar       bool   `pulumi:"untar"`
-	Verify      bool   `pulumi:"verify"`
+	Devel       *bool   `pulumi:"devel"`
+	Prov        *bool   `pulumi:"prov"`
+	Untar       *bool   `pulumi:"untar"`
+	Verify      *bool   `pulumi:"verify"`
 }
 
 type FetchArgsInput interface {
