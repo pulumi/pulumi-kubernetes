@@ -87,20 +87,20 @@ func NewChart(ctx *pulumi.Context,
 
 func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi.ResourceOption,
 ) (pulumi.Output, error) {
-	// Create temporary directory and file to hold chart data and override values.
-	chartDir, err := ioutil.TempDir("", "")
-	if err != nil {
-		return nil, errors.Wrap(err, "creating temp directory for chart")
-	}
-	defer os.RemoveAll(chartDir)
-
-	overrides, err := ioutil.TempFile("", "")
-	if err != nil {
-		return nil, errors.Wrap(err, "creating temp file for chart values")
-	}
-	defer os.Remove(overrides.Name())
 
 	resources := args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
+		// Create temporary directory and file to hold chart data and override values.
+		chartDir, err := ioutil.TempDir("", "")
+		if err != nil {
+			return nil, errors.Wrap(err, "creating temp directory for chart")
+		}
+		defer os.RemoveAll(chartDir)
+		overrides, err := ioutil.TempFile("", "values.*.yaml")
+		if err != nil {
+			return nil, errors.Wrap(err, "creating temp file for chart values")
+		}
+		defer os.Remove(overrides.Name())
+
 		var chart string
 		if args.Path != "" { // Local Chart
 			chart = args.Path
