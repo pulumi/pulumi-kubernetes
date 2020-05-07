@@ -218,8 +218,8 @@ export class Chart extends yaml.CollectionComponentResource {
                 // Client: v2.16.7+g5f2584f
                 // Helm v3 returns a version like this:
                 // v3.1.2+gd878d4d
-                // We can reasonably assume helm v3 if the version starts with v3
-                let r = RegExp('^v3.[1-9]*');
+                // --include-crds is available in helm v3.1+ so check for a regex matching that version
+                let r = RegExp('(?:^|\W)v3.[1-9](?:$|\W)');
                 if (r.test(helmVer)) {
                     cmd = `helm template ${chart} --include-crds --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
                 } else {
