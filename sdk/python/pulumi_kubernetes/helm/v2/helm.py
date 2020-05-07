@@ -5,6 +5,7 @@ import json
 import os.path
 import shutil
 import subprocess
+import re
 from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
@@ -290,7 +291,11 @@ def _is_helm_v3() -> bool:
     """
     output = subprocess.run("helm version --short", stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
     version: str = output.stdout
-    return version.startswith("v3")
+    """
+    --include-crds is available in helm v3.1+ so check for a regex matching that version
+    """
+    if re.search("^v3.[1-9]*", version):
+        return True
     
 
 

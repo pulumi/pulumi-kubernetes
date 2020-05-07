@@ -219,7 +219,8 @@ export class Chart extends yaml.CollectionComponentResource {
                 // Helm v3 returns a version like this:
                 // v3.1.2+gd878d4d
                 // We can reasonably assume helm v3 if the version starts with v3
-                if (helmVer.startsWith("v3")) {
+                let r = RegExp('^v3.[1-9]*');
+                if (r.test(helmVer)) {
                     cmd = `helm template ${chart} --include-crds --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
                 } else {
                     cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;

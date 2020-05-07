@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Text.Json;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Utilities;
+
+
 
 namespace Pulumi.Kubernetes.Helm
 {
@@ -153,7 +156,8 @@ namespace Pulumi.Kubernetes.Helm
             // v3.1.2+gd878d4d
             // We can reasonably assume helm v3 if the version starts with v3
             var version = Utilities.ExecuteCommand("helm", flags, env);
-            return version.StartsWith("v3");
+            Regex r = new Regex(@"^v3.[1-9]*");
+            return r.IsMatch(version);
         }
 
         private void Fetch(string chart, ChartFetchArgsUnwrap opts)
