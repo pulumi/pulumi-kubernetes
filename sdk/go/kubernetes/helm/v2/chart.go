@@ -28,6 +28,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
@@ -68,7 +69,7 @@ func NewChart(ctx *pulumi.Context,
 		name = args.ResourcePrefix + "-" + name
 	}
 
-	resources, err := parseChart(ctx, name, args)
+	resources, err := parseChart(ctx, name, args, pulumi.Parent(chart))
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to parse chart")
 	}
@@ -138,6 +139,7 @@ func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi
 
 		defaultVals := filepath.Join(chart, "values.yaml")
 
+		helmArgs := []string{"template", chart, "--name-template", name, "--values", defaultVals}
 		// Write overrides file if Values set.
 		if args.Values != nil {
 			b, err := json.Marshal(args.Values)
@@ -148,26 +150,27 @@ func parseChart(ctx *pulumi.Context, name string, args ChartArgs, opts ...pulumi
 			if err != nil {
 				return nil, errors.Wrap(err, "failed to write overrides file")
 			}
+			helmArgs = append(helmArgs, "--values", overrides.Name())
 		}
-
-		cmd := []string{
-			"helm", "template", chart, "--name-template", name, "--values", defaultVals, "--values", overrides.Name()}
 		if len(args.Namespace) > 0 {
-			cmd = append(cmd, "--namespace", args.Namespace)
+			helmArgs = append(helmArgs, "--namespace", args.Namespace)
 		}
 
-		helmCmd := exec.Command(strings.Join(cmd, " "))
+		helmCmd := exec.Command("helm", helmArgs...)
 		yamlBytes, err := helmCmd.Output()
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to run helm template")
 		}
-		resources, err := yamlDecode(ctx, string(yamlBytes), args.Namespace)
+		objs, err := yamlDecode(ctx, string(yamlBytes), args.Namespace)
 		if err != nil {
 			return nil, err
 		}
 
-		// TODO: parse resources using yaml package
-		return map[string]pulumi.Resource{}, nil
+		resources, err := yaml.ParseYamlObjects(ctx, objs, args.Transformations, args.ResourcePrefix, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return resources, nil
 	})
 
 	resources := map[string]pulumi.Resource{}
@@ -190,11 +193,11 @@ func yamlDecode(ctx *pulumi.Context, text, namespace string) ([]map[string]inter
 }
 
 func fetch(name string, args fetchArgs) error {
-	cmd := []string{"helm", "fetch", name}
+	helmArgs := []string{"fetch", name}
 
 	// Untar by default.
 	if args.Untar {
-		cmd = append(cmd, "--untar")
+		helmArgs = append(helmArgs, "--untar")
 	}
 
 	env := os.Environ()
@@ -214,46 +217,46 @@ func fetch(name string, args fetchArgs) error {
 	}
 
 	if len(args.Version) > 0 {
-		cmd = append(cmd, "--version", args.Version)
+		helmArgs = append(helmArgs, "--version", args.Version)
 	}
 	if len(args.CAFile) > 0 {
-		cmd = append(cmd, "--ca-file", args.CAFile)
+		helmArgs = append(helmArgs, "--ca-file", args.CAFile)
 	}
 	if len(args.CertFile) > 0 {
-		cmd = append(cmd, "--cert-file", args.CertFile)
+		helmArgs = append(helmArgs, "--cert-file", args.CertFile)
 	}
 	if len(args.KeyFile) > 0 {
-		cmd = append(cmd, "--key-file", args.KeyFile)
+		helmArgs = append(helmArgs, "--key-file", args.KeyFile)
 	}
 	if len(args.Destination) > 0 {
-		cmd = append(cmd, "--destination", args.Destination)
+		helmArgs = append(helmArgs, "--destination", args.Destination)
 	}
 	if len(args.Keyring) > 0 {
-		cmd = append(cmd, "--keyring", args.Keyring)
+		helmArgs = append(helmArgs, "--keyring", args.Keyring)
 	}
 	if len(args.Password) > 0 {
-		cmd = append(cmd, "--password", args.Password)
+		helmArgs = append(helmArgs, "--password", args.Password)
 	}
 	if len(args.Repo) > 0 {
-		cmd = append(cmd, "--repo", args.Repo)
+		helmArgs = append(helmArgs, "--repo", args.Repo)
 	}
 	if len(args.UntarDir) > 0 {
-		cmd = append(cmd, "--untardir", args.UntarDir)
+		helmArgs = append(helmArgs, "--untardir", args.UntarDir)
 	}
 	if len(args.Username) > 0 {
-		cmd = append(cmd, "--username", args.Username)
+		helmArgs = append(helmArgs, "--username", args.Username)
 	}
 	if args.Devel {
-		cmd = append(cmd, "--devel")
+		helmArgs = append(helmArgs, "--devel")
 	}
 	if args.Prov {
-		cmd = append(cmd, "--prov")
+		helmArgs = append(helmArgs, "--prov")
 	}
 	if args.Verify {
-		cmd = append(cmd, "--verify")
+		helmArgs = append(helmArgs, "--verify")
 	}
 
-	helmCmd := exec.Command(strings.Join(cmd, " "))
+	helmCmd := exec.Command("helm", helmArgs...)
 	err := helmCmd.Run()
 	if err != nil {
 		return errors.Wrap(err, "failed to fetch Helm chart")
