@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+## 2.1.1 (May 8, 2020)
+
+-   Python and .NET packages failed to publish for 2.1.0, so bumping release version.
+
 ## 2.1.0 (May 8, 2020)
 
 ### Improvements
