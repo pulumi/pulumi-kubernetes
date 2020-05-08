@@ -4,7 +4,8 @@ set -o nounset -o errexit -o pipefail
 echo Creating ephemeral Kubernetes cluster for CI testing...
 
 pushd tests/ci-cluster
-yarn
+yarn install --json --verbose >out
+tail -10 out
 pulumi stack init "${STACK}"
 pulumi up --skip-preview --yes
 
