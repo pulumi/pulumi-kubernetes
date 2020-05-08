@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.1.0 (May 8, 2020)
+
 ### Improvements
 
 -   Add YAML support to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1093).
