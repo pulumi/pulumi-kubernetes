@@ -15,21 +15,25 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"go/format"
 	"io/ioutil"
 	"log"
 	"os"
 	"path"
 	"path/filepath"
+	"sort"
+	"text/template"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
+	"github.com/pulumi/pulumi/pkg/v2/codegen"
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/tools"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
-
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
 )
 
 // This is the URL for the v1.17.0 swagger spec. This is the last version of the spec containing the following
@@ -79,7 +83,7 @@ func main() {
 	case "dotnet":
 		writeDotnetClient(data, outdir, templateDir)
 	case "go":
-		writeGoClient(data, outdir)
+		writeGoClient(data, outdir, templateDir)
 	case "schema":
 		if err := writePulumiSchema(data, outdir); err != nil {
 			panic(err)
@@ -322,12 +326,41 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 }
 
-func writeGoClient(data map[string]interface{}, outdir string) {
+func writeGoClient(data map[string]interface{}, outdir string, templateDir string) {
 	pkg := genPulumiSchemaPackage(data)
 	files, err := gogen.GeneratePackage("pulumigen", pkg)
 	if err != nil {
 		panic(err)
 	}
+
+	resources, err := gogen.LanguageResources("pulumigen", pkg)
+	if err != nil {
+		panic(err)
+	}
+
+	templateResources := gen.TemplateResources{}
+	imports := codegen.StringSet{}
+	for _, resource := range resources {
+		r := gen.TemplateResource{
+			Alias:   resource.Alias,
+			Name:    resource.Name,
+			Package: resource.Package,
+			Token:   resource.Token,
+		}
+		templateResources.Resources = append(templateResources.Resources, r)
+		importPath := fmt.Sprintf(`%s "%s"`, resource.Alias, resource.Package)
+		imports.Add(importPath)
+	}
+	templateResources.Imports = imports.SortedValues()
+	sort.Slice(templateResources.Resources, func(i, j int) bool {
+		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
+	})
+
+	files["kubernetes/yaml/configFile.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
+	files["kubernetes/yaml/configGroup.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
+	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
+	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
+
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
 
@@ -339,6 +372,31 @@ func writeGoClient(data map[string]interface{}, outdir string) {
 			panic(err)
 		}
 	}
+}
+
+func mustLoadFile(path string) []byte {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+	return b
+}
+
+func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
+	b := mustLoadFile(path)
+	t := template.Must(template.New("resources").Parse(string(b)))
+
+	var buf bytes.Buffer
+	err := t.Execute(&buf, resources)
+	if err != nil {
+		panic(err)
+	}
+	formattedSource, err := format.Source(buf.Bytes())
+	if err != nil {
+		panic(err)
+	}
+
+	return formattedSource
 }
 
 func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {

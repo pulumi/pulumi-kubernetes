@@ -2,7 +2,8 @@
 
 ### Improvements
 
--   Support helm v3 `include-crds` argument. (https://github.com/pulumi/pulumi-kubernetes/pull/1102)
+-   Add YAML support to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1093).
+-   Add Helm support to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1105).
 
 ### Bug Fixes
 
@@ -12,6 +13,7 @@
 -   Fix schema type for Fields and RawExtension. (https://github.com/pulumi/pulumi-kubernetes/pull/1086)
 -   Fix error parsing YAML in python 3.8 (https://github.com/pulumi/pulumi-kubernetes/pull/1079)
 -   Fix HELM_HOME handling for Helm v3. (https://github.com/pulumi/pulumi-kubernetes/pull/1076)
+-   Support helm v3 `include-crds` argument. (https://github.com/pulumi/pulumi-kubernetes/pull/1102)
 
 ## 2.0.0 (April 16, 2020)
 

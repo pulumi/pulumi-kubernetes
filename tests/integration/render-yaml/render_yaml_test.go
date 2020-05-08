@@ -26,12 +26,6 @@ import (
 )
 
 func TestRenderYAML(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	// Create a temporary directory to hold rendered YAML manifests.
 	dir, err := ioutil.TempDir("", "")
 	assert.NoError(t, err)

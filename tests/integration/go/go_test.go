@@ -12,28 +12,41 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package ints
+package test
 
 import (
-	"os"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
 )
 
 func TestGo_Basic(t *testing.T) {
-	t.Skip("temporarily skip while we make an initial release of the package")
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir: "basic",
 		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes",
+			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		},
+		Quick: true,
+	})
+}
+
+func TestGo_YAML(t *testing.T) {
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir:   "yaml",
+		Quick: true,
+	})
+}
+
+func TestGo_HelmLocal(t *testing.T) {
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir:   "helm-local",
+		Quick: true,
+	})
+}
+
+func TestGo_Helm(t *testing.T) {
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir:   "helm",
 		Quick: true,
 	})
 }

@@ -15,7 +15,6 @@
 package ints
 
 import (
-	"os"
 	"strings"
 	"testing"
 
@@ -29,12 +28,6 @@ import (
 )
 
 func TestDeploymentRollout(t *testing.T) {
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
-
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "step1",
 		Dependencies: []string{"@pulumi/kubernetes"},
