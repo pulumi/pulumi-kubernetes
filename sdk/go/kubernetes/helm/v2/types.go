@@ -71,10 +71,10 @@ type fetchArgs struct {
 	UntarDir    string `pulumi:"untarDir"`
 	Username    string `pulumi:"username"`
 	Home        string `pulumi:"home"`
-	Devel       *bool   `pulumi:"devel"`
-	Prov        *bool   `pulumi:"prov"`
-	Untar       *bool   `pulumi:"untar"`
-	Verify      *bool   `pulumi:"verify"`
+	Devel       *bool  `pulumi:"devel"`
+	Prov        *bool  `pulumi:"prov"`
+	Untar       *bool  `pulumi:"untar"`
+	Verify      *bool  `pulumi:"verify"`
 }
 
 type FetchArgsInput interface {
