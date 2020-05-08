@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-kubernetes/tests/integration/go/yaml
+module github.com/pulumi/pulumi-kubernetes/tests/integration/go/helm-local
 
 go 1.14
 

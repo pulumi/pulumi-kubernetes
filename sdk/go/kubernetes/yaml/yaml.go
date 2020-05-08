@@ -130,7 +130,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 	}
 
 	// Now process the resulting list of Kubernetes objects.
-	return parseYamlObjects(ctx, objs, args.Transformations, args.ResourcePrefix, opts...)
+	return ParseYamlObjects(ctx, objs, args.Transformations, args.ResourcePrefix, opts...)
 }
 
 // yamlDecode invokes the function to decode a single YAML file and decompose it into object structures.
@@ -147,7 +147,7 @@ func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption)
 	return ret.Result, nil
 }
 
-func parseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transformations []Transformation,
+func ParseYamlObjects(ctx *pulumi.Context, objs []map[string]interface{}, transformations []Transformation,
 	resourcePrefix string, opts ...pulumi.ResourceOption,
 ) (map[string]pulumi.Resource, error) {
 	var intermediates []resourceTuple
