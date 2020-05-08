@@ -113,7 +113,7 @@ func (o FetchArgsOutput) ToFetchArgsOutputWithContext(ctx context.Context) Fetch
 // ChartArgs specifies arguments for constructing a Chart resource.
 type ChartArgs struct {
 	// The optional Kubernetes API versions used for Capabilities.APIVersions.
-	ApiVersions pulumi.StringArrayInput
+	APIVersions pulumi.StringArrayInput
 	// The optional namespace to install chart resources into.
 	Namespace pulumi.StringInput
 	// Overrides for chart values.
@@ -144,7 +144,7 @@ type ChartArgs struct {
 
 // chartArgs is a copy of ChartArgs but without using TInput in types.
 type chartArgs struct {
-	ApiVersions     []string               `pulumi:"apiVersions"`
+	APIVersions     []string               `pulumi:"apiVersions"`
 	Namespace       string                 `pulumi:"namespace"`
 	Values          map[string]interface{} `pulumi:"values"`
 	Transformations []yaml.Transformation  `pulumi:"transformations"`
