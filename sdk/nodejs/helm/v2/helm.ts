@@ -206,12 +206,10 @@ export class Chart extends yaml.CollectionComponentResource {
                     : "";
 
                 // Check the helm version - v2 or v3
-                let helmVerCmd = `helm version --short`;
+                let helmVerCmd = `helm version --short || true`;
                 const helmVer = execSync(
                     helmVerCmd,
                     {
-                        env: {...process.env},
-                        maxBuffer: 512 * 1024 * 1024, // 512 MB
                         stdio: ['pipe', 'pipe', 'ignore'], // Suppress tiller version error
                     },
                 ).toString();
@@ -220,11 +218,12 @@ export class Chart extends yaml.CollectionComponentResource {
                 // Client: v2.16.7+g5f2584f
                 // Helm v3 returns a version like this:
                 // v3.1.2+gd878d4d
-                // We can reasonably assume helm v2 if the version starts with Client
-                if (helmVer.startsWith("Client")) {
-                    cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
-                } else {
+                // We can reasonably assume helm v3 if the version starts with v3
+                let r = RegExp('^v3.[1-9]*');
+                if (r.test(helmVer)) {
                     cmd = `helm template ${chart} --include-crds --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
+                } else {
+                    cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
                 }
 
                 const yamlStream = execSync(
