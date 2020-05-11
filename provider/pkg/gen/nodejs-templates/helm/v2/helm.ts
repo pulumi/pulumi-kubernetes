@@ -214,16 +214,14 @@ export class Chart extends yaml.CollectionComponentResource {
                     },
                 ).toString();
 
+                cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
                 // Helm v2 returns version like this:
                 // Client: v2.16.7+g5f2584f
                 // Helm v3 returns a version like this:
                 // v3.1.2+gd878d4d
                 // --include-crds is available in helm v3.1+ so check for a regex matching that version
-                let r = RegExp('^v3\.[1-9]');
-                if (r.test(helmVer)) {
-                    cmd = `helm template ${chart} --include-crds --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
-                } else {
-                    cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
+                if (RegExp('^v3\.[1-9]').test(helmVer)) {
+                    cmd += ` --include-crds`
                 }
 
                 const yamlStream = execSync(
