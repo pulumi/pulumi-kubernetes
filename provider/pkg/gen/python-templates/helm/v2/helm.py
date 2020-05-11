@@ -289,14 +289,11 @@ def _is_helm_v3() -> bool:
     Client: v2.16.7+g5f2584f
     Helm v3 returns a version like this:
     v3.1.2+gd878d4d
-    We can reasonably assume helm v2 if the version starts with Client 
+    --include-crds is available in helm v3.1+ so check for a regex matching that version
     """
     output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
     version: str = output.stdout
-    """
-    --include-crds is available in helm v3.1+ so check for a regex matching that version
-    """
-    regexp = re.compile(r'(?:^|\W)v3.[1-9](?:$|\W)')
+    regexp = re.compile(r'^v3.\[1-9]')
     return(bool(regexp.search(version)))
 
 

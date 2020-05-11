@@ -206,11 +206,11 @@ func yamlDecode(ctx *pulumi.Context, text, namespace string) ([]map[string]inter
 func isHelmV3() (bool, error) {
 
 	/*
-	   Helm v2 returns version like this:
-	   Client: v2.16.7+g5f2584f
-	   Helm v3 returns a version like this:
-	   v3.1.2+gd878d4d
-	   We can reasonably assume helm v2 if the version starts with Client
+		Helm v2 returns version like this:
+		Client: v2.16.7+g5f2584f
+		Helm v3 returns a version like this:
+		v3.1.2+gd878d4d
+		--include-crds is available in helm v3.1+ so check for a regex matching that version
 	*/
 	helmVerArgs := []string{"version", "--short"}
 	helmVerCmd := exec.Command("helm", helmVerArgs...)
@@ -223,7 +223,7 @@ func isHelmV3() (bool, error) {
 		return false, errors.Wrap(err, fmt.Sprintf("failed to check helm version: %s", stderr.String()))
 	}
 
-	matched, err := regexp.MatchString(`(?:^|\W)v3.[1-9](?:$|\W)`, string(version))
+	matched, err := regexp.MatchString(`^v3\.[1-9]`, string(version))
 	if err != nil {
 		return false, errors.Wrap(err, fmt.Sprintf("failed to perform regex match: %s", stderr.String()))
 	}

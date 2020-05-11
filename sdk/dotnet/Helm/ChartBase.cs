@@ -10,8 +10,6 @@ using System.Text.Json;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Utilities;
 
-
-
 namespace Pulumi.Kubernetes.Helm
 {
     public abstract class ChartBase : CollectionComponentResource
@@ -87,9 +85,6 @@ namespace Pulumi.Kubernetes.Helm
                     var data = JsonSerializer.Serialize(cfgBase.Values);
                     File.WriteAllText(overrides, data);
 
-                    // Get helm version
-                    var helmv3 = IsHelmV3();
-
                     // Does not require Tiller. From the `helm template` documentation:
                     //
                     // >  Render chart templates locally and display the output.
@@ -117,7 +112,7 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add(cfgBase.Namespace);
                     }
 
-                    if (helmv3)
+                    if (IsHelmV3())
                     {
                         flags.Add("--include-crds");
                     }
@@ -154,9 +149,9 @@ namespace Pulumi.Kubernetes.Helm
             // Client: v2.16.7+g5f2584f
             // Helm v3 returns a version like this:
             // v3.1.2+gd878d4d
-            // We can reasonably assume helm v3 if the version starts with v3
+            // --include-crds is available in helm v3.1+ so check for a regex matching that version
             var version = Utilities.ExecuteCommand("helm", flags, env);
-            Regex r = new Regex(@"(?:^|\W)v3.[1-9](?:$|\W)");
+            Regex r = new Regex(@"^v3\.[1-9]");
             return r.IsMatch(version);
         }
 
