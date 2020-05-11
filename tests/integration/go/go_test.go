@@ -32,7 +32,7 @@ func TestGo_Basic(t *testing.T) {
 
 func TestGo_YAML(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:   "yaml",
+		Dir: "yaml",
 		Dependencies: []string{
 			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		},
@@ -42,7 +42,7 @@ func TestGo_YAML(t *testing.T) {
 
 func TestGo_HelmLocal(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:   "helm-local",
+		Dir: "helm-local",
 		Dependencies: []string{
 			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		},
@@ -52,7 +52,7 @@ func TestGo_HelmLocal(t *testing.T) {
 
 func TestGo_Helm(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:   "helm",
+		Dir: "helm",
 		Dependencies: []string{
 			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		},
