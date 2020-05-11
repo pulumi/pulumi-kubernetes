@@ -157,6 +157,7 @@ export class Chart extends yaml.CollectionComponentResource {
             try {
                 let chart: string;
                 let defaultValues: string;
+                let cmd: string;
                 if (isChartOpts(cfg)) {
                     // Fetch chart.
                     if (cfg.repo && cfg.repo.includes("http")) {
@@ -203,7 +204,25 @@ export class Chart extends yaml.CollectionComponentResource {
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
-                let cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
+
+                // Check the helm version - v2 or v3
+                let helmVerCmd = `helm version --short || true`;
+                const helmVer = execSync(
+                    helmVerCmd,
+                    {
+                        stdio: ['pipe', 'pipe', 'ignore'], // Suppress tiller version error
+                    },
+                ).toString();
+
+                cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
+                // Helm v2 returns version like this:
+                // Client: v2.16.7+g5f2584f
+                // Helm v3 returns a version like this:
+                // v3.1.2+gd878d4d
+                // --include-crds is available in helm v3.1+ so check for a regex matching that version
+                if (RegExp('^v3\.[1-9]').test(helmVer)) {
+                    cmd += ` --include-crds`
+                }
 
                 const yamlStream = execSync(
                     cmd,

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Text.Json;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Utilities;
@@ -111,6 +112,11 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add(cfgBase.Namespace);
                     }
 
+                    if (IsHelmV3())
+                    {
+                        flags.Add("--include-crds");
+                    }
+
                     var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(), new Dictionary<string, string>());
                     return ParseTemplate(
                         yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
@@ -132,6 +138,21 @@ namespace Pulumi.Kubernetes.Helm
         {
             var prefix = config.Match(v => v.ResourcePrefix, v => v.ResourcePrefix);
             return string.IsNullOrEmpty(prefix) ? releaseName : $"{prefix}-{releaseName}";
+        }
+
+        private static bool IsHelmV3()
+        {
+            var env = new Dictionary<string, string>();
+            string[] flags = {"version", "--short"};
+
+            // Helm v2 returns version like this:
+            // Client: v2.16.7+g5f2584f
+            // Helm v3 returns a version like this:
+            // v3.1.2+gd878d4d
+            // --include-crds is available in helm v3.1+ so check for a regex matching that version
+            var version = Utilities.ExecuteCommand("helm", flags, env);
+            Regex r = new Regex(@"^v3\.[1-9]");
+            return r.IsMatch(version);
         }
 
         private void Fetch(string chart, ChartFetchArgsUnwrap opts)

@@ -5,6 +5,7 @@ import json
 import os.path
 import shutil
 import subprocess
+import re
 from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
@@ -279,6 +280,22 @@ def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
     yaml_str: str = output.stdout
     return yaml_str
 
+def _is_helm_v3() -> bool:
+
+    cmd: List[str] = ['helm', 'version', '--short']
+    
+    """ 
+    Helm v2 returns version like this:
+    Client: v2.16.7+g5f2584f
+    Helm v3 returns a version like this:
+    v3.1.2+gd878d4d
+    --include-crds is available in helm v3.1+ so check for a regex matching that version
+    """
+    output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
+    version: str = output.stdout
+    regexp = re.compile(r'^v3.\[1-9]')
+    return(bool(regexp.search(version)))
+
 
 def _write_override_file(all_config: Tuple[TextIO, str]) -> None:
     file, data = all_config
@@ -337,11 +354,13 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     pulumi.Output.all(file, data).apply(_write_override_file)
 
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
+    crd_arg = [ '--include-crds' ] if _is_helm_v3() else []
 
     # Use 'helm template' to create a combined YAML manifest.
     cmd = ['helm', 'template', chart, '--name-template', release_name,
            '--values', default_values, '--values', overrides_filename]
     cmd.extend(namespace_arg)
+    cmd.extend(crd_arg)
 
     chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
 

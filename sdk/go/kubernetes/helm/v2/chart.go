@@ -25,6 +25,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -157,6 +158,17 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		helmArgs = append(helmArgs, "--namespace", args.Namespace)
 	}
 
+	// Check for helm version
+	v3, err := isHelmV3()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if v3 {
+		helmArgs = append(helmArgs, "--include-crds")
+	}
+
 	helmCmd := exec.Command("helm", helmArgs...)
 	var stderr bytes.Buffer
 	helmCmd.Stderr = &stderr
@@ -189,6 +201,35 @@ func yamlDecode(ctx *pulumi.Context, text, namespace string) ([]map[string]inter
 		return nil, errors.Wrap(err, "failed to decode YAML")
 	}
 	return ret.Result, nil
+}
+
+func isHelmV3() (bool, error) {
+
+	/*
+		Helm v2 returns version like this:
+		Client: v2.16.7+g5f2584f
+		Helm v3 returns a version like this:
+		v3.1.2+gd878d4d
+		--include-crds is available in helm v3.1+ so check for a regex matching that version
+	*/
+	helmVerArgs := []string{"version", "--short"}
+	helmVerCmd := exec.Command("helm", helmVerArgs...)
+
+	var stderr bytes.Buffer
+	helmVerCmd.Stderr = &stderr
+
+	version, err := helmVerCmd.Output()
+	if err != nil {
+		return false, errors.Wrap(err, fmt.Sprintf("failed to check helm version: %s", stderr.String()))
+	}
+
+	matched, err := regexp.MatchString(`^v3\.[1-9]`, string(version))
+	if err != nil {
+		return false, errors.Wrap(err, fmt.Sprintf("failed to perform regex match: %s", stderr.String()))
+	}
+
+	return matched, nil
+
 }
 
 func fetch(name string, args fetchArgs) error {
