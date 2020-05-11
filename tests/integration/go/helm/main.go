@@ -9,7 +9,7 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		chart, err := helm.NewChart(ctx, "test", helm.ChartArgs{
-			Chart: pulumi.String("stable/nginx-ingress"),
+			Chart:   pulumi.String("stable/nginx-ingress"),
 			Version: pulumi.String("1.36.3"),
 		})
 		if err != nil {
