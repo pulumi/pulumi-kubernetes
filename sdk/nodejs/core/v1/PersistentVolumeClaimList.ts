@@ -43,7 +43,7 @@ export class PersistentVolumeClaimList extends pulumi.CustomResource {
     /**
      * A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      */
-    public readonly items!: pulumi.Output<outputs.core.v1.PersistentVolumeClaim[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.core.v1.PersistentVolumeClaim[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

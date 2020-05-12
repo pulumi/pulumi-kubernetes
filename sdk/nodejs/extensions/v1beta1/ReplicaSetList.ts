@@ -43,7 +43,7 @@ export class ReplicaSetList extends pulumi.CustomResource {
     /**
      * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
      */
-    public readonly items!: pulumi.Output<outputs.extensions.v1beta1.ReplicaSet[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.extensions.v1beta1.ReplicaSet[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

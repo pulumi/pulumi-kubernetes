@@ -43,7 +43,7 @@ export class ControllerRevision extends pulumi.CustomResource {
     /**
      * Data is the serialized representation of the state.
      */
-    public readonly data!: pulumi.Output<{[key: string]: any} | undefined>;
+    public readonly data!: pulumi.Output<any | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -55,7 +55,7 @@ export class ControllerRevision extends pulumi.CustomResource {
     /**
      * Revision indicates the revision of the state represented by Data.
      */
-    public readonly revision!: pulumi.Output<number | undefined>;
+    public readonly revision!: pulumi.Output<number>;
 
     /**
      * Create a ControllerRevision resource with the given unique name, arguments, and options.
@@ -98,7 +98,7 @@ export interface ControllerRevisionArgs {
     /**
      * Data is the serialized representation of the state.
      */
-    readonly data?: pulumi.Input<{[key: string]: any}>;
+    readonly data?: any;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

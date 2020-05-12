@@ -25,13 +25,13 @@ import (
 	"path"
 	"path/filepath"
 	"sort"
-	"strings"
 	"text/template"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
 	"github.com/pulumi/pulumi/pkg/v2/codegen"
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
+	nodejsgen "github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/tools"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
@@ -94,91 +94,120 @@ func main() {
 	}
 }
 
-type KubernetesResource nodejsgen.Resource
-func (kr *KubernetesResource) IsListKind() bool {
-	return strings.HasSuffix(kr.Name, "List")
-}
+//type KubernetesResource nodejsgen.Resource
+//
+//func (kr *KubernetesResource) IsListKind() bool {
+//	return strings.HasSuffix(kr.Name, "List")
+//}
 
 func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
 	pkg := genPulumiSchemaPackage(data)
 
-	languageResources := nodejsgen.LanguageResources(pkg)
-
-	// TODO: generate overlay files
-
-	nodejsPath, err := ioutil.ReadFile(filepath.Join(templateDir, "path.ts"))
+	resources, err := nodejsgen.LanguageResources("pulumigen", pkg)
 	if err != nil {
 		panic(err)
 	}
-	nodejsTests := `
-import * as assert from "assert";
-import * as path from "../path";
 
-describe("path.quoteWindowsPath", () => {
-    it("escapes Windows path with drive prefix correctly", () => {
-        const p = path.quoteWindowsPath("C:\\Users\\grace hopper\\AppData\\Local\\Temp");
-        assert.strictEqual(p, "C:\\Users\\grace hopper\\AppData\\Local\\Temp");
-    });
-    it("escapes Windows path with no drive prefix correctly", () => {
-        const p = path.quoteWindowsPath("\\Users\\grace hopper\\AppData\\Local\\Temp");
-        assert.strictEqual(p, "\\Users\\grace hopper\\AppData\\Local\\Temp");
-    });
-    it("escapes relative Windows path correctly", () => {
-        const p = path.quoteWindowsPath("Users\\grace hopper\\AppData\\Local\\Temp");
-        assert.strictEqual(p, "Users\\grace hopper\\AppData\\Local\\Temp");
-    });
-    it("escapes Windows repo URL correctly", () => {
-        const p = path.quoteWindowsPath("https\://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
-        assert.strictEqual(p, "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
-    });
-});
-`
-
-	type nodePackageInfo struct {
-		// Map from module -> package name
-		//
-		//    { "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1" }
-		//
-		ModuleToPackage map[string]string `json:"moduleToPackage,omitempty"`
-	}
-	// Decode node-specific info
-	var info nodePackageInfo
-	if node, ok := pkg.Language["nodejs"]; ok {
-		if err := json.Unmarshal(node, &info); err != nil {
-			panic(err)
+	templateResources := gen.TemplateResources{}
+	for _, resource := range resources {
+		tr := gen.TemplateResource{
+			Name:    resource.Name,
+			Package: resource.Package,
+			Token:   resource.Token,
 		}
+		for _, property := range resource.Properties {
+			tp := gen.TemplateProperty{
+				ConstValue: property.ConstValue,
+				Name:       property.Name,
+				Package:    property.Package,
+			}
+			tr.Properties = append(tr.Properties, tp)
+		}
+		templateResources.Resources = append(templateResources.Resources, tr)
 	}
+	sort.Slice(templateResources.Resources, func(i, j int) bool {
+		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
+	})
 
-	b, err := ioutil.ReadFile(filepath.Join(templateDir, "yaml.tmpl"))
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, nil)
 	if err != nil {
 		panic(err)
 	}
-	funcMap := template.FuncMap{
-		"toGVK": func(s string) string {
-			parts := strings.Split(s, ":")
-			contract.Assert(len(parts) == 3)
-			gvk := parts[1] + "/" + parts[2]
-			return strings.TrimPrefix(gvk, "core/")
-		},
-	}
-	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
-
-	// Execute the template for each recipient.
-	var buf bytes.Buffer
-	err = t.Execute(&buf, languageResources)
-	if err != nil {
-		panic(err)
-	}
-
-	overlays := map[string][]byte{
-		"path.ts":       nodejsPath,
-		"tests/path.ts": []byte(nodejsTests),
-		"yaml/yaml.ts":  buf.Bytes(),
-	}
-	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
-	if err != nil {
-		panic(err)
-	}
+	// TODO: getResourceProperty Output<> type is wrong
+	files["yaml/yaml.ts"] = mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources)
+	//
+	//	// TODO: generate overlay files
+	//
+	//	nodejsPath, err := ioutil.ReadFile(filepath.Join(templateDir, "path.ts"))
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	nodejsTests := `
+	//import * as assert from "assert";
+	//import * as path from "../path";
+	//
+	//describe("path.quoteWindowsPath", () => {
+	//    it("escapes Windows path with drive prefix correctly", () => {
+	//        const p = path.quoteWindowsPath("C:\\Users\\grace hopper\\AppData\\Local\\Temp");
+	//        assert.strictEqual(p, "C:\\Users\\grace hopper\\AppData\\Local\\Temp");
+	//    });
+	//    it("escapes Windows path with no drive prefix correctly", () => {
+	//        const p = path.quoteWindowsPath("\\Users\\grace hopper\\AppData\\Local\\Temp");
+	//        assert.strictEqual(p, "\\Users\\grace hopper\\AppData\\Local\\Temp");
+	//    });
+	//    it("escapes relative Windows path correctly", () => {
+	//        const p = path.quoteWindowsPath("Users\\grace hopper\\AppData\\Local\\Temp");
+	//        assert.strictEqual(p, "Users\\grace hopper\\AppData\\Local\\Temp");
+	//    });
+	//    it("escapes Windows repo URL correctly", () => {
+	//        const p = path.quoteWindowsPath("https\://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
+	//        assert.strictEqual(p, "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
+	//    });
+	//});
+	//`
+	//
+	//	type nodePackageInfo struct {
+	//		// Map from module -> package name
+	//		//
+	//		//    { "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1" }
+	//		//
+	//		ModuleToPackage map[string]string `json:"moduleToPackage,omitempty"`
+	//	}
+	//	// Decode node-specific info
+	//	var info nodePackageInfo
+	//	if node, ok := pkg.Language["nodejs"]; ok {
+	//		if err := json.Unmarshal(node, &info); err != nil {
+	//			panic(err)
+	//		}
+	//	}
+	//
+	//	b, err := ioutil.ReadFile(filepath.Join(templateDir, "yaml.tmpl"))
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	funcMap := template.FuncMap{
+	//		"toGVK": func(s string) string {
+	//			parts := strings.Split(s, ":")
+	//			contract.Assert(len(parts) == 3)
+	//			gvk := parts[1] + "/" + parts[2]
+	//			return strings.TrimPrefix(gvk, "core/")
+	//		},
+	//	}
+	//	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
+	//
+	//	// Execute the template for each recipient.
+	//	var buf bytes.Buffer
+	//	err = t.Execute(&buf, languageResources)
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//
+	//	overlays := map[string][]byte{
+	//		"path.ts":       nodejsPath,
+	//		"tests/path.ts": []byte(nodejsTests),
+	//		"yaml/yaml.ts":  buf.Bytes(),
+	//	}
+	//	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
 
@@ -492,18 +521,21 @@ func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
 	if err != nil {
 		panic(err)
 	}
-	formattedSource, err := format.Source(buf.Bytes())
+	return buf.Bytes()
+}
+
+func mustGoFmtBytes(bytes []byte) []byte {
+	formattedSource, err := format.Source(bytes)
 	if err != nil {
 		panic(err)
 	}
-
 	return formattedSource
 }
 
 func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	pkgSpec := gen.PulumiSchema(data)
 
-	pkg, err := schema.ImportSpec(pkgSpec)
+	pkg, err := schema.ImportSpec(pkgSpec, nil)
 	if err != nil {
 		panic(err)
 	}

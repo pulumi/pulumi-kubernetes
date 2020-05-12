@@ -48,7 +48,7 @@ export class LocalSubjectAccessReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
      */
-    public readonly spec!: pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewSpec>;
     /**
      * Status is filled in by the server and indicates whether the request is allowed or not
      */

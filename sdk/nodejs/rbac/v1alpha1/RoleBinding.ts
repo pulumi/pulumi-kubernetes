@@ -51,7 +51,7 @@ export class RoleBinding extends pulumi.CustomResource {
     /**
      * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
      */
-    public readonly roleRef!: pulumi.Output<outputs.rbac.v1alpha1.RoleRef | undefined>;
+    public readonly roleRef!: pulumi.Output<outputs.rbac.v1alpha1.RoleRef>;
     /**
      * Subjects holds references to the objects the role applies to.
      */

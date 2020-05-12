@@ -69,7 +69,7 @@ export class StorageClass extends pulumi.CustomResource {
     /**
      * Provisioner indicates the type of the provisioner.
      */
-    public readonly provisioner!: pulumi.Output<string | undefined>;
+    public readonly provisioner!: pulumi.Output<string>;
     /**
      * Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
      */

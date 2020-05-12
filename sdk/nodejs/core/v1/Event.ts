@@ -59,7 +59,7 @@ export class Event extends pulumi.CustomResource {
     /**
      * The object that this event is about.
      */
-    public readonly involvedObject!: pulumi.Output<outputs.core.v1.ObjectReference | undefined>;
+    public readonly involvedObject!: pulumi.Output<outputs.core.v1.ObjectReference>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -75,7 +75,7 @@ export class Event extends pulumi.CustomResource {
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
      */

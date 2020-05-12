@@ -45,7 +45,7 @@ export class TokenRequest extends pulumi.CustomResource {
      */
     public readonly kind!: pulumi.Output<string | undefined>;
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
-    public readonly spec!: pulumi.Output<outputs.authentication.v1.TokenRequestSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authentication.v1.TokenRequestSpec>;
     public /*out*/ readonly status!: pulumi.Output<outputs.authentication.v1.TokenRequestStatus | undefined>;
 
     /**

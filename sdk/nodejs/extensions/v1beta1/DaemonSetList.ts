@@ -43,7 +43,7 @@ export class DaemonSetList extends pulumi.CustomResource {
     /**
      * A list of daemon sets.
      */
-    public readonly items!: pulumi.Output<outputs.extensions.v1beta1.DaemonSet[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.extensions.v1beta1.DaemonSet[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

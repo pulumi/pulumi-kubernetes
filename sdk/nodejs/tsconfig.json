@@ -13,6 +13,7 @@
         "strict": true
     },
     "files": [
+        "Provider.ts",
         "admissionregistration/v1/MutatingWebhookConfiguration.ts",
         "admissionregistration/v1/MutatingWebhookConfigurationList.ts",
         "admissionregistration/v1/ValidatingWebhookConfiguration.ts",
@@ -184,14 +185,11 @@
         "node/v1beta1/RuntimeClass.ts",
         "node/v1beta1/RuntimeClassList.ts",
         "node/v1beta1/index.ts",
-        "path.ts",
         "policy/v1beta1/PodDisruptionBudget.ts",
         "policy/v1beta1/PodDisruptionBudgetList.ts",
         "policy/v1beta1/PodSecurityPolicy.ts",
         "policy/v1beta1/PodSecurityPolicyList.ts",
         "policy/v1beta1/index.ts",
-        "providers/Provider.ts",
-        "providers/index.ts",
         "rbac/v1/ClusterRole.ts",
         "rbac/v1/ClusterRoleBinding.ts",
         "rbac/v1/ClusterRoleBindingList.ts",
@@ -252,11 +250,9 @@
         "storage/v1beta1/VolumeAttachment.ts",
         "storage/v1beta1/VolumeAttachmentList.ts",
         "storage/v1beta1/index.ts",
-        "tests/path.ts",
         "types/index.ts",
         "types/input.ts",
         "types/output.ts",
-        "utilities.ts",
-        "yaml/yaml.ts"
+        "utilities.ts"
     ]
 }

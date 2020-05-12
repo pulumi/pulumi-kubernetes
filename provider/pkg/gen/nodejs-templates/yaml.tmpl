@@ -6,6 +6,7 @@ import * as fs from "fs";
 import * as glob from "glob";
 import fetch from "node-fetch";
 import * as k8s from "../index";
+import * as outputs from "../types/output";
 import { getVersion } from "../version";
 
 export interface ConfigGroupOpts {
@@ -213,9 +214,9 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
      * For example:
      *     getResource("apps/v1/Deployment", "nginx")
      */
-{{- range .}}
-    public getResource(groupVersionKind: "{{toGVK .Token}}", name: string): pulumi.Output<k8s.{{.Module}}>;
-    public getResource(groupVersionKind: "{{toGVK .Token}}", namespace: string, name: string): pulumi.Output<k8s.{{.Module}}>;
+{{- range .Resources}}
+    public getResource(groupVersionKind: "{{.GVK}}", name: string): pulumi.Output<k8s.{{.Package}}.{{.Name}}>;
+    public getResource(groupVersionKind: "{{.GVK}}", namespace: string, name: string): pulumi.Output<k8s.{{.Package}}.{{.Name}}>;
 {{- end}}
     public getResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.Output<pulumi.CustomResource> {
         return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
@@ -227,11 +228,11 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
      * For example:
      *     getResourceProperty("v1/Service", "nginx", "spec")
      */
-{{- range .}}
-{{- $token := toGVK .Token}}
+{{- range .Resources}}
+{{- $token := .GVK}}
 {{- range .Properties}}
-    public getResourceProperty(groupVersionKind: "{{$token}}", name: string, property: "{{.Name}}"): pulumi.Output<"{{.TypeString}}">;
-    public getResourceProperty(groupVersionKind: "{{$token}}", namespace: string, name: string, property: "{{.Name}}"): pulumi.Output<"{{.TypeString}}">;
+    public getResourceProperty(groupVersionKind: "{{$token}}", name: string, property: "{{.Name}}"): pulumi.Output<{{.PackageOrConst}}>;
+    public getResourceProperty(groupVersionKind: "{{$token}}", namespace: string, name: string, property: "{{.Name}}"): pulumi.Output<{{.PackageOrConst}}>;
 {{- end}}
 {{- end}}
     public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {
@@ -369,6 +370,7 @@ export class ConfigFile extends CollectionComponentResource {
 
     const kind = obj["kind"];
     const apiVersion = obj["apiVersion"];
+    const gvk = `${apiVersion}/${kind}`
 
     // Recursively traverse built-in Kubernetes list types into a single set of "naked" resource
     // definitions that we can register with the Pulumi engine.
@@ -383,13 +385,9 @@ export class ConfigFile extends CollectionComponentResource {
     // for resource definitions that can be managed by Kubernetes, and registers those with the
     // engine instead.
     if (
-           (apiVersion == "v1" && kind == "List")
-{{- range .}}
-    {{- if .IsListKind }}
-            {{.Name}}
-    {{- end }}
-{{- end }}
-           // TODO: handle list kinds
+{{range $idx, $v := .ListKinds -}} {{if $idx}}
+        || {{else}}           {{end}}(gvk === "{{$v.GVK}}")
+{{- end}}
     ) {
         const objs = [];
         const items = obj["items"] || [];
@@ -413,11 +411,11 @@ export class ConfigFile extends CollectionComponentResource {
         id = pulumi.concat(resourcePrefix, "-", id);
     }
     switch (`${apiVersion}:${kind}`) {
-{{- range .}}
-        case "{{toGVK .Token}}":
+{{- range .NonListKinds}}
+        case "{{.GVK}}":
             return [id.apply(id => ({
-                name: `{{toGVK .Token}}::${id}`,
-                resource: new k8s.{{.Module}}(id, obj, opts),
+                name: `{{.GVK}}::${id}`,
+                resource: new k8s.{{.Package}}.{{.Name}}(id, obj, opts),
             }))];
 {{- end}}
         default:

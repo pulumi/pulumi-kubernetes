@@ -63,7 +63,7 @@ export class Event extends pulumi.CustomResource {
     /**
      * Required. Time when this Event was first observed.
      */
-    public readonly eventTime!: pulumi.Output<string | undefined>;
+    public readonly eventTime!: pulumi.Output<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

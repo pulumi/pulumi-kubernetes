@@ -6,6 +6,7 @@ replace (
 	github.com/Azure/go-autorest => github.com/Azure/go-autorest v13.3.1+incompatible
 	github.com/pulumi/pulumi-kubernetes/provider/v2 => ../provider
 	github.com/pulumi/pulumi-kubernetes/sdk/v2 => ../sdk
+	github.com/pulumi/pulumi/pkg/v2 => /Users/levi/go/src/github.com/pulumi/pulumi/pkg
 )
 
 require (

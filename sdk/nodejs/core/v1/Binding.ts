@@ -51,7 +51,7 @@ export class Binding extends pulumi.CustomResource {
     /**
      * The target object that you want to bind to the standard object.
      */
-    public readonly target!: pulumi.Output<outputs.core.v1.ObjectReference | undefined>;
+    public readonly target!: pulumi.Output<outputs.core.v1.ObjectReference>;
 
     /**
      * Create a Binding resource with the given unique name, arguments, and options.

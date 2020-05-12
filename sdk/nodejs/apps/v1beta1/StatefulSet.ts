@@ -24,6 +24,8 @@ import * as utilities from "../../utilities";
  * If the StatefulSet has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value
  * by setting the 'customTimeouts' option on the resource.
+ *
+ * @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.
  */
 export class StatefulSet extends pulumi.CustomResource {
     /**

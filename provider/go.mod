@@ -25,6 +25,6 @@ require (
 
 replace github.com/Azure/go-autorest => github.com/Azure/go-autorest v13.3.1+incompatible
 
-replace github.com/pulumi/pulumi/pkg => /Users/levi/go/src/github.com/pulumi/pulumi/pkg
+replace github.com/pulumi/pulumi/pkg/v2 => /Users/levi/go/src/github.com/pulumi/pulumi/pkg
 
-replace github.com/pulumi/pulumi/sdk => /Users/levi/go/src/github.com/pulumi/pulumi/sdk
+replace github.com/pulumi/pulumi/sdk/v2 => /Users/levi/go/src/github.com/pulumi/pulumi/sdk

@@ -48,7 +48,7 @@ export class SelfSubjectAccessReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated.  user and groups must be empty
      */
-    public readonly spec!: pulumi.Output<outputs.authorization.v1beta1.SelfSubjectAccessReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authorization.v1beta1.SelfSubjectAccessReviewSpec>;
     /**
      * Status is filled in by the server and indicates whether the request is allowed or not
      */

@@ -48,7 +48,7 @@ export class TokenReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated
      */
-    public readonly spec!: pulumi.Output<outputs.authentication.v1beta1.TokenReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authentication.v1beta1.TokenReviewSpec>;
     /**
      * Status is filled in by the server and indicates whether the request can be authenticated.
      */

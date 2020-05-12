@@ -15,16 +15,31 @@
 package gen
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
+type TemplateProperty struct {
+	ConstValue string
+	Name       string
+	Package    string
+}
+
+func (tp TemplateProperty) PackageOrConst() string {
+	if len(tp.ConstValue) > 0 {
+		return fmt.Sprintf("%q", tp.ConstValue)
+	}
+	return tp.Package
+}
+
 type TemplateResource struct {
-	Alias   string
-	Name    string
-	Package string
-	Token   string
+	Alias      string
+	Name       string
+	Package    string
+	Properties []TemplateProperty
+	Token      string
 }
 
 func (tr TemplateResource) GVK() string {

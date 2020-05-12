@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./path";
+export * from "./Provider";
 
 // Export sub-modules:
 import * as admissionregistration from "./admissionregistration";
@@ -25,10 +25,9 @@ import * as meta from "./meta";
 import * as networking from "./networking";
 import * as node from "./node";
 import * as policy from "./policy";
-import * as providers from "./providers";
 import * as rbac from "./rbac";
 import * as scheduling from "./scheduling";
 import * as settings from "./settings";
 import * as storage from "./storage";
 import * as types from "./types";
-export {admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, flowcontrol, meta, networking, node, policy, providers, rbac, scheduling, settings, storage, types};
+export {admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, flowcontrol, meta, networking, node, policy, rbac, scheduling, settings, storage, types};

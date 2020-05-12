@@ -51,7 +51,7 @@ export class CSINode extends pulumi.CustomResource {
     /**
      * spec is the specification of CSINode
      */
-    public readonly spec!: pulumi.Output<outputs.storage.v1.CSINodeSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.storage.v1.CSINodeSpec>;
 
     /**
      * Create a CSINode resource with the given unique name, arguments, and options.

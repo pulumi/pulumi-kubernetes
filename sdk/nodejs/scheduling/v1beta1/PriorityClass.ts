@@ -63,7 +63,7 @@ export class PriorityClass extends pulumi.CustomResource {
     /**
      * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      */
-    public readonly value!: pulumi.Output<number | undefined>;
+    public readonly value!: pulumi.Output<number>;
 
     /**
      * Create a PriorityClass resource with the given unique name, arguments, and options.

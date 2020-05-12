@@ -48,7 +48,7 @@ export class SelfSubjectRulesReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated.
      */
-    public readonly spec!: pulumi.Output<outputs.authorization.v1.SelfSubjectRulesReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authorization.v1.SelfSubjectRulesReviewSpec>;
     /**
      * Status is filled in by the server and indicates the set of actions a user can perform.
      */

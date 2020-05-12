@@ -43,7 +43,7 @@ export class EndpointSliceList extends pulumi.CustomResource {
     /**
      * List of endpoint slices
      */
-    public readonly items!: pulumi.Output<outputs.discovery.v1beta1.EndpointSlice[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.discovery.v1beta1.EndpointSlice[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

@@ -48,7 +48,7 @@ export class SubjectAccessReview extends pulumi.CustomResource {
     /**
      * Spec holds information about the request being evaluated
      */
-    public readonly spec!: pulumi.Output<outputs.authorization.v1.SubjectAccessReviewSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.authorization.v1.SubjectAccessReviewSpec>;
     /**
      * Status is filled in by the server and indicates whether the request is allowed or not
      */

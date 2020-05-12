@@ -43,7 +43,7 @@ export class HorizontalPodAutoscalerList extends pulumi.CustomResource {
     /**
      * list of horizontal pod autoscaler objects.
      */
-    public readonly items!: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscaler[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscaler[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

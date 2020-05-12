@@ -48,7 +48,7 @@ export class CustomResourceDefinition extends pulumi.CustomResource {
     /**
      * spec describes how the user wants the resources to appear
      */
-    public readonly spec!: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinitionSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinitionSpec>;
     /**
      * status indicates the actual state of the CustomResourceDefinition
      */

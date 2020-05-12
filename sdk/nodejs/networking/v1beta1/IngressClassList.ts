@@ -43,7 +43,7 @@ export class IngressClassList extends pulumi.CustomResource {
     /**
      * Items is the list of IngressClasses.
      */
-    public readonly items!: pulumi.Output<outputs.networking.v1beta1.IngressClass[] | undefined>;
+    public readonly items!: pulumi.Output<outputs.networking.v1beta1.IngressClass[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
