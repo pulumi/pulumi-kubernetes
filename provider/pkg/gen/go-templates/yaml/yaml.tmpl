@@ -23,9 +23,9 @@ import (
 	"net/http"
 	"net/url"
 	"path/filepath"
-	"reflect"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes"
 {{- range .Imports}}
     {{.}}
 {{- end}}
@@ -132,12 +132,6 @@ type resourceTuple struct {
 	Resource pulumi.Resource
 }
 
-type UntypedArgs map[string]interface{}
-
-func (UntypedArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]interface{})(nil)).Elem()
-}
-
 func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transformations []Transformation,
 	resourcePrefix string, opts ...pulumi.ResourceOption,
 ) ([]resourceTuple, error) {
@@ -219,7 +213,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 {{- range .NonListKinds}}
     case "{{.GVK}}":
         var res {{.Alias}}.{{.Name}}
-		err := ctx.RegisterResource("{{.Token}}", metaName, UntypedArgs(obj), &res, opts...)
+		err := ctx.RegisterResource("{{.Token}}", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
