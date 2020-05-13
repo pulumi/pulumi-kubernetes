@@ -15,6 +15,6 @@
 import * as gke from "./gke";
 
 // Create Kubernetes clusters.
-const gkeCluster = new gke.GkeCluster("multicloud");
+const gkeCluster = new gke.GkeCluster("ci-cluster");
 export const k8sProvider = gkeCluster.provider;
 export const kubeconfig = gkeCluster.kubeconfig;
