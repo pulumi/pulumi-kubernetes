@@ -28,6 +28,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes"
 	admissionregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/admissionregistration/v1"
 	admissionregistrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/admissionregistration/v1beta1"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions"
 	apiextensionsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions/v1"
 	apiextensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions/v1beta1"
 	apiregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiregistration/v1"
@@ -1053,6 +1054,11 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	default:
-		return nil, errors.Errorf("unrecognized kind %s %+v", fullKind, obj)
+		var res apiextensions.CustomResource
+		err := ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind), metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	}
 }
