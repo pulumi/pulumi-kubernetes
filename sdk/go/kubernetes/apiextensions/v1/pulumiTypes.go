@@ -2068,6 +2068,8 @@ func (o ExternalDocumentationPtrOutput) Url() pulumi.StringPtrOutput {
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 type JSONSchemaProps struct {
+	Ref                  *string           `pulumi:"$ref"`
+	Schema               *string           `pulumi:"$schema"`
 	AdditionalItems      interface{}       `pulumi:"additionalItems"`
 	AdditionalProperties interface{}       `pulumi:"additionalProperties"`
 	AllOf                []JSONSchemaProps `pulumi:"allOf"`
@@ -2104,8 +2106,6 @@ type JSONSchemaProps struct {
 	PatternProperties map[string]JSONSchemaProps `pulumi:"patternProperties"`
 	Properties        map[string]JSONSchemaProps `pulumi:"properties"`
 	Required          []string                   `pulumi:"required"`
-	T_ref             *string                    `pulumi:"t_ref"`
-	T_schema          *string                    `pulumi:"t_schema"`
 	Title             *string                    `pulumi:"title"`
 	Type              *string                    `pulumi:"type"`
 	UniqueItems       *bool                      `pulumi:"uniqueItems"`
@@ -2170,6 +2170,8 @@ type JSONSchemaPropsInput interface {
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 type JSONSchemaPropsArgs struct {
+	Ref                  pulumi.StringPtrInput     `pulumi:"$ref"`
+	Schema               pulumi.StringPtrInput     `pulumi:"$schema"`
 	AdditionalItems      pulumi.Input              `pulumi:"additionalItems"`
 	AdditionalProperties pulumi.Input              `pulumi:"additionalProperties"`
 	AllOf                JSONSchemaPropsArrayInput `pulumi:"allOf"`
@@ -2206,8 +2208,6 @@ type JSONSchemaPropsArgs struct {
 	PatternProperties JSONSchemaPropsMapInput   `pulumi:"patternProperties"`
 	Properties        JSONSchemaPropsMapInput   `pulumi:"properties"`
 	Required          pulumi.StringArrayInput   `pulumi:"required"`
-	T_ref             pulumi.StringPtrInput     `pulumi:"t_ref"`
-	T_schema          pulumi.StringPtrInput     `pulumi:"t_schema"`
 	Title             pulumi.StringPtrInput     `pulumi:"title"`
 	Type              pulumi.StringPtrInput     `pulumi:"type"`
 	UniqueItems       pulumi.BoolPtrInput       `pulumi:"uniqueItems"`
@@ -2388,6 +2388,14 @@ func (o JSONSchemaPropsOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx context
 		return &v
 	}).(JSONSchemaPropsPtrOutput)
 }
+func (o JSONSchemaPropsOutput) Ref() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JSONSchemaProps) *string { return v.Ref }).(pulumi.StringPtrOutput)
+}
+
+func (o JSONSchemaPropsOutput) Schema() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JSONSchemaProps) *string { return v.Schema }).(pulumi.StringPtrOutput)
+}
+
 func (o JSONSchemaPropsOutput) AdditionalItems() pulumi.AnyOutput {
 	return o.ApplyT(func(v JSONSchemaProps) interface{} { return v.AdditionalItems }).(pulumi.AnyOutput)
 }
@@ -2520,14 +2528,6 @@ func (o JSONSchemaPropsOutput) Required() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v JSONSchemaProps) []string { return v.Required }).(pulumi.StringArrayOutput)
 }
 
-func (o JSONSchemaPropsOutput) T_ref() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JSONSchemaProps) *string { return v.T_ref }).(pulumi.StringPtrOutput)
-}
-
-func (o JSONSchemaPropsOutput) T_schema() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v JSONSchemaProps) *string { return v.T_schema }).(pulumi.StringPtrOutput)
-}
-
 func (o JSONSchemaPropsOutput) Title() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *string { return v.Title }).(pulumi.StringPtrOutput)
 }
@@ -2619,6 +2619,24 @@ func (o JSONSchemaPropsPtrOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx cont
 
 func (o JSONSchemaPropsPtrOutput) Elem() JSONSchemaPropsOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) JSONSchemaProps { return *v }).(JSONSchemaPropsOutput)
+}
+
+func (o JSONSchemaPropsPtrOutput) Ref() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *JSONSchemaProps) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Ref
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o JSONSchemaPropsPtrOutput) Schema() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *JSONSchemaProps) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Schema
+	}).(pulumi.StringPtrOutput)
 }
 
 func (o JSONSchemaPropsPtrOutput) AdditionalItems() pulumi.AnyOutput {
@@ -2911,24 +2929,6 @@ func (o JSONSchemaPropsPtrOutput) Required() pulumi.StringArrayOutput {
 		}
 		return v.Required
 	}).(pulumi.StringArrayOutput)
-}
-
-func (o JSONSchemaPropsPtrOutput) T_ref() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *JSONSchemaProps) *string {
-		if v == nil {
-			return nil
-		}
-		return v.T_ref
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o JSONSchemaPropsPtrOutput) T_schema() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *JSONSchemaProps) *string {
-		if v == nil {
-			return nil
-		}
-		return v.T_schema
-	}).(pulumi.StringPtrOutput)
 }
 
 func (o JSONSchemaPropsPtrOutput) Title() pulumi.StringPtrOutput {
