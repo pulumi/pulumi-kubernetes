@@ -26,11 +26,11 @@ export class GkeCluster extends pulumi.ComponentResource {
                 opts: pulumi.ComponentResourceOptions = {}) {
         super("pulumi-kubernetes:ci:GkeCluster", name, {}, opts);
 
-        // Find the latest engine version.
+        // Find the latest 1.15.x engine version.
         const engineVersion = gcp.container.getEngineVersions({
             location: config.gcpLocation,
             project: config.gcpProject,
-        }).then(v => v.latestMasterVersion);
+        }).then(v => v.validMasterVersions.filter(v => v.startsWith("1.15"))[0]);
 
         // Create the GKE cluster.
         const k8sCluster = new gcp.container.Cluster("ephemeral-ci-cluster", {
