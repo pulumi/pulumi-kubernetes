@@ -3,6 +3,7 @@ package main
 import (
 	"path/filepath"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
@@ -42,6 +43,14 @@ func main() {
 
 		hostIP := resources.GetResource("v1/Pod", "foo", "").(*corev1.Pod).Status.HostIP()
 		ctx.Export("hostIP", hostIP)
+
+		ct := resources.GetResource("stable.example.com/v1/CronTab", "my-new-cron-object", "")
+		cronSpec := ct.(*apiextensions.CustomResource).OtherFields.ApplyT(func(otherFields interface{}) string {
+			fields := otherFields.(map[string]interface{})
+			spec := fields["spec"].(map[string]interface{})
+			return spec["cronSpec"].(string)
+		})
+		ctx.Export("cronSpec", cronSpec)
 
 		return nil
 	})
