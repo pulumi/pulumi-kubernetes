@@ -33,6 +33,8 @@ import (
 // If the Deployment has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
 // by setting the 'customTimeouts' option on the resource.
+//
+// Deprecated: apps/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.
 type Deployment struct {
 	pulumi.CustomResourceState
 

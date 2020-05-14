@@ -11,6 +11,8 @@ import (
 )
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// Deprecated: extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.
 type DaemonSet struct {
 	pulumi.CustomResourceState
 

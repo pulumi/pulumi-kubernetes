@@ -11,6 +11,8 @@ import (
 )
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+//
+// Deprecated: extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters.
 type ReplicaSet struct {
 	pulumi.CustomResourceState
 
