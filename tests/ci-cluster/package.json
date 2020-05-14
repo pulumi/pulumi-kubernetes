@@ -1,12 +1,12 @@
 {
-    "name": "kubernetes-ts-multicloud",
+    "name": "kubernetes-ci-cluster",
     "devDependencies": {
         "@types/node": "latest"
     },
     "dependencies": {
-        "@pulumi/gcp": "latest",
-        "@pulumi/kubernetes": "latest",
-        "@pulumi/pulumi": "latest",
-        "@pulumi/random": "latest"
+        "@pulumi/gcp": "~3.4.0",
+        "@pulumi/kubernetes": "~2.1.1",
+        "@pulumi/pulumi": "~2.1.1",
+        "@pulumi/random": "~2.1.1"
     }
 }
