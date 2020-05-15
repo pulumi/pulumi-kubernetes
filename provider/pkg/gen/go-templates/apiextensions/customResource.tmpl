@@ -29,11 +29,7 @@ import (
 // CustomResource represents a resource definition we'd use to create an instance of a
 // Kubernetes CustomResourceDefinition (CRD). For example, the CoreOS Prometheus operator
 // exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to create a `ServiceMonitor`, we'd
-// pass a `CustomResourceArgs` containing the `ServiceMonitor` definition to
-// `apiextensions.CustomResource`.
-//
-// NOTE: This type is abstract. You need to inherit from it and define all the properties of
-// a specific custom resource in the derived class.
+// pass a `CustomResourceArgs` containing the `ServiceMonitor` definition to `apiextensions.CustomResource`.
 type CustomResource struct {
 	pulumi.CustomResourceState
 
@@ -54,7 +50,10 @@ func NewCustomResource(ctx *pulumi.Context,
 		args = &CustomResourceArgs{}
 	}
 
-	untyped := args.OtherFields
+	untyped := kubernetes.UntypedArgs{}
+	for k, v := range args.OtherFields {
+		untyped[k] = v
+	}
 	untyped["apiVersion"] = args.ApiVersion
 	untyped["kind"] = args.Kind
 	untyped["metadata"] = args.Metadata
@@ -122,7 +121,6 @@ type CustomResourceArgs struct {
 	// Standard object metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// Untyped map that holds any user-defined fields.
-	// TODO: do we need to support Inputs in the map?
 	OtherFields kubernetes.UntypedArgs
 }
 

@@ -23,9 +23,10 @@ import (
 func TestGo_Basic(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir: "basic",
-		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		},
+		// TODO: uncomment and delete go.mod/go.sum once apiextensions.CustomResource is available in a tagged release.
+		//Dependencies: []string{
+		//	"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+		//},
 		Quick: true,
 	})
 }
