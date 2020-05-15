@@ -4,6 +4,7 @@
 
 -   Support helm v3 `include-crds` argument. (https://github.com/pulumi/pulumi-kubernetes/pull/1102)
 -   Bump python requests version dependency. (https://github.com/pulumi/pulumi-kubernetes/pull/1121)
+-   Add apiextensions.CustomResource to Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1125)
 
 ## 2.1.1 (May 8, 2020)
 
