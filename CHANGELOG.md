@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.2.0 (May 15, 2020)
+
 ### Improvements
 
 -   Support helm v3 `include-crds` argument. (https://github.com/pulumi/pulumi-kubernetes/pull/1102)
