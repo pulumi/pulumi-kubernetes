@@ -92,11 +92,11 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 	}
 }
 
-// GroupVersion maps to the name of a Kubernetes resource GroupVersion.
-type GroupVersion string
+// groupVersion maps to the name of a Kubernetes resource GroupVersion.
+type groupVersion string
 
 const (
 {{- range .GroupVersions}}
-	{{.GVConstName}} GroupVersion = "{{.}}"
+	{{.GVConstName}} groupVersion = "{{.}}"
 {{- end}}
 )
