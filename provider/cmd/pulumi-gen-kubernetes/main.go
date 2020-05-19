@@ -375,17 +375,7 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
 	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
 
-	for filename, contents := range files {
-		path := filepath.Join(outdir, filename)
-
-		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
-			panic(err)
-		}
-		err := ioutil.WriteFile(path, contents, 0644)
-		if err != nil {
-			panic(err)
-		}
-	}
+	mustWriteFiles(outdir, files)
 }
 
 func mustLoadFile(path string) []byte {
@@ -445,12 +435,12 @@ func genK8sResourceTypes(pkg *schema.Package) {
 
 	files := map[string][]byte{}
 	files["provider/pkg/kinds/kinds.go"] = mustRenderTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
-	mustWriteFiles(files)
+	mustWriteFiles(BaseDir, files)
 }
 
-func mustWriteFiles(files map[string][]byte) {
+func mustWriteFiles(rootDir string, files map[string][]byte) {
 	for filename, contents := range files {
-		path := filepath.Join(BaseDir, filename)
+		path := filepath.Join(rootDir, filename)
 
 		if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
 			panic(err)
