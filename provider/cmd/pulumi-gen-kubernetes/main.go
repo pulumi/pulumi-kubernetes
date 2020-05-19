@@ -25,6 +25,7 @@ import (
 	"path"
 	"path/filepath"
 	"sort"
+	"strings"
 	"text/template"
 
 	"github.com/pkg/errors"
@@ -45,6 +46,12 @@ import (
 // newer specs on top of this spec so that these resources continue to be available in our SDKs.
 const Swagger117Url = "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.17.0/api/openapi-spec/swagger.json"
 const Swagger117FileName = "swagger-v1.17.0.json"
+
+// TemplateDir is the base directory holding code generator templates.
+var TemplateDir string
+
+// BaseDir is the path to the base pulumi-kubernetes directory.
+var BaseDir string
 
 func main() {
 	if len(os.Args) < 5 {
@@ -73,6 +80,9 @@ func main() {
 	data := mergedSwagger.(map[string]interface{})
 
 	templateDir := os.Args[3]
+	TemplateDir = filepath.Dir(os.Args[3])
+	// TODO: update the generator args to include this
+	BaseDir = "/Users/levi/go/src/github.com/pulumi/pulumi-kubernetes"
 	outdir := fmt.Sprintf("%s/%s", os.Args[4], language)
 
 	switch language {
@@ -386,7 +396,7 @@ func mustLoadFile(path string) []byte {
 	return b
 }
 
-func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
+func mustRenderTemplate(path string, resources interface{}) []byte {
 	b := mustLoadFile(path)
 	t := template.Must(template.New("resources").Parse(string(b)))
 
@@ -409,7 +419,47 @@ func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	if err != nil {
 		panic(err)
 	}
+	genK8sResourceTypes(pkg)
 	return pkg
+}
+
+func genK8sResourceTypes(pkg *schema.Package) {
+	groupVersions, kinds := codegen.NewStringSet(), codegen.NewStringSet()
+	for _, resource := range pkg.Resources {
+		parts := strings.Split(resource.Token, ":")
+		contract.Assert(len(parts) == 3)
+
+		groupVersion, kind := parts[1], parts[2]
+		if strings.HasSuffix(kind, "List") {
+			continue
+		}
+		groupVersions.Add(groupVersion)
+		kinds.Add(kind)
+	}
+
+	gvk := gen.GVK{Kinds: kinds.SortedValues()}
+	gvStrings := groupVersions.SortedValues()
+	for _, gvString := range gvStrings {
+		gvk.GroupVersions = append(gvk.GroupVersions, gen.GroupVersion(gvString))
+	}
+
+	files := map[string][]byte{}
+	files["provider/pkg/kinds/kinds.go"] = mustRenderTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
+	mustWriteFiles(files)
+}
+
+func mustWriteFiles(files map[string][]byte) {
+	for filename, contents := range files {
+		path := filepath.Join(BaseDir, filename)
+
+		if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+			panic(err)
+		}
+		err := ioutil.WriteFile(path, contents, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
 }
 
 func writePulumiSchema(data map[string]interface{}, outDir string) error {
