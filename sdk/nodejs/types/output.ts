@@ -17264,8 +17264,8 @@ export namespace extensions {
      * defined by a backend. An Ingress can be configured to give services externally-reachable
      * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
      * 
-     * @deprecated extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not
-     * supported by Kubernetes v1.20+ clusters.
+     * @deprecated extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and
+     * not supported by Kubernetes v1.20+ clusters.
      */
     export interface Ingress {
       /**
@@ -23673,7 +23673,7 @@ export namespace storage {
      * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
      * points to the corresponding node object.
      * 
-     * @deprecated storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.
+     * @deprecated storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode.
      */
     export interface CSINode {
       /**
