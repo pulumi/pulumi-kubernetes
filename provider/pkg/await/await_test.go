@@ -48,39 +48,39 @@ type mockResourceInterface struct{}
 var _ dynamic.ResourceInterface = (*mockResourceInterface)(nil)
 
 func (mri *mockResourceInterface) Create(
-	obj *unstructured.Unstructured, options metav1.CreateOptions, subresources ...string,
+	ctx context.Context, obj *unstructured.Unstructured, options metav1.CreateOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Create not implemented")
 }
 func (mri *mockResourceInterface) Update(
-	obj *unstructured.Unstructured, options metav1.UpdateOptions, subresources ...string,
+	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Update not implemented")
 }
 func (mri *mockResourceInterface) UpdateStatus(
-	obj *unstructured.Unstructured, options metav1.UpdateOptions) (*unstructured.Unstructured, error) {
+	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions) (*unstructured.Unstructured, error) {
 	panic("UpdateStatus not implemented")
 }
-func (mri *mockResourceInterface) Delete(name string, options *metav1.DeleteOptions, subresources ...string) error {
+func (mri *mockResourceInterface) Delete(ctx context.Context, name string, options metav1.DeleteOptions, subresources ...string) error {
 	panic("Delete not implemented")
 }
 func (mri *mockResourceInterface) DeleteCollection(
-	deleteOptions *metav1.DeleteOptions, listOptions metav1.ListOptions) error {
+	ctx context.Context, deleteOptions metav1.DeleteOptions, listOptions metav1.ListOptions) error {
 	panic("DeleteCollection not implemented")
 }
 func (mri *mockResourceInterface) Get(
-	name string, options metav1.GetOptions, subresources ...string,
+	ctx context.Context, name string, options metav1.GetOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	return &unstructured.Unstructured{Object: map[string]interface{}{}}, nil
 }
-func (mri *mockResourceInterface) List(opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+func (mri *mockResourceInterface) List(ctx context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
 	panic("List not implemented")
 }
-func (mri *mockResourceInterface) Watch(opts metav1.ListOptions) (watch.Interface, error) {
+func (mri *mockResourceInterface) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
 	panic("Watch not implemented")
 }
 func (mri *mockResourceInterface) Patch(
-	name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string,
+	ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Patch not implemented")
 }
