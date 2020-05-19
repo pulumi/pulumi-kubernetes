@@ -3,8 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 using Pulumi.Kubernetes.Yaml;
@@ -117,7 +119,7 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add("--include-crds");
                     }
 
-                    var yaml = Utilities.ExecuteCommand("helm", flags.ToArray(), new Dictionary<string, string>());
+                    var yaml = ExecuteCommand("helm", flags.ToArray(), new Dictionary<string, string>());
                     return ParseTemplate(
                         yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
                 }
@@ -150,7 +152,7 @@ namespace Pulumi.Kubernetes.Helm
             // Helm v3 returns a version like this:
             // v3.1.2+gd878d4d
             // --include-crds is available in helm v3.1+ so check for a regex matching that version
-            var version = Utilities.ExecuteCommand("helm", flags, env);
+            var version = ExecuteCommand("helm", flags, env);
             Regex r = new Regex(@"^v3\.[1-9]");
             return r.IsMatch(version);
         }
@@ -236,7 +238,7 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add("--verify");
             }
 
-            Utilities.ExecuteCommand("helm", flags.ToArray(), env);
+            ExecuteCommand("helm", flags.ToArray(), env);
         }
 
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
@@ -256,6 +258,115 @@ namespace Pulumi.Kubernetes.Helm
                     var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray() };
                     return Parser.Parse(args, opts);
                 });
+        }
+        
+        private static string ExecuteCommand(string command, string[] flags, IDictionary<string, string> env)
+        {
+            using var process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = command,
+                    Arguments = EscapeArguments(flags),
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                }
+            };
+
+            foreach (KeyValuePair<string, string> value in env)
+            {
+                process.StartInfo.EnvironmentVariables[value.Key] = value.Value;
+            }
+
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            if (process.ExitCode > 0)
+            {
+                string error = process.StandardError.ReadToEnd();
+                throw new Exception(error);
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Convert an argument array to an argument string for using with Process.StartInfo.Arguments.
+        /// </summary>
+        private static string EscapeArguments(params string[] args)
+            => string.Join(" ", args.Select(EscapeArguments));
+
+        /// <summary>
+        /// Convert an argument array to an argument string for using with Process.StartInfo.Arguments.
+        /// </summary>
+        private static string EscapeArguments(string argument)
+        {
+            var escapedArgument = new StringBuilder();
+            var backslashCount = 0;
+            var needsQuotes = false;
+
+            foreach (var character in argument)
+            {
+                switch (character)
+                {
+                    case '\\':
+                        // Backslashes are simply passed through, except when they need
+                        // to be escaped when followed by a \", e.g. the argument string
+                        // \", which would be encoded to \\\"
+                        backslashCount++;
+                        escapedArgument.Append('\\');
+                        break;
+
+                    case '\"':
+                        // Escape any preceding backslashes
+                        escapedArgument.Append(new string('\\', backslashCount));
+
+                        // Append an escaped double quote.
+                        escapedArgument.Append("\\\"");
+
+                        // Reset the backslash counter.
+                        backslashCount = 0;
+                        break;
+
+                    case ' ':
+                    case '\t':
+                        // White spaces are escaped by surrounding the entire string with
+                        // double quotes, which should be done at the end to prevent
+                        // multiple wrappings.
+                        needsQuotes = true;
+
+                        // Append the whitespace
+                        escapedArgument.Append(character);
+
+                        // Reset the backslash counter.
+                        backslashCount = 0;
+                        break;
+
+                    default:
+                        // Reset the backslash counter.
+                        backslashCount = 0;
+
+                        // Append the current character
+                        escapedArgument.Append(character);
+                        break;
+                }
+            }
+
+            // No need to wrap in quotes
+            if (!needsQuotes)
+            {
+                return escapedArgument.ToString();
+            }
+
+            // Prepend the "
+            escapedArgument.Insert(0, '"');
+
+            // Escape any preceding backslashes before appending the "
+            escapedArgument.Append(new string('\\', backslashCount));
+
+            // Append the final "
+            escapedArgument.Append('\"');
+
+            return escapedArgument.ToString();
         }
     }
 

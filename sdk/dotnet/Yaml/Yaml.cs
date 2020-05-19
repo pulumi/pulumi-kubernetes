@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text.Json;
 using GlobExpressions;
 
+#pragma warning disable CS0618
+
 namespace Pulumi.Kubernetes.Yaml
 {
     /// <summary>
