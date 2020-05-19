@@ -1,6 +1,7 @@
 package await
 
 import (
+	"context"
 	"fmt"
 	"reflect"
 	"strings"
@@ -150,7 +151,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	}
 
 	// Create Deployment watcher.
-	deploymentWatcher, err := deploymentClient.Watch(metav1.ListOptions{})
+	deploymentWatcher, err := deploymentClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "could not set up watch for Deployment object %q",
 			dia.config.currentInputs.GetName())
@@ -158,7 +159,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	defer deploymentWatcher.Stop()
 
 	// Create ReplicaSet watcher.
-	replicaSetWatcher, err := replicaSetClient.Watch(metav1.ListOptions{})
+	replicaSetWatcher, err := replicaSetClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for ReplicaSet objects associated with Deployment %q",
@@ -167,7 +168,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	defer replicaSetWatcher.Stop()
 
 	// Create Pod watcher.
-	podWatcher, err := podClient.Watch(metav1.ListOptions{})
+	podWatcher, err := podClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Pods objects associated with Deployment %q",
@@ -176,7 +177,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	defer podWatcher.Stop()
 
 	// Create PersistentVolumeClaims watcher.
-	pvcWatcher, err := pvcClient.Watch(metav1.ListOptions{})
+	pvcWatcher, err := pvcClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for PersistentVolumeClaims objects associated with Deployment %q",
@@ -200,7 +201,8 @@ func (dia *deploymentInitAwaiter) Read() error {
 	}
 
 	// Get live versions of Deployment, ReplicaSets, and Pods.
-	deployment, err := deploymentClient.Get(dia.config.currentInputs.GetName(),
+	deployment, err := deploymentClient.Get(context.TODO(),
+		dia.config.currentInputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -214,21 +216,21 @@ func (dia *deploymentInitAwaiter) Read() error {
 	// in a way that is useful to the user.
 	//
 
-	rsList, err := replicaSetClient.List(metav1.ListOptions{})
+	rsList, err := replicaSetClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving ReplicaSet list for Deployment %q: %v",
 			deployment.GetName(), err)
 		rsList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	podList, err := podClient.List(metav1.ListOptions{})
+	podList, err := podClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving Pod list for Deployment %q: %v",
 			deployment.GetName(), err)
 		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	pvcList, err := pvcClient.List(metav1.ListOptions{})
+	pvcList, err := pvcClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving PersistentVolumeClaims list for Deployment %q: %v",
 			deployment.GetName(), err)

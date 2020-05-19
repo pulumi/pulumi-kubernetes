@@ -15,6 +15,7 @@
 package clients
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strings"
@@ -206,7 +207,7 @@ func NewLogClient(clientConfig *rest.Config) (*LogClient, error) {
 func (lc *LogClient) Logs(namespace, name string) (io.ReadCloser, error) {
 	podLogOpts := corev1.PodLogOptions{Follow: true}
 	req := lc.clientset.CoreV1().Pods(namespace).GetLogs(name, &podLogOpts)
-	return req.Stream()
+	return req.Stream(context.TODO())
 }
 
 type NoNamespaceInfoErr struct {

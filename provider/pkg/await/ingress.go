@@ -1,6 +1,7 @@
 package await
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"reflect"
@@ -101,14 +102,14 @@ func (iia *ingressInitAwaiter) Await() error {
 	}
 
 	// Create ingress watcher.
-	ingressWatcher, err := ingressClient.Watch(metav1.ListOptions{})
+	ingressWatcher, err := ingressClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could not set up watch for Ingress object %q",
 			iia.config.currentInputs.GetName())
 	}
 	defer ingressWatcher.Stop()
 
-	endpointWatcher, err := endpointsClient.Watch(metav1.ListOptions{})
+	endpointWatcher, err := endpointsClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Endpoint objects associated with Ingress %q",
@@ -116,7 +117,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	}
 	defer endpointWatcher.Stop()
 
-	serviceWatcher, err := servicesClient.Watch(metav1.ListOptions{})
+	serviceWatcher, err := servicesClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Service objects associated with Ingress %q",
@@ -134,7 +135,7 @@ func (iia *ingressInitAwaiter) Read() error {
 	}
 
 	// Get live versions of Ingress.
-	ingress, err := ingressClient.Get(iia.config.currentInputs.GetName(), metav1.GetOptions{})
+	ingress, err := ingressClient.Get(context.TODO(), iia.config.currentInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the deployment as having been deleted.
@@ -142,13 +143,13 @@ func (iia *ingressInitAwaiter) Read() error {
 	}
 
 	// Get live version of Endpoints.
-	endpointList, err := endpointsClient.List(metav1.ListOptions{})
+	endpointList, err := endpointsClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	serviceList, err := servicesClient.List(metav1.ListOptions{})
+	serviceList, err := servicesClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
 		serviceList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
