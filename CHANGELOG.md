@@ -3,6 +3,7 @@
 ### Improvements
 
 -   Update deprecated/removed resource warnings. (https://github.com/pulumi/pulumi-kubernetes/pull/1135)
+-   Update to client-go 1.18. (https://github.com/pulumi/pulumi-kubernetes/pull/1136)
 
 ## 2.2.0 (May 15, 2020)
 
