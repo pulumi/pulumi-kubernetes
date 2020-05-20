@@ -43,7 +43,7 @@ build:: $(OPENAPI_FILE)
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
 	for LANGUAGE in "dotnet" "go" "nodejs" "python"; do \
-		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) provider/pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
+		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) $(CURDIR) || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \

@@ -62,3 +62,23 @@ func (tr TemplateResources) NonListKinds() []TemplateResource {
 	}
 	return resources
 }
+
+type GVK struct {
+	GroupVersions []GroupVersion
+	Kinds         []string
+}
+
+type GroupVersion string
+
+func (gv GroupVersion) GVConstName() string {
+	parts := strings.Split(string(gv), "/")
+	contract.Assert(len(parts) == 2)
+
+	group, version := parts[0], parts[1]
+	groupName := strings.Title(strings.SplitN(group, ".", 2)[0])
+	version = strings.Replace(version, "v", "V", -1)
+	version = strings.Replace(version, "alpha", "A", -1)
+	version = strings.Replace(version, "beta", "B", -1)
+
+	return groupName + version
+}
