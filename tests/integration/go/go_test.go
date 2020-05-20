@@ -38,7 +38,7 @@ func TestGo_YAML(t *testing.T) {
 		//Dependencies: []string{
 		//	"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		//},
-		Quick: true,
+		Quick:                true,
 		ExpectRefreshChanges: true,
 	})
 }
