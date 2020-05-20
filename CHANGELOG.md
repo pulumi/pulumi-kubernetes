@@ -2,6 +2,7 @@
 
 ### Improvements
 
+-   Update deprecated/removed resource warnings. (https://github.com/pulumi/pulumi-kubernetes/pull/1135)
 -   Update to client-go 1.18. (https://github.com/pulumi/pulumi-kubernetes/pull/1136)
 -   Don't replace Service on .spec.type change. (https://github.com/pulumi/pulumi-kubernetes/pull/1139)
 

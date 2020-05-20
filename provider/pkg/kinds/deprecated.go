@@ -38,18 +38,24 @@ import (
 // extensions/v1beta1/ReplicaSet / 1.14 / 1.16
 // apps/v1beta1/ReplicaSet / 1.14 / 1.16
 // apps/v1beta2/ReplicaSet / 1.14 / 1.16
-// https://git.k8s.io/kubernetes/CHANGELOG-1.14.md#deprecations
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.14.md#deprecations
 //
 // scheduling/v1alpha1/PriorityClass / 1.14 / 1.17
 // scheduling/v1beta1/PriorityClass / 1.14 / 1.17
-// https://git.k8s.io/kubernetes/CHANGELOG-1.14.md#deprecations
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.14.md#deprecations
 //
 // extensions/v1beta1/Ingress / 1.14 / 1.18
-// https://git.k8s.io/kubernetes/CHANGELOG-1.14.md#deprecations
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.14.md#deprecations
+//
+// admissionregistration/v1beta1/* / 1.16 / 1.19
+// apiextensions/v1beta1/CustomResourceDefinition / 1.16 / 1.19
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals
 //
 // rbac/v1alpha1/* / 1.17 / 1.20
 // rbac/v1beta1/* / 1.17 / 1.20
-// https://git.k8s.io/kubernetes/CHANGELOG-1.17.md#deprecations-and-removals
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals
+//
+// TODO: Keep updating this list on every release.
 
 func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
@@ -65,21 +71,22 @@ func DeprecatedAPIVersion(gvk schema.GroupVersionKind) bool {
 func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	var removedIn cluster.ServerVersion
 
-	switch gvk.GroupVersion() {
-	case schema.GroupVersion{Group: "extensions", Version: "v1beta1"},
-		schema.GroupVersion{Group: "apps", Version: "v1beta1"},
-		schema.GroupVersion{Group: "apps", Version: "v1beta2"}:
+	gv, k := groupVersion(gvk.GroupVersion().String()), Kind(gvk.Kind)
 
-		if gvk.Kind == "Ingress" {
+	switch gv {
+	case AdmissionregistrationV1B1:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 19}
+	case ApiextensionsV1B1:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 19}
+	case ExtensionsV1B1, AppsV1B1, AppsV1B2:
+		if k == Ingress {
 			removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
 		} else {
 			removedIn = cluster.ServerVersion{Major: 1, Minor: 16}
 		}
-	case schema.GroupVersion{Group: "rbac", Version: "v1beta1"},
-		schema.GroupVersion{Group: "rbac", Version: "v1alpha1"}:
+	case RbacV1A1, RbacV1B1:
 		removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
-	case schema.GroupVersion{Group: "scheduling", Version: "v1beta1"},
-		schema.GroupVersion{Group: "scheduling", Version: "v1alpha1"}:
+	case SchedulingV1A1, SchedulingV1B1:
 		removedIn = cluster.ServerVersion{Major: 1, Minor: 17}
 	default:
 		return nil
@@ -102,33 +109,36 @@ func RemovedAPIVersion(gvk schema.GroupVersionKind, version cluster.ServerVersio
 // SuggestedAPIVersion returns a string with the suggested apiVersion for a given GVK.
 // This is used to provide useful warning messages when a user creates a resource using a deprecated GVK.
 func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
-	switch gvk.GroupVersion() {
-	case schema.GroupVersion{Group: "apps", Version: "v1beta1"},
-		schema.GroupVersion{Group: "apps", Version: "v1beta2"}:
-		return "apps/v1/" + gvk.Kind
-	case schema.GroupVersion{Group: "extensions", Version: "v1beta1"}:
-		switch Kind(gvk.Kind) {
+	gv, k := groupVersion(gvk.GroupVersion().String()), Kind(gvk.Kind)
+
+	gvkFmt := `%s/%s`
+
+	switch gv {
+	case ApiextensionsV1B1:
+		return fmt.Sprintf(gvkFmt, ApiextensionsV1, k)
+	case AppsV1B1, AppsV1B2:
+		return fmt.Sprintf(gvkFmt, AppsV1, k)
+	case ExtensionsV1B1:
+		switch k {
 		case DaemonSet, Deployment, ReplicaSet:
-			return "apps/v1/" + gvk.Kind
+			return fmt.Sprintf(gvkFmt, AppsV1, k)
 		case Ingress:
-			return "networking/v1beta1/" + gvk.Kind
+			return fmt.Sprintf(gvkFmt, NetworkingV1B1, k)
 		case NetworkPolicy:
-			return "networking/v1/" + gvk.Kind
+			return fmt.Sprintf(gvkFmt, NetworkingV1, k)
 		case PodSecurityPolicy:
-			return "policy/v1beta1/" + gvk.Kind
+			return fmt.Sprintf(gvkFmt, PolicyV1B1, k)
 		default:
 			return gvkStr(gvk)
 		}
-	case schema.GroupVersion{Group: "rbac", Version: "v1beta1"},
-		schema.GroupVersion{Group: "rbac", Version: "v1alpha1"}:
-		return "rbac/v1/" + gvk.Kind
-	case schema.GroupVersion{Group: "scheduling", Version: "v1beta1"},
-		schema.GroupVersion{Group: "scheduling", Version: "v1alpha1"}:
-		return "scheduling/v1/" + gvk.Kind
-	case schema.GroupVersion{Group: "storage", Version: "v1beta1"}:
-		switch Kind(gvk.Kind) {
+	case RbacV1A1, RbacV1B1:
+		return fmt.Sprintf(gvkFmt, RbacV1, k)
+	case SchedulingV1A1, SchedulingV1B1:
+		return fmt.Sprintf(gvkFmt, SchedulingV1, k)
+	case StorageV1B1, "storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
+		switch k {
 		case CSINode:
-			return "storage/v1/" + gvk.Kind
+			return fmt.Sprintf(gvkFmt, StorageV1, k)
 		default:
 			return gvkStr(gvk)
 		}
@@ -144,6 +154,9 @@ func upstreamDocsLink(version cluster.ServerVersion) string {
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals"
 	case cluster.ServerVersion{Major: 1, Minor: 17}:
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals"
+	case cluster.ServerVersion{Major: 1, Minor: 19}:
+		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.19.md#deprecation-1"
+		// TODO: 1.20
 	default:
 		return ""
 	}

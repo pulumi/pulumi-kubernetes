@@ -8,7 +8,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Storage.V1Beta1
 {
     /// <summary>
-    /// DEPRECATED - storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.
+    /// DEPRECATED - storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode.
     /// 
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
