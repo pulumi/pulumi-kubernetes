@@ -39,6 +39,7 @@ func TestGo_YAML(t *testing.T) {
 		//	"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		//},
 		Quick: true,
+		ExpectRefreshChanges: true,
 	})
 }
 
