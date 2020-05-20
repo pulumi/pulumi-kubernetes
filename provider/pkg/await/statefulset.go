@@ -1,6 +1,7 @@
 package await
 
 import (
+	"context"
 	"fmt"
 	"reflect"
 	"time"
@@ -147,7 +148,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	}
 
 	// Create Deployment watcher.
-	statefulSetWatcher, err := statefulSetClient.Watch(metav1.ListOptions{})
+	statefulSetWatcher, err := statefulSetClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could not set up watch for StatefulSet object %q",
 			sia.config.currentInputs.GetName())
@@ -155,7 +156,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	defer statefulSetWatcher.Stop()
 
 	// Create Pod watcher.
-	podWatcher, err := podClient.Watch(metav1.ListOptions{})
+	podWatcher, err := podClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Pods objects associated with StatefulSet %q",
@@ -178,7 +179,8 @@ func (sia *statefulsetInitAwaiter) Read() error {
 	}
 
 	// Get live versions of StatefulSet and Pods.
-	statefulset, err := statefulSetClient.Get(sia.config.currentInputs.GetName(),
+	statefulset, err := statefulSetClient.Get(context.TODO(),
+		sia.config.currentInputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -192,7 +194,7 @@ func (sia *statefulsetInitAwaiter) Read() error {
 	// in a way that is useful to the user.
 	//
 
-	podList, err := podClient.List(metav1.ListOptions{})
+	podList, err := podClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving Pod list for StatefulSet %q: %v",
 			statefulset.GetName(), err)
