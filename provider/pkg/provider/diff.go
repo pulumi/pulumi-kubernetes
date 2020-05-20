@@ -158,7 +158,6 @@ var core = _versions{
 		},
 		"Service": properties{
 			".spec.clusterIP",
-			".spec.type",
 		},
 	},
 }
