@@ -16,7 +16,7 @@ import { getVersion } from "../../version";
      * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
      * points to the corresponding node object.
      * 
-     * @deprecated storage/v1beta1/CSINode is deprecated by storage/v1/CSINode.
+     * @deprecated storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode.
      */
     export class CSINode extends pulumi.CustomResource {
       /**

@@ -26,7 +26,7 @@ import (
 // time out and mark the resource update as Failed. You can override the default timeout value
 // by setting the 'customTimeouts' option on the resource.
 //
-// Deprecated: extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.
+// Deprecated: extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.
 type Ingress struct {
 	pulumi.CustomResourceState
 
