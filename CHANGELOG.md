@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Update to client-go 1.18. (https://github.com/pulumi/pulumi-kubernetes/pull/1136)
+
 ## 2.2.0 (May 15, 2020)
 
 ### Improvements
