@@ -36,8 +36,8 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "NetworkPolicy"}, true},
 		{GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "PodSecurityPolicy"}, true},
 		{GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "ReplicaSet"}, true},
-		{GroupVersionKind{Group: "rbac", Version: "v1alpha1", Kind: "ClusterRole"}, true},
-		{GroupVersionKind{Group: "rbac", Version: "v1beta1", Kind: "ClusterRole"}, true},
+		{GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1alpha1", Kind: "ClusterRole"}, true},
+		{GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1beta1", Kind: "ClusterRole"}, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
@@ -68,31 +68,31 @@ func TestSuggestedApiVersion(t *testing.T) {
 		},
 		{
 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Ingress"},
-			"networking/v1beta1/Ingress",
+			"networking.k8s.io/v1beta1/Ingress",
 		},
 		{
 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "NetworkPolicy"},
-			"networking/v1/NetworkPolicy",
+			"networking.k8s.io/v1/NetworkPolicy",
 		},
 		{
 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "PodSecurityPolicy"},
 			"policy/v1beta1/PodSecurityPolicy",
 		},
 		{
-			GroupVersionKind{Group: "rbac", Version: "v1alpha1", Kind: "ClusterRole"},
-			"rbac/v1/ClusterRole",
+			GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1alpha1", Kind: "ClusterRole"},
+			"rbac.authorization.k8s.io/v1/ClusterRole",
 		},
 		{
-			GroupVersionKind{Group: "rbac", Version: "v1beta1", Kind: "ClusterRole"},
-			"rbac/v1/ClusterRole",
+			GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1beta1", Kind: "ClusterRole"},
+			"rbac.authorization.k8s.io/v1/ClusterRole",
 		},
 		{
-			GroupVersionKind{Group: "scheduling", Version: "v1beta1", Kind: "PriorityClass"},
-			"scheduling/v1/PriorityClass",
+			GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "PriorityClass"},
+			"scheduling.k8s.io/v1/PriorityClass",
 		},
 		{
-			GroupVersionKind{Group: "scheduling", Version: "v1alpha1", Kind: "PriorityClass"},
-			"scheduling/v1/PriorityClass",
+			GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1alpha1", Kind: "PriorityClass"},
+			"scheduling.k8s.io/v1/PriorityClass",
 		},
 		// Current ApiVersions return the same version string.
 		{
@@ -124,17 +124,17 @@ func TestRemovedInVersion(t *testing.T) {
 		{"extensions/v1beta1:Ingress", args{
 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Ingress"},
 		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
-		{"rbac/v1beta1:ClusterRole", args{
-			GroupVersionKind{Group: "rbac", Version: "v1beta1", Kind: "ClusterRole"},
+		{"rbac.authorization.k8s.io/v1beta1:ClusterRole", args{
+			GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1beta1", Kind: "ClusterRole"},
 		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
-		{"rbac/v1alpha1:ClusterRole", args{
-			GroupVersionKind{Group: "rbac", Version: "v1alpha1", Kind: "ClusterRole"},
+		{"rbac.authorization.k8s.io/v1alpha1:ClusterRole", args{
+			GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1alpha1", Kind: "ClusterRole"},
 		}, &cluster.ServerVersion{Major: 1, Minor: 20}},
-		{"scheduling/v1beta1:PriorityClass", args{
-			GroupVersionKind{Group: "scheduling", Version: "v1beta1", Kind: "PriorityClass"},
+		{"scheduling.k8s.io/v1beta1:PriorityClass", args{
+			GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "PriorityClass"},
 		}, &cluster.ServerVersion{Major: 1, Minor: 17}},
-		{"scheduling/v1alpha1:PriorityClass", args{
-			GroupVersionKind{Group: "scheduling", Version: "v1alpha1", Kind: "PriorityClass"},
+		{"scheduling.k8s.io/v1alpha1:PriorityClass", args{
+			GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1alpha1", Kind: "PriorityClass"},
 		}, &cluster.ServerVersion{Major: 1, Minor: 17}},
 	}
 	for _, tt := range tests {
