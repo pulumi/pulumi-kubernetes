@@ -598,7 +598,7 @@ func (k *kubeProvider) StreamInvoke(
 			return err
 		}
 
-		list, err := cl.List(metav1.ListOptions{})
+		list, err := cl.List(context.TODO(), metav1.ListOptions{})
 		if err != nil {
 			return err
 		}
@@ -692,7 +692,7 @@ func (k *kubeProvider) StreamInvoke(
 			return err
 		}
 
-		watch, err := cl.Watch(metav1.ListOptions{})
+		watch, err := cl.Watch(context.TODO(), metav1.ListOptions{})
 		if err != nil {
 			return err
 		}
@@ -1959,7 +1959,7 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 
 	// Get the "live" version of the last submitted object. This is necessary because the server may
 	// have populated some fields automatically, updated status fields, and so on.
-	return rc.Get(obj.GetName(), metav1.GetOptions{})
+	return rc.Get(context.TODO(), obj.GetName(), metav1.GetOptions{})
 }
 
 func (k *kubeProvider) dryRunPatch(
@@ -1971,7 +1971,7 @@ func (k *kubeProvider) dryRunPatch(
 		return nil, nil, err
 	}
 
-	liveObject, err := client.Get(oldInputs.GetName(), metav1.GetOptions{})
+	liveObject, err := client.Get(context.TODO(), oldInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1988,14 +1988,14 @@ func (k *kubeProvider) dryRunPatch(
 
 	// If the new resource does not exist, we need to dry-run a Create rather than a Patch.
 	var newObject *unstructured.Unstructured
-	_, err = client.Get(newInputs.GetName(), metav1.GetOptions{})
+	_, err = client.Get(context.TODO(), newInputs.GetName(), metav1.GetOptions{})
 	switch {
 	case err == nil:
-		newObject, err = client.Patch(newInputs.GetName(), patchType, patch, metav1.PatchOptions{
+		newObject, err = client.Patch(context.TODO(), newInputs.GetName(), patchType, patch, metav1.PatchOptions{
 			DryRun: []string{metav1.DryRunAll},
 		})
 	case errors.IsNotFound(err):
-		newObject, err = client.Create(newInputs, metav1.CreateOptions{
+		newObject, err = client.Create(context.TODO(), newInputs, metav1.CreateOptions{
 			DryRun: []string{metav1.DryRunAll},
 		})
 	default:

@@ -15,6 +15,7 @@
 package await
 
 import (
+	"context"
 	"log"
 	"sort"
 
@@ -78,7 +79,7 @@ func getLastWarningsForObject(
 
 	fs := fields.Set(m).String()
 	logger.V(9).Infof("Looking up events via this selector: %q", fs)
-	out, err := clientForEvents.List(metav1.ListOptions{
+	out, err := clientForEvents.List(context.TODO(), metav1.ListOptions{
 		FieldSelector: fs,
 	})
 	if err != nil {

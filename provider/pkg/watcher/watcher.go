@@ -51,7 +51,7 @@ func ForObject(
 		ctx:     ctx,
 		objName: name,
 		pollFunc: func() (*unstructured.Unstructured, error) {
-			obj, err := clientForResource.Get(name, metav1.GetOptions{})
+			obj, err := clientForResource.Get(context.TODO(), name, metav1.GetOptions{})
 			if err != nil {
 				// Log the error.
 				logger.V(3).Infof("Received error polling for %q: %#v", name, err)
