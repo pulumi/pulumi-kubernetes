@@ -10312,8 +10312,8 @@ export namespace extensions {
         /**
          * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
          *
-     * @deprecated extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and
-     * not supported by Kubernetes v1.20+ clusters.
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
          * The following conditions are used to determine whether the resource creation has
          * succeeded or failed:
          *
@@ -13390,7 +13390,6 @@ export namespace storage {
 
         /**
          * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
-     * @deprecated storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode.
          */
         export interface CSINode {
             /**

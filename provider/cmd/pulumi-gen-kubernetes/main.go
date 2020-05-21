@@ -53,12 +53,23 @@ var TemplateDir string
 // BaseDir is the path to the base pulumi-kubernetes directory.
 var BaseDir string
 
+// Language is the SDK language.
+type Language string
+
+const (
+	DotNet Language = "dotnet"
+	Go     Language = "go"
+	NodeJS Language = "nodejs"
+	Python Language = "python"
+	Schema Language = "schema"
+)
+
 func main() {
 	if len(os.Args) < 4 {
 		log.Fatal("Usage: gen <language> <swagger-file> <root-pulumi-kubernetes-dir>")
 	}
 
-	language := os.Args[1]
+	language := Language(os.Args[1])
 
 	swagger, err := ioutil.ReadFile(os.Args[2])
 	if err != nil {
@@ -81,7 +92,7 @@ func main() {
 
 	BaseDir = os.Args[3]
 	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
-	outdir := path.Join(BaseDir, "sdk", language)
+	outdir := path.Join(BaseDir, "sdk", string(language))
 
 	// Generate schema
 	pkgSpec := gen.PulumiSchema(data)
@@ -93,19 +104,19 @@ func main() {
 	genK8sResourceTypes(pkg)
 
 	switch language {
-	case "nodejs":
+	case NodeJS:
 		templateDir := path.Join(TemplateDir, "nodejs-templates")
-		writeNodeJSClient(data, outdir, templateDir)
-	case "python":
+		writeNodeJSClient(pkg, outdir, templateDir)
+	case Python:
 		templateDir := path.Join(TemplateDir, "python-templates")
 		writePythonClient(data, outdir, templateDir)
-	case "dotnet":
+	case DotNet:
 		templateDir := path.Join(TemplateDir, "dotnet-templates")
 		writeDotnetClient(data, outdir, templateDir)
-	case "go":
+	case Go:
 		templateDir := path.Join(TemplateDir, "go-templates")
 		writeGoClient(pkg, outdir, templateDir)
-	case "schema":
+	case Schema:
 		mustWritePulumiSchema(pkgSpec, outdir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
@@ -118,9 +129,7 @@ func main() {
 //	return strings.HasSuffix(kr.Name, "List")
 //}
 
-func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
-	pkg := genPulumiSchemaPackage(data)
-
+func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := nodejsgen.LanguageResources("pulumigen", pkg)
 	if err != nil {
 		panic(err)
@@ -147,96 +156,21 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
+	//overlays := map[string][]byte{
+	//	"path.ts": mustLoadFile(filepath.Join(templateDir, "path.ts")),
+	//	"tests/path.ts": mustLoadFile(filepath.Join(templateDir, "tests", "path.ts")),
+	//	"yaml/yaml.ts": mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources),
+	//}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, nil)
 	if err != nil {
 		panic(err)
 	}
-	// TODO: getResourceProperty Output<> type is wrong
+	// TODO: helm, apiextensions.CustomResource
+	files["path.ts"] = mustLoadFile(filepath.Join(templateDir, "path.ts"))
+	files["tests/path.ts"] = mustLoadFile(filepath.Join(templateDir, "tests", "path.ts"))
 	files["yaml/yaml.ts"] = mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources)
-	//
-	//	// TODO: generate overlay files
-	//
-	//	nodejsPath, err := ioutil.ReadFile(filepath.Join(templateDir, "path.ts"))
-	//	if err != nil {
-	//		panic(err)
-	//	}
-	//	nodejsTests := `
-	//import * as assert from "assert";
-	//import * as path from "../path";
-	//
-	//describe("path.quoteWindowsPath", () => {
-	//    it("escapes Windows path with drive prefix correctly", () => {
-	//        const p = path.quoteWindowsPath("C:\\Users\\grace hopper\\AppData\\Local\\Temp");
-	//        assert.strictEqual(p, "C:\\Users\\grace hopper\\AppData\\Local\\Temp");
-	//    });
-	//    it("escapes Windows path with no drive prefix correctly", () => {
-	//        const p = path.quoteWindowsPath("\\Users\\grace hopper\\AppData\\Local\\Temp");
-	//        assert.strictEqual(p, "\\Users\\grace hopper\\AppData\\Local\\Temp");
-	//    });
-	//    it("escapes relative Windows path correctly", () => {
-	//        const p = path.quoteWindowsPath("Users\\grace hopper\\AppData\\Local\\Temp");
-	//        assert.strictEqual(p, "Users\\grace hopper\\AppData\\Local\\Temp");
-	//    });
-	//    it("escapes Windows repo URL correctly", () => {
-	//        const p = path.quoteWindowsPath("https\://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
-	//        assert.strictEqual(p, "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.2/charts/");
-	//    });
-	//});
-	//`
-	//
-	//	type nodePackageInfo struct {
-	//		// Map from module -> package name
-	//		//
-	//		//    { "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1" }
-	//		//
-	//		ModuleToPackage map[string]string `json:"moduleToPackage,omitempty"`
-	//	}
-	//	// Decode node-specific info
-	//	var info nodePackageInfo
-	//	if node, ok := pkg.Language["nodejs"]; ok {
-	//		if err := json.Unmarshal(node, &info); err != nil {
-	//			panic(err)
-	//		}
-	//	}
-	//
-	//	b, err := ioutil.ReadFile(filepath.Join(templateDir, "yaml.tmpl"))
-	//	if err != nil {
-	//		panic(err)
-	//	}
-	//	funcMap := template.FuncMap{
-	//		"toGVK": func(s string) string {
-	//			parts := strings.Split(s, ":")
-	//			contract.Assert(len(parts) == 3)
-	//			gvk := parts[1] + "/" + parts[2]
-	//			return strings.TrimPrefix(gvk, "core/")
-	//		},
-	//	}
-	//	t := template.Must(template.New("resources").Funcs(funcMap).Parse(string(b)))
-	//
-	//	// Execute the template for each recipient.
-	//	var buf bytes.Buffer
-	//	err = t.Execute(&buf, languageResources)
-	//	if err != nil {
-	//		panic(err)
-	//	}
-	//
-	//	overlays := map[string][]byte{
-	//		"path.ts":       nodejsPath,
-	//		"tests/path.ts": []byte(nodejsTests),
-	//		"yaml/yaml.ts":  buf.Bytes(),
-	//	}
-	//	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
-	for filename, contents := range files {
-		path := filepath.Join(outdir, filename)
 
-		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
-			panic(err)
-		}
-		err := ioutil.WriteFile(path, contents, 0644)
-		if err != nil {
-			panic(err)
-		}
-	}
+	mustWriteFiles(outdir, files)
 
 	//inputAPIts, ouputAPIts, indexts, yamlts, packagejson, groupsts, err := gen.NodeJSClient(
 	//	data, templateDir)
@@ -499,14 +433,14 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	files["kubernetes/types.go"] = mustRenderTemplate(filepath.Join(templateDir, "types.tmpl"), templateResources)
-	files["kubernetes/apiextensions/customResource.go"] = mustRenderTemplate(filepath.Join(templateDir, "apiextensions", "customResource.tmpl"), templateResources)
-	files["kubernetes/helm/v2/chart.go"] = mustRenderTemplate(filepath.Join(templateDir, "helm", "v2", "chart.tmpl"), templateResources)
-	files["kubernetes/helm/v2/types.go"] = mustRenderTemplate(filepath.Join(templateDir, "helm", "v2", "types.tmpl"), templateResources)
-	files["kubernetes/yaml/configFile.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
-	files["kubernetes/yaml/configGroup.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
-	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
-	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
+	files["kubernetes/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "types.tmpl"), templateResources)
+	files["kubernetes/apiextensions/customResource.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "apiextensions", "customResource.tmpl"), templateResources)
+	files["kubernetes/helm/v2/chart.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "chart.tmpl"), templateResources)
+	files["kubernetes/helm/v2/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "types.tmpl"), templateResources)
+	files["kubernetes/yaml/configFile.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
+	files["kubernetes/yaml/configGroup.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
+	files["kubernetes/yaml/transformation.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
+	files["kubernetes/yaml/yaml.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
 
 	mustWriteFiles(outdir, files)
 }
@@ -531,7 +465,9 @@ func mustRenderTemplate(path string, resources interface{}) []byte {
 	return buf.Bytes()
 }
 
-func mustGoFmtBytes(bytes []byte) []byte {
+func mustRenderGoTemplate(path string, resources interface{}) []byte {
+	bytes := mustRenderTemplate(path, resources)
+
 	formattedSource, err := format.Source(bytes)
 	if err != nil {
 		panic(err)
@@ -569,7 +505,7 @@ func genK8sResourceTypes(pkg *schema.Package) {
 	}
 
 	files := map[string][]byte{}
-	files["provider/pkg/kinds/kinds.go"] = mustRenderTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
+	files["provider/pkg/kinds/kinds.go"] = mustRenderGoTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
 	mustWriteFiles(BaseDir, files)
 }
 

@@ -23,8 +23,7 @@ import * as utilities from "../../utilities";
  * time out and mark the resource update as Failed. You can override the default timeout value
  * by setting the 'customTimeouts' option on the resource.
  *
-     * @deprecated extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and
-     * not supported by Kubernetes v1.20+ clusters.
+ * @deprecated extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.
  */
 export class Ingress extends pulumi.CustomResource {
     /**
@@ -36,7 +35,7 @@ export class Ingress extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Ingress {
-        pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
+        pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
         return new Ingress(name, undefined, { ...opts, id: id });
     }
 
@@ -82,9 +81,9 @@ export class Ingress extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    /** @deprecated extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters. */
+    /** @deprecated extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters. */
     constructor(name: string, args?: IngressArgs, opts?: pulumi.CustomResourceOptions) {
-        pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
+        pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
         let inputs: pulumi.Inputs = {};
         inputs["apiVersion"] = "extensions/v1beta1";
         inputs["kind"] = "Ingress";
