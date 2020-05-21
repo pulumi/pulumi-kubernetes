@@ -25,6 +25,7 @@ import (
 	"path"
 	"path/filepath"
 	"sort"
+	"strings"
 	"text/template"
 
 	"github.com/pkg/errors"
@@ -33,7 +34,6 @@ import (
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
 	nodejsgen "github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/tools"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
@@ -47,9 +47,15 @@ import (
 const Swagger117Url = "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.17.0/api/openapi-spec/swagger.json"
 const Swagger117FileName = "swagger-v1.17.0.json"
 
+// TemplateDir is the path to the base directory for code generator templates.
+var TemplateDir string
+
+// BaseDir is the path to the base pulumi-kubernetes directory.
+var BaseDir string
+
 func main() {
-	if len(os.Args) < 5 {
-		log.Fatal("Usage: gen <language> <swagger-file> <template-dir> <out-dir>")
+	if len(os.Args) < 4 {
+		log.Fatal("Usage: gen <language> <swagger-file> <root-pulumi-kubernetes-dir>")
 	}
 
 	language := os.Args[1]
@@ -73,22 +79,34 @@ func main() {
 	mergedSwagger := mergeSwaggerSpecs(legacySwagger, swagger)
 	data := mergedSwagger.(map[string]interface{})
 
-	templateDir := os.Args[3]
-	outdir := fmt.Sprintf("%s/%s", os.Args[4], language)
+	BaseDir = os.Args[3]
+	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
+	outdir := path.Join(BaseDir, "sdk", language)
+
+	// Generate schema
+	pkgSpec := gen.PulumiSchema(data)
+
+	// Generate package from schema
+	pkg := genPulumiSchemaPackage(pkgSpec)
+
+	// Generate provider code
+	genK8sResourceTypes(pkg)
 
 	switch language {
 	case "nodejs":
+		templateDir := path.Join(TemplateDir, "nodejs-templates")
 		writeNodeJSClient(data, outdir, templateDir)
 	case "python":
+		templateDir := path.Join(TemplateDir, "python-templates")
 		writePythonClient(data, outdir, templateDir)
 	case "dotnet":
+		templateDir := path.Join(TemplateDir, "dotnet-templates")
 		writeDotnetClient(data, outdir, templateDir)
 	case "go":
-		writeGoClient(data, outdir, templateDir)
+		templateDir := path.Join(TemplateDir, "go-templates")
+		writeGoClient(pkg, outdir, templateDir)
 	case "schema":
-		if err := writePulumiSchema(data, outdir); err != nil {
-			panic(err)
-		}
+		mustWritePulumiSchema(pkgSpec, outdir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -452,8 +470,7 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 }
 
-func writeGoClient(data map[string]interface{}, outdir string, templateDir string) {
-	pkg := genPulumiSchemaPackage(data)
+func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files, err := gogen.GeneratePackage("pulumigen", pkg)
 	if err != nil {
 		panic(err)
@@ -491,17 +508,7 @@ func writeGoClient(data map[string]interface{}, outdir string, templateDir strin
 	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
 	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
 
-	for filename, contents := range files {
-		path := filepath.Join(outdir, filename)
-
-		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
-			panic(err)
-		}
-		err := ioutil.WriteFile(path, contents, 0644)
-		if err != nil {
-			panic(err)
-		}
-	}
+	mustWriteFiles(outdir, files)
 }
 
 func mustLoadFile(path string) []byte {
@@ -512,7 +519,7 @@ func mustLoadFile(path string) []byte {
 	return b
 }
 
-func mustRenderTemplate(path string, resources gen.TemplateResources) []byte {
+func mustRenderTemplate(path string, resources interface{}) []byte {
 	b := mustLoadFile(path)
 	t := template.Must(template.New("resources").Parse(string(b)))
 
@@ -532,8 +539,7 @@ func mustGoFmtBytes(bytes []byte) []byte {
 	return formattedSource
 }
 
-func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
-	pkgSpec := gen.PulumiSchema(data)
+func genPulumiSchemaPackage(pkgSpec schema.PackageSpec) *schema.Package {
 
 	pkg, err := schema.ImportSpec(pkgSpec, nil)
 	if err != nil {
@@ -542,31 +548,54 @@ func genPulumiSchemaPackage(data map[string]interface{}) *schema.Package {
 	return pkg
 }
 
-func writePulumiSchema(data map[string]interface{}, outDir string) error {
-	pkgSpec := gen.PulumiSchema(data)
-	schema, err := json.MarshalIndent(pkgSpec, "", "    ")
-	if err != nil {
-		return errors.Wrap(err, "marshaling Pulumi schema")
+func genK8sResourceTypes(pkg *schema.Package) {
+	groupVersions, kinds := codegen.NewStringSet(), codegen.NewStringSet()
+	for _, resource := range pkg.Resources {
+		parts := strings.Split(resource.Token, ":")
+		contract.Assert(len(parts) == 3)
+
+		groupVersion, kind := parts[1], parts[2]
+		if strings.HasSuffix(kind, "List") {
+			continue
+		}
+		groupVersions.Add(groupVersion)
+		kinds.Add(kind)
 	}
 
-	if err := emitFile(outDir, "schema.json", schema); err != nil {
-		return errors.Wrap(err, "emitting schema.json")
+	gvk := gen.GVK{Kinds: kinds.SortedValues()}
+	gvStrings := groupVersions.SortedValues()
+	for _, gvString := range gvStrings {
+		gvk.GroupVersions = append(gvk.GroupVersions, gen.GroupVersion(gvString))
 	}
-	return nil
+
+	files := map[string][]byte{}
+	files["provider/pkg/kinds/kinds.go"] = mustRenderTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
+	mustWriteFiles(BaseDir, files)
 }
 
-func emitFile(outDir, relPath string, contents []byte) error {
-	p := path.Join(outDir, relPath)
-	if err := tools.EnsureDir(path.Dir(p)); err != nil {
-		return errors.Wrap(err, "creating directory")
+func mustWriteFiles(rootDir string, files map[string][]byte) {
+	for filename, contents := range files {
+		mustWriteFile(rootDir, filename, contents)
 	}
+}
 
-	f, err := os.Create(p)
+func mustWriteFile(rootDir, filename string, contents []byte) {
+	outPath := filepath.Join(rootDir, filename)
+
+	if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
+		panic(err)
+	}
+	err := ioutil.WriteFile(outPath, contents, 0644)
 	if err != nil {
-		return errors.Wrap(err, "creating file")
+		panic(err)
 	}
-	defer contract.IgnoreClose(f)
+}
 
-	_, err = f.Write(contents)
-	return err
+func mustWritePulumiSchema(pkgSpec schema.PackageSpec, outDir string) {
+	schemaJSON, err := json.MarshalIndent(pkgSpec, "", "    ")
+	if err != nil {
+		panic(errors.Wrap(err, "marshaling Pulumi schema"))
+	}
+
+	mustWriteFile(outDir, "schema.json", schemaJSON)
 }

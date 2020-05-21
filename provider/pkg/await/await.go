@@ -148,7 +148,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			outputs, err = client.Create(c.Inputs, metav1.CreateOptions{})
+			outputs, err = client.Create(context.TODO(), c.Inputs, metav1.CreateOptions{})
 			if err != nil {
 				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
 					"Retry #%d; creation failed: %v", i, err))
@@ -201,7 +201,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
 	// last-seen live object.
-	live, err := client.Get(c.Inputs.GetName(), metav1.GetOptions{})
+	live, err := client.Get(context.TODO(), c.Inputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return outputs, nil
 	}
@@ -216,7 +216,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	}
 
 	// Retrieve live version of the object from k8s.
-	outputs, err := client.Get(c.Name, metav1.GetOptions{})
+	outputs, err := client.Get(context.TODO(), c.Name, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	} else if c.Inputs == nil || len(c.Inputs.Object) == 0 {
@@ -255,7 +255,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
 	// last-seen live object.
-	live, err := client.Get(c.Name, metav1.GetOptions{})
+	live, err := client.Get(context.TODO(), c.Name, metav1.GetOptions{})
 	if err != nil {
 		return outputs, nil
 	}
@@ -324,7 +324,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 
 	// Get the "live" version of the last submitted object. This is necessary because the server may
 	// have populated some fields automatically, updated status fields, and so on.
-	liveOldObj, err := client.Get(c.Previous.GetName(), metav1.GetOptions{})
+	liveOldObj, err := client.Get(context.TODO(), c.Previous.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -338,7 +338,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// Issue patch request.
 	// NOTE: We can use the same client because if the `kind` changes, this will cause
 	// a replace (i.e., destroy and create).
-	currentOutputs, err := client.Patch(c.Inputs.GetName(), patchType, patch, metav1.PatchOptions{})
+	currentOutputs, err := client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, metav1.PatchOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -384,7 +384,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
 	// last-seen live object.
-	live, err := client.Get(c.Inputs.GetName(), metav1.GetOptions{})
+	live, err := client.Get(context.TODO(), c.Inputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return currentOutputs, nil
 	}
@@ -427,7 +427,7 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	// Set up a watcher for the selected resource.
-	watcher, err := client.Watch(listOpts)
+	watcher, err := client.Watch(context.TODO(), listOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -538,13 +538,13 @@ func deleteResource(name string, client dynamic.ResourceInterface, version clust
 	}
 
 	// Issue deletion request.
-	return client.Delete(name, &deleteOpts)
+	return client.Delete(context.TODO(), name, *&deleteOpts)
 }
 
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
 // Return the resource if it still exists.
 func checkIfResourceDeleted(name string, client dynamic.ResourceInterface) (bool, *unstructured.Unstructured) {
-	obj, err := client.Get(name, metav1.GetOptions{})
+	obj, err := client.Get(context.TODO(), name, metav1.GetOptions{})
 	if err != nil && is404(err) { // In case of 404, the resource no longer exists, so return success.
 		return true, nil
 	}

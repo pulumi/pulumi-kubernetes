@@ -15,6 +15,7 @@
 package await
 
 import (
+	"context"
 	"sync"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/await/states"
@@ -58,7 +59,7 @@ func NewPodAggregator(owner ResourceID, clientset *clients.DynamicClientSet) (*P
 		return nil, err
 	}
 
-	watcher, err := client.Watch(metav1.ListOptions{})
+	watcher, err := client.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +97,7 @@ func (pa *PodAggregator) run() {
 	}
 
 	// Get existing Pods.
-	pods, err := pa.client.List(metav1.ListOptions{})
+	pods, err := pa.client.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Failed to list existing Pods: %v", err)
 	} else {
@@ -134,7 +135,7 @@ func (pa *PodAggregator) Read() logging.Messages {
 	}
 
 	// Get existing Pods.
-	pods, err := pa.client.List(metav1.ListOptions{})
+	pods, err := pa.client.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Failed to list existing Pods: %v", err)
 	} else {

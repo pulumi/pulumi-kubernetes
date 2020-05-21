@@ -41,7 +41,7 @@ build:: $(OPENAPI_FILE)
 	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
 	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
 	for LANGUAGE in "nodejs"; do \
-		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) provider/pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
+		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) $(CURDIR) || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \

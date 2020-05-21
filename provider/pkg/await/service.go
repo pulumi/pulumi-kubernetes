@@ -1,6 +1,7 @@
 package await
 
 import (
+	"context"
 	"fmt"
 	"reflect"
 	"time"
@@ -125,7 +126,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	}
 
 	// Create service watcher.
-	serviceWatcher, err := serviceClient.Watch(metav1.ListOptions{})
+	serviceWatcher, err := serviceClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could set up watch for Service object '%s'",
 			sia.config.currentInputs.GetName())
@@ -133,7 +134,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	defer serviceWatcher.Stop()
 
 	// Create endpoint watcher.
-	endpointWatcher, err := endpointsClient.Watch(metav1.ListOptions{})
+	endpointWatcher, err := endpointsClient.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Endpoint objects associated with Service %q",
@@ -154,7 +155,8 @@ func (sia *serviceInitAwaiter) Read() error {
 	}
 
 	// Get live versions of Service and Endpoints.
-	service, err := serviceClient.Get(sia.config.currentOutputs.GetName(),
+	service, err := serviceClient.Get(context.TODO(),
+		sia.config.currentOutputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -169,7 +171,7 @@ func (sia *serviceInitAwaiter) Read() error {
 	//
 
 	// Create endpoint watcher.
-	endpointList, err := endpointsClient.List(metav1.ListOptions{})
+	endpointList, err := endpointsClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving ReplicaSet list for Service %q: %v",
 			service.GetName(), err)
