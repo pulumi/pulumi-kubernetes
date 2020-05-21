@@ -41,6 +41,7 @@ before_install:
     - source ${PULUMI_SCRIPTS}/ci/keep-failed-tests.sh
 install:
     - source ${PULUMI_SCRIPTS}/ci/install-common-toolchain.sh
+    - source ${PULUMI_SCRIPTS}/ci/configure-aws.sh
 
     # Manually install a more recent version of golangci-lint to avoid OOM problems in CI.
     # TODO(levi): Remove this once https://github.com/pulumi/scripts/issues/100 is complete
