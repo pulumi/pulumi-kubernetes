@@ -16,7 +16,7 @@ export class FlowSchema extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): FlowSchema {
         return new FlowSchema(name, undefined, { ...opts, id: id });
@@ -39,23 +39,23 @@ export class FlowSchema extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"flowcontrol.apiserver.k8s.io/v1alpha1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
+    public readonly kind!: pulumi.Output<"FlowSchema">;
     /**
      * `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.flowcontrol.v1alpha1.FlowSchemaSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.flowcontrol.v1alpha1.FlowSchemaSpec>;
     /**
      * `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.flowcontrol.v1alpha1.FlowSchemaStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.flowcontrol.v1alpha1.FlowSchemaStatus>;
 
     /**
      * Create a FlowSchema resource with the given unique name, arguments, and options.
@@ -89,11 +89,11 @@ export interface FlowSchemaArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1alpha1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"FlowSchema">;
     /**
      * `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */

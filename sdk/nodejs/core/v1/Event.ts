@@ -16,7 +16,7 @@ export class Event extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Event {
         return new Event(name, undefined, { ...opts, id: id });
@@ -39,23 +39,23 @@ export class Event extends pulumi.CustomResource {
     /**
      * What action was taken/failed regarding to the Regarding object.
      */
-    public readonly action!: pulumi.Output<string | undefined>;
+    public readonly action!: pulumi.Output<string>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"v1">;
     /**
      * The number of times this event has occurred.
      */
-    public readonly count!: pulumi.Output<number | undefined>;
+    public readonly count!: pulumi.Output<number>;
     /**
      * Time when this Event was first observed.
      */
-    public readonly eventTime!: pulumi.Output<string | undefined>;
+    public readonly eventTime!: pulumi.Output<string>;
     /**
      * The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
      */
-    public readonly firstTimestamp!: pulumi.Output<string | undefined>;
+    public readonly firstTimestamp!: pulumi.Output<string>;
     /**
      * The object that this event is about.
      */
@@ -63,15 +63,15 @@ export class Event extends pulumi.CustomResource {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
+    public readonly kind!: pulumi.Output<"Event">;
     /**
      * The time at which the most recent occurrence of this event was recorded.
      */
-    public readonly lastTimestamp!: pulumi.Output<string | undefined>;
+    public readonly lastTimestamp!: pulumi.Output<string>;
     /**
      * A human-readable description of the status of this operation.
      */
-    public readonly message!: pulumi.Output<string | undefined>;
+    public readonly message!: pulumi.Output<string>;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
@@ -79,31 +79,31 @@ export class Event extends pulumi.CustomResource {
     /**
      * This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
      */
-    public readonly reason!: pulumi.Output<string | undefined>;
+    public readonly reason!: pulumi.Output<string>;
     /**
      * Optional secondary object for more complex actions.
      */
-    public readonly related!: pulumi.Output<outputs.core.v1.ObjectReference | undefined>;
+    public readonly related!: pulumi.Output<outputs.core.v1.ObjectReference>;
     /**
      * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      */
-    public readonly reportingComponent!: pulumi.Output<string | undefined>;
+    public readonly reportingComponent!: pulumi.Output<string>;
     /**
      * ID of the controller instance, e.g. `kubelet-xyzf`.
      */
-    public readonly reportingInstance!: pulumi.Output<string | undefined>;
+    public readonly reportingInstance!: pulumi.Output<string>;
     /**
      * Data about the Event series this event represents or nil if it's a singleton Event.
      */
-    public readonly series!: pulumi.Output<outputs.core.v1.EventSeries | undefined>;
+    public readonly series!: pulumi.Output<outputs.core.v1.EventSeries>;
     /**
      * The component reporting this event. Should be a short machine understandable string.
      */
-    public readonly source!: pulumi.Output<outputs.core.v1.EventSource | undefined>;
+    public readonly source!: pulumi.Output<outputs.core.v1.EventSource>;
     /**
      * Type of this event (Normal, Warning), new types could be added in the future
      */
-    public readonly type!: pulumi.Output<string | undefined>;
+    public readonly type!: pulumi.Output<string>;
 
     /**
      * Create a Event resource with the given unique name, arguments, and options.
@@ -161,7 +161,7 @@ export interface EventArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"v1">;
     /**
      * The number of times this event has occurred.
      */
@@ -181,7 +181,7 @@ export interface EventArgs {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"Event">;
     /**
      * The time at which the most recent occurrence of this event was recorded.
      */

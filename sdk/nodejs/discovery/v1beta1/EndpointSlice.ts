@@ -16,7 +16,7 @@ export class EndpointSlice extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): EndpointSlice {
         return new EndpointSlice(name, undefined, { ...opts, id: id });
@@ -43,7 +43,7 @@ export class EndpointSlice extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"discovery.k8s.io/v1beta1">;
     /**
      * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
      */
@@ -51,15 +51,15 @@ export class EndpointSlice extends pulumi.CustomResource {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
+    public readonly kind!: pulumi.Output<"EndpointSlice">;
     /**
      * Standard object's metadata.
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
      */
-    public readonly ports!: pulumi.Output<outputs.discovery.v1beta1.EndpointPort[] | undefined>;
+    public readonly ports!: pulumi.Output<outputs.discovery.v1beta1.EndpointPort[]>;
 
     /**
      * Create a EndpointSlice resource with the given unique name, arguments, and options.
@@ -104,7 +104,7 @@ export interface EndpointSliceArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"discovery.k8s.io/v1beta1">;
     /**
      * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
      */
@@ -112,7 +112,7 @@ export interface EndpointSliceArgs {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"EndpointSlice">;
     /**
      * Standard object's metadata.
      */

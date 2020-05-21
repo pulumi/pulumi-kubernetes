@@ -165,7 +165,10 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	if err != nil {
 		panic(err)
 	}
-	// TODO: helm, apiextensions.CustomResource
+	// TODO: apiextensions.CustomResource
+	files["helm/index.ts"] = mustLoadFile(filepath.Join(templateDir, "helm", "index.ts"))
+	files["helm/v2/helm.ts"] = mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts"))
+	files["helm/v2/index.ts"] = mustLoadFile(filepath.Join(templateDir, "helm", "v2", "index.ts"))
 	files["path.ts"] = mustLoadFile(filepath.Join(templateDir, "path.ts"))
 	files["tests/path.ts"] = mustLoadFile(filepath.Join(templateDir, "tests", "path.ts"))
 	files["yaml/yaml.ts"] = mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources)

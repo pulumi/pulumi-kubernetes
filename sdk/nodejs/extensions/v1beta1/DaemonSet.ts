@@ -18,7 +18,7 @@ export class DaemonSet extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSet {
         pulumi.log.warn("DaemonSet is deprecated: extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.")
@@ -42,23 +42,23 @@ export class DaemonSet extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"extensions/v1beta1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
+    public readonly kind!: pulumi.Output<"DaemonSet">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.extensions.v1beta1.DaemonSetSpec | undefined>;
+    public readonly spec!: pulumi.Output<outputs.extensions.v1beta1.DaemonSetSpec>;
     /**
      * The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.extensions.v1beta1.DaemonSetStatus | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<outputs.extensions.v1beta1.DaemonSetStatus>;
 
     /**
      * Create a DaemonSet resource with the given unique name, arguments, and options.
@@ -96,11 +96,11 @@ export interface DaemonSetArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"extensions/v1beta1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"DaemonSet">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */

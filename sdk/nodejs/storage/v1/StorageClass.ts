@@ -18,7 +18,7 @@ export class StorageClass extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StorageClass {
         return new StorageClass(name, undefined, { ...opts, id: id });
@@ -41,31 +41,31 @@ export class StorageClass extends pulumi.CustomResource {
     /**
      * AllowVolumeExpansion shows whether the storage class allow volume expand
      */
-    public readonly allowVolumeExpansion!: pulumi.Output<boolean | undefined>;
+    public readonly allowVolumeExpansion!: pulumi.Output<boolean>;
     /**
      * Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      */
-    public readonly allowedTopologies!: pulumi.Output<outputs.core.v1.TopologySelectorTerm[] | undefined>;
+    public readonly allowedTopologies!: pulumi.Output<outputs.core.v1.TopologySelectorTerm[]>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"storage.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
+    public readonly kind!: pulumi.Output<"StorageClass">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
      */
-    public readonly mountOptions!: pulumi.Output<string[] | undefined>;
+    public readonly mountOptions!: pulumi.Output<string[]>;
     /**
      * Parameters holds the parameters for the provisioner that should create volumes of this storage class.
      */
-    public readonly parameters!: pulumi.Output<{[key: string]: string} | undefined>;
+    public readonly parameters!: pulumi.Output<{[key: string]: string}>;
     /**
      * Provisioner indicates the type of the provisioner.
      */
@@ -73,11 +73,11 @@ export class StorageClass extends pulumi.CustomResource {
     /**
      * Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
      */
-    public readonly reclaimPolicy!: pulumi.Output<string | undefined>;
+    public readonly reclaimPolicy!: pulumi.Output<string>;
     /**
      * VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      */
-    public readonly volumeBindingMode!: pulumi.Output<string | undefined>;
+    public readonly volumeBindingMode!: pulumi.Output<string>;
 
     /**
      * Create a StorageClass resource with the given unique name, arguments, and options.
@@ -129,11 +129,11 @@ export interface StorageClassArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"storage.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"StorageClass">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */

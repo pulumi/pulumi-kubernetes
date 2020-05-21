@@ -16,7 +16,7 @@ export class RoleBinding extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleBinding {
         return new RoleBinding(name, undefined, { ...opts, id: id });
@@ -39,15 +39,15 @@ export class RoleBinding extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"rbac.authorization.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
+    public readonly kind!: pulumi.Output<"RoleBinding">;
     /**
      * Standard object's metadata.
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
      */
@@ -55,7 +55,7 @@ export class RoleBinding extends pulumi.CustomResource {
     /**
      * Subjects holds references to the objects the role applies to.
      */
-    public readonly subjects!: pulumi.Output<outputs.rbac.v1.Subject[] | undefined>;
+    public readonly subjects!: pulumi.Output<outputs.rbac.v1.Subject[]>;
 
     /**
      * Create a RoleBinding resource with the given unique name, arguments, and options.
@@ -94,11 +94,11 @@ export interface RoleBindingArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"RoleBinding">;
     /**
      * Standard object's metadata.
      */

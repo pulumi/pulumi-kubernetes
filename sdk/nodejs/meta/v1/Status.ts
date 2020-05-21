@@ -16,7 +16,7 @@ export class Status extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Status {
         return new Status(name, undefined, { ...opts, id: id });
@@ -39,35 +39,35 @@ export class Status extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"meta/v1">;
     /**
      * Suggested HTTP return code for this status, 0 if not set.
      */
-    public readonly code!: pulumi.Output<number | undefined>;
+    public readonly code!: pulumi.Output<number>;
     /**
      * Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
      */
-    public readonly details!: pulumi.Output<outputs.meta.v1.StatusDetails | undefined>;
+    public readonly details!: pulumi.Output<outputs.meta.v1.StatusDetails>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
+    public readonly kind!: pulumi.Output<"Status">;
     /**
      * A human-readable description of the status of this operation.
      */
-    public readonly message!: pulumi.Output<string | undefined>;
+    public readonly message!: pulumi.Output<string>;
     /**
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ListMeta | undefined>;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ListMeta>;
     /**
      * A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
      */
-    public readonly reason!: pulumi.Output<string | undefined>;
+    public readonly reason!: pulumi.Output<string>;
     /**
      * Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<string | undefined>;
+    public /*out*/ readonly status!: pulumi.Output<string>;
 
     /**
      * Create a Status resource with the given unique name, arguments, and options.
@@ -104,7 +104,7 @@ export interface StatusArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"meta/v1">;
     /**
      * Suggested HTTP return code for this status, 0 if not set.
      */
@@ -116,7 +116,7 @@ export interface StatusArgs {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"Status">;
     /**
      * A human-readable description of the status of this operation.
      */

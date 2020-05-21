@@ -16,7 +16,7 @@ export class Event extends pulumi.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
-     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Event {
         return new Event(name, undefined, { ...opts, id: id });
@@ -39,27 +39,27 @@ export class Event extends pulumi.CustomResource {
     /**
      * What action was taken/failed regarding to the regarding object.
      */
-    public readonly action!: pulumi.Output<string | undefined>;
+    public readonly action!: pulumi.Output<string>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string | undefined>;
+    public readonly apiVersion!: pulumi.Output<"events.k8s.io/v1beta1">;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    public readonly deprecatedCount!: pulumi.Output<number | undefined>;
+    public readonly deprecatedCount!: pulumi.Output<number>;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    public readonly deprecatedFirstTimestamp!: pulumi.Output<string | undefined>;
+    public readonly deprecatedFirstTimestamp!: pulumi.Output<string>;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    public readonly deprecatedLastTimestamp!: pulumi.Output<string | undefined>;
+    public readonly deprecatedLastTimestamp!: pulumi.Output<string>;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    public readonly deprecatedSource!: pulumi.Output<outputs.core.v1.EventSource | undefined>;
+    public readonly deprecatedSource!: pulumi.Output<outputs.core.v1.EventSource>;
     /**
      * Required. Time when this Event was first observed.
      */
@@ -67,40 +67,40 @@ export class Event extends pulumi.CustomResource {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string | undefined>;
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta | undefined>;
+    public readonly kind!: pulumi.Output<"Event">;
+    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      */
-    public readonly note!: pulumi.Output<string | undefined>;
+    public readonly note!: pulumi.Output<string>;
     /**
      * Why the action was taken.
      */
-    public readonly reason!: pulumi.Output<string | undefined>;
+    public readonly reason!: pulumi.Output<string>;
     /**
      * The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      */
-    public readonly regarding!: pulumi.Output<outputs.core.v1.ObjectReference | undefined>;
+    public readonly regarding!: pulumi.Output<outputs.core.v1.ObjectReference>;
     /**
      * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      */
-    public readonly related!: pulumi.Output<outputs.core.v1.ObjectReference | undefined>;
+    public readonly related!: pulumi.Output<outputs.core.v1.ObjectReference>;
     /**
      * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      */
-    public readonly reportingController!: pulumi.Output<string | undefined>;
+    public readonly reportingController!: pulumi.Output<string>;
     /**
      * ID of the controller instance, e.g. `kubelet-xyzf`.
      */
-    public readonly reportingInstance!: pulumi.Output<string | undefined>;
+    public readonly reportingInstance!: pulumi.Output<string>;
     /**
      * Data about the Event series this event represents or nil if it's a singleton Event.
      */
-    public readonly series!: pulumi.Output<outputs.events.v1beta1.EventSeries | undefined>;
+    public readonly series!: pulumi.Output<outputs.events.v1beta1.EventSeries>;
     /**
      * Type of this event (Normal, Warning), new types could be added in the future.
      */
-    public readonly type!: pulumi.Output<string | undefined>;
+    public readonly type!: pulumi.Output<string>;
 
     /**
      * Create a Event resource with the given unique name, arguments, and options.
@@ -155,7 +155,7 @@ export interface EventArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<string>;
+    readonly apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
@@ -179,7 +179,7 @@ export interface EventArgs {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<string>;
+    readonly kind?: pulumi.Input<"Event">;
     readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
      * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
