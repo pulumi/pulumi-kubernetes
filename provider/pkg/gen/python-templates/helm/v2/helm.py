@@ -293,7 +293,7 @@ def _is_helm_v3() -> bool:
     """
     output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
     version: str = output.stdout
-    regexp = re.compile(r'^v3.\[1-9]')
+    regexp = re.compile(r'^v3\.[1-9]')
     return(bool(regexp.search(version)))
 
 
