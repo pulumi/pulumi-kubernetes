@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi-kubernetes/sdk/v2
 
-go 1.13
+go 1.14
 
 require (
 	github.com/google/go-cmp v0.4.0 // indirect
