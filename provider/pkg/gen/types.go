@@ -29,7 +29,7 @@ type TemplateProperty struct {
 
 func (tp TemplateProperty) PackageOrConst() string {
 	if len(tp.ConstValue) > 0 {
-		return fmt.Sprintf("%q", tp.ConstValue)
+		return fmt.Sprintf("%s", tp.ConstValue)
 	}
 	return tp.Package
 }
