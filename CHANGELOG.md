@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.2.1 (May 27, 2020)
+
 ### Improvements
 
 -   Update deprecated/removed resource warnings. (https://github.com/pulumi/pulumi-kubernetes/pull/1135)
