@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+## 2.2.2 (May 27, 2020)
+
+-   2.2.1 SDK release process failed, so pushing a new tag.
+
 ## 2.2.1 (May 27, 2020)
 
 ### Improvements
