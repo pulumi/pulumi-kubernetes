@@ -6,6 +6,10 @@
 -   Update to client-go 1.18. (https://github.com/pulumi/pulumi-kubernetes/pull/1136)
 -   Don't replace Service on .spec.type change. (https://github.com/pulumi/pulumi-kubernetes/pull/1139)
 
+### Bug Fixes
+
+-   Fix regex in python `include-crds` logic (https://github.com/pulumi/pulumi-kubernetes/pull/1145)
+
 ## 2.2.0 (May 15, 2020)
 
 ### Improvements
