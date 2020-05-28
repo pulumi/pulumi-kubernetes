@@ -24,6 +24,7 @@
         "admissionregistration/v1beta1/ValidatingWebhookConfiguration.ts",
         "admissionregistration/v1beta1/ValidatingWebhookConfigurationList.ts",
         "admissionregistration/v1beta1/index.ts",
+        "apiextensions/CustomResource.ts",
         "apiextensions/v1/CustomResourceDefinition.ts",
         "apiextensions/v1/CustomResourceDefinitionList.ts",
         "apiextensions/v1/index.ts",
@@ -168,6 +169,9 @@
         "flowcontrol/v1alpha1/PriorityLevelConfiguration.ts",
         "flowcontrol/v1alpha1/PriorityLevelConfigurationList.ts",
         "flowcontrol/v1alpha1/index.ts",
+        "helm/index.ts",
+        "helm/v2/helm.ts",
+        "helm/v2/index.ts",
         "index.ts",
         "meta/v1/Status.ts",
         "meta/v1/index.ts",
@@ -185,6 +189,7 @@
         "node/v1beta1/RuntimeClass.ts",
         "node/v1beta1/RuntimeClassList.ts",
         "node/v1beta1/index.ts",
+        "path.ts",
         "policy/v1beta1/PodDisruptionBudget.ts",
         "policy/v1beta1/PodDisruptionBudgetList.ts",
         "policy/v1beta1/PodSecurityPolicy.ts",
@@ -250,9 +255,11 @@
         "storage/v1beta1/VolumeAttachment.ts",
         "storage/v1beta1/VolumeAttachmentList.ts",
         "storage/v1beta1/index.ts",
+        "tests/path.ts",
         "types/index.ts",
         "types/input.ts",
         "types/output.ts",
-        "utilities.ts"
+        "utilities.ts",
+        "yaml/yaml.ts"
     ]
 }
