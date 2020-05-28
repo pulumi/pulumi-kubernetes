@@ -182,6 +182,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		}
 	}
 
+	// Compatibility mode for Kubernetes 2.0 SDK
+	const kubernetes20 = "kubernetes20"
+
 	pkg.Language["csharp"] = rawMessage(map[string]interface{}{
 		"packageReferences": map[string]string{
 			"Glob":                         "1.1.5",
@@ -212,6 +215,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			"@types/shell-quote": "^1.6.0",
 		},
 		"moduleToPackage": modToPkg,
+		"compatibility":   kubernetes20,
 	})
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
