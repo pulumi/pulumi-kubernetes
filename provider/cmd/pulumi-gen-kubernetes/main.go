@@ -123,12 +123,6 @@ func main() {
 	}
 }
 
-//type KubernetesResource nodejsgen.Resource
-//
-//func (kr *KubernetesResource) IsListKind() bool {
-//	return strings.HasSuffix(kr.Name, "List")
-//}
-
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := nodejsgen.LanguageResources("pulumigen", pkg)
 	if err != nil {
@@ -165,7 +159,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	if err != nil {
 		panic(err)
 	}
-	// TODO: apiextensions.CustomResource
+	files["apiextensions/CustomResource.ts"] = mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.ts"))
 	files["helm/index.ts"] = mustLoadFile(filepath.Join(templateDir, "helm", "index.ts"))
 	files["helm/v2/helm.ts"] = mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts"))
 	files["helm/v2/index.ts"] = mustLoadFile(filepath.Join(templateDir, "helm", "v2", "index.ts"))
@@ -174,12 +168,6 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	files["yaml/yaml.ts"] = mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources)
 
 	mustWriteFiles(outdir, files)
-
-	//err = CopyFile(
-	//	filepath.Join(templateDir, "CustomResource.ts"), filepath.Join(outdir, "apiextensions", "CustomResource.ts"))
-	//if err != nil {
-	//	panic(err)
-	//}
 }
 
 func writePythonClient(data map[string]interface{}, outdir, templateDir string) {
