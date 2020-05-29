@@ -153,12 +153,12 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 
 	overlays := map[string][]byte{
 		"apiextensions/CustomResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.ts")),
-		"helm/index.ts": mustLoadFile(filepath.Join(templateDir, "helm", "index.ts")),
-		"helm/v2/helm.ts": mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
-		"helm/v2/index.ts": mustLoadFile(filepath.Join(templateDir, "helm", "v2", "index.ts")),
-		"path.ts": mustLoadFile(filepath.Join(templateDir, "path.ts")),
-		"tests/path.ts": mustLoadFile(filepath.Join(templateDir, "tests", "path.ts")),
-		"yaml/yaml.ts": mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources),
+		"helm/index.ts":                   mustLoadFile(filepath.Join(templateDir, "helm", "index.ts")),
+		"helm/v2/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
+		"helm/v2/index.ts":                mustLoadFile(filepath.Join(templateDir, "helm", "v2", "index.ts")),
+		"path.ts":                         mustLoadFile(filepath.Join(templateDir, "path.ts")),
+		"tests/path.ts":                   mustLoadFile(filepath.Join(templateDir, "tests", "path.ts")),
+		"yaml/yaml.ts":                    mustRenderTemplate(filepath.Join(templateDir, "yaml.tmpl"), templateResources),
 	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
