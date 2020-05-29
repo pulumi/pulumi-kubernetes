@@ -17,7 +17,6 @@ package gen
 
 import (
 	"fmt"
-	"path/filepath"
 
 	"github.com/cbroglie/mustache"
 )
@@ -69,36 +68,11 @@ func pascalCase(name string) string {
 	return pascal
 }
 
-// --------------------------------------------------------------------------
-
-// Main interface.
-
-// --------------------------------------------------------------------------
-
-// DotnetClient will generate a Pulumi Kubernetes provider client SDK for .NET.
-func DotnetClient(
-	swagger map[string]interface{},
-	templateDir string,
-) (inputsts, outputsts, yaml string, groups map[string]string, err error) {
+// DotnetYaml will generate YAML support for the .NET SDK.
+func DotnetYaml(swagger map[string]interface{}, templateDir string) (yaml string, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, dotnetOpts())
-
-	inputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesInput.cs.mustache", templateDir),
-		map[string]interface{}{
-			"Groups": groupsSlice,
-		})
-	if err != nil {
-		return
-	}
-
-	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesOutput.cs.mustache", templateDir),
-		map[string]interface{}{
-			"Groups": groupsSlice,
-		})
-	if err != nil {
-		return
-	}
 
 	yaml, err = mustache.RenderFile(fmt.Sprintf("%s/Yaml.cs.mustache", templateDir),
 		map[string]interface{}{
@@ -108,42 +82,5 @@ func DotnetClient(
 		return
 	}
 
-	groups = make(map[string]string)
-	for _, group := range groupsSlice {
-		for _, version := range group.Versions() {
-			for _, kind := range version.TopLevelKinds() {
-				inputMap := map[string]interface{}{
-					"DefaultAPIVersion":       kind.DefaultAPIVersion(),
-					"DeprecationComment":      kind.DeprecationComment(),
-					"Comment":                 kind.Comment(),
-					"Group":                   group.Group(),
-					"Kind":                    kind.Kind(),
-					"Properties":              kind.Properties(),
-					"RequiredInputProperties": kind.RequiredInputProperties(),
-					"OptionalInputProperties": kind.OptionalInputProperties(),
-					"AdditionalSecretOutputs": kind.AdditionalSecretOutputs(),
-					"Aliases":                 kind.Aliases(),
-					"URNAPIVersion":           kind.URNAPIVersion(),
-					"Version":                 version.Version(),
-					"PulumiComment":           kind.PulumiComment(),
-				}
-				// Since mustache templates are logic-less, we have to add some extra variables
-				// to selectively disable code generation for empty lists.
-				additionalSecretOutputsPresent := len(kind.AdditionalSecretOutputs()) > 0
-				aliasesPresent := len(kind.Aliases()) > 0
-				inputMap["MergeOptsRequired"] = additionalSecretOutputsPresent || aliasesPresent
-				inputMap["AdditionalSecretOutputsPresent"] = additionalSecretOutputsPresent
-				inputMap["AliasesPresent"] = aliasesPresent
-
-				kindCs, err := mustache.RenderFile(
-					fmt.Sprintf("%s/kind.cs.mustache", templateDir), inputMap)
-				if err != nil {
-					return "", "", "", nil, err
-				}
-
-				groups[filepath.Join(group.Group(), version.Version(), kind.Kind()+".cs")] = kindCs
-			}
-		}
-	}
 	return
 }
