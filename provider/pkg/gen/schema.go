@@ -191,7 +191,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			"Pulumi":                       "2.*",
 			"System.Collections.Immutable": "1.6.0",
 		},
-		"namespaces": csharpNamespaces,
+		"namespaces":             csharpNamespaces,
+		"compatibility":          "kubernetes20",
+		"dictionaryConstructors": true,
 	})
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
 		"importBasePath":       goImportPath,

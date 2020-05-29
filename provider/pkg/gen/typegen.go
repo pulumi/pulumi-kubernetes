@@ -803,13 +803,13 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 		return pschema.TypeSpec{Type: "string"}
 	case intOrString:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Type: "number"},
+			{Type: "integer"},
 			{Type: "string"},
 		}}
 	case v1Fields, v1FieldsV1, rawExtension:
 		return pschema.TypeSpec{
 			Type: "object",
-			Ref:  "pulumi.json#/Any",
+			Ref:  "pulumi.json#/Json",
 		}
 	case v1Time, v1MicroTime:
 		return pschema.TypeSpec{Type: "string"}
@@ -828,7 +828,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaProps"},
 			{
 				Type:  "array",
-				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Json"},
 			},
 		}}
 	case v1JSONSchemaPropsOrArray:
@@ -836,7 +836,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaProps"},
 			{
 				Type:  "array",
-				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Json"},
 			},
 		}}
 	case v1beta1JSONSchemaPropsOrStringArray:
@@ -856,7 +856,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 			},
 		}}
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
-		return pschema.TypeSpec{Ref: "pulumi.json#/Any"}
+		return pschema.TypeSpec{Ref: "pulumi.json#/Json"}
 	}
 
 	gvk := gvkFromRef(ref)

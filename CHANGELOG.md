@@ -2,9 +2,29 @@
 
 ### Improvements
 
+- .NET SDK updated to align with other Pulumi .NET SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1132)
+    - Deprecated resources are now marked as `Obsolete`.
+    - Many classes are moved to new locations on disk while preserving the public namespaces and API.
+    - Several unused argument/output classes were removed without any impact on resources (e.g. `DeploymentRollbackArgs`).
+    - Fixed the type of some properties in `JSONSchemaPropsArgs` (there's no need to have 2nd-level inputs there):
+        - `InputList<InputJson>` -> `InputList<JsonElement>`
+        - `InputMap<Union<TArgs, InputList<string>>>` -> `InputMap<Union<TArgs, ImmutableArray<string>>>`
+
+## 2.2.2 (May 27, 2020)
+
+-   2.2.1 SDK release process failed, so pushing a new tag.
+
+## 2.2.1 (May 27, 2020)
+
+### Improvements
+
 -   Update deprecated/removed resource warnings. (https://github.com/pulumi/pulumi-kubernetes/pull/1135)
 -   Update to client-go 1.18. (https://github.com/pulumi/pulumi-kubernetes/pull/1136)
 -   Don't replace Service on .spec.type change. (https://github.com/pulumi/pulumi-kubernetes/pull/1139)
+
+### Bug Fixes
+
+-   Fix regex in python `include-crds` logic (https://github.com/pulumi/pulumi-kubernetes/pull/1145)
 
 ## 2.2.0 (May 15, 2020)
 

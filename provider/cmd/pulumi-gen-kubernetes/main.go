@@ -31,6 +31,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
 	"github.com/pulumi/pulumi/pkg/v2/codegen"
+	dotnetgen "github.com/pulumi/pulumi/pkg/v2/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
 	nodejsgen "github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
@@ -112,7 +113,7 @@ func main() {
 		writePythonClient(data, outdir, templateDir)
 	case DotNet:
 		templateDir := path.Join(TemplateDir, "dotnet-templates")
-		writeDotnetClient(data, outdir, templateDir)
+		writeDotnetClient(pkg, data, outdir, templateDir)
 	case Go:
 		templateDir := path.Join(TemplateDir, "go-templates")
 		writeGoClient(pkg, outdir, templateDir)
@@ -233,73 +234,29 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 }
 
-func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) {
-
-	inputAPIcs, ouputAPIcs, yamlcs, kindsCs, err := gen.DotnetClient(data, templateDir)
+func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir, templateDir string) {
+	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, nil)
 	if err != nil {
 		panic(err)
 	}
+	for filename, contents := range files {
+		path := filepath.Join(outdir, filename)
 
-	err = os.MkdirAll(outdir, 0700)
-	if err != nil {
-		panic(err)
+		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+			panic(err)
+		}
+		err := ioutil.WriteFile(path, contents, 0644)
+		if err != nil {
+			panic(err)
+		}
 	}
 
-	typesDir := fmt.Sprintf("%s/Types", outdir)
-	err = os.MkdirAll(typesDir, 0700)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/Input.cs", typesDir), []byte(inputAPIcs), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/Output.cs", typesDir), []byte(ouputAPIcs), 0777)
+	yamlcs, err := gen.DotnetYaml(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
 
 	err = ioutil.WriteFile(fmt.Sprintf("%s/Yaml/Yaml.cs", outdir), []byte(yamlcs), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	for path, contents := range kindsCs {
-		filename := filepath.Join(outdir, path)
-		err := os.MkdirAll(filepath.Dir(filename), 0700)
-		if err != nil {
-			panic(err)
-		}
-		err = ioutil.WriteFile(filename, []byte(contents), 0777)
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyFile(filepath.Join(templateDir, "Utilities.cs"), filepath.Join(outdir, "Utilities.cs"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyFile(filepath.Join(templateDir, "Provider.cs"), filepath.Join(outdir, "Provider.cs"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyFile(filepath.Join(templateDir, "logo.png"), filepath.Join(outdir, "logo.png"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyFile(
-		filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(outdir, "Pulumi.Kubernetes.csproj"))
 	if err != nil {
 		panic(err)
 	}
