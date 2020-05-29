@@ -245,8 +245,8 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
 {{- range .Resources}}
 {{- $token := .GVK}}
 {{- range .Properties}}
-    public getResourceProperty(groupVersionKind: "{{$token}}", name: string, property: "{{.Name}}"): pulumi.Output<{{.PackageOrConst}}>;
-    public getResourceProperty(groupVersionKind: "{{$token}}", namespace: string, name: string, property: "{{.Name}}"): pulumi.Output<{{.PackageOrConst}}>;
+    public getResourceProperty(groupVersionKind: "{{$token}}", name: string, property: "{{.Name}}"): pulumi.Output<{{.Type}}>;
+    public getResourceProperty(groupVersionKind: "{{$token}}", namespace: string, name: string, property: "{{.Name}}"): pulumi.Output<{{.Type}}>;
 {{- end}}
 {{- end}}
     public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {

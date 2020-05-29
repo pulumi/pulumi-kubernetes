@@ -273,8 +273,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		panic(err)
 	}
 
-	templateResources := gen.TemplateResources{}
-	imports := codegen.StringSet{}
+	templateResources := gen.GoTemplateResources{}
 	for _, resource := range resources {
 		r := gen.TemplateResource{
 			Alias:   resource.Alias,
@@ -283,10 +282,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 			Token:   resource.Token,
 		}
 		templateResources.Resources = append(templateResources.Resources, r)
-		importPath := fmt.Sprintf(`%s "%s"`, resource.Alias, resource.Package)
-		imports.Add(importPath)
 	}
-	templateResources.Imports = imports.SortedValues()
 	sort.Slice(templateResources.Resources, func(i, j int) bool {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
