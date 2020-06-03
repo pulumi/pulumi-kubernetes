@@ -125,13 +125,16 @@ func main() {
 }
 
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
-	resources, err := nodejsgen.LanguageResources("pulumigen", pkg)
+	resources, err := nodejsgen.LanguageResources(pkg)
 	if err != nil {
 		panic(err)
 	}
 
 	templateResources := gen.TemplateResources{}
 	for _, resource := range resources {
+		if resource.Package == "" {
+			continue
+		}
 		tr := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,

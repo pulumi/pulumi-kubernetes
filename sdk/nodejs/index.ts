@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./Provider";
 export * from "./path";
+export * from "./provider";
 
 // Export sub-modules:
 import * as admissionregistration from "./admissionregistration";

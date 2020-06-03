@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./RuntimeClass";
-export * from "./RuntimeClassList";
+export * from "./runtimeClass";
+export * from "./runtimeClassList";

@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./VolumeAttachment";
-export * from "./VolumeAttachmentList";
+export * from "./volumeAttachment";
+export * from "./volumeAttachmentList";

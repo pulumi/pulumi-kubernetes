@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./CustomResourceDefinition";
-export * from "./CustomResourceDefinitionList";
+export * from "./customResourceDefinition";
+export * from "./customResourceDefinitionList";
