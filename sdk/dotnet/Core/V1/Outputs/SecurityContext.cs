@@ -50,6 +50,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SELinuxOptions SeLinuxOptions;
         /// <summary>
+        /// The seccomp options to use by this container. If seccomp options are provided at both the pod &amp; container level, the container options override the pod options.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SeccompProfile SeccompProfile;
+        /// <summary>
         /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.WindowsSecurityContextOptions WindowsOptions;
@@ -74,6 +78,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SELinuxOptions seLinuxOptions,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.SeccompProfile seccompProfile,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.WindowsSecurityContextOptions windowsOptions)
         {
             AllowPrivilegeEscalation = allowPrivilegeEscalation;
@@ -85,6 +91,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             RunAsNonRoot = runAsNonRoot;
             RunAsUser = runAsUser;
             SeLinuxOptions = seLinuxOptions;
+            SeccompProfile = seccompProfile;
             WindowsOptions = windowsOptions;
         }
     }

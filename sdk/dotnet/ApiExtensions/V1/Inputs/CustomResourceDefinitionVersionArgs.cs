@@ -28,6 +28,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         }
 
         /// <summary>
+        /// deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+        /// </summary>
+        [Input("deprecated")]
+        public Input<bool>? Deprecated { get; set; }
+
+        /// <summary>
+        /// deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+        /// </summary>
+        [Input("deprecationWarning")]
+        public Input<string>? DeprecationWarning { get; set; }
+
+        /// <summary>
         /// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/&lt;group&gt;/&lt;version&gt;/...` if `served` is true.
         /// </summary>
         [Input("name", required: true)]

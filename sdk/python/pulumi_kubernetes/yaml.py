@@ -865,6 +865,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"batch/v2alpha1/CronJobList:{x}",
                        CronJobList(f"{x}", opts, **obj)))]
+    if gvk == "certificates.k8s.io/v1/CertificateSigningRequest":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.certificates.v1 import CertificateSigningRequest
+        return [identifier.apply(
+            lambda x: (f"certificates.k8s.io/v1/CertificateSigningRequest:{x}",
+                       CertificateSigningRequest(f"{x}", opts, **obj)))]
+    if gvk == "certificates.k8s.io/v1/CertificateSigningRequestList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.certificates.v1 import CertificateSigningRequestList
+        return [identifier.apply(
+            lambda x: (f"certificates.k8s.io/v1/CertificateSigningRequestList:{x}",
+                       CertificateSigningRequestList(f"{x}", opts, **obj)))]
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequest":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.certificates.v1beta1 import CertificateSigningRequest
@@ -1099,6 +1111,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"discovery.k8s.io/v1beta1/EndpointSliceList:{x}",
                        EndpointSliceList(f"{x}", opts, **obj)))]
+    if gvk == "events.k8s.io/v1/Event":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.events.v1 import Event
+        return [identifier.apply(
+            lambda x: (f"events.k8s.io/v1/Event:{x}",
+                       Event(f"{x}", opts, **obj)))]
+    if gvk == "events.k8s.io/v1/EventList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.events.v1 import EventList
+        return [identifier.apply(
+            lambda x: (f"events.k8s.io/v1/EventList:{x}",
+                       EventList(f"{x}", opts, **obj)))]
     if gvk == "events.k8s.io/v1beta1/Event":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.events.v1beta1 import Event
@@ -1213,6 +1237,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"meta/v1/Status:{x}",
                        Status(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/Ingress":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import Ingress
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/Ingress:{x}",
+                       Ingress(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/IngressClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import IngressClass
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/IngressClass:{x}",
+                       IngressClass(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/IngressClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import IngressClassList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/IngressClassList:{x}",
+                       IngressClassList(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/IngressList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import IngressList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/IngressList:{x}",
+                       IngressList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1/NetworkPolicy":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.networking.v1 import NetworkPolicy

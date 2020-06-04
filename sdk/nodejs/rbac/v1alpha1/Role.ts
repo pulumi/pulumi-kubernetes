@@ -7,7 +7,7 @@ import * as outputs from "../../types/output";
 import * as utilities from "../../utilities";
 
 /**
- * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
+ * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.22.
  */
 export class Role extends pulumi.CustomResource {
     /**

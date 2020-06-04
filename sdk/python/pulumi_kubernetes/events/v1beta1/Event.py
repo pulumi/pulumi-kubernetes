@@ -12,7 +12,7 @@ from ... import _utilities, _tables
 class Event(pulumi.CustomResource):
     action: pulumi.Output[str]
     """
-    What action was taken/failed regarding to the regarding object.
+    action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
     """
     api_version: pulumi.Output[str]
     """
@@ -20,23 +20,23 @@ class Event(pulumi.CustomResource):
     """
     deprecated_count: pulumi.Output[float]
     """
-    Deprecated field assuring backward compatibility with core.v1 Event type
+    deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
     """
     deprecated_first_timestamp: pulumi.Output[str]
     """
-    Deprecated field assuring backward compatibility with core.v1 Event type
+    deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
     """
     deprecated_last_timestamp: pulumi.Output[str]
     """
-    Deprecated field assuring backward compatibility with core.v1 Event type
+    deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
     """
     deprecated_source: pulumi.Output[dict]
     """
-    Deprecated field assuring backward compatibility with core.v1 Event type
+    deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
     """
     event_time: pulumi.Output[str]
     """
-    Required. Time when this Event was first observed.
+    eventTime is the time when this Event was first observed. It is required.
     """
     kind: pulumi.Output[str]
     """
@@ -45,35 +45,35 @@ class Event(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     note: pulumi.Output[str]
     """
-    Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+    note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
     """
     reason: pulumi.Output[str]
     """
-    Why the action was taken.
+    reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
     """
     regarding: pulumi.Output[dict]
     """
-    The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+    regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
     """
     related: pulumi.Output[dict]
     """
-    Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+    related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
     """
     reporting_controller: pulumi.Output[str]
     """
-    Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+    reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
     """
     reporting_instance: pulumi.Output[str]
     """
-    ID of the controller instance, e.g. `kubelet-xyzf`.
+    reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
     """
     series: pulumi.Output[dict]
     """
-    Data about the Event series this event represents or nil if it's a singleton Event.
+    series is data about the Event series this event represents or nil if it's a singleton Event.
     """
     type: pulumi.Output[str]
     """
-    Type of this event (Normal, Warning), new types could be added in the future.
+    type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
     """
     def __init__(__self__, resource_name, opts=None, action=None, api_version=None, deprecated_count=None, deprecated_first_timestamp=None, deprecated_last_timestamp=None, deprecated_source=None, event_time=None, kind=None, metadata=None, note=None, reason=None, regarding=None, related=None, reporting_controller=None, reporting_instance=None, series=None, type=None, __props__=None, __name__=None, __opts__=None):
         """
@@ -81,22 +81,22 @@ class Event(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] action: What action was taken/failed regarding to the regarding object.
+        :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[float] deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
-        :param pulumi.Input[str] deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
-        :param pulumi.Input[str] deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
-        :param pulumi.Input[dict] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
-        :param pulumi.Input[str] event_time: Required. Time when this Event was first observed.
+        :param pulumi.Input[float] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param pulumi.Input[str] deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param pulumi.Input[str] deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param pulumi.Input[dict] deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param pulumi.Input[str] event_time: eventTime is the time when this Event was first observed. It is required.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[str] note: Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-        :param pulumi.Input[str] reason: Why the action was taken.
-        :param pulumi.Input[dict] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        :param pulumi.Input[dict] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-        :param pulumi.Input[str] reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
-        :param pulumi.Input[str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
-        :param pulumi.Input[dict] series: Data about the Event series this event represents or nil if it's a singleton Event.
-        :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future.
+        :param pulumi.Input[str] note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        :param pulumi.Input[str] reason: reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        :param pulumi.Input[dict] regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        :param pulumi.Input[dict] related: related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        :param pulumi.Input[str] reporting_controller: reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+        :param pulumi.Input[str] reporting_instance: reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+        :param pulumi.Input[dict] series: series is data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -134,7 +134,7 @@ class Event(pulumi.CustomResource):
             __props__['reporting_instance'] = reporting_instance
             __props__['series'] = series
             __props__['type'] = type
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:core/v1:Event")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:core/v1:Event"), pulumi.Alias(type_="kubernetes:events.k8s.io/v1:Event")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(Event, __self__).__init__(
             'kubernetes:events.k8s.io/v1beta1:Event',

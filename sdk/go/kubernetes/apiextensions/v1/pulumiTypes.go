@@ -1295,6 +1295,10 @@ func (o CustomResourceDefinitionStatusPtrOutput) StoredVersions() pulumi.StringA
 type CustomResourceDefinitionVersion struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns []CustomResourceColumnDefinition `pulumi:"additionalPrinterColumns"`
+	// deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+	Deprecated *bool `pulumi:"deprecated"`
+	// deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+	DeprecationWarning *string `pulumi:"deprecationWarning"`
 	// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
 	Name string `pulumi:"name"`
 	// schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
@@ -1322,6 +1326,10 @@ type CustomResourceDefinitionVersionInput interface {
 type CustomResourceDefinitionVersionArgs struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns CustomResourceColumnDefinitionArrayInput `pulumi:"additionalPrinterColumns"`
+	// deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+	Deprecated pulumi.BoolPtrInput `pulumi:"deprecated"`
+	// deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+	DeprecationWarning pulumi.StringPtrInput `pulumi:"deprecationWarning"`
 	// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
 	Name pulumi.StringInput `pulumi:"name"`
 	// schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
@@ -1391,6 +1399,16 @@ func (o CustomResourceDefinitionVersionOutput) AdditionalPrinterColumns() Custom
 	return o.ApplyT(func(v CustomResourceDefinitionVersion) []CustomResourceColumnDefinition {
 		return v.AdditionalPrinterColumns
 	}).(CustomResourceColumnDefinitionArrayOutput)
+}
+
+// deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+func (o CustomResourceDefinitionVersionOutput) Deprecated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionVersion) *bool { return v.Deprecated }).(pulumi.BoolPtrOutput)
+}
+
+// deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+func (o CustomResourceDefinitionVersionOutput) DeprecationWarning() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionVersion) *string { return v.DeprecationWarning }).(pulumi.StringPtrOutput)
 }
 
 // name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.

@@ -13,6 +13,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
     public class CertificateSigningRequestConditionArgs : Pulumi.ResourceArgs
     {
         /// <summary>
+        /// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
+        /// </summary>
+        [Input("lastTransitionTime")]
+        public Input<string>? LastTransitionTime { get; set; }
+
+        /// <summary>
         /// timestamp for the last update to this condition
         /// </summary>
         [Input("lastUpdateTime")]
@@ -31,7 +37,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
         public Input<string>? Reason { get; set; }
 
         /// <summary>
-        /// request approval state, currently Approved or Denied.
+        /// Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
+        /// </summary>
+        [Input("status")]
+        public Input<string>? Status { get; set; }
+
+        /// <summary>
+        /// type of the condition. Known conditions include "Approved", "Denied", and "Failed".
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

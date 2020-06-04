@@ -52,6 +52,9 @@ func NewIngress(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("Ingress")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:networking.k8s.io/v1:Ingress"),
+		},
+		{
 			Type: pulumi.String("kubernetes:networking.k8s.io/v1beta1:Ingress"),
 		},
 	})

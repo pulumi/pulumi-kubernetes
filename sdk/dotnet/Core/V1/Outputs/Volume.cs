@@ -38,7 +38,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ConfigMapVolumeSource ConfigMap;
         /// <summary>
-        /// CSI (Container Storage Interface) represents storage that is handled by an external CSI driver (Alpha feature).
+        /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.CSIVolumeSource Csi;
         /// <summary>
@@ -49,6 +49,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.EmptyDirVolumeSource EmptyDir;
+        /// <summary>
+        /// Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+        /// 
+        /// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+        ///    tracking are needed,
+        /// c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+        ///    a PersistentVolumeClaim (see EphemeralVolumeSource for more
+        ///    information on the connection between this volume type
+        ///    and PersistentVolumeClaim).
+        /// 
+        /// Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+        /// 
+        /// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+        /// 
+        /// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.EphemeralVolumeSource Ephemeral;
         /// <summary>
         /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
         /// </summary>
@@ -150,6 +167,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.EmptyDirVolumeSource emptyDir,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.EphemeralVolumeSource ephemeral,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.FCVolumeSource fc,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.FlexVolumeSource flexVolume,
@@ -199,6 +218,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Csi = csi;
             DownwardAPI = downwardAPI;
             EmptyDir = emptyDir;
+            Ephemeral = ephemeral;
             Fc = fc;
             FlexVolume = flexVolume;
             Flocker = flocker;

@@ -2913,7 +2913,7 @@ func (o ComponentConditionArrayOutput) Index(i pulumi.IntInput) ComponentConditi
 	}).(ComponentConditionOutput)
 }
 
-// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+// ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 type ComponentStatus struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2936,7 +2936,7 @@ type ComponentStatusInput interface {
 	ToComponentStatusOutputWithContext(context.Context) ComponentStatusOutput
 }
 
-// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+// ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 type ComponentStatusArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2985,7 +2985,7 @@ func (i ComponentStatusArray) ToComponentStatusArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusArrayOutput)
 }
 
-// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+// ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 type ComponentStatusOutput struct{ *pulumi.OutputState }
 
 func (ComponentStatusOutput) ElementType() reflect.Type {
@@ -3040,7 +3040,7 @@ func (o ComponentStatusArrayOutput) Index(i pulumi.IntInput) ComponentStatusOutp
 	}).(ComponentStatusOutput)
 }
 
-// Status of all the conditions for the component as a list of ComponentStatus objects.
+// Status of all the conditions for the component as a list of ComponentStatus objects. Deprecated: This API is deprecated in v1.19+
 type ComponentStatusList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3063,7 +3063,7 @@ type ComponentStatusListInput interface {
 	ToComponentStatusListOutputWithContext(context.Context) ComponentStatusListOutput
 }
 
-// Status of all the conditions for the component as a list of ComponentStatus objects.
+// Status of all the conditions for the component as a list of ComponentStatus objects. Deprecated: This API is deprecated in v1.19+
 type ComponentStatusListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3087,7 +3087,7 @@ func (i ComponentStatusListArgs) ToComponentStatusListOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusListOutput)
 }
 
-// Status of all the conditions for the component as a list of ComponentStatus objects.
+// Status of all the conditions for the component as a list of ComponentStatus objects. Deprecated: This API is deprecated in v1.19+
 type ComponentStatusListOutput struct{ *pulumi.OutputState }
 
 func (ComponentStatusListOutput) ElementType() reflect.Type {
@@ -3130,7 +3130,7 @@ type ConfigMapType struct {
 	BinaryData map[string]string `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data map[string]string `pulumi:"data"`
-	// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
 	Immutable *bool `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -3157,7 +3157,7 @@ type ConfigMapTypeArgs struct {
 	BinaryData pulumi.StringMapInput `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data pulumi.StringMapInput `pulumi:"data"`
-	// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
 	Immutable pulumi.BoolPtrInput `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -3232,7 +3232,7 @@ func (o ConfigMapTypeOutput) Data() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ConfigMapType) map[string]string { return v.Data }).(pulumi.StringMapOutput)
 }
 
-// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
 func (o ConfigMapTypeOutput) Immutable() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ConfigMapType) *bool { return v.Immutable }).(pulumi.BoolPtrOutput)
 }
@@ -4072,7 +4072,7 @@ func (o ConfigMapProjectionPtrOutput) Optional() pulumi.BoolPtrOutput {
 //
 // The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
 type ConfigMapVolumeSource struct {
-	// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
 	// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
@@ -4097,7 +4097,7 @@ type ConfigMapVolumeSourceInput interface {
 //
 // The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
 type ConfigMapVolumeSourceArgs struct {
-	// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
 	// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
@@ -4187,7 +4187,7 @@ func (o ConfigMapVolumeSourceOutput) ToConfigMapVolumeSourcePtrOutputWithContext
 	}).(ConfigMapVolumeSourcePtrOutput)
 }
 
-// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ConfigMapVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
@@ -4225,7 +4225,7 @@ func (o ConfigMapVolumeSourcePtrOutput) Elem() ConfigMapVolumeSourceOutput {
 	return o.ApplyT(func(v *ConfigMapVolumeSource) ConfigMapVolumeSource { return *v }).(ConfigMapVolumeSourceOutput)
 }
 
-// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ConfigMapVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ConfigMapVolumeSource) *int {
 		if v == nil {
@@ -5950,7 +5950,7 @@ func (o DownwardAPIProjectionPtrOutput) Items() DownwardAPIVolumeFileArrayOutput
 type DownwardAPIVolumeFile struct {
 	// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
 	FieldRef *ObjectFieldSelector `pulumi:"fieldRef"`
-	// Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	Mode *int `pulumi:"mode"`
 	// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
 	Path string `pulumi:"path"`
@@ -5973,7 +5973,7 @@ type DownwardAPIVolumeFileInput interface {
 type DownwardAPIVolumeFileArgs struct {
 	// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
 	FieldRef ObjectFieldSelectorPtrInput `pulumi:"fieldRef"`
-	// Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	Mode pulumi.IntPtrInput `pulumi:"mode"`
 	// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
 	Path pulumi.StringInput `pulumi:"path"`
@@ -6038,7 +6038,7 @@ func (o DownwardAPIVolumeFileOutput) FieldRef() ObjectFieldSelectorPtrOutput {
 	return o.ApplyT(func(v DownwardAPIVolumeFile) *ObjectFieldSelector { return v.FieldRef }).(ObjectFieldSelectorPtrOutput)
 }
 
-// Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o DownwardAPIVolumeFileOutput) Mode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DownwardAPIVolumeFile) *int { return v.Mode }).(pulumi.IntPtrOutput)
 }
@@ -6075,7 +6075,7 @@ func (o DownwardAPIVolumeFileArrayOutput) Index(i pulumi.IntInput) DownwardAPIVo
 
 // DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
 type DownwardAPIVolumeSource struct {
-	// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
 	// Items is a list of downward API volume file
 	Items []DownwardAPIVolumeFile `pulumi:"items"`
@@ -6094,7 +6094,7 @@ type DownwardAPIVolumeSourceInput interface {
 
 // DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
 type DownwardAPIVolumeSourceArgs struct {
-	// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
 	// Items is a list of downward API volume file
 	Items DownwardAPIVolumeFileArrayInput `pulumi:"items"`
@@ -6178,7 +6178,7 @@ func (o DownwardAPIVolumeSourceOutput) ToDownwardAPIVolumeSourcePtrOutputWithCon
 	}).(DownwardAPIVolumeSourcePtrOutput)
 }
 
-// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o DownwardAPIVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DownwardAPIVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
@@ -6206,7 +6206,7 @@ func (o DownwardAPIVolumeSourcePtrOutput) Elem() DownwardAPIVolumeSourceOutput {
 	return o.ApplyT(func(v *DownwardAPIVolumeSource) DownwardAPIVolumeSource { return *v }).(DownwardAPIVolumeSourceOutput)
 }
 
-// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o DownwardAPIVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DownwardAPIVolumeSource) *int {
 		if v == nil {
@@ -6508,7 +6508,7 @@ func (o EndpointAddressArrayOutput) Index(i pulumi.IntInput) EndpointAddressOutp
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name *string `pulumi:"name"`
@@ -6531,7 +6531,7 @@ type EndpointPortInput interface {
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -6593,7 +6593,7 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -7254,7 +7254,7 @@ func (o EnvVarArrayOutput) Index(i pulumi.IntInput) EnvVarOutput {
 type EnvVarSource struct {
 	// Selects a key of a ConfigMap.
 	ConfigMapKeyRef *ConfigMapKeySelector `pulumi:"configMapKeyRef"`
-	// Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+	// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
 	FieldRef *ObjectFieldSelector `pulumi:"fieldRef"`
 	// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
 	ResourceFieldRef *ResourceFieldSelector `pulumi:"resourceFieldRef"`
@@ -7277,7 +7277,7 @@ type EnvVarSourceInput interface {
 type EnvVarSourceArgs struct {
 	// Selects a key of a ConfigMap.
 	ConfigMapKeyRef ConfigMapKeySelectorPtrInput `pulumi:"configMapKeyRef"`
-	// Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+	// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
 	FieldRef ObjectFieldSelectorPtrInput `pulumi:"fieldRef"`
 	// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
 	ResourceFieldRef ResourceFieldSelectorPtrInput `pulumi:"resourceFieldRef"`
@@ -7368,7 +7368,7 @@ func (o EnvVarSourceOutput) ConfigMapKeyRef() ConfigMapKeySelectorPtrOutput {
 	return o.ApplyT(func(v EnvVarSource) *ConfigMapKeySelector { return v.ConfigMapKeyRef }).(ConfigMapKeySelectorPtrOutput)
 }
 
-// Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
 func (o EnvVarSourceOutput) FieldRef() ObjectFieldSelectorPtrOutput {
 	return o.ApplyT(func(v EnvVarSource) *ObjectFieldSelector { return v.FieldRef }).(ObjectFieldSelectorPtrOutput)
 }
@@ -7411,7 +7411,7 @@ func (o EnvVarSourcePtrOutput) ConfigMapKeyRef() ConfigMapKeySelectorPtrOutput {
 	}).(ConfigMapKeySelectorPtrOutput)
 }
 
-// Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
 func (o EnvVarSourcePtrOutput) FieldRef() ObjectFieldSelectorPtrOutput {
 	return o.ApplyT(func(v *EnvVarSource) *ObjectFieldSelector {
 		if v == nil {
@@ -7737,6 +7737,183 @@ func (o EphemeralContainerArrayOutput) Index(i pulumi.IntInput) EphemeralContain
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EphemeralContainer {
 		return vs[0].([]EphemeralContainer)[vs[1].(int)]
 	}).(EphemeralContainerOutput)
+}
+
+// Represents an ephemeral volume that is handled by a normal storage driver.
+type EphemeralVolumeSource struct {
+	// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+	ReadOnly *bool `pulumi:"readOnly"`
+	// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+	//
+	// An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+	//
+	// This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+	//
+	// Required, must not be nil.
+	VolumeClaimTemplate *PersistentVolumeClaimTemplate `pulumi:"volumeClaimTemplate"`
+}
+
+// EphemeralVolumeSourceInput is an input type that accepts EphemeralVolumeSourceArgs and EphemeralVolumeSourceOutput values.
+// You can construct a concrete instance of `EphemeralVolumeSourceInput` via:
+//
+//          EphemeralVolumeSourceArgs{...}
+type EphemeralVolumeSourceInput interface {
+	pulumi.Input
+
+	ToEphemeralVolumeSourceOutput() EphemeralVolumeSourceOutput
+	ToEphemeralVolumeSourceOutputWithContext(context.Context) EphemeralVolumeSourceOutput
+}
+
+// Represents an ephemeral volume that is handled by a normal storage driver.
+type EphemeralVolumeSourceArgs struct {
+	// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
+	// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+	//
+	// An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+	//
+	// This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+	//
+	// Required, must not be nil.
+	VolumeClaimTemplate PersistentVolumeClaimTemplatePtrInput `pulumi:"volumeClaimTemplate"`
+}
+
+func (EphemeralVolumeSourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EphemeralVolumeSource)(nil)).Elem()
+}
+
+func (i EphemeralVolumeSourceArgs) ToEphemeralVolumeSourceOutput() EphemeralVolumeSourceOutput {
+	return i.ToEphemeralVolumeSourceOutputWithContext(context.Background())
+}
+
+func (i EphemeralVolumeSourceArgs) ToEphemeralVolumeSourceOutputWithContext(ctx context.Context) EphemeralVolumeSourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EphemeralVolumeSourceOutput)
+}
+
+func (i EphemeralVolumeSourceArgs) ToEphemeralVolumeSourcePtrOutput() EphemeralVolumeSourcePtrOutput {
+	return i.ToEphemeralVolumeSourcePtrOutputWithContext(context.Background())
+}
+
+func (i EphemeralVolumeSourceArgs) ToEphemeralVolumeSourcePtrOutputWithContext(ctx context.Context) EphemeralVolumeSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EphemeralVolumeSourceOutput).ToEphemeralVolumeSourcePtrOutputWithContext(ctx)
+}
+
+// EphemeralVolumeSourcePtrInput is an input type that accepts EphemeralVolumeSourceArgs, EphemeralVolumeSourcePtr and EphemeralVolumeSourcePtrOutput values.
+// You can construct a concrete instance of `EphemeralVolumeSourcePtrInput` via:
+//
+//          EphemeralVolumeSourceArgs{...}
+//
+//  or:
+//
+//          nil
+type EphemeralVolumeSourcePtrInput interface {
+	pulumi.Input
+
+	ToEphemeralVolumeSourcePtrOutput() EphemeralVolumeSourcePtrOutput
+	ToEphemeralVolumeSourcePtrOutputWithContext(context.Context) EphemeralVolumeSourcePtrOutput
+}
+
+type ephemeralVolumeSourcePtrType EphemeralVolumeSourceArgs
+
+func EphemeralVolumeSourcePtr(v *EphemeralVolumeSourceArgs) EphemeralVolumeSourcePtrInput {
+	return (*ephemeralVolumeSourcePtrType)(v)
+}
+
+func (*ephemeralVolumeSourcePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**EphemeralVolumeSource)(nil)).Elem()
+}
+
+func (i *ephemeralVolumeSourcePtrType) ToEphemeralVolumeSourcePtrOutput() EphemeralVolumeSourcePtrOutput {
+	return i.ToEphemeralVolumeSourcePtrOutputWithContext(context.Background())
+}
+
+func (i *ephemeralVolumeSourcePtrType) ToEphemeralVolumeSourcePtrOutputWithContext(ctx context.Context) EphemeralVolumeSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EphemeralVolumeSourcePtrOutput)
+}
+
+// Represents an ephemeral volume that is handled by a normal storage driver.
+type EphemeralVolumeSourceOutput struct{ *pulumi.OutputState }
+
+func (EphemeralVolumeSourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EphemeralVolumeSource)(nil)).Elem()
+}
+
+func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourceOutput() EphemeralVolumeSourceOutput {
+	return o
+}
+
+func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourceOutputWithContext(ctx context.Context) EphemeralVolumeSourceOutput {
+	return o
+}
+
+func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourcePtrOutput() EphemeralVolumeSourcePtrOutput {
+	return o.ToEphemeralVolumeSourcePtrOutputWithContext(context.Background())
+}
+
+func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourcePtrOutputWithContext(ctx context.Context) EphemeralVolumeSourcePtrOutput {
+	return o.ApplyT(func(v EphemeralVolumeSource) *EphemeralVolumeSource {
+		return &v
+	}).(EphemeralVolumeSourcePtrOutput)
+}
+
+// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+func (o EphemeralVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v EphemeralVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
+}
+
+// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+//
+// An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+//
+// This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+//
+// Required, must not be nil.
+func (o EphemeralVolumeSourceOutput) VolumeClaimTemplate() PersistentVolumeClaimTemplatePtrOutput {
+	return o.ApplyT(func(v EphemeralVolumeSource) *PersistentVolumeClaimTemplate { return v.VolumeClaimTemplate }).(PersistentVolumeClaimTemplatePtrOutput)
+}
+
+type EphemeralVolumeSourcePtrOutput struct{ *pulumi.OutputState }
+
+func (EphemeralVolumeSourcePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**EphemeralVolumeSource)(nil)).Elem()
+}
+
+func (o EphemeralVolumeSourcePtrOutput) ToEphemeralVolumeSourcePtrOutput() EphemeralVolumeSourcePtrOutput {
+	return o
+}
+
+func (o EphemeralVolumeSourcePtrOutput) ToEphemeralVolumeSourcePtrOutputWithContext(ctx context.Context) EphemeralVolumeSourcePtrOutput {
+	return o
+}
+
+func (o EphemeralVolumeSourcePtrOutput) Elem() EphemeralVolumeSourceOutput {
+	return o.ApplyT(func(v *EphemeralVolumeSource) EphemeralVolumeSource { return *v }).(EphemeralVolumeSourceOutput)
+}
+
+// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+func (o EphemeralVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *EphemeralVolumeSource) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ReadOnly
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+//
+// An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+//
+// This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+//
+// Required, must not be nil.
+func (o EphemeralVolumeSourcePtrOutput) VolumeClaimTemplate() PersistentVolumeClaimTemplatePtrOutput {
+	return o.ApplyT(func(v *EphemeralVolumeSource) *PersistentVolumeClaimTemplate {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeClaimTemplate
+	}).(PersistentVolumeClaimTemplatePtrOutput)
 }
 
 // Event is a report of an event somewhere in the cluster.
@@ -11450,7 +11627,7 @@ func (o ISCSIVolumeSourcePtrOutput) TargetPortal() pulumi.StringPtrOutput {
 type KeyToPath struct {
 	// The key to project.
 	Key string `pulumi:"key"`
-	// Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	Mode *int `pulumi:"mode"`
 	// The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path string `pulumi:"path"`
@@ -11471,7 +11648,7 @@ type KeyToPathInput interface {
 type KeyToPathArgs struct {
 	// The key to project.
 	Key pulumi.StringInput `pulumi:"key"`
-	// Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	Mode pulumi.IntPtrInput `pulumi:"mode"`
 	// The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path pulumi.StringInput `pulumi:"path"`
@@ -11534,7 +11711,7 @@ func (o KeyToPathOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v KeyToPath) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o KeyToPathOutput) Mode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v KeyToPath) *int { return v.Mode }).(pulumi.IntPtrOutput)
 }
@@ -15623,7 +15800,7 @@ type NodeSystemInfo struct {
 	OperatingSystem string `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage string `pulumi:"osImage"`
-	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html
+	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID string `pulumi:"systemUUID"`
 }
 
@@ -15658,7 +15835,7 @@ type NodeSystemInfoArgs struct {
 	OperatingSystem pulumi.StringInput `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage pulumi.StringInput `pulumi:"osImage"`
-	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html
+	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID pulumi.StringInput `pulumi:"systemUUID"`
 }
 
@@ -15785,7 +15962,7 @@ func (o NodeSystemInfoOutput) OsImage() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.OsImage }).(pulumi.StringOutput)
 }
 
-// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html
+// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoOutput) SystemUUID() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.SystemUUID }).(pulumi.StringOutput)
 }
@@ -15898,7 +16075,7 @@ func (o NodeSystemInfoPtrOutput) OsImage() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html
+// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoPtrOutput) SystemUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeSystemInfo) *string {
 		if v == nil {
@@ -17284,6 +17461,159 @@ func (o PersistentVolumeClaimStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 		}
 		return v.Phase
 	}).(pulumi.StringPtrOutput)
+}
+
+// PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+type PersistentVolumeClaimTemplate struct {
+	// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+	Spec PersistentVolumeClaimSpec `pulumi:"spec"`
+}
+
+// PersistentVolumeClaimTemplateInput is an input type that accepts PersistentVolumeClaimTemplateArgs and PersistentVolumeClaimTemplateOutput values.
+// You can construct a concrete instance of `PersistentVolumeClaimTemplateInput` via:
+//
+//          PersistentVolumeClaimTemplateArgs{...}
+type PersistentVolumeClaimTemplateInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeClaimTemplateOutput() PersistentVolumeClaimTemplateOutput
+	ToPersistentVolumeClaimTemplateOutputWithContext(context.Context) PersistentVolumeClaimTemplateOutput
+}
+
+// PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+type PersistentVolumeClaimTemplateArgs struct {
+	// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+	Spec PersistentVolumeClaimSpecInput `pulumi:"spec"`
+}
+
+func (PersistentVolumeClaimTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeClaimTemplate)(nil)).Elem()
+}
+
+func (i PersistentVolumeClaimTemplateArgs) ToPersistentVolumeClaimTemplateOutput() PersistentVolumeClaimTemplateOutput {
+	return i.ToPersistentVolumeClaimTemplateOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeClaimTemplateArgs) ToPersistentVolumeClaimTemplateOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimTemplateOutput)
+}
+
+func (i PersistentVolumeClaimTemplateArgs) ToPersistentVolumeClaimTemplatePtrOutput() PersistentVolumeClaimTemplatePtrOutput {
+	return i.ToPersistentVolumeClaimTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeClaimTemplateArgs) ToPersistentVolumeClaimTemplatePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimTemplateOutput).ToPersistentVolumeClaimTemplatePtrOutputWithContext(ctx)
+}
+
+// PersistentVolumeClaimTemplatePtrInput is an input type that accepts PersistentVolumeClaimTemplateArgs, PersistentVolumeClaimTemplatePtr and PersistentVolumeClaimTemplatePtrOutput values.
+// You can construct a concrete instance of `PersistentVolumeClaimTemplatePtrInput` via:
+//
+//          PersistentVolumeClaimTemplateArgs{...}
+//
+//  or:
+//
+//          nil
+type PersistentVolumeClaimTemplatePtrInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeClaimTemplatePtrOutput() PersistentVolumeClaimTemplatePtrOutput
+	ToPersistentVolumeClaimTemplatePtrOutputWithContext(context.Context) PersistentVolumeClaimTemplatePtrOutput
+}
+
+type persistentVolumeClaimTemplatePtrType PersistentVolumeClaimTemplateArgs
+
+func PersistentVolumeClaimTemplatePtr(v *PersistentVolumeClaimTemplateArgs) PersistentVolumeClaimTemplatePtrInput {
+	return (*persistentVolumeClaimTemplatePtrType)(v)
+}
+
+func (*persistentVolumeClaimTemplatePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PersistentVolumeClaimTemplate)(nil)).Elem()
+}
+
+func (i *persistentVolumeClaimTemplatePtrType) ToPersistentVolumeClaimTemplatePtrOutput() PersistentVolumeClaimTemplatePtrOutput {
+	return i.ToPersistentVolumeClaimTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i *persistentVolumeClaimTemplatePtrType) ToPersistentVolumeClaimTemplatePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimTemplatePtrOutput)
+}
+
+// PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+type PersistentVolumeClaimTemplateOutput struct{ *pulumi.OutputState }
+
+func (PersistentVolumeClaimTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeClaimTemplate)(nil)).Elem()
+}
+
+func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplateOutput() PersistentVolumeClaimTemplateOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplateOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplateOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplatePtrOutput() PersistentVolumeClaimTemplatePtrOutput {
+	return o.ToPersistentVolumeClaimTemplatePtrOutputWithContext(context.Background())
+}
+
+func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplatePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplatePtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimTemplate) *PersistentVolumeClaimTemplate {
+		return &v
+	}).(PersistentVolumeClaimTemplatePtrOutput)
+}
+
+// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+func (o PersistentVolumeClaimTemplateOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimTemplate) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+func (o PersistentVolumeClaimTemplateOutput) Spec() PersistentVolumeClaimSpecOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimTemplate) PersistentVolumeClaimSpec { return v.Spec }).(PersistentVolumeClaimSpecOutput)
+}
+
+type PersistentVolumeClaimTemplatePtrOutput struct{ *pulumi.OutputState }
+
+func (PersistentVolumeClaimTemplatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PersistentVolumeClaimTemplate)(nil)).Elem()
+}
+
+func (o PersistentVolumeClaimTemplatePtrOutput) ToPersistentVolumeClaimTemplatePtrOutput() PersistentVolumeClaimTemplatePtrOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimTemplatePtrOutput) ToPersistentVolumeClaimTemplatePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplatePtrOutput {
+	return o
+}
+
+func (o PersistentVolumeClaimTemplatePtrOutput) Elem() PersistentVolumeClaimTemplateOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimTemplate) PersistentVolumeClaimTemplate { return *v }).(PersistentVolumeClaimTemplateOutput)
+}
+
+// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+func (o PersistentVolumeClaimTemplatePtrOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimTemplate) *metav1.ObjectMeta {
+		if v == nil {
+			return nil
+		}
+		return v.Metadata
+	}).(metav1.ObjectMetaPtrOutput)
+}
+
+// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+func (o PersistentVolumeClaimTemplatePtrOutput) Spec() PersistentVolumeClaimSpecPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimTemplate) *PersistentVolumeClaimSpec {
+		if v == nil {
+			return nil
+		}
+		return &v.Spec
+	}).(PersistentVolumeClaimSpecPtrOutput)
 }
 
 // PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
@@ -19866,6 +20196,8 @@ type PodSecurityContext struct {
 	RunAsUser *int `pulumi:"runAsUser"`
 	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	SeLinuxOptions *SELinuxOptions `pulumi:"seLinuxOptions"`
+	// The seccomp options to use by the containers in this pod.
+	SeccompProfile *SeccompProfile `pulumi:"seccompProfile"`
 	// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
 	SupplementalGroups []int `pulumi:"supplementalGroups"`
 	// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
@@ -19903,6 +20235,8 @@ type PodSecurityContextArgs struct {
 	RunAsUser pulumi.IntPtrInput `pulumi:"runAsUser"`
 	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	SeLinuxOptions SELinuxOptionsPtrInput `pulumi:"seLinuxOptions"`
+	// The seccomp options to use by the containers in this pod.
+	SeccompProfile SeccompProfilePtrInput `pulumi:"seccompProfile"`
 	// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
 	SupplementalGroups pulumi.IntArrayInput `pulumi:"supplementalGroups"`
 	// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
@@ -20023,6 +20357,11 @@ func (o PodSecurityContextOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *SELinuxOptions { return v.SeLinuxOptions }).(SELinuxOptionsPtrOutput)
 }
 
+// The seccomp options to use by the containers in this pod.
+func (o PodSecurityContextOutput) SeccompProfile() SeccompProfilePtrOutput {
+	return o.ApplyT(func(v PodSecurityContext) *SeccompProfile { return v.SeccompProfile }).(SeccompProfilePtrOutput)
+}
+
 // A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
 func (o PodSecurityContextOutput) SupplementalGroups() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v PodSecurityContext) []int { return v.SupplementalGroups }).(pulumi.IntArrayOutput)
@@ -20120,6 +20459,16 @@ func (o PodSecurityContextPtrOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	}).(SELinuxOptionsPtrOutput)
 }
 
+// The seccomp options to use by the containers in this pod.
+func (o PodSecurityContextPtrOutput) SeccompProfile() SeccompProfilePtrOutput {
+	return o.ApplyT(func(v *PodSecurityContext) *SeccompProfile {
+		if v == nil {
+			return nil
+		}
+		return v.SeccompProfile
+	}).(SeccompProfilePtrOutput)
+}
+
 // A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
 func (o PodSecurityContextPtrOutput) SupplementalGroups() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *PodSecurityContext) []int {
@@ -20188,7 +20537,7 @@ type PodSpec struct {
 	NodeSelector map[string]string `pulumi:"nodeSelector"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
 	Overhead map[string]string `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority *int `pulumi:"priority"`
@@ -20208,6 +20557,8 @@ type PodSpec struct {
 	ServiceAccount *string `pulumi:"serviceAccount"`
 	// ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 	ServiceAccountName *string `pulumi:"serviceAccountName"`
+	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+	SetHostnameAsFQDN *bool `pulumi:"setHostnameAsFQDN"`
 	// Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 	ShareProcessNamespace *bool `pulumi:"shareProcessNamespace"`
 	// If specified, the fully qualified Pod hostname will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not specified, the pod will not have a domainname at all.
@@ -20216,7 +20567,7 @@ type PodSpec struct {
 	TerminationGracePeriodSeconds *int `pulumi:"terminationGracePeriodSeconds"`
 	// If specified, the pod's tolerations.
 	Tolerations []Toleration `pulumi:"tolerations"`
-	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
 	TopologySpreadConstraints []TopologySpreadConstraint `pulumi:"topologySpreadConstraints"`
 	// List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
 	Volumes []Volume `pulumi:"volumes"`
@@ -20271,7 +20622,7 @@ type PodSpecArgs struct {
 	NodeSelector pulumi.StringMapInput `pulumi:"nodeSelector"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
 	Overhead pulumi.StringMapInput `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority pulumi.IntPtrInput `pulumi:"priority"`
@@ -20291,6 +20642,8 @@ type PodSpecArgs struct {
 	ServiceAccount pulumi.StringPtrInput `pulumi:"serviceAccount"`
 	// ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 	ServiceAccountName pulumi.StringPtrInput `pulumi:"serviceAccountName"`
+	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+	SetHostnameAsFQDN pulumi.BoolPtrInput `pulumi:"setHostnameAsFQDN"`
 	// Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 	ShareProcessNamespace pulumi.BoolPtrInput `pulumi:"shareProcessNamespace"`
 	// If specified, the fully qualified Pod hostname will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not specified, the pod will not have a domainname at all.
@@ -20299,7 +20652,7 @@ type PodSpecArgs struct {
 	TerminationGracePeriodSeconds pulumi.IntPtrInput `pulumi:"terminationGracePeriodSeconds"`
 	// If specified, the pod's tolerations.
 	Tolerations TolerationArrayInput `pulumi:"tolerations"`
-	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
 	TopologySpreadConstraints TopologySpreadConstraintArrayInput `pulumi:"topologySpreadConstraints"`
 	// List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
 	Volumes VolumeArrayInput `pulumi:"volumes"`
@@ -20473,7 +20826,7 @@ func (o PodSpecOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.Overhead }).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 func (o PodSpecOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -20523,6 +20876,11 @@ func (o PodSpecOutput) ServiceAccountName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.ServiceAccountName }).(pulumi.StringPtrOutput)
 }
 
+// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+func (o PodSpecOutput) SetHostnameAsFQDN() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PodSpec) *bool { return v.SetHostnameAsFQDN }).(pulumi.BoolPtrOutput)
+}
+
 // Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 func (o PodSpecOutput) ShareProcessNamespace() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PodSpec) *bool { return v.ShareProcessNamespace }).(pulumi.BoolPtrOutput)
@@ -20543,7 +20901,7 @@ func (o PodSpecOutput) Tolerations() TolerationArrayOutput {
 	return o.ApplyT(func(v PodSpec) []Toleration { return v.Tolerations }).(TolerationArrayOutput)
 }
 
-// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
 func (o PodSpecOutput) TopologySpreadConstraints() TopologySpreadConstraintArrayOutput {
 	return o.ApplyT(func(v PodSpec) []TopologySpreadConstraint { return v.TopologySpreadConstraints }).(TopologySpreadConstraintArrayOutput)
 }
@@ -20751,7 +21109,7 @@ func (o PodSpecPtrOutput) Overhead() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 func (o PodSpecPtrOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -20851,6 +21209,16 @@ func (o PodSpecPtrOutput) ServiceAccountName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+func (o PodSpecPtrOutput) SetHostnameAsFQDN() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PodSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SetHostnameAsFQDN
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 func (o PodSpecPtrOutput) ShareProcessNamespace() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *bool {
@@ -20891,7 +21259,7 @@ func (o PodSpecPtrOutput) Tolerations() TolerationArrayOutput {
 	}).(TolerationArrayOutput)
 }
 
-// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
 func (o PodSpecPtrOutput) TopologySpreadConstraints() TopologySpreadConstraintArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []TopologySpreadConstraint {
 		if v == nil {
@@ -22201,7 +22569,7 @@ func (o ProbePtrOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 
 // Represents a projected volume source
 type ProjectedVolumeSource struct {
-	// Mode bits to use on created files by default. Must be a value between 0 and 0777. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
 	// list of volume projections
 	Sources []VolumeProjection `pulumi:"sources"`
@@ -22220,7 +22588,7 @@ type ProjectedVolumeSourceInput interface {
 
 // Represents a projected volume source
 type ProjectedVolumeSourceArgs struct {
-	// Mode bits to use on created files by default. Must be a value between 0 and 0777. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
 	// list of volume projections
 	Sources VolumeProjectionArrayInput `pulumi:"sources"`
@@ -22304,7 +22672,7 @@ func (o ProjectedVolumeSourceOutput) ToProjectedVolumeSourcePtrOutputWithContext
 	}).(ProjectedVolumeSourcePtrOutput)
 }
 
-// Mode bits to use on created files by default. Must be a value between 0 and 0777. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ProjectedVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProjectedVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
@@ -22332,7 +22700,7 @@ func (o ProjectedVolumeSourcePtrOutput) Elem() ProjectedVolumeSourceOutput {
 	return o.ApplyT(func(v *ProjectedVolumeSource) ProjectedVolumeSource { return *v }).(ProjectedVolumeSourceOutput)
 }
 
-// Mode bits to use on created files by default. Must be a value between 0 and 0777. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ProjectedVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ProjectedVolumeSource) *int {
 		if v == nil {
@@ -25810,6 +26178,167 @@ func (o ScopedResourceSelectorRequirementArrayOutput) Index(i pulumi.IntInput) S
 	}).(ScopedResourceSelectorRequirementOutput)
 }
 
+// SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+type SeccompProfile struct {
+	// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+	LocalhostProfile *string `pulumi:"localhostProfile"`
+	// type indicates which kind of seccomp profile will be applied. Valid options are:
+	//
+	// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+	Type string `pulumi:"type"`
+}
+
+// SeccompProfileInput is an input type that accepts SeccompProfileArgs and SeccompProfileOutput values.
+// You can construct a concrete instance of `SeccompProfileInput` via:
+//
+//          SeccompProfileArgs{...}
+type SeccompProfileInput interface {
+	pulumi.Input
+
+	ToSeccompProfileOutput() SeccompProfileOutput
+	ToSeccompProfileOutputWithContext(context.Context) SeccompProfileOutput
+}
+
+// SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+type SeccompProfileArgs struct {
+	// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+	LocalhostProfile pulumi.StringPtrInput `pulumi:"localhostProfile"`
+	// type indicates which kind of seccomp profile will be applied. Valid options are:
+	//
+	// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (SeccompProfileArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SeccompProfile)(nil)).Elem()
+}
+
+func (i SeccompProfileArgs) ToSeccompProfileOutput() SeccompProfileOutput {
+	return i.ToSeccompProfileOutputWithContext(context.Background())
+}
+
+func (i SeccompProfileArgs) ToSeccompProfileOutputWithContext(ctx context.Context) SeccompProfileOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SeccompProfileOutput)
+}
+
+func (i SeccompProfileArgs) ToSeccompProfilePtrOutput() SeccompProfilePtrOutput {
+	return i.ToSeccompProfilePtrOutputWithContext(context.Background())
+}
+
+func (i SeccompProfileArgs) ToSeccompProfilePtrOutputWithContext(ctx context.Context) SeccompProfilePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SeccompProfileOutput).ToSeccompProfilePtrOutputWithContext(ctx)
+}
+
+// SeccompProfilePtrInput is an input type that accepts SeccompProfileArgs, SeccompProfilePtr and SeccompProfilePtrOutput values.
+// You can construct a concrete instance of `SeccompProfilePtrInput` via:
+//
+//          SeccompProfileArgs{...}
+//
+//  or:
+//
+//          nil
+type SeccompProfilePtrInput interface {
+	pulumi.Input
+
+	ToSeccompProfilePtrOutput() SeccompProfilePtrOutput
+	ToSeccompProfilePtrOutputWithContext(context.Context) SeccompProfilePtrOutput
+}
+
+type seccompProfilePtrType SeccompProfileArgs
+
+func SeccompProfilePtr(v *SeccompProfileArgs) SeccompProfilePtrInput {
+	return (*seccompProfilePtrType)(v)
+}
+
+func (*seccompProfilePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SeccompProfile)(nil)).Elem()
+}
+
+func (i *seccompProfilePtrType) ToSeccompProfilePtrOutput() SeccompProfilePtrOutput {
+	return i.ToSeccompProfilePtrOutputWithContext(context.Background())
+}
+
+func (i *seccompProfilePtrType) ToSeccompProfilePtrOutputWithContext(ctx context.Context) SeccompProfilePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SeccompProfilePtrOutput)
+}
+
+// SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+type SeccompProfileOutput struct{ *pulumi.OutputState }
+
+func (SeccompProfileOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SeccompProfile)(nil)).Elem()
+}
+
+func (o SeccompProfileOutput) ToSeccompProfileOutput() SeccompProfileOutput {
+	return o
+}
+
+func (o SeccompProfileOutput) ToSeccompProfileOutputWithContext(ctx context.Context) SeccompProfileOutput {
+	return o
+}
+
+func (o SeccompProfileOutput) ToSeccompProfilePtrOutput() SeccompProfilePtrOutput {
+	return o.ToSeccompProfilePtrOutputWithContext(context.Background())
+}
+
+func (o SeccompProfileOutput) ToSeccompProfilePtrOutputWithContext(ctx context.Context) SeccompProfilePtrOutput {
+	return o.ApplyT(func(v SeccompProfile) *SeccompProfile {
+		return &v
+	}).(SeccompProfilePtrOutput)
+}
+
+// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+func (o SeccompProfileOutput) LocalhostProfile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SeccompProfile) *string { return v.LocalhostProfile }).(pulumi.StringPtrOutput)
+}
+
+// type indicates which kind of seccomp profile will be applied. Valid options are:
+//
+// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+func (o SeccompProfileOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v SeccompProfile) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type SeccompProfilePtrOutput struct{ *pulumi.OutputState }
+
+func (SeccompProfilePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SeccompProfile)(nil)).Elem()
+}
+
+func (o SeccompProfilePtrOutput) ToSeccompProfilePtrOutput() SeccompProfilePtrOutput {
+	return o
+}
+
+func (o SeccompProfilePtrOutput) ToSeccompProfilePtrOutputWithContext(ctx context.Context) SeccompProfilePtrOutput {
+	return o
+}
+
+func (o SeccompProfilePtrOutput) Elem() SeccompProfileOutput {
+	return o.ApplyT(func(v *SeccompProfile) SeccompProfile { return *v }).(SeccompProfileOutput)
+}
+
+// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+func (o SeccompProfilePtrOutput) LocalhostProfile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SeccompProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LocalhostProfile
+	}).(pulumi.StringPtrOutput)
+}
+
+// type indicates which kind of seccomp profile will be applied. Valid options are:
+//
+// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+func (o SeccompProfilePtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SeccompProfile) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
 // Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
 //
 // Note: While Pulumi automatically encrypts the 'data' and 'stringData'
@@ -25826,7 +26355,7 @@ type SecretType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
 	Data map[string]string `pulumi:"data"`
-	// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
 	Immutable *bool `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -25865,7 +26394,7 @@ type SecretTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
 	Data pulumi.StringMapInput `pulumi:"data"`
-	// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
 	Immutable pulumi.BoolPtrInput `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -25949,7 +26478,7 @@ func (o SecretTypeOutput) Data() pulumi.StringMapOutput {
 	return o.ApplyT(func(v SecretType) map[string]string { return v.Data }).(pulumi.StringMapOutput)
 }
 
-// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
 func (o SecretTypeOutput) Immutable() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SecretType) *bool { return v.Immutable }).(pulumi.BoolPtrOutput)
 }
@@ -26742,7 +27271,7 @@ func (o SecretReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
 //
 // The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
 type SecretVolumeSource struct {
-	// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
 	// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
@@ -26767,7 +27296,7 @@ type SecretVolumeSourceInput interface {
 //
 // The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
 type SecretVolumeSourceArgs struct {
-	// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
 	// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
@@ -26857,7 +27386,7 @@ func (o SecretVolumeSourceOutput) ToSecretVolumeSourcePtrOutputWithContext(ctx c
 	}).(SecretVolumeSourcePtrOutput)
 }
 
-// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o SecretVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v SecretVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
@@ -26895,7 +27424,7 @@ func (o SecretVolumeSourcePtrOutput) Elem() SecretVolumeSourceOutput {
 	return o.ApplyT(func(v *SecretVolumeSource) SecretVolumeSource { return *v }).(SecretVolumeSourceOutput)
 }
 
-// Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o SecretVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SecretVolumeSource) *int {
 		if v == nil {
@@ -26955,6 +27484,8 @@ type SecurityContext struct {
 	RunAsUser *int `pulumi:"runAsUser"`
 	// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	SeLinuxOptions *SELinuxOptions `pulumi:"seLinuxOptions"`
+	// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+	SeccompProfile *SeccompProfile `pulumi:"seccompProfile"`
 	// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	WindowsOptions *WindowsSecurityContextOptions `pulumi:"windowsOptions"`
 }
@@ -26990,6 +27521,8 @@ type SecurityContextArgs struct {
 	RunAsUser pulumi.IntPtrInput `pulumi:"runAsUser"`
 	// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	SeLinuxOptions SELinuxOptionsPtrInput `pulumi:"seLinuxOptions"`
+	// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+	SeccompProfile SeccompProfilePtrInput `pulumi:"seccompProfile"`
 	// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	WindowsOptions WindowsSecurityContextOptionsPtrInput `pulumi:"windowsOptions"`
 }
@@ -27117,6 +27650,11 @@ func (o SecurityContextOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *SELinuxOptions { return v.SeLinuxOptions }).(SELinuxOptionsPtrOutput)
 }
 
+// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+func (o SecurityContextOutput) SeccompProfile() SeccompProfilePtrOutput {
+	return o.ApplyT(func(v SecurityContext) *SeccompProfile { return v.SeccompProfile }).(SeccompProfilePtrOutput)
+}
+
 // The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 func (o SecurityContextOutput) WindowsOptions() WindowsSecurityContextOptionsPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *WindowsSecurityContextOptions { return v.WindowsOptions }).(WindowsSecurityContextOptionsPtrOutput)
@@ -27228,6 +27766,16 @@ func (o SecurityContextPtrOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 		}
 		return v.SeLinuxOptions
 	}).(SELinuxOptionsPtrOutput)
+}
+
+// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+func (o SecurityContextPtrOutput) SeccompProfile() SeccompProfilePtrOutput {
+	return o.ApplyT(func(v *SecurityContext) *SeccompProfile {
+		if v == nil {
+			return nil
+		}
+		return v.SeccompProfile
+	}).(SeccompProfilePtrOutput)
 }
 
 // The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
@@ -27934,7 +28482,7 @@ func (o ServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // ServicePort contains information on service's port.
 type ServicePort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name *string `pulumi:"name"`
@@ -27961,7 +28509,7 @@ type ServicePortInput interface {
 
 // ServicePort contains information on service's port.
 type ServicePortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -28027,7 +28575,7 @@ func (o ServicePortOutput) ToServicePortOutputWithContext(ctx context.Context) S
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 func (o ServicePortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServicePort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -28089,7 +28637,7 @@ type ServiceSpec struct {
 	ExternalTrafficPolicy *string `pulumi:"externalTrafficPolicy"`
 	// healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
 	HealthCheckNodePort *int `pulumi:"healthCheckNodePort"`
-	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
 	IpFamily *string `pulumi:"ipFamily"`
 	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
 	LoadBalancerIP *string `pulumi:"loadBalancerIP"`
@@ -28097,7 +28645,7 @@ type ServiceSpec struct {
 	LoadBalancerSourceRanges []string `pulumi:"loadBalancerSourceRanges"`
 	// The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	Ports []ServicePort `pulumi:"ports"`
-	// publishNotReadyAddresses, when set to true, indicates that DNS implementations must publish the notReadyAddresses of subsets for the Endpoints associated with the Service. The default value is false. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate SRV records for its Pods without respect to their readiness for purpose of peer discovery.
+	// publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
 	PublishNotReadyAddresses *bool `pulumi:"publishNotReadyAddresses"`
 	// Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
 	Selector map[string]string `pulumi:"selector"`
@@ -28134,7 +28682,7 @@ type ServiceSpecArgs struct {
 	ExternalTrafficPolicy pulumi.StringPtrInput `pulumi:"externalTrafficPolicy"`
 	// healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
 	HealthCheckNodePort pulumi.IntPtrInput `pulumi:"healthCheckNodePort"`
-	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
 	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
 	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
 	LoadBalancerIP pulumi.StringPtrInput `pulumi:"loadBalancerIP"`
@@ -28142,7 +28690,7 @@ type ServiceSpecArgs struct {
 	LoadBalancerSourceRanges pulumi.StringArrayInput `pulumi:"loadBalancerSourceRanges"`
 	// The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	Ports ServicePortArrayInput `pulumi:"ports"`
-	// publishNotReadyAddresses, when set to true, indicates that DNS implementations must publish the notReadyAddresses of subsets for the Endpoints associated with the Service. The default value is false. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate SRV records for its Pods without respect to their readiness for purpose of peer discovery.
+	// publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
 	PublishNotReadyAddresses pulumi.BoolPtrInput `pulumi:"publishNotReadyAddresses"`
 	// Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
 	Selector pulumi.StringMapInput `pulumi:"selector"`
@@ -28259,7 +28807,7 @@ func (o ServiceSpecOutput) HealthCheckNodePort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *int { return v.HealthCheckNodePort }).(pulumi.IntPtrOutput)
 }
 
-// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
 func (o ServiceSpecOutput) IpFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
 }
@@ -28279,7 +28827,7 @@ func (o ServiceSpecOutput) Ports() ServicePortArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []ServicePort { return v.Ports }).(ServicePortArrayOutput)
 }
 
-// publishNotReadyAddresses, when set to true, indicates that DNS implementations must publish the notReadyAddresses of subsets for the Endpoints associated with the Service. The default value is false. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate SRV records for its Pods without respect to their readiness for purpose of peer discovery.
+// publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
 func (o ServiceSpecOutput) PublishNotReadyAddresses() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *bool { return v.PublishNotReadyAddresses }).(pulumi.BoolPtrOutput)
 }
@@ -28377,7 +28925,7 @@ func (o ServiceSpecPtrOutput) HealthCheckNodePort() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
 func (o ServiceSpecPtrOutput) IpFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -28417,7 +28965,7 @@ func (o ServiceSpecPtrOutput) Ports() ServicePortArrayOutput {
 	}).(ServicePortArrayOutput)
 }
 
-// publishNotReadyAddresses, when set to true, indicates that DNS implementations must publish the notReadyAddresses of subsets for the Endpoints associated with the Service. The default value is false. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate SRV records for its Pods without respect to their readiness for purpose of peer discovery.
+// publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
 func (o ServiceSpecPtrOutput) PublishNotReadyAddresses() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *bool {
 		if v == nil {
@@ -29903,11 +30451,14 @@ func (o TopologySelectorTermArrayOutput) Index(i pulumi.IntInput) TopologySelect
 type TopologySpreadConstraint struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
-	// MaxSkew describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. It's a required field. Default value is 1 and 0 is not allowed.
+	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew int `pulumi:"maxSkew"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
 	TopologyKey string `pulumi:"topologyKey"`
-	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it - ScheduleAnyway tells the scheduler to still schedule it It's considered as "Unsatisfiable" if and only if placing incoming pod on any topology violates "MaxSkew". For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+	//   but giving higher precedence to topologies that would help reduce the
+	//   skew.
+	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
 	WhenUnsatisfiable string `pulumi:"whenUnsatisfiable"`
 }
 
@@ -29926,11 +30477,14 @@ type TopologySpreadConstraintInput interface {
 type TopologySpreadConstraintArgs struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
-	// MaxSkew describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. It's a required field. Default value is 1 and 0 is not allowed.
+	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew pulumi.IntInput `pulumi:"maxSkew"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
 	TopologyKey pulumi.StringInput `pulumi:"topologyKey"`
-	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it - ScheduleAnyway tells the scheduler to still schedule it It's considered as "Unsatisfiable" if and only if placing incoming pod on any topology violates "MaxSkew". For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+	//   but giving higher precedence to topologies that would help reduce the
+	//   skew.
+	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
 	WhenUnsatisfiable pulumi.StringInput `pulumi:"whenUnsatisfiable"`
 }
 
@@ -29991,7 +30545,7 @@ func (o TopologySpreadConstraintOutput) LabelSelector() metav1.LabelSelectorPtrO
 	return o.ApplyT(func(v TopologySpreadConstraint) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// MaxSkew describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. It's a required field. Default value is 1 and 0 is not allowed.
+// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 func (o TopologySpreadConstraintOutput) MaxSkew() pulumi.IntOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) int { return v.MaxSkew }).(pulumi.IntOutput)
 }
@@ -30001,7 +30555,10 @@ func (o TopologySpreadConstraintOutput) TopologyKey() pulumi.StringOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) string { return v.TopologyKey }).(pulumi.StringOutput)
 }
 
-// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it - ScheduleAnyway tells the scheduler to still schedule it It's considered as "Unsatisfiable" if and only if placing incoming pod on any topology violates "MaxSkew". For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+//   but giving higher precedence to topologies that would help reduce the
+//   skew.
+// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
 func (o TopologySpreadConstraintOutput) WhenUnsatisfiable() pulumi.StringOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) string { return v.WhenUnsatisfiable }).(pulumi.StringOutput)
 }
@@ -30212,12 +30769,27 @@ type Volume struct {
 	Cinder *CinderVolumeSource `pulumi:"cinder"`
 	// ConfigMap represents a configMap that should populate this volume
 	ConfigMap *ConfigMapVolumeSource `pulumi:"configMap"`
-	// CSI (Container Storage Interface) represents storage that is handled by an external CSI driver (Alpha feature).
+	// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
 	Csi *CSIVolumeSource `pulumi:"csi"`
 	// DownwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI *DownwardAPIVolumeSource `pulumi:"downwardAPI"`
 	// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	EmptyDir *EmptyDirVolumeSource `pulumi:"emptyDir"`
+	// Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+	//
+	// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+	//    tracking are needed,
+	// c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+	//    a PersistentVolumeClaim (see EphemeralVolumeSource for more
+	//    information on the connection between this volume type
+	//    and PersistentVolumeClaim).
+	//
+	// Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+	//
+	// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+	//
+	// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+	Ephemeral *EphemeralVolumeSource `pulumi:"ephemeral"`
 	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSource `pulumi:"fc"`
 	// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
@@ -30285,12 +30857,27 @@ type VolumeArgs struct {
 	Cinder CinderVolumeSourcePtrInput `pulumi:"cinder"`
 	// ConfigMap represents a configMap that should populate this volume
 	ConfigMap ConfigMapVolumeSourcePtrInput `pulumi:"configMap"`
-	// CSI (Container Storage Interface) represents storage that is handled by an external CSI driver (Alpha feature).
+	// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
 	Csi CSIVolumeSourcePtrInput `pulumi:"csi"`
 	// DownwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI DownwardAPIVolumeSourcePtrInput `pulumi:"downwardAPI"`
 	// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	EmptyDir EmptyDirVolumeSourcePtrInput `pulumi:"emptyDir"`
+	// Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+	//
+	// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+	//    tracking are needed,
+	// c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+	//    a PersistentVolumeClaim (see EphemeralVolumeSource for more
+	//    information on the connection between this volume type
+	//    and PersistentVolumeClaim).
+	//
+	// Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+	//
+	// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+	//
+	// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+	Ephemeral EphemeralVolumeSourcePtrInput `pulumi:"ephemeral"`
 	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePtrInput `pulumi:"fc"`
 	// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
@@ -30415,7 +31002,7 @@ func (o VolumeOutput) ConfigMap() ConfigMapVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ConfigMapVolumeSource { return v.ConfigMap }).(ConfigMapVolumeSourcePtrOutput)
 }
 
-// CSI (Container Storage Interface) represents storage that is handled by an external CSI driver (Alpha feature).
+// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
 func (o VolumeOutput) Csi() CSIVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *CSIVolumeSource { return v.Csi }).(CSIVolumeSourcePtrOutput)
 }
@@ -30428,6 +31015,24 @@ func (o VolumeOutput) DownwardAPI() DownwardAPIVolumeSourcePtrOutput {
 // EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o VolumeOutput) EmptyDir() EmptyDirVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *EmptyDirVolumeSource { return v.EmptyDir }).(EmptyDirVolumeSourcePtrOutput)
+}
+
+// Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+//
+// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+//    tracking are needed,
+// c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+//    a PersistentVolumeClaim (see EphemeralVolumeSource for more
+//    information on the connection between this volume type
+//    and PersistentVolumeClaim).
+//
+// Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+//
+// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+//
+// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+func (o VolumeOutput) Ephemeral() EphemeralVolumeSourcePtrOutput {
+	return o.ApplyT(func(v Volume) *EphemeralVolumeSource { return v.Ephemeral }).(EphemeralVolumeSourcePtrOutput)
 }
 
 // FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
@@ -31628,6 +32233,8 @@ func init() {
 	pulumi.RegisterOutputType(EnvVarSourcePtrOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerArrayOutput{})
+	pulumi.RegisterOutputType(EphemeralVolumeSourceOutput{})
+	pulumi.RegisterOutputType(EphemeralVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(EventTypeOutput{})
 	pulumi.RegisterOutputType(EventTypeArrayOutput{})
 	pulumi.RegisterOutputType(EventListTypeOutput{})
@@ -31741,6 +32348,8 @@ func init() {
 	pulumi.RegisterOutputType(PersistentVolumeClaimSpecPtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimStatusOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimStatusPtrOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeClaimTemplateOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeClaimTemplatePtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimVolumeSourceOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeListTypeOutput{})
@@ -31824,6 +32433,8 @@ func init() {
 	pulumi.RegisterOutputType(ScopeSelectorPtrOutput{})
 	pulumi.RegisterOutputType(ScopedResourceSelectorRequirementOutput{})
 	pulumi.RegisterOutputType(ScopedResourceSelectorRequirementArrayOutput{})
+	pulumi.RegisterOutputType(SeccompProfileOutput{})
+	pulumi.RegisterOutputType(SeccompProfilePtrOutput{})
 	pulumi.RegisterOutputType(SecretTypeOutput{})
 	pulumi.RegisterOutputType(SecretTypeArrayOutput{})
 	pulumi.RegisterOutputType(SecretEnvSourceOutput{})

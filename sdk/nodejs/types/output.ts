@@ -134,7 +134,7 @@ export namespace admissionregistration {
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
+             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
@@ -438,7 +438,7 @@ export namespace admissionregistration {
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
+             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
@@ -799,6 +799,14 @@ export namespace apiextensions {
              */
             additionalPrinterColumns: outputs.apiextensions.v1.CustomResourceColumnDefinition[];
             /**
+             * deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+             */
+            deprecated: boolean;
+            /**
+             * deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+             */
+            deprecationWarning: string;
+            /**
              * name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
              */
             name: string;
@@ -1096,7 +1104,7 @@ export namespace apiextensions {
         }
 
         /**
-         * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+         * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
          */
         export interface CustomResourceDefinition {
             /**
@@ -1246,6 +1254,14 @@ export namespace apiextensions {
              * additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
              */
             additionalPrinterColumns: outputs.apiextensions.v1beta1.CustomResourceColumnDefinition[];
+            /**
+             * deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+             */
+            deprecated: boolean;
+            /**
+             * deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+             */
+            deprecationWarning: string;
             /**
              * name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
              */
@@ -1552,7 +1568,7 @@ export namespace apiregistration {
              */
             insecureSkipTLSVerify: boolean;
             /**
-             * Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+             * Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
              */
             service: outputs.apiregistration.v1.ServiceReference;
             /**
@@ -1665,7 +1681,7 @@ export namespace apiregistration {
              */
             insecureSkipTLSVerify: boolean;
             /**
-             * Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+             * Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
              */
             service: outputs.apiregistration.v1beta1.ServiceReference;
             /**
@@ -5211,6 +5227,179 @@ export namespace batch {
 }
 
 export namespace certificates {
+    export namespace v1 {
+        /**
+         * CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
+         *
+         * Kubelets use this API to obtain:
+         *  1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
+         *  2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
+         *
+         * This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
+         */
+        export interface CertificateSigningRequest {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "certificates.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "CertificateSigningRequest";
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+             */
+            spec: outputs.certificates.v1.CertificateSigningRequestSpec;
+            /**
+             * status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
+             */
+            status: outputs.certificates.v1.CertificateSigningRequestStatus;
+        }
+
+        /**
+         * CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
+         */
+        export interface CertificateSigningRequestCondition {
+            /**
+             * lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
+             */
+            lastTransitionTime: string;
+            /**
+             * lastUpdateTime is the time of the last update to this condition
+             */
+            lastUpdateTime: string;
+            /**
+             * message contains a human readable message with details about the request state
+             */
+            message: string;
+            /**
+             * reason indicates a brief reason for the request state
+             */
+            reason: string;
+            /**
+             * status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown".
+             */
+            status: string;
+            /**
+             * type of the condition. Known conditions are "Approved", "Denied", and "Failed".
+             *
+             * An "Approved" condition is added via the /approval subresource, indicating the request was approved and should be issued by the signer.
+             *
+             * A "Denied" condition is added via the /approval subresource, indicating the request was denied and should not be issued by the signer.
+             *
+             * A "Failed" condition is added via the /status subresource, indicating the signer failed to issue the certificate.
+             *
+             * Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
+             *
+             * Only one condition of a given type is allowed.
+             */
+            type: string;
+        }
+
+        /**
+         * CertificateSigningRequestSpec contains the certificate request.
+         */
+        export interface CertificateSigningRequestSpec {
+            /**
+             * extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+             */
+            extra: {[key: string]: string[]};
+            /**
+             * groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+             */
+            groups: string[];
+            /**
+             * request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
+             */
+            request: string;
+            /**
+             * signerName indicates the requested signer, and is a qualified name.
+             *
+             * List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
+             *
+             * Well-known Kubernetes signers are:
+             *  1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
+             *   Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+             *  2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
+             *   Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+             *  3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
+             *   Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+             *
+             * More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+             *
+             * Custom signerNames can also be specified. The signer defines:
+             *  1. Trust distribution: how trust (CA bundles) are distributed.
+             *  2. Permitted subjects: and behavior when a disallowed subject is requested.
+             *  3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
+             *  4. Required, permitted, or forbidden key usages / extended key usages.
+             *  5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
+             *  6. Whether or not requests for CA certificates are allowed.
+             */
+            signerName: string;
+            /**
+             * uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+             */
+            uid: string;
+            /**
+             * usages specifies a set of key usages requested in the issued certificate.
+             *
+             * Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
+             *
+             * Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
+             *
+             * Valid values are:
+             *  "signing", "digital signature", "content commitment",
+             *  "key encipherment", "key agreement", "data encipherment",
+             *  "cert sign", "crl sign", "encipher only", "decipher only", "any",
+             *  "server auth", "client auth",
+             *  "code signing", "email protection", "s/mime",
+             *  "ipsec end system", "ipsec tunnel", "ipsec user",
+             *  "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+             */
+            usages: string[];
+            /**
+             * username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+             */
+            username: string;
+        }
+
+        /**
+         * CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
+         */
+        export interface CertificateSigningRequestStatus {
+            /**
+             * certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
+             *
+             * If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+             *
+             * Validation requirements:
+             *  1. certificate must contain one or more PEM blocks.
+             *  2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
+             *   must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+             *  3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
+             *   to allow for explanatory text as described in section 5.2 of RFC7468.
+             *
+             * If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
+             *
+             * The certificate is encoded in PEM format.
+             *
+             * When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
+             *
+             *     base64(
+             *     -----BEGIN CERTIFICATE-----
+             *     ...
+             *     -----END CERTIFICATE-----
+             *     )
+             */
+            certificate: string;
+            /**
+             * conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
+             */
+            conditions: outputs.certificates.v1.CertificateSigningRequestCondition[];
+        }
+    }
+
     export namespace v1beta1 {
         /**
          * Describes a certificate signing request
@@ -5237,6 +5426,10 @@ export namespace certificates {
 
         export interface CertificateSigningRequestCondition {
             /**
+             * lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
+             */
+            lastTransitionTime: string;
+            /**
              * timestamp for the last update to this condition
              */
             lastUpdateTime: string;
@@ -5249,7 +5442,11 @@ export namespace certificates {
              */
             reason: string;
             /**
-             * request approval state, currently Approved or Denied.
+             * Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
+             */
+            status: string;
+            /**
+             * type of the condition. Known conditions include "Approved", "Denied", and "Failed".
              */
             type: string;
         }
@@ -5287,6 +5484,30 @@ export namespace certificates {
             /**
              * allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
              *      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+             * Valid values are:
+             *  "signing",
+             *  "digital signature",
+             *  "content commitment",
+             *  "key encipherment",
+             *  "key agreement",
+             *  "data encipherment",
+             *  "cert sign",
+             *  "crl sign",
+             *  "encipher only",
+             *  "decipher only",
+             *  "any",
+             *  "server auth",
+             *  "client auth",
+             *  "code signing",
+             *  "email protection",
+             *  "s/mime",
+             *  "ipsec end system",
+             *  "ipsec tunnel",
+             *  "ipsec user",
+             *  "timestamping",
+             *  "ocsp signing",
+             *  "microsoft sgc",
+             *  "netscape sgc"
              */
             usages: string[];
             /**
@@ -5753,7 +5974,7 @@ export namespace core {
              */
             data: {[key: string]: string};
             /**
-             * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+             * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
              */
             immutable: boolean;
             /**
@@ -5853,7 +6074,7 @@ export namespace core {
          */
         export interface ConfigMapVolumeSource {
             /**
-             * Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+             * Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
             /**
@@ -6151,7 +6372,7 @@ export namespace core {
              */
             fieldRef: outputs.core.v1.ObjectFieldSelector;
             /**
-             * Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+             * Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             mode: number;
             /**
@@ -6169,7 +6390,7 @@ export namespace core {
          */
         export interface DownwardAPIVolumeSource {
             /**
-             * Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+             * Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
             /**
@@ -6219,7 +6440,7 @@ export namespace core {
          */
         export interface EndpointPort {
             /**
-             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
              */
             appProtocol: string;
             /**
@@ -6339,7 +6560,7 @@ export namespace core {
              */
             configMapKeyRef: outputs.core.v1.ConfigMapKeySelector;
             /**
-             * Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+             * Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
              */
             fieldRef: outputs.core.v1.ObjectFieldSelector;
             /**
@@ -6448,6 +6669,26 @@ export namespace core {
              * Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
              */
             workingDir: string;
+        }
+
+        /**
+         * Represents an ephemeral volume that is handled by a normal storage driver.
+         */
+        export interface EphemeralVolumeSource {
+            /**
+             * Specifies a read-only configuration for the volume. Defaults to false (read/write).
+             */
+            readOnly: boolean;
+            /**
+             * Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+             *
+             * An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+             *
+             * This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+             *
+             * Required, must not be nil.
+             */
+            volumeClaimTemplate: outputs.core.v1.PersistentVolumeClaimTemplate;
         }
 
         /**
@@ -6937,7 +7178,7 @@ export namespace core {
              */
             key: string;
             /**
-             * Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+             * Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             mode: number;
             /**
@@ -7448,7 +7689,7 @@ export namespace core {
              */
             osImage: string;
             /**
-             * SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html
+             * SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
              */
             systemUUID: string;
         }
@@ -7631,6 +7872,20 @@ export namespace core {
              * Phase represents the current phase of PersistentVolumeClaim.
              */
             phase: string;
+        }
+
+        /**
+         * PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+         */
+        export interface PersistentVolumeClaimTemplate {
+            /**
+             * May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+             */
+            spec: outputs.core.v1.PersistentVolumeClaimSpec;
         }
 
         /**
@@ -8005,6 +8260,10 @@ export namespace core {
              */
             seLinuxOptions: outputs.core.v1.SELinuxOptions;
             /**
+             * The seccomp options to use by the containers in this pod.
+             */
+            seccompProfile: outputs.core.v1.SeccompProfile;
+            /**
              * A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
              */
             supplementalGroups: number[];
@@ -8095,7 +8354,7 @@ export namespace core {
              */
             overhead: {[key: string]: string};
             /**
-             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
              */
             preemptionPolicy: string;
             /**
@@ -8135,6 +8394,10 @@ export namespace core {
              */
             serviceAccountName: string;
             /**
+             * If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+             */
+            setHostnameAsFQDN: boolean;
+            /**
              * Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
              */
             shareProcessNamespace: boolean;
@@ -8151,7 +8414,7 @@ export namespace core {
              */
             tolerations: outputs.core.v1.Toleration[];
             /**
-             * TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+             * TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
              */
             topologySpreadConstraints: outputs.core.v1.TopologySpreadConstraint[];
             /**
@@ -8333,7 +8596,7 @@ export namespace core {
          */
         export interface ProjectedVolumeSource {
             /**
-             * Mode bits to use on created files by default. Must be a value between 0 and 0777. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+             * Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
             /**
@@ -8785,6 +9048,22 @@ export namespace core {
         }
 
         /**
+         * SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+         */
+        export interface SeccompProfile {
+            /**
+             * localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+             */
+            localhostProfile: string;
+            /**
+             * type indicates which kind of seccomp profile will be applied. Valid options are:
+             *
+             * Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+             */
+            type: string;
+        }
+
+        /**
          * Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
          *
          * Note: While Pulumi automatically encrypts the 'data' and 'stringData'
@@ -8807,7 +9086,7 @@ export namespace core {
              */
             data: {[key: string]: string};
             /**
-             * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+             * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
              */
             immutable: boolean;
             /**
@@ -8903,7 +9182,7 @@ export namespace core {
          */
         export interface SecretVolumeSource {
             /**
-             * Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+             * Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
             /**
@@ -8960,6 +9239,10 @@ export namespace core {
              * The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
              */
             seLinuxOptions: outputs.core.v1.SELinuxOptions;
+            /**
+             * The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+             */
+            seccompProfile: outputs.core.v1.SeccompProfile;
             /**
              * The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
              */
@@ -9070,7 +9353,7 @@ export namespace core {
          */
         export interface ServicePort {
             /**
-             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
              */
             appProtocol: string;
             /**
@@ -9120,7 +9403,7 @@ export namespace core {
              */
             healthCheckNodePort: number;
             /**
-             * ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+             * ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
              */
             ipFamily: string;
             /**
@@ -9136,7 +9419,7 @@ export namespace core {
              */
             ports: outputs.core.v1.ServicePort[];
             /**
-             * publishNotReadyAddresses, when set to true, indicates that DNS implementations must publish the notReadyAddresses of subsets for the Endpoints associated with the Service. The default value is false. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate SRV records for its Pods without respect to their readiness for purpose of peer discovery.
+             * publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
              */
             publishNotReadyAddresses: boolean;
             /**
@@ -9342,7 +9625,7 @@ export namespace core {
              */
             labelSelector: outputs.meta.v1.LabelSelector;
             /**
-             * MaxSkew describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. It's a required field. Default value is 1 and 0 is not allowed.
+             * MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
              */
             maxSkew: number;
             /**
@@ -9350,7 +9633,10 @@ export namespace core {
              */
             topologyKey: string;
             /**
-             * WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it - ScheduleAnyway tells the scheduler to still schedule it It's considered as "Unsatisfiable" if and only if placing incoming pod on any topology violates "MaxSkew". For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+             * WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+             *   but giving higher precedence to topologies that would help reduce the
+             *   skew.
+             * A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
              */
             whenUnsatisfiable: string;
         }
@@ -9402,7 +9688,7 @@ export namespace core {
              */
             configMap: outputs.core.v1.ConfigMapVolumeSource;
             /**
-             * CSI (Container Storage Interface) represents storage that is handled by an external CSI driver (Alpha feature).
+             * CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
              */
             csi: outputs.core.v1.CSIVolumeSource;
             /**
@@ -9413,6 +9699,23 @@ export namespace core {
              * EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
              */
             emptyDir: outputs.core.v1.EmptyDirVolumeSource;
+            /**
+             * Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+             *
+             * Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+             *    tracking are needed,
+             * c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+             *    a PersistentVolumeClaim (see EphemeralVolumeSource for more
+             *    information on the connection between this volume type
+             *    and PersistentVolumeClaim).
+             *
+             * Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+             *
+             * Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+             *
+             * A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+             */
+            ephemeral: outputs.core.v1.EphemeralVolumeSource;
             /**
              * FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
              */
@@ -9729,37 +10032,37 @@ export namespace discovery {
 }
 
 export namespace events {
-    export namespace v1beta1 {
+    export namespace v1 {
         /**
          * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
          */
         export interface Event {
             /**
-             * What action was taken/failed regarding to the regarding object.
+             * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
              */
             action: string;
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "events.k8s.io/v1beta1";
+            apiVersion: "events.k8s.io/v1";
             /**
-             * Deprecated field assuring backward compatibility with core.v1 Event type
+             * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
              */
             deprecatedCount: number;
             /**
-             * Deprecated field assuring backward compatibility with core.v1 Event type
+             * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
              */
             deprecatedFirstTimestamp: string;
             /**
-             * Deprecated field assuring backward compatibility with core.v1 Event type
+             * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
              */
             deprecatedLastTimestamp: string;
             /**
-             * Deprecated field assuring backward compatibility with core.v1 Event type
+             * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
              */
             deprecatedSource: outputs.core.v1.EventSource;
             /**
-             * Required. Time when this Event was first observed.
+             * eventTime is the time when this Event was first observed. It is required.
              */
             eventTime: string;
             /**
@@ -9768,35 +10071,122 @@ export namespace events {
             kind: "Event";
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+             * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
              */
             note: string;
             /**
-             * Why the action was taken.
+             * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
              */
             reason: string;
             /**
-             * The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+             * regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
              */
             regarding: outputs.core.v1.ObjectReference;
             /**
-             * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+             * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
              */
             related: outputs.core.v1.ObjectReference;
             /**
-             * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+             * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
              */
             reportingController: string;
             /**
-             * ID of the controller instance, e.g. `kubelet-xyzf`.
+             * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
              */
             reportingInstance: string;
             /**
-             * Data about the Event series this event represents or nil if it's a singleton Event.
+             * series is data about the Event series this event represents or nil if it's a singleton Event.
+             */
+            series: outputs.events.v1.EventSeries;
+            /**
+             * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+             */
+            type: string;
+        }
+
+        /**
+         * EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+         */
+        export interface EventSeries {
+            /**
+             * count is the number of occurrences in this series up to the last heartbeat time.
+             */
+            count: number;
+            /**
+             * lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+             */
+            lastObservedTime: string;
+        }
+    }
+
+    export namespace v1beta1 {
+        /**
+         * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+         */
+        export interface Event {
+            /**
+             * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+             */
+            action: string;
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "events.k8s.io/v1beta1";
+            /**
+             * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+             */
+            deprecatedCount: number;
+            /**
+             * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+             */
+            deprecatedFirstTimestamp: string;
+            /**
+             * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+             */
+            deprecatedLastTimestamp: string;
+            /**
+             * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+             */
+            deprecatedSource: outputs.core.v1.EventSource;
+            /**
+             * eventTime is the time when this Event was first observed. It is required.
+             */
+            eventTime: string;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "Event";
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+             */
+            note: string;
+            /**
+             * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+             */
+            reason: string;
+            /**
+             * regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+             */
+            regarding: outputs.core.v1.ObjectReference;
+            /**
+             * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+             */
+            related: outputs.core.v1.ObjectReference;
+            /**
+             * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+             */
+            reportingController: string;
+            /**
+             * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+             */
+            reportingInstance: string;
+            /**
+             * series is data about the Event series this event represents or nil if it's a singleton Event.
              */
             series: outputs.events.v1beta1.EventSeries;
             /**
-             * Type of this event (Normal, Warning), new types could be added in the future.
+             * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
              */
             type: string;
         }
@@ -9806,11 +10196,11 @@ export namespace events {
          */
         export interface EventSeries {
             /**
-             * Number of occurrences in this series up to the last heartbeat time
+             * count is the number of occurrences in this series up to the last heartbeat time.
              */
             count: number;
             /**
-             * Time when last Event from the series was seen before last heartbeat.
+             * lastObservedTime is the time when last Event from the series was seen before last heartbeat.
              */
             lastObservedTime: string;
             /**
@@ -11327,7 +11717,7 @@ export namespace meta {
              */
             name: string;
             /**
-             * Namespace defines the space within each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
+             * Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
              *
              * Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
              */
@@ -11445,6 +11835,44 @@ export namespace meta {
 export namespace networking {
     export namespace v1 {
         /**
+         * HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
+         */
+        export interface HTTPIngressPath {
+            /**
+             * Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+             */
+            backend: outputs.networking.v1.IngressBackend;
+            /**
+             * Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+             */
+            path: string;
+            /**
+             * PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+             *   done on a path element by element basis. A path element refers is the
+             *   list of labels in the path split by the '/' separator. A request is a
+             *   match for path p if every p is an element-wise prefix of p of the
+             *   request path. Note that if the last element of the path is a substring
+             *   of the last element in request path, it is not a match (e.g. /foo/bar
+             *   matches /foo/bar/baz, but does not match /foo/barbaz).
+             * * ImplementationSpecific: Interpretation of the Path matching is up to
+             *   the IngressClass. Implementations can treat this as a separate PathType
+             *   or treat it identically to Prefix or Exact path types.
+             * Implementations are required to support all path types.
+             */
+            pathType: string;
+        }
+
+        /**
+         * HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+         */
+        export interface HTTPIngressRuleValue {
+            /**
+             * A collection of paths that map requests to backends.
+             */
+            paths: outputs.networking.v1.HTTPIngressPath[];
+        }
+
+        /**
          * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
          */
         export interface IPBlock {
@@ -11456,6 +11884,174 @@ export namespace networking {
              * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
              */
             except: string[];
+        }
+
+        /**
+         * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+         *
+         * This resource waits until its status is ready before registering success
+         * for create/update, and populating output properties from the current state of the resource.
+         * The following conditions are used to determine whether the resource creation has
+         * succeeded or failed:
+         *
+         * 1.  Ingress object exists.
+         * 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+         *     type is ExternalName).
+         * 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+         *
+         * If the Ingress has not reached a Ready state after 10 minutes, it will
+         * time out and mark the resource update as Failed. You can override the default timeout value
+         * by setting the 'customTimeouts' option on the resource.
+         */
+        export interface Ingress {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "networking.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "Ingress";
+            /**
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec: outputs.networking.v1.IngressSpec;
+            /**
+             * Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            status: outputs.networking.v1.IngressStatus;
+        }
+
+        /**
+         * IngressBackend describes all endpoints for a given service and port.
+         */
+        export interface IngressBackend {
+            /**
+             * Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+             */
+            resource: outputs.core.v1.TypedLocalObjectReference;
+            /**
+             * Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+             */
+            service: outputs.networking.v1.IngressServiceBackend;
+        }
+
+        /**
+         * IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+         */
+        export interface IngressClass {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "networking.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "IngressClass";
+            /**
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec: outputs.networking.v1.IngressClassSpec;
+        }
+
+        /**
+         * IngressClassSpec provides information about the class of an Ingress.
+         */
+        export interface IngressClassSpec {
+            /**
+             * Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+             */
+            controller: string;
+            /**
+             * Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+             */
+            parameters: outputs.core.v1.TypedLocalObjectReference;
+        }
+
+        /**
+         * IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+         */
+        export interface IngressRule {
+            /**
+             * Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+             *    the IP in the Spec of the parent Ingress.
+             * 2. The `:` delimiter is not respected because ports are not allowed.
+             * 	  Currently the port of an Ingress is implicitly :80 for http and
+             * 	  :443 for https.
+             * Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
+             *
+             * Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
+             */
+            host: string;
+            http: outputs.networking.v1.HTTPIngressRuleValue;
+        }
+
+        /**
+         * IngressServiceBackend references a Kubernetes Service as a Backend.
+         */
+        export interface IngressServiceBackend {
+            /**
+             * Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+             */
+            name: string;
+            /**
+             * Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+             */
+            port: outputs.networking.v1.ServiceBackendPort;
+        }
+
+        /**
+         * IngressSpec describes the Ingress the user wishes to exist.
+         */
+        export interface IngressSpec {
+            /**
+             * DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+             */
+            defaultBackend: outputs.networking.v1.IngressBackend;
+            /**
+             * IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+             */
+            ingressClassName: string;
+            /**
+             * A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+             */
+            rules: outputs.networking.v1.IngressRule[];
+            /**
+             * TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+             */
+            tls: outputs.networking.v1.IngressTLS[];
+        }
+
+        /**
+         * IngressStatus describe the current state of the Ingress.
+         */
+        export interface IngressStatus {
+            /**
+             * LoadBalancer contains the current status of the load-balancer.
+             */
+            loadBalancer: outputs.core.v1.LoadBalancerStatus;
+        }
+
+        /**
+         * IngressTLS describes the transport layer security associated with an Ingress.
+         */
+        export interface IngressTLS {
+            /**
+             * Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+             */
+            hosts: string[];
+            /**
+             * SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+             */
+            secretName: string;
         }
 
         /**
@@ -11509,7 +12105,7 @@ export namespace networking {
         }
 
         /**
-         * NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of fields are allowed
+         * NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
          */
         export interface NetworkPolicyPeer {
             /**
@@ -11564,6 +12160,20 @@ export namespace networking {
              * List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
              */
             policyTypes: string[];
+        }
+
+        /**
+         * ServiceBackendPort is the service port being referenced.
+         */
+        export interface ServiceBackendPort {
+            /**
+             * Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+             */
+            name: string;
+            /**
+             * Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+             */
+            number: number;
         }
     }
 
@@ -12080,7 +12690,7 @@ export namespace policy {
              */
             allowPrivilegeEscalation: boolean;
             /**
-             * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+             * AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
              */
             allowedCSIDrivers: outputs.policy.v1beta1.AllowedCSIDriver[];
             /**
@@ -12088,19 +12698,19 @@ export namespace policy {
              */
             allowedCapabilities: string[];
             /**
-             * allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+             * allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
              */
             allowedFlexVolumes: outputs.policy.v1beta1.AllowedFlexVolume[];
             /**
-             * allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+             * allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
              */
             allowedHostPaths: outputs.policy.v1beta1.AllowedHostPath[];
             /**
-             * AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+             * AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
              */
             allowedProcMountTypes: string[];
             /**
-             * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
+             * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
              *
              * Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
              */
@@ -12172,7 +12782,7 @@ export namespace policy {
              */
             supplementalGroups: outputs.policy.v1beta1.SupplementalGroupsStrategyOptions;
             /**
-             * volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+             * volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
              */
             volumes: string[];
         }
@@ -12210,7 +12820,7 @@ export namespace policy {
          */
         export interface RuntimeClassStrategyOptions {
             /**
-             * allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+             * allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
              */
             allowedRuntimeClassNames: string[];
             /**
@@ -12441,7 +13051,7 @@ export namespace rbac {
         }
 
         /**
-         * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
+         * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.22.
          */
         export interface ClusterRole {
             /**
@@ -12467,7 +13077,7 @@ export namespace rbac {
         }
 
         /**
-         * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.20.
+         * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.22.
          */
         export interface ClusterRoleBinding {
             /**
@@ -12519,7 +13129,7 @@ export namespace rbac {
         }
 
         /**
-         * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
+         * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.22.
          */
         export interface Role {
             /**
@@ -12541,7 +13151,7 @@ export namespace rbac {
         }
 
         /**
-         * RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
+         * RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
          */
         export interface RoleBinding {
             /**
@@ -12619,7 +13229,7 @@ export namespace rbac {
         }
 
         /**
-         * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
+         * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.22.
          */
         export interface ClusterRole {
             /**
@@ -12645,7 +13255,7 @@ export namespace rbac {
         }
 
         /**
-         * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.20.
+         * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.22.
          */
         export interface ClusterRoleBinding {
             /**
@@ -12697,7 +13307,7 @@ export namespace rbac {
         }
 
         /**
-         * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
+         * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.22.
          */
         export interface Role {
             /**
@@ -12719,7 +13329,7 @@ export namespace rbac {
         }
 
         /**
-         * RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
+         * RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
          */
         export interface RoleBinding {
             /**
@@ -12814,7 +13424,7 @@ export namespace scheduling {
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
              */
             preemptionPolicy: string;
             /**
@@ -12851,7 +13461,7 @@ export namespace scheduling {
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
              */
             preemptionPolicy: string;
             /**
@@ -12888,7 +13498,7 @@ export namespace scheduling {
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
              */
             preemptionPolicy: string;
             /**
@@ -12981,12 +13591,26 @@ export namespace storage {
              */
             attachRequired: boolean;
             /**
+             * Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
+             */
+            fsGroupPolicy: string;
+            /**
              * If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
              *                                 defined by a CSIVolumeSource, otherwise "false"
              *
              * "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
              */
             podInfoOnMount: boolean;
+            /**
+             * If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
+             *
+             * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
+             *
+             * Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
+             *
+             * This is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.
+             */
+            storageCapacity: boolean;
             /**
              * volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
              */
@@ -13332,12 +13956,26 @@ export namespace storage {
              */
             attachRequired: boolean;
             /**
+             * Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
+             */
+            fsGroupPolicy: string;
+            /**
              * If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
              *                                 defined by a CSIVolumeSource, otherwise "false"
              *
              * "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
              */
             podInfoOnMount: boolean;
+            /**
+             * If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
+             *
+             * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
+             *
+             * Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
+             *
+             * This is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.
+             */
+            storageCapacity: boolean;
             /**
              * VolumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
              */

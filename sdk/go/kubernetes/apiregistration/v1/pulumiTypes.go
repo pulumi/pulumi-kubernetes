@@ -366,7 +366,7 @@ type APIServiceSpec struct {
 	GroupPriorityMinimum int `pulumi:"groupPriorityMinimum"`
 	// InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
 	InsecureSkipTLSVerify *bool `pulumi:"insecureSkipTLSVerify"`
-	// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+	// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
 	Service *ServiceReference `pulumi:"service"`
 	// Version is the API version this server hosts.  For example, "v1"
 	Version *string `pulumi:"version"`
@@ -395,7 +395,7 @@ type APIServiceSpecArgs struct {
 	GroupPriorityMinimum pulumi.IntInput `pulumi:"groupPriorityMinimum"`
 	// InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
 	InsecureSkipTLSVerify pulumi.BoolPtrInput `pulumi:"insecureSkipTLSVerify"`
-	// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+	// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
 	Service ServiceReferencePtrInput `pulumi:"service"`
 	// Version is the API version this server hosts.  For example, "v1"
 	Version pulumi.StringPtrInput `pulumi:"version"`
@@ -501,7 +501,7 @@ func (o APIServiceSpecOutput) InsecureSkipTLSVerify() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v APIServiceSpec) *bool { return v.InsecureSkipTLSVerify }).(pulumi.BoolPtrOutput)
 }
 
-// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
 func (o APIServiceSpecOutput) Service() ServiceReferencePtrOutput {
 	return o.ApplyT(func(v APIServiceSpec) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
 }
@@ -574,7 +574,7 @@ func (o APIServiceSpecPtrOutput) InsecureSkipTLSVerify() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
 func (o APIServiceSpecPtrOutput) Service() ServiceReferencePtrOutput {
 	return o.ApplyT(func(v *APIServiceSpec) *ServiceReference {
 		if v == nil {
