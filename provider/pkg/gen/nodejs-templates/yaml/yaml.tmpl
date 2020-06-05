@@ -21,7 +21,7 @@ import * as glob from "glob";
 import fetch from "node-fetch";
 import * as k8s from "../index";
 import * as outputs from "../types/output";
-import { getVersion } from "../version";
+import { getVersion } from "../utilities";
 
 export interface ConfigGroupOpts {
     /** Set of paths or a URLs that uniquely identify files. */

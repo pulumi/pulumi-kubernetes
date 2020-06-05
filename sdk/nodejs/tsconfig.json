@@ -284,7 +284,6 @@
         "types/input.ts",
         "types/output.ts",
         "utilities.ts",
-        "version.ts",
         "yaml/index.ts",
         "yaml/yaml.ts"
     ]

@@ -22,7 +22,7 @@ import * as nodepath from "path";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
 import * as path from "../../path";
-import { getVersion } from "../../version";
+import { getVersion } from "../../utilities";
 import * as yaml from "../../yaml/index";
 
 interface BaseChartOpts {

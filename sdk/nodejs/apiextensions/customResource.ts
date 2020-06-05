@@ -18,7 +18,7 @@
 import * as pulumi from "@pulumi/pulumi"
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
-import { getVersion } from "../version";
+import { getVersion } from "../utilities";
 
 /**
  * CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
