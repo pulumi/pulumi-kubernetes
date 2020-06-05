@@ -24,7 +24,7 @@
         "admissionregistration/v1beta1/mutatingWebhookConfigurationList.ts",
         "admissionregistration/v1beta1/validatingWebhookConfiguration.ts",
         "admissionregistration/v1beta1/validatingWebhookConfigurationList.ts",
-        "apiextensions/CustomResource.ts",
+        "apiextensions/customResource.ts",
         "apiextensions/index.ts",
         "apiextensions/v1/customResourceDefinition.ts",
         "apiextensions/v1/customResourceDefinitionList.ts",
@@ -284,6 +284,8 @@
         "types/input.ts",
         "types/output.ts",
         "utilities.ts",
+        "version.ts",
+        "yaml/index.ts",
         "yaml/yaml.ts"
     ]
 }

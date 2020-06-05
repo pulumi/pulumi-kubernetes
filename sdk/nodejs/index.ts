@@ -4,6 +4,7 @@
 // Export members:
 export * from "./path";
 export * from "./provider";
+export * from "./version";
 
 // Export sub-modules:
 import * as admissionregistration from "./admissionregistration";

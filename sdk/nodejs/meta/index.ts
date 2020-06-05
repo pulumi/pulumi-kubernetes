@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export sub-modules:
-import * as meta from "./meta";
-export {meta};
+import * as v1 from "./v1";
+export {v1};

@@ -2,8 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./CustomResource";
+export * from "./customResource";
 
 // Export sub-modules:
-import * as apiextensions from "./apiextensions";
-export {apiextensions};
+import * as v1 from "./v1";
+import * as v1beta1 from "./v1beta1";
+export {v1, v1beta1};

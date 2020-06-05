@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export sub-modules:
-import * as certificates from "./certificates";
-export {certificates};
+import * as v1beta1 from "./v1beta1";
+export {v1beta1};

@@ -2,5 +2,5 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export sub-modules:
-import * as auditregistration from "./auditregistration";
-export {auditregistration};
+import * as v1alpha1 from "./v1alpha1";
+export {v1alpha1};

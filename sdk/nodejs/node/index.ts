@@ -2,5 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export sub-modules:
-import * as node from "./node";
-export {node};
+import * as v1alpha1 from "./v1alpha1";
+import * as v1beta1 from "./v1beta1";
+export {v1alpha1, v1beta1};
