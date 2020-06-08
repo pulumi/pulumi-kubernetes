@@ -9,6 +9,10 @@
     - Fixed the type of some properties in `JSONSchemaPropsArgs` (there's no need to have 2nd-level inputs there):
         - `InputList<InputJson>` -> `InputList<JsonElement>`
         - `InputMap<Union<TArgs, InputList<string>>>` -> `InputMap<Union<TArgs, ImmutableArray<string>>>`
+        
+### Bug Fixes
+
+-   Fix incorrect schema consts for apiVersion and kind (https://github.com/pulumi/pulumi-kubernetes/pull/1153)
 
 ## 2.2.2 (May 27, 2020)
 
