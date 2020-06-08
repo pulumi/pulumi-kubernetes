@@ -87,7 +87,7 @@ namespace Pulumi.Kubernetes.Meta.V1
         private static Pulumi.Kubernetes.Types.Inputs.Meta.V1.StatusArgs? MakeArgs(Pulumi.Kubernetes.Types.Inputs.Meta.V1.StatusArgs? args)
         {
             args ??= new Pulumi.Kubernetes.Types.Inputs.Meta.V1.StatusArgs();
-            args.ApiVersion = "meta/v1";
+            args.ApiVersion = "v1";
             args.Kind = "Status";
             return args;
         }

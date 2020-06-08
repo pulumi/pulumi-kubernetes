@@ -37,7 +37,7 @@ func NewStatus(ctx *pulumi.Context,
 	if args == nil {
 		args = &StatusArgs{}
 	}
-	args.ApiVersion = pulumi.StringPtr("meta/v1")
+	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Status")
 	var resource Status
 	err := ctx.RegisterResource("kubernetes:meta/v1:Status", name, args, &resource, opts...)

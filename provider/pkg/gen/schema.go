@@ -257,15 +257,9 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	contract.Assert(err == nil)
 
 	constValue := func() *string {
-		if p.name == "apiVersion" {
-			if strings.HasPrefix(resourceGV, "core/") {
-				dv := strings.TrimPrefix(resourceGV, "core/")
-				return &dv
-			}
-			return &resourceGV
-		}
-		if p.name == "kind" {
-			return &resourceKind
+		cv := p.ConstValue()
+		if len(cv) != 0 {
+			return &cv
 		}
 
 		return nil

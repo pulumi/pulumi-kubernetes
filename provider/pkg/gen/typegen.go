@@ -221,6 +221,7 @@ type Property struct {
 	inputsAPIType            string
 	outputsAPIType           string
 	providerType             string
+	constValue               string
 	defaultValue             string
 	isLast                   bool
 	dotnetVarName            string
@@ -249,7 +250,10 @@ func (p Property) OutputsAPIType() string { return p.outputsAPIType }
 // ProviderType returns the type of the property for the provider API.
 func (p Property) ProviderType() string { return p.providerType }
 
-// DefaultValue returns the type of the property.
+// DefaultValue returns the constant value of the property.
+func (p Property) ConstValue() string { return p.constValue }
+
+// DefaultValue returns the default value of the property.
 func (p Property) DefaultValue() string { return p.defaultValue }
 
 // IsLast returns whether the property is the last in the list of properties.
@@ -1224,10 +1228,16 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 					// `-` is invalid in TS variable names, so replace with `_`
 					propName = strings.ReplaceAll(propName, "-", "_")
 
+					// Create a const value for the field.
+					var constValue string
+
 					// Create a default value for the field.
 					defaultValue := fmt.Sprintf("args?.%s", propName)
 					switch propName {
 					case "apiVersion":
+						if d.isTopLevel() {
+							constValue = defaultGroupVersion
+						}
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
 						if opts.language == typescript && isTopLevel {
 							inputsAPIType = fmt.Sprintf(`pulumi.Input<"%s">`, defaultGroupVersion)
@@ -1235,6 +1245,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 							providerType = fmt.Sprintf(`pulumi.Output<"%s">`, defaultGroupVersion)
 						}
 					case "kind":
+						if d.isTopLevel() {
+							constValue = d.gvk.Kind
+						}
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 						if opts.language == typescript && isTopLevel {
 							inputsAPIType = fmt.Sprintf(`pulumi.Input<"%s">`, d.gvk.Kind)
@@ -1294,6 +1307,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []Grou
 						name:                     propName,
 						languageName:             languageName,
 						dotnetVarName:            dotnetVarName,
+						constValue:               constValue,
 						defaultValue:             defaultValue,
 						isLast:                   false,
 						dotnetIsListOrMap:        isListOrMap,
