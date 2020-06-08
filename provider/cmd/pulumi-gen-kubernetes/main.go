@@ -156,18 +156,18 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 
 	overlays := map[string][]byte{
 		"apiextensions/customResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
-		"helm/index.ts":                   mustLoadFile(filepath.Join(templateDir, "helm", "index.ts")),
 		"helm/v2/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
-		"helm/v2/index.ts":                mustLoadFile(filepath.Join(templateDir, "helm", "v2", "index.ts")),
-		"path.ts":                         mustLoadFile(filepath.Join(templateDir, "path.ts")),
-		"tests/path.ts":                   mustLoadFile(filepath.Join(templateDir, "tests", "path.ts")),
-		"yaml/index.ts":                   mustLoadFile(filepath.Join(templateDir, "yaml", "index.ts")),
+		"helm/v3/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")), // v3 support is currently identical to v2
 		"yaml/yaml.ts":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
 	}
+
+	// Internal files that don't need to be exported
+	files["path.ts"] = mustLoadFile(filepath.Join(templateDir, "path.ts"))
+	files["tests/path.ts"] = mustLoadFile(filepath.Join(templateDir, "tests", "path.ts"))
 
 	mustWriteFiles(outdir, files)
 }

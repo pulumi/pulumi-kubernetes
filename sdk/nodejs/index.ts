@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./path";
 export * from "./provider";
 
 // Export sub-modules:
@@ -22,6 +21,7 @@ import * as discovery from "./discovery";
 import * as events from "./events";
 import * as extensions from "./extensions";
 import * as flowcontrol from "./flowcontrol";
+import * as helm from "./helm";
 import * as meta from "./meta";
 import * as networking from "./networking";
 import * as node from "./node";
@@ -31,4 +31,5 @@ import * as scheduling from "./scheduling";
 import * as settings from "./settings";
 import * as storage from "./storage";
 import * as types from "./types";
-export {admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, flowcontrol, meta, networking, node, policy, rbac, scheduling, settings, storage, types};
+import * as yaml from "./yaml";
+export {admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, flowcontrol, helm, meta, networking, node, policy, rbac, scheduling, settings, storage, types, yaml};
