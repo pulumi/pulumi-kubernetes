@@ -144,14 +144,18 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: kind.Comment() + kind.PulumiComment(),
 					Type:        "object",
 					Properties:  map[string]pschema.PropertySpec{},
+					Language:    map[string]json.RawMessage{},
 				}
 
+				var propNames []string
 				for _, p := range kind.Properties() {
 					objectSpec.Properties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
+					propNames = append(propNames, p.name)
 				}
 				for _, p := range kind.RequiredInputProperties() {
 					objectSpec.Required = append(objectSpec.Required, p.name)
 				}
+				objectSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
 				pkg.Types[tok] = objectSpec
 				if kind.IsNested() {
@@ -201,6 +205,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"packageImportAliases": pkgImportAliases,
 	})
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
+		"compatibility": kubernetes20,
 		"dependencies": map[string]string{
 			"@pulumi/pulumi":    "^2.0.0",
 			"shell-quote":       "^1.6.1",
@@ -216,6 +221,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			"@types/mocha":       "^5.2.5",
 			"@types/shell-quote": "^1.6.0",
 		},
+		"moduleToPackage": modToPkg,
 		"readme": `The Kubernetes provider package offers support for all Kubernetes resources and their properties.
 Resources are exposed as types from modules based on Kubernetes API groups such as 'apps', 'core',
 'rbac', and 'storage', among many others. Additionally, support for deploying Helm charts ('helm')
@@ -231,8 +237,6 @@ If this is your first time using this package, these two resources may be helpfu
 
 Use the navigation below to see detailed documentation for each of the supported Kubernetes resources.
 `,
-		"moduleToPackage": modToPkg,
-		"compatibility":   kubernetes20,
 	})
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
