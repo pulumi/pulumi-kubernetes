@@ -1796,8 +1796,8 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList", namespace: string, name: string, property: "kind"): pulumi.Output<"PriorityLevelConfigurationList">;
     public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-    public getResourceProperty(groupVersionKind: "meta/v1/Status", name: string, property: "apiVersion"): pulumi.Output<"meta/v1">;
-    public getResourceProperty(groupVersionKind: "meta/v1/Status", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"meta/v1">;
+    public getResourceProperty(groupVersionKind: "meta/v1/Status", name: string, property: "apiVersion"): pulumi.Output<"v1">;
+    public getResourceProperty(groupVersionKind: "meta/v1/Status", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"v1">;
     public getResourceProperty(groupVersionKind: "meta/v1/Status", name: string, property: "code"): pulumi.Output<number>;
     public getResourceProperty(groupVersionKind: "meta/v1/Status", namespace: string, name: string, property: "code"): pulumi.Output<number>;
     public getResourceProperty(groupVersionKind: "meta/v1/Status", name: string, property: "details"): pulumi.Output<outputs.meta.v1.StatusDetails>;

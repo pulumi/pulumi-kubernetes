@@ -39,7 +39,7 @@ export class Status extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"meta/v1">;
+    public readonly apiVersion!: pulumi.Output<"v1">;
     /**
      * Suggested HTTP return code for this status, 0 if not set.
      */
@@ -78,7 +78,7 @@ export class Status extends pulumi.CustomResource {
      */
     constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "meta/v1";
+        inputs["apiVersion"] = "v1";
         inputs["code"] = args ? args.code : undefined;
         inputs["details"] = args ? args.details : undefined;
         inputs["kind"] = "Status";
@@ -104,7 +104,7 @@ export interface StatusArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<"meta/v1">;
+    readonly apiVersion?: pulumi.Input<"v1">;
     /**
      * Suggested HTTP return code for this status, 0 if not set.
      */
