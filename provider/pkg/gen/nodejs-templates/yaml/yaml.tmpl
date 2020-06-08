@@ -424,11 +424,11 @@ export class ConfigFile extends CollectionComponentResource {
     if (resourcePrefix !== undefined) {
         id = pulumi.concat(resourcePrefix, "-", id);
     }
-    switch (`${apiVersion}:${kind}`) {
+    switch (gvk) {
 {{- range .NonListKinds}}
         case "{{.GVK}}":
             return [id.apply(id => ({
-                name: `{{.GVK}}::${id}`,
+                name: `${apiVersion}::${id}`,
                 resource: new k8s.{{.Package}}.{{.Name}}(id, obj, opts),
             }))];
 {{- end}}
