@@ -2,6 +2,7 @@
 
 ### Improvements
 
+- NodeJS SDK updated to align with other Pulumi NodeJS SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1151)
 - .NET SDK updated to align with other Pulumi .NET SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1132)
     - Deprecated resources are now marked as `Obsolete`.
     - Many classes are moved to new locations on disk while preserving the public namespaces and API.

@@ -33,6 +33,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/v2/codegen"
 	dotnetgen "github.com/pulumi/pulumi/pkg/v2/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
+	nodejsgen "github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
@@ -53,12 +54,23 @@ var TemplateDir string
 // BaseDir is the path to the base pulumi-kubernetes directory.
 var BaseDir string
 
+// Language is the SDK language.
+type Language string
+
+const (
+	DotNet Language = "dotnet"
+	Go     Language = "go"
+	NodeJS Language = "nodejs"
+	Python Language = "python"
+	Schema Language = "schema"
+)
+
 func main() {
 	if len(os.Args) < 4 {
 		log.Fatal("Usage: gen <language> <swagger-file> <root-pulumi-kubernetes-dir>")
 	}
 
-	language := os.Args[1]
+	language := Language(os.Args[1])
 
 	swagger, err := ioutil.ReadFile(os.Args[2])
 	if err != nil {
@@ -81,7 +93,7 @@ func main() {
 
 	BaseDir = os.Args[3]
 	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
-	outdir := path.Join(BaseDir, "sdk", language)
+	outdir := path.Join(BaseDir, "sdk", string(language))
 
 	// Generate schema
 	pkgSpec := gen.PulumiSchema(data)
@@ -93,118 +105,71 @@ func main() {
 	genK8sResourceTypes(pkg)
 
 	switch language {
-	case "nodejs":
+	case NodeJS:
 		templateDir := path.Join(TemplateDir, "nodejs-templates")
-		writeNodeJSClient(data, outdir, templateDir)
-	case "python":
+		writeNodeJSClient(pkg, outdir, templateDir)
+	case Python:
 		templateDir := path.Join(TemplateDir, "python-templates")
 		writePythonClient(data, outdir, templateDir)
-	case "dotnet":
+	case DotNet:
 		templateDir := path.Join(TemplateDir, "dotnet-templates")
 		writeDotnetClient(pkg, data, outdir, templateDir)
-	case "go":
+	case Go:
 		templateDir := path.Join(TemplateDir, "go-templates")
 		writeGoClient(pkg, outdir, templateDir)
-	case "schema":
+	case Schema:
 		mustWritePulumiSchema(pkgSpec, outdir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
 }
 
-func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
-	inputAPIts, ouputAPIts, indexts, yamlts, packagejson, groupsts, err := gen.NodeJSClient(
-		data, templateDir)
+func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
+	resources, err := nodejsgen.LanguageResources(pkg)
 	if err != nil {
 		panic(err)
 	}
 
-	err = os.MkdirAll(outdir, 0700)
-	if err != nil {
-		panic(err)
-	}
-
-	typesDir := fmt.Sprintf("%s/types", outdir)
-	err = os.MkdirAll(typesDir, 0700)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/input.ts", typesDir), []byte(inputAPIts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/output.ts", typesDir), []byte(ouputAPIts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/yaml/yaml.ts", outdir), []byte(yamlts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	for groupName, group := range groupsts {
-		groupDir := fmt.Sprintf("%s/%s", outdir, groupName)
-		err = os.MkdirAll(groupDir, 0700)
-		if err != nil {
-			panic(err)
+	templateResources := gen.TemplateResources{}
+	for _, resource := range resources {
+		if resource.Package == "" {
+			continue
 		}
-
-		for versionName, version := range group.Versions {
-			versionDir := fmt.Sprintf("%s/%s", groupDir, versionName)
-			err = os.MkdirAll(versionDir, 0700)
-			if err != nil {
-				panic(err)
-			}
-
-			for kindName, kind := range version.Kinds {
-				err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, kindName), []byte(kind), 0777)
-				if err != nil {
-					panic(err)
-				}
-			}
-
-			err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, "index"), []byte(version.Index), 0777)
-			if err != nil {
-				panic(err)
-			}
+		tr := gen.TemplateResource{
+			Name:    resource.Name,
+			Package: resource.Package,
+			Token:   resource.Token,
 		}
-
-		err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", groupDir, "index"), []byte(group.Index), 0777)
-		if err != nil {
-			panic(err)
+		for _, property := range resource.Properties {
+			tp := gen.TemplateProperty{
+				ConstValue: property.ConstValue,
+				Name:       property.Name,
+				Package:    property.Package,
+			}
+			tr.Properties = append(tr.Properties, tp)
 		}
+		templateResources.Resources = append(templateResources.Resources, tr)
 	}
+	sort.Slice(templateResources.Resources, func(i, j int) bool {
+		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
+	})
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/index.ts", outdir), []byte(indexts), 0777)
+	overlays := map[string][]byte{
+		"apiextensions/customResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
+		"helm/v2/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
+		"helm/v3/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")), // v3 support is currently identical to v2
+		"yaml/yaml.ts":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
+	}
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/package.json", outdir), []byte(packagejson), 0777)
-	if err != nil {
-		panic(err)
-	}
+	// Internal files that don't need to be exported
+	files["path.ts"] = mustLoadFile(filepath.Join(templateDir, "path.ts"))
+	files["tests/path.ts"] = mustLoadFile(filepath.Join(templateDir, "tests", "path.ts"))
 
-	err = CopyFile(
-		filepath.Join(templateDir, "CustomResource.ts"), filepath.Join(outdir, "apiextensions", "CustomResource.ts"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
-	if err != nil {
-		panic(err)
-	}
-
-	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(outdir, "helm"))
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%s/package.json\n", outdir)
-	fmt.Println(err)
+	mustWriteFiles(outdir, files)
 }
 
 func writePythonClient(data map[string]interface{}, outdir, templateDir string) {
@@ -312,8 +277,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		panic(err)
 	}
 
-	templateResources := gen.TemplateResources{}
-	imports := codegen.StringSet{}
+	templateResources := gen.GoTemplateResources{}
 	for _, resource := range resources {
 		r := gen.TemplateResource{
 			Alias:   resource.Alias,
@@ -322,22 +286,19 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 			Token:   resource.Token,
 		}
 		templateResources.Resources = append(templateResources.Resources, r)
-		importPath := fmt.Sprintf(`%s "%s"`, resource.Alias, resource.Package)
-		imports.Add(importPath)
 	}
-	templateResources.Imports = imports.SortedValues()
 	sort.Slice(templateResources.Resources, func(i, j int) bool {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	files["kubernetes/types.go"] = mustRenderTemplate(filepath.Join(templateDir, "types.tmpl"), templateResources)
-	files["kubernetes/apiextensions/customResource.go"] = mustRenderTemplate(filepath.Join(templateDir, "apiextensions", "customResource.tmpl"), templateResources)
-	files["kubernetes/helm/v2/chart.go"] = mustRenderTemplate(filepath.Join(templateDir, "helm", "v2", "chart.tmpl"), templateResources)
-	files["kubernetes/helm/v2/types.go"] = mustRenderTemplate(filepath.Join(templateDir, "helm", "v2", "types.tmpl"), templateResources)
-	files["kubernetes/yaml/configFile.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
-	files["kubernetes/yaml/configGroup.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
-	files["kubernetes/yaml/transformation.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
-	files["kubernetes/yaml/yaml.go"] = mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
+	files["kubernetes/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "types.tmpl"), templateResources)
+	files["kubernetes/apiextensions/customResource.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "apiextensions", "customResource.tmpl"), templateResources)
+	files["kubernetes/helm/v2/chart.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "chart.tmpl"), templateResources)
+	files["kubernetes/helm/v2/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "types.tmpl"), templateResources)
+	files["kubernetes/yaml/configFile.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
+	files["kubernetes/yaml/configGroup.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
+	files["kubernetes/yaml/transformation.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
+	files["kubernetes/yaml/yaml.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
 
 	mustWriteFiles(outdir, files)
 }
@@ -359,15 +320,21 @@ func mustRenderTemplate(path string, resources interface{}) []byte {
 	if err != nil {
 		panic(err)
 	}
-	formattedSource, err := format.Source(buf.Bytes())
+	return buf.Bytes()
+}
+
+func mustRenderGoTemplate(path string, resources interface{}) []byte {
+	bytes := mustRenderTemplate(path, resources)
+
+	formattedSource, err := format.Source(bytes)
 	if err != nil {
 		panic(err)
 	}
-
 	return formattedSource
 }
 
 func genPulumiSchemaPackage(pkgSpec schema.PackageSpec) *schema.Package {
+
 	pkg, err := schema.ImportSpec(pkgSpec, nil)
 	if err != nil {
 		panic(err)
@@ -396,7 +363,7 @@ func genK8sResourceTypes(pkg *schema.Package) {
 	}
 
 	files := map[string][]byte{}
-	files["provider/pkg/kinds/kinds.go"] = mustRenderTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
+	files["provider/pkg/kinds/kinds.go"] = mustRenderGoTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
 	mustWriteFiles(BaseDir, files)
 }
 

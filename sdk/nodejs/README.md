@@ -1,7 +1,7 @@
 The Kubernetes provider package offers support for all Kubernetes resources and their properties.
-Resources are exposed as types from modules based on Kubernetes API groups such as `apps`, `core`,
-`rbac`, and `storage`, among many others. Additionally, support for deploying Helm charts (`helm`)
-and YAML files (`yaml`) is available in this package. Using this package allows you to
+Resources are exposed as types from modules based on Kubernetes API groups such as 'apps', 'core',
+'rbac', and 'storage', among many others. Additionally, support for deploying Helm charts ('helm')
+and YAML files ('yaml') is available in this package. Using this package allows you to
 programmatically declare instances of any Kubernetes resources and any supported resource version
 using infrastructure as code, which Pulumi then uses to drive the Kubernetes API.
 
