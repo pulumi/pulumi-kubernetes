@@ -2662,512 +2662,512 @@ export class ConfigFile extends CollectionComponentResource {
     switch (gvk) {
         case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `admissionregistration.k8s.io/v1/MutatingWebhookConfiguration::${id}`,
                 resource: new k8s.admissionregistration.v1.MutatingWebhookConfiguration(id, obj, opts),
             }))];
         case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration::${id}`,
                 resource: new k8s.admissionregistration.v1.ValidatingWebhookConfiguration(id, obj, opts),
             }))];
         case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration::${id}`,
                 resource: new k8s.admissionregistration.v1beta1.MutatingWebhookConfiguration(id, obj, opts),
             }))];
         case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration::${id}`,
                 resource: new k8s.admissionregistration.v1beta1.ValidatingWebhookConfiguration(id, obj, opts),
             }))];
         case "apiextensions.k8s.io/v1/CustomResourceDefinition":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apiextensions.k8s.io/v1/CustomResourceDefinition::${id}`,
                 resource: new k8s.apiextensions.v1.CustomResourceDefinition(id, obj, opts),
             }))];
         case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apiextensions.k8s.io/v1beta1/CustomResourceDefinition::${id}`,
                 resource: new k8s.apiextensions.v1beta1.CustomResourceDefinition(id, obj, opts),
             }))];
         case "apiregistration.k8s.io/v1/APIService":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apiregistration.k8s.io/v1/APIService::${id}`,
                 resource: new k8s.apiregistration.v1.APIService(id, obj, opts),
             }))];
         case "apiregistration.k8s.io/v1beta1/APIService":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apiregistration.k8s.io/v1beta1/APIService::${id}`,
                 resource: new k8s.apiregistration.v1beta1.APIService(id, obj, opts),
             }))];
         case "apps/v1/ControllerRevision":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1/ControllerRevision::${id}`,
                 resource: new k8s.apps.v1.ControllerRevision(id, obj, opts),
             }))];
         case "apps/v1/DaemonSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1/DaemonSet::${id}`,
                 resource: new k8s.apps.v1.DaemonSet(id, obj, opts),
             }))];
         case "apps/v1/Deployment":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1/Deployment::${id}`,
                 resource: new k8s.apps.v1.Deployment(id, obj, opts),
             }))];
         case "apps/v1/ReplicaSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1/ReplicaSet::${id}`,
                 resource: new k8s.apps.v1.ReplicaSet(id, obj, opts),
             }))];
         case "apps/v1/StatefulSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1/StatefulSet::${id}`,
                 resource: new k8s.apps.v1.StatefulSet(id, obj, opts),
             }))];
         case "apps/v1beta1/ControllerRevision":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta1/ControllerRevision::${id}`,
                 resource: new k8s.apps.v1beta1.ControllerRevision(id, obj, opts),
             }))];
         case "apps/v1beta1/Deployment":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta1/Deployment::${id}`,
                 resource: new k8s.apps.v1beta1.Deployment(id, obj, opts),
             }))];
         case "apps/v1beta1/StatefulSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta1/StatefulSet::${id}`,
                 resource: new k8s.apps.v1beta1.StatefulSet(id, obj, opts),
             }))];
         case "apps/v1beta2/ControllerRevision":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta2/ControllerRevision::${id}`,
                 resource: new k8s.apps.v1beta2.ControllerRevision(id, obj, opts),
             }))];
         case "apps/v1beta2/DaemonSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta2/DaemonSet::${id}`,
                 resource: new k8s.apps.v1beta2.DaemonSet(id, obj, opts),
             }))];
         case "apps/v1beta2/Deployment":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta2/Deployment::${id}`,
                 resource: new k8s.apps.v1beta2.Deployment(id, obj, opts),
             }))];
         case "apps/v1beta2/ReplicaSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta2/ReplicaSet::${id}`,
                 resource: new k8s.apps.v1beta2.ReplicaSet(id, obj, opts),
             }))];
         case "apps/v1beta2/StatefulSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `apps/v1beta2/StatefulSet::${id}`,
                 resource: new k8s.apps.v1beta2.StatefulSet(id, obj, opts),
             }))];
         case "auditregistration.k8s.io/v1alpha1/AuditSink":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `auditregistration.k8s.io/v1alpha1/AuditSink::${id}`,
                 resource: new k8s.auditregistration.v1alpha1.AuditSink(id, obj, opts),
             }))];
         case "authentication.k8s.io/v1/TokenRequest":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authentication.k8s.io/v1/TokenRequest::${id}`,
                 resource: new k8s.authentication.v1.TokenRequest(id, obj, opts),
             }))];
         case "authentication.k8s.io/v1/TokenReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authentication.k8s.io/v1/TokenReview::${id}`,
                 resource: new k8s.authentication.v1.TokenReview(id, obj, opts),
             }))];
         case "authentication.k8s.io/v1beta1/TokenReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authentication.k8s.io/v1beta1/TokenReview::${id}`,
                 resource: new k8s.authentication.v1beta1.TokenReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1/LocalSubjectAccessReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1/LocalSubjectAccessReview::${id}`,
                 resource: new k8s.authorization.v1.LocalSubjectAccessReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1/SelfSubjectAccessReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1/SelfSubjectAccessReview::${id}`,
                 resource: new k8s.authorization.v1.SelfSubjectAccessReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1/SelfSubjectRulesReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1/SelfSubjectRulesReview::${id}`,
                 resource: new k8s.authorization.v1.SelfSubjectRulesReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1/SubjectAccessReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1/SubjectAccessReview::${id}`,
                 resource: new k8s.authorization.v1.SubjectAccessReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1beta1/LocalSubjectAccessReview::${id}`,
                 resource: new k8s.authorization.v1beta1.LocalSubjectAccessReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1beta1/SelfSubjectAccessReview::${id}`,
                 resource: new k8s.authorization.v1beta1.SelfSubjectAccessReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1beta1/SelfSubjectRulesReview::${id}`,
                 resource: new k8s.authorization.v1beta1.SelfSubjectRulesReview(id, obj, opts),
             }))];
         case "authorization.k8s.io/v1beta1/SubjectAccessReview":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `authorization.k8s.io/v1beta1/SubjectAccessReview::${id}`,
                 resource: new k8s.authorization.v1beta1.SubjectAccessReview(id, obj, opts),
             }))];
         case "autoscaling/v1/HorizontalPodAutoscaler":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `autoscaling/v1/HorizontalPodAutoscaler::${id}`,
                 resource: new k8s.autoscaling.v1.HorizontalPodAutoscaler(id, obj, opts),
             }))];
         case "autoscaling/v2beta1/HorizontalPodAutoscaler":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `autoscaling/v2beta1/HorizontalPodAutoscaler::${id}`,
                 resource: new k8s.autoscaling.v2beta1.HorizontalPodAutoscaler(id, obj, opts),
             }))];
         case "autoscaling/v2beta2/HorizontalPodAutoscaler":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `autoscaling/v2beta2/HorizontalPodAutoscaler::${id}`,
                 resource: new k8s.autoscaling.v2beta2.HorizontalPodAutoscaler(id, obj, opts),
             }))];
         case "batch/v1/Job":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `batch/v1/Job::${id}`,
                 resource: new k8s.batch.v1.Job(id, obj, opts),
             }))];
         case "batch/v1beta1/CronJob":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `batch/v1beta1/CronJob::${id}`,
                 resource: new k8s.batch.v1beta1.CronJob(id, obj, opts),
             }))];
         case "batch/v2alpha1/CronJob":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `batch/v2alpha1/CronJob::${id}`,
                 resource: new k8s.batch.v2alpha1.CronJob(id, obj, opts),
             }))];
         case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `certificates.k8s.io/v1beta1/CertificateSigningRequest::${id}`,
                 resource: new k8s.certificates.v1beta1.CertificateSigningRequest(id, obj, opts),
             }))];
         case "coordination.k8s.io/v1/Lease":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `coordination.k8s.io/v1/Lease::${id}`,
                 resource: new k8s.coordination.v1.Lease(id, obj, opts),
             }))];
         case "coordination.k8s.io/v1beta1/Lease":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `coordination.k8s.io/v1beta1/Lease::${id}`,
                 resource: new k8s.coordination.v1beta1.Lease(id, obj, opts),
             }))];
         case "v1/Binding":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Binding::${id}`,
                 resource: new k8s.core.v1.Binding(id, obj, opts),
             }))];
         case "v1/ComponentStatus":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/ComponentStatus::${id}`,
                 resource: new k8s.core.v1.ComponentStatus(id, obj, opts),
             }))];
         case "v1/ConfigMap":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/ConfigMap::${id}`,
                 resource: new k8s.core.v1.ConfigMap(id, obj, opts),
             }))];
         case "v1/Endpoints":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Endpoints::${id}`,
                 resource: new k8s.core.v1.Endpoints(id, obj, opts),
             }))];
         case "v1/Event":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Event::${id}`,
                 resource: new k8s.core.v1.Event(id, obj, opts),
             }))];
         case "v1/LimitRange":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/LimitRange::${id}`,
                 resource: new k8s.core.v1.LimitRange(id, obj, opts),
             }))];
         case "v1/Namespace":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Namespace::${id}`,
                 resource: new k8s.core.v1.Namespace(id, obj, opts),
             }))];
         case "v1/Node":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Node::${id}`,
                 resource: new k8s.core.v1.Node(id, obj, opts),
             }))];
         case "v1/PersistentVolume":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/PersistentVolume::${id}`,
                 resource: new k8s.core.v1.PersistentVolume(id, obj, opts),
             }))];
         case "v1/PersistentVolumeClaim":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/PersistentVolumeClaim::${id}`,
                 resource: new k8s.core.v1.PersistentVolumeClaim(id, obj, opts),
             }))];
         case "v1/Pod":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Pod::${id}`,
                 resource: new k8s.core.v1.Pod(id, obj, opts),
             }))];
         case "v1/PodTemplate":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/PodTemplate::${id}`,
                 resource: new k8s.core.v1.PodTemplate(id, obj, opts),
             }))];
         case "v1/ReplicationController":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/ReplicationController::${id}`,
                 resource: new k8s.core.v1.ReplicationController(id, obj, opts),
             }))];
         case "v1/ResourceQuota":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/ResourceQuota::${id}`,
                 resource: new k8s.core.v1.ResourceQuota(id, obj, opts),
             }))];
         case "v1/Secret":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Secret::${id}`,
                 resource: new k8s.core.v1.Secret(id, obj, opts),
             }))];
         case "v1/Service":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/Service::${id}`,
                 resource: new k8s.core.v1.Service(id, obj, opts),
             }))];
         case "v1/ServiceAccount":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `v1/ServiceAccount::${id}`,
                 resource: new k8s.core.v1.ServiceAccount(id, obj, opts),
             }))];
         case "discovery.k8s.io/v1beta1/EndpointSlice":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `discovery.k8s.io/v1beta1/EndpointSlice::${id}`,
                 resource: new k8s.discovery.v1beta1.EndpointSlice(id, obj, opts),
             }))];
         case "events.k8s.io/v1beta1/Event":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `events.k8s.io/v1beta1/Event::${id}`,
                 resource: new k8s.events.v1beta1.Event(id, obj, opts),
             }))];
         case "extensions/v1beta1/DaemonSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `extensions/v1beta1/DaemonSet::${id}`,
                 resource: new k8s.extensions.v1beta1.DaemonSet(id, obj, opts),
             }))];
         case "extensions/v1beta1/Deployment":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `extensions/v1beta1/Deployment::${id}`,
                 resource: new k8s.extensions.v1beta1.Deployment(id, obj, opts),
             }))];
         case "extensions/v1beta1/Ingress":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `extensions/v1beta1/Ingress::${id}`,
                 resource: new k8s.extensions.v1beta1.Ingress(id, obj, opts),
             }))];
         case "extensions/v1beta1/NetworkPolicy":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `extensions/v1beta1/NetworkPolicy::${id}`,
                 resource: new k8s.extensions.v1beta1.NetworkPolicy(id, obj, opts),
             }))];
         case "extensions/v1beta1/PodSecurityPolicy":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `extensions/v1beta1/PodSecurityPolicy::${id}`,
                 resource: new k8s.extensions.v1beta1.PodSecurityPolicy(id, obj, opts),
             }))];
         case "extensions/v1beta1/ReplicaSet":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `extensions/v1beta1/ReplicaSet::${id}`,
                 resource: new k8s.extensions.v1beta1.ReplicaSet(id, obj, opts),
             }))];
         case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema::${id}`,
                 resource: new k8s.flowcontrol.v1alpha1.FlowSchema(id, obj, opts),
             }))];
         case "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration::${id}`,
                 resource: new k8s.flowcontrol.v1alpha1.PriorityLevelConfiguration(id, obj, opts),
             }))];
         case "meta/v1/Status":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `meta/v1/Status::${id}`,
                 resource: new k8s.meta.v1.Status(id, obj, opts),
             }))];
         case "networking.k8s.io/v1/NetworkPolicy":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `networking.k8s.io/v1/NetworkPolicy::${id}`,
                 resource: new k8s.networking.v1.NetworkPolicy(id, obj, opts),
             }))];
         case "networking.k8s.io/v1beta1/Ingress":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `networking.k8s.io/v1beta1/Ingress::${id}`,
                 resource: new k8s.networking.v1beta1.Ingress(id, obj, opts),
             }))];
         case "networking.k8s.io/v1beta1/IngressClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `networking.k8s.io/v1beta1/IngressClass::${id}`,
                 resource: new k8s.networking.v1beta1.IngressClass(id, obj, opts),
             }))];
         case "node.k8s.io/v1alpha1/RuntimeClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `node.k8s.io/v1alpha1/RuntimeClass::${id}`,
                 resource: new k8s.node.v1alpha1.RuntimeClass(id, obj, opts),
             }))];
         case "node.k8s.io/v1beta1/RuntimeClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `node.k8s.io/v1beta1/RuntimeClass::${id}`,
                 resource: new k8s.node.v1beta1.RuntimeClass(id, obj, opts),
             }))];
         case "policy/v1beta1/PodDisruptionBudget":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `policy/v1beta1/PodDisruptionBudget::${id}`,
                 resource: new k8s.policy.v1beta1.PodDisruptionBudget(id, obj, opts),
             }))];
         case "policy/v1beta1/PodSecurityPolicy":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `policy/v1beta1/PodSecurityPolicy::${id}`,
                 resource: new k8s.policy.v1beta1.PodSecurityPolicy(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1/ClusterRole":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1/ClusterRole::${id}`,
                 resource: new k8s.rbac.v1.ClusterRole(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1/ClusterRoleBinding::${id}`,
                 resource: new k8s.rbac.v1.ClusterRoleBinding(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1/Role":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1/Role::${id}`,
                 resource: new k8s.rbac.v1.Role(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1/RoleBinding":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1/RoleBinding::${id}`,
                 resource: new k8s.rbac.v1.RoleBinding(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1alpha1/ClusterRole::${id}`,
                 resource: new k8s.rbac.v1alpha1.ClusterRole(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding::${id}`,
                 resource: new k8s.rbac.v1alpha1.ClusterRoleBinding(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1alpha1/Role":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1alpha1/Role::${id}`,
                 resource: new k8s.rbac.v1alpha1.Role(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1alpha1/RoleBinding::${id}`,
                 resource: new k8s.rbac.v1alpha1.RoleBinding(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1beta1/ClusterRole::${id}`,
                 resource: new k8s.rbac.v1beta1.ClusterRole(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding::${id}`,
                 resource: new k8s.rbac.v1beta1.ClusterRoleBinding(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1beta1/Role":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1beta1/Role::${id}`,
                 resource: new k8s.rbac.v1beta1.Role(id, obj, opts),
             }))];
         case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `rbac.authorization.k8s.io/v1beta1/RoleBinding::${id}`,
                 resource: new k8s.rbac.v1beta1.RoleBinding(id, obj, opts),
             }))];
         case "scheduling.k8s.io/v1/PriorityClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `scheduling.k8s.io/v1/PriorityClass::${id}`,
                 resource: new k8s.scheduling.v1.PriorityClass(id, obj, opts),
             }))];
         case "scheduling.k8s.io/v1alpha1/PriorityClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `scheduling.k8s.io/v1alpha1/PriorityClass::${id}`,
                 resource: new k8s.scheduling.v1alpha1.PriorityClass(id, obj, opts),
             }))];
         case "scheduling.k8s.io/v1beta1/PriorityClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `scheduling.k8s.io/v1beta1/PriorityClass::${id}`,
                 resource: new k8s.scheduling.v1beta1.PriorityClass(id, obj, opts),
             }))];
         case "settings.k8s.io/v1alpha1/PodPreset":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `settings.k8s.io/v1alpha1/PodPreset::${id}`,
                 resource: new k8s.settings.v1alpha1.PodPreset(id, obj, opts),
             }))];
         case "storage.k8s.io/v1/CSIDriver":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1/CSIDriver::${id}`,
                 resource: new k8s.storage.v1.CSIDriver(id, obj, opts),
             }))];
         case "storage.k8s.io/v1/CSINode":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1/CSINode::${id}`,
                 resource: new k8s.storage.v1.CSINode(id, obj, opts),
             }))];
         case "storage.k8s.io/v1/StorageClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1/StorageClass::${id}`,
                 resource: new k8s.storage.v1.StorageClass(id, obj, opts),
             }))];
         case "storage.k8s.io/v1/VolumeAttachment":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1/VolumeAttachment::${id}`,
                 resource: new k8s.storage.v1.VolumeAttachment(id, obj, opts),
             }))];
         case "storage.k8s.io/v1alpha1/VolumeAttachment":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1alpha1/VolumeAttachment::${id}`,
                 resource: new k8s.storage.v1alpha1.VolumeAttachment(id, obj, opts),
             }))];
         case "storage.k8s.io/v1beta1/CSIDriver":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1beta1/CSIDriver::${id}`,
                 resource: new k8s.storage.v1beta1.CSIDriver(id, obj, opts),
             }))];
         case "storage.k8s.io/v1beta1/CSINode":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1beta1/CSINode::${id}`,
                 resource: new k8s.storage.v1beta1.CSINode(id, obj, opts),
             }))];
         case "storage.k8s.io/v1beta1/StorageClass":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1beta1/StorageClass::${id}`,
                 resource: new k8s.storage.v1beta1.StorageClass(id, obj, opts),
             }))];
         case "storage.k8s.io/v1beta1/VolumeAttachment":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `storage.k8s.io/v1beta1/VolumeAttachment::${id}`,
                 resource: new k8s.storage.v1beta1.VolumeAttachment(id, obj, opts),
             }))];
         default:

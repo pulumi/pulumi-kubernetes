@@ -428,7 +428,7 @@ export class ConfigFile extends CollectionComponentResource {
 {{- range .NonListKinds}}
         case "{{.GVK}}":
             return [id.apply(id => ({
-                name: `${apiVersion}::${id}`,
+                name: `{{.GVK}}::${id}`,
                 resource: new k8s.{{.Package}}.{{.Name}}(id, obj, opts),
             }))];
 {{- end}}
