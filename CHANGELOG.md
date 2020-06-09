@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.3.0 (June 9, 2020)
+
 ### Improvements
 
 - NodeJS SDK updated to align with other Pulumi NodeJS SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1151)
