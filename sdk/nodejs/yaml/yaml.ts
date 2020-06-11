@@ -2548,7 +2548,8 @@ export class ConfigFile extends CollectionComponentResource {
     // for resource definitions that can be managed by Kubernetes, and registers those with the
     // engine instead.
     if (
-           (gvk === "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList")
+           (gvk === "v1/List")
+        || (gvk === "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList")
         || (gvk === "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList")
         || (gvk === "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList")
         || (gvk === "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList")
