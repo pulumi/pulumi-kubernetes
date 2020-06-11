@@ -399,8 +399,9 @@ export class ConfigFile extends CollectionComponentResource {
     // for resource definitions that can be managed by Kubernetes, and registers those with the
     // engine instead.
     if (
-{{range $idx, $v := .ListKinds -}} {{if $idx}}
-        || {{else}}           {{end}}(gvk === "{{$v.GVK}}")
+           (gvk === "v1/List")
+{{- range .ListKinds}}
+        || (gvk === "{{.GVK}}")
 {{- end}}
     ) {
         const objs = [];

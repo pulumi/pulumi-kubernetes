@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Fix regression in TypeScript YAML SDK (https://github.com/pulumi/pulumi-kubernetes/pull/1157)
+
 ## 2.3.0 (June 9, 2020)
 
 ### Improvements
