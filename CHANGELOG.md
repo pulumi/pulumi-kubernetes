@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+- Update resource deprecation/removal warnings. (https://github.com/pulumi/pulumi-kubernetes/pull/1162)
+
 ### Bug Fixes
 
 -   Fix regression in TypeScript YAML SDK (https://github.com/pulumi/pulumi-kubernetes/pull/1157)

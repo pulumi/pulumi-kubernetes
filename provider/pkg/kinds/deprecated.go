@@ -51,9 +51,18 @@ import (
 // apiextensions/v1beta1/CustomResourceDefinition / 1.16 / 1.19
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals
 //
-// rbac/v1alpha1/* / 1.17 / 1.20
-// rbac/v1beta1/* / 1.17 / 1.20
+// rbac/v1alpha1/* / 1.17 / 1.22
+// rbac/v1beta1/* / 1.17 / 1.22
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals
+//
+// apiextensions/v1beta1/* / 1.19 / _
+// apiregistration/v1beta1/* / 1.19 / _
+// authentication/v1beta1/* / 1.19 / 1.22
+// authorization/v1beta1/* / 1.19 / 1.22
+// autoscaling/v2beta1/* / 1.19 / _
+// coordination/v1beta1/* / 1.19 / 1.22
+// storage/v1beta1/* / 1.19 / _
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.19.md#deprecation-1
 //
 // TODO: Keep updating this list on every release.
 
@@ -78,6 +87,12 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		removedIn = cluster.ServerVersion{Major: 1, Minor: 19}
 	case ApiextensionsV1B1:
 		removedIn = cluster.ServerVersion{Major: 1, Minor: 19}
+	case AuthenticationV1B1:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
+	case AuthorizationV1B1:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
+	case CoordinationV1B1:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
 	case ExtensionsV1B1, AppsV1B1, AppsV1B2:
 		if k == Ingress {
 			removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
@@ -85,7 +100,7 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 			removedIn = cluster.ServerVersion{Major: 1, Minor: 16}
 		}
 	case RbacV1A1, RbacV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
 	case SchedulingV1A1, SchedulingV1B1:
 		removedIn = cluster.ServerVersion{Major: 1, Minor: 17}
 	default:
@@ -114,10 +129,22 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 	gvkFmt := `%s/%s`
 
 	switch gv {
+	case AdmissionregistrationV1B1:
+		return fmt.Sprintf(gvkFmt, AdmissionregistrationV1, k)
 	case ApiextensionsV1B1:
 		return fmt.Sprintf(gvkFmt, ApiextensionsV1, k)
+	case ApiregistrationV1B1:
+		return fmt.Sprintf(gvkFmt, ApiregistrationV1, k)
 	case AppsV1B1, AppsV1B2:
 		return fmt.Sprintf(gvkFmt, AppsV1, k)
+	case AuthenticationV1B1:
+		return fmt.Sprintf(gvkFmt, AuthenticationV1, k)
+	case AuthorizationV1B1:
+		return fmt.Sprintf(gvkFmt, AuthorizationV1, k)
+	case AutoscalingV2B1:
+		return fmt.Sprintf(gvkFmt, AutoscalingV1, k)
+	case CoordinationV1B1:
+		return fmt.Sprintf(gvkFmt, CoordinationV1, k)
 	case ExtensionsV1B1:
 		switch k {
 		case DaemonSet, Deployment, ReplicaSet:
@@ -135,13 +162,8 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		return fmt.Sprintf(gvkFmt, RbacV1, k)
 	case SchedulingV1A1, SchedulingV1B1:
 		return fmt.Sprintf(gvkFmt, SchedulingV1, k)
-	case StorageV1B1, "storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
-		switch k {
-		case CSINode:
-			return fmt.Sprintf(gvkFmt, StorageV1, k)
-		default:
-			return gvkStr(gvk)
-		}
+	case StorageV1A1, StorageV1B1, "storage/v1alpha1", "storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
+		return fmt.Sprintf(gvkFmt, StorageV1, k)
 	default:
 		return gvkStr(gvk)
 	}

@@ -17,6 +17,12 @@
 
 package kinds
 
+import (
+	"strings"
+
+	"k8s.io/apimachinery/pkg/runtime/schema"
+)
+
 // Kind maps to the name of a Kubernetes resource Kind.
 type Kind string
 
@@ -196,3 +202,15 @@ const (
 	StorageV1A1               groupVersion = "storage.k8s.io/v1alpha1"
 	StorageV1B1               groupVersion = "storage.k8s.io/v1beta1"
 )
+
+// toGVK is a helper function that converts the internal groupVersion and Kind types to a schema.GroupVersionKind
+func toGVK(gv groupVersion, kind Kind) schema.GroupVersionKind {
+	parts := strings.Split(string(gv), "/")
+	g, v := parts[0], parts[1]
+
+	return schema.GroupVersionKind{
+		Group:   g,
+		Version: v,
+		Kind:    string(kind),
+	}
+}
