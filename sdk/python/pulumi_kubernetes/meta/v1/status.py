@@ -22,20 +22,6 @@ class Status(pulumi.CustomResource):
     details: pulumi.Output[dict]
     """
     Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
-      * `causes` (`list`) - The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
-        * `field` (`str`) - The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
-          
-          Examples:
-            "name" - the field "name" on the current resource
-            "items[0].name" - the field "name" on the first array entry in "items"
-        * `message` (`str`) - A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
-        * `reason` (`str`) - A machine-readable description of the cause of the error. If this value is empty there is no information available.
-
-      * `group` (`str`) - The group attribute of the resource associated with the status StatusReason.
-      * `kind` (`str`) - The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-      * `name` (`str`) - The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
-      * `retry_after_seconds` (`float`) - If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
-      * `uid` (`str`) - UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
     """
     kind: pulumi.Output[str]
     """
@@ -48,12 +34,6 @@ class Status(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-      * `continue_` (`str`) - continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
-      * `remaining_item_count` (`float`) - remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
-      * `resource_version` (`str`) - String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
-      * `self_link` (`str`) - selfLink is a URL representing this object. Populated by the system. Read-only.
-        
-        DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
     """
     reason: pulumi.Output[str]
     """
@@ -75,32 +55,6 @@ class Status(pulumi.CustomResource):
         :param pulumi.Input[str] message: A human-readable description of the status of this operation.
         :param pulumi.Input[dict] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] reason: A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
-
-        The **details** object supports the following:
-
-          * `causes` (`pulumi.Input[list]`) - The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
-            * `field` (`pulumi.Input[str]`) - The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
-              
-              Examples:
-                "name" - the field "name" on the current resource
-                "items[0].name" - the field "name" on the first array entry in "items"
-            * `message` (`pulumi.Input[str]`) - A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
-            * `reason` (`pulumi.Input[str]`) - A machine-readable description of the cause of the error. If this value is empty there is no information available.
-
-          * `group` (`pulumi.Input[str]`) - The group attribute of the resource associated with the status StatusReason.
-          * `kind` (`pulumi.Input[str]`) - The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-          * `name` (`pulumi.Input[str]`) - The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
-          * `retry_after_seconds` (`pulumi.Input[float]`) - If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
-          * `uid` (`pulumi.Input[str]`) - UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
-
-        The **metadata** object supports the following:
-
-          * `continue_` (`pulumi.Input[str]`) - continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
-          * `remaining_item_count` (`pulumi.Input[float]`) - remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
-          * `resource_version` (`pulumi.Input[str]`) - String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
-          * `self_link` (`pulumi.Input[str]`) - selfLink is a URL representing this object. Populated by the system. Read-only.
-            
-            DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
