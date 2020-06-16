@@ -20,6 +20,15 @@ func NewProvider(ctx *pulumi.Context,
 	if args == nil {
 		args = &ProviderArgs{}
 	}
+	if args.EnableDryRun == nil {
+		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
+	}
+	if args.Kubeconfig == nil {
+		args.Kubeconfig = pulumi.StringPtr(getEnvOrDefault("", nil, "KUBECONFIG").(string))
+	}
+	if args.SuppressDeprecationWarnings == nil {
+		args.SuppressDeprecationWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").(bool))
+	}
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:kubernetes", name, args, &resource, opts...)
 	if err != nil {

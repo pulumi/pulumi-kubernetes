@@ -35,8 +35,7 @@ type Endpoint struct {
 // EndpointInput is an input type that accepts EndpointArgs and EndpointOutput values.
 // You can construct a concrete instance of `EndpointInput` via:
 //
-// 		 EndpointArgs{...}
-//
+//          EndpointArgs{...}
 type EndpointInput interface {
 	pulumi.Input
 
@@ -79,8 +78,7 @@ func (i EndpointArgs) ToEndpointOutputWithContext(ctx context.Context) EndpointO
 // EndpointArrayInput is an input type that accepts EndpointArray and EndpointArrayOutput values.
 // You can construct a concrete instance of `EndpointArrayInput` via:
 //
-// 		 EndpointArray{ EndpointArgs{...} }
-//
+//          EndpointArray{ EndpointArgs{...} }
 type EndpointArrayInput interface {
 	pulumi.Input
 
@@ -177,8 +175,7 @@ type EndpointConditions struct {
 // EndpointConditionsInput is an input type that accepts EndpointConditionsArgs and EndpointConditionsOutput values.
 // You can construct a concrete instance of `EndpointConditionsInput` via:
 //
-// 		 EndpointConditionsArgs{...}
-//
+//          EndpointConditionsArgs{...}
 type EndpointConditionsInput interface {
 	pulumi.Input
 
@@ -215,12 +212,11 @@ func (i EndpointConditionsArgs) ToEndpointConditionsPtrOutputWithContext(ctx con
 // EndpointConditionsPtrInput is an input type that accepts EndpointConditionsArgs, EndpointConditionsPtr and EndpointConditionsPtrOutput values.
 // You can construct a concrete instance of `EndpointConditionsPtrInput` via:
 //
-// 		 EndpointConditionsArgs{...}
+//          EndpointConditionsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type EndpointConditionsPtrInput interface {
 	pulumi.Input
 
@@ -319,8 +315,7 @@ type EndpointPort struct {
 // EndpointPortInput is an input type that accepts EndpointPortArgs and EndpointPortOutput values.
 // You can construct a concrete instance of `EndpointPortInput` via:
 //
-// 		 EndpointPortArgs{...}
-//
+//          EndpointPortArgs{...}
 type EndpointPortInput interface {
 	pulumi.Input
 
@@ -355,8 +350,7 @@ func (i EndpointPortArgs) ToEndpointPortOutputWithContext(ctx context.Context) E
 // EndpointPortArrayInput is an input type that accepts EndpointPortArray and EndpointPortArrayOutput values.
 // You can construct a concrete instance of `EndpointPortArrayInput` via:
 //
-// 		 EndpointPortArray{ EndpointPortArgs{...} }
-//
+//          EndpointPortArray{ EndpointPortArgs{...} }
 type EndpointPortArrayInput interface {
 	pulumi.Input
 
@@ -452,8 +446,7 @@ type EndpointSliceType struct {
 // EndpointSliceTypeInput is an input type that accepts EndpointSliceTypeArgs and EndpointSliceTypeOutput values.
 // You can construct a concrete instance of `EndpointSliceTypeInput` via:
 //
-// 		 EndpointSliceTypeArgs{...}
-//
+//          EndpointSliceTypeArgs{...}
 type EndpointSliceTypeInput interface {
 	pulumi.Input
 
@@ -492,8 +485,7 @@ func (i EndpointSliceTypeArgs) ToEndpointSliceTypeOutputWithContext(ctx context.
 // EndpointSliceTypeArrayInput is an input type that accepts EndpointSliceTypeArray and EndpointSliceTypeArrayOutput values.
 // You can construct a concrete instance of `EndpointSliceTypeArrayInput` via:
 //
-// 		 EndpointSliceTypeArray{ EndpointSliceTypeArgs{...} }
-//
+//          EndpointSliceTypeArray{ EndpointSliceTypeArgs{...} }
 type EndpointSliceTypeArrayInput interface {
 	pulumi.Input
 
@@ -595,8 +587,7 @@ type EndpointSliceListType struct {
 // EndpointSliceListTypeInput is an input type that accepts EndpointSliceListTypeArgs and EndpointSliceListTypeOutput values.
 // You can construct a concrete instance of `EndpointSliceListTypeInput` via:
 //
-// 		 EndpointSliceListTypeArgs{...}
-//
+//          EndpointSliceListTypeArgs{...}
 type EndpointSliceListTypeInput interface {
 	pulumi.Input
 

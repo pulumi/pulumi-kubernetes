@@ -52,8 +52,7 @@ type EventType struct {
 // EventTypeInput is an input type that accepts EventTypeArgs and EventTypeOutput values.
 // You can construct a concrete instance of `EventTypeInput` via:
 //
-// 		 EventTypeArgs{...}
-//
+//          EventTypeArgs{...}
 type EventTypeInput interface {
 	pulumi.Input
 
@@ -113,8 +112,7 @@ func (i EventTypeArgs) ToEventTypeOutputWithContext(ctx context.Context) EventTy
 // EventTypeArrayInput is an input type that accepts EventTypeArray and EventTypeArrayOutput values.
 // You can construct a concrete instance of `EventTypeArrayInput` via:
 //
-// 		 EventTypeArray{ EventTypeArgs{...} }
-//
+//          EventTypeArray{ EventTypeArgs{...} }
 type EventTypeArrayInput interface {
 	pulumi.Input
 
@@ -270,8 +268,7 @@ type EventListType struct {
 // EventListTypeInput is an input type that accepts EventListTypeArgs and EventListTypeOutput values.
 // You can construct a concrete instance of `EventListTypeInput` via:
 //
-// 		 EventListTypeArgs{...}
-//
+//          EventListTypeArgs{...}
 type EventListTypeInput interface {
 	pulumi.Input
 
@@ -351,8 +348,7 @@ type EventSeries struct {
 // EventSeriesInput is an input type that accepts EventSeriesArgs and EventSeriesOutput values.
 // You can construct a concrete instance of `EventSeriesInput` via:
 //
-// 		 EventSeriesArgs{...}
-//
+//          EventSeriesArgs{...}
 type EventSeriesInput interface {
 	pulumi.Input
 
@@ -393,12 +389,11 @@ func (i EventSeriesArgs) ToEventSeriesPtrOutputWithContext(ctx context.Context) 
 // EventSeriesPtrInput is an input type that accepts EventSeriesArgs, EventSeriesPtr and EventSeriesPtrOutput values.
 // You can construct a concrete instance of `EventSeriesPtrInput` via:
 //
-// 		 EventSeriesArgs{...}
+//          EventSeriesArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type EventSeriesPtrInput interface {
 	pulumi.Input
 

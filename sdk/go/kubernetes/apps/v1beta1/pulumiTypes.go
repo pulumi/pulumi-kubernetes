@@ -29,8 +29,7 @@ type ControllerRevisionType struct {
 // ControllerRevisionTypeInput is an input type that accepts ControllerRevisionTypeArgs and ControllerRevisionTypeOutput values.
 // You can construct a concrete instance of `ControllerRevisionTypeInput` via:
 //
-// 		 ControllerRevisionTypeArgs{...}
-//
+//          ControllerRevisionTypeArgs{...}
 type ControllerRevisionTypeInput interface {
 	pulumi.Input
 
@@ -67,8 +66,7 @@ func (i ControllerRevisionTypeArgs) ToControllerRevisionTypeOutputWithContext(ct
 // ControllerRevisionTypeArrayInput is an input type that accepts ControllerRevisionTypeArray and ControllerRevisionTypeArrayOutput values.
 // You can construct a concrete instance of `ControllerRevisionTypeArrayInput` via:
 //
-// 		 ControllerRevisionTypeArray{ ControllerRevisionTypeArgs{...} }
-//
+//          ControllerRevisionTypeArray{ ControllerRevisionTypeArgs{...} }
 type ControllerRevisionTypeArrayInput interface {
 	pulumi.Input
 
@@ -165,8 +163,7 @@ type ControllerRevisionListType struct {
 // ControllerRevisionListTypeInput is an input type that accepts ControllerRevisionListTypeArgs and ControllerRevisionListTypeOutput values.
 // You can construct a concrete instance of `ControllerRevisionListTypeInput` via:
 //
-// 		 ControllerRevisionListTypeArgs{...}
-//
+//          ControllerRevisionListTypeArgs{...}
 type ControllerRevisionListTypeInput interface {
 	pulumi.Input
 
@@ -272,8 +269,7 @@ type DeploymentType struct {
 // DeploymentTypeInput is an input type that accepts DeploymentTypeArgs and DeploymentTypeOutput values.
 // You can construct a concrete instance of `DeploymentTypeInput` via:
 //
-// 		 DeploymentTypeArgs{...}
-//
+//          DeploymentTypeArgs{...}
 type DeploymentTypeInput interface {
 	pulumi.Input
 
@@ -332,8 +328,7 @@ func (i DeploymentTypeArgs) ToDeploymentTypeOutputWithContext(ctx context.Contex
 // DeploymentTypeArrayInput is an input type that accepts DeploymentTypeArray and DeploymentTypeArrayOutput values.
 // You can construct a concrete instance of `DeploymentTypeArrayInput` via:
 //
-// 		 DeploymentTypeArray{ DeploymentTypeArgs{...} }
-//
+//          DeploymentTypeArray{ DeploymentTypeArgs{...} }
 type DeploymentTypeArrayInput interface {
 	pulumi.Input
 
@@ -456,8 +451,7 @@ type DeploymentCondition struct {
 // DeploymentConditionInput is an input type that accepts DeploymentConditionArgs and DeploymentConditionOutput values.
 // You can construct a concrete instance of `DeploymentConditionInput` via:
 //
-// 		 DeploymentConditionArgs{...}
-//
+//          DeploymentConditionArgs{...}
 type DeploymentConditionInput interface {
 	pulumi.Input
 
@@ -496,8 +490,7 @@ func (i DeploymentConditionArgs) ToDeploymentConditionOutputWithContext(ctx cont
 // DeploymentConditionArrayInput is an input type that accepts DeploymentConditionArray and DeploymentConditionArrayOutput values.
 // You can construct a concrete instance of `DeploymentConditionArrayInput` via:
 //
-// 		 DeploymentConditionArray{ DeploymentConditionArgs{...} }
-//
+//          DeploymentConditionArray{ DeploymentConditionArgs{...} }
 type DeploymentConditionArrayInput interface {
 	pulumi.Input
 
@@ -599,8 +592,7 @@ type DeploymentListType struct {
 // DeploymentListTypeInput is an input type that accepts DeploymentListTypeArgs and DeploymentListTypeOutput values.
 // You can construct a concrete instance of `DeploymentListTypeInput` via:
 //
-// 		 DeploymentListTypeArgs{...}
-//
+//          DeploymentListTypeArgs{...}
 type DeploymentListTypeInput interface {
 	pulumi.Input
 
@@ -684,8 +676,7 @@ type DeploymentRollback struct {
 // DeploymentRollbackInput is an input type that accepts DeploymentRollbackArgs and DeploymentRollbackOutput values.
 // You can construct a concrete instance of `DeploymentRollbackInput` via:
 //
-// 		 DeploymentRollbackArgs{...}
-//
+//          DeploymentRollbackArgs{...}
 type DeploymentRollbackInput interface {
 	pulumi.Input
 
@@ -784,8 +775,7 @@ type DeploymentSpec struct {
 // DeploymentSpecInput is an input type that accepts DeploymentSpecArgs and DeploymentSpecOutput values.
 // You can construct a concrete instance of `DeploymentSpecInput` via:
 //
-// 		 DeploymentSpecArgs{...}
-//
+//          DeploymentSpecArgs{...}
 type DeploymentSpecInput interface {
 	pulumi.Input
 
@@ -838,12 +828,11 @@ func (i DeploymentSpecArgs) ToDeploymentSpecPtrOutputWithContext(ctx context.Con
 // DeploymentSpecPtrInput is an input type that accepts DeploymentSpecArgs, DeploymentSpecPtr and DeploymentSpecPtrOutput values.
 // You can construct a concrete instance of `DeploymentSpecPtrInput` via:
 //
-// 		 DeploymentSpecArgs{...}
+//          DeploymentSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type DeploymentSpecPtrInput interface {
 	pulumi.Input
 
@@ -1070,8 +1059,7 @@ type DeploymentStatus struct {
 // DeploymentStatusInput is an input type that accepts DeploymentStatusArgs and DeploymentStatusOutput values.
 // You can construct a concrete instance of `DeploymentStatusInput` via:
 //
-// 		 DeploymentStatusArgs{...}
-//
+//          DeploymentStatusArgs{...}
 type DeploymentStatusInput interface {
 	pulumi.Input
 
@@ -1122,12 +1110,11 @@ func (i DeploymentStatusArgs) ToDeploymentStatusPtrOutputWithContext(ctx context
 // DeploymentStatusPtrInput is an input type that accepts DeploymentStatusArgs, DeploymentStatusPtr and DeploymentStatusPtrOutput values.
 // You can construct a concrete instance of `DeploymentStatusPtrInput` via:
 //
-// 		 DeploymentStatusArgs{...}
+//          DeploymentStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type DeploymentStatusPtrInput interface {
 	pulumi.Input
 
@@ -1327,8 +1314,7 @@ type DeploymentStrategy struct {
 // DeploymentStrategyInput is an input type that accepts DeploymentStrategyArgs and DeploymentStrategyOutput values.
 // You can construct a concrete instance of `DeploymentStrategyInput` via:
 //
-// 		 DeploymentStrategyArgs{...}
-//
+//          DeploymentStrategyArgs{...}
 type DeploymentStrategyInput interface {
 	pulumi.Input
 
@@ -1367,12 +1353,11 @@ func (i DeploymentStrategyArgs) ToDeploymentStrategyPtrOutputWithContext(ctx con
 // DeploymentStrategyPtrInput is an input type that accepts DeploymentStrategyArgs, DeploymentStrategyPtr and DeploymentStrategyPtrOutput values.
 // You can construct a concrete instance of `DeploymentStrategyPtrInput` via:
 //
-// 		 DeploymentStrategyArgs{...}
+//          DeploymentStrategyArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type DeploymentStrategyPtrInput interface {
 	pulumi.Input
 
@@ -1480,8 +1465,7 @@ type RollbackConfig struct {
 // RollbackConfigInput is an input type that accepts RollbackConfigArgs and RollbackConfigOutput values.
 // You can construct a concrete instance of `RollbackConfigInput` via:
 //
-// 		 RollbackConfigArgs{...}
-//
+//          RollbackConfigArgs{...}
 type RollbackConfigInput interface {
 	pulumi.Input
 
@@ -1518,12 +1502,11 @@ func (i RollbackConfigArgs) ToRollbackConfigPtrOutputWithContext(ctx context.Con
 // RollbackConfigPtrInput is an input type that accepts RollbackConfigArgs, RollbackConfigPtr and RollbackConfigPtrOutput values.
 // You can construct a concrete instance of `RollbackConfigPtrInput` via:
 //
-// 		 RollbackConfigArgs{...}
+//          RollbackConfigArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type RollbackConfigPtrInput interface {
 	pulumi.Input
 
@@ -1618,8 +1601,7 @@ type RollingUpdateDeployment struct {
 // RollingUpdateDeploymentInput is an input type that accepts RollingUpdateDeploymentArgs and RollingUpdateDeploymentOutput values.
 // You can construct a concrete instance of `RollingUpdateDeploymentInput` via:
 //
-// 		 RollingUpdateDeploymentArgs{...}
-//
+//          RollingUpdateDeploymentArgs{...}
 type RollingUpdateDeploymentInput interface {
 	pulumi.Input
 
@@ -1658,12 +1640,11 @@ func (i RollingUpdateDeploymentArgs) ToRollingUpdateDeploymentPtrOutputWithConte
 // RollingUpdateDeploymentPtrInput is an input type that accepts RollingUpdateDeploymentArgs, RollingUpdateDeploymentPtr and RollingUpdateDeploymentPtrOutput values.
 // You can construct a concrete instance of `RollingUpdateDeploymentPtrInput` via:
 //
-// 		 RollingUpdateDeploymentArgs{...}
+//          RollingUpdateDeploymentArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type RollingUpdateDeploymentPtrInput interface {
 	pulumi.Input
 
@@ -1771,8 +1752,7 @@ type RollingUpdateStatefulSetStrategy struct {
 // RollingUpdateStatefulSetStrategyInput is an input type that accepts RollingUpdateStatefulSetStrategyArgs and RollingUpdateStatefulSetStrategyOutput values.
 // You can construct a concrete instance of `RollingUpdateStatefulSetStrategyInput` via:
 //
-// 		 RollingUpdateStatefulSetStrategyArgs{...}
-//
+//          RollingUpdateStatefulSetStrategyArgs{...}
 type RollingUpdateStatefulSetStrategyInput interface {
 	pulumi.Input
 
@@ -1809,12 +1789,11 @@ func (i RollingUpdateStatefulSetStrategyArgs) ToRollingUpdateStatefulSetStrategy
 // RollingUpdateStatefulSetStrategyPtrInput is an input type that accepts RollingUpdateStatefulSetStrategyArgs, RollingUpdateStatefulSetStrategyPtr and RollingUpdateStatefulSetStrategyPtrOutput values.
 // You can construct a concrete instance of `RollingUpdateStatefulSetStrategyPtrInput` via:
 //
-// 		 RollingUpdateStatefulSetStrategyArgs{...}
+//          RollingUpdateStatefulSetStrategyArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type RollingUpdateStatefulSetStrategyPtrInput interface {
 	pulumi.Input
 
@@ -1915,8 +1894,7 @@ type Scale struct {
 // ScaleInput is an input type that accepts ScaleArgs and ScaleOutput values.
 // You can construct a concrete instance of `ScaleInput` via:
 //
-// 		 ScaleArgs{...}
-//
+//          ScaleArgs{...}
 type ScaleInput interface {
 	pulumi.Input
 
@@ -1999,8 +1977,7 @@ type ScaleSpec struct {
 // ScaleSpecInput is an input type that accepts ScaleSpecArgs and ScaleSpecOutput values.
 // You can construct a concrete instance of `ScaleSpecInput` via:
 //
-// 		 ScaleSpecArgs{...}
-//
+//          ScaleSpecArgs{...}
 type ScaleSpecInput interface {
 	pulumi.Input
 
@@ -2037,12 +2014,11 @@ func (i ScaleSpecArgs) ToScaleSpecPtrOutputWithContext(ctx context.Context) Scal
 // ScaleSpecPtrInput is an input type that accepts ScaleSpecArgs, ScaleSpecPtr and ScaleSpecPtrOutput values.
 // You can construct a concrete instance of `ScaleSpecPtrInput` via:
 //
-// 		 ScaleSpecArgs{...}
+//          ScaleSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type ScaleSpecPtrInput interface {
 	pulumi.Input
 
@@ -2139,8 +2115,7 @@ type ScaleStatus struct {
 // ScaleStatusInput is an input type that accepts ScaleStatusArgs and ScaleStatusOutput values.
 // You can construct a concrete instance of `ScaleStatusInput` via:
 //
-// 		 ScaleStatusArgs{...}
-//
+//          ScaleStatusArgs{...}
 type ScaleStatusInput interface {
 	pulumi.Input
 
@@ -2181,12 +2156,11 @@ func (i ScaleStatusArgs) ToScaleStatusPtrOutputWithContext(ctx context.Context) 
 // ScaleStatusPtrInput is an input type that accepts ScaleStatusArgs, ScaleStatusPtr and ScaleStatusPtrOutput values.
 // You can construct a concrete instance of `ScaleStatusPtrInput` via:
 //
-// 		 ScaleStatusArgs{...}
+//          ScaleStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type ScaleStatusPtrInput interface {
 	pulumi.Input
 
@@ -2303,7 +2277,7 @@ func (o ScaleStatusPtrOutput) TargetSelector() pulumi.StringPtrOutput {
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //  - Network: A single stable DNS and hostname.
 //  - Storage: As many VolumeClaims as requested.
-// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -2332,8 +2306,7 @@ type StatefulSetType struct {
 // StatefulSetTypeInput is an input type that accepts StatefulSetTypeArgs and StatefulSetTypeOutput values.
 // You can construct a concrete instance of `StatefulSetTypeInput` via:
 //
-// 		 StatefulSetTypeArgs{...}
-//
+//          StatefulSetTypeArgs{...}
 type StatefulSetTypeInput interface {
 	pulumi.Input
 
@@ -2344,7 +2317,7 @@ type StatefulSetTypeInput interface {
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //  - Network: A single stable DNS and hostname.
 //  - Storage: As many VolumeClaims as requested.
-// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -2385,8 +2358,7 @@ func (i StatefulSetTypeArgs) ToStatefulSetTypeOutputWithContext(ctx context.Cont
 // StatefulSetTypeArrayInput is an input type that accepts StatefulSetTypeArray and StatefulSetTypeArrayOutput values.
 // You can construct a concrete instance of `StatefulSetTypeArrayInput` via:
 //
-// 		 StatefulSetTypeArray{ StatefulSetTypeArgs{...} }
-//
+//          StatefulSetTypeArray{ StatefulSetTypeArgs{...} }
 type StatefulSetTypeArrayInput interface {
 	pulumi.Input
 
@@ -2411,7 +2383,7 @@ func (i StatefulSetTypeArray) ToStatefulSetTypeArrayOutputWithContext(ctx contex
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //  - Network: A single stable DNS and hostname.
 //  - Storage: As many VolumeClaims as requested.
-// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -2500,8 +2472,7 @@ type StatefulSetCondition struct {
 // StatefulSetConditionInput is an input type that accepts StatefulSetConditionArgs and StatefulSetConditionOutput values.
 // You can construct a concrete instance of `StatefulSetConditionInput` via:
 //
-// 		 StatefulSetConditionArgs{...}
-//
+//          StatefulSetConditionArgs{...}
 type StatefulSetConditionInput interface {
 	pulumi.Input
 
@@ -2538,8 +2509,7 @@ func (i StatefulSetConditionArgs) ToStatefulSetConditionOutputWithContext(ctx co
 // StatefulSetConditionArrayInput is an input type that accepts StatefulSetConditionArray and StatefulSetConditionArrayOutput values.
 // You can construct a concrete instance of `StatefulSetConditionArrayInput` via:
 //
-// 		 StatefulSetConditionArray{ StatefulSetConditionArgs{...} }
-//
+//          StatefulSetConditionArray{ StatefulSetConditionArgs{...} }
 type StatefulSetConditionArrayInput interface {
 	pulumi.Input
 
@@ -2634,8 +2604,7 @@ type StatefulSetListType struct {
 // StatefulSetListTypeInput is an input type that accepts StatefulSetListTypeArgs and StatefulSetListTypeOutput values.
 // You can construct a concrete instance of `StatefulSetListTypeInput` via:
 //
-// 		 StatefulSetListTypeArgs{...}
-//
+//          StatefulSetListTypeArgs{...}
 type StatefulSetListTypeInput interface {
 	pulumi.Input
 
@@ -2721,8 +2690,7 @@ type StatefulSetSpec struct {
 // StatefulSetSpecInput is an input type that accepts StatefulSetSpecArgs and StatefulSetSpecOutput values.
 // You can construct a concrete instance of `StatefulSetSpecInput` via:
 //
-// 		 StatefulSetSpecArgs{...}
-//
+//          StatefulSetSpecArgs{...}
 type StatefulSetSpecInput interface {
 	pulumi.Input
 
@@ -2773,12 +2741,11 @@ func (i StatefulSetSpecArgs) ToStatefulSetSpecPtrOutputWithContext(ctx context.C
 // StatefulSetSpecPtrInput is an input type that accepts StatefulSetSpecArgs, StatefulSetSpecPtr and StatefulSetSpecPtrOutput values.
 // You can construct a concrete instance of `StatefulSetSpecPtrInput` via:
 //
-// 		 StatefulSetSpecArgs{...}
+//          StatefulSetSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type StatefulSetSpecPtrInput interface {
 	pulumi.Input
 
@@ -2992,8 +2959,7 @@ type StatefulSetStatus struct {
 // StatefulSetStatusInput is an input type that accepts StatefulSetStatusArgs and StatefulSetStatusOutput values.
 // You can construct a concrete instance of `StatefulSetStatusInput` via:
 //
-// 		 StatefulSetStatusArgs{...}
-//
+//          StatefulSetStatusArgs{...}
 type StatefulSetStatusInput interface {
 	pulumi.Input
 
@@ -3046,12 +3012,11 @@ func (i StatefulSetStatusArgs) ToStatefulSetStatusPtrOutputWithContext(ctx conte
 // StatefulSetStatusPtrInput is an input type that accepts StatefulSetStatusArgs, StatefulSetStatusPtr and StatefulSetStatusPtrOutput values.
 // You can construct a concrete instance of `StatefulSetStatusPtrInput` via:
 //
-// 		 StatefulSetStatusArgs{...}
+//          StatefulSetStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type StatefulSetStatusPtrInput interface {
 	pulumi.Input
 
@@ -3266,8 +3231,7 @@ type StatefulSetUpdateStrategy struct {
 // StatefulSetUpdateStrategyInput is an input type that accepts StatefulSetUpdateStrategyArgs and StatefulSetUpdateStrategyOutput values.
 // You can construct a concrete instance of `StatefulSetUpdateStrategyInput` via:
 //
-// 		 StatefulSetUpdateStrategyArgs{...}
-//
+//          StatefulSetUpdateStrategyArgs{...}
 type StatefulSetUpdateStrategyInput interface {
 	pulumi.Input
 
@@ -3306,12 +3270,11 @@ func (i StatefulSetUpdateStrategyArgs) ToStatefulSetUpdateStrategyPtrOutputWithC
 // StatefulSetUpdateStrategyPtrInput is an input type that accepts StatefulSetUpdateStrategyArgs, StatefulSetUpdateStrategyPtr and StatefulSetUpdateStrategyPtrOutput values.
 // You can construct a concrete instance of `StatefulSetUpdateStrategyPtrInput` via:
 //
-// 		 StatefulSetUpdateStrategyArgs{...}
+//          StatefulSetUpdateStrategyArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type StatefulSetUpdateStrategyPtrInput interface {
 	pulumi.Input
 

@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Set supported environment variables in SDK Provider classes (https://github.com/pulumi/pulumi-kubernetes/pull/1166)
+
 ## 2.3.1 (June 17, 2020)
 
 ### Improvements

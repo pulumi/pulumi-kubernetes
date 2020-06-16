@@ -21,8 +21,7 @@ type Overhead struct {
 // OverheadInput is an input type that accepts OverheadArgs and OverheadOutput values.
 // You can construct a concrete instance of `OverheadInput` via:
 //
-// 		 OverheadArgs{...}
-//
+//          OverheadArgs{...}
 type OverheadInput interface {
 	pulumi.Input
 
@@ -59,12 +58,11 @@ func (i OverheadArgs) ToOverheadPtrOutputWithContext(ctx context.Context) Overhe
 // OverheadPtrInput is an input type that accepts OverheadArgs, OverheadPtr and OverheadPtrOutput values.
 // You can construct a concrete instance of `OverheadPtrInput` via:
 //
-// 		 OverheadArgs{...}
+//          OverheadArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type OverheadPtrInput interface {
 	pulumi.Input
 
@@ -167,8 +165,7 @@ type RuntimeClassType struct {
 // RuntimeClassTypeInput is an input type that accepts RuntimeClassTypeArgs and RuntimeClassTypeOutput values.
 // You can construct a concrete instance of `RuntimeClassTypeInput` via:
 //
-// 		 RuntimeClassTypeArgs{...}
-//
+//          RuntimeClassTypeArgs{...}
 type RuntimeClassTypeInput interface {
 	pulumi.Input
 
@@ -207,8 +204,7 @@ func (i RuntimeClassTypeArgs) ToRuntimeClassTypeOutputWithContext(ctx context.Co
 // RuntimeClassTypeArrayInput is an input type that accepts RuntimeClassTypeArray and RuntimeClassTypeArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassTypeArrayInput` via:
 //
-// 		 RuntimeClassTypeArray{ RuntimeClassTypeArgs{...} }
-//
+//          RuntimeClassTypeArray{ RuntimeClassTypeArgs{...} }
 type RuntimeClassTypeArrayInput interface {
 	pulumi.Input
 
@@ -310,8 +306,7 @@ type RuntimeClassListType struct {
 // RuntimeClassListTypeInput is an input type that accepts RuntimeClassListTypeArgs and RuntimeClassListTypeOutput values.
 // You can construct a concrete instance of `RuntimeClassListTypeInput` via:
 //
-// 		 RuntimeClassListTypeArgs{...}
-//
+//          RuntimeClassListTypeArgs{...}
 type RuntimeClassListTypeInput interface {
 	pulumi.Input
 
@@ -389,8 +384,7 @@ type Scheduling struct {
 // SchedulingInput is an input type that accepts SchedulingArgs and SchedulingOutput values.
 // You can construct a concrete instance of `SchedulingInput` via:
 //
-// 		 SchedulingArgs{...}
-//
+//          SchedulingArgs{...}
 type SchedulingInput interface {
 	pulumi.Input
 
@@ -429,12 +423,11 @@ func (i SchedulingArgs) ToSchedulingPtrOutputWithContext(ctx context.Context) Sc
 // SchedulingPtrInput is an input type that accepts SchedulingArgs, SchedulingPtr and SchedulingPtrOutput values.
 // You can construct a concrete instance of `SchedulingPtrInput` via:
 //
-// 		 SchedulingArgs{...}
+//          SchedulingArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type SchedulingPtrInput interface {
 	pulumi.Input
 

@@ -21,8 +21,7 @@ type AllowedCSIDriver struct {
 // AllowedCSIDriverInput is an input type that accepts AllowedCSIDriverArgs and AllowedCSIDriverOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverInput` via:
 //
-// 		 AllowedCSIDriverArgs{...}
-//
+//          AllowedCSIDriverArgs{...}
 type AllowedCSIDriverInput interface {
 	pulumi.Input
 
@@ -51,8 +50,7 @@ func (i AllowedCSIDriverArgs) ToAllowedCSIDriverOutputWithContext(ctx context.Co
 // AllowedCSIDriverArrayInput is an input type that accepts AllowedCSIDriverArray and AllowedCSIDriverArrayOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverArrayInput` via:
 //
-// 		 AllowedCSIDriverArray{ AllowedCSIDriverArgs{...} }
-//
+//          AllowedCSIDriverArray{ AllowedCSIDriverArgs{...} }
 type AllowedCSIDriverArrayInput interface {
 	pulumi.Input
 
@@ -123,8 +121,7 @@ type AllowedFlexVolume struct {
 // AllowedFlexVolumeInput is an input type that accepts AllowedFlexVolumeArgs and AllowedFlexVolumeOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumeInput` via:
 //
-// 		 AllowedFlexVolumeArgs{...}
-//
+//          AllowedFlexVolumeArgs{...}
 type AllowedFlexVolumeInput interface {
 	pulumi.Input
 
@@ -153,8 +150,7 @@ func (i AllowedFlexVolumeArgs) ToAllowedFlexVolumeOutputWithContext(ctx context.
 // AllowedFlexVolumeArrayInput is an input type that accepts AllowedFlexVolumeArray and AllowedFlexVolumeArrayOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumeArrayInput` via:
 //
-// 		 AllowedFlexVolumeArray{ AllowedFlexVolumeArgs{...} }
-//
+//          AllowedFlexVolumeArray{ AllowedFlexVolumeArgs{...} }
 type AllowedFlexVolumeArrayInput interface {
 	pulumi.Input
 
@@ -229,8 +225,7 @@ type AllowedHostPath struct {
 // AllowedHostPathInput is an input type that accepts AllowedHostPathArgs and AllowedHostPathOutput values.
 // You can construct a concrete instance of `AllowedHostPathInput` via:
 //
-// 		 AllowedHostPathArgs{...}
-//
+//          AllowedHostPathArgs{...}
 type AllowedHostPathInput interface {
 	pulumi.Input
 
@@ -263,8 +258,7 @@ func (i AllowedHostPathArgs) ToAllowedHostPathOutputWithContext(ctx context.Cont
 // AllowedHostPathArrayInput is an input type that accepts AllowedHostPathArray and AllowedHostPathArrayOutput values.
 // You can construct a concrete instance of `AllowedHostPathArrayInput` via:
 //
-// 		 AllowedHostPathArray{ AllowedHostPathArgs{...} }
-//
+//          AllowedHostPathArray{ AllowedHostPathArgs{...} }
 type AllowedHostPathArrayInput interface {
 	pulumi.Input
 
@@ -348,8 +342,7 @@ type Eviction struct {
 // EvictionInput is an input type that accepts EvictionArgs and EvictionOutput values.
 // You can construct a concrete instance of `EvictionInput` via:
 //
-// 		 EvictionArgs{...}
-//
+//          EvictionArgs{...}
 type EvictionInput interface {
 	pulumi.Input
 
@@ -427,8 +420,7 @@ type FSGroupStrategyOptions struct {
 // FSGroupStrategyOptionsInput is an input type that accepts FSGroupStrategyOptionsArgs and FSGroupStrategyOptionsOutput values.
 // You can construct a concrete instance of `FSGroupStrategyOptionsInput` via:
 //
-// 		 FSGroupStrategyOptionsArgs{...}
-//
+//          FSGroupStrategyOptionsArgs{...}
 type FSGroupStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -467,12 +459,11 @@ func (i FSGroupStrategyOptionsArgs) ToFSGroupStrategyOptionsPtrOutputWithContext
 // FSGroupStrategyOptionsPtrInput is an input type that accepts FSGroupStrategyOptionsArgs, FSGroupStrategyOptionsPtr and FSGroupStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `FSGroupStrategyOptionsPtrInput` via:
 //
-// 		 FSGroupStrategyOptionsArgs{...}
+//          FSGroupStrategyOptionsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type FSGroupStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -582,8 +573,7 @@ type HostPortRange struct {
 // HostPortRangeInput is an input type that accepts HostPortRangeArgs and HostPortRangeOutput values.
 // You can construct a concrete instance of `HostPortRangeInput` via:
 //
-// 		 HostPortRangeArgs{...}
-//
+//          HostPortRangeArgs{...}
 type HostPortRangeInput interface {
 	pulumi.Input
 
@@ -614,8 +604,7 @@ func (i HostPortRangeArgs) ToHostPortRangeOutputWithContext(ctx context.Context)
 // HostPortRangeArrayInput is an input type that accepts HostPortRangeArray and HostPortRangeArrayOutput values.
 // You can construct a concrete instance of `HostPortRangeArrayInput` via:
 //
-// 		 HostPortRangeArray{ HostPortRangeArgs{...} }
-//
+//          HostPortRangeArray{ HostPortRangeArgs{...} }
 type HostPortRangeArrayInput interface {
 	pulumi.Input
 
@@ -693,8 +682,7 @@ type IDRange struct {
 // IDRangeInput is an input type that accepts IDRangeArgs and IDRangeOutput values.
 // You can construct a concrete instance of `IDRangeInput` via:
 //
-// 		 IDRangeArgs{...}
-//
+//          IDRangeArgs{...}
 type IDRangeInput interface {
 	pulumi.Input
 
@@ -725,8 +713,7 @@ func (i IDRangeArgs) ToIDRangeOutputWithContext(ctx context.Context) IDRangeOutp
 // IDRangeArrayInput is an input type that accepts IDRangeArray and IDRangeArrayOutput values.
 // You can construct a concrete instance of `IDRangeArrayInput` via:
 //
-// 		 IDRangeArray{ IDRangeArgs{...} }
-//
+//          IDRangeArray{ IDRangeArgs{...} }
 type IDRangeArrayInput interface {
 	pulumi.Input
 
@@ -809,8 +796,7 @@ type PodDisruptionBudgetType struct {
 // PodDisruptionBudgetTypeInput is an input type that accepts PodDisruptionBudgetTypeArgs and PodDisruptionBudgetTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeInput` via:
 //
-// 		 PodDisruptionBudgetTypeArgs{...}
-//
+//          PodDisruptionBudgetTypeArgs{...}
 type PodDisruptionBudgetTypeInput interface {
 	pulumi.Input
 
@@ -846,8 +832,7 @@ func (i PodDisruptionBudgetTypeArgs) ToPodDisruptionBudgetTypeOutputWithContext(
 // PodDisruptionBudgetTypeArrayInput is an input type that accepts PodDisruptionBudgetTypeArray and PodDisruptionBudgetTypeArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeArrayInput` via:
 //
-// 		 PodDisruptionBudgetTypeArray{ PodDisruptionBudgetTypeArgs{...} }
-//
+//          PodDisruptionBudgetTypeArray{ PodDisruptionBudgetTypeArgs{...} }
 type PodDisruptionBudgetTypeArrayInput interface {
 	pulumi.Input
 
@@ -941,8 +926,7 @@ type PodDisruptionBudgetListType struct {
 // PodDisruptionBudgetListTypeInput is an input type that accepts PodDisruptionBudgetListTypeArgs and PodDisruptionBudgetListTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetListTypeInput` via:
 //
-// 		 PodDisruptionBudgetListTypeArgs{...}
-//
+//          PodDisruptionBudgetListTypeArgs{...}
 type PodDisruptionBudgetListTypeInput interface {
 	pulumi.Input
 
@@ -1018,8 +1002,7 @@ type PodDisruptionBudgetSpec struct {
 // PodDisruptionBudgetSpecInput is an input type that accepts PodDisruptionBudgetSpecArgs and PodDisruptionBudgetSpecOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecInput` via:
 //
-// 		 PodDisruptionBudgetSpecArgs{...}
-//
+//          PodDisruptionBudgetSpecArgs{...}
 type PodDisruptionBudgetSpecInput interface {
 	pulumi.Input
 
@@ -1060,12 +1043,11 @@ func (i PodDisruptionBudgetSpecArgs) ToPodDisruptionBudgetSpecPtrOutputWithConte
 // PodDisruptionBudgetSpecPtrInput is an input type that accepts PodDisruptionBudgetSpecArgs, PodDisruptionBudgetSpecPtr and PodDisruptionBudgetSpecPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecPtrInput` via:
 //
-// 		 PodDisruptionBudgetSpecArgs{...}
+//          PodDisruptionBudgetSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type PodDisruptionBudgetSpecPtrInput interface {
 	pulumi.Input
 
@@ -1198,8 +1180,7 @@ type PodDisruptionBudgetStatus struct {
 // PodDisruptionBudgetStatusInput is an input type that accepts PodDisruptionBudgetStatusArgs and PodDisruptionBudgetStatusOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusInput` via:
 //
-// 		 PodDisruptionBudgetStatusArgs{...}
-//
+//          PodDisruptionBudgetStatusArgs{...}
 type PodDisruptionBudgetStatusInput interface {
 	pulumi.Input
 
@@ -1246,12 +1227,11 @@ func (i PodDisruptionBudgetStatusArgs) ToPodDisruptionBudgetStatusPtrOutputWithC
 // PodDisruptionBudgetStatusPtrInput is an input type that accepts PodDisruptionBudgetStatusArgs, PodDisruptionBudgetStatusPtr and PodDisruptionBudgetStatusPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusPtrInput` via:
 //
-// 		 PodDisruptionBudgetStatusArgs{...}
+//          PodDisruptionBudgetStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type PodDisruptionBudgetStatusPtrInput interface {
 	pulumi.Input
 
@@ -1425,8 +1405,7 @@ type PodSecurityPolicyType struct {
 // PodSecurityPolicyTypeInput is an input type that accepts PodSecurityPolicyTypeArgs and PodSecurityPolicyTypeOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyTypeInput` via:
 //
-// 		 PodSecurityPolicyTypeArgs{...}
-//
+//          PodSecurityPolicyTypeArgs{...}
 type PodSecurityPolicyTypeInput interface {
 	pulumi.Input
 
@@ -1461,8 +1440,7 @@ func (i PodSecurityPolicyTypeArgs) ToPodSecurityPolicyTypeOutputWithContext(ctx 
 // PodSecurityPolicyTypeArrayInput is an input type that accepts PodSecurityPolicyTypeArray and PodSecurityPolicyTypeArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyTypeArrayInput` via:
 //
-// 		 PodSecurityPolicyTypeArray{ PodSecurityPolicyTypeArgs{...} }
-//
+//          PodSecurityPolicyTypeArray{ PodSecurityPolicyTypeArgs{...} }
 type PodSecurityPolicyTypeArrayInput interface {
 	pulumi.Input
 
@@ -1554,8 +1532,7 @@ type PodSecurityPolicyListType struct {
 // PodSecurityPolicyListTypeInput is an input type that accepts PodSecurityPolicyListTypeArgs and PodSecurityPolicyListTypeOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyListTypeInput` via:
 //
-// 		 PodSecurityPolicyListTypeArgs{...}
-//
+//          PodSecurityPolicyListTypeArgs{...}
 type PodSecurityPolicyListTypeInput interface {
 	pulumi.Input
 
@@ -1681,8 +1658,7 @@ type PodSecurityPolicySpec struct {
 // PodSecurityPolicySpecInput is an input type that accepts PodSecurityPolicySpecArgs and PodSecurityPolicySpecOutput values.
 // You can construct a concrete instance of `PodSecurityPolicySpecInput` via:
 //
-// 		 PodSecurityPolicySpecArgs{...}
-//
+//          PodSecurityPolicySpecArgs{...}
 type PodSecurityPolicySpecInput interface {
 	pulumi.Input
 
@@ -1769,12 +1745,11 @@ func (i PodSecurityPolicySpecArgs) ToPodSecurityPolicySpecPtrOutputWithContext(c
 // PodSecurityPolicySpecPtrInput is an input type that accepts PodSecurityPolicySpecArgs, PodSecurityPolicySpecPtr and PodSecurityPolicySpecPtrOutput values.
 // You can construct a concrete instance of `PodSecurityPolicySpecPtrInput` via:
 //
-// 		 PodSecurityPolicySpecArgs{...}
+//          PodSecurityPolicySpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type PodSecurityPolicySpecPtrInput interface {
 	pulumi.Input
 
@@ -2222,8 +2197,7 @@ type RunAsGroupStrategyOptions struct {
 // RunAsGroupStrategyOptionsInput is an input type that accepts RunAsGroupStrategyOptionsArgs and RunAsGroupStrategyOptionsOutput values.
 // You can construct a concrete instance of `RunAsGroupStrategyOptionsInput` via:
 //
-// 		 RunAsGroupStrategyOptionsArgs{...}
-//
+//          RunAsGroupStrategyOptionsArgs{...}
 type RunAsGroupStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -2262,12 +2236,11 @@ func (i RunAsGroupStrategyOptionsArgs) ToRunAsGroupStrategyOptionsPtrOutputWithC
 // RunAsGroupStrategyOptionsPtrInput is an input type that accepts RunAsGroupStrategyOptionsArgs, RunAsGroupStrategyOptionsPtr and RunAsGroupStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `RunAsGroupStrategyOptionsPtrInput` via:
 //
-// 		 RunAsGroupStrategyOptionsArgs{...}
+//          RunAsGroupStrategyOptionsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type RunAsGroupStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -2377,8 +2350,7 @@ type RunAsUserStrategyOptions struct {
 // RunAsUserStrategyOptionsInput is an input type that accepts RunAsUserStrategyOptionsArgs and RunAsUserStrategyOptionsOutput values.
 // You can construct a concrete instance of `RunAsUserStrategyOptionsInput` via:
 //
-// 		 RunAsUserStrategyOptionsArgs{...}
-//
+//          RunAsUserStrategyOptionsArgs{...}
 type RunAsUserStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -2417,12 +2389,11 @@ func (i RunAsUserStrategyOptionsArgs) ToRunAsUserStrategyOptionsPtrOutputWithCon
 // RunAsUserStrategyOptionsPtrInput is an input type that accepts RunAsUserStrategyOptionsArgs, RunAsUserStrategyOptionsPtr and RunAsUserStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `RunAsUserStrategyOptionsPtrInput` via:
 //
-// 		 RunAsUserStrategyOptionsArgs{...}
+//          RunAsUserStrategyOptionsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type RunAsUserStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -2532,8 +2503,7 @@ type RuntimeClassStrategyOptions struct {
 // RuntimeClassStrategyOptionsInput is an input type that accepts RuntimeClassStrategyOptionsArgs and RuntimeClassStrategyOptionsOutput values.
 // You can construct a concrete instance of `RuntimeClassStrategyOptionsInput` via:
 //
-// 		 RuntimeClassStrategyOptionsArgs{...}
-//
+//          RuntimeClassStrategyOptionsArgs{...}
 type RuntimeClassStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -2572,12 +2542,11 @@ func (i RuntimeClassStrategyOptionsArgs) ToRuntimeClassStrategyOptionsPtrOutputW
 // RuntimeClassStrategyOptionsPtrInput is an input type that accepts RuntimeClassStrategyOptionsArgs, RuntimeClassStrategyOptionsPtr and RuntimeClassStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `RuntimeClassStrategyOptionsPtrInput` via:
 //
-// 		 RuntimeClassStrategyOptionsArgs{...}
+//          RuntimeClassStrategyOptionsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type RuntimeClassStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -2687,8 +2656,7 @@ type SELinuxStrategyOptions struct {
 // SELinuxStrategyOptionsInput is an input type that accepts SELinuxStrategyOptionsArgs and SELinuxStrategyOptionsOutput values.
 // You can construct a concrete instance of `SELinuxStrategyOptionsInput` via:
 //
-// 		 SELinuxStrategyOptionsArgs{...}
-//
+//          SELinuxStrategyOptionsArgs{...}
 type SELinuxStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -2727,12 +2695,11 @@ func (i SELinuxStrategyOptionsArgs) ToSELinuxStrategyOptionsPtrOutputWithContext
 // SELinuxStrategyOptionsPtrInput is an input type that accepts SELinuxStrategyOptionsArgs, SELinuxStrategyOptionsPtr and SELinuxStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `SELinuxStrategyOptionsPtrInput` via:
 //
-// 		 SELinuxStrategyOptionsArgs{...}
+//          SELinuxStrategyOptionsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type SELinuxStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -2842,8 +2809,7 @@ type SupplementalGroupsStrategyOptions struct {
 // SupplementalGroupsStrategyOptionsInput is an input type that accepts SupplementalGroupsStrategyOptionsArgs and SupplementalGroupsStrategyOptionsOutput values.
 // You can construct a concrete instance of `SupplementalGroupsStrategyOptionsInput` via:
 //
-// 		 SupplementalGroupsStrategyOptionsArgs{...}
-//
+//          SupplementalGroupsStrategyOptionsArgs{...}
 type SupplementalGroupsStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -2882,12 +2848,11 @@ func (i SupplementalGroupsStrategyOptionsArgs) ToSupplementalGroupsStrategyOptio
 // SupplementalGroupsStrategyOptionsPtrInput is an input type that accepts SupplementalGroupsStrategyOptionsArgs, SupplementalGroupsStrategyOptionsPtr and SupplementalGroupsStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `SupplementalGroupsStrategyOptionsPtrInput` via:
 //
-// 		 SupplementalGroupsStrategyOptionsArgs{...}
+//          SupplementalGroupsStrategyOptionsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type SupplementalGroupsStrategyOptionsPtrInput interface {
 	pulumi.Input
 

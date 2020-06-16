@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Extensions.V1Beta1
 {
     /// <summary>
-    /// Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
+    /// Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
     /// 
     /// This resource waits until its status is ready before registering success
     /// for create/update, and populating output properties from the current state of the resource.
