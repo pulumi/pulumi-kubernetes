@@ -10,7 +10,7 @@ from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
 import pulumi.runtime
-from ...version import get_version
+from ...utilities import get_version
 from pulumi_kubernetes.yaml import _parse_yaml_document
 
 
@@ -283,7 +283,7 @@ def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
 def _is_helm_v3() -> bool:
 
     cmd: List[str] = ['helm', 'version', '--short']
-    
+
     """ 
     Helm v2 returns version like this:
     Client: v2.16.7+g5f2584f

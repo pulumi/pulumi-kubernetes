@@ -4,10 +4,11 @@
 
 import importlib
 # Make subpackages available:
-__all__ = ['admissionregistration', 'apiextensions', 'apiregistration', 'apps', 'auditregistration', 'authentication', 'authorization', 'autoscaling', 'batch', 'certificates', 'coordination', 'core', 'discovery', 'events', 'extensions', 'flowcontrol', 'meta', 'networking', 'node', 'policy', 'rbac', 'scheduling', 'settings', 'storage']
+__all__ = ['admissionregistration', 'apiextensions', 'apiregistration', 'apps', 'auditregistration', 'authentication', 'authorization', 'autoscaling', 'batch', 'certificates', 'coordination', 'core', 'discovery', 'events', 'extensions', 'flowcontrol', 'helm', 'meta', 'networking', 'node', 'policy', 'rbac', 'scheduling', 'settings', 'storage']
 for pkg in __all__:
     if pkg != 'config':
         importlib.import_module(f'{__name__}.{pkg}')
 
 # Export this package's modules as members:
 from .provider import *
+from .yaml import *

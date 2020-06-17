@@ -8,3 +8,6 @@ __all__ = ['v1', 'v1beta1']
 for pkg in __all__:
     if pkg != 'config':
         importlib.import_module(f'{__name__}.{pkg}')
+
+# Export this package's modules as members:
+from .custom_resource import *

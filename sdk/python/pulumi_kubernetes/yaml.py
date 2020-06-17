@@ -10,7 +10,7 @@ import pulumi.runtime
 import requests
 from pulumi_kubernetes.apiextensions import CustomResource
 from . import tables
-from .version import get_version
+from .utilities import get_version
 
 
 class ConfigFile(pulumi.ComponentResource):
@@ -946,11 +946,11 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList:{x}",
                        PriorityLevelConfigurationList(f"{x}", opts, **obj)))]
-    if gvk == "v1/Status":
+    if gvk == "meta/v1/Status":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.meta.v1 import Status
         return [identifier.apply(
-            lambda x: (f"v1/Status:{x}",
+            lambda x: (f"meta/v1/Status:{x}",
                        Status(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1/NetworkPolicy":
         # Import locally to avoid name collisions.

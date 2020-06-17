@@ -175,25 +175,32 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 }
 
 func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
-	//resources, err := pythongen.LanguageResources("pulumigen", pkg)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//
-	//templateResources := gen.TemplateResources{}
-	//for _, resource := range resources {
-	//	r := gen.TemplateResource{
-	//		Name: resource.Name,
-	//		Package: resource.Package,
-	//		Token: resource.Token,
-	//	}
-	//	templateResources.Resources = append(templateResources.Resources, r)
-	//}
-	//sort.Slice(templateResources.Resources, func(i, j int) bool {
-	//	return templateResources.Resources[i].Token < templateResources.Resources[j].Token
-	//})
+	resources, err := pythongen.LanguageResources("pulumigen", pkg)
+	if err != nil {
+		panic(err)
+	}
 
-	files, err := pythongen.GeneratePackage("pulumigen", pkg, nil)
+	templateResources := gen.TemplateResources{}
+	for _, resource := range resources {
+		r := gen.TemplateResource{
+			Name:    resource.Name,
+			Package: resource.Package,
+			Token:   resource.Token,
+		}
+		templateResources.Resources = append(templateResources.Resources, r)
+	}
+	sort.Slice(templateResources.Resources, func(i, j int) bool {
+		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
+	})
+
+	overlays := map[string][]byte{
+		"apiextensions/custom_resource.py": mustLoadFile(filepath.Join(templateDir, "apiextensions", "custom_resource.py")),
+		"helm/v2/helm.py":                  mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")),
+		"helm/v3/helm.py":                  mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")), // v3 support is currently identical to v2
+		"yaml.py":                          mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
+	}
+
+	files, err := pythongen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
 	}
