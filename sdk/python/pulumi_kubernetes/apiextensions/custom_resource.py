@@ -7,7 +7,8 @@ import pulumi
 import pulumi.runtime
 from pulumi import ResourceOptions
 
-from .. import tables, version
+from .. import tables
+from ..utilities import get_version
 
 
 class CustomResource(pulumi.CustomResource):
@@ -53,7 +54,7 @@ class CustomResource(pulumi.CustomResource):
         __props__['spec'] = spec
         __props__['metadata'] = metadata
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=get_version()))
 
         super(CustomResource, self).__init__(
             f"kubernetes:{api_version}:{kind}",
