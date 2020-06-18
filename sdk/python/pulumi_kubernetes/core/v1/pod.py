@@ -44,11 +44,12 @@ class Pod(pulumi.CustomResource):
         2. The Pod is initialized ("Initialized" '.status.condition' is true).
         3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
            set to "Running".
-        Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+           Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 
         If the Pod has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

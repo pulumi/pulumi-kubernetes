@@ -42,6 +42,7 @@ class PriorityClass(pulumi.CustomResource):
     def __init__(__self__, resource_name, opts=None, api_version=None, description=None, global_default=None, kind=None, metadata=None, preemption_policy=None, value=None, __props__=None, __name__=None, __opts__=None):
         """
         DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

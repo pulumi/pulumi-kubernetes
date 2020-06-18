@@ -47,7 +47,7 @@ class Service(pulumi.CustomResource):
            an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
         4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 
-        Known limitations: 
+        Known limitations:
         Services targeting ReplicaSets (and, by extension, Deployments,
         StatefulSets, etc.) with '.spec.replicas' set to 0 are not handled, and will time
         out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
@@ -59,6 +59,7 @@ class Service(pulumi.CustomResource):
         If the Service has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

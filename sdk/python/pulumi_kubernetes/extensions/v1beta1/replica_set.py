@@ -11,6 +11,7 @@ from ... import utilities, tables
 
 warnings.warn("extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
 
+
 class ReplicaSet(pulumi.CustomResource):
     api_version: pulumi.Output[str]
     """
@@ -33,9 +34,11 @@ class ReplicaSet(pulumi.CustomResource):
     Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
     warnings.warn("extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
+
     def __init__(__self__, resource_name, opts=None, api_version=None, kind=None, metadata=None, spec=None, __props__=None, __name__=None, __opts__=None):
         """
         ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

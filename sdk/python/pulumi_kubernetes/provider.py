@@ -14,6 +14,7 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__, resource_name, opts=None, cluster=None, context=None, enable_dry_run=None, kubeconfig=None, namespace=None, render_yaml_to_directory=None, suppress_deprecation_warnings=None, __props__=None, __name__=None, __opts__=None):
         """
         The provider type for the kubernetes package.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.

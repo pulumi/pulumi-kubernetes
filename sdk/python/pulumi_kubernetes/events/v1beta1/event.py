@@ -79,6 +79,7 @@ class Event(pulumi.CustomResource):
     def __init__(__self__, resource_name, opts=None, action=None, api_version=None, deprecated_count=None, deprecated_first_timestamp=None, deprecated_last_timestamp=None, deprecated_source=None, event_time=None, kind=None, metadata=None, note=None, reason=None, regarding=None, related=None, reporting_controller=None, reporting_instance=None, series=None, type=None, __props__=None, __name__=None, __opts__=None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] action: What action was taken/failed regarding to the regarding object.

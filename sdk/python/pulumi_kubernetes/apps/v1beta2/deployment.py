@@ -11,6 +11,7 @@ from ... import utilities, tables
 
 warnings.warn("apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
 
+
 class Deployment(pulumi.CustomResource):
     api_version: pulumi.Output[str]
     """
@@ -33,6 +34,7 @@ class Deployment(pulumi.CustomResource):
     Most recently observed status of the Deployment.
     """
     warnings.warn("apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
+
     def __init__(__self__, resource_name, opts=None, api_version=None, kind=None, metadata=None, spec=None, __props__=None, __name__=None, __opts__=None):
         """
         Deployment enables declarative updates for Pods and ReplicaSets.
@@ -58,6 +60,7 @@ class Deployment(pulumi.CustomResource):
         If the Deployment has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

@@ -33,7 +33,7 @@ class StatefulSet(pulumi.CustomResource):
         StatefulSet represents a set of pods with consistent identities. Identities are defined as:
          - Network: A single stable DNS and hostname.
          - Storage: As many VolumeClaims as requested.
-        The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+           The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 
         This resource waits until its status is ready before registering success
         for create/update, and populating output properties from the current state of the resource.
@@ -47,6 +47,7 @@ class StatefulSet(pulumi.CustomResource):
         If the StatefulSet has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

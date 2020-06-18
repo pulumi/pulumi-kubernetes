@@ -34,6 +34,7 @@ class ClusterRole(pulumi.CustomResource):
     def __init__(__self__, resource_name, opts=None, aggregation_rule=None, api_version=None, kind=None, metadata=None, rules=None, __props__=None, __name__=None, __opts__=None):
         """
         ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[dict] aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.

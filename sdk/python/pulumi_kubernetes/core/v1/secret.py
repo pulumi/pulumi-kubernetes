@@ -44,7 +44,7 @@ class Secret(pulumi.CustomResource):
         Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
 
         Note: While Pulumi automatically encrypts the 'data' and 'stringData'
-        fields, this encryption only applies to Pulumi's context, including the state file, 
+        fields, this encryption only applies to Pulumi's context, including the state file,
         the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
         and the contents are visible to users with access to the Secret in Kubernetes using
         tools like 'kubectl'.
@@ -52,6 +52,7 @@ class Secret(pulumi.CustomResource):
         For more information on securing Kubernetes Secrets, see the following links:
         https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
         https://kubernetes.io/docs/concepts/configuration/secret/#risks
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
