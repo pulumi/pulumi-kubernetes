@@ -1019,45 +1019,8 @@ type groupOpts struct {
 }
 
 func nodeJSOpts() groupOpts { return groupOpts{language: typescript} }
-func pythonOpts() groupOpts { return groupOpts{language: python} }
 func dotnetOpts() groupOpts { return groupOpts{language: dotnet} }
 func schemaOpts() groupOpts { return groupOpts{language: pulumiSchema} }
-
-func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
-	// Map definition JSON object -> `definition` with metadata.
-	var definitions []definition
-	linq.From(definitionsJSON).
-		WhereT(func(kv linq.KeyValue) bool {
-			// Skip these objects, special case. They're deprecated and empty.
-			defName := kv.Key.(string)
-			return !strings.HasPrefix(defName, "io.k8s.kubernetes.pkg")
-		}).
-		SelectT(func(kv linq.KeyValue) definition {
-			defName := kv.Key.(string)
-			return definition{
-				gvk:  gvkFromRef(defName),
-				name: defName,
-				data: definitionsJSON[defName].(map[string]interface{}),
-			}
-		}).
-		ToSlice(&definitions)
-
-	properties := sets.String{}
-	// Only select camel-cased property names
-	re := regexp.MustCompile(`[a-z]+[A-Z]`)
-	for _, d := range definitions {
-		if pmap, exists := d.data["properties"]; exists {
-			ps := pmap.(map[string]interface{})
-			for p := range ps {
-				if re.MatchString(p) {
-					properties.Insert(p)
-				}
-			}
-		}
-	}
-
-	return properties.List()
-}
 
 func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []GroupConfig {
 	// Map Group -> canonical Group
