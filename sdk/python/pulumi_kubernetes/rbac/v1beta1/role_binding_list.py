@@ -55,11 +55,11 @@ class RoleBindingList(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = dict()
 
-            __props__['api_version'] = api_version
+            __props__['api_version'] = 'rbac.authorization.k8s.io/v1beta1'
             if items is None:
                 raise TypeError("Missing required property 'items'")
             __props__['items'] = items
-            __props__['kind'] = kind
+            __props__['kind'] = 'RoleBindingList'
             __props__['metadata'] = metadata
         super(RoleBindingList, __self__).__init__(
             'kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList',

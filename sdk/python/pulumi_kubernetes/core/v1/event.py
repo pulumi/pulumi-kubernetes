@@ -121,14 +121,14 @@ class Event(pulumi.CustomResource):
             __props__ = dict()
 
             __props__['action'] = action
-            __props__['api_version'] = api_version
+            __props__['api_version'] = 'v1'
             __props__['count'] = count
             __props__['event_time'] = event_time
             __props__['first_timestamp'] = first_timestamp
             if involved_object is None:
                 raise TypeError("Missing required property 'involved_object'")
             __props__['involved_object'] = involved_object
-            __props__['kind'] = kind
+            __props__['kind'] = 'Event'
             __props__['last_timestamp'] = last_timestamp
             __props__['message'] = message
             if metadata is None:

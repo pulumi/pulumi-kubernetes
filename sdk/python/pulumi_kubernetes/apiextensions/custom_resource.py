@@ -87,7 +87,7 @@ class CustomResource(pulumi.CustomResource):
         return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
 
     def translate_output_property(self, prop: str) -> str:
-        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return tables._CASING_BACKWARD_TABLE.get(prop) or prop
+        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop

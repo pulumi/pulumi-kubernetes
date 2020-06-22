@@ -89,8 +89,8 @@ class StorageClass(pulumi.CustomResource):
 
             __props__['allow_volume_expansion'] = allow_volume_expansion
             __props__['allowed_topologies'] = allowed_topologies
-            __props__['api_version'] = api_version
-            __props__['kind'] = kind
+            __props__['api_version'] = 'storage.k8s.io/v1'
+            __props__['kind'] = 'StorageClass'
             __props__['metadata'] = metadata
             __props__['mount_options'] = mount_options
             __props__['parameters'] = parameters

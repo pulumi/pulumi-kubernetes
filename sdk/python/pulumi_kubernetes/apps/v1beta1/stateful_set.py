@@ -76,8 +76,8 @@ class StatefulSet(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = dict()
 
-            __props__['api_version'] = api_version
-            __props__['kind'] = kind
+            __props__['api_version'] = 'apps/v1beta1'
+            __props__['kind'] = 'StatefulSet'
             __props__['metadata'] = metadata
             __props__['spec'] = spec
             __props__['status'] = None

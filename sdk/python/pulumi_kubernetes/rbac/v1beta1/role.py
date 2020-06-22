@@ -55,8 +55,8 @@ class Role(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = dict()
 
-            __props__['api_version'] = api_version
-            __props__['kind'] = kind
+            __props__['api_version'] = 'rbac.authorization.k8s.io/v1beta1'
+            __props__['kind'] = 'Role'
             __props__['metadata'] = metadata
             __props__['rules'] = rules
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1:Role"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:Role")])

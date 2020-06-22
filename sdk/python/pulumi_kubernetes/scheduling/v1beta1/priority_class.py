@@ -70,10 +70,10 @@ class PriorityClass(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = dict()
 
-            __props__['api_version'] = api_version
+            __props__['api_version'] = 'scheduling.k8s.io/v1beta1'
             __props__['description'] = description
             __props__['global_default'] = global_default
-            __props__['kind'] = kind
+            __props__['kind'] = 'PriorityClass'
             __props__['metadata'] = metadata
             __props__['preemption_policy'] = preemption_policy
             if value is None:

@@ -55,11 +55,11 @@ class DeploymentList(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = dict()
 
-            __props__['api_version'] = api_version
+            __props__['api_version'] = 'apps/v1'
             if items is None:
                 raise TypeError("Missing required property 'items'")
             __props__['items'] = items
-            __props__['kind'] = kind
+            __props__['kind'] = 'DeploymentList'
             __props__['metadata'] = metadata
         super(DeploymentList, __self__).__init__(
             'kubernetes:apps/v1:DeploymentList',

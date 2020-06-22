@@ -68,11 +68,11 @@ class EndpointSlice(pulumi.CustomResource):
             if address_type is None:
                 raise TypeError("Missing required property 'address_type'")
             __props__['address_type'] = address_type
-            __props__['api_version'] = api_version
+            __props__['api_version'] = 'discovery.k8s.io/v1beta1'
             if endpoints is None:
                 raise TypeError("Missing required property 'endpoints'")
             __props__['endpoints'] = endpoints
-            __props__['kind'] = kind
+            __props__['kind'] = 'EndpointSlice'
             __props__['metadata'] = metadata
             __props__['ports'] = ports
         super(EndpointSlice, __self__).__init__(

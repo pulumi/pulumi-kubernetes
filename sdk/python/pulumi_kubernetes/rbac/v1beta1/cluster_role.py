@@ -61,8 +61,8 @@ class ClusterRole(pulumi.CustomResource):
             __props__ = dict()
 
             __props__['aggregation_rule'] = aggregation_rule
-            __props__['api_version'] = api_version
-            __props__['kind'] = kind
+            __props__['api_version'] = 'rbac.authorization.k8s.io/v1beta1'
+            __props__['kind'] = 'ClusterRole'
             __props__['metadata'] = metadata
             __props__['rules'] = rules
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1:ClusterRole"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole")])
