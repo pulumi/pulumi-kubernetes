@@ -70,10 +70,10 @@ class ConfigFile(pulumi.ComponentResource):
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
-        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return tables._CASING_BACKWARD_TABLE.get(prop) or prop
+        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
     def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
         """
@@ -175,7 +175,7 @@ def _parse_yaml_object(
 
     # Convert obj keys to Python casing
     for key in list(obj.keys()):
-        new_key = tables._CASING_FORWARD_TABLE.get(key) or key
+        new_key = tables._CAMEL_TO_SNAKE_CASE_TABLE.get(key) or key
         if new_key != key:
             obj[new_key] = obj.pop(key)
 
