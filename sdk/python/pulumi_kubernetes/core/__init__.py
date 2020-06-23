@@ -3,11 +3,8 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import importlib
-
 # Make subpackages available:
-submodules = [
-    'v1',
-]
-for pkg in submodules:
+__all__ = ['v1']
+for pkg in __all__:
     if pkg != 'config':
         importlib.import_module(f'{__name__}.{pkg}')

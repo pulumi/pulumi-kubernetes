@@ -3,14 +3,11 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import importlib
-# Export this package's modules as members:
-from .CustomResource import *
-
 # Make subpackages available:
-submodules = [
-    'v1',
-    'v1beta1',
-]
-for pkg in submodules:
+__all__ = ['v1', 'v1beta1']
+for pkg in __all__:
     if pkg != 'config':
         importlib.import_module(f'{__name__}.{pkg}')
+
+# Export this package's modules as members:
+from .CustomResource import *
