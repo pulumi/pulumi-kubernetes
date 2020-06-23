@@ -3,11 +3,11 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .csi_driver import *
-from .csi_driver_list import *
-from .csi_node import *
-from .csi_node_list import *
-from .storage_class import *
-from .storage_class_list import *
-from .volume_attachment import *
-from .volume_attachment_list import *
+from .CSIDriver import *
+from .CSIDriverList import *
+from .CSINode import *
+from .CSINodeList import *
+from .StorageClass import *
+from .StorageClassList import *
+from .VolumeAttachment import *
+from .VolumeAttachmentList import *

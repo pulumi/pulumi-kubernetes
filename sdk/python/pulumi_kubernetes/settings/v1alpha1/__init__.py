@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .pod_preset import *
-from .pod_preset_list import *
+from .PodPreset import *
+from .PodPresetList import *

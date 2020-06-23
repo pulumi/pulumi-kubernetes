@@ -3,15 +3,15 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .daemon_set import *
-from .daemon_set_list import *
-from .deployment import *
-from .deployment_list import *
-from .ingress import *
-from .ingress_list import *
-from .network_policy import *
-from .network_policy_list import *
-from .pod_security_policy import *
-from .pod_security_policy_list import *
-from .replica_set import *
-from .replica_set_list import *
+from .DaemonSet import *
+from .DaemonSetList import *
+from .Deployment import *
+from .DeploymentList import *
+from .Ingress import *
+from .IngressList import *
+from .NetworkPolicy import *
+from .NetworkPolicyList import *
+from .PodSecurityPolicy import *
+from .PodSecurityPolicyList import *
+from .ReplicaSet import *
+from .ReplicaSetList import *

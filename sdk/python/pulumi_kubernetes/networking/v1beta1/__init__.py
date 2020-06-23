@@ -3,7 +3,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .ingress import *
-from .ingress_class import *
-from .ingress_class_list import *
-from .ingress_list import *
+from .Ingress import *
+from .IngressClass import *
+from .IngressClassList import *
+from .IngressList import *

@@ -3,7 +3,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .pod_disruption_budget import *
-from .pod_disruption_budget_list import *
-from .pod_security_policy import *
-from .pod_security_policy_list import *
+from .PodDisruptionBudget import *
+from .PodDisruptionBudgetList import *
+from .PodSecurityPolicy import *
+from .PodSecurityPolicyList import *

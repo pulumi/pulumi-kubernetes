@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .cron_job import *
-from .cron_job_list import *
+from .CronJob import *
+from .CronJobList import *

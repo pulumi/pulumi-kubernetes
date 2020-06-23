@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .job import *
-from .job_list import *
+from .Job import *
+from .JobList import *

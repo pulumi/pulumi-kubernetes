@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .api_service import *
-from .api_service_list import *
+from .APIService import *
+from .APIServiceList import *

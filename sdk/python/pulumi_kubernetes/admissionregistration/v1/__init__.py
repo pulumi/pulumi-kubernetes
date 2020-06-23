@@ -3,7 +3,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .mutating_webhook_configuration import *
-from .mutating_webhook_configuration_list import *
-from .validating_webhook_configuration import *
-from .validating_webhook_configuration_list import *
+from .MutatingWebhookConfiguration import *
+from .MutatingWebhookConfigurationList import *
+from .ValidatingWebhookConfiguration import *
+from .ValidatingWebhookConfigurationList import *

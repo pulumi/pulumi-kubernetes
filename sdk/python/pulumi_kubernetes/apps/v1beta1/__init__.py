@@ -3,9 +3,9 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .controller_revision import *
-from .controller_revision_list import *
-from .deployment import *
-from .deployment_list import *
-from .stateful_set import *
-from .stateful_set_list import *
+from .ControllerRevision import *
+from .ControllerRevisionList import *
+from .Deployment import *
+from .DeploymentList import *
+from .StatefulSet import *
+from .StatefulSetList import *

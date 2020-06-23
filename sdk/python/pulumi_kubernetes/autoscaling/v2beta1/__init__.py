@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .horizontal_pod_autoscaler import *
-from .horizontal_pod_autoscaler_list import *
+from .HorizontalPodAutoscaler import *
+from .HorizontalPodAutoscalerList import *

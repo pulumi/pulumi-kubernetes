@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .priority_class import *
-from .priority_class_list import *
+from .PriorityClass import *
+from .PriorityClassList import *

@@ -3,7 +3,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .flow_schema import *
-from .flow_schema_list import *
-from .priority_level_configuration import *
-from .priority_level_configuration_list import *
+from .FlowSchema import *
+from .FlowSchemaList import *
+from .PriorityLevelConfiguration import *
+from .PriorityLevelConfigurationList import *
