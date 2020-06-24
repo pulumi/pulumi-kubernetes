@@ -82,8 +82,7 @@ type MutatingWebhook struct {
 // MutatingWebhookInput is an input type that accepts MutatingWebhookArgs and MutatingWebhookOutput values.
 // You can construct a concrete instance of `MutatingWebhookInput` via:
 //
-// 		 MutatingWebhookArgs{...}
-//
+//          MutatingWebhookArgs{...}
 type MutatingWebhookInput interface {
 	pulumi.Input
 
@@ -174,8 +173,7 @@ func (i MutatingWebhookArgs) ToMutatingWebhookOutputWithContext(ctx context.Cont
 // MutatingWebhookArrayInput is an input type that accepts MutatingWebhookArray and MutatingWebhookArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookArrayInput` via:
 //
-// 		 MutatingWebhookArray{ MutatingWebhookArgs{...} }
-//
+//          MutatingWebhookArray{ MutatingWebhookArgs{...} }
 type MutatingWebhookArrayInput interface {
 	pulumi.Input
 
@@ -344,8 +342,7 @@ type MutatingWebhookConfigurationType struct {
 // MutatingWebhookConfigurationTypeInput is an input type that accepts MutatingWebhookConfigurationTypeArgs and MutatingWebhookConfigurationTypeOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationTypeInput` via:
 //
-// 		 MutatingWebhookConfigurationTypeArgs{...}
-//
+//          MutatingWebhookConfigurationTypeArgs{...}
 type MutatingWebhookConfigurationTypeInput interface {
 	pulumi.Input
 
@@ -380,8 +377,7 @@ func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationType
 // MutatingWebhookConfigurationTypeArrayInput is an input type that accepts MutatingWebhookConfigurationTypeArray and MutatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationTypeArrayInput` via:
 //
-// 		 MutatingWebhookConfigurationTypeArray{ MutatingWebhookConfigurationTypeArgs{...} }
-//
+//          MutatingWebhookConfigurationTypeArray{ MutatingWebhookConfigurationTypeArgs{...} }
 type MutatingWebhookConfigurationTypeArrayInput interface {
 	pulumi.Input
 
@@ -473,8 +469,7 @@ type MutatingWebhookConfigurationListType struct {
 // MutatingWebhookConfigurationListTypeInput is an input type that accepts MutatingWebhookConfigurationListTypeArgs and MutatingWebhookConfigurationListTypeOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationListTypeInput` via:
 //
-// 		 MutatingWebhookConfigurationListTypeArgs{...}
-//
+//          MutatingWebhookConfigurationListTypeArgs{...}
 type MutatingWebhookConfigurationListTypeInput interface {
 	pulumi.Input
 
@@ -564,8 +559,7 @@ type RuleWithOperations struct {
 // RuleWithOperationsInput is an input type that accepts RuleWithOperationsArgs and RuleWithOperationsOutput values.
 // You can construct a concrete instance of `RuleWithOperationsInput` via:
 //
-// 		 RuleWithOperationsArgs{...}
-//
+//          RuleWithOperationsArgs{...}
 type RuleWithOperationsInput interface {
 	pulumi.Input
 
@@ -608,8 +602,7 @@ func (i RuleWithOperationsArgs) ToRuleWithOperationsOutputWithContext(ctx contex
 // RuleWithOperationsArrayInput is an input type that accepts RuleWithOperationsArray and RuleWithOperationsArrayOutput values.
 // You can construct a concrete instance of `RuleWithOperationsArrayInput` via:
 //
-// 		 RuleWithOperationsArray{ RuleWithOperationsArgs{...} }
-//
+//          RuleWithOperationsArray{ RuleWithOperationsArgs{...} }
 type RuleWithOperationsArrayInput interface {
 	pulumi.Input
 
@@ -712,8 +705,7 @@ type ServiceReference struct {
 // ServiceReferenceInput is an input type that accepts ServiceReferenceArgs and ServiceReferenceOutput values.
 // You can construct a concrete instance of `ServiceReferenceInput` via:
 //
-// 		 ServiceReferenceArgs{...}
-//
+//          ServiceReferenceArgs{...}
 type ServiceReferenceInput interface {
 	pulumi.Input
 
@@ -756,12 +748,11 @@ func (i ServiceReferenceArgs) ToServiceReferencePtrOutputWithContext(ctx context
 // ServiceReferencePtrInput is an input type that accepts ServiceReferenceArgs, ServiceReferencePtr and ServiceReferencePtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePtrInput` via:
 //
-// 		 ServiceReferenceArgs{...}
+//          ServiceReferenceArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type ServiceReferencePtrInput interface {
 	pulumi.Input
 
@@ -953,8 +944,7 @@ type ValidatingWebhook struct {
 // ValidatingWebhookInput is an input type that accepts ValidatingWebhookArgs and ValidatingWebhookOutput values.
 // You can construct a concrete instance of `ValidatingWebhookInput` via:
 //
-// 		 ValidatingWebhookArgs{...}
-//
+//          ValidatingWebhookArgs{...}
 type ValidatingWebhookInput interface {
 	pulumi.Input
 
@@ -1037,8 +1027,7 @@ func (i ValidatingWebhookArgs) ToValidatingWebhookOutputWithContext(ctx context.
 // ValidatingWebhookArrayInput is an input type that accepts ValidatingWebhookArray and ValidatingWebhookArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookArrayInput` via:
 //
-// 		 ValidatingWebhookArray{ ValidatingWebhookArgs{...} }
-//
+//          ValidatingWebhookArray{ ValidatingWebhookArgs{...} }
 type ValidatingWebhookArrayInput interface {
 	pulumi.Input
 
@@ -1196,8 +1185,7 @@ type ValidatingWebhookConfigurationType struct {
 // ValidatingWebhookConfigurationTypeInput is an input type that accepts ValidatingWebhookConfigurationTypeArgs and ValidatingWebhookConfigurationTypeOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationTypeInput` via:
 //
-// 		 ValidatingWebhookConfigurationTypeArgs{...}
-//
+//          ValidatingWebhookConfigurationTypeArgs{...}
 type ValidatingWebhookConfigurationTypeInput interface {
 	pulumi.Input
 
@@ -1232,8 +1220,7 @@ func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfiguration
 // ValidatingWebhookConfigurationTypeArrayInput is an input type that accepts ValidatingWebhookConfigurationTypeArray and ValidatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationTypeArrayInput` via:
 //
-// 		 ValidatingWebhookConfigurationTypeArray{ ValidatingWebhookConfigurationTypeArgs{...} }
-//
+//          ValidatingWebhookConfigurationTypeArray{ ValidatingWebhookConfigurationTypeArgs{...} }
 type ValidatingWebhookConfigurationTypeArrayInput interface {
 	pulumi.Input
 
@@ -1325,8 +1312,7 @@ type ValidatingWebhookConfigurationListType struct {
 // ValidatingWebhookConfigurationListTypeInput is an input type that accepts ValidatingWebhookConfigurationListTypeArgs and ValidatingWebhookConfigurationListTypeOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationListTypeInput` via:
 //
-// 		 ValidatingWebhookConfigurationListTypeArgs{...}
-//
+//          ValidatingWebhookConfigurationListTypeArgs{...}
 type ValidatingWebhookConfigurationListTypeInput interface {
 	pulumi.Input
 
@@ -1418,8 +1404,7 @@ type WebhookClientConfig struct {
 // WebhookClientConfigInput is an input type that accepts WebhookClientConfigArgs and WebhookClientConfigOutput values.
 // You can construct a concrete instance of `WebhookClientConfigInput` via:
 //
-// 		 WebhookClientConfigArgs{...}
-//
+//          WebhookClientConfigArgs{...}
 type WebhookClientConfigInput interface {
 	pulumi.Input
 

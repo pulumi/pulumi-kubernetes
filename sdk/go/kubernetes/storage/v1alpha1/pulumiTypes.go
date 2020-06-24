@@ -31,8 +31,7 @@ type VolumeAttachmentType struct {
 // VolumeAttachmentTypeInput is an input type that accepts VolumeAttachmentTypeArgs and VolumeAttachmentTypeOutput values.
 // You can construct a concrete instance of `VolumeAttachmentTypeInput` via:
 //
-// 		 VolumeAttachmentTypeArgs{...}
-//
+//          VolumeAttachmentTypeArgs{...}
 type VolumeAttachmentTypeInput interface {
 	pulumi.Input
 
@@ -71,8 +70,7 @@ func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutputWithContext(ctx co
 // VolumeAttachmentTypeArrayInput is an input type that accepts VolumeAttachmentTypeArray and VolumeAttachmentTypeArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentTypeArrayInput` via:
 //
-// 		 VolumeAttachmentTypeArray{ VolumeAttachmentTypeArgs{...} }
-//
+//          VolumeAttachmentTypeArray{ VolumeAttachmentTypeArgs{...} }
 type VolumeAttachmentTypeArrayInput interface {
 	pulumi.Input
 
@@ -171,8 +169,7 @@ type VolumeAttachmentListType struct {
 // VolumeAttachmentListTypeInput is an input type that accepts VolumeAttachmentListTypeArgs and VolumeAttachmentListTypeOutput values.
 // You can construct a concrete instance of `VolumeAttachmentListTypeInput` via:
 //
-// 		 VolumeAttachmentListTypeArgs{...}
-//
+//          VolumeAttachmentListTypeArgs{...}
 type VolumeAttachmentListTypeInput interface {
 	pulumi.Input
 
@@ -250,8 +247,7 @@ type VolumeAttachmentSource struct {
 // VolumeAttachmentSourceInput is an input type that accepts VolumeAttachmentSourceArgs and VolumeAttachmentSourceOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSourceInput` via:
 //
-// 		 VolumeAttachmentSourceArgs{...}
-//
+//          VolumeAttachmentSourceArgs{...}
 type VolumeAttachmentSourceInput interface {
 	pulumi.Input
 
@@ -290,12 +286,11 @@ func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourcePtrOutputWithContext
 // VolumeAttachmentSourcePtrInput is an input type that accepts VolumeAttachmentSourceArgs, VolumeAttachmentSourcePtr and VolumeAttachmentSourcePtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSourcePtrInput` via:
 //
-// 		 VolumeAttachmentSourceArgs{...}
+//          VolumeAttachmentSourceArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeAttachmentSourcePtrInput interface {
 	pulumi.Input
 
@@ -407,8 +402,7 @@ type VolumeAttachmentSpec struct {
 // VolumeAttachmentSpecInput is an input type that accepts VolumeAttachmentSpecArgs and VolumeAttachmentSpecOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSpecInput` via:
 //
-// 		 VolumeAttachmentSpecArgs{...}
-//
+//          VolumeAttachmentSpecArgs{...}
 type VolumeAttachmentSpecInput interface {
 	pulumi.Input
 
@@ -449,12 +443,11 @@ func (i VolumeAttachmentSpecArgs) ToVolumeAttachmentSpecPtrOutputWithContext(ctx
 // VolumeAttachmentSpecPtrInput is an input type that accepts VolumeAttachmentSpecArgs, VolumeAttachmentSpecPtr and VolumeAttachmentSpecPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSpecPtrInput` via:
 //
-// 		 VolumeAttachmentSpecArgs{...}
+//          VolumeAttachmentSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeAttachmentSpecPtrInput interface {
 	pulumi.Input
 
@@ -583,8 +576,7 @@ type VolumeAttachmentStatus struct {
 // VolumeAttachmentStatusInput is an input type that accepts VolumeAttachmentStatusArgs and VolumeAttachmentStatusOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusInput` via:
 //
-// 		 VolumeAttachmentStatusArgs{...}
-//
+//          VolumeAttachmentStatusArgs{...}
 type VolumeAttachmentStatusInput interface {
 	pulumi.Input
 
@@ -627,12 +619,11 @@ func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusPtrOutputWithContext
 // VolumeAttachmentStatusPtrInput is an input type that accepts VolumeAttachmentStatusArgs, VolumeAttachmentStatusPtr and VolumeAttachmentStatusPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusPtrInput` via:
 //
-// 		 VolumeAttachmentStatusArgs{...}
+//          VolumeAttachmentStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeAttachmentStatusPtrInput interface {
 	pulumi.Input
 
@@ -772,8 +763,7 @@ type VolumeError struct {
 // VolumeErrorInput is an input type that accepts VolumeErrorArgs and VolumeErrorOutput values.
 // You can construct a concrete instance of `VolumeErrorInput` via:
 //
-// 		 VolumeErrorArgs{...}
-//
+//          VolumeErrorArgs{...}
 type VolumeErrorInput interface {
 	pulumi.Input
 
@@ -812,12 +802,11 @@ func (i VolumeErrorArgs) ToVolumeErrorPtrOutputWithContext(ctx context.Context) 
 // VolumeErrorPtrInput is an input type that accepts VolumeErrorArgs, VolumeErrorPtr and VolumeErrorPtrOutput values.
 // You can construct a concrete instance of `VolumeErrorPtrInput` via:
 //
-// 		 VolumeErrorArgs{...}
+//          VolumeErrorArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeErrorPtrInput interface {
 	pulumi.Input
 

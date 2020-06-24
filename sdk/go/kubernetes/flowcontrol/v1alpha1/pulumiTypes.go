@@ -20,8 +20,7 @@ type FlowDistinguisherMethod struct {
 // FlowDistinguisherMethodInput is an input type that accepts FlowDistinguisherMethodArgs and FlowDistinguisherMethodOutput values.
 // You can construct a concrete instance of `FlowDistinguisherMethodInput` via:
 //
-// 		 FlowDistinguisherMethodArgs{...}
-//
+//          FlowDistinguisherMethodArgs{...}
 type FlowDistinguisherMethodInput interface {
 	pulumi.Input
 
@@ -58,12 +57,11 @@ func (i FlowDistinguisherMethodArgs) ToFlowDistinguisherMethodPtrOutputWithConte
 // FlowDistinguisherMethodPtrInput is an input type that accepts FlowDistinguisherMethodArgs, FlowDistinguisherMethodPtr and FlowDistinguisherMethodPtrOutput values.
 // You can construct a concrete instance of `FlowDistinguisherMethodPtrInput` via:
 //
-// 		 FlowDistinguisherMethodArgs{...}
+//          FlowDistinguisherMethodArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type FlowDistinguisherMethodPtrInput interface {
 	pulumi.Input
 
@@ -164,8 +162,7 @@ type FlowSchemaType struct {
 // FlowSchemaTypeInput is an input type that accepts FlowSchemaTypeArgs and FlowSchemaTypeOutput values.
 // You can construct a concrete instance of `FlowSchemaTypeInput` via:
 //
-// 		 FlowSchemaTypeArgs{...}
-//
+//          FlowSchemaTypeArgs{...}
 type FlowSchemaTypeInput interface {
 	pulumi.Input
 
@@ -202,8 +199,7 @@ func (i FlowSchemaTypeArgs) ToFlowSchemaTypeOutputWithContext(ctx context.Contex
 // FlowSchemaTypeArrayInput is an input type that accepts FlowSchemaTypeArray and FlowSchemaTypeArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaTypeArrayInput` via:
 //
-// 		 FlowSchemaTypeArray{ FlowSchemaTypeArgs{...} }
-//
+//          FlowSchemaTypeArray{ FlowSchemaTypeArgs{...} }
 type FlowSchemaTypeArrayInput interface {
 	pulumi.Input
 
@@ -302,8 +298,7 @@ type FlowSchemaCondition struct {
 // FlowSchemaConditionInput is an input type that accepts FlowSchemaConditionArgs and FlowSchemaConditionOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionInput` via:
 //
-// 		 FlowSchemaConditionArgs{...}
-//
+//          FlowSchemaConditionArgs{...}
 type FlowSchemaConditionInput interface {
 	pulumi.Input
 
@@ -340,8 +335,7 @@ func (i FlowSchemaConditionArgs) ToFlowSchemaConditionOutputWithContext(ctx cont
 // FlowSchemaConditionArrayInput is an input type that accepts FlowSchemaConditionArray and FlowSchemaConditionArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionArrayInput` via:
 //
-// 		 FlowSchemaConditionArray{ FlowSchemaConditionArgs{...} }
-//
+//          FlowSchemaConditionArray{ FlowSchemaConditionArgs{...} }
 type FlowSchemaConditionArrayInput interface {
 	pulumi.Input
 
@@ -438,8 +432,7 @@ type FlowSchemaListType struct {
 // FlowSchemaListTypeInput is an input type that accepts FlowSchemaListTypeArgs and FlowSchemaListTypeOutput values.
 // You can construct a concrete instance of `FlowSchemaListTypeInput` via:
 //
-// 		 FlowSchemaListTypeArgs{...}
-//
+//          FlowSchemaListTypeArgs{...}
 type FlowSchemaListTypeInput interface {
 	pulumi.Input
 
@@ -521,8 +514,7 @@ type FlowSchemaSpec struct {
 // FlowSchemaSpecInput is an input type that accepts FlowSchemaSpecArgs and FlowSchemaSpecOutput values.
 // You can construct a concrete instance of `FlowSchemaSpecInput` via:
 //
-// 		 FlowSchemaSpecArgs{...}
-//
+//          FlowSchemaSpecArgs{...}
 type FlowSchemaSpecInput interface {
 	pulumi.Input
 
@@ -565,12 +557,11 @@ func (i FlowSchemaSpecArgs) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Con
 // FlowSchemaSpecPtrInput is an input type that accepts FlowSchemaSpecArgs, FlowSchemaSpecPtr and FlowSchemaSpecPtrOutput values.
 // You can construct a concrete instance of `FlowSchemaSpecPtrInput` via:
 //
-// 		 FlowSchemaSpecArgs{...}
+//          FlowSchemaSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type FlowSchemaSpecPtrInput interface {
 	pulumi.Input
 
@@ -708,8 +699,7 @@ type FlowSchemaStatus struct {
 // FlowSchemaStatusInput is an input type that accepts FlowSchemaStatusArgs and FlowSchemaStatusOutput values.
 // You can construct a concrete instance of `FlowSchemaStatusInput` via:
 //
-// 		 FlowSchemaStatusArgs{...}
-//
+//          FlowSchemaStatusArgs{...}
 type FlowSchemaStatusInput interface {
 	pulumi.Input
 
@@ -746,12 +736,11 @@ func (i FlowSchemaStatusArgs) ToFlowSchemaStatusPtrOutputWithContext(ctx context
 // FlowSchemaStatusPtrInput is an input type that accepts FlowSchemaStatusArgs, FlowSchemaStatusPtr and FlowSchemaStatusPtrOutput values.
 // You can construct a concrete instance of `FlowSchemaStatusPtrInput` via:
 //
-// 		 FlowSchemaStatusArgs{...}
+//          FlowSchemaStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type FlowSchemaStatusPtrInput interface {
 	pulumi.Input
 
@@ -844,8 +833,7 @@ type GroupSubject struct {
 // GroupSubjectInput is an input type that accepts GroupSubjectArgs and GroupSubjectOutput values.
 // You can construct a concrete instance of `GroupSubjectInput` via:
 //
-// 		 GroupSubjectArgs{...}
-//
+//          GroupSubjectArgs{...}
 type GroupSubjectInput interface {
 	pulumi.Input
 
@@ -882,12 +870,11 @@ func (i GroupSubjectArgs) ToGroupSubjectPtrOutputWithContext(ctx context.Context
 // GroupSubjectPtrInput is an input type that accepts GroupSubjectArgs, GroupSubjectPtr and GroupSubjectPtrOutput values.
 // You can construct a concrete instance of `GroupSubjectPtrInput` via:
 //
-// 		 GroupSubjectArgs{...}
+//          GroupSubjectArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type GroupSubjectPtrInput interface {
 	pulumi.Input
 
@@ -982,8 +969,7 @@ type LimitResponse struct {
 // LimitResponseInput is an input type that accepts LimitResponseArgs and LimitResponseOutput values.
 // You can construct a concrete instance of `LimitResponseInput` via:
 //
-// 		 LimitResponseArgs{...}
-//
+//          LimitResponseArgs{...}
 type LimitResponseInput interface {
 	pulumi.Input
 
@@ -1022,12 +1008,11 @@ func (i LimitResponseArgs) ToLimitResponsePtrOutputWithContext(ctx context.Conte
 // LimitResponsePtrInput is an input type that accepts LimitResponseArgs, LimitResponsePtr and LimitResponsePtrOutput values.
 // You can construct a concrete instance of `LimitResponsePtrInput` via:
 //
-// 		 LimitResponseArgs{...}
+//          LimitResponseArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type LimitResponsePtrInput interface {
 	pulumi.Input
 
@@ -1143,8 +1128,7 @@ type LimitedPriorityLevelConfiguration struct {
 // LimitedPriorityLevelConfigurationInput is an input type that accepts LimitedPriorityLevelConfigurationArgs and LimitedPriorityLevelConfigurationOutput values.
 // You can construct a concrete instance of `LimitedPriorityLevelConfigurationInput` via:
 //
-// 		 LimitedPriorityLevelConfigurationArgs{...}
-//
+//          LimitedPriorityLevelConfigurationArgs{...}
 type LimitedPriorityLevelConfigurationInput interface {
 	pulumi.Input
 
@@ -1189,12 +1173,11 @@ func (i LimitedPriorityLevelConfigurationArgs) ToLimitedPriorityLevelConfigurati
 // LimitedPriorityLevelConfigurationPtrInput is an input type that accepts LimitedPriorityLevelConfigurationArgs, LimitedPriorityLevelConfigurationPtr and LimitedPriorityLevelConfigurationPtrOutput values.
 // You can construct a concrete instance of `LimitedPriorityLevelConfigurationPtrInput` via:
 //
-// 		 LimitedPriorityLevelConfigurationArgs{...}
+//          LimitedPriorityLevelConfigurationArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type LimitedPriorityLevelConfigurationPtrInput interface {
 	pulumi.Input
 
@@ -1311,7 +1294,7 @@ type NonResourcePolicyRule struct {
 	//   - "/hea" is legal but matches nothing
 	//   - "/hea/*" also matches nothing
 	//   - "/healthz/*" matches all per-component health checks.
-	// "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+	//     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
 	// `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
 	Verbs []string `pulumi:"verbs"`
@@ -1320,8 +1303,7 @@ type NonResourcePolicyRule struct {
 // NonResourcePolicyRuleInput is an input type that accepts NonResourcePolicyRuleArgs and NonResourcePolicyRuleOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRuleInput` via:
 //
-// 		 NonResourcePolicyRuleArgs{...}
-//
+//          NonResourcePolicyRuleArgs{...}
 type NonResourcePolicyRuleInput interface {
 	pulumi.Input
 
@@ -1337,7 +1319,7 @@ type NonResourcePolicyRuleArgs struct {
 	//   - "/hea" is legal but matches nothing
 	//   - "/hea/*" also matches nothing
 	//   - "/healthz/*" matches all per-component health checks.
-	// "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+	//     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
 	// `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
 	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
@@ -1358,8 +1340,7 @@ func (i NonResourcePolicyRuleArgs) ToNonResourcePolicyRuleOutputWithContext(ctx 
 // NonResourcePolicyRuleArrayInput is an input type that accepts NonResourcePolicyRuleArray and NonResourcePolicyRuleArrayOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRuleArrayInput` via:
 //
-// 		 NonResourcePolicyRuleArray{ NonResourcePolicyRuleArgs{...} }
-//
+//          NonResourcePolicyRuleArray{ NonResourcePolicyRuleArgs{...} }
 type NonResourcePolicyRuleArrayInput interface {
 	pulumi.Input
 
@@ -1402,7 +1383,7 @@ func (o NonResourcePolicyRuleOutput) ToNonResourcePolicyRuleOutputWithContext(ct
 //   - "/hea" is legal but matches nothing
 //   - "/hea/*" also matches nothing
 //   - "/healthz/*" matches all per-component health checks.
-// "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+//     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
 func (o NonResourcePolicyRuleOutput) NonResourceURLs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NonResourcePolicyRule) []string { return v.NonResourceURLs }).(pulumi.StringArrayOutput)
 }
@@ -1445,8 +1426,7 @@ type PolicyRulesWithSubjects struct {
 // PolicyRulesWithSubjectsInput is an input type that accepts PolicyRulesWithSubjectsArgs and PolicyRulesWithSubjectsOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsInput` via:
 //
-// 		 PolicyRulesWithSubjectsArgs{...}
-//
+//          PolicyRulesWithSubjectsArgs{...}
 type PolicyRulesWithSubjectsInput interface {
 	pulumi.Input
 
@@ -1479,8 +1459,7 @@ func (i PolicyRulesWithSubjectsArgs) ToPolicyRulesWithSubjectsOutputWithContext(
 // PolicyRulesWithSubjectsArrayInput is an input type that accepts PolicyRulesWithSubjectsArray and PolicyRulesWithSubjectsArrayOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsArrayInput` via:
 //
-// 		 PolicyRulesWithSubjectsArray{ PolicyRulesWithSubjectsArgs{...} }
-//
+//          PolicyRulesWithSubjectsArray{ PolicyRulesWithSubjectsArgs{...} }
 type PolicyRulesWithSubjectsArrayInput interface {
 	pulumi.Input
 
@@ -1569,8 +1548,7 @@ type PriorityLevelConfigurationType struct {
 // PriorityLevelConfigurationTypeInput is an input type that accepts PriorityLevelConfigurationTypeArgs and PriorityLevelConfigurationTypeOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationTypeInput` via:
 //
-// 		 PriorityLevelConfigurationTypeArgs{...}
-//
+//          PriorityLevelConfigurationTypeArgs{...}
 type PriorityLevelConfigurationTypeInput interface {
 	pulumi.Input
 
@@ -1607,8 +1585,7 @@ func (i PriorityLevelConfigurationTypeArgs) ToPriorityLevelConfigurationTypeOutp
 // PriorityLevelConfigurationTypeArrayInput is an input type that accepts PriorityLevelConfigurationTypeArray and PriorityLevelConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationTypeArrayInput` via:
 //
-// 		 PriorityLevelConfigurationTypeArray{ PriorityLevelConfigurationTypeArgs{...} }
-//
+//          PriorityLevelConfigurationTypeArray{ PriorityLevelConfigurationTypeArgs{...} }
 type PriorityLevelConfigurationTypeArrayInput interface {
 	pulumi.Input
 
@@ -1707,8 +1684,7 @@ type PriorityLevelConfigurationCondition struct {
 // PriorityLevelConfigurationConditionInput is an input type that accepts PriorityLevelConfigurationConditionArgs and PriorityLevelConfigurationConditionOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionInput` via:
 //
-// 		 PriorityLevelConfigurationConditionArgs{...}
-//
+//          PriorityLevelConfigurationConditionArgs{...}
 type PriorityLevelConfigurationConditionInput interface {
 	pulumi.Input
 
@@ -1745,8 +1721,7 @@ func (i PriorityLevelConfigurationConditionArgs) ToPriorityLevelConfigurationCon
 // PriorityLevelConfigurationConditionArrayInput is an input type that accepts PriorityLevelConfigurationConditionArray and PriorityLevelConfigurationConditionArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionArrayInput` via:
 //
-// 		 PriorityLevelConfigurationConditionArray{ PriorityLevelConfigurationConditionArgs{...} }
-//
+//          PriorityLevelConfigurationConditionArray{ PriorityLevelConfigurationConditionArgs{...} }
 type PriorityLevelConfigurationConditionArrayInput interface {
 	pulumi.Input
 
@@ -1843,8 +1818,7 @@ type PriorityLevelConfigurationListType struct {
 // PriorityLevelConfigurationListTypeInput is an input type that accepts PriorityLevelConfigurationListTypeArgs and PriorityLevelConfigurationListTypeOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationListTypeInput` via:
 //
-// 		 PriorityLevelConfigurationListTypeArgs{...}
-//
+//          PriorityLevelConfigurationListTypeArgs{...}
 type PriorityLevelConfigurationListTypeInput interface {
 	pulumi.Input
 
@@ -1920,8 +1894,7 @@ type PriorityLevelConfigurationReference struct {
 // PriorityLevelConfigurationReferenceInput is an input type that accepts PriorityLevelConfigurationReferenceArgs and PriorityLevelConfigurationReferenceOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationReferenceInput` via:
 //
-// 		 PriorityLevelConfigurationReferenceArgs{...}
-//
+//          PriorityLevelConfigurationReferenceArgs{...}
 type PriorityLevelConfigurationReferenceInput interface {
 	pulumi.Input
 
@@ -1958,12 +1931,11 @@ func (i PriorityLevelConfigurationReferenceArgs) ToPriorityLevelConfigurationRef
 // PriorityLevelConfigurationReferencePtrInput is an input type that accepts PriorityLevelConfigurationReferenceArgs, PriorityLevelConfigurationReferencePtr and PriorityLevelConfigurationReferencePtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationReferencePtrInput` via:
 //
-// 		 PriorityLevelConfigurationReferenceArgs{...}
+//          PriorityLevelConfigurationReferenceArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type PriorityLevelConfigurationReferencePtrInput interface {
 	pulumi.Input
 
@@ -2058,8 +2030,7 @@ type PriorityLevelConfigurationSpec struct {
 // PriorityLevelConfigurationSpecInput is an input type that accepts PriorityLevelConfigurationSpecArgs and PriorityLevelConfigurationSpecOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationSpecInput` via:
 //
-// 		 PriorityLevelConfigurationSpecArgs{...}
-//
+//          PriorityLevelConfigurationSpecArgs{...}
 type PriorityLevelConfigurationSpecInput interface {
 	pulumi.Input
 
@@ -2098,12 +2069,11 @@ func (i PriorityLevelConfigurationSpecArgs) ToPriorityLevelConfigurationSpecPtrO
 // PriorityLevelConfigurationSpecPtrInput is an input type that accepts PriorityLevelConfigurationSpecArgs, PriorityLevelConfigurationSpecPtr and PriorityLevelConfigurationSpecPtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationSpecPtrInput` via:
 //
-// 		 PriorityLevelConfigurationSpecArgs{...}
+//          PriorityLevelConfigurationSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type PriorityLevelConfigurationSpecPtrInput interface {
 	pulumi.Input
 
@@ -2211,8 +2181,7 @@ type PriorityLevelConfigurationStatus struct {
 // PriorityLevelConfigurationStatusInput is an input type that accepts PriorityLevelConfigurationStatusArgs and PriorityLevelConfigurationStatusOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationStatusInput` via:
 //
-// 		 PriorityLevelConfigurationStatusArgs{...}
-//
+//          PriorityLevelConfigurationStatusArgs{...}
 type PriorityLevelConfigurationStatusInput interface {
 	pulumi.Input
 
@@ -2249,12 +2218,11 @@ func (i PriorityLevelConfigurationStatusArgs) ToPriorityLevelConfigurationStatus
 // PriorityLevelConfigurationStatusPtrInput is an input type that accepts PriorityLevelConfigurationStatusArgs, PriorityLevelConfigurationStatusPtr and PriorityLevelConfigurationStatusPtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationStatusPtrInput` via:
 //
-// 		 PriorityLevelConfigurationStatusArgs{...}
+//          PriorityLevelConfigurationStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type PriorityLevelConfigurationStatusPtrInput interface {
 	pulumi.Input
 
@@ -2351,8 +2319,7 @@ type QueuingConfiguration struct {
 // QueuingConfigurationInput is an input type that accepts QueuingConfigurationArgs and QueuingConfigurationOutput values.
 // You can construct a concrete instance of `QueuingConfigurationInput` via:
 //
-// 		 QueuingConfigurationArgs{...}
-//
+//          QueuingConfigurationArgs{...}
 type QueuingConfigurationInput interface {
 	pulumi.Input
 
@@ -2393,12 +2360,11 @@ func (i QueuingConfigurationArgs) ToQueuingConfigurationPtrOutputWithContext(ctx
 // QueuingConfigurationPtrInput is an input type that accepts QueuingConfigurationArgs, QueuingConfigurationPtr and QueuingConfigurationPtrOutput values.
 // You can construct a concrete instance of `QueuingConfigurationPtrInput` via:
 //
-// 		 QueuingConfigurationArgs{...}
+//          QueuingConfigurationArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type QueuingConfigurationPtrInput interface {
 	pulumi.Input
 
@@ -2529,8 +2495,7 @@ type ResourcePolicyRule struct {
 // ResourcePolicyRuleInput is an input type that accepts ResourcePolicyRuleArgs and ResourcePolicyRuleOutput values.
 // You can construct a concrete instance of `ResourcePolicyRuleInput` via:
 //
-// 		 ResourcePolicyRuleArgs{...}
-//
+//          ResourcePolicyRuleArgs{...}
 type ResourcePolicyRuleInput interface {
 	pulumi.Input
 
@@ -2567,8 +2532,7 @@ func (i ResourcePolicyRuleArgs) ToResourcePolicyRuleOutputWithContext(ctx contex
 // ResourcePolicyRuleArrayInput is an input type that accepts ResourcePolicyRuleArray and ResourcePolicyRuleArrayOutput values.
 // You can construct a concrete instance of `ResourcePolicyRuleArrayInput` via:
 //
-// 		 ResourcePolicyRuleArray{ ResourcePolicyRuleArgs{...} }
-//
+//          ResourcePolicyRuleArray{ ResourcePolicyRuleArgs{...} }
 type ResourcePolicyRuleArrayInput interface {
 	pulumi.Input
 
@@ -2661,8 +2625,7 @@ type ServiceAccountSubject struct {
 // ServiceAccountSubjectInput is an input type that accepts ServiceAccountSubjectArgs and ServiceAccountSubjectOutput values.
 // You can construct a concrete instance of `ServiceAccountSubjectInput` via:
 //
-// 		 ServiceAccountSubjectArgs{...}
-//
+//          ServiceAccountSubjectArgs{...}
 type ServiceAccountSubjectInput interface {
 	pulumi.Input
 
@@ -2701,12 +2664,11 @@ func (i ServiceAccountSubjectArgs) ToServiceAccountSubjectPtrOutputWithContext(c
 // ServiceAccountSubjectPtrInput is an input type that accepts ServiceAccountSubjectArgs, ServiceAccountSubjectPtr and ServiceAccountSubjectPtrOutput values.
 // You can construct a concrete instance of `ServiceAccountSubjectPtrInput` via:
 //
-// 		 ServiceAccountSubjectArgs{...}
+//          ServiceAccountSubjectArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type ServiceAccountSubjectPtrInput interface {
 	pulumi.Input
 
@@ -2817,8 +2779,7 @@ type Subject struct {
 // SubjectInput is an input type that accepts SubjectArgs and SubjectOutput values.
 // You can construct a concrete instance of `SubjectInput` via:
 //
-// 		 SubjectArgs{...}
-//
+//          SubjectArgs{...}
 type SubjectInput interface {
 	pulumi.Input
 
@@ -2850,8 +2811,7 @@ func (i SubjectArgs) ToSubjectOutputWithContext(ctx context.Context) SubjectOutp
 // SubjectArrayInput is an input type that accepts SubjectArray and SubjectArrayOutput values.
 // You can construct a concrete instance of `SubjectArrayInput` via:
 //
-// 		 SubjectArray{ SubjectArgs{...} }
-//
+//          SubjectArray{ SubjectArgs{...} }
 type SubjectArrayInput interface {
 	pulumi.Input
 
@@ -2934,8 +2894,7 @@ type UserSubject struct {
 // UserSubjectInput is an input type that accepts UserSubjectArgs and UserSubjectOutput values.
 // You can construct a concrete instance of `UserSubjectInput` via:
 //
-// 		 UserSubjectArgs{...}
-//
+//          UserSubjectArgs{...}
 type UserSubjectInput interface {
 	pulumi.Input
 
@@ -2972,12 +2931,11 @@ func (i UserSubjectArgs) ToUserSubjectPtrOutputWithContext(ctx context.Context) 
 // UserSubjectPtrInput is an input type that accepts UserSubjectArgs, UserSubjectPtr and UserSubjectPtrOutput values.
 // You can construct a concrete instance of `UserSubjectPtrInput` via:
 //
-// 		 UserSubjectArgs{...}
+//          UserSubjectArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type UserSubjectPtrInput interface {
 	pulumi.Input
 

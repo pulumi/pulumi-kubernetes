@@ -23,7 +23,7 @@ import (
 // 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
 //    to 'True'.
 // 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-// 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+//     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -44,8 +44,7 @@ type JobType struct {
 // JobTypeInput is an input type that accepts JobTypeArgs and JobTypeOutput values.
 // You can construct a concrete instance of `JobTypeInput` via:
 //
-// 		 JobTypeArgs{...}
-//
+//          JobTypeArgs{...}
 type JobTypeInput interface {
 	pulumi.Input
 
@@ -64,7 +63,7 @@ type JobTypeInput interface {
 // 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
 //    to 'True'.
 // 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-// 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+//     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -97,8 +96,7 @@ func (i JobTypeArgs) ToJobTypeOutputWithContext(ctx context.Context) JobTypeOutp
 // JobTypeArrayInput is an input type that accepts JobTypeArray and JobTypeArrayOutput values.
 // You can construct a concrete instance of `JobTypeArrayInput` via:
 //
-// 		 JobTypeArray{ JobTypeArgs{...} }
-//
+//          JobTypeArray{ JobTypeArgs{...} }
 type JobTypeArrayInput interface {
 	pulumi.Input
 
@@ -131,7 +129,7 @@ func (i JobTypeArray) ToJobTypeArrayOutputWithContext(ctx context.Context) JobTy
 // 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
 //    to 'True'.
 // 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-// 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+//     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -214,8 +212,7 @@ type JobCondition struct {
 // JobConditionInput is an input type that accepts JobConditionArgs and JobConditionOutput values.
 // You can construct a concrete instance of `JobConditionInput` via:
 //
-// 		 JobConditionArgs{...}
-//
+//          JobConditionArgs{...}
 type JobConditionInput interface {
 	pulumi.Input
 
@@ -254,8 +251,7 @@ func (i JobConditionArgs) ToJobConditionOutputWithContext(ctx context.Context) J
 // JobConditionArrayInput is an input type that accepts JobConditionArray and JobConditionArrayOutput values.
 // You can construct a concrete instance of `JobConditionArrayInput` via:
 //
-// 		 JobConditionArray{ JobConditionArgs{...} }
-//
+//          JobConditionArray{ JobConditionArgs{...} }
 type JobConditionArrayInput interface {
 	pulumi.Input
 
@@ -357,8 +353,7 @@ type JobListType struct {
 // JobListTypeInput is an input type that accepts JobListTypeArgs and JobListTypeOutput values.
 // You can construct a concrete instance of `JobListTypeInput` via:
 //
-// 		 JobListTypeArgs{...}
-//
+//          JobListTypeArgs{...}
 type JobListTypeInput interface {
 	pulumi.Input
 
@@ -448,8 +443,7 @@ type JobSpec struct {
 // JobSpecInput is an input type that accepts JobSpecArgs and JobSpecOutput values.
 // You can construct a concrete instance of `JobSpecInput` via:
 //
-// 		 JobSpecArgs{...}
-//
+//          JobSpecArgs{...}
 type JobSpecInput interface {
 	pulumi.Input
 
@@ -500,12 +494,11 @@ func (i JobSpecArgs) ToJobSpecPtrOutputWithContext(ctx context.Context) JobSpecP
 // JobSpecPtrInput is an input type that accepts JobSpecArgs, JobSpecPtr and JobSpecPtrOutput values.
 // You can construct a concrete instance of `JobSpecPtrInput` via:
 //
-// 		 JobSpecArgs{...}
+//          JobSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type JobSpecPtrInput interface {
 	pulumi.Input
 
@@ -713,8 +706,7 @@ type JobStatus struct {
 // JobStatusInput is an input type that accepts JobStatusArgs and JobStatusOutput values.
 // You can construct a concrete instance of `JobStatusInput` via:
 //
-// 		 JobStatusArgs{...}
-//
+//          JobStatusArgs{...}
 type JobStatusInput interface {
 	pulumi.Input
 
@@ -761,12 +753,11 @@ func (i JobStatusArgs) ToJobStatusPtrOutputWithContext(ctx context.Context) JobS
 // JobStatusPtrInput is an input type that accepts JobStatusArgs, JobStatusPtr and JobStatusPtrOutput values.
 // You can construct a concrete instance of `JobStatusPtrInput` via:
 //
-// 		 JobStatusArgs{...}
+//          JobStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type JobStatusPtrInput interface {
 	pulumi.Input
 

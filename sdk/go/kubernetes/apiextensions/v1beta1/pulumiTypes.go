@@ -30,8 +30,7 @@ type CustomResourceColumnDefinition struct {
 // CustomResourceColumnDefinitionInput is an input type that accepts CustomResourceColumnDefinitionArgs and CustomResourceColumnDefinitionOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionInput` via:
 //
-// 		 CustomResourceColumnDefinitionArgs{...}
-//
+//          CustomResourceColumnDefinitionArgs{...}
 type CustomResourceColumnDefinitionInput interface {
 	pulumi.Input
 
@@ -70,8 +69,7 @@ func (i CustomResourceColumnDefinitionArgs) ToCustomResourceColumnDefinitionOutp
 // CustomResourceColumnDefinitionArrayInput is an input type that accepts CustomResourceColumnDefinitionArray and CustomResourceColumnDefinitionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionArrayInput` via:
 //
-// 		 CustomResourceColumnDefinitionArray{ CustomResourceColumnDefinitionArgs{...} }
-//
+//          CustomResourceColumnDefinitionArray{ CustomResourceColumnDefinitionArgs{...} }
 type CustomResourceColumnDefinitionArrayInput interface {
 	pulumi.Input
 
@@ -172,8 +170,7 @@ type CustomResourceConversion struct {
 // CustomResourceConversionInput is an input type that accepts CustomResourceConversionArgs and CustomResourceConversionOutput values.
 // You can construct a concrete instance of `CustomResourceConversionInput` via:
 //
-// 		 CustomResourceConversionArgs{...}
-//
+//          CustomResourceConversionArgs{...}
 type CustomResourceConversionInput interface {
 	pulumi.Input
 
@@ -215,12 +212,11 @@ func (i CustomResourceConversionArgs) ToCustomResourceConversionPtrOutputWithCon
 // CustomResourceConversionPtrInput is an input type that accepts CustomResourceConversionArgs, CustomResourceConversionPtr and CustomResourceConversionPtrOutput values.
 // You can construct a concrete instance of `CustomResourceConversionPtrInput` via:
 //
-// 		 CustomResourceConversionArgs{...}
+//          CustomResourceConversionArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CustomResourceConversionPtrInput interface {
 	pulumi.Input
 
@@ -352,8 +348,7 @@ type CustomResourceDefinitionType struct {
 // CustomResourceDefinitionTypeInput is an input type that accepts CustomResourceDefinitionTypeArgs and CustomResourceDefinitionTypeOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionTypeInput` via:
 //
-// 		 CustomResourceDefinitionTypeArgs{...}
-//
+//          CustomResourceDefinitionTypeArgs{...}
 type CustomResourceDefinitionTypeInput interface {
 	pulumi.Input
 
@@ -389,8 +384,7 @@ func (i CustomResourceDefinitionTypeArgs) ToCustomResourceDefinitionTypeOutputWi
 // CustomResourceDefinitionTypeArrayInput is an input type that accepts CustomResourceDefinitionTypeArray and CustomResourceDefinitionTypeArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionTypeArrayInput` via:
 //
-// 		 CustomResourceDefinitionTypeArray{ CustomResourceDefinitionTypeArgs{...} }
-//
+//          CustomResourceDefinitionTypeArray{ CustomResourceDefinitionTypeArgs{...} }
 type CustomResourceDefinitionTypeArrayInput interface {
 	pulumi.Input
 
@@ -488,8 +482,7 @@ type CustomResourceDefinitionCondition struct {
 // CustomResourceDefinitionConditionInput is an input type that accepts CustomResourceDefinitionConditionArgs and CustomResourceDefinitionConditionOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionInput` via:
 //
-// 		 CustomResourceDefinitionConditionArgs{...}
-//
+//          CustomResourceDefinitionConditionArgs{...}
 type CustomResourceDefinitionConditionInput interface {
 	pulumi.Input
 
@@ -526,8 +519,7 @@ func (i CustomResourceDefinitionConditionArgs) ToCustomResourceDefinitionConditi
 // CustomResourceDefinitionConditionArrayInput is an input type that accepts CustomResourceDefinitionConditionArray and CustomResourceDefinitionConditionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionArrayInput` via:
 //
-// 		 CustomResourceDefinitionConditionArray{ CustomResourceDefinitionConditionArgs{...} }
-//
+//          CustomResourceDefinitionConditionArray{ CustomResourceDefinitionConditionArgs{...} }
 type CustomResourceDefinitionConditionArrayInput interface {
 	pulumi.Input
 
@@ -623,8 +615,7 @@ type CustomResourceDefinitionListType struct {
 // CustomResourceDefinitionListTypeInput is an input type that accepts CustomResourceDefinitionListTypeArgs and CustomResourceDefinitionListTypeOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionListTypeInput` via:
 //
-// 		 CustomResourceDefinitionListTypeArgs{...}
-//
+//          CustomResourceDefinitionListTypeArgs{...}
 type CustomResourceDefinitionListTypeInput interface {
 	pulumi.Input
 
@@ -708,8 +699,7 @@ type CustomResourceDefinitionNames struct {
 // CustomResourceDefinitionNamesInput is an input type that accepts CustomResourceDefinitionNamesArgs and CustomResourceDefinitionNamesOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionNamesInput` via:
 //
-// 		 CustomResourceDefinitionNamesArgs{...}
-//
+//          CustomResourceDefinitionNamesArgs{...}
 type CustomResourceDefinitionNamesInput interface {
 	pulumi.Input
 
@@ -756,12 +746,11 @@ func (i CustomResourceDefinitionNamesArgs) ToCustomResourceDefinitionNamesPtrOut
 // CustomResourceDefinitionNamesPtrInput is an input type that accepts CustomResourceDefinitionNamesArgs, CustomResourceDefinitionNamesPtr and CustomResourceDefinitionNamesPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionNamesPtrInput` via:
 //
-// 		 CustomResourceDefinitionNamesArgs{...}
+//          CustomResourceDefinitionNamesArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CustomResourceDefinitionNamesPtrInput interface {
 	pulumi.Input
 
@@ -947,8 +936,7 @@ type CustomResourceDefinitionSpec struct {
 // CustomResourceDefinitionSpecInput is an input type that accepts CustomResourceDefinitionSpecArgs and CustomResourceDefinitionSpecOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionSpecInput` via:
 //
-// 		 CustomResourceDefinitionSpecArgs{...}
-//
+//          CustomResourceDefinitionSpecArgs{...}
 type CustomResourceDefinitionSpecInput interface {
 	pulumi.Input
 
@@ -1003,12 +991,11 @@ func (i CustomResourceDefinitionSpecArgs) ToCustomResourceDefinitionSpecPtrOutpu
 // CustomResourceDefinitionSpecPtrInput is an input type that accepts CustomResourceDefinitionSpecArgs, CustomResourceDefinitionSpecPtr and CustomResourceDefinitionSpecPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionSpecPtrInput` via:
 //
-// 		 CustomResourceDefinitionSpecArgs{...}
+//          CustomResourceDefinitionSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CustomResourceDefinitionSpecPtrInput interface {
 	pulumi.Input
 
@@ -1242,8 +1229,7 @@ type CustomResourceDefinitionStatus struct {
 // CustomResourceDefinitionStatusInput is an input type that accepts CustomResourceDefinitionStatusArgs and CustomResourceDefinitionStatusOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionStatusInput` via:
 //
-// 		 CustomResourceDefinitionStatusArgs{...}
-//
+//          CustomResourceDefinitionStatusArgs{...}
 type CustomResourceDefinitionStatusInput interface {
 	pulumi.Input
 
@@ -1284,12 +1270,11 @@ func (i CustomResourceDefinitionStatusArgs) ToCustomResourceDefinitionStatusPtrO
 // CustomResourceDefinitionStatusPtrInput is an input type that accepts CustomResourceDefinitionStatusArgs, CustomResourceDefinitionStatusPtr and CustomResourceDefinitionStatusPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionStatusPtrInput` via:
 //
-// 		 CustomResourceDefinitionStatusArgs{...}
+//          CustomResourceDefinitionStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CustomResourceDefinitionStatusPtrInput interface {
 	pulumi.Input
 
@@ -1422,8 +1407,7 @@ type CustomResourceDefinitionVersion struct {
 // CustomResourceDefinitionVersionInput is an input type that accepts CustomResourceDefinitionVersionArgs and CustomResourceDefinitionVersionOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionInput` via:
 //
-// 		 CustomResourceDefinitionVersionArgs{...}
-//
+//          CustomResourceDefinitionVersionArgs{...}
 type CustomResourceDefinitionVersionInput interface {
 	pulumi.Input
 
@@ -1462,8 +1446,7 @@ func (i CustomResourceDefinitionVersionArgs) ToCustomResourceDefinitionVersionOu
 // CustomResourceDefinitionVersionArrayInput is an input type that accepts CustomResourceDefinitionVersionArray and CustomResourceDefinitionVersionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionArrayInput` via:
 //
-// 		 CustomResourceDefinitionVersionArray{ CustomResourceDefinitionVersionArgs{...} }
-//
+//          CustomResourceDefinitionVersionArray{ CustomResourceDefinitionVersionArgs{...} }
 type CustomResourceDefinitionVersionArrayInput interface {
 	pulumi.Input
 
@@ -1565,8 +1548,7 @@ type CustomResourceSubresourceScale struct {
 // CustomResourceSubresourceScaleInput is an input type that accepts CustomResourceSubresourceScaleArgs and CustomResourceSubresourceScaleOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourceScaleInput` via:
 //
-// 		 CustomResourceSubresourceScaleArgs{...}
-//
+//          CustomResourceSubresourceScaleArgs{...}
 type CustomResourceSubresourceScaleInput interface {
 	pulumi.Input
 
@@ -1607,12 +1589,11 @@ func (i CustomResourceSubresourceScaleArgs) ToCustomResourceSubresourceScalePtrO
 // CustomResourceSubresourceScalePtrInput is an input type that accepts CustomResourceSubresourceScaleArgs, CustomResourceSubresourceScalePtr and CustomResourceSubresourceScalePtrOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourceScalePtrInput` via:
 //
-// 		 CustomResourceSubresourceScaleArgs{...}
+//          CustomResourceSubresourceScaleArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CustomResourceSubresourceScalePtrInput interface {
 	pulumi.Input
 
@@ -1737,8 +1718,7 @@ type CustomResourceSubresources struct {
 // CustomResourceSubresourcesInput is an input type that accepts CustomResourceSubresourcesArgs and CustomResourceSubresourcesOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourcesInput` via:
 //
-// 		 CustomResourceSubresourcesArgs{...}
-//
+//          CustomResourceSubresourcesArgs{...}
 type CustomResourceSubresourcesInput interface {
 	pulumi.Input
 
@@ -1777,12 +1757,11 @@ func (i CustomResourceSubresourcesArgs) ToCustomResourceSubresourcesPtrOutputWit
 // CustomResourceSubresourcesPtrInput is an input type that accepts CustomResourceSubresourcesArgs, CustomResourceSubresourcesPtr and CustomResourceSubresourcesPtrOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourcesPtrInput` via:
 //
-// 		 CustomResourceSubresourcesArgs{...}
+//          CustomResourceSubresourcesArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CustomResourceSubresourcesPtrInput interface {
 	pulumi.Input
 
@@ -1890,8 +1869,7 @@ type CustomResourceValidation struct {
 // CustomResourceValidationInput is an input type that accepts CustomResourceValidationArgs and CustomResourceValidationOutput values.
 // You can construct a concrete instance of `CustomResourceValidationInput` via:
 //
-// 		 CustomResourceValidationArgs{...}
-//
+//          CustomResourceValidationArgs{...}
 type CustomResourceValidationInput interface {
 	pulumi.Input
 
@@ -1928,12 +1906,11 @@ func (i CustomResourceValidationArgs) ToCustomResourceValidationPtrOutputWithCon
 // CustomResourceValidationPtrInput is an input type that accepts CustomResourceValidationArgs, CustomResourceValidationPtr and CustomResourceValidationPtrOutput values.
 // You can construct a concrete instance of `CustomResourceValidationPtrInput` via:
 //
-// 		 CustomResourceValidationArgs{...}
+//          CustomResourceValidationArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CustomResourceValidationPtrInput interface {
 	pulumi.Input
 
@@ -2026,8 +2003,7 @@ type ExternalDocumentation struct {
 // ExternalDocumentationInput is an input type that accepts ExternalDocumentationArgs and ExternalDocumentationOutput values.
 // You can construct a concrete instance of `ExternalDocumentationInput` via:
 //
-// 		 ExternalDocumentationArgs{...}
-//
+//          ExternalDocumentationArgs{...}
 type ExternalDocumentationInput interface {
 	pulumi.Input
 
@@ -2064,12 +2040,11 @@ func (i ExternalDocumentationArgs) ToExternalDocumentationPtrOutputWithContext(c
 // ExternalDocumentationPtrInput is an input type that accepts ExternalDocumentationArgs, ExternalDocumentationPtr and ExternalDocumentationPtrOutput values.
 // You can construct a concrete instance of `ExternalDocumentationPtrInput` via:
 //
-// 		 ExternalDocumentationArgs{...}
+//          ExternalDocumentationArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type ExternalDocumentationPtrInput interface {
 	pulumi.Input
 
@@ -2238,7 +2213,7 @@ type JSONSchemaProps struct {
 	//      These lists are like maps in that their elements have a non-index key
 	//      used to identify them. Order is preserved upon merge. The map tag
 	//      must only be used on a list with elements of type object.
-	// Defaults to atomic for arrays.
+	//    Defaults to atomic for arrays.
 	X_kubernetes_list_type *string `pulumi:"x_kubernetes_list_type"`
 	// x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
 	//
@@ -2256,8 +2231,7 @@ type JSONSchemaProps struct {
 // JSONSchemaPropsInput is an input type that accepts JSONSchemaPropsArgs and JSONSchemaPropsOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsInput` via:
 //
-// 		 JSONSchemaPropsArgs{...}
-//
+//          JSONSchemaPropsArgs{...}
 type JSONSchemaPropsInput interface {
 	pulumi.Input
 
@@ -2340,7 +2314,7 @@ type JSONSchemaPropsArgs struct {
 	//      These lists are like maps in that their elements have a non-index key
 	//      used to identify them. Order is preserved upon merge. The map tag
 	//      must only be used on a list with elements of type object.
-	// Defaults to atomic for arrays.
+	//    Defaults to atomic for arrays.
 	X_kubernetes_list_type pulumi.StringPtrInput `pulumi:"x_kubernetes_list_type"`
 	// x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
 	//
@@ -2378,12 +2352,11 @@ func (i JSONSchemaPropsArgs) ToJSONSchemaPropsPtrOutputWithContext(ctx context.C
 // JSONSchemaPropsPtrInput is an input type that accepts JSONSchemaPropsArgs, JSONSchemaPropsPtr and JSONSchemaPropsPtrOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsPtrInput` via:
 //
-// 		 JSONSchemaPropsArgs{...}
+//          JSONSchemaPropsArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type JSONSchemaPropsPtrInput interface {
 	pulumi.Input
 
@@ -2412,8 +2385,7 @@ func (i *jsonschemaPropsPtrType) ToJSONSchemaPropsPtrOutputWithContext(ctx conte
 // JSONSchemaPropsArrayInput is an input type that accepts JSONSchemaPropsArray and JSONSchemaPropsArrayOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsArrayInput` via:
 //
-// 		 JSONSchemaPropsArray{ JSONSchemaPropsArgs{...} }
-//
+//          JSONSchemaPropsArray{ JSONSchemaPropsArgs{...} }
 type JSONSchemaPropsArrayInput interface {
 	pulumi.Input
 
@@ -2438,8 +2410,7 @@ func (i JSONSchemaPropsArray) ToJSONSchemaPropsArrayOutputWithContext(ctx contex
 // JSONSchemaPropsMapInput is an input type that accepts JSONSchemaPropsMap and JSONSchemaPropsMapOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsMapInput` via:
 //
-// 		 JSONSchemaPropsMap{ "key": JSONSchemaPropsArgs{...} }
-//
+//          JSONSchemaPropsMap{ "key": JSONSchemaPropsArgs{...} }
 type JSONSchemaPropsMapInput interface {
 	pulumi.Input
 
@@ -2678,7 +2649,7 @@ func (o JSONSchemaPropsOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOu
 //      These lists are like maps in that their elements have a non-index key
 //      used to identify them. Order is preserved upon merge. The map tag
 //      must only be used on a list with elements of type object.
-// Defaults to atomic for arrays.
+//    Defaults to atomic for arrays.
 func (o JSONSchemaPropsOutput) X_kubernetes_list_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *string { return v.X_kubernetes_list_type }).(pulumi.StringPtrOutput)
 }
@@ -3111,7 +3082,7 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_map_keys() pulumi.StringArra
 //      These lists are like maps in that their elements have a non-index key
 //      used to identify them. Order is preserved upon merge. The map tag
 //      must only be used on a list with elements of type object.
-// Defaults to atomic for arrays.
+//    Defaults to atomic for arrays.
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) *string {
 		if v == nil {
@@ -3203,8 +3174,7 @@ type ServiceReference struct {
 // ServiceReferenceInput is an input type that accepts ServiceReferenceArgs and ServiceReferenceOutput values.
 // You can construct a concrete instance of `ServiceReferenceInput` via:
 //
-// 		 ServiceReferenceArgs{...}
-//
+//          ServiceReferenceArgs{...}
 type ServiceReferenceInput interface {
 	pulumi.Input
 
@@ -3247,12 +3217,11 @@ func (i ServiceReferenceArgs) ToServiceReferencePtrOutputWithContext(ctx context
 // ServiceReferencePtrInput is an input type that accepts ServiceReferenceArgs, ServiceReferencePtr and ServiceReferencePtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePtrInput` via:
 //
-// 		 ServiceReferenceArgs{...}
+//          ServiceReferenceArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type ServiceReferencePtrInput interface {
 	pulumi.Input
 
@@ -3406,8 +3375,7 @@ type WebhookClientConfig struct {
 // WebhookClientConfigInput is an input type that accepts WebhookClientConfigArgs and WebhookClientConfigOutput values.
 // You can construct a concrete instance of `WebhookClientConfigInput` via:
 //
-// 		 WebhookClientConfigArgs{...}
-//
+//          WebhookClientConfigArgs{...}
 type WebhookClientConfigInput interface {
 	pulumi.Input
 
@@ -3460,12 +3428,11 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigPtrOutputWithContext(ctx c
 // WebhookClientConfigPtrInput is an input type that accepts WebhookClientConfigArgs, WebhookClientConfigPtr and WebhookClientConfigPtrOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPtrInput` via:
 //
-// 		 WebhookClientConfigArgs{...}
+//          WebhookClientConfigArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type WebhookClientConfigPtrInput interface {
 	pulumi.Input
 

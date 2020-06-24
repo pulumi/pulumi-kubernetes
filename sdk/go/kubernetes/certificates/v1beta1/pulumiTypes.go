@@ -27,8 +27,7 @@ type CertificateSigningRequestType struct {
 // CertificateSigningRequestTypeInput is an input type that accepts CertificateSigningRequestTypeArgs and CertificateSigningRequestTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestTypeInput` via:
 //
-// 		 CertificateSigningRequestTypeArgs{...}
-//
+//          CertificateSigningRequestTypeArgs{...}
 type CertificateSigningRequestTypeInput interface {
 	pulumi.Input
 
@@ -64,8 +63,7 @@ func (i CertificateSigningRequestTypeArgs) ToCertificateSigningRequestTypeOutput
 // CertificateSigningRequestTypeArrayInput is an input type that accepts CertificateSigningRequestTypeArray and CertificateSigningRequestTypeArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestTypeArrayInput` via:
 //
-// 		 CertificateSigningRequestTypeArray{ CertificateSigningRequestTypeArgs{...} }
-//
+//          CertificateSigningRequestTypeArray{ CertificateSigningRequestTypeArgs{...} }
 type CertificateSigningRequestTypeArrayInput interface {
 	pulumi.Input
 
@@ -160,8 +158,7 @@ type CertificateSigningRequestCondition struct {
 // CertificateSigningRequestConditionInput is an input type that accepts CertificateSigningRequestConditionArgs and CertificateSigningRequestConditionOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionInput` via:
 //
-// 		 CertificateSigningRequestConditionArgs{...}
-//
+//          CertificateSigningRequestConditionArgs{...}
 type CertificateSigningRequestConditionInput interface {
 	pulumi.Input
 
@@ -195,8 +192,7 @@ func (i CertificateSigningRequestConditionArgs) ToCertificateSigningRequestCondi
 // CertificateSigningRequestConditionArrayInput is an input type that accepts CertificateSigningRequestConditionArray and CertificateSigningRequestConditionArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionArrayInput` via:
 //
-// 		 CertificateSigningRequestConditionArray{ CertificateSigningRequestConditionArgs{...} }
-//
+//          CertificateSigningRequestConditionArray{ CertificateSigningRequestConditionArgs{...} }
 type CertificateSigningRequestConditionArrayInput interface {
 	pulumi.Input
 
@@ -284,8 +280,7 @@ type CertificateSigningRequestListType struct {
 // CertificateSigningRequestListTypeInput is an input type that accepts CertificateSigningRequestListTypeArgs and CertificateSigningRequestListTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestListTypeInput` via:
 //
-// 		 CertificateSigningRequestListTypeArgs{...}
-//
+//          CertificateSigningRequestListTypeArgs{...}
 type CertificateSigningRequestListTypeInput interface {
 	pulumi.Input
 
@@ -360,7 +355,7 @@ type CertificateSigningRequestSpec struct {
 	//  2. If it's a kubelet serving certificate, it is assigned
 	//     "kubernetes.io/kubelet-serving".
 	//  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-	// Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+	//     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
 	SignerName *string `pulumi:"signerName"`
 	// UID information about the requesting user. See user.Info interface for details.
 	Uid *string `pulumi:"uid"`
@@ -374,8 +369,7 @@ type CertificateSigningRequestSpec struct {
 // CertificateSigningRequestSpecInput is an input type that accepts CertificateSigningRequestSpecArgs and CertificateSigningRequestSpecOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecInput` via:
 //
-// 		 CertificateSigningRequestSpecArgs{...}
-//
+//          CertificateSigningRequestSpecArgs{...}
 type CertificateSigningRequestSpecInput interface {
 	pulumi.Input
 
@@ -397,7 +391,7 @@ type CertificateSigningRequestSpecArgs struct {
 	//  2. If it's a kubelet serving certificate, it is assigned
 	//     "kubernetes.io/kubelet-serving".
 	//  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-	// Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+	//     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
 	SignerName pulumi.StringPtrInput `pulumi:"signerName"`
 	// UID information about the requesting user. See user.Info interface for details.
 	Uid pulumi.StringPtrInput `pulumi:"uid"`
@@ -431,12 +425,11 @@ func (i CertificateSigningRequestSpecArgs) ToCertificateSigningRequestSpecPtrOut
 // CertificateSigningRequestSpecPtrInput is an input type that accepts CertificateSigningRequestSpecArgs, CertificateSigningRequestSpecPtr and CertificateSigningRequestSpecPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecPtrInput` via:
 //
-// 		 CertificateSigningRequestSpecArgs{...}
+//          CertificateSigningRequestSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CertificateSigningRequestSpecPtrInput interface {
 	pulumi.Input
 
@@ -508,7 +501,7 @@ func (o CertificateSigningRequestSpecOutput) Request() pulumi.StringOutput {
 //  2. If it's a kubelet serving certificate, it is assigned
 //     "kubernetes.io/kubelet-serving".
 //  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-// Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+//     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
 func (o CertificateSigningRequestSpecOutput) SignerName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CertificateSigningRequestSpec) *string { return v.SignerName }).(pulumi.StringPtrOutput)
 }
@@ -583,7 +576,7 @@ func (o CertificateSigningRequestSpecPtrOutput) Request() pulumi.StringPtrOutput
 //  2. If it's a kubelet serving certificate, it is assigned
 //     "kubernetes.io/kubelet-serving".
 //  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-// Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+//     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
 func (o CertificateSigningRequestSpecPtrOutput) SignerName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestSpec) *string {
 		if v == nil {
@@ -634,8 +627,7 @@ type CertificateSigningRequestStatus struct {
 // CertificateSigningRequestStatusInput is an input type that accepts CertificateSigningRequestStatusArgs and CertificateSigningRequestStatusOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusInput` via:
 //
-// 		 CertificateSigningRequestStatusArgs{...}
-//
+//          CertificateSigningRequestStatusArgs{...}
 type CertificateSigningRequestStatusInput interface {
 	pulumi.Input
 
@@ -673,12 +665,11 @@ func (i CertificateSigningRequestStatusArgs) ToCertificateSigningRequestStatusPt
 // CertificateSigningRequestStatusPtrInput is an input type that accepts CertificateSigningRequestStatusArgs, CertificateSigningRequestStatusPtr and CertificateSigningRequestStatusPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusPtrInput` via:
 //
-// 		 CertificateSigningRequestStatusArgs{...}
+//          CertificateSigningRequestStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CertificateSigningRequestStatusPtrInput interface {
 	pulumi.Input
 

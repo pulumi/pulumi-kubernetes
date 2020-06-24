@@ -22,8 +22,7 @@ type IPBlock struct {
 // IPBlockInput is an input type that accepts IPBlockArgs and IPBlockOutput values.
 // You can construct a concrete instance of `IPBlockInput` via:
 //
-// 		 IPBlockArgs{...}
-//
+//          IPBlockArgs{...}
 type IPBlockInput interface {
 	pulumi.Input
 
@@ -62,12 +61,11 @@ func (i IPBlockArgs) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBlockP
 // IPBlockPtrInput is an input type that accepts IPBlockArgs, IPBlockPtr and IPBlockPtrOutput values.
 // You can construct a concrete instance of `IPBlockPtrInput` via:
 //
-// 		 IPBlockArgs{...}
+//          IPBlockArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type IPBlockPtrInput interface {
 	pulumi.Input
 
@@ -181,8 +179,7 @@ type NetworkPolicyType struct {
 // NetworkPolicyTypeInput is an input type that accepts NetworkPolicyTypeArgs and NetworkPolicyTypeOutput values.
 // You can construct a concrete instance of `NetworkPolicyTypeInput` via:
 //
-// 		 NetworkPolicyTypeArgs{...}
-//
+//          NetworkPolicyTypeArgs{...}
 type NetworkPolicyTypeInput interface {
 	pulumi.Input
 
@@ -217,8 +214,7 @@ func (i NetworkPolicyTypeArgs) ToNetworkPolicyTypeOutputWithContext(ctx context.
 // NetworkPolicyTypeArrayInput is an input type that accepts NetworkPolicyTypeArray and NetworkPolicyTypeArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyTypeArrayInput` via:
 //
-// 		 NetworkPolicyTypeArray{ NetworkPolicyTypeArgs{...} }
-//
+//          NetworkPolicyTypeArray{ NetworkPolicyTypeArgs{...} }
 type NetworkPolicyTypeArrayInput interface {
 	pulumi.Input
 
@@ -306,8 +302,7 @@ type NetworkPolicyEgressRule struct {
 // NetworkPolicyEgressRuleInput is an input type that accepts NetworkPolicyEgressRuleArgs and NetworkPolicyEgressRuleOutput values.
 // You can construct a concrete instance of `NetworkPolicyEgressRuleInput` via:
 //
-// 		 NetworkPolicyEgressRuleArgs{...}
-//
+//          NetworkPolicyEgressRuleArgs{...}
 type NetworkPolicyEgressRuleInput interface {
 	pulumi.Input
 
@@ -338,8 +333,7 @@ func (i NetworkPolicyEgressRuleArgs) ToNetworkPolicyEgressRuleOutputWithContext(
 // NetworkPolicyEgressRuleArrayInput is an input type that accepts NetworkPolicyEgressRuleArray and NetworkPolicyEgressRuleArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyEgressRuleArrayInput` via:
 //
-// 		 NetworkPolicyEgressRuleArray{ NetworkPolicyEgressRuleArgs{...} }
-//
+//          NetworkPolicyEgressRuleArray{ NetworkPolicyEgressRuleArgs{...} }
 type NetworkPolicyEgressRuleArrayInput interface {
 	pulumi.Input
 
@@ -417,8 +411,7 @@ type NetworkPolicyIngressRule struct {
 // NetworkPolicyIngressRuleInput is an input type that accepts NetworkPolicyIngressRuleArgs and NetworkPolicyIngressRuleOutput values.
 // You can construct a concrete instance of `NetworkPolicyIngressRuleInput` via:
 //
-// 		 NetworkPolicyIngressRuleArgs{...}
-//
+//          NetworkPolicyIngressRuleArgs{...}
 type NetworkPolicyIngressRuleInput interface {
 	pulumi.Input
 
@@ -449,8 +442,7 @@ func (i NetworkPolicyIngressRuleArgs) ToNetworkPolicyIngressRuleOutputWithContex
 // NetworkPolicyIngressRuleArrayInput is an input type that accepts NetworkPolicyIngressRuleArray and NetworkPolicyIngressRuleArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyIngressRuleArrayInput` via:
 //
-// 		 NetworkPolicyIngressRuleArray{ NetworkPolicyIngressRuleArgs{...} }
-//
+//          NetworkPolicyIngressRuleArray{ NetworkPolicyIngressRuleArgs{...} }
 type NetworkPolicyIngressRuleArrayInput interface {
 	pulumi.Input
 
@@ -532,8 +524,7 @@ type NetworkPolicyListType struct {
 // NetworkPolicyListTypeInput is an input type that accepts NetworkPolicyListTypeArgs and NetworkPolicyListTypeOutput values.
 // You can construct a concrete instance of `NetworkPolicyListTypeInput` via:
 //
-// 		 NetworkPolicyListTypeArgs{...}
-//
+//          NetworkPolicyListTypeArgs{...}
 type NetworkPolicyListTypeInput interface {
 	pulumi.Input
 
@@ -617,8 +608,7 @@ type NetworkPolicyPeer struct {
 // NetworkPolicyPeerInput is an input type that accepts NetworkPolicyPeerArgs and NetworkPolicyPeerOutput values.
 // You can construct a concrete instance of `NetworkPolicyPeerInput` via:
 //
-// 		 NetworkPolicyPeerArgs{...}
-//
+//          NetworkPolicyPeerArgs{...}
 type NetworkPolicyPeerInput interface {
 	pulumi.Input
 
@@ -655,8 +645,7 @@ func (i NetworkPolicyPeerArgs) ToNetworkPolicyPeerOutputWithContext(ctx context.
 // NetworkPolicyPeerArrayInput is an input type that accepts NetworkPolicyPeerArray and NetworkPolicyPeerArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPeerArrayInput` via:
 //
-// 		 NetworkPolicyPeerArray{ NetworkPolicyPeerArgs{...} }
-//
+//          NetworkPolicyPeerArray{ NetworkPolicyPeerArgs{...} }
 type NetworkPolicyPeerArrayInput interface {
 	pulumi.Input
 
@@ -743,8 +732,7 @@ type NetworkPolicyPort struct {
 // NetworkPolicyPortInput is an input type that accepts NetworkPolicyPortArgs and NetworkPolicyPortOutput values.
 // You can construct a concrete instance of `NetworkPolicyPortInput` via:
 //
-// 		 NetworkPolicyPortArgs{...}
-//
+//          NetworkPolicyPortArgs{...}
 type NetworkPolicyPortInput interface {
 	pulumi.Input
 
@@ -775,8 +763,7 @@ func (i NetworkPolicyPortArgs) ToNetworkPolicyPortOutputWithContext(ctx context.
 // NetworkPolicyPortArrayInput is an input type that accepts NetworkPolicyPortArray and NetworkPolicyPortArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPortArrayInput` via:
 //
-// 		 NetworkPolicyPortArray{ NetworkPolicyPortArgs{...} }
-//
+//          NetworkPolicyPortArray{ NetworkPolicyPortArgs{...} }
 type NetworkPolicyPortArrayInput interface {
 	pulumi.Input
 
@@ -858,8 +845,7 @@ type NetworkPolicySpec struct {
 // NetworkPolicySpecInput is an input type that accepts NetworkPolicySpecArgs and NetworkPolicySpecOutput values.
 // You can construct a concrete instance of `NetworkPolicySpecInput` via:
 //
-// 		 NetworkPolicySpecArgs{...}
-//
+//          NetworkPolicySpecArgs{...}
 type NetworkPolicySpecInput interface {
 	pulumi.Input
 
@@ -902,12 +888,11 @@ func (i NetworkPolicySpecArgs) ToNetworkPolicySpecPtrOutputWithContext(ctx conte
 // NetworkPolicySpecPtrInput is an input type that accepts NetworkPolicySpecArgs, NetworkPolicySpecPtr and NetworkPolicySpecPtrOutput values.
 // You can construct a concrete instance of `NetworkPolicySpecPtrInput` via:
 //
-// 		 NetworkPolicySpecArgs{...}
+//          NetworkPolicySpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type NetworkPolicySpecPtrInput interface {
 	pulumi.Input
 

@@ -27,8 +27,7 @@ type CSIDriverType struct {
 // CSIDriverTypeInput is an input type that accepts CSIDriverTypeArgs and CSIDriverTypeOutput values.
 // You can construct a concrete instance of `CSIDriverTypeInput` via:
 //
-// 		 CSIDriverTypeArgs{...}
-//
+//          CSIDriverTypeArgs{...}
 type CSIDriverTypeInput interface {
 	pulumi.Input
 
@@ -63,8 +62,7 @@ func (i CSIDriverTypeArgs) ToCSIDriverTypeOutputWithContext(ctx context.Context)
 // CSIDriverTypeArrayInput is an input type that accepts CSIDriverTypeArray and CSIDriverTypeArrayOutput values.
 // You can construct a concrete instance of `CSIDriverTypeArrayInput` via:
 //
-// 		 CSIDriverTypeArray{ CSIDriverTypeArgs{...} }
-//
+//          CSIDriverTypeArray{ CSIDriverTypeArgs{...} }
 type CSIDriverTypeArrayInput interface {
 	pulumi.Input
 
@@ -156,8 +154,7 @@ type CSIDriverListType struct {
 // CSIDriverListTypeInput is an input type that accepts CSIDriverListTypeArgs and CSIDriverListTypeOutput values.
 // You can construct a concrete instance of `CSIDriverListTypeInput` via:
 //
-// 		 CSIDriverListTypeArgs{...}
-//
+//          CSIDriverListTypeArgs{...}
 type CSIDriverListTypeInput interface {
 	pulumi.Input
 
@@ -240,8 +237,7 @@ type CSIDriverSpec struct {
 // CSIDriverSpecInput is an input type that accepts CSIDriverSpecArgs and CSIDriverSpecOutput values.
 // You can construct a concrete instance of `CSIDriverSpecInput` via:
 //
-// 		 CSIDriverSpecArgs{...}
-//
+//          CSIDriverSpecArgs{...}
 type CSIDriverSpecInput interface {
 	pulumi.Input
 
@@ -285,12 +281,11 @@ func (i CSIDriverSpecArgs) ToCSIDriverSpecPtrOutputWithContext(ctx context.Conte
 // CSIDriverSpecPtrInput is an input type that accepts CSIDriverSpecArgs, CSIDriverSpecPtr and CSIDriverSpecPtrOutput values.
 // You can construct a concrete instance of `CSIDriverSpecPtrInput` via:
 //
-// 		 CSIDriverSpecArgs{...}
+//          CSIDriverSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CSIDriverSpecPtrInput interface {
 	pulumi.Input
 
@@ -425,8 +420,7 @@ type CSINodeType struct {
 // CSINodeTypeInput is an input type that accepts CSINodeTypeArgs and CSINodeTypeOutput values.
 // You can construct a concrete instance of `CSINodeTypeInput` via:
 //
-// 		 CSINodeTypeArgs{...}
-//
+//          CSINodeTypeArgs{...}
 type CSINodeTypeInput interface {
 	pulumi.Input
 
@@ -461,8 +455,7 @@ func (i CSINodeTypeArgs) ToCSINodeTypeOutputWithContext(ctx context.Context) CSI
 // CSINodeTypeArrayInput is an input type that accepts CSINodeTypeArray and CSINodeTypeArrayOutput values.
 // You can construct a concrete instance of `CSINodeTypeArrayInput` via:
 //
-// 		 CSINodeTypeArray{ CSINodeTypeArgs{...} }
-//
+//          CSINodeTypeArray{ CSINodeTypeArgs{...} }
 type CSINodeTypeArrayInput interface {
 	pulumi.Input
 
@@ -554,8 +547,7 @@ type CSINodeDriver struct {
 // CSINodeDriverInput is an input type that accepts CSINodeDriverArgs and CSINodeDriverOutput values.
 // You can construct a concrete instance of `CSINodeDriverInput` via:
 //
-// 		 CSINodeDriverArgs{...}
-//
+//          CSINodeDriverArgs{...}
 type CSINodeDriverInput interface {
 	pulumi.Input
 
@@ -590,8 +582,7 @@ func (i CSINodeDriverArgs) ToCSINodeDriverOutputWithContext(ctx context.Context)
 // CSINodeDriverArrayInput is an input type that accepts CSINodeDriverArray and CSINodeDriverArrayOutput values.
 // You can construct a concrete instance of `CSINodeDriverArrayInput` via:
 //
-// 		 CSINodeDriverArray{ CSINodeDriverArgs{...} }
-//
+//          CSINodeDriverArray{ CSINodeDriverArgs{...} }
 type CSINodeDriverArrayInput interface {
 	pulumi.Input
 
@@ -683,8 +674,7 @@ type CSINodeListType struct {
 // CSINodeListTypeInput is an input type that accepts CSINodeListTypeArgs and CSINodeListTypeOutput values.
 // You can construct a concrete instance of `CSINodeListTypeInput` via:
 //
-// 		 CSINodeListTypeArgs{...}
-//
+//          CSINodeListTypeArgs{...}
 type CSINodeListTypeInput interface {
 	pulumi.Input
 
@@ -760,8 +750,7 @@ type CSINodeSpec struct {
 // CSINodeSpecInput is an input type that accepts CSINodeSpecArgs and CSINodeSpecOutput values.
 // You can construct a concrete instance of `CSINodeSpecInput` via:
 //
-// 		 CSINodeSpecArgs{...}
-//
+//          CSINodeSpecArgs{...}
 type CSINodeSpecInput interface {
 	pulumi.Input
 
@@ -798,12 +787,11 @@ func (i CSINodeSpecArgs) ToCSINodeSpecPtrOutputWithContext(ctx context.Context) 
 // CSINodeSpecPtrInput is an input type that accepts CSINodeSpecArgs, CSINodeSpecPtr and CSINodeSpecPtrOutput values.
 // You can construct a concrete instance of `CSINodeSpecPtrInput` via:
 //
-// 		 CSINodeSpecArgs{...}
+//          CSINodeSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type CSINodeSpecPtrInput interface {
 	pulumi.Input
 
@@ -916,8 +904,7 @@ type StorageClassType struct {
 // StorageClassTypeInput is an input type that accepts StorageClassTypeArgs and StorageClassTypeOutput values.
 // You can construct a concrete instance of `StorageClassTypeInput` via:
 //
-// 		 StorageClassTypeArgs{...}
-//
+//          StorageClassTypeArgs{...}
 type StorageClassTypeInput interface {
 	pulumi.Input
 
@@ -966,8 +953,7 @@ func (i StorageClassTypeArgs) ToStorageClassTypeOutputWithContext(ctx context.Co
 // StorageClassTypeArrayInput is an input type that accepts StorageClassTypeArray and StorageClassTypeArrayOutput values.
 // You can construct a concrete instance of `StorageClassTypeArrayInput` via:
 //
-// 		 StorageClassTypeArray{ StorageClassTypeArgs{...} }
-//
+//          StorageClassTypeArray{ StorageClassTypeArgs{...} }
 type StorageClassTypeArrayInput interface {
 	pulumi.Input
 
@@ -1091,8 +1077,7 @@ type StorageClassListType struct {
 // StorageClassListTypeInput is an input type that accepts StorageClassListTypeArgs and StorageClassListTypeOutput values.
 // You can construct a concrete instance of `StorageClassListTypeInput` via:
 //
-// 		 StorageClassListTypeArgs{...}
-//
+//          StorageClassListTypeArgs{...}
 type StorageClassListTypeInput interface {
 	pulumi.Input
 
@@ -1178,8 +1163,7 @@ type VolumeAttachmentType struct {
 // VolumeAttachmentTypeInput is an input type that accepts VolumeAttachmentTypeArgs and VolumeAttachmentTypeOutput values.
 // You can construct a concrete instance of `VolumeAttachmentTypeInput` via:
 //
-// 		 VolumeAttachmentTypeArgs{...}
-//
+//          VolumeAttachmentTypeArgs{...}
 type VolumeAttachmentTypeInput interface {
 	pulumi.Input
 
@@ -1218,8 +1202,7 @@ func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutputWithContext(ctx co
 // VolumeAttachmentTypeArrayInput is an input type that accepts VolumeAttachmentTypeArray and VolumeAttachmentTypeArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentTypeArrayInput` via:
 //
-// 		 VolumeAttachmentTypeArray{ VolumeAttachmentTypeArgs{...} }
-//
+//          VolumeAttachmentTypeArray{ VolumeAttachmentTypeArgs{...} }
 type VolumeAttachmentTypeArrayInput interface {
 	pulumi.Input
 
@@ -1318,8 +1301,7 @@ type VolumeAttachmentListType struct {
 // VolumeAttachmentListTypeInput is an input type that accepts VolumeAttachmentListTypeArgs and VolumeAttachmentListTypeOutput values.
 // You can construct a concrete instance of `VolumeAttachmentListTypeInput` via:
 //
-// 		 VolumeAttachmentListTypeArgs{...}
-//
+//          VolumeAttachmentListTypeArgs{...}
 type VolumeAttachmentListTypeInput interface {
 	pulumi.Input
 
@@ -1397,8 +1379,7 @@ type VolumeAttachmentSource struct {
 // VolumeAttachmentSourceInput is an input type that accepts VolumeAttachmentSourceArgs and VolumeAttachmentSourceOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSourceInput` via:
 //
-// 		 VolumeAttachmentSourceArgs{...}
-//
+//          VolumeAttachmentSourceArgs{...}
 type VolumeAttachmentSourceInput interface {
 	pulumi.Input
 
@@ -1437,12 +1418,11 @@ func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourcePtrOutputWithContext
 // VolumeAttachmentSourcePtrInput is an input type that accepts VolumeAttachmentSourceArgs, VolumeAttachmentSourcePtr and VolumeAttachmentSourcePtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSourcePtrInput` via:
 //
-// 		 VolumeAttachmentSourceArgs{...}
+//          VolumeAttachmentSourceArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeAttachmentSourcePtrInput interface {
 	pulumi.Input
 
@@ -1554,8 +1534,7 @@ type VolumeAttachmentSpec struct {
 // VolumeAttachmentSpecInput is an input type that accepts VolumeAttachmentSpecArgs and VolumeAttachmentSpecOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSpecInput` via:
 //
-// 		 VolumeAttachmentSpecArgs{...}
-//
+//          VolumeAttachmentSpecArgs{...}
 type VolumeAttachmentSpecInput interface {
 	pulumi.Input
 
@@ -1596,12 +1575,11 @@ func (i VolumeAttachmentSpecArgs) ToVolumeAttachmentSpecPtrOutputWithContext(ctx
 // VolumeAttachmentSpecPtrInput is an input type that accepts VolumeAttachmentSpecArgs, VolumeAttachmentSpecPtr and VolumeAttachmentSpecPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSpecPtrInput` via:
 //
-// 		 VolumeAttachmentSpecArgs{...}
+//          VolumeAttachmentSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeAttachmentSpecPtrInput interface {
 	pulumi.Input
 
@@ -1730,8 +1708,7 @@ type VolumeAttachmentStatus struct {
 // VolumeAttachmentStatusInput is an input type that accepts VolumeAttachmentStatusArgs and VolumeAttachmentStatusOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusInput` via:
 //
-// 		 VolumeAttachmentStatusArgs{...}
-//
+//          VolumeAttachmentStatusArgs{...}
 type VolumeAttachmentStatusInput interface {
 	pulumi.Input
 
@@ -1774,12 +1751,11 @@ func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusPtrOutputWithContext
 // VolumeAttachmentStatusPtrInput is an input type that accepts VolumeAttachmentStatusArgs, VolumeAttachmentStatusPtr and VolumeAttachmentStatusPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusPtrInput` via:
 //
-// 		 VolumeAttachmentStatusArgs{...}
+//          VolumeAttachmentStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeAttachmentStatusPtrInput interface {
 	pulumi.Input
 
@@ -1919,8 +1895,7 @@ type VolumeError struct {
 // VolumeErrorInput is an input type that accepts VolumeErrorArgs and VolumeErrorOutput values.
 // You can construct a concrete instance of `VolumeErrorInput` via:
 //
-// 		 VolumeErrorArgs{...}
-//
+//          VolumeErrorArgs{...}
 type VolumeErrorInput interface {
 	pulumi.Input
 
@@ -1959,12 +1934,11 @@ func (i VolumeErrorArgs) ToVolumeErrorPtrOutputWithContext(ctx context.Context) 
 // VolumeErrorPtrInput is an input type that accepts VolumeErrorArgs, VolumeErrorPtr and VolumeErrorPtrOutput values.
 // You can construct a concrete instance of `VolumeErrorPtrInput` via:
 //
-// 		 VolumeErrorArgs{...}
+//          VolumeErrorArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeErrorPtrInput interface {
 	pulumi.Input
 
@@ -2072,8 +2046,7 @@ type VolumeNodeResources struct {
 // VolumeNodeResourcesInput is an input type that accepts VolumeNodeResourcesArgs and VolumeNodeResourcesOutput values.
 // You can construct a concrete instance of `VolumeNodeResourcesInput` via:
 //
-// 		 VolumeNodeResourcesArgs{...}
-//
+//          VolumeNodeResourcesArgs{...}
 type VolumeNodeResourcesInput interface {
 	pulumi.Input
 
@@ -2110,12 +2083,11 @@ func (i VolumeNodeResourcesArgs) ToVolumeNodeResourcesPtrOutputWithContext(ctx c
 // VolumeNodeResourcesPtrInput is an input type that accepts VolumeNodeResourcesArgs, VolumeNodeResourcesPtr and VolumeNodeResourcesPtrOutput values.
 // You can construct a concrete instance of `VolumeNodeResourcesPtrInput` via:
 //
-// 		 VolumeNodeResourcesArgs{...}
+//          VolumeNodeResourcesArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type VolumeNodeResourcesPtrInput interface {
 	pulumi.Input
 

@@ -25,8 +25,7 @@ type PodPresetType struct {
 // PodPresetTypeInput is an input type that accepts PodPresetTypeArgs and PodPresetTypeOutput values.
 // You can construct a concrete instance of `PodPresetTypeInput` via:
 //
-// 		 PodPresetTypeArgs{...}
-//
+//          PodPresetTypeArgs{...}
 type PodPresetTypeInput interface {
 	pulumi.Input
 
@@ -59,8 +58,7 @@ func (i PodPresetTypeArgs) ToPodPresetTypeOutputWithContext(ctx context.Context)
 // PodPresetTypeArrayInput is an input type that accepts PodPresetTypeArray and PodPresetTypeArrayOutput values.
 // You can construct a concrete instance of `PodPresetTypeArrayInput` via:
 //
-// 		 PodPresetTypeArray{ PodPresetTypeArgs{...} }
-//
+//          PodPresetTypeArray{ PodPresetTypeArgs{...} }
 type PodPresetTypeArrayInput interface {
 	pulumi.Input
 
@@ -150,8 +148,7 @@ type PodPresetListType struct {
 // PodPresetListTypeInput is an input type that accepts PodPresetListTypeArgs and PodPresetListTypeOutput values.
 // You can construct a concrete instance of `PodPresetListTypeInput` via:
 //
-// 		 PodPresetListTypeArgs{...}
-//
+//          PodPresetListTypeArgs{...}
 type PodPresetListTypeInput interface {
 	pulumi.Input
 
@@ -235,8 +232,7 @@ type PodPresetSpec struct {
 // PodPresetSpecInput is an input type that accepts PodPresetSpecArgs and PodPresetSpecOutput values.
 // You can construct a concrete instance of `PodPresetSpecInput` via:
 //
-// 		 PodPresetSpecArgs{...}
-//
+//          PodPresetSpecArgs{...}
 type PodPresetSpecInput interface {
 	pulumi.Input
 
@@ -281,12 +277,11 @@ func (i PodPresetSpecArgs) ToPodPresetSpecPtrOutputWithContext(ctx context.Conte
 // PodPresetSpecPtrInput is an input type that accepts PodPresetSpecArgs, PodPresetSpecPtr and PodPresetSpecPtrOutput values.
 // You can construct a concrete instance of `PodPresetSpecPtrInput` via:
 //
-// 		 PodPresetSpecArgs{...}
+//          PodPresetSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type PodPresetSpecPtrInput interface {
 	pulumi.Input
 

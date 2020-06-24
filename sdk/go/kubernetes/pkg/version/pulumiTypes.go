@@ -26,8 +26,7 @@ type Info struct {
 // InfoInput is an input type that accepts InfoArgs and InfoOutput values.
 // You can construct a concrete instance of `InfoInput` via:
 //
-// 		 InfoArgs{...}
-//
+//          InfoArgs{...}
 type InfoInput interface {
 	pulumi.Input
 
