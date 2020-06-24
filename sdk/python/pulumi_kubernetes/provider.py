@@ -65,10 +65,16 @@ class Provider(pulumi.ProviderResource):
 
             __props__['cluster'] = cluster
             __props__['context'] = context
+            if enable_dry_run is None:
+                enable_dry_run = utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
             __props__['enable_dry_run'] = pulumi.Output.from_input(enable_dry_run).apply(json.dumps) if enable_dry_run is not None else None
+            if kubeconfig is None:
+                kubeconfig = utilities.get_env('KUBECONFIG')
             __props__['kubeconfig'] = kubeconfig
             __props__['namespace'] = namespace
             __props__['render_yaml_to_directory'] = render_yaml_to_directory
+            if suppress_deprecation_warnings is None:
+                suppress_deprecation_warnings = utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
             __props__['suppress_deprecation_warnings'] = pulumi.Output.from_input(suppress_deprecation_warnings).apply(json.dumps) if suppress_deprecation_warnings is not None else None
         super(Provider, __self__).__init__(
             'kubernetes',
