@@ -45,7 +45,7 @@ install:
 
     # Manually install a more recent version of golangci-lint to avoid OOM problems in CI.
     # TODO(levi): Remove this once https://github.com/pulumi/scripts/issues/100 is complete
-    - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b "$(go env GOPATH)/bin" "v1.24.0"
+    - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b "$(go env GOPATH)/bin" "v1.27.0"
 
     # Install Helm CLI. Do not install Tiller.
     - curl -LO  https://get.helm.sh/helm-v3.2.1-linux-amd64.tar.gz
