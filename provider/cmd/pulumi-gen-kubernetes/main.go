@@ -177,7 +177,7 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 
 	err := gen.PythonClient(data, templateDir,
 		func(initPy string) error {
-            return ioutil.WriteFile(filepath.Join(sdkDir, "__init__.py"), []byte(initPy), 0777) // nolint:gosec 
+			return ioutil.WriteFile(filepath.Join(sdkDir, "__init__.py"), []byte(initPy), 0777) // nolint:gosec
 		},
 		func(group, initPy string) error {
 			destDir := filepath.Join(sdkDir, group)
@@ -186,7 +186,7 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 			if err != nil {
 				return err
 			}
-            return ioutil.WriteFile(filepath.Join(destDir, "__init__.py"), []byte(initPy), 0777) // nolint:gosec
+			return ioutil.WriteFile(filepath.Join(destDir, "__init__.py"), []byte(initPy), 0777) // nolint:gosec
 		},
 		func(crBytes string) error {
 			destDir := filepath.Join(sdkDir, "apiextensions")
@@ -198,7 +198,7 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 
 			return ioutil.WriteFile(
 				filepath.Join(destDir, "CustomResource.py"),
-                []byte(crBytes), 0777) // nolint:gosec
+				[]byte(crBytes), 0777) // nolint:gosec
 		},
 		func(group, version, initPy string) error {
 			destDir := filepath.Join(sdkDir, group, version)
