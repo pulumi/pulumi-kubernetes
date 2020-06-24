@@ -24,7 +24,7 @@ namespace Pulumi.Kubernetes.Core.V1
     ///    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
     /// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
     /// 
-    /// Known limitations: 
+    /// Known limitations:
     /// Services targeting ReplicaSets (and, by extension, Deployments,
     /// StatefulSets, etc.) with '.spec.replicas' set to 0 are not handled, and will time
     /// out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on

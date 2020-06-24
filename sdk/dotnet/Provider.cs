@@ -110,6 +110,9 @@ namespace Pulumi.Kubernetes
 
         public ProviderArgs()
         {
+            EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
+            KubeConfig = Utilities.GetEnv("KUBECONFIG");
+            SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
         }
     }
 }

@@ -18,7 +18,7 @@ import * as utilities from "../../utilities";
  * 2. The Pod is initialized ("Initialized" '.status.condition' is true).
  * 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
  *    set to "Running".
- * Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+ *    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
  *
  * If the Pod has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value

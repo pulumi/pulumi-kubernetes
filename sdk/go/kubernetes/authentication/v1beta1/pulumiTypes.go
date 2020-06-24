@@ -27,8 +27,7 @@ type TokenReviewType struct {
 // TokenReviewTypeInput is an input type that accepts TokenReviewTypeArgs and TokenReviewTypeOutput values.
 // You can construct a concrete instance of `TokenReviewTypeInput` via:
 //
-// 		 TokenReviewTypeArgs{...}
-//
+//          TokenReviewTypeArgs{...}
 type TokenReviewTypeInput interface {
 	pulumi.Input
 
@@ -111,8 +110,7 @@ type TokenReviewSpec struct {
 // TokenReviewSpecInput is an input type that accepts TokenReviewSpecArgs and TokenReviewSpecOutput values.
 // You can construct a concrete instance of `TokenReviewSpecInput` via:
 //
-// 		 TokenReviewSpecArgs{...}
-//
+//          TokenReviewSpecArgs{...}
 type TokenReviewSpecInput interface {
 	pulumi.Input
 
@@ -151,12 +149,11 @@ func (i TokenReviewSpecArgs) ToTokenReviewSpecPtrOutputWithContext(ctx context.C
 // TokenReviewSpecPtrInput is an input type that accepts TokenReviewSpecArgs, TokenReviewSpecPtr and TokenReviewSpecPtrOutput values.
 // You can construct a concrete instance of `TokenReviewSpecPtrInput` via:
 //
-// 		 TokenReviewSpecArgs{...}
+//          TokenReviewSpecArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type TokenReviewSpecPtrInput interface {
 	pulumi.Input
 
@@ -270,8 +267,7 @@ type TokenReviewStatus struct {
 // TokenReviewStatusInput is an input type that accepts TokenReviewStatusArgs and TokenReviewStatusOutput values.
 // You can construct a concrete instance of `TokenReviewStatusInput` via:
 //
-// 		 TokenReviewStatusArgs{...}
-//
+//          TokenReviewStatusArgs{...}
 type TokenReviewStatusInput interface {
 	pulumi.Input
 
@@ -314,12 +310,11 @@ func (i TokenReviewStatusArgs) ToTokenReviewStatusPtrOutputWithContext(ctx conte
 // TokenReviewStatusPtrInput is an input type that accepts TokenReviewStatusArgs, TokenReviewStatusPtr and TokenReviewStatusPtrOutput values.
 // You can construct a concrete instance of `TokenReviewStatusPtrInput` via:
 //
-// 		 TokenReviewStatusArgs{...}
+//          TokenReviewStatusArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type TokenReviewStatusPtrInput interface {
 	pulumi.Input
 
@@ -463,8 +458,7 @@ type UserInfo struct {
 // UserInfoInput is an input type that accepts UserInfoArgs and UserInfoOutput values.
 // You can construct a concrete instance of `UserInfoInput` via:
 //
-// 		 UserInfoArgs{...}
-//
+//          UserInfoArgs{...}
 type UserInfoInput interface {
 	pulumi.Input
 
@@ -507,12 +501,11 @@ func (i UserInfoArgs) ToUserInfoPtrOutputWithContext(ctx context.Context) UserIn
 // UserInfoPtrInput is an input type that accepts UserInfoArgs, UserInfoPtr and UserInfoPtrOutput values.
 // You can construct a concrete instance of `UserInfoPtrInput` via:
 //
-// 		 UserInfoArgs{...}
+//          UserInfoArgs{...}
 //
 //  or:
 //
-// 		 nil
-//
+//          nil
 type UserInfoPtrInput interface {
 	pulumi.Input
 
