@@ -2559,7 +2559,7 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	}
 
 	path := renderPathForResource(resource, yamlDirectory)
-	err = ioutil.WriteFile(path, yamlBytes, 0644)
+	err = ioutil.WriteFile(path, yamlBytes, 0600)
 	if err != nil {
 		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", path)
 	}
