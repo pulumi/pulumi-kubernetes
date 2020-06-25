@@ -207,12 +207,17 @@ export class Chart extends yaml.CollectionComponentResource {
 
                 // Check the helm version - v2 or v3
                 let helmVerCmd = `helm version --short || true`;
-                const helmVer = execSync(
-                    helmVerCmd,
-                    {
-                        stdio: ['pipe', 'pipe', 'ignore'], // Suppress tiller version error
-                    },
-                ).toString();
+                var helmVer;
+                try {
+                    helmVer = execSync(
+                        helmVerCmd,
+                        {
+                            stdio: ['pipe', 'pipe', 'ignore'], // Suppress tiller version error
+                        },
+                    ).toString();
+                } catch (e) {
+                    helmVer = e.stdout.toString();
+                }
 
                 cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${apiVersionsArgs} ${namespaceArg}`;
                 // Helm v2 returns version like this:

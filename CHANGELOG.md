@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Fix error parsing Helm version (https://github.com/pulumi/pulumi-kubernetes/pull/1170)
+
 ### Improvements
 
 -   Fix prometheus-operator test to wait for the CRD to be ready before use (https://github.com/pulumi/pulumi-kubernetes/pull/1172)
