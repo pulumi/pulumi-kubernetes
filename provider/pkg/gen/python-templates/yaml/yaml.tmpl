@@ -12,6 +12,8 @@ from pulumi_kubernetes.apiextensions import CustomResource
 from . import tables
 from .utilities import get_version
 
+__all__ = ['ConfigFile']
+
 
 class ConfigFile(pulumi.ComponentResource):
     """
