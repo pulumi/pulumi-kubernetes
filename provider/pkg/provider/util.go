@@ -11,7 +11,7 @@ import (
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
-func isUrl(path string) bool {
+func isURL(path string) bool {
 	return strings.HasPrefix(path, "http")
 }
 

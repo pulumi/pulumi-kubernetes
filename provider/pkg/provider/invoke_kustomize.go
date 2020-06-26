@@ -31,7 +31,7 @@ import (
 func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) ([]interface{}, error) {
 	path := directory
 
-	if isUrl(directory) {
+	if isURL(directory) {
 		var err error
 
 		// Create a temp dir.
@@ -62,6 +62,9 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 	}
 
 	yamlBytes, err := rm.AsYaml()
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to convert kustomize result to YAML")
+	}
 
 	return decodeYaml(string(yamlBytes), "", clientSet)
 }
