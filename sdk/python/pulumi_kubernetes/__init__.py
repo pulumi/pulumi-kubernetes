@@ -4,6 +4,7 @@
 
 import importlib
 # Export this package's modules as members:
+from .kustomize import *
 from .provider import *
 from .yaml import *
 

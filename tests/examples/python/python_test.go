@@ -308,3 +308,14 @@ func TestHelm(t *testing.T) {
 	})
 	integration.ProgramTest(t, &options)
 }
+
+func TestKustomize(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "kustomize"),
+	})
+	integration.ProgramTest(t, &options)
+}

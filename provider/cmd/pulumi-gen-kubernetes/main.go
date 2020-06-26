@@ -198,6 +198,7 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 		"apiextensions/CustomResource.py": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.py")),
 		"helm/v2/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")),
 		"helm/v3/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")), // v3 support is currently identical to v2
+		"kustomize.py":                    mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.py")),
 		"yaml.py":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
