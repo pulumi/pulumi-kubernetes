@@ -211,7 +211,18 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 }
 
 func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir, templateDir string) {
-	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, nil)
+	yamlcs, err := gen.DotnetYaml(data, templateDir)
+	if err != nil {
+		panic(err)
+	}
+
+	overlays := map[string][]byte{
+		"Kustomize/Directory.cs": mustLoadFile(filepath.Join(templateDir, "Kustomize", "Directory.cs")),
+		"Kustomize/Invokes.cs":   mustLoadFile(filepath.Join(templateDir, "Kustomize", "Invokes.cs")),
+		"Yaml/Yaml.cs":           []byte(yamlcs),
+	}
+
+	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
 	}
@@ -225,16 +236,6 @@ func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir,
 		if err != nil {
 			panic(err)
 		}
-	}
-
-	yamlcs, err := gen.DotnetYaml(data, templateDir)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/Yaml/Yaml.cs", outdir), []byte(yamlcs), 0777)
-	if err != nil {
-		panic(err)
 	}
 }
 
