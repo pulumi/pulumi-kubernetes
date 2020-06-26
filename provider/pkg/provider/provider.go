@@ -76,6 +76,7 @@ const (
 	streamInvokeWatch    = "kubernetes:kubernetes:watch"
 	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
 	invokeDecodeYaml     = "kubernetes:yaml:decode"
+	invokeKustomize      = "kubernetes:kustomize:directory"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialAPIVersionKey = "__initialApiVersion"
 )
@@ -513,6 +514,29 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		result, err := decodeYaml(text, defaultNamespace, k.clientSet)
+		if err != nil {
+			return nil, err
+		}
+
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+	case invokeKustomize:
+		var directory string
+		if directoryArg := args["directory"]; directoryArg.HasValue() && directoryArg.IsString() {
+			directory = directoryArg.StringValue()
+		} else {
+			return nil, pkgerrors.New("missing required field 'directory' of type string")
+		}
+
+		result, err := kustomizeDirectory(directory, k.clientSet)
 		if err != nil {
 			return nil, err
 		}

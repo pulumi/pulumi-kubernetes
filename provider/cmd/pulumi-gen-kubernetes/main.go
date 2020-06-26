@@ -160,6 +160,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		"apiextensions/customResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
 		"helm/v2/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
 		"helm/v3/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")), // v3 support is currently identical to v2
+		"kustomize/kustomize.ts":          mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
 		"yaml/yaml.ts":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)

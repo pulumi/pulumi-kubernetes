@@ -11,6 +11,10 @@ import (
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
+func isUrl(path string) bool {
+	return strings.HasPrefix(path, "http")
+}
+
 func hasComputedValue(obj *unstructured.Unstructured) bool {
 	if obj == nil || obj.Object == nil {
 		return false
