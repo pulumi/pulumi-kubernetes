@@ -10,7 +10,9 @@ import pulumi.runtime
 import requests
 from pulumi_kubernetes.apiextensions import CustomResource
 from . import tables
-from .version import get_version
+from .utilities import get_version
+
+__all__ = ['ConfigFile']
 
 
 class ConfigFile(pulumi.ComponentResource):
@@ -70,10 +72,10 @@ class ConfigFile(pulumi.ComponentResource):
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
-        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return tables._CASING_BACKWARD_TABLE.get(prop) or prop
+        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
     def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
         """
@@ -175,7 +177,7 @@ def _parse_yaml_object(
 
     # Convert obj keys to Python casing
     for key in list(obj.keys()):
-        new_key = tables._CASING_FORWARD_TABLE.get(key) or key
+        new_key = tables._CAMEL_TO_SNAKE_CASE_TABLE.get(key) or key
         if new_key != key:
             obj[new_key] = obj.pop(key)
 
@@ -946,11 +948,11 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList:{x}",
                        PriorityLevelConfigurationList(f"{x}", opts, **obj)))]
-    if gvk == "v1/Status":
+    if gvk == "meta/v1/Status":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.meta.v1 import Status
         return [identifier.apply(
-            lambda x: (f"v1/Status:{x}",
+            lambda x: (f"meta/v1/Status:{x}",
                        Status(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1/NetworkPolicy":
         # Import locally to avoid name collisions.

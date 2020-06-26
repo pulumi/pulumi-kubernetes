@@ -35,6 +35,7 @@ import (
 	dotnetgen "github.com/pulumi/pulumi/pkg/v2/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
 	nodejsgen "github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
+	pythongen "github.com/pulumi/pulumi/pkg/v2/codegen/python"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
@@ -111,7 +112,7 @@ func main() {
 		writeNodeJSClient(pkg, outdir, templateDir)
 	case Python:
 		templateDir := path.Join(TemplateDir, "python-templates")
-		writePythonClient(data, outdir, templateDir)
+		writePythonClient(pkg, outdir, templateDir)
 	case DotNet:
 		templateDir := path.Join(TemplateDir, "dotnet-templates")
 		writeDotnetClient(pkg, data, outdir, templateDir)
@@ -173,67 +174,38 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	mustWriteFiles(outdir, files)
 }
 
-func writePythonClient(data map[string]interface{}, outdir, templateDir string) {
-	sdkDir := filepath.Join(outdir, "pulumi_kubernetes")
-
-	err := gen.PythonClient(data, templateDir,
-		func(initPy string) error {
-			return ioutil.WriteFile(filepath.Join(sdkDir, "__init__.py"), []byte(initPy), 0777)
-		},
-		func(group, initPy string) error {
-			destDir := filepath.Join(sdkDir, group)
-
-			err := os.MkdirAll(destDir, 0700)
-			if err != nil {
-				return err
-			}
-			return ioutil.WriteFile(filepath.Join(destDir, "__init__.py"), []byte(initPy), 0777)
-		},
-		func(crBytes string) error {
-			destDir := filepath.Join(sdkDir, "apiextensions")
-
-			err := os.MkdirAll(destDir, 0700)
-			if err != nil {
-				return err
-			}
-
-			return ioutil.WriteFile(filepath.Join(destDir, "CustomResource.py"), []byte(crBytes), 0777)
-		},
-		func(group, version, initPy string) error {
-			destDir := filepath.Join(sdkDir, group, version)
-
-			err := os.MkdirAll(destDir, 0700)
-			if err != nil {
-				return err
-			}
-
-			return ioutil.WriteFile(filepath.Join(destDir, "__init__.py"), []byte(initPy), 0777)
-		},
-		func(group, version, kind, kindPy string) error {
-			destDir := filepath.Join(sdkDir, group, version, fmt.Sprintf("%s.py", kind))
-			return ioutil.WriteFile(destDir, []byte(kindPy), 0777)
-		},
-		func(casingPy string) error {
-			destDir := filepath.Join(sdkDir, "tables.py")
-			return ioutil.WriteFile(destDir, []byte(casingPy), 0777)
-		},
-		func(yamlPy string) error {
-			destDir := filepath.Join(sdkDir, "yaml.py")
-			return ioutil.WriteFile(destDir, []byte(yamlPy), 0777)
-		})
+func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
+	resources, err := pythongen.LanguageResources("pulumigen", pkg)
 	if err != nil {
 		panic(err)
 	}
 
-	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(sdkDir, "helm"))
+	templateResources := gen.TemplateResources{}
+	for _, resource := range resources {
+		r := gen.TemplateResource{
+			Name:    resource.Name,
+			Package: resource.Package,
+			Token:   resource.Token,
+		}
+		templateResources.Resources = append(templateResources.Resources, r)
+	}
+	sort.Slice(templateResources.Resources, func(i, j int) bool {
+		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
+	})
+
+	overlays := map[string][]byte{
+		"apiextensions/CustomResource.py": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.py")),
+		"helm/v2/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")),
+		"helm/v3/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")), // v3 support is currently identical to v2
+		"yaml.py":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
+	}
+
+	files, err := pythongen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
 	}
 
-	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(sdkDir, "README.md"))
-	if err != nil {
-		panic(err)
-	}
+	mustWriteFiles(outdir, files)
 }
 
 func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir, templateDir string) {
