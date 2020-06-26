@@ -48,7 +48,7 @@ namespace.metadata.name.apply(ns => kustomizeDirectory("helloWorld", "helloWorld
 // Disambiguate resource names with a specified prefix.
 namespace2.metadata.name.apply(ns => kustomizeDirectory(
     "helloWorld",
-    "https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
+    "https://github.com/kubernetes-sigs/kustomize/tree/95f4ecd261af60ed61b7fbe30a96ded1d0aa012d/examples/helloWorld",
     ns,
     "remote")
 );
