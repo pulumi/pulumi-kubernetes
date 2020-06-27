@@ -264,10 +264,10 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	files["kubernetes/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "types.tmpl"), templateResources)
+	files["kubernetes/pulumiTypes.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "pulumiTypes.tmpl"), templateResources)
 	files["kubernetes/apiextensions/customResource.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "apiextensions", "customResource.tmpl"), templateResources)
 	files["kubernetes/helm/v2/chart.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "chart.tmpl"), templateResources)
-	files["kubernetes/helm/v2/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "types.tmpl"), templateResources)
+	files["kubernetes/helm/v2/pulumiTypes.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.tmpl"), templateResources)
 	files["kubernetes/kustomize/directory.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "kustomize", "directory.tmpl"), templateResources)
 	files["kubernetes/kustomize/pulumiTypes.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "kustomize", "pulumiTypes.tmpl"), templateResources)
 	files["kubernetes/yaml/configFile.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
