@@ -1,0 +1,3 @@
+name: go_kustomize_kubernetes
+description: Test Kubernetes kustomize package.
+runtime: go

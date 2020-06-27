@@ -268,6 +268,8 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files["kubernetes/apiextensions/customResource.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "apiextensions", "customResource.tmpl"), templateResources)
 	files["kubernetes/helm/v2/chart.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "chart.tmpl"), templateResources)
 	files["kubernetes/helm/v2/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "types.tmpl"), templateResources)
+	files["kubernetes/kustomize/directory.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "kustomize", "directory.tmpl"), templateResources)
+	files["kubernetes/kustomize/pulumiTypes.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "kustomize", "pulumiTypes.tmpl"), templateResources)
 	files["kubernetes/yaml/configFile.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
 	files["kubernetes/yaml/configGroup.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
 	files["kubernetes/yaml/transformation.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)
