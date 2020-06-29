@@ -7,4 +7,4 @@ require (
 	github.com/pulumi/pulumi/sdk/v2 v2.5.0
 )
 
-replace github.com/pulumi/pulumi-kubernetes/sdk/v2 => ../../../../sdk
+replace github.com/pulumi/pulumi-kubernetes/sdk/v2 => ../github.com/pulumi/pulumi-kubernetes/sdk
