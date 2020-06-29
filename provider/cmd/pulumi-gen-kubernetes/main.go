@@ -63,23 +63,73 @@ const (
 	DotNet Language = "dotnet"
 	Go     Language = "go"
 	NodeJS Language = "nodejs"
+	Kinds  Language = "kinds"
 	Python Language = "python"
 	Schema Language = "schema"
 )
 
 func main() {
 	if len(os.Args) < 4 {
-		log.Fatal("Usage: gen <language> <swagger-file> <root-pulumi-kubernetes-dir>")
+		log.Fatal("Usage: gen <language> <swagger-or-schema-file> <root-pulumi-kubernetes-dir>")
 	}
 
 	language := Language(os.Args[1])
 
-	swagger, err := ioutil.ReadFile(os.Args[2])
+	BaseDir = os.Args[3]
+	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
+	outdir := path.Join(BaseDir, "sdk", string(language))
+
+	switch language {
+	case NodeJS:
+		templateDir := path.Join(TemplateDir, "nodejs-templates")
+		writeNodeJSClient(readSchema(os.Args[2]), outdir, templateDir)
+	case Python:
+		templateDir := path.Join(TemplateDir, "python-templates")
+		writePythonClient(readSchema(os.Args[2]), outdir, templateDir)
+	case DotNet:
+		templateDir := path.Join(TemplateDir, "dotnet-templates")
+		data, pkgSpec := generateSchema(os.Args[2])
+		writeDotnetClient(genPulumiSchemaPackage(pkgSpec), data, outdir, templateDir)
+	case Go:
+		templateDir := path.Join(TemplateDir, "go-templates")
+		writeGoClient(readSchema(os.Args[2]), outdir, templateDir)
+	case Kinds:
+		pkg := readSchema(os.Args[2])
+		genK8sResourceTypes(pkg)
+	case Schema:
+		_, pkgSpec := generateSchema(os.Args[2])
+		mustWritePulumiSchema(pkgSpec, outdir)
+	default:
+		panic(fmt.Sprintf("Unrecognized language '%s'", language))
+	}
+}
+
+func readSchema(schemaPath string) *schema.Package {
+	// Otherwise, read in, decode, and import the schema.
+	schemaBytes, err := ioutil.ReadFile(schemaPath)
 	if err != nil {
 		panic(err)
 	}
 
-	swaggerDir := filepath.Dir(os.Args[2])
+	var pkgSpec schema.PackageSpec
+	if err = json.Unmarshal(schemaBytes, &pkgSpec); err != nil {
+		panic(err)
+	}
+
+	pkg, err := schema.ImportSpec(pkgSpec, nil)
+	if err != nil {
+		panic(err)
+	}
+	return pkg
+}
+
+func generateSchema(swaggerPath string) (map[string]interface{}, schema.PackageSpec) {
+	swagger, err := ioutil.ReadFile(swaggerPath)
+	if err != nil {
+		panic(err)
+	}
+
+	swaggerDir := filepath.Dir(swaggerPath)
 
 	legacySwaggerPath := filepath.Join(swaggerDir, Swagger117FileName)
 	err = DownloadFile(legacySwaggerPath, Swagger117Url)
@@ -93,37 +143,8 @@ func main() {
 	mergedSwagger := mergeSwaggerSpecs(legacySwagger, swagger)
 	data := mergedSwagger.(map[string]interface{})
 
-	BaseDir = os.Args[3]
-	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
-	outdir := path.Join(BaseDir, "sdk", string(language))
-
 	// Generate schema
-	pkgSpec := gen.PulumiSchema(data)
-
-	// Generate package from schema
-	pkg := genPulumiSchemaPackage(pkgSpec)
-
-	// Generate provider code
-	genK8sResourceTypes(pkg)
-
-	switch language {
-	case NodeJS:
-		templateDir := path.Join(TemplateDir, "nodejs-templates")
-		writeNodeJSClient(pkg, outdir, templateDir)
-	case Python:
-		templateDir := path.Join(TemplateDir, "python-templates")
-		writePythonClient(pkg, outdir, templateDir)
-	case DotNet:
-		templateDir := path.Join(TemplateDir, "dotnet-templates")
-		writeDotnetClient(pkg, data, outdir, templateDir)
-	case Go:
-		templateDir := path.Join(TemplateDir, "go-templates")
-		writeGoClient(pkg, outdir, templateDir)
-	case Schema:
-		mustWritePulumiSchema(pkgSpec, outdir)
-	default:
-		panic(fmt.Sprintf("Unrecognized language '%s'", language))
-	}
+	return data, gen.PulumiSchema(data)
 }
 
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
@@ -361,5 +382,5 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, outDir string) {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
 
-	mustWriteFile(outDir, "schema.json", schemaJSON)
+	mustWriteFile(BaseDir, "provider/cmd/pulumi-resource-kubernetes/schema.json", schemaJSON)
 }

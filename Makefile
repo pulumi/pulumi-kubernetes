@@ -15,6 +15,7 @@ KUBE_VERSION    ?= v1.18.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
+SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 
 VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version.Version=${VERSION}"
 
@@ -37,29 +38,48 @@ $(OPENAPI_FILE)::
 	@mkdir -p $(OPENAPI_DIR)
 	test -f $(OPENAPI_FILE) || $(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
-build:: $(OPENAPI_FILE)
-	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
+k8sgen::
 	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
-	# Delete only files and folders that are generated.
-	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
-	for LANGUAGE in "dotnet" "go" "nodejs" "python"; do \
-		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) $(CURDIR) || exit 3 ; \
-	done
+
+$(SCHEMA_FILE):: k8sgen $(OPENAPI_FILE)
+	$(CODEGEN) schema $(OPENAPI_FILE) $(CURDIR)
+
+k8sprovider:: $(SCHEMA_FILE)
+	$(CODEGEN) kinds $(SCHEMA_FILE) $(CURDIR)
+	cd provider && VERSION=${VERSION} $(GO) generate cmd/${PROVIDER}/main.go
+	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
+
+dotnet_sdk:: k8sgen $(OPENAPI_FILE)
+	$(CODEGEN) dotnet $(OPENAPI_FILE) $(CURDIR)
+	cd ${PACKDIR}/dotnet/&& \
+		echo "${VERSION:v%=%}" >version.txt && \
+		dotnet build /p:Version=${DOTNET_VERSION}
+
+go_sdk:: k8sgen $(SCHEMA_FILE)
+	$(CODEGEN) go $(SCHEMA_FILE) $(CURDIR)
+
+nodejs_sdk:: k8sgen $(SCHEMA_FILE)
+	$(CODEGEN) nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	cp README.md ${PACKDIR}/python/
 	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
+
+python_sdk:: k8sgen $(SCHEMA_FILE)
+	# Delete only files and folders that are generated.
+	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
+	$(CODEGEN) python $(SCHEMA_FILE) $(CURDIR)
+	cp README.md ${PACKDIR}/python/
 	cd ${PACKDIR}/python/ && \
 		$(PYTHON) setup.py clean --all 2>/dev/null && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
 		sed -i.bak -e "s/\$${VERSION}/$(PYPI_VERSION)/g" -e "s/\$${PLUGIN_VERSION}/$(VERSION)/g" ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
 		cd ./bin && $(PYTHON) setup.py build sdist
-	cd ${PACKDIR}/dotnet/&& \
-		echo "${VERSION:v%=%}" >version.txt && \
-		dotnet build /p:Version=${DOTNET_VERSION}
+
+.PHONY: build
+build:: k8sgen k8sprovider dotnet_sdk go_sdk nodejs_sdk python_sdk
 
 lint::
 	for DIR in "provider" "sdk" "tests" ; do \
