@@ -47,6 +47,9 @@ func main() {
 					},
 				},
 			})
+		if err != nil {
+			return err
+		}
 
 		// TODO: Switch to the v1 API once https://github.com/pulumi/pulumi-kubernetes/issues/1128 is done.
 		//_, err = apiextensionsv1.NewCustomResourceDefinition(ctx, "crd",
@@ -96,6 +99,9 @@ func main() {
 				},
 			},
 		})
+		if err != nil {
+			return err
+		}
 
 		return nil
 	})
