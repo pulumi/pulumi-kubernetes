@@ -105,7 +105,7 @@ func main() {
 }
 
 func readSchema(schemaPath string) *schema.Package {
-	// Otherwise, read in, decode, and import the schema.
+	// Read in, decode, and import the schema.
 	schemaBytes, err := ioutil.ReadFile(schemaPath)
 	if err != nil {
 		panic(err)
