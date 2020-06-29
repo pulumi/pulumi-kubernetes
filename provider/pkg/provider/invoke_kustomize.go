@@ -31,7 +31,8 @@ import (
 func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) ([]interface{}, error) {
 	path := directory
 
-	if isURL(directory) {
+	// If provided directory doesn't exist locally, assume it's a git repo link.
+	if _, err := os.Stat(directory); os.IsNotExist(err) {
 		var err error
 
 		// Create a temp dir.
