@@ -73,7 +73,7 @@ func main() {
 		log.Fatal("Usage: gen <language> <swagger-or-schema-file> <root-pulumi-kubernetes-dir>")
 	}
 
-	language := Language(os.Args[1])
+	language, inputFile := Language(os.Args[1]), os.Args[2]
 
 	BaseDir = os.Args[3]
 	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
@@ -82,22 +82,22 @@ func main() {
 	switch language {
 	case NodeJS:
 		templateDir := path.Join(TemplateDir, "nodejs-templates")
-		writeNodeJSClient(readSchema(os.Args[2]), outdir, templateDir)
+		writeNodeJSClient(readSchema(inputFile), outdir, templateDir)
 	case Python:
 		templateDir := path.Join(TemplateDir, "python-templates")
-		writePythonClient(readSchema(os.Args[2]), outdir, templateDir)
+		writePythonClient(readSchema(inputFile), outdir, templateDir)
 	case DotNet:
 		templateDir := path.Join(TemplateDir, "dotnet-templates")
-		data, pkgSpec := generateSchema(os.Args[2])
+		data, pkgSpec := generateSchema(inputFile)
 		writeDotnetClient(genPulumiSchemaPackage(pkgSpec), data, outdir, templateDir)
 	case Go:
 		templateDir := path.Join(TemplateDir, "go-templates")
-		writeGoClient(readSchema(os.Args[2]), outdir, templateDir)
+		writeGoClient(readSchema(inputFile), outdir, templateDir)
 	case Kinds:
-		pkg := readSchema(os.Args[2])
+		pkg := readSchema(inputFile)
 		genK8sResourceTypes(pkg)
 	case Schema:
-		_, pkgSpec := generateSchema(os.Args[2])
+		_, pkgSpec := generateSchema(inputFile)
 		mustWritePulumiSchema(pkgSpec, outdir)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))

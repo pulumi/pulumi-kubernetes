@@ -42,7 +42,10 @@ k8sgen::
 	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
 
 $(SCHEMA_FILE):: k8sgen $(OPENAPI_FILE)
+	$(call STEP_MESSAGE)
+	@echo "Generating Pulumi schema..."
 	$(CODEGEN) schema $(OPENAPI_FILE) $(CURDIR)
+	@echo "Finished generating schema."
 
 k8sprovider:: $(SCHEMA_FILE)
 	$(CODEGEN) kinds $(SCHEMA_FILE) $(CURDIR)
@@ -111,12 +114,8 @@ test_all::
 	cd provider/pkg && $(GO_TEST_FAST) ./...
 	cd tests && $(GO_TEST) ./...
 
-generate_schema:: $(OPENAPI_FILE)
-	$(call STEP_MESSAGE)
-	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
-	echo "Generating Pulumi schema..."
-	$(CODEGEN) schema $(OPENAPI_FILE) "" $(PACKDIR)
-	echo "Finished generating schema."
+generate_schema:: $(SCHEMA_FILE)
+	cp $(SCHEMA_FILE) $(PACKDIR)/schema/schema.json
 
 .PHONY: publish_tgz
 publish_tgz:
