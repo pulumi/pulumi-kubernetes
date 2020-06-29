@@ -48,21 +48,21 @@ $(SCHEMA_FILE):: k8sgen $(OPENAPI_FILE)
 	@echo "Finished generating schema."
 
 k8sprovider:: $(SCHEMA_FILE)
-	$(CODEGEN) kinds $(SCHEMA_FILE) $(CURDIR)
-	cd provider && VERSION=${VERSION} $(GO) generate cmd/${PROVIDER}/main.go
+	$(CODEGEN) -version=${VERSION} kinds $(SCHEMA_FILE) $(CURDIR)
+	cd provider && $(GO) generate cmd/${PROVIDER}/main.go
 	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
 
 dotnet_sdk:: k8sgen $(OPENAPI_FILE)
-	$(CODEGEN) dotnet $(OPENAPI_FILE) $(CURDIR)
+	$(CODEGEN) -version=${VERSION} dotnet $(OPENAPI_FILE) $(CURDIR)
 	cd ${PACKDIR}/dotnet/&& \
 		echo "${VERSION:v%=%}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 go_sdk:: k8sgen $(SCHEMA_FILE)
-	$(CODEGEN) go $(SCHEMA_FILE) $(CURDIR)
+	$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
 nodejs_sdk:: k8sgen $(SCHEMA_FILE)
-	$(CODEGEN) nodejs $(SCHEMA_FILE) $(CURDIR)
+	$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
 		yarn run tsc
@@ -72,7 +72,7 @@ nodejs_sdk:: k8sgen $(SCHEMA_FILE)
 python_sdk:: k8sgen $(SCHEMA_FILE)
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
-	$(CODEGEN) python $(SCHEMA_FILE) $(CURDIR)
+	$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
 	cd ${PACKDIR}/python/ && \
 		$(PYTHON) setup.py clean --all 2>/dev/null && \
