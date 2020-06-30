@@ -246,15 +246,30 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 }
 
 func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir, templateDir string) {
-	yamlcs, err := gen.DotnetYaml(data, templateDir)
+	resources, err := dotnetgen.LanguageResources("pulumigen", pkg)
 	if err != nil {
 		panic(err)
 	}
 
+	templateResources := gen.TemplateResources{}
+	for _, resource := range resources {
+		r := gen.TemplateResource{
+			Name:    resource.Name,
+			Package: resource.Package,
+			Token:   resource.Token,
+		}
+		templateResources.Resources = append(templateResources.Resources, r)
+	}
+	sort.Slice(templateResources.Resources, func(i, j int) bool {
+		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
+	})
 	overlays := map[string][]byte{
-		"Kustomize/Directory.cs": mustLoadFile(filepath.Join(templateDir, "Kustomize", "Directory.cs")),
-		"Kustomize/Invokes.cs":   mustLoadFile(filepath.Join(templateDir, "Kustomize", "Invokes.cs")),
-		"Yaml/Yaml.cs":           []byte(yamlcs),
+		"ApiExtensions/CustomResource.cs": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.cs")),
+		"Helm/ChartBase.cs":               mustLoadFile(filepath.Join(templateDir, "helm", "ChartBase.cs")),
+		"Helm/Unwraps.cs":                 mustLoadFile(filepath.Join(templateDir, "helm", "Unwraps.cs")),
+		"Helm/V2/Chart.cs":                mustLoadFile(filepath.Join(templateDir, "helm", "v2", "Chart.cs")),
+		"Helm/V3/Chart.cs":                mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Chart.cs")),
+		"Yaml/Yaml.cs":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
 	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, overlays)
