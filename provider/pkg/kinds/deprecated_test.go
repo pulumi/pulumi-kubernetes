@@ -30,7 +30,9 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		want    bool
 	}{
 		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), nil, true},
-		{toGVK(AdmissionregistrationV1B1, ValidatingWebhookConfiguration), nil, true},
+		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &v114, false},
+		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &v116, true},
+		{toGVK(AdmissionregistrationV1B1, ValidatingWebhookConfiguration), &v118, true},
 		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), nil, true},
 		{toGVK(ApiregistrationV1B1, APIService), nil, true},
 		{toGVK(AppsV1, Deployment), nil, false},
@@ -61,15 +63,17 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{toGVK(SchedulingV1B1, PriorityClass), nil, true},
 		{toGVK(StorageV1A1, VolumeAttachment), nil, true},
 		{toGVK(StorageV1B1, CSIDriver), nil, true},
-		{toGVK(StorageV1B1, CSIDriver), &cluster.ServerVersion{Major: 1, Minor: 18}, true},
-		{toGVK(StorageV1B1, CSIDriver), &cluster.ServerVersion{Major: 1, Minor: 17}, false},
-		{toGVK(StorageV1B1, CSIDriver), &cluster.ServerVersion{Major: 1, Minor: 16}, false},
-		{toGVK(StorageV1B1, CSINode), &cluster.ServerVersion{Major: 1, Minor: 18}, true},
-		{toGVK(StorageV1B1, CSINode), &cluster.ServerVersion{Major: 1, Minor: 17}, true},
-		{toGVK(StorageV1B1, CSINode), &cluster.ServerVersion{Major: 1, Minor: 16}, false},
+		{toGVK(StorageV1B1, CSIDriver), &v118, true},
+		{toGVK(StorageV1B1, CSIDriver), &v117, false},
+		{toGVK(StorageV1B1, CSIDriver), &v116, false},
+		{toGVK(StorageV1B1, CSINode), &v118, true},
+		{toGVK(StorageV1B1, CSINode), &v117, true},
+		{toGVK(StorageV1B1, CSINode), &v116, false},
 		{toGVK(StorageV1B1, StorageClass), nil, true},
-		{toGVK(StorageV1B1, StorageClass), &cluster.ServerVersion{Major: 1, Minor: 14}, true},
+		{toGVK(StorageV1B1, StorageClass), &v114, true},
 		{toGVK(StorageV1B1, VolumeAttachment), nil, true},
+		{toGVK(StorageV1, CSINode), &v118, false},
+		{toGVK(StorageV1, CSINode), &v120, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
@@ -80,20 +84,20 @@ func TestDeprecatedApiVersion(t *testing.T) {
 	}
 }
 
-func TestExistsInCurrentVersion(t *testing.T) {
+func TestExistsInVersion(t *testing.T) {
 	tests := []struct {
 		gvk     GroupVersionKind
 		version *cluster.ServerVersion
 		want    bool
 	}{
-		{toGVK(StorageV1, CSINode), &cluster.ServerVersion{Major: 1, Minor: 18}, true},
-		{toGVK(StorageV1, CSINode), &cluster.ServerVersion{Major: 1, Minor: 17}, true},
-		{toGVK(StorageV1, CSINode), &cluster.ServerVersion{Major: 1, Minor: 16}, false},
+		{toGVK(StorageV1, CSINode), &v118, true},
+		{toGVK(StorageV1, CSINode), &v117, true},
+		{toGVK(StorageV1, CSINode), &v116, false},
 	}
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%s exists in v%d.%d", tt.gvk.String(), tt.version.Major, tt.version.Minor), func(t *testing.T) {
-			if got := ExistsInCurrentVersion(tt.gvk, tt.version); got != tt.want {
-				t.Errorf("ExistsInCurrentVersion() = %v, want %v", got, tt.want)
+			if got := ExistsInVersion(tt.gvk, tt.version); got != tt.want {
+				t.Errorf("ExistsInVersion() = %v, want %v", got, tt.want)
 			}
 		})
 	}

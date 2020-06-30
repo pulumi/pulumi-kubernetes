@@ -67,6 +67,14 @@ import (
 //
 // TODO: Keep updating this list on every release.
 
+var v114 = cluster.ServerVersion{Major: 1, Minor: 14}
+var v116 = cluster.ServerVersion{Major: 1, Minor: 16}
+var v117 = cluster.ServerVersion{Major: 1, Minor: 17}
+var v118 = cluster.ServerVersion{Major: 1, Minor: 18}
+var v119 = cluster.ServerVersion{Major: 1, Minor: 19}
+var v120 = cluster.ServerVersion{Major: 1, Minor: 20}
+var v122 = cluster.ServerVersion{Major: 1, Minor: 22}
+
 func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
 }
@@ -76,17 +84,18 @@ func gvkFromStr(str string) schema.GroupVersionKind {
 	return schema.GroupVersionKind{Group: parts[0], Version: parts[1], Kind: parts[2]}
 }
 
-// DeprecatedAPIVersion returns true if the given GVK is deprecated in the most recent k8s release.
+// DeprecatedAPIVersion returns true if the given GVK is deprecated in the given k8s release.
 func DeprecatedAPIVersion(gvk schema.GroupVersionKind, version *cluster.ServerVersion) bool {
 	suggestedGVKString := SuggestedAPIVersion(gvk)
 	if version == nil {
+		// If no version is provided, check only against the latest version.
 		return suggestedGVKString != gvkStr(gvk)
 	}
 
 	suggestedGVK := gvkFromStr(suggestedGVKString)
-	suggestedVersionExists := ExistsInCurrentVersion(suggestedGVK, version)
+	suggestedGVKExists := ExistsInVersion(suggestedGVK, version)
 
-	return suggestedVersionExists && suggestedGVKString != gvkStr(gvk)
+	return suggestedGVKExists && suggestedGVKString != gvkStr(gvk)
 }
 
 // AddedInVersion returns the ServerVersion of k8s that a GVK is added in.
@@ -94,19 +103,69 @@ func AddedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	gv, k := groupVersion(gvk.GroupVersion().String()), Kind(gvk.Kind)
 
 	switch gv {
-	case StorageV1:
+	case AdmissionregistrationV1:
 		switch k {
-		case CSIDriver, CSIDriverList:
-			return &cluster.ServerVersion{Major: 1, Minor: 18}
-		case CSINode, CSINodeList:
-			return &cluster.ServerVersion{Major: 1, Minor: 17}
+		case MutatingWebhookConfiguration, MutatingWebhookConfigurationList, ValidatingWebhookConfiguration, ValidatingWebhookConfigurationList:
+			return &v116
+		}
+	case ApiextensionsV1:
+		switch k {
+		case CustomResourceDefinition, CustomResourceDefinitionList:
+			return &v116
+		}
+	case AuthenticationV1:
+		switch k {
+		case TokenRequest:
+			return &v116
+		}
+	case CoordinationV1:
+		switch k {
+		case Lease, LeaseList:
+			return &v114
+		}
+	case DiscoveryV1B1:
+		switch k {
+		case EndpointSlice, EndpointSliceList:
+			return &v117
+		}
+	case FlowcontrolV1A1:
+		switch k {
+		case FlowSchema, FlowSchemaList, PriorityLevelConfiguration, PriorityLevelConfigurationList, Subject:
+			return &v117
 		}
 	case NetworkingV1B1:
 		switch k {
-		case IngressClass, IngressClassList:
-			return &cluster.ServerVersion{Major: 1, Minor: 18}
 		case Ingress, IngressList:
-			return &cluster.ServerVersion{Major: 1, Minor: 14}
+			return &v114
+		case IngressClass, IngressClassList:
+			return &v118
+		}
+	case NodeV1A1:
+		switch k {
+		case RuntimeClass, RuntimeClassList:
+			return &v114
+		}
+	case NodeV1B1:
+		switch k {
+		case RuntimeClass, RuntimeClassList:
+			return &v114
+		}
+	case SchedulingV1:
+		switch k {
+		case PriorityClass, PriorityClassList:
+			return &v114
+		}
+	case StorageV1B1:
+		switch k {
+		case CSIDriver, CSIDriverList, CSINode, CSINodeList:
+			return &v114
+		}
+	case StorageV1:
+		switch k {
+		case CSINode, CSINodeList:
+			return &v117
+		case CSIDriver, CSIDriverList:
+			return &v118
 		}
 	}
 
@@ -114,7 +173,7 @@ func AddedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 }
 
 // ExistsInVersion returns true if the given GVK exists in the given k8s version.
-func ExistsInCurrentVersion(gvk schema.GroupVersionKind, version *cluster.ServerVersion) bool {
+func ExistsInVersion(gvk schema.GroupVersionKind, version *cluster.ServerVersion) bool {
 	addedIn := AddedInVersion(gvk)
 
 	return version.Compare(*addedIn) >= 0
@@ -123,36 +182,32 @@ func ExistsInCurrentVersion(gvk schema.GroupVersionKind, version *cluster.Server
 // RemovedInVersion returns the ServerVersion of k8s that a GVK is removed in. The return value is
 // nil if the GVK is not scheduled for removal.
 func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
-	var removedIn cluster.ServerVersion
-
 	gv, k := groupVersion(gvk.GroupVersion().String()), Kind(gvk.Kind)
 
 	switch gv {
 	case AdmissionregistrationV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 19}
+		return &v119
 	case ApiextensionsV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 19}
+		return &v119
 	case AuthenticationV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
+		return &v122
 	case AuthorizationV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
+		return &v122
 	case CoordinationV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
+		return &v122
 	case ExtensionsV1B1, AppsV1B1, AppsV1B2:
 		if k == Ingress {
-			removedIn = cluster.ServerVersion{Major: 1, Minor: 20}
+			return &v120
 		} else {
-			removedIn = cluster.ServerVersion{Major: 1, Minor: 16}
+			return &v116
 		}
 	case RbacV1A1, RbacV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 22}
+		return &v122
 	case SchedulingV1A1, SchedulingV1B1:
-		removedIn = cluster.ServerVersion{Major: 1, Minor: 17}
+		return &v117
 	default:
 		return nil
 	}
-
-	return &removedIn
 }
 
 // RemovedAPIVersion returns true if the given GVK has been removed in the given k8s version, and the corresponding
@@ -217,11 +272,11 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 // upstreamDocsLink returns a link to information about apiVersion deprecations for the given k8s version.
 func upstreamDocsLink(version cluster.ServerVersion) string {
 	switch version {
-	case cluster.ServerVersion{Major: 1, Minor: 16}:
+	case v116:
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals"
-	case cluster.ServerVersion{Major: 1, Minor: 17}:
+	case v117:
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals"
-	case cluster.ServerVersion{Major: 1, Minor: 19}:
+	case v119:
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.19.md#deprecation-1"
 		// TODO: 1.20
 	default:
