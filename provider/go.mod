@@ -4,12 +4,10 @@ go 1.14
 
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
-	github.com/cbroglie/mustache v1.0.1
 	github.com/evanphx/json-patch v4.5.0+incompatible
 	github.com/golang/protobuf v1.3.5
 	github.com/googleapis/gnostic v0.2.0
 	github.com/imdario/mergo v0.3.8
-	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi/pkg/v2 v2.5.1-0.20200630221921-92cb042aeeaa
 	github.com/pulumi/pulumi/sdk/v2 v2.5.1-0.20200626210151-8961f5b0caae

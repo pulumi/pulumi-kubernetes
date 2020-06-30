@@ -17,8 +17,6 @@ package gen
 
 import (
 	"fmt"
-
-	"github.com/cbroglie/mustache"
 )
 
 var pascalCaseMapping = map[string]string{
@@ -66,21 +64,4 @@ func pascalCase(name string) string {
 		panic(fmt.Sprintf("no case mapping for %q", name))
 	}
 	return pascal
-}
-
-// DotnetYaml will generate YAML support for the .NET SDK.
-func DotnetYaml(swagger map[string]interface{}, templateDir string) (yaml string, err error) {
-	definitions := swagger["definitions"].(map[string]interface{})
-
-	groupsSlice := createGroups(definitions, dotnetOpts())
-
-	yaml, err = mustache.RenderFile(fmt.Sprintf("%s/Yaml.cs.mustache", templateDir),
-		map[string]interface{}{
-			"Groups": groupsSlice,
-		})
-	if err != nil {
-		return
-	}
-
-	return
 }

@@ -143,14 +143,14 @@ func PulumiSchema(swagger map[string]interface{}, version string) pschema.Packag
 	pkgImportAliases := map[string]string{}
 
 	definitions := swagger["definitions"].(map[string]interface{})
-	groupsSlice := createGroups(definitions, schemaOpts())
+	groupsSlice := createGroups(definitions)
 	for _, group := range groupsSlice {
 		for _, version := range group.Versions() {
 			for _, kind := range version.Kinds() {
-				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.canonicalGV, kind.kind)
+				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.apiVersion, kind.kind)
 
-				csharpNamespaces[kind.canonicalGV] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
-				modToPkg[kind.canonicalGV] = kind.schemaPkgName
+				csharpNamespaces[kind.apiVersion] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
+				modToPkg[kind.apiVersion] = kind.schemaPkgName
 				pkgImportAliases[fmt.Sprintf("%s/%s", goImportPath, kind.schemaPkgName)] = strings.Replace(
 					kind.schemaPkgName, "/", "", -1)
 
@@ -163,7 +163,7 @@ func PulumiSchema(swagger map[string]interface{}, version string) pschema.Packag
 
 				var propNames []string
 				for _, p := range kind.Properties() {
-					objectSpec.Properties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
+					objectSpec.Properties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind)
 					propNames = append(propNames, p.name)
 				}
 				for _, p := range kind.RequiredInputProperties() {
@@ -183,11 +183,11 @@ func PulumiSchema(swagger map[string]interface{}, version string) pschema.Packag
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
-					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
+					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind)
 					resourceSpec.RequiredInputs = append(resourceSpec.RequiredInputs, p.name)
 				}
 				for _, p := range kind.OptionalInputProperties() {
-					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.canonicalGV, kind.kind)
+					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind)
 				}
 
 				for _, t := range kind.Aliases() {
@@ -280,7 +280,7 @@ If this is your first time using this package, these two resources may be helpfu
 
 func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema.PropertySpec {
 	var typ pschema.TypeSpec
-	err := json.Unmarshal([]byte(p.ProviderType()), &typ)
+	err := json.Unmarshal([]byte(p.SchemaType()), &typ)
 	contract.Assert(err == nil)
 
 	constValue := func() *string {
@@ -330,5 +330,5 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 func rawMessage(v interface{}) json.RawMessage {
 	bytes, err := json.Marshal(v)
 	contract.Assert(err == nil)
-	return json.RawMessage(bytes)
+	return bytes
 }
