@@ -20,16 +20,15 @@ import (
 	"fmt"
 	"strings"
 
-	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version"
 	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
-func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
+func PulumiSchema(swagger map[string]interface{}, version string) pschema.PackageSpec {
 	pkg := pschema.PackageSpec{
 		Name:        "kubernetes",
-		Version:     providerVersion.Version,
+		Version:     version,
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
 		License:     "Apache-2.0",
 		Keywords:    []string{"pulumi", "kubernetes"},

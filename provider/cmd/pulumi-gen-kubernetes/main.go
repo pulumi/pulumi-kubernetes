@@ -18,10 +18,10 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"go/format"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -31,6 +31,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
+	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version"
 	"github.com/pulumi/pulumi/pkg/v2/codegen"
 	dotnetgen "github.com/pulumi/pulumi/pkg/v2/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
@@ -63,23 +64,86 @@ const (
 	DotNet Language = "dotnet"
 	Go     Language = "go"
 	NodeJS Language = "nodejs"
+	Kinds  Language = "kinds"
 	Python Language = "python"
 	Schema Language = "schema"
 )
 
 func main() {
-	if len(os.Args) < 4 {
-		log.Fatal("Usage: gen <language> <swagger-file> <root-pulumi-kubernetes-dir>")
+	flag.Usage = func() {
+		const usageFormat = "Usage: %s <language> <swagger-or-schema-file> <root-pulumi-kubernetes-dir>"
+		_, err := fmt.Fprintf(flag.CommandLine.Output(), usageFormat, os.Args[0])
+		contract.IgnoreError(err)
+		flag.PrintDefaults()
 	}
 
-	language := Language(os.Args[1])
+	var version string
+	flag.StringVar(&version, "version", providerVersion.Version, "the provider version to record in the generated code")
 
-	swagger, err := ioutil.ReadFile(os.Args[2])
+	flag.Parse()
+	args := flag.Args()
+	if len(args) < 3 {
+		flag.Usage()
+		return
+	}
+
+	language, inputFile := Language(args[0]), args[1]
+
+	BaseDir = args[2]
+	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
+	outdir := path.Join(BaseDir, "sdk", string(language))
+
+	switch language {
+	case NodeJS:
+		templateDir := path.Join(TemplateDir, "nodejs-templates")
+		writeNodeJSClient(readSchema(inputFile), outdir, templateDir)
+	case Python:
+		templateDir := path.Join(TemplateDir, "python-templates")
+		writePythonClient(readSchema(inputFile), outdir, templateDir)
+	case DotNet:
+		templateDir := path.Join(TemplateDir, "dotnet-templates")
+		data, pkgSpec := generateSchema(inputFile, version)
+		writeDotnetClient(genPulumiSchemaPackage(pkgSpec), data, outdir, templateDir)
+	case Go:
+		templateDir := path.Join(TemplateDir, "go-templates")
+		writeGoClient(readSchema(inputFile), outdir, templateDir)
+	case Kinds:
+		pkg := readSchema(inputFile)
+		genK8sResourceTypes(pkg)
+	case Schema:
+		_, pkgSpec := generateSchema(inputFile, version)
+		mustWritePulumiSchema(pkgSpec, outdir)
+	default:
+		panic(fmt.Sprintf("Unrecognized language '%s'", language))
+	}
+}
+
+func readSchema(schemaPath string) *schema.Package {
+	// Read in, decode, and import the schema.
+	schemaBytes, err := ioutil.ReadFile(schemaPath)
 	if err != nil {
 		panic(err)
 	}
 
-	swaggerDir := filepath.Dir(os.Args[2])
+	var pkgSpec schema.PackageSpec
+	if err = json.Unmarshal(schemaBytes, &pkgSpec); err != nil {
+		panic(err)
+	}
+
+	pkg, err := schema.ImportSpec(pkgSpec, nil)
+	if err != nil {
+		panic(err)
+	}
+	return pkg
+}
+
+func generateSchema(swaggerPath, version string) (map[string]interface{}, schema.PackageSpec) {
+	swagger, err := ioutil.ReadFile(swaggerPath)
+	if err != nil {
+		panic(err)
+	}
+
+	swaggerDir := filepath.Dir(swaggerPath)
 
 	legacySwaggerPath := filepath.Join(swaggerDir, Swagger117FileName)
 	err = DownloadFile(legacySwaggerPath, Swagger117Url)
@@ -93,37 +157,8 @@ func main() {
 	mergedSwagger := mergeSwaggerSpecs(legacySwagger, swagger)
 	data := mergedSwagger.(map[string]interface{})
 
-	BaseDir = os.Args[3]
-	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
-	outdir := path.Join(BaseDir, "sdk", string(language))
-
 	// Generate schema
-	pkgSpec := gen.PulumiSchema(data)
-
-	// Generate package from schema
-	pkg := genPulumiSchemaPackage(pkgSpec)
-
-	// Generate provider code
-	genK8sResourceTypes(pkg)
-
-	switch language {
-	case NodeJS:
-		templateDir := path.Join(TemplateDir, "nodejs-templates")
-		writeNodeJSClient(pkg, outdir, templateDir)
-	case Python:
-		templateDir := path.Join(TemplateDir, "python-templates")
-		writePythonClient(pkg, outdir, templateDir)
-	case DotNet:
-		templateDir := path.Join(TemplateDir, "dotnet-templates")
-		writeDotnetClient(pkg, data, outdir, templateDir)
-	case Go:
-		templateDir := path.Join(TemplateDir, "go-templates")
-		writeGoClient(pkg, outdir, templateDir)
-	case Schema:
-		mustWritePulumiSchema(pkgSpec, outdir)
-	default:
-		panic(fmt.Sprintf("Unrecognized language '%s'", language))
-	}
+	return data, gen.PulumiSchema(data, version)
 }
 
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
@@ -361,5 +396,5 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, outDir string) {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
 
-	mustWriteFile(outDir, "schema.json", schemaJSON)
+	mustWriteFile(BaseDir, "provider/cmd/pulumi-resource-kubernetes/schema.json", schemaJSON)
 }
