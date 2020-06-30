@@ -67,6 +67,10 @@ import (
 //
 // TODO: Keep updating this list on every release.
 
+var v110 = cluster.ServerVersion{Major: 1, Minor: 10}
+var v111 = cluster.ServerVersion{Major: 1, Minor: 11}
+var v112 = cluster.ServerVersion{Major: 1, Minor: 12}
+var v113 = cluster.ServerVersion{Major: 1, Minor: 13}
 var v114 = cluster.ServerVersion{Major: 1, Minor: 14}
 var v116 = cluster.ServerVersion{Major: 1, Minor: 16}
 var v117 = cluster.ServerVersion{Major: 1, Minor: 17}
@@ -111,15 +115,40 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		case MutatingWebhookConfiguration, MutatingWebhookConfigurationList, ValidatingWebhookConfiguration, ValidatingWebhookConfigurationList:
 			return &v116
 		}
+	case ApiextensionsV1B1:
+		switch k {
+		case CustomResourceDefinition, CustomResourceDefinitionList:
+			return &v111
+		}
 	case ApiextensionsV1:
 		switch k {
 		case CustomResourceDefinition, CustomResourceDefinitionList:
 			return &v116
 		}
+	case ApiregistrationV1, ApiregistrationV1B1:
+		switch k {
+		case APIService, APIServiceList:
+			return &v111
+		}
+	case AuditregistrationV1A1:
+		switch k {
+		case AuditSink, AuditSinkList:
+			return &v113
+		}
 	case AuthenticationV1:
 		switch k {
 		case TokenRequest:
 			return &v116
+		}
+	case AutoscalingV2B2:
+		switch k {
+		case HorizontalPodAutoscaler, HorizontalPodAutoscalerList:
+			return &v112
+		}
+	case CoordinationV1B1:
+		switch k {
+		case Lease, LeaseList:
+			return &v112
 		}
 	case CoordinationV1:
 		switch k {
@@ -143,15 +172,20 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		case IngressClass, IngressClassList:
 			return &v118
 		}
-	case NodeV1A1:
+	case NodeV1A1, NodeV1B1:
 		switch k {
 		case RuntimeClass, RuntimeClassList:
 			return &v114
 		}
-	case NodeV1B1:
+	case PolicyV1B1:
 		switch k {
-		case RuntimeClass, RuntimeClassList:
-			return &v114
+		case PodSecurityPolicy, PodSecurityPolicyList:
+			return &v110
+		}
+	case SchedulingV1B1:
+		switch k {
+		case PriorityClass, PriorityClassList:
+			return &v111
 		}
 	case SchedulingV1:
 		switch k {
@@ -160,11 +194,15 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		}
 	case StorageV1B1:
 		switch k {
+		case VolumeAttachment, VolumeAttachmentList:
+			return &v110
 		case CSIDriver, CSIDriverList, CSINode, CSINodeList:
 			return &v114
 		}
 	case StorageV1:
 		switch k {
+		case VolumeAttachment, VolumeAttachmentList:
+			return &v113
 		case CSINode, CSINodeList:
 			return &v117
 		case CSIDriver, CSIDriverList:
@@ -202,7 +240,7 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	case CoordinationV1B1:
 		return &v122
 	case ExtensionsV1B1, AppsV1B1, AppsV1B2:
-		if k == Ingress {
+		if k == Ingress || k == IngressList {
 			return &v120
 		}
 		return &v116
@@ -252,13 +290,13 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		return fmt.Sprintf(gvkFmt, CoordinationV1, k)
 	case ExtensionsV1B1:
 		switch k {
-		case DaemonSet, Deployment, ReplicaSet:
+		case DaemonSet, DaemonSetList, Deployment, DeploymentList, ReplicaSet, ReplicaSetList:
 			return fmt.Sprintf(gvkFmt, AppsV1, k)
-		case Ingress:
+		case Ingress, IngressList:
 			return fmt.Sprintf(gvkFmt, NetworkingV1B1, k)
-		case NetworkPolicy:
+		case NetworkPolicy, NetworkPolicyList:
 			return fmt.Sprintf(gvkFmt, NetworkingV1, k)
-		case PodSecurityPolicy:
+		case PodSecurityPolicy, PodSecurityPolicyList:
 			return fmt.Sprintf(gvkFmt, PolicyV1B1, k)
 		default:
 			return gvkStr(gvk)
