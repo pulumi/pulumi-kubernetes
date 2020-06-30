@@ -198,9 +198,8 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	case ExtensionsV1B1, AppsV1B1, AppsV1B2:
 		if k == Ingress {
 			return &v120
-		} else {
-			return &v116
 		}
+		return &v116
 	case RbacV1A1, RbacV1B1:
 		return &v122
 	case SchedulingV1A1, SchedulingV1B1:
