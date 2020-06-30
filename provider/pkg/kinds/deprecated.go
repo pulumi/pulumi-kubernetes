@@ -67,6 +67,8 @@ import (
 //
 // TODO: Keep updating this list on every release.
 
+var v18 = cluster.ServerVersion{Major: 1, Minor: 8}
+var v19 = cluster.ServerVersion{Major: 1, Minor: 9}
 var v110 = cluster.ServerVersion{Major: 1, Minor: 10}
 var v111 = cluster.ServerVersion{Major: 1, Minor: 11}
 var v112 = cluster.ServerVersion{Major: 1, Minor: 12}
@@ -210,7 +212,9 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		}
 	}
 
-	return &cluster.ServerVersion{Major: 1, Minor: 0}
+	// We extends this logic back to v1.10, so for all other kinds we return 1.9, meaning that anyone
+	// on a 1.9 or earlier cluster will not see deprecation messages.
+	return &v19
 }
 
 // ExistsInVersion returns true if the given GVK exists in the given k8s version.

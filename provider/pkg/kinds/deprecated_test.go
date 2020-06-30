@@ -73,6 +73,8 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{toGVK(StorageV1B1, VolumeAttachment), nil, true},
 		{toGVK(StorageV1, CSINode), &v118, false},
 		{toGVK(StorageV1, CSINode), &v120, false},
+		{toGVK(AppsV1, Deployment), &v18, false},
+		{toGVK(AppsV1, Deployment), &v19, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
@@ -93,6 +95,8 @@ func TestExistsInVersion(t *testing.T) {
 		{toGVK(StorageV1, CSINode), &v117, true},
 		{toGVK(StorageV1, CSINode), &v116, false},
 		{GroupVersionKind{}, nil, false},
+		{toGVK(AppsV1, Deployment), &v18, false},
+		{toGVK(AppsV1, Deployment), &v19, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
