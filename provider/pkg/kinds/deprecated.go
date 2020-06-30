@@ -130,7 +130,7 @@ func AddedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		}
 	case FlowcontrolV1A1:
 		switch k {
-		case FlowSchema, FlowSchemaList, PriorityLevelConfiguration, PriorityLevelConfigurationList, Subject:
+		case FlowSchema, FlowSchemaList, PriorityLevelConfiguration, PriorityLevelConfigurationList:
 			return &v117
 		}
 	case NetworkingV1B1:
