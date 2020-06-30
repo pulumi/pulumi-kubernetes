@@ -103,6 +103,7 @@ type kubeProvider struct {
 	canceler         *cancellationContext
 	name             string
 	version          string
+	pulumiSchema     []byte
 	providerPackage  string
 	opts             kubeOpts
 	defaultNamespace string
@@ -130,13 +131,14 @@ type kubeProvider struct {
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
-	host *provider.HostClient, name, version string,
+	host *provider.HostClient, name, version string, pulumiSchema []byte,
 ) (pulumirpc.ResourceProviderServer, error) {
 	return &kubeProvider{
 		host:                        host,
 		canceler:                    makeCancellationContext(),
 		name:                        name,
 		version:                     version,
+		pulumiSchema:                pulumiSchema,
 		providerPackage:             name,
 		enableDryRun:                false,
 		enableSecrets:               false,
@@ -172,7 +174,11 @@ func (k *kubeProvider) invalidateResources() {
 }
 
 func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
-	return nil, rpcerror.New(codes.Unimplemented, "GetSchema is unimplemented")
+	if v := req.GetVersion(); v != 0 {
+		return nil, fmt.Errorf("unsupported schema version %d", v)
+	}
+
+	return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
 }
 
 // CheckConfig validates the configuration for this provider.
