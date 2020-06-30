@@ -15,7 +15,6 @@
 package kinds
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 
@@ -93,11 +92,30 @@ func TestExistsInVersion(t *testing.T) {
 		{toGVK(StorageV1, CSINode), &v118, true},
 		{toGVK(StorageV1, CSINode), &v117, true},
 		{toGVK(StorageV1, CSINode), &v116, false},
+		{GroupVersionKind{}, nil, false},
 	}
 	for _, tt := range tests {
-		t.Run(fmt.Sprintf("%s exists in v%d.%d", tt.gvk.String(), tt.version.Major, tt.version.Minor), func(t *testing.T) {
-			if got := ExistsInVersion(tt.gvk, tt.version); got != tt.want {
+		t.Run(tt.gvk.String(), func(t *testing.T) {
+			if got := ExistsInVersion(&tt.gvk, tt.version); got != tt.want {
 				t.Errorf("ExistsInVersion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGvkFromStr(t *testing.T) {
+	tests := []struct {
+		gvkString string
+		want      GroupVersionKind
+	}{
+		{"storage.k8s.io/v1/CSINode", GroupVersionKind{Group: "storage.k8s.io", Version: "v1", Kind: "CSINode"}},
+		{"networking.k8s.io/v1beta1/IngressList", GroupVersionKind{Group: "networking.k8s.io", Version: "v1beta1", Kind: "IngressList"}},
+		{"something/else", GroupVersionKind{}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.gvkString, func(t *testing.T) {
+			if got := gvkFromStr(tt.gvkString); got != tt.want {
+				t.Errorf("TestGvkFromStr() = %+v, want %+v", got, tt.want)
 			}
 		})
 	}

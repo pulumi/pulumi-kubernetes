@@ -79,9 +79,12 @@ func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
 }
 
-func gvkFromStr(str string) schema.GroupVersionKind {
+func gvkFromStr(str string) (gvk schema.GroupVersionKind) {
 	parts := strings.Split(str, "/")
-	return schema.GroupVersionKind{Group: parts[0], Version: parts[1], Kind: parts[2]}
+	if len(parts) == 3 {
+		return schema.GroupVersionKind{Group: parts[0], Version: parts[1], Kind: parts[2]}
+	}
+	return
 }
 
 // DeprecatedAPIVersion returns true if the given GVK is deprecated in the given k8s release.
@@ -93,13 +96,13 @@ func DeprecatedAPIVersion(gvk schema.GroupVersionKind, version *cluster.ServerVe
 	}
 
 	suggestedGVK := gvkFromStr(suggestedGVKString)
-	suggestedGVKExists := ExistsInVersion(suggestedGVK, version)
+	suggestedGVKExists := ExistsInVersion(&suggestedGVK, version)
 
 	return suggestedGVKExists && suggestedGVKString != gvkStr(gvk)
 }
 
 // AddedInVersion returns the ServerVersion of k8s that a GVK is added in.
-func AddedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
+func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 	gv, k := groupVersion(gvk.GroupVersion().String()), Kind(gvk.Kind)
 
 	switch gv {
@@ -173,7 +176,10 @@ func AddedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 }
 
 // ExistsInVersion returns true if the given GVK exists in the given k8s version.
-func ExistsInVersion(gvk schema.GroupVersionKind, version *cluster.ServerVersion) bool {
+func ExistsInVersion(gvk *schema.GroupVersionKind, version *cluster.ServerVersion) bool {
+	if gvk.Empty() {
+		return false
+	}
 	addedIn := AddedInVersion(gvk)
 
 	return version.Compare(*addedIn) >= 0
