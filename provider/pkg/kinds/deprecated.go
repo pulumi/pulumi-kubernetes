@@ -16,6 +16,7 @@ package kinds
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/cluster"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -70,9 +71,53 @@ func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
 }
 
+func gvkFromStr(str string) schema.GroupVersionKind {
+	parts := strings.Split(str, "/")
+	return schema.GroupVersionKind{Group: parts[0], Version: parts[1], Kind: parts[2]}
+}
+
 // DeprecatedAPIVersion returns true if the given GVK is deprecated in the most recent k8s release.
-func DeprecatedAPIVersion(gvk schema.GroupVersionKind) bool {
-	return SuggestedAPIVersion(gvk) != gvkStr(gvk)
+func DeprecatedAPIVersion(gvk schema.GroupVersionKind, version *cluster.ServerVersion) bool {
+	suggestedGVKString := SuggestedAPIVersion(gvk)
+	if version == nil {
+		return suggestedGVKString != gvkStr(gvk)
+	}
+
+	suggestedGVK := gvkFromStr(suggestedGVKString)
+	suggestedVersionExists := ExistsInCurrentVersion(suggestedGVK, version)
+
+	return suggestedVersionExists && suggestedGVKString != gvkStr(gvk)
+}
+
+// AddedInVersion returns the ServerVersion of k8s that a GVK is added in.
+func AddedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
+	gv, k := groupVersion(gvk.GroupVersion().String()), Kind(gvk.Kind)
+
+	switch gv {
+	case StorageV1:
+		switch k {
+		case CSIDriver, CSIDriverList:
+			return &cluster.ServerVersion{Major: 1, Minor: 18}
+		case CSINode, CSINodeList:
+			return &cluster.ServerVersion{Major: 1, Minor: 17}
+		}
+	case NetworkingV1B1:
+		switch k {
+		case IngressClass, IngressClassList:
+			return &cluster.ServerVersion{Major: 1, Minor: 18}
+		case Ingress, IngressList:
+			return &cluster.ServerVersion{Major: 1, Minor: 14}
+		}
+	}
+
+	return &cluster.ServerVersion{Major: 1, Minor: 0}
+}
+
+// ExistsInVersion returns true if the given GVK exists in the given k8s version.
+func ExistsInCurrentVersion(gvk schema.GroupVersionKind, version *cluster.ServerVersion) bool {
+	addedIn := AddedInVersion(gvk)
+
+	return version.Compare(*addedIn) >= 0
 }
 
 // RemovedInVersion returns the ServerVersion of k8s that a GVK is removed in. The return value is
