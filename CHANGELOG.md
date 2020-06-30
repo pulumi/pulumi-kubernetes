@@ -10,6 +10,7 @@
 -   Set supported environment variables in SDK Provider classes (https://github.com/pulumi/pulumi-kubernetes/pull/1166)
 -   Python SDK updated to align with other Pulumi Python SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1160)
 -   Implement GetSchema to enable example and import code generation. (https://github.com/pulumi/pulumi-kubernetes/pull/1181)
+-   Only show deprecation messages when new API versions exist in current cluster version (https://github.com/pulumi/pulumi-kubernetes/pull/1182)
 
 ## 2.3.1 (June 17, 2020)
 
