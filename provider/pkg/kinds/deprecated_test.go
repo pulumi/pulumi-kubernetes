@@ -24,49 +24,112 @@ import (
 
 func TestDeprecatedApiVersion(t *testing.T) {
 	tests := []struct {
-		gvk  GroupVersionKind
-		want bool
+		gvk     GroupVersionKind
+		version *cluster.ServerVersion
+		want    bool
 	}{
-		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), true},
-		{toGVK(AdmissionregistrationV1B1, ValidatingWebhookConfiguration), true},
-		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), true},
-		{toGVK(ApiregistrationV1B1, APIService), true},
-		{toGVK(AppsV1, Deployment), false},
-		{toGVK(AppsV1B1, Deployment), true},
-		{toGVK(AppsV1B2, Deployment), true},
-		{toGVK(AuthenticationV1B1, TokenReview), true},
-		{toGVK(AuthorizationV1B1, LocalSubjectAccessReview), true},
-		{toGVK(AuthorizationV1B1, SelfSubjectAccessReview), true},
-		{toGVK(AuthorizationV1B1, SelfSubjectRulesReview), true},
-		{toGVK(AuthorizationV1B1, SubjectAccessReview), true},
-		{toGVK(AutoscalingV2B1, HorizontalPodAutoscaler), true},
-		{toGVK(CoordinationV1B1, Lease), true},
-		{toGVK(ExtensionsV1B1, DaemonSet), true},
-		{toGVK(ExtensionsV1B1, Deployment), true},
-		{toGVK(ExtensionsV1B1, Ingress), true},
-		{toGVK(ExtensionsV1B1, NetworkPolicy), true},
-		{toGVK(ExtensionsV1B1, PodSecurityPolicy), true},
-		{toGVK(ExtensionsV1B1, ReplicaSet), true},
-		{toGVK(RbacV1A1, ClusterRole), true},
-		{toGVK(RbacV1A1, ClusterRoleBinding), true},
-		{toGVK(RbacV1A1, Role), true},
-		{toGVK(RbacV1A1, RoleBinding), true},
-		{toGVK(RbacV1B1, ClusterRole), true},
-		{toGVK(RbacV1B1, ClusterRoleBinding), true},
-		{toGVK(RbacV1B1, Role), true},
-		{toGVK(RbacV1B1, RoleBinding), true},
-		{toGVK(SchedulingV1A1, PriorityClass), true},
-		{toGVK(SchedulingV1B1, PriorityClass), true},
-		{toGVK(StorageV1A1, VolumeAttachment), true},
-		{toGVK(StorageV1B1, CSIDriver), true},
-		{toGVK(StorageV1B1, CSINode), true},
-		{toGVK(StorageV1B1, StorageClass), true},
-		{toGVK(StorageV1B1, VolumeAttachment), true},
+		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), nil, true},
+		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &v114, false},
+		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &v116, true},
+		{toGVK(AdmissionregistrationV1B1, ValidatingWebhookConfiguration), &v118, true},
+		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), nil, true},
+		{toGVK(ApiregistrationV1B1, APIService), nil, true},
+		{toGVK(AppsV1, Deployment), nil, false},
+		{toGVK(AppsV1B1, Deployment), nil, true},
+		{toGVK(AppsV1B2, Deployment), nil, true},
+		{toGVK(AuthenticationV1B1, TokenReview), nil, true},
+		{toGVK(AuthorizationV1B1, LocalSubjectAccessReview), nil, true},
+		{toGVK(AuthorizationV1B1, SelfSubjectAccessReview), nil, true},
+		{toGVK(AuthorizationV1B1, SelfSubjectRulesReview), nil, true},
+		{toGVK(AuthorizationV1B1, SubjectAccessReview), nil, true},
+		{toGVK(AutoscalingV2B1, HorizontalPodAutoscaler), nil, true},
+		{toGVK(CoordinationV1B1, Lease), nil, true},
+		{toGVK(ExtensionsV1B1, DaemonSet), nil, true},
+		{toGVK(ExtensionsV1B1, Deployment), nil, true},
+		{toGVK(ExtensionsV1B1, Ingress), nil, true},
+		{toGVK(ExtensionsV1B1, NetworkPolicy), nil, true},
+		{toGVK(ExtensionsV1B1, PodSecurityPolicy), nil, true},
+		{toGVK(ExtensionsV1B1, ReplicaSet), nil, true},
+		{toGVK(RbacV1A1, ClusterRole), nil, true},
+		{toGVK(RbacV1A1, ClusterRoleBinding), nil, true},
+		{toGVK(RbacV1A1, Role), nil, true},
+		{toGVK(RbacV1A1, RoleBinding), nil, true},
+		{toGVK(RbacV1B1, ClusterRole), nil, true},
+		{toGVK(RbacV1B1, ClusterRoleBinding), nil, true},
+		{toGVK(RbacV1B1, Role), nil, true},
+		{toGVK(RbacV1B1, RoleBinding), nil, true},
+		{toGVK(SchedulingV1A1, PriorityClass), nil, true},
+		{toGVK(SchedulingV1B1, PriorityClass), nil, true},
+		{toGVK(StorageV1A1, VolumeAttachment), nil, true},
+		{toGVK(StorageV1B1, CSIDriver), nil, true},
+		{toGVK(StorageV1B1, CSIDriver), &v118, true},
+		{toGVK(StorageV1B1, CSIDriver), &v117, false},
+		{toGVK(StorageV1B1, CSIDriver), &v116, false},
+		{toGVK(StorageV1B1, CSINode), &v118, true},
+		{toGVK(StorageV1B1, CSINode), &v117, true},
+		{toGVK(StorageV1B1, CSINode), &v116, false},
+		{toGVK(StorageV1B1, StorageClass), nil, true},
+		{toGVK(StorageV1B1, StorageClass), &v114, true},
+		{toGVK(StorageV1B1, VolumeAttachment), nil, true},
+		{toGVK(StorageV1, CSINode), &v118, false},
+		{toGVK(StorageV1, CSINode), &v120, false},
+		{toGVK(AppsV1, Deployment), &v18, false},
+		{toGVK(AppsV1, Deployment), &v19, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
-			if got := DeprecatedAPIVersion(tt.gvk); got != tt.want {
+			if got := DeprecatedAPIVersion(tt.gvk, tt.version); got != tt.want {
 				t.Errorf("DeprecatedAPIVersion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestExistsInVersion(t *testing.T) {
+	tests := []struct {
+		gvk     GroupVersionKind
+		version *cluster.ServerVersion
+		want    bool
+	}{
+		{toGVK(StorageV1, CSINode), &v118, true},
+		{toGVK(StorageV1, CSINode), &v117, true},
+		{toGVK(StorageV1, CSINode), &v116, false},
+		{GroupVersionKind{}, nil, false},
+		{toGVK(AppsV1, Deployment), &v18, false},
+		{toGVK(AppsV1, Deployment), &v19, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.gvk.String(), func(t *testing.T) {
+			if got := ExistsInVersion(&tt.gvk, tt.version); got != tt.want {
+				t.Errorf("ExistsInVersion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+	t.Run("nil GVK and version", func(t *testing.T) {
+		if got := ExistsInVersion(nil, nil); got != false {
+			t.Errorf("ExistsInVersion() = %v, want %v", got, false)
+		}
+	})
+	t.Run("nil GVK only", func(t *testing.T) {
+		if got := ExistsInVersion(nil, &v118); got != false {
+			t.Errorf("ExistsInVersion() = %v, want %v", got, false)
+		}
+	})
+}
+
+func TestGvkFromStr(t *testing.T) {
+	tests := []struct {
+		gvkString string
+		want      GroupVersionKind
+	}{
+		{"storage.k8s.io/v1/CSINode", GroupVersionKind{Group: "storage.k8s.io", Version: "v1", Kind: "CSINode"}},
+		{"networking.k8s.io/v1beta1/IngressList", GroupVersionKind{Group: "networking.k8s.io", Version: "v1beta1", Kind: "IngressList"}},
+		{"something/else", GroupVersionKind{}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.gvkString, func(t *testing.T) {
+			if got := gvkFromStr(tt.gvkString); got != tt.want {
+				t.Errorf("TestGvkFromStr() = %+v, want %+v", got, tt.want)
 			}
 		})
 	}
@@ -86,6 +149,7 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(AdmissionregistrationV1B1, ValidatingWebhookConfiguration), wantStr(AdmissionregistrationV1, ValidatingWebhookConfiguration)},
 		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), wantStr(ApiextensionsV1, CustomResourceDefinition)},
 		{toGVK(ApiregistrationV1B1, APIService), wantStr(ApiregistrationV1, APIService)},
+		{toGVK(ApiregistrationV1B1, APIServiceList), wantStr(ApiregistrationV1, APIServiceList)},
 		{toGVK(AppsV1B1, Deployment), wantStr(AppsV1, Deployment)},
 		{toGVK(AppsV1B2, Deployment), wantStr(AppsV1, Deployment)},
 		{toGVK(AuthenticationV1B1, TokenReview), wantStr(AuthenticationV1, TokenReview)},
@@ -94,7 +158,9 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(CoordinationV1B1, Lease), wantStr(CoordinationV1, Lease)},
 		{toGVK(ExtensionsV1B1, DaemonSet), wantStr(AppsV1, DaemonSet)},
 		{toGVK(ExtensionsV1B1, Deployment), wantStr(AppsV1, Deployment)},
+		{toGVK(ExtensionsV1B1, DeploymentList), wantStr(AppsV1, DeploymentList)},
 		{toGVK(ExtensionsV1B1, Ingress), wantStr(NetworkingV1B1, Ingress)},
+		{toGVK(ExtensionsV1B1, IngressList), wantStr(NetworkingV1B1, IngressList)},
 		{toGVK(ExtensionsV1B1, NetworkPolicy), wantStr(NetworkingV1, NetworkPolicy)},
 		{toGVK(ExtensionsV1B1, PodSecurityPolicy), wantStr(PolicyV1B1, PodSecurityPolicy)},
 		{toGVK(ExtensionsV1B1, ReplicaSet), wantStr(AppsV1, ReplicaSet)},
@@ -126,19 +192,21 @@ func TestRemovedInVersion(t *testing.T) {
 		gvk         GroupVersionKind
 		wantVersion *cluster.ServerVersion
 	}{
-		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &cluster.ServerVersion{Major: 1, Minor: 19}},
-		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), &cluster.ServerVersion{Major: 1, Minor: 19}},
-		{toGVK(AppsV1B1, Deployment), &cluster.ServerVersion{Major: 1, Minor: 16}},
-		{toGVK(AppsV1B2, Deployment), &cluster.ServerVersion{Major: 1, Minor: 16}},
-		{toGVK(AuthenticationV1B1, TokenReview), &cluster.ServerVersion{Major: 1, Minor: 22}},
-		{toGVK(AuthorizationV1B1, LocalSubjectAccessReview), &cluster.ServerVersion{Major: 1, Minor: 22}},
-		{toGVK(CoordinationV1B1, Lease), &cluster.ServerVersion{Major: 1, Minor: 22}},
-		{toGVK(ExtensionsV1B1, Deployment), &cluster.ServerVersion{Major: 1, Minor: 16}},
-		{toGVK(ExtensionsV1B1, Ingress), &cluster.ServerVersion{Major: 1, Minor: 20}},
-		{toGVK(RbacV1A1, ClusterRole), &cluster.ServerVersion{Major: 1, Minor: 22}},
-		{toGVK(RbacV1B1, ClusterRole), &cluster.ServerVersion{Major: 1, Minor: 22}},
-		{toGVK(SchedulingV1A1, PriorityClass), &cluster.ServerVersion{Major: 1, Minor: 17}},
-		{toGVK(SchedulingV1B1, PriorityClass), &cluster.ServerVersion{Major: 1, Minor: 17}},
+		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &v119},
+		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), &v119},
+		{toGVK(AppsV1B1, Deployment), &v116},
+		{toGVK(AppsV1B2, Deployment), &v116},
+		{toGVK(AuthenticationV1B1, TokenReview), &v122},
+		{toGVK(AuthorizationV1B1, LocalSubjectAccessReview), &v122},
+		{toGVK(CoordinationV1B1, Lease), &v122},
+		{toGVK(ExtensionsV1B1, Deployment), &v116},
+		{toGVK(ExtensionsV1B1, DeploymentList), &v116},
+		{toGVK(ExtensionsV1B1, Ingress), &v120},
+		{toGVK(ExtensionsV1B1, IngressList), &v120},
+		{toGVK(RbacV1A1, ClusterRole), &v122},
+		{toGVK(RbacV1B1, ClusterRole), &v122},
+		{toGVK(SchedulingV1A1, PriorityClass), &v117},
+		{toGVK(SchedulingV1B1, PriorityClass), &v117},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {

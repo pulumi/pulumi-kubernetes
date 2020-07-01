@@ -992,7 +992,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if removed, version := kinds.RemovedAPIVersion(gvk, k.k8sVersion); removed {
 			return nil, &kinds.RemovedAPIError{GVK: gvk, Version: version}
 		}
-		if !k.suppressDeprecationWarnings && kinds.DeprecatedAPIVersion(gvk) {
+		if !k.suppressDeprecationWarnings && kinds.DeprecatedAPIVersion(gvk, &k.k8sVersion) {
 			_ = k.host.Log(ctx, diag.Warning, urn, gen.APIVersionComment(gvk))
 		}
 	}

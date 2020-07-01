@@ -354,9 +354,6 @@ func genK8sResourceTypes(pkg *schema.Package) {
 		contract.Assert(len(parts) == 3)
 
 		groupVersion, kind := parts[1], parts[2]
-		if strings.HasSuffix(kind, "List") {
-			continue
-		}
 		groupVersions.Add(groupVersion)
 		kinds.Add(kind)
 	}
