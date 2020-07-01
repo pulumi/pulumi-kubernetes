@@ -412,6 +412,6 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 	if err != nil {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
-	_ = os.MkdirAll(filepath.Join(BaseDir, "sdk", "schema"), 0600)
+	_ = os.MkdirAll(filepath.Join(BaseDir, "sdk", "schema"), 0644)
 	mustWriteFile(BaseDir, "sdk/schema/schema.json", versionedSchemaJSON)
 }
