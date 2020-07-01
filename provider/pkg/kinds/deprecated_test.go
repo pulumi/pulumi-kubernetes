@@ -105,6 +105,16 @@ func TestExistsInVersion(t *testing.T) {
 			}
 		})
 	}
+	t.Run("nil GVK and version", func(t *testing.T) {
+		if got := ExistsInVersion(nil, nil); got != false {
+			t.Errorf("ExistsInVersion() = %v, want %v", got, false)
+		}
+	})
+	t.Run("nil GVK only", func(t *testing.T) {
+		if got := ExistsInVersion(nil, &v118); got != false {
+			t.Errorf("ExistsInVersion() = %v, want %v", got, false)
+		}
+	})
 }
 
 func TestGvkFromStr(t *testing.T) {

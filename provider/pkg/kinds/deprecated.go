@@ -219,7 +219,7 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 
 // ExistsInVersion returns true if the given GVK exists in the given k8s version.
 func ExistsInVersion(gvk *schema.GroupVersionKind, version *cluster.ServerVersion) bool {
-	if gvk.Empty() {
+	if gvk == nil || gvk.Empty() {
 		return false
 	}
 	addedIn := AddedInVersion(gvk)
