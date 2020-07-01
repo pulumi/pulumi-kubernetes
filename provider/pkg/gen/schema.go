@@ -324,6 +324,12 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 			}),
 		}
 	}
+	if resourceKind == "Secret" {
+		switch p.Name() {
+		case "data", "stringData":
+			propertySpec.Secret = true
+		}
+	}
 	return propertySpec
 }
 
