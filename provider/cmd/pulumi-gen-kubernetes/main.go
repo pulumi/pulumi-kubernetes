@@ -96,29 +96,28 @@ func main() {
 	switch language {
 	case NodeJS:
 		templateDir := path.Join(TemplateDir, "nodejs-templates")
-		writeNodeJSClient(readSchema(inputFile), outdir, templateDir)
+		writeNodeJSClient(readSchema(inputFile, version), outdir, templateDir)
 	case Python:
 		templateDir := path.Join(TemplateDir, "python-templates")
-		writePythonClient(readSchema(inputFile), outdir, templateDir)
+		writePythonClient(readSchema(inputFile, version), outdir, templateDir)
 	case DotNet:
 		templateDir := path.Join(TemplateDir, "dotnet-templates")
-		data, pkgSpec := generateSchema(inputFile, version)
-		writeDotnetClient(genPulumiSchemaPackage(pkgSpec), data, outdir, templateDir)
+		writeDotnetClient(readSchema(inputFile, version), outdir, templateDir)
 	case Go:
 		templateDir := path.Join(TemplateDir, "go-templates")
-		writeGoClient(readSchema(inputFile), outdir, templateDir)
+		writeGoClient(readSchema(inputFile, version), outdir, templateDir)
 	case Kinds:
-		pkg := readSchema(inputFile)
+		pkg := readSchema(inputFile, version)
 		genK8sResourceTypes(pkg)
 	case Schema:
-		_, pkgSpec := generateSchema(inputFile, version)
-		mustWritePulumiSchema(pkgSpec, outdir)
+		pkgSpec := generateSchema(inputFile)
+		mustWritePulumiSchema(pkgSpec, version)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
 }
 
-func readSchema(schemaPath string) *schema.Package {
+func readSchema(schemaPath string, version string) *schema.Package {
 	// Read in, decode, and import the schema.
 	schemaBytes, err := ioutil.ReadFile(schemaPath)
 	if err != nil {
@@ -129,6 +128,7 @@ func readSchema(schemaPath string) *schema.Package {
 	if err = json.Unmarshal(schemaBytes, &pkgSpec); err != nil {
 		panic(err)
 	}
+	pkgSpec.Version = version
 
 	pkg, err := schema.ImportSpec(pkgSpec, nil)
 	if err != nil {
@@ -137,7 +137,7 @@ func readSchema(schemaPath string) *schema.Package {
 	return pkg
 }
 
-func generateSchema(swaggerPath, version string) (map[string]interface{}, schema.PackageSpec) {
+func generateSchema(swaggerPath string) schema.PackageSpec {
 	swagger, err := ioutil.ReadFile(swaggerPath)
 	if err != nil {
 		panic(err)
@@ -158,7 +158,7 @@ func generateSchema(swaggerPath, version string) (map[string]interface{}, schema
 	data := mergedSwagger.(map[string]interface{})
 
 	// Generate schema
-	return data, gen.PulumiSchema(data, version)
+	return gen.PulumiSchema(data)
 }
 
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
@@ -245,7 +245,7 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 	mustWriteFiles(outdir, files)
 }
 
-func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir, templateDir string) {
+func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := dotnetgen.LanguageResources("pulumigen", pkg)
 	if err != nil {
 		panic(err)
@@ -358,15 +358,6 @@ func mustRenderGoTemplate(path string, resources interface{}) []byte {
 	return formattedSource
 }
 
-func genPulumiSchemaPackage(pkgSpec schema.PackageSpec) *schema.Package {
-
-	pkg, err := schema.ImportSpec(pkgSpec, nil)
-	if err != nil {
-		panic(err)
-	}
-	return pkg
-}
-
 func genK8sResourceTypes(pkg *schema.Package) {
 	groupVersions, kinds := codegen.NewStringSet(), codegen.NewStringSet()
 	for _, resource := range pkg.Resources {
@@ -407,11 +398,20 @@ func mustWriteFile(rootDir, filename string, contents []byte) {
 	}
 }
 
-func mustWritePulumiSchema(pkgSpec schema.PackageSpec, outDir string) {
+func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 	schemaJSON, err := json.MarshalIndent(pkgSpec, "", "    ")
 	if err != nil {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
 
 	mustWriteFile(BaseDir, "provider/cmd/pulumi-resource-kubernetes/schema.json", schemaJSON)
+
+	versionedPkgSpec := pkgSpec
+	versionedPkgSpec.Version = version
+	versionedSchemaJSON, err := json.MarshalIndent(versionedPkgSpec, "", "    ")
+	if err != nil {
+		panic(errors.Wrap(err, "marshaling Pulumi schema"))
+	}
+	_ = os.MkdirAll(filepath.Join(BaseDir, "sdk", "schema"), 0600)
+	mustWriteFile(BaseDir, "sdk/schema/schema.json", versionedSchemaJSON)
 }

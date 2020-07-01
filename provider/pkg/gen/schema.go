@@ -25,10 +25,9 @@ import (
 )
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
-func PulumiSchema(swagger map[string]interface{}, version string) pschema.PackageSpec {
+func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg := pschema.PackageSpec{
 		Name:        "kubernetes",
-		Version:     version,
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
 		License:     "Apache-2.0",
 		Keywords:    []string{"pulumi", "kubernetes"},
