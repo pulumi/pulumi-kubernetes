@@ -8,8 +8,6 @@ import pulumi.runtime
 from typing import Union
 from ... import utilities, tables
 
-warnings.warn("apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
-
 
 class StatefulSet(pulumi.CustomResource):
     api_version: pulumi.Output[str]
@@ -29,8 +27,6 @@ class StatefulSet(pulumi.CustomResource):
     """
     Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
     """
-    warnings.warn("apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
-
     def __init__(__self__, resource_name, opts=None, api_version=None, kind=None, metadata=None, spec=None, __props__=None, __name__=None, __opts__=None):
         """
         StatefulSet represents a set of pods with consistent identities. Identities are defined as:
@@ -57,7 +53,6 @@ class StatefulSet(pulumi.CustomResource):
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[dict] spec: Spec defines the desired identities of pods in this set.
         """
-        pulumi.log.warn("StatefulSet is deprecated: apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.")
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

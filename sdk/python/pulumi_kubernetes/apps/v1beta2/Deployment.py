@@ -8,8 +8,6 @@ import pulumi.runtime
 from typing import Union
 from ... import utilities, tables
 
-warnings.warn("apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
-
 
 class Deployment(pulumi.CustomResource):
     api_version: pulumi.Output[str]
@@ -32,8 +30,6 @@ class Deployment(pulumi.CustomResource):
     """
     Most recently observed status of the Deployment.
     """
-    warnings.warn("apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
-
     def __init__(__self__, resource_name, opts=None, api_version=None, kind=None, metadata=None, spec=None, __props__=None, __name__=None, __opts__=None):
         """
         Deployment enables declarative updates for Pods and ReplicaSets.
@@ -67,7 +63,6 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.Input[dict] metadata: Standard object metadata.
         :param pulumi.Input[dict] spec: Specification of the desired behavior of the Deployment.
         """
-        pulumi.log.warn("Deployment is deprecated: apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.")
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

@@ -37,7 +37,6 @@ export class StatefulSet extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSet {
-        pulumi.log.warn("StatefulSet is deprecated: apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.")
         return new StatefulSet(name, undefined, { ...opts, id: id });
     }
 
@@ -82,7 +81,6 @@ export class StatefulSet extends pulumi.CustomResource {
      */
     /** @deprecated apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters. */
     constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
-        pulumi.log.warn("StatefulSet is deprecated: apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.")
         let inputs: pulumi.Inputs = {};
         inputs["apiVersion"] = "apps/v1beta2";
         inputs["kind"] = "StatefulSet";

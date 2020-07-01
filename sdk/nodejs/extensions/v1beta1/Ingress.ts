@@ -35,7 +35,6 @@ export class Ingress extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Ingress {
-        pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
         return new Ingress(name, undefined, { ...opts, id: id });
     }
 
@@ -83,7 +82,6 @@ export class Ingress extends pulumi.CustomResource {
      */
     /** @deprecated extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters. */
     constructor(name: string, args?: IngressArgs, opts?: pulumi.CustomResourceOptions) {
-        pulumi.log.warn("Ingress is deprecated: extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")
         let inputs: pulumi.Inputs = {};
         inputs["apiVersion"] = "extensions/v1beta1";
         inputs["kind"] = "Ingress";
