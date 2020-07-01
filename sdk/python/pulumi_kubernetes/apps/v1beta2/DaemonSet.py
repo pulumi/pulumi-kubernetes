@@ -8,8 +8,6 @@ import pulumi.runtime
 from typing import Union
 from ... import utilities, tables
 
-warnings.warn("apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
-
 
 class DaemonSet(pulumi.CustomResource):
     api_version: pulumi.Output[str]
@@ -32,8 +30,6 @@ class DaemonSet(pulumi.CustomResource):
     """
     The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    warnings.warn("apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.", DeprecationWarning)
-
     def __init__(__self__, resource_name, opts=None, api_version=None, kind=None, metadata=None, spec=None, __props__=None, __name__=None, __opts__=None):
         """
         DaemonSet represents the configuration of a daemon set.
@@ -45,7 +41,6 @@ class DaemonSet(pulumi.CustomResource):
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[dict] spec: The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        pulumi.log.warn("DaemonSet is deprecated: apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.")
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

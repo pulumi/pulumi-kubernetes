@@ -3,10 +3,11 @@
 ### Bug Fixes
 
 -   Fix error parsing Helm version (https://github.com/pulumi/pulumi-kubernetes/pull/1170)
+-   Fix prometheus-operator test to wait for the CRD to be ready before use (https://github.com/pulumi/pulumi-kubernetes/pull/1172)
+-   Fix suppress deprecation warnings flag (https://github.com/pulumi/pulumi-kubernetes/pull/1189)
 
 ### Improvements
 
--   Fix prometheus-operator test to wait for the CRD to be ready before use (https://github.com/pulumi/pulumi-kubernetes/pull/1172)
 -   Set supported environment variables in SDK Provider classes (https://github.com/pulumi/pulumi-kubernetes/pull/1166)
 -   Python SDK updated to align with other Pulumi Python SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1160)
 -   Add support for Kustomize. (https://github.com/pulumi/pulumi-kubernetes/pull/1178)

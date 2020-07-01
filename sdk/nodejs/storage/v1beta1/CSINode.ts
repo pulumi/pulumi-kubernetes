@@ -21,7 +21,6 @@ export class CSINode extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CSINode {
-        pulumi.log.warn("CSINode is deprecated: storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode.")
         return new CSINode(name, undefined, { ...opts, id: id });
     }
 
@@ -65,7 +64,6 @@ export class CSINode extends pulumi.CustomResource {
      */
     /** @deprecated storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode. */
     constructor(name: string, args?: CSINodeArgs, opts?: pulumi.CustomResourceOptions) {
-        pulumi.log.warn("CSINode is deprecated: storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode.")
         let inputs: pulumi.Inputs = {};
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");

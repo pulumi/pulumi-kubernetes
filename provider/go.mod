@@ -9,7 +9,7 @@ require (
 	github.com/googleapis/gnostic v0.2.0
 	github.com/imdario/mergo v0.3.8
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg/v2 v2.5.1-0.20200630221921-92cb042aeeaa
+	github.com/pulumi/pulumi/pkg/v2 v2.5.1-0.20200701195026-956d362d8b4c
 	github.com/pulumi/pulumi/sdk/v2 v2.5.1-0.20200626210151-8961f5b0caae
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.28.0
