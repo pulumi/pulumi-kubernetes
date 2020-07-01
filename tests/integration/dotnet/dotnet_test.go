@@ -125,3 +125,11 @@ func TestDotnet_CustomResource(t *testing.T) {
 		ExpectRefreshChanges: true,
 	})
 }
+
+func TestDotnet_Kustomize(t *testing.T) {
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir:          "kustomize",
+		Dependencies: []string{"Pulumi.Kubernetes"},
+		Quick:        true,
+	})
+}

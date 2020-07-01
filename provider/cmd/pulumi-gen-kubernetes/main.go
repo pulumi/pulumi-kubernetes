@@ -195,6 +195,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		"apiextensions/customResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
 		"helm/v2/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
 		"helm/v3/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")), // v3 support is currently identical to v2
+		"kustomize/kustomize.ts":          mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
 		"yaml/yaml.ts":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
@@ -232,6 +233,7 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 		"apiextensions/CustomResource.py": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.py")),
 		"helm/v2/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")),
 		"helm/v3/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")), // v3 support is currently identical to v2
+		"kustomize.py":                    mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.py")),
 		"yaml.py":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
@@ -244,7 +246,18 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 }
 
 func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir, templateDir string) {
-	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, nil)
+	yamlcs, err := gen.DotnetYaml(data, templateDir)
+	if err != nil {
+		panic(err)
+	}
+
+	overlays := map[string][]byte{
+		"Kustomize/Directory.cs": mustLoadFile(filepath.Join(templateDir, "Kustomize", "Directory.cs")),
+		"Kustomize/Invokes.cs":   mustLoadFile(filepath.Join(templateDir, "Kustomize", "Invokes.cs")),
+		"Yaml/Yaml.cs":           []byte(yamlcs),
+	}
+
+	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
 		panic(err)
 	}
@@ -258,16 +271,6 @@ func writeDotnetClient(pkg *schema.Package, data map[string]interface{}, outdir,
 		if err != nil {
 			panic(err)
 		}
-	}
-
-	yamlcs, err := gen.DotnetYaml(data, templateDir)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/Yaml/Yaml.cs", outdir), []byte(yamlcs), 0777)
-	if err != nil {
-		panic(err)
 	}
 }
 
@@ -296,10 +299,12 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	files["kubernetes/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "types.tmpl"), templateResources)
+	files["kubernetes/pulumiTypes.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "pulumiTypes.tmpl"), templateResources)
 	files["kubernetes/apiextensions/customResource.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "apiextensions", "customResource.tmpl"), templateResources)
 	files["kubernetes/helm/v2/chart.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "chart.tmpl"), templateResources)
-	files["kubernetes/helm/v2/types.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "types.tmpl"), templateResources)
+	files["kubernetes/helm/v2/pulumiTypes.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.tmpl"), templateResources)
+	files["kubernetes/kustomize/directory.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "kustomize", "directory.tmpl"), templateResources)
+	files["kubernetes/kustomize/pulumiTypes.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "kustomize", "pulumiTypes.tmpl"), templateResources)
 	files["kubernetes/yaml/configFile.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configFile.tmpl"), templateResources)
 	files["kubernetes/yaml/configGroup.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "configGroup.tmpl"), templateResources)
 	files["kubernetes/yaml/transformation.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "transformation.tmpl"), templateResources)

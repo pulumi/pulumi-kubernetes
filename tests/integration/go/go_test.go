@@ -23,10 +23,9 @@ import (
 func TestGo_Basic(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir: "basic",
-		// TODO: uncomment and delete go.mod/go.sum once apiextensions.CustomResource is available in a tagged release.
-		//Dependencies: []string{
-		//	"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		//},
+		Dependencies: []string{
+			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+		},
 		Quick: true,
 	})
 }
@@ -34,10 +33,9 @@ func TestGo_Basic(t *testing.T) {
 func TestGo_YAML(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir: "yaml",
-		// TODO: uncomment and delete go.mod/go.sum once apiextensions.CustomResource is available in a tagged release.
-		//Dependencies: []string{
-		//	"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		//},
+		Dependencies: []string{
+			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+		},
 		Quick:                true,
 		ExpectRefreshChanges: true,
 	})
@@ -59,6 +57,17 @@ func TestGo_Helm(t *testing.T) {
 		Dependencies: []string{
 			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 		},
+		Quick: true,
+	})
+}
+
+func TestGo_Kustomize(t *testing.T) {
+	integration.ProgramTest(t, &integration.ProgramTestOptions{
+		Dir: "kustomize",
+		// TODO: uncomment and delete go.mod/go.sum once apiextensions.CustomResource is available in a tagged release.
+		//Dependencies: []string{
+		//	"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+		//},
 		Quick: true,
 	})
 }
