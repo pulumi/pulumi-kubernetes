@@ -404,7 +404,7 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
 
-	mustWriteFile(BaseDir, "provider/cmd/pulumi-resource-kubernetes/schema.json", schemaJSON)
+	mustWriteFile(BaseDir, filepath.Join("provider", "cmd", "pulumi-resource-kubernetes", "schema.json"), schemaJSON)
 
 	versionedPkgSpec := pkgSpec
 	versionedPkgSpec.Version = version
@@ -412,6 +412,5 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 	if err != nil {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
-	_ = os.MkdirAll(filepath.Join(BaseDir, "sdk", "schema"), 0644)
-	mustWriteFile(BaseDir, "sdk/schema/schema.json", versionedSchemaJSON)
+	mustWriteFile(BaseDir, filepath.Join("sdk", "schema", "schema.json"), versionedSchemaJSON)
 }
