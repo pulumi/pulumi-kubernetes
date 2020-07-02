@@ -98,6 +98,8 @@ export class Secret extends pulumi.CustomResource {
         if (!opts.version) {
             opts.version = utilities.getVersion();
         }
+        const secretOpts = { additionalSecretOutputs: ["data", "stringData"] };
+        opts = opts ? pulumi.mergeOptions(opts, secretOpts) : secretOpts;
         super(Secret.__pulumiType, name, inputs, opts);
     }
 }
