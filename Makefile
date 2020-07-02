@@ -48,12 +48,12 @@ $(SCHEMA_FILE):: k8sgen $(OPENAPI_FILE)
 	@echo "Finished generating schema."
 
 k8sprovider:: $(SCHEMA_FILE)
-	$(CODEGEN) -version=${VERSION} kinds $(SCHEMA_FILE) $(CURDIR)
-	cd provider && $(GO) generate cmd/${PROVIDER}/main.go
+	$(CODEGEN) kinds $(SCHEMA_FILE) $(CURDIR)
+	cd provider && VERSION=${VERSION} $(GO) generate cmd/${PROVIDER}/main.go
 	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
 
 dotnet_sdk:: k8sgen $(OPENAPI_FILE)
-	$(CODEGEN) -version=${VERSION} dotnet $(OPENAPI_FILE) $(CURDIR)
+	$(CODEGEN) -version=${VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/dotnet/&& \
 		echo "${VERSION:v%=%}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
@@ -115,7 +115,6 @@ test_all::
 	cd tests && $(GO_TEST) ./...
 
 generate_schema:: $(SCHEMA_FILE)
-	cp $(SCHEMA_FILE) $(PACKDIR)/schema/schema.json
 
 .PHONY: publish_tgz
 publish_tgz:
