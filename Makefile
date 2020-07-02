@@ -106,7 +106,8 @@ install::
 	find . -name '$(NUGET_PKG_NAME).*.nupkg' -exec cp -p {} ${PULUMI_NUGET} \;
 
 test_fast::
-	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
+# TODO: re-enable this test once https://github.com/pulumi/pulumi/issues/4954 is fixed.
+#	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
 	cd provider/pkg && $(GO_TEST_FAST) ./...
 	cd tests && $(GO_TEST_FAST) ./...
 
