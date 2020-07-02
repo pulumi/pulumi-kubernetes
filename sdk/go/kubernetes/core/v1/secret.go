@@ -48,6 +48,11 @@ func NewSecret(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Secret")
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"data",
+		"stringData",
+	})
+	opts = append(opts, secrets)
 	var resource Secret
 	err := ctx.RegisterResource("kubernetes:core/v1:Secret", name, args, &resource, opts...)
 	if err != nil {
