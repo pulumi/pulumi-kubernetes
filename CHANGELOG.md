@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.4.0 (July 7, 2020)
+
 ### Bug Fixes
 
 -   Fix error parsing Helm version (https://github.com/pulumi/pulumi-kubernetes/pull/1170)
