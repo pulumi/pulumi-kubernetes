@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Kustomize
     public sealed class Directory : CollectionComponentResource
     {
         /// <summary>
-        /// Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
+        /// Create a Directory resource with the given unique name, arguments, and options.
         /// </summary>
         /// <param name="name">Name of the kustomization (e.g., nginx-ingress).</param>
         /// <param name="args">Configuration options for the kustomization.</param>

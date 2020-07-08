@@ -53,6 +53,13 @@ namespace Pulumi.Kubernetes.ApiExtensions
         [Output("metadata")]
         public Output<ObjectMeta> Metadata { get; private set; } = null!;
 
+        /// <summary>
+        /// Create a CustomResource resource with the given unique name, arguments, and options.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resource</param>
+        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
         public CustomResource(string name, CustomResourceArgs args, CustomResourceOptions? options = null)
             : base(args.Type, name, args, options)
         {
