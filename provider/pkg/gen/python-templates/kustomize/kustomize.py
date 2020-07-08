@@ -11,10 +11,6 @@ __all__ = ['Directory']
 
 
 class Directory(pulumi.ComponentResource):
-    """
-    Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
-    """
-
     resources: pulumi.Output[dict]
     """
     Kubernetes resources contained in this Directory.
@@ -22,6 +18,9 @@ class Directory(pulumi.ComponentResource):
 
     def __init__(self, name, directory, opts=None, transformations=None, resource_prefix=None):
         """
+        Directory is a component representing a collection of resources described by a kustomize directory
+        (kustomization).
+
         :param str name: A name for a resource.
         :param str directory: The directory containing the kustomization to apply. The value can be a local directory
                or a folder in a git repository.

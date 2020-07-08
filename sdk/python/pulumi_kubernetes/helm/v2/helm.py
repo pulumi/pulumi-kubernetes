@@ -3,15 +3,92 @@
 
 import json
 import os.path
+import re
 import shutil
 import subprocess
-import re
 from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
 import pulumi.runtime
-from ...utilities import get_version
 from pulumi_kubernetes.yaml import _parse_yaml_document
+
+from ...utilities import get_version
+
+
+class Chart(pulumi.ComponentResource):
+    resources: pulumi.Output[dict]
+    """
+    Kubernetes resources contained in this Chart.
+    """
+
+    def __init__(self, release_name, config, opts=None):
+        """
+        Chart is a component representing a collection of resources described by an arbitrary Helm
+        Chart. The Chart can be fetched from any source that is accessible to the `helm` command
+        line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent
+        to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by
+        supplying callbacks to `ChartOpts.transformations`.
+
+        Chart does not use Tiller. The Chart specified is copied and expanded locally; the semantics
+        are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML
+        manifests. Any values that would be retrieved in-cluster are assigned fake values, and
+        none of Tiller's server-side validity testing is executed.
+
+        :param str release_name: Name of the Chart (e.g., nginx-ingress).
+        :param Union[ChartOpts, LocalChartOpts] config: Configuration options for the Chart.
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
+        if not release_name:
+            raise TypeError('Missing release name argument')
+        if not isinstance(release_name, str):
+            raise TypeError('Expected release name to be a string')
+        if config and not isinstance(config, ChartOpts) and not isinstance(config, LocalChartOpts):
+            raise TypeError('Expected config to be a ChartOpts or LocalChartOpts instance')
+        if opts and not isinstance(opts, pulumi.ResourceOptions):
+            raise TypeError('Expected resource options to be a ResourceOptions instance')
+
+        __props__ = dict()
+
+        if config.resource_prefix:
+            release_name = f"{config.resource_prefix}-{release_name}"
+
+        super(Chart, self).__init__(
+            "kubernetes:helm.sh/v2:Chart",
+            release_name,
+            __props__,
+            opts)
+
+        if opts is not None:
+            opts.parent = self
+        else:
+            opts = pulumi.ResourceOptions(parent=self)
+
+        all_config = pulumi.Output.from_input((release_name, config, opts))
+
+        # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
+        # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
+        # resolution of all resources that this Helm chart created.
+        self.resources = all_config.apply(_parse_chart)
+        self.register_outputs({"resources": self.resources})
+
+    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
+        """
+        get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
+        name. For example: `get_resource("apps/v1/Deployment", "nginx")`
+
+        :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
+        :param str name: Name of the resource to retrieve
+        :param str namespace: Optional namespace of the resource to retrieve
+        """
+
+        # `id` will either be `${name}` or `${namespace}/${name}`.
+        id = pulumi.Output.from_input(name)
+        if namespace is not None:
+            id = pulumi.Output.concat(namespace, '/', name)
+
+        resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
+        return resource_id.apply(lambda x: self.resources[x])
 
 
 class FetchOpts:
@@ -280,8 +357,8 @@ def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
     yaml_str: str = output.stdout
     return yaml_str
 
-def _is_helm_v3() -> bool:
 
+def _is_helm_v3() -> bool:
     cmd: List[str] = ['helm', 'version', '--short']
 
     """ 
@@ -294,7 +371,7 @@ def _is_helm_v3() -> bool:
     output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True, check=True)
     version: str = output.stdout
     regexp = re.compile(r'^v3\.[1-9]')
-    return(bool(regexp.search(version)))
+    return bool(regexp.search(version))
 
 
 def _write_override_file(all_config: Tuple[TextIO, str]) -> None:
@@ -354,7 +431,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     pulumi.Output.all(file, data).apply(_write_override_file)
 
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
-    crd_arg = [ '--include-crds' ] if _is_helm_v3() else []
+    crd_arg = ['--include-crds'] if _is_helm_v3() else []
 
     # Use 'helm template' to create a combined YAML manifest.
     cmd = ['helm', 'template', chart, '--name-template', release_name,
@@ -420,83 +497,3 @@ def _fetch(chart: str, opts: FetchOpts) -> None:
         cmd.append('--verify')
 
     subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True, env=env)
-
-
-class Chart(pulumi.ComponentResource):
-    """
-    Chart is a component representing a collection of resources described by an arbitrary Helm
-    Chart. The Chart can be fetched from any source that is accessible to the `helm` command
-    line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent
-    to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by
-    supplying callbacks to `ChartOpts.transformations`.
-
-    Chart does not use Tiller. The Chart specified is copied and expanded locally; the semantics
-    are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML
-    manifests. Any values that would be retrieved in-cluster are assigned fake values, and
-    none of Tiller's server-side validity testing is executed.
-    """
-
-    resources: pulumi.Output[dict]
-    """
-    Kubernetes resources contained in this Chart.
-    """
-
-    def __init__(self, release_name, config, opts=None):
-        """
-        Create an instance of the specified Helm chart.
-
-        :param str release_name: Name of the Chart (e.g., nginx-ingress).
-        :param Union[ChartOpts, LocalChartOpts] config: Configuration options for the Chart.
-        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
-               resource's behavior.
-        """
-        if not release_name:
-            raise TypeError('Missing release name argument')
-        if not isinstance(release_name, str):
-            raise TypeError('Expected release name to be a string')
-        if config and not isinstance(config, ChartOpts) and not isinstance(config, LocalChartOpts):
-            raise TypeError('Expected config to be a ChartOpts or LocalChartOpts instance')
-        if opts and not isinstance(opts, pulumi.ResourceOptions):
-            raise TypeError('Expected resource options to be a ResourceOptions instance')
-
-        __props__ = dict()
-
-        if config.resource_prefix:
-            release_name = f"{config.resource_prefix}-{release_name}"
-
-        super(Chart, self).__init__(
-            "kubernetes:helm.sh/v2:Chart",
-            release_name,
-            __props__,
-            opts)
-
-        if opts is not None:
-            opts.parent = self
-        else:
-            opts = pulumi.ResourceOptions(parent=self)
-
-        all_config = pulumi.Output.from_input((release_name, config, opts))
-
-        # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
-        # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
-        # resolution of all resources that this Helm chart created.
-        self.resources = all_config.apply(_parse_chart)
-        self.register_outputs({"resources": self.resources})
-
-    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
-        """
-        get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
-        name. For example: `get_resource("apps/v1/Deployment", "nginx")`
-
-        :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
-        :param str name: Name of the resource to retrieve
-        :param str namespace: Optional namespace of the resource to retrieve
-        """
-
-        # `id` will either be `${name}` or `${namespace}/${name}`.
-        id = pulumi.Output.from_input(name)
-        if namespace is not None:
-            id = pulumi.Output.concat(namespace, '/', name)
-
-        resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
-        return resource_id.apply(lambda x: self.resources[x])
