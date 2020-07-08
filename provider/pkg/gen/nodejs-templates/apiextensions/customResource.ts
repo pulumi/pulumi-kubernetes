@@ -91,11 +91,7 @@ export class CustomResource extends pulumi.CustomResource {
 }
 
 /**
- * CustomResourceArgs represents a resource definition we'd use to create an instance of a
- * Kubernetes CustomResourceDefinition (CRD). For example, the CoreOS Prometheus operator
- * exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to create a `ServiceMonitor`, we'd
- * pass a `CustomResourceArgs` containing the `ServiceMonitor` definition to
- * `apiextensions.CustomResource`.
+ * The set of arguments for constructing a CustomResource resource.
  *
  * NOTE: This type is fairly loose, since other than `apiVersion` and `kind`, there are no
  * fields required across all CRDs.

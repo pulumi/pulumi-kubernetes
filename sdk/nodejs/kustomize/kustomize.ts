@@ -19,6 +19,48 @@ import * as pulumi from "@pulumi/pulumi";
 import { getVersion } from "../utilities";
 import * as yaml from "../yaml";
 
+/**
+ * Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
+ */
+export class Directory extends yaml.CollectionComponentResource {
+    /**
+     * Create an instance of the specified kustomize directory.
+     *
+     * @param name Name of the kustomization (e.g., nginx-ingress).
+     * @param config Configuration options for the kustomization.
+     * @param opts A bag of options that control this resource's behavior.
+     */
+    constructor(
+        name: string,
+        config: DirectoryOpts,
+        opts?: pulumi.ComponentResourceOptions
+    ) {
+        if (config.resourcePrefix !== undefined) {
+            name = `${config.resourcePrefix}-${name}`
+        }
+        super("kubernetes:kustomize:Directory", name, config, opts);
+
+        const directory = config.directory
+
+        // Rather than using the default provider for the following invoke call, use the version specified
+        // in package.json.
+        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
+
+        const promise = pulumi.runtime.invoke("kubernetes:kustomize:directory", {directory}, invokeOpts);
+        this.resources = pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(
+            {
+                resourcePrefix: config.resourcePrefix,
+                objs: p.result,
+                transformations: config.transformations || [],
+            },
+            { parent: this, dependsOn: opts?.dependsOn }
+        ));
+    }
+}
+
+/**
+ * The set of arguments for constructing a Directory resource.
+ */
 interface DirectoryOpts {
     /**
      * The directory containing the kustomization to apply. The value can be a local directory or a folder in a
@@ -58,40 +100,3 @@ interface DirectoryOpts {
 
 }
 
-/**
- * Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
- */
-export class Directory extends yaml.CollectionComponentResource {
-    /**
-     * Create an instance of the specified kustomize directory.
-     * @param name Name of the kustomization (e.g., nginx-ingress).
-     * @param config Configuration options for the kustomization.
-     * @param opts A bag of options that control this resource's behavior.
-     */
-    constructor(
-        name: string,
-        config: DirectoryOpts,
-        opts?: pulumi.ComponentResourceOptions
-    ) {
-        if (config.resourcePrefix !== undefined) {
-            name = `${config.resourcePrefix}-${name}`
-        }
-        super("kubernetes:kustomize:Directory", name, config, opts);
-
-        const directory = config.directory
-
-        // Rather than using the default provider for the following invoke call, use the version specified
-        // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
-
-        const promise = pulumi.runtime.invoke("kubernetes:kustomize:directory", {directory}, invokeOpts);
-        this.resources = pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(
-            {
-                resourcePrefix: config.resourcePrefix,
-                objs: p.result,
-                transformations: config.transformations || [],
-            },
-            { parent: this, dependsOn: opts?.dependsOn }
-        ));
-    }
-}

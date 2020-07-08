@@ -23,196 +23,6 @@ import * as k8s from "../index";
 import * as outputs from "../types/output";
 import { getVersion } from "../utilities";
 
-export interface ConfigGroupOpts {
-    /** Set of paths or a URLs that uniquely identify files. */
-    files?: string[] | string;
-
-    /** YAML text containing Kubernetes resource definitions. */
-    yaml?: string[] | string;
-
-    /** JavaScript objects representing Kubernetes resources. */
-    objs?: any[] | any;
-
-    /**
-     * A set of transformations to apply to Kubernetes resource definitions before registering
-     * with engine.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *
-     *        if (obj.metadata) {
-     *            obj.metadata.namespace = namespaceName;
-     *        } else {
-     *            obj.metadata = {namespace: namespaceName};
-     *        }
-     *    },
-     * ]
-     * ```
-     */
-    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
-
-    /**
-     * An optional prefix for the auto-generated resource names.
-     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-     */
-    resourcePrefix?: string;
-}
-
-export interface ConfigFileOpts {
-    /** Path or a URL that uniquely identifies a file. */
-    file?: string;
-
-    /**
-     * A set of transformations to apply to Kubernetes resource definitions before registering
-     * with engine.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager-cainjector") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager-cainjector",
-     *            ];
-     *        }
-     *    },
-     * ]
-     * ```
-     */
-    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
-
-    /**
-     * An optional prefix for the auto-generated resource names.
-     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-     */
-    resourcePrefix?: string;
-}
-
-export interface ConfigOpts {
-    /** JavaScript objects representing Kubernetes resources. */
-    objs: Promise<any[]>;
-
-    /**
-     * A set of transformations to apply to Kubernetes resource definitions before registering
-     * with engine.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager-cainjector") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager-cainjector",
-     *            ];
-     *        }
-     *    },
-     * ]
-     * ```
-     */
-    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
-
-    /**
-     * An optional prefix for the auto-generated resource names.
-     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-     */
-    resourcePrefix?: string;
-}
-
-function yamlLoadAll(text: string): Promise<any[]> {
-    // Rather than using the default provider for the following invoke call, use the version specified
-    // in package.json.
-    let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
-
-    return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
-        .then((p => p.result));
-}
-
-/** @ignore */ export function parse(
-    config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions
-): pulumi.Output<{[key: string]: pulumi.CustomResource}> {
-    let resources = pulumi.output<{[key: string]: pulumi.CustomResource}>({});
-
-    if (config.files !== undefined) {
-        let files: string[] = [];
-        if (typeof config.files === 'string') {
-            if (isUrl(config.files)) {
-                files = [config.files];
-            } else {
-                files = glob.sync(config.files);
-            }
-        } else {
-            for (const file of config.files) {
-                if (isUrl(file)) {
-                    files.push(file);
-                } else {
-                    files.push(...glob.sync(file));
-                }
-            }
-        }
-
-        for (const file of files) {
-            const cf = new ConfigFile(
-                file,
-                {
-                    file: file,
-                    transformations: config.transformations,
-                    resourcePrefix: config.resourcePrefix
-                },
-                opts
-            );
-            resources = pulumi.all([resources, cf.resources]).apply(([rs, cfrs]) => ({...rs, ...cfrs}));
-        }
-    }
-
-    if (config.yaml !== undefined) {
-        let yamlTexts: string[] = [];
-        if (typeof config.yaml === 'string') {
-            yamlTexts.push(config.yaml);
-        } else {
-            yamlTexts.push(...config.yaml);
-        }
-
-        for (const text of yamlTexts) {
-            const docResources = parseYamlDocument({
-                    objs: yamlLoadAll(text),
-                    transformations: config.transformations,
-                    resourcePrefix: config.resourcePrefix
-                },
-                opts);
-            resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
-        }
-    }
-
-    if (config.objs !== undefined) {
-        const objs: Promise<any[]> = Array.isArray(config.objs) ? Promise.resolve(config.objs) : Promise.resolve([config.objs]);
-        const docResources = parseYamlDocument({
-            objs,
-            transformations: config.transformations,
-            resourcePrefix: config.resourcePrefix
-        }, opts);
-        resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
-    }
-
-    return resources;
-}
-
 export abstract class CollectionComponentResource extends pulumi.ComponentResource {
     resources!: pulumi.Output<{ [key: string]: pulumi.CustomResource }>;
 
@@ -295,6 +105,13 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
  *        a. `{files: "foo.yaml", yaml: "(LITERAL YAML HERE)"}`
  */
 export class ConfigGroup extends CollectionComponentResource {
+    /**
+     * Create a ConfigGroup resource with the given unique name, arguments, and options.
+     *
+     * @param name The _unique_ name of the resource.
+     * @param config The arguments to use to populate this resource's properties.
+     * @param opts A bag of options that control this resource's behavior.
+     */
     constructor(name: string, config: ConfigGroupOpts, opts?: pulumi.ComponentResourceOptions) {
         super("kubernetes:yaml:ConfigGroup", name, config, opts);
         this.resources = parse(config, {parent: this});
@@ -306,6 +123,13 @@ export class ConfigGroup extends CollectionComponentResource {
  * is not specified, `ConfigFile` assumes the argument `name` is the filename.
  */
 export class ConfigFile extends CollectionComponentResource {
+    /**
+     * Create a ConfigFile resource with the given unique name, arguments, and options.
+     *
+     * @param name The _unique_ name of the resource.
+     * @param config The arguments to use to populate this resource's properties.
+     * @param opts A bag of options that control this resource's behavior.
+     */
     constructor(
         name: string,
         config?: ConfigFileOpts,
@@ -341,6 +165,205 @@ export class ConfigFile extends CollectionComponentResource {
             }
         }));
     }
+}
+
+/**
+ * The set of arguments for constructing a ConfigGroup resource.
+ */
+export interface ConfigGroupOpts {
+    /** Set of paths or a URLs that uniquely identify files. */
+    files?: string[] | string;
+
+    /** YAML text containing Kubernetes resource definitions. */
+    yaml?: string[] | string;
+
+    /** JavaScript objects representing Kubernetes resources. */
+    objs?: any[] | any;
+
+    /**
+     * A set of transformations to apply to Kubernetes resource definitions before registering
+     * with engine.
+     *
+     * @example
+     * ```typescript
+     * transformations: [
+     * (obj: any, opts: pulumi.CustomResourceOptions) => {
+     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
+     *            opts.aliases = [
+     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
+     *            ];
+     *        }
+     *
+     *        if (obj.metadata) {
+     *            obj.metadata.namespace = namespaceName;
+     *        } else {
+     *            obj.metadata = {namespace: namespaceName};
+     *        }
+     *    },
+     * ]
+     * ```
+     */
+    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+    /**
+     * An optional prefix for the auto-generated resource names.
+     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+     */
+    resourcePrefix?: string;
+}
+
+/**
+ * The set of arguments for constructing a ConfigFile resource.
+ */
+export interface ConfigFileOpts {
+    /** Path or a URL that uniquely identifies a file. */
+    file?: string;
+
+    /**
+     * A set of transformations to apply to Kubernetes resource definitions before registering
+     * with engine.
+     *
+     * @example
+     * ```typescript
+     * transformations: [
+     * (obj: any, opts: pulumi.CustomResourceOptions) => {
+     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
+     *            opts.aliases = [
+     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
+     *            ];
+     *        }
+     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager-cainjector") {
+     *            opts.aliases = [
+     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager-cainjector",
+     *            ];
+     *        }
+     *    },
+     * ]
+     * ```
+     */
+    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+    /**
+     * An optional prefix for the auto-generated resource names.
+     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+     */
+    resourcePrefix?: string;
+}
+
+/**
+ * The set of arguments common to the ConfigFile and ConfigGroup resources.
+ */
+export interface ConfigOpts {
+    /** JavaScript objects representing Kubernetes resources. */
+    objs: Promise<any[]>;
+
+    /**
+     * A set of transformations to apply to Kubernetes resource definitions before registering
+     * with engine.
+     *
+     * @example
+     * ```typescript
+     * transformations: [
+     * (obj: any, opts: pulumi.CustomResourceOptions) => {
+     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
+     *            opts.aliases = [
+     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
+     *            ];
+     *        }
+     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager-cainjector") {
+     *            opts.aliases = [
+     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager-cainjector",
+     *            ];
+     *        }
+     *    },
+     * ]
+     * ```
+     */
+    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+    /**
+     * An optional prefix for the auto-generated resource names.
+     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+     */
+    resourcePrefix?: string;
+}
+
+/** @ignore */ function yamlLoadAll(text: string): Promise<any[]> {
+    // Rather than using the default provider for the following invoke call, use the version specified
+    // in package.json.
+    let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
+
+    return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
+        .then((p => p.result));
+}
+
+/** @ignore */ export function parse(
+    config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions
+): pulumi.Output<{[key: string]: pulumi.CustomResource}> {
+    let resources = pulumi.output<{[key: string]: pulumi.CustomResource}>({});
+
+    if (config.files !== undefined) {
+        let files: string[] = [];
+        if (typeof config.files === 'string') {
+            if (isUrl(config.files)) {
+                files = [config.files];
+            } else {
+                files = glob.sync(config.files);
+            }
+        } else {
+            for (const file of config.files) {
+                if (isUrl(file)) {
+                    files.push(file);
+                } else {
+                    files.push(...glob.sync(file));
+                }
+            }
+        }
+
+        for (const file of files) {
+            const cf = new ConfigFile(
+                file,
+                {
+                    file: file,
+                    transformations: config.transformations,
+                    resourcePrefix: config.resourcePrefix
+                },
+                opts
+            );
+            resources = pulumi.all([resources, cf.resources]).apply(([rs, cfrs]) => ({...rs, ...cfrs}));
+        }
+    }
+
+    if (config.yaml !== undefined) {
+        let yamlTexts: string[] = [];
+        if (typeof config.yaml === 'string') {
+            yamlTexts.push(config.yaml);
+        } else {
+            yamlTexts.push(...config.yaml);
+        }
+
+        for (const text of yamlTexts) {
+            const docResources = parseYamlDocument({
+                    objs: yamlLoadAll(text),
+                    transformations: config.transformations,
+                    resourcePrefix: config.resourcePrefix
+                },
+                opts);
+            resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
+        }
+    }
+
+    if (config.objs !== undefined) {
+        const objs: Promise<any[]> = Array.isArray(config.objs) ? Promise.resolve(config.objs) : Promise.resolve([config.objs]);
+        const docResources = parseYamlDocument({
+            objs,
+            transformations: config.transformations,
+            resourcePrefix: config.resourcePrefix
+        }, opts);
+        resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
+    }
+
+    return resources;
 }
 
 /** @ignore */ function isUrl(s: string): boolean {
