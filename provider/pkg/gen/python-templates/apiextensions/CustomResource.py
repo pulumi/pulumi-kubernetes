@@ -12,16 +12,14 @@ from ..utilities import get_version
 
 
 class CustomResource(pulumi.CustomResource):
-    """
-    CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
-    CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to
-    instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the
-    `ServiceMonitor` resource definition as an argument.
-    """
-
     def __init__(self, resource_name, api_version, kind, spec=None, metadata=None, opts=None,
                  __name__=None, __opts__=None):
         """
+        CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
+        CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to
+        instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the
+        `ServiceMonitor` resource definition as an argument.
+
         :param str resource_name: _Unique_ name used to register this resource with Pulumi.
         :param str api_version: The API version of the apiExtensions.CustomResource we
                wish to select, as specified by the CustomResourceDefinition that defines it on the

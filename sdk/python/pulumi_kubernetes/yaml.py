@@ -9,6 +9,7 @@ from typing import Callable, Dict, List, Optional
 import pulumi.runtime
 import requests
 from pulumi_kubernetes.apiextensions import CustomResource
+
 from . import tables
 from .utilities import get_version
 
@@ -16,10 +17,6 @@ __all__ = ['ConfigFile']
 
 
 class ConfigFile(pulumi.ComponentResource):
-    """
-    ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
-    """
-
     resources: pulumi.Output[dict]
     """
     Kubernetes resources contained in this ConfigFile.
@@ -27,6 +24,8 @@ class ConfigFile(pulumi.ComponentResource):
 
     def __init__(self, name, file_id, opts=None, transformations=None, resource_prefix=None):
         """
+        ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+
         :param str name: A name for a resource.
         :param str file_id: Path or a URL that uniquely identifies a file.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
