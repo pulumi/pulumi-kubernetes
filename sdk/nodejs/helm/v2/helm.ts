@@ -25,91 +25,6 @@ import * as path from "../../path";
 import { getVersion } from "../../utilities";
 import * as yaml from "../../yaml/index";
 
-interface BaseChartOpts {
-    /**
-     * The optional kubernetes api versions used for Capabilities.APIVersions.
-     */
-    apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * The optional namespace to install chart resources into.
-     */
-    namespace?: pulumi.Input<string>;
-    /**
-     * Overrides for chart values.
-     */
-    values?: pulumi.Inputs;
-    /**
-     * Optional array of transformations to apply to resources that will be created by this chart prior to
-     * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:helm.sh/v2:Chart$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *
-     *        if (obj.metadata) {
-     *            obj.metadata.namespace = namespaceName;
-     *        } else {
-     *            obj.metadata = {namespace: namespaceName};
-     *        }
-     *    },
-     * ]
-     * ```
-     */
-    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
-
-    /**
-     * An optional prefix for the auto-generated resource names.
-     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-     */
-    resourcePrefix?: string
-}
-
-export interface ChartOpts extends BaseChartOpts {
-    /**
-     * The repository name of the chart to deploy.
-     * Example: "stable"
-     */
-    repo?: pulumi.Input<string>;
-
-    /**
-     * The name of the chart to deploy.  If [repo] is provided, this chart name will be prefixed by the repo name.
-     * Example: repo: "stable", chart: "nginx-ingress" -> "stable/nginx-ingress"
-     * Example: chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
-     */
-    chart: pulumi.Input<string>;
-
-    /**
-     * The version of the chart to deploy. If not provided, the latest version will be deployed.
-     */
-    version?: pulumi.Input<string>;
-
-    /**
-     * Additional options to customize the fetching of the Helm chart.
-     */
-    fetchOpts?: pulumi.Input<FetchOpts>;
-}
-
-function isChartOpts(o: any): o is ChartOpts {
-    return "chart" in o;
-}
-
-export interface LocalChartOpts extends BaseChartOpts {
-    /**
-     * The path to the chart directory which contains the `Chart.yaml` file.
-     */
-    path: string;
-}
-
-function isLocalChartOpts(o: any): o is LocalChartOpts {
-    return "path" in o;
-}
-
 /**
  * Chart is a component representing a collection of resources described by an arbitrary Helm
  * Chart. The Chart can be fetched from any source that is accessible to the `helm` command
@@ -195,12 +110,12 @@ export class Chart extends yaml.CollectionComponentResource {
                 const release = shell.quote([releaseName]);
                 const values = path.quotePath(overrides.name);
                 const apiVersionsArgs = cfg.apiVersions
-                  ? cfg.apiVersions.length > 1
-                    ? `--api-versions={${cfg.apiVersions
-                        .map(apiVersion => shell.quote([apiVersion]))
-                        .join(',')}}`
-                    : `--api-versions=${shell.quote(cfg.apiVersions)}`
-                  : '';
+                    ? cfg.apiVersions.length > 1
+                        ? `--api-versions={${cfg.apiVersions
+                            .map(apiVersion => shell.quote([apiVersion]))
+                            .join(',')}}`
+                        : `--api-versions=${shell.quote(cfg.apiVersions)}`
+                    : '';
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
@@ -270,6 +185,97 @@ export class Chart extends yaml.CollectionComponentResource {
             { parent: this, dependsOn: dependsOn }
         ));
     }
+}
+
+interface BaseChartOpts {
+    /**
+     * The optional kubernetes api versions used for Capabilities.APIVersions.
+     */
+    apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The optional namespace to install chart resources into.
+     */
+    namespace?: pulumi.Input<string>;
+    /**
+     * Overrides for chart values.
+     */
+    values?: pulumi.Inputs;
+    /**
+     * Optional array of transformations to apply to resources that will be created by this chart prior to
+     * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
+     *
+     * @example
+     * ```typescript
+     * transformations: [
+     * (obj: any, opts: pulumi.CustomResourceOptions) => {
+     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
+     *            opts.aliases = [
+     *                "urn:pulumi:dev::example::kubernetes:helm.sh/v2:Chart$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
+     *            ];
+     *        }
+     *
+     *        if (obj.metadata) {
+     *            obj.metadata.namespace = namespaceName;
+     *        } else {
+     *            obj.metadata = {namespace: namespaceName};
+     *        }
+     *    },
+     * ]
+     * ```
+     */
+    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+    /**
+     * An optional prefix for the auto-generated resource names.
+     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+     */
+    resourcePrefix?: string
+}
+
+/**
+ * The set of arguments for constructing a Chart resource from a remote source.
+ */
+export interface ChartOpts extends BaseChartOpts {
+    /**
+     * The repository name of the chart to deploy.
+     * Example: "stable"
+     */
+    repo?: pulumi.Input<string>;
+
+    /**
+     * The name of the chart to deploy.  If [repo] is provided, this chart name will be prefixed by the repo name.
+     * Example: repo: "stable", chart: "nginx-ingress" -> "stable/nginx-ingress"
+     * Example: chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
+     */
+    chart: pulumi.Input<string>;
+
+    /**
+     * The version of the chart to deploy. If not provided, the latest version will be deployed.
+     */
+    version?: pulumi.Input<string>;
+
+    /**
+     * Additional options to customize the fetching of the Helm chart.
+     */
+    fetchOpts?: pulumi.Input<FetchOpts>;
+}
+
+function isChartOpts(o: any): o is ChartOpts {
+    return "chart" in o;
+}
+
+/**
+ * The set of arguments for constructing a Chart resource from a local source.
+ */
+export interface LocalChartOpts extends BaseChartOpts {
+    /**
+     * The path to the chart directory which contains the `Chart.yaml` file.
+     */
+    path: string;
+}
+
+function isLocalChartOpts(o: any): o is LocalChartOpts {
+    return "path" in o;
 }
 
 /**
@@ -361,6 +367,8 @@ interface ResolvedFetchOpts {
  * If the `verify` option is specified, the requested chart MUST have a provenance file, and MUST
  * pass the verification process. Failure in any part of this will result in an error, and the chart
  * will not be saved locally.
+ *
+ * @ignore
  */
 export function fetch(chart: string, opts?: ResolvedFetchOpts) {
     const flags: string[] = [];
