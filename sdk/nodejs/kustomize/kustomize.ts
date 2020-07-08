@@ -21,6 +21,58 @@ import * as yaml from "../yaml";
 
 /**
  * Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
+ *
+ * ## Example Usage
+ * ### Local Kustomize Directory
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const helloWorld = new k8s.kustomize.Directory("helloWorldLocal", {
+ *   directory: "./helloWorld",
+ * });
+ * ```
+ * ### Kustomize Directory from a Git Repo
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const helloWorld = new k8s.kustomize.Directory("helloWorldRemote", {
+ *   directory: "https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld",
+ * });
+ * ```
+ * ### Kustomize Directory with Transformations
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const helloWorld = new k8s.kustomize.Directory("helloWorldRemote", {
+ *   directory: "https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld",
+ *   transformations: [
+ *     // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *       if (obj.kind === "Service" && obj.apiVersion === "v1") {
+ *         if (obj.spec && obj.spec.type && obj.spec.type === "LoadBalancer") {
+ *           obj.spec.type = "ClusterIP";
+ *         }
+ *       }
+ *     },
+ *
+ *     // Set a resource alias for a previous name.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Deployment") {
+ *       opts.aliases = [{ name: "oldName" }]
+ *     },
+ *
+ *     // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Pod" && obj.metadata.name === "test") {
+ *       obj.apiVersion = "v1"
+ *       obj.kind = "List"
+ *     },
+ *   ],
+ * });
+ * ```
  */
 export class Directory extends yaml.CollectionComponentResource {
     /**
