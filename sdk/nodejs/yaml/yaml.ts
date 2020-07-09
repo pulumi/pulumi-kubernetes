@@ -2252,6 +2252,90 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
  *        b. `{yaml: ["(LITERAL YAML HERE)", "(MORE YAML)"]}`
  *   4. Any combination of files, patterns, or YAML strings:
  *        a. `{files: "foo.yaml", yaml: "(LITERAL YAML HERE)"}`
+ *
+ * ## Example Usage
+ * ### Local File
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   files: "foo.yaml",
+ * });
+ * ```
+ * ### Multiple Local Files
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   files: ["foo.yaml", "bar.yaml"],
+ * });
+ * ```
+ * ### Local File Pattern
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   files: "yaml/*.yaml",
+ * });
+ * ```
+ * ### Multiple Local File Patterns
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   files: ["foo/*.yaml", "bar/*.yaml"],
+ * });
+ * ```
+ * ### Literal YAML String
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   yaml: `
+ * apiVersion: v1
+ * kind: Namespace
+ * metadata:
+ *   name: foo
+ * `,
+ * })
+ * ```
+ * ### YAML with Transformations
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   files: "foo.yaml",
+ *   transformations: [
+ *     // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *       if (obj.kind === "Service" && obj.apiVersion === "v1") {
+ *         if (obj.spec && obj.spec.type && obj.spec.type === "LoadBalancer") {
+ *           obj.spec.type = "ClusterIP";
+ *         }
+ *       }
+ *     },
+ *
+ *     // Set a resource alias for a previous name.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Deployment") {
+ *       opts.aliases = [{ name: "oldName" }]
+ *     },
+ *
+ *     // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Pod" && obj.metadata.name === "test") {
+ *       obj.apiVersion = "v1"
+ *       obj.kind = "List"
+ *     },
+ *   ],
+ * });
+ * ```
  */
 export class ConfigGroup extends CollectionComponentResource {
     /**
@@ -2270,6 +2354,49 @@ export class ConfigGroup extends CollectionComponentResource {
 /**
  * ConfigFile creates a set of Kubernetes resources from Kubernetes YAML file. If `config.name`
  * is not specified, `ConfigFile` assumes the argument `name` is the filename.
+ *
+ * ## Example Usage
+ * ### Local File
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   file: "foo.yaml",
+ * });
+ * ```
+ * ### YAML with Transformations
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.ConfigGroup("example", {
+ *   file: "foo.yaml",
+ *   transformations: [
+ *     // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *       if (obj.kind === "Service" && obj.apiVersion === "v1") {
+ *         if (obj.spec && obj.spec.type && obj.spec.type === "LoadBalancer") {
+ *           obj.spec.type = "ClusterIP";
+ *         }
+ *       }
+ *     },
+ *
+ *     // Set a resource alias for a previous name.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Deployment") {
+ *       opts.aliases = [{ name: "oldName" }]
+ *     },
+ *
+ *     // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Pod" && obj.metadata.name === "test") {
+ *       obj.apiVersion = "v1"
+ *       obj.kind = "List"
+ *     },
+ *   ],
+ * });
+ * ```
  */
 export class ConfigFile extends CollectionComponentResource {
     /**

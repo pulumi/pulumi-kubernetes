@@ -36,6 +36,100 @@ import * as yaml from "../../yaml/index";
  * are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML
  * manifests. Any values that would be retrieved in-cluster are assigned fake values, and
  * none of Tiller's server-side validity testing is executed.
+ *
+ * ## Example Usage
+ * ### Local Chart Directory
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ *   path: "./nginx-ingress",
+ * });
+ * ```
+ * ### Remote Chart
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ *   chart: "nginx-ingress",
+ *   version: "1.24.4",
+ *   fetchOpts:{
+ *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *   },
+ * });
+ * ```
+ * ### Set Chart values
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ *   chart: "nginx-ingress",
+ *   version: "1.24.4",
+ *   fetchOpts:{
+ *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *   },
+ *   values: {
+ *     controller: {
+ *       metrics: {
+ *         enabled: true,
+ *       }
+ *     }
+ *   },
+ * });
+ * ```
+ * ### Deploy Chart into Namespace
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ *   chart: "nginx-ingress",
+ *   version: "1.24.4",
+ *   namespace: "test-namespace",
+ *   fetchOpts:{
+ *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *   },
+ * });
+ * ```
+ * ### Chart with Transformations
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ *   chart: "nginx-ingress",
+ *   version: "1.24.4",
+ *   fetchOpts:{
+ *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *   },
+ *   transformations: [
+ *     // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *       if (obj.kind === "Service" && obj.apiVersion === "v1") {
+ *         if (obj.spec && obj.spec.type && obj.spec.type === "LoadBalancer") {
+ *           obj.spec.type = "ClusterIP";
+ *         }
+ *       }
+ *     },
+ *
+ *     // Set a resource alias for a previous name.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Deployment") {
+ *       opts.aliases = [{ name: "oldName" }]
+ *     },
+ *
+ *     // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+ *     (obj: any, opts: pulumi.CustomResourceOptions) => {
+ *     if (obj.kind === "Pod" && obj.metadata.name === "test") {
+ *       obj.apiVersion = "v1"
+ *       obj.kind = "List"
+ *     },
+ *   ],
+ * });
+ * ```
  */
 export class Chart extends yaml.CollectionComponentResource {
     /**
@@ -201,30 +295,10 @@ interface BaseChartOpts {
      */
     values?: pulumi.Inputs;
     /**
-     * Optional array of transformations to apply to resources that will be created by this chart prior to
-     * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:helm.sh/v2:Chart$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *
-     *        if (obj.metadata) {
-     *            obj.metadata.namespace = namespaceName;
-     *        } else {
-     *            obj.metadata = {namespace: namespaceName};
-     *        }
-     *    },
-     * ]
-     * ```
+     * A set of transformations to apply to Kubernetes resource definitions before registering
+     * with engine.
      */
     transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
-
     /**
      * An optional prefix for the auto-generated resource names.
      * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
