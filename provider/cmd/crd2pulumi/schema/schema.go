@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package schema
 
 import (
 	"fmt"
@@ -104,7 +104,7 @@ func getTypeSpec(schema map[string]interface{}, name string, types map[string]ps
 	// return the `TypeSpec` of that single, combined schema.
 	allOf, foundAllOf, _ := NestedMapSlice(schema, "allOf")
 	if foundAllOf {
-		combinedSchema := combineSchemas(true, allOf...)
+		combinedSchema := CombineSchemas(true, allOf...)
 		return getTypeSpec(combinedSchema, name, types)
 	}
 
@@ -113,7 +113,7 @@ func getTypeSpec(schema map[string]interface{}, name string, types map[string]ps
 	// Then return the 'TypeSpec` of that single, combined schema.
 	anyOf, foundAnyOf, _ := NestedMapSlice(schema, "anyOf")
 	if foundAnyOf {
-		combinedSchema := combineSchemas(false, anyOf...)
+		combinedSchema := CombineSchemas(false, anyOf...)
 		return getTypeSpec(combinedSchema, name, types)
 	}
 
@@ -165,16 +165,26 @@ func cleanMetadataName(metadataName string) string {
 	return strings.Join(words, ".")
 }
 
-// Given a list of schemas, returns a single schema representing their
-// intersection type. Combines each of their properties, and descriptions into a single
-// schema. If combineRequired is true, then required properties are also
-// combined into the returned schema; otherwise all properties in the returned
-// schema are optional.
-func combineSchemas(combineRequired bool, schemas ...map[string]interface{}) map[string]interface{} {
+// CombineSchemas returns a single schema representing an intersection type
+// when given a list of sub-schemas. Combines each of their properties, and
+// descriptions into a single schema. If combineRequired is true, then required
+// properties are also combined into the returned schema; otherwise all
+// properties in the returned schema are optional. Returns nil if no schemas
+// are given. If just 1 schema is given, that schema is just returned.
+// Due to the way unstruct handles NestedStringSlice, the returned schema's
+// "required" field is of type []interface{}, not []string.
+func CombineSchemas(combineRequired bool, schemas ...map[string]interface{}) map[string]interface{} {
+	if len(schemas) == 0 {
+		return nil
+	}
+	if len(schemas) == 1 {
+		return schemas[0]
+	}
+
 	combinedProperties := map[string]interface{}{}
 	combinedRequired := make([]string, 0)
 	var combinedDescription strings.Builder
-	combinedDescription.WriteString(fmt.Sprintf("Combines %d types: ", len(schemas)))
+	combinedDescription.WriteString(fmt.Sprintf("Combines %d type(s):", len(schemas)))
 
 	for i, schema := range schemas {
 		properties, _, _ := unstruct.NestedMap(schema, "properties")
@@ -189,9 +199,10 @@ func combineSchemas(combineRequired bool, schemas ...map[string]interface{}) map
 			}
 		}
 		description, foundDescription, _ := unstruct.NestedString(schema, "description")
-		if foundDescription {
-			combinedDescription.WriteString(fmt.Sprintf("(%d) %s", i, description))
+		if !foundDescription {
+			description = "<no description found>"
 		}
+		combinedDescription.WriteString(fmt.Sprintf(" (%d) %s", i+1, description))
 	}
 
 	combinedSchema := map[string]interface{}{

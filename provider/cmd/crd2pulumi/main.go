@@ -25,6 +25,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/nodejs"
+	crdschema "github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/schema"
 	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -63,12 +64,12 @@ func main() {
 		fmt.Fprintf(os.Stderr, "error reading the yaml file: %v\n", err)
 		os.Exit(-1)
 	}
-	crd, err := UnmarshalYaml(yamlFile)
+	crd, err := crdschema.UnmarshalYaml(yamlFile)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error unmarshalling yaml: %v\n", err)
 		os.Exit(-1)
 	}
-	types := GetTypes(crd)
+	types := crdschema.GetTypes(crd)
 
 	// User can either specify their own output path, or use the default one
 	var outputPath string
