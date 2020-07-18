@@ -151,7 +151,7 @@ func getTypeSpec(schema map[string]interface{}, name string, types map[string]ps
 	}
 }
 
-// cleanMetadataName replaces all comma-seperated instances of "pulumi" in the
+// cleanMetadataName replaces all dot-seperated instances of "pulumi" in the
 // metadataName with "pulumicorp." A metadata name can't contain the word
 // "pulumi", since otherwise the namspace would conflict with the imported
 // "pulumi" module.
