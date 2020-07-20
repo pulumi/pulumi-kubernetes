@@ -34,6 +34,117 @@ class Chart(pulumi.ComponentResource):
         manifests. Any values that would be retrieved in-cluster are assigned fake values, and
         none of Tiller's server-side validity testing is executed.
 
+        ## Example Usage
+        ### Local Chart Directory
+
+        ```python
+        from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
+
+        nginx_ingress = Chart(
+            "nginx-ingress",
+            LocalChartOpts(
+                path="./nginx-ingress",
+            ),
+        )
+        ```
+        ### Remote Chart
+
+        ```python
+        from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
+
+        nginx_ingress = Chart(
+            "nginx-ingress",
+            ChartOpts(
+                chart="nginx-ingress",
+                version="1.24.4",
+                fetch_opts=FetchOpts(
+                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                ),
+            ),
+        )
+        ```
+        ### Set Chart Values
+
+        ```python
+        from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
+
+        nginx_ingress = Chart(
+            "nginx-ingress",
+            ChartOpts(
+                chart="nginx-ingress",
+                version="1.24.4",
+                fetch_opts=FetchOpts(
+                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                ),
+                values={
+                    "controller": {
+                        "metrics": {
+                            "enabled": True,
+                        },
+                    },
+                },
+            ),
+        )
+        ```
+        ### Deploy Chart into Namespace
+
+        ```python
+        from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
+
+        nginx_ingress = Chart(
+            "nginx-ingress",
+            ChartOpts(
+                chart="nginx-ingress",
+                version="1.24.4",
+                namespace="test-namespace",
+                fetch_opts=FetchOpts(
+                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                ),
+            ),
+        )
+        ```
+        ### Chart with Transformations
+
+        ```python
+        from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
+
+        # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+        def make_service_private(obj, opts):
+            if obj["kind"] == "Service" and obj["apiVersion"] == "v1":
+                try:
+                    t = obj["spec"]["type"]
+                    if t == "LoadBalancer":
+                        obj["spec"]["type"] = "ClusterIP"
+                except KeyError:
+                    pass
+
+
+        # Set a resource alias for a previous name.
+        def alias(obj, opts):
+            if obj["kind"] == "Deployment":
+                opts.aliases = ["oldName"]
+
+
+        # Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+        def omit_resource(obj, opts):
+            if obj["kind"] == "Pod" and obj["metadata"]["name"] == "test":
+                obj["apiVersion"] = "v1"
+                obj["kind"] = "List"
+
+
+        nginx_ingress = Chart(
+            "nginx-ingress",
+            ChartOpts(
+                chart="nginx-ingress",
+                version="1.24.4",
+                fetch_opts=FetchOpts(
+                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                ),
+                transformations=[make_service_private, alias, omit_resource],
+            ),
+        )
+        ```
+
         :param str release_name: Name of the Chart (e.g., nginx-ingress).
         :param Union[ChartOpts, LocalChartOpts] config: Configuration options for the Chart.
         :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this

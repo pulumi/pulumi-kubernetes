@@ -3,6 +3,7 @@
 ### Improvements
 
 -   Add NodeJS usage examples for Helm, Kustomize, and YAML resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1205)
+-   Add Python usage examples for Helm, Kustomize, and YAML resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1209)
 
 ## 2.4.0 (July 7, 2020)
 
