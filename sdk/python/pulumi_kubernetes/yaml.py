@@ -26,6 +26,53 @@ class ConfigFile(pulumi.ComponentResource):
         """
         ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
 
+        ## Example Usage
+        ### Local File
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigFile
+
+        example = ConfigFile(
+            "example",
+            file_id="foo.yaml",
+        )
+        ```
+        ### YAML with Transformations
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigFile
+
+        # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+        def make_service_private(obj, opts):
+            if obj["kind"] == "Service" and obj["apiVersion"] == "v1":
+                try:
+                    t = obj["spec"]["type"]
+                    if t == "LoadBalancer":
+                        obj["spec"]["type"] = "ClusterIP"
+                except KeyError:
+                    pass
+
+
+        # Set a resource alias for a previous name.
+        def alias(obj, opts):
+            if obj["kind"] == "Deployment":
+                opts.aliases = ["oldName"]
+
+
+        # Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+        def omit_resource(obj, opts):
+            if obj["kind"] == "Pod" and obj["metadata"]["name"] == "test":
+                obj["apiVersion"] = "v1"
+                obj["kind"] = "List"
+
+
+        example = ConfigFile(
+            "example",
+            file_id="foo.yaml",
+            transformations=[make_service_private, alias, omit_resource],
+        )
+        ```
+
         :param str name: A name for a resource.
         :param str file_id: Path or a URL that uniquely identifies a file.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.

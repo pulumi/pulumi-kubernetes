@@ -21,6 +21,62 @@ class Directory(pulumi.ComponentResource):
         Directory is a component representing a collection of resources described by a kustomize directory
         (kustomization).
 
+        ## Example Usage
+        ### Local Kustomize Directory
+
+        ```python
+        from pulumi_kubernetes.kustomize import Directory
+
+        hello_world = Directory(
+            "hello-world-local",
+            directory="./helloWorld",
+        )
+        ```
+        ### Kustomize Directory from a Git Repo
+        ```python
+        from pulumi_kubernetes.kustomize import Directory
+
+        hello_world = Directory(
+            "hello-world-remote",
+            directory="https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld",
+        )
+        ```
+        ### Kustomize Directory with Transformations
+
+        ```python
+        from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
+
+        # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+        def make_service_private(obj, opts):
+            if obj["kind"] == "Service" and obj["apiVersion"] == "v1":
+                try:
+                    t = obj["spec"]["type"]
+                    if t == "LoadBalancer":
+                        obj["spec"]["type"] = "ClusterIP"
+                except KeyError:
+                    pass
+
+
+        # Set a resource alias for a previous name.
+        def alias(obj, opts):
+            if obj["kind"] == "Deployment":
+                opts.aliases = ["oldName"]
+
+
+        # Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+        def omit_resource(obj, opts):
+            if obj["kind"] == "Pod" and obj["metadata"]["name"] == "test":
+                obj["apiVersion"] = "v1"
+                obj["kind"] = "List"
+
+
+        hello_world = Directory(
+            "hello-world-remote",
+            directory="https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld",
+            transformations=[make_service_private, alias, omit_resource],
+        )
+        ```
+
         :param str name: A name for a resource.
         :param str directory: The directory containing the kustomization to apply. The value can be a local directory
                or a folder in a git repository.
