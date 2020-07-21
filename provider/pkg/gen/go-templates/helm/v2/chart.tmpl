@@ -276,7 +276,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		chart = args.Path
 	} else { // Remote Chart
 		if strings.HasPrefix(args.Repo, "http") {
-			return nil, fmt.Errorf("`repo` specifies the name of the Helm chart repo. Use FetchOpts.Repo" +
+			return nil, fmt.Errorf("`repo` specifies the name of the Helm chart repo. Use FetchArgs.Repo" +
 				"to specify a URL")
 		}
 
