@@ -2361,7 +2361,7 @@ export class ConfigGroup extends CollectionComponentResource {
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
  *
- * const example = new k8s.yaml.ConfigGroup("example", {
+ * const example = new k8s.yaml.ConfigFile("example", {
  *   file: "foo.yaml",
  * });
  * ```
@@ -2370,7 +2370,7 @@ export class ConfigGroup extends CollectionComponentResource {
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
  *
- * const example = new k8s.yaml.ConfigGroup("example", {
+ * const example = new k8s.yaml.ConfigFile("example", {
  *   file: "foo.yaml",
  *   transformations: [
  *     // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
@@ -2456,29 +2456,7 @@ export interface ConfigGroupOpts {
     /** JavaScript objects representing Kubernetes resources. */
     objs?: any[] | any;
 
-    /**
-     * A set of transformations to apply to Kubernetes resource definitions before registering
-     * with engine.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *
-     *        if (obj.metadata) {
-     *            obj.metadata.namespace = namespaceName;
-     *        } else {
-     *            obj.metadata = {namespace: namespaceName};
-     *        }
-     *    },
-     * ]
-     * ```
-     */
+    /** A set of transformations to apply to Kubernetes resource definitions before registering with engine. */
     transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
 
     /**
@@ -2495,28 +2473,7 @@ export interface ConfigFileOpts {
     /** Path or a URL that uniquely identifies a file. */
     file?: string;
 
-    /**
-     * A set of transformations to apply to Kubernetes resource definitions before registering
-     * with engine.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager-cainjector") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager-cainjector",
-     *            ];
-     *        }
-     *    },
-     * ]
-     * ```
-     */
+    /** A set of transformations to apply to Kubernetes resource definitions before registering with engine. */
     transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
 
     /**
@@ -2533,28 +2490,7 @@ export interface ConfigOpts {
     /** JavaScript objects representing Kubernetes resources. */
     objs: Promise<any[]>;
 
-    /**
-     * A set of transformations to apply to Kubernetes resource definitions before registering
-     * with engine.
-     *
-     * @example
-     * ```typescript
-     * transformations: [
-     * (obj: any, opts: pulumi.CustomResourceOptions) => {
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
-     *            ];
-     *        }
-     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager-cainjector") {
-     *            opts.aliases = [
-     *                "urn:pulumi:dev::example::kubernetes:yaml:ConfigFile$kubernetes:apps/v1beta1:Deployment::default/cert-manager-cainjector",
-     *            ];
-     *        }
-     *    },
-     * ]
-     * ```
-     */
+    /** A set of transformations to apply to Kubernetes resource definitions before registering with engine. */
     transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
 
     /**
