@@ -25,6 +25,91 @@ import (
 )
 
 // ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+//
+// ## Example Usage
+// ### Local File
+//
+// ```go
+// package main
+//
+// import (
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+// )
+//
+// func main() {
+//     pulumi.Run(func(ctx *pulumi.Context) error {
+//	       _, err := yaml.NewConfigFile(ctx, "example",
+//	           &yaml.ConfigFileArgs{
+//                 File: "foo.yaml",
+//             },
+//	       })
+//	       if err != nil {
+//	           return err
+//	       }
+//
+//	       return nil
+//     })
+// }
+// ```
+// ### YAML with Transformations
+//
+// ```go
+// package main
+//
+// import (
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/kustomize"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+// )
+//
+// func main() {
+//     pulumi.Run(func(ctx *pulumi.Context) error {
+//	       _, err := yaml.NewConfigFile(ctx, "example",
+//	           &yaml.ConfigFileArgs{
+//                 File: "foo.yaml",
+//		           Transformations: []yaml.Transformation{
+//                     // Make every service private to the cluster, i.e., turn all services into ClusterIP
+//		               // instead of LoadBalancer.
+//                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//                         if state["kind"] == "Service" {
+//                             spec := state["spec"].(map[string]interface{})
+//                             spec["type"] = "ClusterIP"
+//                         }
+//                     },
+//
+//                     // Set a resource alias for a previous name.
+//                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//                         if state["kind"] == "Deployment" {
+//                             aliases := pulumi.Aliases([]pulumi.Alias{
+//                                 {
+//                                     Name: pulumi.String("oldName"),
+//                                 },
+//                             })
+//                             opts = append(opts, aliases)
+//                         }
+//                     },
+//
+//                     // Omit a resource from the Chart by transforming the specified resource definition
+//                     // to an empty List.
+//                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//                         name := state["metadata"].(map[string]interface{})["name"]
+//                         if state["kind"] == "Pod" && name == "test" {
+//                             state["apiVersion"] = "core/v1"
+//                             state["kind"] = "List"
+//                         }
+//                     },
+//		           },
+//             },
+//	       })
+//	       if err != nil {
+//	           return err
+//	       }
+//
+//	       return nil
+//     })
+// }
+// ```
 type ConfigFile struct {
 	pulumi.ResourceState
 
