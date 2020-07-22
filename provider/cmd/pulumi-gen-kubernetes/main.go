@@ -269,6 +269,8 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 		"Helm/Unwraps.cs":                 mustLoadFile(filepath.Join(templateDir, "helm", "Unwraps.cs")),
 		"Helm/V2/Chart.cs":                mustLoadFile(filepath.Join(templateDir, "helm", "v2", "Chart.cs")),
 		"Helm/V3/Chart.cs":                mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Chart.cs")),
+		"Kustomize/Directory.cs":          mustLoadFile(filepath.Join(templateDir, "kustomize", "Directory.cs")),
+		"Kustomize/Invokes.cs":            mustLoadFile(filepath.Join(templateDir, "kustomize", "Invokes.cs")),
 		"Yaml/ConfigFile.cs":              mustLoadFile(filepath.Join(templateDir, "yaml", "ConfigFile.cs")),
 		"Yaml/ConfigGroup.cs":             mustLoadFile(filepath.Join(templateDir, "yaml", "ConfigGroup.cs")),
 		"Yaml/Invokes.cs":                 mustLoadFile(filepath.Join(templateDir, "yaml", "Invokes.cs")),
