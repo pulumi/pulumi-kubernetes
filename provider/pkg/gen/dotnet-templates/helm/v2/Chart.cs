@@ -29,6 +29,193 @@ namespace Pulumi.Kubernetes.Helm.V2
     /// the semantics are equivalent to running `helm template` and then using Pulumi to manage the
     /// resulting YAML manifests. Any values that would be retrieved in-cluster are assigned fake
     /// values, and none of Tiller's server-side validity testing is executed.
+    /// 
+    /// ## Example Usage
+    /// ### Local Chart Directory
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Helm;
+    /// using Pulumi.Kubernetes.Helm.V2;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Chart("nginx-ingress", new LocalChartArgs
+    ///         {
+    ///             Path = "./nginx-ingress",
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Remote Chart
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Helm;
+    /// using Pulumi.Kubernetes.Helm.V2;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             FetchOptions = new ChartFetchArgs
+    ///             {
+    ///                 Repo = "https://kubernetes-charts.storage.googleapis.com/"
+    ///             }
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Set Chart Values
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Helm;
+    /// using Pulumi.Kubernetes.Helm.V2;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var values = new Dictionary<string, dynamic>
+    ///         {
+    ///             ["controller"] = new Dictionary<string, dynamic>
+    ///             {
+    ///                 ["metrics"] = new Dictionary<string, dynamic>
+    ///                 {
+    ///                     ["enabled"] = true
+    ///                 }
+    ///             },
+    ///         };
+    /// 
+    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             FetchOptions = new ChartFetchArgs
+    ///             {
+    ///                 Repo = "https://kubernetes-charts.storage.googleapis.com/"
+    ///             },
+    ///             Values = values,
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Deploy Chart into Namespace
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Helm;
+    /// using Pulumi.Kubernetes.Helm.V2;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             Namespace = "test-namespace",
+    ///             FetchOptions = new ChartFetchArgs
+    ///             {
+    ///                 Repo = "https://kubernetes-charts.storage.googleapis.com/"
+    ///             },
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Chart with Transformations
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Collections.Immutable;
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Helm;
+    /// using Pulumi.Kubernetes.Helm.V2;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             FetchOptions = new ChartFetchArgs
+    ///             {
+    ///                 Repo = "https://kubernetes-charts.storage.googleapis.com/"
+    ///             },
+    ///             Transformations =
+    ///             {
+    ///                 LoadBalancerToClusterIP,
+    ///                 ResourceAlias,
+    ///                 OmitTestPod,
+    ///             }
+    /// 
+    ///         });
+    /// 
+    ///         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+    ///         ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             if ((string)obj["kind"] == "Service" && (string)obj["apiVersion"] == "v1")
+    ///             {
+    ///                 var spec = (ImmutableDictionary<string, object>)obj["spec"];
+    ///                 if (spec != null && (string)spec["type"] == "LoadBalancer")
+    ///                 {
+    ///                     return obj.SetItem("spec", spec.SetItem("type", "ClusterIP"));
+    ///                 }
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    /// 
+    ///         // Set a resource alias for a previous name.
+    ///         ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             if ((string)obj["kind"] == "Deployment")
+    ///             {
+    ///                 opts.Aliases = new List<Input<Alias>> { new Alias { Name = "oldName" } };
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    /// 
+    ///         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+    ///         ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             var metadata = (ImmutableDictionary<string, object>)obj["metadata"];
+    ///             if ((string)obj["kind"] == "Pod" && (string)metadata["name"] == "test")
+    ///             {
+    ///                 return new Dictionary<string, object>
+    ///                 {
+    ///                     ["apiVersion"] = "v1",
+    ///                     ["kind"] = "List",
+    ///                     ["items"] = new Dictionary<string, object>(),
+    ///                 }.ToImmutableDictionary();
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    ///     }
+    /// }
+    /// ```
     /// </summary>
     public sealed class Chart : ChartBase
     {

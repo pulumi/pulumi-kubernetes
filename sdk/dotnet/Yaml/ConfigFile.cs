@@ -23,6 +23,95 @@ namespace Pulumi.Kubernetes.Yaml
 {
     /// <summary>
     /// Defines a set of Kubernetes resources from a Kubernetes YAML file. 
+    /// 
+    /// ## Example Usage
+    /// ### Local File
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigFile("example", new ConfigFileArgs
+    ///         {
+    ///             File = "foo.yaml",
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### YAML with Transformations
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Collections.Immutable;
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigFile("example", new ConfigFileArgs
+    ///         {
+    ///             File = "foo.yaml",
+    ///             Transformations =
+    ///                {
+    ///                    LoadBalancerToClusterIP,
+    ///                    ResourceAlias,
+    ///                    OmitTestPod,
+    ///                }
+    ///         });
+    /// 
+    ///         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+    ///         ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             if ((string)obj["kind"] == "Service" && (string)obj["apiVersion"] == "v1")
+    ///             {
+    ///                 var spec = (ImmutableDictionary<string, object>)obj["spec"];
+    ///                 if (spec != null && (string)spec["type"] == "LoadBalancer")
+    ///                 {
+    ///                     return obj.SetItem("spec", spec.SetItem("type", "ClusterIP"));
+    ///                 }
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    /// 
+    ///         // Set a resource alias for a previous name.
+    ///         ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             if ((string)obj["kind"] == "Deployment")
+    ///             {
+    ///                 opts.Aliases = new List<Input<Alias>> { new Alias { Name = "oldName" } };
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    /// 
+    ///         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+    ///         ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             var metadata = (ImmutableDictionary<string, object>)obj["metadata"];
+    ///             if ((string)obj["kind"] == "Pod" && (string)metadata["name"] == "test")
+    ///             {
+    ///                 return new Dictionary<string, object>
+    ///                 {
+    ///                     ["apiVersion"] = "v1",
+    ///                     ["kind"] = "List",
+    ///                     ["items"] = new Dictionary<string, object>(),
+    ///                 }.ToImmutableDictionary();
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    ///     }
+    /// }
+    /// ```
     /// </summary>
     public sealed class ConfigFile : CollectionComponentResource
     {
@@ -38,7 +127,7 @@ namespace Pulumi.Kubernetes.Yaml
             name = MakeName(args, name);
             options ??= new ComponentResourceOptions();
             options.Parent ??= this;
-            
+
             var fileOutput = args?.File.ToOutput() ?? Output.Create(name);
             var resources = fileOutput.Apply(fileId =>
             {
@@ -59,7 +148,7 @@ namespace Pulumi.Kubernetes.Yaml
             }).Apply(text =>
                 Parser.ParseYamlDocument(new ParseArgs
                 {
-                    Objs = Invokes.YamlDecode(new YamlDecodeArgs {Text = text}),
+                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }),
                     Transformations = args?.Transformations ?? new List<TransformationAction>(),
                     ResourcePrefix = args?.ResourcePrefix
                 }, options));
@@ -70,7 +159,7 @@ namespace Pulumi.Kubernetes.Yaml
         private static string MakeName(ConfigFileArgs? args, string name)
             => args?.ResourcePrefix != null ? $"{args.ResourcePrefix}-{name}" : name;
     }
-    
+
     /// <summary>
     /// Resource arguments for <see cref="ConfigFile"/>.
     /// </summary>
@@ -82,7 +171,7 @@ namespace Pulumi.Kubernetes.Yaml
         public Input<string>? File { get; set; }
 
         private List<TransformationAction>? _transformations;
-        
+
         /// <summary>
         /// An optional list of transformations to apply to Kubernetes resource definitions before registering
         /// with engine.

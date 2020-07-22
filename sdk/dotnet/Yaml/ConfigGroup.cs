@@ -27,6 +27,172 @@ namespace Pulumi.Kubernetes.Yaml
     /// 2. Using a list of file patterns: `Files = new[] { "foo/*.yaml", "bar/*.yaml" }`
     /// 3. Using literal strings containing YAML: `Yaml = new[] { "(LITERAL YAML HERE)", "(MORE YAML)" }`
     /// 4. Any combination of files, patterns, or YAML strings.
+    /// 
+    /// ## Example Usage
+    /// ### Local File
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
+    ///         {
+    ///             Files = new[] { "foo.yaml" }
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Multiple Local Files
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
+    ///         {
+    ///             Files = new[] { "foo.yaml", "bar.yaml" }
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Local File Pattern
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
+    ///         {
+    ///             Files = new[] { "yaml/*.yaml" }
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Multiple Local File Patterns
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
+    ///         {
+    ///             Files = new[] { "foo/*.yaml", "bar/*.yaml" }
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Literal YAML String
+    /// 
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
+    ///         {
+    ///             Yaml = @"
+    ///             apiVersion: v1
+    ///             kind: Namespace
+    ///             metadata:
+    ///               name: foo
+    ///             ",
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### YAML with Transformations
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Collections.Immutable;
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Yaml;
+    /// 
+    /// class YamlStack : Stack
+    /// {
+    ///     public YamlStack()
+    ///     {
+    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
+    ///         {
+    ///             Files = new[] { "foo.yaml" },
+    ///             Transformations =
+    ///                {
+    ///                    LoadBalancerToClusterIP,
+    ///                    ResourceAlias,
+    ///                    OmitTestPod,
+    ///                }
+    ///         });
+    /// 
+    ///         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+    ///         ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             if ((string)obj["kind"] == "Service" && (string)obj["apiVersion"] == "v1")
+    ///             {
+    ///                 var spec = (ImmutableDictionary<string, object>)obj["spec"];
+    ///                 if (spec != null && (string)spec["type"] == "LoadBalancer")
+    ///                 {
+    ///                     return obj.SetItem("spec", spec.SetItem("type", "ClusterIP"));
+    ///                 }
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    /// 
+    ///         // Set a resource alias for a previous name.
+    ///         ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             if ((string)obj["kind"] == "Deployment")
+    ///             {
+    ///                 opts.Aliases = new List<Input<Alias>> { new Alias { Name = "oldName" } };
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    /// 
+    ///         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+    ///         ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         {
+    ///             var metadata = (ImmutableDictionary<string, object>)obj["metadata"];
+    ///             if ((string)obj["kind"] == "Pod" && (string)metadata["name"] == "test")
+    ///             {
+    ///                 return new Dictionary<string, object>
+    ///                 {
+    ///                     ["apiVersion"] = "v1",
+    ///                     ["kind"] = "List",
+    ///                     ["items"] = new Dictionary<string, object>(),
+    ///                 }.ToImmutableDictionary();
+    ///             }
+    /// 
+    ///             return obj;
+    ///         }
+    ///     }
+    /// }
+    /// ```
     /// </summary>
     public sealed class ConfigGroup : CollectionComponentResource
     {
@@ -44,7 +210,7 @@ namespace Pulumi.Kubernetes.Yaml
             RegisterResources(Parser.Parse(config, options));
         }
     }
-    
+
     /// <summary>
     /// Resource arguments for <see cref="ConfigGroup"/>.
     /// </summary>
@@ -54,7 +220,7 @@ namespace Pulumi.Kubernetes.Yaml
         /// Set of paths or a URLs that uniquely identify files.
         /// </summary>
         public string[]? Files { get; set; }
-        
+
         private InputList<string>? _yaml;
 
         /// <summary>
@@ -78,7 +244,7 @@ namespace Pulumi.Kubernetes.Yaml
         }
 
         private List<TransformationAction>? _transformations;
-        
+
         /// <summary>
         /// An optional list of transformations to apply to Kubernetes resource definitions before registering
         /// with engine.
