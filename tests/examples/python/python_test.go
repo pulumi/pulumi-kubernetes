@@ -70,7 +70,7 @@ func TestYaml(t *testing.T) {
 		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 14, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 20, len(stackInfo.Deployment.Resources))
 
 			sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 				ri := stackInfo.Deployment.Resources[i]
@@ -101,21 +101,21 @@ func TestYaml(t *testing.T) {
 			assert.True(t, strings.HasPrefix(name.(string), "foobar"))
 
 			// Verify namespace1.
-			namespace := stackInfo.Deployment.Resources[4]
+			namespace := stackInfo.Deployment.Resources[7]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
 			name, _ = openapi.Pluck(namespace.Outputs, "metadata", "name")
 			namespaceName = name.(string)
 			assert.True(t, strings.HasPrefix(namespaceName, "ns"), fmt.Sprintf("%s %s", name, "ns"))
 
 			// Verify namespace2.
-			namespace2 := stackInfo.Deployment.Resources[5]
+			namespace2 := stackInfo.Deployment.Resources[8]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace2.URN.Type())
 			name, _ = openapi.Pluck(namespace2.Outputs, "metadata", "name")
 			namespace2Name = name.(string)
 			assert.True(t, strings.HasPrefix(namespace2Name, "ns2"), fmt.Sprintf("%s %s", name, "ns2"))
 
 			// Verify Pod "bar".
-			podBar := stackInfo.Deployment.Resources[6]
+			podBar := stackInfo.Deployment.Resources[9]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), podBar.URN.Type())
 			name, _ = openapi.Pluck(podBar.Outputs, "metadata", "name")
 			assert.True(t, strings.Contains(name.(string), "bar"), fmt.Sprintf("%s %s", name, "bar"))
@@ -123,7 +123,7 @@ func TestYaml(t *testing.T) {
 			assert.Equal(t, ns, namespaceName)
 
 			// Verify Pod "baz".
-			podBaz := stackInfo.Deployment.Resources[7]
+			podBaz := stackInfo.Deployment.Resources[10]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), podBaz.URN.Type())
 			name, _ = openapi.Pluck(podBaz.Outputs, "metadata", "name")
 			assert.True(t, strings.Contains(name.(string), "baz"), fmt.Sprintf("%s %s", name, "baz"))
@@ -131,7 +131,7 @@ func TestYaml(t *testing.T) {
 			assert.Equal(t, ns, namespaceName)
 
 			// Verify Pod "foo".
-			podFoo := stackInfo.Deployment.Resources[8]
+			podFoo := stackInfo.Deployment.Resources[11]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), podFoo.URN.Type())
 			name, _ = openapi.Pluck(podFoo.Outputs, "metadata", "name")
 			assert.True(t, strings.Contains(name.(string), "foo"), fmt.Sprintf("%s %s", name, "foo"))
@@ -142,11 +142,11 @@ func TestYaml(t *testing.T) {
 			// first ConfigFile.
 
 			// Verify the provider resources.
-			provRes := stackInfo.Deployment.Resources[12]
+			provRes := stackInfo.Deployment.Resources[18]
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			// Verify root resource.
-			stackRes := stackInfo.Deployment.Resources[13]
+			stackRes := stackInfo.Deployment.Resources[19]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
 			// TODO[pulumi/pulumi#2782] Testing of secrets blocked on a bug in Python support for secrets.
