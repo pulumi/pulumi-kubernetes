@@ -22,7 +22,7 @@ import (
 	appsv1 "k8s.io/api/apps/v1"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
-	"k8s.io/api/extensions/v1beta1"
+	networkingv1b1 "k8s.io/api/networking/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -40,7 +40,7 @@ func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
 	case kinds.Job:
 		output = new(batchv1.Job)
 	case kinds.Ingress:
-		output = new(v1beta1.Ingress)
+		output = new(networkingv1b1.Ingress)
 	case kinds.PersistentVolume:
 		output = new(corev1.PersistentVolume)
 	case kinds.PersistentVolumeClaim:

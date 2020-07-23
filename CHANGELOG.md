@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Handle networking/v1beta1 Ingress resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1221)
+
 ### Improvements
 
 -   Add NodeJS usage examples for Helm, Kustomize, and YAML resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1205)
