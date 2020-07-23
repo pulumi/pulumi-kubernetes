@@ -3,9 +3,11 @@
 
 import json
 from copy import copy
+from glob import glob
 from inspect import getargspec
 from typing import Callable, Dict, List, Optional
 
+import pulumi
 import pulumi.runtime
 import requests
 from pulumi_kubernetes.apiextensions import CustomResource
@@ -13,7 +15,202 @@ from pulumi_kubernetes.apiextensions import CustomResource
 from . import tables
 from .utilities import get_version
 
-__all__ = ['ConfigFile']
+__all__ = ['ConfigFile', 'ConfigGroup']
+
+
+class ConfigGroup(pulumi.ComponentResource):
+    resources: pulumi.Output[dict]
+    """
+    Kubernetes resources contained in this ConfigGroup.
+    """
+
+    def __init__(self, name, files=None, yaml=None, opts=None, transformations=None, resource_prefix=None):
+        """
+        ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
+        may be supplied using any of the following methods:
+
+        1. Using a filename or a list of filenames:
+        2. Using a file pattern or a list of file patterns:
+        3. Using a literal string containing YAML, or a list of such strings:
+        4. Any combination of files, patterns, or YAML strings:
+
+        ## Example Usage
+        ### Local File
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigGroup
+
+        example = ConfigGroup(
+            "example",
+            files=["foo.yaml"],
+        )
+        ```
+        ### Multiple Local File
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigGroup
+
+        example = ConfigGroup(
+            "example",
+            files=["foo.yaml", "bar.yaml"],
+        )
+        ```
+        ### Local File Pattern
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigGroup
+
+        example = ConfigGroup(
+            "example",
+            files=["yaml/*.yaml"],
+        )
+        ```
+        ### Multiple Local File Patterns
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigGroup
+
+        example = ConfigGroup(
+            "example",
+            files=["foo/*.yaml", "bar/*.yaml"],
+        )
+        ```
+        ### Literal YAML String
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigGroup
+
+        example = ConfigGroup(
+            "example",
+            yaml=['''
+        apiVersion: v1
+        kind: Namespace
+        metadata:
+          name: foo
+        ''']
+        )
+        ```
+        ### YAML with Transformations
+
+        ```python
+        from pulumi_kubernetes.yaml import ConfigFile
+
+        # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
+        def make_service_private(obj, opts):
+            if obj["kind"] == "Service" and obj["apiVersion"] == "v1":
+                try:
+                    t = obj["spec"]["type"]
+                    if t == "LoadBalancer":
+                        obj["spec"]["type"] = "ClusterIP"
+                except KeyError:
+                    pass
+
+
+        # Set a resource alias for a previous name.
+        def alias(obj, opts):
+            if obj["kind"] == "Deployment":
+                opts.aliases = ["oldName"]
+
+
+        # Omit a resource from the Chart by transforming the specified resource definition to an empty List.
+        def omit_resource(obj, opts):
+            if obj["kind"] == "Pod" and obj["metadata"]["name"] == "test":
+                obj["apiVersion"] = "v1"
+                obj["kind"] = "List"
+
+
+        example = ConfigGroup(
+            "example",
+            files=["foo.yaml"],
+            transformations=[make_service_private, alias, omit_resource],
+        )
+        ```
+
+        :param str name: A name for a resource.
+        :param Optional[List[str]] files: Set of paths or a URLs that uniquely identify files.
+        :param Optional[List[str]] yaml: YAML text containing Kubernetes resource definitions.
+        :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
+        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
+               transformations to apply to Kubernetes resource definitions before registering with engine.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        """
+        if not name:
+            raise TypeError('Missing resource name argument (for URN creation)')
+        if not isinstance(name, str):
+            raise TypeError('Expected resource name to be a string')
+        if opts and not isinstance(opts, pulumi.ResourceOptions):
+            raise TypeError('Expected resource options to be a ResourceOptions instance')
+        if not files:
+            files = []
+        if not yaml:
+            yaml = []
+
+        __props__ = dict()
+
+        if resource_prefix:
+            name = f"{resource_prefix}-{name}"
+        super(ConfigGroup, self).__init__(
+            "kubernetes:yaml:ConfigGroup",
+            name,
+            __props__,
+            opts)
+
+        self.resources = pulumi.Output.from_input({})
+
+        _files: List[str] = []
+        for file in files:
+            if _is_url(file):
+                _files.append(file)
+            else:
+                _files += [f for f in glob(file)]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
+
+        for file in _files:
+            cf = ConfigFile(
+                file, file_id=file, transformations=transformations, resource_prefix=resource_prefix, opts=opts)
+            # Add any new ConfigFile resources to the ConfigGroup's resources
+            self.resources = pulumi.Output.all(cf.resources, self.resources).apply(lambda x: {**x[0], **x[1]})
+
+        for text in yaml:
+            # Rather than using the default provider for the following invoke call, use the version specified
+            # in package.json.
+            invoke_opts = pulumi.InvokeOptions(version=get_version())
+
+            __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
+            resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
+            # Add any new YAML resources to the ConfigGroup's resources
+            self.resources = pulumi.Output.all(resources, self.resources).apply(lambda x: {**x[0], **x[1]})
+
+        # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
+        # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
+        # resolution of all resources that this YAML document created.
+        self.register_outputs({"resources": self.resources})
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
+
+    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
+        """
+        get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
+        name. For example: `get_resource("apps/v1/Deployment", "nginx")`
+
+        :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
+        :param str name: Name of the resource to retrieve
+        :param str namespace: Optional namespace of the resource to retrieve
+        """
+
+        # `id` will either be `${name}` or `${namespace}/${name}`.
+        id = pulumi.Output.from_input(name)
+        if namespace is not None:
+            id = pulumi.Output.concat(namespace, '/', name)
+
+        resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
+        return resource_id.apply(lambda x: self.resources[x])
 
 
 class ConfigFile(pulumi.ComponentResource):
@@ -98,7 +295,7 @@ class ConfigFile(pulumi.ComponentResource):
             __props__,
             opts)
 
-        if file_id.startswith('http://') or file_id.startswith('https://'):
+        if _is_url(file_id):
             text = _read_url(file_id)
         else:
             text = _read_file(file_id)
@@ -140,6 +337,10 @@ class ConfigFile(pulumi.ComponentResource):
 
         resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
         return resource_id.apply(lambda x: self.resources[x])
+
+
+def _is_url(url: str) -> bool:
+    return url.startswith('http://') or url.startswith('https://')
 
 
 def _read_url(url: str) -> str:
