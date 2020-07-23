@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.yaml import ConfigFile
+from pulumi_kubernetes.yaml import ConfigFile, ConfigGroup
 
 ns = Namespace("ns")
 ns2 = Namespace("ns2")
@@ -56,4 +56,14 @@ cf_url2 = ConfigFile(
             "nginx-deployment.yaml",
     transformations=[set_namespace(ns2)],
     resource_prefix="dup"
+)
+cg = ConfigGroup(
+    "deployment",
+    files=["ns*.yaml"],
+    yaml=["""
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cg3
+    """]
 )
