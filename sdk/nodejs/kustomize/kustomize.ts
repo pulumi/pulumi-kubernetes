@@ -60,15 +60,17 @@ import * as yaml from "../yaml";
  *
  *     // Set a resource alias for a previous name.
  *     (obj: any, opts: pulumi.CustomResourceOptions) => {
- *     if (obj.kind === "Deployment") {
- *       opts.aliases = [{ name: "oldName" }]
+ *       if (obj.kind === "Deployment") {
+ *         opts.aliases = [{ name: "oldName" }]
+ *       }
  *     },
  *
  *     // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
  *     (obj: any, opts: pulumi.CustomResourceOptions) => {
- *     if (obj.kind === "Pod" && obj.metadata.name === "test") {
- *       obj.apiVersion = "v1"
- *       obj.kind = "List"
+ *       if (obj.kind === "Pod" && obj.metadata.name === "test") {
+ *         obj.apiVersion = "v1"
+ *         obj.kind = "List"
+ *       }
  *     },
  *   ],
  * });

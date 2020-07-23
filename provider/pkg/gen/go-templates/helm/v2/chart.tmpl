@@ -58,14 +58,14 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//	           Path: pulumi.String("./nginx-ingress"),
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//             Path: pulumi.String("./nginx-ingress"),
+//         })
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
@@ -81,18 +81,18 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//		       Chart:     pulumi.String("nginx-ingress"),
-//		       Version:   pulumi.String("1.24.4"),
-//		       FetchArgs: helm.FetchArgs{
-//		           Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
-//		       },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//             Chart:   pulumi.String("nginx-ingress"),
+//             Version: pulumi.String("1.24.4"),
+//             FetchArgs: helm.FetchArgs{
+//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//             },
+//         })
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
@@ -108,12 +108,12 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//		       Chart:     pulumi.String("nginx-ingress"),
-//		       Version:   pulumi.String("1.24.4"),
-//		       FetchArgs: helm.FetchArgs{
-//		           Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
-//		       },
+//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//             Chart:   pulumi.String("nginx-ingress"),
+//             Version: pulumi.String("1.24.4"),
+//             FetchArgs: helm.FetchArgs{
+//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//             },
 //             Values: pulumi.Map{
 //                 "controller": pulumi.Map{
 //                     "metrics": pulumi.Map{
@@ -121,12 +121,12 @@ import (
 //                     },
 //                 },
 //             },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         })
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
@@ -142,19 +142,19 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//		       Chart:     pulumi.String("nginx-ingress"),
-//		       Version:   pulumi.String("1.24.4"),
-//		       Namespace: pulumi.String("test-namespace"),
-//		       FetchArgs: helm.FetchArgs{
-//		           Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
-//		       },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//             Chart:     pulumi.String("nginx-ingress"),
+//             Version:   pulumi.String("1.24.4"),
+//             Namespace: pulumi.String("test-namespace"),
+//             FetchArgs: helm.FetchArgs{
+//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//             },
+//         })
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
@@ -171,15 +171,15 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//		       Chart:     pulumi.String("nginx-ingress"),
-//		       Version:   pulumi.String("1.24.4"),
-//		       FetchArgs: helm.FetchArgs{
-//		           Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
-//		       },
-//		       Transformations: []yaml.Transformation{
+//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//             Chart:   pulumi.String("nginx-ingress"),
+//             Version: pulumi.String("1.24.4"),
+//             FetchArgs: helm.FetchArgs{
+//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//             },
+//             Transformations: []yaml.Transformation{
 //                 // Make every service private to the cluster, i.e., turn all services into ClusterIP
-//		           // instead of LoadBalancer.
+//                 // instead of LoadBalancer.
 //                 func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
 //                     if state["kind"] == "Service" {
 //                         spec := state["spec"].(map[string]interface{})
@@ -208,13 +208,13 @@ import (
 //                         state["kind"] = "List"
 //                     }
 //                 },
-//		       },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//             },
+//         })
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```

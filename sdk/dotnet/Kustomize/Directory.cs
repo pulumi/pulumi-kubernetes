@@ -85,11 +85,11 @@ namespace Pulumi.Kubernetes.Kustomize
     ///         });
     /// 
     ///         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
-    ///         ImmutableDictionary&amp;lt;string, object&amp;gt; LoadBalancerToClusterIP(ImmutableDictionary&amp;lt;string, object&amp;gt; obj, CustomResourceOptions opts)
+    ///         ImmutableDictionary&lt;string, object&gt; LoadBalancerToClusterIP(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
     ///         {
     ///             if ((string)obj["kind"] == "Service" &amp;&amp; (string)obj["apiVersion"] == "v1")
     ///             {
-    ///                 var spec = (ImmutableDictionary&amp;lt;string, object&amp;gt;)obj["spec"];
+    ///                 var spec = (ImmutableDictionary&lt;string, object&gt;)obj["spec"];
     ///                 if (spec != null &amp;&amp; (string)spec["type"] == "LoadBalancer")
     ///                 {
     ///                     return obj.SetItem("spec", spec.SetItem("type", "ClusterIP"));
@@ -100,27 +100,27 @@ namespace Pulumi.Kubernetes.Kustomize
     ///         }
     /// 
     ///         // Set a resource alias for a previous name.
-    ///         ImmutableDictionary&amp;lt;string, object&amp;gt; ResourceAlias(ImmutableDictionary&amp;lt;string, object&amp;gt; obj, CustomResourceOptions opts)
+    ///         ImmutableDictionary&lt;string, object&gt; ResourceAlias(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
     ///         {
     ///             if ((string)obj["kind"] == "Deployment")
     ///             {
-    ///                 opts.Aliases = new List&amp;lt;Input&amp;lt;Alias&amp;gt;&amp;gt; { new Alias { Name = "oldName" } };
+    ///                 opts.Aliases = new List&lt;Input&lt;Alias&gt;&gt; { new Alias { Name = "oldName" } };
     ///             }
     /// 
     ///             return obj;
     ///         }
     /// 
     ///         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
-    ///         ImmutableDictionary&amp;lt;string, object&amp;gt; OmitTestPod(ImmutableDictionary&amp;lt;string, object&amp;gt; obj, CustomResourceOptions opts)
+    ///         ImmutableDictionary&lt;string, object&gt; OmitTestPod(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
     ///         {
-    ///             var metadata = (ImmutableDictionary&amp;lt;string, object&amp;gt;)obj["metadata"];
+    ///             var metadata = (ImmutableDictionary&lt;string, object&gt;)obj["metadata"];
     ///             if ((string)obj["kind"] == "Pod" &amp;&amp; (string)metadata["name"] == "test")
     ///             {
-    ///                 return new Dictionary&amp;lt;string, object&amp;gt;
+    ///                 return new Dictionary&lt;string, object&gt;
     ///                 {
     ///                     ["apiVersion"] = "v1",
     ///                     ["kind"] = "List",
-    ///                     ["items"] = new Dictionary&amp;lt;string, object&amp;gt;(),
+    ///                     ["items"] = new Dictionary&lt;string, object&gt;(),
     ///                 }.ToImmutableDictionary();
     ///             }
     /// 
