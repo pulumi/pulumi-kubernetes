@@ -38,16 +38,16 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := kustomize.NewDirectory(ctx, "helloWorldLocal",
-//	           kustomize.DirectoryArgs{
+//         _, err := kustomize.NewDirectory(ctx, "helloWorldLocal",
+//             kustomize.DirectoryArgs{
 //                 Directory: pulumi.String("./helloWorld"),
 //             },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         )
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
@@ -63,16 +63,16 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := kustomize.NewDirectory(ctx, "helloWorldRemote",
-//	           kustomize.DirectoryArgs{
+//         _, err := kustomize.NewDirectory(ctx, "helloWorldRemote",
+//             kustomize.DirectoryArgs{
 //                 Directory: pulumi.String("https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld"),
 //             },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         )
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
@@ -89,12 +89,12 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := kustomize.NewDirectory(ctx, "helloWorldRemote",
-//	           kustomize.DirectoryArgs{
+//         _, err := kustomize.NewDirectory(ctx, "helloWorldRemote",
+//             kustomize.DirectoryArgs{
 //                 Directory: pulumi.String("https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld"),
-//		           Transformations: []yaml.Transformation{
+//                 Transformations: []yaml.Transformation{
 //                     // Make every service private to the cluster, i.e., turn all services into ClusterIP
-//		               // instead of LoadBalancer.
+//                     // instead of LoadBalancer.
 //                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
 //                         if state["kind"] == "Service" {
 //                             spec := state["spec"].(map[string]interface{})
@@ -123,14 +123,14 @@ import (
 //                             state["kind"] = "List"
 //                         }
 //                     },
-//		           },
+//                 },
 //             },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         )
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```

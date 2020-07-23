@@ -39,16 +39,16 @@ import (
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := yaml.NewConfigFile(ctx, "example",
-//	           &yaml.ConfigFileArgs{
+//         _, err := yaml.NewConfigFile(ctx, "example",
+//             &yaml.ConfigFileArgs{
 //                 File: "foo.yaml",
 //             },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         )
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
@@ -58,19 +58,18 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/kustomize"
 //     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
 //     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 // )
 //
 // func main() {
 //     pulumi.Run(func(ctx *pulumi.Context) error {
-//	       _, err := yaml.NewConfigFile(ctx, "example",
-//	           &yaml.ConfigFileArgs{
+//         _, err := yaml.NewConfigFile(ctx, "example",
+//             &yaml.ConfigFileArgs{
 //                 File: "foo.yaml",
-//		           Transformations: []yaml.Transformation{
+//                 Transformations: []yaml.Transformation{
 //                     // Make every service private to the cluster, i.e., turn all services into ClusterIP
-//		               // instead of LoadBalancer.
+//                     // instead of LoadBalancer.
 //                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
 //                         if state["kind"] == "Service" {
 //                             spec := state["spec"].(map[string]interface{})
@@ -99,14 +98,14 @@ import (
 //                             state["kind"] = "List"
 //                         }
 //                     },
-//		           },
+//                 },
 //             },
-//	       })
-//	       if err != nil {
-//	           return err
-//	       }
+//         )
+//         if err != nil {
+//             return err
+//         }
 //
-//	       return nil
+//         return nil
 //     })
 // }
 // ```
