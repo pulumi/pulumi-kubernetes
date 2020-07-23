@@ -85,12 +85,12 @@ namespace Pulumi.Kubernetes.Kustomize
     ///         });
     /// 
     ///         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
-    ///         ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         ImmutableDictionary&amp;lt;string, object&amp;gt; LoadBalancerToClusterIP(ImmutableDictionary&amp;lt;string, object&amp;gt; obj, CustomResourceOptions opts)
     ///         {
-    ///             if ((string)obj["kind"] == "Service" && (string)obj["apiVersion"] == "v1")
+    ///             if ((string)obj["kind"] == "Service" &amp;&amp; (string)obj["apiVersion"] == "v1")
     ///             {
-    ///                 var spec = (ImmutableDictionary<string, object>)obj["spec"];
-    ///                 if (spec != null && (string)spec["type"] == "LoadBalancer")
+    ///                 var spec = (ImmutableDictionary&amp;lt;string, object&amp;gt;)obj["spec"];
+    ///                 if (spec != null &amp;&amp; (string)spec["type"] == "LoadBalancer")
     ///                 {
     ///                     return obj.SetItem("spec", spec.SetItem("type", "ClusterIP"));
     ///                 }
@@ -100,27 +100,27 @@ namespace Pulumi.Kubernetes.Kustomize
     ///         }
     /// 
     ///         // Set a resource alias for a previous name.
-    ///         ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         ImmutableDictionary&amp;lt;string, object&amp;gt; ResourceAlias(ImmutableDictionary&amp;lt;string, object&amp;gt; obj, CustomResourceOptions opts)
     ///         {
     ///             if ((string)obj["kind"] == "Deployment")
     ///             {
-    ///                 opts.Aliases = new List<Input<Alias>> { new Alias { Name = "oldName" } };
+    ///                 opts.Aliases = new List&amp;lt;Input&amp;lt;Alias&amp;gt;&amp;gt; { new Alias { Name = "oldName" } };
     ///             }
     /// 
     ///             return obj;
     ///         }
     /// 
     ///         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
-    ///         ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+    ///         ImmutableDictionary&amp;lt;string, object&amp;gt; OmitTestPod(ImmutableDictionary&amp;lt;string, object&amp;gt; obj, CustomResourceOptions opts)
     ///         {
-    ///             var metadata = (ImmutableDictionary<string, object>)obj["metadata"];
-    ///             if ((string)obj["kind"] == "Pod" && (string)metadata["name"] == "test")
+    ///             var metadata = (ImmutableDictionary&amp;lt;string, object&amp;gt;)obj["metadata"];
+    ///             if ((string)obj["kind"] == "Pod" &amp;&amp; (string)metadata["name"] == "test")
     ///             {
-    ///                 return new Dictionary<string, object>
+    ///                 return new Dictionary&amp;lt;string, object&amp;gt;
     ///                 {
     ///                     ["apiVersion"] = "v1",
     ///                     ["kind"] = "List",
-    ///                     ["items"] = new Dictionary<string, object>(),
+    ///                     ["items"] = new Dictionary&amp;lt;string, object&amp;gt;(),
     ///                 }.ToImmutableDictionary();
     ///             }
     /// 
