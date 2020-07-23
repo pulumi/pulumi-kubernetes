@@ -6,6 +6,7 @@
 -   Add Python usage examples for Helm, Kustomize, and YAML resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1209)
 -   Add v3 Helm package for Go SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1211)
 -   Add Go usage examples for Helm, Kustomize, and YAML resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1212)
+-   Add yaml.ConfigGroup to Python SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1217)
 
 ## 2.4.0 (July 7, 2020)
 
