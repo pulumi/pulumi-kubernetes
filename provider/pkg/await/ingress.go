@@ -7,16 +7,15 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi/sdk/v2/go/common/util/cmdutil"
-
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
-	"k8s.io/api/extensions/v1beta1"
+	networkingv1b1 "k8s.io/api/networking/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -298,12 +297,12 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 		inputIngressName)
 }
 
-func decodeIngress(u *unstructured.Unstructured) (*v1beta1.Ingress, error) {
+func decodeIngress(u *unstructured.Unstructured) (*networkingv1b1.Ingress, error) {
 	b, err := u.MarshalJSON()
 	if err != nil {
 		return nil, err
 	}
-	var obj v1beta1.Ingress
+	var obj networkingv1b1.Ingress
 	err = json.Unmarshal(b, &obj)
 	if err != nil {
 		return nil, err
