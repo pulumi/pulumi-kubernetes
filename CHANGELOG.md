@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.4.1 (July 24, 2020)
+
 ### Bug Fixes
 
 -   Handle networking/v1beta1 Ingress resources. (https://github.com/pulumi/pulumi-kubernetes/pull/1221)
