@@ -2,7 +2,8 @@
 
 ### Bug Fixes
 
--   Fix server-side diff when immutable fields change. (https://github.com/pulumi/pulumi-kubernetes/pull/1223)
+-   Fix server-side diff when immutable fields change. (https://github.com/pulumi/pulumi-kubernetes/pull/988)
+-   Update json-patch mod to fix hangs on pulumi update. (https://github.com/pulumi/pulumi-kubernetes/pull/1223)
 
 ## 2.4.1 (July 24, 2020)
 
