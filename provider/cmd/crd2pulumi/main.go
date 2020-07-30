@@ -17,27 +17,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
-	"path"
-	"path/filepath"
 
-	"github.com/pkg/errors"
-
-	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/nodejs"
-	crdschema "github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/schema"
 	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
-	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-)
-
-// Language is the SDK language.
-type Language string
-
-const (
-	DotNet Language = "dotnet"
-	Go     Language = "go"
-	NodeJS Language = "nodejs"
-	Python Language = "python"
 )
 
 func main() {
@@ -55,64 +37,19 @@ func main() {
 		return
 	}
 
-	language, yamlPath := Language(args[0]), args[1]
-
-	// Read the YAML file, unmarshal it into an unstruct.Unstructured, and parse
-	// it into a map[string]pschema.ObjectTypeSpec
-	yamlFile, err := ioutil.ReadFile(yamlPath)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error reading the yaml file: %v\n", err)
-		os.Exit(-1)
-	}
-	crd, err := crdschema.UnmarshalYaml(yamlFile)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error unmarshalling yaml: %v\n", err)
-		os.Exit(-1)
-	}
-	types := crdschema.GetTypes(crd)
-
-	// User can either specify their own output path, or use the default one
-	var outputPath string
+	language, yamlPath, outputPath := args[0], args[1], ""
 	if len(args) > 2 {
 		outputPath = args[2]
-	} else {
-		plural, _, err := unstruct.NestedString(crd.Object, "spec", "names", "plural")
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "error getting plural name: %v\n", err)
-			os.Exit(-1)
-		}
-		outputPath = getDefaultOutputPath(yamlPath, plural, language)
 	}
 
-	switch language {
-	case NodeJS:
-		code, err := nodejs.GenerateTypeScriptTypes(types)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v\n", errors.Wrap(err, "generating nodejs types"))
-			os.Exit(-1)
-		}
-		err = ioutil.WriteFile(outputPath, code, 0644)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v\n", errors.Wrap(err, "outputting to file"))
-			os.Exit(-1)
-		}
-	default:
-		panic(fmt.Sprintf("Unrecognized language '%s'", language))
+	generator, err := NewCustomResourceGenerator(language, yamlPath, outputPath)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		os.Exit(-1)
 	}
-}
-
-func getDefaultOutputPath(yamlPath string, plural string, language Language) string {
-	var extension string
-	switch language {
-	case NodeJS:
-		extension = "ts"
-	case DotNet:
-		extension = "cs"
-	case Python:
-		extension = "py"
-	case Go:
-		extension = "go"
+	err = generator.GenerateCode()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "generate code: %v\n", err)
+		os.Exit(-1)
 	}
-	outputFileName := fmt.Sprintf("%s.%s", plural, extension)
-	return path.Join(filepath.Dir(yamlPath), outputFileName)
 }

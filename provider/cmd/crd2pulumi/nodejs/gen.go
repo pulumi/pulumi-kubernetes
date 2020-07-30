@@ -18,30 +18,18 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 )
 
-const tool = "crdgen"
+const tool = "crd2pulumi"
 
-func genConstructor(argsName, apiVersion, kind string) []string {
-	header := fmt.Sprintf("export class %s extends k8s.apiextensions.CustomResource {\n", kind)
-	constructor := fmt.Sprintf("\tconstructor(name: string, args?: %s, opts?: pulumi.CustomResourceOptions) {\n", argsName)
-	super := fmt.Sprintf("\t\tsuper(name, { apiVersion: \"%s\", kind: \"%s\", ...args }, opts)\n", apiVersion, kind)
-	return []string{
-		header,
-		constructor,
-		super,
-		"\t}\n",
-		"}\n",
-	}
-}
-
-func GenerateTypeScriptTypes(types map[string]schema.ObjectTypeSpec) ([]byte, error) {
+func GenerateTypes(objectTypeSpecs map[string]schema.ObjectTypeSpec) (string, error) {
 	// Create some a property map that references our types, that we can add
 	// as properties to a fake resource, otherwise, our types won't be generated
 	// by the Node.js codegen in `types/input.ts` or `types/output.ts` in-memory files.
 	properties := map[string]schema.PropertySpec{}
-	for name := range types {
+	for name := range objectTypeSpecs {
 		properties[name] = schema.PropertySpec{
 			TypeSpec: schema.TypeSpec{
 				Ref: fmt.Sprintf("#/types/%s", name),
@@ -52,7 +40,7 @@ func GenerateTypeScriptTypes(types map[string]schema.ObjectTypeSpec) ([]byte, er
 	// Create a fake package that includes the types passed-in to this function.
 	var pkgSpec = schema.PackageSpec{
 		// Include the passed-in types.
-		Types: types,
+		Types: objectTypeSpecs,
 
 		// Create a fake resource that has the properties.
 		Resources: map[string]schema.ResourceSpec{
@@ -73,18 +61,15 @@ func GenerateTypeScriptTypes(types map[string]schema.ObjectTypeSpec) ([]byte, er
 	// Convert the PackageSpec into a Package.
 	pkg, err := schema.ImportSpec(pkgSpec, nil)
 	if err != nil {
-		return []byte{}, err
+		fmt.Println(err)
+		return "", err
 	}
 
 	// Generate all the code for the package.
-	files, err := GeneratePackage(tool, pkg, nil)
+	types, err := nodejs.GenerateTypes(tool, pkg)
 	if err != nil {
-		return []byte{}, err
+		return "", err
 	}
 
-	if file, ok := files["types/input.ts"]; ok {
-		return file, nil
-	}
-
-	return []byte{}, nil
+	return types, nil
 }

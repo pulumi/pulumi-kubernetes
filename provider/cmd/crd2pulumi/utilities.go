@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package schema
+package main
 
 import (
 	"bytes"
@@ -46,7 +46,7 @@ func NestedMapSlice(obj map[string]interface{}, fields ...string) ([]map[string]
 	}
 	m, ok := val.([]interface{})
 	if !ok {
-		return nil, true, fmt.Errorf("%v accessor error: %v is of the type %T, expected []interface{}", jsonPath(fields), val, val)
+		return nil, false, fmt.Errorf("%v accessor error: %v is of the type %T, expected []interface{}", jsonPath(fields), val, val)
 	}
 	mapSlice := make([]map[string]interface{}, 0, len(m))
 	for _, v := range m {
