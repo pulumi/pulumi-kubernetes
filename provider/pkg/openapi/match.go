@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	jsonpatch "github.com/evanphx/json-patch"
 	"k8s.io/client-go/util/jsonpath"
@@ -27,20 +28,19 @@ func PatchPropertiesChanged(patch map[string]interface{}, paths []string) ([]str
 	j := jsonpath.New("")
 	matches := []string{}
 	for _, path := range paths {
-		j.AllowMissingKeys(true)
+		j.AllowMissingKeys(false) // Explicitly handle any returned errors.
 		err := j.Parse(fmt.Sprintf("{%s}", path))
 		if err != nil {
 			return nil, err
 		}
 		buf := new(bytes.Buffer)
 		err = j.Execute(buf, patch)
-		if err != nil {
+		if err != nil && strings.Contains(err.Error(), "not found") {
 			continue
 		}
 
-		if len(buf.String()) > 0 {
-			matches = append(matches, path)
-		}
+		// If no error was returned, then this is a match.
+		matches = append(matches, path)
 	}
 
 	return matches, nil
