@@ -1,16 +1,17 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
-	"strings"
 
+	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/nodejs"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -49,12 +50,12 @@ type CustomResourceGenerator struct {
 
 func NewCustomResourceGenerator(language, yamlPath, outputPath string) (CustomResourceGenerator, error) {
 	if language != DotNet && language != Go && language != NodeJS && language != Python {
-		return CustomResourceGenerator{}, errors.New("invalid language: " + language)
+		return CustomResourceGenerator{}, errors.New("invalid language " + language)
 	}
 
 	yamlFile, err := ioutil.ReadFile(yamlPath)
 	if err != nil {
-		return CustomResourceGenerator{}, fmt.Errorf("read file %s: %v", yamlPath, err)
+		return CustomResourceGenerator{}, errors.Wrapf(err, "reading file: %s", yamlPath)
 	}
 
 	crd, err := UnmarshalYaml(yamlFile)
@@ -103,9 +104,11 @@ func NewCustomResourceGenerator(language, yamlPath, outputPath string) (CustomRe
 				extension = "py"
 			case Go:
 				extension = "go"
+			default:
+				contract.Failf("unexpected language %s", language)
 			}
 			outputFileName := plural + "." + extension
-			return path.Join(filepath.Dir(yamlPath), outputFileName)
+			return filepath.Join(filepath.Dir(yamlPath), outputFileName)
 		}
 		outputPath = defaultOutputPath(yamlPath, plural, language)
 	}
@@ -123,7 +126,7 @@ func NewCustomResourceGenerator(language, yamlPath, outputPath string) (CustomRe
 	return customResourceGenerator, nil
 }
 
-func (gen *CustomResourceGenerator) GetName() string {
+func (gen *CustomResourceGenerator) Name() string {
 	return gen.Plural + "." + gen.Group
 }
 
@@ -137,14 +140,13 @@ func (gen *CustomResourceGenerator) GetVersionNames() []string {
 }
 
 func (gen *CustomResourceGenerator) GenerateCode() error {
-	objectTypeSpecs := GetObjectTypeSpecs(gen.Versions, gen.GetName(), gen.Kind)
-	PrettyPrint(objectTypeSpecs)
+	objectTypeSpecs := GetObjectTypeSpecs(gen.Versions, gen.Name(), gen.Kind)
 
 	switch gen.Language {
 	case NodeJS:
 		types, err := nodejs.GenerateTypes(objectTypeSpecs)
 		if err != nil {
-			return fmt.Errorf("generate code: %v", err)
+			return fmt.Errorf("generate code %v", err)
 		}
 		classes := gen.GenerateNodeJSClasses()
 
@@ -152,13 +154,18 @@ func (gen *CustomResourceGenerator) GenerateCode() error {
 		if err != nil {
 			return fmt.Errorf("creating file at %s: %v", gen.OutputPath, err)
 		}
+		defer file.Close()
 		file.WriteString(types)
 		file.WriteString(classes)
-		defer file.Close()
 		return nil
 	case DotNet:
+		fallthrough
 	case Python:
+		fallthrough
 	case Go:
+		return errors.Errorf("non-supported language %s", gen.Language)
+	default:
+		contract.Failf("unexpected language %s", gen.Language)
 	}
 
 	return nil
@@ -168,21 +175,21 @@ func (gen *CustomResourceGenerator) GenerateNodeJSClasses() string {
 	versionNames := gen.GetVersionNames()
 	kind := gen.Kind
 	group := gen.Group
-	name := gen.GetName()
+	name := gen.Name()
 
 	// Generates a CustomResource sub-class for a single version
-	generateResourceClass := func(sb *strings.Builder, version, kind, name, group string) {
+	generateResourceClass := func(w io.Writer, version, kind, name, group string) {
 		argsName := version + "." + kind
 		apiVersion := fmt.Sprintf("%s/%s", group, version)
-		sb.WriteString(fmt.Sprintf("export namespace %s {\n", version))
-		sb.WriteString(fmt.Sprintf("\texport class %s extends k8s.apiextensions.CustomResource {\n", kind))
-		sb.WriteString(fmt.Sprintf("\t\tconstructor(name: string, args?: %s, opts?: pulumi.CustomResourceOptions) {\n", argsName))
-		sb.WriteString(fmt.Sprintf("\t\t\tsuper(name, { apiVersion: \"%s\", kind: \"%s\", ...args }, opts)\n", apiVersion, kind))
-		sb.WriteString(fmt.Sprintf("\t\t}\n\t}\n}\n\n"))
+		fmt.Fprintf(w, "export namespace %s {\n", version)
+		fmt.Fprintf(w, "\texport class %s extends k8s.apiextensions.CustomResource {\n", kind)
+		fmt.Fprintf(w, "\t\tconstructor(name: string, args?: %s, opts?: pulumi.CustomResourceOptions) {\n", argsName)
+		fmt.Fprintf(w, "\t\t\tsuper(name, { apiVersion: \"%s\", kind: \"%s\", ...args }, opts)\n", apiVersion, kind)
+		fmt.Fprintf(w, "\t\t}\n\t}\n}\n\n")
 	}
 
 	// Generates a CustomResourceDefinition class for the entire CRD YAML
-	generateDefinitionClass := func(sb *strings.Builder, kind, apiVersion string) {
+	generateDefinitionClass := func(w io.Writer, kind, apiVersion string) {
 		className := kind + "Definition"
 		var superClassName string
 		if apiVersion == v1 {
@@ -191,19 +198,19 @@ func (gen *CustomResourceGenerator) GenerateNodeJSClasses() string {
 			superClassName = "k8s.apiextensions.v1beta1.CustomResourceDefinition"
 		}
 
-		sb.WriteString(fmt.Sprintf("export class %s extends %s {\n", className, superClassName))
-		sb.WriteString("\tconstructor(name: string, opts?: pulumi.CustomResourceOptions) {\n")
-		sb.WriteString("\t\tsuper(name, ")
+		fmt.Fprintf(w, "export class %s extends %s {\n", className, superClassName)
+		fmt.Fprintf(w, "\tconstructor(name: string, opts?: pulumi.CustomResourceOptions) {\n")
+		fmt.Fprintf(w, "\t\tsuper(name, ")
 		definitionArgs, _ := json.MarshalIndent(gen.CustomResourceDefinition.Object, "\t\t", "\t")
-		sb.Write(definitionArgs)
-		sb.WriteString(", opts)\n\t}\n}\n")
+		fmt.Fprintf(w, "%s", definitionArgs)
+		fmt.Fprintf(w, ", opts)\n\t}\n}\n")
 	}
 
-	var sb strings.Builder
+	buffer := &bytes.Buffer{}
 	for _, version := range versionNames {
-		generateResourceClass(&sb, version, kind, name, group)
+		generateResourceClass(buffer, version, kind, name, group)
 	}
-	generateDefinitionClass(&sb, kind, gen.APIVersion)
+	generateDefinitionClass(buffer, kind, gen.APIVersion)
 
-	return sb.String()
+	return buffer.String()
 }

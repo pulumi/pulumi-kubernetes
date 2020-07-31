@@ -19,18 +19,19 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/pulumi/pulumi/pkg/v2/codegen"
 	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-var HyphenedFields = [...]string{
+var HyphenedFields = codegen.NewStringSet(
 	"x-kubernetes-embedded-resource",
 	"x-kubernetes-int-or-string",
 	"x-kubernetes-list-map-keys",
 	"x-kubernetes-list-type",
 	"x-kubernetes-map-type",
 	"x-kubernetes-preserve-unknown-fields",
-}
+)
 
 const AnyTypeRef = "pulumi.json#/Any"
 
@@ -122,26 +123,17 @@ func addType(schema map[string]interface{}, name string, types map[string]pschem
 // Replaces the hyphens in the x-kubernetes-... fields with underscores
 func underscoreFields(schema map[string]interface{}) {
 	for field, val := range schema {
-		for _, hyphenedField := range HyphenedFields {
-			if field == hyphenedField {
-				delete(schema, field)
-				underScoredField := strings.ReplaceAll(field, "-", "_")
-				schema[underScoredField] = val
-			}
+		if HyphenedFields.Has(field) {
+			delete(schema, field)
+			underScoredField := strings.ReplaceAll(field, "-", "_")
+			schema[underScoredField] = val
 		}
-		subSchema, ok := val.(map[string]interface{})
-		if ok {
+		if subSchema, ok := val.(map[string]interface{}); ok {
 			underscoreFields(subSchema)
-		} else {
-			subSchemaSlice, ok := val.([]interface{})
-			if ok {
-				for _, genericSubSchema := range subSchemaSlice {
-					subSchema, ok = genericSubSchema.(map[string]interface{})
-					if ok {
-						underscoreFields(subSchema)
-					} else {
-						break
-					}
+		} else if subSchemaSlice, ok := val.([]interface{}); ok {
+			for _, genericSubSchema := range subSchemaSlice {
+				if subSchema, ok = genericSubSchema.(map[string]interface{}); ok {
+					underscoreFields(subSchema)
 				}
 			}
 		}
