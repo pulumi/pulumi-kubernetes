@@ -28,10 +28,10 @@ import (
 	"strings"
 	"sync"
 
-	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	pkgerrors "github.com/pkg/errors"
+	jsonpatch "github.com/pulumi/json-patch"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/cluster"
