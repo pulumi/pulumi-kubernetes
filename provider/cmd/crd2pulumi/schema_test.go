@@ -12,23 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tests
+package main
 
 import (
 	"reflect"
 	"testing"
-
-	crdschema "github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/schema"
 )
 
 func TestCombineSchemas(t *testing.T) {
-	// Test that supplying no schemas to CombineSchemas will return false
-	nilSchemaFalse := crdschema.CombineSchemas(false)
+	// Test that supplying no schemas to CombineSchemas will return nil
+	nilSchemaFalse := CombineSchemas(false)
 	if nilSchemaFalse != nil {
 		t.Errorf("CombineSchemas(false) = %v; want nil", nilSchemaFalse)
 	}
 
-	nilSchemaTrue := crdschema.CombineSchemas(true)
+	nilSchemaTrue := CombineSchemas(true)
 	if nilSchemaTrue != nil {
 		t.Errorf("CombineSchemas(true) = %v; want nil", nilSchemaFalse)
 	}
@@ -82,19 +80,18 @@ func TestCombineSchemas(t *testing.T) {
 
 	// Test that combining just 1 schema will return that 1 schema
 	for _, schema := range schemas {
-		if combinedSchema := crdschema.CombineSchemas(true, schema); !reflect.DeepEqual(combinedSchema, schema) {
+		if combinedSchema := CombineSchemas(true, schema); !reflect.DeepEqual(combinedSchema, schema) {
 			t.Errorf("CombineSchemas(true, %v) = %v; want %v", schema, combinedSchema, schema)
 		}
-		if combinedSchema := crdschema.CombineSchemas(false, schema); !reflect.DeepEqual(combinedSchema, schema) {
+		if combinedSchema := CombineSchemas(false, schema); !reflect.DeepEqual(combinedSchema, schema) {
 			t.Errorf("CombineSchemas(false, %v) = %v; want %v", schema, combinedSchema, schema)
 		}
 	}
 
 	// Test combining 2 schemas, set combineRequired = true
-	personAndEmployeeActual := crdschema.CombineSchemas(true, person, employee)
+	personAndEmployeeActual := CombineSchemas(true, person, employee)
 	personAndEmployeeExpected := map[string]interface{}{
-		"type":        "object",
-		"description": "Combines 2 type(s): (1) Represents a person. (2) <no description found>",
+		"type": "object",
 		"properties": map[string]interface{}{
 			"name": map[string]interface{}{
 				"type": "string",
@@ -120,7 +117,7 @@ func TestCombineSchemas(t *testing.T) {
 	}
 
 	// Test combining 2 schemas, set combineRequired = false
-	personAndEmployeeNoRequiredActual := crdschema.CombineSchemas(false, person, employee)
+	personAndEmployeeNoRequiredActual := CombineSchemas(false, person, employee)
 	personAndEmployeeNoRequiredExpected := personAndEmployeeExpected
 	delete(personAndEmployeeNoRequiredExpected, "required")
 	if !reflect.DeepEqual(personAndEmployeeNoRequiredActual, personAndEmployeeNoRequiredExpected) {
