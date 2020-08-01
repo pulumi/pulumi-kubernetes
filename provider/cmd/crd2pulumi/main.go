@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/gen"
 	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 )
 
@@ -42,7 +43,7 @@ func main() {
 		outputPath = args[2]
 	}
 
-	generator, err := NewCustomResourceGenerator(language, yamlPath, outputPath)
+	generator, err := gen.NewCustomResourceGenerator(language, yamlPath, outputPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(-1)

@@ -1,4 +1,18 @@
-package main
+// Copyright 2016-2020, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package gen
 
 import (
 	"bytes"
@@ -63,7 +77,7 @@ func NewCustomResourceGenerator(language, yamlPath, outputPath string) (CustomRe
 		return CustomResourceGenerator{}, fmt.Errorf("unmarshal %s: %v", yamlPath, err)
 	}
 
-	underscoreFields(crd.Object)
+	UnderscoreFields(crd.Object)
 
 	apiVersion := crd.GetAPIVersion()
 	if apiVersion != v1beta1 && apiVersion != v1 {
@@ -179,7 +193,7 @@ func (gen *CustomResourceGenerator) GenerateNodeJSClasses() string {
 
 	// Generates a CustomResource sub-class for a single version
 	generateResourceClass := func(w io.Writer, version, kind, name, group string) {
-		argsName := version + "." + kind
+		argsName := version + "." + kind + "Args"
 		apiVersion := fmt.Sprintf("%s/%s", group, version)
 		fmt.Fprintf(w, "export namespace %s {\n", version)
 		fmt.Fprintf(w, "\texport class %s extends k8s.apiextensions.CustomResource {\n", kind)

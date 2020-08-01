@@ -414,6 +414,7 @@ github.com/pulumi/pulumi v1.14.1 h1:eLVGwyUzjbibKCE5lggFyE01CB68yt5G6CJFCJDwoVI=
 github.com/pulumi/pulumi v2.6.1+incompatible h1:YaYVf0+v8as1fIwWQuX5jxDgmfXt6fRG0lYGPqHHD7E=
 github.com/pulumi/pulumi v2.7.1+incompatible h1:b4i9xcm9abFKhaNYX75eAO//lSmI+z/kb3MJHpZd/bY=
 github.com/pulumi/pulumi-kubernetes v1.6.0 h1:PDo9O8G1JXQgkz22poKg6XjrCID7EH6IUjMQtbK5Dy8=
+github.com/pulumi/pulumi-kubernetes/provider/v2 v2.0.0 h1:+k3grLYefSxFxDJkGv89NRYMGfzSbXv6bpiml+FOsik=
 github.com/pulumi/pulumi-kubernetes/provider/v2 v2.0.0/go.mod h1:ehtP/l7KBUfIyXAXTfuXMjMEnRhLYvLwv4kEdmKfkg0=
 github.com/pulumi/pulumi-kubernetes/sdk/v2 v2.0.0/go.mod h1:Dh6Kd1YK6eEMpaQixbPbc0tvqwTMDoUnXfCG898QVUo=
 github.com/pulumi/pulumi/pkg v1.14.1 h1:i/Chex8hSsXedMK9UNyME8zD8yrLL+EBk6GSSPsbIH0=
@@ -486,6 +487,7 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/texttheater/golang-levenshtein v0.0.0-20191208221605-eb6844b05fc6 h1:9VTskZOIRf2vKF3UL8TuWElry5pgUpV1tFSe/e/0m/E=
 github.com/texttheater/golang-levenshtein v0.0.0-20191208221605-eb6844b05fc6/go.mod h1:XDKHRm5ThF8YJjx001LtgelzsoaEcvnA7lVWz9EeX3g=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
+github.com/tweekmonster/luser v0.0.0-20161003172636-3fa38070dbd7/go.mod h1:UxoP3EypF8JfGEjAII8jx1q8rQyDnX8qdTCs/UQBVIE=
 github.com/uber/jaeger-client-go v2.22.1+incompatible h1:NHcubEkVbahf9t3p75TOCR83gdUHXjRJvjoBh1yACsM=
 github.com/uber/jaeger-client-go v2.22.1+incompatible/go.mod h1:WVhlPFC8FDjOFMMWRy2pZqQJSXxYSwNYOkTr/Z6d3Kk=
 github.com/uber/jaeger-lib v2.2.0+incompatible h1:MxZXOiR2JuoANZ3J6DE/U0kSFv/eJ/GfSYVCjK7dyaw=

@@ -1,0 +1,78 @@
+person:
+  type: object
+  description: represents a person
+  properties:
+    name:
+      type: string
+    hometown:
+      type: string
+    age:
+      type: integer
+  required:
+    - name
+    - age
+employee:
+  type: object
+  properties:
+    employeeID:
+      type: integer
+    company:
+      type: object
+      description: represents a company
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+        - name
+  required:
+    - employeeID
+personAndEmployeeWithRequired:
+  type: object
+  properties:
+    name:
+      type: string
+    hometown:
+      type: string
+    age:
+      type: integer
+    employeeID:
+      type: integer
+    company:
+      type: object
+      description: represents a company
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+        - name
+  required:
+    - name
+    - age
+    - employeeID
+personAndEmployeeWithoutRequired:
+  type: object
+  properties:
+    name:
+      type: string
+    hometown:
+      type: string
+    age:
+      type: integer
+    employeeID:
+      type: integer
+    company:
+      type: object
+      description: represents a company
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+        - name
+
+    

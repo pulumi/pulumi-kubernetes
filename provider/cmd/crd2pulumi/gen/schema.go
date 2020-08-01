@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package gen
 
 import (
 	"fmt"
@@ -121,7 +121,7 @@ func addType(schema map[string]interface{}, name string, types map[string]pschem
 }
 
 // Replaces the hyphens in the x-kubernetes-... fields with underscores
-func underscoreFields(schema map[string]interface{}) {
+func UnderscoreFields(schema map[string]interface{}) {
 	for field, val := range schema {
 		if HyphenedFields.Has(field) {
 			delete(schema, field)
@@ -129,11 +129,11 @@ func underscoreFields(schema map[string]interface{}) {
 			schema[underScoredField] = val
 		}
 		if subSchema, ok := val.(map[string]interface{}); ok {
-			underscoreFields(subSchema)
+			UnderscoreFields(subSchema)
 		} else if subSchemaSlice, ok := val.([]interface{}); ok {
 			for _, genericSubSchema := range subSchemaSlice {
 				if subSchema, ok = genericSubSchema.(map[string]interface{}); ok {
-					underscoreFields(subSchema)
+					UnderscoreFields(subSchema)
 				}
 			}
 		}
