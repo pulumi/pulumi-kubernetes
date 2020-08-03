@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.4.2 (August 3, 2020)
+
 ### Bug Fixes
 
 -   Fix server-side diff when immutable fields change. (https://github.com/pulumi/pulumi-kubernetes/pull/988)
