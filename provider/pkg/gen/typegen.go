@@ -21,7 +21,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ahmetb/go-linq"
+	linq "github.com/ahmetb/go-linq"
 	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -563,26 +563,22 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 					var constValue string
 
 					// Create a default value for the field.
-					defaultValue := fmt.Sprintf("args?.%s", propName)
 					switch propName {
 					case "apiVersion":
 						if d.isTopLevel() {
 							constValue = defaultAPIVersion
 						}
-						defaultValue = fmt.Sprintf(`"%s"`, defaultAPIVersion)
 					case "kind":
 						if d.isTopLevel() {
 							constValue = d.gvk.Kind
 						}
-						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 					}
 
 					return Property{
-						comment:      fmtComment(prop["description"]),
-						schemaType:   schemaType,
-						name:         propName,
-						constValue:   constValue,
-						defaultValue: defaultValue,
+						comment:    fmtComment(prop["description"]),
+						schemaType: schemaType,
+						name:       propName,
+						constValue: constValue,
 					}
 				})
 
