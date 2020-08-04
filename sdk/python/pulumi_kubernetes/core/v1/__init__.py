@@ -4,8 +4,6 @@
 
 # Export this package's modules as members:
 from .Binding import *
-from .ComponentStatus import *
-from .ComponentStatusList import *
 from .ConfigMap import *
 from .ConfigMapList import *
 from .Endpoints import *

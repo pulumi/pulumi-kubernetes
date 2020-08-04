@@ -3,8 +3,6 @@
 
 // Export members:
 export * from "./binding";
-export * from "./componentStatus";
-export * from "./componentStatusList";
 export * from "./configMap";
 export * from "./configMapList";
 export * from "./endpoints";

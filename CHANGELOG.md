@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Remove the ComponentStatus resource type. (https://github.com/pulumi/pulumi-kubernetes/pull/1234)
+
 ## 2.4.2 (August 3, 2020)
 
 ### Bug Fixes

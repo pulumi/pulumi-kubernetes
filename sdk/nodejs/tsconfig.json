@@ -123,8 +123,6 @@
         "coordination/v1beta1/leaseList.ts",
         "core/index.ts",
         "core/v1/binding.ts",
-        "core/v1/componentStatus.ts",
-        "core/v1/componentStatusList.ts",
         "core/v1/configMap.ts",
         "core/v1/configMapList.ts",
         "core/v1/endpoints.ts",

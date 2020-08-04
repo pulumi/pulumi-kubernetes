@@ -42,8 +42,6 @@ const (
 	ClusterRoleBinding                 Kind = "ClusterRoleBinding"
 	ClusterRoleBindingList             Kind = "ClusterRoleBindingList"
 	ClusterRoleList                    Kind = "ClusterRoleList"
-	ComponentStatus                    Kind = "ComponentStatus"
-	ComponentStatusList                Kind = "ComponentStatusList"
 	ConfigMap                          Kind = "ConfigMap"
 	ConfigMapList                      Kind = "ConfigMapList"
 	ControllerRevision                 Kind = "ControllerRevision"
@@ -178,7 +176,6 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		CertificateSigningRequest,
 		ClusterRole,
 		ClusterRoleBinding,
-		ComponentStatus,
 		CSIDriver,
 		CSINode,
 		CustomResourceDefinition,

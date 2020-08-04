@@ -2914,7 +2914,7 @@ func (o ComponentConditionArrayOutput) Index(i pulumi.IntInput) ComponentConditi
 }
 
 // ComponentStatus (and ComponentStatusList) holds the cluster validation info.
-type ComponentStatusType struct {
+type ComponentStatus struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// List of component conditions observed
@@ -2925,19 +2925,19 @@ type ComponentStatusType struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 }
 
-// ComponentStatusTypeInput is an input type that accepts ComponentStatusTypeArgs and ComponentStatusTypeOutput values.
-// You can construct a concrete instance of `ComponentStatusTypeInput` via:
+// ComponentStatusInput is an input type that accepts ComponentStatusArgs and ComponentStatusOutput values.
+// You can construct a concrete instance of `ComponentStatusInput` via:
 //
-//          ComponentStatusTypeArgs{...}
-type ComponentStatusTypeInput interface {
+//          ComponentStatusArgs{...}
+type ComponentStatusInput interface {
 	pulumi.Input
 
-	ToComponentStatusTypeOutput() ComponentStatusTypeOutput
-	ToComponentStatusTypeOutputWithContext(context.Context) ComponentStatusTypeOutput
+	ToComponentStatusOutput() ComponentStatusOutput
+	ToComponentStatusOutputWithContext(context.Context) ComponentStatusOutput
 }
 
 // ComponentStatus (and ComponentStatusList) holds the cluster validation info.
-type ComponentStatusTypeArgs struct {
+type ComponentStatusArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// List of component conditions observed
@@ -2948,178 +2948,178 @@ type ComponentStatusTypeArgs struct {
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 }
 
-func (ComponentStatusTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ComponentStatusType)(nil)).Elem()
+func (ComponentStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatus)(nil)).Elem()
 }
 
-func (i ComponentStatusTypeArgs) ToComponentStatusTypeOutput() ComponentStatusTypeOutput {
-	return i.ToComponentStatusTypeOutputWithContext(context.Background())
+func (i ComponentStatusArgs) ToComponentStatusOutput() ComponentStatusOutput {
+	return i.ToComponentStatusOutputWithContext(context.Background())
 }
 
-func (i ComponentStatusTypeArgs) ToComponentStatusTypeOutputWithContext(ctx context.Context) ComponentStatusTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusTypeOutput)
+func (i ComponentStatusArgs) ToComponentStatusOutputWithContext(ctx context.Context) ComponentStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusOutput)
 }
 
-// ComponentStatusTypeArrayInput is an input type that accepts ComponentStatusTypeArray and ComponentStatusTypeArrayOutput values.
-// You can construct a concrete instance of `ComponentStatusTypeArrayInput` via:
+// ComponentStatusArrayInput is an input type that accepts ComponentStatusArray and ComponentStatusArrayOutput values.
+// You can construct a concrete instance of `ComponentStatusArrayInput` via:
 //
-//          ComponentStatusTypeArray{ ComponentStatusTypeArgs{...} }
-type ComponentStatusTypeArrayInput interface {
+//          ComponentStatusArray{ ComponentStatusArgs{...} }
+type ComponentStatusArrayInput interface {
 	pulumi.Input
 
-	ToComponentStatusTypeArrayOutput() ComponentStatusTypeArrayOutput
-	ToComponentStatusTypeArrayOutputWithContext(context.Context) ComponentStatusTypeArrayOutput
+	ToComponentStatusArrayOutput() ComponentStatusArrayOutput
+	ToComponentStatusArrayOutputWithContext(context.Context) ComponentStatusArrayOutput
 }
 
-type ComponentStatusTypeArray []ComponentStatusTypeInput
+type ComponentStatusArray []ComponentStatusInput
 
-func (ComponentStatusTypeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ComponentStatusType)(nil)).Elem()
+func (ComponentStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ComponentStatus)(nil)).Elem()
 }
 
-func (i ComponentStatusTypeArray) ToComponentStatusTypeArrayOutput() ComponentStatusTypeArrayOutput {
-	return i.ToComponentStatusTypeArrayOutputWithContext(context.Background())
+func (i ComponentStatusArray) ToComponentStatusArrayOutput() ComponentStatusArrayOutput {
+	return i.ToComponentStatusArrayOutputWithContext(context.Background())
 }
 
-func (i ComponentStatusTypeArray) ToComponentStatusTypeArrayOutputWithContext(ctx context.Context) ComponentStatusTypeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusTypeArrayOutput)
+func (i ComponentStatusArray) ToComponentStatusArrayOutputWithContext(ctx context.Context) ComponentStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusArrayOutput)
 }
 
 // ComponentStatus (and ComponentStatusList) holds the cluster validation info.
-type ComponentStatusTypeOutput struct{ *pulumi.OutputState }
+type ComponentStatusOutput struct{ *pulumi.OutputState }
 
-func (ComponentStatusTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ComponentStatusType)(nil)).Elem()
+func (ComponentStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatus)(nil)).Elem()
 }
 
-func (o ComponentStatusTypeOutput) ToComponentStatusTypeOutput() ComponentStatusTypeOutput {
+func (o ComponentStatusOutput) ToComponentStatusOutput() ComponentStatusOutput {
 	return o
 }
 
-func (o ComponentStatusTypeOutput) ToComponentStatusTypeOutputWithContext(ctx context.Context) ComponentStatusTypeOutput {
+func (o ComponentStatusOutput) ToComponentStatusOutputWithContext(ctx context.Context) ComponentStatusOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ComponentStatusTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ComponentStatusType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ComponentStatusOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ComponentStatus) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // List of component conditions observed
-func (o ComponentStatusTypeOutput) Conditions() ComponentConditionArrayOutput {
-	return o.ApplyT(func(v ComponentStatusType) []ComponentCondition { return v.Conditions }).(ComponentConditionArrayOutput)
+func (o ComponentStatusOutput) Conditions() ComponentConditionArrayOutput {
+	return o.ApplyT(func(v ComponentStatus) []ComponentCondition { return v.Conditions }).(ComponentConditionArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ComponentStatusTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ComponentStatusType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ComponentStatusOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ComponentStatus) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o ComponentStatusTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v ComponentStatusType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ComponentStatusOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v ComponentStatus) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-type ComponentStatusTypeArrayOutput struct{ *pulumi.OutputState }
+type ComponentStatusArrayOutput struct{ *pulumi.OutputState }
 
-func (ComponentStatusTypeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ComponentStatusType)(nil)).Elem()
+func (ComponentStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ComponentStatus)(nil)).Elem()
 }
 
-func (o ComponentStatusTypeArrayOutput) ToComponentStatusTypeArrayOutput() ComponentStatusTypeArrayOutput {
+func (o ComponentStatusArrayOutput) ToComponentStatusArrayOutput() ComponentStatusArrayOutput {
 	return o
 }
 
-func (o ComponentStatusTypeArrayOutput) ToComponentStatusTypeArrayOutputWithContext(ctx context.Context) ComponentStatusTypeArrayOutput {
+func (o ComponentStatusArrayOutput) ToComponentStatusArrayOutputWithContext(ctx context.Context) ComponentStatusArrayOutput {
 	return o
 }
 
-func (o ComponentStatusTypeArrayOutput) Index(i pulumi.IntInput) ComponentStatusTypeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ComponentStatusType {
-		return vs[0].([]ComponentStatusType)[vs[1].(int)]
-	}).(ComponentStatusTypeOutput)
+func (o ComponentStatusArrayOutput) Index(i pulumi.IntInput) ComponentStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ComponentStatus {
+		return vs[0].([]ComponentStatus)[vs[1].(int)]
+	}).(ComponentStatusOutput)
 }
 
 // Status of all the conditions for the component as a list of ComponentStatus objects.
-type ComponentStatusListType struct {
+type ComponentStatusList struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// List of ComponentStatus objects.
-	Items []ComponentStatusType `pulumi:"items"`
+	Items []ComponentStatus `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// ComponentStatusListTypeInput is an input type that accepts ComponentStatusListTypeArgs and ComponentStatusListTypeOutput values.
-// You can construct a concrete instance of `ComponentStatusListTypeInput` via:
+// ComponentStatusListInput is an input type that accepts ComponentStatusListArgs and ComponentStatusListOutput values.
+// You can construct a concrete instance of `ComponentStatusListInput` via:
 //
-//          ComponentStatusListTypeArgs{...}
-type ComponentStatusListTypeInput interface {
+//          ComponentStatusListArgs{...}
+type ComponentStatusListInput interface {
 	pulumi.Input
 
-	ToComponentStatusListTypeOutput() ComponentStatusListTypeOutput
-	ToComponentStatusListTypeOutputWithContext(context.Context) ComponentStatusListTypeOutput
+	ToComponentStatusListOutput() ComponentStatusListOutput
+	ToComponentStatusListOutputWithContext(context.Context) ComponentStatusListOutput
 }
 
 // Status of all the conditions for the component as a list of ComponentStatus objects.
-type ComponentStatusListTypeArgs struct {
+type ComponentStatusListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// List of ComponentStatus objects.
-	Items ComponentStatusTypeArrayInput `pulumi:"items"`
+	Items ComponentStatusArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (ComponentStatusListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ComponentStatusListType)(nil)).Elem()
+func (ComponentStatusListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatusList)(nil)).Elem()
 }
 
-func (i ComponentStatusListTypeArgs) ToComponentStatusListTypeOutput() ComponentStatusListTypeOutput {
-	return i.ToComponentStatusListTypeOutputWithContext(context.Background())
+func (i ComponentStatusListArgs) ToComponentStatusListOutput() ComponentStatusListOutput {
+	return i.ToComponentStatusListOutputWithContext(context.Background())
 }
 
-func (i ComponentStatusListTypeArgs) ToComponentStatusListTypeOutputWithContext(ctx context.Context) ComponentStatusListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusListTypeOutput)
+func (i ComponentStatusListArgs) ToComponentStatusListOutputWithContext(ctx context.Context) ComponentStatusListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ComponentStatusListOutput)
 }
 
 // Status of all the conditions for the component as a list of ComponentStatus objects.
-type ComponentStatusListTypeOutput struct{ *pulumi.OutputState }
+type ComponentStatusListOutput struct{ *pulumi.OutputState }
 
-func (ComponentStatusListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ComponentStatusListType)(nil)).Elem()
+func (ComponentStatusListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ComponentStatusList)(nil)).Elem()
 }
 
-func (o ComponentStatusListTypeOutput) ToComponentStatusListTypeOutput() ComponentStatusListTypeOutput {
+func (o ComponentStatusListOutput) ToComponentStatusListOutput() ComponentStatusListOutput {
 	return o
 }
 
-func (o ComponentStatusListTypeOutput) ToComponentStatusListTypeOutputWithContext(ctx context.Context) ComponentStatusListTypeOutput {
+func (o ComponentStatusListOutput) ToComponentStatusListOutputWithContext(ctx context.Context) ComponentStatusListOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ComponentStatusListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ComponentStatusListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ComponentStatusListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ComponentStatusList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // List of ComponentStatus objects.
-func (o ComponentStatusListTypeOutput) Items() ComponentStatusTypeArrayOutput {
-	return o.ApplyT(func(v ComponentStatusListType) []ComponentStatusType { return v.Items }).(ComponentStatusTypeArrayOutput)
+func (o ComponentStatusListOutput) Items() ComponentStatusArrayOutput {
+	return o.ApplyT(func(v ComponentStatusList) []ComponentStatus { return v.Items }).(ComponentStatusArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ComponentStatusListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ComponentStatusListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ComponentStatusListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ComponentStatusList) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ComponentStatusListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v ComponentStatusListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ComponentStatusListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ComponentStatusList) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // ConfigMap holds configuration data for pods to consume.
@@ -31569,9 +31569,9 @@ func init() {
 	pulumi.RegisterOutputType(ClientIPConfigPtrOutput{})
 	pulumi.RegisterOutputType(ComponentConditionOutput{})
 	pulumi.RegisterOutputType(ComponentConditionArrayOutput{})
-	pulumi.RegisterOutputType(ComponentStatusTypeOutput{})
-	pulumi.RegisterOutputType(ComponentStatusTypeArrayOutput{})
-	pulumi.RegisterOutputType(ComponentStatusListTypeOutput{})
+	pulumi.RegisterOutputType(ComponentStatusOutput{})
+	pulumi.RegisterOutputType(ComponentStatusArrayOutput{})
+	pulumi.RegisterOutputType(ComponentStatusListOutput{})
 	pulumi.RegisterOutputType(ConfigMapTypeOutput{})
 	pulumi.RegisterOutputType(ConfigMapTypeArrayOutput{})
 	pulumi.RegisterOutputType(ConfigMapEnvSourceOutput{})
