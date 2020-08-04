@@ -5477,50 +5477,6 @@ export namespace core {
         }
 
         /**
-         * Information about the condition of a component.
-         */
-        export interface ComponentCondition {
-            /**
-             * Condition error code for a component. For example, a health check error code.
-             */
-            error?: pulumi.Input<string>;
-            /**
-             * Message about the condition for a component. For example, information about a health check.
-             */
-            message?: pulumi.Input<string>;
-            /**
-             * Status of the condition for a component. Valid values for "Healthy": "True", "False", or "Unknown".
-             */
-            status: pulumi.Input<string>;
-            /**
-             * Type of condition for a component. Valid value: "Healthy"
-             */
-            type: pulumi.Input<string>;
-        }
-
-        /**
-         * ComponentStatus (and ComponentStatusList) holds the cluster validation info.
-         */
-        export interface ComponentStatus {
-            /**
-             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-             */
-            apiVersion?: pulumi.Input<"v1">;
-            /**
-             * List of component conditions observed
-             */
-            conditions?: pulumi.Input<pulumi.Input<inputs.core.v1.ComponentCondition>[]>;
-            /**
-             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-             */
-            kind?: pulumi.Input<"ComponentStatus">;
-            /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-             */
-            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
-        }
-
-        /**
          * ConfigMap holds configuration data for pods to consume.
          */
         export interface ConfigMap {

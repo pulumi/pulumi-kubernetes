@@ -202,7 +202,7 @@ func (d definition) isTopLevel() bool {
 	// by Pulumi.
 	switch fmt.Sprintf("%s/%s", d.gvk.GroupVersion().String(), d.gvk.Kind) {
 	case "policy/v1beta1/Eviction", "v1/Status", "apps/v1beta1/Scale", "apps/v1beta2/Scale",
-		"autoscaling/v1/Scale", "extensions/v1beta1/Scale":
+		"autoscaling/v1/Scale", "extensions/v1beta1/Scale", "core/v1/ComponentStatus", "core/v1/ComponentStatusList":
 		return false
 	}
 
