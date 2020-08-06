@@ -15,6 +15,7 @@
 package gen
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -59,6 +60,8 @@ var IntOrStringTypeSpec = pschema.TypeSpec{
 	},
 }
 
+const tool = "crd2pulumi"
+
 // Returns true if the given TypeSpec is of type any; returns false otherwise
 func isAnyType(typeSpec pschema.TypeSpec) bool {
 	return typeSpec.Ref == AnyTypeRef
@@ -73,18 +76,50 @@ func GetObjectTypeSpecs(versions map[string]map[string]interface{}, name, kind s
 	for version, schema := range versions {
 		baseRef := fmt.Sprintf("crds:%s/%s:%s", name, version, kind)
 		addType(schema, baseRef, objectTypeSpecs)
-		// Adds "Args" to the baseRef name
+	}
+	return objectTypeSpecs
+}
+
+// AddArgsSuffix appends 'Args' to the name of versioned CustomResourceArgs
+// interface. For example, this would generate "CronTabArgs" instead of
+// "CronTab" for NodeJS.
+func AddArgsSuffix(versions map[string]map[string]interface{}, name, kind string, objectTypeSpecs map[string]pschema.ObjectTypeSpec) {
+	for version := range versions {
+		baseRef := fmt.Sprintf("crds:%s/%s:%s", name, version, kind)
 		newBaseRef := baseRef + "Args"
 		objectTypeSpecs[newBaseRef] = objectTypeSpecs[baseRef]
-		objectTypeSpecs[newBaseRef].Properties["metadata"] = pschema.PropertySpec{
+		delete(objectTypeSpecs, baseRef)
+	}
+}
+
+// AddMetadataRefs adds a `metadata?: meta/v1/ObjectMeta` field to each
+// versioned CustomResourceArgs interface.
+func AddMetadataRefs(versions map[string]map[string]interface{}, name, kind string, objectTypeSpecs map[string]pschema.ObjectTypeSpec) {
+	for version := range versions {
+		baseRef := fmt.Sprintf("crds:%s/%s:%s", name, version, kind)
+		objectTypeSpecs[baseRef].Properties["metadata"] = pschema.PropertySpec{
 			TypeSpec: pschema.TypeSpec{
 				Ref: ObjectMetaRef,
 			},
 		}
-		delete(objectTypeSpecs, baseRef)
 	}
+}
 
-	return objectTypeSpecs
+func AddPlaceholderMetadataSpec(objectTypeSpecs map[string]pschema.ObjectTypeSpec) {
+	objectTypeSpecs["kubernetes:meta/v1:ObjectMeta"] = pschema.ObjectTypeSpec{
+		Type: "object",
+	}
+}
+
+// AddMetadataMaps adds a `Metadata: *map[string]interface{}` field to each
+// versioned CustomResourceArgs interface.
+func AddMetadataMaps(versions map[string]map[string]interface{}, name, kind string, objectTypeSpecs map[string]pschema.ObjectTypeSpec) {
+	for version := range versions {
+		baseRef := fmt.Sprintf("crds:%s/%s:%s", name, version, kind)
+		objectTypeSpecs[baseRef].Properties["metadata"] = pschema.PropertySpec{
+			TypeSpec: ArbitraryJSONTypeSpec,
+		}
+	}
 }
 
 // addType converts the given OpenAPI `schema` to a ObjectTypeSpec and adds it
@@ -292,4 +327,41 @@ func CombineSchemas(combineRequired bool, schemas ...map[string]interface{}) map
 		combinedSchema["required"] = GenericizeStringSlice(combinedRequired)
 	}
 	return combinedSchema
+}
+
+func genPackage(objectTypeSpecs map[string]pschema.ObjectTypeSpec, language string) (*pschema.Package, error) {
+	// Create some a property map that references our types
+	properties := map[string]pschema.PropertySpec{}
+	for name := range objectTypeSpecs {
+		properties[name] = pschema.PropertySpec{
+			TypeSpec: pschema.TypeSpec{
+				Ref: fmt.Sprintf("#/types/%s", name),
+			},
+		}
+	}
+	// Create a fake package that includes the types passed-in to this function.
+	var pkgSpec = pschema.PackageSpec{
+		// Include the passed-in types.
+		Types: objectTypeSpecs,
+		// Create a fake resource that has the properties.
+		Resources: map[string]pschema.ResourceSpec{
+			"prov:module/resource:Resource": {
+				ObjectTypeSpec: pschema.ObjectTypeSpec{
+					Properties: properties,
+				},
+				InputProperties: properties,
+			},
+		},
+		Language: map[string]json.RawMessage{
+			language: []byte("{}"),
+		},
+	}
+
+	// Convert the PackageSpec into a Package.
+	pkg, err := pschema.ImportSpec(pkgSpec, nil)
+	if err != nil {
+		return &pschema.Package{}, err
+	}
+
+	return pkg, nil
 }

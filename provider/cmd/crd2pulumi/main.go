@@ -38,17 +38,17 @@ func main() {
 		return
 	}
 
-	language, yamlPath, outputPath := args[0], args[1], ""
+	language, yamlPath, outputDir := args[0], args[1], ""
 	if len(args) > 2 {
-		outputPath = args[2]
+		outputDir = args[2]
 	}
 
-	generator, err := gen.NewCustomResourceGenerator(language, yamlPath, outputPath)
+	generator, err := gen.NewCustomResourceGenerator(language, yamlPath, outputDir)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(-1)
 	}
-	err = generator.GenerateCode()
+	err = generator.Generate()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "generate code: %v\n", err)
 		os.Exit(-1)
