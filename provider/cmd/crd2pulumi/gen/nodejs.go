@@ -26,12 +26,13 @@ import (
 
 // genNodeJS returns a buffer containing all the generated code
 func (gen *CustomResourceGenerator) genNodeJS() (*bytes.Buffer, error) {
-	objectTypeSpecs := GetObjectTypeSpecs(gen.Versions, gen.Name(), gen.Kind)
-	AddMetadataRefs(gen.Versions, gen.Name(), gen.Kind, objectTypeSpecs)
-	AddArgsSuffix(gen.Versions, gen.Name(), gen.Kind, objectTypeSpecs)
+	objectTypeSpecs := gen.GetObjectTypeSpecs()
+	baseRefs := gen.baseRefs()
+	AddMetadataRefs(objectTypeSpecs, baseRefs)
+	AddArgsSuffix(objectTypeSpecs, baseRefs)
 
 	// Generate package
-	pkg, err := genPackage(objectTypeSpecs, NodeJS)
+	pkg, err := genPackage(objectTypeSpecs, baseRefs, NodeJS)
 	if err != nil {
 		return nil, errors.Wrapf(err, "generating package")
 	}
@@ -48,7 +49,7 @@ func (gen *CustomResourceGenerator) genNodeJS() (*bytes.Buffer, error) {
 
 // Writes the namespaced NodeJS classes for each version to the given writer.
 func (gen *CustomResourceGenerator) genNodeJSClasses(w io.Writer) {
-	versions := gen.VersionKeys()
+	versions := gen.Versions()
 	kind := gen.Kind
 	group := gen.Group
 	name := gen.Name()

@@ -40,6 +40,9 @@ const (
 type CustomResourceGenerator struct {
 	// CustomResourceDefinition represents unmarshalled CRD YAML
 	CustomResourceDefinition unstruct.Unstructured
+	// Schemas represents a mapping from each version in the `spec.versions`
+	// list to its corresponding `openAPIV3Schema` field in the CRD YAML
+	Schemas map[string]map[string]interface{}
 	// OutputDir represents the directory where generated code will output to
 	OutputDir string
 	// Language represents the target language to generate code
@@ -52,15 +55,20 @@ type CustomResourceGenerator struct {
 	Plural string
 	// Group represents the `spec.group` field in the CRD YAML
 	Group string
-	// Versions represents a mapping from each version name in the
-	// `spec.versions` list to its corresponding `openAPIV3Schema` field in the
-	// CRD YAML
-	Versions map[string]map[string]interface{}
 }
 
 func NewCustomResourceGenerator(language, yamlPath, outputDir string) (CustomResourceGenerator, error) {
 	if language != DotNet && language != Go && language != NodeJS && language != Python {
 		return CustomResourceGenerator{}, errors.New("invalid language " + language)
+	}
+
+	if outputDir == "" {
+		outputDir = filepath.Dir(yamlPath)
+	} else {
+		_, err := os.Stat(outputDir)
+		if os.IsNotExist(err) {
+			return CustomResourceGenerator{}, errors.Wrapf(err, "output directory does not exist")
+		}
 	}
 
 	yamlFile, err := ioutil.ReadFile(yamlPath)
@@ -80,36 +88,27 @@ func NewCustomResourceGenerator(language, yamlPath, outputDir string) (CustomRes
 		return CustomResourceGenerator{}, errors.New("invalid apiVersion " + apiVersion)
 	}
 
-	versions := map[string]map[string]interface{}{}
+	schemas := map[string]map[string]interface{}{}
 
 	validation, foundValidation, _ := unstruct.NestedMap(crd.Object, "spec", "validation", "openAPIV3Schema")
 	if foundValidation { // If present, use the top-level schema to validate all versions
 		versionMaps, _, _ := NestedMapSlice(crd.Object, "spec", "versions")
 		for _, version := range versionMaps {
 			name, _, _ := unstruct.NestedString(version, "name")
-			versions[name] = validation
+			schemas[name] = validation
 		}
 	} else { // Otherwise use per-version schemas to validate each version
 		versionMaps, _, _ := NestedMapSlice(crd.Object, "spec", "versions")
 		for _, version := range versionMaps {
 			name, _, _ := unstruct.NestedString(version, "name")
 			schema, _, _ := unstruct.NestedMap(version, "schema", "openAPIV3Schema")
-			versions[name] = schema
+			schemas[name] = schema
 		}
 	}
 
 	kind, _, _ := unstruct.NestedString(crd.Object, "spec", "names", "kind")
 	plural, _, _ := unstruct.NestedString(crd.Object, "spec", "names", "plural")
 	group, _, _ := unstruct.NestedString(crd.Object, "spec", "group")
-
-	if outputDir == "" {
-		outputDir = filepath.Dir(yamlPath)
-	} else {
-		_, err := os.Stat(outputDir)
-		if os.IsNotExist(err) {
-			return CustomResourceGenerator{}, errors.Wrapf(err, "output directory does not exist")
-		}
-	}
 
 	customResourceGenerator := CustomResourceGenerator{
 		CustomResourceDefinition: crd,
@@ -119,7 +118,7 @@ func NewCustomResourceGenerator(language, yamlPath, outputDir string) (CustomRes
 		Kind:                     kind,
 		Plural:                   plural,
 		Group:                    group,
-		Versions:                 versions,
+		Schemas:                  schemas,
 	}
 	return customResourceGenerator, nil
 }
@@ -128,22 +127,21 @@ func (gen *CustomResourceGenerator) Name() string {
 	return gen.Plural + "." + gen.Group
 }
 
-// VersionKeys returns a slice of the versions supported by this CRD.
-func (gen *CustomResourceGenerator) VersionKeys() []string {
-	versionNames := make([]string, 0, len(gen.Versions))
-	for versionName := range gen.Versions {
-		versionNames = append(versionNames, versionName)
+// Versions returns a slice of the versions supported by this CRD.
+func (gen *CustomResourceGenerator) Versions() []string {
+	versions := make([]string, 0, len(gen.Schemas))
+	for version := range gen.Schemas {
+		versions = append(versions, version)
 	}
-	return versionNames
+	return versions
 }
 
 // VersionNames returns a slice of the full names of each version, in the format
-// <plural>.<group>/<version>.
+// <group>/<version>.
 func (gen *CustomResourceGenerator) VersionNames() []string {
-	versions := gen.VersionKeys()
-	name := gen.Name()
+	versions := gen.Versions()
 	for i, version := range versions {
-		versions[i] = name + "/" + version
+		versions[i] = gen.Group + "/" + version
 	}
 	return versions
 }
@@ -151,7 +149,9 @@ func (gen *CustomResourceGenerator) VersionNames() []string {
 // getVersion returns the <version> field of a string in the format
 // <plural>.<group>/<version>
 func getVersion(versionName string) string {
-	return strings.Split(versionName, "/")[1]
+	parts := strings.Split(versionName, "/")
+	contract.Assert(len(parts) == 2)
+	return parts[1]
 }
 
 // Generate outputs strongly-typed args for the CustomResourceGenerator's
@@ -183,11 +183,9 @@ func (gen *CustomResourceGenerator) Generate() error {
 
 		for versionName, buffer := range buffers {
 			packageDir := filepath.Join(gen.OutputDir, getVersion(versionName))
-			if _, err := os.Stat(packageDir); os.IsNotExist(err) {
-				err = os.Mkdir(packageDir, 0755)
-				if err != nil {
-					return errors.Wrapf(err, "creating directory %s", packageDir)
-				}
+			err := os.MkdirAll(packageDir, 0755)
+			if err != nil {
+				return errors.Wrapf(err, "creating directory %s", packageDir)
 			}
 			outputFile := filepath.Join(packageDir, gen.Plural+".go")
 			file, err := os.Create(outputFile)

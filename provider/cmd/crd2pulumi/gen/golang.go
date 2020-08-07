@@ -16,8 +16,6 @@ package gen
 
 import (
 	"bytes"
-	"fmt"
-	"io"
 
 	"github.com/pkg/errors"
 	go_gen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
@@ -26,11 +24,13 @@ import (
 // genGo returns a map from each version's name to a buffer containing
 // its generated code.
 func (gen *CustomResourceGenerator) genGo() (map[string]*bytes.Buffer, error) {
-	objectTypeSpecs := GetObjectTypeSpecs(gen.Versions, gen.Name(), gen.Kind)
+	objectTypeSpecs := gen.GetObjectTypeSpecs()
 	AddPlaceholderMetadataSpec(objectTypeSpecs)
-	AddMetadataRefs(gen.Versions, gen.Name(), gen.Kind, objectTypeSpecs)
+	baseRefs := gen.baseRefs()
+	AddMetadataRefs(objectTypeSpecs, baseRefs)
+	AddAPIVersionAndKindProperties(objectTypeSpecs, baseRefs)
 
-	pkg, err := genPackage(objectTypeSpecs, Go)
+	pkg, err := genPackage(objectTypeSpecs, baseRefs, Go)
 	if err != nil {
 		return nil, errors.Wrapf(err, "generating package")
 	}
@@ -45,66 +45,17 @@ func (gen *CustomResourceGenerator) genGo() (map[string]*bytes.Buffer, error) {
 	})
 
 	// Generate all the code for the package.
-	allTypes, err := go_gen.GenCRDTypes(tool, pkg)
+	allTypes, err := go_gen.CRDTypes(tool, pkg)
 
 	buffers := map[string]*bytes.Buffer{}
 
-	versionNames := gen.VersionNames()
-	for _, versionName := range versionNames {
+	for _, versionName := range gen.VersionNames() {
 		types, ok := allTypes[versionName]
 		if !ok {
 			return nil, errors.Errorf("cannot find generated Go code for %s", versionName)
 		}
-		gen.genGoConstructor(types, getVersion(versionName))
 		buffers[versionName] = types
 	}
 
 	return buffers, nil
 }
-
-func (gen *CustomResourceGenerator) genGoConstructor(w io.Writer, version string) {
-	fmt.Fprintf(w, "\nfunc New%s(ctx *pulumi.Context, name string, args *%sArgs, opts ...pulumi.ResourceOption) (*apiextensions.CustomResource, error) {", gen.Kind, gen.Kind)
-	fmt.Fprint(w, unmarshalCode)
-	fmt.Fprintf(w, "\tcustomResourceArgs := apiextensions.CustomResourceArgs{\n")
-	apiVersion := fmt.Sprintf("%s/%s", gen.Group, version)
-	fmt.Fprintf(w, "\t\tApiVersion: pulumi.String(\"%s\"),\n", apiVersion)
-	fmt.Fprintf(w, "\t\tKind: pulumi.String(\"%s\"),\n", gen.Kind)
-	fmt.Fprint(w, "\t\tMetadata: args.Metadata,\n")
-	fmt.Fprint(w, "\t\tOtherFields: otherFields,\n")
-	fmt.Fprint(w, "\t}\n\n")
-	fmt.Fprint(w, "\treturn apiextensions.NewCustomResource(ctx, name, &customResourceArgs, opts...)\n")
-	fmt.Fprint(w, "}\n")
-	fmt.Fprint(w, lowerCode)
-}
-
-const unmarshalCode = `
-	m := structs.Map(args.Spec)
-	otherFields, ok := lower(m).(map[string]interface{})
-	if !ok {
-		return nil, errors.Errorf("could not parse other fields %v", m)
-	}
-`
-
-const lowerCode = `
-func lower(object interface{}) interface{} {
-	switch object := object.(type) {
-	case map[string]interface{}:
-		lowerObject := make(map[string]interface{}, len(object))
-		for upperKey, value := range object {
-			lowerKey := ""
-			if upperKey != "" {
-				lowerKey = strings.ToLower(string(upperKey[0])) + upperKey[1:]
-			}
-			lowerObject[lowerKey] = lower(value)
-		}
-		return lowerObject
-	case []interface{}:
-		for i := range object {
-			object[i] = lower(object[i])
-		}
-		return object
-	default:
-		return object
-	}
-}
-`
