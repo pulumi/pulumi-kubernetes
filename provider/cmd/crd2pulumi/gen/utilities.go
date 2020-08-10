@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package gen
 
 import (
 	"bytes"
@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"strings"
 
+	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
@@ -59,8 +60,18 @@ func NestedMapSlice(obj map[string]interface{}, fields ...string) ([]map[string]
 	return mapSlice, true, nil
 }
 
+func IsValidLanguage(language string) bool {
+	return language == NodeJS || language == Go || language == Python || language == DotNet
+}
+
 func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
+}
+
+func rawMessage(v interface{}) json.RawMessage {
+	bytes, err := json.Marshal(v)
+	contract.Assert(err == nil)
+	return bytes
 }
 
 // GenericizeStringSlice converts a []string to []interface{}.

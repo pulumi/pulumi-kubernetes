@@ -15,41 +15,9 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"os"
-
-	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
+	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/cmd"
 )
 
 func main() {
-	flag.Usage = func() {
-		const usageFormat = "Usage: %s <language> <resourcedefinition.yaml> [output path]"
-		_, err := fmt.Fprintf(flag.CommandLine.Output(), usageFormat, os.Args[0])
-		contract.IgnoreError(err)
-		flag.PrintDefaults()
-	}
-
-	flag.Parse()
-	args := flag.Args()
-	if len(args) < 2 {
-		flag.Usage()
-		return
-	}
-
-	language, yamlPath, outputPath := args[0], args[1], ""
-	if len(args) > 2 {
-		outputPath = args[2]
-	}
-
-	generator, err := NewCustomResourceGenerator(language, yamlPath, outputPath)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(-1)
-	}
-	err = generator.GenerateCode()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "generate code: %v\n", err)
-		os.Exit(-1)
-	}
+	cmd.Execute()
 }
