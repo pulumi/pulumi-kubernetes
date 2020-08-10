@@ -31,6 +31,7 @@ export type ObjectMeta = k8s.types.input.meta.v1.ObjectMeta;
 
 // genNodeJS returns a mapping from each file path to its generated code
 func (gen *CustomResourceGenerator) genNodeJS() (map[string][]byte, error) {
+	// Set up objectTypeSpecs
 	objectTypeSpecs := gen.GetObjectTypeSpecs()
 	baseRefs := gen.baseRefs()
 	AddMetadataRefs(objectTypeSpecs, baseRefs)
@@ -42,28 +43,34 @@ func (gen *CustomResourceGenerator) genNodeJS() (map[string][]byte, error) {
 		return nil, errors.Wrapf(err, "generating package")
 	}
 
+	// Set the package for each module to its version. For example, this causes
+	// "crontabs/v1", "crontabs/v2", etc... to be the generated file paths
 	moduleToPackage := map[string]string{}
 	for _, versionName := range gen.VersionNames() {
 		moduleToPackage[versionName] = getVersion(versionName)
 	}
-
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"moduleToPackage": moduleToPackage,
 	})
 
+	// Generate the package
 	files, err := nodejs.GeneratePackage(tool, pkg, nil)
 	if err != nil {
 		return nil, errors.Wrapf(err, "generating nodejs package")
 	}
 
+	// Search and replace ${VERSION} with 2.0.0 in package.json, so the
+	// resources can be properly registered
 	packageJSON, ok := files["package.json"]
 	if !ok {
 		return nil, errors.New("cannot find generated package.json")
 	}
 	files["package.json"] = bytes.ReplaceAll(packageJSON, []byte("${VERSION}"), []byte("2.0.0"))
 
+	// Create a helper 'meta/v1.ts' script that just exports the ObjectMeta class
 	files[metaPath] = []byte(metaFile)
 
+	// Appends the CustomResourceDefinition helper constructor to index.ts
 	files["index.ts"] = append(files["index.ts"], gen.genNodeJSDefinition()...)
 
 	return files, nil

@@ -1,3 +1,4 @@
 .vscode/
 examples/
 go_pulumi/
+blog.md
