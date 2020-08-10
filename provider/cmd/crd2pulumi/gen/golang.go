@@ -28,7 +28,7 @@ func (gen *CustomResourceGenerator) genGo() (map[string]*bytes.Buffer, error) {
 	AddPlaceholderMetadataSpec(objectTypeSpecs)
 	baseRefs := gen.baseRefs()
 	AddMetadataRefs(objectTypeSpecs, baseRefs)
-	AddAPIVersionAndKindProperties(objectTypeSpecs, baseRefs)
+	gen.AddAPIVersionAndKindProperties(objectTypeSpecs, baseRefs)
 
 	pkg, err := genPackage(objectTypeSpecs, baseRefs, Go)
 	if err != nil {

@@ -138,13 +138,20 @@ func AddMetadataRefs(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs
 
 // AddAPIVersionAndKindProperties adds the `apiVersion` and `kind` properties to
 // every version's schema, if it doesn't exist already.
-func AddAPIVersionAndKindProperties(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string) {
-	for _, baseRef := range baseRefs {
-		if _, ok := objectTypeSpecs[baseRef].Properties["apiVersion"]; !ok {
-			objectTypeSpecs[baseRef].Properties["apiVersion"] = apiVersionPropertySpec
+func (gen *CustomResourceGenerator) AddAPIVersionAndKindProperties(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string) {
+	for _, version := range gen.Versions() {
+		baseRef := getBaseRef(gen.Group, version, gen.Kind)
+		objectTypeSpecs[baseRef].Properties["apiVersion"] = pschema.PropertySpec{
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Const: gen.Group + "/" + version,
 		}
-		if _, ok := objectTypeSpecs[baseRef].Properties["kind"]; !ok {
-			objectTypeSpecs[baseRef].Properties["kind"] = kindPropertySpec
+		objectTypeSpecs[baseRef].Properties["kind"] = pschema.PropertySpec{
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Const: gen.Kind,
 		}
 	}
 }
@@ -377,6 +384,7 @@ func genPackage(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []st
 	}
 
 	pkgSpec := pschema.PackageSpec{
+		Version:   "2.0.0",
 		Types:     objectTypeSpecs,
 		Resources: resources,
 		Language: map[string]json.RawMessage{

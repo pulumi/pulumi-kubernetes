@@ -60,6 +60,10 @@ func NestedMapSlice(obj map[string]interface{}, fields ...string) ([]map[string]
 	return mapSlice, true, nil
 }
 
+func IsValidLanguage(language string) bool {
+	return language == NodeJS || language == Go || language == Python || language == DotNet
+}
+
 func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
 }

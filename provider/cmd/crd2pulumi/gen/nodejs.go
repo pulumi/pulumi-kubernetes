@@ -18,18 +18,23 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
 )
 
-// genNodeJS returns a buffer containing all the generated code
-func (gen *CustomResourceGenerator) genNodeJS() (*bytes.Buffer, error) {
+const metaPath = "meta/v1.ts"
+const metaFile = `import * as k8s from "@pulumi/kubernetes";
+
+export type ObjectMeta = k8s.types.input.meta.v1.ObjectMeta;
+`
+
+// genNodeJS returns a mapping from each file path to its generated code
+func (gen *CustomResourceGenerator) genNodeJS() (map[string][]byte, error) {
 	objectTypeSpecs := gen.GetObjectTypeSpecs()
 	baseRefs := gen.baseRefs()
 	AddMetadataRefs(objectTypeSpecs, baseRefs)
-	AddArgsSuffix(objectTypeSpecs, baseRefs)
+	gen.AddAPIVersionAndKindProperties(objectTypeSpecs, baseRefs)
 
 	// Generate package
 	pkg, err := genPackage(objectTypeSpecs, baseRefs, NodeJS)
@@ -37,57 +42,57 @@ func (gen *CustomResourceGenerator) genNodeJS() (*bytes.Buffer, error) {
 		return nil, errors.Wrapf(err, "generating package")
 	}
 
-	// Generate all the code for the package
-	buffer, err := nodejs.GenCRDTypes(tool, pkg)
-	if err != nil {
-		return nil, errors.Wrapf(err, "generating types")
+	moduleToPackage := map[string]string{}
+	for _, versionName := range gen.VersionNames() {
+		moduleToPackage[versionName] = getVersion(versionName)
 	}
-	gen.genNodeJSClasses(buffer)
 
-	return buffer, nil
+	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
+		"moduleToPackage": moduleToPackage,
+	})
+
+	files, err := nodejs.GeneratePackage(tool, pkg, nil)
+	if err != nil {
+		return nil, errors.Wrapf(err, "generating nodejs package")
+	}
+
+	packageJSON, ok := files["package.json"]
+	if !ok {
+		return nil, errors.New("cannot find generated package.json")
+	}
+	files["package.json"] = bytes.ReplaceAll(packageJSON, []byte("${VERSION}"), []byte("2.0.0"))
+
+	files[metaPath] = []byte(metaFile)
+
+	files[gen.Kind+"Definition.ts"] = gen.genNodeJSDefinition()
+
+	return files, nil
 }
 
-// Writes the namespaced NodeJS classes for each version to the given writer.
-func (gen *CustomResourceGenerator) genNodeJSClasses(w io.Writer) {
-	versions := gen.Versions()
-	kind := gen.Kind
-	group := gen.Group
-	name := gen.Name()
+const definitionImports = `import * as pulumi from "@pulumi/pulumi";
+import * as k8s from "@pulumi/kubernetes";
 
-	// Generates a CustomResource sub-class for a single version
-	genResourceClass := func(w io.Writer, version, kind, name, group string) {
-		argsName := fmt.Sprintf("%s.%sArgs", version, kind)
-		apiVersion := fmt.Sprintf("%s/%s", group, version)
-		fmt.Fprintf(w, "export namespace %s {\n", version)
-		fmt.Fprintf(w, "\texport class %s extends k8s.apiextensions.CustomResource {\n", kind)
-		fmt.Fprintf(w, "\t\tpublic static get%s(name: string, id: pulumi.Input<pulumi.ID>): %s {\n", kind, kind)
-		fmt.Fprintf(w, "\t\t\treturn k8s.apiextensions.CustomResource.get(name, { apiVersion: \"%s\", kind: \"%s\", id: id })\n", apiVersion, kind)
-		fmt.Fprint(w, "\t\t}\n\n")
-		fmt.Fprintf(w, "\t\tconstructor(name: string, args?: %s, opts?: pulumi.CustomResourceOptions) {\n", argsName)
-		fmt.Fprintf(w, "\t\t\tsuper(name, { apiVersion: \"%s\", kind: \"%s\", ...args }, opts)\n", apiVersion, kind)
-		fmt.Fprint(w, "\t\t}\n\t}\n}\n\n")
+`
+
+// Generates a CustomResourceDefinition class for the entire CRD YAML
+func (gen *CustomResourceGenerator) genNodeJSDefinition() []byte {
+	buffer := &bytes.Buffer{}
+
+	className := gen.Kind + "Definition"
+	var superClassName string
+	if gen.APIVersion == v1 {
+		superClassName = "k8s.apiextensions.v1.CustomResourceDefinition"
+	} else {
+		superClassName = "k8s.apiextensions.v1beta1.CustomResourceDefinition"
 	}
 
-	// Generates a CustomResourceDefinition class for the entire CRD YAML
-	genDefinitionClass := func(w io.Writer, kind, apiVersion string) {
-		className := kind + "Definition"
-		var superClassName string
-		if apiVersion == v1 {
-			superClassName = "k8s.apiextensions.v1.CustomResourceDefinition"
-		} else {
-			superClassName = "k8s.apiextensions.v1beta1.CustomResourceDefinition"
-		}
+	fmt.Fprint(buffer, definitionImports)
+	fmt.Fprintf(buffer, "export class %s extends %s {\n", className, superClassName)
+	fmt.Fprint(buffer, "\tconstructor(name: string, opts?: pulumi.CustomResourceOptions) {\n")
+	fmt.Fprint(buffer, "\t\tsuper(name, ")
+	definitionArgs, _ := json.MarshalIndent(gen.CustomResourceDefinition.Object, "\t\t", "\t")
+	buffer.Write(definitionArgs)
+	fmt.Fprint(buffer, ", opts)\n\t}\n}\n")
 
-		fmt.Fprintf(w, "export class %s extends %s {\n", className, superClassName)
-		fmt.Fprint(w, "\tconstructor(name: string, opts?: pulumi.CustomResourceOptions) {\n")
-		fmt.Fprint(w, "\t\tsuper(name, ")
-		definitionArgs, _ := json.MarshalIndent(gen.CustomResourceDefinition.Object, "\t\t", "\t")
-		w.Write(definitionArgs)
-		fmt.Fprint(w, ", opts)\n\t}\n}\n")
-	}
-
-	for _, version := range versions {
-		genResourceClass(w, version, kind, name, group)
-	}
-	genDefinitionClass(w, kind, gen.APIVersion)
+	return buffer.Bytes()
 }

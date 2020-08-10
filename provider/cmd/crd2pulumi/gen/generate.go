@@ -64,11 +64,6 @@ func NewCustomResourceGenerator(language, yamlPath, outputDir string) (CustomRes
 
 	if outputDir == "" {
 		outputDir = filepath.Dir(yamlPath)
-	} else {
-		_, err := os.Stat(outputDir)
-		if os.IsNotExist(err) {
-			return CustomResourceGenerator{}, errors.Wrapf(err, "output directory does not exist")
-		}
 	}
 
 	yamlFile, err := ioutil.ReadFile(yamlPath)
@@ -156,24 +151,30 @@ func getVersion(versionName string) string {
 
 // Generate outputs strongly-typed args for the CustomResourceGenerator's
 // CRD in the target language and output folder
-func (gen *CustomResourceGenerator) Generate() error {
+func (gen *CustomResourceGenerator) Generate(force bool) error {
+	baseOutputDir := filepath.Join(gen.OutputDir, gen.Plural)
+	if !force {
+		if _, err := os.Stat(baseOutputDir); !os.IsNotExist(err) {
+			return errors.Errorf("%s already exists", baseOutputDir)
+		}
+	}
+
 	switch gen.Language {
 	case NodeJS:
-		buffer, err := gen.genNodeJS()
+		files, err := gen.genNodeJS()
 		if err != nil {
 			return errors.Wrapf(err, "generating nodeJS code")
 		}
 
-		outputFile := filepath.Join(gen.OutputDir, gen.Plural+".ts")
-		file, err := os.Create(outputFile)
-		if err != nil {
-			return errors.Wrapf(err, "creating file %s", outputFile)
-		}
-		defer file.Close()
-
-		_, err = buffer.WriteTo(file)
-		if err != nil {
-			return errors.Wrapf(err, "writing to %s", outputFile)
+		for name, code := range files {
+			outputFile := filepath.Join(baseOutputDir, name)
+			err = os.MkdirAll(filepath.Dir(outputFile), 0755)
+			file, err := os.Create(outputFile)
+			if err != nil {
+				return errors.Wrapf(err, "creating file %s", outputFile)
+			}
+			defer file.Close()
+			file.Write(code)
 		}
 	case Go:
 		buffers, err := gen.genGo()
@@ -182,7 +183,7 @@ func (gen *CustomResourceGenerator) Generate() error {
 		}
 
 		for versionName, buffer := range buffers {
-			packageDir := filepath.Join(gen.OutputDir, getVersion(versionName))
+			packageDir := filepath.Join(baseOutputDir, getVersion(versionName))
 			err := os.MkdirAll(packageDir, 0755)
 			if err != nil {
 				return errors.Wrapf(err, "creating directory %s", packageDir)
@@ -202,7 +203,7 @@ func (gen *CustomResourceGenerator) Generate() error {
 	case DotNet:
 		fallthrough
 	case Python:
-		return errors.Errorf("non-supported language %s", gen.Language)
+		return errors.Errorf("unsupported language %s", gen.Language)
 	default:
 		contract.Failf("unexpected language %s", gen.Language)
 	}
