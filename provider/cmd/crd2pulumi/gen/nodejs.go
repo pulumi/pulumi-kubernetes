@@ -64,7 +64,7 @@ func (gen *CustomResourceGenerator) genNodeJS() (map[string][]byte, error) {
 
 	files[metaPath] = []byte(metaFile)
 
-	files[gen.Kind+"Definition.ts"] = gen.genNodeJSDefinition()
+	files["index.ts"] = append(files["index.ts"], gen.genNodeJSDefinition()...)
 
 	return files, nil
 }
