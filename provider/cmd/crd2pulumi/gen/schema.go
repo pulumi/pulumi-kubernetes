@@ -113,17 +113,6 @@ func getBaseRef(group, version, kind string) string {
 	return fmt.Sprintf("kubernetes:%s/%s:%s", group, version, kind)
 }
 
-// AddArgsSuffix appends 'Args' to the name of versioned CustomResourceArgs
-// interface. For example, this would generate "CronTabArgs" instead of
-// "CronTab" for NodeJS.
-func AddArgsSuffix(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string) {
-	for _, baseRef := range baseRefs {
-		newBaseRef := baseRef + "Args"
-		objectTypeSpecs[newBaseRef] = objectTypeSpecs[baseRef]
-		delete(objectTypeSpecs, baseRef)
-	}
-}
-
 // AddMetadataRefs adds a `metadata?: meta/v1/ObjectMeta` field to each
 // versioned CustomResourceArgs interface.
 func AddMetadataRefs(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string) {
@@ -137,7 +126,7 @@ func AddMetadataRefs(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs
 }
 
 // AddAPIVersionAndKindProperties adds the `apiVersion` and `kind` properties to
-// every version's schema, if it doesn't exist already.
+// every version's schema
 func (gen *CustomResourceGenerator) AddAPIVersionAndKindProperties(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string) {
 	for _, version := range gen.Versions() {
 		baseRef := getBaseRef(gen.Group, version, gen.Kind)

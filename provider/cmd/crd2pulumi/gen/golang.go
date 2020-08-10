@@ -24,16 +24,21 @@ import (
 // genGo returns a map from each version's name to a buffer containing
 // its generated code.
 func (gen *CustomResourceGenerator) genGo() (map[string]*bytes.Buffer, error) {
+	// Set up objectTypeSpecs. Notice that since we can't properly reference
+	// external types for the Go codegen, we add a fake Metadata spec
 	objectTypeSpecs := gen.GetObjectTypeSpecs()
 	AddPlaceholderMetadataSpec(objectTypeSpecs)
 	baseRefs := gen.baseRefs()
 	AddMetadataRefs(objectTypeSpecs, baseRefs)
 	gen.AddAPIVersionAndKindProperties(objectTypeSpecs, baseRefs)
 
+	// Generate the package
 	pkg, err := genPackage(objectTypeSpecs, baseRefs, Go)
 	if err != nil {
 		return nil, errors.Wrapf(err, "generating package")
 	}
+	// We added a fake Metadata spec so we hard-code its import to point to its
+	// actual package
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
 		"importBasePath": "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes",
 		"moduleToPackage": map[string]interface{}{
@@ -48,7 +53,6 @@ func (gen *CustomResourceGenerator) genGo() (map[string]*bytes.Buffer, error) {
 	allTypes, err := go_gen.CRDTypes(tool, pkg)
 
 	buffers := map[string]*bytes.Buffer{}
-
 	for _, versionName := range gen.VersionNames() {
 		types, ok := allTypes[versionName]
 		if !ok {
