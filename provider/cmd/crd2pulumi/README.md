@@ -104,13 +104,13 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Register the CronTab CRD.
-		cronTabDefinition, err := yaml.NewConfigFile(ctx, "my-crontab-definition",
+		_, err := yaml.NewConfigFile(ctx, "my-crontab-definition",
 			&yaml.ConfigFileArgs{
 				File: "resourcedefinition.yaml",
 			},
 		)
 		if err != nil {
-			return err
+      return err
 		}
 		// Instantiate a CronTab resource.
 		cronTabInstance, err := crontabs.NewCronTab(ctx, "my-new-cron-object",
