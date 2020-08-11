@@ -93,7 +93,7 @@ class ConfigGroup(pulumi.ComponentResource):
         ### YAML with Transformations
 
         ```python
-        from pulumi_kubernetes.yaml import ConfigFile
+        from pulumi_kubernetes.yaml import ConfigGroup
 
         # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
         def make_service_private(obj, opts):
@@ -219,7 +219,7 @@ class ConfigFile(pulumi.ComponentResource):
     Kubernetes resources contained in this ConfigFile.
     """
 
-    def __init__(self, name, file_id, opts=None, transformations=None, resource_prefix=None):
+    def __init__(self, name, file, opts=None, transformations=None, resource_prefix=None, file_id=None):
         """
         ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
 
@@ -231,7 +231,7 @@ class ConfigFile(pulumi.ComponentResource):
 
         example = ConfigFile(
             "example",
-            file_id="foo.yaml",
+            file="foo.yaml",
         )
         ```
         ### YAML with Transformations
@@ -265,13 +265,13 @@ class ConfigFile(pulumi.ComponentResource):
 
         example = ConfigFile(
             "example",
-            file_id="foo.yaml",
+            file="foo.yaml",
             transformations=[make_service_private, alias, omit_resource],
         )
         ```
 
         :param str name: A name for a resource.
-        :param str file_id: Path or a URL that uniquely identifies a file.
+        :param str file: Path or a URL that uniquely identifies a file.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
         :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
                transformations to apply to Kubernetes resource definitions before registering with engine.
@@ -295,10 +295,14 @@ class ConfigFile(pulumi.ComponentResource):
             __props__,
             opts)
 
-        if _is_url(file_id):
-            text = _read_url(file_id)
+        if file_id is not None:
+            warnings.warn("explicit use of file_id is deprecated, use 'file' instead", DeprecationWarning)
+            file = file_id
+
+        if _is_url(file):
+            text = _read_url(file)
         else:
-            text = _read_file(file_id)
+            text = _read_file(file)
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
 
