@@ -120,7 +120,7 @@ type ChartArgs struct {
 	// The optional namespace to install chart resources into.
 	Namespace pulumi.StringInput
 	// The optional flag to determine if CRDs from the chart will be installed
-	InstallCRDs pulumi.BoolInput
+	InstallCRDs bool
 	// Overrides for chart values.
 	Values pulumi.MapInput
 	// Transformations is an optional list of transformations to apply to Kubernetes resource definitions
