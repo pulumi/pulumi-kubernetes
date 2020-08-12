@@ -3,6 +3,7 @@
 ### Bug Fixes
 
 -   Fix server-side diff when immutable fields change. (https://github.com/pulumi/pulumi-kubernetes/pull/1223)
+-   Add optional configuration flag for installing CRDs in helm charts. (https://github.com/pulumi/pulumi-kubernetes/pull/1250)
 
 ## 2.4.1 (July 24, 2020)
 
