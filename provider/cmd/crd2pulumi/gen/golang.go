@@ -16,24 +16,18 @@ package gen
 
 import (
 	"bytes"
+	"path/filepath"
 
 	"github.com/pkg/errors"
 	go_gen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
+	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 )
 
-// genGo returns a map from each version's name to a buffer containing
-// its generated code.
-func (gen *CustomResourceGenerator) genGo() (map[string]*bytes.Buffer, error) {
-	// Set up objectTypeSpecs. Notice that since we can't properly reference
-	// external types for the Go codegen, we add a fake Metadata spec
-	objectTypeSpecs := gen.GetObjectTypeSpecs()
-	AddPlaceholderMetadataSpec(objectTypeSpecs)
-	baseRefs := gen.baseRefs()
-	AddMetadataRefs(objectTypeSpecs, baseRefs)
-	gen.AddAPIVersionAndKindProperties(objectTypeSpecs, baseRefs)
+func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
+	AddPlaceholderMetadataSpec(types)
 
 	// Generate the package
-	pkg, err := genPackage(objectTypeSpecs, baseRefs, Go)
+	pkg, err := getPackage(types, baseRefs)
 	if err != nil {
 		return nil, errors.Wrapf(err, "generating package")
 	}
@@ -50,16 +44,20 @@ func (gen *CustomResourceGenerator) genGo() (map[string]*bytes.Buffer, error) {
 	})
 
 	// Generate all the code for the package.
-	allTypes, err := go_gen.CRDTypes(tool, pkg)
-
-	buffers := map[string]*bytes.Buffer{}
-	for _, versionName := range gen.VersionNames() {
-		types, ok := allTypes[versionName]
-		if !ok {
-			return nil, errors.Errorf("cannot find generated Go code for %s", versionName)
-		}
-		buffers[versionName] = types
+	buffers, err := go_gen.CRDTypes(tool, pkg)
+	if err != nil {
+		return nil, errors.Wrap(err, "could not generate Go code")
 	}
 
-	return buffers, nil
+	files := map[string]*bytes.Buffer{}
+
+	for groupVersion, plural := range pg.GroupVersionsToPlural() {
+		buffer, ok := buffers[groupVersion]
+		if !ok {
+			return nil, errors.New("could not find %s in generated Go code")
+		}
+		files[filepath.Join(plural, getVersion(groupVersion), plural+".go")] = buffer
+	}
+
+	return files, nil
 }

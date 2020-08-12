@@ -21,6 +21,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
+	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 )
 
 const metaPath = "meta/v1.ts"
@@ -29,34 +30,23 @@ const metaFile = `import * as k8s from "@pulumi/kubernetes";
 export type ObjectMeta = k8s.types.input.meta.v1.ObjectMeta;
 `
 
-// genNodeJS returns a mapping from each file path to its generated code
-func (gen *CustomResourceGenerator) genNodeJS() (map[string][]byte, error) {
-	// Set up objectTypeSpecs
-	objectTypeSpecs := gen.GetObjectTypeSpecs()
-	baseRefs := gen.baseRefs()
-	AddMetadataRefs(objectTypeSpecs, baseRefs)
-	gen.AddAPIVersionAndKindProperties(objectTypeSpecs, baseRefs)
-
-	// Generate package
-	pkg, err := genPackage(objectTypeSpecs, baseRefs, NodeJS)
+func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
+	pkg, err := getPackage(types, baseRefs)
 	if err != nil {
-		return nil, errors.Wrapf(err, "generating package")
+		return nil, errors.Wrap(err, "could not create package")
 	}
 
-	// Set the package for each module to its version. For example, this causes
-	// "crontabs/v1", "crontabs/v2", etc... to be the generated file paths
 	moduleToPackage := map[string]string{}
-	for _, versionName := range gen.VersionNames() {
-		moduleToPackage[versionName] = getVersion(versionName)
+	for groupVersion, plural := range pg.GroupVersionsToPlural() {
+		moduleToPackage[groupVersion] = plural + "/" + getVersion(groupVersion)
 	}
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"moduleToPackage": moduleToPackage,
 	})
 
-	// Generate the package
 	files, err := nodejs.GeneratePackage(tool, pkg, nil)
 	if err != nil {
-		return nil, errors.Wrapf(err, "generating nodejs package")
+		return nil, errors.Wrap(err, "could not generate nodejs package")
 	}
 
 	// Search and replace ${VERSION} with 2.0.0 in package.json, so the
@@ -70,10 +60,12 @@ func (gen *CustomResourceGenerator) genNodeJS() (map[string][]byte, error) {
 	// Create a helper 'meta/v1.ts' script that just exports the ObjectMeta class
 	files[metaPath] = []byte(metaFile)
 
-	// Appends the CustomResourceDefinition helper constructor to index.ts
-	files["index.ts"] = append(files["index.ts"], gen.genNodeJSDefinition()...)
+	buffers := map[string]*bytes.Buffer{}
+	for name, code := range files {
+		buffers[name] = bytes.NewBuffer(code)
+	}
 
-	return files, nil
+	return buffers, nil
 }
 
 const definitionImports = `import * as pulumi from "@pulumi/pulumi";

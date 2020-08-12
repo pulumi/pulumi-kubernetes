@@ -15,6 +15,7 @@
 package gen
 
 import (
+	"bytes"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -37,16 +38,140 @@ const (
 	v1      string = "apiextensions.k8s.io/v1"
 )
 
+// Generate parses the CRD(s) in the YAML file at the given path and outputs
+// code in the given language to `outputDir/crds`. Only overwrites existing
+// files if force is true.
+func Generate(language, yamlPath, outputDir string, force bool) error {
+	outputDir = filepath.Join(outputDir, "crds")
+	if !force {
+		if _, err := os.Stat(outputDir); !os.IsNotExist(err) {
+			return errors.Errorf("%s already exists; use --force to overwrite", outputDir)
+		}
+	}
+
+	pg, err := NewPackageGenerator(language, yamlPath)
+	if err != nil {
+		return errors.Wrapf(err, "could not generate %s package for %s", language, yamlPath)
+	}
+
+	files, err := pg.GenerateFiles()
+	if err != nil {
+		return errors.Wrapf(err, "could not generate files for %s", yamlPath)
+	}
+
+	if err := writeFiles(files, outputDir); err != nil {
+		return errors.Wrap(err, "could not create files/directories")
+	}
+
+	return nil
+}
+
+// Writes the contents of each buffer to its file path, relative to `outputDir`.
+// `files` should be a mapping from file path strings to buffers.
+func writeFiles(files map[string]*bytes.Buffer, outputDir string) error {
+	for path, code := range files {
+		outputFilePath := filepath.Join(outputDir, path)
+		err := os.MkdirAll(filepath.Dir(outputFilePath), 0755)
+		if err != nil {
+			return errors.Wrapf(err, "could not create directory to %s", outputFilePath)
+		}
+		file, err := os.Create(outputFilePath)
+		if err != nil {
+			return errors.Wrapf(err, "could not create file %s", outputFilePath)
+		}
+		defer file.Close()
+		if _, err := code.WriteTo(file); err != nil {
+			return errors.Wrapf(err, "could not write to file %s", outputFilePath)
+		}
+	}
+	return nil
+}
+
+func NewPackageGenerator(language, yamlPath string) (PackageGenerator, error) {
+	yamlFile, err := ioutil.ReadFile(yamlPath)
+	if err != nil {
+		return PackageGenerator{}, errors.Wrapf(err, "could not read file %s", yamlPath)
+	}
+
+	crds, err := UnmarshalYamls(yamlFile)
+	if err != nil {
+		return PackageGenerator{}, errors.Wrapf(err, "could not unmarshal yaml file %s", yamlPath)
+	}
+
+	crgs := make([]CustomResourceGenerator, len(crds))
+	for i, crd := range crds {
+		crg, err := NewCustomResourceGenerator(crd)
+		if err != nil {
+			return PackageGenerator{}, errors.Wrapf(err, "could not parse crd %d", i)
+		}
+		crgs[i] = crg
+	}
+
+	return PackageGenerator{
+		CustomResourceGenerators: crgs,
+		Language:                 language,
+	}, nil
+}
+
+func (pg *PackageGenerator) BaseRefs() []string {
+	var baseRefs []string
+	for _, crg := range pg.CustomResourceGenerators {
+		baseRefs = append(baseRefs, crg.baseRefs()...)
+	}
+	return baseRefs
+}
+
+func (pg *PackageGenerator) GroupVersionsToPlural() map[string]string {
+	groupVersionsToPlural := map[string]string{}
+	for _, crg := range pg.CustomResourceGenerators {
+		for _, groupVersion := range crg.GroupVersions() {
+			groupVersionsToPlural[groupVersion] = crg.Plural
+		}
+	}
+	return groupVersionsToPlural
+}
+
+func (pg *PackageGenerator) GenerateFiles() (map[string]*bytes.Buffer, error) {
+	types := pg.GetTypes()
+	baseRefs := pg.BaseRefs()
+
+	var files map[string]*bytes.Buffer
+	var err error
+
+	switch pg.Language {
+	case NodeJS:
+		files, err = pg.genNodeJS(types, baseRefs)
+	case Go:
+		files, err = pg.genGo(types, baseRefs)
+	case Python:
+		fallthrough
+	case DotNet:
+		return nil, errors.Errorf("unsupported language %s", pg.Language)
+	default:
+		contract.Failf("unexpected language %s", pg.Language)
+	}
+
+	if err != nil {
+		return nil, errors.Wrapf(err, "could not generate files for %s", pg.Language)
+	}
+	return files, nil
+}
+
+// PackageGenerator generates code for multiple CustomResources
+type PackageGenerator struct {
+	// CustomResourceGenerators contains a slice of all CustomResourceGenerators
+	CustomResourceGenerators []CustomResourceGenerator
+	// Language represents the target language to generate code
+	Language string
+}
+
+// CustomResourceGenerator generates the Pulumi schema for a single CustomResource
 type CustomResourceGenerator struct {
-	// CustomResourceDefinition represents unmarshalled CRD YAML
+	// CustomResourceDefinition contains the unmarshalled CRD YAML
 	CustomResourceDefinition unstruct.Unstructured
 	// Schemas represents a mapping from each version in the `spec.versions`
 	// list to its corresponding `openAPIV3Schema` field in the CRD YAML
 	Schemas map[string]map[string]interface{}
-	// OutputDir represents the directory where generated code will output to
-	OutputDir string
-	// Language represents the target language to generate code
-	Language string
 	// ApiVersion represents the `apiVersion` field in the CRD YAML
 	APIVersion string
 	// Kind represents the `spec.names.kind` field in the CRD YAML
@@ -57,34 +182,14 @@ type CustomResourceGenerator struct {
 	Group string
 }
 
-func NewCustomResourceGenerator(language, yamlPath, outputDir string) (CustomResourceGenerator, error) {
-	if language != DotNet && language != Go && language != NodeJS && language != Python {
-		return CustomResourceGenerator{}, errors.New("invalid language " + language)
-	}
-
-	if outputDir == "" {
-		outputDir = filepath.Dir(yamlPath)
-	}
-
-	yamlFile, err := ioutil.ReadFile(yamlPath)
-	if err != nil {
-		return CustomResourceGenerator{}, errors.Wrapf(err, "reading file %s", yamlPath)
-	}
-
-	crd, err := UnmarshalYaml(yamlFile)
-	if err != nil {
-		return CustomResourceGenerator{}, errors.Wrapf(err, "unmarshalling file %s", yamlPath)
-	}
-
-	UnderscoreFields(crd.Object)
-
+func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenerator, error) {
 	apiVersion := crd.GetAPIVersion()
-	if apiVersion != v1beta1 && apiVersion != v1 {
-		return CustomResourceGenerator{}, errors.New("invalid apiVersion " + apiVersion)
+	if !IsValidApiVersion(apiVersion) {
+		return CustomResourceGenerator{},
+			errors.Errorf("invalid apiVersion %s, only v1 and v1beta1 are supported", apiVersion)
 	}
 
 	schemas := map[string]map[string]interface{}{}
-
 	validation, foundValidation, _ := unstruct.NestedMap(crd.Object, "spec", "validation", "openAPIV3Schema")
 	if foundValidation { // If present, use the top-level schema to validate all versions
 		versionMaps, _, _ := NestedMapSlice(crd.Object, "spec", "versions")
@@ -101,25 +206,29 @@ func NewCustomResourceGenerator(language, yamlPath, outputDir string) (CustomRes
 		}
 	}
 
-	kind, _, _ := unstruct.NestedString(crd.Object, "spec", "names", "kind")
-	plural, _, _ := unstruct.NestedString(crd.Object, "spec", "names", "plural")
-	group, _, _ := unstruct.NestedString(crd.Object, "spec", "group")
+	kind, foundKind, _ := unstruct.NestedString(crd.Object, "spec", "names", "kind")
+	if !foundKind {
+		return CustomResourceGenerator{}, errors.Errorf("could not find `spec.names.kind` field in the CRD")
+	}
+	plural, foundPlural, _ := unstruct.NestedString(crd.Object, "spec", "names", "plural")
+	if !foundPlural {
+		return CustomResourceGenerator{}, errors.Errorf("could not find `spec.names.plural` field in the CRD")
+	}
+	group, foundGroup, _ := unstruct.NestedString(crd.Object, "spec", "group")
+	if !foundGroup {
+		return CustomResourceGenerator{}, errors.Errorf("could not find `spec.group` field in the CRD")
+	}
 
-	customResourceGenerator := CustomResourceGenerator{
+	crg := CustomResourceGenerator{
 		CustomResourceDefinition: crd,
-		OutputDir:                outputDir,
-		Language:                 language,
+		Schemas:                  schemas,
 		APIVersion:               apiVersion,
 		Kind:                     kind,
 		Plural:                   plural,
 		Group:                    group,
-		Schemas:                  schemas,
 	}
-	return customResourceGenerator, nil
-}
 
-func (gen *CustomResourceGenerator) Name() string {
-	return gen.Plural + "." + gen.Group
+	return crg, nil
 }
 
 // Versions returns a slice of the versions supported by this CRD.
@@ -131,9 +240,9 @@ func (gen *CustomResourceGenerator) Versions() []string {
 	return versions
 }
 
-// VersionNames returns a slice of the full names of each version, in the format
+// GroupVersions returns a slice of the names of each version, in the format
 // <group>/<version>.
-func (gen *CustomResourceGenerator) VersionNames() []string {
+func (gen *CustomResourceGenerator) GroupVersions() []string {
 	versions := gen.Versions()
 	for i, version := range versions {
 		versions[i] = gen.Group + "/" + version
@@ -142,71 +251,9 @@ func (gen *CustomResourceGenerator) VersionNames() []string {
 }
 
 // getVersion returns the <version> field of a string in the format
-// <plural>.<group>/<version>
+// <group>/<version>
 func getVersion(versionName string) string {
 	parts := strings.Split(versionName, "/")
 	contract.Assert(len(parts) == 2)
 	return parts[1]
-}
-
-// Generate outputs strongly-typed args for the CustomResourceGenerator's
-// CRD in the target language and output folder
-func (gen *CustomResourceGenerator) Generate(force bool) error {
-	baseOutputDir := filepath.Join(gen.OutputDir, gen.Plural)
-	if !force {
-		if _, err := os.Stat(baseOutputDir); !os.IsNotExist(err) {
-			return errors.Errorf("%s already exists", baseOutputDir)
-		}
-	}
-
-	switch gen.Language {
-	case NodeJS:
-		files, err := gen.genNodeJS()
-		if err != nil {
-			return errors.Wrapf(err, "generating nodeJS code")
-		}
-
-		for name, code := range files {
-			outputFile := filepath.Join(baseOutputDir, name)
-			err = os.MkdirAll(filepath.Dir(outputFile), 0755)
-			file, err := os.Create(outputFile)
-			if err != nil {
-				return errors.Wrapf(err, "creating file %s", outputFile)
-			}
-			defer file.Close()
-			file.Write(code)
-		}
-	case Go:
-		buffers, err := gen.genGo()
-		if err != nil {
-			return errors.Wrapf(err, "generating Go code")
-		}
-
-		for versionName, buffer := range buffers {
-			packageDir := filepath.Join(baseOutputDir, getVersion(versionName))
-			err := os.MkdirAll(packageDir, 0755)
-			if err != nil {
-				return errors.Wrapf(err, "creating directory %s", packageDir)
-			}
-			outputFile := filepath.Join(packageDir, gen.Plural+".go")
-			file, err := os.Create(outputFile)
-			if err != nil {
-				return errors.Wrapf(err, "creating file %s", outputFile)
-			}
-			defer file.Close()
-
-			_, err = buffer.WriteTo(file)
-			if err != nil {
-				return errors.Wrapf(err, "writing to %s", outputFile)
-			}
-		}
-	case DotNet:
-		fallthrough
-	case Python:
-		return errors.Errorf("unsupported language %s", gen.Language)
-	default:
-		contract.Failf("unexpected language %s", gen.Language)
-	}
-
-	return nil
 }

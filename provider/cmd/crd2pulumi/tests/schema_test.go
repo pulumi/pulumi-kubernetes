@@ -23,7 +23,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const TestUnderscoreFieldsYAML = "test-underscorefields.yaml"
 const TestCombineSchemasYAML = "test-combineschemas.yaml"
 
 func UnmarshalSchemas(yamlPath string) (map[string]interface{}, error) {
@@ -36,20 +35,6 @@ func UnmarshalSchemas(yamlPath string) (map[string]interface{}, error) {
 		return nil, errors.Wrapf(err, "unmarshal %s", yamlPath)
 	}
 	return schemasUnstruct.Object, nil
-}
-
-func TestUnderscoreFields(t *testing.T) {
-	schemas, _ := UnmarshalSchemas("testUnderscoreFields.yaml")
-
-	// Test that calling underscoreFields() on each initial schema changes it
-	// to become the same as the expected schema
-	for name := range schemas {
-		schema := schemas[name].(map[string]interface{})
-		expected := schema["expected"].(map[string]interface{})
-		initial := schema["initial"].(map[string]interface{})
-		gen.UnderscoreFields(initial)
-		assert.EqualValues(t, expected, initial)
-	}
 }
 
 func TestCombineSchemas(t *testing.T) {
