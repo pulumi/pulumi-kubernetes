@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
@@ -37,8 +38,8 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 	}
 
 	moduleToPackage := map[string]string{}
-	for groupVersion, plural := range pg.GroupVersionsToPlural() {
-		moduleToPackage[groupVersion] = plural + "/" + getVersion(groupVersion)
+	for _, groupVersion := range pg.GroupVersions() {
+		moduleToPackage[groupVersion] = strings.ReplaceAll(groupVersion, ".", "-")
 	}
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"moduleToPackage": moduleToPackage,

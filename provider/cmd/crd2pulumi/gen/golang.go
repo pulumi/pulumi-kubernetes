@@ -17,11 +17,19 @@ package gen
 import (
 	"bytes"
 	"path/filepath"
+	"strings"
 
 	"github.com/pkg/errors"
 	go_gen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
 	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
+
+var unneededFiles = []string{
+	"doc.go",
+	"provider.go",
+	"meta/v1/pulumiTypes.go",
+}
 
 func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
 	AddPlaceholderMetadataSpec(types)
@@ -42,22 +50,30 @@ func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseR
 			"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1": "metav1",
 		},
 	})
+	// We also need a name, so the Go codegen formatter passes
+	pkg.Name = "crds"
 
-	// Generate all the code for the package.
-	buffers, err := go_gen.CRDTypes(tool, pkg)
+	files, err := go_gen.GeneratePackage(tool, pkg)
 	if err != nil {
-		return nil, errors.Wrap(err, "could not generate Go code")
+		return nil, errors.Wrap(err, "could not generate Go package")
 	}
 
-	files := map[string]*bytes.Buffer{}
+	buffers := map[string]*bytes.Buffer{}
 
-	for groupVersion, plural := range pg.GroupVersionsToPlural() {
-		buffer, ok := buffers[groupVersion]
-		if !ok {
-			return nil, errors.New("could not find %s in generated Go code")
-		}
-		files[filepath.Join(plural, getVersion(groupVersion), plural+".go")] = buffer
+	for path, code := range files {
+		oldDir, file := filepath.Split(path)
+		oldDirNames := strings.Split(oldDir, "/")
+		contract.Assert(len(oldDirNames) > 1)
+		// Remove the filler "crds" name we passed in and replace all dots with
+		// hyphens
+		newDir := strings.ReplaceAll(strings.Join(oldDirNames[1:], "/"), ".", "-")
+		newPath := filepath.Join(newDir, file)
+		buffers[newPath] = bytes.NewBuffer(code)
 	}
 
-	return files, nil
+	for _, unneededFile := range unneededFiles {
+		delete(buffers, unneededFile)
+	}
+
+	return buffers, nil
 }

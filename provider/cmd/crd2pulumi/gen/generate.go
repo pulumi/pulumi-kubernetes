@@ -121,14 +121,12 @@ func (pg *PackageGenerator) BaseRefs() []string {
 	return baseRefs
 }
 
-func (pg *PackageGenerator) GroupVersionsToPlural() map[string]string {
-	groupVersionsToPlural := map[string]string{}
+func (pg *PackageGenerator) GroupVersions() []string {
+	var groupVersions []string
 	for _, crg := range pg.CustomResourceGenerators {
-		for _, groupVersion := range crg.GroupVersions() {
-			groupVersionsToPlural[groupVersion] = crg.Plural
-		}
+		groupVersions = append(groupVersions, crg.GroupVersions()...)
 	}
-	return groupVersionsToPlural
+	return groupVersions
 }
 
 func (pg *PackageGenerator) GenerateFiles() (map[string]*bytes.Buffer, error) {
@@ -252,8 +250,16 @@ func (gen *CustomResourceGenerator) GroupVersions() []string {
 
 // getVersion returns the <version> field of a string in the format
 // <group>/<version>
-func getVersion(versionName string) string {
-	parts := strings.Split(versionName, "/")
+func getVersion(groupVersion string) string {
+	parts := strings.Split(groupVersion, "/")
 	contract.Assert(len(parts) == 2)
 	return parts[1]
+}
+
+// getGroup returns the <group> field of a string in the format
+// <group>/<version>
+func getGroup(groupVersion string) string {
+	parts := strings.Split(groupVersion, "/")
+	contract.Assert(len(parts) == 2)
+	return parts[0]
 }
