@@ -151,6 +151,7 @@ type ChartArgs struct {
 type chartArgs struct {
 	APIVersions     []string               `pulumi:"apiVersions"`
 	Namespace       string                 `pulumi:"namespace"`
+	InstallCRDs     bool                   `pulumi:"installCrds"`
 	Values          map[string]interface{} `pulumi:"values"`
 	Transformations []yaml.Transformation  `pulumi:"transformations"`
 	ResourcePrefix  string                 `pulumi:"resourcePrefix"`
