@@ -15,115 +15,64 @@
 package tests
 
 import (
-	"reflect"
+	"io/ioutil"
 	"testing"
 
-	crdschema "github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/schema"
+	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/gen"
+	"github.com/stretchr/testify/assert"
 )
 
+const TestUnderscoreFieldsYAML = "test-underscorefields.yaml"
+const TestCombineSchemasYAML = "test-combineschemas.yaml"
+
+func UnmarshalSchemas(yamlPath string) (map[string]interface{}, error) {
+	yamlFile, err := ioutil.ReadFile(yamlPath)
+	if err != nil {
+		return nil, errors.Wrapf(err, "reading file %s", yamlPath)
+	}
+	schemasUnstruct, err := gen.UnmarshalYaml(yamlFile)
+	if err != nil {
+		return nil, errors.Wrapf(err, "unmarshal %s", yamlPath)
+	}
+	return schemasUnstruct.Object, nil
+}
+
+func TestUnderscoreFields(t *testing.T) {
+	schemas, _ := UnmarshalSchemas("testUnderscoreFields.yaml")
+
+	// Test that calling underscoreFields() on each initial schema changes it
+	// to become the same as the expected schema
+	for name := range schemas {
+		schema := schemas[name].(map[string]interface{})
+		expected := schema["expected"].(map[string]interface{})
+		initial := schema["initial"].(map[string]interface{})
+		gen.UnderscoreFields(initial)
+		assert.EqualValues(t, expected, initial)
+	}
+}
+
 func TestCombineSchemas(t *testing.T) {
-	// Test that supplying no schemas to CombineSchemas will return false
-	nilSchemaFalse := crdschema.CombineSchemas(false)
-	if nilSchemaFalse != nil {
-		t.Errorf("CombineSchemas(false) = %v; want nil", nilSchemaFalse)
-	}
+	// Test that CombineSchemas on no schemas returns nil
+	assert.Nil(t, gen.CombineSchemas(false))
+	assert.Nil(t, gen.CombineSchemas(true))
 
-	nilSchemaTrue := crdschema.CombineSchemas(true)
-	if nilSchemaTrue != nil {
-		t.Errorf("CombineSchemas(true) = %v; want nil", nilSchemaFalse)
-	}
+	// Unmarshal some testing schemas
+	schemas, _ := UnmarshalSchemas(TestCombineSchemasYAML)
+	person := schemas["person"].(map[string]interface{})
+	employee := schemas["employee"].(map[string]interface{})
 
-	// Create some test schemas
-	person := map[string]interface{}{
-		"type":        "object",
-		"description": "Represents a person.",
-		"properties": map[string]interface{}{
-			"name": map[string]interface{}{
-				"type": "string",
-			},
-			"hometown": map[string]interface{}{
-				"type": "string",
-			},
-			"age": map[string]interface{}{
-				"type": "integer",
-			},
-		},
-		"required": []interface{}{
-			"name", "age",
-		},
-	}
-	company := map[string]interface{}{
-		"type":        "object",
-		"description": "Represents a company.",
-		"properties": map[string]interface{}{
-			"name": map[string]interface{}{
-				"type": "string",
-			},
-			"address": map[string]interface{}{
-				"type": "string",
-			},
-		},
-	}
-	employee := map[string]interface{}{
-		"type": "object",
-		"properties": map[string]interface{}{
-			"employeeID": map[string]interface{}{
-				"type": "integer",
-			},
-			"company": company,
-		},
-		"required": []interface{}{
-			"employeeID",
-		},
-	}
-	schemas := []map[string]interface{}{
-		person, company, employee,
-	}
+	// Test that CombineSchemas with 1 schema returns the same schema
+	assert.Equal(t, person, gen.CombineSchemas(true, person))
+	assert.Equal(t, person, gen.CombineSchemas(false, person))
 
-	// Test that combining just 1 schema will return that 1 schema
-	for _, schema := range schemas {
-		if combinedSchema := crdschema.CombineSchemas(true, schema); !reflect.DeepEqual(combinedSchema, schema) {
-			t.Errorf("CombineSchemas(true, %v) = %v; want %v", schema, combinedSchema, schema)
-		}
-		if combinedSchema := crdschema.CombineSchemas(false, schema); !reflect.DeepEqual(combinedSchema, schema) {
-			t.Errorf("CombineSchemas(false, %v) = %v; want %v", schema, combinedSchema, schema)
-		}
-	}
+	// Test CombineSchemas with 2 schemas and combineSchemas = true
+	personAndEmployeeWithRequiredExpected := schemas["personAndEmployeeWithRequired"].(map[string]interface{})
+	personAndEmployeeWithRequiredActual := gen.CombineSchemas(true, person, employee)
+	assert.EqualValues(t, personAndEmployeeWithRequiredExpected, personAndEmployeeWithRequiredActual)
 
-	// Test combining 2 schemas, set combineRequired = true
-	personAndEmployeeActual := crdschema.CombineSchemas(true, person, employee)
-	personAndEmployeeExpected := map[string]interface{}{
-		"type":        "object",
-		"description": "Combines 2 type(s): (1) Represents a person. (2) <no description found>",
-		"properties": map[string]interface{}{
-			"name": map[string]interface{}{
-				"type": "string",
-			},
-			"hometown": map[string]interface{}{
-				"type": "string",
-			},
-			"age": map[string]interface{}{
-				"type": "integer",
-			},
-			"employeeID": map[string]interface{}{
-				"type": "integer",
-			},
-			"company": company,
-		},
-		"required": []interface{}{
-			"name", "age", "employeeID",
-		},
-	}
-
-	if !reflect.DeepEqual(personAndEmployeeActual, personAndEmployeeExpected) {
-		t.Errorf("CombineSchemas(true, %v, %v) = %v; want %v", person, employee, personAndEmployeeActual, personAndEmployeeExpected)
-	}
-
-	// Test combining 2 schemas, set combineRequired = false
-	personAndEmployeeNoRequiredActual := crdschema.CombineSchemas(false, person, employee)
-	personAndEmployeeNoRequiredExpected := personAndEmployeeExpected
-	delete(personAndEmployeeNoRequiredExpected, "required")
-	if !reflect.DeepEqual(personAndEmployeeNoRequiredActual, personAndEmployeeNoRequiredExpected) {
-		t.Errorf("CombineSchemas(false, %v, %v) = %v; want %v", person, employee, personAndEmployeeNoRequiredActual, personAndEmployeeNoRequiredExpected)
-	}
+	// Test CombineSchemas with 2 schemas and combineSchemas = false
+	personAndEmployeeWithoutRequiredExpected := schemas["personAndEmployeeWithoutRequired"].(map[string]interface{})
+	personAndEmployeeWithoutRequiredActual := gen.CombineSchemas(false, person, employee)
+	assert.EqualValues(t, personAndEmployeeWithoutRequiredExpected, personAndEmployeeWithoutRequiredActual)
 }

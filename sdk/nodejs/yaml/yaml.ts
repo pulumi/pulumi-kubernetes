@@ -186,10 +186,6 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", namespace: string, name: string): pulumi.Output<k8s.coordination.v1beta1.LeaseList>;
     public getResource(groupVersionKind: "v1/Binding", name: string): pulumi.Output<k8s.core.v1.Binding>;
     public getResource(groupVersionKind: "v1/Binding", namespace: string, name: string): pulumi.Output<k8s.core.v1.Binding>;
-    public getResource(groupVersionKind: "v1/ComponentStatus", name: string): pulumi.Output<k8s.core.v1.ComponentStatus>;
-    public getResource(groupVersionKind: "v1/ComponentStatus", namespace: string, name: string): pulumi.Output<k8s.core.v1.ComponentStatus>;
-    public getResource(groupVersionKind: "v1/ComponentStatusList", name: string): pulumi.Output<k8s.core.v1.ComponentStatusList>;
-    public getResource(groupVersionKind: "v1/ComponentStatusList", namespace: string, name: string): pulumi.Output<k8s.core.v1.ComponentStatusList>;
     public getResource(groupVersionKind: "v1/ConfigMap", name: string): pulumi.Output<k8s.core.v1.ConfigMap>;
     public getResource(groupVersionKind: "v1/ConfigMap", namespace: string, name: string): pulumi.Output<k8s.core.v1.ConfigMap>;
     public getResource(groupVersionKind: "v1/ConfigMapList", name: string): pulumi.Output<k8s.core.v1.ConfigMapList>;
@@ -1092,22 +1088,6 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "v1/Binding", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
     public getResourceProperty(groupVersionKind: "v1/Binding", name: string, property: "target"): pulumi.Output<outputs.core.v1.ObjectReference>;
     public getResourceProperty(groupVersionKind: "v1/Binding", namespace: string, name: string, property: "target"): pulumi.Output<outputs.core.v1.ObjectReference>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", name: string, property: "apiVersion"): pulumi.Output<"v1">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"v1">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", name: string, property: "conditions"): pulumi.Output<outputs.core.v1.ComponentCondition[]>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", namespace: string, name: string, property: "conditions"): pulumi.Output<outputs.core.v1.ComponentCondition[]>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", name: string, property: "kind"): pulumi.Output<"ComponentStatus">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", namespace: string, name: string, property: "kind"): pulumi.Output<"ComponentStatus">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatus", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", name: string, property: "apiVersion"): pulumi.Output<"v1">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"v1">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", name: string, property: "items"): pulumi.Output<outputs.core.v1.ComponentStatus[]>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.core.v1.ComponentStatus[]>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", name: string, property: "kind"): pulumi.Output<"ComponentStatusList">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", namespace: string, name: string, property: "kind"): pulumi.Output<"ComponentStatusList">;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-    public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "apiVersion"): pulumi.Output<"v1">;
     public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"v1">;
     public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "binaryData"): pulumi.Output<{[key: string]: string}>;
@@ -2666,7 +2646,6 @@ export interface ConfigOpts {
         || (gvk === "certificates.k8s.io/v1beta1/CertificateSigningRequestList")
         || (gvk === "coordination.k8s.io/v1/LeaseList")
         || (gvk === "coordination.k8s.io/v1beta1/LeaseList")
-        || (gvk === "v1/ComponentStatusList")
         || (gvk === "v1/ConfigMapList")
         || (gvk === "v1/EndpointsList")
         || (gvk === "v1/EventList")
@@ -2961,11 +2940,6 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `v1/Binding::${id}`,
                 resource: new k8s.core.v1.Binding(id, obj, opts),
-            }))];
-        case "v1/ComponentStatus":
-            return [id.apply(id => ({
-                name: `v1/ComponentStatus::${id}`,
-                resource: new k8s.core.v1.ComponentStatus(id, obj, opts),
             }))];
         case "v1/ConfigMap":
             return [id.apply(id => ({

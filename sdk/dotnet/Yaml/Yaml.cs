@@ -130,8 +130,6 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Coordination.V1Beta1.Lease) ? "coordination.k8s.io/v1beta1/Lease" :
                 type == typeof(Coordination.V1Beta1.LeaseList) ? "coordination.k8s.io/v1beta1/LeaseList" :
                 type == typeof(Core.V1.Binding) ? "v1/Binding" :
-                type == typeof(Core.V1.ComponentStatus) ? "v1/ComponentStatus" :
-                type == typeof(Core.V1.ComponentStatusList) ? "v1/ComponentStatusList" :
                 type == typeof(Core.V1.ConfigMap) ? "v1/ConfigMap" :
                 type == typeof(Core.V1.ConfigMapList) ? "v1/ConfigMapList" :
                 type == typeof(Core.V1.Endpoints) ? "v1/Endpoints" :
@@ -448,7 +446,6 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequestList"
                 || gvk == "coordination.k8s.io/v1/LeaseList"
                 || gvk == "coordination.k8s.io/v1beta1/LeaseList"
-                || gvk == "v1/ComponentStatusList"
                 || gvk == "v1/ConfigMapList"
                 || gvk == "v1/EndpointsList"
                 || gvk == "v1/EventList"
@@ -790,12 +787,6 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"v1/Binding::{id}",
                                 new Core.V1.Binding(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "v1/ComponentStatus":
-                        return new[]
-                        {
-                            id.Apply(id => ($"v1/ComponentStatus::{id}",
-                                new Core.V1.ComponentStatus(id, obj!, opts) as KubernetesResource))
                         };
                     case "v1/ConfigMap":
                         return new[]

@@ -10923,8 +10923,7 @@
             "properties": {
                 "apiVersion": {
                     "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
                 },
                 "conditions": {
                     "type": "array",
@@ -10935,8 +10934,7 @@
                 },
                 "kind": {
                     "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "ComponentStatus"
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
@@ -10960,8 +10958,7 @@
             "properties": {
                 "apiVersion": {
                     "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
                 },
                 "items": {
                     "type": "array",
@@ -10972,8 +10969,7 @@
                 },
                 "kind": {
                     "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "ComponentStatusList"
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ListMeta",
@@ -30547,112 +30543,6 @@
             },
             "requiredInputs": [
                 "target"
-            ]
-        },
-        "kubernetes:core/v1:ComponentStatus": {
-            "description": "ComponentStatus (and ComponentStatusList) holds the cluster validation info.",
-            "properties": {
-                "apiVersion": {
-                    "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
-                },
-                "conditions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:core/v1:ComponentCondition"
-                    },
-                    "description": "List of component conditions observed"
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "ComponentStatus"
-                },
-                "metadata": {
-                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
-                }
-            },
-            "type": "object",
-            "inputProperties": {
-                "apiVersion": {
-                    "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
-                },
-                "conditions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:core/v1:ComponentCondition"
-                    },
-                    "description": "List of component conditions observed"
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "ComponentStatus"
-                },
-                "metadata": {
-                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
-                }
-            }
-        },
-        "kubernetes:core/v1:ComponentStatusList": {
-            "description": "Status of all the conditions for the component as a list of ComponentStatus objects.",
-            "properties": {
-                "apiVersion": {
-                    "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:core/v1:ComponentStatus"
-                    },
-                    "description": "List of ComponentStatus objects."
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "ComponentStatusList"
-                },
-                "metadata": {
-                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
-                    "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
-                }
-            },
-            "type": "object",
-            "required": [
-                "items"
-            ],
-            "inputProperties": {
-                "apiVersion": {
-                    "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:core/v1:ComponentStatus"
-                    },
-                    "description": "List of ComponentStatus objects."
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "ComponentStatusList"
-                },
-                "metadata": {
-                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
-                    "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
-                }
-            },
-            "requiredInputs": [
-                "items"
             ]
         },
         "kubernetes:core/v1:ConfigMap": {

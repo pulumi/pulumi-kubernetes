@@ -235,7 +235,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"certificates.k8s.io/v1beta1/CertificateSigningRequestList",
 		"coordination.k8s.io/v1/LeaseList",
 		"coordination.k8s.io/v1beta1/LeaseList",
-		"v1/ComponentStatusList",
 		"v1/ConfigMapList",
 		"v1/EndpointsList",
 		"v1/EventList",
@@ -636,13 +635,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "v1/Binding":
 		var res corev1.Binding
 		err := ctx.RegisterResource("kubernetes:core/v1:Binding", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "v1/ComponentStatus":
-		var res corev1.ComponentStatus
-		err := ctx.RegisterResource("kubernetes:core/v1:ComponentStatus", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

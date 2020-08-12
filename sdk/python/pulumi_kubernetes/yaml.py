@@ -883,18 +883,6 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"v1/Binding:{x}",
                        Binding(f"{x}", opts, **obj)))]
-    if gvk == "v1/ComponentStatus":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.core.v1 import ComponentStatus
-        return [identifier.apply(
-            lambda x: (f"v1/ComponentStatus:{x}",
-                       ComponentStatus(f"{x}", opts, **obj)))]
-    if gvk == "v1/ComponentStatusList":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.core.v1 import ComponentStatusList
-        return [identifier.apply(
-            lambda x: (f"v1/ComponentStatusList:{x}",
-                       ComponentStatusList(f"{x}", opts, **obj)))]
     if gvk == "v1/ConfigMap":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.core.v1 import ConfigMap

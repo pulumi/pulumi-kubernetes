@@ -2,8 +2,18 @@
 
 ### Bug Fixes
 
--   Fix server-side diff when immutable fields change. (https://github.com/pulumi/pulumi-kubernetes/pull/1223)
 -   Add optional configuration flag for installing CRDs in helm charts. (https://github.com/pulumi/pulumi-kubernetes/pull/1250)
+
+### Improvements
+
+-   Remove the ComponentStatus resource type. (https://github.com/pulumi/pulumi-kubernetes/pull/1234)
+
+## 2.4.2 (August 3, 2020)
+
+### Bug Fixes
+
+-   Fix server-side diff when immutable fields change. (https://github.com/pulumi/pulumi-kubernetes/pull/1223)
+-   Update json-patch mod to fix hangs on pulumi update. (https://github.com/pulumi/pulumi-kubernetes/pull/1223)
 
 ## 2.4.1 (July 24, 2020)
 
