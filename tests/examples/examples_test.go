@@ -171,6 +171,23 @@ func TestAccHelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestAccHelmCrd(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         path.Join(getCwd(t), "helm-crd"),
+			SkipRefresh: true,
+			ExtraRuntimeValidation: func(
+				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
+			) {
+				assert.NotNil(t, stackInfo.Deployment)
+				assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
 func TestAccHelmLocal(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).

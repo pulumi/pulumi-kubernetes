@@ -1,0 +1,3 @@
+name: helm-chart-crd
+runtime: nodejs
+description: Deploys a simple Helm chart with a CRD to Kubernetes.

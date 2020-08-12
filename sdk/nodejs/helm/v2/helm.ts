@@ -214,6 +214,8 @@ export class Chart extends yaml.CollectionComponentResource {
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
 
+                const installCRDsArg = cfg.installCRDs
+
                 // Check the helm version - v2 or v3
                 let helmVerCmd = `helm version --short || true`;
                 var helmVer;
@@ -234,7 +236,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 // Helm v3 returns a version like this:
                 // v3.1.2+gd878d4d
                 // --include-crds is available in helm v3.1+ so check for a regex matching that version
-                if (RegExp('^v3\.[1-9]').test(helmVer)) {
+                if (RegExp('^v3\.[1-9]').test(helmVer) && (installCRDsArg != false)) {
                     cmd += ` --include-crds`
                 }
 
@@ -290,6 +292,10 @@ interface BaseChartOpts {
      * The optional namespace to install chart resources into.
      */
     namespace?: pulumi.Input<string>;
+    /**
+     * The optional flag to determine if CRDs from the chart will be installed
+     */
+    installCRDs?: pulumi.Input<boolean>;
     /**
      * Overrides for chart values.
      */

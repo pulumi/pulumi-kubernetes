@@ -345,6 +345,11 @@ class BaseChartOpts:
     Optional namespace to install chart resources into.
     """
 
+    install_crds: Optional[pulumi.Input[bool]]
+    """
+    Optional override for installing crds
+    """
+
     values: Optional[pulumi.Inputs]
     """
     Optional overrides for chart values.
@@ -542,7 +547,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     pulumi.Output.all(file, data).apply(_write_override_file)
 
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
-    crd_arg = ['--include-crds'] if _is_helm_v3() else []
+    crd_arg = ['--include-crds'] if _is_helm_v3() and config.install_crds is not False else []
 
     # Use 'helm template' to create a combined YAML manifest.
     cmd = ['helm', 'template', chart, '--name-template', release_name,
