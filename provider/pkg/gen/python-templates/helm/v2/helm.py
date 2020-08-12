@@ -347,7 +347,7 @@ class BaseChartOpts:
 
     install_crds: Optional[pulumi.Input[bool]]
     """
-    Optional override for installing crds
+    Optional flag to determine if CRDs from the chart will be installed
     """
 
     values: Optional[pulumi.Inputs]
@@ -367,9 +367,10 @@ class BaseChartOpts:
     Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
     """
 
-    def __init__(self, namespace=None, values=None, transformations=None, resource_prefix=None):
+    def __init__(self, namespace=None, install_crds=True, values=None, transformations=None, resource_prefix=None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
+        :param Optional[pulumi.Input[bool]] install_crds: Optional flag to determine if CRDs from the chart will be installed.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
         :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list
                of transformations to apply to resources that will be created by this chart prior to creation.
@@ -381,7 +382,6 @@ class BaseChartOpts:
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix
-
 
 class ChartOpts(BaseChartOpts):
     """
@@ -547,7 +547,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     pulumi.Output.all(file, data).apply(_write_override_file)
 
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
-    crd_arg = ['--include-crds'] if _is_helm_v3() and config.install_crds is not False else []
+    crd_arg = ['--include-crds'] if _is_helm_v3() and config.install_crds else []
 
     # Use 'helm template' to create a combined YAML manifest.
     cmd = ['helm', 'template', chart, '--name-template', release_name,

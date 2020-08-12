@@ -214,7 +214,12 @@ export class Chart extends yaml.CollectionComponentResource {
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
 
-                const installCRDsArg = cfg.installCRDs
+                var installCRDsArg
+                if (cfg.installCRDs == undefined) {
+                    installCRDsArg = true
+                } else {
+                    installCRDsArg = cfg.installCRDs
+                }
 
                 // Check the helm version - v2 or v3
                 let helmVerCmd = `helm version --short || true`;
@@ -236,7 +241,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 // Helm v3 returns a version like this:
                 // v3.1.2+gd878d4d
                 // --include-crds is available in helm v3.1+ so check for a regex matching that version
-                if (RegExp('^v3\.[1-9]').test(helmVer) && (installCRDsArg != false)) {
+                if (RegExp('^v3\.[1-9]').test(helmVer) && (installCRDsArg)) {
                     cmd += ` --include-crds`
                 }
 

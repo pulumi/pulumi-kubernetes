@@ -119,7 +119,7 @@ type ChartArgs struct {
 	APIVersions pulumi.StringArrayInput
 	// The optional namespace to install chart resources into.
 	Namespace pulumi.StringInput
-	// The optional override for installing crds
+	// The optional flag to determine if CRDs from the chart will be installed
 	InstallCRDs pulumi.BoolInput
 	// Overrides for chart values.
 	Values pulumi.MapInput

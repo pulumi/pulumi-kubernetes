@@ -347,7 +347,7 @@ class BaseChartOpts:
 
     install_crds: Optional[pulumi.Input[bool]]
     """
-    Optional override for installing crds
+    Optional flag to determine if CRDs from the chart will be installed
     """
 
     values: Optional[pulumi.Inputs]
@@ -367,9 +367,10 @@ class BaseChartOpts:
     Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
     """
 
-    def __init__(self, namespace=None, values=None, transformations=None, resource_prefix=None):
+    def __init__(self, namespace=None, install_crds=True, values=None, transformations=None, resource_prefix=None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
+        :param Optional[pulumi.Input[bool]] install_crds: Optional flag to determine if CRDs from the chart will be installed.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
         :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list
                of transformations to apply to resources that will be created by this chart prior to creation.
@@ -381,7 +382,6 @@ class BaseChartOpts:
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix
-
 
 class ChartOpts(BaseChartOpts):
     """
