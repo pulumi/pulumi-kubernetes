@@ -219,7 +219,7 @@ class ConfigFile(pulumi.ComponentResource):
     Kubernetes resources contained in this ConfigFile.
     """
 
-    def __init__(self, name, file, opts=None, transformations=None, resource_prefix=None, file_id=None):
+    def __init__(self, name, file=None, opts=None, transformations=None, resource_prefix=None, file_id=None):
         """
         ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
 
@@ -298,6 +298,8 @@ class ConfigFile(pulumi.ComponentResource):
         if file_id is not None:
             warnings.warn("explicit use of file_id is deprecated, use 'file' instead", DeprecationWarning)
             file = file_id
+        if file is None:
+            raise TypeError("Missing file argument")
 
         if _is_url(file):
             text = _read_url(file)
