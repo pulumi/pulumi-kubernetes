@@ -339,13 +339,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		return nil, err
 	}
 
-	var installCRDs bool
-	if &args.InstallCRDs == nil {
-	    installCRDs = true
-	} else {
-	    installCRDs = args.InstallCRDs
-	}
-	if v3 && installCRDs {
+	if v3 {
 		helmArgs = append(helmArgs, "--include-crds")
 	}
 
