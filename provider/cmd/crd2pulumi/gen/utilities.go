@@ -49,6 +49,16 @@ func UnmarshalYamls(yamlFile []byte) ([]unstruct.Unstructured, error) {
 	return crds, nil
 }
 
+// UnmarshalYaml unmarshals one and only one YAML document from a file
+func UnmarshalYaml(yamlFile []byte) (map[string]interface{}, error) {
+	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(bytes.NewReader(yamlFile)), 128)
+	var value map[string]interface{}
+	if err := dec.Decode(&value); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshal yaml")
+	}
+	return value, nil
+}
+
 // NestedMapSlice returns a copy of []map[string]interface{} value of a nested field.
 // Returns false if value is not found and an error if not a []interface{} or contains non-map items in the slice.
 // If the value is found but not of type []interface{}, this still returns true.

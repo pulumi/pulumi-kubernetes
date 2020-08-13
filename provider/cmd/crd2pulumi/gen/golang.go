@@ -63,7 +63,7 @@ func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseR
 	for path, code := range files {
 		oldDir, file := filepath.Split(path)
 		oldDirNames := strings.Split(oldDir, "/")
-		contract.Assert(len(oldDirNames) > 1)
+		contract.Assertf(len(oldDirNames) > 1, "path should be in the format crds/<...>")
 		// Remove the filler "crds" name we passed in and replace all dots with
 		// hyphens
 		newDir := strings.ReplaceAll(strings.Join(oldDirNames[1:], "/"), ".", "-")

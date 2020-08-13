@@ -206,15 +206,15 @@ func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenera
 
 	kind, foundKind, _ := unstruct.NestedString(crd.Object, "spec", "names", "kind")
 	if !foundKind {
-		return CustomResourceGenerator{}, errors.Errorf("could not find `spec.names.kind` field in the CRD")
+		return CustomResourceGenerator{}, errors.New("could not find `spec.names.kind` field in the CRD")
 	}
 	plural, foundPlural, _ := unstruct.NestedString(crd.Object, "spec", "names", "plural")
 	if !foundPlural {
-		return CustomResourceGenerator{}, errors.Errorf("could not find `spec.names.plural` field in the CRD")
+		return CustomResourceGenerator{}, errors.New("could not find `spec.names.plural` field in the CRD")
 	}
 	group, foundGroup, _ := unstruct.NestedString(crd.Object, "spec", "group")
 	if !foundGroup {
-		return CustomResourceGenerator{}, errors.Errorf("could not find `spec.group` field in the CRD")
+		return CustomResourceGenerator{}, errors.New("could not find `spec.group` field in the CRD")
 	}
 
 	crg := CustomResourceGenerator{
@@ -251,15 +251,21 @@ func (gen *CustomResourceGenerator) GroupVersions() []string {
 // getVersion returns the <version> field of a string in the format
 // <group>/<version>
 func getVersion(groupVersion string) string {
-	parts := strings.Split(groupVersion, "/")
-	contract.Assert(len(parts) == 2)
-	return parts[1]
+	version, _ := splitGroupVersion(groupVersion)
+	return version
 }
 
 // getGroup returns the <group> field of a string in the format
 // <group>/<version>
 func getGroup(groupVersion string) string {
+	_, group := splitGroupVersion(groupVersion)
+	return group
+}
+
+// splitGroupVersion returns the <group> and <version> field of a string in the
+// format <group>/<version>
+func splitGroupVersion(groupVersion string) (string, string) {
 	parts := strings.Split(groupVersion, "/")
 	contract.Assert(len(parts) == 2)
-	return parts[0]
+	return parts[0], parts[1]
 }

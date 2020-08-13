@@ -330,3 +330,22 @@ func CombineSchemas(combineRequired bool, schemas ...map[string]interface{}) map
 	}
 	return combinedSchema
 }
+
+func UnderscoreFields(schema map[string]interface{}) {
+	for field, val := range schema {
+		if hyphenedFields.Has(field) {
+			delete(schema, field)
+			underScoredField := strings.ReplaceAll(field, "-", "_")
+			schema[underScoredField] = val
+		}
+		if subSchema, ok := val.(map[string]interface{}); ok {
+			UnderscoreFields(subSchema)
+		} else if subSchemaSlice, ok := val.([]interface{}); ok {
+			for _, genericSubSchema := range subSchemaSlice {
+				if subSchema, ok = genericSubSchema.(map[string]interface{}); ok {
+					UnderscoreFields(subSchema)
+				}
+			}
+		}
+	}
+}

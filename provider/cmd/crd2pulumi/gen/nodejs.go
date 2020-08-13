@@ -18,11 +18,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"strings"
+	"path/filepath"
+	"regexp"
+	"unicode"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
 	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
 const metaPath = "meta/v1.ts"
@@ -30,6 +33,21 @@ const metaFile = `import * as k8s from "@pulumi/kubernetes";
 
 export type ObjectMeta = k8s.types.input.meta.v1.ObjectMeta;
 `
+
+var alphanumericRegex = regexp.MustCompile("[^a-zA-Z0-9]+")
+
+// removes all non-alphanumeric characters
+func removeNonAlphanumeric(input string) string {
+	return alphanumericRegex.ReplaceAllString(input, "")
+}
+
+// un-capitalizes the first character of a string
+func toLowerFirst(input string) string {
+	if input == "" {
+		return ""
+	}
+	return string(unicode.ToLower(rune(input[0]))) + input[1:]
+}
 
 func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
 	pkg, err := getPackage(types, baseRefs)
@@ -39,7 +57,8 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 
 	moduleToPackage := map[string]string{}
 	for _, groupVersion := range pg.GroupVersions() {
-		moduleToPackage[groupVersion] = strings.ReplaceAll(groupVersion, ".", "-")
+		group, version := splitGroupVersion(groupVersion)
+		moduleToPackage[groupVersion] = removeNonAlphanumeric(group) + "/" + version
 	}
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"moduleToPackage": moduleToPackage,
@@ -66,6 +85,17 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 		buffers[name] = bytes.NewBuffer(code)
 	}
 
+	// Generates CustomResourceDefinition constructors. Soon this will be
+	// replaced with `kube2pulumi`
+	for _, crg := range pg.CustomResourceGenerators {
+		path := filepath.Join(removeNonAlphanumeric(crg.Group), toLowerFirst(crg.Kind)+"Definition.ts")
+		_, ok := buffers[path]
+		contract.Assertf(!ok, "duplicate file at %s", path)
+		buffer := &bytes.Buffer{}
+		crg.genNodeJSDefinition(buffer)
+		buffers[path] = buffer
+	}
+
 	return buffers, nil
 }
 
@@ -74,13 +104,13 @@ import * as k8s from "@pulumi/kubernetes";
 
 `
 
-// Generates a CustomResourceDefinition class for the entire CRD YAML
-func (gen *CustomResourceGenerator) genNodeJSDefinition() []byte {
-	buffer := &bytes.Buffer{}
-
-	className := gen.Kind + "Definition"
+// Outputs the code for a CustomResourceDefinition class to the given buffer.
+// Mutates crg.CustomResourceDefinition.Object by underscoring all hyphenated
+// fields.
+func (crg *CustomResourceGenerator) genNodeJSDefinition(buffer *bytes.Buffer) {
+	className := crg.Kind + "Definition"
 	var superClassName string
-	if gen.APIVersion == v1 {
+	if crg.APIVersion == v1 {
 		superClassName = "k8s.apiextensions.v1.CustomResourceDefinition"
 	} else {
 		superClassName = "k8s.apiextensions.v1beta1.CustomResourceDefinition"
@@ -90,9 +120,10 @@ func (gen *CustomResourceGenerator) genNodeJSDefinition() []byte {
 	fmt.Fprintf(buffer, "export class %s extends %s {\n", className, superClassName)
 	fmt.Fprint(buffer, "\tconstructor(name: string, opts?: pulumi.CustomResourceOptions) {\n")
 	fmt.Fprint(buffer, "\t\tsuper(name, ")
-	definitionArgs, _ := json.MarshalIndent(gen.CustomResourceDefinition.Object, "\t\t", "\t")
-	buffer.Write(definitionArgs)
-	fmt.Fprint(buffer, ", opts)\n\t}\n}\n")
 
-	return buffer.Bytes()
+	UnderscoreFields(crg.CustomResourceDefinition.Object)
+	definitionArgs, _ := json.MarshalIndent(crg.CustomResourceDefinition.Object, "\t\t", "\t")
+	buffer.Write(definitionArgs)
+
+	fmt.Fprint(buffer, ", opts)\n\t}\n}\n")
 }

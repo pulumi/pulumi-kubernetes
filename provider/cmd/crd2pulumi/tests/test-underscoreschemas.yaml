@@ -1,0 +1,69 @@
+empty:
+  initial: {}
+  expected: {}
+noHyphens:
+  initial:
+    field1: true
+    field2: false
+    description: this-is-a-description
+  expected:
+    field1: true
+    field2: false
+    description: this-is-a-description
+firstLevelHyphens:
+  initial:
+    x-kubernetes-embedded-resource: true
+    x-kubernetes-int-or-string: true
+    x-kubernetes-list-map-keys: true
+    x-kubernetes-list-type: true
+    x-kubernetes-map-type: true
+    x-kubernetes-preserve-unknown-fields: true
+  expected:
+    x_kubernetes_embedded_resource: true
+    x_kubernetes_int_or_string: true
+    x_kubernetes_list_map_keys: true
+    x_kubernetes_list_type: true
+    x_kubernetes_map_type: true
+    x_kubernetes_preserve_unknown_fields: true
+nestedMapHyhens:
+  initial:
+    field1: true
+    field2: false
+    field3:
+      x-kubernetes-embedded-resource: true
+      x-kubernetes-int-or-string: true
+      x-kubernetes-list-map-keys: true
+      x-kubernetes-list-type: true
+      x-kubernetes-map-type: true
+      x-kubernetes-preserve-unknown-fields: true
+  expected:
+    field1: true
+    field2: false
+    field3:
+      x_kubernetes_embedded_resource: true
+      x_kubernetes_int_or_string: true
+      x_kubernetes_list_map_keys: true
+      x_kubernetes_list_type: true
+      x_kubernetes_map_type: true
+      x_kubernetes_preserve_unknown_fields: true
+nestedMapSliceHyphens:
+  initial:
+    field1: true
+    field2: false
+    field3:
+      - x-kubernetes-embedded-resource: true
+      - x-kubernetes-int-or-string: true
+      - x-kubernetes-list-map-keys: true
+      - x-kubernetes-list-type: true
+      - x-kubernetes-map-type: true
+      - x-kubernetes-preserve-unknown-fields: true
+  expected:
+    field1: true
+    field2: false
+    field3:
+      - x_kubernetes_embedded_resource: true
+      - x_kubernetes_int_or_string: true
+      - x_kubernetes_list_map_keys: true
+      - x_kubernetes_list_type: true
+      - x_kubernetes_map_type: true
+      - x_kubernetes_preserve_unknown_fields: true
