@@ -51,19 +51,7 @@ var (
 			}
 			force, _ := cmd.Flags().GetBool("force")
 
-			var generate = func(language, yamlPath, outputDir string) error {
-				generator, err := gen.NewCustomResourceGenerator(language, yamlPath, outputDir)
-				if err != nil {
-					return err
-				}
-				err = generator.Generate(force)
-				if err != nil {
-					return err
-				}
-				return nil
-			}
-
-			err := generate(language, yamlPath, outputDir)
+			err := gen.Generate(language, yamlPath, outputDir, force)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "error: %v\n", err)
 				os.Exit(-1)

@@ -15,7 +15,6 @@
 package gen
 
 import (
-	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -65,40 +64,63 @@ var intOrStringTypeSpec = pschema.TypeSpec{
 	},
 }
 
-var apiVersionPropertySpec = pschema.PropertySpec{
-	TypeSpec: pschema.TypeSpec{
-		Type: "string",
-	},
-	Description: `APIVersion defines the versioned schema of this representation
-	of an object. Servers should convert recognized schemas to the latest
-	internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources`,
+func (pg *PackageGenerator) GetTypes() map[string]pschema.ObjectTypeSpec {
+	types := map[string]pschema.ObjectTypeSpec{}
+
+	for _, crg := range pg.CustomResourceGenerators {
+		for version, schema := range crg.Schemas {
+			baseRef := getBaseRef(crg.Group, version, crg.Kind)
+			addType(schema, baseRef, types)
+			types[baseRef].Properties["apiVersion"] = pschema.PropertySpec{
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Const: crg.Group + "/" + version,
+			}
+			types[baseRef].Properties["kind"] = pschema.PropertySpec{
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Const: crg.Kind,
+			}
+			types[baseRef].Properties["metadata"] = pschema.PropertySpec{
+				TypeSpec: pschema.TypeSpec{
+					Ref: objectMetaRef,
+				},
+			}
+		}
+	}
+
+	return types
 }
 
-var kindPropertySpec = pschema.PropertySpec{
-	TypeSpec: pschema.TypeSpec{
-		Type: "string",
-	},
-	Description: `Kind is a string value representing the REST resource this
-	object represents. Servers may infer this from the endpoint the client
-	submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds`,
+func getPackage(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (*pschema.Package, error) {
+	resources := map[string]pschema.ResourceSpec{}
+	for _, baseRef := range baseRefs {
+		objectTypeSpec := types[baseRef]
+		resources[baseRef] = pschema.ResourceSpec{
+			ObjectTypeSpec:  objectTypeSpec,
+			InputProperties: objectTypeSpec.Properties,
+		}
+	}
+
+	pkgSpec := pschema.PackageSpec{
+		Version:   "2.0.0",
+		Types:     types,
+		Resources: resources,
+	}
+
+	pkg, err := pschema.ImportSpec(pkgSpec, nil)
+	if err != nil {
+		return &pschema.Package{}, errors.Wrapf(err, "could not import spec")
+	}
+
+	return pkg, nil
 }
 
 // Returns true if the given TypeSpec is of type any; returns false otherwise
 func isAnyType(typeSpec pschema.TypeSpec) bool {
 	return typeSpec.Ref == anyTypeRef
-}
-
-// GetObjectTypeSpecs generates types for each versioned schema. Returns a
-// mapping from each type's name in the format of
-// "{.spec.group}/{.spec.versions[*].name}:{.spec.names.kind}" to its proper
-// pschema.ObjectTypeSpec.
-func (gen *CustomResourceGenerator) GetObjectTypeSpecs() map[string]pschema.ObjectTypeSpec {
-	objectTypeSpecs := map[string]pschema.ObjectTypeSpec{}
-	for version, schema := range gen.Schemas {
-		baseRef := getBaseRef(gen.Group, version, gen.Kind)
-		addType(schema, baseRef, objectTypeSpecs)
-	}
-	return objectTypeSpecs
 }
 
 func (gen *CustomResourceGenerator) baseRefs() []string {
@@ -113,43 +135,11 @@ func getBaseRef(group, version, kind string) string {
 	return fmt.Sprintf("kubernetes:%s/%s:%s", group, version, kind)
 }
 
-// AddMetadataRefs adds a `metadata?: meta/v1/ObjectMeta` field to each
-// versioned CustomResourceArgs interface.
-func AddMetadataRefs(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string) {
-	for _, baseRef := range baseRefs {
-		objectTypeSpecs[baseRef].Properties["metadata"] = pschema.PropertySpec{
-			TypeSpec: pschema.TypeSpec{
-				Ref: objectMetaRef,
-			},
-		}
-	}
-}
-
-// AddAPIVersionAndKindProperties adds the `apiVersion` and `kind` properties to
-// every version's schema
-func (gen *CustomResourceGenerator) AddAPIVersionAndKindProperties(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string) {
-	for _, version := range gen.Versions() {
-		baseRef := getBaseRef(gen.Group, version, gen.Kind)
-		objectTypeSpecs[baseRef].Properties["apiVersion"] = pschema.PropertySpec{
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Const: gen.Group + "/" + version,
-		}
-		objectTypeSpecs[baseRef].Properties["kind"] = pschema.PropertySpec{
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Const: gen.Kind,
-		}
-	}
-}
-
 // AddPlaceholderMetadataSpec adds a placeholder `kubernetes:meta/v1:ObjectMeta`
-// objectTypeSpec value. This is needed so that the Go codegen can properly
-// import meta/v1:ObjectMeta.
-func AddPlaceholderMetadataSpec(objectTypeSpecs map[string]pschema.ObjectTypeSpec) {
-	objectTypeSpecs["kubernetes:meta/v1:ObjectMeta"] = pschema.ObjectTypeSpec{
+// type. This is needed so that the Go codegen can properly import
+// `meta/v1:ObjectMeta`, since it can't import external types.
+func AddPlaceholderMetadataSpec(types map[string]pschema.ObjectTypeSpec) {
+	types["kubernetes:meta/v1:ObjectMeta"] = pschema.ObjectTypeSpec{
 		Type: "object",
 	}
 }
@@ -184,27 +174,6 @@ func addType(schema map[string]interface{}, name string, types map[string]pschem
 		Properties:  propertySpecs,
 		Required:    required,
 		Description: description,
-	}
-}
-
-// UnderscoreFields replaces the hyphens in the x-kubernetes-... fields with
-// underscores
-func UnderscoreFields(schema map[string]interface{}) {
-	for field, val := range schema {
-		if hyphenedFields.Has(field) {
-			delete(schema, field)
-			underScoredField := strings.ReplaceAll(field, "-", "_")
-			schema[underScoredField] = val
-		}
-		if subSchema, ok := val.(map[string]interface{}); ok {
-			UnderscoreFields(subSchema)
-		} else if subSchemaSlice, ok := val.([]interface{}); ok {
-			for _, genericSubSchema := range subSchemaSlice {
-				if subSchema, ok = genericSubSchema.(map[string]interface{}); ok {
-					UnderscoreFields(subSchema)
-				}
-			}
-		}
 	}
 }
 
@@ -252,12 +221,12 @@ func getTypeSpec(schema map[string]interface{}, name string, types map[string]ps
 		return getTypeSpec(combinedSchema, name, types)
 	}
 
-	intOrString, foundIntOrString, _ := unstruct.NestedBool(schema, "x_kubernetes_int_or_string")
+	intOrString, foundIntOrString, _ := unstruct.NestedBool(schema, "x-kubernetes-int-or-string")
 	if foundIntOrString && intOrString {
 		return intOrStringTypeSpec
 	}
 
-	preserveUnknownFields, foundPreserveUnknownFields, _ := unstruct.NestedBool(schema, "x_kubernetes_preserve_unknown_fields")
+	preserveUnknownFields, foundPreserveUnknownFields, _ := unstruct.NestedBool(schema, "x-kubernetes-preserve-unknown-fields")
 	if foundPreserveUnknownFields && preserveUnknownFields {
 		return arbitraryJSONTypeSpec
 	}
@@ -362,29 +331,21 @@ func CombineSchemas(combineRequired bool, schemas ...map[string]interface{}) map
 	return combinedSchema
 }
 
-func genPackage(objectTypeSpecs map[string]pschema.ObjectTypeSpec, baseRefs []string, language string) (*pschema.Package, error) {
-	resources := map[string]pschema.ResourceSpec{}
-	for _, baseRef := range baseRefs {
-		objectTypeSpec := objectTypeSpecs[baseRef]
-		resources[baseRef] = pschema.ResourceSpec{
-			ObjectTypeSpec:  objectTypeSpec,
-			InputProperties: objectTypeSpec.Properties,
+func UnderscoreFields(schema map[string]interface{}) {
+	for field, val := range schema {
+		if hyphenedFields.Has(field) {
+			delete(schema, field)
+			underScoredField := strings.ReplaceAll(field, "-", "_")
+			schema[underScoredField] = val
+		}
+		if subSchema, ok := val.(map[string]interface{}); ok {
+			UnderscoreFields(subSchema)
+		} else if subSchemaSlice, ok := val.([]interface{}); ok {
+			for _, genericSubSchema := range subSchemaSlice {
+				if subSchema, ok = genericSubSchema.(map[string]interface{}); ok {
+					UnderscoreFields(subSchema)
+				}
+			}
 		}
 	}
-
-	pkgSpec := pschema.PackageSpec{
-		Version:   "2.0.0",
-		Types:     objectTypeSpecs,
-		Resources: resources,
-		Language: map[string]json.RawMessage{
-			language: []byte("{}"),
-		},
-	}
-
-	pkg, err := pschema.ImportSpec(pkgSpec, nil)
-	if err != nil {
-		return &pschema.Package{}, errors.Wrapf(err, "importing spec")
-	}
-
-	return pkg, nil
 }

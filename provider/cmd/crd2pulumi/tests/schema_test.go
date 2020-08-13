@@ -31,11 +31,11 @@ func UnmarshalSchemas(yamlPath string) (map[string]interface{}, error) {
 	if err != nil {
 		return nil, errors.Wrapf(err, "reading file %s", yamlPath)
 	}
-	schemasUnstruct, err := gen.UnmarshalYaml(yamlFile)
+	schema, err := gen.UnmarshalYaml(yamlFile)
 	if err != nil {
 		return nil, errors.Wrapf(err, "unmarshal %s", yamlPath)
 	}
-	return schemasUnstruct.Object, nil
+	return schema, nil
 }
 
 func TestUnderscoreFields(t *testing.T) {

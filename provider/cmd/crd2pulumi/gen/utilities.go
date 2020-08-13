@@ -18,23 +18,45 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"strings"
 
+	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
-// UnmarshalYaml decodes a yamlFile into a Unstructured type with a value of
-// map[string]interface{}.
-func UnmarshalYaml(yamlFile []byte) (unstruct.Unstructured, error) {
-	var value map[string]interface{}
+// UnmarshalYamls unmarshals the YAML documents in the given file into a slice
+// of unstruct.Unstructureds, one for each CRD. Returns an error if any
+// document failed to unmarshal.
+func UnmarshalYamls(yamlFile []byte) ([]unstruct.Unstructured, error) {
 	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(bytes.NewReader(yamlFile)), 128)
-	if err := dec.Decode(&value); err != nil {
-		return unstruct.Unstructured{Object: nil}, err
+	var err error
+	var crds []unstruct.Unstructured
+
+	for err != io.EOF {
+		var value map[string]interface{}
+		if err = dec.Decode(&value); err != nil && err != io.EOF {
+			return nil, errors.Wrap(err, "failed to unmarshal yaml")
+		}
+		if value != nil {
+			crds = append(crds, unstruct.Unstructured{Object: value})
+		}
 	}
-	return unstruct.Unstructured{Object: value}, nil
+
+	return crds, nil
+}
+
+// UnmarshalYaml unmarshals one and only one YAML document from a file
+func UnmarshalYaml(yamlFile []byte) (map[string]interface{}, error) {
+	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(bytes.NewReader(yamlFile)), 128)
+	var value map[string]interface{}
+	if err := dec.Decode(&value); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshal yaml")
+	}
+	return value, nil
 }
 
 // NestedMapSlice returns a copy of []map[string]interface{} value of a nested field.
@@ -62,6 +84,10 @@ func NestedMapSlice(obj map[string]interface{}, fields ...string) ([]map[string]
 
 func IsValidLanguage(language string) bool {
 	return language == NodeJS || language == Go || language == Python || language == DotNet
+}
+
+func IsValidApiVersion(apiVersion string) bool {
+	return apiVersion == v1 || apiVersion == v1beta1
 }
 
 func jsonPath(fields []string) string {

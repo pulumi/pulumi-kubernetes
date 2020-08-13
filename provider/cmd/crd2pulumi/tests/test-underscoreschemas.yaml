@@ -67,4 +67,3 @@ nestedMapSliceHyphens:
       - x_kubernetes_list_type: true
       - x_kubernetes_map_type: true
       - x_kubernetes_preserve_unknown_fields: true
-      
