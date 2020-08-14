@@ -60,15 +60,20 @@ export class MutatingWebhookConfigurationList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: MutatingWebhookConfigurationListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: MutatingWebhookConfigurationListArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: MutatingWebhookConfigurationListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as MutatingWebhookConfigurationListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
-        inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = "MutatingWebhookConfigurationList";
-        inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
+            inputs["items"] = args ? args.items : undefined;
+            inputs["kind"] = "MutatingWebhookConfigurationList";
+            inputs["metadata"] = args ? args.metadata : undefined;
+        }
         if (!opts) {
             opts = {}
         }

@@ -60,12 +60,17 @@ export class MutatingWebhookConfiguration extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: MutatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: MutatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: MutatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "admissionregistration.k8s.io/v1";
-        inputs["kind"] = "MutatingWebhookConfiguration";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["webhooks"] = args ? args.webhooks : undefined;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as MutatingWebhookConfigurationArgs | undefined;
+            inputs["apiVersion"] = "admissionregistration.k8s.io/v1";
+            inputs["kind"] = "MutatingWebhookConfiguration";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["webhooks"] = args ? args.webhooks : undefined;
+        }
         if (!opts) {
             opts = {}
         }

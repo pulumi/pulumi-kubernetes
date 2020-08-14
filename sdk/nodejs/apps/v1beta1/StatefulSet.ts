@@ -80,13 +80,18 @@ export class StatefulSet extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated apps/v1beta1/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "apps/v1beta1";
-        inputs["kind"] = "StatefulSet";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
-        inputs["status"] = undefined /*out*/;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as StatefulSetArgs | undefined;
+            inputs["apiVersion"] = "apps/v1beta1";
+            inputs["kind"] = "StatefulSet";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+            inputs["status"] = undefined /*out*/;
+        }
         if (!opts) {
             opts = {}
         }

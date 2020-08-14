@@ -60,12 +60,17 @@ export class NetworkPolicy extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: NetworkPolicyArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: NetworkPolicyArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: NetworkPolicyArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "extensions/v1beta1";
-        inputs["kind"] = "NetworkPolicy";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as NetworkPolicyArgs | undefined;
+            inputs["apiVersion"] = "extensions/v1beta1";
+            inputs["kind"] = "NetworkPolicy";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+        }
         if (!opts) {
             opts = {}
         }

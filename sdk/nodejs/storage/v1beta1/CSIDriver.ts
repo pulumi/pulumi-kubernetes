@@ -60,15 +60,20 @@ export class CSIDriver extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: CSIDriverArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: CSIDriverArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: CSIDriverArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as CSIDriverArgs | undefined;
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-        inputs["apiVersion"] = "storage.k8s.io/v1beta1";
-        inputs["kind"] = "CSIDriver";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
+            inputs["apiVersion"] = "storage.k8s.io/v1beta1";
+            inputs["kind"] = "CSIDriver";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+        }
         if (!opts) {
             opts = {}
         }

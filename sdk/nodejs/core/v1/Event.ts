@@ -112,31 +112,36 @@ export class Event extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: EventArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: EventArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: EventArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as EventArgs | undefined;
             if (!args || args.involvedObject === undefined) {
                 throw new Error("Missing required property 'involvedObject'");
             }
             if (!args || args.metadata === undefined) {
                 throw new Error("Missing required property 'metadata'");
             }
-        inputs["action"] = args ? args.action : undefined;
-        inputs["apiVersion"] = "v1";
-        inputs["count"] = args ? args.count : undefined;
-        inputs["eventTime"] = args ? args.eventTime : undefined;
-        inputs["firstTimestamp"] = args ? args.firstTimestamp : undefined;
-        inputs["involvedObject"] = args ? args.involvedObject : undefined;
-        inputs["kind"] = "Event";
-        inputs["lastTimestamp"] = args ? args.lastTimestamp : undefined;
-        inputs["message"] = args ? args.message : undefined;
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["reason"] = args ? args.reason : undefined;
-        inputs["related"] = args ? args.related : undefined;
-        inputs["reportingComponent"] = args ? args.reportingComponent : undefined;
-        inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
-        inputs["series"] = args ? args.series : undefined;
-        inputs["source"] = args ? args.source : undefined;
-        inputs["type"] = args ? args.type : undefined;
+            inputs["action"] = args ? args.action : undefined;
+            inputs["apiVersion"] = "v1";
+            inputs["count"] = args ? args.count : undefined;
+            inputs["eventTime"] = args ? args.eventTime : undefined;
+            inputs["firstTimestamp"] = args ? args.firstTimestamp : undefined;
+            inputs["involvedObject"] = args ? args.involvedObject : undefined;
+            inputs["kind"] = "Event";
+            inputs["lastTimestamp"] = args ? args.lastTimestamp : undefined;
+            inputs["message"] = args ? args.message : undefined;
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["reason"] = args ? args.reason : undefined;
+            inputs["related"] = args ? args.related : undefined;
+            inputs["reportingComponent"] = args ? args.reportingComponent : undefined;
+            inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
+            inputs["series"] = args ? args.series : undefined;
+            inputs["source"] = args ? args.source : undefined;
+            inputs["type"] = args ? args.type : undefined;
+        }
         if (!opts) {
             opts = {}
         }

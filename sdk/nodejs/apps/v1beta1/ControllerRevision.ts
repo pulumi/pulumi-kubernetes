@@ -67,16 +67,21 @@ export class ControllerRevision extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated apps/v1beta1/ControllerRevision is deprecated by apps/v1/ControllerRevision and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as ControllerRevisionArgs | undefined;
             if (!args || args.revision === undefined) {
                 throw new Error("Missing required property 'revision'");
             }
-        inputs["apiVersion"] = "apps/v1beta1";
-        inputs["data"] = args ? args.data : undefined;
-        inputs["kind"] = "ControllerRevision";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["revision"] = args ? args.revision : undefined;
+            inputs["apiVersion"] = "apps/v1beta1";
+            inputs["data"] = args ? args.data : undefined;
+            inputs["kind"] = "ControllerRevision";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["revision"] = args ? args.revision : undefined;
+        }
         if (!opts) {
             opts = {}
         }

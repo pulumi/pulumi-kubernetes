@@ -60,15 +60,20 @@ export class FlowSchemaList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: FlowSchemaListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: FlowSchemaListArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: FlowSchemaListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as FlowSchemaListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
-        inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = "FlowSchemaList";
-        inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
+            inputs["items"] = args ? args.items : undefined;
+            inputs["kind"] = "FlowSchemaList";
+            inputs["metadata"] = args ? args.metadata : undefined;
+        }
         if (!opts) {
             opts = {}
         }

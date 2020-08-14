@@ -60,12 +60,17 @@ export class IngressClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: IngressClassArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: IngressClassArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: IngressClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "networking.k8s.io/v1beta1";
-        inputs["kind"] = "IngressClass";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as IngressClassArgs | undefined;
+            inputs["apiVersion"] = "networking.k8s.io/v1beta1";
+            inputs["kind"] = "IngressClass";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+        }
         if (!opts) {
             opts = {}
         }

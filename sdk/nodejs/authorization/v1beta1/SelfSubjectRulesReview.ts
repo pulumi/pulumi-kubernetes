@@ -61,16 +61,21 @@ export class SelfSubjectRulesReview extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: SelfSubjectRulesReviewArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: SelfSubjectRulesReviewArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: SelfSubjectRulesReviewArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as SelfSubjectRulesReviewArgs | undefined;
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-        inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
-        inputs["kind"] = "SelfSubjectRulesReview";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
-        inputs["status"] = undefined /*out*/;
+            inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
+            inputs["kind"] = "SelfSubjectRulesReview";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+            inputs["status"] = undefined /*out*/;
+        }
         if (!opts) {
             opts = {}
         }

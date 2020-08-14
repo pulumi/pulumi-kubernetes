@@ -60,15 +60,20 @@ export class ControllerRevisionList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ControllerRevisionListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ControllerRevisionListArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ControllerRevisionListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as ControllerRevisionListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = "apps/v1";
-        inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = "ControllerRevisionList";
-        inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["apiVersion"] = "apps/v1";
+            inputs["items"] = args ? args.items : undefined;
+            inputs["kind"] = "ControllerRevisionList";
+            inputs["metadata"] = args ? args.metadata : undefined;
+        }
         if (!opts) {
             opts = {}
         }

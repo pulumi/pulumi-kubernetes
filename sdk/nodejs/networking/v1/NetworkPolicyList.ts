@@ -60,15 +60,20 @@ export class NetworkPolicyList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: NetworkPolicyListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: NetworkPolicyListArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: NetworkPolicyListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as NetworkPolicyListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = "networking.k8s.io/v1";
-        inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = "NetworkPolicyList";
-        inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["apiVersion"] = "networking.k8s.io/v1";
+            inputs["items"] = args ? args.items : undefined;
+            inputs["kind"] = "NetworkPolicyList";
+            inputs["metadata"] = args ? args.metadata : undefined;
+        }
         if (!opts) {
             opts = {}
         }

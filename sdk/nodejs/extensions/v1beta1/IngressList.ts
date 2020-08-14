@@ -60,15 +60,20 @@ export class IngressList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: IngressListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: IngressListArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: IngressListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as IngressListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = "extensions/v1beta1";
-        inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = "IngressList";
-        inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["apiVersion"] = "extensions/v1beta1";
+            inputs["items"] = args ? args.items : undefined;
+            inputs["kind"] = "IngressList";
+            inputs["metadata"] = args ? args.metadata : undefined;
+        }
         if (!opts) {
             opts = {}
         }
