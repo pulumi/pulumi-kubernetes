@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.4.3 (August 14, 2020)
+
 ### Bug Fixes
 
 -   Rename Python's yaml.ConfigFile file_id parameter to file. (https://github.com/pulumi/pulumi-kubernetes/pull/1248)
