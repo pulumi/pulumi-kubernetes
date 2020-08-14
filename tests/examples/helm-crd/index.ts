@@ -16,12 +16,12 @@ import * as k8s from "@pulumi/kubernetes";
 import * as os from "os";
 import * as pulumi from "@pulumi/pulumi";
 
-const namespace = new k8s.core.v1.Namespace("argocd");
-const namespaceName = namespace.metadata.name;
+const crdNamespace = new k8s.core.v1.Namespace("argocd-crd");
+const noCrdNamespace = new k8s.core.v1.Namespace("argocd-nocrd");
 
 const argoCrd = new k8s.helm.v3.Chart("argocd-crd", {
     chart: "argo-cd",
-    namespace: namespaceName,
+    namespace: crdNamespace.metadata.name,
     installCRDs: true,
     fetchOpts: {
         home: os.homedir(),
@@ -31,7 +31,7 @@ const argoCrd = new k8s.helm.v3.Chart("argocd-crd", {
 
 const argoNoCrd = new k8s.helm.v3.Chart("argocd-nocrd", {
     chart: "argo-cd",
-    namespace: namespaceName,
+    namespace: noCrdNamespace.metadata.name,
     installCRDs: false,
     fetchOpts: {
         home: os.homedir(),
