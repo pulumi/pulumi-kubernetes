@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Rename Python's yaml.ConfigFile file_id parameter to file. (https://github.com/pulumi/pulumi-kubernetes/pull/1248)
+
 ### Improvements
 
 -   Remove the ComponentStatus resource type. (https://github.com/pulumi/pulumi-kubernetes/pull/1234)
