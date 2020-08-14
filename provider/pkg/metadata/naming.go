@@ -53,6 +53,7 @@ func IsAutonamed(obj *unstructured.Unstructured) bool {
 func randString(n int) string {
 	b := make([]rune, n)
 	for i := range b {
+		// nolint:gosec
 		b[i] = dns1123Alphabet[rand.Intn(len(dns1123Alphabet))]
 	}
 	return string(b)

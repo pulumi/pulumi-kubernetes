@@ -134,6 +134,7 @@ func (ow *ObjectWatcher) watch(
 			} else if stop {
 				return nil
 			}
+			// nolint:gosec
 			time.Sleep(wait + time.Duration(rand.Intn(int(float64(wait)*0.2))))
 		}
 	}

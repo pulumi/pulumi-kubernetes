@@ -291,7 +291,10 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 		return nil
 	}
 	defaultValue := func() *string {
-
+		dv := p.DefaultValue()
+		if len(dv) != 0 {
+			return &dv
+		}
 		return nil
 	}
 
@@ -301,8 +304,7 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	}
 	if cv := constValue(); cv != nil {
 		propertySpec.Const = *cv
-	}
-	if dv := defaultValue(); dv != nil {
+	} else if dv := defaultValue(); dv != nil {
 		propertySpec.Default = *dv
 	}
 	languageName := strings.ToUpper(p.name[:1]) + p.name[1:]
