@@ -2,6 +2,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import json
+import warnings
 from copy import copy
 from glob import glob
 from inspect import getargspec
