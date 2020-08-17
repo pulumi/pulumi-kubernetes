@@ -420,17 +420,35 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.yamlDirectory = renderYamlToDirectory()
 	k.yamlRenderMode = len(k.yamlDirectory) > 0
 
+	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
+	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
+	// provider.
+	unreachableCluster := func(err error) {
+		k.clusterUnreachable = true
+		k.clusterUnreachableReason = fmt.Sprintf(
+			"failed to parse kubeconfig data in `kubernetes:config:kubeconfig`- %v", err)
+	}
+
 	var kubeconfig clientcmd.ClientConfig
-	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
-		config, err := clientcmd.Load([]byte(configJSON))
+	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok {
+		var contents string
+
+		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
+		if _, err := os.Stat(pathOrContents); err == nil {
+			b, err := ioutil.ReadFile(pathOrContents)
+			if err != nil {
+				unreachableCluster(err)
+			} else {
+				contents = string(b)
+			}
+		} else { // Assume the contents are a k8s config.
+			contents = pathOrContents
+		}
+
+		// Load the contents of the k8s config.
+		config, err := clientcmd.Load([]byte(contents))
 		if err != nil {
-			// Rather than erroring out here, mark the cluster as unreachable and conditionally bail out on
-			// operations that require a valid cluster. This will allow us to perform invoke operations
-			// using the default provider.
-			k.clusterUnreachable = true
-			k.clusterUnreachableReason = fmt.Sprintf("failed to parse kubeconfig data in "+
-				"`kubernetes:config:kubeconfig`; this must be a YAML literal string and not "+
-				"a filename or path - %v", err)
+			unreachableCluster(err)
 		} else {
 			kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()

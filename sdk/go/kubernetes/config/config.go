@@ -28,7 +28,7 @@ func GetEnableDryRun(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableDryRun")
 }
 
-// The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
 func GetKubeconfig(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:kubeconfig")
 }

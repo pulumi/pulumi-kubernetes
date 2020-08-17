@@ -25,7 +25,7 @@ class Provider(pulumi.ProviderResource):
                This config can be specified in the following ways, using this precedence:
                1. This `enableDryRun` parameter.
                2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
-        :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+        :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
         :param pulumi.Input[str] namespace: If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
                
                A namespace can be specified in multiple places, and the precedence is as follows:

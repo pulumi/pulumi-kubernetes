@@ -69,7 +69,7 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableDryRun { get; set; }
 
         /// <summary>
-        /// The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+        /// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
         /// </summary>
         [Input("kubeconfig")]
         public Input<string>? KubeConfig { get; set; }

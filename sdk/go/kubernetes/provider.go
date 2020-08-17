@@ -49,7 +49,7 @@ type providerArgs struct {
 	// 1. This `enableDryRun` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
-	// The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+	// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
 	Kubeconfig *string `pulumi:"kubeconfig"`
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
 	//
@@ -88,7 +88,7 @@ type ProviderArgs struct {
 	// 1. This `enableDryRun` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
 	EnableDryRun pulumi.BoolPtrInput
-	// The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+	// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
 	Kubeconfig pulumi.StringPtrInput
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
 	//
