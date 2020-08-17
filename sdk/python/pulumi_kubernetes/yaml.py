@@ -13,8 +13,7 @@ import pulumi.runtime
 import requests
 from pulumi_kubernetes.apiextensions import CustomResource
 
-from . import tables
-from .utilities import get_version
+from . import _utilities, _tables
 
 __all__ = ['ConfigFile', 'ConfigGroup']
 
@@ -177,7 +176,7 @@ class ConfigGroup(pulumi.ComponentResource):
         for text in yaml:
             # Rather than using the default provider for the following invoke call, use the version specified
             # in package.json.
-            invoke_opts = pulumi.InvokeOptions(version=get_version())
+            invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
             __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
             resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
@@ -190,10 +189,10 @@ class ConfigGroup(pulumi.ComponentResource):
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
-        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
+        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
     def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
         """
@@ -311,7 +310,7 @@ class ConfigFile(pulumi.ComponentResource):
 
         # Rather than using the default provider for the following invoke call, use the version specified
         # in package.json.
-        invoke_opts = pulumi.InvokeOptions(version=get_version())
+        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
         __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
 
@@ -322,10 +321,10 @@ class ConfigFile(pulumi.ComponentResource):
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
-        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
+        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
     def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
         """
@@ -431,7 +430,7 @@ def _parse_yaml_object(
 
     # Convert obj keys to Python casing
     for key in list(obj.keys()):
-        new_key = tables._CAMEL_TO_SNAKE_CASE_TABLE.get(key) or key
+        new_key = _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(key) or key
         if new_key != key:
             obj[new_key] = obj.pop(key)
 

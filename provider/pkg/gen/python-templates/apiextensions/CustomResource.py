@@ -7,8 +7,7 @@ import pulumi
 import pulumi.runtime
 from pulumi import ResourceOptions
 
-from .. import tables
-from ..utilities import get_version
+from .. import _utilities, _tables
 
 
 class CustomResource(pulumi.CustomResource):
@@ -52,7 +51,7 @@ class CustomResource(pulumi.CustomResource):
         __props__['spec'] = spec
         __props__['metadata'] = metadata
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=get_version()))
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=_utilities.get_version()))
 
         super(CustomResource, self).__init__(
             f"kubernetes:{api_version}:{kind}",
@@ -85,7 +84,7 @@ class CustomResource(pulumi.CustomResource):
         return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
 
     def translate_output_property(self, prop: str) -> str:
-        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
+        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
