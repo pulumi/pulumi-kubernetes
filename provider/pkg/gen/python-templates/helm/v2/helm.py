@@ -379,6 +379,7 @@ class BaseChartOpts:
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         """
         self.namespace = namespace
+        self.installs_crds = install_crds
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix
