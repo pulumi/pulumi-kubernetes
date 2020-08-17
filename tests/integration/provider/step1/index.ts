@@ -17,21 +17,18 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 
-// Use the existing ~/.kube/config kubeconfig
-const kubeconfigPath = path.join(os.homedir(), ".kube", "config");
-
 const ns1 = new k8s.core.v1.Namespace("ns1");
 const ns2 = new k8s.core.v1.Namespace("ns2");
 
 // Create a new provider using the contents of a k8s config.
 const kubeconfigContentsProvider = new k8s.Provider("kubeconfigContentsProvider", {
-    kubeconfig: fs.readFileSync(kubeconfigPath).toString(),
+    kubeconfig: fs.readFileSync(path.join(os.homedir(), ".kube", "config")).toString(),
     namespace: ns1.metadata.name,
 });
 
 // Create a new provider using the path to a k8s config.
 const kubeconfigPathProvider = new k8s.Provider("kubeconfigPathProvider", {
-    kubeconfig: kubeconfigPath,
+    kubeconfig: "~/.kube/config",
     namespace: ns1.metadata.name,
 });
 
@@ -59,7 +56,7 @@ new k8s.core.v1.Pod("nginx2", {
     },
 }, { provider: kubeconfigPathProvider });
 
-// Create a Pod using the contents provider with a specified default namespace.
+// Create a Pod using the contents provider with a specified namespace.
 // The namespace should not be overridden by the provider default.
 new k8s.core.v1.Pod("namespaced-nginx", {
     metadata: { namespace: ns2.metadata.name },

@@ -23,6 +23,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/user"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -430,8 +431,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var kubeconfig clientcmd.ClientConfig
+	homeDir := func() string {
+		// Ignore errors. The filepath will be checked later, so we can handle failures there.
+		usr, _ := user.Current()
+		return usr.HomeDir
+	}
 	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok {
 		var contents string
+
+		// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell
+		// into the user's home directory, but we have to do that manually if it is set in a config value.
+		if pathOrContents == "~" {
+			// In case of "~", which won't be caught by the "else if"
+			pathOrContents = homeDir()
+		} else if strings.HasPrefix(pathOrContents, "~/") {
+			pathOrContents = filepath.Join(homeDir(), pathOrContents[2:])
+		}
 
 		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
 		if _, err := os.Stat(pathOrContents); err == nil {
