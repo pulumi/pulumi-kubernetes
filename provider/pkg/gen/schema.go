@@ -37,8 +37,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Config: pschema.ConfigSpec{
 			Variables: map[string]pschema.PropertySpec{
 				"kubeconfig": {
-					Description: "The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
-					TypeSpec:    pschema.TypeSpec{Type: "string"},
+					Description: "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set," +
+						" this config will be used instead of $KUBECONFIG.",
+					TypeSpec: pschema.TypeSpec{Type: "string"},
 					Language: map[string]json.RawMessage{
 						"csharp": rawMessage(map[string]interface{}{
 							"name": "KubeConfig",
@@ -84,8 +85,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"KUBECONFIG",
 						},
 					},
-					Description: "The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
-					TypeSpec:    pschema.TypeSpec{Type: "string"},
+					Description: "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set," +
+						" this config will be used instead of $KUBECONFIG.",
+					TypeSpec: pschema.TypeSpec{Type: "string"},
 					Language: map[string]json.RawMessage{
 						"csharp": rawMessage(map[string]interface{}{
 							"name": "KubeConfig",

@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes
         public static bool? EnableDryRun { get; set; } = __config.GetBoolean("enableDryRun");
 
         /// <summary>
-        /// The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+        /// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
         /// </summary>
         public static string? KubeConfig { get; set; } = __config.Get("kubeconfig");
 

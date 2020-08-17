@@ -74,7 +74,7 @@ export interface ProviderArgs {
      */
     readonly enableDryRun?: pulumi.Input<boolean>;
     /**
-     * The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+     * The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
      */
     readonly kubeconfig?: pulumi.Input<string>;
     /**

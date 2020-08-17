@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Handle kubeconfig contents or path in provider. (https://github.com/pulumi/pulumi-kubernetes/pull/1255)
+
 ## 2.4.3 (August 14, 2020)
 
 ### Bug Fixes

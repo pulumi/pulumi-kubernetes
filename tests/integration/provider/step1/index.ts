@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2020, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,21 +17,24 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 
-// Use the existing ~/.kube/config kubeconfig
-const kubeconfig = fs.readFileSync(path.join(os.homedir(), ".kube", "config")).toString();
-
 const ns1 = new k8s.core.v1.Namespace("ns1");
 const ns2 = new k8s.core.v1.Namespace("ns2");
 
-// Create a new provider
-const myk8s = new k8s.Provider("myk8s", {
-    kubeconfig: kubeconfig,
+// Create a new provider using the contents of a k8s config.
+const kubeconfigContentsProvider = new k8s.Provider("kubeconfigContentsProvider", {
+    kubeconfig: fs.readFileSync(path.join(os.homedir(), ".kube", "config")).toString(),
     namespace: ns1.metadata.name,
 });
 
-// Create a Pod using the custom provider.
+// Create a new provider using the path to a k8s config.
+const kubeconfigPathProvider = new k8s.Provider("kubeconfigPathProvider", {
+    kubeconfig: "~/.kube/config",
+    namespace: ns1.metadata.name,
+});
+
+// Create a Pod using the contents provider.
 // The namespace should be automatically set by the provider default.
-new k8s.core.v1.Pod("nginx", {
+new k8s.core.v1.Pod("nginx1", {
     spec: {
         containers: [{
             image: "nginx:1.7.9",
@@ -39,9 +42,21 @@ new k8s.core.v1.Pod("nginx", {
             ports: [{ containerPort: 80 }],
         }],
     },
-}, { provider: myk8s });
+}, { provider: kubeconfigContentsProvider });
 
-// Create a Pod using the custom provider with a specified default namespace.
+// Create a Pod using the path provider.
+// The namespace should be automatically set by the provider default.
+new k8s.core.v1.Pod("nginx2", {
+    spec: {
+        containers: [{
+            image: "nginx:1.7.9",
+            name: "nginx",
+            ports: [{ containerPort: 80 }],
+        }],
+    },
+}, { provider: kubeconfigPathProvider });
+
+// Create a Pod using the contents provider with a specified namespace.
 // The namespace should not be overridden by the provider default.
 new k8s.core.v1.Pod("namespaced-nginx", {
     metadata: { namespace: ns2.metadata.name },
@@ -52,10 +67,10 @@ new k8s.core.v1.Pod("namespaced-nginx", {
             ports: [{ containerPort: 80 }],
         }],
     },
-}, { provider: myk8s });
+}, { provider: kubeconfigContentsProvider });
 
-// Create a Namespace using the custom provider
+// Create a Namespace using the contents provider
 // The namespace should not be affected by the provider override since it is a cluster-scoped kind.
 new k8s.core.v1.Namespace("other-ns",
     {},
-    { provider: myk8s });
+    { provider: kubeconfigContentsProvider });

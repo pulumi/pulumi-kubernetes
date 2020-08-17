@@ -9,8 +9,8 @@ replace (
 )
 
 require (
-	github.com/pulumi/pulumi-kubernetes/provider/v2 v2.0.0-00010101000000-000000000000
-	github.com/pulumi/pulumi-kubernetes/sdk/v2 v2.0.0
+	github.com/pulumi/pulumi-kubernetes/provider/v2 v2.0.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v2 v2.4.3
 	github.com/pulumi/pulumi/pkg/v2 v2.8.2
 	github.com/pulumi/pulumi/sdk/v2 v2.8.2
 	github.com/stretchr/testify v1.6.1

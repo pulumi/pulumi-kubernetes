@@ -24,7 +24,7 @@
             },
             "kubeconfig": {
                 "type": "string",
-                "description": "The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
+                "description": "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
                 "language": {
                     "csharp": {
                         "name": "KubeConfig"
@@ -26398,7 +26398,7 @@
             },
             "kubeconfig": {
                 "type": "string",
-                "description": "The contents of a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
+                "description": "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
                 "defaultInfo": {
                     "environment": [
                         "KUBECONFIG"

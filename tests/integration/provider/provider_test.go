@@ -34,17 +34,20 @@ func TestProvider(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 10, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[7]
+			stackRes := stackInfo.Deployment.Resources[9]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			k8sProvider := stackInfo.Deployment.Resources[6]
-			assert.True(t, providers.IsProviderType(k8sProvider.URN.Type()))
+			k8sPathProvider := stackInfo.Deployment.Resources[8]
+			assert.True(t, providers.IsProviderType(k8sPathProvider.URN.Type()))
 
-			defaultProvider := stackInfo.Deployment.Resources[5]
+			k8sContentsProvider := stackInfo.Deployment.Resources[7]
+			assert.True(t, providers.IsProviderType(k8sContentsProvider.URN.Type()))
+
+			defaultProvider := stackInfo.Deployment.Resources[6]
 			assert.True(t, providers.IsProviderType(defaultProvider.URN.Type()))
 
 			// Assert the provider default Namespace (ns1) was created
@@ -64,10 +67,16 @@ func TestProvider(t *testing.T) {
 			assert.NotEqual(t, nsName.(string), providerNsName.(string))
 
 			// Assert the first Pod was created in the provider default namespace.
-			pod := stackInfo.Deployment.Resources[4]
-			assert.Equal(t, "nginx", string(pod.URN.Name()))
-			podNamespace, _ := openapi.Pluck(pod.Outputs, "metadata", "namespace")
-			assert.Equal(t, providerNsName.(string), podNamespace.(string))
+			pod1 := stackInfo.Deployment.Resources[4]
+			assert.Equal(t, "nginx1", string(pod1.URN.Name()))
+			podNamespace1, _ := openapi.Pluck(pod1.Outputs, "metadata", "namespace")
+			assert.Equal(t, providerNsName.(string), podNamespace1.(string))
+
+			// Assert the second Pod was created in the provider default namespace.
+			pod2 := stackInfo.Deployment.Resources[5]
+			assert.Equal(t, "nginx2", string(pod2.URN.Name()))
+			podNamespace2, _ := openapi.Pluck(pod2.Outputs, "metadata", "namespace")
+			assert.Equal(t, providerNsName.(string), podNamespace2.(string))
 
 			// Assert the Pod was created in the specified namespace rather than the provider default namespace.
 			namespacedPod := stackInfo.Deployment.Resources[3]
