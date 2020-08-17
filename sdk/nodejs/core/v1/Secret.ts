@@ -82,15 +82,20 @@ export class Secret extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: SecretArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: SecretArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: SecretArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "v1";
-        inputs["data"] = args ? args.data : undefined;
-        inputs["immutable"] = args ? args.immutable : undefined;
-        inputs["kind"] = "Secret";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["stringData"] = args ? args.stringData : undefined;
-        inputs["type"] = args ? args.type : undefined;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as SecretArgs | undefined;
+            inputs["apiVersion"] = "v1";
+            inputs["data"] = args ? args.data : undefined;
+            inputs["immutable"] = args ? args.immutable : undefined;
+            inputs["kind"] = "Secret";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["stringData"] = args ? args.stringData : undefined;
+            inputs["type"] = args ? args.type : undefined;
+        }
         if (!opts) {
             opts = {}
         }

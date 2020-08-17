@@ -4,8 +4,7 @@
 import pulumi.runtime
 import pulumi_kubernetes as k8s
 
-from . import tables
-from .utilities import get_version
+from . import _utilities, _tables
 
 __all__ = ['Directory']
 
@@ -105,7 +104,7 @@ class Directory(pulumi.ComponentResource):
 
         # Rather than using the default provider for the following invoke call, use the version specified
         # in package.json.
-        invoke_opts = pulumi.InvokeOptions(version=get_version())
+        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
         __ret__ = pulumi.runtime.invoke(
             'kubernetes:kustomize:directory', {'directory': directory}, invoke_opts).value['result']
@@ -117,10 +116,10 @@ class Directory(pulumi.ComponentResource):
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
-        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
+        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
     def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
         """

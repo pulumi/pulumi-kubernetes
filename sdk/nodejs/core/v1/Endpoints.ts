@@ -71,12 +71,17 @@ export class Endpoints extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: EndpointsArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: EndpointsArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: EndpointsArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "v1";
-        inputs["kind"] = "Endpoints";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["subsets"] = args ? args.subsets : undefined;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as EndpointsArgs | undefined;
+            inputs["apiVersion"] = "v1";
+            inputs["kind"] = "Endpoints";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["subsets"] = args ? args.subsets : undefined;
+        }
         if (!opts) {
             opts = {}
         }

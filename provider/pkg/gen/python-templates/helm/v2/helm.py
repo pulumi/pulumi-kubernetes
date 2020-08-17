@@ -12,7 +12,7 @@ from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 import pulumi.runtime
 from pulumi_kubernetes.yaml import _parse_yaml_document
 
-from ...utilities import get_version
+from ... import _utilities
 
 
 class Chart(pulumi.ComponentResource):
@@ -554,7 +554,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
     # Rather than using the default provider for the following invoke call, use the version specified
     # in package.json.
-    invoke_opts = pulumi.InvokeOptions(version=get_version())
+    invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
     objects = chart_resources.apply(
         lambda text: pulumi.runtime.invoke('kubernetes:yaml:decode', {

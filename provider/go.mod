@@ -11,8 +11,8 @@ require (
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/json-patch v0.0.0-20200731230438-50deba092bc7
-	github.com/pulumi/pulumi/pkg/v2 v2.5.1-0.20200702193010-d611740ab0fa
-	github.com/pulumi/pulumi/sdk/v2 v2.5.1-0.20200626210151-8961f5b0caae
+	github.com/pulumi/pulumi/pkg/v2 v2.8.2
+	github.com/pulumi/pulumi/sdk/v2 v2.8.2
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.28.0
 	k8s.io/api v0.18.0

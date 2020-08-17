@@ -64,13 +64,18 @@ export class PersistentVolume extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: PersistentVolumeArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: PersistentVolumeArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: PersistentVolumeArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "v1";
-        inputs["kind"] = "PersistentVolume";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
-        inputs["status"] = undefined /*out*/;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as PersistentVolumeArgs | undefined;
+            inputs["apiVersion"] = "v1";
+            inputs["kind"] = "PersistentVolume";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+            inputs["status"] = undefined /*out*/;
+        }
         if (!opts) {
             opts = {}
         }

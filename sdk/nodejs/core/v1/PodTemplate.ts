@@ -60,12 +60,17 @@ export class PodTemplate extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: PodTemplateArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: PodTemplateArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: PodTemplateArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "v1";
-        inputs["kind"] = "PodTemplate";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["template"] = args ? args.template : undefined;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as PodTemplateArgs | undefined;
+            inputs["apiVersion"] = "v1";
+            inputs["kind"] = "PodTemplate";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["template"] = args ? args.template : undefined;
+        }
         if (!opts) {
             opts = {}
         }

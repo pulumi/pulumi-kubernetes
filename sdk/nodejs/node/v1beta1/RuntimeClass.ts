@@ -68,17 +68,22 @@ export class RuntimeClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as RuntimeClassArgs | undefined;
             if (!args || args.handler === undefined) {
                 throw new Error("Missing required property 'handler'");
             }
-        inputs["apiVersion"] = "node.k8s.io/v1beta1";
-        inputs["handler"] = args ? args.handler : undefined;
-        inputs["kind"] = "RuntimeClass";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["overhead"] = args ? args.overhead : undefined;
-        inputs["scheduling"] = args ? args.scheduling : undefined;
+            inputs["apiVersion"] = "node.k8s.io/v1beta1";
+            inputs["handler"] = args ? args.handler : undefined;
+            inputs["kind"] = "RuntimeClass";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["overhead"] = args ? args.overhead : undefined;
+            inputs["scheduling"] = args ? args.scheduling : undefined;
+        }
         if (!opts) {
             opts = {}
         }

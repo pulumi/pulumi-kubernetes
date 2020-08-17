@@ -64,13 +64,18 @@ export class ReplicaSet extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "apps/v1";
-        inputs["kind"] = "ReplicaSet";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
-        inputs["status"] = undefined /*out*/;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as ReplicaSetArgs | undefined;
+            inputs["apiVersion"] = "apps/v1";
+            inputs["kind"] = "ReplicaSet";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+            inputs["status"] = undefined /*out*/;
+        }
         if (!opts) {
             opts = {}
         }

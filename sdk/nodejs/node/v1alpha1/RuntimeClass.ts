@@ -60,15 +60,20 @@ export class RuntimeClass extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as RuntimeClassArgs | undefined;
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
-        inputs["apiVersion"] = "node.k8s.io/v1alpha1";
-        inputs["kind"] = "RuntimeClass";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["spec"] = args ? args.spec : undefined;
+            inputs["apiVersion"] = "node.k8s.io/v1alpha1";
+            inputs["kind"] = "RuntimeClass";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["spec"] = args ? args.spec : undefined;
+        }
         if (!opts) {
             opts = {}
         }

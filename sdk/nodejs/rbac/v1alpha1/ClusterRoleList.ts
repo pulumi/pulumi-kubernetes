@@ -60,15 +60,20 @@ export class ClusterRoleList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ClusterRoleListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ClusterRoleListArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ClusterRoleListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as ClusterRoleListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
-        inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
-        inputs["items"] = args ? args.items : undefined;
-        inputs["kind"] = "ClusterRoleList";
-        inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
+            inputs["items"] = args ? args.items : undefined;
+            inputs["kind"] = "ClusterRoleList";
+            inputs["metadata"] = args ? args.metadata : undefined;
+        }
         if (!opts) {
             opts = {}
         }

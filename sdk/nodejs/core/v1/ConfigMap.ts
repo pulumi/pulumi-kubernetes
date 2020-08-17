@@ -68,14 +68,19 @@ export class ConfigMap extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "v1";
-        inputs["binaryData"] = args ? args.binaryData : undefined;
-        inputs["data"] = args ? args.data : undefined;
-        inputs["immutable"] = args ? args.immutable : undefined;
-        inputs["kind"] = "ConfigMap";
-        inputs["metadata"] = args ? args.metadata : undefined;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as ConfigMapArgs | undefined;
+            inputs["apiVersion"] = "v1";
+            inputs["binaryData"] = args ? args.binaryData : undefined;
+            inputs["data"] = args ? args.data : undefined;
+            inputs["immutable"] = args ? args.immutable : undefined;
+            inputs["kind"] = "ConfigMap";
+            inputs["metadata"] = args ? args.metadata : undefined;
+        }
         if (!opts) {
             opts = {}
         }

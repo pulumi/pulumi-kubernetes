@@ -76,16 +76,21 @@ export class Status extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: StatusArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        inputs["apiVersion"] = "v1";
-        inputs["code"] = args ? args.code : undefined;
-        inputs["details"] = args ? args.details : undefined;
-        inputs["kind"] = "Status";
-        inputs["message"] = args ? args.message : undefined;
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["reason"] = args ? args.reason : undefined;
-        inputs["status"] = undefined /*out*/;
+        if (!(opts && opts.id)) {
+            const args = argsOrState as StatusArgs | undefined;
+            inputs["apiVersion"] = "v1";
+            inputs["code"] = args ? args.code : undefined;
+            inputs["details"] = args ? args.details : undefined;
+            inputs["kind"] = "Status";
+            inputs["message"] = args ? args.message : undefined;
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["reason"] = args ? args.reason : undefined;
+            inputs["status"] = undefined /*out*/;
+        }
         if (!opts) {
             opts = {}
         }

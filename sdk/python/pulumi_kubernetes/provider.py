@@ -7,7 +7,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Union
-from . import utilities, tables
+from . import _utilities, _tables
 
 
 class Provider(pulumi.ProviderResource):
@@ -57,7 +57,7 @@ class Provider(pulumi.ProviderResource):
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
         if opts.version is None:
-            opts.version = utilities.get_version()
+            opts.version = _utilities.get_version()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
@@ -66,15 +66,15 @@ class Provider(pulumi.ProviderResource):
             __props__['cluster'] = cluster
             __props__['context'] = context
             if enable_dry_run is None:
-                enable_dry_run = utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
+                enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
             __props__['enable_dry_run'] = pulumi.Output.from_input(enable_dry_run).apply(json.dumps) if enable_dry_run is not None else None
             if kubeconfig is None:
-                kubeconfig = utilities.get_env('KUBECONFIG')
+                kubeconfig = _utilities.get_env('KUBECONFIG')
             __props__['kubeconfig'] = kubeconfig
             __props__['namespace'] = namespace
             __props__['render_yaml_to_directory'] = render_yaml_to_directory
             if suppress_deprecation_warnings is None:
-                suppress_deprecation_warnings = utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
+                suppress_deprecation_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
             __props__['suppress_deprecation_warnings'] = pulumi.Output.from_input(suppress_deprecation_warnings).apply(json.dumps) if suppress_deprecation_warnings is not None else None
         super(Provider, __self__).__init__(
             'kubernetes',
@@ -83,7 +83,7 @@ class Provider(pulumi.ProviderResource):
             opts)
 
     def translate_output_property(self, prop):
-        return tables._CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop):
-        return tables._SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
+        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop

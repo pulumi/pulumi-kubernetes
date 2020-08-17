@@ -64,16 +64,21 @@ export class ClusterRoleBinding extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ClusterRoleBindingArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ClusterRoleBindingArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ClusterRoleBindingArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        if (!(opts && opts.id)) {
+            const args = argsOrState as ClusterRoleBindingArgs | undefined;
             if (!args || args.roleRef === undefined) {
                 throw new Error("Missing required property 'roleRef'");
             }
-        inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
-        inputs["kind"] = "ClusterRoleBinding";
-        inputs["metadata"] = args ? args.metadata : undefined;
-        inputs["roleRef"] = args ? args.roleRef : undefined;
-        inputs["subjects"] = args ? args.subjects : undefined;
+            inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
+            inputs["kind"] = "ClusterRoleBinding";
+            inputs["metadata"] = args ? args.metadata : undefined;
+            inputs["roleRef"] = args ? args.roleRef : undefined;
+            inputs["subjects"] = args ? args.subjects : undefined;
+        }
         if (!opts) {
             opts = {}
         }
