@@ -21,3 +21,5 @@ linters:
 run:
   skip-files:
   - schema.go
+  skip-dirs:
+  - provider/pkg/gen

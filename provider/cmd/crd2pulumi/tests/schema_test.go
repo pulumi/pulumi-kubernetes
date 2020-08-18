@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/gen"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/cmd/crd2pulumi/gen"
 	"github.com/stretchr/testify/assert"
 )
 

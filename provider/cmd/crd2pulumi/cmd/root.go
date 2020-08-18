@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/gen"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/cmd/crd2pulumi/gen"
 	"github.com/spf13/cobra"
 )
 
