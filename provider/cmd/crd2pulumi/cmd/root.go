@@ -30,7 +30,7 @@ var (
 		Long: `crd2pulumi is a CLI tool that generates strongly-typed
 		Kubernetes CRD resources to use in Pulumi programs.`,
 		Example: "crd2pulumi nodejs crontab.yaml crds/\ncrd2pulumi go cert-manager/crd-orders.yaml",
-		Version: "1.0.0",
+		Version: "1.0.1",
 		Args: func(cmd *cobra.Command, args []string) error {
 			err := cobra.RangeArgs(2, 3)(cmd, args)
 			if err != nil {
