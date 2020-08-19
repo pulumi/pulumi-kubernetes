@@ -182,7 +182,7 @@ type CustomResourceGenerator struct {
 
 func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenerator, error) {
 	apiVersion := crd.GetAPIVersion()
-	if !IsValidApiVersion(apiVersion) {
+	if !IsValidAPIVersion(apiVersion) {
 		return CustomResourceGenerator{},
 			errors.Errorf("invalid apiVersion %s, only v1 and v1beta1 are supported", apiVersion)
 	}
@@ -246,20 +246,6 @@ func (gen *CustomResourceGenerator) GroupVersions() []string {
 		versions[i] = gen.Group + "/" + version
 	}
 	return versions
-}
-
-// getVersion returns the <version> field of a string in the format
-// <group>/<version>
-func getVersion(groupVersion string) string {
-	version, _ := splitGroupVersion(groupVersion)
-	return version
-}
-
-// getGroup returns the <group> field of a string in the format
-// <group>/<version>
-func getGroup(groupVersion string) string {
-	_, group := splitGroupVersion(groupVersion)
-	return group
 }
 
 // splitGroupVersion returns the <group> and <version> field of a string in the

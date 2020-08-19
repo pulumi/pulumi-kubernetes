@@ -15,9 +15,12 @@
 package main
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi/cmd"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/cmd/crd2pulumi/cmd"
 )
 
 func main() {
-	cmd.Execute()
+	err := cmd.Execute()
+	if err != nil {
+		panic(err)
+	}
 }

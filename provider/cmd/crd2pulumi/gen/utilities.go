@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi/sdk/go/common/util/contract"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
@@ -86,7 +86,7 @@ func IsValidLanguage(language string) bool {
 	return language == NodeJS || language == Go || language == Python || language == DotNet
 }
 
-func IsValidApiVersion(apiVersion string) bool {
+func IsValidAPIVersion(apiVersion string) bool {
 	return apiVersion == v1 || apiVersion == v1beta1
 }
 
