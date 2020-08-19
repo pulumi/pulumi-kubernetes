@@ -4,6 +4,7 @@
 
 -   Handle kubeconfig contents or path in provider. (https://github.com/pulumi/pulumi-kubernetes/pull/1255)
 -   Add type annotations to Python SDK for API Extensions, Helm, Kustomize, and YAML. (https://github.com/pulumi/pulumi-kubernetes/pull/1259)
+-   Update k8s package deps to v0.18.8. (https://github.com/pulumi/pulumi-kubernetes/pull/1265)
 -   Move back to upstream json-patch module. (https://github.com/pulumi/pulumi-kubernetes/pull/1266)
 
 ## 2.4.3 (August 14, 2020)
