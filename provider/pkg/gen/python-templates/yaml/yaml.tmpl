@@ -6,7 +6,7 @@ import warnings
 from copy import copy
 from glob import glob
 from inspect import getargspec
-from typing import Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 import pulumi
 import pulumi.runtime
@@ -29,7 +29,7 @@ class ConfigGroup(pulumi.ComponentResource):
                  files: Optional[List[str]] = None,
                  yaml: Optional[List[str]] = None,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 transformations: Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] = None,
+                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None):
         """
         ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
@@ -136,7 +136,7 @@ class ConfigGroup(pulumi.ComponentResource):
         :param Optional[List[str]] files: Set of paths or a URLs that uniquely identify files.
         :param Optional[List[str]] yaml: YAML text containing Kubernetes resource definitions.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
+        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
@@ -232,7 +232,7 @@ class ConfigFile(pulumi.ComponentResource):
                  name: str,
                  file: Optional[str] = None,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 transformations: Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] = None,
+                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
                  file_id: Optional[str] = None):
         """
@@ -288,7 +288,7 @@ class ConfigFile(pulumi.ComponentResource):
         :param str name: A name for a resource.
         :param Optional[str] file: Path or a URL that uniquely identifies a file.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
+        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".

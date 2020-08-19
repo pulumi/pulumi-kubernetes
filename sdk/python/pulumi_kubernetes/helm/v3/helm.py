@@ -369,7 +369,7 @@ class BaseChartOpts:
     Optional overrides for chart values.
     """
 
-    transformations: Optional[List[Callable]]
+    transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]]
     """
     Optional list of transformations to apply to resources that will be created by this chart prior to
     creation. Allows customization of the chart behaviour without directly modifying the chart itself.
@@ -384,12 +384,12 @@ class BaseChartOpts:
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[pulumi.Inputs] = None,
+                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list
+        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list
                of transformations to apply to resources that will be created by this chart prior to creation.
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
@@ -433,7 +433,7 @@ class ChartOpts(BaseChartOpts):
                  chart: pulumi.Input[str],
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[pulumi.Inputs] = None,
+                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
                  repo: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
@@ -445,7 +445,7 @@ class ChartOpts(BaseChartOpts):
                Example: chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list of
+        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list of
                transformations to apply to resources that will be created by this chart prior to creation.
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
@@ -478,14 +478,14 @@ class LocalChartOpts(BaseChartOpts):
                  path: pulumi.Input[str],
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[pulumi.Inputs] = None,
+                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None):
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list of
+        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list of
                transformations to apply to resources that will be created by this chart prior to creation.
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
