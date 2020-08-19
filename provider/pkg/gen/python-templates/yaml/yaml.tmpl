@@ -6,7 +6,7 @@ import warnings
 from copy import copy
 from glob import glob
 from inspect import getargspec
-from typing import Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 import pulumi
 import pulumi.runtime
@@ -24,7 +24,13 @@ class ConfigGroup(pulumi.ComponentResource):
     Kubernetes resources contained in this ConfigGroup.
     """
 
-    def __init__(self, name, files=None, yaml=None, opts=None, transformations=None, resource_prefix=None):
+    def __init__(self,
+                 name: str,
+                 files: Optional[List[str]] = None,
+                 yaml: Optional[List[str]] = None,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
+                 resource_prefix: Optional[str] = None):
         """
         ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
         may be supplied using any of the following methods:
@@ -130,7 +136,7 @@ class ConfigGroup(pulumi.ComponentResource):
         :param Optional[List[str]] files: Set of paths or a URLs that uniquely identify files.
         :param Optional[List[str]] yaml: YAML text containing Kubernetes resource definitions.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
+        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
@@ -194,14 +200,17 @@ class ConfigGroup(pulumi.ComponentResource):
     def translate_input_property(self, prop: str) -> str:
         return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
-    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
+    def get_resource(self,
+                     group_version_kind: str,
+                     name: str,
+                     namespace: Optional[str] = None) -> pulumi.Output[pulumi.CustomResource]:
         """
         get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
         name. For example: `get_resource("apps/v1/Deployment", "nginx")`
 
         :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
         :param str name: Name of the resource to retrieve
-        :param str namespace: Optional namespace of the resource to retrieve
+        :param Optional[str] namespace: Optional namespace of the resource to retrieve
         """
 
         # `id` will either be `${name}` or `${namespace}/${name}`.
@@ -219,7 +228,13 @@ class ConfigFile(pulumi.ComponentResource):
     Kubernetes resources contained in this ConfigFile.
     """
 
-    def __init__(self, name, file=None, opts=None, transformations=None, resource_prefix=None, file_id=None):
+    def __init__(self,
+                 name: str,
+                 file: Optional[str] = None,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
+                 resource_prefix: Optional[str] = None,
+                 file_id: Optional[str] = None):
         """
         ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
 
@@ -271,9 +286,9 @@ class ConfigFile(pulumi.ComponentResource):
         ```
 
         :param str name: A name for a resource.
-        :param str file: Path or a URL that uniquely identifies a file.
+        :param Optional[str] file: Path or a URL that uniquely identifies a file.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
+        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
@@ -326,14 +341,17 @@ class ConfigFile(pulumi.ComponentResource):
     def translate_input_property(self, prop: str) -> str:
         return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
-    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
+    def get_resource(self,
+                     group_version_kind: str,
+                     name: str,
+                     namespace: Optional[str] = None) -> pulumi.Output[pulumi.CustomResource]:
         """
         get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
         name. For example: `get_resource("apps/v1/Deployment", "nginx")`
 
         :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
         :param str name: Name of the resource to retrieve
-        :param str namespace: Optional namespace of the resource to retrieve
+        :param Optional[str] namespace: Optional namespace of the resource to retrieve
         """
 
         # `id` will either be `${name}` or `${namespace}/${name}`.

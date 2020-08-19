@@ -2,6 +2,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
+from typing import Any, Optional
 
 import pulumi
 import pulumi.runtime
@@ -11,8 +12,15 @@ from .. import _utilities, _tables
 
 
 class CustomResource(pulumi.CustomResource):
-    def __init__(self, resource_name, api_version, kind, spec=None, metadata=None, opts=None,
-                 __name__=None, __opts__=None):
+    def __init__(self,
+                 resource_name: str,
+                 api_version: str,
+                 kind: str,
+                 spec: Optional[pulumi.Input[Any]] = None,
+                 metadata: Optional[pulumi.Input[Any]] = None,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 __name__=None,
+                 __opts__=None):
         """
         CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
         CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to
@@ -25,7 +33,7 @@ class CustomResource(pulumi.CustomResource):
                API server.
         :param str kind: The kind of the apiextensions.CustomResource we wish to select,
                as specified by the CustomResourceDefinition that defines it on the API server.
-        :param pulumi.Input[Any] spec: Specification of the CustomResource.
+        :param Optional[pulumi.Input[Any]] spec: Specification of the CustomResource.
         :param Optional[pulumi.Input[Any]] metadata: Standard object metadata; More info:
                https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
         :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
@@ -60,7 +68,11 @@ class CustomResource(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(resource_name, api_version, kind, id, opts=None):
+    def get(resource_name: str,
+            api_version: str,
+            kind: str,
+            id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None):
         """
         Get the state of an existing `CustomResource` resource, as identified by `id`.
         Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,

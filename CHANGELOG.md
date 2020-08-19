@@ -3,6 +3,7 @@
 ### Improvements
 
 -   Handle kubeconfig contents or path in provider. (https://github.com/pulumi/pulumi-kubernetes/pull/1255)
+-   Add type annotations to Python SDK for API Extensions, Helm, Kustomize, and YAML. (https://github.com/pulumi/pulumi-kubernetes/pull/1259)
 
 ## 2.4.3 (August 14, 2020)
 
