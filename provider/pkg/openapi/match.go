@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	jsonpatch "github.com/pulumi/json-patch"
+	jsonpatch "github.com/evanphx/json-patch"
 	"k8s.io/client-go/util/jsonpath"
 )
 
