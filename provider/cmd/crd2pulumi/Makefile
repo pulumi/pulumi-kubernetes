@@ -12,8 +12,6 @@ build::
 release: rel-darwin rel-linux rel-windows
 
 rel-darwin::
-	GOOS=darwin GOARCH=386 $(GO) build -o releases/crd2pulumi-darwin-386/crd2pulumi $(PROJECT)
-	tar -zcvf releases/crd2pulumi-darwin-368.tar.gz releases/crd2pulumi-darwin-386
 	GOOS=darwin GOARCH=amd64 $(GO) build -o releases/crd2pulumi-darwin-amd64/crd2pulumi $(PROJECT)
 	tar -zcvf releases/crd2pulumi-darwin-amd64.tar.gz releases/crd2pulumi-darwin-amd64
 
