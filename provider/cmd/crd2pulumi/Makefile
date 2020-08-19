@@ -1,4 +1,4 @@
-PROJECT          := github.com/pulumi/pulumi-kubernetes/provider/cmd/crd2pulumi
+PROJECT          := github.com/pulumi/pulumi-kubernetes/provider/v2/cmd/crd2pulumi
 
 GO              ?= go
 GOMODULE = GO111MODULE=on
