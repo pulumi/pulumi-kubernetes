@@ -615,8 +615,6 @@ github.com/prometheus/procfs v0.0.0-20181005140218-185b4288413d/go.mod h1:c3At6R
 github.com/prometheus/procfs v0.0.0-20190507164030-5867b95ac084/go.mod h1:TjEm7ze935MbeOT/UhFTIMYKhuLP4wbCsTZCD3I8kEA=
 github.com/prometheus/procfs v0.0.2/go.mod h1:TjEm7ze935MbeOT/UhFTIMYKhuLP4wbCsTZCD3I8kEA=
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
-github.com/pulumi/json-patch v0.0.0-20200731230438-50deba092bc7 h1:8qUt+Rx/e2r8ulfqTnTIEllY7qBXub0lg9yDEAaBRnM=
-github.com/pulumi/json-patch v0.0.0-20200731230438-50deba092bc7/go.mod h1:lHHSztMWUwjDNAtnPNx1/z24Cqx0E9rPhCemR+RL/As=
 github.com/pulumi/pulumi/pkg/v2 v2.8.2 h1:EhsR31F+WTXi7DIsoQBG/D5lrvLpK3Yy7GeiBSeMcfo=
 github.com/pulumi/pulumi/pkg/v2 v2.8.2/go.mod h1:VBSXJ6ZStTBDHhg9LPPk9z6/JScX0MiGMBBGvRx5KOM=
 github.com/pulumi/pulumi/sdk/v2 v2.0.0 h1:3VMXbEo3bqeaU+YDt8ufVBLD0WhLYE3tG3t/nIZ3Iac=
