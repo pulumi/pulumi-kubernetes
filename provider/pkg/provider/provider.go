@@ -26,6 +26,7 @@ import (
 	"os/user"
 	"path/filepath"
 	"reflect"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -570,22 +571,35 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 		return &pulumirpc.InvokeResponse{Return: objProps}, nil
 	case invokeHelmTemplate:
-		var jsonOpts string
+		var jsonOpts, defaultNamespace string
 		if jsonOptsArgs := args["jsonOpts"]; jsonOptsArgs.HasValue() && jsonOptsArgs.IsString() {
 			jsonOpts = jsonOptsArgs.StringValue()
 		} else {
 			return nil, pkgerrors.New("missing required field 'jsonOpts' of type string")
 		}
+		if defaultNsArg := args["defaultNamespace"]; defaultNsArg.HasValue() && defaultNsArg.IsString() {
+			defaultNamespace = defaultNsArg.StringValue()
+		}
 
 		var opts HelmChartOpts
-		err := json.Unmarshal([]byte(jsonOpts), &opts)
+		jsonOpts, err := strconv.Unquote(jsonOpts)
+		if err != nil {
+			return nil, pkgerrors.Wrap(err, "failed to unquote 'jsonOpts")
+		}
+		err = json.Unmarshal([]byte(jsonOpts), &opts)
 		if err != nil {
 			return nil, pkgerrors.Wrap(err, "failed to unmarshal 'jsonOpts")
 		}
 
-		result, err := HelmTemplate(opts)
+		text, err := helmTemplate(opts)
 		if err != nil {
 			return nil, pkgerrors.Wrap(err, "failed to generate YAML for specified Helm chart")
+		}
+
+		// Decode the generated YAML here to avoid an extra invoke in the client.
+		result, err := decodeYaml(text, defaultNamespace, k.clientSet)
+		if err != nil {
+			return nil, pkgerrors.Wrap(err, "failed to decode YAML for specified Helm chart")
 		}
 
 		objProps, err := plugin.MarshalProperties(
