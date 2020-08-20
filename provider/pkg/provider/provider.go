@@ -1215,12 +1215,7 @@ func (k *kubeProvider) Diff(
 
 	supportsDryRun := false
 	if !k.clusterUnreachable {
-		supportsDryRun, err = openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, gvk)
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err,
-				"Failed to check for changes in resource %s because of an error communicating with the API server",
-				fqObjName(newInputs))
-		}
+		supportsDryRun = openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, k.clientSet.GenericClient, gvk)
 	}
 
 	var patch []byte

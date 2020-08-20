@@ -18,14 +18,15 @@ import (
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/jsonmergepatch"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
+	"k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/discovery"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/kube-openapi/pkg/util/proto"
 	"k8s.io/kubectl/pkg/scheme"
 	"k8s.io/kubectl/pkg/util/openapi"
@@ -148,14 +149,13 @@ func MergePatch(
 }
 
 // SupportsDryRun returns true if the given GVK supports dry-run applies.
-func SupportsDryRun(client discovery.OpenAPISchemaInterface, gvk schema.GroupVersionKind) (bool, error) {
-	document, err := client.OpenAPISchema()
-	if err != nil {
-		return false, err
+func SupportsDryRun(client discovery.CachedDiscoveryInterface, dynamicClient dynamic.Interface,
+	gvk schema.GroupVersionKind) bool {
+	// If an error is returned, DryRun is not supported.
+	if err := resource.VerifyDryRun(gvk, dynamicClient, client); err != nil {
+		return false
 	}
-	supportsDryRun, err := openapi.SupportsDryRun(document, gvk)
-	contract.IgnoreError(err) // Error indicates a missing GVK; we'll collapse this with !supportsDryRun
-	return supportsDryRun, nil
+	return true
 }
 
 // Pluck obtains the property identified by the string components in `path`. For example,
