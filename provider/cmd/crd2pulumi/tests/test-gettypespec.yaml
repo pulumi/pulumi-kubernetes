@@ -1,0 +1,129 @@
+anyType: {}
+integer:
+  type: integer
+number:
+  type: number
+string:
+  type: string
+boolean:
+  type: boolean
+x-kubernetes-int-or-string:
+  x-kubernetes-int-or-string: true
+x-kubernetes-preserve-unknown-fields:
+  x-kubernetes-preserve-unknown-fields: true
+object:
+  type: object
+  properties:
+    prop1:
+      type: integer
+object-additionalproperties-true:
+  type: object
+  additionalProperties: true
+object-integer:
+  type: object
+  additionalProperties:
+    type: integer
+object-object:
+  type: object
+  additionalProperties:
+    type: object
+    properties:
+      prop1:
+        type: integer
+object-array:
+  type: object
+  additionalProperties:
+    type: array
+    items:
+      type: integer
+array-integer:
+  type: array
+  items:
+    type: integer
+array-number:
+  type: array
+  items:
+    type: number
+array-string:
+  type: array
+  items:
+    type: string
+array-boolean:
+  type: array
+  items:
+    type: boolean
+array-array-boolean:
+  type: array
+  items:
+    type: array
+    items:
+      type: boolean
+array-object-boolean:
+  type: array
+  items:
+    type: object
+    properties:
+      boolean:
+        type: boolean
+array-any:
+  type: array
+  items: {}
+oneOf-basic:
+  oneOf:
+    - type: integer
+    - type: number
+    - type: string
+    - type: boolean
+anyOf-single:
+  anyOf:
+    - type: object
+      description: object1
+      properties:
+        prop1:
+          type: string
+        prop2:
+          type: int
+      required:
+        - prop1
+anyOf-double:
+  anyOf:
+    - type: object
+      description: object1
+      properties:
+        prop1:
+          type: string
+        prop2:
+          type: int
+      required:
+        - prop1
+    - type: object
+      description: object2
+      properties:
+        prop2:
+          type: boolean
+        prop3:
+          type: number
+      required:
+        - prop2
+        - prop3
+allOf:
+  allOf:
+    - type: object
+      description: object1
+      properties:
+        prop1:
+          type: string
+        prop2:
+          type: int
+      required:
+        - prop1
+    - type: object
+      description: object2
+      properties:
+        prop2:
+          type: boolean
+        prop3:
+          type: number
+      required:
+        - prop2
+        - prop3
