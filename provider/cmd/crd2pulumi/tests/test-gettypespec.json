@@ -1,0 +1,127 @@
+{
+    "anyType": {
+        "$ref": "pulumi.json#/Any"
+    },
+    "integer": {
+        "type": "integer"
+    },
+    "number": {
+        "type": "number"
+    },
+    "string": {
+        "type": "string"
+    },
+    "boolean": {
+        "type": "boolean"
+    },
+    "x-kubernetes-int-or-string": {
+        "oneOf": [
+            { "type": "integer" },
+            { "type": "string" }
+        ]
+    },
+    "x-kubernetes-preserve-unknown-fields": {
+        "type": "object",
+        "additionalProperties": {
+            "$ref": "pulumi.json#/Any"
+        }
+    },
+    "object": {
+        "type": "object",
+        "$ref": "#/types/"
+    },
+    "object-additionalproperties-true": {
+        "type": "object",
+        "additionalProperties": {
+            "$ref": "pulumi.json#/Any"
+        }
+    },
+    "object-integer": {
+        "type": "object",
+        "additionalProperties": {
+            "type": "integer"
+        }
+    },
+    "object-object": {
+        "type": "object",
+        "additionalProperties": {
+            "type": "object",
+            "$ref": "#/types/"
+        }
+    },
+    "object-array": {
+        "type": "object",
+        "additionalProperties": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        }
+    },
+    "array-integer": {
+        "type": "array",
+        "items": {
+            "type": "integer"
+        }
+    },
+    "array-number": {
+        "type": "array",
+        "items": {
+            "type": "number"
+        }
+    },
+    "array-string": {
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    },
+    "array-boolean": {
+        "type": "array",
+        "items": {
+            "type": "boolean"
+        }
+    },
+    "array-array-boolean": {
+        "type": "array",
+        "items": {
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            }
+        }
+    },
+    "array-object-boolean": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "$ref": "#/types/"
+        }
+    },
+    "array-any": {
+        "type": "array",
+        "items": {
+            "$ref": "pulumi.json#/Any"
+        }
+    },
+    "oneOf-basic": {
+        "oneOf": [
+            { "type": "integer" },
+            { "type": "number" },
+            { "type": "string" },
+            { "type": "boolean" }
+        ]
+    },
+    "anyOf-single": {
+        "type": "object",
+        "$ref": "#/types/"
+    },
+    "anyOf-double": {
+        "type": "object",
+        "$ref": "#/types/"
+    },
+    "allOf": {
+        "type": "object",
+        "$ref": "#/types/"
+    }
+}
