@@ -20,53 +20,56 @@ import (
 	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
 )
 
-func TestGo_Basic(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir: "basic",
-		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		},
-		Quick: true,
+// TestGo runs Go SDK tests sequentially to avoid OOM errors in CI
+func TestGo(t *testing.T) {
+	t.Run("Basic", func(t *testing.T) {
+		integration.ProgramTest(t, &integration.ProgramTestOptions{
+			Dir: "basic",
+			Dependencies: []string{
+				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+			},
+			Quick: true,
+		})
 	})
-}
 
-func TestGo_YAML(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir: "yaml",
-		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		},
-		Quick:                true,
-		ExpectRefreshChanges: true,
+	t.Run("YAML", func(t *testing.T) {
+		integration.ProgramTest(t, &integration.ProgramTestOptions{
+			Dir: "yaml",
+			Dependencies: []string{
+				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+			},
+			Quick:                true,
+			ExpectRefreshChanges: true,
+		})
 	})
-}
 
-func TestGo_HelmLocal(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir: "helm-local",
-		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		},
-		Quick: true,
+	t.Run("Helm Local", func(t *testing.T) {
+		integration.ProgramTest(t, &integration.ProgramTestOptions{
+			Dir: "helm-local",
+			Dependencies: []string{
+				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+			},
+			Quick: true,
+		})
 	})
-}
 
-func TestGo_Helm(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir: "helm",
-		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		},
-		Quick: true,
+	t.Run("Helm Remote", func(t *testing.T) {
+		integration.ProgramTest(t, &integration.ProgramTestOptions{
+			Dir: "helm",
+			Dependencies: []string{
+				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+			},
+			Quick: true,
+		})
 	})
-}
 
-func TestGo_Kustomize(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir: "kustomize",
-		Dependencies: []string{
-			"github.com/pulumi/pulumi-kubernetes/sdk/v2",
-		},
-		Quick: true,
+	t.Run("Kustomize", func(t *testing.T) {
+		integration.ProgramTest(t, &integration.ProgramTestOptions{
+			Dir: "kustomize",
+			Dependencies: []string{
+				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+			},
+			Quick: true,
+		})
 	})
 }
