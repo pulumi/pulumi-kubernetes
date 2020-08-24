@@ -57,7 +57,7 @@ func UnmarshalTypeSpecJSON(jsonPath string) (map[string]pschema.TypeSpec, error)
 
 func TestUnderscoreFields(t *testing.T) {
 	schemas, err := UnmarshalSchemas(TestUnderscoreFieldsYAML)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	// Test that calling underscoreFields() on each initial schema changes it
 	// to become the same as the expected schema
@@ -77,7 +77,7 @@ func TestCombineSchemas(t *testing.T) {
 
 	// Unmarshal some testing schemas
 	schemas, err := UnmarshalSchemas(TestCombineSchemasYAML)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	person := schemas["person"].(map[string]interface{})
 	employee := schemas["employee"].(map[string]interface{})
 
@@ -110,11 +110,11 @@ func TestGetTypeSpec(t *testing.T) {
 
 	// Load YAML schemas
 	schemas, err := UnmarshalSchemas(TestGetTypeSpecYAML)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	// Load expected TypeSpec outputs as JSON
 	typeSpecs, err := UnmarshalTypeSpecJSON(TestGetTypeSpecJSON)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
 	for name := range schemas {
 		expected, ok := typeSpecs[name]
