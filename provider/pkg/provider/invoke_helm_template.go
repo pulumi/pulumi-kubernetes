@@ -15,10 +15,13 @@
 package provider
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
+	pkgerrors "github.com/pkg/errors"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
@@ -90,8 +93,9 @@ func helmTemplate(opts HelmChartOpts) (string, error) {
 }
 
 type chart struct {
-	opts     HelmChartOpts
-	chartDir string
+	opts      HelmChartOpts
+	chartDir  string
+	chartName string
 }
 
 // fetch runs the `helm fetch` action to fetch a Chart from a remote URL.
@@ -100,8 +104,8 @@ func (c *chart) fetch() error {
 	p.Settings = cli.New()
 	p.CaFile = c.opts.CAFile
 	p.CertFile = c.opts.CertFile
+	p.DestDir = c.chartDir
 	//p.DestDir = c.opts.Destination // TODO: Not currently used, but might be useful for caching
-	//p.Devel = c.opts.Devel // Unused
 	// c.opts.Home is unused
 	p.KeyFile = c.opts.KeyFile
 	p.Keyring = c.opts.Keyring
@@ -112,11 +116,26 @@ func (c *chart) fetch() error {
 	p.UntarDir = c.chartDir
 	p.Username = c.opts.Username
 	p.Verify = c.opts.Verify
-	p.Version = c.opts.HelmFetchOpts.Version
+
+	if c.opts.Version == "" && c.opts.Devel {
+		p.Version = ">0.0.0-0"
+	} else {
+		p.Version = c.opts.HelmFetchOpts.Version
+	}
+
+	if c.opts.HelmFetchOpts.Repo == "" {
+		splits := strings.Split(c.opts.Chart, "/")
+		if len(splits) != 2 {
+			return fmt.Errorf("chart repo not specified: %s", c.opts.Chart)
+		}
+		c.chartName = splits[1]
+	} else {
+		c.chartName = c.opts.Chart
+	}
 
 	_, err := p.Run(c.opts.Chart)
 	if err != nil {
-		return err
+		return pkgerrors.Wrap(err, "failed to pull chart")
 	}
 	return nil
 }
@@ -141,14 +160,14 @@ func (c *chart) template() (string, error) {
 	installAction.ReleaseName = c.opts.ReleaseName
 	installAction.Version = c.opts.Version
 
-	chart, err := loader.Load(filepath.Join(c.chartDir, c.opts.Chart))
+	chart, err := loader.Load(filepath.Join(c.chartDir, c.chartName))
 	if err != nil {
-		return "", err
+		return "", pkgerrors.Wrap(err, "failed to load chart from temp directory")
 	}
 
 	rel, err := installAction.Run(chart, c.opts.Values)
 	if err != nil {
-		return "", err
+		return "", pkgerrors.Wrap(err, "failed to create chart from template")
 	}
 
 	return rel.Manifest, nil

@@ -583,7 +583,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		var opts HelmChartOpts
 		err = json.Unmarshal([]byte(jsonOpts), &opts)
 		if err != nil {
-			return nil, pkgerrors.Wrap(err, "failed to unmarshal 'jsonOpts")
+			return nil, pkgerrors.Wrap(err, "failed to unmarshal 'jsonOpts'")
 		}
 
 		text, err := helmTemplate(opts)
