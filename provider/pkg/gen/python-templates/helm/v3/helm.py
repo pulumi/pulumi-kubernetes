@@ -395,8 +395,9 @@ class BaseChartOpts:
         self.transformations = transformations
         self.resource_prefix = resource_prefix
 
-    def toJson(self):
-        return json.dumps(self, default=lambda o: {k: v for (k, v) in o.__dict__.items() if v is not None})
+    def to_json(self):
+        return pulumi.Output.from_input(self.__dict__).apply(
+            lambda x: json.dumps(x, default=lambda o: {k: v for (k, v) in o.__dict__.items() if v is not None}))
 
 
 class ChartOpts(BaseChartOpts):
@@ -516,15 +517,13 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
     config.release_name = release_name
 
-    json_opts = json.dumps(config.toJson())
+    json_opts = config.to_json()
 
     # Rather than using the default provider for the following invoke call, use the version specified
     # in package.json.
     invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
-    objects = pulumi.runtime.invoke('kubernetes:helm:template', {
-        'jsonOpts': json_opts, 'defaultNamespace': config.namespace,
-    }, invoke_opts).value['result']
-    resources = _parse_yaml_document(objects, opts, config.transformations)
-
-    return resources
+    objects = json_opts.apply(lambda x: pulumi.runtime.invoke('kubernetes:helm:template', {
+        'jsonOpts': x, 'defaultNamespace': config.namespace,
+    }, invoke_opts).value['result'])
+    return objects.apply(lambda x: _parse_yaml_document(x, opts, config.transformations))

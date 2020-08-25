@@ -26,7 +26,6 @@ import (
 	"os/user"
 	"path/filepath"
 	"reflect"
-	"strconv"
 	"strings"
 	"sync"
 
@@ -582,10 +581,6 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		var opts HelmChartOpts
-		jsonOpts, err := strconv.Unquote(jsonOpts)
-		if err != nil {
-			return nil, pkgerrors.Wrap(err, "failed to unquote 'jsonOpts")
-		}
 		err = json.Unmarshal([]byte(jsonOpts), &opts)
 		if err != nil {
 			return nil, pkgerrors.Wrap(err, "failed to unmarshal 'jsonOpts")
