@@ -96,6 +96,7 @@ type chart struct {
 	opts      HelmChartOpts
 	chartDir  string
 	chartName string
+	helmHome  *string // Previous setting of HELM_HOME env var (if any)
 }
 
 // fetch runs the `helm fetch` action to fetch a Chart from a remote URL.
@@ -106,7 +107,6 @@ func (c *chart) fetch() error {
 	p.CertFile = c.opts.CertFile
 	p.DestDir = c.chartDir
 	//p.DestDir = c.opts.Destination // TODO: Not currently used, but might be useful for caching
-	// c.opts.Home is unused
 	p.KeyFile = c.opts.KeyFile
 	p.Keyring = c.opts.Keyring
 	p.Password = c.opts.Password
@@ -116,6 +116,25 @@ func (c *chart) fetch() error {
 	p.UntarDir = c.chartDir
 	p.Username = c.opts.Username
 	p.Verify = c.opts.Verify
+
+	// If the 'home' option is specified, set the HELM_HOME env var for the duration of the invoke and then reset it
+	// to its previous state.
+	if c.opts.Home != "" {
+		if helmHome, ok := os.LookupEnv("HELM_HOME"); ok {
+			c.helmHome = &helmHome
+		}
+		err := os.Setenv("HELM_HOME", c.opts.Home)
+		if err != nil {
+			return pkgerrors.Wrap(err, "failed to set HELM_HOME")
+		}
+		defer func() {
+			if c.helmHome != nil {
+				_ = os.Setenv("HELM_HOME", *c.helmHome)
+			} else {
+				_ = os.Unsetenv("HELM_HOME")
+			}
+		}()
+	}
 
 	if c.opts.Version == "" && c.opts.Devel {
 		p.Version = ">0.0.0-0"
