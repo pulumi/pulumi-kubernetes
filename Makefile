@@ -32,7 +32,7 @@ else
 	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-$(strip ${DOTNET_SUFFIX})
 endif
 
-TESTPARALLELISM := 4
+TESTPARALLELISM := 8
 
 $(OPENAPI_FILE)::
 	@mkdir -p $(OPENAPI_DIR)
