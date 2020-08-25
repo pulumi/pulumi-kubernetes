@@ -20,8 +20,7 @@ const namespace2 = new k8s.core.v1.Namespace("test-namespace2");
 
 function configFile(name: string, namespace: string, resourcePrefix?: string): k8s.yaml.ConfigFile {
     return new k8s.yaml.ConfigFile(name, {
-        file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples" +
-            "/yaml-guestbook/yaml/guestbook.yaml",
+        file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml",
         resourcePrefix: resourcePrefix,
         transformations: [
             (obj: any) => {
