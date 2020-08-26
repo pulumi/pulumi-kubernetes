@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+-   Switch Helm v3 logic to use native library. (https://github.com/pulumi/pulumi-kubernetes/pull/1263)
+
 ## 2.5.0 (August 26, 2020)
 
 ### Improvements

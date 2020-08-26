@@ -276,34 +276,31 @@ func TestHelm(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(cwd, "helm"),
-		ExpectRefreshChanges: true, // PodDisruptionBudget status gets updated by the Deployment.
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
+		Dir: filepath.Join(cwd, "helm", "step1"),
+		EditDirs: []integration.EditDir{
+			{
+				Dir:             filepath.Join(cwd, "helm", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &options)
+}
 
-			sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
-				ri := stackInfo.Deployment.Resources[i]
-				rj := stackInfo.Deployment.Resources[j]
-				riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
-				rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
-				rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
-				rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
-				return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
-					fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
-			})
-
-			// Verify override value was set.
-			unboundDepl := stackInfo.Deployment.Resources[1]
-			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), unboundDepl.URN.Type())
-			containersRaw, _ := openapi.Pluck(unboundDepl.Outputs, "spec", "template", "spec", "containers")
-			containers := containersRaw.([]interface{})
-			assert.Equal(t, 2, len(containers))
-			container := containers[0].(map[string]interface{})
-			containerName, _ := openapi.Pluck(container, "name")
-			assert.True(t, strings.HasPrefix(containerName.(string), "unbound"))
-			pullPolicy, _ := openapi.Pluck(container, "imagePullPolicy")
-			assert.True(t, strings.HasPrefix(pullPolicy.(string), "Always"))
+func TestHelmLocal(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "helm-local", "step1"),
+		EditDirs: []integration.EditDir{
+			{
+				Dir:             filepath.Join(cwd, "helm-local", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
 		},
 	})
 	integration.ProgramTest(t, &options)
