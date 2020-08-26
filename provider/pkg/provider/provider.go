@@ -78,6 +78,7 @@ const (
 	streamInvokeWatch    = "kubernetes:kubernetes:watch"
 	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
 	invokeDecodeYaml     = "kubernetes:yaml:decode"
+	invokeHelmTemplate   = "kubernetes:helm:template"
 	invokeKustomize      = "kubernetes:kustomize:directory"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialAPIVersionKey = "__initialApiVersion"
@@ -568,6 +569,45 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+	case invokeHelmTemplate:
+		var jsonOpts, defaultNamespace string
+		if jsonOptsArgs := args["jsonOpts"]; jsonOptsArgs.HasValue() && jsonOptsArgs.IsString() {
+			jsonOpts = jsonOptsArgs.StringValue()
+		} else {
+			return nil, pkgerrors.New("missing required field 'jsonOpts' of type string")
+		}
+		if defaultNsArg := args["defaultNamespace"]; defaultNsArg.HasValue() && defaultNsArg.IsString() {
+			defaultNamespace = defaultNsArg.StringValue()
+		}
+
+		var opts HelmChartOpts
+		err = json.Unmarshal([]byte(jsonOpts), &opts)
+		if err != nil {
+			return nil, pkgerrors.Wrap(err, "failed to unmarshal 'jsonOpts'")
+		}
+
+		text, err := helmTemplate(opts)
+		if err != nil {
+			return nil, pkgerrors.Wrap(err, "failed to generate YAML for specified Helm chart")
+		}
+
+		// Decode the generated YAML here to avoid an extra invoke in the client.
+		result, err := decodeYaml(text, defaultNamespace, k.clientSet)
+		if err != nil {
+			return nil, pkgerrors.Wrap(err, "failed to decode YAML for specified Helm chart")
+		}
+
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+
 	case invokeKustomize:
 		var directory string
 		if directoryArg := args["directory"]; directoryArg.HasValue() && directoryArg.IsString() {

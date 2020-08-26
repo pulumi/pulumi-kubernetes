@@ -11,12 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from pulumi_kubernetes.helm.v2 import Chart, LocalChartOpts
+from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
-values = {"unbound": {"image": {"pullPolicy": "Always"}}}
+values = {"service": {"type": "ClusterIP"}}
 
-Chart("unbound", LocalChartOpts("unbound", values=values))
+Chart("nginx", LocalChartOpts(path="nginx", values=values))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
 # can be managed in the same stack.
-Chart("unbound", LocalChartOpts("unbound", resource_prefix="dup", values=values))
+Chart("nginx", LocalChartOpts(path="nginx", resource_prefix="dup", values=values))

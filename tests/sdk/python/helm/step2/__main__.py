@@ -11,30 +11,43 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.helm.v2 import Chart, ChartOpts, FetchOpts
-from pulumi_random import RandomString
 from os.path import expanduser
+
+from pulumi_kubernetes.core.v1 import Namespace
+from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
+from pulumi_random import RandomString
 
 namespace = Namespace("test")
 
 rs = RandomString("random-string", length=8).result
 
-values = {
-    "unbound": {
-        "image": {
-            "pullPolicy": "Always"
-        }
-    },
-    "random-string": rs
-}
+values = {"service": {"type": "ClusterIP"}, "random-string": rs}
 
-Chart("unbound", ChartOpts(
-    "stable/unbound", values=values, namespace=namespace.metadata["name"], version="1.1.0",
-    fetch_opts=FetchOpts(home=expanduser("~"))))
+Chart(
+    "remote-chart",
+    ChartOpts(
+        chart="nginx",
+        fetch_opts=FetchOpts(
+            home=expanduser("~"),
+            repo="https://charts.bitnami.com/bitnami"
+        ),
+        namespace=namespace.metadata["name"],
+        values={"service": {"type": "ClusterIP"}},
+        version="6.0.4",
+    ))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
 # can be managed in the same stack.
-Chart("unbound", ChartOpts(
-    "stable/unbound", resource_prefix="dup", values=values, namespace=namespace.metadata["name"],
-    version="1.1.0", fetch_opts=FetchOpts(home=expanduser("~"))))
+Chart(
+    "remote-chart",
+    ChartOpts(
+        chart="nginx",
+        resource_prefix="dup",
+        fetch_opts=FetchOpts(
+            home=expanduser("~"),
+            repo="https://charts.bitnami.com/bitnami"
+        ),
+        namespace=namespace.metadata["name"],
+        values={"service": {"type": "ClusterIP"}},
+        version="6.0.4",
+    ))
