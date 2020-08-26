@@ -506,7 +506,6 @@ def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.Reso
     # in package.json.
     invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
-    objects = json_opts.apply(lambda x: pulumi.runtime.invoke('kubernetes:helm:template', {
-        'jsonOpts': x, 'defaultNamespace': config.namespace,
-    }, invoke_opts).value['result'])
+    objects = json_opts.apply(lambda x: pulumi.runtime.invoke('kubernetes:helm:template',
+                                                              {'jsonOpts': x}, invoke_opts).value['result'])
     return objects.apply(lambda x: _parse_yaml_document(x, opts, config.transformations))

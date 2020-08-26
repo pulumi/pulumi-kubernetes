@@ -136,7 +136,7 @@ func (c *chart) fetch() error {
 	p.Verify = c.opts.Verify
 
 	if len(c.opts.Repo) > 0 && strings.HasPrefix(c.opts.Repo, "http") {
-		return pkgerrors.Errorf("'repo' option specifies the name of the Helm Chart repo, not the URL." +
+		return pkgerrors.New("'repo' option specifies the name of the Helm Chart repo, not the URL." +
 			"Use 'fetchOpts.repo' to specify a URL for a remote Chart")
 	}
 
