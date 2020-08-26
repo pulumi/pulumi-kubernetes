@@ -3,6 +3,7 @@
 ### Improvements
 
 -   Switch Helm v3 logic to use native library. (https://github.com/pulumi/pulumi-kubernetes/pull/1263)
+-   Bump python requests version dependency. (https://github.com/pulumi/pulumi-kubernetes/pull/1274)
 
 ## 2.5.0 (August 26, 2020)
 

@@ -256,7 +256,7 @@ Use the navigation below to see detailed documentation for each of the supported
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
 			"pulumi":   ">=2.0.0,<3.0.0",
-			"requests": ">=2.21.0,<2.22.0",
+			"requests": ">=2.21,<3.0",
 			"pyyaml":   ">=5.1,<5.2",
 		},
 		"moduleNameOverrides": modToPkg,
