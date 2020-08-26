@@ -15,7 +15,6 @@
 package provider
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -136,7 +135,7 @@ func (c *chart) fetch() error {
 	p.Username = c.opts.Username
 	p.Verify = c.opts.Verify
 
-	if c.opts.Version == "" && c.opts.Devel {
+	if len(c.opts.Version) == 0 && c.opts.Devel {
 		p.Version = ">0.0.0-0"
 	} else {
 		p.Version = c.opts.HelmFetchOpts.Version
@@ -145,7 +144,7 @@ func (c *chart) fetch() error {
 	if c.opts.HelmFetchOpts.Repo == "" {
 		splits := strings.Split(c.opts.Chart, "/")
 		if len(splits) != 2 {
-			return fmt.Errorf("chart repo not specified: %s", c.opts.Chart)
+			return pkgerrors.Errorf("chart repo not specified: %s", c.opts.Chart)
 		}
 		c.chartName = splits[1]
 	} else {
