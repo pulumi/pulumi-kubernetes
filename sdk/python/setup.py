@@ -55,7 +55,7 @@ setup(name='pulumi_kubernetes',
           'parver>=0.2.1',
           'pulumi>=2.0.0,<3.0.0',
           'pyyaml>=5.1,<5.2',
-          'requests>=2.21.0,<2.22.0',
+          'requests>=2.21,<3.0',
           'semver>=2.8.1'
       ],
       zip_safe=False)
