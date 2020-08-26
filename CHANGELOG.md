@@ -6,6 +6,7 @@
 -   Add type annotations to Python SDK for API Extensions, Helm, Kustomize, and YAML. (https://github.com/pulumi/pulumi-kubernetes/pull/1259)
 -   Update k8s package deps to v0.18.8. (https://github.com/pulumi/pulumi-kubernetes/pull/1265)
 -   Move back to upstream json-patch module. (https://github.com/pulumi/pulumi-kubernetes/pull/1266)
+-   Bump python requests version dependency. (https://github.com/pulumi/pulumi-kubernetes/pull/1274)
 
 ## 2.4.3 (August 14, 2020)
 
