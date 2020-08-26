@@ -49,14 +49,14 @@ import (
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.14.md#deprecations
 //
 // admissionregistration/v1beta1/* / 1.16 / 1.19
-// apiextensions/v1beta1/CustomResourceDefinition / 1.16 / 1.19
+// apiextensions/v1beta1/CustomResourceDefinition / 1.16 / 1.22 (Previously 1.19)
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals
 //
 // rbac/v1alpha1/* / 1.17 / 1.22
 // rbac/v1beta1/* / 1.17 / 1.22
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals
 //
-// apiextensions/v1beta1/* / 1.19 / _
+// apiextensions/v1beta1/* / 1.19 / 1.22
 // apiregistration/v1beta1/* / 1.19 / _
 // authentication/v1beta1/* / 1.19 / 1.22
 // authorization/v1beta1/* / 1.19 / 1.22
@@ -236,7 +236,7 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	case AdmissionregistrationV1B1:
 		return &v119
 	case ApiextensionsV1B1:
-		return &v119
+		return &v122
 	case AuthenticationV1B1:
 		return &v122
 	case AuthorizationV1B1:

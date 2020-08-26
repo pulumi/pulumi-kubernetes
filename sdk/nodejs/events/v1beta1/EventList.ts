@@ -41,7 +41,7 @@ export class EventList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"events.k8s.io/v1beta1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     public readonly items!: pulumi.Output<outputs.events.v1beta1.Event[]>;
     /**
@@ -94,7 +94,7 @@ export interface EventListArgs {
      */
     readonly apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     readonly items: pulumi.Input<pulumi.Input<inputs.events.v1beta1.Event>[]>;
     /**

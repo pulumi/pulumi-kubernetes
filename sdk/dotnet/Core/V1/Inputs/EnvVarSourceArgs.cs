@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapKeySelectorArgs>? ConfigMapKeyRef { get; set; }
 
         /// <summary>
-        /// Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+        /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['&lt;KEY&gt;']`, `metadata.annotations['&lt;KEY&gt;']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
         /// </summary>
         [Input("fieldRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ObjectFieldSelectorArgs>? FieldRef { get; set; }

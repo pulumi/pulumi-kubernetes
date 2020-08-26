@@ -80,6 +80,8 @@ export class CertificateSigningRequest extends pulumi.CustomResource {
         if (!opts.version) {
             opts.version = utilities.getVersion();
         }
+        const aliasOpts = { aliases: [{ type: "kubernetes:certificates.k8s.io/v1:CertificateSigningRequest" }] };
+        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
         super(CertificateSigningRequest.__pulumiType, name, inputs, opts);
     }
 }

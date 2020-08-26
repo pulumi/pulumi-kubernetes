@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
 {
 
     /// <summary>
-    /// NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of fields are allowed
+    /// NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
     /// </summary>
     public class NetworkPolicyPeerArgs : Pulumi.ResourceArgs
     {

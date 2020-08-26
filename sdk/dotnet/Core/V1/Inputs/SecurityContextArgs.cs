@@ -70,6 +70,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.SELinuxOptionsArgs>? SeLinuxOptions { get; set; }
 
         /// <summary>
+        /// The seccomp options to use by this container. If seccomp options are provided at both the pod &amp; container level, the container options override the pod options.
+        /// </summary>
+        [Input("seccompProfile")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.SeccompProfileArgs>? SeccompProfile { get; set; }
+
+        /// <summary>
         /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         /// </summary>
         [Input("windowsOptions")]

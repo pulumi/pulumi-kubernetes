@@ -67,6 +67,9 @@ func NewEvent(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("Event")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:events.k8s.io/v1:Event"),
+		},
+		{
 			Type: pulumi.String("kubernetes:events.k8s.io/v1beta1:Event"),
 		},
 	})

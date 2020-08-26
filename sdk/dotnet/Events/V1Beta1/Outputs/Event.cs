@@ -14,7 +14,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events.V1Beta1
     public sealed class Event
     {
         /// <summary>
-        /// What action was taken/failed regarding to the regarding object.
+        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
         /// </summary>
         public readonly string Action;
         /// <summary>
@@ -22,23 +22,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events.V1Beta1
         /// </summary>
         public readonly string ApiVersion;
         /// <summary>
-        /// Deprecated field assuring backward compatibility with core.v1 Event type
+        /// deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         /// </summary>
         public readonly int DeprecatedCount;
         /// <summary>
-        /// Deprecated field assuring backward compatibility with core.v1 Event type
+        /// deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         /// </summary>
         public readonly string DeprecatedFirstTimestamp;
         /// <summary>
-        /// Deprecated field assuring backward compatibility with core.v1 Event type
+        /// deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         /// </summary>
         public readonly string DeprecatedLastTimestamp;
         /// <summary>
-        /// Deprecated field assuring backward compatibility with core.v1 Event type
+        /// deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.EventSource DeprecatedSource;
         /// <summary>
-        /// Required. Time when this Event was first observed.
+        /// eventTime is the time when this Event was first observed. It is required.
         /// </summary>
         public readonly string EventTime;
         /// <summary>
@@ -47,35 +47,35 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events.V1Beta1
         public readonly string Kind;
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        /// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         /// </summary>
         public readonly string Note;
         /// <summary>
-        /// Why the action was taken.
+        /// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
         /// </summary>
         public readonly string Reason;
         /// <summary>
-        /// The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        /// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectReference Regarding;
         /// <summary>
-        /// Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        /// related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectReference Related;
         /// <summary>
-        /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+        /// reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
         /// </summary>
         public readonly string ReportingController;
         /// <summary>
-        /// ID of the controller instance, e.g. `kubelet-xyzf`.
+        /// reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
         /// </summary>
         public readonly string ReportingInstance;
         /// <summary>
-        /// Data about the Event series this event represents or nil if it's a singleton Event.
+        /// series is data about the Event series this event represents or nil if it's a singleton Event.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Events.V1Beta1.EventSeries Series;
         /// <summary>
-        /// Type of this event (Normal, Warning), new types could be added in the future.
+        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
         /// </summary>
         public readonly string Type;
 

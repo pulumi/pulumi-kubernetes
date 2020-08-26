@@ -86,7 +86,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableDictionary<string, string> Overhead;
         /// <summary>
-        /// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+        /// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
         /// </summary>
         public readonly string PreemptionPolicy;
         /// <summary>
@@ -126,6 +126,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string ServiceAccountName;
         /// <summary>
+        /// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        /// </summary>
+        public readonly bool SetHostnameAsFQDN;
+        /// <summary>
         /// Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
         /// </summary>
         public readonly bool ShareProcessNamespace;
@@ -142,7 +146,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.Toleration> Tolerations;
         /// <summary>
-        /// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+        /// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.TopologySpreadConstraint> TopologySpreadConstraints;
         /// <summary>
@@ -208,6 +212,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string serviceAccountName,
 
+            bool setHostnameAsFQDN,
+
             bool shareProcessNamespace,
 
             string subdomain,
@@ -248,6 +254,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             SecurityContext = securityContext;
             ServiceAccount = serviceAccount;
             ServiceAccountName = serviceAccountName;
+            SetHostnameAsFQDN = setHostnameAsFQDN;
             ShareProcessNamespace = shareProcessNamespace;
             Subdomain = subdomain;
             TerminationGracePeriodSeconds = terminationGracePeriodSeconds;

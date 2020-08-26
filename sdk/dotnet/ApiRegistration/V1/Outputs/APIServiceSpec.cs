@@ -30,7 +30,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1
         /// </summary>
         public readonly bool InsecureSkipTLSVerify;
         /// <summary>
-        /// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+        /// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1.ServiceReference Service;
         /// <summary>

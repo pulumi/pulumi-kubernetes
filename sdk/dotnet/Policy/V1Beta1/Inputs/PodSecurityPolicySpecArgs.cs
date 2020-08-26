@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.AllowedCSIDriverArgs>? _allowedCSIDrivers;
 
         /// <summary>
-        /// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+        /// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.AllowedCSIDriverArgs> AllowedCSIDrivers
         {
@@ -49,7 +49,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.AllowedFlexVolumeArgs>? _allowedFlexVolumes;
 
         /// <summary>
-        /// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+        /// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.AllowedFlexVolumeArgs> AllowedFlexVolumes
         {
@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.AllowedHostPathArgs>? _allowedHostPaths;
 
         /// <summary>
-        /// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+        /// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.AllowedHostPathArgs> AllowedHostPaths
         {
@@ -73,7 +73,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         private InputList<string>? _allowedProcMountTypes;
 
         /// <summary>
-        /// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+        /// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
         /// </summary>
         public InputList<string> AllowedProcMountTypes
         {
@@ -85,7 +85,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         private InputList<string>? _allowedUnsafeSysctls;
 
         /// <summary>
-        /// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
+        /// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
         /// 
         /// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
         /// </summary>
@@ -221,7 +221,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         private InputList<string>? _volumes;
 
         /// <summary>
-        /// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+        /// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         /// </summary>
         public InputList<string> Volumes
         {

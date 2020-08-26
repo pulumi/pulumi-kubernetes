@@ -542,7 +542,7 @@ type RuleWithOperations struct {
 	ApiGroups []string `pulumi:"apiGroups"`
 	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions []string `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
+	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 	Operations []string `pulumi:"operations"`
 	// Resources is a list of resources this rule applies to.
 	//
@@ -573,7 +573,7 @@ type RuleWithOperationsArgs struct {
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
 	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions pulumi.StringArrayInput `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
+	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 	Operations pulumi.StringArrayInput `pulumi:"operations"`
 	// Resources is a list of resources this rule applies to.
 	//
@@ -649,7 +649,7 @@ func (o RuleWithOperationsOutput) ApiVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuleWithOperations) []string { return v.ApiVersions }).(pulumi.StringArrayOutput)
 }
 
-// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
+// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 func (o RuleWithOperationsOutput) Operations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuleWithOperations) []string { return v.Operations }).(pulumi.StringArrayOutput)
 }

@@ -70,7 +70,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string> OsImage { get; set; } = null!;
 
         /// <summary>
-        /// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html
+        /// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
         /// </summary>
         [Input("systemUUID", required: true)]
         public Input<string> SystemUUID { get; set; } = null!;
