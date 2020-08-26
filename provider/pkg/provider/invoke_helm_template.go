@@ -135,6 +135,11 @@ func (c *chart) fetch() error {
 	p.Username = c.opts.Username
 	p.Verify = c.opts.Verify
 
+	if len(c.opts.Repo) > 0 && strings.HasPrefix(c.opts.Repo, "http") {
+		return pkgerrors.Errorf("'repo' option specifies the name of the Helm Chart repo, not the URL." +
+			"Use 'fetchOpts.repo' to specify a URL for a remote Chart")
+	}
+
 	if len(c.opts.Version) == 0 && c.opts.Devel {
 		p.Version = ">0.0.0-0"
 	} else {
