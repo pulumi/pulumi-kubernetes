@@ -15,12 +15,14 @@ require (
 	github.com/pulumi/pulumi/sdk/v2 v2.8.2
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.28.0
+	helm.sh/helm/v3 v3.3.0
 	k8s.io/api v0.18.8
 	k8s.io/apimachinery v0.18.8
 	k8s.io/cli-runtime v0.18.8
 	k8s.io/client-go v0.18.8
 	k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6
 	k8s.io/kubectl v0.18.8
+	rsc.io/letsencrypt v0.0.3 // indirect
 	sigs.k8s.io/kustomize/api v0.4.1
 	sigs.k8s.io/yaml v1.2.0
 )

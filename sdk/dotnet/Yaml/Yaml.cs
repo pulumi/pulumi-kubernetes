@@ -123,6 +123,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Batch.V1Beta1.CronJobList) ? "batch/v1beta1/CronJobList" :
                 type == typeof(Batch.V2Alpha1.CronJob) ? "batch/v2alpha1/CronJob" :
                 type == typeof(Batch.V2Alpha1.CronJobList) ? "batch/v2alpha1/CronJobList" :
+                type == typeof(Certificates.V1.CertificateSigningRequest) ? "certificates.k8s.io/v1/CertificateSigningRequest" :
+                type == typeof(Certificates.V1.CertificateSigningRequestList) ? "certificates.k8s.io/v1/CertificateSigningRequestList" :
                 type == typeof(Certificates.V1Beta1.CertificateSigningRequest) ? "certificates.k8s.io/v1beta1/CertificateSigningRequest" :
                 type == typeof(Certificates.V1Beta1.CertificateSigningRequestList) ? "certificates.k8s.io/v1beta1/CertificateSigningRequestList" :
                 type == typeof(Coordination.V1.Lease) ? "coordination.k8s.io/v1/Lease" :
@@ -162,6 +164,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Core.V1.ServiceList) ? "v1/ServiceList" :
                 type == typeof(Discovery.V1Beta1.EndpointSlice) ? "discovery.k8s.io/v1beta1/EndpointSlice" :
                 type == typeof(Discovery.V1Beta1.EndpointSliceList) ? "discovery.k8s.io/v1beta1/EndpointSliceList" :
+                type == typeof(Events.V1.Event) ? "events.k8s.io/v1/Event" :
+                type == typeof(Events.V1.EventList) ? "events.k8s.io/v1/EventList" :
                 type == typeof(Events.V1Beta1.Event) ? "events.k8s.io/v1beta1/Event" :
                 type == typeof(Events.V1Beta1.EventList) ? "events.k8s.io/v1beta1/EventList" :
                 type == typeof(Extensions.V1Beta1.DaemonSet) ? "extensions/v1beta1/DaemonSet" :
@@ -181,6 +185,10 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(FlowControl.V1Alpha1.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration" :
                 type == typeof(FlowControl.V1Alpha1.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList" :
                 type == typeof(Meta.V1.Status) ? "meta/v1/Status" :
+                type == typeof(Networking.V1.Ingress) ? "networking.k8s.io/v1/Ingress" :
+                type == typeof(Networking.V1.IngressClass) ? "networking.k8s.io/v1/IngressClass" :
+                type == typeof(Networking.V1.IngressClassList) ? "networking.k8s.io/v1/IngressClassList" :
+                type == typeof(Networking.V1.IngressList) ? "networking.k8s.io/v1/IngressList" :
                 type == typeof(Networking.V1.NetworkPolicy) ? "networking.k8s.io/v1/NetworkPolicy" :
                 type == typeof(Networking.V1.NetworkPolicyList) ? "networking.k8s.io/v1/NetworkPolicyList" :
                 type == typeof(Networking.V1Beta1.Ingress) ? "networking.k8s.io/v1beta1/Ingress" :
@@ -443,6 +451,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "batch/v1/JobList"
                 || gvk == "batch/v1beta1/CronJobList"
                 || gvk == "batch/v2alpha1/CronJobList"
+                || gvk == "certificates.k8s.io/v1/CertificateSigningRequestList"
                 || gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequestList"
                 || gvk == "coordination.k8s.io/v1/LeaseList"
                 || gvk == "coordination.k8s.io/v1beta1/LeaseList"
@@ -462,6 +471,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "v1/ServiceAccountList"
                 || gvk == "v1/ServiceList"
                 || gvk == "discovery.k8s.io/v1beta1/EndpointSliceList"
+                || gvk == "events.k8s.io/v1/EventList"
                 || gvk == "events.k8s.io/v1beta1/EventList"
                 || gvk == "extensions/v1beta1/DaemonSetList"
                 || gvk == "extensions/v1beta1/DeploymentList"
@@ -471,6 +481,8 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "extensions/v1beta1/ReplicaSetList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList"
+                || gvk == "networking.k8s.io/v1/IngressClassList"
+                || gvk == "networking.k8s.io/v1/IngressList"
                 || gvk == "networking.k8s.io/v1/NetworkPolicyList"
                 || gvk == "networking.k8s.io/v1beta1/IngressClassList"
                 || gvk == "networking.k8s.io/v1beta1/IngressList"
@@ -764,6 +776,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"batch/v2alpha1/CronJob::{id}",
                                 new Batch.V2Alpha1.CronJob(id, obj!, opts) as KubernetesResource))
                         };
+                    case "certificates.k8s.io/v1/CertificateSigningRequest":
+                        return new[]
+                        {
+                            id.Apply(id => ($"certificates.k8s.io/v1/CertificateSigningRequest::{id}",
+                                new Certificates.V1.CertificateSigningRequest(id, obj!, opts) as KubernetesResource))
+                        };
                     case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
                         return new[]
                         {
@@ -884,6 +902,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"discovery.k8s.io/v1beta1/EndpointSlice::{id}",
                                 new Discovery.V1Beta1.EndpointSlice(id, obj!, opts) as KubernetesResource))
                         };
+                    case "events.k8s.io/v1/Event":
+                        return new[]
+                        {
+                            id.Apply(id => ($"events.k8s.io/v1/Event::{id}",
+                                new Events.V1.Event(id, obj!, opts) as KubernetesResource))
+                        };
                     case "events.k8s.io/v1beta1/Event":
                         return new[]
                         {
@@ -943,6 +967,18 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"meta/v1/Status::{id}",
                                 new Meta.V1.Status(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "networking.k8s.io/v1/Ingress":
+                        return new[]
+                        {
+                            id.Apply(id => ($"networking.k8s.io/v1/Ingress::{id}",
+                                new Networking.V1.Ingress(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "networking.k8s.io/v1/IngressClass":
+                        return new[]
+                        {
+                            id.Apply(id => ($"networking.k8s.io/v1/IngressClass::{id}",
+                                new Networking.V1.IngressClass(id, obj!, opts) as KubernetesResource))
                         };
                     case "networking.k8s.io/v1/NetworkPolicy":
                         return new[]

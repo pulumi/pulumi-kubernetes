@@ -28,7 +28,7 @@ class RoleList(pulumi.CustomResource):
     """
     def __init__(__self__, resource_name, opts=None, api_version=None, items=None, kind=None, metadata=None, __props__=None, __name__=None, __opts__=None):
         """
-        RoleList is a collection of Roles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
+        RoleList is a collection of Roles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.22.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.

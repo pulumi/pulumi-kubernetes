@@ -1603,17 +1603,17 @@ func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 type PodSecurityPolicySpec struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation *bool `pulumi:"allowPrivilegeEscalation"`
-	// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+	// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 	AllowedCSIDrivers []AllowedCSIDriver `pulumi:"allowedCSIDrivers"`
 	// allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 	AllowedCapabilities []string `pulumi:"allowedCapabilities"`
-	// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+	// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 	AllowedFlexVolumes []AllowedFlexVolume `pulumi:"allowedFlexVolumes"`
-	// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+	// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
 	AllowedHostPaths []AllowedHostPath `pulumi:"allowedHostPaths"`
-	// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+	// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 	AllowedProcMountTypes []string `pulumi:"allowedProcMountTypes"`
-	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
+	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
 	//
 	// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 	AllowedUnsafeSysctls []string `pulumi:"allowedUnsafeSysctls"`
@@ -1651,7 +1651,7 @@ type PodSecurityPolicySpec struct {
 	SeLinux SELinuxStrategyOptions `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 	SupplementalGroups SupplementalGroupsStrategyOptions `pulumi:"supplementalGroups"`
-	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+	// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes []string `pulumi:"volumes"`
 }
 
@@ -1670,17 +1670,17 @@ type PodSecurityPolicySpecInput interface {
 type PodSecurityPolicySpecArgs struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation pulumi.BoolPtrInput `pulumi:"allowPrivilegeEscalation"`
-	// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+	// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 	AllowedCSIDrivers AllowedCSIDriverArrayInput `pulumi:"allowedCSIDrivers"`
 	// allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 	AllowedCapabilities pulumi.StringArrayInput `pulumi:"allowedCapabilities"`
-	// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+	// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 	AllowedFlexVolumes AllowedFlexVolumeArrayInput `pulumi:"allowedFlexVolumes"`
-	// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+	// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
 	AllowedHostPaths AllowedHostPathArrayInput `pulumi:"allowedHostPaths"`
-	// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+	// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 	AllowedProcMountTypes pulumi.StringArrayInput `pulumi:"allowedProcMountTypes"`
-	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
+	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
 	//
 	// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 	AllowedUnsafeSysctls pulumi.StringArrayInput `pulumi:"allowedUnsafeSysctls"`
@@ -1718,7 +1718,7 @@ type PodSecurityPolicySpecArgs struct {
 	SeLinux SELinuxStrategyOptionsInput `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 	SupplementalGroups SupplementalGroupsStrategyOptionsInput `pulumi:"supplementalGroups"`
-	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+	// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes pulumi.StringArrayInput `pulumi:"volumes"`
 }
 
@@ -1805,7 +1805,7 @@ func (o PodSecurityPolicySpecOutput) AllowPrivilegeEscalation() pulumi.BoolPtrOu
 	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.AllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
 }
 
-// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 func (o PodSecurityPolicySpecOutput) AllowedCSIDrivers() AllowedCSIDriverArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedCSIDriver { return v.AllowedCSIDrivers }).(AllowedCSIDriverArrayOutput)
 }
@@ -1815,22 +1815,22 @@ func (o PodSecurityPolicySpecOutput) AllowedCapabilities() pulumi.StringArrayOut
 	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedCapabilities }).(pulumi.StringArrayOutput)
 }
 
-// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecOutput) AllowedFlexVolumes() AllowedFlexVolumeArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedFlexVolume { return v.AllowedFlexVolumes }).(AllowedFlexVolumeArrayOutput)
 }
 
-// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecOutput) AllowedHostPaths() AllowedHostPathArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedHostPath { return v.AllowedHostPaths }).(AllowedHostPathArrayOutput)
 }
 
-// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedProcMountTypes }).(pulumi.StringArrayOutput)
 }
 
-// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
+// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
@@ -1919,7 +1919,7 @@ func (o PodSecurityPolicySpecOutput) SupplementalGroups() SupplementalGroupsStra
 	return o.ApplyT(func(v PodSecurityPolicySpec) SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsOutput)
 }
 
-// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.Volumes }).(pulumi.StringArrayOutput)
 }
@@ -1952,7 +1952,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowPrivilegeEscalation() pulumi.BoolPt
 	}).(pulumi.BoolPtrOutput)
 }
 
-// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 func (o PodSecurityPolicySpecPtrOutput) AllowedCSIDrivers() AllowedCSIDriverArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedCSIDriver {
 		if v == nil {
@@ -1972,7 +1972,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedCapabilities() pulumi.StringArray
 	}).(pulumi.StringArrayOutput)
 }
 
-// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecPtrOutput) AllowedFlexVolumes() AllowedFlexVolumeArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedFlexVolume {
 		if v == nil {
@@ -1982,7 +1982,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedFlexVolumes() AllowedFlexVolumeAr
 	}).(AllowedFlexVolumeArrayOutput)
 }
 
-// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecPtrOutput) AllowedHostPaths() AllowedHostPathArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedHostPath {
 		if v == nil {
@@ -1992,7 +1992,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedHostPaths() AllowedHostPathArrayO
 	}).(AllowedHostPathArrayOutput)
 }
 
-// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecPtrOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
 		if v == nil {
@@ -2002,7 +2002,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedProcMountTypes() pulumi.StringArr
 	}).(pulumi.StringArrayOutput)
 }
 
-// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
+// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPtrOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
@@ -2176,7 +2176,7 @@ func (o PodSecurityPolicySpecPtrOutput) SupplementalGroups() SupplementalGroupsS
 	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
-// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecPtrOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
 		if v == nil {
@@ -2494,7 +2494,7 @@ func (o RunAsUserStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptions struct {
-	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+	// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames []string `pulumi:"allowedRuntimeClassNames"`
 	// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 	DefaultRuntimeClassName *string `pulumi:"defaultRuntimeClassName"`
@@ -2513,7 +2513,7 @@ type RuntimeClassStrategyOptionsInput interface {
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptionsArgs struct {
-	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+	// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames pulumi.StringArrayInput `pulumi:"allowedRuntimeClassNames"`
 	// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 	DefaultRuntimeClassName pulumi.StringPtrInput `pulumi:"defaultRuntimeClassName"`
@@ -2597,7 +2597,7 @@ func (o RuntimeClassStrategyOptionsOutput) ToRuntimeClassStrategyOptionsPtrOutpu
 	}).(RuntimeClassStrategyOptionsPtrOutput)
 }
 
-// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuntimeClassStrategyOptions) []string { return v.AllowedRuntimeClassNames }).(pulumi.StringArrayOutput)
 }
@@ -2625,7 +2625,7 @@ func (o RuntimeClassStrategyOptionsPtrOutput) Elem() RuntimeClassStrategyOptions
 	return o.ApplyT(func(v *RuntimeClassStrategyOptions) RuntimeClassStrategyOptions { return *v }).(RuntimeClassStrategyOptionsOutput)
 }
 
-// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsPtrOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *RuntimeClassStrategyOptions) []string {
 		if v == nil {

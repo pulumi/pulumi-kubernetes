@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         private InputList<string>? _allowedRuntimeClassNames;
 
         /// <summary>
-        /// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+        /// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         /// </summary>
         public InputList<string> AllowedRuntimeClassNames
         {

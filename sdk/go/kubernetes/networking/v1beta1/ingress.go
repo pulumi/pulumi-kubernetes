@@ -52,6 +52,9 @@ func NewIngress(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:extensions/v1beta1:Ingress"),
 		},
+		{
+			Type: pulumi.String("kubernetes:networking.k8s.io/v1:Ingress"),
+		},
 	})
 	opts = append(opts, aliases)
 	var resource Ingress

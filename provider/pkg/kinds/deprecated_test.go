@@ -193,7 +193,7 @@ func TestRemovedInVersion(t *testing.T) {
 		wantVersion *cluster.ServerVersion
 	}{
 		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &v119},
-		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), &v119},
+		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), &v122},
 		{toGVK(AppsV1B1, Deployment), &v116},
 		{toGVK(AppsV1B2, Deployment), &v116},
 		{toGVK(AuthenticationV1B1, TokenReview), &v122},

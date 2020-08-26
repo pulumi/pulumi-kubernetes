@@ -14,11 +14,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events.V1Beta1
     public sealed class EventSeries
     {
         /// <summary>
-        /// Number of occurrences in this series up to the last heartbeat time
+        /// count is the number of occurrences in this series up to the last heartbeat time.
         /// </summary>
         public readonly int Count;
         /// <summary>
-        /// Time when last Event from the series was seen before last heartbeat.
+        /// lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         /// </summary>
         public readonly string LastObservedTime;
         /// <summary>

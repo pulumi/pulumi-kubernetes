@@ -42,6 +42,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SELinuxOptions SeLinuxOptions;
         /// <summary>
+        /// The seccomp options to use by the containers in this pod.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SeccompProfile SeccompProfile;
+        /// <summary>
         /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
         /// </summary>
         public readonly ImmutableArray<int> SupplementalGroups;
@@ -68,6 +72,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SELinuxOptions seLinuxOptions,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.SeccompProfile seccompProfile,
+
             ImmutableArray<int> supplementalGroups,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.Sysctl> sysctls,
@@ -80,6 +86,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             RunAsNonRoot = runAsNonRoot;
             RunAsUser = runAsUser;
             SeLinuxOptions = seLinuxOptions;
+            SeccompProfile = seccompProfile;
             SupplementalGroups = supplementalGroups;
             Sysctls = sysctls;
             WindowsOptions = windowsOptions;

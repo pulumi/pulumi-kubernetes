@@ -14,6 +14,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1Beta1
     public sealed class CertificateSigningRequestCondition
     {
         /// <summary>
+        /// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
+        /// </summary>
+        public readonly string LastTransitionTime;
+        /// <summary>
         /// timestamp for the last update to this condition
         /// </summary>
         public readonly string LastUpdateTime;
@@ -26,23 +30,33 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1Beta1
         /// </summary>
         public readonly string Reason;
         /// <summary>
-        /// request approval state, currently Approved or Denied.
+        /// Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
+        /// </summary>
+        public readonly string Status;
+        /// <summary>
+        /// type of the condition. Known conditions include "Approved", "Denied", and "Failed".
         /// </summary>
         public readonly string Type;
 
         [OutputConstructor]
         private CertificateSigningRequestCondition(
+            string lastTransitionTime,
+
             string lastUpdateTime,
 
             string message,
 
             string reason,
 
+            string status,
+
             string type)
         {
+            LastTransitionTime = lastTransitionTime;
             LastUpdateTime = lastUpdateTime;
             Message = message;
             Reason = reason;
+            Status = status;
             Type = type;
         }
     }

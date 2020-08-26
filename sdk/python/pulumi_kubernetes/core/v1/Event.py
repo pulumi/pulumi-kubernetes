@@ -140,7 +140,7 @@ class Event(pulumi.CustomResource):
             __props__['series'] = series
             __props__['source'] = source
             __props__['type'] = type
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:events.k8s.io/v1beta1:Event")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:events.k8s.io/v1:Event"), pulumi.Alias(type_="kubernetes:events.k8s.io/v1beta1:Event")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(Event, __self__).__init__(
             'kubernetes:core/v1:Event',

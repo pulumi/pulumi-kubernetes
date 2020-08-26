@@ -2,6 +2,13 @@
 
 ### Improvements
 
+-   Switch Helm v3 logic to use native library. (https://github.com/pulumi/pulumi-kubernetes/pull/1263)
+
+## 2.5.0 (August 26, 2020)
+
+### Improvements
+
+-   Add support for k8s v1.19.0. (https://github.com/pulumi/pulumi-kubernetes/pull/996)
 -   Handle kubeconfig contents or path in provider. (https://github.com/pulumi/pulumi-kubernetes/pull/1255)
 -   Add type annotations to Python SDK for API Extensions, Helm, Kustomize, and YAML. (https://github.com/pulumi/pulumi-kubernetes/pull/1259)
 -   Update k8s package deps to v0.18.8. (https://github.com/pulumi/pulumi-kubernetes/pull/1265)

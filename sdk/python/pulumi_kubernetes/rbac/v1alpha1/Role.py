@@ -28,7 +28,7 @@ class Role(pulumi.CustomResource):
     """
     def __init__(__self__, resource_name, opts=None, api_version=None, kind=None, metadata=None, rules=None, __props__=None, __name__=None, __opts__=None):
         """
-        Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
+        Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.22.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.

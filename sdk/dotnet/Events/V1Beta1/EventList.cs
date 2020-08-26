@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Items is a list of schema objects.
+        /// items is a list of schema objects.
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Events.V1Beta1.Event>> Items { get; private set; } = null!;
@@ -108,7 +108,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1.EventArgs>? _items;
 
         /// <summary>
-        /// Items is a list of schema objects.
+        /// items is a list of schema objects.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1.EventArgs> Items
         {
