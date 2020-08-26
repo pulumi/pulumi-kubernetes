@@ -7,3 +7,5 @@ from .MutatingWebhookConfiguration import *
 from .MutatingWebhookConfigurationList import *
 from .ValidatingWebhookConfiguration import *
 from .ValidatingWebhookConfigurationList import *
+from ._inputs import *
+from . import outputs

@@ -13,3 +13,5 @@ from .ReplicaSet import *
 from .ReplicaSetList import *
 from .StatefulSet import *
 from .StatefulSetList import *
+from ._inputs import *
+from . import outputs

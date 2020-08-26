@@ -6,12 +6,26 @@ import json
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Union
+from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
 from . import _utilities, _tables
+
+__all__ = ['Provider']
 
 
 class Provider(pulumi.ProviderResource):
-    def __init__(__self__, resource_name, opts=None, cluster=None, context=None, enable_dry_run=None, kubeconfig=None, namespace=None, render_yaml_to_directory=None, suppress_deprecation_warnings=None, __props__=None, __name__=None, __opts__=None):
+    def __init__(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 cluster: Optional[pulumi.Input[str]] = None,
+                 context: Optional[pulumi.Input[str]] = None,
+                 enable_dry_run: Optional[pulumi.Input[bool]] = None,
+                 kubeconfig: Optional[pulumi.Input[str]] = None,
+                 namespace: Optional[pulumi.Input[str]] = None,
+                 render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
+                 suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         """
         The provider type for the kubernetes package.
 
@@ -87,3 +101,4 @@ class Provider(pulumi.ProviderResource):
 
     def translate_input_property(self, prop):
         return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
+

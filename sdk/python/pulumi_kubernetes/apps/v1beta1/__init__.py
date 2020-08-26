@@ -9,3 +9,5 @@ from .Deployment import *
 from .DeploymentList import *
 from .StatefulSet import *
 from .StatefulSetList import *
+from ._inputs import *
+from . import outputs

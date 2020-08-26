@@ -9,3 +9,5 @@ from .IngressClassList import *
 from .IngressList import *
 from .NetworkPolicy import *
 from .NetworkPolicyList import *
+from ._inputs import *
+from . import outputs

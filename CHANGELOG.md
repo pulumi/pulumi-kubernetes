@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Improvements
+
+- Upgrade to Pulumi v2.9.0, which adds type annotations and input/output classes to Python (https://github.com/pulumi/pulumi-kubernetes/pull/1276)
+
 ## 2.5.0 (August 26, 2020)
 
 ### Improvements
