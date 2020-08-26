@@ -1,4 +1,4 @@
-# Copyright 2016-2020, Pulumi Corporation.
+# Copyright 2016-2019, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@ from os import path
 
 from pulumi import ResourceOptions
 from pulumi_kubernetes import Provider
-from pulumi_kubernetes.core.v1 import Pod, Namespace, PodSpecArgs, ContainerArgs, ContainerPortArgs
-from pulumi_kubernetes.meta.v1 import ObjectMetaArgs
+from pulumi_kubernetes.core.v1 import Pod, Namespace
 
 kubeconfig_file = path.join(path.expanduser("~"), ".kube", "config")
 with open(kubeconfig_file) as f:
@@ -28,15 +27,15 @@ namespace = Namespace("test")
 
 nginx = Pod(
     "nginx",
-    metadata=ObjectMetaArgs(
-        namespace=namespace,
-    ),
-    spec=PodSpecArgs(
-        containers=[ContainerArgs(
-            image="nginx:1.7.9",
-            name="nginx",
-            ports=[ContainerPortArgs(
-                container_port=80,
-            )],
-        )],
-    ), __opts__=ResourceOptions(provider=my_k8s))
+    metadata={
+        "namespace": namespace,
+    },
+    spec={
+        "containers": [{
+            "image": "nginx:1.7.9",
+            "name": "nginx",
+            "ports": [{
+                "container_port": 80,
+            }],
+        }],
+    }, __opts__=ResourceOptions(provider=my_k8s))

@@ -1,4 +1,4 @@
-# Copyright 2016-2020, Pulumi Corporation.
+# Copyright 2016-2019, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,30 +14,25 @@
 
 import pulumi
 from pulumi_kubernetes.apiextensions.CustomResource import CustomResource
-from pulumi_kubernetes.apiextensions.v1beta1.CustomResourceDefinition import (
-    CustomResourceDefinition,
-    CustomResourceDefinitionNamesArgs,
-    CustomResourceDefinitionSpecArgs,
-)
+from pulumi_kubernetes.apiextensions.v1beta1.CustomResourceDefinition import CustomResourceDefinition
 from pulumi_kubernetes.core.v1 import Service
 from pulumi_kubernetes.core.v1.Namespace import Namespace
-from pulumi_kubernetes.meta.v1 import ObjectMetaArgs
 
 service = Service.get("kube-api", "kubernetes")
 
 crd = CustomResourceDefinition(
     resource_name="foo",
-    metadata=ObjectMetaArgs(name="gettests.python.test"),
-    spec=CustomResourceDefinitionSpecArgs(
-        group="python.test",
-        version="v1",
-        scope="Namespaced",
-        names=CustomResourceDefinitionNamesArgs(
-            plural="gettests",
-            singular="gettest",
-            kind="GetTest",
-        ),
-    ))
+    metadata={"name": "gettests.python.test"},
+    spec={
+        "group": "python.test",
+        "version": "v1",
+        "scope": "Namespaced",
+        "names": {
+            "plural": "gettests",
+            "singular": "gettest",
+            "kind": "GetTest",
+        }
+    })
 
 ns = Namespace("ns")
 
