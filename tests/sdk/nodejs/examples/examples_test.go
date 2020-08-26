@@ -202,7 +202,7 @@ func TestAccPrometheusOperator(t *testing.T) {
 			},
 			EditDirs: []integration.EditDir{
 				{
-					Dir:      path.Join(getCwd(t), "prometheus-operator", "steps"),
+					Dir:      path.Join(getCwd(t), "prometheus-operator", "step1"),
 					Additive: true,
 					ExtraRuntimeValidation: func(
 						t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
