@@ -74,6 +74,25 @@ func helmTemplate(opts HelmChartOpts) (string, error) {
 		chartDir: tempDir,
 	}
 
+	// If the 'home' option is specified, set the HELM_HOME env var for the duration of the invoke and then reset it
+	// to its previous state.
+	if chart.opts.Home != "" {
+		if helmHome, ok := os.LookupEnv("HELM_HOME"); ok {
+			chart.helmHome = &helmHome
+		}
+		err := os.Setenv("HELM_HOME", chart.opts.Home)
+		if err != nil {
+			return "", pkgerrors.Wrap(err, "failed to set HELM_HOME")
+		}
+		defer func() {
+			if chart.helmHome != nil {
+				_ = os.Setenv("HELM_HOME", *chart.helmHome)
+			} else {
+				_ = os.Unsetenv("HELM_HOME")
+			}
+		}()
+	}
+
 	// If Path is set, use a local Chart, otherwise fetch from a remote.
 	if len(chart.opts.Path) > 0 {
 		chart.chartDir = chart.opts.Path
@@ -116,25 +135,6 @@ func (c *chart) fetch() error {
 	p.UntarDir = c.chartDir
 	p.Username = c.opts.Username
 	p.Verify = c.opts.Verify
-
-	// If the 'home' option is specified, set the HELM_HOME env var for the duration of the invoke and then reset it
-	// to its previous state.
-	if c.opts.Home != "" {
-		if helmHome, ok := os.LookupEnv("HELM_HOME"); ok {
-			c.helmHome = &helmHome
-		}
-		err := os.Setenv("HELM_HOME", c.opts.Home)
-		if err != nil {
-			return pkgerrors.Wrap(err, "failed to set HELM_HOME")
-		}
-		defer func() {
-			if c.helmHome != nil {
-				_ = os.Setenv("HELM_HOME", *c.helmHome)
-			} else {
-				_ = os.Unsetenv("HELM_HOME")
-			}
-		}()
-	}
 
 	if c.opts.Version == "" && c.opts.Devel {
 		p.Version = ">0.0.0-0"
