@@ -140,11 +140,18 @@ func (c *chart) fetch() error {
 			"Use 'fetchOpts.repo' to specify a URL for a remote Chart")
 	}
 
-	if len(c.opts.Version) == 0 && c.opts.Devel {
-		p.Version = ">0.0.0-0"
-	} else {
+	// TODO: We have two different version parameters, but it doesn't make sense
+	// 		 to specify both. We should deprecate the FetchOpts one.
+
+	if len(c.opts.Version) == 0 && len(c.opts.HelmFetchOpts.Version) == 0 {
+		if c.opts.Devel {
+			p.Version = ">0.0.0-0"
+		}
+	} else if len(c.opts.Version) > 0 {
+		p.Version = c.opts.Version
+	} else if len(c.opts.HelmFetchOpts.Version) > 0 {
 		p.Version = c.opts.HelmFetchOpts.Version
-	}
+	} // If both are set, prefer the top-level version over the FetchOpts version.
 
 	if c.opts.HelmFetchOpts.Repo == "" {
 		splits := strings.Split(c.opts.Chart, "/")
