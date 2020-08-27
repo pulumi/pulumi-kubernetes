@@ -44,7 +44,8 @@ func TestSmoke(t *testing.T) {
 	for _, dir := range []string{"smoke-test", "smoke-test-old"} {
 		t.Run(dir, func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir: filepath.Join(cwd, dir),
+				Dir:        filepath.Join(cwd, dir),
+				NoParallel: true,
 			})
 			integration.ProgramTest(t, &options)
 		})
@@ -62,6 +63,7 @@ func TestGet(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				ExpectRefreshChanges: true, // CRD changes on refresh
 				Dir:                  filepath.Join(cwd, dir),
+				NoParallel:           true,
 			})
 			integration.ProgramTest(t, &options)
 		})
@@ -183,7 +185,8 @@ func TestGuestbook(t *testing.T) {
 	for _, dir := range []string{"guestbook", "guestbook-old"} {
 		t.Run(dir, func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir: filepath.Join(cwd, dir),
+				Dir:        filepath.Join(cwd, dir),
+				NoParallel: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
 					assert.Equal(t, 9, len(stackInfo.Deployment.Resources))
@@ -280,7 +283,8 @@ func TestProvider(t *testing.T) {
 	for _, dir := range []string{"provider", "provider-old"} {
 		t.Run(dir, func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir: filepath.Join(cwd, "provider"),
+				Dir:        filepath.Join(cwd, "provider"),
+				NoParallel: true,
 			})
 			integration.ProgramTest(t, &options)
 		})
