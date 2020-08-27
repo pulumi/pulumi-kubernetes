@@ -15,9 +15,12 @@
 package provider
 
 import (
+	"fmt"
 	"io/ioutil"
+	"net/url"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
@@ -111,10 +114,9 @@ func helmTemplate(opts HelmChartOpts) (string, error) {
 }
 
 type chart struct {
-	opts      HelmChartOpts
-	chartDir  string
-	chartName string
-	helmHome  *string // Previous setting of HELM_HOME env var (if any)
+	opts     HelmChartOpts
+	chartDir string
+	helmHome *string // Previous setting of HELM_HOME env var (if any)
 }
 
 // fetch runs the `helm fetch` action to fetch a Chart from a remote URL.
@@ -153,17 +155,15 @@ func (c *chart) fetch() error {
 		p.Version = c.opts.HelmFetchOpts.Version
 	} // If both are set, prefer the top-level version over the FetchOpts version.
 
-	if c.opts.HelmFetchOpts.Repo == "" {
-		splits := strings.Split(c.opts.Chart, "/")
-		if len(splits) != 2 {
-			return pkgerrors.Errorf("chart repo not specified: %s", c.opts.Chart)
+	chartRef := func() string {
+		if len(c.opts.Repo) > 0 {
+			return fmt.Sprintf("%s/%s", strings.TrimSuffix(c.opts.Repo, "/"), c.opts.Chart)
 		}
-		c.chartName = splits[1]
-	} else {
-		c.chartName = c.opts.Chart
+
+		return c.opts.Chart
 	}
 
-	_, err := p.Run(c.opts.Chart)
+	_, err := p.Run(chartRef())
 	if err != nil {
 		return pkgerrors.Wrap(err, "failed to pull chart")
 	}
@@ -183,6 +183,7 @@ func (c *chart) template() (string, error) {
 	}
 
 	installAction := action.NewInstall(cfg)
+	installAction.APIVersions = c.opts.APIVersions
 	installAction.ClientOnly = true
 	installAction.DryRun = true
 	installAction.IncludeCRDs = true // TODO: handle this conditionally?
@@ -190,7 +191,25 @@ func (c *chart) template() (string, error) {
 	installAction.ReleaseName = c.opts.ReleaseName
 	installAction.Version = c.opts.Version
 
-	chart, err := loader.Load(filepath.Join(c.chartDir, c.chartName))
+	chartName := func() string {
+		// Check if the chart value is a URL with a defined scheme.
+		if _url, err := url.Parse(c.opts.Chart); err == nil && len(_url.Scheme) > 0 {
+			// Chart path will be of the form `/name-version.tgz`
+			re := regexp.MustCompile(`^/(\w+)-(\S+)\.tgz$`)
+			matches := re.FindStringSubmatch(_url.Path)
+			if len(matches) > 1 {
+				return matches[1]
+			}
+		}
+
+		splits := strings.Split(c.opts.Chart, "/")
+		if len(splits) == 2 {
+			return splits[1]
+		}
+		return c.opts.Chart
+	}
+
+	chart, err := loader.Load(filepath.Join(c.chartDir, chartName()))
 	if err != nil {
 		return "", pkgerrors.Wrap(err, "failed to load chart from temp directory")
 	}
