@@ -570,14 +570,11 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 		return &pulumirpc.InvokeResponse{Return: objProps}, nil
 	case invokeHelmTemplate:
-		var jsonOpts, defaultNamespace string
+		var jsonOpts string
 		if jsonOptsArgs := args["jsonOpts"]; jsonOptsArgs.HasValue() && jsonOptsArgs.IsString() {
 			jsonOpts = jsonOptsArgs.StringValue()
 		} else {
 			return nil, pkgerrors.New("missing required field 'jsonOpts' of type string")
-		}
-		if defaultNsArg := args["defaultNamespace"]; defaultNsArg.HasValue() && defaultNsArg.IsString() {
-			defaultNamespace = defaultNsArg.StringValue()
 		}
 
 		var opts HelmChartOpts
@@ -592,7 +589,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		// Decode the generated YAML here to avoid an extra invoke in the client.
-		result, err := decodeYaml(text, defaultNamespace, k.clientSet)
+		result, err := decodeYaml(text, opts.Namespace, k.clientSet)
 		if err != nil {
 			return nil, pkgerrors.Wrap(err, "failed to decode YAML for specified Helm chart")
 		}

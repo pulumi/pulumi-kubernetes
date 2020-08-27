@@ -172,8 +172,10 @@ class Chart(pulumi.ComponentResource):
             __props__,
             pulumi.ResourceOptions.merge(opts, alias_opts))
 
+        config.release_name = release_name
+
         opts.parent = self
-        all_config = pulumi.Output.from_input((release_name, config, opts))
+        all_config = pulumi.Output.from_input((config, opts))
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
@@ -495,27 +497,8 @@ class LocalChartOpts(BaseChartOpts):
         self.path = path
 
 
-def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi.ResourceOptions]) -> pulumi.Output:
-    release_name, config, opts = all_config
-
-    if isinstance(config, ChartOpts):
-        if config.repo and 'http' in config.repo:
-            raise ValueError('`repo` specifies the name of the Helm chart repo.'
-                             'Use `fetch_opts.repo` to specify a URL.')
-        chart_to_fetch = f'{config.repo}/{config.chart}' if config.repo else config.chart
-
-        # Configure fetch options.
-        fetch_opts_dict = {}
-        if config.fetch_opts is not None:
-            fetch_opts_dict = {k: v for k, v in vars(config.fetch_opts).items() if v is not None}
-        if config.version is not None:
-            fetch_opts_dict["version"] = config.version
-        fetch_opts = FetchOpts(**fetch_opts_dict)
-        config.fetch_opts = fetch_opts
-    else:
-        chart = config.path
-
-    config.release_name = release_name
+def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.ResourceOptions]) -> pulumi.Output:
+    config, opts = all_config
 
     json_opts = config.to_json()
 
@@ -523,7 +506,6 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     # in package.json.
     invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
-    objects = json_opts.apply(lambda x: pulumi.runtime.invoke('kubernetes:helm:template', {
-        'jsonOpts': x, 'defaultNamespace': config.namespace,
-    }, invoke_opts).value['result'])
+    objects = json_opts.apply(lambda x: pulumi.runtime.invoke('kubernetes:helm:template',
+                                                              {'jsonOpts': x}, invoke_opts).value['result'])
     return objects.apply(lambda x: _parse_yaml_document(x, opts, config.transformations))
