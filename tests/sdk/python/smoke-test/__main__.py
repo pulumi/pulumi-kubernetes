@@ -1,4 +1,4 @@
-# Copyright 2016-2019, Pulumi Corporation.
+# Copyright 2016-2020, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import pulumi
-from pulumi_kubernetes.core.v1 import Pod, Namespace
+from pulumi_kubernetes.core.v1 import Pod, Namespace, PodSpecArgs, ContainerArgs
+from pulumi_kubernetes.meta.v1 import ObjectMetaArgs
 
 namespace = Namespace("ns")
 
 pod = Pod(
     "smoke-test",
-    metadata={
-        "namespace": namespace,
-    },
-    spec={
-        "containers": [
-            {"name": "nginx", "image": "nginx"},
+    metadata=ObjectMetaArgs(
+        namespace=namespace,
+    ),
+    spec=PodSpecArgs(
+        containers=[
+            ContainerArgs(name="nginx", image="nginx"),
         ]
-    })
+    ))
 
-pulumi.export("ip", pod.status["pod_ip"])
+pulumi.export("ip", pod.status.apply(lambda s: s.pod_ip))

@@ -5,3 +5,5 @@
 # Export this package's modules as members:
 from .CustomResourceDefinition import *
 from .CustomResourceDefinitionList import *
+from ._inputs import *
+from . import outputs

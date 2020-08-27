@@ -11,3 +11,5 @@ from .StorageClass import *
 from .StorageClassList import *
 from .VolumeAttachment import *
 from .VolumeAttachmentList import *
+from ._inputs import *
+from . import outputs

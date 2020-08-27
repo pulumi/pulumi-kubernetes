@@ -15,3 +15,5 @@ from .PodSecurityPolicy import *
 from .PodSecurityPolicyList import *
 from .ReplicaSet import *
 from .ReplicaSetList import *
+from ._inputs import *
+from . import outputs

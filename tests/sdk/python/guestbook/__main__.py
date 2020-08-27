@@ -1,4 +1,4 @@
-# Copyright 2016-2019, Pulumi Corporation.
+# Copyright 2016-2020, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,8 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from pulumi_kubernetes.apps.v1 import Deployment
-from pulumi_kubernetes.core.v1 import Service, Namespace
+from pulumi_kubernetes.apps.v1 import Deployment, DeploymentSpecArgs
+from pulumi_kubernetes.core.v1 import (
+    Service,
+    Namespace,
+    PodTemplateSpecArgs,
+    PodSpecArgs,
+    ContainerArgs,
+    ContainerPortArgs,
+    ResourceRequirementsArgs,
+    ServiceSpecArgs,
+    ServicePortArgs,
+    EnvVarArgs,
+)
+from pulumi_kubernetes.meta.v1 import ObjectMetaArgs, LabelSelectorArgs
 
 namespace = Namespace("test")
 
@@ -24,49 +36,49 @@ redis_leader_labels = {
 
 redis_leader_deployment = Deployment(
     "redis-leader",
-    metadata={
-        "namespace": namespace
-    },
-    spec={
-        "selector": {
-            "match_labels": redis_leader_labels,
-        },
-        "replicas": 1,
-        "template": {
-            "metadata": {
-                "labels": redis_leader_labels,
-            },
-            "spec": {
-                "containers": [{
-                    "name": "master",
-                    "image": "k8s.gcr.io/redis:e2e",
-                    "resources": {
-                        "requests": {
+    metadata=ObjectMetaArgs(
+        namespace=namespace
+    ),
+    spec=DeploymentSpecArgs(
+        selector=LabelSelectorArgs(
+            match_labels=redis_leader_labels,
+        ),
+        replicas=1,
+        template=PodTemplateSpecArgs(
+            metadata=ObjectMetaArgs(
+                labels=redis_leader_labels,
+            ),
+            spec=PodSpecArgs(
+                containers=[ContainerArgs(
+                    name="master",
+                    image="k8s.gcr.io/redis:e2e",
+                    resources=ResourceRequirementsArgs(
+                        requests={
                             "cpu": "100m",
                             "memory": "100Mi",
                         },
-                    },
-                    "ports": [{
-                        "container_port": 6379,
-                    }],
-                }],
-            },
-        },
-    })
+                    ),
+                    ports=[ContainerPortArgs(
+                        container_port=6379,
+                    )],
+                )],
+            ),
+        ),
+    ))
 
 redis_leader_service = Service(
     "redis-leader",
-    metadata={
-        "namespace": namespace,
-        "labels": redis_leader_labels
-    },
-    spec={
-        "ports": [{
-            "port": 6379,
-            "target_port": 6379,
-        }],
-        "selector": redis_leader_labels
-    })
+    metadata=ObjectMetaArgs(
+        namespace=namespace,
+        labels=redis_leader_labels
+    ),
+    spec=ServiceSpecArgs(
+        ports=[ServicePortArgs(
+            port=6379,
+            target_port=6379,
+        )],
+        selector=redis_leader_labels
+    ))
 
 redis_follower_labels = {
     "app": "redis",
@@ -76,57 +88,57 @@ redis_follower_labels = {
 
 redis_follower_deployment = Deployment(
     "redis-follower",
-    metadata={
-        "namespace": namespace
-    },
-    spec={
-        "selector": {
-            "match_labels": redis_follower_labels
-        },
-        "replicas": 1,
-        "template": {
-            "metadata": {
-                "labels": redis_follower_labels,
-            },
-            "spec": {
-                "containers": [{
-                    "name": "slave",
-                    "image": "gcr.io/google_samples/gb-redisslave:v1",
-                    "resources": {
-                        "requests": {
+    metadata=ObjectMetaArgs(
+        namespace=namespace
+    ),
+    spec=DeploymentSpecArgs(
+        selector=LabelSelectorArgs(
+            match_labels=redis_follower_labels
+        ),
+        replicas=1,
+        template=PodTemplateSpecArgs(
+            metadata=ObjectMetaArgs(
+                labels=redis_follower_labels,
+            ),
+            spec=PodSpecArgs(
+                containers=[ContainerArgs(
+                    name="slave",
+                    image="gcr.io/google_samples/gb-redisslave:v1",
+                    resources=ResourceRequirementsArgs(
+                        requests={
                             "cpu": "100m",
                             "memory": "100Mi",
                         },
-                    },
-                    "env": [{
-                        "name": "GET_HOSTS_FROM",
-                        "value": "dns",
+                    ),
+                    env=[EnvVarArgs(
+                        name="GET_HOSTS_FROM",
+                        value="dns",
                         # If your cluster config does not include a dns service, then to instead access an environment
                         # variable to find the master service's host, comment out the 'value: dns' line above, and
                         # uncomment the line below:
                         # value: "env"
-                    }],
-                    "ports": [{
-                        "container_port": 6379,
-                    }],
-                }],
-            },
-        },
-    })
+                    )],
+                    ports=[ContainerPortArgs(
+                        container_port=6379,
+                    )],
+                )],
+            ),
+        ),
+    ))
 
 redis_follower_service = Service(
     "redis-follower",
-    metadata={
-        "namespace": namespace,
-        "labels": redis_follower_labels
-    },
-    spec={
-        "ports": [{
-            "port": 6379,
-            "target_port": 6379,
-        }],
-        "selector": redis_follower_labels
-    })
+    metadata=ObjectMetaArgs(
+        namespace=namespace,
+        labels=redis_follower_labels
+    ),
+    spec=ServiceSpecArgs(
+        ports=[ServicePortArgs(
+            port=6379,
+            target_port=6379,
+        )],
+        selector=redis_follower_labels
+    ))
 
 # Frontend
 frontend_labels = {
@@ -135,56 +147,56 @@ frontend_labels = {
 }
 frontend_service = Service(
     "frontend",
-    metadata={
-        "namespace": namespace,
-        "labels": frontend_labels
-    },
-    spec={
+    metadata=ObjectMetaArgs(
+        namespace=namespace,
+        labels=frontend_labels
+    ),
+    spec=ServiceSpecArgs(
         # If your cluster supports it, uncomment the following to automatically create
         # an external load-balanced IP for the frontend service.
         # "type": "LoadBalancer",
-        "ports": [{
-            "port": 80
-        }],
-        "selector": frontend_labels,
-    })
+        ports=[ServicePortArgs(
+            port=80
+        )],
+        selector=frontend_labels,
+    ))
 
 frontend_deployment = Deployment(
     "frontend",
-    metadata={
-        "namespace": namespace,
-    },
-    spec={
-        "selector": {
-            "match_labels": frontend_labels,
-        },
-        "replicas": 3,
-        "template": {
-            "metadata": {
-                "labels": frontend_labels,
-            },
-            "spec": {
-                "containers": [{
-                    "name": "php-redis",
-                    "image": "gcr.io/google-samples/gb-frontend:v4",
-                    "resources": {
-                        "requests": {
+    metadata=ObjectMetaArgs(
+        namespace=namespace,
+    ),
+    spec=DeploymentSpecArgs(
+        selector=LabelSelectorArgs(
+            match_labels=frontend_labels,
+        ),
+        replicas=3,
+        template=PodTemplateSpecArgs(
+            metadata=ObjectMetaArgs(
+                labels=frontend_labels,
+            ),
+            spec=PodSpecArgs(
+                containers=[ContainerArgs(
+                    name="php-redis",
+                    image="gcr.io/google-samples/gb-frontend:v4",
+                    resources=ResourceRequirementsArgs(
+                        requests={
                             "cpu": "100m",
                             "memory": "100Mi",
                         },
-                    },
-                    "env": [{
-                        "name": "GET_HOSTS_FROM",
-                        "value": "dns",
+                    ),
+                    env=[EnvVarArgs(
+                        name="GET_HOSTS_FROM",
+                        value="dns",
                         # If your cluster config does not include a dns service, then to instead access an environment
                         # variable to find the master service's host, comment out the 'value: dns' line above, and
                         # uncomment the line below:
                         # "value": "env"
-                    }],
-                    "ports": [{
-                        "container_port": 80,
-                    }],
-                }],
-            },
-        },
-    })
+                    )],
+                    ports=[ContainerPortArgs(
+                        container_port=80,
+                    )],
+                )],
+            ),
+        ),
+    ))
