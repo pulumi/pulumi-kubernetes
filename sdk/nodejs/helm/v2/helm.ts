@@ -43,7 +43,7 @@ import * as yaml from "../../yaml/index";
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
  *
- * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ * const nginxIngress = new k8s.helm.v2.Chart("nginx-ingress", {
  *   path: "./nginx-ingress",
  * });
  * ```
@@ -52,7 +52,7 @@ import * as yaml from "../../yaml/index";
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
  *
- * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ * const nginxIngress = new k8s.helm.v2.Chart("nginx-ingress", {
  *   chart: "nginx-ingress",
  *   version: "1.24.4",
  *   fetchOpts:{
@@ -65,7 +65,7 @@ import * as yaml from "../../yaml/index";
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
  *
- * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ * const nginxIngress = new k8s.helm.v2.Chart("nginx-ingress", {
  *   chart: "nginx-ingress",
  *   version: "1.24.4",
  *   fetchOpts:{
@@ -85,7 +85,7 @@ import * as yaml from "../../yaml/index";
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
  *
- * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ * const nginxIngress = new k8s.helm.v2.Chart("nginx-ingress", {
  *   chart: "nginx-ingress",
  *   version: "1.24.4",
  *   namespace: "test-namespace",
@@ -99,7 +99,7 @@ import * as yaml from "../../yaml/index";
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
  *
- * const nginxIngress = new k8s.helm.v3.Chart("nginx-ingress", {
+ * const nginxIngress = new k8s.helm.v2.Chart("nginx-ingress", {
  *   chart: "nginx-ingress",
  *   version: "1.24.4",
  *   fetchOpts:{

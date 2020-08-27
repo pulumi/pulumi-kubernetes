@@ -19,7 +19,7 @@ import * as pulumi from "@pulumi/pulumi";
 const namespace = new k8s.core.v1.Namespace("test");
 const namespaceName = namespace.metadata.name;
 
-const nginx = new k8s.helm.v3.Chart("simple-nginx", {
+const nginx = new k8s.helm.v2.Chart("simple-nginx", {
     // Represents chart `stable/nginx-lego@v0.3.1`.
     repo: "stable",
     chart: "nginx-lego",

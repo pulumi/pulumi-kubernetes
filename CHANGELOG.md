@@ -5,6 +5,7 @@
 -   Upgrade to Pulumi v2.9.0, which adds type annotations and input/output classes to Python (https://github.com/pulumi/pulumi-kubernetes/pull/1276)
 -   Switch Helm v3 logic to use native library. (https://github.com/pulumi/pulumi-kubernetes/pull/1263)
 -   Bump python requests version dependency. (https://github.com/pulumi/pulumi-kubernetes/pull/1274)
+-   Update NodeJS Helm v3 to use native client. (https://github.com/pulumi/pulumi-kubernetes/pull/1279)
 
 ## 2.5.0 (August 26, 2020)
 
