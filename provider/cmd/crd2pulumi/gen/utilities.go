@@ -20,7 +20,9 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"regexp"
 	"strings"
+	"unicode"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
@@ -82,14 +84,6 @@ func NestedMapSlice(obj map[string]interface{}, fields ...string) ([]map[string]
 	return mapSlice, true, nil
 }
 
-func IsValidLanguage(language string) bool {
-	return language == NodeJS || language == Go || language == Python || language == DotNet
-}
-
-func IsValidAPIVersion(apiVersion string) bool {
-	return apiVersion == v1 || apiVersion == v1beta1
-}
-
 func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
 }
@@ -98,6 +92,21 @@ func rawMessage(v interface{}) json.RawMessage {
 	bytes, err := json.Marshal(v)
 	contract.Assert(err == nil)
 	return bytes
+}
+
+var alphanumericRegex = regexp.MustCompile("[^a-zA-Z0-9]+")
+
+// removes all non-alphanumeric characters
+func removeNonAlphanumeric(input string) string {
+	return alphanumericRegex.ReplaceAllString(input, "")
+}
+
+// un-capitalizes the first character of a string
+func toLowerFirst(input string) string {
+	if input == "" {
+		return ""
+	}
+	return string(unicode.ToLower(rune(input[0]))) + input[1:]
 }
 
 // GenericizeStringSlice converts a []string to []interface{}.

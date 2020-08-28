@@ -20,6 +20,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"unicode"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
@@ -142,9 +143,9 @@ func (pg *PackageGenerator) GenerateFiles() (map[string]*bytes.Buffer, error) {
 	case Go:
 		files, err = pg.genGo(types, baseRefs)
 	case Python:
-		fallthrough
-	case DotNet:
 		return nil, errors.Errorf("unsupported language %s", pg.Language)
+	case DotNet:
+		files, err = pg.genDotNet(types, baseRefs)
 	default:
 		contract.Failf("unexpected language %s", pg.Language)
 	}
@@ -153,6 +154,17 @@ func (pg *PackageGenerator) GenerateFiles() (map[string]*bytes.Buffer, error) {
 		return nil, errors.Wrapf(err, "could not generate files for %s", pg.Language)
 	}
 	return files, nil
+}
+
+// Returns the 'moduleToPackage' language-specific map. Creates a mapping from
+// every groupVersion string (<group>/<version>) to <groupPrefix>/<version>.
+func (pg *PackageGenerator) moduleToPackage() map[string]string {
+	moduleToPackage := map[string]string{}
+	for _, groupVersion := range pg.GroupVersions() {
+		group, version := splitGroupVersion(groupVersion)
+		moduleToPackage[groupVersion] = groupPrefix(group) + "/" + version
+	}
+	return moduleToPackage
 }
 
 // PackageGenerator generates code for multiple CustomResources
@@ -248,10 +260,39 @@ func (gen *CustomResourceGenerator) GroupVersions() []string {
 	return versions
 }
 
+func IsValidAPIVersion(apiVersion string) bool {
+	return apiVersion == v1 || apiVersion == v1beta1
+}
+
+func IsValidLanguage(language string) bool {
+	return language == NodeJS || language == Go || language == Python || language == DotNet
+}
+
 // splitGroupVersion returns the <group> and <version> field of a string in the
 // format <group>/<version>
 func splitGroupVersion(groupVersion string) (string, string) {
 	parts := strings.Split(groupVersion, "/")
 	contract.Assert(len(parts) == 2)
 	return parts[0], parts[1]
+}
+
+// groupPrefix returns the first word in the dot-seperated group string, with
+// all non-alphanumeric characters removed.
+func groupPrefix(group string) string {
+	contract.Assert(group != "")
+	return removeNonAlphanumeric(strings.Split(group, ".")[0])
+}
+
+// Capitalizes and returns the given version. For example,
+// versionToUpper("v2beta1") returns "V2Beta1".
+func versionToUpper(version string) string {
+	var sb strings.Builder
+	for i, r := range version {
+		if unicode.IsLetter(r) && (i == 0 || !unicode.IsLetter(rune(version[i]))) {
+			sb.WriteRune(unicode.ToUpper(r))
+		} else {
+			sb.WriteRune(r)
+		}
+	}
+	return sb.String()
 }

@@ -19,8 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
-	"regexp"
-	"unicode"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
@@ -34,35 +32,13 @@ const metaFile = `import * as k8s from "@pulumi/kubernetes";
 export type ObjectMeta = k8s.types.input.meta.v1.ObjectMeta;
 `
 
-var alphanumericRegex = regexp.MustCompile("[^a-zA-Z0-9]+")
-
-// removes all non-alphanumeric characters
-func removeNonAlphanumeric(input string) string {
-	return alphanumericRegex.ReplaceAllString(input, "")
-}
-
-// un-capitalizes the first character of a string
-func toLowerFirst(input string) string {
-	if input == "" {
-		return ""
-	}
-	return string(unicode.ToLower(rune(input[0]))) + input[1:]
-}
-
 func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
 	pkg, err := getPackage(types, baseRefs)
 	if err != nil {
 		return nil, errors.Wrap(err, "could not create package")
 	}
 
-	moduleToPackage := map[string]string{}
-	for _, groupVersion := range pg.GroupVersions() {
-		group, version := splitGroupVersion(groupVersion)
-		moduleToPackage[groupVersion] = removeNonAlphanumeric(group) + "/" + version
-	}
-	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
-		"moduleToPackage": moduleToPackage,
-	})
+	pkg.Language["nodejs"] = rawMessage(pg.moduleToPackage())
 
 	files, err := nodejs.GeneratePackage(tool, pkg, nil)
 	if err != nil {
@@ -88,7 +64,8 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 	// Generates CustomResourceDefinition constructors. Soon this will be
 	// replaced with `kube2pulumi`
 	for _, crg := range pg.CustomResourceGenerators {
-		path := filepath.Join(removeNonAlphanumeric(crg.Group), toLowerFirst(crg.Kind)+"Definition.ts")
+		contract.Assert(crg.Group != "")
+		path := filepath.Join(groupPrefix(crg.Group), toLowerFirst(crg.Kind)+"Definition.ts")
 		_, ok := buffers[path]
 		contract.Assertf(!ok, "duplicate file at %s", path)
 		buffer := &bytes.Buffer{}
