@@ -21,8 +21,10 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi/pkg/v2/codegen"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/dotnet"
 	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
 const dotNetImports = `using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
@@ -46,7 +48,7 @@ func (pg *PackageGenerator) genDotNet(types map[string]pschema.ObjectTypeSpec, b
 	}
 
 	namespaces := map[string]string{}
-	for _, groupVersion := range pg.GroupVersions() {
+	for _, groupVersion := range pg.GroupVersions {
 		group, version := splitGroupVersion(groupVersion)
 		groupPrefix := groupPrefix(group)
 		namespaces[groupVersion] = strings.Title(groupPrefix) + "." + versionToUpper(version)
@@ -74,7 +76,8 @@ func (pg *PackageGenerator) genDotNet(types map[string]pschema.ObjectTypeSpec, b
 	// soon
 	classPaths := pg.dotNetClassPaths()
 	for classPath := range classPaths {
-		class := files[classPath]
+		class, ok := files[classPath]
+		contract.Assertf(ok, "could not find class file %s", classPath)
 		class = bytes.ReplaceAll(class, []byte(objectMetaArgs), []byte(importedObjectMetaArgs))
 		class = bytes.ReplaceAll(class, []byte(objectMeta), []byte(importedObjectMeta))
 		newClass := bytes.NewBuffer([]byte(dotNetImports))
@@ -83,7 +86,7 @@ func (pg *PackageGenerator) genDotNet(types map[string]pschema.ObjectTypeSpec, b
 	}
 
 	for name, code := range files {
-		if ok := classPaths[name]; !ok {
+		if !classPaths.Has(name) {
 			buffers[name] = bytes.NewBuffer(code)
 		}
 	}
@@ -95,14 +98,15 @@ func (pg *PackageGenerator) genDotNet(types map[string]pschema.ObjectTypeSpec, b
 	return buffers, nil
 }
 
-// Returns a set of the file paths for each CustomResource class
-func (pg *PackageGenerator) dotNetClassPaths() map[string]bool {
-	paths := map[string]bool{}
+// Returns a set of the file paths for each CustomResource class for a generated
+// C# package.
+func (pg *PackageGenerator) dotNetClassPaths() codegen.StringSet {
+	paths := codegen.NewStringSet()
 	for _, crg := range pg.CustomResourceGenerators {
-		for _, groupVersion := range crg.GroupVersions() {
+		for _, groupVersion := range crg.GroupVersions {
 			group, version := splitGroupVersion(groupVersion)
 			path := filepath.Join(strings.Title(groupPrefix(group)), versionToUpper(version), crg.Kind+".cs")
-			paths[path] = true
+			paths.Add(path)
 		}
 	}
 	return paths

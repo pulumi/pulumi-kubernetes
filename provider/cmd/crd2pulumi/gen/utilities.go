@@ -109,8 +109,8 @@ func toLowerFirst(input string) string {
 	return string(unicode.ToLower(rune(input[0]))) + input[1:]
 }
 
-// GenericizeStringSlice converts a []string to []interface{}.
-func GenericizeStringSlice(stringSlice []string) interface{} {
+// toInterfaceSlice casts a string slice of type []string to type []interface{}.
+func toInterfaceSlice(stringSlice []string) interface{} {
 	genericSlice := make([]interface{}, len(stringSlice))
 	for i, v := range stringSlice {
 		genericSlice[i] = v
@@ -118,12 +118,12 @@ func GenericizeStringSlice(stringSlice []string) interface{} {
 	return genericSlice
 }
 
-// PrettyPrint properly formats and indents an unstructured value, and prints it
-// to stdout.
-func PrettyPrint(v interface{}) (err error) {
+// jsonPrint prints out an unstructured value as a properly formatted and
+// indented JSON string
+func jsonPrint(v interface{}) (err error) {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err == nil {
 		fmt.Println(string(b))
 	}
-	return
+	return nil
 }

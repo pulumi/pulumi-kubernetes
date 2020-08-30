@@ -38,7 +38,9 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 		return nil, errors.Wrap(err, "could not create package")
 	}
 
-	pkg.Language["nodejs"] = rawMessage(pg.moduleToPackage())
+	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
+		"moduleToPackage": pg.moduleToPackage(),
+	})
 
 	files, err := nodejs.GeneratePackage(tool, pkg, nil)
 	if err != nil {

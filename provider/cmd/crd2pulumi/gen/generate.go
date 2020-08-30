@@ -16,6 +16,7 @@ package gen
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -55,7 +56,7 @@ func Generate(language, yamlPath, outputDir string, force bool) error {
 		return errors.Wrapf(err, "could not generate %s package for %s", language, yamlPath)
 	}
 
-	files, err := pg.GenerateFiles()
+	files, err := pg.generateFiles()
 	if err != nil {
 		return errors.Wrapf(err, "could not generate files for %s", yamlPath)
 	}
@@ -88,6 +89,20 @@ func writeFiles(files map[string]*bytes.Buffer, outputDir string) error {
 	return nil
 }
 
+// PackageGenerator generates code for multiple CustomResources
+type PackageGenerator struct {
+	// CustomResourceGenerators contains a slice of all CustomResourceGenerators
+	CustomResourceGenerators []CustomResourceGenerator
+	// Language represents the target language to generate code
+	Language string
+	// GroupVersions is a slice of the
+	// BaseRefs is a slice of the $ref names of every CustomResource
+	BaseRefs []string
+	// GroupVersions is a slice of the names of every CustomResource's versions,
+	// in the format <group>/<version>
+	GroupVersions []string
+}
+
 func NewPackageGenerator(language, yamlPath string) (PackageGenerator, error) {
 	yamlFile, err := ioutil.ReadFile(yamlPath)
 	if err != nil {
@@ -99,40 +114,51 @@ func NewPackageGenerator(language, yamlPath string) (PackageGenerator, error) {
 		return PackageGenerator{}, errors.Wrapf(err, "could not unmarshal yaml file %s", yamlPath)
 	}
 
+	baseRefsSize := 0
+	groupVersionsSize := 0
+
 	crgs := make([]CustomResourceGenerator, len(crds))
 	for i, crd := range crds {
 		crg, err := NewCustomResourceGenerator(crd)
 		if err != nil {
 			return PackageGenerator{}, errors.Wrapf(err, "could not parse crd %d", i)
 		}
-		crgs[i] = crg
+		baseRefsSize += len(crg.BaseRefs)
+		groupVersionsSize += len(crg.GroupVersions)
+		crgs = append(crgs, crg)
+	}
+
+	baseRefs := make([]string, 0, baseRefsSize)
+	groupVersions := make([]string, 0, groupVersionsSize)
+	for _, crg := range crgs {
+		baseRefs = append(baseRefs, crg.BaseRefs...)
+		groupVersions = append(groupVersions, crg.GroupVersions...)
 	}
 
 	return PackageGenerator{
 		CustomResourceGenerators: crgs,
 		Language:                 language,
+		BaseRefs:                 baseRefs,
+		GroupVersions:            groupVersions,
 	}, nil
 }
 
-func (pg *PackageGenerator) BaseRefs() []string {
-	var baseRefs []string
-	for _, crg := range pg.CustomResourceGenerators {
-		baseRefs = append(baseRefs, crg.baseRefs()...)
+// Returns language-specific 'moduleToPackage' map. Creates a mapping from
+// every groupVersion string <group>/<version> to <groupPrefix>/<version>.
+func (pg *PackageGenerator) moduleToPackage() map[string]string {
+	moduleToPackage := map[string]string{}
+	for _, groupVersion := range pg.GroupVersions {
+		group, version := splitGroupVersion(groupVersion)
+		moduleToPackage[groupVersion] = groupPrefix(group) + "/" + version
 	}
-	return baseRefs
+	return moduleToPackage
 }
 
-func (pg *PackageGenerator) GroupVersions() []string {
-	var groupVersions []string
-	for _, crg := range pg.CustomResourceGenerators {
-		groupVersions = append(groupVersions, crg.GroupVersions()...)
-	}
-	return groupVersions
-}
-
-func (pg *PackageGenerator) GenerateFiles() (map[string]*bytes.Buffer, error) {
+// generateFiles generates all code for a target language. Returns a mapping
+// from each file's path to a buffer containing its code.
+func (pg *PackageGenerator) generateFiles() (map[string]*bytes.Buffer, error) {
 	types := pg.GetTypes()
-	baseRefs := pg.BaseRefs()
+	baseRefs := pg.BaseRefs
 
 	var files map[string]*bytes.Buffer
 	var err error
@@ -143,7 +169,7 @@ func (pg *PackageGenerator) GenerateFiles() (map[string]*bytes.Buffer, error) {
 	case Go:
 		files, err = pg.genGo(types, baseRefs)
 	case Python:
-		return nil, errors.Errorf("unsupported language %s", pg.Language)
+		files, err = pg.genPython(types, baseRefs)
 	case DotNet:
 		files, err = pg.genDotNet(types, baseRefs)
 	default:
@@ -156,26 +182,7 @@ func (pg *PackageGenerator) GenerateFiles() (map[string]*bytes.Buffer, error) {
 	return files, nil
 }
 
-// Returns the 'moduleToPackage' language-specific map. Creates a mapping from
-// every groupVersion string (<group>/<version>) to <groupPrefix>/<version>.
-func (pg *PackageGenerator) moduleToPackage() map[string]string {
-	moduleToPackage := map[string]string{}
-	for _, groupVersion := range pg.GroupVersions() {
-		group, version := splitGroupVersion(groupVersion)
-		moduleToPackage[groupVersion] = groupPrefix(group) + "/" + version
-	}
-	return moduleToPackage
-}
-
-// PackageGenerator generates code for multiple CustomResources
-type PackageGenerator struct {
-	// CustomResourceGenerators contains a slice of all CustomResourceGenerators
-	CustomResourceGenerators []CustomResourceGenerator
-	// Language represents the target language to generate code
-	Language string
-}
-
-// CustomResourceGenerator generates the Pulumi schema for a single CustomResource
+// CustomResourceGenerator generates a Pulumi schema for a single CustomResource
 type CustomResourceGenerator struct {
 	// CustomResourceDefinition contains the unmarshalled CRD YAML
 	CustomResourceDefinition unstruct.Unstructured
@@ -190,13 +197,20 @@ type CustomResourceGenerator struct {
 	Plural string
 	// Group represents the `spec.group` field in the CRD YAML
 	Group string
+	// Versions is a slice of names of each version supported by this CRD
+	Versions []string
+	// GroupVersions is a slice of names of each version, in the format
+	// <group>/<version>.
+	GroupVersions []string
+	// BaseRefs is a slice of the $ref names of each top-level CustomResource
+	BaseRefs []string
 }
 
 func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenerator, error) {
 	apiVersion := crd.GetAPIVersion()
 	if !IsValidAPIVersion(apiVersion) {
 		return CustomResourceGenerator{},
-			errors.Errorf("invalid apiVersion %s, only v1 and v1beta1 are supported", apiVersion)
+			errors.Errorf("invalid apiVersion %s; only v1 and v1beta1 are supported", apiVersion)
 	}
 
 	schemas := map[string]map[string]interface{}{}
@@ -229,6 +243,15 @@ func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenera
 		return CustomResourceGenerator{}, errors.New("could not find `spec.group` field in the CRD")
 	}
 
+	versions := make([]string, 0, len(schemas))
+	groupVersions := make([]string, 0, len(schemas))
+	baseRefs := make([]string, 0, len(schemas))
+	for version := range schemas {
+		versions = append(versions, version)
+		groupVersions = append(groupVersions, group+"/"+version)
+		baseRefs = append(baseRefs, getBaseRef(group, version, kind))
+	}
+
 	crg := CustomResourceGenerator{
 		CustomResourceDefinition: crd,
 		Schemas:                  schemas,
@@ -236,34 +259,26 @@ func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenera
 		Kind:                     kind,
 		Plural:                   plural,
 		Group:                    group,
+		Versions:                 versions,
+		GroupVersions:            groupVersions,
+		BaseRefs:                 baseRefs,
 	}
 
 	return crg, nil
 }
 
-// Versions returns a slice of the versions supported by this CRD.
-func (gen *CustomResourceGenerator) Versions() []string {
-	versions := make([]string, 0, len(gen.Schemas))
-	for version := range gen.Schemas {
-		versions = append(versions, version)
-	}
-	return versions
+func getBaseRef(group, version, kind string) string {
+	return fmt.Sprintf("kubernetes:%s/%s:%s", group, version, kind)
 }
 
-// GroupVersions returns a slice of the names of each version, in the format
-// <group>/<version>.
-func (gen *CustomResourceGenerator) GroupVersions() []string {
-	versions := gen.Versions()
-	for i, version := range versions {
-		versions[i] = gen.Group + "/" + version
-	}
-	return versions
-}
-
+// IsValidAPIVersion returns true if and only if the given apiVersion is
+// supported (apiextensions.k8s.io/v1beta1 or apiextensions.k8s.io/v1).
 func IsValidAPIVersion(apiVersion string) bool {
 	return apiVersion == v1 || apiVersion == v1beta1
 }
 
+// IsValidLanguage returns true if and only if the given language is supported
+// (nodejs, go, python, or dotnet)
 func IsValidLanguage(language string) bool {
 	return language == NodeJS || language == Go || language == Python || language == DotNet
 }

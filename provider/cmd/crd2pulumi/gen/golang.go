@@ -23,8 +23,6 @@ import (
 	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 )
 
-const goPackageName = "crds"
-
 var unneededGoFiles = []string{
 	"doc.go",
 	"provider.go",
@@ -54,9 +52,6 @@ func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseR
 			"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1": "metav1",
 		},
 	})
-	// We need to specify a name so the Go auto-formatter passes. Notice that
-	// this appends "crds/" to every generated file path
-	pkg.Name = goPackageName
 
 	files, err := go_gen.GeneratePackage(tool, pkg)
 	if err != nil {
@@ -67,7 +62,7 @@ func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseR
 
 	// Now we remove the "crds/" file path prefix
 	for path, code := range files {
-		newPath, err := filepath.Rel(goPackageName, path)
+		newPath, err := filepath.Rel(packageName, path)
 		if err != nil {
 			return nil, errors.Wrapf(err, "could not remove \"crds/\" prefix")
 		}
