@@ -24,7 +24,7 @@ import (
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-const packageName = "crds"
+const packageName = "kubernetes"
 const tool = "crd2pulumi"
 
 const anyTypeRef = "pulumi.json#/Any"
@@ -113,7 +113,7 @@ func isAnyType(typeSpec pschema.TypeSpec) bool {
 }
 
 // AddPlaceholderMetadataSpec adds a placeholder `kubernetes:meta/v1:ObjectMeta`
-// type. This is needed so that the Go codegen can properly import
+// type. This is needed so that the Go and .NET codegen can properly import
 // `meta/v1:ObjectMeta`, since it can't import external types.
 func AddPlaceholderMetadataSpec(types map[string]pschema.ObjectTypeSpec) {
 	types["kubernetes:meta/v1:ObjectMeta"] = pschema.ObjectTypeSpec{

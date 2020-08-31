@@ -62,7 +62,7 @@ func Generate(language, yamlPath, outputDir string, force bool) error {
 	}
 
 	if err := writeFiles(files, outputDir); err != nil {
-		return errors.Wrap(err, "could not create files/directories")
+		return errors.Wrap(err, "could not create files and directories")
 	}
 
 	return nil
