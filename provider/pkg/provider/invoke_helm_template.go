@@ -176,10 +176,8 @@ func (c *chart) template() (string, error) {
 		Capabilities: chartutil.DefaultCapabilities,
 		Releases:     storage.Init(driver.NewMemory()),
 	}
-
-	if c.opts.APIVersions != nil {
-		cfg.Capabilities.APIVersions = c.opts.APIVersions
-		// TODO: add support for overriding kube version
+	if len(c.opts.APIVersions) > 0 {
+		cfg.Capabilities.APIVersions = append(cfg.Capabilities.APIVersions, c.opts.APIVersions...)
 	}
 
 	installAction := action.NewInstall(cfg)

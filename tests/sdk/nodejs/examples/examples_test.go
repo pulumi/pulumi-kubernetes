@@ -17,7 +17,7 @@ package examples
 import (
 	"fmt"
 	"os"
-	"path"
+	"path/filepath"
 	"sort"
 	"testing"
 
@@ -32,7 +32,7 @@ import (
 func TestAccMinimal(t *testing.T) {
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir: path.Join(getCwd(t), "minimal"),
+			Dir: filepath.Join(getCwd(t), "minimal"),
 		})
 
 	integration.ProgramTest(t, &test)
@@ -42,7 +42,7 @@ func TestAccGuestbook(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir: path.Join(getCwd(t), "guestbook"),
+			Dir: filepath.Join(getCwd(t), "guestbook"),
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
@@ -132,7 +132,7 @@ func TestAccHelm(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         path.Join(getCwd(t), "helm"),
+			Dir:         filepath.Join(getCwd(t), "helm", "step1"),
 			SkipRefresh: true,
 			Verbose:     true,
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
@@ -149,6 +149,13 @@ func TestAccHelm(t *testing.T) {
 					}
 				}
 			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join(getCwd(t), "helm", "step2"),
+					Additive:        true,
+					ExpectNoChanges: true,
+				},
+			},
 		})
 
 	integration.ProgramTest(t, &test)
@@ -158,13 +165,20 @@ func TestAccHelmApiVersions(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         path.Join(getCwd(t), "helm-api-versions"),
+			Dir:         filepath.Join(getCwd(t), "helm-api-versions", "step1"),
 			SkipRefresh: true,
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
 				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
+				assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join(getCwd(t), "helm-api-versions", "step2"),
+					Additive:        true,
+					ExpectNoChanges: true,
+				},
 			},
 		})
 
@@ -175,13 +189,20 @@ func TestAccHelmLocal(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         path.Join(getCwd(t), "helm-local"),
+			Dir:         filepath.Join(getCwd(t), "helm-local", "step1"),
 			SkipRefresh: true, // Deployment controller changes object out-of-band.
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
 				assert.NotNil(t, stackInfo.Deployment)
 				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join(getCwd(t), "helm-local", "step2"),
+					Additive:        true,
+					ExpectNoChanges: true,
+				},
 			},
 		})
 
@@ -192,7 +213,7 @@ func TestAccPrometheusOperator(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         path.Join(getCwd(t), "prometheus-operator"),
+			Dir:         filepath.Join(getCwd(t), "prometheus-operator"),
 			SkipRefresh: true,
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
@@ -202,7 +223,7 @@ func TestAccPrometheusOperator(t *testing.T) {
 			},
 			EditDirs: []integration.EditDir{
 				{
-					Dir:      path.Join(getCwd(t), "prometheus-operator", "step1"),
+					Dir:      filepath.Join(getCwd(t), "prometheus-operator", "step1"),
 					Additive: true,
 					ExtraRuntimeValidation: func(
 						t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
@@ -221,7 +242,7 @@ func TestAccMariadb(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir: path.Join(getCwd(t), "mariadb"),
+			Dir: filepath.Join(getCwd(t), "mariadb"),
 		})
 
 	integration.ProgramTest(t, &test)
@@ -231,7 +252,7 @@ func TestAccProvider(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir: path.Join(getCwd(t), "provider"),
+			Dir: filepath.Join(getCwd(t), "provider"),
 		})
 
 	integration.ProgramTest(t, &test)
