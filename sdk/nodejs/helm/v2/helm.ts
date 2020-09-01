@@ -204,12 +204,10 @@ export class Chart extends yaml.CollectionComponentResource {
                 const release = shell.quote([releaseName]);
                 const values = path.quotePath(overrides.name);
                 const apiVersionsArgs = cfg.apiVersions
-                    ? cfg.apiVersions.length > 1
-                        ? `--api-versions={${cfg.apiVersions
-                            .map(apiVersion => shell.quote([apiVersion]))
-                            .join(',')}}`
-                        : `--api-versions=${shell.quote(cfg.apiVersions)}`
-                    : '';
+                    ? cfg.apiVersions
+                        .map(v => `--api-versions=${v}`)
+                        .join(" ")
+                    : "";
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
