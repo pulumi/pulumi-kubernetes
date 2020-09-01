@@ -84,7 +84,7 @@ namespace Pulumi.Kubernetes.Certificates.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest"},
+                    new Pulumi.Alias { Type = "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

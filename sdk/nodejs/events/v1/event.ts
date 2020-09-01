@@ -135,6 +135,24 @@ export class Event extends pulumi.CustomResource {
             inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
             inputs["series"] = args ? args.series : undefined;
             inputs["type"] = args ? args.type : undefined;
+        } else {
+            inputs["action"] = undefined /*out*/;
+            inputs["apiVersion"] = undefined /*out*/;
+            inputs["deprecatedCount"] = undefined /*out*/;
+            inputs["deprecatedFirstTimestamp"] = undefined /*out*/;
+            inputs["deprecatedLastTimestamp"] = undefined /*out*/;
+            inputs["deprecatedSource"] = undefined /*out*/;
+            inputs["eventTime"] = undefined /*out*/;
+            inputs["kind"] = undefined /*out*/;
+            inputs["metadata"] = undefined /*out*/;
+            inputs["note"] = undefined /*out*/;
+            inputs["reason"] = undefined /*out*/;
+            inputs["regarding"] = undefined /*out*/;
+            inputs["related"] = undefined /*out*/;
+            inputs["reportingController"] = undefined /*out*/;
+            inputs["reportingInstance"] = undefined /*out*/;
+            inputs["series"] = undefined /*out*/;
+            inputs["type"] = undefined /*out*/;
         }
         if (!opts) {
             opts = {}

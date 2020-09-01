@@ -75,7 +75,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:coordination.k8s.io/v1beta1:Lease"},
+                    new Pulumi.Alias { Type = "kubernetes:coordination.k8s.io/v1beta1:Lease"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

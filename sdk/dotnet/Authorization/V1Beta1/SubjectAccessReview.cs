@@ -78,7 +78,7 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:authorization.k8s.io/v1:SubjectAccessReview"},
+                    new Pulumi.Alias { Type = "kubernetes:authorization.k8s.io/v1:SubjectAccessReview"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

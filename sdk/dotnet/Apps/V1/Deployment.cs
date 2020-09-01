@@ -103,9 +103,9 @@ namespace Pulumi.Kubernetes.Apps.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:apps/v1beta1:Deployment"},
-                    new Alias { Type = "kubernetes:apps/v1beta2:Deployment"},
-                    new Alias { Type = "kubernetes:extensions/v1beta1:Deployment"},
+                    new Pulumi.Alias { Type = "kubernetes:apps/v1beta1:Deployment"},
+                    new Pulumi.Alias { Type = "kubernetes:apps/v1beta2:Deployment"},
+                    new Pulumi.Alias { Type = "kubernetes:extensions/v1beta1:Deployment"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

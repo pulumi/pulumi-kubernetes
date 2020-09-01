@@ -70,6 +70,11 @@ export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
             inputs["kind"] = "ValidatingWebhookConfiguration";
             inputs["metadata"] = args ? args.metadata : undefined;
             inputs["webhooks"] = args ? args.webhooks : undefined;
+        } else {
+            inputs["apiVersion"] = undefined /*out*/;
+            inputs["kind"] = undefined /*out*/;
+            inputs["metadata"] = undefined /*out*/;
+            inputs["webhooks"] = undefined /*out*/;
         }
         if (!opts) {
             opts = {}
