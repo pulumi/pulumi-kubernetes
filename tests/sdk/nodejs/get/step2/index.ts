@@ -21,7 +21,10 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // `get`s the Kubernetes API service.
 //
 
-k8s.core.v1.Service.get("kube-api", "default/kubernetes");
+const svc = k8s.core.v1.Service.get("kube-api", "default/kubernetes");
+
+// This will fail with a TypeError if the status was not populated (i.e. the .get isn't working)
+export const loadBalancer = svc.status.loadBalancer;
 
 //
 // Create a CustomResourceDefinition, a CustomResource, and then `.get` it.

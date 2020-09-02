@@ -51,8 +51,6 @@ func TestGet(t *testing.T) {
 			assert.Equal(t, "kube-api", string(service.URN.Name()))
 			step1Name, _ := openapi.Pluck(service.Outputs, "metadata", "name")
 			assert.Equal(t, "kubernetes", step1Name.(string))
-			_, ok := openapi.Pluck(service.Outputs, "status", "loadBalancer")
-			assert.True(t, ok, "loadBalancer status was not populated by get call")
 
 			//
 			// Assert that CRD and CR exist
