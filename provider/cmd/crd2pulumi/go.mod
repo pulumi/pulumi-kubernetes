@@ -11,5 +11,3 @@ require (
 	github.com/stretchr/testify v1.6.1
 	k8s.io/apimachinery v0.18.0
 )
-
-replace github.com/pulumi/pulumi/pkg/v2 => ../../../../pulumi/pkg
