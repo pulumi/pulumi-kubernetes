@@ -291,7 +291,7 @@ func splitGroupVersion(groupVersion string) (string, string) {
 	return parts[0], parts[1]
 }
 
-// groupPrefix returns the first word in the dot-seperated group string, with
+// groupPrefix returns the first word in the dot-separated group string, with
 // all non-alphanumeric characters removed.
 func groupPrefix(group string) string {
 	contract.Assert(group != "")

@@ -53,6 +53,12 @@ func (pg *PackageGenerator) genPython(types map[string]pschema.ObjectTypeSpec, b
 		return nil, errors.Wrap(err, "could not generate Go package")
 	}
 
+	// Remove unneeded files
+	for _, unneededFile := range unneededPythonFiles {
+		delete(files, unneededFile)
+	}
+
+	// Replace _utilities.py with our own hard-coded version
 	utilitiesPath := filepath.Join("pulumi_"+packageName, "_utilities.py")
 	_, ok := files[utilitiesPath]
 	contract.Assertf(ok, "missing _utilities.py file")
