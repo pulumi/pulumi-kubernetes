@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.5.1 (September 2, 2020)
+
 ### Bug Fixes
 
 -   Fix regression of .get methods in NodeJS SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1285)
