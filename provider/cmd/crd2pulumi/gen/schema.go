@@ -24,7 +24,7 @@ import (
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-const packageName = "kubernetes"
+const packageName = "crds"
 const tool = "crd2pulumi"
 
 const anyTypeRef = "pulumi.json#/Any"

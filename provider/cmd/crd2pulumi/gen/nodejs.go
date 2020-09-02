@@ -66,7 +66,6 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 	// Generates CustomResourceDefinition constructors. Soon this will be
 	// replaced with `kube2pulumi`
 	for _, crg := range pg.CustomResourceGenerators {
-		contract.Assert(crg.Group != "")
 		path := filepath.Join(groupPrefix(crg.Group), toLowerFirst(crg.Kind)+"Definition.ts")
 		_, ok := buffers[path]
 		contract.Assertf(!ok, "duplicate file at %s", path)

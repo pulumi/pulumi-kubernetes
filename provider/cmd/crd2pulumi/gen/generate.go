@@ -117,7 +117,7 @@ func NewPackageGenerator(language, yamlPath string) (PackageGenerator, error) {
 	baseRefsSize := 0
 	groupVersionsSize := 0
 
-	crgs := make([]CustomResourceGenerator, len(crds))
+	crgs := make([]CustomResourceGenerator, 0, len(crds))
 	for i, crd := range crds {
 		crg, err := NewCustomResourceGenerator(crd)
 		if err != nil {
@@ -303,7 +303,7 @@ func groupPrefix(group string) string {
 func versionToUpper(version string) string {
 	var sb strings.Builder
 	for i, r := range version {
-		if unicode.IsLetter(r) && (i == 0 || !unicode.IsLetter(rune(version[i]))) {
+		if unicode.IsLetter(r) && (i == 0 || !unicode.IsLetter(rune(version[i-1]))) {
 			sb.WriteRune(unicode.ToUpper(r))
 		} else {
 			sb.WriteRune(r)

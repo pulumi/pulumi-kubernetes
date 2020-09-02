@@ -24,6 +24,14 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
+const pythonPackageDir = "pulumi_" + packageName
+
+var unneededPythonFiles = []string{
+	filepath.Join(pythonPackageDir, "README.md"),
+	filepath.Join(pythonPackageDir, "provider.py"),
+	"setup.py",
+}
+
 func (pg *PackageGenerator) genPython(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
 	pkg, err := getPackage(types, baseRefs)
 	if err != nil {
@@ -37,6 +45,7 @@ func (pg *PackageGenerator) genPython(types map[string]pschema.ObjectTypeSpec, b
 			"pyyaml":   "\u003e=5.1,\u003c5.2",
 			"requests": "\u003e=2.21.0,\u003c2.22.0",
 		},
+		"ignorePyNamePanic": true,
 	})
 
 	files, err := python.GeneratePackage(tool, pkg, nil)
