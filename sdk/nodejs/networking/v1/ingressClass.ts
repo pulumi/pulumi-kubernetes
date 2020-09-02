@@ -70,6 +70,11 @@ export class IngressClass extends pulumi.CustomResource {
             inputs["kind"] = "IngressClass";
             inputs["metadata"] = args ? args.metadata : undefined;
             inputs["spec"] = args ? args.spec : undefined;
+        } else {
+            inputs["apiVersion"] = undefined /*out*/;
+            inputs["kind"] = undefined /*out*/;
+            inputs["metadata"] = undefined /*out*/;
+            inputs["spec"] = undefined /*out*/;
         }
         if (!opts) {
             opts = {}

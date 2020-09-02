@@ -83,8 +83,8 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:storage.k8s.io/v1:VolumeAttachment"},
-                    new Alias { Type = "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment"},
+                    new Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1:VolumeAttachment"},
+                    new Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

@@ -153,8 +153,8 @@ namespace Pulumi.Kubernetes.Core.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:events.k8s.io/v1:Event"},
-                    new Alias { Type = "kubernetes:events.k8s.io/v1beta1:Event"},
+                    new Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1:Event"},
+                    new Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1beta1:Event"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

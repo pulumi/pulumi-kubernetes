@@ -613,7 +613,6 @@ export namespace admissionregistration {
             url?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace apiextensions {
@@ -1494,8 +1493,8 @@ export namespace apiextensions {
             url?: pulumi.Input<string>;
         }
     }
-
 }
+
 export namespace apiregistration {
     export namespace v1 {
         /**
@@ -1722,7 +1721,6 @@ export namespace apiregistration {
             port?: pulumi.Input<number>;
         }
     }
-
 }
 
 export namespace apps {
@@ -3380,7 +3378,6 @@ export namespace apps {
             type?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace auditregistration {
@@ -3512,7 +3509,6 @@ export namespace auditregistration {
             qps?: pulumi.Input<number>;
         }
     }
-
 }
 
 export namespace authentication {
@@ -3589,7 +3585,6 @@ export namespace authentication {
         }
 
     }
-
 }
 
 export namespace authorization {
@@ -3796,7 +3791,6 @@ export namespace authorization {
         }
 
     }
-
 }
 
 export namespace autoscaling {
@@ -4639,7 +4633,6 @@ export namespace autoscaling {
             name: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace batch {
@@ -4963,7 +4956,6 @@ export namespace batch {
             spec?: pulumi.Input<inputs.batch.v1.JobSpec>;
         }
     }
-
 }
 
 export namespace certificates {
@@ -5267,7 +5259,6 @@ export namespace certificates {
             conditions?: pulumi.Input<pulumi.Input<inputs.certificates.v1beta1.CertificateSigningRequestCondition>[]>;
         }
     }
-
 }
 
 export namespace coordination {
@@ -5370,7 +5361,6 @@ export namespace coordination {
             renewTime?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace core {
@@ -9668,7 +9658,6 @@ export namespace core {
             runAsUserName?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace discovery {
@@ -9768,7 +9757,6 @@ export namespace discovery {
         }
 
     }
-
 }
 
 export namespace events {
@@ -9949,7 +9937,6 @@ export namespace events {
             state?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace extensions {
@@ -10961,7 +10948,6 @@ export namespace extensions {
             rule?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace flowcontrol {
@@ -11309,7 +11295,6 @@ export namespace flowcontrol {
             name: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace meta {
@@ -11569,7 +11554,6 @@ export namespace meta {
         }
 
     }
-
 }
 
 export namespace networking {
@@ -12114,7 +12098,6 @@ export namespace networking {
             secretName?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace node {
@@ -12239,13 +12222,11 @@ export namespace node {
             tolerations?: pulumi.Input<pulumi.Input<inputs.core.v1.Toleration>[]>;
         }
     }
-
 }
 
 export namespace pkg {
     export namespace version {
     }
-
 }
 
 export namespace policy {
@@ -12597,7 +12578,6 @@ export namespace policy {
             rule?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace rbac {
@@ -13134,7 +13114,6 @@ export namespace rbac {
             namespace?: pulumi.Input<string>;
         }
     }
-
 }
 
 export namespace scheduling {
@@ -13248,7 +13227,6 @@ export namespace scheduling {
         }
 
     }
-
 }
 
 export namespace settings {
@@ -13295,7 +13273,6 @@ export namespace settings {
             volumes?: pulumi.Input<pulumi.Input<inputs.core.v1.Volume>[]>;
         }
     }
-
 }
 
 export namespace storage {
@@ -13930,6 +13907,4 @@ export namespace storage {
             count?: pulumi.Input<number>;
         }
     }
-
 }
-

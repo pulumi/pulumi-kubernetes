@@ -69,22 +69,24 @@ func TestGet(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[3]
+					stackRes := stackInfo.Deployment.Resources[6]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[2]
+					provRes := stackInfo.Deployment.Resources[5]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
 					// Assert we can use .get to retrieve CRDs.
 					//
 
-					ct2 := stackInfo.Deployment.Resources[1]
+					ct2 := stackInfo.Deployment.Resources[4]
 					assert.Equal(t, "my-new-cron-object-get", string(ct2.URN.Name()))
+					image, _ := openapi.Pluck(ct2.Outputs, "spec", "image")
+					assert.Equal(t, "my-awesome-cron-image", image.(string))
 				},
 			},
 		},

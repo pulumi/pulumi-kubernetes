@@ -613,7 +613,6 @@ export namespace admissionregistration {
             url: string;
         }
     }
-
 }
 
 export namespace apiextensions {
@@ -1494,8 +1493,8 @@ export namespace apiextensions {
             url: string;
         }
     }
-
 }
+
 export namespace apiregistration {
     export namespace v1 {
         /**
@@ -1722,7 +1721,6 @@ export namespace apiregistration {
             port: number;
         }
     }
-
 }
 
 export namespace apps {
@@ -3380,7 +3378,6 @@ export namespace apps {
             type: string;
         }
     }
-
 }
 
 export namespace auditregistration {
@@ -3512,7 +3509,6 @@ export namespace auditregistration {
             qps: number;
         }
     }
-
 }
 
 export namespace authentication {
@@ -3689,7 +3685,6 @@ export namespace authentication {
             username: string;
         }
     }
-
 }
 
 export namespace authorization {
@@ -4056,7 +4051,6 @@ export namespace authorization {
             resourceRules: outputs.authorization.v1beta1.ResourceRule[];
         }
     }
-
 }
 
 export namespace autoscaling {
@@ -4899,7 +4893,6 @@ export namespace autoscaling {
             name: string;
         }
     }
-
 }
 
 export namespace batch {
@@ -5223,7 +5216,6 @@ export namespace batch {
             spec: outputs.batch.v1.JobSpec;
         }
     }
-
 }
 
 export namespace certificates {
@@ -5527,7 +5519,6 @@ export namespace certificates {
             conditions: outputs.certificates.v1beta1.CertificateSigningRequestCondition[];
         }
     }
-
 }
 
 export namespace coordination {
@@ -5630,7 +5621,6 @@ export namespace coordination {
             renewTime: string;
         }
     }
-
 }
 
 export namespace core {
@@ -9928,7 +9918,6 @@ export namespace core {
             runAsUserName: string;
         }
     }
-
 }
 
 export namespace discovery {
@@ -10028,7 +10017,6 @@ export namespace discovery {
         }
 
     }
-
 }
 
 export namespace events {
@@ -10209,7 +10197,6 @@ export namespace events {
             state: string;
         }
     }
-
 }
 
 export namespace extensions {
@@ -11221,7 +11208,6 @@ export namespace extensions {
             rule: string;
         }
     }
-
 }
 
 export namespace flowcontrol {
@@ -11569,7 +11555,6 @@ export namespace flowcontrol {
             name: string;
         }
     }
-
 }
 
 export namespace meta {
@@ -11829,7 +11814,6 @@ export namespace meta {
         }
 
     }
-
 }
 
 export namespace networking {
@@ -12374,7 +12358,6 @@ export namespace networking {
             secretName: string;
         }
     }
-
 }
 
 export namespace node {
@@ -12499,13 +12482,11 @@ export namespace node {
             tolerations: outputs.core.v1.Toleration[];
         }
     }
-
 }
 
 export namespace pkg {
     export namespace version {
     }
-
 }
 
 export namespace policy {
@@ -12857,7 +12838,6 @@ export namespace policy {
             rule: string;
         }
     }
-
 }
 
 export namespace rbac {
@@ -13394,7 +13374,6 @@ export namespace rbac {
             namespace: string;
         }
     }
-
 }
 
 export namespace scheduling {
@@ -13508,7 +13487,6 @@ export namespace scheduling {
         }
 
     }
-
 }
 
 export namespace settings {
@@ -13555,7 +13533,6 @@ export namespace settings {
             volumes: outputs.core.v1.Volume[];
         }
     }
-
 }
 
 export namespace storage {
@@ -14190,6 +14167,4 @@ export namespace storage {
             count: number;
         }
     }
-
 }
-

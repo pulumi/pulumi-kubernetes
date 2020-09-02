@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Fix regression of .get methods in NodeJS SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/1285)
+
 ### Improvements
 
 -   Upgrade to Pulumi v2.9.0, which adds type annotations and input/output classes to Python (https://github.com/pulumi/pulumi-kubernetes/pull/1276)

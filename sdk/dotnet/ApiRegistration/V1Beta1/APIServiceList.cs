@@ -69,7 +69,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:apiregistration/v1beta1:APIServiceList"},
+                    new Pulumi.Alias { Type = "kubernetes:apiregistration/v1beta1:APIServiceList"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

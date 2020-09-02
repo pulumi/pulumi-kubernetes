@@ -81,7 +81,7 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:batch/v1beta1:CronJob"},
+                    new Pulumi.Alias { Type = "kubernetes:batch/v1beta1:CronJob"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
