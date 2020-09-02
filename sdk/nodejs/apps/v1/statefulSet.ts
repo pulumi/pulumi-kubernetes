@@ -35,7 +35,7 @@ export class StatefulSet extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSet {
-        return new StatefulSet(name, undefined, { ...opts, id: id });
+        return new StatefulSet(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -77,12 +77,9 @@ export class StatefulSet extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as StatefulSetArgs | undefined;
             inputs["apiVersion"] = "apps/v1";
             inputs["kind"] = "StatefulSet";
             inputs["metadata"] = args ? args.metadata : undefined;

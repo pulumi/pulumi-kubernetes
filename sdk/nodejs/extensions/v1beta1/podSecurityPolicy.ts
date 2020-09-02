@@ -19,7 +19,7 @@ export class PodSecurityPolicy extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodSecurityPolicy {
-        return new PodSecurityPolicy(name, undefined, { ...opts, id: id });
+        return new PodSecurityPolicy(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -60,12 +60,9 @@ export class PodSecurityPolicy extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: PodSecurityPolicyArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: PodSecurityPolicyArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: PodSecurityPolicyArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as PodSecurityPolicyArgs | undefined;
             inputs["apiVersion"] = "extensions/v1beta1";
             inputs["kind"] = "PodSecurityPolicy";
             inputs["metadata"] = args ? args.metadata : undefined;

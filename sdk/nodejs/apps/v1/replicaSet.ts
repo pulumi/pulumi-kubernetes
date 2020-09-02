@@ -19,7 +19,7 @@ export class ReplicaSet extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSet {
-        return new ReplicaSet(name, undefined, { ...opts, id: id });
+        return new ReplicaSet(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -64,12 +64,9 @@ export class ReplicaSet extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as ReplicaSetArgs | undefined;
             inputs["apiVersion"] = "apps/v1";
             inputs["kind"] = "ReplicaSet";
             inputs["metadata"] = args ? args.metadata : undefined;

@@ -19,7 +19,7 @@ export class CSIDriver extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CSIDriver {
-        return new CSIDriver(name, undefined, { ...opts, id: id });
+        return new CSIDriver(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -60,12 +60,9 @@ export class CSIDriver extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: CSIDriverArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: CSIDriverArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: CSIDriverArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as CSIDriverArgs | undefined;
             if (!args || args.spec === undefined) {
                 throw new Error("Missing required property 'spec'");
             }
