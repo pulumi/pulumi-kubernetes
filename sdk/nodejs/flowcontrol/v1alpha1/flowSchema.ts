@@ -19,7 +19,7 @@ export class FlowSchema extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): FlowSchema {
-        return new FlowSchema(name, undefined, { ...opts, id: id });
+        return new FlowSchema(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -64,12 +64,9 @@ export class FlowSchema extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: FlowSchemaArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: FlowSchemaArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: FlowSchemaArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as FlowSchemaArgs | undefined;
             inputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1alpha1";
             inputs["kind"] = "FlowSchema";
             inputs["metadata"] = args ? args.metadata : undefined;

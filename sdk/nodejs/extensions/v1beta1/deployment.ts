@@ -43,7 +43,7 @@ export class Deployment extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Deployment {
-        return new Deployment(name, undefined, { ...opts, id: id });
+        return new Deployment(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -89,12 +89,9 @@ export class Deployment extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: DeploymentArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as DeploymentArgs | undefined;
             inputs["apiVersion"] = "extensions/v1beta1";
             inputs["kind"] = "Deployment";
             inputs["metadata"] = args ? args.metadata : undefined;

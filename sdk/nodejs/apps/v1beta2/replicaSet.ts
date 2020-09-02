@@ -21,7 +21,7 @@ export class ReplicaSet extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSet {
-        return new ReplicaSet(name, undefined, { ...opts, id: id });
+        return new ReplicaSet(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -67,12 +67,9 @@ export class ReplicaSet extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     /** @deprecated apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters. */
-    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as ReplicaSetArgs | undefined;
             inputs["apiVersion"] = "apps/v1beta2";
             inputs["kind"] = "ReplicaSet";
             inputs["metadata"] = args ? args.metadata : undefined;

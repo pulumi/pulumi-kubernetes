@@ -19,7 +19,7 @@ export class ResourceQuotaList extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ResourceQuotaList {
-        return new ResourceQuotaList(name, undefined, { ...opts, id: id });
+        return new ResourceQuotaList(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
@@ -60,12 +60,9 @@ export class ResourceQuotaList extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ResourceQuotaListArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, state: undefined, opts: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ResourceQuotaListArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ResourceQuotaListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            const args = argsOrState as ResourceQuotaListArgs | undefined;
             if (!args || args.items === undefined) {
                 throw new Error("Missing required property 'items'");
             }
