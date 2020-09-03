@@ -20,7 +20,9 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"regexp"
 	"strings"
+	"unicode"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
@@ -82,14 +84,6 @@ func NestedMapSlice(obj map[string]interface{}, fields ...string) ([]map[string]
 	return mapSlice, true, nil
 }
 
-func IsValidLanguage(language string) bool {
-	return language == NodeJS || language == Go || language == Python || language == DotNet
-}
-
-func IsValidAPIVersion(apiVersion string) bool {
-	return apiVersion == v1 || apiVersion == v1beta1
-}
-
 func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
 }
@@ -100,8 +94,23 @@ func rawMessage(v interface{}) json.RawMessage {
 	return bytes
 }
 
-// GenericizeStringSlice converts a []string to []interface{}.
-func GenericizeStringSlice(stringSlice []string) interface{} {
+var alphanumericRegex = regexp.MustCompile("[^a-zA-Z0-9]+")
+
+// removes all non-alphanumeric characters
+func removeNonAlphanumeric(input string) string {
+	return alphanumericRegex.ReplaceAllString(input, "")
+}
+
+// un-capitalizes the first character of a string
+func toLowerFirst(input string) string {
+	if input == "" {
+		return ""
+	}
+	return string(unicode.ToLower(rune(input[0]))) + input[1:]
+}
+
+// toInterfaceSlice casts a string slice of type []string to type []interface{}.
+func toInterfaceSlice(stringSlice []string) interface{} {
 	genericSlice := make([]interface{}, len(stringSlice))
 	for i, v := range stringSlice {
 		genericSlice[i] = v
@@ -109,12 +118,12 @@ func GenericizeStringSlice(stringSlice []string) interface{} {
 	return genericSlice
 }
 
-// PrettyPrint properly formats and indents an unstructured value, and prints it
-// to stdout.
-func PrettyPrint(v interface{}) (err error) {
+// jsonPrint prints out an unstructured value as a properly formatted and
+// indented JSON string
+func jsonPrint(v interface{}) (err error) {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err == nil {
 		fmt.Println(string(b))
 	}
-	return
+	return nil
 }

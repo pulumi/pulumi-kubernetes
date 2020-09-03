@@ -23,3 +23,5 @@ run:
   - schema.go
   skip-dirs:
   - provider/pkg/gen
+  skip-dirs-use-default: true
+  modules-download-mode: readonly

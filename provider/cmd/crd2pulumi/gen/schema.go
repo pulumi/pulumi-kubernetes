@@ -15,7 +15,6 @@
 package gen
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -25,25 +24,14 @@ import (
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+const packageName = "crds"
 const tool = "crd2pulumi"
 
-// hyphenedFields contains a set of the hyphened Kubernetes fields
-var hyphenedFields = codegen.NewStringSet(
-	"x-kubernetes-embedded-resource",
-	"x-kubernetes-int-or-string",
-	"x-kubernetes-list-map-keys",
-	"x-kubernetes-list-type",
-	"x-kubernetes-map-type",
-	"x-kubernetes-preserve-unknown-fields",
-)
-
-// anyTypeRef specifies the designated reference string for an "any" type
 const anyTypeRef = "pulumi.json#/Any"
 
 var anyTypeSpec = pschema.TypeSpec{
 	Ref: anyTypeRef,
 }
-
 var arbitraryJSONTypeSpec = pschema.TypeSpec{
 	Type:                 "object",
 	AdditionalProperties: &anyTypeSpec,
@@ -105,6 +93,7 @@ func getPackage(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (*ps
 	}
 
 	pkgSpec := pschema.PackageSpec{
+		Name:      packageName,
 		Version:   "2.0.0",
 		Types:     types,
 		Resources: resources,
@@ -123,20 +112,8 @@ func isAnyType(typeSpec pschema.TypeSpec) bool {
 	return typeSpec.Ref == anyTypeRef
 }
 
-func (gen *CustomResourceGenerator) baseRefs() []string {
-	versions := gen.Versions()
-	for i, version := range versions {
-		versions[i] = getBaseRef(gen.Group, version, gen.Kind)
-	}
-	return versions
-}
-
-func getBaseRef(group, version, kind string) string {
-	return fmt.Sprintf("kubernetes:%s/%s:%s", group, version, kind)
-}
-
 // AddPlaceholderMetadataSpec adds a placeholder `kubernetes:meta/v1:ObjectMeta`
-// type. This is needed so that the Go codegen can properly import
+// type. This is needed so that the Go and .NET codegen can properly import
 // `meta/v1:ObjectMeta`, since it can't import external types.
 func AddPlaceholderMetadataSpec(types map[string]pschema.ObjectTypeSpec) {
 	types["kubernetes:meta/v1:ObjectMeta"] = pschema.ObjectTypeSpec{
@@ -327,11 +304,23 @@ func CombineSchemas(combineRequired bool, schemas ...map[string]interface{}) map
 		"properties": combinedProperties,
 	}
 	if combineRequired {
-		combinedSchema["required"] = GenericizeStringSlice(combinedRequired)
+		combinedSchema["required"] = toInterfaceSlice(combinedRequired)
 	}
 	return combinedSchema
 }
 
+// hyphenedFields contains a set of the hyphened Kubernetes fields
+var hyphenedFields = codegen.NewStringSet(
+	"x-kubernetes-embedded-resource",
+	"x-kubernetes-int-or-string",
+	"x-kubernetes-list-map-keys",
+	"x-kubernetes-list-type",
+	"x-kubernetes-map-type",
+	"x-kubernetes-preserve-unknown-fields",
+)
+
+// UnderscoreFields replaces all hyphens in key names with underscores if the
+// key name is in the `hyphenedFields` set.
 func UnderscoreFields(schema map[string]interface{}) {
 	for field, val := range schema {
 		if hyphenedFields.Has(field) {
