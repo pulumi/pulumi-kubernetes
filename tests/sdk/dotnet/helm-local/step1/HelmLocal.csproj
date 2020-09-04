@@ -6,5 +6,4 @@
     <RootNamespace>HelmLocal</RootNamespace>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
 </Project>

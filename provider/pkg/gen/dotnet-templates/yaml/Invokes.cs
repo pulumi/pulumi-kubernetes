@@ -16,8 +16,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 using System.Collections.Immutable;
-using System.Linq;
-using Pulumi.Serialization;
 
 namespace Pulumi.Kubernetes.Yaml
 {
@@ -31,16 +29,16 @@ namespace Pulumi.Kubernetes.Yaml
             => Output.Create(Deployment.Instance.InvokeAsync<YamlDecodeResult>("kubernetes:yaml:decode", args,
                 options.WithVersion())).Apply(r => r.Result.ToImmutableArray());
     }
-    
+
     internal class YamlDecodeArgs : InvokeArgs
     {
         [Input("text")]
         public string? Text { get; set; }
-        
+
         [Input("defaultNamespace")]
         public string? DefaultNamespace { get; set; }
     }
-    
+
     [OutputType]
     internal class YamlDecodeResult
     {

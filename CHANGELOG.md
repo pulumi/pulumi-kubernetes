@@ -6,6 +6,7 @@
 
 ### Improvements
 
+-   Update .NET Helm v3 to use native client. (https://github.com/pulumi/pulumi-kubernetes/pull/1291)
 -   Update Go Helm v3 to use native client. (https://github.com/pulumi/pulumi-kubernetes/pull/1296)
 -   Python: Allow type annotations on transformation functions. (https://github.com/pulumi/pulumi-kubernetes/pull/1298)
 

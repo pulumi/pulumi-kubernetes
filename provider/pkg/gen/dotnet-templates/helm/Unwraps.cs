@@ -42,8 +42,8 @@ namespace Pulumi.Kubernetes.Helm
     {
         public string Path { get; set; } = null!;
     }
-    
-    internal class ChartFetchArgsUnwrap 
+
+    internal class ChartFetchArgsUnwrap
     {
         public string? Version { get; set; }
         public string? CAFile { get; set; }
@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.Helm
         public bool? Untar { get; set; }
         public bool? Verify { get; set; }
     }
-    
+
     internal static class Extensions
     {
         public static Output<Union<ChartArgsUnwrap, LocalChartArgsUnwrap>> Unwrap(this Union<ChartArgs, LocalChartArgs> options)
@@ -90,7 +90,7 @@ namespace Pulumi.Kubernetes.Helm
                             Values = vs.Item3,
                             Transformations = v.Transformations,
                             ResourcePrefix = v.ResourcePrefix,
-                            Path = v.Path                            
+                            Path = v.Path
                         })));
         }
 
@@ -112,27 +112,27 @@ namespace Pulumi.Kubernetes.Helm
                 new ChartFetchArgsUnwrap
                 {
                     Version = vs.Item1[0],
-                    CAFile = vs.Item1[1], 
-                    CertFile = vs.Item1[2], 
-                    KeyFile = vs.Item1[3], 
-                    Destination = vs.Item1[4], 
-                    Keyring = vs.Item1[5], 
-                    Password = vs.Item1[6], 
-                    Repo = vs.Item1[7], 
-                    UntarDir = vs.Item1[8], 
-                    Username = vs.Item1[9], 
-                    Home = vs.Item1[10], 
-                    Devel = vs.Item2[0], 
-                    Prov = vs.Item2[1], 
-                    Untar = vs.Item2[2], 
-                    Verify = vs.Item2[3] 
+                    CAFile = vs.Item1[1],
+                    CertFile = vs.Item1[2],
+                    KeyFile = vs.Item1[3],
+                    Destination = vs.Item1[4],
+                    Keyring = vs.Item1[5],
+                    Password = vs.Item1[6],
+                    Repo = vs.Item1[7],
+                    UntarDir = vs.Item1[8],
+                    Username = vs.Item1[9],
+                    Home = vs.Item1[10],
+                    Devel = vs.Item2[0],
+                    Prov = vs.Item2[1],
+                    Untar = vs.Item2[2],
+                    Verify = vs.Item2[3]
                 })!;
         }
 
         private static Input<T?> ToNullable<T>(this Input<T>? input) where T : class
-            => input != null ? input.Apply(v => (T?)v) : Output.Create((T?) null);
+            => input != null ? input.Apply(v => (T?)v) : Output.Create((T?)null);
 
         private static Input<bool?> ToNullable(this Input<bool>? input)
-            => input != null ? input.Apply(v => (bool?)v) : Output.Create((bool?) null);
+            => input != null ? input.Apply(v => (bool?)v) : Output.Create((bool?)null);
     }
 }

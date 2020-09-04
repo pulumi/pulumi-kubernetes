@@ -15,6 +15,7 @@
 package ints
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
@@ -71,7 +72,7 @@ func TestDotnet_YamlLocal(t *testing.T) {
 
 func TestDotnet_Helm(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "helm",
+		Dir:          filepath.Join("helm", "step1"),
 		Dependencies: []string{"Pulumi.Kubernetes"},
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
@@ -88,30 +89,50 @@ func TestDotnet_Helm(t *testing.T) {
 				}
 			}
 		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:             filepath.Join("helm", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
+		},
 	})
 }
 
 func TestDotnet_HelmLocal(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "helm-local",
+		Dir:          filepath.Join("helm-local", "step1"),
 		Dependencies: []string{"Pulumi.Kubernetes"},
 		Quick:        true,
-		SkipRefresh:  true, // Deployment controller changes object out-of-band.
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 11, len(stackInfo.Deployment.Resources))
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:             filepath.Join("helm-local", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
 		},
 	})
 }
 
 func TestDotnet_HelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "helm-api-versions",
+		Dir:          filepath.Join("helm-api-versions", "step1"),
 		Dependencies: []string{"Pulumi.Kubernetes"},
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:             filepath.Join("helm-api-versions", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
 		},
 	})
 }
