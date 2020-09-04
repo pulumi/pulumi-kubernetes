@@ -37,8 +37,8 @@ var arbitraryJSONTypeSpec = pschema.TypeSpec{
 	AdditionalProperties: &anyTypeSpec,
 }
 
-// ObjectMeta type
 const objectMetaRef = "#/types/kubernetes:meta/v1:ObjectMeta"
+const objectMetaToken = "kubernetes:meta/v1:ObjectMeta"
 
 // Union type of integer and string
 var intOrStringTypeSpec = pschema.TypeSpec{
@@ -57,21 +57,21 @@ func (pg *PackageGenerator) GetTypes() map[string]pschema.ObjectTypeSpec {
 
 	for _, crg := range pg.CustomResourceGenerators {
 		for version, schema := range crg.Schemas {
-			baseRef := getBaseRef(crg.Group, version, crg.Kind)
-			AddType(schema, baseRef, types)
-			types[baseRef].Properties["apiVersion"] = pschema.PropertySpec{
+			resourceToken := getToken(crg.Group, version, crg.Kind)
+			AddType(schema, resourceToken, types)
+			types[resourceToken].Properties["apiVersion"] = pschema.PropertySpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
 				Const: crg.Group + "/" + version,
 			}
-			types[baseRef].Properties["kind"] = pschema.PropertySpec{
+			types[resourceToken].Properties["kind"] = pschema.PropertySpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
 				Const: crg.Kind,
 			}
-			types[baseRef].Properties["metadata"] = pschema.PropertySpec{
+			types[resourceToken].Properties["metadata"] = pschema.PropertySpec{
 				TypeSpec: pschema.TypeSpec{
 					Ref: objectMetaRef,
 				},
@@ -82,9 +82,18 @@ func (pg *PackageGenerator) GetTypes() map[string]pschema.ObjectTypeSpec {
 	return types
 }
 
-func getPackage(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (*pschema.Package, error) {
+// Returns the Pulumi package given a types map and a slice of the token types
+// of every CustomResource. If includeObjectMetaType is true, then a
+// ObjectMetaType type is also generated.
+func genPackage(types map[string]pschema.ObjectTypeSpec, resourceTokens []string, includeObjectMetaType bool) (*pschema.Package, error) {
+	if includeObjectMetaType {
+		types[objectMetaToken] = pschema.ObjectTypeSpec{
+			Type: "object",
+		}
+	}
+
 	resources := map[string]pschema.ResourceSpec{}
-	for _, baseRef := range baseRefs {
+	for _, baseRef := range resourceTokens {
 		objectTypeSpec := types[baseRef]
 		resources[baseRef] = pschema.ResourceSpec{
 			ObjectTypeSpec:  objectTypeSpec,
@@ -94,7 +103,7 @@ func getPackage(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (*ps
 
 	pkgSpec := pschema.PackageSpec{
 		Name:      packageName,
-		Version:   "2.0.0",
+		Version:   Version,
 		Types:     types,
 		Resources: resources,
 	}
@@ -104,21 +113,16 @@ func getPackage(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (*ps
 		return &pschema.Package{}, errors.Wrapf(err, "could not import spec")
 	}
 
+	if includeObjectMetaType {
+		delete(types, objectMetaToken)
+	}
+
 	return pkg, nil
 }
 
 // Returns true if the given TypeSpec is of type any; returns false otherwise
 func isAnyType(typeSpec pschema.TypeSpec) bool {
 	return typeSpec.Ref == anyTypeRef
-}
-
-// AddPlaceholderMetadataSpec adds a placeholder `kubernetes:meta/v1:ObjectMeta`
-// type. This is needed so that the Go and .NET codegen can properly import
-// `meta/v1:ObjectMeta`, since it can't import external types.
-func AddPlaceholderMetadataSpec(types map[string]pschema.ObjectTypeSpec) {
-	types["kubernetes:meta/v1:ObjectMeta"] = pschema.ObjectTypeSpec{
-		Type: "object",
-	}
 }
 
 // AddType converts the given OpenAPI `schema` to a ObjectTypeSpec and adds it

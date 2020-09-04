@@ -24,6 +24,7 @@ import (
 	"unicode"
 
 	"github.com/pkg/errors"
+	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 	unstruct "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -40,29 +41,74 @@ const (
 	v1      string = "apiextensions.k8s.io/v1"
 )
 
-// Generate parses the CRD(s) in the YAML file at the given path and outputs
-// code in the given language to `outputDir/crds`. Only overwrites existing
-// files if force is true.
-func Generate(language, yamlPath, outputDir string, force bool) error {
-	outputDir = filepath.Join(outputDir, "crds")
+// Version specifies the crd2pulumi version.
+const Version = "1.0.2"
+
+// LanguageSettings contains the output paths for each language. If a path is
+// null, then that language will not be generated at all.
+type LanguageSettings struct {
+	NodeJSPath *string
+	PythonPath *string
+	DotNetPath *string
+	GoPath     *string
+}
+
+// Returns true if at least one of the language-specific output paths already
+// exists. If true, then the first outpath that already exists is also returned.
+func (ls LanguageSettings) pathsAlreadyExists() (bool, string) {
+	pathExists := func(path string) bool {
+		_, err := os.Stat(path)
+		return !os.IsNotExist(err)
+	}
+	if ls.NodeJSPath != nil && pathExists(*ls.NodeJSPath) {
+		return true, *ls.NodeJSPath
+	}
+	if ls.PythonPath != nil && pathExists(*ls.PythonPath) {
+		return true, *ls.PythonPath
+	}
+	if ls.DotNetPath != nil && pathExists(*ls.DotNetPath) {
+		return true, *ls.DotNetPath
+	}
+	if ls.GoPath != nil && pathExists(*ls.GoPath) {
+		return true, *ls.GoPath
+	}
+	return false, ""
+}
+
+// Generate parses the CRDs at the given yamlPaths and outputs the generated
+// code according to the language settings. Only overwrites existing files if
+// force is true.
+func Generate(ls LanguageSettings, yamlPaths []string, force bool) error {
 	if !force {
-		if _, err := os.Stat(outputDir); !os.IsNotExist(err) {
-			return errors.Errorf("%s already exists; use --force to overwrite", outputDir)
+		if exists, path := ls.pathsAlreadyExists(); exists {
+			return errors.Errorf("path %s already exists; use --force to overwrite", path)
 		}
 	}
 
-	pg, err := NewPackageGenerator(language, yamlPath)
+	pg, err := NewPackageGenerator(yamlPaths)
 	if err != nil {
-		return errors.Wrapf(err, "could not generate %s package for %s", language, yamlPath)
+		return err
 	}
 
-	files, err := pg.generateFiles()
-	if err != nil {
-		return errors.Wrapf(err, "could not generate files for %s", yamlPath)
+	if ls.NodeJSPath != nil {
+		if err := pg.genNodeJS(*ls.NodeJSPath); err != nil {
+			return err
+		}
 	}
-
-	if err := writeFiles(files, outputDir); err != nil {
-		return errors.Wrap(err, "could not create files and directories")
+	if ls.PythonPath != nil {
+		if err := pg.genPython(*ls.PythonPath); err != nil {
+			return err
+		}
+	}
+	if ls.GoPath != nil {
+		if err := pg.genGo(*ls.GoPath); err != nil {
+			return err
+		}
+	}
+	if ls.DotNetPath != nil {
+		if err := pg.genDotNet(*ls.DotNetPath); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -93,28 +139,38 @@ func writeFiles(files map[string]*bytes.Buffer, outputDir string) error {
 type PackageGenerator struct {
 	// CustomResourceGenerators contains a slice of all CustomResourceGenerators
 	CustomResourceGenerators []CustomResourceGenerator
-	// Language represents the target language to generate code
-	Language string
-	// GroupVersions is a slice of the
-	// BaseRefs is a slice of the $ref names of every CustomResource
-	BaseRefs []string
+	// ResourceTokens is a slice of the token types of every CustomResource
+	ResourceTokens []string
 	// GroupVersions is a slice of the names of every CustomResource's versions,
 	// in the format <group>/<version>
 	GroupVersions []string
+	// Types is a mapping from every type's token name to its ObjectTypeSpec
+	Types map[string]pschema.ObjectTypeSpec
+	// schemaPackage is the Pulumi schema package used to generate code for
+	// languages that do not need an ObjectMeta type (NodeJS and Python)
+	schemaPackage *pschema.Package
+	// schemaPackageWithObjectMetaType is the Pulumi schema package used to
+	// generate code for languages that need an ObjectMeta type (Go and .NET)
+	schemaPackageWithObjectMetaType *pschema.Package
 }
 
-func NewPackageGenerator(language, yamlPath string) (PackageGenerator, error) {
-	yamlFile, err := ioutil.ReadFile(yamlPath)
-	if err != nil {
-		return PackageGenerator{}, errors.Wrapf(err, "could not read file %s", yamlPath)
+func NewPackageGenerator(yamlPaths []string) (PackageGenerator, error) {
+	yamlFiles := make([][]byte, 0, len(yamlPaths))
+
+	for _, yamlPath := range yamlPaths {
+		yamlFile, err := ioutil.ReadFile(yamlPath)
+		if err != nil {
+			return PackageGenerator{}, errors.Wrapf(err, "could not read file %s", yamlPath)
+		}
+		yamlFiles = append(yamlFiles, yamlFile)
 	}
 
-	crds, err := UnmarshalYamls(yamlFile)
+	crds, err := UnmarshalYamls(yamlFiles)
 	if err != nil {
-		return PackageGenerator{}, errors.Wrapf(err, "could not unmarshal yaml file %s", yamlPath)
+		return PackageGenerator{}, errors.Wrapf(err, "could not unmarshal yaml file(s)")
 	}
 
-	baseRefsSize := 0
+	resourceTokensSize := 0
 	groupVersionsSize := 0
 
 	crgs := make([]CustomResourceGenerator, 0, len(crds))
@@ -123,24 +179,47 @@ func NewPackageGenerator(language, yamlPath string) (PackageGenerator, error) {
 		if err != nil {
 			return PackageGenerator{}, errors.Wrapf(err, "could not parse crd %d", i)
 		}
-		baseRefsSize += len(crg.BaseRefs)
+		resourceTokensSize += len(crg.ResourceTokens)
 		groupVersionsSize += len(crg.GroupVersions)
 		crgs = append(crgs, crg)
 	}
 
-	baseRefs := make([]string, 0, baseRefsSize)
+	baseRefs := make([]string, 0, resourceTokensSize)
 	groupVersions := make([]string, 0, groupVersionsSize)
 	for _, crg := range crgs {
-		baseRefs = append(baseRefs, crg.BaseRefs...)
+		baseRefs = append(baseRefs, crg.ResourceTokens...)
 		groupVersions = append(groupVersions, crg.GroupVersions...)
 	}
 
-	return PackageGenerator{
+	pg := PackageGenerator{
 		CustomResourceGenerators: crgs,
-		Language:                 language,
-		BaseRefs:                 baseRefs,
+		ResourceTokens:           baseRefs,
 		GroupVersions:            groupVersions,
-	}, nil
+	}
+	pg.Types = pg.GetTypes()
+	return pg, nil
+}
+
+// SchemaPackage returns the Pulumi schema package with no ObjectMeta type.
+// This is only necessary for NodeJS and Python.
+func (pg *PackageGenerator) SchemaPackage() *pschema.Package {
+	if pg.schemaPackage == nil {
+		pkg, err := genPackage(pg.Types, pg.ResourceTokens, false)
+		contract.AssertNoErrorf(err, "could not parse Pulumi package")
+		pg.schemaPackage = pkg
+	}
+	return pg.schemaPackage
+}
+
+// SchemaPackageWithObjectMetaType returns the Pulumi schema package with
+// an ObjectMeta type. This is only necessary for Go and .NET.
+func (pg *PackageGenerator) SchemaPackageWithObjectMetaType() *pschema.Package {
+	if pg.schemaPackageWithObjectMetaType == nil {
+		pkg, err := genPackage(pg.Types, pg.ResourceTokens, true)
+		contract.AssertNoErrorf(err, "could not parse Pulumi package")
+		pg.schemaPackageWithObjectMetaType = pkg
+	}
+	return pg.schemaPackageWithObjectMetaType
 }
 
 // Returns language-specific 'moduleToPackage' map. Creates a mapping from
@@ -152,34 +231,6 @@ func (pg *PackageGenerator) moduleToPackage() map[string]string {
 		moduleToPackage[groupVersion] = groupPrefix(group) + "/" + version
 	}
 	return moduleToPackage
-}
-
-// generateFiles generates all code for a target language. Returns a mapping
-// from each file's path to a buffer containing its code.
-func (pg *PackageGenerator) generateFiles() (map[string]*bytes.Buffer, error) {
-	types := pg.GetTypes()
-	baseRefs := pg.BaseRefs
-
-	var files map[string]*bytes.Buffer
-	var err error
-
-	switch pg.Language {
-	case NodeJS:
-		files, err = pg.genNodeJS(types, baseRefs)
-	case Go:
-		files, err = pg.genGo(types, baseRefs)
-	case Python:
-		files, err = pg.genPython(types, baseRefs)
-	case DotNet:
-		files, err = pg.genDotNet(types, baseRefs)
-	default:
-		contract.Failf("unexpected language %s", pg.Language)
-	}
-
-	if err != nil {
-		return nil, errors.Wrapf(err, "could not generate files for %s", pg.Language)
-	}
-	return files, nil
 }
 
 // CustomResourceGenerator generates a Pulumi schema for a single CustomResource
@@ -202,8 +253,9 @@ type CustomResourceGenerator struct {
 	// GroupVersions is a slice of names of each version, in the format
 	// <group>/<version>.
 	GroupVersions []string
-	// BaseRefs is a slice of the $ref names of each top-level CustomResource
-	BaseRefs []string
+	// ResourceTokens is a slice of the token types of every versioned
+	// CustomResource
+	ResourceTokens []string
 }
 
 func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenerator, error) {
@@ -245,11 +297,11 @@ func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenera
 
 	versions := make([]string, 0, len(schemas))
 	groupVersions := make([]string, 0, len(schemas))
-	baseRefs := make([]string, 0, len(schemas))
+	resourceTokens := make([]string, 0, len(schemas))
 	for version := range schemas {
 		versions = append(versions, version)
 		groupVersions = append(groupVersions, group+"/"+version)
-		baseRefs = append(baseRefs, getBaseRef(group, version, kind))
+		resourceTokens = append(resourceTokens, getToken(group, version, kind))
 	}
 
 	crg := CustomResourceGenerator{
@@ -261,13 +313,15 @@ func NewCustomResourceGenerator(crd unstruct.Unstructured) (CustomResourceGenera
 		Group:                    group,
 		Versions:                 versions,
 		GroupVersions:            groupVersions,
-		BaseRefs:                 baseRefs,
+		ResourceTokens:           resourceTokens,
 	}
 
 	return crg, nil
 }
 
-func getBaseRef(group, version, kind string) string {
+// Returns the type token for a Kubernetes CustomResource with the given group,
+// version, and kind.
+func getToken(group, version, kind string) string {
 	return fmt.Sprintf("kubernetes:%s/%s:%s", group, version, kind)
 }
 

@@ -20,7 +20,6 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/python"
-	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
@@ -32,12 +31,19 @@ var unneededPythonFiles = []string{
 	"setup.py",
 }
 
-func (pg *PackageGenerator) genPython(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
-	pkg, err := getPackage(types, baseRefs)
+func (pg *PackageGenerator) genPython(outputDir string) error {
+	files, err := pg.genPythonFiles()
 	if err != nil {
-		return nil, errors.Wrapf(err, "generating package")
+		return err
 	}
-	pkg.Language["python"] = rawMessage(map[string]interface{}{
+	writeFiles(files, outputDir)
+	return nil
+}
+
+func (pg *PackageGenerator) genPythonFiles() (map[string]*bytes.Buffer, error) {
+	pkg := pg.SchemaPackage()
+
+	pkg.Language[Python] = rawMessage(map[string]interface{}{
 		"compatibility":       "kubernetes20",
 		"moduleNameOverrides": pg.moduleToPackage(),
 		"requires": map[string]string{
@@ -52,6 +58,8 @@ func (pg *PackageGenerator) genPython(types map[string]pschema.ObjectTypeSpec, b
 	if err != nil {
 		return nil, errors.Wrap(err, "could not generate Go package")
 	}
+
+	delete(pkg.Language, Python)
 
 	// Remove unneeded files
 	for _, unneededFile := range unneededPythonFiles {
