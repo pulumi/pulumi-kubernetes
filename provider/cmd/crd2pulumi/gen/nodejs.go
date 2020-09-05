@@ -25,18 +25,18 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
-const metaPath = "meta/v1.ts"
-const metaFile = `import * as k8s from "@pulumi/kubernetes";
+const nodejsMetaPath = "meta/v1.ts"
+const nodejsMetaFile = `import * as k8s from "@pulumi/kubernetes";
 
 export type ObjectMeta = k8s.types.input.meta.v1.ObjectMeta;
 `
 
 func (pg *PackageGenerator) genNodeJS(outputDir string) error {
-	files, err := pg.genNodeJSFiles()
-	if err != nil {
+	if files, err := pg.genNodeJSFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
 		return err
 	}
-	writeFiles(files, outputDir)
 	return nil
 }
 
@@ -54,16 +54,21 @@ func (pg *PackageGenerator) genNodeJSFiles() (map[string]*bytes.Buffer, error) {
 
 	delete(pkg.Language, NodeJS)
 
-	// Search and replace ${VERSION} with 2.0.0 in package.json, so the
-	// resources can be properly registered
+	// Search and replace ${VERSION} with the crd2pulumi version in package.json, so the resources can be properly
+	// registered
 	packageJSON, ok := files["package.json"]
 	if !ok {
 		return nil, errors.New("cannot find generated package.json")
 	}
 	files["package.json"] = bytes.ReplaceAll(packageJSON, []byte("${VERSION}"), []byte(Version))
 
-	// Create a helper 'meta/v1.ts' script that just exports the ObjectMeta class
-	files[metaPath] = []byte(metaFile)
+	// Create a helper `meta/v1.ts` script that exports the ObjectMeta class from the SDK. If there happens to already
+	// be a `meta/v1.ts` file, then just append the script.
+	if code, ok := files[nodejsMetaPath]; !ok {
+		files[nodejsMetaPath] = []byte(nodejsMetaFile)
+	} else {
+		files[nodejsMetaPath] = append(code, []byte("\n"+nodejsMetaFile)...)
+	}
 
 	buffers := map[string]*bytes.Buffer{}
 	for name, code := range files {

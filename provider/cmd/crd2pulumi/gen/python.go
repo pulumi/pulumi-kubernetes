@@ -24,24 +24,26 @@ import (
 )
 
 const pythonPackageDir = "pulumi_" + packageName
+const pythonMetaFile = `from pulumi_kubernetes.meta.v1._inputs import *
+import pulumi_kubernetes.meta.v1.outputs
+`
 
 var unneededPythonFiles = []string{
 	filepath.Join(pythonPackageDir, "README.md"),
-	filepath.Join(pythonPackageDir, "provider.py"),
 	"setup.py",
 }
 
 func (pg *PackageGenerator) genPython(outputDir string) error {
-	files, err := pg.genPythonFiles()
-	if err != nil {
+	if files, err := pg.genPythonFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
 		return err
 	}
-	writeFiles(files, outputDir)
 	return nil
 }
 
 func (pg *PackageGenerator) genPythonFiles() (map[string]*bytes.Buffer, error) {
-	pkg := pg.SchemaPackage()
+	pkg := pg.SchemaPackageWithObjectMetaType()
 
 	pkg.Language[Python] = rawMessage(map[string]interface{}{
 		"compatibility":       "kubernetes20",
@@ -67,10 +69,16 @@ func (pg *PackageGenerator) genPythonFiles() (map[string]*bytes.Buffer, error) {
 	}
 
 	// Replace _utilities.py with our own hard-coded version
-	utilitiesPath := filepath.Join("pulumi_"+packageName, "_utilities.py")
+	utilitiesPath := filepath.Join(pythonPackageDir, "_utilities.py")
 	_, ok := files[utilitiesPath]
 	contract.Assertf(ok, "missing _utilities.py file")
 	files[utilitiesPath] = []byte(pythonUtilitiesFile)
+
+	// Import the actual SDK ObjectMeta types in place of our placeholder ones
+	metaPath := filepath.Join(pythonPackageDir, "meta_v1", "__init__.py")
+	code, ok := files[metaPath]
+	contract.Assertf(ok, "missing meta_v1/__init__.py file")
+	files[metaPath] = append(code, []byte(pythonMetaFile)...)
 
 	buffers := map[string]*bytes.Buffer{}
 	for name, code := range files {

@@ -120,9 +120,9 @@ func toInterfaceSlice(stringSlice []string) interface{} {
 	return genericSlice
 }
 
-// jsonPrint prints out an unstructured value as a properly formatted and
+// JSONPrint prints out an unstructured value as a properly formatted and
 // indented JSON string
-func jsonPrint(v interface{}) (err error) {
+func JSONPrint(v interface{}) (err error) {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err == nil {
 		fmt.Println(string(b))

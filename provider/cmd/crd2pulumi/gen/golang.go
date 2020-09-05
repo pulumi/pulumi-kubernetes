@@ -29,11 +29,11 @@ var unneededGoFiles = []string{
 }
 
 func (pg *PackageGenerator) genGo(outputDir string) error {
-	files, err := pg.genGoFiles()
-	if err != nil {
+	if files, err := pg.genGoFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
 		return err
 	}
-	writeFiles(files, outputDir)
 	return nil
 }
 

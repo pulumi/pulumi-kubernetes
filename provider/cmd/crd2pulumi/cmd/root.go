@@ -65,33 +65,29 @@ func getLanguageSettings(flags *pflag.FlagSet) gen.LanguageSettings {
 	goPath, _ := flags.GetString(GoPath)
 
 	ls := gen.LanguageSettings{}
-	if nodejs {
+	if nodejsPath != "" {
+		ls.NodeJSPath = &nodejsPath
+	} else if nodejs {
 		path := filepath.Join(defaultOutputPath, NodeJS)
 		ls.NodeJSPath = &path
 	}
-	if nodejsPath != "" {
-		ls.NodeJSPath = &nodejsPath
-	}
-	if python {
+	if pythonPath != "" {
+		ls.PythonPath = &pythonPath
+	} else if python {
 		path := filepath.Join(defaultOutputPath, Python)
 		ls.PythonPath = &path
 	}
-	if pythonPath != "" {
-		ls.PythonPath = &pythonPath
-	}
-	if dotnet {
+	if dotnetPath != "" {
+		ls.DotNetPath = &dotnetPath
+	} else if dotnet {
 		path := filepath.Join(defaultOutputPath, DotNet)
 		ls.DotNetPath = &path
 	}
-	if dotnetPath != "" {
-		ls.DotNetPath = &dotnetPath
-	}
-	if golang {
-		path := filepath.Join(defaultOutputPath, Go)
-		ls.GoPath = &path
-	}
 	if goPath != "" {
 		ls.GoPath = &goPath
+	} else if golang {
+		path := filepath.Join(defaultOutputPath, Go)
+		ls.GoPath = &path
 	}
 	return ls
 }
@@ -135,20 +131,20 @@ func Execute() error {
 	return rootCmd.Execute()
 }
 
-var Force bool
-var NodeJSValue, PythonValue, DotNetValue, GoValue bool
-var NodeJSPathValue, PythonPathValue, DotNetPathValue, GoPathValue string
+var forceValue bool
+var nodeJSValue, pythonValue, dotNetValue, goValue bool
+var nodeJSPathValue, pythonPathValue, dotNetPathValue, goPathValue string
 
 func init() {
-	rootCmd.PersistentFlags().BoolVarP(&NodeJSValue, NodeJS, "n", false, "generate NodeJS")
-	rootCmd.PersistentFlags().BoolVarP(&PythonValue, Python, "p", false, "generate Python")
-	rootCmd.PersistentFlags().BoolVarP(&DotNetValue, DotNet, "d", false, "generate .NET")
-	rootCmd.PersistentFlags().BoolVarP(&GoValue, Go, "g", false, "generate Go")
+	rootCmd.PersistentFlags().BoolVarP(&nodeJSValue, NodeJS, "n", false, "generate NodeJS")
+	rootCmd.PersistentFlags().BoolVarP(&pythonValue, Python, "p", false, "generate Python")
+	rootCmd.PersistentFlags().BoolVarP(&dotNetValue, DotNet, "d", false, "generate .NET")
+	rootCmd.PersistentFlags().BoolVarP(&goValue, Go, "g", false, "generate Go")
 
-	rootCmd.PersistentFlags().StringVar(&NodeJSPathValue, NodeJSPath, "", "optional NodeJS output dir")
-	rootCmd.PersistentFlags().StringVar(&PythonPathValue, PythonPath, "", "optional Python output dir")
-	rootCmd.PersistentFlags().StringVar(&DotNetPathValue, DotNetPath, "", "optional .NET output dir")
-	rootCmd.PersistentFlags().StringVar(&GoPathValue, GoPath, "", "optional Go output dir")
+	rootCmd.PersistentFlags().StringVar(&nodeJSPathValue, NodeJSPath, "", "optional NodeJS output dir")
+	rootCmd.PersistentFlags().StringVar(&pythonPathValue, PythonPath, "", "optional Python output dir")
+	rootCmd.PersistentFlags().StringVar(&dotNetPathValue, DotNetPath, "", "optional .NET output dir")
+	rootCmd.PersistentFlags().StringVar(&goPathValue, GoPath, "", "optional Go output dir")
 
-	rootCmd.PersistentFlags().BoolVarP(&Force, "force", "f", false, "forcefully overwrite existing files")
+	rootCmd.PersistentFlags().BoolVarP(&forceValue, "force", "f", false, "overwrite existing files")
 }

@@ -42,7 +42,7 @@ const (
 )
 
 // Version specifies the crd2pulumi version.
-const Version = "1.0.2"
+var Version = "1.0.2"
 
 // LanguageSettings contains the output paths for each language. If a path is
 // null, then that language will not be generated at all.
@@ -53,26 +53,27 @@ type LanguageSettings struct {
 	GoPath     *string
 }
 
-// Returns true if at least one of the language-specific output paths already
-// exists. If true, then the first outpath that already exists is also returned.
-func (ls LanguageSettings) pathsAlreadyExists() (bool, string) {
+// Returns true if at least one of the language-specific output paths already exists. If true, then a slice of the
+// paths that already exist are also returned.
+func (ls LanguageSettings) pathsAlreadyExists() (bool, []string) {
 	pathExists := func(path string) bool {
 		_, err := os.Stat(path)
 		return !os.IsNotExist(err)
 	}
+	var pathsThatAlreadyExist []string
 	if ls.NodeJSPath != nil && pathExists(*ls.NodeJSPath) {
-		return true, *ls.NodeJSPath
+		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.NodeJSPath)
 	}
 	if ls.PythonPath != nil && pathExists(*ls.PythonPath) {
-		return true, *ls.PythonPath
+		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.PythonPath)
 	}
 	if ls.DotNetPath != nil && pathExists(*ls.DotNetPath) {
-		return true, *ls.DotNetPath
+		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.DotNetPath)
 	}
 	if ls.GoPath != nil && pathExists(*ls.GoPath) {
-		return true, *ls.GoPath
+		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.GoPath)
 	}
-	return false, ""
+	return len(pathsThatAlreadyExist) > 0, pathsThatAlreadyExist
 }
 
 // Generate parses the CRDs at the given yamlPaths and outputs the generated
@@ -80,8 +81,8 @@ func (ls LanguageSettings) pathsAlreadyExists() (bool, string) {
 // force is true.
 func Generate(ls LanguageSettings, yamlPaths []string, force bool) error {
 	if !force {
-		if exists, path := ls.pathsAlreadyExists(); exists {
-			return errors.Errorf("path %s already exists; use --force to overwrite", path)
+		if exists, paths := ls.pathsAlreadyExists(); exists {
+			return errors.Errorf("path(s) %s already exists; use --force to overwrite", paths)
 		}
 	}
 
@@ -147,10 +148,10 @@ type PackageGenerator struct {
 	// Types is a mapping from every type's token name to its ObjectTypeSpec
 	Types map[string]pschema.ObjectTypeSpec
 	// schemaPackage is the Pulumi schema package used to generate code for
-	// languages that do not need an ObjectMeta type (NodeJS and Python)
+	// languages that do not need an ObjectMeta type (NodeJS)
 	schemaPackage *pschema.Package
 	// schemaPackageWithObjectMetaType is the Pulumi schema package used to
-	// generate code for languages that need an ObjectMeta type (Go and .NET)
+	// generate code for languages that need an ObjectMeta type (Python, Go, and .NET)
 	schemaPackageWithObjectMetaType *pschema.Package
 }
 
@@ -329,12 +330,6 @@ func getToken(group, version, kind string) string {
 // supported (apiextensions.k8s.io/v1beta1 or apiextensions.k8s.io/v1).
 func IsValidAPIVersion(apiVersion string) bool {
 	return apiVersion == v1 || apiVersion == v1beta1
-}
-
-// IsValidLanguage returns true if and only if the given language is supported
-// (nodejs, go, python, or dotnet)
-func IsValidLanguage(language string) bool {
-	return language == NodeJS || language == Go || language == Python || language == DotNet
 }
 
 // splitGroupVersion returns the <group> and <version> field of a string in the

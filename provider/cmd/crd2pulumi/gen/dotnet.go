@@ -31,11 +31,11 @@ var unneededDotNetFiles = []string{
 }
 
 func (pg *PackageGenerator) genDotNet(outputDir string) error {
-	files, err := pg.genDotNetFiles()
-	if err != nil {
+	if files, err := pg.genDotNetFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
 		return err
 	}
-	writeFiles(files, outputDir)
 	return nil
 }
 
