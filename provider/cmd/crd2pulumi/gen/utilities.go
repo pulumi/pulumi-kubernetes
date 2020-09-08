@@ -33,18 +33,20 @@ import (
 // UnmarshalYamls unmarshals the YAML documents in the given file into a slice
 // of unstruct.Unstructureds, one for each CRD. Returns an error if any
 // document failed to unmarshal.
-func UnmarshalYamls(yamlFile []byte) ([]unstruct.Unstructured, error) {
-	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(bytes.NewReader(yamlFile)), 128)
+func UnmarshalYamls(yamlFiles [][]byte) ([]unstruct.Unstructured, error) {
 	var err error
 	var crds []unstruct.Unstructured
 
-	for err != io.EOF {
-		var value map[string]interface{}
-		if err = dec.Decode(&value); err != nil && err != io.EOF {
-			return nil, errors.Wrap(err, "failed to unmarshal yaml")
-		}
-		if value != nil {
-			crds = append(crds, unstruct.Unstructured{Object: value})
+	for _, yamlFile := range yamlFiles {
+		dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(bytes.NewReader(yamlFile)), 128)
+		for err != io.EOF {
+			var value map[string]interface{}
+			if err = dec.Decode(&value); err != nil && err != io.EOF {
+				return nil, errors.Wrap(err, "failed to unmarshal yaml")
+			}
+			if value != nil {
+				crds = append(crds, unstruct.Unstructured{Object: value})
+			}
 		}
 	}
 
@@ -118,9 +120,9 @@ func toInterfaceSlice(stringSlice []string) interface{} {
 	return genericSlice
 }
 
-// jsonPrint prints out an unstructured value as a properly formatted and
+// JSONPrint prints out an unstructured value as a properly formatted and
 // indented JSON string
-func jsonPrint(v interface{}) (err error) {
+func JSONPrint(v interface{}) (err error) {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err == nil {
 		fmt.Println(string(b))

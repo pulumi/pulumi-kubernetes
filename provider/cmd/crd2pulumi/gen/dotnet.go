@@ -16,12 +16,10 @@ package gen
 
 import (
 	"bytes"
-	"fmt"
 	"strings"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/dotnet"
-	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 )
 
 var unneededDotNetFiles = []string{
@@ -32,18 +30,17 @@ var unneededDotNetFiles = []string{
 	"Provider.cs",
 }
 
-func (pg *PackageGenerator) genDotNet(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
-	// For some reason, the Metadata input type would be generated as
-	// `ObjectMeta` instead of `ObjectMetaArgs` if we did not have an actual
-	// ObjectMeta type defined. So we'll create a placeholder metadata spec
-	// in the Pulumi schema, and then manually remove the generated files for
-	// the type later.
-	AddPlaceholderMetadataSpec(types)
-
-	pkg, err := getPackage(types, baseRefs)
-	if err != nil {
-		fmt.Print(errors.Wrap(err, "could not create package"))
+func (pg *PackageGenerator) genDotNet(outputDir string) error {
+	if files, err := pg.genDotNetFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
+		return err
 	}
+	return nil
+}
+
+func (pg *PackageGenerator) genDotNetFiles() (map[string]*bytes.Buffer, error) {
+	pkg := pg.SchemaPackageWithObjectMetaType()
 
 	// Set up C# namespaces
 	namespaces := map[string]string{}
@@ -72,6 +69,8 @@ func (pg *PackageGenerator) genDotNet(types map[string]pschema.ObjectTypeSpec, b
 	if err != nil {
 		return nil, errors.Wrap(err, "could not generate .NET package")
 	}
+
+	delete(pkg.Language, "chsarp")
 
 	files["KubernetesResource.cs"] = []byte(kubernetesResource)
 	files["Utilities.cs"] = []byte(dotNetUtilities)

@@ -22,21 +22,26 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
-	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
-const metaPath = "meta/v1.ts"
-const metaFile = `import * as k8s from "@pulumi/kubernetes";
+const nodejsMetaPath = "meta/v1.ts"
+const nodejsMetaFile = `import * as k8s from "@pulumi/kubernetes";
 
 export type ObjectMeta = k8s.types.input.meta.v1.ObjectMeta;
 `
 
-func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
-	pkg, err := getPackage(types, baseRefs)
-	if err != nil {
-		return nil, errors.Wrap(err, "could not create package")
+func (pg *PackageGenerator) genNodeJS(outputDir string) error {
+	if files, err := pg.genNodeJSFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
+		return err
 	}
+	return nil
+}
+
+func (pg *PackageGenerator) genNodeJSFiles() (map[string]*bytes.Buffer, error) {
+	pkg := pg.SchemaPackage()
 
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"moduleToPackage": pg.moduleToPackage(),
@@ -47,16 +52,23 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 		return nil, errors.Wrap(err, "could not generate nodejs package")
 	}
 
-	// Search and replace ${VERSION} with 2.0.0 in package.json, so the
-	// resources can be properly registered
+	delete(pkg.Language, NodeJS)
+
+	// Search and replace ${VERSION} with the crd2pulumi version in package.json, so the resources can be properly
+	// registered
 	packageJSON, ok := files["package.json"]
 	if !ok {
 		return nil, errors.New("cannot find generated package.json")
 	}
-	files["package.json"] = bytes.ReplaceAll(packageJSON, []byte("${VERSION}"), []byte("2.0.0"))
+	files["package.json"] = bytes.ReplaceAll(packageJSON, []byte("${VERSION}"), []byte(Version))
 
-	// Create a helper 'meta/v1.ts' script that just exports the ObjectMeta class
-	files[metaPath] = []byte(metaFile)
+	// Create a helper `meta/v1.ts` script that exports the ObjectMeta class from the SDK. If there happens to already
+	// be a `meta/v1.ts` file, then just append the script.
+	if code, ok := files[nodejsMetaPath]; !ok {
+		files[nodejsMetaPath] = []byte(nodejsMetaFile)
+	} else {
+		files[nodejsMetaPath] = append(code, []byte("\n"+nodejsMetaFile)...)
+	}
 
 	buffers := map[string]*bytes.Buffer{}
 	for name, code := range files {
@@ -66,12 +78,27 @@ func (pg *PackageGenerator) genNodeJS(types map[string]pschema.ObjectTypeSpec, b
 	// Generates CustomResourceDefinition constructors. Soon this will be
 	// replaced with `kube2pulumi`
 	for _, crg := range pg.CustomResourceGenerators {
-		path := filepath.Join(groupPrefix(crg.Group), toLowerFirst(crg.Kind)+"Definition.ts")
+		definitionFileName := toLowerFirst(crg.Kind) + "Definition"
+
+		// Create the customResourceDefinition.ts class
+		path := filepath.Join(groupPrefix(crg.Group), definitionFileName+".ts")
 		_, ok := buffers[path]
 		contract.Assertf(!ok, "duplicate file at %s", path)
 		buffer := &bytes.Buffer{}
 		crg.genNodeJSDefinition(buffer)
 		buffers[path] = buffer
+
+		// Export in the index.ts file
+		indexPath := filepath.Join(filepath.Dir(path), "index.ts")
+		indexBuffer := buffers[indexPath]
+		definitionClassName := crg.Kind + "Definition"
+		exportCode := fmt.Sprintf(
+			"import {%s} from \"./%s\";\nexport {%s};\n",
+			definitionClassName,
+			definitionFileName,
+			definitionClassName,
+		)
+		indexBuffer.WriteString(exportCode)
 	}
 
 	return buffers, nil

@@ -20,24 +20,32 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v2/codegen/python"
-	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 
 const pythonPackageDir = "pulumi_" + packageName
+const pythonMetaFile = `from pulumi_kubernetes.meta.v1._inputs import *
+import pulumi_kubernetes.meta.v1.outputs
+`
 
 var unneededPythonFiles = []string{
 	filepath.Join(pythonPackageDir, "README.md"),
-	filepath.Join(pythonPackageDir, "provider.py"),
 	"setup.py",
 }
 
-func (pg *PackageGenerator) genPython(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
-	pkg, err := getPackage(types, baseRefs)
-	if err != nil {
-		return nil, errors.Wrapf(err, "generating package")
+func (pg *PackageGenerator) genPython(outputDir string) error {
+	if files, err := pg.genPythonFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
+		return err
 	}
-	pkg.Language["python"] = rawMessage(map[string]interface{}{
+	return nil
+}
+
+func (pg *PackageGenerator) genPythonFiles() (map[string]*bytes.Buffer, error) {
+	pkg := pg.SchemaPackageWithObjectMetaType()
+
+	pkg.Language[Python] = rawMessage(map[string]interface{}{
 		"compatibility":       "kubernetes20",
 		"moduleNameOverrides": pg.moduleToPackage(),
 		"requires": map[string]string{
@@ -53,16 +61,24 @@ func (pg *PackageGenerator) genPython(types map[string]pschema.ObjectTypeSpec, b
 		return nil, errors.Wrap(err, "could not generate Go package")
 	}
 
+	delete(pkg.Language, Python)
+
 	// Remove unneeded files
 	for _, unneededFile := range unneededPythonFiles {
 		delete(files, unneededFile)
 	}
 
 	// Replace _utilities.py with our own hard-coded version
-	utilitiesPath := filepath.Join("pulumi_"+packageName, "_utilities.py")
+	utilitiesPath := filepath.Join(pythonPackageDir, "_utilities.py")
 	_, ok := files[utilitiesPath]
 	contract.Assertf(ok, "missing _utilities.py file")
 	files[utilitiesPath] = []byte(pythonUtilitiesFile)
+
+	// Import the actual SDK ObjectMeta types in place of our placeholder ones
+	metaPath := filepath.Join(pythonPackageDir, "meta_v1", "__init__.py")
+	code, ok := files[metaPath]
+	contract.Assertf(ok, "missing meta_v1/__init__.py file")
+	files[metaPath] = append(code, []byte(pythonMetaFile)...)
 
 	buffers := map[string]*bytes.Buffer{}
 	for name, code := range files {

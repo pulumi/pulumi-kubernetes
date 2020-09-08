@@ -20,7 +20,6 @@ import (
 
 	"github.com/pkg/errors"
 	go_gen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
-	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 )
 
 var unneededGoFiles = []string{
@@ -29,19 +28,17 @@ var unneededGoFiles = []string{
 	"meta/v1/pulumiTypes.go",
 }
 
-func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseRefs []string) (map[string]*bytes.Buffer, error) {
-	// Add a fake "#/types/kubernetes:meta/v1:ObjectMeta" ref, so the codegen
-	// can properly import ObjectMeta. The Go codegen currently can't import
-	// from external packages
-	AddPlaceholderMetadataSpec(types)
-
-	// Generate the package
-	pkg, err := getPackage(types, baseRefs)
-	if err != nil {
-		return nil, errors.Wrapf(err, "generating package")
+func (pg *PackageGenerator) genGo(outputDir string) error {
+	if files, err := pg.genGoFiles(); err != nil {
+		return err
+	} else if err := writeFiles(files, outputDir); err != nil {
+		return err
 	}
-	// We added a fake Metadata spec so we hard-code its import to point to its
-	// actual package
+	return nil
+}
+
+func (pg *PackageGenerator) genGoFiles() (map[string]*bytes.Buffer, error) {
+	pkg := pg.SchemaPackageWithObjectMetaType()
 
 	moduleToPackage := pg.moduleToPackage()
 	moduleToPackage["meta/v1"] = "meta/v1"
@@ -57,6 +54,8 @@ func (pg *PackageGenerator) genGo(types map[string]pschema.ObjectTypeSpec, baseR
 	if err != nil {
 		return nil, errors.Wrap(err, "could not generate Go package")
 	}
+
+	delete(pkg.Language, Go)
 
 	buffers := map[string]*bytes.Buffer{}
 
