@@ -8,6 +8,7 @@ import pulumi
 import pulumi.runtime
 from pulumi import ResourceOptions
 
+from .. import meta as _meta
 from .. import _utilities, _tables
 
 
@@ -17,7 +18,7 @@ class CustomResource(pulumi.CustomResource):
                  api_version: str,
                  kind: str,
                  spec: Optional[pulumi.Input[Any]] = None,
-                 metadata: Optional[pulumi.Input[Any]] = None,
+                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  __name__=None,
                  __opts__=None):
@@ -34,8 +35,8 @@ class CustomResource(pulumi.CustomResource):
         :param str kind: The kind of the apiextensions.CustomResource we wish to select,
                as specified by the CustomResourceDefinition that defines it on the API server.
         :param Optional[pulumi.Input[Any]] spec: Specification of the CustomResource.
-        :param Optional[pulumi.Input[Any]] metadata: Standard object metadata; More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+        :param Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] metadata: Standard object metadata;
+               More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
         :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
                resource's behavior.
         """
