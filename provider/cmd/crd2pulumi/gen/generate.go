@@ -41,8 +41,8 @@ const (
 	v1      string = "apiextensions.k8s.io/v1"
 )
 
-// Version specifies the crd2pulumi version.
-var Version = "1.0.2"
+// Version specifies the crd2pulumi version. It should be set by the linker via LDFLAGS.
+var Version string
 
 // LanguageSettings contains the output paths for each language. If a path is
 // null, then that language will not be generated at all.
@@ -55,25 +55,25 @@ type LanguageSettings struct {
 
 // Returns true if at least one of the language-specific output paths already exists. If true, then a slice of the
 // paths that already exist are also returned.
-func (ls LanguageSettings) pathsAlreadyExists() (bool, []string) {
+func (ls LanguageSettings) hasExistingPaths() (bool, []string) {
 	pathExists := func(path string) bool {
 		_, err := os.Stat(path)
 		return !os.IsNotExist(err)
 	}
-	var pathsThatAlreadyExist []string
+	var existingPaths []string
 	if ls.NodeJSPath != nil && pathExists(*ls.NodeJSPath) {
-		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.NodeJSPath)
+		existingPaths = append(existingPaths, *ls.NodeJSPath)
 	}
 	if ls.PythonPath != nil && pathExists(*ls.PythonPath) {
-		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.PythonPath)
+		existingPaths = append(existingPaths, *ls.PythonPath)
 	}
 	if ls.DotNetPath != nil && pathExists(*ls.DotNetPath) {
-		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.DotNetPath)
+		existingPaths = append(existingPaths, *ls.DotNetPath)
 	}
 	if ls.GoPath != nil && pathExists(*ls.GoPath) {
-		pathsThatAlreadyExist = append(pathsThatAlreadyExist, *ls.GoPath)
+		existingPaths = append(existingPaths, *ls.GoPath)
 	}
-	return len(pathsThatAlreadyExist) > 0, pathsThatAlreadyExist
+	return len(existingPaths) > 0, existingPaths
 }
 
 // Generate parses the CRDs at the given yamlPaths and outputs the generated
@@ -81,7 +81,7 @@ func (ls LanguageSettings) pathsAlreadyExists() (bool, []string) {
 // force is true.
 func Generate(ls LanguageSettings, yamlPaths []string, force bool) error {
 	if !force {
-		if exists, paths := ls.pathsAlreadyExists(); exists {
+		if exists, paths := ls.hasExistingPaths(); exists {
 			return errors.Errorf("path(s) %s already exists; use --force to overwrite", paths)
 		}
 	}
