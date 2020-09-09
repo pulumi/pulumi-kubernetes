@@ -78,6 +78,23 @@ func TestGo(t *testing.T) {
 		})
 	})
 
+	t.Run("Helm API Versions", func(t *testing.T) {
+		integration.ProgramTest(t, &integration.ProgramTestOptions{
+			Dir: filepath.Join("helm-api-versions", "step1"),
+			Dependencies: []string{
+				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+			},
+			Quick: true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join("helm-api-versions", "step2"),
+					Additive:        true,
+					ExpectNoChanges: true,
+				},
+			},
+		})
+	})
+
 	t.Run("Kustomize", func(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
 			Dir: "kustomize",

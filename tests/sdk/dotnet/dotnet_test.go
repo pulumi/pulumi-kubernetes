@@ -111,7 +111,7 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
 		},
 	})
 }

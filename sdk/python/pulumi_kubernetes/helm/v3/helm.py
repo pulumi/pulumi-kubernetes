@@ -378,11 +378,17 @@ class BaseChartOpts:
     Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
     """
 
+    api_versions: Optional[List[pulumi.Input[str]]]
+    """
+    Optional kubernetes api versions used for Capabilities.APIVersions.
+    """
+
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
-                 resource_prefix: Optional[str] = None):
+                 resource_prefix: Optional[str] = None,
+                 api_versions: Optional[List[pulumi.Input[str]]] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
@@ -391,11 +397,14 @@ class BaseChartOpts:
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        :param Optional[List[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
+               Capabilities.APIVersions.
         """
         self.namespace = namespace
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix
+        self.api_versions = api_versions
 
     def to_json(self):
         return pulumi.Output.from_input(self.__dict__).apply(
@@ -438,7 +447,8 @@ class ChartOpts(BaseChartOpts):
                  resource_prefix: Optional[str] = None,
                  repo: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
-                 fetch_opts: Optional[pulumi.Input[FetchOpts]] = None):
+                 fetch_opts: Optional[pulumi.Input[FetchOpts]] = None,
+                 api_versions: Optional[List[pulumi.Input[str]]] = None):
         """
         :param pulumi.Input[str] chart: The name of the chart to deploy.  If `repo` is provided, this chart name
                will be prefixed by the repo name.
@@ -457,8 +467,10 @@ class ChartOpts(BaseChartOpts):
                the latest version will be deployed.
         :param Optional[pulumi.Input[FetchOpts]] fetch_opts: Additional options to customize the
                fetching of the Helm chart.
+        :param Optional[List[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
+               Capabilities.APIVersions.
         """
-        super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix)
+        super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions)
         self.chart = chart
         self.repo = repo
         self.version = version
@@ -480,7 +492,8 @@ class LocalChartOpts(BaseChartOpts):
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
-                 resource_prefix: Optional[str] = None):
+                 resource_prefix: Optional[str] = None,
+                 api_versions: Optional[List[pulumi.Input[str]]] = None):
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
@@ -491,9 +504,11 @@ class LocalChartOpts(BaseChartOpts):
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        :param Optional[List[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
+               Capabilities.APIVersions.
         """
 
-        super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix)
+        super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions)
         self.path = path
 
 
