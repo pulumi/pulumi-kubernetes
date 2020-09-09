@@ -1,5 +1,11 @@
 ## HEAD (Unreleased)
 
+## 2.6.0 (September 10, 2020)
+
+Note: There is a minor breaking change in the .NET SDK for Helm v3. As part of the switch to using native
+Helm libraries in #1291, the Helm.V3.Chart class no longer inherits from the ChartBase class. Most users should
+not be affected by this change.
+
 ### Bug Fixes
 
 -   Upgrade version of pyyaml to fix a [security vulnerability](https://nvd.nist.gov/vuln/detail/CVE-2019-20477) (https://github.com/pulumi/pulumi-kubernetes/pull/1230)
