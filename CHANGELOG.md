@@ -3,6 +3,7 @@
 ### Bug Fixes
 
 -   Upgrade version of pyyaml to fix a [security vulnerability](https://nvd.nist.gov/vuln/detail/CVE-2019-20477) (https://github.com/pulumi/pulumi-kubernetes/pull/1230)
+-   Fix Helm api-versions handling in all SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1307)
 
 ### Improvements
 
