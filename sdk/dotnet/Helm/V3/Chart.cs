@@ -16,7 +16,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
@@ -353,7 +352,6 @@ namespace Pulumi.Kubernetes.Helm.V3
                 };
             }
             jsonOptsString = JsonSerializer.Serialize(jsonOpts, serializeOptions);
-            Console.WriteLine(jsonOptsString);
 
             return Invokes
                 .HelmTemplate(new HelmTemplateArgs { JsonOpts = jsonOptsString })
