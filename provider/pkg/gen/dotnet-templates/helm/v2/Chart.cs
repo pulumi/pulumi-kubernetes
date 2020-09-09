@@ -223,7 +223,7 @@ namespace Pulumi.Kubernetes.Helm.V2
         /// Create a Chart resource with the given unique name, arguments, and options.
         /// </summary>
         ///
-        /// <param name="name">The unique name of the resource</param>
+        /// <param name="releaseName">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Chart(string releaseName, Union<ChartArgs, LocalChartArgs> args, ComponentResourceOptions? options = null)

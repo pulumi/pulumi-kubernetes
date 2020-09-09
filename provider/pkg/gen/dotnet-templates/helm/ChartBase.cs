@@ -83,7 +83,7 @@ namespace Pulumi.Kubernetes.Helm
                         fetchOptions.Destination = chartDirectoryName;
                         fetchOptions.Version = cfg.Version;
                         Fetch(chartToFetch, fetchOptions);
-                        // Sort the directories into alphabetical order, and choose the first 
+                        // Sort the directories into alphabetical order, and choose the first
                         var fetchedChart = chartDirectory.GetDirectories().OrderBy(x => x.Name).ToArray()[0];
                         var fetchedChartName = fetchedChart.Name;
                         chart = fetchedChart.FullName;
@@ -162,7 +162,7 @@ namespace Pulumi.Kubernetes.Helm
         private static bool IsHelmV3()
         {
             var env = new Dictionary<string, string>();
-            string[] flags = {"version", "--short"};
+            string[] flags = { "version", "--short" };
 
             // Helm v2 returns version like this:
             // Client: v2.16.7+g5f2584f
@@ -262,7 +262,7 @@ namespace Pulumi.Kubernetes.Helm
             List<TransformationAction> transformations, string? resourcePrefix, ImmutableHashSet<Resource> dependsOn,
             string? defaultNamespace)
         {
-            return Invokes
+            return Yaml.Invokes
                 .YamlDecode(new YamlDecodeArgs { Text = text, DefaultNamespace = defaultNamespace })
                 .Apply(objs =>
                 {
@@ -276,7 +276,7 @@ namespace Pulumi.Kubernetes.Helm
                     return Parser.Parse(args, opts);
                 });
         }
-        
+
         private static string ExecuteCommand(string command, string[] flags, IDictionary<string, string> env)
         {
             using var process = new Process

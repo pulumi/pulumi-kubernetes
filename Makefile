@@ -54,6 +54,7 @@ k8sprovider:: $(SCHEMA_FILE)
 
 dotnet_sdk:: k8sgen $(OPENAPI_FILE)
 	$(CODEGEN) -version=${VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
+	rm -rf sdk/dotnet/bin/Debug
 	cd ${PACKDIR}/dotnet/&& \
 		echo "${VERSION:v%=%}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
@@ -102,7 +103,7 @@ install::
 		yarn link
 	echo "Copying ${NUGET_PKG_NAME} NuGet packages to ${PULUMI_NUGET}"
 	mkdir -p $(PULUMI_NUGET)
-	rm -rf "$(PULUMI_NUGET)/$(NUGET_PKG_NAME).*.nupkg"
+	rm -rf $(PULUMI_NUGET)/$(NUGET_PKG_NAME).*.nupkg
 	find . -name '$(NUGET_PKG_NAME).*.nupkg' -exec cp -p {} ${PULUMI_NUGET} \;
 
 test_fast::

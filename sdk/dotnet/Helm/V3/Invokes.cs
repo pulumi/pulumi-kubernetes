@@ -17,35 +17,32 @@
 
 using System.Collections.Immutable;
 
-namespace Pulumi.Kubernetes.Yaml
+namespace Pulumi.Kubernetes.Helm
 {
     internal static class Invokes
     {
         /// <summary>
-        /// Invoke the resource provider to decode a YAML string.
+        /// Invoke the resource provider to fetch a Helm Chart, expand it into YAML, and return the corresponding objects.
         /// </summary>
-        internal static Output<ImmutableArray<ImmutableDictionary<string, object>>> YamlDecode(YamlDecodeArgs args,
+        internal static Output<ImmutableArray<ImmutableDictionary<string, object>>> HelmTemplate(HelmTemplateArgs args,
             InvokeOptions? options = null)
-            => Output.Create(Deployment.Instance.InvokeAsync<YamlDecodeResult>("kubernetes:yaml:decode", args,
+            => Output.Create(Deployment.Instance.InvokeAsync<HelmTemplateResult>("kubernetes:helm:template", args,
                 options.WithVersion())).Apply(r => r.Result.ToImmutableArray());
     }
 
-    internal class YamlDecodeArgs : InvokeArgs
+    internal class HelmTemplateArgs : InvokeArgs
     {
-        [Input("text")]
-        public string? Text { get; set; }
-
-        [Input("defaultNamespace")]
-        public string? DefaultNamespace { get; set; }
+        [Input("jsonOpts")]
+        public string? JsonOpts { get; set; }
     }
 
     [OutputType]
-    internal class YamlDecodeResult
+    internal class HelmTemplateResult
     {
         public readonly ImmutableArray<ImmutableDictionary<string, object>> Result;
 
         [OutputConstructor]
-        private YamlDecodeResult(
+        private HelmTemplateResult(
             ImmutableArray<ImmutableDictionary<string, object>> result)
         {
             Result = result;
