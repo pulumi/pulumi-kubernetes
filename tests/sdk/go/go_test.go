@@ -15,6 +15,7 @@
 package test
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
@@ -45,21 +46,35 @@ func TestGo(t *testing.T) {
 
 	t.Run("Helm Local", func(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
-			Dir: "helm-local",
+			Dir: filepath.Join("helm-local", "step1"),
 			Dependencies: []string{
 				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 			},
 			Quick: true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join("helm-local", "step2"),
+					Additive:        true,
+					ExpectNoChanges: true,
+				},
+			},
 		})
 	})
 
 	t.Run("Helm Remote", func(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
-			Dir: "helm",
+			Dir: filepath.Join("helm", "step1"),
 			Dependencies: []string{
 				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
 			},
 			Quick: true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join("helm", "step2"),
+					Additive:        true,
+					ExpectNoChanges: true,
+				},
+			},
 		})
 	})
 
