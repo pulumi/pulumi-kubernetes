@@ -591,7 +591,9 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     file = open(overrides, 'w')
     pulumi.Output.all(file, data).apply(_write_override_file)
 
-    apiversions_arg = [f'--api-versions={version}' for version in config.api_versions if config.api_versions]
+    apiversions_arg = []
+    if config.api_versions is not None:
+        apiversions_arg = [f'--api-versions={version}' for version in config.api_versions]
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
     crd_arg = ['--include-crds'] if _is_helm_v3() else []
 
