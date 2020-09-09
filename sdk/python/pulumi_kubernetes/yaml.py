@@ -5,7 +5,7 @@ import json
 import warnings
 from copy import copy
 from glob import glob
-from inspect import getargspec
+from inspect import getfullargspec
 from typing import Any, Callable, Dict, List, Optional
 
 import pulumi
@@ -420,7 +420,7 @@ def _parse_yaml_object(
     # Allow users to change API objects before any validation.
     if transformations is not None:
         for t in transformations:
-            if len(getargspec(t)[0]) == 2:
+            if len(getfullargspec(t)[0]) == 2:
                 t(obj, opts)
             else:
                 t(obj)
