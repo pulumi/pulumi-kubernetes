@@ -58,23 +58,25 @@ func (pg *PackageGenerator) GetTypes() map[string]pschema.ObjectTypeSpec {
 	for _, crg := range pg.CustomResourceGenerators {
 		for version, schema := range crg.Schemas {
 			resourceToken := getToken(crg.Group, version, crg.Kind)
-			AddType(schema, resourceToken, types)
-			types[resourceToken].Properties["apiVersion"] = pschema.PropertySpec{
-				TypeSpec: pschema.TypeSpec{
-					Type: "string",
-				},
-				Const: crg.Group + "/" + version,
-			}
-			types[resourceToken].Properties["kind"] = pschema.PropertySpec{
-				TypeSpec: pschema.TypeSpec{
-					Type: "string",
-				},
-				Const: crg.Kind,
-			}
-			types[resourceToken].Properties["metadata"] = pschema.PropertySpec{
-				TypeSpec: pschema.TypeSpec{
-					Ref: objectMetaRef,
-				},
+
+			if AddType(schema, resourceToken, types) {
+				types[resourceToken].Properties["apiVersion"] = pschema.PropertySpec{
+					TypeSpec: pschema.TypeSpec{
+						Type: "string",
+					},
+					Const: crg.Group + "/" + version,
+				}
+				types[resourceToken].Properties["kind"] = pschema.PropertySpec{
+					TypeSpec: pschema.TypeSpec{
+						Type: "string",
+					},
+					Const: crg.Kind,
+				}
+				types[resourceToken].Properties["metadata"] = pschema.PropertySpec{
+					TypeSpec: pschema.TypeSpec{
+						Ref: objectMetaRef,
+					},
+				}
 			}
 		}
 	}
@@ -128,10 +130,10 @@ func isAnyType(typeSpec pschema.TypeSpec) bool {
 // AddType converts the given OpenAPI `schema` to a ObjectTypeSpec and adds it
 // to the `types` map under the given `name`. Recursively converts and adds all
 // nested schemas as well.
-func AddType(schema map[string]interface{}, name string, types map[string]pschema.ObjectTypeSpec) {
+func AddType(schema map[string]interface{}, name string, types map[string]pschema.ObjectTypeSpec) bool {
 	properties, foundProperties, _ := unstruct.NestedMap(schema, "properties")
 	if !foundProperties {
-		return
+		return false
 	}
 
 	description, _, _ := unstruct.NestedString(schema, "description")
@@ -156,6 +158,8 @@ func AddType(schema map[string]interface{}, name string, types map[string]pschem
 		Required:    required,
 		Description: description,
 	}
+
+	return true
 }
 
 // GetTypeSpec returns the corresponding pschema.TypeSpec for a OpenAPI v3
