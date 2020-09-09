@@ -332,6 +332,10 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		helmArgs = append(helmArgs, "--namespace", args.Namespace)
 	}
 
+	for _, version := range args.APIVersions {
+		helmArgs = append(helmArgs, fmt.Sprintf("--api-versions=%s", version))
+	}
+
 	// Check for helm version
 	v3, err := isHelmV3()
 

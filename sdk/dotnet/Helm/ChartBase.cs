@@ -119,8 +119,10 @@ namespace Pulumi.Kubernetes.Helm
                     });
                     if (cfgBase.ApiVersions.Length > 0)
                     {
-                        flags.Add("--api-versions");
-                        flags.Add(string.Join(",", cfgBase.ApiVersions));
+                        foreach (string version in cfgBase.ApiVersions)
+                        {
+                            flags.Add($"--api-versions={version}");
+                        }
                     }
 
                     if (!string.IsNullOrEmpty(cfgBase.Namespace))
