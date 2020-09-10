@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -20,7 +20,7 @@ class StatefulSetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 items: Optional[pulumi.Input[List[pulumi.Input[pulumi.InputType['StatefulSetArgs']]]]] = None,
+                 items: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['StatefulSetArgs']]]]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']]] = None,
                  __props__=None,
@@ -91,7 +91,7 @@ class StatefulSetList(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def items(self) -> pulumi.Output[List['outputs.StatefulSet']]:
+    def items(self) -> pulumi.Output[Sequence['outputs.StatefulSet']]:
         return pulumi.get(self, "items")
 
     @property

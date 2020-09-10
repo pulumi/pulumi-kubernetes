@@ -6,7 +6,7 @@ import warnings
 from copy import copy
 from glob import glob
 from inspect import getfullargspec
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, List, Mapping, Optional, Sequence
 
 import pulumi
 import pulumi.runtime
@@ -26,10 +26,10 @@ class ConfigGroup(pulumi.ComponentResource):
 
     def __init__(self,
                  name: str,
-                 files: Optional[List[str]] = None,
-                 yaml: Optional[List[str]] = None,
+                 files: Optional[Sequence[str]] = None,
+                 yaml: Optional[Sequence[str]] = None,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
+                 transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None):
         """
         ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
@@ -133,10 +133,10 @@ class ConfigGroup(pulumi.ComponentResource):
         ```
 
         :param str name: A name for a resource.
-        :param Optional[List[str]] files: Set of paths or a URLs that uniquely identify files.
-        :param Optional[List[str]] yaml: YAML text containing Kubernetes resource definitions.
+        :param Optional[Sequence[str]] files: Set of paths or a URLs that uniquely identify files.
+        :param Optional[Sequence[str]] yaml: YAML text containing Kubernetes resource definitions.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
+        :param Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
@@ -232,7 +232,7 @@ class ConfigFile(pulumi.ComponentResource):
                  name: str,
                  file: Optional[str] = None,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
+                 transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
                  file_id: Optional[str] = None):
         """
@@ -288,7 +288,7 @@ class ConfigFile(pulumi.ComponentResource):
         :param str name: A name for a resource.
         :param Optional[str] file: Path or a URL that uniquely identifies a file.
         :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
+        :param Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: A set of
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
@@ -381,13 +381,13 @@ def _read_file(path: str) -> str:
     return data
 
 
-def _build_resources_dict(objs: List[pulumi.Output]) -> Dict[pulumi.Output, pulumi.Output]:
+def _build_resources_dict(objs: Sequence[pulumi.Output]) -> Mapping[pulumi.Output, pulumi.Output]:
     return {key: value for key, value in objs}
 
 
 def _parse_yaml_document(
         objects, opts: Optional[pulumi.ResourceOptions] = None,
-        transformations: Optional[List[Callable]] = None,
+        transformations: Optional[Sequence[Callable]] = None,
         resource_prefix: Optional[str] = None
 ) -> pulumi.Output:
     objs = []
@@ -401,7 +401,7 @@ def _parse_yaml_document(
 
 def _parse_yaml_object(
         obj, opts: Optional[pulumi.ResourceOptions] = None,
-        transformations: Optional[List[Callable]] = None,
+        transformations: Optional[Sequence[Callable]] = None,
         resource_prefix: Optional[str] = None
 ) -> [pulumi.Output]:
     """

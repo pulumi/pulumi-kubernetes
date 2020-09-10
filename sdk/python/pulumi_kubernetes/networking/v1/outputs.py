@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -108,16 +108,16 @@ class HTTPIngressRuleValue(dict):
     HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     """
     def __init__(__self__, *,
-                 paths: List['outputs.HTTPIngressPath']):
+                 paths: Sequence['outputs.HTTPIngressPath']):
         """
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
-        :param List['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
+        :param Sequence['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
         """
         pulumi.set(__self__, "paths", paths)
 
     @property
     @pulumi.getter
-    def paths(self) -> List['outputs.HTTPIngressPath']:
+    def paths(self) -> Sequence['outputs.HTTPIngressPath']:
         """
         A collection of paths that map requests to backends.
         """
@@ -134,11 +134,11 @@ class IPBlock(dict):
     """
     def __init__(__self__, *,
                  cidr: str,
-                 except_: Optional[List[str]] = None):
+                 except_: Optional[Sequence[str]] = None):
         """
         IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
         :param str cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
-        :param List[str] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        :param Sequence[str] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
         """
         pulumi.set(__self__, "cidr", cidr)
         if except_ is not None:
@@ -154,7 +154,7 @@ class IPBlock(dict):
 
     @property
     @pulumi.getter(name="except")
-    def except_(self) -> Optional[List[str]]:
+    def except_(self) -> Optional[Sequence[str]]:
         """
         Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
         """
@@ -497,14 +497,14 @@ class IngressSpec(dict):
     def __init__(__self__, *,
                  default_backend: Optional['outputs.IngressBackend'] = None,
                  ingress_class_name: Optional[str] = None,
-                 rules: Optional[List['outputs.IngressRule']] = None,
-                 tls: Optional[List['outputs.IngressTLS']] = None):
+                 rules: Optional[Sequence['outputs.IngressRule']] = None,
+                 tls: Optional[Sequence['outputs.IngressTLS']] = None):
         """
         IngressSpec describes the Ingress the user wishes to exist.
         :param 'IngressBackendArgs' default_backend: DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
         :param str ingress_class_name: IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
-        :param List['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
-        :param List['IngressTLSArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+        :param Sequence['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+        :param Sequence['IngressTLSArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
         if default_backend is not None:
             pulumi.set(__self__, "default_backend", default_backend)
@@ -533,7 +533,7 @@ class IngressSpec(dict):
 
     @property
     @pulumi.getter
-    def rules(self) -> Optional[List['outputs.IngressRule']]:
+    def rules(self) -> Optional[Sequence['outputs.IngressRule']]:
         """
         A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         """
@@ -541,7 +541,7 @@ class IngressSpec(dict):
 
     @property
     @pulumi.getter
-    def tls(self) -> Optional[List['outputs.IngressTLS']]:
+    def tls(self) -> Optional[Sequence['outputs.IngressTLS']]:
         """
         TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
@@ -583,11 +583,11 @@ class IngressTLS(dict):
     IngressTLS describes the transport layer security associated with an Ingress.
     """
     def __init__(__self__, *,
-                 hosts: Optional[List[str]] = None,
+                 hosts: Optional[Sequence[str]] = None,
                  secret_name: Optional[str] = None):
         """
         IngressTLS describes the transport layer security associated with an Ingress.
-        :param List[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+        :param Sequence[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param str secret_name: SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
         if hosts is not None:
@@ -597,7 +597,7 @@ class IngressTLS(dict):
 
     @property
     @pulumi.getter
-    def hosts(self) -> Optional[List[str]]:
+    def hosts(self) -> Optional[Sequence[str]]:
         """
         Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         """
@@ -683,12 +683,12 @@ class NetworkPolicyEgressRule(dict):
     NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
     def __init__(__self__, *,
-                 ports: Optional[List['outputs.NetworkPolicyPort']] = None,
-                 to: Optional[List['outputs.NetworkPolicyPeer']] = None):
+                 ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None,
+                 to: Optional[Sequence['outputs.NetworkPolicyPeer']] = None):
         """
         NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
-        :param List['NetworkPolicyPortArgs'] ports: List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
-        :param List['NetworkPolicyPeerArgs'] to: List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+        :param Sequence['NetworkPolicyPortArgs'] ports: List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+        :param Sequence['NetworkPolicyPeerArgs'] to: List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
@@ -697,7 +697,7 @@ class NetworkPolicyEgressRule(dict):
 
     @property
     @pulumi.getter
-    def ports(self) -> Optional[List['outputs.NetworkPolicyPort']]:
+    def ports(self) -> Optional[Sequence['outputs.NetworkPolicyPort']]:
         """
         List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
@@ -705,7 +705,7 @@ class NetworkPolicyEgressRule(dict):
 
     @property
     @pulumi.getter
-    def to(self) -> Optional[List['outputs.NetworkPolicyPeer']]:
+    def to(self) -> Optional[Sequence['outputs.NetworkPolicyPeer']]:
         """
         List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
@@ -721,12 +721,12 @@ class NetworkPolicyIngressRule(dict):
     NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     """
     def __init__(__self__, *,
-                 from_: Optional[List['outputs.NetworkPolicyPeer']] = None,
-                 ports: Optional[List['outputs.NetworkPolicyPort']] = None):
+                 from_: Optional[Sequence['outputs.NetworkPolicyPeer']] = None,
+                 ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None):
         """
         NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
-        :param List['NetworkPolicyPeerArgs'] from_: List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
-        :param List['NetworkPolicyPortArgs'] ports: List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+        :param Sequence['NetworkPolicyPeerArgs'] from_: List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+        :param Sequence['NetworkPolicyPortArgs'] ports: List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
         if from_ is not None:
             pulumi.set(__self__, "from_", from_)
@@ -735,7 +735,7 @@ class NetworkPolicyIngressRule(dict):
 
     @property
     @pulumi.getter(name="from")
-    def from_(self) -> Optional[List['outputs.NetworkPolicyPeer']]:
+    def from_(self) -> Optional[Sequence['outputs.NetworkPolicyPeer']]:
         """
         List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         """
@@ -743,7 +743,7 @@ class NetworkPolicyIngressRule(dict):
 
     @property
     @pulumi.getter
-    def ports(self) -> Optional[List['outputs.NetworkPolicyPort']]:
+    def ports(self) -> Optional[Sequence['outputs.NetworkPolicyPort']]:
         """
         List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
@@ -856,15 +856,15 @@ class NetworkPolicySpec(dict):
     """
     def __init__(__self__, *,
                  pod_selector: '_meta.v1.outputs.LabelSelector',
-                 egress: Optional[List['outputs.NetworkPolicyEgressRule']] = None,
-                 ingress: Optional[List['outputs.NetworkPolicyIngressRule']] = None,
-                 policy_types: Optional[List[str]] = None):
+                 egress: Optional[Sequence['outputs.NetworkPolicyEgressRule']] = None,
+                 ingress: Optional[Sequence['outputs.NetworkPolicyIngressRule']] = None,
+                 policy_types: Optional[Sequence[str]] = None):
         """
         NetworkPolicySpec provides the specification of a NetworkPolicy
         :param '_meta.v1.LabelSelectorArgs' pod_selector: Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-        :param List['NetworkPolicyEgressRuleArgs'] egress: List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
-        :param List['NetworkPolicyIngressRuleArgs'] ingress: List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
-        :param List[str] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+        :param Sequence['NetworkPolicyEgressRuleArgs'] egress: List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+        :param Sequence['NetworkPolicyIngressRuleArgs'] ingress: List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+        :param Sequence[str] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
         pulumi.set(__self__, "pod_selector", pod_selector)
         if egress is not None:
@@ -884,7 +884,7 @@ class NetworkPolicySpec(dict):
 
     @property
     @pulumi.getter
-    def egress(self) -> Optional[List['outputs.NetworkPolicyEgressRule']]:
+    def egress(self) -> Optional[Sequence['outputs.NetworkPolicyEgressRule']]:
         """
         List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
         """
@@ -892,7 +892,7 @@ class NetworkPolicySpec(dict):
 
     @property
     @pulumi.getter
-    def ingress(self) -> Optional[List['outputs.NetworkPolicyIngressRule']]:
+    def ingress(self) -> Optional[Sequence['outputs.NetworkPolicyIngressRule']]:
         """
         List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
         """
@@ -900,7 +900,7 @@ class NetworkPolicySpec(dict):
 
     @property
     @pulumi.getter(name="policyTypes")
-    def policy_types(self) -> Optional[List[str]]:
+    def policy_types(self) -> Optional[Sequence[str]]:
         """
         List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """

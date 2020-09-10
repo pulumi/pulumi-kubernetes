@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import meta as _meta
 
@@ -206,17 +206,17 @@ class CertificateSigningRequestConditionArgs:
 class CertificateSigningRequestSpecArgs:
     def __init__(__self__, *,
                  request: pulumi.Input[str],
-                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]] = None,
-                 groups: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
+                 groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  signer_name: Optional[pulumi.Input[str]] = None,
                  uid: Optional[pulumi.Input[str]] = None,
-                 usages: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 usages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  username: Optional[pulumi.Input[str]] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
         :param pulumi.Input[str] request: Base64-encoded PKCS#10 CSR data
-        :param pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]] extra: Extra information about the requesting user. See user.Info interface for details.
-        :param pulumi.Input[List[pulumi.Input[str]]] groups: Group information about the requesting user. See user.Info interface for details.
+        :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] extra: Extra information about the requesting user. See user.Info interface for details.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] groups: Group information about the requesting user. See user.Info interface for details.
         :param pulumi.Input[str] signer_name: Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
                 1. If it's a kubelet client certificate, it is assigned
                    "kubernetes.io/kube-apiserver-client-kubelet".
@@ -225,7 +225,7 @@ class CertificateSigningRequestSpecArgs:
                 3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
                Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         :param pulumi.Input[str] uid: UID information about the requesting user. See user.Info interface for details.
-        :param pulumi.Input[List[pulumi.Input[str]]] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
                     https://tools.ietf.org/html/rfc5280#section-4.2.1.12
                Valid values are:
                 "signing",
@@ -281,26 +281,26 @@ class CertificateSigningRequestSpecArgs:
 
     @property
     @pulumi.getter
-    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]]:
+    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]:
         """
         Extra information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "extra")
 
     @extra.setter
-    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]]):
+    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]):
         pulumi.set(self, "extra", value)
 
     @property
     @pulumi.getter
-    def groups(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Group information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "groups")
 
     @groups.setter
-    def groups(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "groups", value)
 
     @property
@@ -335,7 +335,7 @@ class CertificateSigningRequestSpecArgs:
 
     @property
     @pulumi.getter
-    def usages(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def usages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
              https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -367,7 +367,7 @@ class CertificateSigningRequestSpecArgs:
         return pulumi.get(self, "usages")
 
     @usages.setter
-    def usages(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def usages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "usages", value)
 
     @property
@@ -387,10 +387,10 @@ class CertificateSigningRequestSpecArgs:
 class CertificateSigningRequestStatusArgs:
     def __init__(__self__, *,
                  certificate: Optional[pulumi.Input[str]] = None,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
         """
         :param pulumi.Input[str] certificate: If request was approved, the controller will place the issued certificate here.
-        :param pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]] conditions: Conditions applied to the request, such as approval or denial.
+        :param pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]] conditions: Conditions applied to the request, such as approval or denial.
         """
         if certificate is not None:
             pulumi.set(__self__, "certificate", certificate)
@@ -411,14 +411,14 @@ class CertificateSigningRequestStatusArgs:
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
         """
         Conditions applied to the request, such as approval or denial.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 

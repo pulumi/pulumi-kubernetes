@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import meta as _meta
 
@@ -129,11 +129,11 @@ class AuditSinkSpecArgs:
 class PolicyArgs:
     def __init__(__self__, *,
                  level: pulumi.Input[str],
-                 stages: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None):
+                 stages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Policy defines the configuration of how audit events are logged
         :param pulumi.Input[str] level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
-        :param pulumi.Input[List[pulumi.Input[str]]] stages: Stages is a list of stages for which events are created.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] stages: Stages is a list of stages for which events are created.
         """
         pulumi.set(__self__, "level", level)
         if stages is not None:
@@ -153,14 +153,14 @@ class PolicyArgs:
 
     @property
     @pulumi.getter
-    def stages(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def stages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Stages is a list of stages for which events are created.
         """
         return pulumi.get(self, "stages")
 
     @stages.setter
-    def stages(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def stages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "stages", value)
 
 

@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import meta as _meta
 
@@ -237,13 +237,13 @@ class FlowSchemaSpecArgs:
                  priority_level_configuration: pulumi.Input['PriorityLevelConfigurationReferenceArgs'],
                  distinguisher_method: Optional[pulumi.Input['FlowDistinguisherMethodArgs']] = None,
                  matching_precedence: Optional[pulumi.Input[float]] = None,
-                 rules: Optional[pulumi.Input[List[pulumi.Input['PolicyRulesWithSubjectsArgs']]]] = None):
+                 rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]]] = None):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
         :param pulumi.Input['PriorityLevelConfigurationReferenceArgs'] priority_level_configuration: `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
         :param pulumi.Input['FlowDistinguisherMethodArgs'] distinguisher_method: `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
         :param pulumi.Input[float] matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
-        :param pulumi.Input[List[pulumi.Input['PolicyRulesWithSubjectsArgs']]] rules: `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
+        :param pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]] rules: `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
         """
         pulumi.set(__self__, "priority_level_configuration", priority_level_configuration)
         if distinguisher_method is not None:
@@ -291,38 +291,38 @@ class FlowSchemaSpecArgs:
 
     @property
     @pulumi.getter
-    def rules(self) -> Optional[pulumi.Input[List[pulumi.Input['PolicyRulesWithSubjectsArgs']]]]:
+    def rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]]]:
         """
         `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
         """
         return pulumi.get(self, "rules")
 
     @rules.setter
-    def rules(self, value: Optional[pulumi.Input[List[pulumi.Input['PolicyRulesWithSubjectsArgs']]]]):
+    def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]]]):
         pulumi.set(self, "rules", value)
 
 
 @pulumi.input_type
 class FlowSchemaStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['FlowSchemaConditionArgs']]]] = None):
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgs']]]] = None):
         """
         FlowSchemaStatus represents the current state of a FlowSchema.
-        :param pulumi.Input[List[pulumi.Input['FlowSchemaConditionArgs']]] conditions: `conditions` is a list of the current states of FlowSchema.
+        :param pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgs']]] conditions: `conditions` is a list of the current states of FlowSchema.
         """
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['FlowSchemaConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgs']]]]:
         """
         `conditions` is a list of the current states of FlowSchema.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['FlowSchemaConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 
@@ -441,25 +441,25 @@ class LimitedPriorityLevelConfigurationArgs:
 @pulumi.input_type
 class NonResourcePolicyRuleArgs:
     def __init__(__self__, *,
-                 non_resource_urls: pulumi.Input[List[pulumi.Input[str]]],
-                 verbs: pulumi.Input[List[pulumi.Input[str]]]):
+                 non_resource_urls: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 verbs: pulumi.Input[Sequence[pulumi.Input[str]]]):
         """
         NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
-        :param pulumi.Input[List[pulumi.Input[str]]] non_resource_urls: `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] non_resource_urls: `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
                  - "/healthz" is legal
                  - "/hea*" is illegal
                  - "/hea" is legal but matches nothing
                  - "/hea/*" also matches nothing
                  - "/healthz/*" matches all per-component health checks.
                "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
-        :param pulumi.Input[List[pulumi.Input[str]]] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
         """
         pulumi.set(__self__, "non_resource_urls", non_resource_urls)
         pulumi.set(__self__, "verbs", verbs)
 
     @property
     @pulumi.getter(name="nonResourceURLs")
-    def non_resource_urls(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def non_resource_urls(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
           - "/healthz" is legal
@@ -472,33 +472,33 @@ class NonResourcePolicyRuleArgs:
         return pulumi.get(self, "non_resource_urls")
 
     @non_resource_urls.setter
-    def non_resource_urls(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def non_resource_urls(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "non_resource_urls", value)
 
     @property
     @pulumi.getter
-    def verbs(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def verbs(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
         """
         return pulumi.get(self, "verbs")
 
     @verbs.setter
-    def verbs(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def verbs(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "verbs", value)
 
 
 @pulumi.input_type
 class PolicyRulesWithSubjectsArgs:
     def __init__(__self__, *,
-                 subjects: pulumi.Input[List[pulumi.Input['SubjectArgs']]],
-                 non_resource_rules: Optional[pulumi.Input[List[pulumi.Input['NonResourcePolicyRuleArgs']]]] = None,
-                 resource_rules: Optional[pulumi.Input[List[pulumi.Input['ResourcePolicyRuleArgs']]]] = None):
+                 subjects: pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]],
+                 non_resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRuleArgs']]]] = None,
+                 resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]]] = None):
         """
         PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
-        :param pulumi.Input[List[pulumi.Input['SubjectArgs']]] subjects: subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
-        :param pulumi.Input[List[pulumi.Input['NonResourcePolicyRuleArgs']]] non_resource_rules: `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
-        :param pulumi.Input[List[pulumi.Input['ResourcePolicyRuleArgs']]] resource_rules: `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
+        :param pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]] subjects: subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
+        :param pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRuleArgs']]] non_resource_rules: `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
+        :param pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]] resource_rules: `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
         """
         pulumi.set(__self__, "subjects", subjects)
         if non_resource_rules is not None:
@@ -508,38 +508,38 @@ class PolicyRulesWithSubjectsArgs:
 
     @property
     @pulumi.getter
-    def subjects(self) -> pulumi.Input[List[pulumi.Input['SubjectArgs']]]:
+    def subjects(self) -> pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]:
         """
         subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
         """
         return pulumi.get(self, "subjects")
 
     @subjects.setter
-    def subjects(self, value: pulumi.Input[List[pulumi.Input['SubjectArgs']]]):
+    def subjects(self, value: pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]):
         pulumi.set(self, "subjects", value)
 
     @property
     @pulumi.getter(name="nonResourceRules")
-    def non_resource_rules(self) -> Optional[pulumi.Input[List[pulumi.Input['NonResourcePolicyRuleArgs']]]]:
+    def non_resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRuleArgs']]]]:
         """
         `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
         """
         return pulumi.get(self, "non_resource_rules")
 
     @non_resource_rules.setter
-    def non_resource_rules(self, value: Optional[pulumi.Input[List[pulumi.Input['NonResourcePolicyRuleArgs']]]]):
+    def non_resource_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRuleArgs']]]]):
         pulumi.set(self, "non_resource_rules", value)
 
     @property
     @pulumi.getter(name="resourceRules")
-    def resource_rules(self) -> Optional[pulumi.Input[List[pulumi.Input['ResourcePolicyRuleArgs']]]]:
+    def resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]]]:
         """
         `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
         """
         return pulumi.get(self, "resource_rules")
 
     @resource_rules.setter
-    def resource_rules(self, value: Optional[pulumi.Input[List[pulumi.Input['ResourcePolicyRuleArgs']]]]):
+    def resource_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]]]):
         pulumi.set(self, "resource_rules", value)
 
 
@@ -784,24 +784,24 @@ class PriorityLevelConfigurationSpecArgs:
 @pulumi.input_type
 class PriorityLevelConfigurationStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]] = None):
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]] = None):
         """
         PriorityLevelConfigurationStatus represents the current state of a "request-priority".
-        :param pulumi.Input[List[pulumi.Input['PriorityLevelConfigurationConditionArgs']]] conditions: `conditions` is the current state of "request-priority".
+        :param pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]] conditions: `conditions` is the current state of "request-priority".
         """
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]]:
         """
         `conditions` is the current state of "request-priority".
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 
@@ -864,18 +864,18 @@ class QueuingConfigurationArgs:
 @pulumi.input_type
 class ResourcePolicyRuleArgs:
     def __init__(__self__, *,
-                 api_groups: pulumi.Input[List[pulumi.Input[str]]],
-                 resources: pulumi.Input[List[pulumi.Input[str]]],
-                 verbs: pulumi.Input[List[pulumi.Input[str]]],
+                 api_groups: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 resources: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 verbs: pulumi.Input[Sequence[pulumi.Input[str]]],
                  cluster_scope: Optional[pulumi.Input[bool]] = None,
-                 namespaces: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None):
+                 namespaces: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
-        :param pulumi.Input[List[pulumi.Input[str]]] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
-        :param pulumi.Input[List[pulumi.Input[str]]] resources: `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
-        :param pulumi.Input[List[pulumi.Input[str]]] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
         :param pulumi.Input[bool] cluster_scope: `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
-        :param pulumi.Input[List[pulumi.Input[str]]] namespaces: `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] namespaces: `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
         """
         pulumi.set(__self__, "api_groups", api_groups)
         pulumi.set(__self__, "resources", resources)
@@ -887,38 +887,38 @@ class ResourcePolicyRuleArgs:
 
     @property
     @pulumi.getter(name="apiGroups")
-    def api_groups(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def api_groups(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         """
         return pulumi.get(self, "api_groups")
 
     @api_groups.setter
-    def api_groups(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def api_groups(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "api_groups", value)
 
     @property
     @pulumi.getter
-    def resources(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def resources(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
         """
         return pulumi.get(self, "resources")
 
     @resources.setter
-    def resources(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def resources(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "resources", value)
 
     @property
     @pulumi.getter
-    def verbs(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def verbs(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
         """
         return pulumi.get(self, "verbs")
 
     @verbs.setter
-    def verbs(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def verbs(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "verbs", value)
 
     @property
@@ -935,14 +935,14 @@ class ResourcePolicyRuleArgs:
 
     @property
     @pulumi.getter
-    def namespaces(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def namespaces(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
         """
         return pulumi.get(self, "namespaces")
 
     @namespaces.setter
-    def namespaces(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def namespaces(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "namespaces", value)
 
 

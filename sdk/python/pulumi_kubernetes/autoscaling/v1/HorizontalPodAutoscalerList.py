@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -19,7 +19,7 @@ class HorizontalPodAutoscalerList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 items: Optional[pulumi.Input[List[pulumi.Input[pulumi.InputType['HorizontalPodAutoscalerArgs']]]]] = None,
+                 items: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['HorizontalPodAutoscalerArgs']]]]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']]] = None,
                  __props__=None,
@@ -31,7 +31,7 @@ class HorizontalPodAutoscalerList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[List[pulumi.Input[pulumi.InputType['HorizontalPodAutoscalerArgs']]]] items: list of horizontal pod autoscaler objects.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['HorizontalPodAutoscalerArgs']]]] items: list of horizontal pod autoscaler objects.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']] metadata: Standard list metadata.
         """
@@ -92,7 +92,7 @@ class HorizontalPodAutoscalerList(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def items(self) -> pulumi.Output[List['outputs.HorizontalPodAutoscaler']]:
+    def items(self) -> pulumi.Output[Sequence['outputs.HorizontalPodAutoscaler']]:
         """
         list of horizontal pod autoscaler objects.
         """

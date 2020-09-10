@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -210,10 +210,10 @@ class CertificateSigningRequestSpec(dict):
     def __init__(__self__, *,
                  request: str,
                  signer_name: str,
-                 extra: Optional[Mapping[str, List[str]]] = None,
-                 groups: Optional[List[str]] = None,
+                 extra: Optional[Mapping[str, Sequence[str]]] = None,
+                 groups: Optional[Sequence[str]] = None,
                  uid: Optional[str] = None,
-                 usages: Optional[List[str]] = None,
+                 usages: Optional[Sequence[str]] = None,
                  username: Optional[str] = None):
         """
         CertificateSigningRequestSpec contains the certificate request.
@@ -239,10 +239,10 @@ class CertificateSigningRequestSpec(dict):
                 4. Required, permitted, or forbidden key usages / extended key usages.
                 5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
                 6. Whether or not requests for CA certificates are allowed.
-        :param Mapping[str, List[str]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        :param List[str] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        :param Mapping[str, Sequence[str]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        :param Sequence[str] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         :param str uid: uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        :param List[str] usages: usages specifies a set of key usages requested in the issued certificate.
+        :param Sequence[str] usages: usages specifies a set of key usages requested in the issued certificate.
                
                Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
                
@@ -309,7 +309,7 @@ class CertificateSigningRequestSpec(dict):
 
     @property
     @pulumi.getter
-    def extra(self) -> Optional[Mapping[str, List[str]]]:
+    def extra(self) -> Optional[Mapping[str, Sequence[str]]]:
         """
         extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
@@ -317,7 +317,7 @@ class CertificateSigningRequestSpec(dict):
 
     @property
     @pulumi.getter
-    def groups(self) -> Optional[List[str]]:
+    def groups(self) -> Optional[Sequence[str]]:
         """
         groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
@@ -333,7 +333,7 @@ class CertificateSigningRequestSpec(dict):
 
     @property
     @pulumi.getter
-    def usages(self) -> Optional[List[str]]:
+    def usages(self) -> Optional[Sequence[str]]:
         """
         usages specifies a set of key usages requested in the issued certificate.
 
@@ -371,7 +371,7 @@ class CertificateSigningRequestStatus(dict):
     """
     def __init__(__self__, *,
                  certificate: Optional[str] = None,
-                 conditions: Optional[List['outputs.CertificateSigningRequestCondition']] = None):
+                 conditions: Optional[Sequence['outputs.CertificateSigningRequestCondition']] = None):
         """
         CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
         :param str certificate: certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
@@ -396,7 +396,7 @@ class CertificateSigningRequestStatus(dict):
                    ...
                    -----END CERTIFICATE-----
                    )
-        :param List['CertificateSigningRequestConditionArgs'] conditions: conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
+        :param Sequence['CertificateSigningRequestConditionArgs'] conditions: conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """
         if certificate is not None:
             pulumi.set(__self__, "certificate", certificate)
@@ -434,7 +434,7 @@ class CertificateSigningRequestStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.CertificateSigningRequestCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.CertificateSigningRequestCondition']]:
         """
         conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """

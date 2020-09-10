@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import meta as _meta
 
@@ -401,13 +401,13 @@ class HorizontalPodAutoscalerSpecArgs:
     def __init__(__self__, *,
                  max_replicas: pulumi.Input[float],
                  scale_target_ref: pulumi.Input['CrossVersionObjectReferenceArgs'],
-                 metrics: Optional[pulumi.Input[List[pulumi.Input['MetricSpecArgs']]]] = None,
+                 metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricSpecArgs']]]] = None,
                  min_replicas: Optional[pulumi.Input[float]] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
         :param pulumi.Input[float] max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param pulumi.Input['CrossVersionObjectReferenceArgs'] scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
-        :param pulumi.Input[List[pulumi.Input['MetricSpecArgs']]] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond.
+        :param pulumi.Input[Sequence[pulumi.Input['MetricSpecArgs']]] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond.
         :param pulumi.Input[float] min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         """
         pulumi.set(__self__, "max_replicas", max_replicas)
@@ -443,14 +443,14 @@ class HorizontalPodAutoscalerSpecArgs:
 
     @property
     @pulumi.getter
-    def metrics(self) -> Optional[pulumi.Input[List[pulumi.Input['MetricSpecArgs']]]]:
+    def metrics(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MetricSpecArgs']]]]:
         """
         metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond.
         """
         return pulumi.get(self, "metrics")
 
     @metrics.setter
-    def metrics(self, value: Optional[pulumi.Input[List[pulumi.Input['MetricSpecArgs']]]]):
+    def metrics(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MetricSpecArgs']]]]):
         pulumi.set(self, "metrics", value)
 
     @property
@@ -469,18 +469,18 @@ class HorizontalPodAutoscalerSpecArgs:
 @pulumi.input_type
 class HorizontalPodAutoscalerStatusArgs:
     def __init__(__self__, *,
-                 conditions: pulumi.Input[List[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]],
+                 conditions: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]],
                  current_replicas: pulumi.Input[float],
                  desired_replicas: pulumi.Input[float],
-                 current_metrics: Optional[pulumi.Input[List[pulumi.Input['MetricStatusArgs']]]] = None,
+                 current_metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]]] = None,
                  last_scale_time: Optional[pulumi.Input[str]] = None,
                  observed_generation: Optional[pulumi.Input[float]] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
-        :param pulumi.Input[List[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
+        :param pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param pulumi.Input[float] current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param pulumi.Input[float] desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
-        :param pulumi.Input[List[pulumi.Input['MetricStatusArgs']]] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
+        :param pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param pulumi.Input[str] last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
         :param pulumi.Input[float] observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
@@ -496,14 +496,14 @@ class HorizontalPodAutoscalerStatusArgs:
 
     @property
     @pulumi.getter
-    def conditions(self) -> pulumi.Input[List[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]:
+    def conditions(self) -> pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]:
         """
         conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: pulumi.Input[List[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]):
+    def conditions(self, value: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]):
         pulumi.set(self, "conditions", value)
 
     @property
@@ -532,14 +532,14 @@ class HorizontalPodAutoscalerStatusArgs:
 
     @property
     @pulumi.getter(name="currentMetrics")
-    def current_metrics(self) -> Optional[pulumi.Input[List[pulumi.Input['MetricStatusArgs']]]]:
+    def current_metrics(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]]]:
         """
         currentMetrics is the last read state of the metrics used by this autoscaler.
         """
         return pulumi.get(self, "current_metrics")
 
     @current_metrics.setter
-    def current_metrics(self, value: Optional[pulumi.Input[List[pulumi.Input['MetricStatusArgs']]]]):
+    def current_metrics(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]]]):
         pulumi.set(self, "current_metrics", value)
 
     @property

@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -393,7 +393,7 @@ class DaemonSetStatus(dict):
                  number_misscheduled: float,
                  number_ready: float,
                  collision_count: Optional[float] = None,
-                 conditions: Optional[List['outputs.DaemonSetCondition']] = None,
+                 conditions: Optional[Sequence['outputs.DaemonSetCondition']] = None,
                  number_available: Optional[float] = None,
                  number_unavailable: Optional[float] = None,
                  observed_generation: Optional[float] = None,
@@ -405,7 +405,7 @@ class DaemonSetStatus(dict):
         :param float number_misscheduled: The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         :param float number_ready: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
         :param float collision_count: Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
-        :param List['DaemonSetConditionArgs'] conditions: Represents the latest available observations of a DaemonSet's current state.
+        :param Sequence['DaemonSetConditionArgs'] conditions: Represents the latest available observations of a DaemonSet's current state.
         :param float number_available: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
         :param float number_unavailable: The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
         :param float observed_generation: The most recent generation observed by the daemon set controller.
@@ -470,7 +470,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.DaemonSetCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.DaemonSetCondition']]:
         """
         Represents the latest available observations of a DaemonSet's current state.
         """
@@ -877,7 +877,7 @@ class DeploymentStatus(dict):
     def __init__(__self__, *,
                  available_replicas: Optional[float] = None,
                  collision_count: Optional[float] = None,
-                 conditions: Optional[List['outputs.DeploymentCondition']] = None,
+                 conditions: Optional[Sequence['outputs.DeploymentCondition']] = None,
                  observed_generation: Optional[float] = None,
                  ready_replicas: Optional[float] = None,
                  replicas: Optional[float] = None,
@@ -887,7 +887,7 @@ class DeploymentStatus(dict):
         DeploymentStatus is the most recently observed status of the Deployment.
         :param float available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
         :param float collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
-        :param List['DeploymentConditionArgs'] conditions: Represents the latest available observations of a deployment's current state.
+        :param Sequence['DeploymentConditionArgs'] conditions: Represents the latest available observations of a deployment's current state.
         :param float observed_generation: The generation observed by the deployment controller.
         :param float ready_replicas: Total number of ready pods targeted by this deployment.
         :param float replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
@@ -929,7 +929,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.DeploymentCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.DeploymentCondition']]:
         """
         Represents the latest available observations of a deployment's current state.
         """
@@ -1023,11 +1023,11 @@ class FSGroupStrategyOptions(dict):
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use FSGroupStrategyOptions from policy API Group instead.
     """
     def __init__(__self__, *,
-                 ranges: Optional[List['outputs.IDRange']] = None,
+                 ranges: Optional[Sequence['outputs.IDRange']] = None,
                  rule: Optional[str] = None):
         """
         FSGroupStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use FSGroupStrategyOptions from policy API Group instead.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
         if ranges is not None:
@@ -1037,7 +1037,7 @@ class FSGroupStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -1130,16 +1130,16 @@ class HTTPIngressRuleValue(dict):
     HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     """
     def __init__(__self__, *,
-                 paths: List['outputs.HTTPIngressPath']):
+                 paths: Sequence['outputs.HTTPIngressPath']):
         """
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
-        :param List['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
+        :param Sequence['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
         """
         pulumi.set(__self__, "paths", paths)
 
     @property
     @pulumi.getter
-    def paths(self) -> List['outputs.HTTPIngressPath']:
+    def paths(self) -> Sequence['outputs.HTTPIngressPath']:
         """
         A collection of paths that map requests to backends.
         """
@@ -1228,11 +1228,11 @@ class IPBlock(dict):
     """
     def __init__(__self__, *,
                  cidr: str,
-                 except_: Optional[List[str]] = None):
+                 except_: Optional[Sequence[str]] = None):
         """
         DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock. IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
         :param str cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
-        :param List[str] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+        :param Sequence[str] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
         """
         pulumi.set(__self__, "cidr", cidr)
         if except_ is not None:
@@ -1248,7 +1248,7 @@ class IPBlock(dict):
 
     @property
     @pulumi.getter(name="except")
-    def except_(self) -> Optional[List[str]]:
+    def except_(self) -> Optional[Sequence[str]]:
         """
         Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
         """
@@ -1464,14 +1464,14 @@ class IngressSpec(dict):
     def __init__(__self__, *,
                  backend: Optional['outputs.IngressBackend'] = None,
                  ingress_class_name: Optional[str] = None,
-                 rules: Optional[List['outputs.IngressRule']] = None,
-                 tls: Optional[List['outputs.IngressTLS']] = None):
+                 rules: Optional[Sequence['outputs.IngressRule']] = None,
+                 tls: Optional[Sequence['outputs.IngressTLS']] = None):
         """
         IngressSpec describes the Ingress the user wishes to exist.
         :param 'IngressBackendArgs' backend: A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
         :param str ingress_class_name: IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
-        :param List['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
-        :param List['IngressTLSArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+        :param Sequence['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+        :param Sequence['IngressTLSArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
         if backend is not None:
             pulumi.set(__self__, "backend", backend)
@@ -1500,7 +1500,7 @@ class IngressSpec(dict):
 
     @property
     @pulumi.getter
-    def rules(self) -> Optional[List['outputs.IngressRule']]:
+    def rules(self) -> Optional[Sequence['outputs.IngressRule']]:
         """
         A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         """
@@ -1508,7 +1508,7 @@ class IngressSpec(dict):
 
     @property
     @pulumi.getter
-    def tls(self) -> Optional[List['outputs.IngressTLS']]:
+    def tls(self) -> Optional[Sequence['outputs.IngressTLS']]:
         """
         TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
@@ -1550,11 +1550,11 @@ class IngressTLS(dict):
     IngressTLS describes the transport layer security associated with an Ingress.
     """
     def __init__(__self__, *,
-                 hosts: Optional[List[str]] = None,
+                 hosts: Optional[Sequence[str]] = None,
                  secret_name: Optional[str] = None):
         """
         IngressTLS describes the transport layer security associated with an Ingress.
-        :param List[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+        :param Sequence[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param str secret_name: SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
         if hosts is not None:
@@ -1564,7 +1564,7 @@ class IngressTLS(dict):
 
     @property
     @pulumi.getter
-    def hosts(self) -> Optional[List[str]]:
+    def hosts(self) -> Optional[Sequence[str]]:
         """
         Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         """
@@ -1650,12 +1650,12 @@ class NetworkPolicyEgressRule(dict):
     DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by networking/v1/NetworkPolicyEgressRule. NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
     def __init__(__self__, *,
-                 ports: Optional[List['outputs.NetworkPolicyPort']] = None,
-                 to: Optional[List['outputs.NetworkPolicyPeer']] = None):
+                 ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None,
+                 to: Optional[Sequence['outputs.NetworkPolicyPeer']] = None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by networking/v1/NetworkPolicyEgressRule. NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
-        :param List['NetworkPolicyPortArgs'] ports: List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
-        :param List['NetworkPolicyPeerArgs'] to: List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+        :param Sequence['NetworkPolicyPortArgs'] ports: List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+        :param Sequence['NetworkPolicyPeerArgs'] to: List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
@@ -1664,7 +1664,7 @@ class NetworkPolicyEgressRule(dict):
 
     @property
     @pulumi.getter
-    def ports(self) -> Optional[List['outputs.NetworkPolicyPort']]:
+    def ports(self) -> Optional[Sequence['outputs.NetworkPolicyPort']]:
         """
         List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
@@ -1672,7 +1672,7 @@ class NetworkPolicyEgressRule(dict):
 
     @property
     @pulumi.getter
-    def to(self) -> Optional[List['outputs.NetworkPolicyPeer']]:
+    def to(self) -> Optional[Sequence['outputs.NetworkPolicyPeer']]:
         """
         List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
@@ -1688,12 +1688,12 @@ class NetworkPolicyIngressRule(dict):
     DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and only if the traffic matches both ports AND from.
     """
     def __init__(__self__, *,
-                 from_: Optional[List['outputs.NetworkPolicyPeer']] = None,
-                 ports: Optional[List['outputs.NetworkPolicyPort']] = None):
+                 from_: Optional[Sequence['outputs.NetworkPolicyPeer']] = None,
+                 ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and only if the traffic matches both ports AND from.
-        :param List['NetworkPolicyPeerArgs'] from_: List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
-        :param List['NetworkPolicyPortArgs'] ports: List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+        :param Sequence['NetworkPolicyPeerArgs'] from_: List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+        :param Sequence['NetworkPolicyPortArgs'] ports: List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
         if from_ is not None:
             pulumi.set(__self__, "from_", from_)
@@ -1702,7 +1702,7 @@ class NetworkPolicyIngressRule(dict):
 
     @property
     @pulumi.getter(name="from")
-    def from_(self) -> Optional[List['outputs.NetworkPolicyPeer']]:
+    def from_(self) -> Optional[Sequence['outputs.NetworkPolicyPeer']]:
         """
         List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         """
@@ -1710,7 +1710,7 @@ class NetworkPolicyIngressRule(dict):
 
     @property
     @pulumi.getter
-    def ports(self) -> Optional[List['outputs.NetworkPolicyPort']]:
+    def ports(self) -> Optional[Sequence['outputs.NetworkPolicyPort']]:
         """
         List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
@@ -1823,15 +1823,15 @@ class NetworkPolicySpec(dict):
     """
     def __init__(__self__, *,
                  pod_selector: '_meta.v1.outputs.LabelSelector',
-                 egress: Optional[List['outputs.NetworkPolicyEgressRule']] = None,
-                 ingress: Optional[List['outputs.NetworkPolicyIngressRule']] = None,
-                 policy_types: Optional[List[str]] = None):
+                 egress: Optional[Sequence['outputs.NetworkPolicyEgressRule']] = None,
+                 ingress: Optional[Sequence['outputs.NetworkPolicyIngressRule']] = None,
+                 policy_types: Optional[Sequence[str]] = None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by networking/v1/NetworkPolicySpec.
         :param '_meta.v1.LabelSelectorArgs' pod_selector: Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
-        :param List['NetworkPolicyEgressRuleArgs'] egress: List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
-        :param List['NetworkPolicyIngressRuleArgs'] ingress: List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
-        :param List[str] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+        :param Sequence['NetworkPolicyEgressRuleArgs'] egress: List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+        :param Sequence['NetworkPolicyIngressRuleArgs'] ingress: List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
+        :param Sequence[str] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
         pulumi.set(__self__, "pod_selector", pod_selector)
         if egress is not None:
@@ -1851,7 +1851,7 @@ class NetworkPolicySpec(dict):
 
     @property
     @pulumi.getter
-    def egress(self) -> Optional[List['outputs.NetworkPolicyEgressRule']]:
+    def egress(self) -> Optional[Sequence['outputs.NetworkPolicyEgressRule']]:
         """
         List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
         """
@@ -1859,7 +1859,7 @@ class NetworkPolicySpec(dict):
 
     @property
     @pulumi.getter
-    def ingress(self) -> Optional[List['outputs.NetworkPolicyIngressRule']]:
+    def ingress(self) -> Optional[Sequence['outputs.NetworkPolicyIngressRule']]:
         """
         List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
         """
@@ -1867,7 +1867,7 @@ class NetworkPolicySpec(dict):
 
     @property
     @pulumi.getter(name="policyTypes")
-    def policy_types(self) -> Optional[List[str]]:
+    def policy_types(self) -> Optional[Sequence[str]]:
         """
         List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
@@ -1950,25 +1950,25 @@ class PodSecurityPolicySpec(dict):
                  se_linux: 'outputs.SELinuxStrategyOptions',
                  supplemental_groups: 'outputs.SupplementalGroupsStrategyOptions',
                  allow_privilege_escalation: Optional[bool] = None,
-                 allowed_csi_drivers: Optional[List['outputs.AllowedCSIDriver']] = None,
-                 allowed_capabilities: Optional[List[str]] = None,
-                 allowed_flex_volumes: Optional[List['outputs.AllowedFlexVolume']] = None,
-                 allowed_host_paths: Optional[List['outputs.AllowedHostPath']] = None,
-                 allowed_proc_mount_types: Optional[List[str]] = None,
-                 allowed_unsafe_sysctls: Optional[List[str]] = None,
-                 default_add_capabilities: Optional[List[str]] = None,
+                 allowed_csi_drivers: Optional[Sequence['outputs.AllowedCSIDriver']] = None,
+                 allowed_capabilities: Optional[Sequence[str]] = None,
+                 allowed_flex_volumes: Optional[Sequence['outputs.AllowedFlexVolume']] = None,
+                 allowed_host_paths: Optional[Sequence['outputs.AllowedHostPath']] = None,
+                 allowed_proc_mount_types: Optional[Sequence[str]] = None,
+                 allowed_unsafe_sysctls: Optional[Sequence[str]] = None,
+                 default_add_capabilities: Optional[Sequence[str]] = None,
                  default_allow_privilege_escalation: Optional[bool] = None,
-                 forbidden_sysctls: Optional[List[str]] = None,
+                 forbidden_sysctls: Optional[Sequence[str]] = None,
                  host_ipc: Optional[bool] = None,
                  host_network: Optional[bool] = None,
                  host_pid: Optional[bool] = None,
-                 host_ports: Optional[List['outputs.HostPortRange']] = None,
+                 host_ports: Optional[Sequence['outputs.HostPortRange']] = None,
                  privileged: Optional[bool] = None,
                  read_only_root_filesystem: Optional[bool] = None,
-                 required_drop_capabilities: Optional[List[str]] = None,
+                 required_drop_capabilities: Optional[Sequence[str]] = None,
                  run_as_group: Optional['outputs.RunAsGroupStrategyOptions'] = None,
                  runtime_class: Optional['outputs.RuntimeClassStrategyOptions'] = None,
-                 volumes: Optional[List[str]] = None):
+                 volumes: Optional[Sequence[str]] = None):
         """
         PodSecurityPolicySpec defines the policy enforced. Deprecated: use PodSecurityPolicySpec from policy API Group instead.
         :param 'FSGroupStrategyOptionsArgs' fs_group: fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
@@ -1976,29 +1976,29 @@ class PodSecurityPolicySpec(dict):
         :param 'SELinuxStrategyOptionsArgs' se_linux: seLinux is the strategy that will dictate the allowable labels that may be set.
         :param 'SupplementalGroupsStrategyOptionsArgs' supplemental_groups: supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
         :param bool allow_privilege_escalation: allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
-        :param List['AllowedCSIDriverArgs'] allowed_csi_drivers: AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes.
-        :param List[str] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
-        :param List['AllowedFlexVolumeArgs'] allowed_flex_volumes: allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
-        :param List['AllowedHostPathArgs'] allowed_host_paths: allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
-        :param List[str] allowed_proc_mount_types: AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
-        :param List[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
+        :param Sequence['AllowedCSIDriverArgs'] allowed_csi_drivers: AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes.
+        :param Sequence[str] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
+        :param Sequence['AllowedFlexVolumeArgs'] allowed_flex_volumes: allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+        :param Sequence['AllowedHostPathArgs'] allowed_host_paths: allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+        :param Sequence[str] allowed_proc_mount_types: AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+        :param Sequence[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
                
                Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
-        :param List[str] default_add_capabilities: defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
+        :param Sequence[str] default_add_capabilities: defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
         :param bool default_allow_privilege_escalation: defaultAllowPrivilegeEscalation controls the default setting for whether a process can gain more privileges than its parent process.
-        :param List[str] forbidden_sysctls: forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
+        :param Sequence[str] forbidden_sysctls: forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
                
                Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
         :param bool host_ipc: hostIPC determines if the policy allows the use of HostIPC in the pod spec.
         :param bool host_network: hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
         :param bool host_pid: hostPID determines if the policy allows the use of HostPID in the pod spec.
-        :param List['HostPortRangeArgs'] host_ports: hostPorts determines which host port ranges are allowed to be exposed.
+        :param Sequence['HostPortRangeArgs'] host_ports: hostPorts determines which host port ranges are allowed to be exposed.
         :param bool privileged: privileged determines if a pod can request to be run as privileged.
         :param bool read_only_root_filesystem: readOnlyRootFilesystem when set to true will force containers to run with a read only root file system.  If the container specifically requests to run with a non-read only root file system the PSP should deny the pod. If set to false the container may run with a read only root file system if it wishes but it will not be forced to.
-        :param List[str] required_drop_capabilities: requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
+        :param Sequence[str] required_drop_capabilities: requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
         :param 'RunAsGroupStrategyOptionsArgs' run_as_group: RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
         :param 'RuntimeClassStrategyOptionsArgs' runtime_class: runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
-        :param List[str] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+        :param Sequence[str] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
         pulumi.set(__self__, "fs_group", fs_group)
         pulumi.set(__self__, "run_as_user", run_as_user)
@@ -2087,7 +2087,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedCSIDrivers")
-    def allowed_csi_drivers(self) -> Optional[List['outputs.AllowedCSIDriver']]:
+    def allowed_csi_drivers(self) -> Optional[Sequence['outputs.AllowedCSIDriver']]:
         """
         AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes.
         """
@@ -2095,7 +2095,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedCapabilities")
-    def allowed_capabilities(self) -> Optional[List[str]]:
+    def allowed_capabilities(self) -> Optional[Sequence[str]]:
         """
         allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
         """
@@ -2103,7 +2103,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedFlexVolumes")
-    def allowed_flex_volumes(self) -> Optional[List['outputs.AllowedFlexVolume']]:
+    def allowed_flex_volumes(self) -> Optional[Sequence['outputs.AllowedFlexVolume']]:
         """
         allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
         """
@@ -2111,7 +2111,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedHostPaths")
-    def allowed_host_paths(self) -> Optional[List['outputs.AllowedHostPath']]:
+    def allowed_host_paths(self) -> Optional[Sequence['outputs.AllowedHostPath']]:
         """
         allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
         """
@@ -2119,7 +2119,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedProcMountTypes")
-    def allowed_proc_mount_types(self) -> Optional[List[str]]:
+    def allowed_proc_mount_types(self) -> Optional[Sequence[str]]:
         """
         AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
         """
@@ -2127,7 +2127,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedUnsafeSysctls")
-    def allowed_unsafe_sysctls(self) -> Optional[List[str]]:
+    def allowed_unsafe_sysctls(self) -> Optional[Sequence[str]]:
         """
         allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 
@@ -2137,7 +2137,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="defaultAddCapabilities")
-    def default_add_capabilities(self) -> Optional[List[str]]:
+    def default_add_capabilities(self) -> Optional[Sequence[str]]:
         """
         defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
         """
@@ -2153,7 +2153,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="forbiddenSysctls")
-    def forbidden_sysctls(self) -> Optional[List[str]]:
+    def forbidden_sysctls(self) -> Optional[Sequence[str]]:
         """
         forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
 
@@ -2187,7 +2187,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="hostPorts")
-    def host_ports(self) -> Optional[List['outputs.HostPortRange']]:
+    def host_ports(self) -> Optional[Sequence['outputs.HostPortRange']]:
         """
         hostPorts determines which host port ranges are allowed to be exposed.
         """
@@ -2211,7 +2211,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="requiredDropCapabilities")
-    def required_drop_capabilities(self) -> Optional[List[str]]:
+    def required_drop_capabilities(self) -> Optional[Sequence[str]]:
         """
         requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
         """
@@ -2235,7 +2235,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter
-    def volumes(self) -> Optional[List[str]]:
+    def volumes(self) -> Optional[Sequence[str]]:
         """
         volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
@@ -2461,7 +2461,7 @@ class ReplicaSetStatus(dict):
     def __init__(__self__, *,
                  replicas: float,
                  available_replicas: Optional[float] = None,
-                 conditions: Optional[List['outputs.ReplicaSetCondition']] = None,
+                 conditions: Optional[Sequence['outputs.ReplicaSetCondition']] = None,
                  fully_labeled_replicas: Optional[float] = None,
                  observed_generation: Optional[float] = None,
                  ready_replicas: Optional[float] = None):
@@ -2469,7 +2469,7 @@ class ReplicaSetStatus(dict):
         ReplicaSetStatus represents the current status of a ReplicaSet.
         :param float replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         :param float available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replica set.
-        :param List['ReplicaSetConditionArgs'] conditions: Represents the latest available observations of a replica set's current state.
+        :param Sequence['ReplicaSetConditionArgs'] conditions: Represents the latest available observations of a replica set's current state.
         :param float fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replicaset.
         :param float observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
         :param float ready_replicas: The number of ready replicas for this replica set.
@@ -2504,7 +2504,7 @@ class ReplicaSetStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.ReplicaSetCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.ReplicaSetCondition']]:
         """
         Represents the latest available observations of a replica set's current state.
         """
@@ -2635,11 +2635,11 @@ class RunAsGroupStrategyOptions(dict):
     """
     def __init__(__self__, *,
                  rule: str,
-                 ranges: Optional[List['outputs.IDRange']] = None):
+                 ranges: Optional[Sequence['outputs.IDRange']] = None):
         """
         RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
         :param str rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
         pulumi.set(__self__, "rule", rule)
         if ranges is not None:
@@ -2655,7 +2655,7 @@ class RunAsGroupStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -2672,11 +2672,11 @@ class RunAsUserStrategyOptions(dict):
     """
     def __init__(__self__, *,
                  rule: str,
-                 ranges: Optional[List['outputs.IDRange']] = None):
+                 ranges: Optional[Sequence['outputs.IDRange']] = None):
         """
         RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
         :param str rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
         pulumi.set(__self__, "rule", rule)
         if ranges is not None:
@@ -2692,7 +2692,7 @@ class RunAsUserStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -2708,11 +2708,11 @@ class RuntimeClassStrategyOptions(dict):
     RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
     """
     def __init__(__self__, *,
-                 allowed_runtime_class_names: List[str],
+                 allowed_runtime_class_names: Sequence[str],
                  default_runtime_class_name: Optional[str] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
-        :param List[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+        :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
         pulumi.set(__self__, "allowed_runtime_class_names", allowed_runtime_class_names)
@@ -2721,7 +2721,7 @@ class RuntimeClassStrategyOptions(dict):
 
     @property
     @pulumi.getter(name="allowedRuntimeClassNames")
-    def allowed_runtime_class_names(self) -> List[str]:
+    def allowed_runtime_class_names(self) -> Sequence[str]:
         """
         allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         """
@@ -2782,11 +2782,11 @@ class SupplementalGroupsStrategyOptions(dict):
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
     """
     def __init__(__self__, *,
-                 ranges: Optional[List['outputs.IDRange']] = None,
+                 ranges: Optional[Sequence['outputs.IDRange']] = None,
                  rule: Optional[str] = None):
         """
         SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
         if ranges is not None:
@@ -2796,7 +2796,7 @@ class SupplementalGroupsStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         """

@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -207,12 +207,12 @@ class HPAScalingRules(dict):
     HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
     """
     def __init__(__self__, *,
-                 policies: Optional[List['outputs.HPAScalingPolicy']] = None,
+                 policies: Optional[Sequence['outputs.HPAScalingPolicy']] = None,
                  select_policy: Optional[str] = None,
                  stabilization_window_seconds: Optional[float] = None):
         """
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
-        :param List['HPAScalingPolicyArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+        :param Sequence['HPAScalingPolicyArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
         :param float stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
@@ -225,7 +225,7 @@ class HPAScalingRules(dict):
 
     @property
     @pulumi.getter
-    def policies(self) -> Optional[List['outputs.HPAScalingPolicy']]:
+    def policies(self) -> Optional[Sequence['outputs.HPAScalingPolicy']]:
         """
         policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         """
@@ -450,14 +450,14 @@ class HorizontalPodAutoscalerSpec(dict):
                  max_replicas: float,
                  scale_target_ref: 'outputs.CrossVersionObjectReference',
                  behavior: Optional['outputs.HorizontalPodAutoscalerBehavior'] = None,
-                 metrics: Optional[List['outputs.MetricSpec']] = None,
+                 metrics: Optional[Sequence['outputs.MetricSpec']] = None,
                  min_replicas: Optional[float] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
         :param float max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param 'CrossVersionObjectReferenceArgs' scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
         :param 'HorizontalPodAutoscalerBehaviorArgs' behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
-        :param List['MetricSpecArgs'] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
+        :param Sequence['MetricSpecArgs'] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
         :param float min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         """
         pulumi.set(__self__, "max_replicas", max_replicas)
@@ -495,7 +495,7 @@ class HorizontalPodAutoscalerSpec(dict):
 
     @property
     @pulumi.getter
-    def metrics(self) -> Optional[List['outputs.MetricSpec']]:
+    def metrics(self) -> Optional[Sequence['outputs.MetricSpec']]:
         """
         metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
         """
@@ -519,18 +519,18 @@ class HorizontalPodAutoscalerStatus(dict):
     HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     """
     def __init__(__self__, *,
-                 conditions: List['outputs.HorizontalPodAutoscalerCondition'],
+                 conditions: Sequence['outputs.HorizontalPodAutoscalerCondition'],
                  current_replicas: float,
                  desired_replicas: float,
-                 current_metrics: Optional[List['outputs.MetricStatus']] = None,
+                 current_metrics: Optional[Sequence['outputs.MetricStatus']] = None,
                  last_scale_time: Optional[str] = None,
                  observed_generation: Optional[float] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
-        :param List['HorizontalPodAutoscalerConditionArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
+        :param Sequence['HorizontalPodAutoscalerConditionArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param float current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param float desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
-        :param List['MetricStatusArgs'] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
+        :param Sequence['MetricStatusArgs'] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param str last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
         :param float observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
@@ -546,7 +546,7 @@ class HorizontalPodAutoscalerStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> List['outputs.HorizontalPodAutoscalerCondition']:
+    def conditions(self) -> Sequence['outputs.HorizontalPodAutoscalerCondition']:
         """
         conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         """
@@ -570,7 +570,7 @@ class HorizontalPodAutoscalerStatus(dict):
 
     @property
     @pulumi.getter(name="currentMetrics")
-    def current_metrics(self) -> Optional[List['outputs.MetricStatus']]:
+    def current_metrics(self) -> Optional[Sequence['outputs.MetricStatus']]:
         """
         currentMetrics is the last read state of the metrics used by this autoscaler.
         """

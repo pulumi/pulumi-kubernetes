@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import meta as _meta
 
@@ -308,24 +308,24 @@ class APIServiceSpecArgs:
 @pulumi.input_type
 class APIServiceStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['APIServiceConditionArgs']]]] = None):
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgs']]]] = None):
         """
         APIServiceStatus contains derived information about an API server
-        :param pulumi.Input[List[pulumi.Input['APIServiceConditionArgs']]] conditions: Current service state of apiService.
+        :param pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgs']]] conditions: Current service state of apiService.
         """
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['APIServiceConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgs']]]]:
         """
         Current service state of apiService.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['APIServiceConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 

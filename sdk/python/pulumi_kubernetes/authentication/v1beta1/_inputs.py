@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 
 __all__ = [
@@ -15,11 +15,11 @@ __all__ = [
 @pulumi.input_type
 class TokenReviewSpecArgs:
     def __init__(__self__, *,
-                 audiences: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 audiences: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  token: Optional[pulumi.Input[str]] = None):
         """
         TokenReviewSpec is a description of the token authentication request.
-        :param pulumi.Input[List[pulumi.Input[str]]] audiences: Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
         :param pulumi.Input[str] token: Token is the opaque bearer token.
         """
         if audiences is not None:
@@ -29,14 +29,14 @@ class TokenReviewSpecArgs:
 
     @property
     @pulumi.getter
-    def audiences(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def audiences(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
         """
         return pulumi.get(self, "audiences")
 
     @audiences.setter
-    def audiences(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def audiences(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "audiences", value)
 
     @property

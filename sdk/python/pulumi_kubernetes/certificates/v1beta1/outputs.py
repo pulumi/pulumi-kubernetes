@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -175,17 +175,17 @@ class CertificateSigningRequestSpec(dict):
     """
     def __init__(__self__, *,
                  request: str,
-                 extra: Optional[Mapping[str, List[str]]] = None,
-                 groups: Optional[List[str]] = None,
+                 extra: Optional[Mapping[str, Sequence[str]]] = None,
+                 groups: Optional[Sequence[str]] = None,
                  signer_name: Optional[str] = None,
                  uid: Optional[str] = None,
-                 usages: Optional[List[str]] = None,
+                 usages: Optional[Sequence[str]] = None,
                  username: Optional[str] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
         :param str request: Base64-encoded PKCS#10 CSR data
-        :param Mapping[str, List[str]] extra: Extra information about the requesting user. See user.Info interface for details.
-        :param List[str] groups: Group information about the requesting user. See user.Info interface for details.
+        :param Mapping[str, Sequence[str]] extra: Extra information about the requesting user. See user.Info interface for details.
+        :param Sequence[str] groups: Group information about the requesting user. See user.Info interface for details.
         :param str signer_name: Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
                 1. If it's a kubelet client certificate, it is assigned
                    "kubernetes.io/kube-apiserver-client-kubelet".
@@ -194,7 +194,7 @@ class CertificateSigningRequestSpec(dict):
                 3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
                Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         :param str uid: UID information about the requesting user. See user.Info interface for details.
-        :param List[str] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+        :param Sequence[str] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
                     https://tools.ietf.org/html/rfc5280#section-4.2.1.12
                Valid values are:
                 "signing",
@@ -246,7 +246,7 @@ class CertificateSigningRequestSpec(dict):
 
     @property
     @pulumi.getter
-    def extra(self) -> Optional[Mapping[str, List[str]]]:
+    def extra(self) -> Optional[Mapping[str, Sequence[str]]]:
         """
         Extra information about the requesting user. See user.Info interface for details.
         """
@@ -254,7 +254,7 @@ class CertificateSigningRequestSpec(dict):
 
     @property
     @pulumi.getter
-    def groups(self) -> Optional[List[str]]:
+    def groups(self) -> Optional[Sequence[str]]:
         """
         Group information about the requesting user. See user.Info interface for details.
         """
@@ -284,7 +284,7 @@ class CertificateSigningRequestSpec(dict):
 
     @property
     @pulumi.getter
-    def usages(self) -> Optional[List[str]]:
+    def usages(self) -> Optional[Sequence[str]]:
         """
         allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
              https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -331,10 +331,10 @@ class CertificateSigningRequestSpec(dict):
 class CertificateSigningRequestStatus(dict):
     def __init__(__self__, *,
                  certificate: Optional[str] = None,
-                 conditions: Optional[List['outputs.CertificateSigningRequestCondition']] = None):
+                 conditions: Optional[Sequence['outputs.CertificateSigningRequestCondition']] = None):
         """
         :param str certificate: If request was approved, the controller will place the issued certificate here.
-        :param List['CertificateSigningRequestConditionArgs'] conditions: Conditions applied to the request, such as approval or denial.
+        :param Sequence['CertificateSigningRequestConditionArgs'] conditions: Conditions applied to the request, such as approval or denial.
         """
         if certificate is not None:
             pulumi.set(__self__, "certificate", certificate)
@@ -351,7 +351,7 @@ class CertificateSigningRequestStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.CertificateSigningRequestCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.CertificateSigningRequestCondition']]:
         """
         Conditions applied to the request, such as approval or denial.
         """

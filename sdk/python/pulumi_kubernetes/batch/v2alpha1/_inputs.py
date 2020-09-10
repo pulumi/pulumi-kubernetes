@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import batch as _batch
 from ... import core as _core
@@ -227,11 +227,11 @@ class CronJobSpecArgs:
 @pulumi.input_type
 class CronJobStatusArgs:
     def __init__(__self__, *,
-                 active: Optional[pulumi.Input[List[pulumi.Input['_core.v1.ObjectReferenceArgs']]]] = None,
+                 active: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]] = None,
                  last_schedule_time: Optional[pulumi.Input[str]] = None):
         """
         CronJobStatus represents the current state of a cron job.
-        :param pulumi.Input[List[pulumi.Input['_core.v1.ObjectReferenceArgs']]] active: A list of pointers to currently running jobs.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]] active: A list of pointers to currently running jobs.
         :param pulumi.Input[str] last_schedule_time: Information when was the last time the job was successfully scheduled.
         """
         if active is not None:
@@ -241,14 +241,14 @@ class CronJobStatusArgs:
 
     @property
     @pulumi.getter
-    def active(self) -> Optional[pulumi.Input[List[pulumi.Input['_core.v1.ObjectReferenceArgs']]]]:
+    def active(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]]:
         """
         A list of pointers to currently running jobs.
         """
         return pulumi.get(self, "active")
 
     @active.setter
-    def active(self, value: Optional[pulumi.Input[List[pulumi.Input['_core.v1.ObjectReferenceArgs']]]]):
+    def active(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]]):
         pulumi.set(self, "active", value)
 
     @property

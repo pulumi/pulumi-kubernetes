@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 
@@ -21,11 +21,11 @@ class TokenReviewSpec(dict):
     TokenReviewSpec is a description of the token authentication request.
     """
     def __init__(__self__, *,
-                 audiences: Optional[List[str]] = None,
+                 audiences: Optional[Sequence[str]] = None,
                  token: Optional[str] = None):
         """
         TokenReviewSpec is a description of the token authentication request.
-        :param List[str] audiences: Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
+        :param Sequence[str] audiences: Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
         :param str token: Token is the opaque bearer token.
         """
         if audiences is not None:
@@ -35,7 +35,7 @@ class TokenReviewSpec(dict):
 
     @property
     @pulumi.getter
-    def audiences(self) -> Optional[List[str]]:
+    def audiences(self) -> Optional[Sequence[str]]:
         """
         Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
         """
@@ -59,13 +59,13 @@ class TokenReviewStatus(dict):
     TokenReviewStatus is the result of the token authentication request.
     """
     def __init__(__self__, *,
-                 audiences: Optional[List[str]] = None,
+                 audiences: Optional[Sequence[str]] = None,
                  authenticated: Optional[bool] = None,
                  error: Optional[str] = None,
                  user: Optional['outputs.UserInfo'] = None):
         """
         TokenReviewStatus is the result of the token authentication request.
-        :param List[str] audiences: Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
+        :param Sequence[str] audiences: Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
         :param bool authenticated: Authenticated indicates that the token was associated with a known user.
         :param str error: Error indicates that the token couldn't be checked
         :param 'UserInfoArgs' user: User is the UserInfo associated with the provided token.
@@ -81,7 +81,7 @@ class TokenReviewStatus(dict):
 
     @property
     @pulumi.getter
-    def audiences(self) -> Optional[List[str]]:
+    def audiences(self) -> Optional[Sequence[str]]:
         """
         Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
         """
@@ -121,14 +121,14 @@ class UserInfo(dict):
     UserInfo holds the information about the user needed to implement the user.Info interface.
     """
     def __init__(__self__, *,
-                 extra: Optional[Mapping[str, List[str]]] = None,
-                 groups: Optional[List[str]] = None,
+                 extra: Optional[Mapping[str, Sequence[str]]] = None,
+                 groups: Optional[Sequence[str]] = None,
                  uid: Optional[str] = None,
                  username: Optional[str] = None):
         """
         UserInfo holds the information about the user needed to implement the user.Info interface.
-        :param Mapping[str, List[str]] extra: Any additional information provided by the authenticator.
-        :param List[str] groups: The names of groups this user is a part of.
+        :param Mapping[str, Sequence[str]] extra: Any additional information provided by the authenticator.
+        :param Sequence[str] groups: The names of groups this user is a part of.
         :param str uid: A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
         :param str username: The name that uniquely identifies this user among all active users.
         """
@@ -143,7 +143,7 @@ class UserInfo(dict):
 
     @property
     @pulumi.getter
-    def extra(self) -> Optional[Mapping[str, List[str]]]:
+    def extra(self) -> Optional[Mapping[str, Sequence[str]]]:
         """
         Any additional information provided by the authenticator.
         """
@@ -151,7 +151,7 @@ class UserInfo(dict):
 
     @property
     @pulumi.getter
-    def groups(self) -> Optional[List[str]]:
+    def groups(self) -> Optional[Sequence[str]]:
         """
         The names of groups this user is a part of.
         """

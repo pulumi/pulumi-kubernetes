@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import core as _core
 from ... import meta as _meta
@@ -362,7 +362,7 @@ class JobStatusArgs:
     def __init__(__self__, *,
                  active: Optional[pulumi.Input[float]] = None,
                  completion_time: Optional[pulumi.Input[str]] = None,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['JobConditionArgs']]]] = None,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]]] = None,
                  failed: Optional[pulumi.Input[float]] = None,
                  start_time: Optional[pulumi.Input[str]] = None,
                  succeeded: Optional[pulumi.Input[float]] = None):
@@ -370,7 +370,7 @@ class JobStatusArgs:
         JobStatus represents the current state of a Job.
         :param pulumi.Input[float] active: The number of actively running pods.
         :param pulumi.Input[str] completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
-        :param pulumi.Input[List[pulumi.Input['JobConditionArgs']]] conditions: The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]] conditions: The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[float] failed: The number of pods which reached phase Failed.
         :param pulumi.Input[str] start_time: Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
         :param pulumi.Input[float] succeeded: The number of pods which reached phase Succeeded.
@@ -414,14 +414,14 @@ class JobStatusArgs:
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['JobConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]]]:
         """
         The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['JobConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
     @property

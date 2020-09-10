@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import core as _core
 from ... import meta as _meta
@@ -147,11 +147,11 @@ class RuntimeClassArgs:
 class SchedulingArgs:
     def __init__(__self__, *,
                  node_selector: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 tolerations: Optional[pulumi.Input[List[pulumi.Input['_core.v1.TolerationArgs']]]] = None):
+                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]] = None):
         """
         Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
-        :param pulumi.Input[List[pulumi.Input['_core.v1.TolerationArgs']]] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
@@ -172,14 +172,14 @@ class SchedulingArgs:
 
     @property
     @pulumi.getter
-    def tolerations(self) -> Optional[pulumi.Input[List[pulumi.Input['_core.v1.TolerationArgs']]]]:
+    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]:
         """
         tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
         return pulumi.get(self, "tolerations")
 
     @tolerations.setter
-    def tolerations(self, value: Optional[pulumi.Input[List[pulumi.Input['_core.v1.TolerationArgs']]]]):
+    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]):
         pulumi.set(self, "tolerations", value)
 
 

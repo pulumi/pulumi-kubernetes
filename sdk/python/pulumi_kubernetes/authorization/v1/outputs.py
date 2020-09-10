@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 
@@ -65,12 +65,12 @@ class NonResourceRule(dict):
     NonResourceRule holds information that describes a rule for the non-resource
     """
     def __init__(__self__, *,
-                 verbs: List[str],
-                 non_resource_urls: Optional[List[str]] = None):
+                 verbs: Sequence[str],
+                 non_resource_urls: Optional[Sequence[str]] = None):
         """
         NonResourceRule holds information that describes a rule for the non-resource
-        :param List[str] verbs: Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
-        :param List[str] non_resource_urls: NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
+        :param Sequence[str] verbs: Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
+        :param Sequence[str] non_resource_urls: NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
         """
         pulumi.set(__self__, "verbs", verbs)
         if non_resource_urls is not None:
@@ -78,7 +78,7 @@ class NonResourceRule(dict):
 
     @property
     @pulumi.getter
-    def verbs(self) -> List[str]:
+    def verbs(self) -> Sequence[str]:
         """
         Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
         """
@@ -86,7 +86,7 @@ class NonResourceRule(dict):
 
     @property
     @pulumi.getter(name="nonResourceURLs")
-    def non_resource_urls(self) -> Optional[List[str]]:
+    def non_resource_urls(self) -> Optional[Sequence[str]]:
         """
         NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
         """
@@ -200,16 +200,16 @@ class ResourceRule(dict):
     ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
     """
     def __init__(__self__, *,
-                 verbs: List[str],
-                 api_groups: Optional[List[str]] = None,
-                 resource_names: Optional[List[str]] = None,
-                 resources: Optional[List[str]] = None):
+                 verbs: Sequence[str],
+                 api_groups: Optional[Sequence[str]] = None,
+                 resource_names: Optional[Sequence[str]] = None,
+                 resources: Optional[Sequence[str]] = None):
         """
         ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
-        :param List[str] verbs: Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all.
-        :param List[str] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
-        :param List[str] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
-        :param List[str] resources: Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
+        :param Sequence[str] verbs: Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+        :param Sequence[str] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
+        :param Sequence[str] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
+        :param Sequence[str] resources: Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
                 "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
         """
         pulumi.set(__self__, "verbs", verbs)
@@ -222,7 +222,7 @@ class ResourceRule(dict):
 
     @property
     @pulumi.getter
-    def verbs(self) -> List[str]:
+    def verbs(self) -> Sequence[str]:
         """
         Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all.
         """
@@ -230,7 +230,7 @@ class ResourceRule(dict):
 
     @property
     @pulumi.getter(name="apiGroups")
-    def api_groups(self) -> Optional[List[str]]:
+    def api_groups(self) -> Optional[Sequence[str]]:
         """
         APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
         """
@@ -238,7 +238,7 @@ class ResourceRule(dict):
 
     @property
     @pulumi.getter(name="resourceNames")
-    def resource_names(self) -> Optional[List[str]]:
+    def resource_names(self) -> Optional[Sequence[str]]:
         """
         ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
         """
@@ -246,7 +246,7 @@ class ResourceRule(dict):
 
     @property
     @pulumi.getter
-    def resources(self) -> Optional[List[str]]:
+    def resources(self) -> Optional[Sequence[str]]:
         """
         Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
          "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
@@ -323,16 +323,16 @@ class SubjectAccessReviewSpec(dict):
     SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     """
     def __init__(__self__, *,
-                 extra: Optional[Mapping[str, List[str]]] = None,
-                 groups: Optional[List[str]] = None,
+                 extra: Optional[Mapping[str, Sequence[str]]] = None,
+                 groups: Optional[Sequence[str]] = None,
                  non_resource_attributes: Optional['outputs.NonResourceAttributes'] = None,
                  resource_attributes: Optional['outputs.ResourceAttributes'] = None,
                  uid: Optional[str] = None,
                  user: Optional[str] = None):
         """
         SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
-        :param Mapping[str, List[str]] extra: Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
-        :param List[str] groups: Groups is the groups you're testing for.
+        :param Mapping[str, Sequence[str]] extra: Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
+        :param Sequence[str] groups: Groups is the groups you're testing for.
         :param 'NonResourceAttributesArgs' non_resource_attributes: NonResourceAttributes describes information for a non-resource access request
         :param 'ResourceAttributesArgs' resource_attributes: ResourceAuthorizationAttributes describes information for a resource access request
         :param str uid: UID information about the requesting user.
@@ -353,7 +353,7 @@ class SubjectAccessReviewSpec(dict):
 
     @property
     @pulumi.getter
-    def extra(self) -> Optional[Mapping[str, List[str]]]:
+    def extra(self) -> Optional[Mapping[str, Sequence[str]]]:
         """
         Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
         """
@@ -361,7 +361,7 @@ class SubjectAccessReviewSpec(dict):
 
     @property
     @pulumi.getter
-    def groups(self) -> Optional[List[str]]:
+    def groups(self) -> Optional[Sequence[str]]:
         """
         Groups is the groups you're testing for.
         """
@@ -471,14 +471,14 @@ class SubjectRulesReviewStatus(dict):
     """
     def __init__(__self__, *,
                  incomplete: bool,
-                 non_resource_rules: List['outputs.NonResourceRule'],
-                 resource_rules: List['outputs.ResourceRule'],
+                 non_resource_rules: Sequence['outputs.NonResourceRule'],
+                 resource_rules: Sequence['outputs.ResourceRule'],
                  evaluation_error: Optional[str] = None):
         """
         SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
         :param bool incomplete: Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
-        :param List['NonResourceRuleArgs'] non_resource_rules: NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
-        :param List['ResourceRuleArgs'] resource_rules: ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+        :param Sequence['NonResourceRuleArgs'] non_resource_rules: NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+        :param Sequence['ResourceRuleArgs'] resource_rules: ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
         :param str evaluation_error: EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
         """
         pulumi.set(__self__, "incomplete", incomplete)
@@ -497,7 +497,7 @@ class SubjectRulesReviewStatus(dict):
 
     @property
     @pulumi.getter(name="nonResourceRules")
-    def non_resource_rules(self) -> List['outputs.NonResourceRule']:
+    def non_resource_rules(self) -> Sequence['outputs.NonResourceRule']:
         """
         NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
         """
@@ -505,7 +505,7 @@ class SubjectRulesReviewStatus(dict):
 
     @property
     @pulumi.getter(name="resourceRules")
-    def resource_rules(self) -> List['outputs.ResourceRule']:
+    def resource_rules(self) -> Sequence['outputs.ResourceRule']:
         """
         ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
         """
