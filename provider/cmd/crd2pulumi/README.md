@@ -1,3 +1,5 @@
+## `crd2pulumi`has moved to a stand-alone repository at [`pulumi/crd2pulumi`](https://github.com/pulumi/crd2pulumi)! Please head over there to get the latest version, with newly added Python and .NET support.
+
 # crd2pulumi
 
 Generate strongly-typed CustomResources based on a Kubernetes CustomResourceDefinition (CRD).

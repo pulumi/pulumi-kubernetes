@@ -14,11 +14,13 @@
 
 import pulumi_kubernetes as k8s
 
+from typing import Any
+
 ns = k8s.core.v1.Namespace("ns")
 
 
 def set_namespace(namespace):
-    def f(obj):
+    def f(obj: Any):
         if "metadata" in obj:
             obj["metadata"]["namespace"] = namespace.metadata["name"]
         else:

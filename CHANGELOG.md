@@ -1,5 +1,14 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Upgrade version of pyyaml to fix a [security vulnerability](https://nvd.nist.gov/vuln/detail/CVE-2019-20477) (https://github.com/pulumi/pulumi-kubernetes/pull/1230)
+
+### Improvements
+
+-   Update Go Helm v3 to use native client. (https://github.com/pulumi/pulumi-kubernetes/pull/1296)
+-   Python: Allow type annotations on transformation functions. (https://github.com/pulumi/pulumi-kubernetes/pull/1298)
+
 ## 2.5.1 (September 2, 2020)
 
 ### Bug Fixes
