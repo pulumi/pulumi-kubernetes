@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -161,11 +161,11 @@ class Scheduling(dict):
     """
     def __init__(__self__, *,
                  node_selector: Optional[Mapping[str, str]] = None,
-                 tolerations: Optional[List['_core.v1.outputs.Toleration']] = None):
+                 tolerations: Optional[Sequence['_core.v1.outputs.Toleration']] = None):
         """
         Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
         :param Mapping[str, str] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
-        :param List['_core.v1.TolerationArgs'] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        :param Sequence['_core.v1.TolerationArgs'] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
@@ -182,7 +182,7 @@ class Scheduling(dict):
 
     @property
     @pulumi.getter
-    def tolerations(self) -> Optional[List['_core.v1.outputs.Toleration']]:
+    def tolerations(self) -> Optional[Sequence['_core.v1.outputs.Toleration']]:
         """
         tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """

@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -76,18 +76,18 @@ class PodPresetSpec(dict):
     PodPresetSpec is a description of a pod preset.
     """
     def __init__(__self__, *,
-                 env: Optional[List['_core.v1.outputs.EnvVar']] = None,
-                 env_from: Optional[List['_core.v1.outputs.EnvFromSource']] = None,
+                 env: Optional[Sequence['_core.v1.outputs.EnvVar']] = None,
+                 env_from: Optional[Sequence['_core.v1.outputs.EnvFromSource']] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-                 volume_mounts: Optional[List['_core.v1.outputs.VolumeMount']] = None,
-                 volumes: Optional[List['_core.v1.outputs.Volume']] = None):
+                 volume_mounts: Optional[Sequence['_core.v1.outputs.VolumeMount']] = None,
+                 volumes: Optional[Sequence['_core.v1.outputs.Volume']] = None):
         """
         PodPresetSpec is a description of a pod preset.
-        :param List['_core.v1.EnvVarArgs'] env: Env defines the collection of EnvVar to inject into containers.
-        :param List['_core.v1.EnvFromSourceArgs'] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
+        :param Sequence['_core.v1.EnvVarArgs'] env: Env defines the collection of EnvVar to inject into containers.
+        :param Sequence['_core.v1.EnvFromSourceArgs'] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
         :param '_meta.v1.LabelSelectorArgs' selector: Selector is a label query over a set of resources, in this case pods. Required.
-        :param List['_core.v1.VolumeMountArgs'] volume_mounts: VolumeMounts defines the collection of VolumeMount to inject into containers.
-        :param List['_core.v1.VolumeArgs'] volumes: Volumes defines the collection of Volume to inject into the pod.
+        :param Sequence['_core.v1.VolumeMountArgs'] volume_mounts: VolumeMounts defines the collection of VolumeMount to inject into containers.
+        :param Sequence['_core.v1.VolumeArgs'] volumes: Volumes defines the collection of Volume to inject into the pod.
         """
         if env is not None:
             pulumi.set(__self__, "env", env)
@@ -102,7 +102,7 @@ class PodPresetSpec(dict):
 
     @property
     @pulumi.getter
-    def env(self) -> Optional[List['_core.v1.outputs.EnvVar']]:
+    def env(self) -> Optional[Sequence['_core.v1.outputs.EnvVar']]:
         """
         Env defines the collection of EnvVar to inject into containers.
         """
@@ -110,7 +110,7 @@ class PodPresetSpec(dict):
 
     @property
     @pulumi.getter(name="envFrom")
-    def env_from(self) -> Optional[List['_core.v1.outputs.EnvFromSource']]:
+    def env_from(self) -> Optional[Sequence['_core.v1.outputs.EnvFromSource']]:
         """
         EnvFrom defines the collection of EnvFromSource to inject into containers.
         """
@@ -126,7 +126,7 @@ class PodPresetSpec(dict):
 
     @property
     @pulumi.getter(name="volumeMounts")
-    def volume_mounts(self) -> Optional[List['_core.v1.outputs.VolumeMount']]:
+    def volume_mounts(self) -> Optional[Sequence['_core.v1.outputs.VolumeMount']]:
         """
         VolumeMounts defines the collection of VolumeMount to inject into containers.
         """
@@ -134,7 +134,7 @@ class PodPresetSpec(dict):
 
     @property
     @pulumi.getter
-    def volumes(self) -> Optional[List['_core.v1.outputs.Volume']]:
+    def volumes(self) -> Optional[Sequence['_core.v1.outputs.Volume']]:
         """
         Volumes defines the collection of Volume to inject into the pod.
         """

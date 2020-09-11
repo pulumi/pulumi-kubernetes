@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 
 __all__ = [
@@ -22,11 +22,11 @@ __all__ = [
 @pulumi.input_type
 class LabelSelectorArgs:
     def __init__(__self__, *,
-                 match_expressions: Optional[pulumi.Input[List[pulumi.Input['LabelSelectorRequirementArgs']]]] = None,
+                 match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]] = None,
                  match_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
-        :param pulumi.Input[List[pulumi.Input['LabelSelectorRequirementArgs']]] match_expressions: matchExpressions is a list of label selector requirements. The requirements are ANDed.
+        :param pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]] match_expressions: matchExpressions is a list of label selector requirements. The requirements are ANDed.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] match_labels: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
         """
         if match_expressions is not None:
@@ -36,14 +36,14 @@ class LabelSelectorArgs:
 
     @property
     @pulumi.getter(name="matchExpressions")
-    def match_expressions(self) -> Optional[pulumi.Input[List[pulumi.Input['LabelSelectorRequirementArgs']]]]:
+    def match_expressions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]:
         """
         matchExpressions is a list of label selector requirements. The requirements are ANDed.
         """
         return pulumi.get(self, "match_expressions")
 
     @match_expressions.setter
-    def match_expressions(self, value: Optional[pulumi.Input[List[pulumi.Input['LabelSelectorRequirementArgs']]]]):
+    def match_expressions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]):
         pulumi.set(self, "match_expressions", value)
 
     @property
@@ -64,12 +64,12 @@ class LabelSelectorRequirementArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[str],
                  operator: pulumi.Input[str],
-                 values: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None):
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
         :param pulumi.Input[str] key: key is the label key that the selector applies to.
         :param pulumi.Input[str] operator: operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
-        :param pulumi.Input[List[pulumi.Input[str]]] values: values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] values: values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "operator", operator)
@@ -102,14 +102,14 @@ class LabelSelectorRequirementArgs:
 
     @property
     @pulumi.getter
-    def values(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
         """
         return pulumi.get(self, "values")
 
     @values.setter
-    def values(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "values", value)
 
 
@@ -301,14 +301,14 @@ class ObjectMetaArgs:
                  creation_timestamp: Optional[pulumi.Input[str]] = None,
                  deletion_grace_period_seconds: Optional[pulumi.Input[float]] = None,
                  deletion_timestamp: Optional[pulumi.Input[str]] = None,
-                 finalizers: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 finalizers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  generate_name: Optional[pulumi.Input[str]] = None,
                  generation: Optional[pulumi.Input[float]] = None,
                  labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 managed_fields: Optional[pulumi.Input[List[pulumi.Input['ManagedFieldsEntryArgs']]]] = None,
+                 managed_fields: Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
-                 owner_references: Optional[pulumi.Input[List[pulumi.Input['OwnerReferenceArgs']]]] = None,
+                 owner_references: Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgs']]]] = None,
                  resource_version: Optional[pulumi.Input[str]] = None,
                  self_link: Optional[pulumi.Input[str]] = None,
                  uid: Optional[pulumi.Input[str]] = None):
@@ -323,7 +323,7 @@ class ObjectMetaArgs:
         :param pulumi.Input[str] deletion_timestamp: DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.
                
                Populated by the system when a graceful deletion is requested. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[List[pulumi.Input[str]]] finalizers: Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] finalizers: Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
         :param pulumi.Input[str] generate_name: GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
                
                If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
@@ -331,12 +331,12 @@ class ObjectMetaArgs:
                Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
         :param pulumi.Input[float] generation: A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] labels: Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-        :param pulumi.Input[List[pulumi.Input['ManagedFieldsEntryArgs']]] managed_fields: ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
+        :param pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]] managed_fields: ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
         :param pulumi.Input[str] name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param pulumi.Input[str] namespace: Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
                
                Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
-        :param pulumi.Input[List[pulumi.Input['OwnerReferenceArgs']]] owner_references: List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
+        :param pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgs']]] owner_references: List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
         :param pulumi.Input[str] resource_version: An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
                
                Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
@@ -446,14 +446,14 @@ class ObjectMetaArgs:
 
     @property
     @pulumi.getter
-    def finalizers(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def finalizers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
         """
         return pulumi.get(self, "finalizers")
 
     @finalizers.setter
-    def finalizers(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def finalizers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "finalizers", value)
 
     @property
@@ -498,14 +498,14 @@ class ObjectMetaArgs:
 
     @property
     @pulumi.getter(name="managedFields")
-    def managed_fields(self) -> Optional[pulumi.Input[List[pulumi.Input['ManagedFieldsEntryArgs']]]]:
+    def managed_fields(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]:
         """
         ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
         """
         return pulumi.get(self, "managed_fields")
 
     @managed_fields.setter
-    def managed_fields(self, value: Optional[pulumi.Input[List[pulumi.Input['ManagedFieldsEntryArgs']]]]):
+    def managed_fields(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]):
         pulumi.set(self, "managed_fields", value)
 
     @property
@@ -536,14 +536,14 @@ class ObjectMetaArgs:
 
     @property
     @pulumi.getter(name="ownerReferences")
-    def owner_references(self) -> Optional[pulumi.Input[List[pulumi.Input['OwnerReferenceArgs']]]]:
+    def owner_references(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgs']]]]:
         """
         List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
         """
         return pulumi.get(self, "owner_references")
 
     @owner_references.setter
-    def owner_references(self, value: Optional[pulumi.Input[List[pulumi.Input['OwnerReferenceArgs']]]]):
+    def owner_references(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgs']]]]):
         pulumi.set(self, "owner_references", value)
 
     @property
@@ -756,7 +756,7 @@ class StatusCauseArgs:
 @pulumi.input_type
 class StatusDetailsArgs:
     def __init__(__self__, *,
-                 causes: Optional[pulumi.Input[List[pulumi.Input['StatusCauseArgs']]]] = None,
+                 causes: Optional[pulumi.Input[Sequence[pulumi.Input['StatusCauseArgs']]]] = None,
                  group: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -764,7 +764,7 @@ class StatusDetailsArgs:
                  uid: Optional[pulumi.Input[str]] = None):
         """
         StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
-        :param pulumi.Input[List[pulumi.Input['StatusCauseArgs']]] causes: The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
+        :param pulumi.Input[Sequence[pulumi.Input['StatusCauseArgs']]] causes: The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
         :param pulumi.Input[str] group: The group attribute of the resource associated with the status StatusReason.
         :param pulumi.Input[str] kind: The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] name: The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
@@ -786,14 +786,14 @@ class StatusDetailsArgs:
 
     @property
     @pulumi.getter
-    def causes(self) -> Optional[pulumi.Input[List[pulumi.Input['StatusCauseArgs']]]]:
+    def causes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['StatusCauseArgs']]]]:
         """
         The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
         """
         return pulumi.get(self, "causes")
 
     @causes.setter
-    def causes(self, value: Optional[pulumi.Input[List[pulumi.Input['StatusCauseArgs']]]]):
+    def causes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['StatusCauseArgs']]]]):
         pulumi.set(self, "causes", value)
 
     @property

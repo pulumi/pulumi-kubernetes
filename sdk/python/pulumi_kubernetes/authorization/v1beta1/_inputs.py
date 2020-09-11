@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 
 __all__ = [
@@ -242,16 +242,16 @@ class SelfSubjectRulesReviewSpecArgs:
 @pulumi.input_type
 class SubjectAccessReviewSpecArgs:
     def __init__(__self__, *,
-                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]] = None,
-                 group: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
+                 group: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  non_resource_attributes: Optional[pulumi.Input['NonResourceAttributesArgs']] = None,
                  resource_attributes: Optional[pulumi.Input['ResourceAttributesArgs']] = None,
                  uid: Optional[pulumi.Input[str]] = None,
                  user: Optional[pulumi.Input[str]] = None):
         """
         SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
-        :param pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]] extra: Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
-        :param pulumi.Input[List[pulumi.Input[str]]] group: Groups is the groups you're testing for.
+        :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] extra: Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] group: Groups is the groups you're testing for.
         :param pulumi.Input['NonResourceAttributesArgs'] non_resource_attributes: NonResourceAttributes describes information for a non-resource access request
         :param pulumi.Input['ResourceAttributesArgs'] resource_attributes: ResourceAuthorizationAttributes describes information for a resource access request
         :param pulumi.Input[str] uid: UID information about the requesting user.
@@ -272,26 +272,26 @@ class SubjectAccessReviewSpecArgs:
 
     @property
     @pulumi.getter
-    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]]:
+    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]:
         """
         Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
         """
         return pulumi.get(self, "extra")
 
     @extra.setter
-    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]]):
+    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]):
         pulumi.set(self, "extra", value)
 
     @property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def group(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Groups is the groups you're testing for.
         """
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def group(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "group", value)
 
     @property

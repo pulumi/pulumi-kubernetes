@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -21,7 +21,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                 webhooks: Optional[pulumi.Input[List[pulumi.Input[pulumi.InputType['ValidatingWebhookArgs']]]]] = None,
+                 webhooks: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ValidatingWebhookArgs']]]]] = None,
                  __props__=None,
                  __name__=None,
                  __opts__=None):
@@ -33,7 +33,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[List[pulumi.Input[pulumi.InputType['ValidatingWebhookArgs']]]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ValidatingWebhookArgs']]]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -108,7 +108,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def webhooks(self) -> pulumi.Output[Optional[List['outputs.ValidatingWebhook']]]:
+    def webhooks(self) -> pulumi.Output[Optional[Sequence['outputs.ValidatingWebhook']]]:
         """
         Webhooks is a list of webhooks and the affected resources and operations.
         """

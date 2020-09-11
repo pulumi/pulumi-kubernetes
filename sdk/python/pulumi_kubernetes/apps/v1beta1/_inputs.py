@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import core as _core
 from ... import meta as _meta
@@ -482,7 +482,7 @@ class DeploymentStatusArgs:
     def __init__(__self__, *,
                  available_replicas: Optional[pulumi.Input[float]] = None,
                  collision_count: Optional[pulumi.Input[float]] = None,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['DeploymentConditionArgs']]]] = None,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgs']]]] = None,
                  observed_generation: Optional[pulumi.Input[float]] = None,
                  ready_replicas: Optional[pulumi.Input[float]] = None,
                  replicas: Optional[pulumi.Input[float]] = None,
@@ -492,7 +492,7 @@ class DeploymentStatusArgs:
         DeploymentStatus is the most recently observed status of the Deployment.
         :param pulumi.Input[float] available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
         :param pulumi.Input[float] collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
-        :param pulumi.Input[List[pulumi.Input['DeploymentConditionArgs']]] conditions: Represents the latest available observations of a deployment's current state.
+        :param pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgs']]] conditions: Represents the latest available observations of a deployment's current state.
         :param pulumi.Input[float] observed_generation: The generation observed by the deployment controller.
         :param pulumi.Input[float] ready_replicas: Total number of ready pods targeted by this deployment.
         :param pulumi.Input[float] replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
@@ -542,14 +542,14 @@ class DeploymentStatusArgs:
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['DeploymentConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgs']]]]:
         """
         Represents the latest available observations of a deployment's current state.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['DeploymentConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
     @property
@@ -937,7 +937,7 @@ class StatefulSetSpecArgs:
                  revision_history_limit: Optional[pulumi.Input[float]] = None,
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
                  update_strategy: Optional[pulumi.Input['StatefulSetUpdateStrategyArgs']] = None,
-                 volume_claim_templates: Optional[pulumi.Input[List[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]] = None):
+                 volume_claim_templates: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]] = None):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
         :param pulumi.Input[str] service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
@@ -947,7 +947,7 @@ class StatefulSetSpecArgs:
         :param pulumi.Input[float] revision_history_limit: revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input['StatefulSetUpdateStrategyArgs'] update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
-        :param pulumi.Input[List[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
         pulumi.set(__self__, "service_name", service_name)
         pulumi.set(__self__, "template", template)
@@ -1050,14 +1050,14 @@ class StatefulSetSpecArgs:
 
     @property
     @pulumi.getter(name="volumeClaimTemplates")
-    def volume_claim_templates(self) -> Optional[pulumi.Input[List[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]:
+    def volume_claim_templates(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]:
         """
         volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
         return pulumi.get(self, "volume_claim_templates")
 
     @volume_claim_templates.setter
-    def volume_claim_templates(self, value: Optional[pulumi.Input[List[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]):
+    def volume_claim_templates(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]):
         pulumi.set(self, "volume_claim_templates", value)
 
 
@@ -1066,7 +1066,7 @@ class StatefulSetStatusArgs:
     def __init__(__self__, *,
                  replicas: pulumi.Input[float],
                  collision_count: Optional[pulumi.Input[float]] = None,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['StatefulSetConditionArgs']]]] = None,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]]] = None,
                  current_replicas: Optional[pulumi.Input[float]] = None,
                  current_revision: Optional[pulumi.Input[str]] = None,
                  observed_generation: Optional[pulumi.Input[float]] = None,
@@ -1077,7 +1077,7 @@ class StatefulSetStatusArgs:
         StatefulSetStatus represents the current state of a StatefulSet.
         :param pulumi.Input[float] replicas: replicas is the number of Pods created by the StatefulSet controller.
         :param pulumi.Input[float] collision_count: collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
-        :param pulumi.Input[List[pulumi.Input['StatefulSetConditionArgs']]] conditions: Represents the latest available observations of a statefulset's current state.
+        :param pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]] conditions: Represents the latest available observations of a statefulset's current state.
         :param pulumi.Input[float] current_replicas: currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
         :param pulumi.Input[str] current_revision: currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
         :param pulumi.Input[float] observed_generation: observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
@@ -1129,14 +1129,14 @@ class StatefulSetStatusArgs:
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['StatefulSetConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]]]:
         """
         Represents the latest available observations of a statefulset's current state.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['StatefulSetConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
     @property

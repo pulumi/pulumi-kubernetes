@@ -7,7 +7,7 @@ import re
 import shutil
 import subprocess
 from tempfile import mkdtemp, mkstemp
-from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
+from typing import Any, Callable, Optional, Sequence, TextIO, Tuple, Union
 
 import pulumi.runtime
 from pulumi_kubernetes.yaml import _parse_yaml_document
@@ -369,7 +369,7 @@ class BaseChartOpts:
     Optional overrides for chart values.
     """
 
-    transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]]
+    transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]]
     """
     Optional list of transformations to apply to resources that will be created by this chart prior to
     creation. Allows customization of the chart behaviour without directly modifying the chart itself.
@@ -381,7 +381,7 @@ class BaseChartOpts:
     Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
     """
 
-    api_versions: Optional[List[pulumi.Input[str]]]
+    api_versions: Optional[Sequence[pulumi.Input[str]]]
     """
     Optional kubernetes api versions used for Capabilities.APIVersions.
     """
@@ -389,18 +389,18 @@ class BaseChartOpts:
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
+                 transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
-                 api_versions: Optional[List[pulumi.Input[str]]] = None):
+                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list
+        :param Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list
                of transformations to apply to resources that will be created by this chart prior to creation.
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
-        :param Optional[List[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
+        :param Optional[Sequence[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
                Capabilities.APIVersions.
         """
         self.namespace = namespace
@@ -442,12 +442,12 @@ class ChartOpts(BaseChartOpts):
                  chart: pulumi.Input[str],
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
+                 transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
                  repo: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  fetch_opts: Optional[pulumi.Input[FetchOpts]] = None,
-                 api_versions: Optional[List[pulumi.Input[str]]] = None):
+                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None):
         """
         :param pulumi.Input[str] chart: The name of the chart to deploy.  If `repo` is provided, this chart name
                will be prefixed by the repo name.
@@ -455,7 +455,7 @@ class ChartOpts(BaseChartOpts):
                Example: chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list of
+        :param Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list of
                transformations to apply to resources that will be created by this chart prior to creation.
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
@@ -466,7 +466,7 @@ class ChartOpts(BaseChartOpts):
                the latest version will be deployed.
         :param Optional[pulumi.Input[FetchOpts]] fetch_opts: Additional options to customize the
                fetching of the Helm chart.
-        :param Optional[List[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
+        :param Optional[Sequence[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
                Capabilities.APIVersions.
         """
         super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions)
@@ -490,20 +490,20 @@ class LocalChartOpts(BaseChartOpts):
                  path: pulumi.Input[str],
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
+                 transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
-                 api_versions: Optional[List[pulumi.Input[str]]] = None):
+                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None):
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list of
+        :param Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list of
                transformations to apply to resources that will be created by this chart prior to creation.
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
-        :param Optional[List[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
+        :param Optional[Sequence[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
                Capabilities.APIVersions.
         """
 
@@ -511,7 +511,7 @@ class LocalChartOpts(BaseChartOpts):
         self.path = path
 
 
-def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
+def _run_helm_cmd(all_config: Tuple[Sequence[Union[str, bytes]], Any]) -> str:
     cmd, _ = all_config
 
     output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True)
@@ -520,7 +520,7 @@ def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
 
 
 def _is_helm_v3() -> bool:
-    cmd: List[str] = ['helm', 'version', '--short']
+    cmd: Sequence[str] = ['helm', 'version', '--short']
 
     """ 
     Helm v2 returns version like this:
@@ -621,7 +621,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
 
 def _fetch(chart: str, opts: FetchOpts) -> None:
-    cmd: List[str] = ['helm', 'fetch', chart]
+    cmd: Sequence[str] = ['helm', 'fetch', chart]
 
     # Untar by default.
     if opts.untar is not False:

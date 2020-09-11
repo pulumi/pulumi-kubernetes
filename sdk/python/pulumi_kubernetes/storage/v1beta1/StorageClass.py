@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import core as _core
 from ... import meta as _meta
@@ -18,11 +18,11 @@ class StorageClass(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_volume_expansion: Optional[pulumi.Input[bool]] = None,
-                 allowed_topologies: Optional[pulumi.Input[List[pulumi.Input[pulumi.InputType['_core.v1.TopologySelectorTermArgs']]]]] = None,
+                 allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['_core.v1.TopologySelectorTermArgs']]]]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                 mount_options: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  provisioner: Optional[pulumi.Input[str]] = None,
                  reclaim_policy: Optional[pulumi.Input[str]] = None,
@@ -38,11 +38,11 @@ class StorageClass(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
-        :param pulumi.Input[List[pulumi.Input[pulumi.InputType['_core.v1.TopologySelectorTermArgs']]]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['_core.v1.TopologySelectorTermArgs']]]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[List[pulumi.Input[str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] parameters: Parameters holds the parameters for the provisioner that should create volumes of this storage class.
         :param pulumi.Input[str] provisioner: Provisioner indicates the type of the provisioner.
         :param pulumi.Input[str] reclaim_policy: Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
@@ -113,7 +113,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="allowedTopologies")
-    def allowed_topologies(self) -> pulumi.Output[Optional[List['_core.v1.outputs.TopologySelectorTerm']]]:
+    def allowed_topologies(self) -> pulumi.Output[Optional[Sequence['_core.v1.outputs.TopologySelectorTerm']]]:
         """
         Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         """
@@ -145,7 +145,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="mountOptions")
-    def mount_options(self) -> pulumi.Output[Optional[List[str]]]:
+    def mount_options(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
         Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         """

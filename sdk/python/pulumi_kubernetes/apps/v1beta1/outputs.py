@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -432,7 +432,7 @@ class DeploymentStatus(dict):
     def __init__(__self__, *,
                  available_replicas: Optional[float] = None,
                  collision_count: Optional[float] = None,
-                 conditions: Optional[List['outputs.DeploymentCondition']] = None,
+                 conditions: Optional[Sequence['outputs.DeploymentCondition']] = None,
                  observed_generation: Optional[float] = None,
                  ready_replicas: Optional[float] = None,
                  replicas: Optional[float] = None,
@@ -442,7 +442,7 @@ class DeploymentStatus(dict):
         DeploymentStatus is the most recently observed status of the Deployment.
         :param float available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
         :param float collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
-        :param List['DeploymentConditionArgs'] conditions: Represents the latest available observations of a deployment's current state.
+        :param Sequence['DeploymentConditionArgs'] conditions: Represents the latest available observations of a deployment's current state.
         :param float observed_generation: The generation observed by the deployment controller.
         :param float ready_replicas: Total number of ready pods targeted by this deployment.
         :param float replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
@@ -484,7 +484,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.DeploymentCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.DeploymentCondition']]:
         """
         Represents the latest available observations of a deployment's current state.
         """
@@ -849,7 +849,7 @@ class StatefulSetSpec(dict):
                  revision_history_limit: Optional[float] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  update_strategy: Optional['outputs.StatefulSetUpdateStrategy'] = None,
-                 volume_claim_templates: Optional[List['_core.v1.outputs.PersistentVolumeClaim']] = None):
+                 volume_claim_templates: Optional[Sequence['_core.v1.outputs.PersistentVolumeClaim']] = None):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
         :param str service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
@@ -859,7 +859,7 @@ class StatefulSetSpec(dict):
         :param float revision_history_limit: revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
         :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over pods that should match the replica count. If empty, defaulted to labels on the pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param 'StatefulSetUpdateStrategyArgs' update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
-        :param List['_core.v1.PersistentVolumeClaimArgs'] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+        :param Sequence['_core.v1.PersistentVolumeClaimArgs'] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
         pulumi.set(__self__, "service_name", service_name)
         pulumi.set(__self__, "template", template)
@@ -934,7 +934,7 @@ class StatefulSetSpec(dict):
 
     @property
     @pulumi.getter(name="volumeClaimTemplates")
-    def volume_claim_templates(self) -> Optional[List['_core.v1.outputs.PersistentVolumeClaim']]:
+    def volume_claim_templates(self) -> Optional[Sequence['_core.v1.outputs.PersistentVolumeClaim']]:
         """
         volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
@@ -952,7 +952,7 @@ class StatefulSetStatus(dict):
     def __init__(__self__, *,
                  replicas: float,
                  collision_count: Optional[float] = None,
-                 conditions: Optional[List['outputs.StatefulSetCondition']] = None,
+                 conditions: Optional[Sequence['outputs.StatefulSetCondition']] = None,
                  current_replicas: Optional[float] = None,
                  current_revision: Optional[str] = None,
                  observed_generation: Optional[float] = None,
@@ -963,7 +963,7 @@ class StatefulSetStatus(dict):
         StatefulSetStatus represents the current state of a StatefulSet.
         :param float replicas: replicas is the number of Pods created by the StatefulSet controller.
         :param float collision_count: collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
-        :param List['StatefulSetConditionArgs'] conditions: Represents the latest available observations of a statefulset's current state.
+        :param Sequence['StatefulSetConditionArgs'] conditions: Represents the latest available observations of a statefulset's current state.
         :param float current_replicas: currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
         :param str current_revision: currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
         :param float observed_generation: observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
@@ -1007,7 +1007,7 @@ class StatefulSetStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.StatefulSetCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.StatefulSetCondition']]:
         """
         Represents the latest available observations of a statefulset's current state.
         """

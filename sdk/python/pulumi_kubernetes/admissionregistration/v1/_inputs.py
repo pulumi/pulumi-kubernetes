@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import meta as _meta
 
@@ -22,7 +22,7 @@ __all__ = [
 @pulumi.input_type
 class MutatingWebhookArgs:
     def __init__(__self__, *,
-                 admission_review_versions: pulumi.Input[List[pulumi.Input[str]]],
+                 admission_review_versions: pulumi.Input[Sequence[pulumi.Input[str]]],
                  client_config: pulumi.Input['WebhookClientConfigArgs'],
                  name: pulumi.Input[str],
                  side_effects: pulumi.Input[str],
@@ -31,11 +31,11 @@ class MutatingWebhookArgs:
                  namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
                  object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
                  reinvocation_policy: Optional[pulumi.Input[str]] = None,
-                 rules: Optional[pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]]] = None,
+                 rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]] = None,
                  timeout_seconds: Optional[pulumi.Input[float]] = None):
         """
         MutatingWebhook describes an admission webhook and the resources and operations it applies to.
-        :param pulumi.Input[List[pulumi.Input[str]]] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
         :param pulumi.Input['WebhookClientConfigArgs'] client_config: ClientConfig defines how to communicate with the hook. Required
         :param pulumi.Input[str] name: The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
         :param pulumi.Input[str] side_effects: SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
@@ -86,7 +86,7 @@ class MutatingWebhookArgs:
                IfNeeded: the webhook will be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial webhook call. Webhooks that specify this option *must* be idempotent, able to process objects they previously admitted. Note: * the number of additional invocations is not guaranteed to be exactly one. * if additional invocations result in further modifications to the object, webhooks are not guaranteed to be invoked again. * webhooks that use this option may be reordered to minimize the number of additional invocations. * to validate an object after all mutations are guaranteed complete, use a validating admission webhook instead.
                
                Defaults to "Never".
-        :param pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+        :param pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
         :param pulumi.Input[float] timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
         pulumi.set(__self__, "admission_review_versions", admission_review_versions)
@@ -110,14 +110,14 @@ class MutatingWebhookArgs:
 
     @property
     @pulumi.getter(name="admissionReviewVersions")
-    def admission_review_versions(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def admission_review_versions(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
         """
         return pulumi.get(self, "admission_review_versions")
 
     @admission_review_versions.setter
-    def admission_review_versions(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def admission_review_versions(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "admission_review_versions", value)
 
     @property
@@ -260,14 +260,14 @@ class MutatingWebhookArgs:
 
     @property
     @pulumi.getter
-    def rules(self) -> Optional[pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]]]:
+    def rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]]:
         """
         Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
         """
         return pulumi.get(self, "rules")
 
     @rules.setter
-    def rules(self, value: Optional[pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]]]):
+    def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]]):
         pulumi.set(self, "rules", value)
 
     @property
@@ -289,13 +289,13 @@ class MutatingWebhookConfigurationArgs:
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 webhooks: Optional[pulumi.Input[List[pulumi.Input['MutatingWebhookArgs']]]] = None):
+                 webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['MutatingWebhookArgs']]]] = None):
         """
         MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[List[pulumi.Input['MutatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input[Sequence[pulumi.Input['MutatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1')
@@ -344,31 +344,31 @@ class MutatingWebhookConfigurationArgs:
 
     @property
     @pulumi.getter
-    def webhooks(self) -> Optional[pulumi.Input[List[pulumi.Input['MutatingWebhookArgs']]]]:
+    def webhooks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MutatingWebhookArgs']]]]:
         """
         Webhooks is a list of webhooks and the affected resources and operations.
         """
         return pulumi.get(self, "webhooks")
 
     @webhooks.setter
-    def webhooks(self, value: Optional[pulumi.Input[List[pulumi.Input['MutatingWebhookArgs']]]]):
+    def webhooks(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MutatingWebhookArgs']]]]):
         pulumi.set(self, "webhooks", value)
 
 
 @pulumi.input_type
 class RuleWithOperationsArgs:
     def __init__(__self__, *,
-                 api_groups: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
-                 api_versions: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
-                 operations: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
-                 resources: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 api_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 operations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  scope: Optional[pulumi.Input[str]] = None):
         """
         RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
-        :param pulumi.Input[List[pulumi.Input[str]]] api_groups: APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[List[pulumi.Input[str]]] api_versions: APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[List[pulumi.Input[str]]] operations: Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[List[pulumi.Input[str]]] resources: Resources is a list of resources this rule applies to.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_versions: APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] operations: Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources is a list of resources this rule applies to.
                
                For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
                
@@ -390,43 +390,43 @@ class RuleWithOperationsArgs:
 
     @property
     @pulumi.getter(name="apiGroups")
-    def api_groups(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def api_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_groups")
 
     @api_groups.setter
-    def api_groups(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def api_groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "api_groups", value)
 
     @property
     @pulumi.getter(name="apiVersions")
-    def api_versions(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def api_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_versions")
 
     @api_versions.setter
-    def api_versions(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def api_versions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "api_versions", value)
 
     @property
     @pulumi.getter
-    def operations(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def operations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "operations")
 
     @operations.setter
-    def operations(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def operations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "operations", value)
 
     @property
     @pulumi.getter
-    def resources(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def resources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Resources is a list of resources this rule applies to.
 
@@ -439,7 +439,7 @@ class RuleWithOperationsArgs:
         return pulumi.get(self, "resources")
 
     @resources.setter
-    def resources(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def resources(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "resources", value)
 
     @property
@@ -528,7 +528,7 @@ class ServiceReferenceArgs:
 @pulumi.input_type
 class ValidatingWebhookArgs:
     def __init__(__self__, *,
-                 admission_review_versions: pulumi.Input[List[pulumi.Input[str]]],
+                 admission_review_versions: pulumi.Input[Sequence[pulumi.Input[str]]],
                  client_config: pulumi.Input['WebhookClientConfigArgs'],
                  name: pulumi.Input[str],
                  side_effects: pulumi.Input[str],
@@ -536,11 +536,11 @@ class ValidatingWebhookArgs:
                  match_policy: Optional[pulumi.Input[str]] = None,
                  namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
                  object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-                 rules: Optional[pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]]] = None,
+                 rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]] = None,
                  timeout_seconds: Optional[pulumi.Input[float]] = None):
         """
         ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
-        :param pulumi.Input[List[pulumi.Input[str]]] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
         :param pulumi.Input['WebhookClientConfigArgs'] client_config: ClientConfig defines how to communicate with the hook. Required
         :param pulumi.Input[str] name: The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
         :param pulumi.Input[str] side_effects: SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
@@ -584,7 +584,7 @@ class ValidatingWebhookArgs:
                
                Default to the empty LabelSelector, which matches everything.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] object_selector: ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-        :param pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+        :param pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
         :param pulumi.Input[float] timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
         pulumi.set(__self__, "admission_review_versions", admission_review_versions)
@@ -606,14 +606,14 @@ class ValidatingWebhookArgs:
 
     @property
     @pulumi.getter(name="admissionReviewVersions")
-    def admission_review_versions(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def admission_review_versions(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
         """
         return pulumi.get(self, "admission_review_versions")
 
     @admission_review_versions.setter
-    def admission_review_versions(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def admission_review_versions(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "admission_review_versions", value)
 
     @property
@@ -738,14 +738,14 @@ class ValidatingWebhookArgs:
 
     @property
     @pulumi.getter
-    def rules(self) -> Optional[pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]]]:
+    def rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]]:
         """
         Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
         """
         return pulumi.get(self, "rules")
 
     @rules.setter
-    def rules(self, value: Optional[pulumi.Input[List[pulumi.Input['RuleWithOperationsArgs']]]]):
+    def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]]):
         pulumi.set(self, "rules", value)
 
     @property
@@ -767,13 +767,13 @@ class ValidatingWebhookConfigurationArgs:
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 webhooks: Optional[pulumi.Input[List[pulumi.Input['ValidatingWebhookArgs']]]] = None):
+                 webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]]] = None):
         """
         ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[List[pulumi.Input['ValidatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1')
@@ -822,14 +822,14 @@ class ValidatingWebhookConfigurationArgs:
 
     @property
     @pulumi.getter
-    def webhooks(self) -> Optional[pulumi.Input[List[pulumi.Input['ValidatingWebhookArgs']]]]:
+    def webhooks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]]]:
         """
         Webhooks is a list of webhooks and the affected resources and operations.
         """
         return pulumi.get(self, "webhooks")
 
     @webhooks.setter
-    def webhooks(self, value: Optional[pulumi.Input[List[pulumi.Input['ValidatingWebhookArgs']]]]):
+    def webhooks(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]]]):
         pulumi.set(self, "webhooks", value)
 
 

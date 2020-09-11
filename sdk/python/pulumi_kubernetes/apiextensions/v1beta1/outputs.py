@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -118,13 +118,13 @@ class CustomResourceConversion(dict):
     """
     def __init__(__self__, *,
                  strategy: str,
-                 conversion_review_versions: Optional[List[str]] = None,
+                 conversion_review_versions: Optional[Sequence[str]] = None,
                  webhook_client_config: Optional['outputs.WebhookClientConfig'] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
         :param str strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
-        :param List[str] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
+        :param Sequence[str] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
         :param 'WebhookClientConfigArgs' webhook_client_config: webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`.
         """
         pulumi.set(__self__, "strategy", strategy)
@@ -144,7 +144,7 @@ class CustomResourceConversion(dict):
 
     @property
     @pulumi.getter(name="conversionReviewVersions")
-    def conversion_review_versions(self) -> Optional[List[str]]:
+    def conversion_review_versions(self) -> Optional[Sequence[str]]:
         """
         conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
         """
@@ -311,17 +311,17 @@ class CustomResourceDefinitionNames(dict):
     def __init__(__self__, *,
                  kind: str,
                  plural: str,
-                 categories: Optional[List[str]] = None,
+                 categories: Optional[Sequence[str]] = None,
                  list_kind: Optional[str] = None,
-                 short_names: Optional[List[str]] = None,
+                 short_names: Optional[Sequence[str]] = None,
                  singular: Optional[str] = None):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
         :param str kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
         :param str plural: plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
-        :param List[str] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+        :param Sequence[str] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
         :param str list_kind: listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
-        :param List[str] short_names: shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
+        :param Sequence[str] short_names: shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
         :param str singular: singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
         """
         pulumi.set(__self__, "kind", kind)
@@ -353,7 +353,7 @@ class CustomResourceDefinitionNames(dict):
 
     @property
     @pulumi.getter
-    def categories(self) -> Optional[List[str]]:
+    def categories(self) -> Optional[Sequence[str]]:
         """
         categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
         """
@@ -369,7 +369,7 @@ class CustomResourceDefinitionNames(dict):
 
     @property
     @pulumi.getter(name="shortNames")
-    def short_names(self) -> Optional[List[str]]:
+    def short_names(self) -> Optional[Sequence[str]]:
         """
         shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
         """
@@ -396,25 +396,25 @@ class CustomResourceDefinitionSpec(dict):
                  group: str,
                  names: 'outputs.CustomResourceDefinitionNames',
                  scope: str,
-                 additional_printer_columns: Optional[List['outputs.CustomResourceColumnDefinition']] = None,
+                 additional_printer_columns: Optional[Sequence['outputs.CustomResourceColumnDefinition']] = None,
                  conversion: Optional['outputs.CustomResourceConversion'] = None,
                  preserve_unknown_fields: Optional[bool] = None,
                  subresources: Optional['outputs.CustomResourceSubresources'] = None,
                  validation: Optional['outputs.CustomResourceValidation'] = None,
                  version: Optional[str] = None,
-                 versions: Optional[List['outputs.CustomResourceDefinitionVersion']] = None):
+                 versions: Optional[Sequence['outputs.CustomResourceDefinitionVersion']] = None):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
         :param str group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
         :param 'CustomResourceDefinitionNamesArgs' names: names specify the resource and kind names for the custom resource.
         :param str scope: scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
-        :param List['CustomResourceColumnDefinitionArgs'] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
+        :param Sequence['CustomResourceColumnDefinitionArgs'] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
         :param 'CustomResourceConversionArgs' conversion: conversion defines conversion settings for the CRD.
         :param bool preserve_unknown_fields: preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
         :param 'CustomResourceSubresourcesArgs' subresources: subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
         :param 'CustomResourceValidationArgs' validation: validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive.
         :param str version: version is the API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead.
-        :param List['CustomResourceDefinitionVersionArgs'] versions: versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+        :param Sequence['CustomResourceDefinitionVersionArgs'] versions: versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         """
         pulumi.set(__self__, "group", group)
         pulumi.set(__self__, "names", names)
@@ -460,7 +460,7 @@ class CustomResourceDefinitionSpec(dict):
 
     @property
     @pulumi.getter(name="additionalPrinterColumns")
-    def additional_printer_columns(self) -> Optional[List['outputs.CustomResourceColumnDefinition']]:
+    def additional_printer_columns(self) -> Optional[Sequence['outputs.CustomResourceColumnDefinition']]:
         """
         additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
         """
@@ -508,7 +508,7 @@ class CustomResourceDefinitionSpec(dict):
 
     @property
     @pulumi.getter
-    def versions(self) -> Optional[List['outputs.CustomResourceDefinitionVersion']]:
+    def versions(self) -> Optional[Sequence['outputs.CustomResourceDefinitionVersion']]:
         """
         versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         """
@@ -525,13 +525,13 @@ class CustomResourceDefinitionStatus(dict):
     """
     def __init__(__self__, *,
                  accepted_names: 'outputs.CustomResourceDefinitionNames',
-                 stored_versions: List[str],
-                 conditions: Optional[List['outputs.CustomResourceDefinitionCondition']] = None):
+                 stored_versions: Sequence[str],
+                 conditions: Optional[Sequence['outputs.CustomResourceDefinitionCondition']] = None):
         """
         CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
         :param 'CustomResourceDefinitionNamesArgs' accepted_names: acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
-        :param List[str] stored_versions: storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
-        :param List['CustomResourceDefinitionConditionArgs'] conditions: conditions indicate state for particular aspects of a CustomResourceDefinition
+        :param Sequence[str] stored_versions: storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
+        :param Sequence['CustomResourceDefinitionConditionArgs'] conditions: conditions indicate state for particular aspects of a CustomResourceDefinition
         """
         pulumi.set(__self__, "accepted_names", accepted_names)
         pulumi.set(__self__, "stored_versions", stored_versions)
@@ -548,7 +548,7 @@ class CustomResourceDefinitionStatus(dict):
 
     @property
     @pulumi.getter(name="storedVersions")
-    def stored_versions(self) -> List[str]:
+    def stored_versions(self) -> Sequence[str]:
         """
         storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
         """
@@ -556,7 +556,7 @@ class CustomResourceDefinitionStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.CustomResourceDefinitionCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.CustomResourceDefinitionCondition']]:
         """
         conditions indicate state for particular aspects of a CustomResourceDefinition
         """
@@ -575,7 +575,7 @@ class CustomResourceDefinitionVersion(dict):
                  name: str,
                  served: bool,
                  storage: bool,
-                 additional_printer_columns: Optional[List['outputs.CustomResourceColumnDefinition']] = None,
+                 additional_printer_columns: Optional[Sequence['outputs.CustomResourceColumnDefinition']] = None,
                  deprecated: Optional[bool] = None,
                  deprecation_warning: Optional[str] = None,
                  schema: Optional['outputs.CustomResourceValidation'] = None,
@@ -585,7 +585,7 @@ class CustomResourceDefinitionVersion(dict):
         :param str name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
         :param bool served: served is a flag enabling/disabling this version from being served via REST APIs
         :param bool storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
-        :param List['CustomResourceColumnDefinitionArgs'] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
+        :param Sequence['CustomResourceColumnDefinitionArgs'] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
         :param bool deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
         :param str deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
         :param 'CustomResourceValidationArgs' schema: schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead).
@@ -631,7 +631,7 @@ class CustomResourceDefinitionVersion(dict):
 
     @property
     @pulumi.getter(name="additionalPrinterColumns")
-    def additional_printer_columns(self) -> Optional[List['outputs.CustomResourceColumnDefinition']]:
+    def additional_printer_columns(self) -> Optional[Sequence['outputs.CustomResourceColumnDefinition']]:
         """
         additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
         """
@@ -825,13 +825,13 @@ class JSONSchemaProps(dict):
                  _schema: Optional[str] = None,
                  additional_items: Optional[Any] = None,
                  additional_properties: Optional[Any] = None,
-                 all_of: Optional[List['outputs.JSONSchemaProps']] = None,
-                 any_of: Optional[List['outputs.JSONSchemaProps']] = None,
+                 all_of: Optional[Sequence['outputs.JSONSchemaProps']] = None,
+                 any_of: Optional[Sequence['outputs.JSONSchemaProps']] = None,
                  default: Optional[Any] = None,
                  definitions: Optional[Mapping[str, 'outputs.JSONSchemaProps']] = None,
                  dependencies: Optional[Mapping[str, Any]] = None,
                  description: Optional[str] = None,
-                 enum: Optional[List[Any]] = None,
+                 enum: Optional[Sequence[Any]] = None,
                  example: Optional[Any] = None,
                  exclusive_maximum: Optional[bool] = None,
                  exclusive_minimum: Optional[bool] = None,
@@ -850,17 +850,17 @@ class JSONSchemaProps(dict):
                  multiple_of: Optional[float] = None,
                  not_: Optional['outputs.JSONSchemaProps'] = None,
                  nullable: Optional[bool] = None,
-                 one_of: Optional[List['outputs.JSONSchemaProps']] = None,
+                 one_of: Optional[Sequence['outputs.JSONSchemaProps']] = None,
                  pattern: Optional[str] = None,
                  pattern_properties: Optional[Mapping[str, 'outputs.JSONSchemaProps']] = None,
                  properties: Optional[Mapping[str, 'outputs.JSONSchemaProps']] = None,
-                 required: Optional[List[str]] = None,
+                 required: Optional[Sequence[str]] = None,
                  title: Optional[str] = None,
                  type: Optional[str] = None,
                  unique_items: Optional[bool] = None,
                  x_kubernetes_embedded_resource: Optional[bool] = None,
                  x_kubernetes_int_or_string: Optional[bool] = None,
-                 x_kubernetes_list_map_keys: Optional[List[str]] = None,
+                 x_kubernetes_list_map_keys: Optional[Sequence[str]] = None,
                  x_kubernetes_list_type: Optional[str] = None,
                  x_kubernetes_map_type: Optional[str] = None,
                  x_kubernetes_preserve_unknown_fields: Optional[bool] = None):
@@ -881,7 +881,7 @@ class JSONSchemaProps(dict):
                     - type: integer
                     - type: string
                   - ... zero or more
-        :param List[str] x_kubernetes_list_map_keys: x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
+        :param Sequence[str] x_kubernetes_list_map_keys: x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
                
                This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
                
@@ -1019,12 +1019,12 @@ class JSONSchemaProps(dict):
 
     @property
     @pulumi.getter(name="allOf")
-    def all_of(self) -> Optional[List['outputs.JSONSchemaProps']]:
+    def all_of(self) -> Optional[Sequence['outputs.JSONSchemaProps']]:
         return pulumi.get(self, "all_of")
 
     @property
     @pulumi.getter(name="anyOf")
-    def any_of(self) -> Optional[List['outputs.JSONSchemaProps']]:
+    def any_of(self) -> Optional[Sequence['outputs.JSONSchemaProps']]:
         return pulumi.get(self, "any_of")
 
     @property
@@ -1052,7 +1052,7 @@ class JSONSchemaProps(dict):
 
     @property
     @pulumi.getter
-    def enum(self) -> Optional[List[Any]]:
+    def enum(self) -> Optional[Sequence[Any]]:
         return pulumi.get(self, "enum")
 
     @property
@@ -1152,7 +1152,7 @@ class JSONSchemaProps(dict):
 
     @property
     @pulumi.getter(name="oneOf")
-    def one_of(self) -> Optional[List['outputs.JSONSchemaProps']]:
+    def one_of(self) -> Optional[Sequence['outputs.JSONSchemaProps']]:
         return pulumi.get(self, "one_of")
 
     @property
@@ -1172,7 +1172,7 @@ class JSONSchemaProps(dict):
 
     @property
     @pulumi.getter
-    def required(self) -> Optional[List[str]]:
+    def required(self) -> Optional[Sequence[str]]:
         return pulumi.get(self, "required")
 
     @property
@@ -1217,7 +1217,7 @@ class JSONSchemaProps(dict):
 
     @property
     @pulumi.getter
-    def x_kubernetes_list_map_keys(self) -> Optional[List[str]]:
+    def x_kubernetes_list_map_keys(self) -> Optional[Sequence[str]]:
         """
         x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 

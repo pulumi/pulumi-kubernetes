@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import core as _core
 from ... import meta as _meta
@@ -103,7 +103,7 @@ class CSIDriverSpecArgs:
                  fs_group_policy: Optional[pulumi.Input[str]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[bool]] = None,
                  storage_capacity: Optional[pulumi.Input[bool]] = None,
-                 volume_lifecycle_modes: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None):
+                 volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         CSIDriverSpec is the specification of a CSIDriver.
         :param pulumi.Input[bool] attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
@@ -119,7 +119,7 @@ class CSIDriverSpecArgs:
                Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
                
                This is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.
-        :param pulumi.Input[List[pulumi.Input[str]]] volume_lifecycle_modes: volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] volume_lifecycle_modes: volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
         """
         if attach_required is not None:
             pulumi.set(__self__, "attach_required", attach_required)
@@ -191,14 +191,14 @@ class CSIDriverSpecArgs:
 
     @property
     @pulumi.getter(name="volumeLifecycleModes")
-    def volume_lifecycle_modes(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def volume_lifecycle_modes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
         """
         return pulumi.get(self, "volume_lifecycle_modes")
 
     @volume_lifecycle_modes.setter
-    def volume_lifecycle_modes(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def volume_lifecycle_modes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "volume_lifecycle_modes", value)
 
 
@@ -279,13 +279,13 @@ class CSINodeDriverArgs:
                  name: pulumi.Input[str],
                  node_id: pulumi.Input[str],
                  allocatable: Optional[pulumi.Input['VolumeNodeResourcesArgs']] = None,
-                 topology_keys: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None):
+                 topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         CSINodeDriver holds information about the specification of one CSI driver installed on a node
         :param pulumi.Input[str] name: This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
         :param pulumi.Input[str] node_id: nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
         :param pulumi.Input['VolumeNodeResourcesArgs'] allocatable: allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
-        :param pulumi.Input[List[pulumi.Input[str]]] topology_keys: topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "node_id", node_id)
@@ -332,37 +332,37 @@ class CSINodeDriverArgs:
 
     @property
     @pulumi.getter(name="topologyKeys")
-    def topology_keys(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def topology_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
         """
         return pulumi.get(self, "topology_keys")
 
     @topology_keys.setter
-    def topology_keys(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def topology_keys(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "topology_keys", value)
 
 
 @pulumi.input_type
 class CSINodeSpecArgs:
     def __init__(__self__, *,
-                 drivers: pulumi.Input[List[pulumi.Input['CSINodeDriverArgs']]]):
+                 drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]):
         """
         CSINodeSpec holds information about the specification of all CSI drivers installed on a node
-        :param pulumi.Input[List[pulumi.Input['CSINodeDriverArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
+        :param pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
         pulumi.set(__self__, "drivers", drivers)
 
     @property
     @pulumi.getter
-    def drivers(self) -> pulumi.Input[List[pulumi.Input['CSINodeDriverArgs']]]:
+    def drivers(self) -> pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]:
         """
         drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
         return pulumi.get(self, "drivers")
 
     @drivers.setter
-    def drivers(self, value: pulumi.Input[List[pulumi.Input['CSINodeDriverArgs']]]):
+    def drivers(self, value: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]):
         pulumi.set(self, "drivers", value)
 
 
@@ -371,11 +371,11 @@ class StorageClassArgs:
     def __init__(__self__, *,
                  provisioner: pulumi.Input[str],
                  allow_volume_expansion: Optional[pulumi.Input[bool]] = None,
-                 allowed_topologies: Optional[pulumi.Input[List[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]] = None,
+                 allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 mount_options: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  reclaim_policy: Optional[pulumi.Input[str]] = None,
                  volume_binding_mode: Optional[pulumi.Input[str]] = None):
@@ -385,11 +385,11 @@ class StorageClassArgs:
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
         :param pulumi.Input[str] provisioner: Provisioner indicates the type of the provisioner.
         :param pulumi.Input[bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
-        :param pulumi.Input[List[pulumi.Input['_core.v1.TopologySelectorTermArgs']]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[List[pulumi.Input[str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] parameters: Parameters holds the parameters for the provisioner that should create volumes of this storage class.
         :param pulumi.Input[str] reclaim_policy: Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
         :param pulumi.Input[str] volume_binding_mode: VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -440,14 +440,14 @@ class StorageClassArgs:
 
     @property
     @pulumi.getter(name="allowedTopologies")
-    def allowed_topologies(self) -> Optional[pulumi.Input[List[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]]:
+    def allowed_topologies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]]:
         """
         Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         return pulumi.get(self, "allowed_topologies")
 
     @allowed_topologies.setter
-    def allowed_topologies(self, value: Optional[pulumi.Input[List[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]]):
+    def allowed_topologies(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]]):
         pulumi.set(self, "allowed_topologies", value)
 
     @property
@@ -488,14 +488,14 @@ class StorageClassArgs:
 
     @property
     @pulumi.getter(name="mountOptions")
-    def mount_options(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def mount_options(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         """
         return pulumi.get(self, "mount_options")
 
     @mount_options.setter
-    def mount_options(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def mount_options(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "mount_options", value)
 
     @property

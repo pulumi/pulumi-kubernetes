@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -128,11 +128,11 @@ class FSGroupStrategyOptions(dict):
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     """
     def __init__(__self__, *,
-                 ranges: Optional[List['outputs.IDRange']] = None,
+                 ranges: Optional[Sequence['outputs.IDRange']] = None,
                  rule: Optional[str] = None):
         """
         FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
         if ranges is not None:
@@ -142,7 +142,7 @@ class FSGroupStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -507,25 +507,25 @@ class PodSecurityPolicySpec(dict):
                  se_linux: 'outputs.SELinuxStrategyOptions',
                  supplemental_groups: 'outputs.SupplementalGroupsStrategyOptions',
                  allow_privilege_escalation: Optional[bool] = None,
-                 allowed_csi_drivers: Optional[List['outputs.AllowedCSIDriver']] = None,
-                 allowed_capabilities: Optional[List[str]] = None,
-                 allowed_flex_volumes: Optional[List['outputs.AllowedFlexVolume']] = None,
-                 allowed_host_paths: Optional[List['outputs.AllowedHostPath']] = None,
-                 allowed_proc_mount_types: Optional[List[str]] = None,
-                 allowed_unsafe_sysctls: Optional[List[str]] = None,
-                 default_add_capabilities: Optional[List[str]] = None,
+                 allowed_csi_drivers: Optional[Sequence['outputs.AllowedCSIDriver']] = None,
+                 allowed_capabilities: Optional[Sequence[str]] = None,
+                 allowed_flex_volumes: Optional[Sequence['outputs.AllowedFlexVolume']] = None,
+                 allowed_host_paths: Optional[Sequence['outputs.AllowedHostPath']] = None,
+                 allowed_proc_mount_types: Optional[Sequence[str]] = None,
+                 allowed_unsafe_sysctls: Optional[Sequence[str]] = None,
+                 default_add_capabilities: Optional[Sequence[str]] = None,
                  default_allow_privilege_escalation: Optional[bool] = None,
-                 forbidden_sysctls: Optional[List[str]] = None,
+                 forbidden_sysctls: Optional[Sequence[str]] = None,
                  host_ipc: Optional[bool] = None,
                  host_network: Optional[bool] = None,
                  host_pid: Optional[bool] = None,
-                 host_ports: Optional[List['outputs.HostPortRange']] = None,
+                 host_ports: Optional[Sequence['outputs.HostPortRange']] = None,
                  privileged: Optional[bool] = None,
                  read_only_root_filesystem: Optional[bool] = None,
-                 required_drop_capabilities: Optional[List[str]] = None,
+                 required_drop_capabilities: Optional[Sequence[str]] = None,
                  run_as_group: Optional['outputs.RunAsGroupStrategyOptions'] = None,
                  runtime_class: Optional['outputs.RuntimeClassStrategyOptions'] = None,
-                 volumes: Optional[List[str]] = None):
+                 volumes: Optional[Sequence[str]] = None):
         """
         PodSecurityPolicySpec defines the policy enforced.
         :param 'FSGroupStrategyOptionsArgs' fs_group: fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
@@ -533,29 +533,29 @@ class PodSecurityPolicySpec(dict):
         :param 'SELinuxStrategyOptionsArgs' se_linux: seLinux is the strategy that will dictate the allowable labels that may be set.
         :param 'SupplementalGroupsStrategyOptionsArgs' supplemental_groups: supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
         :param bool allow_privilege_escalation: allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
-        :param List['AllowedCSIDriverArgs'] allowed_csi_drivers: AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
-        :param List[str] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
-        :param List['AllowedFlexVolumeArgs'] allowed_flex_volumes: allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
-        :param List['AllowedHostPathArgs'] allowed_host_paths: allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
-        :param List[str] allowed_proc_mount_types: AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
-        :param List[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+        :param Sequence['AllowedCSIDriverArgs'] allowed_csi_drivers: AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+        :param Sequence[str] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
+        :param Sequence['AllowedFlexVolumeArgs'] allowed_flex_volumes: allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+        :param Sequence['AllowedHostPathArgs'] allowed_host_paths: allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+        :param Sequence[str] allowed_proc_mount_types: AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+        :param Sequence[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
                
                Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
-        :param List[str] default_add_capabilities: defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
+        :param Sequence[str] default_add_capabilities: defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
         :param bool default_allow_privilege_escalation: defaultAllowPrivilegeEscalation controls the default setting for whether a process can gain more privileges than its parent process.
-        :param List[str] forbidden_sysctls: forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
+        :param Sequence[str] forbidden_sysctls: forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
                
                Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
         :param bool host_ipc: hostIPC determines if the policy allows the use of HostIPC in the pod spec.
         :param bool host_network: hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.
         :param bool host_pid: hostPID determines if the policy allows the use of HostPID in the pod spec.
-        :param List['HostPortRangeArgs'] host_ports: hostPorts determines which host port ranges are allowed to be exposed.
+        :param Sequence['HostPortRangeArgs'] host_ports: hostPorts determines which host port ranges are allowed to be exposed.
         :param bool privileged: privileged determines if a pod can request to be run as privileged.
         :param bool read_only_root_filesystem: readOnlyRootFilesystem when set to true will force containers to run with a read only root file system.  If the container specifically requests to run with a non-read only root file system the PSP should deny the pod. If set to false the container may run with a read only root file system if it wishes but it will not be forced to.
-        :param List[str] required_drop_capabilities: requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
+        :param Sequence[str] required_drop_capabilities: requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
         :param 'RunAsGroupStrategyOptionsArgs' run_as_group: RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
         :param 'RuntimeClassStrategyOptionsArgs' runtime_class: runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
-        :param List[str] volumes: volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+        :param Sequence[str] volumes: volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
         pulumi.set(__self__, "fs_group", fs_group)
         pulumi.set(__self__, "run_as_user", run_as_user)
@@ -644,7 +644,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedCSIDrivers")
-    def allowed_csi_drivers(self) -> Optional[List['outputs.AllowedCSIDriver']]:
+    def allowed_csi_drivers(self) -> Optional[Sequence['outputs.AllowedCSIDriver']]:
         """
         AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         """
@@ -652,7 +652,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedCapabilities")
-    def allowed_capabilities(self) -> Optional[List[str]]:
+    def allowed_capabilities(self) -> Optional[Sequence[str]]:
         """
         allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
         """
@@ -660,7 +660,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedFlexVolumes")
-    def allowed_flex_volumes(self) -> Optional[List['outputs.AllowedFlexVolume']]:
+    def allowed_flex_volumes(self) -> Optional[Sequence['outputs.AllowedFlexVolume']]:
         """
         allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
         """
@@ -668,7 +668,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedHostPaths")
-    def allowed_host_paths(self) -> Optional[List['outputs.AllowedHostPath']]:
+    def allowed_host_paths(self) -> Optional[Sequence['outputs.AllowedHostPath']]:
         """
         allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
         """
@@ -676,7 +676,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedProcMountTypes")
-    def allowed_proc_mount_types(self) -> Optional[List[str]]:
+    def allowed_proc_mount_types(self) -> Optional[Sequence[str]]:
         """
         AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
         """
@@ -684,7 +684,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="allowedUnsafeSysctls")
-    def allowed_unsafe_sysctls(self) -> Optional[List[str]]:
+    def allowed_unsafe_sysctls(self) -> Optional[Sequence[str]]:
         """
         allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
 
@@ -694,7 +694,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="defaultAddCapabilities")
-    def default_add_capabilities(self) -> Optional[List[str]]:
+    def default_add_capabilities(self) -> Optional[Sequence[str]]:
         """
         defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
         """
@@ -710,7 +710,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="forbiddenSysctls")
-    def forbidden_sysctls(self) -> Optional[List[str]]:
+    def forbidden_sysctls(self) -> Optional[Sequence[str]]:
         """
         forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
 
@@ -744,7 +744,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="hostPorts")
-    def host_ports(self) -> Optional[List['outputs.HostPortRange']]:
+    def host_ports(self) -> Optional[Sequence['outputs.HostPortRange']]:
         """
         hostPorts determines which host port ranges are allowed to be exposed.
         """
@@ -768,7 +768,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter(name="requiredDropCapabilities")
-    def required_drop_capabilities(self) -> Optional[List[str]]:
+    def required_drop_capabilities(self) -> Optional[Sequence[str]]:
         """
         requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
         """
@@ -792,7 +792,7 @@ class PodSecurityPolicySpec(dict):
 
     @property
     @pulumi.getter
-    def volumes(self) -> Optional[List[str]]:
+    def volumes(self) -> Optional[Sequence[str]]:
         """
         volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
@@ -809,11 +809,11 @@ class RunAsGroupStrategyOptions(dict):
     """
     def __init__(__self__, *,
                  rule: str,
-                 ranges: Optional[List['outputs.IDRange']] = None):
+                 ranges: Optional[Sequence['outputs.IDRange']] = None):
         """
         RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
         :param str rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
         pulumi.set(__self__, "rule", rule)
         if ranges is not None:
@@ -829,7 +829,7 @@ class RunAsGroupStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -846,11 +846,11 @@ class RunAsUserStrategyOptions(dict):
     """
     def __init__(__self__, *,
                  rule: str,
-                 ranges: Optional[List['outputs.IDRange']] = None):
+                 ranges: Optional[Sequence['outputs.IDRange']] = None):
         """
         RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
         :param str rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
         pulumi.set(__self__, "rule", rule)
         if ranges is not None:
@@ -866,7 +866,7 @@ class RunAsUserStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -882,11 +882,11 @@ class RuntimeClassStrategyOptions(dict):
     RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
     """
     def __init__(__self__, *,
-                 allowed_runtime_class_names: List[str],
+                 allowed_runtime_class_names: Sequence[str],
                  default_runtime_class_name: Optional[str] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
-        :param List[str] allowed_runtime_class_names: allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+        :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
         pulumi.set(__self__, "allowed_runtime_class_names", allowed_runtime_class_names)
@@ -895,7 +895,7 @@ class RuntimeClassStrategyOptions(dict):
 
     @property
     @pulumi.getter(name="allowedRuntimeClassNames")
-    def allowed_runtime_class_names(self) -> List[str]:
+    def allowed_runtime_class_names(self) -> Sequence[str]:
         """
         allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         """
@@ -956,11 +956,11 @@ class SupplementalGroupsStrategyOptions(dict):
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
     """
     def __init__(__self__, *,
-                 ranges: Optional[List['outputs.IDRange']] = None,
+                 ranges: Optional[Sequence['outputs.IDRange']] = None,
                  rule: Optional[str] = None):
         """
         SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
-        :param List['IDRangeArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
+        :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
         if ranges is not None:
@@ -970,7 +970,7 @@ class SupplementalGroupsStrategyOptions(dict):
 
     @property
     @pulumi.getter
-    def ranges(self) -> Optional[List['outputs.IDRange']]:
+    def ranges(self) -> Optional[Sequence['outputs.IDRange']]:
         """
         ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         """

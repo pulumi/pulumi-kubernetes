@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -323,7 +323,7 @@ class JobStatus(dict):
     def __init__(__self__, *,
                  active: Optional[float] = None,
                  completion_time: Optional[str] = None,
-                 conditions: Optional[List['outputs.JobCondition']] = None,
+                 conditions: Optional[Sequence['outputs.JobCondition']] = None,
                  failed: Optional[float] = None,
                  start_time: Optional[str] = None,
                  succeeded: Optional[float] = None):
@@ -331,7 +331,7 @@ class JobStatus(dict):
         JobStatus represents the current state of a Job.
         :param float active: The number of actively running pods.
         :param str completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
-        :param List['JobConditionArgs'] conditions: The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param Sequence['JobConditionArgs'] conditions: The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param float failed: The number of pods which reached phase Failed.
         :param str start_time: Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
         :param float succeeded: The number of pods which reached phase Succeeded.
@@ -367,7 +367,7 @@ class JobStatus(dict):
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[List['outputs.JobCondition']]:
+    def conditions(self) -> Optional[Sequence['outputs.JobCondition']]:
         """
         The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """

@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 
 __all__ = [
@@ -89,12 +89,12 @@ class BoundObjectReferenceArgs:
 @pulumi.input_type
 class TokenRequestSpecArgs:
     def __init__(__self__, *,
-                 audiences: pulumi.Input[List[pulumi.Input[str]]],
+                 audiences: pulumi.Input[Sequence[pulumi.Input[str]]],
                  bound_object_ref: Optional[pulumi.Input['BoundObjectReferenceArgs']] = None,
                  expiration_seconds: Optional[pulumi.Input[float]] = None):
         """
         TokenRequestSpec contains client provided parameters of a token request.
-        :param pulumi.Input[List[pulumi.Input[str]]] audiences: Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         :param pulumi.Input['BoundObjectReferenceArgs'] bound_object_ref: BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
         :param pulumi.Input[float] expiration_seconds: ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
         """
@@ -106,14 +106,14 @@ class TokenRequestSpecArgs:
 
     @property
     @pulumi.getter
-    def audiences(self) -> pulumi.Input[List[pulumi.Input[str]]]:
+    def audiences(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
         Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         """
         return pulumi.get(self, "audiences")
 
     @audiences.setter
-    def audiences(self, value: pulumi.Input[List[pulumi.Input[str]]]):
+    def audiences(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "audiences", value)
 
     @property
@@ -144,11 +144,11 @@ class TokenRequestSpecArgs:
 @pulumi.input_type
 class TokenReviewSpecArgs:
     def __init__(__self__, *,
-                 audiences: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 audiences: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  token: Optional[pulumi.Input[str]] = None):
         """
         TokenReviewSpec is a description of the token authentication request.
-        :param pulumi.Input[List[pulumi.Input[str]]] audiences: Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
         :param pulumi.Input[str] token: Token is the opaque bearer token.
         """
         if audiences is not None:
@@ -158,14 +158,14 @@ class TokenReviewSpecArgs:
 
     @property
     @pulumi.getter
-    def audiences(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def audiences(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
         """
         return pulumi.get(self, "audiences")
 
     @audiences.setter
-    def audiences(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def audiences(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "audiences", value)
 
     @property

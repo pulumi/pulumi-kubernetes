@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -22,7 +22,7 @@ class ClusterRoleBinding(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefArgs']]] = None,
-                 subjects: Optional[pulumi.Input[List[pulumi.Input[pulumi.InputType['SubjectArgs']]]]] = None,
+                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]]] = None,
                  __props__=None,
                  __name__=None,
                  __opts__=None):
@@ -35,7 +35,7 @@ class ClusterRoleBinding(pulumi.CustomResource):
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata.
         :param pulumi.Input[pulumi.InputType['RoleRefArgs']] role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-        :param pulumi.Input[List[pulumi.Input[pulumi.InputType['SubjectArgs']]]] subjects: Subjects holds references to the objects the role applies to.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]] subjects: Subjects holds references to the objects the role applies to.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -121,7 +121,7 @@ class ClusterRoleBinding(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def subjects(self) -> pulumi.Output[Optional[List['outputs.Subject']]]:
+    def subjects(self) -> pulumi.Output[Optional[Sequence['outputs.Subject']]]:
         """
         Subjects holds references to the objects the role applies to.
         """

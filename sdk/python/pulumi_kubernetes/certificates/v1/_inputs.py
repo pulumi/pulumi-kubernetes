@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from ... import meta as _meta
 
@@ -232,10 +232,10 @@ class CertificateSigningRequestSpecArgs:
     def __init__(__self__, *,
                  request: pulumi.Input[str],
                  signer_name: pulumi.Input[str],
-                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]] = None,
-                 groups: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
+                 groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  uid: Optional[pulumi.Input[str]] = None,
-                 usages: Optional[pulumi.Input[List[pulumi.Input[str]]]] = None,
+                 usages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  username: Optional[pulumi.Input[str]] = None):
         """
         CertificateSigningRequestSpec contains the certificate request.
@@ -261,10 +261,10 @@ class CertificateSigningRequestSpecArgs:
                 4. Required, permitted, or forbidden key usages / extended key usages.
                 5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
                 6. Whether or not requests for CA certificates are allowed.
-        :param pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        :param pulumi.Input[List[pulumi.Input[str]]] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         :param pulumi.Input[str] uid: uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        :param pulumi.Input[List[pulumi.Input[str]]] usages: usages specifies a set of key usages requested in the issued certificate.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] usages: usages specifies a set of key usages requested in the issued certificate.
                
                Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
                
@@ -339,26 +339,26 @@ class CertificateSigningRequestSpecArgs:
 
     @property
     @pulumi.getter
-    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]]:
+    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]:
         """
         extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "extra")
 
     @extra.setter
-    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[List[pulumi.Input[str]]]]]]):
+    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]):
         pulumi.set(self, "extra", value)
 
     @property
     @pulumi.getter
-    def groups(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "groups")
 
     @groups.setter
-    def groups(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "groups", value)
 
     @property
@@ -375,7 +375,7 @@ class CertificateSigningRequestSpecArgs:
 
     @property
     @pulumi.getter
-    def usages(self) -> Optional[pulumi.Input[List[pulumi.Input[str]]]]:
+    def usages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
         usages specifies a set of key usages requested in the issued certificate.
 
@@ -395,7 +395,7 @@ class CertificateSigningRequestSpecArgs:
         return pulumi.get(self, "usages")
 
     @usages.setter
-    def usages(self, value: Optional[pulumi.Input[List[pulumi.Input[str]]]]):
+    def usages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "usages", value)
 
     @property
@@ -415,7 +415,7 @@ class CertificateSigningRequestSpecArgs:
 class CertificateSigningRequestStatusArgs:
     def __init__(__self__, *,
                  certificate: Optional[pulumi.Input[str]] = None,
-                 conditions: Optional[pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
         """
         CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
         :param pulumi.Input[str] certificate: certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
@@ -440,7 +440,7 @@ class CertificateSigningRequestStatusArgs:
                    ...
                    -----END CERTIFICATE-----
                    )
-        :param pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]] conditions: conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
+        :param pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]] conditions: conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """
         if certificate is not None:
             pulumi.set(__self__, "certificate", certificate)
@@ -482,14 +482,14 @@ class CertificateSigningRequestStatusArgs:
 
     @property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
         """
         conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[List[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 

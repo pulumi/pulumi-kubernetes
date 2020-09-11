@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -121,11 +121,11 @@ class Policy(dict):
     """
     def __init__(__self__, *,
                  level: str,
-                 stages: Optional[List[str]] = None):
+                 stages: Optional[Sequence[str]] = None):
         """
         Policy defines the configuration of how audit events are logged
         :param str level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
-        :param List[str] stages: Stages is a list of stages for which events are created.
+        :param Sequence[str] stages: Stages is a list of stages for which events are created.
         """
         pulumi.set(__self__, "level", level)
         if stages is not None:
@@ -141,7 +141,7 @@ class Policy(dict):
 
     @property
     @pulumi.getter
-    def stages(self) -> Optional[List[str]]:
+    def stages(self) -> Optional[Sequence[str]]:
         """
         Stages is a list of stages for which events are created.
         """

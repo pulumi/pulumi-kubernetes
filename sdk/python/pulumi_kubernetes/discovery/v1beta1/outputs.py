@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -24,14 +24,14 @@ class Endpoint(dict):
     Endpoint represents a single logical "backend" implementing a service.
     """
     def __init__(__self__, *,
-                 addresses: List[str],
+                 addresses: Sequence[str],
                  conditions: Optional['outputs.EndpointConditions'] = None,
                  hostname: Optional[str] = None,
                  target_ref: Optional['_core.v1.outputs.ObjectReference'] = None,
                  topology: Optional[Mapping[str, str]] = None):
         """
         Endpoint represents a single logical "backend" implementing a service.
-        :param List[str] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+        :param Sequence[str] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
         :param 'EndpointConditionsArgs' conditions: conditions contains information about the current status of the endpoint.
         :param str hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
         :param '_core.v1.ObjectReferenceArgs' target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
@@ -55,7 +55,7 @@ class Endpoint(dict):
 
     @property
     @pulumi.getter
-    def addresses(self) -> List[str]:
+    def addresses(self) -> Sequence[str]:
         """
         addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
         """
@@ -198,19 +198,19 @@ class EndpointSlice(dict):
     """
     def __init__(__self__, *,
                  address_type: str,
-                 endpoints: List['outputs.Endpoint'],
+                 endpoints: Sequence['outputs.Endpoint'],
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 ports: Optional[List['outputs.EndpointPort']] = None):
+                 ports: Optional[Sequence['outputs.EndpointPort']] = None):
         """
         EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
         :param str address_type: addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-        :param List['EndpointArgs'] endpoints: endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
+        :param Sequence['EndpointArgs'] endpoints: endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
-        :param List['EndpointPortArgs'] ports: ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
+        :param Sequence['EndpointPortArgs'] ports: ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
         """
         pulumi.set(__self__, "address_type", address_type)
         pulumi.set(__self__, "endpoints", endpoints)
@@ -233,7 +233,7 @@ class EndpointSlice(dict):
 
     @property
     @pulumi.getter
-    def endpoints(self) -> List['outputs.Endpoint']:
+    def endpoints(self) -> Sequence['outputs.Endpoint']:
         """
         endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
         """
@@ -265,7 +265,7 @@ class EndpointSlice(dict):
 
     @property
     @pulumi.getter
-    def ports(self) -> Optional[List['outputs.EndpointPort']]:
+    def ports(self) -> Optional[Sequence['outputs.EndpointPort']]:
         """
         ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
         """

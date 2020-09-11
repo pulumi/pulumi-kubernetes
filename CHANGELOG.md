@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Fix Python type hints for lists (https://github.com/pulumi/pulumi-kubernetes/pull/1313)
+
 ## 2.6.0 (September 10, 2020)
 
 Note: There is a minor breaking change in the .NET SDK for Helm v3. As part of the switch to using native

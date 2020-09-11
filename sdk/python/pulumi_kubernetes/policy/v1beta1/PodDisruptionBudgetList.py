@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
@@ -19,7 +19,7 @@ class PodDisruptionBudgetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 items: Optional[pulumi.Input[List[pulumi.Input[pulumi.InputType['PodDisruptionBudgetArgs']]]]] = None,
+                 items: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PodDisruptionBudgetArgs']]]]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']]] = None,
                  __props__=None,
@@ -90,7 +90,7 @@ class PodDisruptionBudgetList(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def items(self) -> pulumi.Output[List['outputs.PodDisruptionBudget']]:
+    def items(self) -> pulumi.Output[Sequence['outputs.PodDisruptionBudget']]:
         return pulumi.get(self, "items")
 
     @property

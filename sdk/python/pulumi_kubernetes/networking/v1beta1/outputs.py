@@ -5,7 +5,7 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import core as _core
@@ -99,16 +99,16 @@ class HTTPIngressRuleValue(dict):
     HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     """
     def __init__(__self__, *,
-                 paths: List['outputs.HTTPIngressPath']):
+                 paths: Sequence['outputs.HTTPIngressPath']):
         """
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
-        :param List['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
+        :param Sequence['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
         """
         pulumi.set(__self__, "paths", paths)
 
     @property
     @pulumi.getter
-    def paths(self) -> List['outputs.HTTPIngressPath']:
+    def paths(self) -> Sequence['outputs.HTTPIngressPath']:
         """
         A collection of paths that map requests to backends.
         """
@@ -424,14 +424,14 @@ class IngressSpec(dict):
     def __init__(__self__, *,
                  backend: Optional['outputs.IngressBackend'] = None,
                  ingress_class_name: Optional[str] = None,
-                 rules: Optional[List['outputs.IngressRule']] = None,
-                 tls: Optional[List['outputs.IngressTLS']] = None):
+                 rules: Optional[Sequence['outputs.IngressRule']] = None,
+                 tls: Optional[Sequence['outputs.IngressTLS']] = None):
         """
         IngressSpec describes the Ingress the user wishes to exist.
         :param 'IngressBackendArgs' backend: A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
         :param str ingress_class_name: IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
-        :param List['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
-        :param List['IngressTLSArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+        :param Sequence['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+        :param Sequence['IngressTLSArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
         if backend is not None:
             pulumi.set(__self__, "backend", backend)
@@ -460,7 +460,7 @@ class IngressSpec(dict):
 
     @property
     @pulumi.getter
-    def rules(self) -> Optional[List['outputs.IngressRule']]:
+    def rules(self) -> Optional[Sequence['outputs.IngressRule']]:
         """
         A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         """
@@ -468,7 +468,7 @@ class IngressSpec(dict):
 
     @property
     @pulumi.getter
-    def tls(self) -> Optional[List['outputs.IngressTLS']]:
+    def tls(self) -> Optional[Sequence['outputs.IngressTLS']]:
         """
         TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
@@ -510,11 +510,11 @@ class IngressTLS(dict):
     IngressTLS describes the transport layer security associated with an Ingress.
     """
     def __init__(__self__, *,
-                 hosts: Optional[List[str]] = None,
+                 hosts: Optional[Sequence[str]] = None,
                  secret_name: Optional[str] = None):
         """
         IngressTLS describes the transport layer security associated with an Ingress.
-        :param List[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+        :param Sequence[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param str secret_name: SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
         if hosts is not None:
@@ -524,7 +524,7 @@ class IngressTLS(dict):
 
     @property
     @pulumi.getter
-    def hosts(self) -> Optional[List[str]]:
+    def hosts(self) -> Optional[Sequence[str]]:
         """
         Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         """
