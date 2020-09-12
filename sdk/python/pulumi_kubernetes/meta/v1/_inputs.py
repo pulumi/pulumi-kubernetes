@@ -117,13 +117,13 @@ class LabelSelectorRequirementArgs:
 class ListMetaArgs:
     def __init__(__self__, *,
                  continue_: Optional[pulumi.Input[str]] = None,
-                 remaining_item_count: Optional[pulumi.Input[float]] = None,
+                 remaining_item_count: Optional[pulumi.Input[int]] = None,
                  resource_version: Optional[pulumi.Input[str]] = None,
                  self_link: Optional[pulumi.Input[str]] = None):
         """
         ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
         :param pulumi.Input[str] continue_: continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
-        :param pulumi.Input[float] remaining_item_count: remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
+        :param pulumi.Input[int] remaining_item_count: remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
         :param pulumi.Input[str] resource_version: String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
         :param pulumi.Input[str] self_link: selfLink is a URL representing this object. Populated by the system. Read-only.
                
@@ -152,14 +152,14 @@ class ListMetaArgs:
 
     @property
     @pulumi.getter(name="remainingItemCount")
-    def remaining_item_count(self) -> Optional[pulumi.Input[float]]:
+    def remaining_item_count(self) -> Optional[pulumi.Input[int]]:
         """
         remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
         """
         return pulumi.get(self, "remaining_item_count")
 
     @remaining_item_count.setter
-    def remaining_item_count(self, value: Optional[pulumi.Input[float]]):
+    def remaining_item_count(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "remaining_item_count", value)
 
     @property
@@ -299,11 +299,11 @@ class ObjectMetaArgs:
                  annotations: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  cluster_name: Optional[pulumi.Input[str]] = None,
                  creation_timestamp: Optional[pulumi.Input[str]] = None,
-                 deletion_grace_period_seconds: Optional[pulumi.Input[float]] = None,
+                 deletion_grace_period_seconds: Optional[pulumi.Input[int]] = None,
                  deletion_timestamp: Optional[pulumi.Input[str]] = None,
                  finalizers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  generate_name: Optional[pulumi.Input[str]] = None,
-                 generation: Optional[pulumi.Input[float]] = None,
+                 generation: Optional[pulumi.Input[int]] = None,
                  labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  managed_fields: Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -319,7 +319,7 @@ class ObjectMetaArgs:
         :param pulumi.Input[str] creation_timestamp: CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
                
                Populated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[float] deletion_grace_period_seconds: Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
+        :param pulumi.Input[int] deletion_grace_period_seconds: Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
         :param pulumi.Input[str] deletion_timestamp: DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.
                
                Populated by the system when a graceful deletion is requested. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -329,7 +329,7 @@ class ObjectMetaArgs:
                If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
                
                Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
-        :param pulumi.Input[float] generation: A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
+        :param pulumi.Input[int] generation: A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] labels: Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
         :param pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]] managed_fields: ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
         :param pulumi.Input[str] name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -420,14 +420,14 @@ class ObjectMetaArgs:
 
     @property
     @pulumi.getter(name="deletionGracePeriodSeconds")
-    def deletion_grace_period_seconds(self) -> Optional[pulumi.Input[float]]:
+    def deletion_grace_period_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
         """
         return pulumi.get(self, "deletion_grace_period_seconds")
 
     @deletion_grace_period_seconds.setter
-    def deletion_grace_period_seconds(self, value: Optional[pulumi.Input[float]]):
+    def deletion_grace_period_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "deletion_grace_period_seconds", value)
 
     @property
@@ -474,14 +474,14 @@ class ObjectMetaArgs:
 
     @property
     @pulumi.getter
-    def generation(self) -> Optional[pulumi.Input[float]]:
+    def generation(self) -> Optional[pulumi.Input[int]]:
         """
         A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
         """
         return pulumi.get(self, "generation")
 
     @generation.setter
-    def generation(self, value: Optional[pulumi.Input[float]]):
+    def generation(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "generation", value)
 
     @property
@@ -760,7 +760,7 @@ class StatusDetailsArgs:
                  group: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 retry_after_seconds: Optional[pulumi.Input[float]] = None,
+                 retry_after_seconds: Optional[pulumi.Input[int]] = None,
                  uid: Optional[pulumi.Input[str]] = None):
         """
         StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
@@ -768,7 +768,7 @@ class StatusDetailsArgs:
         :param pulumi.Input[str] group: The group attribute of the resource associated with the status StatusReason.
         :param pulumi.Input[str] kind: The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] name: The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
-        :param pulumi.Input[float] retry_after_seconds: If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
+        :param pulumi.Input[int] retry_after_seconds: If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
         :param pulumi.Input[str] uid: UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
         """
         if causes is not None:
@@ -834,14 +834,14 @@ class StatusDetailsArgs:
 
     @property
     @pulumi.getter(name="retryAfterSeconds")
-    def retry_after_seconds(self) -> Optional[pulumi.Input[float]]:
+    def retry_after_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
         """
         return pulumi.get(self, "retry_after_seconds")
 
     @retry_after_seconds.setter
-    def retry_after_seconds(self, value: Optional[pulumi.Input[float]]):
+    def retry_after_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "retry_after_seconds", value)
 
     @property

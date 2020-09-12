@@ -232,7 +232,7 @@ class IngressBackend(dict):
         """
         IngressBackend describes all endpoints for a given service and port.
         :param str service_name: Specifies the name of the referenced service.
-        :param Union[float, str] service_port: Specifies the port of the referenced service.
+        :param Union[int, str] service_port: Specifies the port of the referenced service.
         :param '_core.v1.TypedLocalObjectReferenceArgs' resource: Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
         """
         pulumi.set(__self__, "service_name", service_name)

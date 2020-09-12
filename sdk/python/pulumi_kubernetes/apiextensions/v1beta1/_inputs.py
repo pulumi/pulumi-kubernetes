@@ -35,7 +35,7 @@ class CustomResourceColumnDefinitionArgs:
                  type: pulumi.Input[str],
                  description: Optional[pulumi.Input[str]] = None,
                  format: Optional[pulumi.Input[str]] = None,
-                 priority: Optional[pulumi.Input[float]] = None):
+                 priority: Optional[pulumi.Input[int]] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
         :param pulumi.Input[str] json_path: JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
@@ -43,7 +43,7 @@ class CustomResourceColumnDefinitionArgs:
         :param pulumi.Input[str] type: type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
         :param pulumi.Input[str] description: description is a human readable description of this column.
         :param pulumi.Input[str] format: format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-        :param pulumi.Input[float] priority: priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+        :param pulumi.Input[int] priority: priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
         """
         pulumi.set(__self__, "json_path", json_path)
         pulumi.set(__self__, "name", name)
@@ -117,14 +117,14 @@ class CustomResourceColumnDefinitionArgs:
 
     @property
     @pulumi.getter
-    def priority(self) -> Optional[pulumi.Input[float]]:
+    def priority(self) -> Optional[pulumi.Input[int]]:
         """
         priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
         """
         return pulumi.get(self, "priority")
 
     @priority.setter
-    def priority(self, value: Optional[pulumi.Input[float]]):
+    def priority(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "priority", value)
 
 
@@ -979,13 +979,13 @@ class JSONSchemaPropsArgs:
                  format: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
                  items: Optional[pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[Any]]]] = None,
-                 max_items: Optional[pulumi.Input[float]] = None,
-                 max_length: Optional[pulumi.Input[float]] = None,
-                 max_properties: Optional[pulumi.Input[float]] = None,
+                 max_items: Optional[pulumi.Input[int]] = None,
+                 max_length: Optional[pulumi.Input[int]] = None,
+                 max_properties: Optional[pulumi.Input[int]] = None,
                  maximum: Optional[pulumi.Input[float]] = None,
-                 min_items: Optional[pulumi.Input[float]] = None,
-                 min_length: Optional[pulumi.Input[float]] = None,
-                 min_properties: Optional[pulumi.Input[float]] = None,
+                 min_items: Optional[pulumi.Input[int]] = None,
+                 min_length: Optional[pulumi.Input[int]] = None,
+                 min_properties: Optional[pulumi.Input[int]] = None,
                  minimum: Optional[pulumi.Input[float]] = None,
                  multiple_of: Optional[pulumi.Input[float]] = None,
                  not_: Optional[pulumi.Input['JSONSchemaPropsArgs']] = None,
@@ -1309,29 +1309,29 @@ class JSONSchemaPropsArgs:
 
     @property
     @pulumi.getter(name="maxItems")
-    def max_items(self) -> Optional[pulumi.Input[float]]:
+    def max_items(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "max_items")
 
     @max_items.setter
-    def max_items(self, value: Optional[pulumi.Input[float]]):
+    def max_items(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "max_items", value)
 
     @property
     @pulumi.getter(name="maxLength")
-    def max_length(self) -> Optional[pulumi.Input[float]]:
+    def max_length(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "max_length")
 
     @max_length.setter
-    def max_length(self, value: Optional[pulumi.Input[float]]):
+    def max_length(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "max_length", value)
 
     @property
     @pulumi.getter(name="maxProperties")
-    def max_properties(self) -> Optional[pulumi.Input[float]]:
+    def max_properties(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "max_properties")
 
     @max_properties.setter
-    def max_properties(self, value: Optional[pulumi.Input[float]]):
+    def max_properties(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "max_properties", value)
 
     @property
@@ -1345,29 +1345,29 @@ class JSONSchemaPropsArgs:
 
     @property
     @pulumi.getter(name="minItems")
-    def min_items(self) -> Optional[pulumi.Input[float]]:
+    def min_items(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "min_items")
 
     @min_items.setter
-    def min_items(self, value: Optional[pulumi.Input[float]]):
+    def min_items(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "min_items", value)
 
     @property
     @pulumi.getter(name="minLength")
-    def min_length(self) -> Optional[pulumi.Input[float]]:
+    def min_length(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "min_length")
 
     @min_length.setter
-    def min_length(self, value: Optional[pulumi.Input[float]]):
+    def min_length(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "min_length", value)
 
     @property
     @pulumi.getter(name="minProperties")
-    def min_properties(self) -> Optional[pulumi.Input[float]]:
+    def min_properties(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "min_properties")
 
     @min_properties.setter
-    def min_properties(self, value: Optional[pulumi.Input[float]]):
+    def min_properties(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "min_properties", value)
 
     @property
@@ -1590,13 +1590,13 @@ class ServiceReferenceArgs:
                  name: pulumi.Input[str],
                  namespace: pulumi.Input[str],
                  path: Optional[pulumi.Input[str]] = None,
-                 port: Optional[pulumi.Input[float]] = None):
+                 port: Optional[pulumi.Input[int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
         :param pulumi.Input[str] name: name is the name of the service. Required
         :param pulumi.Input[str] namespace: namespace is the namespace of the service. Required
         :param pulumi.Input[str] path: path is an optional URL path at which the webhook will be contacted.
-        :param pulumi.Input[float] port: port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
+        :param pulumi.Input[int] port: port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "namespace", namespace)
@@ -1643,14 +1643,14 @@ class ServiceReferenceArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[float]]:
+    def port(self) -> Optional[pulumi.Input[int]]:
         """
         port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[float]]):
+    def port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "port", value)
 
 

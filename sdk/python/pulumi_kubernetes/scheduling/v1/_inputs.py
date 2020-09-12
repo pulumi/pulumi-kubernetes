@@ -16,7 +16,7 @@ __all__ = [
 @pulumi.input_type
 class PriorityClassArgs:
     def __init__(__self__, *,
-                 value: pulumi.Input[float],
+                 value: pulumi.Input[int],
                  api_version: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  global_default: Optional[pulumi.Input[bool]] = None,
@@ -25,7 +25,7 @@ class PriorityClassArgs:
                  preemption_policy: Optional[pulumi.Input[str]] = None):
         """
         PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
-        :param pulumi.Input[float] value: The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+        :param pulumi.Input[int] value: The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] description: description is an arbitrary string that usually provides guidelines on when this priority class should be used.
         :param pulumi.Input[bool] global_default: globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
@@ -49,14 +49,14 @@ class PriorityClassArgs:
 
     @property
     @pulumi.getter
-    def value(self) -> pulumi.Input[float]:
+    def value(self) -> pulumi.Input[int]:
         """
         The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         """
         return pulumi.get(self, "value")
 
     @value.setter
-    def value(self, value: pulumi.Input[float]):
+    def value(self, value: pulumi.Input[int]):
         pulumi.set(self, "value", value)
 
     @property

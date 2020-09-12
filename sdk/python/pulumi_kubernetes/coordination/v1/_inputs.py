@@ -91,15 +91,15 @@ class LeaseSpecArgs:
     def __init__(__self__, *,
                  acquire_time: Optional[pulumi.Input[str]] = None,
                  holder_identity: Optional[pulumi.Input[str]] = None,
-                 lease_duration_seconds: Optional[pulumi.Input[float]] = None,
-                 lease_transitions: Optional[pulumi.Input[float]] = None,
+                 lease_duration_seconds: Optional[pulumi.Input[int]] = None,
+                 lease_transitions: Optional[pulumi.Input[int]] = None,
                  renew_time: Optional[pulumi.Input[str]] = None):
         """
         LeaseSpec is a specification of a Lease.
         :param pulumi.Input[str] acquire_time: acquireTime is a time when the current lease was acquired.
         :param pulumi.Input[str] holder_identity: holderIdentity contains the identity of the holder of a current lease.
-        :param pulumi.Input[float] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
-        :param pulumi.Input[float] lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
+        :param pulumi.Input[int] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        :param pulumi.Input[int] lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
         :param pulumi.Input[str] renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
         """
         if acquire_time is not None:
@@ -139,26 +139,26 @@ class LeaseSpecArgs:
 
     @property
     @pulumi.getter(name="leaseDurationSeconds")
-    def lease_duration_seconds(self) -> Optional[pulumi.Input[float]]:
+    def lease_duration_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
         """
         return pulumi.get(self, "lease_duration_seconds")
 
     @lease_duration_seconds.setter
-    def lease_duration_seconds(self, value: Optional[pulumi.Input[float]]):
+    def lease_duration_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "lease_duration_seconds", value)
 
     @property
     @pulumi.getter(name="leaseTransitions")
-    def lease_transitions(self) -> Optional[pulumi.Input[float]]:
+    def lease_transitions(self) -> Optional[pulumi.Input[int]]:
         """
         leaseTransitions is the number of transitions of a lease between holders.
         """
         return pulumi.get(self, "lease_transitions")
 
     @lease_transitions.setter
-    def lease_transitions(self, value: Optional[pulumi.Input[float]]):
+    def lease_transitions(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "lease_transitions", value)
 
     @property

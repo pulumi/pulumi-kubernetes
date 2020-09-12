@@ -145,16 +145,16 @@ class HorizontalPodAutoscalerSpec(dict):
     specification of a horizontal pod autoscaler.
     """
     def __init__(__self__, *,
-                 max_replicas: float,
+                 max_replicas: int,
                  scale_target_ref: 'outputs.CrossVersionObjectReference',
-                 min_replicas: Optional[float] = None,
-                 target_cpu_utilization_percentage: Optional[float] = None):
+                 min_replicas: Optional[int] = None,
+                 target_cpu_utilization_percentage: Optional[int] = None):
         """
         specification of a horizontal pod autoscaler.
-        :param float max_replicas: upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+        :param int max_replicas: upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
         :param 'CrossVersionObjectReferenceArgs' scale_target_ref: reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
-        :param float min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
-        :param float target_cpu_utilization_percentage: target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+        :param int min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+        :param int target_cpu_utilization_percentage: target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
         """
         pulumi.set(__self__, "max_replicas", max_replicas)
         pulumi.set(__self__, "scale_target_ref", scale_target_ref)
@@ -165,7 +165,7 @@ class HorizontalPodAutoscalerSpec(dict):
 
     @property
     @pulumi.getter(name="maxReplicas")
-    def max_replicas(self) -> float:
+    def max_replicas(self) -> int:
         """
         upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
         """
@@ -181,7 +181,7 @@ class HorizontalPodAutoscalerSpec(dict):
 
     @property
     @pulumi.getter(name="minReplicas")
-    def min_replicas(self) -> Optional[float]:
+    def min_replicas(self) -> Optional[int]:
         """
         minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         """
@@ -189,7 +189,7 @@ class HorizontalPodAutoscalerSpec(dict):
 
     @property
     @pulumi.getter(name="targetCPUUtilizationPercentage")
-    def target_cpu_utilization_percentage(self) -> Optional[float]:
+    def target_cpu_utilization_percentage(self) -> Optional[int]:
         """
         target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
         """
@@ -205,18 +205,18 @@ class HorizontalPodAutoscalerStatus(dict):
     current status of a horizontal pod autoscaler
     """
     def __init__(__self__, *,
-                 current_replicas: float,
-                 desired_replicas: float,
-                 current_cpu_utilization_percentage: Optional[float] = None,
+                 current_replicas: int,
+                 desired_replicas: int,
+                 current_cpu_utilization_percentage: Optional[int] = None,
                  last_scale_time: Optional[str] = None,
-                 observed_generation: Optional[float] = None):
+                 observed_generation: Optional[int] = None):
         """
         current status of a horizontal pod autoscaler
-        :param float current_replicas: current number of replicas of pods managed by this autoscaler.
-        :param float desired_replicas: desired number of replicas of pods managed by this autoscaler.
-        :param float current_cpu_utilization_percentage: current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+        :param int current_replicas: current number of replicas of pods managed by this autoscaler.
+        :param int desired_replicas: desired number of replicas of pods managed by this autoscaler.
+        :param int current_cpu_utilization_percentage: current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
         :param str last_scale_time: last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
-        :param float observed_generation: most recent generation observed by this autoscaler.
+        :param int observed_generation: most recent generation observed by this autoscaler.
         """
         pulumi.set(__self__, "current_replicas", current_replicas)
         pulumi.set(__self__, "desired_replicas", desired_replicas)
@@ -229,7 +229,7 @@ class HorizontalPodAutoscalerStatus(dict):
 
     @property
     @pulumi.getter(name="currentReplicas")
-    def current_replicas(self) -> float:
+    def current_replicas(self) -> int:
         """
         current number of replicas of pods managed by this autoscaler.
         """
@@ -237,7 +237,7 @@ class HorizontalPodAutoscalerStatus(dict):
 
     @property
     @pulumi.getter(name="desiredReplicas")
-    def desired_replicas(self) -> float:
+    def desired_replicas(self) -> int:
         """
         desired number of replicas of pods managed by this autoscaler.
         """
@@ -245,7 +245,7 @@ class HorizontalPodAutoscalerStatus(dict):
 
     @property
     @pulumi.getter(name="currentCPUUtilizationPercentage")
-    def current_cpu_utilization_percentage(self) -> Optional[float]:
+    def current_cpu_utilization_percentage(self) -> Optional[int]:
         """
         current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
         """
@@ -261,7 +261,7 @@ class HorizontalPodAutoscalerStatus(dict):
 
     @property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[float]:
+    def observed_generation(self) -> Optional[int]:
         """
         most recent generation observed by this autoscaler.
         """

@@ -91,12 +91,12 @@ class TokenRequestSpecArgs:
     def __init__(__self__, *,
                  audiences: pulumi.Input[Sequence[pulumi.Input[str]]],
                  bound_object_ref: Optional[pulumi.Input['BoundObjectReferenceArgs']] = None,
-                 expiration_seconds: Optional[pulumi.Input[float]] = None):
+                 expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
         TokenRequestSpec contains client provided parameters of a token request.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         :param pulumi.Input['BoundObjectReferenceArgs'] bound_object_ref: BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
-        :param pulumi.Input[float] expiration_seconds: ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
+        :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
         """
         pulumi.set(__self__, "audiences", audiences)
         if bound_object_ref is not None:
@@ -130,14 +130,14 @@ class TokenRequestSpecArgs:
 
     @property
     @pulumi.getter(name="expirationSeconds")
-    def expiration_seconds(self) -> Optional[pulumi.Input[float]]:
+    def expiration_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
         """
         return pulumi.get(self, "expiration_seconds")
 
     @expiration_seconds.setter
-    def expiration_seconds(self, value: Optional[pulumi.Input[float]]):
+    def expiration_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "expiration_seconds", value)
 
 

@@ -21,7 +21,7 @@ class EventArgs:
                  event_time: pulumi.Input[str],
                  action: Optional[pulumi.Input[str]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 deprecated_count: Optional[pulumi.Input[float]] = None,
+                 deprecated_count: Optional[pulumi.Input[int]] = None,
                  deprecated_first_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_source: Optional[pulumi.Input['_core.v1.EventSourceArgs']] = None,
@@ -40,7 +40,7 @@ class EventArgs:
         :param pulumi.Input[str] event_time: eventTime is the time when this Event was first observed. It is required.
         :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[float] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param pulumi.Input[int] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input[str] deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input[str] deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input['_core.v1.EventSourceArgs'] deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
@@ -126,14 +126,14 @@ class EventArgs:
 
     @property
     @pulumi.getter(name="deprecatedCount")
-    def deprecated_count(self) -> Optional[pulumi.Input[float]]:
+    def deprecated_count(self) -> Optional[pulumi.Input[int]]:
         """
         deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         """
         return pulumi.get(self, "deprecated_count")
 
     @deprecated_count.setter
-    def deprecated_count(self, value: Optional[pulumi.Input[float]]):
+    def deprecated_count(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "deprecated_count", value)
 
     @property
@@ -293,12 +293,12 @@ class EventArgs:
 @pulumi.input_type
 class EventSeriesArgs:
     def __init__(__self__, *,
-                 count: pulumi.Input[float],
+                 count: pulumi.Input[int],
                  last_observed_time: pulumi.Input[str],
                  state: Optional[pulumi.Input[str]] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param pulumi.Input[float] count: count is the number of occurrences in this series up to the last heartbeat time.
+        :param pulumi.Input[int] count: count is the number of occurrences in this series up to the last heartbeat time.
         :param pulumi.Input[str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
@@ -309,14 +309,14 @@ class EventSeriesArgs:
 
     @property
     @pulumi.getter
-    def count(self) -> pulumi.Input[float]:
+    def count(self) -> pulumi.Input[int]:
         """
         count is the number of occurrences in this series up to the last heartbeat time.
         """
         return pulumi.get(self, "count")
 
     @count.setter
-    def count(self, value: pulumi.Input[float]):
+    def count(self, value: pulumi.Input[int]):
         pulumi.set(self, "count", value)
 
     @property

@@ -227,12 +227,12 @@ class IngressArgs:
 class IngressBackendArgs:
     def __init__(__self__, *,
                  service_name: pulumi.Input[str],
-                 service_port: pulumi.Input[Union[float, str]],
+                 service_port: pulumi.Input[Union[int, str]],
                  resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
         :param pulumi.Input[str] service_name: Specifies the name of the referenced service.
-        :param pulumi.Input[Union[float, str]] service_port: Specifies the port of the referenced service.
+        :param pulumi.Input[Union[int, str]] service_port: Specifies the port of the referenced service.
         :param pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs'] resource: Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
         """
         pulumi.set(__self__, "service_name", service_name)
@@ -254,14 +254,14 @@ class IngressBackendArgs:
 
     @property
     @pulumi.getter(name="servicePort")
-    def service_port(self) -> pulumi.Input[Union[float, str]]:
+    def service_port(self) -> pulumi.Input[Union[int, str]]:
         """
         Specifies the port of the referenced service.
         """
         return pulumi.get(self, "service_port")
 
     @service_port.setter
-    def service_port(self, value: pulumi.Input[Union[float, str]]):
+    def service_port(self, value: pulumi.Input[Union[int, str]]):
         pulumi.set(self, "service_port", value)
 
     @property

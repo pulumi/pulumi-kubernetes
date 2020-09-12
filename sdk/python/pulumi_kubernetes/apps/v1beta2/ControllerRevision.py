@@ -20,7 +20,7 @@ class ControllerRevision(pulumi.CustomResource):
                  data: Optional[Any] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                 revision: Optional[pulumi.Input[float]] = None,
+                 revision: Optional[pulumi.Input[int]] = None,
                  __props__=None,
                  __name__=None,
                  __opts__=None):
@@ -33,7 +33,7 @@ class ControllerRevision(pulumi.CustomResource):
         :param Any data: Data is the serialized representation of the state.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[float] revision: Revision indicates the revision of the state represented by Data.
+        :param pulumi.Input[int] revision: Revision indicates the revision of the state represented by Data.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -119,7 +119,7 @@ class ControllerRevision(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def revision(self) -> pulumi.Output[float]:
+    def revision(self) -> pulumi.Output[int]:
         """
         Revision indicates the revision of the state represented by Data.
         """

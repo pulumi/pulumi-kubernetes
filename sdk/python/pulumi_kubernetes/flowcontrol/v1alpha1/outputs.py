@@ -214,13 +214,13 @@ class FlowSchemaSpec(dict):
     def __init__(__self__, *,
                  priority_level_configuration: 'outputs.PriorityLevelConfigurationReference',
                  distinguisher_method: Optional['outputs.FlowDistinguisherMethod'] = None,
-                 matching_precedence: Optional[float] = None,
+                 matching_precedence: Optional[int] = None,
                  rules: Optional[Sequence['outputs.PolicyRulesWithSubjects']] = None):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
         :param 'PriorityLevelConfigurationReferenceArgs' priority_level_configuration: `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
         :param 'FlowDistinguisherMethodArgs' distinguisher_method: `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
-        :param float matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
+        :param int matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
         :param Sequence['PolicyRulesWithSubjectsArgs'] rules: `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
         """
         pulumi.set(__self__, "priority_level_configuration", priority_level_configuration)
@@ -249,7 +249,7 @@ class FlowSchemaSpec(dict):
 
     @property
     @pulumi.getter(name="matchingPrecedence")
-    def matching_precedence(self) -> Optional[float]:
+    def matching_precedence(self) -> Optional[int]:
         """
         `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
         """
@@ -363,13 +363,13 @@ class LimitedPriorityLevelConfiguration(dict):
      * What should be done with requests that exceed the limit?
     """
     def __init__(__self__, *,
-                 assured_concurrency_shares: Optional[float] = None,
+                 assured_concurrency_shares: Optional[int] = None,
                  limit_response: Optional['outputs.LimitResponse'] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
          * How are requests for this priority level limited?
          * What should be done with requests that exceed the limit?
-        :param float assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
+        :param int assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
                
@@ -383,7 +383,7 @@ class LimitedPriorityLevelConfiguration(dict):
 
     @property
     @pulumi.getter(name="assuredConcurrencyShares")
-    def assured_concurrency_shares(self) -> Optional[float]:
+    def assured_concurrency_shares(self) -> Optional[int]:
         """
         `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 
@@ -744,14 +744,14 @@ class QueuingConfiguration(dict):
     QueuingConfiguration holds the configuration parameters for queuing
     """
     def __init__(__self__, *,
-                 hand_size: Optional[float] = None,
-                 queue_length_limit: Optional[float] = None,
-                 queues: Optional[float] = None):
+                 hand_size: Optional[int] = None,
+                 queue_length_limit: Optional[int] = None,
+                 queues: Optional[int] = None):
         """
         QueuingConfiguration holds the configuration parameters for queuing
-        :param float hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
-        :param float queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
-        :param float queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
+        :param int hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
+        :param int queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
+        :param int queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
         """
         if hand_size is not None:
             pulumi.set(__self__, "hand_size", hand_size)
@@ -762,7 +762,7 @@ class QueuingConfiguration(dict):
 
     @property
     @pulumi.getter(name="handSize")
-    def hand_size(self) -> Optional[float]:
+    def hand_size(self) -> Optional[int]:
         """
         `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
         """
@@ -770,7 +770,7 @@ class QueuingConfiguration(dict):
 
     @property
     @pulumi.getter(name="queueLengthLimit")
-    def queue_length_limit(self) -> Optional[float]:
+    def queue_length_limit(self) -> Optional[int]:
         """
         `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
         """
@@ -778,7 +778,7 @@ class QueuingConfiguration(dict):
 
     @property
     @pulumi.getter
-    def queues(self) -> Optional[float]:
+    def queues(self) -> Optional[int]:
         """
         `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
         """

@@ -20,7 +20,7 @@ class Event(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  action: Optional[pulumi.Input[str]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 count: Optional[pulumi.Input[float]] = None,
+                 count: Optional[pulumi.Input[int]] = None,
                  event_time: Optional[pulumi.Input[str]] = None,
                  first_timestamp: Optional[pulumi.Input[str]] = None,
                  involved_object: Optional[pulumi.Input[pulumi.InputType['ObjectReferenceArgs']]] = None,
@@ -45,7 +45,7 @@ class Event(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] action: What action was taken/failed regarding to the Regarding object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[float] count: The number of times this event has occurred.
+        :param pulumi.Input[int] count: The number of times this event has occurred.
         :param pulumi.Input[str] event_time: Time when this Event was first observed.
         :param pulumi.Input[str] first_timestamp: The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
         :param pulumi.Input[pulumi.InputType['ObjectReferenceArgs']] involved_object: The object that this event is about.
@@ -143,7 +143,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def count(self) -> pulumi.Output[Optional[float]]:
+    def count(self) -> pulumi.Output[Optional[int]]:
         """
         The number of times this event has occurred.
         """
