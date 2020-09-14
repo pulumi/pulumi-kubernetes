@@ -25,7 +25,7 @@ class Event(dict):
                  event_time: str,
                  action: Optional[str] = None,
                  api_version: Optional[str] = None,
-                 deprecated_count: Optional[float] = None,
+                 deprecated_count: Optional[int] = None,
                  deprecated_first_timestamp: Optional[str] = None,
                  deprecated_last_timestamp: Optional[str] = None,
                  deprecated_source: Optional['_core.v1.outputs.EventSource'] = None,
@@ -44,7 +44,7 @@ class Event(dict):
         :param str event_time: eventTime is the time when this Event was first observed. It is required.
         :param str action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param float deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param int deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param str deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param str deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param '_core.v1.EventSourceArgs' deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
@@ -118,7 +118,7 @@ class Event(dict):
 
     @property
     @pulumi.getter(name="deprecatedCount")
-    def deprecated_count(self) -> Optional[float]:
+    def deprecated_count(self) -> Optional[int]:
         """
         deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         """
@@ -235,12 +235,12 @@ class EventSeries(dict):
     EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
     """
     def __init__(__self__, *,
-                 count: float,
+                 count: int,
                  last_observed_time: str,
                  state: Optional[str] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param float count: count is the number of occurrences in this series up to the last heartbeat time.
+        :param int count: count is the number of occurrences in this series up to the last heartbeat time.
         :param str last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         :param str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
@@ -251,7 +251,7 @@ class EventSeries(dict):
 
     @property
     @pulumi.getter
-    def count(self) -> float:
+    def count(self) -> int:
         """
         count is the number of occurrences in this series up to the last heartbeat time.
         """

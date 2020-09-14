@@ -226,23 +226,23 @@ class JobConditionArgs:
 class JobSpecArgs:
     def __init__(__self__, *,
                  template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
-                 active_deadline_seconds: Optional[pulumi.Input[float]] = None,
-                 backoff_limit: Optional[pulumi.Input[float]] = None,
-                 completions: Optional[pulumi.Input[float]] = None,
+                 active_deadline_seconds: Optional[pulumi.Input[int]] = None,
+                 backoff_limit: Optional[pulumi.Input[int]] = None,
+                 completions: Optional[pulumi.Input[int]] = None,
                  manual_selector: Optional[pulumi.Input[bool]] = None,
-                 parallelism: Optional[pulumi.Input[float]] = None,
+                 parallelism: Optional[pulumi.Input[int]] = None,
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-                 ttl_seconds_after_finished: Optional[pulumi.Input[float]] = None):
+                 ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None):
         """
         JobSpec describes how the job execution will look like.
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-        :param pulumi.Input[float] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
-        :param pulumi.Input[float] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6
-        :param pulumi.Input[float] completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param pulumi.Input[int] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
+        :param pulumi.Input[int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6
+        :param pulumi.Input[int] completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
-        :param pulumi.Input[float] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param pulumi.Input[int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param pulumi.Input[float] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+        :param pulumi.Input[int] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
         """
         pulumi.set(__self__, "template", template)
         if active_deadline_seconds is not None:
@@ -274,38 +274,38 @@ class JobSpecArgs:
 
     @property
     @pulumi.getter(name="activeDeadlineSeconds")
-    def active_deadline_seconds(self) -> Optional[pulumi.Input[float]]:
+    def active_deadline_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
         """
         return pulumi.get(self, "active_deadline_seconds")
 
     @active_deadline_seconds.setter
-    def active_deadline_seconds(self, value: Optional[pulumi.Input[float]]):
+    def active_deadline_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "active_deadline_seconds", value)
 
     @property
     @pulumi.getter(name="backoffLimit")
-    def backoff_limit(self) -> Optional[pulumi.Input[float]]:
+    def backoff_limit(self) -> Optional[pulumi.Input[int]]:
         """
         Specifies the number of retries before marking this job failed. Defaults to 6
         """
         return pulumi.get(self, "backoff_limit")
 
     @backoff_limit.setter
-    def backoff_limit(self, value: Optional[pulumi.Input[float]]):
+    def backoff_limit(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "backoff_limit", value)
 
     @property
     @pulumi.getter
-    def completions(self) -> Optional[pulumi.Input[float]]:
+    def completions(self) -> Optional[pulumi.Input[int]]:
         """
         Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """
         return pulumi.get(self, "completions")
 
     @completions.setter
-    def completions(self, value: Optional[pulumi.Input[float]]):
+    def completions(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "completions", value)
 
     @property
@@ -322,14 +322,14 @@ class JobSpecArgs:
 
     @property
     @pulumi.getter
-    def parallelism(self) -> Optional[pulumi.Input[float]]:
+    def parallelism(self) -> Optional[pulumi.Input[int]]:
         """
         Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """
         return pulumi.get(self, "parallelism")
 
     @parallelism.setter
-    def parallelism(self, value: Optional[pulumi.Input[float]]):
+    def parallelism(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "parallelism", value)
 
     @property
@@ -346,34 +346,34 @@ class JobSpecArgs:
 
     @property
     @pulumi.getter(name="ttlSecondsAfterFinished")
-    def ttl_seconds_after_finished(self) -> Optional[pulumi.Input[float]]:
+    def ttl_seconds_after_finished(self) -> Optional[pulumi.Input[int]]:
         """
         ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
         """
         return pulumi.get(self, "ttl_seconds_after_finished")
 
     @ttl_seconds_after_finished.setter
-    def ttl_seconds_after_finished(self, value: Optional[pulumi.Input[float]]):
+    def ttl_seconds_after_finished(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "ttl_seconds_after_finished", value)
 
 
 @pulumi.input_type
 class JobStatusArgs:
     def __init__(__self__, *,
-                 active: Optional[pulumi.Input[float]] = None,
+                 active: Optional[pulumi.Input[int]] = None,
                  completion_time: Optional[pulumi.Input[str]] = None,
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]]] = None,
-                 failed: Optional[pulumi.Input[float]] = None,
+                 failed: Optional[pulumi.Input[int]] = None,
                  start_time: Optional[pulumi.Input[str]] = None,
-                 succeeded: Optional[pulumi.Input[float]] = None):
+                 succeeded: Optional[pulumi.Input[int]] = None):
         """
         JobStatus represents the current state of a Job.
-        :param pulumi.Input[float] active: The number of actively running pods.
+        :param pulumi.Input[int] active: The number of actively running pods.
         :param pulumi.Input[str] completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
         :param pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]] conditions: The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-        :param pulumi.Input[float] failed: The number of pods which reached phase Failed.
+        :param pulumi.Input[int] failed: The number of pods which reached phase Failed.
         :param pulumi.Input[str] start_time: Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
-        :param pulumi.Input[float] succeeded: The number of pods which reached phase Succeeded.
+        :param pulumi.Input[int] succeeded: The number of pods which reached phase Succeeded.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -390,14 +390,14 @@ class JobStatusArgs:
 
     @property
     @pulumi.getter
-    def active(self) -> Optional[pulumi.Input[float]]:
+    def active(self) -> Optional[pulumi.Input[int]]:
         """
         The number of actively running pods.
         """
         return pulumi.get(self, "active")
 
     @active.setter
-    def active(self, value: Optional[pulumi.Input[float]]):
+    def active(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "active", value)
 
     @property
@@ -426,14 +426,14 @@ class JobStatusArgs:
 
     @property
     @pulumi.getter
-    def failed(self) -> Optional[pulumi.Input[float]]:
+    def failed(self) -> Optional[pulumi.Input[int]]:
         """
         The number of pods which reached phase Failed.
         """
         return pulumi.get(self, "failed")
 
     @failed.setter
-    def failed(self, value: Optional[pulumi.Input[float]]):
+    def failed(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "failed", value)
 
     @property
@@ -450,14 +450,14 @@ class JobStatusArgs:
 
     @property
     @pulumi.getter
-    def succeeded(self) -> Optional[pulumi.Input[float]]:
+    def succeeded(self) -> Optional[pulumi.Input[int]]:
         """
         The number of pods which reached phase Succeeded.
         """
         return pulumi.get(self, "succeeded")
 
     @succeeded.setter
-    def succeeded(self, value: Optional[pulumi.Input[float]]):
+    def succeeded(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "succeeded", value)
 
 

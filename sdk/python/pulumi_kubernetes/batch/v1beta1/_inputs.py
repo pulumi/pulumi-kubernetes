@@ -112,18 +112,18 @@ class CronJobSpecArgs:
                  job_template: pulumi.Input['JobTemplateSpecArgs'],
                  schedule: pulumi.Input[str],
                  concurrency_policy: Optional[pulumi.Input[str]] = None,
-                 failed_jobs_history_limit: Optional[pulumi.Input[float]] = None,
-                 starting_deadline_seconds: Optional[pulumi.Input[float]] = None,
-                 successful_jobs_history_limit: Optional[pulumi.Input[float]] = None,
+                 failed_jobs_history_limit: Optional[pulumi.Input[int]] = None,
+                 starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
+                 successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
                  suspend: Optional[pulumi.Input[bool]] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
         :param pulumi.Input['JobTemplateSpecArgs'] job_template: Specifies the job that will be created when executing a CronJob.
         :param pulumi.Input[str] schedule: The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
         :param pulumi.Input[str] concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
-        :param pulumi.Input[float] failed_jobs_history_limit: The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
-        :param pulumi.Input[float] starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
-        :param pulumi.Input[float] successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.
+        :param pulumi.Input[int] failed_jobs_history_limit: The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+        :param pulumi.Input[int] starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
+        :param pulumi.Input[int] successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
         """
         pulumi.set(__self__, "job_template", job_template)
@@ -177,38 +177,38 @@ class CronJobSpecArgs:
 
     @property
     @pulumi.getter(name="failedJobsHistoryLimit")
-    def failed_jobs_history_limit(self) -> Optional[pulumi.Input[float]]:
+    def failed_jobs_history_limit(self) -> Optional[pulumi.Input[int]]:
         """
         The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
         """
         return pulumi.get(self, "failed_jobs_history_limit")
 
     @failed_jobs_history_limit.setter
-    def failed_jobs_history_limit(self, value: Optional[pulumi.Input[float]]):
+    def failed_jobs_history_limit(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "failed_jobs_history_limit", value)
 
     @property
     @pulumi.getter(name="startingDeadlineSeconds")
-    def starting_deadline_seconds(self) -> Optional[pulumi.Input[float]]:
+    def starting_deadline_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         """
         return pulumi.get(self, "starting_deadline_seconds")
 
     @starting_deadline_seconds.setter
-    def starting_deadline_seconds(self, value: Optional[pulumi.Input[float]]):
+    def starting_deadline_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "starting_deadline_seconds", value)
 
     @property
     @pulumi.getter(name="successfulJobsHistoryLimit")
-    def successful_jobs_history_limit(self) -> Optional[pulumi.Input[float]]:
+    def successful_jobs_history_limit(self) -> Optional[pulumi.Input[int]]:
         """
         The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.
         """
         return pulumi.get(self, "successful_jobs_history_limit")
 
     @successful_jobs_history_limit.setter
-    def successful_jobs_history_limit(self, value: Optional[pulumi.Input[float]]):
+    def successful_jobs_history_limit(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "successful_jobs_history_limit", value)
 
     @property

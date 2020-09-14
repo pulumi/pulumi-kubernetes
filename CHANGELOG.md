@@ -3,6 +3,7 @@
 ### Bug Fixes
 
 -   Fix Python type hints for lists (https://github.com/pulumi/pulumi-kubernetes/pull/1313)
+-   Fix Python type hints for integers (https://github.com/pulumi/pulumi-kubernetes/pull/1317)
 
 ## 2.6.0 (September 10, 2020)
 

@@ -236,13 +236,13 @@ class FlowSchemaSpecArgs:
     def __init__(__self__, *,
                  priority_level_configuration: pulumi.Input['PriorityLevelConfigurationReferenceArgs'],
                  distinguisher_method: Optional[pulumi.Input['FlowDistinguisherMethodArgs']] = None,
-                 matching_precedence: Optional[pulumi.Input[float]] = None,
+                 matching_precedence: Optional[pulumi.Input[int]] = None,
                  rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]]] = None):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
         :param pulumi.Input['PriorityLevelConfigurationReferenceArgs'] priority_level_configuration: `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
         :param pulumi.Input['FlowDistinguisherMethodArgs'] distinguisher_method: `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
-        :param pulumi.Input[float] matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
+        :param pulumi.Input[int] matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
         :param pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]] rules: `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
         """
         pulumi.set(__self__, "priority_level_configuration", priority_level_configuration)
@@ -279,14 +279,14 @@ class FlowSchemaSpecArgs:
 
     @property
     @pulumi.getter(name="matchingPrecedence")
-    def matching_precedence(self) -> Optional[pulumi.Input[float]]:
+    def matching_precedence(self) -> Optional[pulumi.Input[int]]:
         """
         `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
         """
         return pulumi.get(self, "matching_precedence")
 
     @matching_precedence.setter
-    def matching_precedence(self, value: Optional[pulumi.Input[float]]):
+    def matching_precedence(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "matching_precedence", value)
 
     @property
@@ -391,13 +391,13 @@ class LimitResponseArgs:
 @pulumi.input_type
 class LimitedPriorityLevelConfigurationArgs:
     def __init__(__self__, *,
-                 assured_concurrency_shares: Optional[pulumi.Input[float]] = None,
+                 assured_concurrency_shares: Optional[pulumi.Input[int]] = None,
                  limit_response: Optional[pulumi.Input['LimitResponseArgs']] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
          * How are requests for this priority level limited?
          * What should be done with requests that exceed the limit?
-        :param pulumi.Input[float] assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
+        :param pulumi.Input[int] assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
                
@@ -411,7 +411,7 @@ class LimitedPriorityLevelConfigurationArgs:
 
     @property
     @pulumi.getter(name="assuredConcurrencyShares")
-    def assured_concurrency_shares(self) -> Optional[pulumi.Input[float]]:
+    def assured_concurrency_shares(self) -> Optional[pulumi.Input[int]]:
         """
         `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 
@@ -422,7 +422,7 @@ class LimitedPriorityLevelConfigurationArgs:
         return pulumi.get(self, "assured_concurrency_shares")
 
     @assured_concurrency_shares.setter
-    def assured_concurrency_shares(self, value: Optional[pulumi.Input[float]]):
+    def assured_concurrency_shares(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "assured_concurrency_shares", value)
 
     @property
@@ -808,14 +808,14 @@ class PriorityLevelConfigurationStatusArgs:
 @pulumi.input_type
 class QueuingConfigurationArgs:
     def __init__(__self__, *,
-                 hand_size: Optional[pulumi.Input[float]] = None,
-                 queue_length_limit: Optional[pulumi.Input[float]] = None,
-                 queues: Optional[pulumi.Input[float]] = None):
+                 hand_size: Optional[pulumi.Input[int]] = None,
+                 queue_length_limit: Optional[pulumi.Input[int]] = None,
+                 queues: Optional[pulumi.Input[int]] = None):
         """
         QueuingConfiguration holds the configuration parameters for queuing
-        :param pulumi.Input[float] hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
-        :param pulumi.Input[float] queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
-        :param pulumi.Input[float] queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
+        :param pulumi.Input[int] hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
+        :param pulumi.Input[int] queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
+        :param pulumi.Input[int] queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
         """
         if hand_size is not None:
             pulumi.set(__self__, "hand_size", hand_size)
@@ -826,38 +826,38 @@ class QueuingConfigurationArgs:
 
     @property
     @pulumi.getter(name="handSize")
-    def hand_size(self) -> Optional[pulumi.Input[float]]:
+    def hand_size(self) -> Optional[pulumi.Input[int]]:
         """
         `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
         """
         return pulumi.get(self, "hand_size")
 
     @hand_size.setter
-    def hand_size(self, value: Optional[pulumi.Input[float]]):
+    def hand_size(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "hand_size", value)
 
     @property
     @pulumi.getter(name="queueLengthLimit")
-    def queue_length_limit(self) -> Optional[pulumi.Input[float]]:
+    def queue_length_limit(self) -> Optional[pulumi.Input[int]]:
         """
         `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
         """
         return pulumi.get(self, "queue_length_limit")
 
     @queue_length_limit.setter
-    def queue_length_limit(self, value: Optional[pulumi.Input[float]]):
+    def queue_length_limit(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "queue_length_limit", value)
 
     @property
     @pulumi.getter
-    def queues(self) -> Optional[pulumi.Input[float]]:
+    def queues(self) -> Optional[pulumi.Input[int]]:
         """
         `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
         """
         return pulumi.get(self, "queues")
 
     @queues.setter
-    def queues(self, value: Optional[pulumi.Input[float]]):
+    def queues(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "queues", value)
 
 

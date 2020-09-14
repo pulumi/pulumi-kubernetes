@@ -821,7 +821,7 @@ class NetworkPolicyPort(dict):
                  protocol: Optional[str] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
-        :param Union[float, str] port: The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+        :param Union[int, str] port: The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
         :param str protocol: The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
         if port is not None:
@@ -917,11 +917,11 @@ class ServiceBackendPort(dict):
     """
     def __init__(__self__, *,
                  name: Optional[str] = None,
-                 number: Optional[float] = None):
+                 number: Optional[int] = None):
         """
         ServiceBackendPort is the service port being referenced.
         :param str name: Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
-        :param float number: Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+        :param int number: Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -938,7 +938,7 @@ class ServiceBackendPort(dict):
 
     @property
     @pulumi.getter
-    def number(self) -> Optional[float]:
+    def number(self) -> Optional[int]:
         """
         Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """

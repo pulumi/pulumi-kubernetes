@@ -170,13 +170,13 @@ class ServiceReferenceArgs:
                  name: pulumi.Input[str],
                  namespace: pulumi.Input[str],
                  path: Optional[pulumi.Input[str]] = None,
-                 port: Optional[pulumi.Input[float]] = None):
+                 port: Optional[pulumi.Input[int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
         :param pulumi.Input[str] name: `name` is the name of the service. Required
         :param pulumi.Input[str] namespace: `namespace` is the namespace of the service. Required
         :param pulumi.Input[str] path: `path` is an optional URL path which will be sent in any request to this service.
-        :param pulumi.Input[float] port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+        :param pulumi.Input[int] port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "namespace", namespace)
@@ -223,14 +223,14 @@ class ServiceReferenceArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[float]]:
+    def port(self) -> Optional[pulumi.Input[int]]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[float]]):
+    def port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "port", value)
 
 
@@ -356,12 +356,12 @@ class WebhookClientConfigArgs:
 @pulumi.input_type
 class WebhookThrottleConfigArgs:
     def __init__(__self__, *,
-                 burst: Optional[pulumi.Input[float]] = None,
-                 qps: Optional[pulumi.Input[float]] = None):
+                 burst: Optional[pulumi.Input[int]] = None,
+                 qps: Optional[pulumi.Input[int]] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
-        :param pulumi.Input[float] burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
-        :param pulumi.Input[float] qps: ThrottleQPS maximum number of batches per second default 10 QPS
+        :param pulumi.Input[int] burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
+        :param pulumi.Input[int] qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
         if burst is not None:
             pulumi.set(__self__, "burst", burst)
@@ -370,26 +370,26 @@ class WebhookThrottleConfigArgs:
 
     @property
     @pulumi.getter
-    def burst(self) -> Optional[pulumi.Input[float]]:
+    def burst(self) -> Optional[pulumi.Input[int]]:
         """
         ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         """
         return pulumi.get(self, "burst")
 
     @burst.setter
-    def burst(self, value: Optional[pulumi.Input[float]]):
+    def burst(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "burst", value)
 
     @property
     @pulumi.getter
-    def qps(self) -> Optional[pulumi.Input[float]]:
+    def qps(self) -> Optional[pulumi.Input[int]]:
         """
         ThrottleQPS maximum number of batches per second default 10 QPS
         """
         return pulumi.get(self, "qps")
 
     @qps.setter
-    def qps(self, value: Optional[pulumi.Input[float]]):
+    def qps(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "qps", value)
 
 

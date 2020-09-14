@@ -185,7 +185,7 @@ class AWSElasticBlockStoreVolumeSourceArgs:
     def __init__(__self__, *,
                  volume_id: pulumi.Input[str],
                  fs_type: Optional[pulumi.Input[str]] = None,
-                 partition: Optional[pulumi.Input[float]] = None,
+                 partition: Optional[pulumi.Input[int]] = None,
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         Represents a Persistent Disk resource in AWS.
@@ -193,7 +193,7 @@ class AWSElasticBlockStoreVolumeSourceArgs:
         An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
         :param pulumi.Input[str] volume_id: Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input[str] fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param pulumi.Input[float] partition: The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+        :param pulumi.Input[int] partition: The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
         :param pulumi.Input[bool] read_only: Specify "true" to force and set the ReadOnly property in VolumeMounts to "true". If omitted, the default is "false". More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         pulumi.set(__self__, "volume_id", volume_id)
@@ -230,14 +230,14 @@ class AWSElasticBlockStoreVolumeSourceArgs:
 
     @property
     @pulumi.getter
-    def partition(self) -> Optional[pulumi.Input[float]]:
+    def partition(self) -> Optional[pulumi.Input[int]]:
         """
         The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
         """
         return pulumi.get(self, "partition")
 
     @partition.setter
-    def partition(self, value: Optional[pulumi.Input[float]]):
+    def partition(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "partition", value)
 
     @property
@@ -1201,24 +1201,24 @@ class CinderVolumeSourceArgs:
 @pulumi.input_type
 class ClientIPConfigArgs:
     def __init__(__self__, *,
-                 timeout_seconds: Optional[pulumi.Input[float]] = None):
+                 timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         ClientIPConfig represents the configurations of Client IP based session affinity.
-        :param pulumi.Input[float] timeout_seconds: timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
+        :param pulumi.Input[int] timeout_seconds: timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
         """
         if timeout_seconds is not None:
             pulumi.set(__self__, "timeout_seconds", timeout_seconds)
 
     @property
     @pulumi.getter(name="timeoutSeconds")
-    def timeout_seconds(self) -> Optional[pulumi.Input[float]]:
+    def timeout_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
         """
         return pulumi.get(self, "timeout_seconds")
 
     @timeout_seconds.setter
-    def timeout_seconds(self, value: Optional[pulumi.Input[float]]):
+    def timeout_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "timeout_seconds", value)
 
 
@@ -1569,7 +1569,7 @@ class ConfigMapProjectionArgs:
 @pulumi.input_type
 class ConfigMapVolumeSourceArgs:
     def __init__(__self__, *,
-                 default_mode: Optional[pulumi.Input[float]] = None,
+                 default_mode: Optional[pulumi.Input[int]] = None,
                  items: Optional[pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  optional: Optional[pulumi.Input[bool]] = None):
@@ -1577,7 +1577,7 @@ class ConfigMapVolumeSourceArgs:
         Adapts a ConfigMap into a volume.
 
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
-        :param pulumi.Input[float] default_mode: Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param pulumi.Input[int] default_mode: Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]] items: If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the ConfigMap or its keys must be defined
@@ -1593,14 +1593,14 @@ class ConfigMapVolumeSourceArgs:
 
     @property
     @pulumi.getter(name="defaultMode")
-    def default_mode(self) -> Optional[pulumi.Input[float]]:
+    def default_mode(self) -> Optional[pulumi.Input[int]]:
         """
         Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
 
     @default_mode.setter
-    def default_mode(self, value: Optional[pulumi.Input[float]]):
+    def default_mode(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "default_mode", value)
 
     @property
@@ -2003,11 +2003,11 @@ class ContainerArgs:
 class ContainerImageArgs:
     def __init__(__self__, *,
                  names: pulumi.Input[Sequence[pulumi.Input[str]]],
-                 size_bytes: Optional[pulumi.Input[float]] = None):
+                 size_bytes: Optional[pulumi.Input[int]] = None):
         """
         Describe a container image
         :param pulumi.Input[Sequence[pulumi.Input[str]]] names: Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
-        :param pulumi.Input[float] size_bytes: The size of the image in bytes.
+        :param pulumi.Input[int] size_bytes: The size of the image in bytes.
         """
         pulumi.set(__self__, "names", names)
         if size_bytes is not None:
@@ -2027,30 +2027,30 @@ class ContainerImageArgs:
 
     @property
     @pulumi.getter(name="sizeBytes")
-    def size_bytes(self) -> Optional[pulumi.Input[float]]:
+    def size_bytes(self) -> Optional[pulumi.Input[int]]:
         """
         The size of the image in bytes.
         """
         return pulumi.get(self, "size_bytes")
 
     @size_bytes.setter
-    def size_bytes(self, value: Optional[pulumi.Input[float]]):
+    def size_bytes(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "size_bytes", value)
 
 
 @pulumi.input_type
 class ContainerPortArgs:
     def __init__(__self__, *,
-                 container_port: pulumi.Input[float],
+                 container_port: pulumi.Input[int],
                  host_ip: Optional[pulumi.Input[str]] = None,
-                 host_port: Optional[pulumi.Input[float]] = None,
+                 host_port: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         ContainerPort represents a network port in a single container.
-        :param pulumi.Input[float] container_port: Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
+        :param pulumi.Input[int] container_port: Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
         :param pulumi.Input[str] host_ip: What host IP to bind the external port to.
-        :param pulumi.Input[float] host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+        :param pulumi.Input[int] host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
         :param pulumi.Input[str] name: If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
         :param pulumi.Input[str] protocol: Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
         """
@@ -2066,14 +2066,14 @@ class ContainerPortArgs:
 
     @property
     @pulumi.getter(name="containerPort")
-    def container_port(self) -> pulumi.Input[float]:
+    def container_port(self) -> pulumi.Input[int]:
         """
         Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
         """
         return pulumi.get(self, "container_port")
 
     @container_port.setter
-    def container_port(self, value: pulumi.Input[float]):
+    def container_port(self, value: pulumi.Input[int]):
         pulumi.set(self, "container_port", value)
 
     @property
@@ -2090,14 +2090,14 @@ class ContainerPortArgs:
 
     @property
     @pulumi.getter(name="hostPort")
-    def host_port(self) -> Optional[pulumi.Input[float]]:
+    def host_port(self) -> Optional[pulumi.Input[int]]:
         """
         Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
         """
         return pulumi.get(self, "host_port")
 
     @host_port.setter
-    def host_port(self, value: Optional[pulumi.Input[float]]):
+    def host_port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "host_port", value)
 
     @property
@@ -2208,21 +2208,21 @@ class ContainerStateRunningArgs:
 @pulumi.input_type
 class ContainerStateTerminatedArgs:
     def __init__(__self__, *,
-                 exit_code: pulumi.Input[float],
+                 exit_code: pulumi.Input[int],
                  container_id: Optional[pulumi.Input[str]] = None,
                  finished_at: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
-                 signal: Optional[pulumi.Input[float]] = None,
+                 signal: Optional[pulumi.Input[int]] = None,
                  started_at: Optional[pulumi.Input[str]] = None):
         """
         ContainerStateTerminated is a terminated state of a container.
-        :param pulumi.Input[float] exit_code: Exit status from the last termination of the container
+        :param pulumi.Input[int] exit_code: Exit status from the last termination of the container
         :param pulumi.Input[str] container_id: Container's ID in the format 'docker://<container_id>'
         :param pulumi.Input[str] finished_at: Time at which the container last terminated
         :param pulumi.Input[str] message: Message regarding the last termination of the container
         :param pulumi.Input[str] reason: (brief) reason from the last termination of the container
-        :param pulumi.Input[float] signal: Signal from the last termination of the container
+        :param pulumi.Input[int] signal: Signal from the last termination of the container
         :param pulumi.Input[str] started_at: Time at which previous execution of the container started
         """
         pulumi.set(__self__, "exit_code", exit_code)
@@ -2241,14 +2241,14 @@ class ContainerStateTerminatedArgs:
 
     @property
     @pulumi.getter(name="exitCode")
-    def exit_code(self) -> pulumi.Input[float]:
+    def exit_code(self) -> pulumi.Input[int]:
         """
         Exit status from the last termination of the container
         """
         return pulumi.get(self, "exit_code")
 
     @exit_code.setter
-    def exit_code(self, value: pulumi.Input[float]):
+    def exit_code(self, value: pulumi.Input[int]):
         pulumi.set(self, "exit_code", value)
 
     @property
@@ -2301,14 +2301,14 @@ class ContainerStateTerminatedArgs:
 
     @property
     @pulumi.getter
-    def signal(self) -> Optional[pulumi.Input[float]]:
+    def signal(self) -> Optional[pulumi.Input[int]]:
         """
         Signal from the last termination of the container
         """
         return pulumi.get(self, "signal")
 
     @signal.setter
-    def signal(self, value: Optional[pulumi.Input[float]]):
+    def signal(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "signal", value)
 
     @property
@@ -2371,7 +2371,7 @@ class ContainerStatusArgs:
                  image_id: pulumi.Input[str],
                  name: pulumi.Input[str],
                  ready: pulumi.Input[bool],
-                 restart_count: pulumi.Input[float],
+                 restart_count: pulumi.Input[int],
                  container_id: Optional[pulumi.Input[str]] = None,
                  last_state: Optional[pulumi.Input['ContainerStateArgs']] = None,
                  started: Optional[pulumi.Input[bool]] = None,
@@ -2382,7 +2382,7 @@ class ContainerStatusArgs:
         :param pulumi.Input[str] image_id: ImageID of the container's image.
         :param pulumi.Input[str] name: This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
         :param pulumi.Input[bool] ready: Specifies whether the container has passed its readiness probe.
-        :param pulumi.Input[float] restart_count: The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+        :param pulumi.Input[int] restart_count: The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
         :param pulumi.Input[str] container_id: Container's ID in the format 'docker://<container_id>'.
         :param pulumi.Input['ContainerStateArgs'] last_state: Details about the container's last termination condition.
         :param pulumi.Input[bool] started: Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
@@ -2452,14 +2452,14 @@ class ContainerStatusArgs:
 
     @property
     @pulumi.getter(name="restartCount")
-    def restart_count(self) -> pulumi.Input[float]:
+    def restart_count(self) -> pulumi.Input[int]:
         """
         The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
         """
         return pulumi.get(self, "restart_count")
 
     @restart_count.setter
-    def restart_count(self, value: pulumi.Input[float]):
+    def restart_count(self, value: pulumi.Input[int]):
         pulumi.set(self, "restart_count", value)
 
     @property
@@ -2514,23 +2514,23 @@ class ContainerStatusArgs:
 @pulumi.input_type
 class DaemonEndpointArgs:
     def __init__(__self__, *,
-                 port: pulumi.Input[float]):
+                 port: pulumi.Input[int]):
         """
         DaemonEndpoint contains information about a single Daemon endpoint.
-        :param pulumi.Input[float] port: Port number of the given endpoint.
+        :param pulumi.Input[int] port: Port number of the given endpoint.
         """
         pulumi.set(__self__, "port", port)
 
     @property
     @pulumi.getter(name="Port")
-    def port(self) -> pulumi.Input[float]:
+    def port(self) -> pulumi.Input[int]:
         """
         Port number of the given endpoint.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: pulumi.Input[float]):
+    def port(self, value: pulumi.Input[int]):
         pulumi.set(self, "port", value)
 
 
@@ -2563,13 +2563,13 @@ class DownwardAPIVolumeFileArgs:
     def __init__(__self__, *,
                  path: pulumi.Input[str],
                  field_ref: Optional[pulumi.Input['ObjectFieldSelectorArgs']] = None,
-                 mode: Optional[pulumi.Input[float]] = None,
+                 mode: Optional[pulumi.Input[int]] = None,
                  resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorArgs']] = None):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
         :param pulumi.Input[str] path: Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
         :param pulumi.Input['ObjectFieldSelectorArgs'] field_ref: Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-        :param pulumi.Input[float] mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param pulumi.Input[int] mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input['ResourceFieldSelectorArgs'] resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
         """
         pulumi.set(__self__, "path", path)
@@ -2606,14 +2606,14 @@ class DownwardAPIVolumeFileArgs:
 
     @property
     @pulumi.getter
-    def mode(self) -> Optional[pulumi.Input[float]]:
+    def mode(self) -> Optional[pulumi.Input[int]]:
         """
         Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "mode")
 
     @mode.setter
-    def mode(self, value: Optional[pulumi.Input[float]]):
+    def mode(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "mode", value)
 
     @property
@@ -2632,11 +2632,11 @@ class DownwardAPIVolumeFileArgs:
 @pulumi.input_type
 class DownwardAPIVolumeSourceArgs:
     def __init__(__self__, *,
-                 default_mode: Optional[pulumi.Input[float]] = None,
+                 default_mode: Optional[pulumi.Input[int]] = None,
                  items: Optional[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]]] = None):
         """
         DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
-        :param pulumi.Input[float] default_mode: Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param pulumi.Input[int] default_mode: Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]] items: Items is a list of downward API volume file
         """
         if default_mode is not None:
@@ -2646,14 +2646,14 @@ class DownwardAPIVolumeSourceArgs:
 
     @property
     @pulumi.getter(name="defaultMode")
-    def default_mode(self) -> Optional[pulumi.Input[float]]:
+    def default_mode(self) -> Optional[pulumi.Input[int]]:
         """
         Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
 
     @default_mode.setter
-    def default_mode(self, value: Optional[pulumi.Input[float]]):
+    def default_mode(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "default_mode", value)
 
     @property
@@ -2783,13 +2783,13 @@ class EndpointAddressArgs:
 @pulumi.input_type
 class EndpointPortArgs:
     def __init__(__self__, *,
-                 port: pulumi.Input[float],
+                 port: pulumi.Input[int],
                  app_protocol: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         EndpointPort is a tuple that describes a single port.
-        :param pulumi.Input[float] port: The port number of the endpoint.
+        :param pulumi.Input[int] port: The port number of the endpoint.
         :param pulumi.Input[str] app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
         :param pulumi.Input[str] name: The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
         :param pulumi.Input[str] protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
@@ -2804,14 +2804,14 @@ class EndpointPortArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> pulumi.Input[float]:
+    def port(self) -> pulumi.Input[int]:
         """
         The port number of the endpoint.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: pulumi.Input[float]):
+    def port(self, value: pulumi.Input[int]):
         pulumi.set(self, "port", value)
 
     @property
@@ -3614,7 +3614,7 @@ class EventArgs:
                  metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
                  action: Optional[pulumi.Input[str]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 count: Optional[pulumi.Input[float]] = None,
+                 count: Optional[pulumi.Input[int]] = None,
                  event_time: Optional[pulumi.Input[str]] = None,
                  first_timestamp: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -3633,7 +3633,7 @@ class EventArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] action: What action was taken/failed regarding to the Regarding object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[float] count: The number of times this event has occurred.
+        :param pulumi.Input[int] count: The number of times this event has occurred.
         :param pulumi.Input[str] event_time: Time when this Event was first observed.
         :param pulumi.Input[str] first_timestamp: The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -3730,14 +3730,14 @@ class EventArgs:
 
     @property
     @pulumi.getter
-    def count(self) -> Optional[pulumi.Input[float]]:
+    def count(self) -> Optional[pulumi.Input[int]]:
         """
         The number of times this event has occurred.
         """
         return pulumi.get(self, "count")
 
     @count.setter
-    def count(self, value: Optional[pulumi.Input[float]]):
+    def count(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "count", value)
 
     @property
@@ -3888,12 +3888,12 @@ class EventArgs:
 @pulumi.input_type
 class EventSeriesArgs:
     def __init__(__self__, *,
-                 count: Optional[pulumi.Input[float]] = None,
+                 count: Optional[pulumi.Input[int]] = None,
                  last_observed_time: Optional[pulumi.Input[str]] = None,
                  state: Optional[pulumi.Input[str]] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param pulumi.Input[float] count: Number of occurrences in this series up to the last heartbeat time
+        :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
         :param pulumi.Input[str] last_observed_time: Time of the last occurrence observed
         :param pulumi.Input[str] state: State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
         """
@@ -3906,14 +3906,14 @@ class EventSeriesArgs:
 
     @property
     @pulumi.getter
-    def count(self) -> Optional[pulumi.Input[float]]:
+    def count(self) -> Optional[pulumi.Input[int]]:
         """
         Number of occurrences in this series up to the last heartbeat time
         """
         return pulumi.get(self, "count")
 
     @count.setter
-    def count(self, value: Optional[pulumi.Input[float]]):
+    def count(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "count", value)
 
     @property
@@ -4009,14 +4009,14 @@ class ExecActionArgs:
 class FCVolumeSourceArgs:
     def __init__(__self__, *,
                  fs_type: Optional[pulumi.Input[str]] = None,
-                 lun: Optional[pulumi.Input[float]] = None,
+                 lun: Optional[pulumi.Input[int]] = None,
                  read_only: Optional[pulumi.Input[bool]] = None,
                  target_wwns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  wwids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
         :param pulumi.Input[str] fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        :param pulumi.Input[float] lun: Optional: FC target lun number
+        :param pulumi.Input[int] lun: Optional: FC target lun number
         :param pulumi.Input[bool] read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] target_wwns: Optional: FC target worldwide names (WWNs)
         :param pulumi.Input[Sequence[pulumi.Input[str]]] wwids: Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
@@ -4046,14 +4046,14 @@ class FCVolumeSourceArgs:
 
     @property
     @pulumi.getter
-    def lun(self) -> Optional[pulumi.Input[float]]:
+    def lun(self) -> Optional[pulumi.Input[int]]:
         """
         Optional: FC target lun number
         """
         return pulumi.get(self, "lun")
 
     @lun.setter
-    def lun(self, value: Optional[pulumi.Input[float]]):
+    def lun(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "lun", value)
 
     @property
@@ -4312,7 +4312,7 @@ class GCEPersistentDiskVolumeSourceArgs:
     def __init__(__self__, *,
                  pd_name: pulumi.Input[str],
                  fs_type: Optional[pulumi.Input[str]] = None,
-                 partition: Optional[pulumi.Input[float]] = None,
+                 partition: Optional[pulumi.Input[int]] = None,
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         Represents a Persistent Disk resource in Google Compute Engine.
@@ -4320,7 +4320,7 @@ class GCEPersistentDiskVolumeSourceArgs:
         A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
         :param pulumi.Input[str] pd_name: Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input[str] fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param pulumi.Input[float] partition: The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param pulumi.Input[int] partition: The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input[bool] read_only: ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         pulumi.set(__self__, "pd_name", pd_name)
@@ -4357,14 +4357,14 @@ class GCEPersistentDiskVolumeSourceArgs:
 
     @property
     @pulumi.getter
-    def partition(self) -> Optional[pulumi.Input[float]]:
+    def partition(self) -> Optional[pulumi.Input[int]]:
         """
         The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "partition")
 
     @partition.setter
-    def partition(self, value: Optional[pulumi.Input[float]]):
+    def partition(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "partition", value)
 
     @property
@@ -4564,14 +4564,14 @@ class GlusterfsVolumeSourceArgs:
 @pulumi.input_type
 class HTTPGetActionArgs:
     def __init__(__self__, *,
-                 port: pulumi.Input[Union[float, str]],
+                 port: pulumi.Input[Union[int, str]],
                  host: Optional[pulumi.Input[str]] = None,
                  http_headers: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPHeaderArgs']]]] = None,
                  path: Optional[pulumi.Input[str]] = None,
                  scheme: Optional[pulumi.Input[str]] = None):
         """
         HTTPGetAction describes an action based on HTTP Get requests.
-        :param pulumi.Input[Union[float, str]] port: Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+        :param pulumi.Input[Union[int, str]] port: Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         :param pulumi.Input[str] host: Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
         :param pulumi.Input[Sequence[pulumi.Input['HTTPHeaderArgs']]] http_headers: Custom headers to set in the request. HTTP allows repeated headers.
         :param pulumi.Input[str] path: Path to access on the HTTP server.
@@ -4589,14 +4589,14 @@ class HTTPGetActionArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> pulumi.Input[Union[float, str]]:
+    def port(self) -> pulumi.Input[Union[int, str]]:
         """
         Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: pulumi.Input[Union[float, str]]):
+    def port(self, value: pulumi.Input[Union[int, str]]):
         pulumi.set(self, "port", value)
 
     @property
@@ -4825,7 +4825,7 @@ class HostPathVolumeSourceArgs:
 class ISCSIPersistentVolumeSourceArgs:
     def __init__(__self__, *,
                  iqn: pulumi.Input[str],
-                 lun: pulumi.Input[float],
+                 lun: pulumi.Input[int],
                  target_portal: pulumi.Input[str],
                  chap_auth_discovery: Optional[pulumi.Input[bool]] = None,
                  chap_auth_session: Optional[pulumi.Input[bool]] = None,
@@ -4838,7 +4838,7 @@ class ISCSIPersistentVolumeSourceArgs:
         """
         ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
         :param pulumi.Input[str] iqn: Target iSCSI Qualified Name.
-        :param pulumi.Input[float] lun: iSCSI Target Lun number.
+        :param pulumi.Input[int] lun: iSCSI Target Lun number.
         :param pulumi.Input[str] target_portal: iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         :param pulumi.Input[bool] chap_auth_discovery: whether support iSCSI Discovery CHAP authentication
         :param pulumi.Input[bool] chap_auth_session: whether support iSCSI Session CHAP authentication
@@ -4883,14 +4883,14 @@ class ISCSIPersistentVolumeSourceArgs:
 
     @property
     @pulumi.getter
-    def lun(self) -> pulumi.Input[float]:
+    def lun(self) -> pulumi.Input[int]:
         """
         iSCSI Target Lun number.
         """
         return pulumi.get(self, "lun")
 
     @lun.setter
-    def lun(self, value: pulumi.Input[float]):
+    def lun(self, value: pulumi.Input[int]):
         pulumi.set(self, "lun", value)
 
     @property
@@ -5006,7 +5006,7 @@ class ISCSIPersistentVolumeSourceArgs:
 class ISCSIVolumeSourceArgs:
     def __init__(__self__, *,
                  iqn: pulumi.Input[str],
-                 lun: pulumi.Input[float],
+                 lun: pulumi.Input[int],
                  target_portal: pulumi.Input[str],
                  chap_auth_discovery: Optional[pulumi.Input[bool]] = None,
                  chap_auth_session: Optional[pulumi.Input[bool]] = None,
@@ -5019,7 +5019,7 @@ class ISCSIVolumeSourceArgs:
         """
         Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
         :param pulumi.Input[str] iqn: Target iSCSI Qualified Name.
-        :param pulumi.Input[float] lun: iSCSI Target Lun number.
+        :param pulumi.Input[int] lun: iSCSI Target Lun number.
         :param pulumi.Input[str] target_portal: iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         :param pulumi.Input[bool] chap_auth_discovery: whether support iSCSI Discovery CHAP authentication
         :param pulumi.Input[bool] chap_auth_session: whether support iSCSI Session CHAP authentication
@@ -5064,14 +5064,14 @@ class ISCSIVolumeSourceArgs:
 
     @property
     @pulumi.getter
-    def lun(self) -> pulumi.Input[float]:
+    def lun(self) -> pulumi.Input[int]:
         """
         iSCSI Target Lun number.
         """
         return pulumi.get(self, "lun")
 
     @lun.setter
-    def lun(self, value: pulumi.Input[float]):
+    def lun(self, value: pulumi.Input[int]):
         pulumi.set(self, "lun", value)
 
     @property
@@ -5188,12 +5188,12 @@ class KeyToPathArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[str],
                  path: pulumi.Input[str],
-                 mode: Optional[pulumi.Input[float]] = None):
+                 mode: Optional[pulumi.Input[int]] = None):
         """
         Maps a string key to a path within a volume.
         :param pulumi.Input[str] key: The key to project.
         :param pulumi.Input[str] path: The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
-        :param pulumi.Input[float] mode: Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param pulumi.Input[int] mode: Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "path", path)
@@ -5226,14 +5226,14 @@ class KeyToPathArgs:
 
     @property
     @pulumi.getter
-    def mode(self) -> Optional[pulumi.Input[float]]:
+    def mode(self) -> Optional[pulumi.Input[int]]:
         """
         Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "mode")
 
     @mode.setter
-    def mode(self, value: Optional[pulumi.Input[float]]):
+    def mode(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "mode", value)
 
 
@@ -8614,30 +8614,30 @@ class PodReadinessGateArgs:
 @pulumi.input_type
 class PodSecurityContextArgs:
     def __init__(__self__, *,
-                 fs_group: Optional[pulumi.Input[float]] = None,
+                 fs_group: Optional[pulumi.Input[int]] = None,
                  fs_group_change_policy: Optional[pulumi.Input[str]] = None,
-                 run_as_group: Optional[pulumi.Input[float]] = None,
+                 run_as_group: Optional[pulumi.Input[int]] = None,
                  run_as_non_root: Optional[pulumi.Input[bool]] = None,
-                 run_as_user: Optional[pulumi.Input[float]] = None,
+                 run_as_user: Optional[pulumi.Input[int]] = None,
                  se_linux_options: Optional[pulumi.Input['SELinuxOptionsArgs']] = None,
                  seccomp_profile: Optional[pulumi.Input['SeccompProfileArgs']] = None,
-                 supplemental_groups: Optional[pulumi.Input[Sequence[pulumi.Input[float]]]] = None,
+                 supplemental_groups: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
                  sysctls: Optional[pulumi.Input[Sequence[pulumi.Input['SysctlArgs']]]] = None,
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsArgs']] = None):
         """
         PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
-        :param pulumi.Input[float] fs_group: A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
+        :param pulumi.Input[int] fs_group: A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                
                1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
                
                If unset, the Kubelet will not modify the ownership and permissions of any volume.
         :param pulumi.Input[str] fs_group_change_policy: fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
-        :param pulumi.Input[float] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+        :param pulumi.Input[int] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
         :param pulumi.Input[bool] run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
-        :param pulumi.Input[float] run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+        :param pulumi.Input[int] run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
         :param pulumi.Input['SELinuxOptionsArgs'] se_linux_options: The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
         :param pulumi.Input['SeccompProfileArgs'] seccomp_profile: The seccomp options to use by the containers in this pod.
-        :param pulumi.Input[Sequence[pulumi.Input[float]]] supplemental_groups: A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
+        :param pulumi.Input[Sequence[pulumi.Input[int]]] supplemental_groups: A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
         :param pulumi.Input[Sequence[pulumi.Input['SysctlArgs']]] sysctls: Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
         :param pulumi.Input['WindowsSecurityContextOptionsArgs'] windows_options: The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         """
@@ -8664,7 +8664,7 @@ class PodSecurityContextArgs:
 
     @property
     @pulumi.getter(name="fsGroup")
-    def fs_group(self) -> Optional[pulumi.Input[float]]:
+    def fs_group(self) -> Optional[pulumi.Input[int]]:
         """
         A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
 
@@ -8675,7 +8675,7 @@ class PodSecurityContextArgs:
         return pulumi.get(self, "fs_group")
 
     @fs_group.setter
-    def fs_group(self, value: Optional[pulumi.Input[float]]):
+    def fs_group(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "fs_group", value)
 
     @property
@@ -8692,14 +8692,14 @@ class PodSecurityContextArgs:
 
     @property
     @pulumi.getter(name="runAsGroup")
-    def run_as_group(self) -> Optional[pulumi.Input[float]]:
+    def run_as_group(self) -> Optional[pulumi.Input[int]]:
         """
         The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
         """
         return pulumi.get(self, "run_as_group")
 
     @run_as_group.setter
-    def run_as_group(self, value: Optional[pulumi.Input[float]]):
+    def run_as_group(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "run_as_group", value)
 
     @property
@@ -8716,14 +8716,14 @@ class PodSecurityContextArgs:
 
     @property
     @pulumi.getter(name="runAsUser")
-    def run_as_user(self) -> Optional[pulumi.Input[float]]:
+    def run_as_user(self) -> Optional[pulumi.Input[int]]:
         """
         The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
         """
         return pulumi.get(self, "run_as_user")
 
     @run_as_user.setter
-    def run_as_user(self, value: Optional[pulumi.Input[float]]):
+    def run_as_user(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "run_as_user", value)
 
     @property
@@ -8752,14 +8752,14 @@ class PodSecurityContextArgs:
 
     @property
     @pulumi.getter(name="supplementalGroups")
-    def supplemental_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[float]]]]:
+    def supplemental_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[int]]]]:
         """
         A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
         """
         return pulumi.get(self, "supplemental_groups")
 
     @supplemental_groups.setter
-    def supplemental_groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[float]]]]):
+    def supplemental_groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]]):
         pulumi.set(self, "supplemental_groups", value)
 
     @property
@@ -8791,7 +8791,7 @@ class PodSecurityContextArgs:
 class PodSpecArgs:
     def __init__(__self__, *,
                  containers: pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]],
-                 active_deadline_seconds: Optional[pulumi.Input[float]] = None,
+                 active_deadline_seconds: Optional[pulumi.Input[int]] = None,
                  affinity: Optional[pulumi.Input['AffinityArgs']] = None,
                  automount_service_account_token: Optional[pulumi.Input[bool]] = None,
                  dns_config: Optional[pulumi.Input['PodDNSConfigArgs']] = None,
@@ -8809,7 +8809,7 @@ class PodSpecArgs:
                  node_selector: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  overhead: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  preemption_policy: Optional[pulumi.Input[str]] = None,
-                 priority: Optional[pulumi.Input[float]] = None,
+                 priority: Optional[pulumi.Input[int]] = None,
                  priority_class_name: Optional[pulumi.Input[str]] = None,
                  readiness_gates: Optional[pulumi.Input[Sequence[pulumi.Input['PodReadinessGateArgs']]]] = None,
                  restart_policy: Optional[pulumi.Input[str]] = None,
@@ -8821,14 +8821,14 @@ class PodSpecArgs:
                  set_hostname_as_fqdn: Optional[pulumi.Input[bool]] = None,
                  share_process_namespace: Optional[pulumi.Input[bool]] = None,
                  subdomain: Optional[pulumi.Input[str]] = None,
-                 termination_grace_period_seconds: Optional[pulumi.Input[float]] = None,
+                 termination_grace_period_seconds: Optional[pulumi.Input[int]] = None,
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['TolerationArgs']]]] = None,
                  topology_spread_constraints: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintArgs']]]] = None,
                  volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]] = None):
         """
         PodSpec is a description of a pod.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]] containers: List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
-        :param pulumi.Input[float] active_deadline_seconds: Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
+        :param pulumi.Input[int] active_deadline_seconds: Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
         :param pulumi.Input['AffinityArgs'] affinity: If specified, the pod's scheduling constraints
         :param pulumi.Input[bool] automount_service_account_token: AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
         :param pulumi.Input['PodDNSConfigArgs'] dns_config: Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
@@ -8846,7 +8846,7 @@ class PodSpecArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] node_selector: NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
         :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
-        :param pulumi.Input[float] priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
+        :param pulumi.Input[int] priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
         :param pulumi.Input[str] priority_class_name: If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
         :param pulumi.Input[Sequence[pulumi.Input['PodReadinessGateArgs']]] readiness_gates: If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
         :param pulumi.Input[str] restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
@@ -8858,7 +8858,7 @@ class PodSpecArgs:
         :param pulumi.Input[bool] set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         :param pulumi.Input[bool] share_process_namespace: Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
         :param pulumi.Input[str] subdomain: If specified, the fully qualified Pod hostname will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not specified, the pod will not have a domainname at all.
-        :param pulumi.Input[float] termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
+        :param pulumi.Input[int] termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
         :param pulumi.Input[Sequence[pulumi.Input['TolerationArgs']]] tolerations: If specified, the pod's tolerations.
         :param pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintArgs']]] topology_spread_constraints: TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
         :param pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]] volumes: List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
@@ -8947,14 +8947,14 @@ class PodSpecArgs:
 
     @property
     @pulumi.getter(name="activeDeadlineSeconds")
-    def active_deadline_seconds(self) -> Optional[pulumi.Input[float]]:
+    def active_deadline_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
         """
         return pulumi.get(self, "active_deadline_seconds")
 
     @active_deadline_seconds.setter
-    def active_deadline_seconds(self, value: Optional[pulumi.Input[float]]):
+    def active_deadline_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "active_deadline_seconds", value)
 
     @property
@@ -9163,14 +9163,14 @@ class PodSpecArgs:
 
     @property
     @pulumi.getter
-    def priority(self) -> Optional[pulumi.Input[float]]:
+    def priority(self) -> Optional[pulumi.Input[int]]:
         """
         The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
         """
         return pulumi.get(self, "priority")
 
     @priority.setter
-    def priority(self, value: Optional[pulumi.Input[float]]):
+    def priority(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "priority", value)
 
     @property
@@ -9307,14 +9307,14 @@ class PodSpecArgs:
 
     @property
     @pulumi.getter(name="terminationGracePeriodSeconds")
-    def termination_grace_period_seconds(self) -> Optional[pulumi.Input[float]]:
+    def termination_grace_period_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
         """
         return pulumi.get(self, "termination_grace_period_seconds")
 
     @termination_grace_period_seconds.setter
-    def termination_grace_period_seconds(self, value: Optional[pulumi.Input[float]]):
+    def termination_grace_period_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "termination_grace_period_seconds", value)
 
     @property
@@ -9749,11 +9749,11 @@ class PortworxVolumeSourceArgs:
 class PreferredSchedulingTermArgs:
     def __init__(__self__, *,
                  preference: pulumi.Input['NodeSelectorTermArgs'],
-                 weight: pulumi.Input[float]):
+                 weight: pulumi.Input[int]):
         """
         An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
         :param pulumi.Input['NodeSelectorTermArgs'] preference: A node selector term, associated with the corresponding weight.
-        :param pulumi.Input[float] weight: Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
+        :param pulumi.Input[int] weight: Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
         """
         pulumi.set(__self__, "preference", preference)
         pulumi.set(__self__, "weight", weight)
@@ -9772,14 +9772,14 @@ class PreferredSchedulingTermArgs:
 
     @property
     @pulumi.getter
-    def weight(self) -> pulumi.Input[float]:
+    def weight(self) -> pulumi.Input[int]:
         """
         Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
         """
         return pulumi.get(self, "weight")
 
     @weight.setter
-    def weight(self, value: pulumi.Input[float]):
+    def weight(self, value: pulumi.Input[int]):
         pulumi.set(self, "weight", value)
 
 
@@ -9787,23 +9787,23 @@ class PreferredSchedulingTermArgs:
 class ProbeArgs:
     def __init__(__self__, *,
                  exec_: Optional[pulumi.Input['ExecActionArgs']] = None,
-                 failure_threshold: Optional[pulumi.Input[float]] = None,
+                 failure_threshold: Optional[pulumi.Input[int]] = None,
                  http_get: Optional[pulumi.Input['HTTPGetActionArgs']] = None,
-                 initial_delay_seconds: Optional[pulumi.Input[float]] = None,
-                 period_seconds: Optional[pulumi.Input[float]] = None,
-                 success_threshold: Optional[pulumi.Input[float]] = None,
+                 initial_delay_seconds: Optional[pulumi.Input[int]] = None,
+                 period_seconds: Optional[pulumi.Input[int]] = None,
+                 success_threshold: Optional[pulumi.Input[int]] = None,
                  tcp_socket: Optional[pulumi.Input['TCPSocketActionArgs']] = None,
-                 timeout_seconds: Optional[pulumi.Input[float]] = None):
+                 timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
         :param pulumi.Input['ExecActionArgs'] exec_: One and only one of the following should be specified. Exec specifies the action to take.
-        :param pulumi.Input[float] failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
+        :param pulumi.Input[int] failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
         :param pulumi.Input['HTTPGetActionArgs'] http_get: HTTPGet specifies the http request to perform.
-        :param pulumi.Input[float] initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-        :param pulumi.Input[float] period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
-        :param pulumi.Input[float] success_threshold: Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
+        :param pulumi.Input[int] initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param pulumi.Input[int] period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+        :param pulumi.Input[int] success_threshold: Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
         :param pulumi.Input['TCPSocketActionArgs'] tcp_socket: TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
-        :param pulumi.Input[float] timeout_seconds: Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param pulumi.Input[int] timeout_seconds: Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         """
         if exec_ is not None:
             pulumi.set(__self__, "exec_", exec_)
@@ -9836,14 +9836,14 @@ class ProbeArgs:
 
     @property
     @pulumi.getter(name="failureThreshold")
-    def failure_threshold(self) -> Optional[pulumi.Input[float]]:
+    def failure_threshold(self) -> Optional[pulumi.Input[int]]:
         """
         Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
         """
         return pulumi.get(self, "failure_threshold")
 
     @failure_threshold.setter
-    def failure_threshold(self, value: Optional[pulumi.Input[float]]):
+    def failure_threshold(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "failure_threshold", value)
 
     @property
@@ -9860,38 +9860,38 @@ class ProbeArgs:
 
     @property
     @pulumi.getter(name="initialDelaySeconds")
-    def initial_delay_seconds(self) -> Optional[pulumi.Input[float]]:
+    def initial_delay_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         """
         return pulumi.get(self, "initial_delay_seconds")
 
     @initial_delay_seconds.setter
-    def initial_delay_seconds(self, value: Optional[pulumi.Input[float]]):
+    def initial_delay_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "initial_delay_seconds", value)
 
     @property
     @pulumi.getter(name="periodSeconds")
-    def period_seconds(self) -> Optional[pulumi.Input[float]]:
+    def period_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
         """
         return pulumi.get(self, "period_seconds")
 
     @period_seconds.setter
-    def period_seconds(self, value: Optional[pulumi.Input[float]]):
+    def period_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "period_seconds", value)
 
     @property
     @pulumi.getter(name="successThreshold")
-    def success_threshold(self) -> Optional[pulumi.Input[float]]:
+    def success_threshold(self) -> Optional[pulumi.Input[int]]:
         """
         Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
         """
         return pulumi.get(self, "success_threshold")
 
     @success_threshold.setter
-    def success_threshold(self, value: Optional[pulumi.Input[float]]):
+    def success_threshold(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "success_threshold", value)
 
     @property
@@ -9908,14 +9908,14 @@ class ProbeArgs:
 
     @property
     @pulumi.getter(name="timeoutSeconds")
-    def timeout_seconds(self) -> Optional[pulumi.Input[float]]:
+    def timeout_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         """
         return pulumi.get(self, "timeout_seconds")
 
     @timeout_seconds.setter
-    def timeout_seconds(self, value: Optional[pulumi.Input[float]]):
+    def timeout_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "timeout_seconds", value)
 
 
@@ -9923,11 +9923,11 @@ class ProbeArgs:
 class ProjectedVolumeSourceArgs:
     def __init__(__self__, *,
                  sources: pulumi.Input[Sequence[pulumi.Input['VolumeProjectionArgs']]],
-                 default_mode: Optional[pulumi.Input[float]] = None):
+                 default_mode: Optional[pulumi.Input[int]] = None):
         """
         Represents a projected volume source
         :param pulumi.Input[Sequence[pulumi.Input['VolumeProjectionArgs']]] sources: list of volume projections
-        :param pulumi.Input[float] default_mode: Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param pulumi.Input[int] default_mode: Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         pulumi.set(__self__, "sources", sources)
         if default_mode is not None:
@@ -9947,14 +9947,14 @@ class ProjectedVolumeSourceArgs:
 
     @property
     @pulumi.getter(name="defaultMode")
-    def default_mode(self) -> Optional[pulumi.Input[float]]:
+    def default_mode(self) -> Optional[pulumi.Input[int]]:
         """
         Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
 
     @default_mode.setter
-    def default_mode(self, value: Optional[pulumi.Input[float]]):
+    def default_mode(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "default_mode", value)
 
 
@@ -10505,14 +10505,14 @@ class ReplicationControllerConditionArgs:
 @pulumi.input_type
 class ReplicationControllerSpecArgs:
     def __init__(__self__, *,
-                 min_ready_seconds: Optional[pulumi.Input[float]] = None,
-                 replicas: Optional[pulumi.Input[float]] = None,
+                 min_ready_seconds: Optional[pulumi.Input[int]] = None,
+                 replicas: Optional[pulumi.Input[int]] = None,
                  selector: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  template: Optional[pulumi.Input['PodTemplateSpecArgs']] = None):
         """
         ReplicationControllerSpec is the specification of a replication controller.
-        :param pulumi.Input[float] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        :param pulumi.Input[float] replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+        :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param pulumi.Input[int] replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] selector: Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input['PodTemplateSpecArgs'] template: Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
@@ -10527,26 +10527,26 @@ class ReplicationControllerSpecArgs:
 
     @property
     @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> Optional[pulumi.Input[float]]:
+    def min_ready_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         """
         return pulumi.get(self, "min_ready_seconds")
 
     @min_ready_seconds.setter
-    def min_ready_seconds(self, value: Optional[pulumi.Input[float]]):
+    def min_ready_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "min_ready_seconds", value)
 
     @property
     @pulumi.getter
-    def replicas(self) -> Optional[pulumi.Input[float]]:
+    def replicas(self) -> Optional[pulumi.Input[int]]:
         """
         Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         """
         return pulumi.get(self, "replicas")
 
     @replicas.setter
-    def replicas(self, value: Optional[pulumi.Input[float]]):
+    def replicas(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "replicas", value)
 
     @property
@@ -10577,20 +10577,20 @@ class ReplicationControllerSpecArgs:
 @pulumi.input_type
 class ReplicationControllerStatusArgs:
     def __init__(__self__, *,
-                 replicas: pulumi.Input[float],
-                 available_replicas: Optional[pulumi.Input[float]] = None,
+                 replicas: pulumi.Input[int],
+                 available_replicas: Optional[pulumi.Input[int]] = None,
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['ReplicationControllerConditionArgs']]]] = None,
-                 fully_labeled_replicas: Optional[pulumi.Input[float]] = None,
-                 observed_generation: Optional[pulumi.Input[float]] = None,
-                 ready_replicas: Optional[pulumi.Input[float]] = None):
+                 fully_labeled_replicas: Optional[pulumi.Input[int]] = None,
+                 observed_generation: Optional[pulumi.Input[int]] = None,
+                 ready_replicas: Optional[pulumi.Input[int]] = None):
         """
         ReplicationControllerStatus represents the current status of a replication controller.
-        :param pulumi.Input[float] replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
-        :param pulumi.Input[float] available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replication controller.
+        :param pulumi.Input[int] replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+        :param pulumi.Input[int] available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replication controller.
         :param pulumi.Input[Sequence[pulumi.Input['ReplicationControllerConditionArgs']]] conditions: Represents the latest available observations of a replication controller's current state.
-        :param pulumi.Input[float] fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replication controller.
-        :param pulumi.Input[float] observed_generation: ObservedGeneration reflects the generation of the most recently observed replication controller.
-        :param pulumi.Input[float] ready_replicas: The number of ready replicas for this replication controller.
+        :param pulumi.Input[int] fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replication controller.
+        :param pulumi.Input[int] observed_generation: ObservedGeneration reflects the generation of the most recently observed replication controller.
+        :param pulumi.Input[int] ready_replicas: The number of ready replicas for this replication controller.
         """
         pulumi.set(__self__, "replicas", replicas)
         if available_replicas is not None:
@@ -10606,26 +10606,26 @@ class ReplicationControllerStatusArgs:
 
     @property
     @pulumi.getter
-    def replicas(self) -> pulumi.Input[float]:
+    def replicas(self) -> pulumi.Input[int]:
         """
         Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         """
         return pulumi.get(self, "replicas")
 
     @replicas.setter
-    def replicas(self, value: pulumi.Input[float]):
+    def replicas(self, value: pulumi.Input[int]):
         pulumi.set(self, "replicas", value)
 
     @property
     @pulumi.getter(name="availableReplicas")
-    def available_replicas(self) -> Optional[pulumi.Input[float]]:
+    def available_replicas(self) -> Optional[pulumi.Input[int]]:
         """
         The number of available replicas (ready for at least minReadySeconds) for this replication controller.
         """
         return pulumi.get(self, "available_replicas")
 
     @available_replicas.setter
-    def available_replicas(self, value: Optional[pulumi.Input[float]]):
+    def available_replicas(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "available_replicas", value)
 
     @property
@@ -10642,38 +10642,38 @@ class ReplicationControllerStatusArgs:
 
     @property
     @pulumi.getter(name="fullyLabeledReplicas")
-    def fully_labeled_replicas(self) -> Optional[pulumi.Input[float]]:
+    def fully_labeled_replicas(self) -> Optional[pulumi.Input[int]]:
         """
         The number of pods that have labels matching the labels of the pod template of the replication controller.
         """
         return pulumi.get(self, "fully_labeled_replicas")
 
     @fully_labeled_replicas.setter
-    def fully_labeled_replicas(self, value: Optional[pulumi.Input[float]]):
+    def fully_labeled_replicas(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "fully_labeled_replicas", value)
 
     @property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[pulumi.Input[float]]:
+    def observed_generation(self) -> Optional[pulumi.Input[int]]:
         """
         ObservedGeneration reflects the generation of the most recently observed replication controller.
         """
         return pulumi.get(self, "observed_generation")
 
     @observed_generation.setter
-    def observed_generation(self, value: Optional[pulumi.Input[float]]):
+    def observed_generation(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "observed_generation", value)
 
     @property
     @pulumi.getter(name="readyReplicas")
-    def ready_replicas(self) -> Optional[pulumi.Input[float]]:
+    def ready_replicas(self) -> Optional[pulumi.Input[int]]:
         """
         The number of ready replicas for this replication controller.
         """
         return pulumi.get(self, "ready_replicas")
 
     @ready_replicas.setter
-    def ready_replicas(self, value: Optional[pulumi.Input[float]]):
+    def ready_replicas(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "ready_replicas", value)
 
 
@@ -11807,7 +11807,7 @@ class SecretReferenceArgs:
 @pulumi.input_type
 class SecretVolumeSourceArgs:
     def __init__(__self__, *,
-                 default_mode: Optional[pulumi.Input[float]] = None,
+                 default_mode: Optional[pulumi.Input[int]] = None,
                  items: Optional[pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]]] = None,
                  optional: Optional[pulumi.Input[bool]] = None,
                  secret_name: Optional[pulumi.Input[str]] = None):
@@ -11815,7 +11815,7 @@ class SecretVolumeSourceArgs:
         Adapts a Secret into a volume.
 
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
-        :param pulumi.Input[float] default_mode: Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param pulumi.Input[int] default_mode: Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]] items: If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[bool] optional: Specify whether the Secret or its keys must be defined
         :param pulumi.Input[str] secret_name: Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
@@ -11831,14 +11831,14 @@ class SecretVolumeSourceArgs:
 
     @property
     @pulumi.getter(name="defaultMode")
-    def default_mode(self) -> Optional[pulumi.Input[float]]:
+    def default_mode(self) -> Optional[pulumi.Input[int]]:
         """
         Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
 
     @default_mode.setter
-    def default_mode(self, value: Optional[pulumi.Input[float]]):
+    def default_mode(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "default_mode", value)
 
     @property
@@ -11886,9 +11886,9 @@ class SecurityContextArgs:
                  privileged: Optional[pulumi.Input[bool]] = None,
                  proc_mount: Optional[pulumi.Input[str]] = None,
                  read_only_root_filesystem: Optional[pulumi.Input[bool]] = None,
-                 run_as_group: Optional[pulumi.Input[float]] = None,
+                 run_as_group: Optional[pulumi.Input[int]] = None,
                  run_as_non_root: Optional[pulumi.Input[bool]] = None,
-                 run_as_user: Optional[pulumi.Input[float]] = None,
+                 run_as_user: Optional[pulumi.Input[int]] = None,
                  se_linux_options: Optional[pulumi.Input['SELinuxOptionsArgs']] = None,
                  seccomp_profile: Optional[pulumi.Input['SeccompProfileArgs']] = None,
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsArgs']] = None):
@@ -11899,9 +11899,9 @@ class SecurityContextArgs:
         :param pulumi.Input[bool] privileged: Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
         :param pulumi.Input[str] proc_mount: procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
         :param pulumi.Input[bool] read_only_root_filesystem: Whether this container has a read-only root filesystem. Default is false.
-        :param pulumi.Input[float] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        :param pulumi.Input[int] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         :param pulumi.Input[bool] run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
-        :param pulumi.Input[float] run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        :param pulumi.Input[int] run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         :param pulumi.Input['SELinuxOptionsArgs'] se_linux_options: The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         :param pulumi.Input['SeccompProfileArgs'] seccomp_profile: The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
         :param pulumi.Input['WindowsSecurityContextOptionsArgs'] windows_options: The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
@@ -11991,14 +11991,14 @@ class SecurityContextArgs:
 
     @property
     @pulumi.getter(name="runAsGroup")
-    def run_as_group(self) -> Optional[pulumi.Input[float]]:
+    def run_as_group(self) -> Optional[pulumi.Input[int]]:
         """
         The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         """
         return pulumi.get(self, "run_as_group")
 
     @run_as_group.setter
-    def run_as_group(self, value: Optional[pulumi.Input[float]]):
+    def run_as_group(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "run_as_group", value)
 
     @property
@@ -12015,14 +12015,14 @@ class SecurityContextArgs:
 
     @property
     @pulumi.getter(name="runAsUser")
-    def run_as_user(self) -> Optional[pulumi.Input[float]]:
+    def run_as_user(self) -> Optional[pulumi.Input[int]]:
         """
         The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         """
         return pulumi.get(self, "run_as_user")
 
     @run_as_user.setter
-    def run_as_user(self, value: Optional[pulumi.Input[float]]):
+    def run_as_user(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "run_as_user", value)
 
     @property
@@ -12284,12 +12284,12 @@ class ServiceAccountTokenProjectionArgs:
     def __init__(__self__, *,
                  path: pulumi.Input[str],
                  audience: Optional[pulumi.Input[str]] = None,
-                 expiration_seconds: Optional[pulumi.Input[float]] = None):
+                 expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
         :param pulumi.Input[str] path: Path is the path relative to the mount point of the file to project the token into.
         :param pulumi.Input[str] audience: Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
-        :param pulumi.Input[float] expiration_seconds: ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+        :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         """
         pulumi.set(__self__, "path", path)
         if audience is not None:
@@ -12323,34 +12323,34 @@ class ServiceAccountTokenProjectionArgs:
 
     @property
     @pulumi.getter(name="expirationSeconds")
-    def expiration_seconds(self) -> Optional[pulumi.Input[float]]:
+    def expiration_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         """
         return pulumi.get(self, "expiration_seconds")
 
     @expiration_seconds.setter
-    def expiration_seconds(self, value: Optional[pulumi.Input[float]]):
+    def expiration_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "expiration_seconds", value)
 
 
 @pulumi.input_type
 class ServicePortArgs:
     def __init__(__self__, *,
-                 port: pulumi.Input[float],
+                 port: pulumi.Input[int],
                  app_protocol: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 node_port: Optional[pulumi.Input[float]] = None,
+                 node_port: Optional[pulumi.Input[int]] = None,
                  protocol: Optional[pulumi.Input[str]] = None,
-                 target_port: Optional[pulumi.Input[Union[float, str]]] = None):
+                 target_port: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         ServicePort contains information on service's port.
-        :param pulumi.Input[float] port: The port that will be exposed by this service.
+        :param pulumi.Input[int] port: The port that will be exposed by this service.
         :param pulumi.Input[str] app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
         :param pulumi.Input[str] name: The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
-        :param pulumi.Input[float] node_port: The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+        :param pulumi.Input[int] node_port: The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
         :param pulumi.Input[str] protocol: The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
-        :param pulumi.Input[Union[float, str]] target_port: Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+        :param pulumi.Input[Union[int, str]] target_port: Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         """
         pulumi.set(__self__, "port", port)
         if app_protocol is not None:
@@ -12366,14 +12366,14 @@ class ServicePortArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> pulumi.Input[float]:
+    def port(self) -> pulumi.Input[int]:
         """
         The port that will be exposed by this service.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: pulumi.Input[float]):
+    def port(self, value: pulumi.Input[int]):
         pulumi.set(self, "port", value)
 
     @property
@@ -12402,14 +12402,14 @@ class ServicePortArgs:
 
     @property
     @pulumi.getter(name="nodePort")
-    def node_port(self) -> Optional[pulumi.Input[float]]:
+    def node_port(self) -> Optional[pulumi.Input[int]]:
         """
         The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
         """
         return pulumi.get(self, "node_port")
 
     @node_port.setter
-    def node_port(self, value: Optional[pulumi.Input[float]]):
+    def node_port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "node_port", value)
 
     @property
@@ -12426,14 +12426,14 @@ class ServicePortArgs:
 
     @property
     @pulumi.getter(name="targetPort")
-    def target_port(self) -> Optional[pulumi.Input[Union[float, str]]]:
+    def target_port(self) -> Optional[pulumi.Input[Union[int, str]]]:
         """
         Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         """
         return pulumi.get(self, "target_port")
 
     @target_port.setter
-    def target_port(self, value: Optional[pulumi.Input[Union[float, str]]]):
+    def target_port(self, value: Optional[pulumi.Input[Union[int, str]]]):
         pulumi.set(self, "target_port", value)
 
 
@@ -12444,7 +12444,7 @@ class ServiceSpecArgs:
                  external_ips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  external_name: Optional[pulumi.Input[str]] = None,
                  external_traffic_policy: Optional[pulumi.Input[str]] = None,
-                 health_check_node_port: Optional[pulumi.Input[float]] = None,
+                 health_check_node_port: Optional[pulumi.Input[int]] = None,
                  ip_family: Optional[pulumi.Input[str]] = None,
                  load_balancer_ip: Optional[pulumi.Input[str]] = None,
                  load_balancer_source_ranges: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -12461,7 +12461,7 @@ class ServiceSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] external_ips: externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
         :param pulumi.Input[str] external_name: externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
         :param pulumi.Input[str] external_traffic_policy: externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-        :param pulumi.Input[float] health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
+        :param pulumi.Input[int] health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
         :param pulumi.Input[str] ip_family: ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
         :param pulumi.Input[str] load_balancer_ip: Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] load_balancer_source_ranges: If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
@@ -12554,14 +12554,14 @@ class ServiceSpecArgs:
 
     @property
     @pulumi.getter(name="healthCheckNodePort")
-    def health_check_node_port(self) -> Optional[pulumi.Input[float]]:
+    def health_check_node_port(self) -> Optional[pulumi.Input[int]]:
         """
         healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
         """
         return pulumi.get(self, "health_check_node_port")
 
     @health_check_node_port.setter
-    def health_check_node_port(self, value: Optional[pulumi.Input[float]]):
+    def health_check_node_port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "health_check_node_port", value)
 
     @property
@@ -12950,11 +12950,11 @@ class SysctlArgs:
 @pulumi.input_type
 class TCPSocketActionArgs:
     def __init__(__self__, *,
-                 port: pulumi.Input[Union[float, str]],
+                 port: pulumi.Input[Union[int, str]],
                  host: Optional[pulumi.Input[str]] = None):
         """
         TCPSocketAction describes an action based on opening a socket
-        :param pulumi.Input[Union[float, str]] port: Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+        :param pulumi.Input[Union[int, str]] port: Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         :param pulumi.Input[str] host: Optional: Host name to connect to, defaults to the pod IP.
         """
         pulumi.set(__self__, "port", port)
@@ -12963,14 +12963,14 @@ class TCPSocketActionArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> pulumi.Input[Union[float, str]]:
+    def port(self) -> pulumi.Input[Union[int, str]]:
         """
         Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: pulumi.Input[Union[float, str]]):
+    def port(self, value: pulumi.Input[Union[int, str]]):
         pulumi.set(self, "port", value)
 
     @property
@@ -13062,14 +13062,14 @@ class TolerationArgs:
                  effect: Optional[pulumi.Input[str]] = None,
                  key: Optional[pulumi.Input[str]] = None,
                  operator: Optional[pulumi.Input[str]] = None,
-                 toleration_seconds: Optional[pulumi.Input[float]] = None,
+                 toleration_seconds: Optional[pulumi.Input[int]] = None,
                  value: Optional[pulumi.Input[str]] = None):
         """
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
         :param pulumi.Input[str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
         :param pulumi.Input[str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-        :param pulumi.Input[float] toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
+        :param pulumi.Input[int] toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
         :param pulumi.Input[str] value: Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
         """
         if effect is not None:
@@ -13121,14 +13121,14 @@ class TolerationArgs:
 
     @property
     @pulumi.getter(name="tolerationSeconds")
-    def toleration_seconds(self) -> Optional[pulumi.Input[float]]:
+    def toleration_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
         """
         return pulumi.get(self, "toleration_seconds")
 
     @toleration_seconds.setter
-    def toleration_seconds(self, value: Optional[pulumi.Input[float]]):
+    def toleration_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "toleration_seconds", value)
 
     @property
@@ -13209,13 +13209,13 @@ class TopologySelectorTermArgs:
 @pulumi.input_type
 class TopologySpreadConstraintArgs:
     def __init__(__self__, *,
-                 max_skew: pulumi.Input[float],
+                 max_skew: pulumi.Input[int],
                  topology_key: pulumi.Input[str],
                  when_unsatisfiable: pulumi.Input[str],
                  label_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
-        :param pulumi.Input[float] max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+        :param pulumi.Input[int] max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
         :param pulumi.Input[str] topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
         :param pulumi.Input[str] when_unsatisfiable: WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
                  but giving higher precedence to topologies that would help reduce the
@@ -13231,14 +13231,14 @@ class TopologySpreadConstraintArgs:
 
     @property
     @pulumi.getter(name="maxSkew")
-    def max_skew(self) -> pulumi.Input[float]:
+    def max_skew(self) -> pulumi.Input[int]:
         """
         MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
         """
         return pulumi.get(self, "max_skew")
 
     @max_skew.setter
-    def max_skew(self, value: pulumi.Input[float]):
+    def max_skew(self, value: pulumi.Input[int]):
         pulumi.set(self, "max_skew", value)
 
     @property
@@ -14159,11 +14159,11 @@ class VsphereVirtualDiskVolumeSourceArgs:
 class WeightedPodAffinityTermArgs:
     def __init__(__self__, *,
                  pod_affinity_term: pulumi.Input['PodAffinityTermArgs'],
-                 weight: pulumi.Input[float]):
+                 weight: pulumi.Input[int]):
         """
         The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
         :param pulumi.Input['PodAffinityTermArgs'] pod_affinity_term: Required. A pod affinity term, associated with the corresponding weight.
-        :param pulumi.Input[float] weight: weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
+        :param pulumi.Input[int] weight: weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
         """
         pulumi.set(__self__, "pod_affinity_term", pod_affinity_term)
         pulumi.set(__self__, "weight", weight)
@@ -14182,14 +14182,14 @@ class WeightedPodAffinityTermArgs:
 
     @property
     @pulumi.getter
-    def weight(self) -> pulumi.Input[float]:
+    def weight(self) -> pulumi.Input[int]:
         """
         weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
         """
         return pulumi.get(self, "weight")
 
     @weight.setter
-    def weight(self, value: pulumi.Input[float]):
+    def weight(self, value: pulumi.Input[int]):
         pulumi.set(self, "weight", value)
 
 

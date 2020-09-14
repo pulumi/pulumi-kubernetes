@@ -21,7 +21,7 @@ class Event(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  action: Optional[pulumi.Input[str]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 deprecated_count: Optional[pulumi.Input[float]] = None,
+                 deprecated_count: Optional[pulumi.Input[int]] = None,
                  deprecated_first_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_source: Optional[pulumi.Input[pulumi.InputType['_core.v1.EventSourceArgs']]] = None,
@@ -46,7 +46,7 @@ class Event(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[float] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param pulumi.Input[int] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input[str] deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input[str] deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input[pulumi.InputType['_core.v1.EventSourceArgs']] deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
@@ -141,7 +141,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="deprecatedCount")
-    def deprecated_count(self) -> pulumi.Output[Optional[float]]:
+    def deprecated_count(self) -> pulumi.Output[Optional[int]]:
         """
         deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         """

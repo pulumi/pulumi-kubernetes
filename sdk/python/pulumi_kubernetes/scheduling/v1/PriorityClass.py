@@ -22,7 +22,7 @@ class PriorityClass(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  preemption_policy: Optional[pulumi.Input[str]] = None,
-                 value: Optional[pulumi.Input[float]] = None,
+                 value: Optional[pulumi.Input[int]] = None,
                  __props__=None,
                  __name__=None,
                  __opts__=None):
@@ -37,7 +37,7 @@ class PriorityClass(pulumi.CustomResource):
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
-        :param pulumi.Input[float] value: The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+        :param pulumi.Input[int] value: The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -141,7 +141,7 @@ class PriorityClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def value(self) -> pulumi.Output[float]:
+    def value(self) -> pulumi.Output[int]:
         """
         The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         """

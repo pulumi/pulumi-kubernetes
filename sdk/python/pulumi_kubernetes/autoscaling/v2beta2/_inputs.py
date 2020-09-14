@@ -166,14 +166,14 @@ class ExternalMetricStatusArgs:
 @pulumi.input_type
 class HPAScalingPolicyArgs:
     def __init__(__self__, *,
-                 period_seconds: pulumi.Input[float],
+                 period_seconds: pulumi.Input[int],
                  type: pulumi.Input[str],
-                 value: pulumi.Input[float]):
+                 value: pulumi.Input[int]):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
-        :param pulumi.Input[float] period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        :param pulumi.Input[int] period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         :param pulumi.Input[str] type: Type is used to specify the scaling policy.
-        :param pulumi.Input[float] value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        :param pulumi.Input[int] value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
         pulumi.set(__self__, "period_seconds", period_seconds)
         pulumi.set(__self__, "type", type)
@@ -181,14 +181,14 @@ class HPAScalingPolicyArgs:
 
     @property
     @pulumi.getter(name="periodSeconds")
-    def period_seconds(self) -> pulumi.Input[float]:
+    def period_seconds(self) -> pulumi.Input[int]:
         """
         PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         """
         return pulumi.get(self, "period_seconds")
 
     @period_seconds.setter
-    def period_seconds(self, value: pulumi.Input[float]):
+    def period_seconds(self, value: pulumi.Input[int]):
         pulumi.set(self, "period_seconds", value)
 
     @property
@@ -205,14 +205,14 @@ class HPAScalingPolicyArgs:
 
     @property
     @pulumi.getter
-    def value(self) -> pulumi.Input[float]:
+    def value(self) -> pulumi.Input[int]:
         """
         Value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
         return pulumi.get(self, "value")
 
     @value.setter
-    def value(self, value: pulumi.Input[float]):
+    def value(self, value: pulumi.Input[int]):
         pulumi.set(self, "value", value)
 
 
@@ -221,12 +221,12 @@ class HPAScalingRulesArgs:
     def __init__(__self__, *,
                  policies: Optional[pulumi.Input[Sequence[pulumi.Input['HPAScalingPolicyArgs']]]] = None,
                  select_policy: Optional[pulumi.Input[str]] = None,
-                 stabilization_window_seconds: Optional[pulumi.Input[float]] = None):
+                 stabilization_window_seconds: Optional[pulumi.Input[int]] = None):
         """
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
         :param pulumi.Input[Sequence[pulumi.Input['HPAScalingPolicyArgs']]] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param pulumi.Input[str] select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
-        :param pulumi.Input[float] stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        :param pulumi.Input[int] stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
         if policies is not None:
             pulumi.set(__self__, "policies", policies)
@@ -261,14 +261,14 @@ class HPAScalingRulesArgs:
 
     @property
     @pulumi.getter(name="stabilizationWindowSeconds")
-    def stabilization_window_seconds(self) -> Optional[pulumi.Input[float]]:
+    def stabilization_window_seconds(self) -> Optional[pulumi.Input[int]]:
         """
         StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
         return pulumi.get(self, "stabilization_window_seconds")
 
     @stabilization_window_seconds.setter
-    def stabilization_window_seconds(self, value: Optional[pulumi.Input[float]]):
+    def stabilization_window_seconds(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "stabilization_window_seconds", value)
 
 
@@ -495,18 +495,18 @@ class HorizontalPodAutoscalerConditionArgs:
 @pulumi.input_type
 class HorizontalPodAutoscalerSpecArgs:
     def __init__(__self__, *,
-                 max_replicas: pulumi.Input[float],
+                 max_replicas: pulumi.Input[int],
                  scale_target_ref: pulumi.Input['CrossVersionObjectReferenceArgs'],
                  behavior: Optional[pulumi.Input['HorizontalPodAutoscalerBehaviorArgs']] = None,
                  metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricSpecArgs']]]] = None,
-                 min_replicas: Optional[pulumi.Input[float]] = None):
+                 min_replicas: Optional[pulumi.Input[int]] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
-        :param pulumi.Input[float] max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
+        :param pulumi.Input[int] max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param pulumi.Input['CrossVersionObjectReferenceArgs'] scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
         :param pulumi.Input['HorizontalPodAutoscalerBehaviorArgs'] behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
         :param pulumi.Input[Sequence[pulumi.Input['MetricSpecArgs']]] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
-        :param pulumi.Input[float] min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+        :param pulumi.Input[int] min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         """
         pulumi.set(__self__, "max_replicas", max_replicas)
         pulumi.set(__self__, "scale_target_ref", scale_target_ref)
@@ -519,14 +519,14 @@ class HorizontalPodAutoscalerSpecArgs:
 
     @property
     @pulumi.getter(name="maxReplicas")
-    def max_replicas(self) -> pulumi.Input[float]:
+    def max_replicas(self) -> pulumi.Input[int]:
         """
         maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         """
         return pulumi.get(self, "max_replicas")
 
     @max_replicas.setter
-    def max_replicas(self, value: pulumi.Input[float]):
+    def max_replicas(self, value: pulumi.Input[int]):
         pulumi.set(self, "max_replicas", value)
 
     @property
@@ -567,14 +567,14 @@ class HorizontalPodAutoscalerSpecArgs:
 
     @property
     @pulumi.getter(name="minReplicas")
-    def min_replicas(self) -> Optional[pulumi.Input[float]]:
+    def min_replicas(self) -> Optional[pulumi.Input[int]]:
         """
         minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         """
         return pulumi.get(self, "min_replicas")
 
     @min_replicas.setter
-    def min_replicas(self, value: Optional[pulumi.Input[float]]):
+    def min_replicas(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "min_replicas", value)
 
 
@@ -582,19 +582,19 @@ class HorizontalPodAutoscalerSpecArgs:
 class HorizontalPodAutoscalerStatusArgs:
     def __init__(__self__, *,
                  conditions: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]],
-                 current_replicas: pulumi.Input[float],
-                 desired_replicas: pulumi.Input[float],
+                 current_replicas: pulumi.Input[int],
+                 desired_replicas: pulumi.Input[int],
                  current_metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]]] = None,
                  last_scale_time: Optional[pulumi.Input[str]] = None,
-                 observed_generation: Optional[pulumi.Input[float]] = None):
+                 observed_generation: Optional[pulumi.Input[int]] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
         :param pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
-        :param pulumi.Input[float] current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
-        :param pulumi.Input[float] desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
+        :param pulumi.Input[int] current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
+        :param pulumi.Input[int] desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
         :param pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param pulumi.Input[str] last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
-        :param pulumi.Input[float] observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
+        :param pulumi.Input[int] observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
         pulumi.set(__self__, "conditions", conditions)
         pulumi.set(__self__, "current_replicas", current_replicas)
@@ -620,26 +620,26 @@ class HorizontalPodAutoscalerStatusArgs:
 
     @property
     @pulumi.getter(name="currentReplicas")
-    def current_replicas(self) -> pulumi.Input[float]:
+    def current_replicas(self) -> pulumi.Input[int]:
         """
         currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         """
         return pulumi.get(self, "current_replicas")
 
     @current_replicas.setter
-    def current_replicas(self, value: pulumi.Input[float]):
+    def current_replicas(self, value: pulumi.Input[int]):
         pulumi.set(self, "current_replicas", value)
 
     @property
     @pulumi.getter(name="desiredReplicas")
-    def desired_replicas(self) -> pulumi.Input[float]:
+    def desired_replicas(self) -> pulumi.Input[int]:
         """
         desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
         """
         return pulumi.get(self, "desired_replicas")
 
     @desired_replicas.setter
-    def desired_replicas(self, value: pulumi.Input[float]):
+    def desired_replicas(self, value: pulumi.Input[int]):
         pulumi.set(self, "desired_replicas", value)
 
     @property
@@ -668,14 +668,14 @@ class HorizontalPodAutoscalerStatusArgs:
 
     @property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[pulumi.Input[float]]:
+    def observed_generation(self) -> Optional[pulumi.Input[int]]:
         """
         observedGeneration is the most recent generation observed by this autoscaler.
         """
         return pulumi.get(self, "observed_generation")
 
     @observed_generation.setter
-    def observed_generation(self, value: Optional[pulumi.Input[float]]):
+    def observed_generation(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "observed_generation", value)
 
 
@@ -896,13 +896,13 @@ class MetricStatusArgs:
 class MetricTargetArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[str],
-                 average_utilization: Optional[pulumi.Input[float]] = None,
+                 average_utilization: Optional[pulumi.Input[int]] = None,
                  average_value: Optional[pulumi.Input[str]] = None,
                  value: Optional[pulumi.Input[str]] = None):
         """
         MetricTarget defines the target value, average value, or average utilization of a specific metric
         :param pulumi.Input[str] type: type represents whether the metric type is Utilization, Value, or AverageValue
-        :param pulumi.Input[float] average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        :param pulumi.Input[int] average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         :param pulumi.Input[str] average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
         :param pulumi.Input[str] value: value is the target value of the metric (as a quantity).
         """
@@ -928,14 +928,14 @@ class MetricTargetArgs:
 
     @property
     @pulumi.getter(name="averageUtilization")
-    def average_utilization(self) -> Optional[pulumi.Input[float]]:
+    def average_utilization(self) -> Optional[pulumi.Input[int]]:
         """
         averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         """
         return pulumi.get(self, "average_utilization")
 
     @average_utilization.setter
-    def average_utilization(self, value: Optional[pulumi.Input[float]]):
+    def average_utilization(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "average_utilization", value)
 
     @property
@@ -966,12 +966,12 @@ class MetricTargetArgs:
 @pulumi.input_type
 class MetricValueStatusArgs:
     def __init__(__self__, *,
-                 average_utilization: Optional[pulumi.Input[float]] = None,
+                 average_utilization: Optional[pulumi.Input[int]] = None,
                  average_value: Optional[pulumi.Input[str]] = None,
                  value: Optional[pulumi.Input[str]] = None):
         """
         MetricValueStatus holds the current value for a metric
-        :param pulumi.Input[float] average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        :param pulumi.Input[int] average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param pulumi.Input[str] average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param pulumi.Input[str] value: value is the current value of the metric (as a quantity).
         """
@@ -984,14 +984,14 @@ class MetricValueStatusArgs:
 
     @property
     @pulumi.getter(name="averageUtilization")
-    def average_utilization(self) -> Optional[pulumi.Input[float]]:
+    def average_utilization(self) -> Optional[pulumi.Input[int]]:
         """
         currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         """
         return pulumi.get(self, "average_utilization")
 
     @average_utilization.setter
-    def average_utilization(self, value: Optional[pulumi.Input[float]]):
+    def average_utilization(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "average_utilization", value)
 
     @property

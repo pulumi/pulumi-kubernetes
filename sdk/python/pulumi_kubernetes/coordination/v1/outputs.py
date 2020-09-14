@@ -85,15 +85,15 @@ class LeaseSpec(dict):
     def __init__(__self__, *,
                  acquire_time: Optional[str] = None,
                  holder_identity: Optional[str] = None,
-                 lease_duration_seconds: Optional[float] = None,
-                 lease_transitions: Optional[float] = None,
+                 lease_duration_seconds: Optional[int] = None,
+                 lease_transitions: Optional[int] = None,
                  renew_time: Optional[str] = None):
         """
         LeaseSpec is a specification of a Lease.
         :param str acquire_time: acquireTime is a time when the current lease was acquired.
         :param str holder_identity: holderIdentity contains the identity of the holder of a current lease.
-        :param float lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
-        :param float lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
+        :param int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        :param int lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
         :param str renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
         """
         if acquire_time is not None:
@@ -125,7 +125,7 @@ class LeaseSpec(dict):
 
     @property
     @pulumi.getter(name="leaseDurationSeconds")
-    def lease_duration_seconds(self) -> Optional[float]:
+    def lease_duration_seconds(self) -> Optional[int]:
         """
         leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
         """
@@ -133,7 +133,7 @@ class LeaseSpec(dict):
 
     @property
     @pulumi.getter(name="leaseTransitions")
-    def lease_transitions(self) -> Optional[float]:
+    def lease_transitions(self) -> Optional[int]:
         """
         leaseTransitions is the number of transitions of a lease between holders.
         """

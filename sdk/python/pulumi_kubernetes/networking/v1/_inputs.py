@@ -867,11 +867,11 @@ class NetworkPolicyPeerArgs:
 @pulumi.input_type
 class NetworkPolicyPortArgs:
     def __init__(__self__, *,
-                 port: Optional[pulumi.Input[Union[float, str]]] = None,
+                 port: Optional[pulumi.Input[Union[int, str]]] = None,
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
-        :param pulumi.Input[Union[float, str]] port: The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+        :param pulumi.Input[Union[int, str]] port: The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
         :param pulumi.Input[str] protocol: The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
         if port is not None:
@@ -881,14 +881,14 @@ class NetworkPolicyPortArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[Union[float, str]]]:
+    def port(self) -> Optional[pulumi.Input[Union[int, str]]]:
         """
         The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[Union[float, str]]]):
+    def port(self, value: Optional[pulumi.Input[Union[int, str]]]):
         pulumi.set(self, "port", value)
 
     @property
@@ -979,11 +979,11 @@ class NetworkPolicySpecArgs:
 class ServiceBackendPortArgs:
     def __init__(__self__, *,
                  name: Optional[pulumi.Input[str]] = None,
-                 number: Optional[pulumi.Input[float]] = None):
+                 number: Optional[pulumi.Input[int]] = None):
         """
         ServiceBackendPort is the service port being referenced.
         :param pulumi.Input[str] name: Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
-        :param pulumi.Input[float] number: Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+        :param pulumi.Input[int] number: Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -1004,14 +1004,14 @@ class ServiceBackendPortArgs:
 
     @property
     @pulumi.getter
-    def number(self) -> Optional[pulumi.Input[float]]:
+    def number(self) -> Optional[pulumi.Input[int]]:
         """
         Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
         return pulumi.get(self, "number")
 
     @number.setter
-    def number(self, value: Optional[pulumi.Input[float]]):
+    def number(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "number", value)
 
 

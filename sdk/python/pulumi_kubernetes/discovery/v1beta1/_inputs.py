@@ -145,13 +145,13 @@ class EndpointPortArgs:
     def __init__(__self__, *,
                  app_protocol: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 port: Optional[pulumi.Input[float]] = None,
+                 port: Optional[pulumi.Input[int]] = None,
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         EndpointPort represents a Port used by an EndpointSlice
         :param pulumi.Input[str] app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         :param pulumi.Input[str] name: The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
-        :param pulumi.Input[float] port: The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+        :param pulumi.Input[int] port: The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
         :param pulumi.Input[str] protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
         """
         if app_protocol is not None:
@@ -189,14 +189,14 @@ class EndpointPortArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[float]]:
+    def port(self) -> Optional[pulumi.Input[int]]:
         """
         The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[float]]):
+    def port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "port", value)
 
     @property

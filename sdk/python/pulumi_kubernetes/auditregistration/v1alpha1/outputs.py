@@ -160,13 +160,13 @@ class ServiceReference(dict):
                  name: str,
                  namespace: str,
                  path: Optional[str] = None,
-                 port: Optional[float] = None):
+                 port: Optional[int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
         :param str name: `name` is the name of the service. Required
         :param str namespace: `namespace` is the namespace of the service. Required
         :param str path: `path` is an optional URL path which will be sent in any request to this service.
-        :param float port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+        :param int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "namespace", namespace)
@@ -201,7 +201,7 @@ class ServiceReference(dict):
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[float]:
+    def port(self) -> Optional[int]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
@@ -328,12 +328,12 @@ class WebhookThrottleConfig(dict):
     WebhookThrottleConfig holds the configuration for throttling events
     """
     def __init__(__self__, *,
-                 burst: Optional[float] = None,
-                 qps: Optional[float] = None):
+                 burst: Optional[int] = None,
+                 qps: Optional[int] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
-        :param float burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
-        :param float qps: ThrottleQPS maximum number of batches per second default 10 QPS
+        :param int burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
+        :param int qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
         if burst is not None:
             pulumi.set(__self__, "burst", burst)
@@ -342,7 +342,7 @@ class WebhookThrottleConfig(dict):
 
     @property
     @pulumi.getter
-    def burst(self) -> Optional[float]:
+    def burst(self) -> Optional[int]:
         """
         ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         """
@@ -350,7 +350,7 @@ class WebhookThrottleConfig(dict):
 
     @property
     @pulumi.getter
-    def qps(self) -> Optional[float]:
+    def qps(self) -> Optional[int]:
         """
         ThrottleQPS maximum number of batches per second default 10 QPS
         """

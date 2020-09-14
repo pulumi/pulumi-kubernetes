@@ -39,7 +39,7 @@ class CustomResourceColumnDefinition(dict):
                  type: str,
                  description: Optional[str] = None,
                  format: Optional[str] = None,
-                 priority: Optional[float] = None):
+                 priority: Optional[int] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
         :param str json_path: JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
@@ -47,7 +47,7 @@ class CustomResourceColumnDefinition(dict):
         :param str type: type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
         :param str description: description is a human readable description of this column.
         :param str format: format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-        :param float priority: priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+        :param int priority: priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
         """
         pulumi.set(__self__, "json_path", json_path)
         pulumi.set(__self__, "name", name)
@@ -101,7 +101,7 @@ class CustomResourceColumnDefinition(dict):
 
     @property
     @pulumi.getter
-    def priority(self) -> Optional[float]:
+    def priority(self) -> Optional[int]:
         """
         priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
         """
@@ -839,13 +839,13 @@ class JSONSchemaProps(dict):
                  format: Optional[str] = None,
                  id: Optional[str] = None,
                  items: Optional[Any] = None,
-                 max_items: Optional[float] = None,
-                 max_length: Optional[float] = None,
-                 max_properties: Optional[float] = None,
+                 max_items: Optional[int] = None,
+                 max_length: Optional[int] = None,
+                 max_properties: Optional[int] = None,
                  maximum: Optional[float] = None,
-                 min_items: Optional[float] = None,
-                 min_length: Optional[float] = None,
-                 min_properties: Optional[float] = None,
+                 min_items: Optional[int] = None,
+                 min_length: Optional[int] = None,
+                 min_properties: Optional[int] = None,
                  minimum: Optional[float] = None,
                  multiple_of: Optional[float] = None,
                  not_: Optional['outputs.JSONSchemaProps'] = None,
@@ -1097,17 +1097,17 @@ class JSONSchemaProps(dict):
 
     @property
     @pulumi.getter(name="maxItems")
-    def max_items(self) -> Optional[float]:
+    def max_items(self) -> Optional[int]:
         return pulumi.get(self, "max_items")
 
     @property
     @pulumi.getter(name="maxLength")
-    def max_length(self) -> Optional[float]:
+    def max_length(self) -> Optional[int]:
         return pulumi.get(self, "max_length")
 
     @property
     @pulumi.getter(name="maxProperties")
-    def max_properties(self) -> Optional[float]:
+    def max_properties(self) -> Optional[int]:
         return pulumi.get(self, "max_properties")
 
     @property
@@ -1117,17 +1117,17 @@ class JSONSchemaProps(dict):
 
     @property
     @pulumi.getter(name="minItems")
-    def min_items(self) -> Optional[float]:
+    def min_items(self) -> Optional[int]:
         return pulumi.get(self, "min_items")
 
     @property
     @pulumi.getter(name="minLength")
-    def min_length(self) -> Optional[float]:
+    def min_length(self) -> Optional[int]:
         return pulumi.get(self, "min_length")
 
     @property
     @pulumi.getter(name="minProperties")
-    def min_properties(self) -> Optional[float]:
+    def min_properties(self) -> Optional[int]:
         return pulumi.get(self, "min_properties")
 
     @property
@@ -1284,13 +1284,13 @@ class ServiceReference(dict):
                  name: str,
                  namespace: str,
                  path: Optional[str] = None,
-                 port: Optional[float] = None):
+                 port: Optional[int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
         :param str name: name is the name of the service. Required
         :param str namespace: namespace is the namespace of the service. Required
         :param str path: path is an optional URL path at which the webhook will be contacted.
-        :param float port: port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
+        :param int port: port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "namespace", namespace)
@@ -1325,7 +1325,7 @@ class ServiceReference(dict):
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[float]:
+    def port(self) -> Optional[int]:
         """
         port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
         """

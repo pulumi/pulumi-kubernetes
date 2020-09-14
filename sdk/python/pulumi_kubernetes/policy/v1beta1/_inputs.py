@@ -162,76 +162,76 @@ class FSGroupStrategyOptionsArgs:
 @pulumi.input_type
 class HostPortRangeArgs:
     def __init__(__self__, *,
-                 max: pulumi.Input[float],
-                 min: pulumi.Input[float]):
+                 max: pulumi.Input[int],
+                 min: pulumi.Input[int]):
         """
         HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
-        :param pulumi.Input[float] max: max is the end of the range, inclusive.
-        :param pulumi.Input[float] min: min is the start of the range, inclusive.
+        :param pulumi.Input[int] max: max is the end of the range, inclusive.
+        :param pulumi.Input[int] min: min is the start of the range, inclusive.
         """
         pulumi.set(__self__, "max", max)
         pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
-    def max(self) -> pulumi.Input[float]:
+    def max(self) -> pulumi.Input[int]:
         """
         max is the end of the range, inclusive.
         """
         return pulumi.get(self, "max")
 
     @max.setter
-    def max(self, value: pulumi.Input[float]):
+    def max(self, value: pulumi.Input[int]):
         pulumi.set(self, "max", value)
 
     @property
     @pulumi.getter
-    def min(self) -> pulumi.Input[float]:
+    def min(self) -> pulumi.Input[int]:
         """
         min is the start of the range, inclusive.
         """
         return pulumi.get(self, "min")
 
     @min.setter
-    def min(self, value: pulumi.Input[float]):
+    def min(self, value: pulumi.Input[int]):
         pulumi.set(self, "min", value)
 
 
 @pulumi.input_type
 class IDRangeArgs:
     def __init__(__self__, *,
-                 max: pulumi.Input[float],
-                 min: pulumi.Input[float]):
+                 max: pulumi.Input[int],
+                 min: pulumi.Input[int]):
         """
         IDRange provides a min/max of an allowed range of IDs.
-        :param pulumi.Input[float] max: max is the end of the range, inclusive.
-        :param pulumi.Input[float] min: min is the start of the range, inclusive.
+        :param pulumi.Input[int] max: max is the end of the range, inclusive.
+        :param pulumi.Input[int] min: min is the start of the range, inclusive.
         """
         pulumi.set(__self__, "max", max)
         pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
-    def max(self) -> pulumi.Input[float]:
+    def max(self) -> pulumi.Input[int]:
         """
         max is the end of the range, inclusive.
         """
         return pulumi.get(self, "max")
 
     @max.setter
-    def max(self, value: pulumi.Input[float]):
+    def max(self, value: pulumi.Input[int]):
         pulumi.set(self, "max", value)
 
     @property
     @pulumi.getter
-    def min(self) -> pulumi.Input[float]:
+    def min(self) -> pulumi.Input[int]:
         """
         min is the start of the range, inclusive.
         """
         return pulumi.get(self, "min")
 
     @min.setter
-    def min(self, value: pulumi.Input[float]):
+    def min(self, value: pulumi.Input[int]):
         pulumi.set(self, "min", value)
 
 
@@ -322,13 +322,13 @@ class PodDisruptionBudgetArgs:
 @pulumi.input_type
 class PodDisruptionBudgetSpecArgs:
     def __init__(__self__, *,
-                 max_unavailable: Optional[pulumi.Input[Union[float, str]]] = None,
-                 min_available: Optional[pulumi.Input[Union[float, str]]] = None,
+                 max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
+                 min_available: Optional[pulumi.Input[Union[int, str]]] = None,
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
-        :param pulumi.Input[Union[float, str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
-        :param pulumi.Input[Union[float, str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        :param pulumi.Input[Union[int, str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        :param pulumi.Input[Union[int, str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label query over pods whose evictions are managed by the disruption budget.
         """
         if max_unavailable is not None:
@@ -340,26 +340,26 @@ class PodDisruptionBudgetSpecArgs:
 
     @property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[pulumi.Input[Union[float, str]]]:
+    def max_unavailable(self) -> Optional[pulumi.Input[Union[int, str]]]:
         """
         An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         """
         return pulumi.get(self, "max_unavailable")
 
     @max_unavailable.setter
-    def max_unavailable(self, value: Optional[pulumi.Input[Union[float, str]]]):
+    def max_unavailable(self, value: Optional[pulumi.Input[Union[int, str]]]):
         pulumi.set(self, "max_unavailable", value)
 
     @property
     @pulumi.getter(name="minAvailable")
-    def min_available(self) -> Optional[pulumi.Input[Union[float, str]]]:
+    def min_available(self) -> Optional[pulumi.Input[Union[int, str]]]:
         """
         An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         """
         return pulumi.get(self, "min_available")
 
     @min_available.setter
-    def min_available(self, value: Optional[pulumi.Input[Union[float, str]]]):
+    def min_available(self, value: Optional[pulumi.Input[Union[int, str]]]):
         pulumi.set(self, "min_available", value)
 
     @property
@@ -378,20 +378,20 @@ class PodDisruptionBudgetSpecArgs:
 @pulumi.input_type
 class PodDisruptionBudgetStatusArgs:
     def __init__(__self__, *,
-                 current_healthy: pulumi.Input[float],
-                 desired_healthy: pulumi.Input[float],
-                 disruptions_allowed: pulumi.Input[float],
-                 expected_pods: pulumi.Input[float],
+                 current_healthy: pulumi.Input[int],
+                 desired_healthy: pulumi.Input[int],
+                 disruptions_allowed: pulumi.Input[int],
+                 expected_pods: pulumi.Input[int],
                  disrupted_pods: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 observed_generation: Optional[pulumi.Input[float]] = None):
+                 observed_generation: Optional[pulumi.Input[int]] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
-        :param pulumi.Input[float] current_healthy: current number of healthy pods
-        :param pulumi.Input[float] desired_healthy: minimum desired number of healthy pods
-        :param pulumi.Input[float] disruptions_allowed: Number of pod disruptions that are currently allowed.
-        :param pulumi.Input[float] expected_pods: total number of pods counted by this disruption budget
+        :param pulumi.Input[int] current_healthy: current number of healthy pods
+        :param pulumi.Input[int] desired_healthy: minimum desired number of healthy pods
+        :param pulumi.Input[int] disruptions_allowed: Number of pod disruptions that are currently allowed.
+        :param pulumi.Input[int] expected_pods: total number of pods counted by this disruption budget
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] disrupted_pods: DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
-        :param pulumi.Input[float] observed_generation: Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        :param pulumi.Input[int] observed_generation: Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
         pulumi.set(__self__, "current_healthy", current_healthy)
         pulumi.set(__self__, "desired_healthy", desired_healthy)
@@ -404,50 +404,50 @@ class PodDisruptionBudgetStatusArgs:
 
     @property
     @pulumi.getter(name="currentHealthy")
-    def current_healthy(self) -> pulumi.Input[float]:
+    def current_healthy(self) -> pulumi.Input[int]:
         """
         current number of healthy pods
         """
         return pulumi.get(self, "current_healthy")
 
     @current_healthy.setter
-    def current_healthy(self, value: pulumi.Input[float]):
+    def current_healthy(self, value: pulumi.Input[int]):
         pulumi.set(self, "current_healthy", value)
 
     @property
     @pulumi.getter(name="desiredHealthy")
-    def desired_healthy(self) -> pulumi.Input[float]:
+    def desired_healthy(self) -> pulumi.Input[int]:
         """
         minimum desired number of healthy pods
         """
         return pulumi.get(self, "desired_healthy")
 
     @desired_healthy.setter
-    def desired_healthy(self, value: pulumi.Input[float]):
+    def desired_healthy(self, value: pulumi.Input[int]):
         pulumi.set(self, "desired_healthy", value)
 
     @property
     @pulumi.getter(name="disruptionsAllowed")
-    def disruptions_allowed(self) -> pulumi.Input[float]:
+    def disruptions_allowed(self) -> pulumi.Input[int]:
         """
         Number of pod disruptions that are currently allowed.
         """
         return pulumi.get(self, "disruptions_allowed")
 
     @disruptions_allowed.setter
-    def disruptions_allowed(self, value: pulumi.Input[float]):
+    def disruptions_allowed(self, value: pulumi.Input[int]):
         pulumi.set(self, "disruptions_allowed", value)
 
     @property
     @pulumi.getter(name="expectedPods")
-    def expected_pods(self) -> pulumi.Input[float]:
+    def expected_pods(self) -> pulumi.Input[int]:
         """
         total number of pods counted by this disruption budget
         """
         return pulumi.get(self, "expected_pods")
 
     @expected_pods.setter
-    def expected_pods(self, value: pulumi.Input[float]):
+    def expected_pods(self, value: pulumi.Input[int]):
         pulumi.set(self, "expected_pods", value)
 
     @property
@@ -464,14 +464,14 @@ class PodDisruptionBudgetStatusArgs:
 
     @property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[pulumi.Input[float]]:
+    def observed_generation(self) -> Optional[pulumi.Input[int]]:
         """
         Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
         return pulumi.get(self, "observed_generation")
 
     @observed_generation.setter
-    def observed_generation(self, value: Optional[pulumi.Input[float]]):
+    def observed_generation(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "observed_generation", value)
 
 

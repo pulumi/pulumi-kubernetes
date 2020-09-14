@@ -190,8 +190,8 @@ class APIServiceConditionArgs:
 @pulumi.input_type
 class APIServiceSpecArgs:
     def __init__(__self__, *,
-                 group_priority_minimum: pulumi.Input[float],
-                 version_priority: pulumi.Input[float],
+                 group_priority_minimum: pulumi.Input[int],
+                 version_priority: pulumi.Input[int],
                  ca_bundle: Optional[pulumi.Input[str]] = None,
                  group: Optional[pulumi.Input[str]] = None,
                  insecure_skip_tls_verify: Optional[pulumi.Input[bool]] = None,
@@ -199,8 +199,8 @@ class APIServiceSpecArgs:
                  version: Optional[pulumi.Input[str]] = None):
         """
         APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
-        :param pulumi.Input[float] group_priority_minimum: GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
-        :param pulumi.Input[float] version_priority: VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+        :param pulumi.Input[int] group_priority_minimum: GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
+        :param pulumi.Input[int] version_priority: VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         :param pulumi.Input[str] ca_bundle: CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input[str] group: Group is the API group name this server hosts
         :param pulumi.Input[bool] insecure_skip_tls_verify: InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
@@ -222,26 +222,26 @@ class APIServiceSpecArgs:
 
     @property
     @pulumi.getter(name="groupPriorityMinimum")
-    def group_priority_minimum(self) -> pulumi.Input[float]:
+    def group_priority_minimum(self) -> pulumi.Input[int]:
         """
         GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
         """
         return pulumi.get(self, "group_priority_minimum")
 
     @group_priority_minimum.setter
-    def group_priority_minimum(self, value: pulumi.Input[float]):
+    def group_priority_minimum(self, value: pulumi.Input[int]):
         pulumi.set(self, "group_priority_minimum", value)
 
     @property
     @pulumi.getter(name="versionPriority")
-    def version_priority(self) -> pulumi.Input[float]:
+    def version_priority(self) -> pulumi.Input[int]:
         """
         VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         """
         return pulumi.get(self, "version_priority")
 
     @version_priority.setter
-    def version_priority(self, value: pulumi.Input[float]):
+    def version_priority(self, value: pulumi.Input[int]):
         pulumi.set(self, "version_priority", value)
 
     @property
@@ -334,12 +334,12 @@ class ServiceReferenceArgs:
     def __init__(__self__, *,
                  name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
-                 port: Optional[pulumi.Input[float]] = None):
+                 port: Optional[pulumi.Input[int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
         :param pulumi.Input[str] name: Name is the name of the service
         :param pulumi.Input[str] namespace: Namespace is the namespace of the service
-        :param pulumi.Input[float] port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+        :param pulumi.Input[int] port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -374,14 +374,14 @@ class ServiceReferenceArgs:
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[float]]:
+    def port(self) -> Optional[pulumi.Input[int]]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[float]]):
+    def port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "port", value)
 
 

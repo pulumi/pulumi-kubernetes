@@ -36,7 +36,7 @@ class MutatingWebhook(dict):
                  object_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  reinvocation_policy: Optional[str] = None,
                  rules: Optional[Sequence['outputs.RuleWithOperations']] = None,
-                 timeout_seconds: Optional[float] = None):
+                 timeout_seconds: Optional[int] = None):
         """
         MutatingWebhook describes an admission webhook and the resources and operations it applies to.
         :param Sequence[str] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
@@ -91,7 +91,7 @@ class MutatingWebhook(dict):
                
                Defaults to "Never".
         :param Sequence['RuleWithOperationsArgs'] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
-        :param float timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
+        :param int timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
         pulumi.set(__self__, "admission_review_versions", admission_review_versions)
         pulumi.set(__self__, "client_config", client_config)
@@ -236,7 +236,7 @@ class MutatingWebhook(dict):
 
     @property
     @pulumi.getter(name="timeoutSeconds")
-    def timeout_seconds(self) -> Optional[float]:
+    def timeout_seconds(self) -> Optional[int]:
         """
         TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
@@ -403,13 +403,13 @@ class ServiceReference(dict):
                  name: str,
                  namespace: str,
                  path: Optional[str] = None,
-                 port: Optional[float] = None):
+                 port: Optional[int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
         :param str name: `name` is the name of the service. Required
         :param str namespace: `namespace` is the namespace of the service. Required
         :param str path: `path` is an optional URL path which will be sent in any request to this service.
-        :param float port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+        :param int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "namespace", namespace)
@@ -444,7 +444,7 @@ class ServiceReference(dict):
 
     @property
     @pulumi.getter
-    def port(self) -> Optional[float]:
+    def port(self) -> Optional[int]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
@@ -469,7 +469,7 @@ class ValidatingWebhook(dict):
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  object_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  rules: Optional[Sequence['outputs.RuleWithOperations']] = None,
-                 timeout_seconds: Optional[float] = None):
+                 timeout_seconds: Optional[int] = None):
         """
         ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
         :param Sequence[str] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
@@ -517,7 +517,7 @@ class ValidatingWebhook(dict):
                Default to the empty LabelSelector, which matches everything.
         :param '_meta.v1.LabelSelectorArgs' object_selector: ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
         :param Sequence['RuleWithOperationsArgs'] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
-        :param float timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
+        :param int timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
         pulumi.set(__self__, "admission_review_versions", admission_review_versions)
         pulumi.set(__self__, "client_config", client_config)
@@ -646,7 +646,7 @@ class ValidatingWebhook(dict):
 
     @property
     @pulumi.getter(name="timeoutSeconds")
-    def timeout_seconds(self) -> Optional[float]:
+    def timeout_seconds(self) -> Optional[int]:
         """
         TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """

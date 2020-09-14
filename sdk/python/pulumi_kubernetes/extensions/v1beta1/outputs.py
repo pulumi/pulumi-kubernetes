@@ -304,18 +304,18 @@ class DaemonSetSpec(dict):
     """
     def __init__(__self__, *,
                  template: '_core.v1.outputs.PodTemplateSpec',
-                 min_ready_seconds: Optional[float] = None,
-                 revision_history_limit: Optional[float] = None,
+                 min_ready_seconds: Optional[int] = None,
+                 revision_history_limit: Optional[int] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-                 template_generation: Optional[float] = None,
+                 template_generation: Optional[int] = None,
                  update_strategy: Optional['outputs.DaemonSetUpdateStrategy'] = None):
         """
         DaemonSetSpec is the specification of a daemon set.
         :param '_core.v1.PodTemplateSpecArgs' template: An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-        :param float min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
-        :param float revision_history_limit: The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        :param int min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+        :param int revision_history_limit: The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
         :param '_meta.v1.LabelSelectorArgs' selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param float template_generation: DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
+        :param int template_generation: DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
         :param 'DaemonSetUpdateStrategyArgs' update_strategy: An update strategy to replace existing DaemonSet pods with new pods.
         """
         pulumi.set(__self__, "template", template)
@@ -340,7 +340,7 @@ class DaemonSetSpec(dict):
 
     @property
     @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> Optional[float]:
+    def min_ready_seconds(self) -> Optional[int]:
         """
         The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
         """
@@ -348,7 +348,7 @@ class DaemonSetSpec(dict):
 
     @property
     @pulumi.getter(name="revisionHistoryLimit")
-    def revision_history_limit(self) -> Optional[float]:
+    def revision_history_limit(self) -> Optional[int]:
         """
         The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
         """
@@ -364,7 +364,7 @@ class DaemonSetSpec(dict):
 
     @property
     @pulumi.getter(name="templateGeneration")
-    def template_generation(self) -> Optional[float]:
+    def template_generation(self) -> Optional[int]:
         """
         DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
         """
@@ -388,28 +388,28 @@ class DaemonSetStatus(dict):
     DaemonSetStatus represents the current status of a daemon set.
     """
     def __init__(__self__, *,
-                 current_number_scheduled: float,
-                 desired_number_scheduled: float,
-                 number_misscheduled: float,
-                 number_ready: float,
-                 collision_count: Optional[float] = None,
+                 current_number_scheduled: int,
+                 desired_number_scheduled: int,
+                 number_misscheduled: int,
+                 number_ready: int,
+                 collision_count: Optional[int] = None,
                  conditions: Optional[Sequence['outputs.DaemonSetCondition']] = None,
-                 number_available: Optional[float] = None,
-                 number_unavailable: Optional[float] = None,
-                 observed_generation: Optional[float] = None,
-                 updated_number_scheduled: Optional[float] = None):
+                 number_available: Optional[int] = None,
+                 number_unavailable: Optional[int] = None,
+                 observed_generation: Optional[int] = None,
+                 updated_number_scheduled: Optional[int] = None):
         """
         DaemonSetStatus represents the current status of a daemon set.
-        :param float current_number_scheduled: The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-        :param float desired_number_scheduled: The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-        :param float number_misscheduled: The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-        :param float number_ready: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-        :param float collision_count: Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+        :param int current_number_scheduled: The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        :param int desired_number_scheduled: The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        :param int number_misscheduled: The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        :param int number_ready: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+        :param int collision_count: Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
         :param Sequence['DaemonSetConditionArgs'] conditions: Represents the latest available observations of a DaemonSet's current state.
-        :param float number_available: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
-        :param float number_unavailable: The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
-        :param float observed_generation: The most recent generation observed by the daemon set controller.
-        :param float updated_number_scheduled: The total number of nodes that are running updated daemon pod
+        :param int number_available: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
+        :param int number_unavailable: The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
+        :param int observed_generation: The most recent generation observed by the daemon set controller.
+        :param int updated_number_scheduled: The total number of nodes that are running updated daemon pod
         """
         pulumi.set(__self__, "current_number_scheduled", current_number_scheduled)
         pulumi.set(__self__, "desired_number_scheduled", desired_number_scheduled)
@@ -430,7 +430,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="currentNumberScheduled")
-    def current_number_scheduled(self) -> float:
+    def current_number_scheduled(self) -> int:
         """
         The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         """
@@ -438,7 +438,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="desiredNumberScheduled")
-    def desired_number_scheduled(self) -> float:
+    def desired_number_scheduled(self) -> int:
         """
         The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         """
@@ -446,7 +446,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="numberMisscheduled")
-    def number_misscheduled(self) -> float:
+    def number_misscheduled(self) -> int:
         """
         The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         """
@@ -454,7 +454,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="numberReady")
-    def number_ready(self) -> float:
+    def number_ready(self) -> int:
         """
         The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
         """
@@ -462,7 +462,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="collisionCount")
-    def collision_count(self) -> Optional[float]:
+    def collision_count(self) -> Optional[int]:
         """
         Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
         """
@@ -478,7 +478,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="numberAvailable")
-    def number_available(self) -> Optional[float]:
+    def number_available(self) -> Optional[int]:
         """
         The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
         """
@@ -486,7 +486,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="numberUnavailable")
-    def number_unavailable(self) -> Optional[float]:
+    def number_unavailable(self) -> Optional[int]:
         """
         The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
         """
@@ -494,7 +494,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[float]:
+    def observed_generation(self) -> Optional[int]:
         """
         The most recent generation observed by the daemon set controller.
         """
@@ -502,7 +502,7 @@ class DaemonSetStatus(dict):
 
     @property
     @pulumi.getter(name="updatedNumberScheduled")
-    def updated_number_scheduled(self) -> Optional[float]:
+    def updated_number_scheduled(self) -> Optional[int]:
         """
         The total number of nodes that are running updated daemon pod
         """
@@ -755,22 +755,22 @@ class DeploymentSpec(dict):
     """
     def __init__(__self__, *,
                  template: '_core.v1.outputs.PodTemplateSpec',
-                 min_ready_seconds: Optional[float] = None,
+                 min_ready_seconds: Optional[int] = None,
                  paused: Optional[bool] = None,
-                 progress_deadline_seconds: Optional[float] = None,
-                 replicas: Optional[float] = None,
-                 revision_history_limit: Optional[float] = None,
+                 progress_deadline_seconds: Optional[int] = None,
+                 replicas: Optional[int] = None,
+                 revision_history_limit: Optional[int] = None,
                  rollback_to: Optional['outputs.RollbackConfig'] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  strategy: Optional['outputs.DeploymentStrategy'] = None):
         """
         DeploymentSpec is the specification of the desired behavior of the Deployment.
         :param '_core.v1.PodTemplateSpecArgs' template: Template describes the pods that will be created.
-        :param float min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param bool paused: Indicates that the deployment is paused and will not be processed by the deployment controller.
-        :param float progress_deadline_seconds: The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. This is set to the max value of int32 (i.e. 2147483647) by default, which means "no deadline".
-        :param float replicas: Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
-        :param float revision_history_limit: The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. This is set to the max value of int32 (i.e. 2147483647) by default, which means "retaining all old RelicaSets".
+        :param int progress_deadline_seconds: The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. This is set to the max value of int32 (i.e. 2147483647) by default, which means "no deadline".
+        :param int replicas: Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+        :param int revision_history_limit: The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. This is set to the max value of int32 (i.e. 2147483647) by default, which means "retaining all old RelicaSets".
         :param 'RollbackConfigArgs' rollback_to: DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
         :param '_meta.v1.LabelSelectorArgs' selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
         :param 'DeploymentStrategyArgs' strategy: The deployment strategy to use to replace existing pods with new ones.
@@ -803,7 +803,7 @@ class DeploymentSpec(dict):
 
     @property
     @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> Optional[float]:
+    def min_ready_seconds(self) -> Optional[int]:
         """
         Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         """
@@ -819,7 +819,7 @@ class DeploymentSpec(dict):
 
     @property
     @pulumi.getter(name="progressDeadlineSeconds")
-    def progress_deadline_seconds(self) -> Optional[float]:
+    def progress_deadline_seconds(self) -> Optional[int]:
         """
         The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. This is set to the max value of int32 (i.e. 2147483647) by default, which means "no deadline".
         """
@@ -827,7 +827,7 @@ class DeploymentSpec(dict):
 
     @property
     @pulumi.getter
-    def replicas(self) -> Optional[float]:
+    def replicas(self) -> Optional[int]:
         """
         Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
         """
@@ -835,7 +835,7 @@ class DeploymentSpec(dict):
 
     @property
     @pulumi.getter(name="revisionHistoryLimit")
-    def revision_history_limit(self) -> Optional[float]:
+    def revision_history_limit(self) -> Optional[int]:
         """
         The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. This is set to the max value of int32 (i.e. 2147483647) by default, which means "retaining all old RelicaSets".
         """
@@ -875,24 +875,24 @@ class DeploymentStatus(dict):
     DeploymentStatus is the most recently observed status of the Deployment.
     """
     def __init__(__self__, *,
-                 available_replicas: Optional[float] = None,
-                 collision_count: Optional[float] = None,
+                 available_replicas: Optional[int] = None,
+                 collision_count: Optional[int] = None,
                  conditions: Optional[Sequence['outputs.DeploymentCondition']] = None,
-                 observed_generation: Optional[float] = None,
-                 ready_replicas: Optional[float] = None,
-                 replicas: Optional[float] = None,
-                 unavailable_replicas: Optional[float] = None,
-                 updated_replicas: Optional[float] = None):
+                 observed_generation: Optional[int] = None,
+                 ready_replicas: Optional[int] = None,
+                 replicas: Optional[int] = None,
+                 unavailable_replicas: Optional[int] = None,
+                 updated_replicas: Optional[int] = None):
         """
         DeploymentStatus is the most recently observed status of the Deployment.
-        :param float available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
-        :param float collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
+        :param int available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        :param int collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         :param Sequence['DeploymentConditionArgs'] conditions: Represents the latest available observations of a deployment's current state.
-        :param float observed_generation: The generation observed by the deployment controller.
-        :param float ready_replicas: Total number of ready pods targeted by this deployment.
-        :param float replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
-        :param float unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
-        :param float updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        :param int observed_generation: The generation observed by the deployment controller.
+        :param int ready_replicas: Total number of ready pods targeted by this deployment.
+        :param int replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        :param int unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
+        :param int updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
         """
         if available_replicas is not None:
             pulumi.set(__self__, "available_replicas", available_replicas)
@@ -913,7 +913,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter(name="availableReplicas")
-    def available_replicas(self) -> Optional[float]:
+    def available_replicas(self) -> Optional[int]:
         """
         Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
         """
@@ -921,7 +921,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter(name="collisionCount")
-    def collision_count(self) -> Optional[float]:
+    def collision_count(self) -> Optional[int]:
         """
         Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         """
@@ -937,7 +937,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[float]:
+    def observed_generation(self) -> Optional[int]:
         """
         The generation observed by the deployment controller.
         """
@@ -945,7 +945,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter(name="readyReplicas")
-    def ready_replicas(self) -> Optional[float]:
+    def ready_replicas(self) -> Optional[int]:
         """
         Total number of ready pods targeted by this deployment.
         """
@@ -953,7 +953,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter
-    def replicas(self) -> Optional[float]:
+    def replicas(self) -> Optional[int]:
         """
         Total number of non-terminated pods targeted by this deployment (their labels match the selector).
         """
@@ -961,7 +961,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter(name="unavailableReplicas")
-    def unavailable_replicas(self) -> Optional[float]:
+    def unavailable_replicas(self) -> Optional[int]:
         """
         Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
         """
@@ -969,7 +969,7 @@ class DeploymentStatus(dict):
 
     @property
     @pulumi.getter(name="updatedReplicas")
-    def updated_replicas(self) -> Optional[float]:
+    def updated_replicas(self) -> Optional[int]:
         """
         Total number of non-terminated pods targeted by this deployment that have the desired template spec.
         """
@@ -1155,19 +1155,19 @@ class HostPortRange(dict):
     HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from policy API Group instead.
     """
     def __init__(__self__, *,
-                 max: float,
-                 min: float):
+                 max: int,
+                 min: int):
         """
         HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from policy API Group instead.
-        :param float max: max is the end of the range, inclusive.
-        :param float min: min is the start of the range, inclusive.
+        :param int max: max is the end of the range, inclusive.
+        :param int min: min is the start of the range, inclusive.
         """
         pulumi.set(__self__, "max", max)
         pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
-    def max(self) -> float:
+    def max(self) -> int:
         """
         max is the end of the range, inclusive.
         """
@@ -1175,7 +1175,7 @@ class HostPortRange(dict):
 
     @property
     @pulumi.getter
-    def min(self) -> float:
+    def min(self) -> int:
         """
         min is the start of the range, inclusive.
         """
@@ -1191,19 +1191,19 @@ class IDRange(dict):
     IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.
     """
     def __init__(__self__, *,
-                 max: float,
-                 min: float):
+                 max: int,
+                 min: int):
         """
         IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.
-        :param float max: max is the end of the range, inclusive.
-        :param float min: min is the start of the range, inclusive.
+        :param int max: max is the end of the range, inclusive.
+        :param int min: min is the start of the range, inclusive.
         """
         pulumi.set(__self__, "max", max)
         pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
-    def max(self) -> float:
+    def max(self) -> int:
         """
         max is the end of the range, inclusive.
         """
@@ -1211,7 +1211,7 @@ class IDRange(dict):
 
     @property
     @pulumi.getter
-    def min(self) -> float:
+    def min(self) -> int:
         """
         min is the start of the range, inclusive.
         """
@@ -1372,7 +1372,7 @@ class IngressBackend(dict):
         """
         IngressBackend describes all endpoints for a given service and port.
         :param str service_name: Specifies the name of the referenced service.
-        :param Union[float, str] service_port: Specifies the port of the referenced service.
+        :param Union[int, str] service_port: Specifies the port of the referenced service.
         :param '_core.v1.TypedLocalObjectReferenceArgs' resource: Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
         """
         pulumi.set(__self__, "service_name", service_name)
@@ -1788,7 +1788,7 @@ class NetworkPolicyPort(dict):
                  protocol: Optional[str] = None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
-        :param Union[float, str] port: If specified, the port on the given protocol.  This can either be a numerical or named port on a pod.  If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+        :param Union[int, str] port: If specified, the port on the given protocol.  This can either be a numerical or named port on a pod.  If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         :param str protocol: Optional.  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
         if port is not None:
@@ -2397,14 +2397,14 @@ class ReplicaSetSpec(dict):
     ReplicaSetSpec is the specification of a ReplicaSet.
     """
     def __init__(__self__, *,
-                 min_ready_seconds: Optional[float] = None,
-                 replicas: Optional[float] = None,
+                 min_ready_seconds: Optional[int] = None,
+                 replicas: Optional[int] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  template: Optional['_core.v1.outputs.PodTemplateSpec'] = None):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
-        :param float min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        :param float replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        :param int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param int replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         :param '_meta.v1.LabelSelectorArgs' selector: Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param '_core.v1.PodTemplateSpecArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
@@ -2419,7 +2419,7 @@ class ReplicaSetSpec(dict):
 
     @property
     @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> Optional[float]:
+    def min_ready_seconds(self) -> Optional[int]:
         """
         Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         """
@@ -2427,7 +2427,7 @@ class ReplicaSetSpec(dict):
 
     @property
     @pulumi.getter
-    def replicas(self) -> Optional[float]:
+    def replicas(self) -> Optional[int]:
         """
         Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         """
@@ -2459,20 +2459,20 @@ class ReplicaSetStatus(dict):
     ReplicaSetStatus represents the current status of a ReplicaSet.
     """
     def __init__(__self__, *,
-                 replicas: float,
-                 available_replicas: Optional[float] = None,
+                 replicas: int,
+                 available_replicas: Optional[int] = None,
                  conditions: Optional[Sequence['outputs.ReplicaSetCondition']] = None,
-                 fully_labeled_replicas: Optional[float] = None,
-                 observed_generation: Optional[float] = None,
-                 ready_replicas: Optional[float] = None):
+                 fully_labeled_replicas: Optional[int] = None,
+                 observed_generation: Optional[int] = None,
+                 ready_replicas: Optional[int] = None):
         """
         ReplicaSetStatus represents the current status of a ReplicaSet.
-        :param float replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-        :param float available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        :param int replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        :param int available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replica set.
         :param Sequence['ReplicaSetConditionArgs'] conditions: Represents the latest available observations of a replica set's current state.
-        :param float fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replicaset.
-        :param float observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
-        :param float ready_replicas: The number of ready replicas for this replica set.
+        :param int fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replicaset.
+        :param int observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
+        :param int ready_replicas: The number of ready replicas for this replica set.
         """
         pulumi.set(__self__, "replicas", replicas)
         if available_replicas is not None:
@@ -2488,7 +2488,7 @@ class ReplicaSetStatus(dict):
 
     @property
     @pulumi.getter
-    def replicas(self) -> float:
+    def replicas(self) -> int:
         """
         Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         """
@@ -2496,7 +2496,7 @@ class ReplicaSetStatus(dict):
 
     @property
     @pulumi.getter(name="availableReplicas")
-    def available_replicas(self) -> Optional[float]:
+    def available_replicas(self) -> Optional[int]:
         """
         The number of available replicas (ready for at least minReadySeconds) for this replica set.
         """
@@ -2512,7 +2512,7 @@ class ReplicaSetStatus(dict):
 
     @property
     @pulumi.getter(name="fullyLabeledReplicas")
-    def fully_labeled_replicas(self) -> Optional[float]:
+    def fully_labeled_replicas(self) -> Optional[int]:
         """
         The number of pods that have labels matching the labels of the pod template of the replicaset.
         """
@@ -2520,7 +2520,7 @@ class ReplicaSetStatus(dict):
 
     @property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[float]:
+    def observed_generation(self) -> Optional[int]:
         """
         ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
         """
@@ -2528,7 +2528,7 @@ class ReplicaSetStatus(dict):
 
     @property
     @pulumi.getter(name="readyReplicas")
-    def ready_replicas(self) -> Optional[float]:
+    def ready_replicas(self) -> Optional[int]:
         """
         The number of ready replicas for this replica set.
         """
@@ -2544,17 +2544,17 @@ class RollbackConfig(dict):
     DEPRECATED.
     """
     def __init__(__self__, *,
-                 revision: Optional[float] = None):
+                 revision: Optional[int] = None):
         """
         DEPRECATED.
-        :param float revision: The revision to rollback to. If set to 0, rollback to the last revision.
+        :param int revision: The revision to rollback to. If set to 0, rollback to the last revision.
         """
         if revision is not None:
             pulumi.set(__self__, "revision", revision)
 
     @property
     @pulumi.getter
-    def revision(self) -> Optional[float]:
+    def revision(self) -> Optional[int]:
         """
         The revision to rollback to. If set to 0, rollback to the last revision.
         """
@@ -2573,7 +2573,7 @@ class RollingUpdateDaemonSet(dict):
                  max_unavailable: Optional[Any] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
-        :param Union[float, str] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+        :param Union[int, str] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
         if max_unavailable is not None:
             pulumi.set(__self__, "max_unavailable", max_unavailable)
@@ -2600,8 +2600,8 @@ class RollingUpdateDeployment(dict):
                  max_unavailable: Optional[Any] = None):
         """
         Spec to control the desired behavior of rolling update.
-        :param Union[float, str] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
-        :param Union[float, str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+        :param Union[int, str] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+        :param Union[int, str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
         if max_surge is not None:
             pulumi.set(__self__, "max_surge", max_surge)
