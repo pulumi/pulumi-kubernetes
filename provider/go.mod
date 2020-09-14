@@ -15,7 +15,7 @@ require (
 	github.com/pulumi/pulumi/sdk/v2 v2.10.1-0.20200911215629-5e06da464adb
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.29.1
-	helm.sh/helm/v3 v3.3.0
+	helm.sh/helm/v3 v3.3.1
 	k8s.io/api v0.18.8
 	k8s.io/apimachinery v0.18.8
 	k8s.io/cli-runtime v0.18.8
