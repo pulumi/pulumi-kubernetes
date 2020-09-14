@@ -24,18 +24,17 @@ limitations under the License.
 // Additionally, we improved caching of the OpenAPI schema in the OpenAPISchema method.
 // If this change merges upstream, we will reconcile those changes in a future release.
 //
-// [1] https://github.com/kubernetes/client-go/blob/2dda7ceeec102b5a60e2abf37758642118501910/discovery/cached/memcache.go
+// [1] https://github.com/kubernetes/client-go/blob/2568220050f6fdd4a8a0dbae292517559731905f/discovery/cached/memory/memcache.go
 
 package clients
 
 import (
+	"errors"
 	"fmt"
-	"net"
-	"net/url"
 	"sync"
 	"syscall"
 
-	"github.com/googleapis/gnostic/OpenAPIv2"
+	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
 	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
 	errorsutil "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -71,19 +70,11 @@ var _ discovery.CachedDiscoveryInterface = &memCacheClient{}
 // "Connection reset" error which usually means that apiserver is temporarily
 // unavailable.
 func isTransientConnectionError(err error) bool {
-	urlError, ok := err.(*url.Error)
-	if !ok {
-		return false
+	var errno syscall.Errno
+	if errors.As(err, &errno) {
+		return errno == syscall.ECONNREFUSED || errno == syscall.ECONNRESET
 	}
-	opError, ok := urlError.Err.(*net.OpError)
-	if !ok {
-		return false
-	}
-	errno, ok := opError.Err.(syscall.Errno)
-	if !ok {
-		return false
-	}
-	return errno == syscall.ECONNREFUSED || errno == syscall.ECONNRESET
+	return false
 }
 
 func isTransientError(err error) bool {
@@ -209,16 +200,28 @@ func (d *memCacheClient) refreshLocked() error {
 		return err
 	}
 
+	wg := &sync.WaitGroup{}
+	resultLock := &sync.Mutex{}
 	rl := map[string]*cacheEntry{}
 	for _, g := range gl.Groups {
 		for _, v := range g.Versions {
-			r, err := d.serverResourcesForGroupVersion(v.GroupVersion)
-			rl[v.GroupVersion] = &cacheEntry{r, err}
-			if err != nil {
-				logger.V(9).Infof("couldn't get resource list for %v: %v", v.GroupVersion, err)
-			}
+			gv := v.GroupVersion
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+
+				r, err := d.serverResourcesForGroupVersion(gv)
+				if err != nil {
+					logger.V(9).Infof("couldn't get resource list for %v: %v", gv, err)
+				}
+
+				resultLock.Lock()
+				defer resultLock.Unlock()
+				rl[gv] = &cacheEntry{r, err}
+			}()
 		}
 	}
+	wg.Wait()
 
 	d.groupToServerResources, d.groupList = rl, gl
 	d.cacheValid = true
