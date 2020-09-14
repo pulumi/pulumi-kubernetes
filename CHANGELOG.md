@@ -5,6 +5,10 @@
 -   Fix Python type hints for lists (https://github.com/pulumi/pulumi-kubernetes/pull/1313)
 -   Fix Python type hints for integers (https://github.com/pulumi/pulumi-kubernetes/pull/1317)
 
+### Improvements
+
+-   Update Helm v3 mod to v3.3.1 (https://github.com/pulumi/pulumi-kubernetes/pull/1320)
+
 ## 2.6.0 (September 10, 2020)
 
 Note: There is a minor breaking change in the .NET SDK for Helm v3. As part of the switch to using native
