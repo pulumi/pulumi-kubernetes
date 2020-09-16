@@ -4,6 +4,7 @@
 
 -   Fix Python type hints for lists (https://github.com/pulumi/pulumi-kubernetes/pull/1313)
 -   Fix Python type hints for integers (https://github.com/pulumi/pulumi-kubernetes/pull/1317)
+-   Fix Helm v3 default namespace handling (https://github.com/pulumi/pulumi-kubernetes/pull/1323)
 
 ### Improvements
 

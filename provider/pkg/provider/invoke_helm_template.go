@@ -180,12 +180,18 @@ func (c *chart) template() (string, error) {
 		cfg.Capabilities.APIVersions = append(cfg.Capabilities.APIVersions, c.opts.APIVersions...)
 	}
 
+	// If the namespace isn't set, explicitly set it to "default".
+	if len(c.opts.Namespace) == 0 {
+		c.opts.Namespace = "default" // nolint: goconst
+	}
+
 	installAction := action.NewInstall(cfg)
 	installAction.APIVersions = c.opts.APIVersions
 	installAction.ClientOnly = true
 	installAction.DryRun = true
 	installAction.IncludeCRDs = true // TODO: handle this conditionally?
 	installAction.Namespace = c.opts.Namespace
+	installAction.NameTemplate = c.opts.ReleaseName
 	installAction.ReleaseName = c.opts.ReleaseName
 	installAction.Version = c.opts.Version
 
