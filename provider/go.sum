@@ -879,11 +879,11 @@ github.com/prometheus/procfs v0.0.5/go.mod h1:4A/X28fw3Fc593LaREMrKMqOKvUAntwMDa
 github.com/prometheus/procfs v0.0.8 h1:+fpWZdT24pJBiqJdAwYBjPSk+5YmQzYNPYzQsdzLkt8=
 github.com/prometheus/procfs v0.0.8/go.mod h1:7Qr8sr6344vo1JqZ6HhLceV9o3AJ1Ff+GxbHq6oeK9A=
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
-github.com/pulumi/pulumi/pkg/v2 v2.10.1-0.20200915235528-b9b3151306ce h1:iil21aZrg3Gz4QaP/JPXw+P/Bjzwgt+ZilLbwUNk4y4=
-github.com/pulumi/pulumi/pkg/v2 v2.10.1-0.20200915235528-b9b3151306ce/go.mod h1:zQWe2D4tYJDeXNzSclqNmP8/SMSKOh8k22AbWg3+mVc=
+github.com/pulumi/pulumi/pkg/v2 v2.10.2-0.20200916204740-92a7d717a4d1 h1:6MkruuwuH0SStrTbanQDj002KvmQiiJho8idovsMUgA=
+github.com/pulumi/pulumi/pkg/v2 v2.10.2-0.20200916204740-92a7d717a4d1/go.mod h1:zQWe2D4tYJDeXNzSclqNmP8/SMSKOh8k22AbWg3+mVc=
 github.com/pulumi/pulumi/sdk/v2 v2.2.1/go.mod h1:QNbWpL4gvf3X0lUFT7TXA2Jo1ff/Ti2l97AyFGYwvW4=
-github.com/pulumi/pulumi/sdk/v2 v2.10.1-0.20200915235528-b9b3151306ce h1:EXTlSVz/jcpCDH0i47tEidL5bvIZalnEcXYsf3Ebg5E=
-github.com/pulumi/pulumi/sdk/v2 v2.10.1-0.20200915235528-b9b3151306ce/go.mod h1:EED7KCDOohYIewUppsav5KHTFTmfYGqUFib1uRvYdWQ=
+github.com/pulumi/pulumi/sdk/v2 v2.10.2-0.20200916204740-92a7d717a4d1 h1:OuuZs684M+C63XqvNjjK6BHn1+tw2/CYzcPNRwH3mNE=
+github.com/pulumi/pulumi/sdk/v2 v2.10.2-0.20200916204740-92a7d717a4d1/go.mod h1:EED7KCDOohYIewUppsav5KHTFTmfYGqUFib1uRvYdWQ=
 github.com/qri-io/starlib v0.4.2-0.20200213133954-ff2e8cd5ef8d/go.mod h1:7DPO4domFU579Ga6E61sB9VFNaniPVwJP5C4bBCu3wA=
 github.com/quasilyte/go-consistent v0.0.0-20190521200055-c6f3937de18c/go.mod h1:5STLWrekHfjyYwxBRVRXNOSewLJ3PWfDJd1VyTS21fI=
 github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a/go.mod h1:bCqnVzQkZxMG4s8nGwiZ5l3QUCyqpo9Y+/ZMZ9VjZe4=
