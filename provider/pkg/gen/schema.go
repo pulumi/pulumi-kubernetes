@@ -74,7 +74,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		},
 
 		Provider: pschema.ResourceSpec{
-			ComplexTypeSpec: pschema.ComplexTypeSpec{
+			ObjectTypeSpec: pschema.ObjectTypeSpec{
 				Description: "The provider type for the kubernetes package.",
 				Type:        "object",
 			},
@@ -155,7 +155,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				pkgImportAliases[fmt.Sprintf("%s/%s", goImportPath, kind.schemaPkgName)] = strings.Replace(
 					kind.schemaPkgName, "/", "", -1)
 
-				objectSpec := pschema.ComplexTypeSpec{
+				objectSpec := pschema.ObjectTypeSpec{
 					Description: kind.Comment() + kind.PulumiComment(),
 					Type:        "object",
 					Properties:  map[string]pschema.PropertySpec{},
@@ -172,13 +172,15 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 				objectSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
-				pkg.Types[tok] = objectSpec
+				pkg.Types[tok] = pschema.ComplexTypeSpec{
+					ObjectTypeSpec: objectSpec,
+				}
 				if kind.IsNested() {
 					continue
 				}
 
 				resourceSpec := pschema.ResourceSpec{
-					ComplexTypeSpec:    objectSpec,
+					ObjectTypeSpec:     objectSpec,
 					DeprecationMessage: kind.DeprecationComment(),
 					InputProperties:    map[string]pschema.PropertySpec{},
 				}
