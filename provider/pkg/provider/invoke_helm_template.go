@@ -182,7 +182,7 @@ func (c *chart) template() (string, error) {
 
 	// If the namespace isn't set, explicitly set it to "default".
 	if len(c.opts.Namespace) == 0 {
-		c.opts.Namespace = "default"
+		c.opts.Namespace = "default" // nolint: goconst
 	}
 
 	installAction := action.NewInstall(cfg)
