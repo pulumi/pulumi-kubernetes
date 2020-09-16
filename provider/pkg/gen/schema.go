@@ -131,7 +131,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			},
 		},
 
-		Types:     map[string]pschema.ObjectTypeSpec{},
+		Types:     map[string]pschema.ComplexTypeSpec{},
 		Resources: map[string]pschema.ResourceSpec{},
 		Functions: map[string]pschema.FunctionSpec{},
 		Language:  map[string]json.RawMessage{},
@@ -172,7 +172,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 				objectSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
-				pkg.Types[tok] = objectSpec
+				pkg.Types[tok] = pschema.ComplexTypeSpec{
+					ObjectTypeSpec: objectSpec,
+				}
 				if kind.IsNested() {
 					continue
 				}
