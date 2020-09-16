@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.6.1 (September 16, 2020)
+
 ### Bug Fixes
 
 -   Fix Python type hints for lists (https://github.com/pulumi/pulumi-kubernetes/pull/1313)
