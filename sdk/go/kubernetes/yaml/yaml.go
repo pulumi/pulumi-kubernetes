@@ -144,7 +144,11 @@ func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption)
 	var ret struct {
 		Result []map[string]interface{} `pulumi:"result"`
 	}
-	if err := ctx.Invoke("kubernetes:yaml:decode", &args, &ret); err != nil {
+
+	// TODO: Rather than hardcoding, try to parse a version from a go.mod
+	// https://github.com/pulumi/pulumi-kubernetes/issues/1324
+	versionOpt := pulumi.Version("2.6.1")
+	if err := ctx.Invoke("kubernetes:yaml:decode", &args, &ret, versionOpt); err != nil {
 		return nil, err
 	}
 	return ret.Result, nil

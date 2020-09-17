@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+### Bug Fixes
+
+-   Set plugin version for Go SDK invoke calls (https://github.com/pulumi/pulumi-kubernetes/pull/1325)
+
 ## 2.6.1 (September 16, 2020)
 
 ### Bug Fixes

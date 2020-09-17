@@ -180,7 +180,11 @@ func parseDirectory(ctx *pulumi.Context, name string, args directoryArgs, opts .
 	var ret struct {
 		Result []map[string]interface{} `pulumi:"result"`
 	}
-	if err := ctx.Invoke("kubernetes:kustomize:directory", &invokeArgs, &ret); err != nil {
+
+    // TODO: Rather than hardcoding, try to parse a version from a go.mod
+    // https://github.com/pulumi/pulumi-kubernetes/issues/1324
+	versionOpt := pulumi.Version("2.6.1")
+	if err := ctx.Invoke("kubernetes:kustomize:directory", &invokeArgs, &ret, versionOpt); err != nil {
 		return nil, errors.Wrap(err, "kustomize invoke failed")
 	}
 
