@@ -4,6 +4,10 @@
 
 -   Set plugin version for Go SDK invoke calls (https://github.com/pulumi/pulumi-kubernetes/pull/1325)
 
+### Improvements
+
+-   Update Helm v3 mod to v3.3.2 (https://github.com/pulumi/pulumi-kubernetes/pull/1326)
+
 ## 2.6.1 (September 16, 2020)
 
 ### Bug Fixes
