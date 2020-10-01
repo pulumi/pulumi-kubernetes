@@ -127,26 +127,26 @@ test_all::
 
 generate_schema:: $(SCHEMA_FILE)
 
-.PHONY: publish_tgz
-publish_tgz:
-	$(call STEP_MESSAGE)
-	./scripts/publish_tgz.sh
-
-# While pulumi-kubernetes is not built using tfgen/tfbridge, the layout of the source tree is the same as these
-# style of repositories, so we can re-use the common publishing scripts.
-.PHONY: publish_packages
-publish_packages:
-	$(call STEP_MESSAGE)
-	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/publish-tfgen-package .
-	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/build-package-docs.sh kubernetes
-
-.PHONY: check_clean_worktree
-check_clean_worktree:
-	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/check-worktree-is-clean.sh
-
-# The travis_* targets are entrypoints for CI.
-.PHONY: travis_cron travis_push travis_pull_request travis_api
-travis_cron: all
-travis_push: only_build check_clean_worktree publish_tgz only_test publish_packages
-travis_pull_request: only_build check_clean_worktree only_test
-travis_api: all
+#.PHONY: publish_tgz
+#publish_tgz:
+#	$(call STEP_MESSAGE)
+#	./scripts/publish_tgz.sh
+#
+## While pulumi-kubernetes is not built using tfgen/tfbridge, the layout of the source tree is the same as these
+## style of repositories, so we can re-use the common publishing scripts.
+#.PHONY: publish_packages
+#publish_packages:
+#	$(call STEP_MESSAGE)
+#	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/publish-tfgen-package .
+#	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/build-package-docs.sh kubernetes
+#
+#.PHONY: check_clean_worktree
+#check_clean_worktree:
+#	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/check-worktree-is-clean.sh
+#
+## The travis_* targets are entrypoints for CI.
+#.PHONY: travis_cron travis_push travis_pull_request travis_api
+#travis_cron: all
+#travis_push: only_build check_clean_worktree publish_tgz only_test publish_packages
+#travis_pull_request: only_build check_clean_worktree only_test
+#travis_api: all
