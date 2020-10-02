@@ -129,7 +129,7 @@ This example deploys resources from a YAML manifest file path, using the
 transient, default `kubeconfig` credentials on the local machine, just as `kubectl` does.
 
 ```typescript
-import * as k8s as "@pulumi/kubernetes";
+import * as k8s from "@pulumi/kubernetes";
 
 const myApp = new k8s.yaml.ConfigFile("app", {
     file: "app.yaml"
