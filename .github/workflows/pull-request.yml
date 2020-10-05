@@ -120,11 +120,11 @@ jobs:
         run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
           }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-gen-${{ env.PROVIDER
           }}
-      - run: |
-          echo building k8sgen
-          echo downloading openapi file
-          echo generating schema
-          echo building k8s provider
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.PROVIDER }}-provider.tar.gz
+          path: ${{ github.workspace }}/bin/provider.tar.gz
   build_sdks:
     name: build-language-sdks
     runs-on: ubuntu-latest
