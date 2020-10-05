@@ -10,6 +10,7 @@ env:
   GOOGLE_PROJECT: pulumi-development
   GOOGLE_REGION: us-central1
   GOOGLE_ZONE: us-central1-a
+  GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
   PULUMI_TEST_OWNER: moolumi
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
@@ -88,6 +89,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Unshallow clone for tags
+        run: git fetch --prune --unshallow --tags
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.goversion }}
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/action-install-pulumi-cli@releases/v1
+      - name: Build K8sgen
+        run: make k8sgen
+      - name: Prepare openapi file
+        run: make openapi_file
+      - name: Prepare Schema
+        run: make schema
+      - name: Make Kubernetes Provider
+        run: make k8sprovider
+      - name: Tar provider binaries
+        run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
+          }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-tfgen-${{ env.PROVIDER
+          }}
       - run: |
           echo building k8sgen
           echo downloading openapi file

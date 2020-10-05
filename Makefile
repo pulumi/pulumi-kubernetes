@@ -32,25 +32,26 @@ else
 	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-$(strip ${DOTNET_SUFFIX})
 endif
 
+WORKING_DIR     := $(shell pwd)
 TESTPARALLELISM := 4
 
-$(OPENAPI_FILE)::
+openapi_file::
 	@mkdir -p $(OPENAPI_DIR)
 	test -f $(OPENAPI_FILE) || $(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 k8sgen::
-	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
+	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
 
-$(SCHEMA_FILE):: k8sgen $(OPENAPI_FILE)
+schema::
 	$(call STEP_MESSAGE)
 	@echo "Generating Pulumi schema..."
-	$(CODEGEN) schema $(OPENAPI_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/${CODEGEN} schema $(OPENAPI_FILE) $(CURDIR)
 	@echo "Finished generating schema."
 
-k8sprovider:: $(SCHEMA_FILE)
-	$(CODEGEN) kinds $(SCHEMA_FILE) $(CURDIR)
+k8sprovider::
+	$(WORKING_DIR)/bin/${CODEGEN} kinds $(SCHEMA_FILE) $(CURDIR)
 	cd provider && VERSION=${VERSION} $(GO) generate cmd/${PROVIDER}/main.go
-	cd provider && $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
+	cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
 
 dotnet_sdk:: k8sgen $(OPENAPI_FILE)
 	$(CODEGEN) -version=${VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
@@ -83,7 +84,7 @@ python_sdk:: k8sgen $(SCHEMA_FILE)
 		cd ./bin && $(PYTHON) setup.py build sdist
 
 .PHONY: build
-build:: k8sgen k8sprovider dotnet_sdk go_sdk nodejs_sdk python_sdk
+build:: k8sgen openapi_file schema k8sprovider dotnet_sdk go_sdk nodejs_sdk python_sdk
 
 lint::
 	for DIR in "provider" "sdk" "tests" ; do \
@@ -126,27 +127,3 @@ test_all::
 	#cd tests/sdk/go && $(GO_TEST) ./...
 
 generate_schema:: $(SCHEMA_FILE)
-
-#.PHONY: publish_tgz
-#publish_tgz:
-#	$(call STEP_MESSAGE)
-#	./scripts/publish_tgz.sh
-#
-## While pulumi-kubernetes is not built using tfgen/tfbridge, the layout of the source tree is the same as these
-## style of repositories, so we can re-use the common publishing scripts.
-#.PHONY: publish_packages
-#publish_packages:
-#	$(call STEP_MESSAGE)
-#	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/publish-tfgen-package .
-#	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/build-package-docs.sh kubernetes
-#
-#.PHONY: check_clean_worktree
-#check_clean_worktree:
-#	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/check-worktree-is-clean.sh
-#
-## The travis_* targets are entrypoints for CI.
-#.PHONY: travis_cron travis_push travis_pull_request travis_api
-#travis_cron: all
-#travis_push: only_build check_clean_worktree publish_tgz only_test publish_packages
-#travis_pull_request: only_build check_clean_worktree only_test
-#travis_api: all
