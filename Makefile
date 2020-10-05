@@ -40,7 +40,7 @@ openapi_file::
 	test -f $(OPENAPI_FILE) || $(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 k8sgen::
-	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN)
+	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN))
 
 schema::
 	$(call STEP_MESSAGE)
@@ -50,8 +50,8 @@ schema::
 
 k8sprovider::
 	$(WORKING_DIR)/bin/${CODEGEN} kinds $(SCHEMA_FILE) $(CURDIR)
-	cd provider && VERSION=${VERSION} $(GO) generate cmd/${PROVIDER}/main.go
-	cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
+	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
+	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER))
 
 dotnet_sdk:: k8sgen $(OPENAPI_FILE)
 	$(CODEGEN) -version=${VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
