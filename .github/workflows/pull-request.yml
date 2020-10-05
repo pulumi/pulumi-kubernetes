@@ -5,12 +5,14 @@ name: pull-request
       - master
 
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GOLANGCI_LINT_VERSION: v1.31
   GOLANGCI_LINT_TIMEOUT: 10m
   GOOGLE_PROJECT: pulumi-development
   GOOGLE_REGION: us-central1
   GOOGLE_ZONE: us-central1-a
   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+  PROVIDER: kubernetes
   PULUMI_TEST_OWNER: moolumi
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
@@ -84,6 +86,11 @@ jobs:
       - name: Create test infra
         run: |
           ./scripts/ci-cluster-create.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: config
+          path: ~/.kube/config
   prerequisities:
     name: build-provider
     runs-on: ubuntu-latest
@@ -111,7 +118,7 @@ jobs:
         run: make k8sprovider
       - name: Tar provider binaries
         run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
-          }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-tfgen-${{ env.PROVIDER
+          }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-gen-${{ env.PROVIDER
           }}
       - run: |
           echo building k8sgen
@@ -211,4 +218,7 @@ jobs:
       - name: Create test infra
         run: |
           ./scripts/ci-cluster-destroy.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}"
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: config
 
