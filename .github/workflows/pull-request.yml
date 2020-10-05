@@ -74,11 +74,13 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
       - name: Install helm
         run: |
-          curl -o- -L https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+          curl -LO  https://get.helm.sh/helm-v3.2.1-linux-amd64.tar.gz
+          tar -xvf helm-v3.2.1-linux-amd64.tar.gz
+          sudo mv linux-amd64/helm /usr/local/bin
       - name: Configure helm
         run: |
-          helm init -c
-          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo update
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
@@ -281,15 +283,25 @@ jobs:
           project_id: ${{ env.GOOGLE_PROJECT }}
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-region: ${{ env.AWS_REGION }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-duration-seconds: 3600
-          role-session-name: ${{ env.PROVIDER }}@githubActions
-          role-to-assume: ${{ secrets.AWS_CI_ROLE_ARN }}
+      - name: Install Kubectl
+        run: |
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv kubectl /usr/local/bin
+      - name: Install Kubectl
+        run: |
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv kubectl /usr/local/bin
+      - name: Install helm
+        run: |
+          curl -LO  https://get.helm.sh/helm-v3.2.1-linux-amd64.tar.gz
+          tar -xvf helm-v3.2.1-linux-amd64.tar.gz
+          sudo mv linux-amd64/helm /usr/local/bin
+      - name: Configure helm
+        run: |
+          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo update
       - name: Run tests
         run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout 2h -parallel 4 ./...
     strategy:
@@ -303,7 +315,7 @@ jobs:
           - nodejs
           - python
           - dotnet
-          - go
+#          - go // Disabled temporarily
         nodeversion:
           - 13.x
         pythonversion:
@@ -353,11 +365,13 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
       - name: Install helm
         run: |
-          curl -o- -L https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+          curl -LO  https://get.helm.sh/helm-v3.2.1-linux-amd64.tar.gz
+          tar -xvf helm-v3.2.1-linux-amd64.tar.gz
+          sudo mv linux-amd64/helm /usr/local/bin
       - name: Configure helm
         run: |
-          helm init -c
-          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo update
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
