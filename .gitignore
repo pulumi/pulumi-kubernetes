@@ -10,3 +10,4 @@ Pulumi.*.yaml
 /provider/pkg/gen/openapi-specs
 /provider/cmd/pulumi-resource-kubernetes/schema.go
 yarn.lock
+ci-scripts
