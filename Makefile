@@ -43,6 +43,9 @@ k8sprovider::
 	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
 	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER))
 
+test_provider::
+	cd provider/pkg && go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM} ./...
+
 dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
 dotnet_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${DOTNET_VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)

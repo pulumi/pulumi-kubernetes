@@ -125,6 +125,8 @@ jobs:
         with:
           name: ${{ env.PROVIDER }}-provider.tar.gz
           path: ${{ github.workspace }}/bin/provider.tar.gz
+      - name: Test provider
+        run: make test_provider
   build_sdks:
     name: build-language-sdks
     runs-on: ubuntu-latest
@@ -162,7 +164,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{matrix.pythonversion}}
-      - name: Download provider + tfgen binaries
+      - name: Download provider + gen binaries
         uses: actions/download-artifact@v2
         with:
           name: ${{ env.PROVIDER }}-provider.tar.gz
@@ -206,19 +208,98 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_sdks, build-test-cluster]
     steps:
-      - uses: actions/checkout@v2
-      - run: |
-          echo downloading provider and codegen binaries
-          echo downloading ${{ matrix.language }} sdk
-          echo downloading kubeconfig for infra
-          echo running tests/sdk/${{ matrix.language }} tests
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Checkout Scripts Repo
+        uses: actions/checkout@v2
+        with:
+          path: ci-scripts
+          repository: pulumi/scripts
+      - name: Unshallow clone for tags
+        run: git fetch --prune --unshallow --tags
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.goversion }}
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/action-install-pulumi-cli@releases/v1
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{matrix.nodeversion}}
+          registry-url: https://registry.npmjs.org
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{matrix.dotnetverson}}
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{matrix.pythonversion}}
+      - name: Download provider + gen binaries
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.PROVIDER }}-provider.tar.gz
+          path: ${{ github.workspace }}/bin
+      - name: Untar provider binaries
+        run: tar -zxf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
+          }}/bin
+      - name: Restore binary perms
+        run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
+          -exec chmod +x {} \;
+      - name: Download SDK
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ matrix.language  }}-sdk.tar.gz
+          path: ${{ github.workspace}}/sdk/
+      - name: Uncompress SDK folder
+        run: tar -zxf ${{ github.workspace}}/sdk/${{ matrix.language}}.tar.gz -C ${{
+          github.workspace}}/sdk/${{ matrix.language}}
+      - name: Update path
+        run: echo ::add-path::${{ github.workspace }}/bin
+      - name: Install Python deps
+        run: |-
+          pip3 install virtualenv==20.0.23
+          pip3 install pipenv
+      - name: Install dependencies
+        run: make install_${{ matrix.language}}_sdk
+      - run: mkdir -p "$HOME/.kube/"
+      - name: Download Kueconfig
+        uses: actions/download-artifact@v2
+        with:
+          name: config
+          path: "~/.kube/"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-region: ${{ env.AWS_REGION }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-duration-seconds: 3600
+          role-session-name: ${{ env.PROVIDER }}@githubActions
+          role-to-assume: ${{ secrets.AWS_CI_ROLE_ARN }}
+      - name: Run tests
+        run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout 2h -parallel 4 .
     strategy:
+      fail-fast: true
       matrix:
+        dotnetversion:
+          - 3.1.301
+        goversion:
+          - 1.15.x
         language:
           - nodejs
           - python
           - dotnet
           - go
+        nodeversion:
+          - 13.x
+        pythonversion:
+          - "3.7"
   cleanup-infra:
     name: cleanup-test-infra
     needs: test-sdks
