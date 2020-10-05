@@ -17,6 +17,7 @@ SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
+GOPATH			:= $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
 TESTPARALLELISM := 4
@@ -84,7 +85,7 @@ lint::
 	done
 
 install:: install_nodejs_sdk install_dotnet_sdk
-	cp $(WORKING_DIR)/bin/${PROVIDER} $$GOPATH/bin
+	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin
 
 GO_TEST_FAST := go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 GO_TEST 	 := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
@@ -120,4 +121,5 @@ install_go_sdk::
 	#target intentionally blank
 
 install_nodejs_sdk::
+	-yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
