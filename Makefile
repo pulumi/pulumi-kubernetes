@@ -87,21 +87,8 @@ lint::
 		pushd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && popd ; \
 	done
 
-install::
-	cd provider && GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER)
-	[ ! -e "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" ] || rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
-	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
-	cp -r sdk/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
-	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/node_modules"
-	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/tests"
-	cd "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" && \
-		yarn install --offline --production && \
-		(yarn unlink > /dev/null 2>&1 || true) && \
-		yarn link
-	echo "Copying ${NUGET_PKG_NAME} NuGet packages to ${PULUMI_NUGET}"
-	mkdir -p $(PULUMI_NUGET)
-	rm -rf $(PULUMI_NUGET)/$(NUGET_PKG_NAME).*.nupkg
-	find . -name '$(NUGET_PKG_NAME).*.nupkg' -exec cp -p {} ${PULUMI_NUGET} \;
+install:: install_nodejs_sdk install_dotnet_sdk
+	cp $(WORKING_DIR)/bin/${PROVIDER} $$GOPATH/bin
 
 test_fast::
 # TODO: re-enable this test once https://github.com/pulumi/pulumi/issues/4954 is fixed.
@@ -123,3 +110,14 @@ test_all::
 	#cd tests/sdk/go && $(GO_TEST) ./...
 
 generate_schema:: $(SCHEMA_FILE)
+
+install_dotnet_sdk::
+	mkdir -p $(WORKING_DIR)/nuget
+	find . -name '*.nupkg' -print -exec cp -p {} ${WORKING_DIR}/nuget \;
+
+install_python_sdk::
+
+install_go_sdk::
+
+install_nodejs_sdk::
+	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
