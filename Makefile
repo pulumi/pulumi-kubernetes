@@ -9,8 +9,7 @@ NUGET_PKG_NAME   := Pulumi.Kubernetes
 
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
-VERSION         ?= $(shell scripts/get-version)
-PYPI_VERSION    := $(shell cd scripts && ./get-py-version)
+VERSION         ?= $(shell pulumictl get version)
 KUBE_VERSION    ?= v1.19.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
@@ -22,15 +21,6 @@ VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/provider/v2/
 GO              ?= go
 CURL            ?= curl
 PYTHON          ?= python3
-
-DOTNET_PREFIX  := $(firstword $(subst -, ,${VERSION:v%=%})) # e.g. 1.5.0
-DOTNET_SUFFIX  := $(word 2,$(subst -, ,${VERSION:v%=%}))    # e.g. alpha.1
-
-ifeq ($(strip ${DOTNET_SUFFIX}),)
-	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})
-else
-	DOTNET_VERSION := $(strip ${DOTNET_PREFIX})-$(strip ${DOTNET_SUFFIX})
-endif
 
 WORKING_DIR     := $(shell pwd)
 TESTPARALLELISM := 4
@@ -53,28 +43,31 @@ k8sprovider::
 	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
 	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER))
 
-dotnet_sdk:: k8sgen $(OPENAPI_FILE)
-	$(CODEGEN) -version=${VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
+dotnet_sdk:: VERSION := $(shell pulumictl get version --language dotnet)
+dotnet_sdk::
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
 	rm -rf sdk/dotnet/bin/Debug
 	cd ${PACKDIR}/dotnet/&& \
 		echo "${VERSION:v%=%}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
 
-go_sdk:: k8sgen $(SCHEMA_FILE)
-	$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
+go_sdk::
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
-nodejs_sdk:: k8sgen $(SCHEMA_FILE)
-	$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
+nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
+nodejs_sdk::
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
 	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
-python_sdk:: k8sgen $(SCHEMA_FILE)
+nodejs_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
+python_sdk::
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
-	$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
 	cd ${PACKDIR}/python/ && \
 		$(PYTHON) setup.py clean --all 2>/dev/null && \
