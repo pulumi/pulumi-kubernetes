@@ -1,5 +1,4 @@
 PROJECT_NAME := Pulumi Kubernetes Resource Provider
-include build/common.mk
 
 PACK             := kubernetes
 PACKDIR          := sdk
@@ -10,30 +9,26 @@ NUGET_PKG_NAME   := Pulumi.Kubernetes
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
 VERSION         ?= $(shell pulumictl get version)
+PROVIDER_PATH   := provider/v2
+VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
+
 KUBE_VERSION    ?= v1.19.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 
-VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version.Version=${VERSION}"
-
-GO              ?= go
-CURL            ?= curl
-PYTHON          ?= python3
-
 WORKING_DIR     := $(shell pwd)
 TESTPARALLELISM := 4
 
 openapi_file::
 	@mkdir -p $(OPENAPI_DIR)
-	test -f $(OPENAPI_FILE) || $(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
+	test -f $(OPENAPI_FILE) || curl -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 k8sgen::
-	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(CODEGEN))
+	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
 schema::
-	$(call STEP_MESSAGE)
 	@echo "Generating Pulumi schema..."
 	$(WORKING_DIR)/bin/${CODEGEN} schema $(OPENAPI_FILE) $(CURDIR)
 	@echo "Finished generating schema."
@@ -41,7 +36,7 @@ schema::
 k8sprovider::
 	$(WORKING_DIR)/bin/${CODEGEN} kinds $(SCHEMA_FILE) $(CURDIR)
 	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
-	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER))
+	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/provider/v2/cmd/$(PROVIDER))
 
 test_provider::
 	cd provider/pkg && go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM} ./...
@@ -73,11 +68,11 @@ python_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
 	cd ${PACKDIR}/python/ && \
-		$(PYTHON) setup.py clean --all 2>/dev/null && \
+		python3 setup.py clean --all 2>/dev/null && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
 		sed -i.bak -e "s/\$${VERSION}/$(PYPI_VERSION)/g" -e "s/\$${PLUGIN_VERSION}/$(VERSION)/g" ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
-		cd ./bin && $(PYTHON) setup.py build sdist
+		cd ./bin && python3 setup.py build sdist
 
 .PHONY: build
 build:: k8sgen openapi_file schema k8sprovider dotnet_sdk go_sdk nodejs_sdk python_sdk
@@ -90,6 +85,9 @@ lint::
 install:: install_nodejs_sdk install_dotnet_sdk
 	cp $(WORKING_DIR)/bin/${PROVIDER} $$GOPATH/bin
 
+GO_TEST_FAST := go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
+GO_TEST 	 := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
+
 test_fast::
 # TODO: re-enable this test once https://github.com/pulumi/pulumi/issues/4954 is fixed.
 #	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
@@ -101,7 +99,6 @@ test_fast::
 	#cd tests/sdk/go && $(GO_TEST_FAST) ./...
 
 test_all::
-	cd provider/pkg && $(GO_TEST) ./...
 	cd provider/pkg && $(GO_TEST) ./...
 	cd tests/sdk/nodejs && $(GO_TEST) ./...
 	cd tests/sdk/python && $(GO_TEST) ./...

@@ -1,8 +1,8 @@
-name: pull-request
+name: release
 "on":
-  pull_request:
-    branches:
-      - master
+  push:
+    tags:
+      - v*.*.*
 
 env:
   AWS_REGION: us-west-2
@@ -17,6 +17,12 @@ env:
   PULUMI_TEST_OWNER: moolumi
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
+  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  TRAVIS_OS_NAME: linux
 
 jobs:
   golangci:
@@ -30,6 +36,13 @@ jobs:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
           args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
           working-directory: provider/pkg
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in running ${{ matrix.language }} tests
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
   build-test-cluster:
     name: build-test-infrastructure
     strategy:
@@ -95,6 +108,13 @@ jobs:
         with:
           name: config
           path: ~/.kube/config
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in running ${{ matrix.language }} tests
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
   prerequisities:
     name: build-provider
     runs-on: ubuntu-latest
@@ -131,6 +151,13 @@ jobs:
           path: ${{ github.workspace }}/bin/provider.tar.gz
       - name: Test provider
         run: make test_provider
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in running ${{ matrix.language }} tests
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
   build_sdks:
     name: build-language-sdks
     runs-on: ubuntu-latest
@@ -191,6 +218,13 @@ jobs:
         with:
           name: ${{ matrix.language  }}-sdk.tar.gz
           path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in running ${{ matrix.language }} tests
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
     strategy:
       fail-fast: true
       matrix:
@@ -304,6 +338,13 @@ jobs:
           helm repo update
       - name: Run tests
         run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout 2h -parallel 4 ./...
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in running ${{ matrix.language }} tests
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
     strategy:
       fail-fast: false
       matrix:
@@ -385,4 +426,136 @@ jobs:
         uses: geekyeggo/delete-artifact@v1
         with:
           name: config
-
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in running ${{ matrix.language }} tests
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
+  publish:
+    name: publish
+    needs: test-sdks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Unshallow clone for tags
+        run: git fetch --prune --unshallow --tags
+      - name: Checkout Scripts Repo
+        uses: actions/checkout@v2
+        with:
+          path: ci-scripts
+          repository: pulumi/scripts
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-region: us-east-2
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-duration-seconds: 3600
+          role-external-id: upload-pulumi-release
+          role-session-name: ${{ env.PROVIDER}}@githubActions
+          role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.goversion }}
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/action-install-pulumi-cli@releases/v1
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          args: release --rm-dist
+          version: latest
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in publishing SDK
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
+  publish_sdk:
+    name: publish_sdk
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Checkout Scripts Repo
+        uses: actions/checkout@v2
+        with:
+          path: ci-scripts
+          repository: pulumi/scripts
+      - name: Unshallow clone for tags
+        run: git fetch --prune --unshallow --tags
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.goversion }}
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/action-install-pulumi-cli@releases/v1
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          always-auth: true
+          registry-url: https://registry.npmjs.org
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v1
+      - name: Setup Python
+        uses: actions/setup-python@v1
+      - name: Download Python SDK
+        uses: actions/download-artifact@v2
+        with:
+          name: python-sdk.tar.gz
+          path: ${{ github.workspace}}/sdk
+      - name: Unzip Python SDK
+        run: tar -zxf ${{ github.workspace}}/sdk/python.tar.gz -C ${{ github.workspace}}/sdk/python
+      - name: Install Twine
+        run: python -m pip install pip twine
+      - name: Download NodeJS SDK
+        uses: actions/download-artifact@v2
+        with:
+          name: nodejs-sdk.tar.gz
+          path: ${{ github.workspace}}/sdk
+      - name: Unzip NodeJS SDK
+        run: tar -zxf ${{ github.workspace}}/sdk/nodejs.tar.gz -C ${{ github.workspace}}/sdk/nodejs
+      - name: Download DotNet SDK
+        uses: actions/download-artifact@v2
+        with:
+          name: dotnet-sdk.tar.gz
+          path: ${{ github.workspace}}/sdk
+      - name: Unzip DotNet SDK
+        run: tar -zxf ${{ github.workspace}}/sdk/dotnet.tar.gz -C ${{ github.workspace}}/sdk/dotnet
+      - env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        name: Publish SDKs
+        run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
+      - if: failure() && github.event_name == 'push'
+        name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Failure in publishing SDK
+          fields: repo,commit,author,action
+          status: ${{ job.status }}
+  create_docs_build:
+    name: Create docs build
+    needs: publish_sdk
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        with:
+          repo: pulumi/pulumictl
+      - env:
+          GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
+        name: Dispatch event
+        run: pulumictl create docs-build pulumi-${{ env.PROVIDER }} ${GITHUB_REF#refs/tags/}
