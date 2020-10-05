@@ -43,12 +43,12 @@ k8sprovider::
 	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
 	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} $(VERSION_FLAGS) $(PROJECT)/provider/v2/cmd/$(PROVIDER))
 
-dotnet_sdk:: VERSION := $(shell pulumictl get version --language dotnet)
+dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
 dotnet_sdk::
-	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${DOTNET_VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
 	rm -rf sdk/dotnet/bin/Debug
 	cd ${PACKDIR}/dotnet/&& \
-		echo "${VERSION:v%=%}" >version.txt && \
+		echo "${DOTNET_VERSION}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 go_sdk::
