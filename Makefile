@@ -49,6 +49,7 @@ dotnet_sdk::
 		echo "${DOTNET_VERSION}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
 
+go_sdk:: VERSION := $(shell pulumictl get version --language go)
 go_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
@@ -61,7 +62,7 @@ nodejs_sdk::
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
 	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
-nodejs_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
+python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
 python_sdk::
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
@@ -113,8 +114,10 @@ install_dotnet_sdk::
 	find . -name '*.nupkg' -print -exec cp -p {} ${WORKING_DIR}/nuget \;
 
 install_python_sdk::
+	#target intentionally blank
 
 install_go_sdk::
+	#target intentionally blank
 
 install_nodejs_sdk::
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
