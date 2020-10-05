@@ -6,6 +6,7 @@ before:
     - make k8sgen
     - make openapi_file
     - make schema
+    - make k8sprovider
 blobs:
   - bucket: get.pulumi.com
     folder: releases/plugins/
