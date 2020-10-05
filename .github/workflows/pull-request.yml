@@ -315,7 +315,7 @@ jobs:
           - nodejs
           - python
           - dotnet
-#          - go // Disabled temporarily
+          - go
         nodeversion:
           - 13.x
         pythonversion:
