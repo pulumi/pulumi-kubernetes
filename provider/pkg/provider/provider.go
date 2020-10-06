@@ -1033,15 +1033,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	var failures []*pulumirpc.CheckFailure
 
-	// If annotations with a reserved internal prefix exist, ignore them by removing the key from the input.
+	// If annotations with a reserved internal prefix exist, ignore them.
 	for key := range newInputs.GetAnnotations() {
 		if metadata.IsInternalAnnotation(key) {
 			_ = k.host.Log(ctx, diag.Warning, urn,
 				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
-			metadataRaw := newInputs.Object["metadata"]
-			if metadataMap, ok := metadataRaw.(map[string]interface{}); ok {
-				delete(metadataMap, key)
-			}
 		}
 	}
 
