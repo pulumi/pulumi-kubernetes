@@ -8,11 +8,15 @@ import shutil
 import subprocess
 from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, Optional, Sequence, TextIO, Tuple, Union
+import warnings
 
 import pulumi.runtime
 from pulumi_kubernetes.yaml import _parse_yaml_document
 
 from ... import _utilities
+
+warnings.warn("helm.v2.Chart has been deprecated in favor of helm.v3.Chart and will be removed in a future release.",
+              DeprecationWarning)
 
 
 class Chart(pulumi.ComponentResource):
@@ -153,6 +157,9 @@ class Chart(pulumi.ComponentResource):
         :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
                resource's behavior.
         """
+        warnings.warn(
+            "helm.v2.Chart has been deprecated in favor of helm.v3.Chart and will be removed in a future release.",
+            DeprecationWarning)
         if not release_name:
             raise TypeError('Missing release name argument')
         if not isinstance(release_name, str):
