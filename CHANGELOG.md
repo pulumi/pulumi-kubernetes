@@ -3,6 +3,7 @@
 ### Bug Fixes
 
 -   Set plugin version for Go SDK invoke calls (https://github.com/pulumi/pulumi-kubernetes/pull/1325)
+-   Python: Fix generated examples and docs to prefer input/output classes (https://github.com/pulumi/pulumi-kubernetes/pull/1346)
 
 ### Improvements
 

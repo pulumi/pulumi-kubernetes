@@ -257,12 +257,13 @@ Use the navigation below to see detailed documentation for each of the supported
 	})
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
-			"pulumi":   ">=2.0.0,<3.0.0",
+			"pulumi":   ">=2.11.2,<3.0.0",
 			"requests": ">=2.21,<3.0",
 			"pyyaml":   ">=5.3.1,<5.4",
 		},
 		"moduleNameOverrides": modToPkg,
 		"compatibility":       kubernetes20,
+		"usesIOClasses":       true,
 		"readme": `The Kubernetes provider package offers support for all Kubernetes resources and their properties.
 Resources are exposed as types from modules based on Kubernetes API groups such as 'apps', 'core',
 'rbac', and 'storage', among many others. Additionally, support for deploying Helm charts ('helm')
