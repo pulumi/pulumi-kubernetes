@@ -50,7 +50,6 @@ dotnet_sdk::
 		echo "${DOTNET_VERSION}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
 
-go_sdk:: VERSION := $(shell pulumictl get version --language go)
 go_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
