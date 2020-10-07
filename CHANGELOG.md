@@ -2,6 +2,14 @@
 
 ## 2.6.2 (October 7, 2020)
 
+## Important Note
+
+Helm v2 support is [EOL](https://helm.sh/blog/helm-v2-deprecation-timeline/), and will no longer be supported upstream
+as of next month. Furthermore, the stable/incubator chart repos will likely
+[stop working](https://github.com/helm/charts#deprecation-timeline) after November 13, 2020. Deprecation warnings have
+been added for any usage of Pulumi's `helm.v2` API, and this API will be removed at a future date. Our `helm.v3` API is
+backward compatible, so you should be able to update without disruption to existing resources.
+
 ### Bug Fixes
 
 -   Set plugin version for Go SDK invoke calls (https://github.com/pulumi/pulumi-kubernetes/pull/1325)
