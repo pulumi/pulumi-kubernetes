@@ -110,7 +110,7 @@ test_all::
 # TODO: re-enable Go SDK tests once CI OOM errors are fixed.
 	#cd tests/sdk/go && $(GO_TEST) ./...
 
-generate_schema:: $(SCHEMA_FILE)
+generate_schema:: schema
 
 install_dotnet_sdk::
 	mkdir -p $(WORKING_DIR)/nuget
