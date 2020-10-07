@@ -29,8 +29,7 @@ jobs:
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
           issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
           body: |
-            Please view the PR build [Here][1]
-            [1]: ${{ steps.vars.outputs.run-url }}
+            Please view the PR build - ${{ steps.vars.outputs.run-url }}
   build-test-cluster:
     name: build-test-infrastructure
     strategy:
