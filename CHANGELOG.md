@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+## 2.6.3 (October 12, 2020)
+
+-   Revert Helm v2 deprecation warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1352)
+
 ## 2.6.2 (October 7, 2020)
 
 ## Important Note

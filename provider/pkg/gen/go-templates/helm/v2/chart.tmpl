@@ -218,8 +218,6 @@ import (
 //     })
 // }
 // ```
-//
-// Deprecated: helm/v2/Chart has been deprecated in favor of helm/v3/Chart and will be removed in a future release.
 type Chart struct {
 	pulumi.ResourceState
 
