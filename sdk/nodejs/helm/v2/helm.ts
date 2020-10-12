@@ -130,8 +130,6 @@ import * as yaml from "../../yaml/index";
  *   ],
  * });
  * ```
- *
- * @deprecated helm.v2.Chart has been deprecated in favor of helm.v3.Chart
  */
 export class Chart extends yaml.CollectionComponentResource {
     /**
@@ -145,7 +143,6 @@ export class Chart extends yaml.CollectionComponentResource {
         config: ChartOpts | LocalChartOpts,
         opts?: pulumi.ComponentResourceOptions
     ) {
-        pulumi.log.warn("Chart is deprecated: helm.v2.Chart is deprecated in favor of helm.v3.Chart and will be removed in a future release.")
         if (config.resourcePrefix !== undefined) {
             releaseName = `${config.resourcePrefix}-${releaseName}`
         }
