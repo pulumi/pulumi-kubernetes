@@ -24,6 +24,7 @@ backward compatible, so you should be able to update without disruption to exist
 -   Update Helm v3 mod to v3.3.2 (https://github.com/pulumi/pulumi-kubernetes/pull/1326)
 -   Update Helm v3 mod to v3.3.3 (https://github.com/pulumi/pulumi-kubernetes/pull/1328)
 -   Change error to warning if internal autoname annotation is set (https://github.com/pulumi/pulumi-kubernetes/pull/1337)
+-   Deprecate Helm v2 SDKs (https://github.com/pulumi/pulumi-kubernetes/pull/1344)
 
 ## 2.6.1 (September 16, 2020)
 
