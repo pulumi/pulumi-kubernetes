@@ -529,7 +529,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	return &pulumirpc.ConfigureResponse{
-		AcceptSecrets: true,
+		AcceptSecrets:   true,
+		SupportsPreview: true,
 	}, nil
 }
 
@@ -1256,27 +1257,18 @@ func (k *kubeProvider) Diff(
 		oldInputs.SetGroupVersionKind(gvk)
 	}
 
-	supportsDryRun := false
-	if !k.clusterUnreachable {
-		supportsDryRun = openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, k.clientSet.GenericClient, gvk)
-	}
-
 	var patch []byte
 	var isClientSidePatch bool
 	var patchBase *unstructured.Unstructured
 
 	// Try to compute a server-side patch. Returns true iff the operation succeeded.
 	tryServerSidePatch := func() bool {
-		// If the configuration says to use client-side patch instead.
-		if !k.enableDryRun {
-			return false
-		}
-		// If the cluster does not support the server-side diff feature.
-		if !supportsDryRun {
-			return false
-		}
 		// If the resource's GVK changed, so compute patch using inputs.
 		if oldInputs.GroupVersionKind().String() != gvk.String() {
+			return false
+		}
+		// If we can't dry-run the new GVK, computed the patch using inputs.
+		if !k.supportsDryRun(gvk) {
 			return false
 		}
 		// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
@@ -1287,14 +1279,10 @@ func (k *kubeProvider) Diff(
 		}
 
 		patch, patchBase, err = k.serverSidePatch(oldInputs, newInputs)
+		if k.isDryRunDisabledError(err) {
+			return false
+		}
 		if se, isStatusError := err.(*errors.StatusError); isStatusError {
-			// If the cluster doesn't support server-side diff.
-			if se.Status().Code == http.StatusBadRequest &&
-				(se.Status().Message == "the dryRun alpha feature is disabled" ||
-					se.Status().Message == "the dryRun beta feature is disabled" ||
-					strings.Contains(se.Status().Message, "does not support dry run")) {
-				return false
-			}
 			// If the resource field is immutable.
 			if se.Status().Code == http.StatusUnprocessableEntity ||
 				strings.Contains(se.ErrStatus.Message, "field is immutable") {
@@ -1412,7 +1400,7 @@ func (k *kubeProvider) Create(
 
 	// Except in the case of yamlRender mode, Create requires a connection to a k8s cluster, so bail out
 	// immediately if it is unreachable.
-	if k.clusterUnreachable && !k.yamlRenderMode {
+	if !req.GetPreview() && k.clusterUnreachable && !k.yamlRenderMode {
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
 
@@ -1436,6 +1424,18 @@ func (k *kubeProvider) Create(
 			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
 				"`.metadata.annotations`",
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
+	}
+
+	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
+	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
+	// dry run, return the inputs as-is.
+	if req.GetPreview() &&
+		(hasComputedValue(annotatedInputs) || !k.supportsDryRun(annotatedInputs.GroupVersionKind())) {
+
+		logger.V(9).Infof("cannot preview Create(%v)", urn)
+		return &pulumirpc.CreateResponse{
+			Id: fqObjName(annotatedInputs), Properties: req.GetProperties(),
+		}, nil
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
@@ -1487,9 +1487,17 @@ func (k *kubeProvider) Create(
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
+		DryRun:  req.GetPreview(),
 	}
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
+		if req.GetPreview() && k.isDryRunDisabledError(err) {
+			logger.V(9).Infof("could not preview Create(%v): %v", urn, err)
+			return &pulumirpc.CreateResponse{
+				Id: fqObjName(annotatedInputs), Properties: req.GetProperties(),
+			}, nil
+		}
+
 		if meta.IsNoMatchError(awaitErr) {
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
@@ -1783,7 +1791,7 @@ func (k *kubeProvider) Update(
 
 	// Except in the case of yamlRender mode, Update requires a connection to a k8s cluster, so bail out
 	// immediately if it is unreachable.
-	if k.clusterUnreachable && !k.yamlRenderMode {
+	if !req.GetPreview() && k.clusterUnreachable && !k.yamlRenderMode {
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
 
@@ -1816,6 +1824,16 @@ func (k *kubeProvider) Update(
 			err, "Failed to update resource %s/%s because of an error generating the %s value in "+
 				"`.metadata.annotations`",
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
+	}
+
+	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
+	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
+	// dry run, return the inputs as-is.
+	if req.GetPreview() &&
+		(hasComputedValue(annotatedInputs) || !k.supportsDryRun(annotatedInputs.GroupVersionKind())) {
+
+		logger.V(9).Infof("cannot preview Update(%v)", urn)
+		return &pulumirpc.UpdateResponse{Properties: req.News}, nil
 	}
 
 	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
@@ -1869,10 +1887,16 @@ func (k *kubeProvider) Update(
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
 		Timeout:  req.Timeout,
+		DryRun:   req.GetPreview(),
 	}
 	// Apply update.
 	initialized, awaitErr := await.Update(config)
 	if awaitErr != nil {
+		if req.GetPreview() && k.isDryRunDisabledError(err) {
+			logger.V(9).Infof("could not preview Update(%v): %v", urn, err)
+			return &pulumirpc.UpdateResponse{Properties: req.News}, nil
+		}
+
 		if meta.IsNoMatchError(awaitErr) {
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
@@ -2158,6 +2182,32 @@ func (k *kubeProvider) inputPatch(
 	}
 
 	return jsonpatch.CreateMergePatch(oldInputsJSON, newInputsJSON)
+}
+
+func (k *kubeProvider) supportsDryRun(gvk schema.GroupVersionKind) bool {
+	// Check to see if the configuration has explicitly disabled server-side dry run.
+	if !k.enableDryRun {
+		logger.V(9).Infof("dry run is disabled")
+		return false
+	}
+	// Ensure that the cluster is reachable and supports the server-side diff feature.
+	if k.clusterUnreachable || !openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, k.clientSet.GenericClient, gvk) {
+		logger.V(9).Infof("server cannot dry run %v", gvk)
+		return false
+	}
+	return true
+}
+
+func (k *kubeProvider) isDryRunDisabledError(err error) bool {
+	se, isStatusError := err.(*errors.StatusError)
+	if !isStatusError {
+		return false
+	}
+
+	return se.Status().Code == http.StatusBadRequest &&
+		(se.Status().Message == "the dryRun alpha feature is disabled" ||
+			se.Status().Message == "the dryRun beta feature is disabled" ||
+			strings.Contains(se.Status().Message, "does not support dry run"))
 }
 
 func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {

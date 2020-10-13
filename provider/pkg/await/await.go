@@ -66,6 +66,7 @@ type CreateConfig struct {
 	ProviderConfig
 	Inputs  *unstructured.Unstructured
 	Timeout float64
+	DryRun  bool
 }
 
 type ReadConfig struct {
@@ -79,6 +80,7 @@ type UpdateConfig struct {
 	Previous *unstructured.Unstructured
 	Inputs   *unstructured.Unstructured
 	Timeout  float64
+	DryRun   bool
 }
 
 type DeleteConfig struct {
@@ -130,6 +132,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// nolint
 	// https://github.com/kubernetes/kubernetes/blob/54889d581a35acf940d52a8a384cccaa0b597ddc/pkg/kubectl/cmd/apply/apply.go#L94
 
+	var options metav1.CreateOptions
+	if c.DryRun {
+		options.DryRun = []string{metav1.DryRunAll}
+	}
+
 	var outputs *unstructured.Unstructured
 	var client dynamic.ResourceInterface
 	err := retry.SleepingRetry(
@@ -148,7 +155,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			outputs, err = client.Create(context.TODO(), c.Inputs, metav1.CreateOptions{})
+			outputs, err = client.Create(context.TODO(), c.Inputs, options)
 			if err != nil {
 				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
 					"Retry #%d; creation failed: %v", i, err))
@@ -166,6 +173,10 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
+
+	if c.DryRun {
+		return outputs, nil
+	}
 
 	// Wait until create resolves as success or error. Note that the conditional is set up to log
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
@@ -335,12 +346,20 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
+	var options metav1.PatchOptions
+	if c.DryRun {
+		options.DryRun = []string{metav1.DryRunAll}
+	}
+
 	// Issue patch request.
 	// NOTE: We can use the same client because if the `kind` changes, this will cause
 	// a replace (i.e., destroy and create).
-	currentOutputs, err := client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, metav1.PatchOptions{})
+	currentOutputs, err := client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, options)
 	if err != nil {
 		return nil, err
+	}
+	if c.DryRun {
+		return currentOutputs, nil
 	}
 
 	// Wait until patch resolves as success or error. Note that the conditional is set up to log only
