@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
         public Input<Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1.OverheadArgs>? Overhead { get; set; }
 
         /// <summary>
-        /// RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
+        /// RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
         /// </summary>
         [Input("runtimeHandler", required: true)]
         public Input<string> RuntimeHandler { get; set; } = null!;

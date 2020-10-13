@@ -36,7 +36,7 @@ export class Event extends pulumi.CustomResource {
     }
 
     /**
-     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      */
     public readonly action!: pulumi.Output<string>;
     /**
@@ -73,7 +73,7 @@ export class Event extends pulumi.CustomResource {
      */
     public readonly note!: pulumi.Output<string>;
     /**
-     * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      */
     public readonly reason!: pulumi.Output<string>;
     /**
@@ -97,7 +97,7 @@ export class Event extends pulumi.CustomResource {
      */
     public readonly series!: pulumi.Output<outputs.events.v1.EventSeries>;
     /**
-     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
      */
     public readonly type!: pulumi.Output<string>;
 
@@ -113,6 +113,9 @@ export class Event extends pulumi.CustomResource {
         if (!(opts && opts.id)) {
             if ((!args || args.eventTime === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'eventTime'");
+            }
+            if (!args || args.metadata === undefined) {
+                throw new Error("Missing required property 'metadata'");
             }
             inputs["action"] = args ? args.action : undefined;
             inputs["apiVersion"] = "events.k8s.io/v1";
@@ -168,7 +171,7 @@ export class Event extends pulumi.CustomResource {
  */
 export interface EventArgs {
     /**
-     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      */
     readonly action?: pulumi.Input<string>;
     /**
@@ -199,13 +202,13 @@ export interface EventArgs {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     readonly kind?: pulumi.Input<"Event">;
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    readonly metadata: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
      * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      */
     readonly note?: pulumi.Input<string>;
     /**
-     * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      */
     readonly reason?: pulumi.Input<string>;
     /**
@@ -229,7 +232,7 @@ export interface EventArgs {
      */
     readonly series?: pulumi.Input<inputs.events.v1.EventSeries>;
     /**
-     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
      */
     readonly type?: pulumi.Input<string>;
 }

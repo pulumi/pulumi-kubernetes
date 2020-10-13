@@ -114,6 +114,9 @@ export class Event extends pulumi.CustomResource {
             if ((!args || args.eventTime === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'eventTime'");
             }
+            if (!args || args.metadata === undefined) {
+                throw new Error("Missing required property 'metadata'");
+            }
             inputs["action"] = args ? args.action : undefined;
             inputs["apiVersion"] = "events.k8s.io/v1beta1";
             inputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
@@ -199,7 +202,7 @@ export interface EventArgs {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     readonly kind?: pulumi.Input<"Event">;
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    readonly metadata: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
      * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      */

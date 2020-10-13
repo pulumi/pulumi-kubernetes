@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1.ResourceMetricSourceArgs>? Resource { get; set; }
 
         /// <summary>
-        /// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+        /// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

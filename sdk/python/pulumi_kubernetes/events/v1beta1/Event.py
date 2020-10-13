@@ -88,6 +88,8 @@ class Event(pulumi.CustomResource):
                 raise TypeError("Missing required property 'event_time'")
             __props__['event_time'] = event_time
             __props__['kind'] = 'Event'
+            if metadata is None:
+                raise TypeError("Missing required property 'metadata'")
             __props__['metadata'] = metadata
             __props__['note'] = note
             __props__['reason'] = reason
@@ -189,7 +191,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         return pulumi.get(self, "metadata")
 
     @property

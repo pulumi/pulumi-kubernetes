@@ -14,7 +14,7 @@ import (
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 type EventType struct {
-	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action *string `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -29,11 +29,11 @@ type EventType struct {
 	// eventTime is the time when this Event was first observed. It is required.
 	EventTime string `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     *string           `pulumi:"kind"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note *string `pulumi:"note"`
-	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Reason *string `pulumi:"reason"`
 	// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 	Regarding *corev1.ObjectReference `pulumi:"regarding"`
@@ -45,7 +45,7 @@ type EventType struct {
 	ReportingInstance *string `pulumi:"reportingInstance"`
 	// series is data about the Event series this event represents or nil if it's a singleton Event.
 	Series *EventSeries `pulumi:"series"`
-	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 	Type *string `pulumi:"type"`
 }
 
@@ -62,7 +62,7 @@ type EventTypeInput interface {
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 type EventTypeArgs struct {
-	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action pulumi.StringPtrInput `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -77,11 +77,11 @@ type EventTypeArgs struct {
 	// eventTime is the time when this Event was first observed. It is required.
 	EventTime pulumi.StringInput `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrInput  `pulumi:"kind"`
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrInput `pulumi:"note"`
-	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 	Regarding corev1.ObjectReferencePtrInput `pulumi:"regarding"`
@@ -93,7 +93,7 @@ type EventTypeArgs struct {
 	ReportingInstance pulumi.StringPtrInput `pulumi:"reportingInstance"`
 	// series is data about the Event series this event represents or nil if it's a singleton Event.
 	Series EventSeriesPtrInput `pulumi:"series"`
-	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -149,7 +149,7 @@ func (o EventTypeOutput) ToEventTypeOutputWithContext(ctx context.Context) Event
 	return o
 }
 
-// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 func (o EventTypeOutput) Action() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EventType) *string { return v.Action }).(pulumi.StringPtrOutput)
 }
@@ -189,8 +189,8 @@ func (o EventTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EventType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o EventTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v EventType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o EventTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v EventType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
@@ -198,7 +198,7 @@ func (o EventTypeOutput) Note() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EventType) *string { return v.Note }).(pulumi.StringPtrOutput)
 }
 
-// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 func (o EventTypeOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EventType) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
@@ -228,7 +228,7 @@ func (o EventTypeOutput) Series() EventSeriesPtrOutput {
 	return o.ApplyT(func(v EventType) *EventSeries { return v.Series }).(EventSeriesPtrOutput)
 }
 
-// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 func (o EventTypeOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EventType) *string { return v.Type }).(pulumi.StringPtrOutput)
 }

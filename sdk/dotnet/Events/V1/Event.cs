@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Events.V1
     public partial class Event : KubernetesResource
     {
         /// <summary>
-        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         /// </summary>
         [Output("action")]
         public Output<string> Action { get; private set; } = null!;
@@ -72,7 +72,7 @@ namespace Pulumi.Kubernetes.Events.V1
         public Output<string> Note { get; private set; } = null!;
 
         /// <summary>
-        /// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        /// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         /// </summary>
         [Output("reason")]
         public Output<string> Reason { get; private set; } = null!;
@@ -108,7 +108,7 @@ namespace Pulumi.Kubernetes.Events.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Events.V1.EventSeries> Series { get; private set; } = null!;
 
         /// <summary>
-        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -179,7 +179,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1
     public class EventArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         /// </summary>
         [Input("action")]
         public Input<string>? Action { get; set; }
@@ -226,8 +226,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
@@ -236,7 +236,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1
         public Input<string>? Note { get; set; }
 
         /// <summary>
-        /// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        /// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         /// </summary>
         [Input("reason")]
         public Input<string>? Reason { get; set; }
@@ -272,7 +272,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Events.V1.EventSeriesArgs>? Series { get; set; }
 
         /// <summary>
-        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }

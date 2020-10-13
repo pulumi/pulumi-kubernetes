@@ -499,7 +499,7 @@ class MetricSpec(dict):
                  resource: Optional['outputs.ResourceMetricSource'] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
-        :param str type: type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+        :param str type: type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
         :param 'ExternalMetricSourceArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricSourceArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
         :param 'PodsMetricSourceArgs' pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
@@ -519,7 +519,7 @@ class MetricSpec(dict):
     @pulumi.getter
     def type(self) -> str:
         """
-        type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+        type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
         """
         return pulumi.get(self, "type")
 

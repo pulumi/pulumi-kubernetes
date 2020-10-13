@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<int>? Active { get; set; }
 
         /// <summary>
-        /// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+        /// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
         /// </summary>
         [Input("completionTime")]
         public Input<string>? CompletionTime { get; set; }
@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Batch.V1.JobConditionArgs>? _conditions;
 
         /// <summary>
-        /// The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        /// The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Batch.V1.JobConditionArgs> Conditions
         {

@@ -369,8 +369,8 @@ class JobStatusArgs:
         """
         JobStatus represents the current state of a Job.
         :param pulumi.Input[int] active: The number of actively running pods.
-        :param pulumi.Input[str] completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
-        :param pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]] conditions: The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param pulumi.Input[str] completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+        :param pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]] conditions: The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[int] failed: The number of pods which reached phase Failed.
         :param pulumi.Input[str] start_time: Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
         :param pulumi.Input[int] succeeded: The number of pods which reached phase Succeeded.
@@ -404,7 +404,7 @@ class JobStatusArgs:
     @pulumi.getter(name="completionTime")
     def completion_time(self) -> Optional[pulumi.Input[str]]:
         """
-        Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+        Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
         """
         return pulumi.get(self, "completion_time")
 
@@ -416,7 +416,7 @@ class JobStatusArgs:
     @pulumi.getter
     def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]]]:
         """
-        The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """
         return pulumi.get(self, "conditions")
 

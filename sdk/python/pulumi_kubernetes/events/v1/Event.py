@@ -44,7 +44,7 @@ class Event(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[int] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input[str] deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
@@ -53,13 +53,13 @@ class Event(pulumi.CustomResource):
         :param pulumi.Input[str] event_time: eventTime is the time when this Event was first observed. It is required.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-        :param pulumi.Input[str] reason: reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        :param pulumi.Input[str] reason: reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']] regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']] related: related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         :param pulumi.Input[str] reporting_controller: reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
         :param pulumi.Input[str] reporting_instance: reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
         :param pulumi.Input[pulumi.InputType['EventSeriesArgs']] series: series is data about the Event series this event represents or nil if it's a singleton Event.
-        :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -88,6 +88,8 @@ class Event(pulumi.CustomResource):
                 raise TypeError("Missing required property 'event_time'")
             __props__['event_time'] = event_time
             __props__['kind'] = 'Event'
+            if metadata is None:
+                raise TypeError("Missing required property 'metadata'")
             __props__['metadata'] = metadata
             __props__['note'] = note
             __props__['reason'] = reason
@@ -127,7 +129,7 @@ class Event(pulumi.CustomResource):
     @pulumi.getter
     def action(self) -> pulumi.Output[Optional[str]]:
         """
-        action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         """
         return pulumi.get(self, "action")
 
@@ -189,7 +191,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         return pulumi.get(self, "metadata")
 
     @property
@@ -204,7 +206,7 @@ class Event(pulumi.CustomResource):
     @pulumi.getter
     def reason(self) -> pulumi.Output[Optional[str]]:
         """
-        reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         """
         return pulumi.get(self, "reason")
 
@@ -252,7 +254,7 @@ class Event(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[Optional[str]]:
         """
-        type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         """
         return pulumi.get(self, "type")
 

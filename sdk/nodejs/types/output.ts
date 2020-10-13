@@ -4336,7 +4336,7 @@ export namespace autoscaling {
              */
             resource: outputs.autoscaling.v2beta1.ResourceMetricSource;
             /**
-             * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+             * type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
              */
             type: string;
         }
@@ -4735,7 +4735,7 @@ export namespace autoscaling {
              */
             resource: outputs.autoscaling.v2beta2.ResourceMetricSource;
             /**
-             * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+             * type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
              */
             type: string;
         }
@@ -5014,11 +5014,11 @@ export namespace batch {
              */
             active: number;
             /**
-             * Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+             * Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
              */
             completionTime: string;
             /**
-             * The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+             * The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
              */
             conditions: outputs.batch.v1.JobCondition[];
             /**
@@ -6137,7 +6137,7 @@ export namespace core {
              */
             securityContext: outputs.core.v1.SecurityContext;
             /**
-             * StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+             * StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
              */
             startupProbe: outputs.core.v1.Probe;
             /**
@@ -9380,7 +9380,7 @@ export namespace core {
              */
             externalIPs: string[];
             /**
-             * externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+             * externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
              */
             externalName: string;
             /**
@@ -9934,7 +9934,7 @@ export namespace discovery {
              */
             conditions: outputs.discovery.v1beta1.EndpointConditions;
             /**
-             * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+             * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
              */
             hostname: string;
             /**
@@ -10025,7 +10025,7 @@ export namespace events {
          */
         export interface Event {
             /**
-             * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+             * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
              */
             action: string;
             /**
@@ -10062,7 +10062,7 @@ export namespace events {
              */
             note: string;
             /**
-             * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+             * reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
              */
             reason: string;
             /**
@@ -10086,7 +10086,7 @@ export namespace events {
              */
             series: outputs.events.v1.EventSeries;
             /**
-             * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+             * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
              */
             type: string;
         }
@@ -12402,7 +12402,7 @@ export namespace node {
              */
             overhead: outputs.node.v1alpha1.Overhead;
             /**
-             * RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
+             * RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
              */
             runtimeHandler: string;
             /**
@@ -12446,7 +12446,7 @@ export namespace node {
              */
             apiVersion: "node.k8s.io/v1beta1";
             /**
-             * Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.
+             * Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
              */
             handler: string;
             /**

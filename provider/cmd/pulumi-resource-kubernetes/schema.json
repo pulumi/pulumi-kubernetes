@@ -8367,7 +8367,7 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object."
+                    "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\", \"Resource\" or \"External\", each mapping to a matching field in the object."
                 }
             },
             "type": "object",
@@ -9063,7 +9063,7 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object."
+                    "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\", \"Resource\" or \"External\", each mapping to a matching field in the object."
                 }
             },
             "type": "object",
@@ -9539,14 +9539,14 @@
                 },
                 "completionTime": {
                     "type": "string",
-                    "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC."
+                    "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully."
                 },
                 "conditions": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/kubernetes:batch/v1:JobCondition"
                     },
-                    "description": "The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/"
+                    "description": "The latest available observations of an object's current state. When a job fails, one of the conditions will have type == \"Failed\". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/"
                 },
                 "failed": {
                     "type": "integer",
@@ -11556,7 +11556,7 @@
                 },
                 "startupProbe": {
                     "$ref": "#/types/kubernetes:core/v1:Probe",
-                    "description": "StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes"
+                    "description": "StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes"
                 },
                 "stdin": {
                     "type": "boolean",
@@ -17218,7 +17218,7 @@
                 },
                 "externalName": {
                     "type": "string",
-                    "description": "externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName."
+                    "description": "externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName."
                 },
                 "externalTrafficPolicy": {
                     "type": "string",
@@ -18050,7 +18050,7 @@
                 },
                 "hostname": {
                     "type": "string",
-                    "description": "hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation."
+                    "description": "hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation."
                 },
                 "targetRef": {
                     "$ref": "#/types/kubernetes:core/v1:ObjectReference",
@@ -18228,7 +18228,7 @@
             "properties": {
                 "action": {
                     "type": "string",
-                    "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters."
+                    "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters."
                 },
                 "apiVersion": {
                     "type": "string",
@@ -18269,7 +18269,7 @@
                 },
                 "reason": {
                     "type": "string",
-                    "description": "reason is why the action was taken. It is human-readable. This field can have at most 128 characters."
+                    "description": "reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters."
                 },
                 "regarding": {
                     "$ref": "#/types/kubernetes:core/v1:ObjectReference",
@@ -18293,12 +18293,13 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable."
+                    "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events."
                 }
             },
             "type": "object",
             "required": [
-                "eventTime"
+                "eventTime",
+                "metadata"
             ],
             "language": {
                 "nodejs": {
@@ -18465,7 +18466,8 @@
             },
             "type": "object",
             "required": [
-                "eventTime"
+                "eventTime",
+                "metadata"
             ],
             "language": {
                 "nodejs": {
@@ -23154,7 +23156,7 @@
                 },
                 "runtimeHandler": {
                     "type": "string",
-                    "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable."
+                    "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "scheduling": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1alpha1:Scheduling",
@@ -23233,7 +23235,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -33476,7 +33478,7 @@
             "properties": {
                 "action": {
                     "type": "string",
-                    "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters."
+                    "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters."
                 },
                 "apiVersion": {
                     "type": "string",
@@ -33517,7 +33519,7 @@
                 },
                 "reason": {
                     "type": "string",
-                    "description": "reason is why the action was taken. It is human-readable. This field can have at most 128 characters."
+                    "description": "reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters."
                 },
                 "regarding": {
                     "$ref": "#/types/kubernetes:core/v1:ObjectReference",
@@ -33541,17 +33543,18 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable."
+                    "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events."
                 }
             },
             "type": "object",
             "required": [
-                "eventTime"
+                "eventTime",
+                "metadata"
             ],
             "inputProperties": {
                 "action": {
                     "type": "string",
-                    "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters."
+                    "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters."
                 },
                 "apiVersion": {
                     "type": "string",
@@ -33592,7 +33595,7 @@
                 },
                 "reason": {
                     "type": "string",
-                    "description": "reason is why the action was taken. It is human-readable. This field can have at most 128 characters."
+                    "description": "reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters."
                 },
                 "regarding": {
                     "$ref": "#/types/kubernetes:core/v1:ObjectReference",
@@ -33616,11 +33619,12 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable."
+                    "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events."
                 }
             },
             "requiredInputs": [
-                "eventTime"
+                "eventTime",
+                "metadata"
             ],
             "aliases": [
                 {
@@ -33762,7 +33766,8 @@
             },
             "type": "object",
             "required": [
-                "eventTime"
+                "eventTime",
+                "metadata"
             ],
             "inputProperties": {
                 "action": {
@@ -33836,7 +33841,8 @@
                 }
             },
             "requiredInputs": [
-                "eventTime"
+                "eventTime",
+                "metadata"
             ],
             "aliases": [
                 {
@@ -35513,7 +35519,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -35545,7 +35551,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",

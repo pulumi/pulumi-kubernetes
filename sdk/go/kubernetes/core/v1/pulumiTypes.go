@@ -4293,7 +4293,7 @@ type Container struct {
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext *SecurityContext `pulumi:"securityContext"`
-	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe *Probe `pulumi:"startupProbe"`
 	// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
 	Stdin *bool `pulumi:"stdin"`
@@ -4352,7 +4352,7 @@ type ContainerArgs struct {
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext SecurityContextPtrInput `pulumi:"securityContext"`
-	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe ProbePtrInput `pulumi:"startupProbe"`
 	// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
 	Stdin pulumi.BoolPtrInput `pulumi:"stdin"`
@@ -4489,7 +4489,7 @@ func (o ContainerOutput) SecurityContext() SecurityContextPtrOutput {
 	return o.ApplyT(func(v Container) *SecurityContext { return v.SecurityContext }).(SecurityContextPtrOutput)
 }
 
-// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 func (o ContainerOutput) StartupProbe() ProbePtrOutput {
 	return o.ApplyT(func(v Container) *Probe { return v.StartupProbe }).(ProbePtrOutput)
 }
@@ -28631,7 +28631,7 @@ type ServiceSpec struct {
 	ClusterIP *string `pulumi:"clusterIP"`
 	// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 	ExternalIPs []string `pulumi:"externalIPs"`
-	// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+	// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
 	ExternalName *string `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
 	ExternalTrafficPolicy *string `pulumi:"externalTrafficPolicy"`
@@ -28676,7 +28676,7 @@ type ServiceSpecArgs struct {
 	ClusterIP pulumi.StringPtrInput `pulumi:"clusterIP"`
 	// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 	ExternalIPs pulumi.StringArrayInput `pulumi:"externalIPs"`
-	// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+	// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
 	ExternalName pulumi.StringPtrInput `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
 	ExternalTrafficPolicy pulumi.StringPtrInput `pulumi:"externalTrafficPolicy"`
@@ -28792,7 +28792,7 @@ func (o ServiceSpecOutput) ExternalIPs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.ExternalIPs }).(pulumi.StringArrayOutput)
 }
 
-// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
 func (o ServiceSpecOutput) ExternalName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.ExternalName }).(pulumi.StringPtrOutput)
 }
@@ -28895,7 +28895,7 @@ func (o ServiceSpecPtrOutput) ExternalIPs() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
 func (o ServiceSpecPtrOutput) ExternalName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {

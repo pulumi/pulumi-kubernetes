@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1.EndpointConditions Conditions;
         /// <summary>
-        /// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+        /// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
         /// </summary>
         public readonly string Hostname;
         /// <summary>

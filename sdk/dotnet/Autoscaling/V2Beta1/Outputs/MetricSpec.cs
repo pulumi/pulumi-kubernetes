@@ -30,7 +30,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta1.ResourceMetricSource Resource;
         /// <summary>
-        /// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+        /// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
         /// </summary>
         public readonly string Type;
 

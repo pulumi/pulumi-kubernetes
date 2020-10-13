@@ -18,7 +18,7 @@ type Endpoint struct {
 	Addresses []string `pulumi:"addresses"`
 	// conditions contains information about the current status of the endpoint.
 	Conditions *EndpointConditions `pulumi:"conditions"`
-	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname *string `pulumi:"hostname"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef *corev1.ObjectReference `pulumi:"targetRef"`
@@ -49,7 +49,7 @@ type EndpointArgs struct {
 	Addresses pulumi.StringArrayInput `pulumi:"addresses"`
 	// conditions contains information about the current status of the endpoint.
 	Conditions EndpointConditionsPtrInput `pulumi:"conditions"`
-	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef corev1.ObjectReferencePtrInput `pulumi:"targetRef"`
@@ -125,7 +125,7 @@ func (o EndpointOutput) Conditions() EndpointConditionsPtrOutput {
 	return o.ApplyT(func(v Endpoint) *EndpointConditions { return v.Conditions }).(EndpointConditionsPtrOutput)
 }
 
-// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 func (o EndpointOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Endpoint) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }

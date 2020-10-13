@@ -14,7 +14,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events.V1
     public sealed class Event
     {
         /// <summary>
-        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         /// </summary>
         public readonly string Action;
         /// <summary>
@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events.V1
         /// </summary>
         public readonly string Note;
         /// <summary>
-        /// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        /// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         /// </summary>
         public readonly string Reason;
         /// <summary>
@@ -75,7 +75,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Events.V1.EventSeries Series;
         /// <summary>
-        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         /// </summary>
         public readonly string Type;
 

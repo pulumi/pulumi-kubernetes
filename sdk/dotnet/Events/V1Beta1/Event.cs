@@ -226,8 +226,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.

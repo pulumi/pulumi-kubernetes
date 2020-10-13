@@ -146,6 +146,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	definitions := swagger["definitions"].(map[string]interface{})
 	groupsSlice := createGroups(definitions)
 	for _, group := range groupsSlice {
+		if group.Group() == "apiserverinternal" {
+			continue
+		}
 		for _, version := range group.Versions() {
 			for _, kind := range version.Kinds() {
 				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.apiVersion, kind.kind)

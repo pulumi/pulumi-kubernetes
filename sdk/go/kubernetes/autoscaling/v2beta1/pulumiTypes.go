@@ -1349,7 +1349,7 @@ type MetricSpec struct {
 	Pods *PodsMetricSource `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource *ResourceMetricSource `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+	// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
 	Type string `pulumi:"type"`
 }
 
@@ -1374,7 +1374,7 @@ type MetricSpecArgs struct {
 	Pods PodsMetricSourcePtrInput `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource ResourceMetricSourcePtrInput `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+	// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -1450,7 +1450,7 @@ func (o MetricSpecOutput) Resource() ResourceMetricSourcePtrOutput {
 	return o.ApplyT(func(v MetricSpec) *ResourceMetricSource { return v.Resource }).(ResourceMetricSourcePtrOutput)
 }
 
-// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
 func (o MetricSpecOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v MetricSpec) string { return v.Type }).(pulumi.StringOutput)
 }

@@ -19,6 +19,7 @@ __all__ = [
 class EventArgs:
     def __init__(__self__, *,
                  event_time: pulumi.Input[str],
+                 metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
                  action: Optional[pulumi.Input[str]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  deprecated_count: Optional[pulumi.Input[int]] = None,
@@ -26,7 +27,6 @@ class EventArgs:
                  deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_source: Optional[pulumi.Input['_core.v1.EventSourceArgs']] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
                  note: Optional[pulumi.Input[str]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
                  regarding: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
@@ -55,6 +55,7 @@ class EventArgs:
         :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
         """
         pulumi.set(__self__, "event_time", event_time)
+        pulumi.set(__self__, "metadata", metadata)
         if action is not None:
             pulumi.set(__self__, "action", action)
         if api_version is not None:
@@ -69,8 +70,6 @@ class EventArgs:
             pulumi.set(__self__, "deprecated_source", deprecated_source)
         if kind is not None:
             pulumi.set(__self__, "kind", 'Event')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
         if note is not None:
             pulumi.set(__self__, "note", note)
         if reason is not None:
@@ -99,6 +98,15 @@ class EventArgs:
     @event_time.setter
     def event_time(self, value: pulumi.Input[str]):
         pulumi.set(self, "event_time", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaArgs']:
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaArgs']):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter
@@ -183,15 +191,6 @@ class EventArgs:
     @kind.setter
     def kind(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter
