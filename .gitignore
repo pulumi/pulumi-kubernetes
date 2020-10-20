@@ -11,3 +11,4 @@ Pulumi.*.yaml
 /provider/cmd/pulumi-resource-kubernetes/schema.go
 yarn.lock
 ci-scripts
+/nuget/
