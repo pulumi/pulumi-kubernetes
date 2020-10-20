@@ -12,7 +12,7 @@ VERSION         ?= $(shell pulumictl get version)
 PROVIDER_PATH   := provider/v2
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
-KUBE_VERSION    ?= v1.20.0-alpha.2
+KUBE_VERSION    ?= v1.20.0-alpha.3
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
