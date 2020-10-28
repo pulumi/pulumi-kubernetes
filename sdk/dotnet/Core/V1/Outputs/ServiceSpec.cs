@@ -18,6 +18,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string ClusterIP;
         /// <summary>
+        /// ClusterIPs identifies all the ClusterIPs assigned to this service. ClusterIPs are assigned or reserved based on the values of service.spec.ipFamilies. A maximum of two entries (dual-stack IPs) are allowed in ClusterIPs. The IPFamily of each ClusterIP must match values provided in service.spec.ipFamilies. Clients using ClusterIPs must keep it in sync with ClusterIP (if provided) by having ClusterIP matching first element of ClusterIPs.
+        /// </summary>
+        public readonly ImmutableArray<string> ClusterIPs;
+        /// <summary>
         /// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
         /// </summary>
         public readonly ImmutableArray<string> ExternalIPs;
@@ -34,9 +38,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int HealthCheckNodePort;
         /// <summary>
-        /// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+        /// IPFamilies identifies all the IPFamilies assigned for this Service. If a value was not provided for IPFamilies it will be defaulted based on the cluster configuration and the value of service.spec.ipFamilyPolicy. A maximum of two values (dual-stack IPFamilies) are allowed in IPFamilies. IPFamilies field is conditionally mutable: it allows for adding or removing a secondary IPFamily, but it does not allow changing the primary IPFamily of the service.
+        /// </summary>
+        public readonly ImmutableArray<string> IpFamilies;
+        /// <summary>
+        /// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
         /// </summary>
         public readonly string IpFamily;
+        /// <summary>
+        /// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this Service will be considered SingleStack (single IPFamily). Services can be SingleStack (single IPFamily), PreferDualStack (two dual-stack IPFamilies on dual-stack clusters or single IPFamily on single-stack clusters), or RequireDualStack (two dual-stack IPFamilies on dual-stack configured clusters, otherwise fail). The IPFamilies and ClusterIPs assigned to this service can be controlled by service.spec.ipFamilies and service.spec.clusterIPs respectively.
+        /// </summary>
+        public readonly string IpFamilyPolicy;
         /// <summary>
         /// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
         /// </summary>
@@ -78,6 +90,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         private ServiceSpec(
             string clusterIP,
 
+            ImmutableArray<string> clusterIPs,
+
             ImmutableArray<string> externalIPs,
 
             string externalName,
@@ -86,7 +100,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             int healthCheckNodePort,
 
+            ImmutableArray<string> ipFamilies,
+
             string ipFamily,
+
+            string ipFamilyPolicy,
 
             string loadBalancerIP,
 
@@ -107,11 +125,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             string type)
         {
             ClusterIP = clusterIP;
+            ClusterIPs = clusterIPs;
             ExternalIPs = externalIPs;
             ExternalName = externalName;
             ExternalTrafficPolicy = externalTrafficPolicy;
             HealthCheckNodePort = healthCheckNodePort;
+            IpFamilies = ipFamilies;
             IpFamily = ipFamily;
+            IpFamilyPolicy = ipFamilyPolicy;
             LoadBalancerIP = loadBalancerIP;
             LoadBalancerSourceRanges = loadBalancerSourceRanges;
             Ports = ports;

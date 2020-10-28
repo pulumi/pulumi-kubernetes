@@ -3890,6 +3890,50 @@ export namespace autoscaling {
 
     export namespace v2beta1 {
         /**
+         * ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+         */
+        export interface ContainerResourceMetricSource {
+            /**
+             * container is the name of the container in the pods of the scaling target
+             */
+            container: pulumi.Input<string>;
+            /**
+             * name is the name of the resource in question.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+             */
+            targetAverageUtilization?: pulumi.Input<number>;
+            /**
+             * targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+             */
+            targetAverageValue?: pulumi.Input<string>;
+        }
+
+        /**
+         * ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+         */
+        export interface ContainerResourceMetricStatus {
+            /**
+             * container is the name of the container in the pods of the scaling target
+             */
+            container: pulumi.Input<string>;
+            /**
+             * currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
+             */
+            currentAverageUtilization?: pulumi.Input<number>;
+            /**
+             * currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
+             */
+            currentAverageValue: pulumi.Input<string>;
+            /**
+             * name is the name of the resource in question.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
          * CrossVersionObjectReference contains enough information to let you identify the referred resource.
          */
         export interface CrossVersionObjectReference {
@@ -4060,6 +4104,10 @@ export namespace autoscaling {
          */
         export interface MetricSpec {
             /**
+             * container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+             */
+            containerResource?: pulumi.Input<inputs.autoscaling.v2beta1.ContainerResourceMetricSource>;
+            /**
              * external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
              */
             external?: pulumi.Input<inputs.autoscaling.v2beta1.ExternalMetricSource>;
@@ -4076,7 +4124,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta1.ResourceMetricSource>;
             /**
-             * type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
+             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
              */
             type: pulumi.Input<string>;
         }
@@ -4085,6 +4133,10 @@ export namespace autoscaling {
          * MetricStatus describes the last-read state of a single metric.
          */
         export interface MetricStatus {
+            /**
+             * container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+             */
+            containerResource?: pulumi.Input<inputs.autoscaling.v2beta1.ContainerResourceMetricStatus>;
             /**
              * external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
              */
@@ -4102,7 +4154,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta1.ResourceMetricStatus>;
             /**
-             * type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
              */
             type: pulumi.Input<string>;
         }
@@ -4233,6 +4285,42 @@ export namespace autoscaling {
     }
 
     export namespace v2beta2 {
+        /**
+         * ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+         */
+        export interface ContainerResourceMetricSource {
+            /**
+             * container is the name of the container in the pods of the scaling target
+             */
+            container: pulumi.Input<string>;
+            /**
+             * name is the name of the resource in question.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * target specifies the target value for the given metric
+             */
+            target: pulumi.Input<inputs.autoscaling.v2beta2.MetricTarget>;
+        }
+
+        /**
+         * ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+         */
+        export interface ContainerResourceMetricStatus {
+            /**
+             * Container is the name of the container in the pods of the scaling target
+             */
+            container: pulumi.Input<string>;
+            /**
+             * current contains the current value for the given metric
+             */
+            current: pulumi.Input<inputs.autoscaling.v2beta2.MetricValueStatus>;
+            /**
+             * Name is the name of the resource in question.
+             */
+            name: pulumi.Input<string>;
+        }
+
         /**
          * CrossVersionObjectReference contains enough information to let you identify the referred resource.
          */
@@ -4459,6 +4547,10 @@ export namespace autoscaling {
          */
         export interface MetricSpec {
             /**
+             * container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+             */
+            containerResource?: pulumi.Input<inputs.autoscaling.v2beta2.ContainerResourceMetricSource>;
+            /**
              * external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
              */
             external?: pulumi.Input<inputs.autoscaling.v2beta2.ExternalMetricSource>;
@@ -4475,7 +4567,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricSource>;
             /**
-             * type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
+             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
              */
             type: pulumi.Input<string>;
         }
@@ -4484,6 +4576,10 @@ export namespace autoscaling {
          * MetricStatus describes the last-read state of a single metric.
          */
         export interface MetricStatus {
+            /**
+             * container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+             */
+            containerResource?: pulumi.Input<inputs.autoscaling.v2beta2.ContainerResourceMetricStatus>;
             /**
              * external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
              */
@@ -4501,7 +4597,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricStatus>;
             /**
-             * type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
              */
             type: pulumi.Input<string>;
         }
@@ -9116,6 +9212,10 @@ export namespace core {
              */
             clusterIP?: pulumi.Input<string>;
             /**
+             * ClusterIPs identifies all the ClusterIPs assigned to this service. ClusterIPs are assigned or reserved based on the values of service.spec.ipFamilies. A maximum of two entries (dual-stack IPs) are allowed in ClusterIPs. The IPFamily of each ClusterIP must match values provided in service.spec.ipFamilies. Clients using ClusterIPs must keep it in sync with ClusterIP (if provided) by having ClusterIP matching first element of ClusterIPs.
+             */
+            clusterIPs?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
              * externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
              */
             externalIPs?: pulumi.Input<pulumi.Input<string>[]>;
@@ -9132,9 +9232,17 @@ export namespace core {
              */
             healthCheckNodePort?: pulumi.Input<number>;
             /**
-             * ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+             * IPFamilies identifies all the IPFamilies assigned for this Service. If a value was not provided for IPFamilies it will be defaulted based on the cluster configuration and the value of service.spec.ipFamilyPolicy. A maximum of two values (dual-stack IPFamilies) are allowed in IPFamilies. IPFamilies field is conditionally mutable: it allows for adding or removing a secondary IPFamily, but it does not allow changing the primary IPFamily of the service.
+             */
+            ipFamilies?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
              */
             ipFamily?: pulumi.Input<string>;
+            /**
+             * IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this Service will be considered SingleStack (single IPFamily). Services can be SingleStack (single IPFamily), PreferDualStack (two dual-stack IPFamilies on dual-stack clusters or single IPFamily on single-stack clusters), or RequireDualStack (two dual-stack IPFamilies on dual-stack configured clusters, otherwise fail). The IPFamilies and ClusterIPs assigned to this service can be controlled by service.spec.ipFamilies and service.spec.clusterIPs respectively.
+             */
+            ipFamilyPolicy?: pulumi.Input<string>;
             /**
              * Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
              */

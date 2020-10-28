@@ -11,6 +11,388 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
+// ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+type ContainerResourceMetricSource struct {
+	// container is the name of the container in the pods of the scaling target
+	Container string `pulumi:"container"`
+	// name is the name of the resource in question.
+	Name string `pulumi:"name"`
+	// targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+	TargetAverageUtilization *int `pulumi:"targetAverageUtilization"`
+	// targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+	TargetAverageValue *string `pulumi:"targetAverageValue"`
+}
+
+// ContainerResourceMetricSourceInput is an input type that accepts ContainerResourceMetricSourceArgs and ContainerResourceMetricSourceOutput values.
+// You can construct a concrete instance of `ContainerResourceMetricSourceInput` via:
+//
+//          ContainerResourceMetricSourceArgs{...}
+type ContainerResourceMetricSourceInput interface {
+	pulumi.Input
+
+	ToContainerResourceMetricSourceOutput() ContainerResourceMetricSourceOutput
+	ToContainerResourceMetricSourceOutputWithContext(context.Context) ContainerResourceMetricSourceOutput
+}
+
+// ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+type ContainerResourceMetricSourceArgs struct {
+	// container is the name of the container in the pods of the scaling target
+	Container pulumi.StringInput `pulumi:"container"`
+	// name is the name of the resource in question.
+	Name pulumi.StringInput `pulumi:"name"`
+	// targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+	TargetAverageUtilization pulumi.IntPtrInput `pulumi:"targetAverageUtilization"`
+	// targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+	TargetAverageValue pulumi.StringPtrInput `pulumi:"targetAverageValue"`
+}
+
+func (ContainerResourceMetricSourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResourceMetricSource)(nil)).Elem()
+}
+
+func (i ContainerResourceMetricSourceArgs) ToContainerResourceMetricSourceOutput() ContainerResourceMetricSourceOutput {
+	return i.ToContainerResourceMetricSourceOutputWithContext(context.Background())
+}
+
+func (i ContainerResourceMetricSourceArgs) ToContainerResourceMetricSourceOutputWithContext(ctx context.Context) ContainerResourceMetricSourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResourceMetricSourceOutput)
+}
+
+func (i ContainerResourceMetricSourceArgs) ToContainerResourceMetricSourcePtrOutput() ContainerResourceMetricSourcePtrOutput {
+	return i.ToContainerResourceMetricSourcePtrOutputWithContext(context.Background())
+}
+
+func (i ContainerResourceMetricSourceArgs) ToContainerResourceMetricSourcePtrOutputWithContext(ctx context.Context) ContainerResourceMetricSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResourceMetricSourceOutput).ToContainerResourceMetricSourcePtrOutputWithContext(ctx)
+}
+
+// ContainerResourceMetricSourcePtrInput is an input type that accepts ContainerResourceMetricSourceArgs, ContainerResourceMetricSourcePtr and ContainerResourceMetricSourcePtrOutput values.
+// You can construct a concrete instance of `ContainerResourceMetricSourcePtrInput` via:
+//
+//          ContainerResourceMetricSourceArgs{...}
+//
+//  or:
+//
+//          nil
+type ContainerResourceMetricSourcePtrInput interface {
+	pulumi.Input
+
+	ToContainerResourceMetricSourcePtrOutput() ContainerResourceMetricSourcePtrOutput
+	ToContainerResourceMetricSourcePtrOutputWithContext(context.Context) ContainerResourceMetricSourcePtrOutput
+}
+
+type containerResourceMetricSourcePtrType ContainerResourceMetricSourceArgs
+
+func ContainerResourceMetricSourcePtr(v *ContainerResourceMetricSourceArgs) ContainerResourceMetricSourcePtrInput {
+	return (*containerResourceMetricSourcePtrType)(v)
+}
+
+func (*containerResourceMetricSourcePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContainerResourceMetricSource)(nil)).Elem()
+}
+
+func (i *containerResourceMetricSourcePtrType) ToContainerResourceMetricSourcePtrOutput() ContainerResourceMetricSourcePtrOutput {
+	return i.ToContainerResourceMetricSourcePtrOutputWithContext(context.Background())
+}
+
+func (i *containerResourceMetricSourcePtrType) ToContainerResourceMetricSourcePtrOutputWithContext(ctx context.Context) ContainerResourceMetricSourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResourceMetricSourcePtrOutput)
+}
+
+// ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+type ContainerResourceMetricSourceOutput struct{ *pulumi.OutputState }
+
+func (ContainerResourceMetricSourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResourceMetricSource)(nil)).Elem()
+}
+
+func (o ContainerResourceMetricSourceOutput) ToContainerResourceMetricSourceOutput() ContainerResourceMetricSourceOutput {
+	return o
+}
+
+func (o ContainerResourceMetricSourceOutput) ToContainerResourceMetricSourceOutputWithContext(ctx context.Context) ContainerResourceMetricSourceOutput {
+	return o
+}
+
+func (o ContainerResourceMetricSourceOutput) ToContainerResourceMetricSourcePtrOutput() ContainerResourceMetricSourcePtrOutput {
+	return o.ToContainerResourceMetricSourcePtrOutputWithContext(context.Background())
+}
+
+func (o ContainerResourceMetricSourceOutput) ToContainerResourceMetricSourcePtrOutputWithContext(ctx context.Context) ContainerResourceMetricSourcePtrOutput {
+	return o.ApplyT(func(v ContainerResourceMetricSource) *ContainerResourceMetricSource {
+		return &v
+	}).(ContainerResourceMetricSourcePtrOutput)
+}
+
+// container is the name of the container in the pods of the scaling target
+func (o ContainerResourceMetricSourceOutput) Container() pulumi.StringOutput {
+	return o.ApplyT(func(v ContainerResourceMetricSource) string { return v.Container }).(pulumi.StringOutput)
+}
+
+// name is the name of the resource in question.
+func (o ContainerResourceMetricSourceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ContainerResourceMetricSource) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+func (o ContainerResourceMetricSourceOutput) TargetAverageUtilization() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ContainerResourceMetricSource) *int { return v.TargetAverageUtilization }).(pulumi.IntPtrOutput)
+}
+
+// targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+func (o ContainerResourceMetricSourceOutput) TargetAverageValue() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContainerResourceMetricSource) *string { return v.TargetAverageValue }).(pulumi.StringPtrOutput)
+}
+
+type ContainerResourceMetricSourcePtrOutput struct{ *pulumi.OutputState }
+
+func (ContainerResourceMetricSourcePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContainerResourceMetricSource)(nil)).Elem()
+}
+
+func (o ContainerResourceMetricSourcePtrOutput) ToContainerResourceMetricSourcePtrOutput() ContainerResourceMetricSourcePtrOutput {
+	return o
+}
+
+func (o ContainerResourceMetricSourcePtrOutput) ToContainerResourceMetricSourcePtrOutputWithContext(ctx context.Context) ContainerResourceMetricSourcePtrOutput {
+	return o
+}
+
+func (o ContainerResourceMetricSourcePtrOutput) Elem() ContainerResourceMetricSourceOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricSource) ContainerResourceMetricSource { return *v }).(ContainerResourceMetricSourceOutput)
+}
+
+// container is the name of the container in the pods of the scaling target
+func (o ContainerResourceMetricSourcePtrOutput) Container() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricSource) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Container
+	}).(pulumi.StringPtrOutput)
+}
+
+// name is the name of the resource in question.
+func (o ContainerResourceMetricSourcePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricSource) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+func (o ContainerResourceMetricSourcePtrOutput) TargetAverageUtilization() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricSource) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TargetAverageUtilization
+	}).(pulumi.IntPtrOutput)
+}
+
+// targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+func (o ContainerResourceMetricSourcePtrOutput) TargetAverageValue() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricSource) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TargetAverageValue
+	}).(pulumi.StringPtrOutput)
+}
+
+// ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+type ContainerResourceMetricStatus struct {
+	// container is the name of the container in the pods of the scaling target
+	Container string `pulumi:"container"`
+	// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
+	CurrentAverageUtilization *int `pulumi:"currentAverageUtilization"`
+	// currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
+	CurrentAverageValue string `pulumi:"currentAverageValue"`
+	// name is the name of the resource in question.
+	Name string `pulumi:"name"`
+}
+
+// ContainerResourceMetricStatusInput is an input type that accepts ContainerResourceMetricStatusArgs and ContainerResourceMetricStatusOutput values.
+// You can construct a concrete instance of `ContainerResourceMetricStatusInput` via:
+//
+//          ContainerResourceMetricStatusArgs{...}
+type ContainerResourceMetricStatusInput interface {
+	pulumi.Input
+
+	ToContainerResourceMetricStatusOutput() ContainerResourceMetricStatusOutput
+	ToContainerResourceMetricStatusOutputWithContext(context.Context) ContainerResourceMetricStatusOutput
+}
+
+// ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+type ContainerResourceMetricStatusArgs struct {
+	// container is the name of the container in the pods of the scaling target
+	Container pulumi.StringInput `pulumi:"container"`
+	// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
+	CurrentAverageUtilization pulumi.IntPtrInput `pulumi:"currentAverageUtilization"`
+	// currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
+	CurrentAverageValue pulumi.StringInput `pulumi:"currentAverageValue"`
+	// name is the name of the resource in question.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (ContainerResourceMetricStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResourceMetricStatus)(nil)).Elem()
+}
+
+func (i ContainerResourceMetricStatusArgs) ToContainerResourceMetricStatusOutput() ContainerResourceMetricStatusOutput {
+	return i.ToContainerResourceMetricStatusOutputWithContext(context.Background())
+}
+
+func (i ContainerResourceMetricStatusArgs) ToContainerResourceMetricStatusOutputWithContext(ctx context.Context) ContainerResourceMetricStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResourceMetricStatusOutput)
+}
+
+func (i ContainerResourceMetricStatusArgs) ToContainerResourceMetricStatusPtrOutput() ContainerResourceMetricStatusPtrOutput {
+	return i.ToContainerResourceMetricStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ContainerResourceMetricStatusArgs) ToContainerResourceMetricStatusPtrOutputWithContext(ctx context.Context) ContainerResourceMetricStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResourceMetricStatusOutput).ToContainerResourceMetricStatusPtrOutputWithContext(ctx)
+}
+
+// ContainerResourceMetricStatusPtrInput is an input type that accepts ContainerResourceMetricStatusArgs, ContainerResourceMetricStatusPtr and ContainerResourceMetricStatusPtrOutput values.
+// You can construct a concrete instance of `ContainerResourceMetricStatusPtrInput` via:
+//
+//          ContainerResourceMetricStatusArgs{...}
+//
+//  or:
+//
+//          nil
+type ContainerResourceMetricStatusPtrInput interface {
+	pulumi.Input
+
+	ToContainerResourceMetricStatusPtrOutput() ContainerResourceMetricStatusPtrOutput
+	ToContainerResourceMetricStatusPtrOutputWithContext(context.Context) ContainerResourceMetricStatusPtrOutput
+}
+
+type containerResourceMetricStatusPtrType ContainerResourceMetricStatusArgs
+
+func ContainerResourceMetricStatusPtr(v *ContainerResourceMetricStatusArgs) ContainerResourceMetricStatusPtrInput {
+	return (*containerResourceMetricStatusPtrType)(v)
+}
+
+func (*containerResourceMetricStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContainerResourceMetricStatus)(nil)).Elem()
+}
+
+func (i *containerResourceMetricStatusPtrType) ToContainerResourceMetricStatusPtrOutput() ContainerResourceMetricStatusPtrOutput {
+	return i.ToContainerResourceMetricStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *containerResourceMetricStatusPtrType) ToContainerResourceMetricStatusPtrOutputWithContext(ctx context.Context) ContainerResourceMetricStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResourceMetricStatusPtrOutput)
+}
+
+// ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+type ContainerResourceMetricStatusOutput struct{ *pulumi.OutputState }
+
+func (ContainerResourceMetricStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResourceMetricStatus)(nil)).Elem()
+}
+
+func (o ContainerResourceMetricStatusOutput) ToContainerResourceMetricStatusOutput() ContainerResourceMetricStatusOutput {
+	return o
+}
+
+func (o ContainerResourceMetricStatusOutput) ToContainerResourceMetricStatusOutputWithContext(ctx context.Context) ContainerResourceMetricStatusOutput {
+	return o
+}
+
+func (o ContainerResourceMetricStatusOutput) ToContainerResourceMetricStatusPtrOutput() ContainerResourceMetricStatusPtrOutput {
+	return o.ToContainerResourceMetricStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ContainerResourceMetricStatusOutput) ToContainerResourceMetricStatusPtrOutputWithContext(ctx context.Context) ContainerResourceMetricStatusPtrOutput {
+	return o.ApplyT(func(v ContainerResourceMetricStatus) *ContainerResourceMetricStatus {
+		return &v
+	}).(ContainerResourceMetricStatusPtrOutput)
+}
+
+// container is the name of the container in the pods of the scaling target
+func (o ContainerResourceMetricStatusOutput) Container() pulumi.StringOutput {
+	return o.ApplyT(func(v ContainerResourceMetricStatus) string { return v.Container }).(pulumi.StringOutput)
+}
+
+// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
+func (o ContainerResourceMetricStatusOutput) CurrentAverageUtilization() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ContainerResourceMetricStatus) *int { return v.CurrentAverageUtilization }).(pulumi.IntPtrOutput)
+}
+
+// currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
+func (o ContainerResourceMetricStatusOutput) CurrentAverageValue() pulumi.StringOutput {
+	return o.ApplyT(func(v ContainerResourceMetricStatus) string { return v.CurrentAverageValue }).(pulumi.StringOutput)
+}
+
+// name is the name of the resource in question.
+func (o ContainerResourceMetricStatusOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ContainerResourceMetricStatus) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type ContainerResourceMetricStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ContainerResourceMetricStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ContainerResourceMetricStatus)(nil)).Elem()
+}
+
+func (o ContainerResourceMetricStatusPtrOutput) ToContainerResourceMetricStatusPtrOutput() ContainerResourceMetricStatusPtrOutput {
+	return o
+}
+
+func (o ContainerResourceMetricStatusPtrOutput) ToContainerResourceMetricStatusPtrOutputWithContext(ctx context.Context) ContainerResourceMetricStatusPtrOutput {
+	return o
+}
+
+func (o ContainerResourceMetricStatusPtrOutput) Elem() ContainerResourceMetricStatusOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricStatus) ContainerResourceMetricStatus { return *v }).(ContainerResourceMetricStatusOutput)
+}
+
+// container is the name of the container in the pods of the scaling target
+func (o ContainerResourceMetricStatusPtrOutput) Container() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Container
+	}).(pulumi.StringPtrOutput)
+}
+
+// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
+func (o ContainerResourceMetricStatusPtrOutput) CurrentAverageUtilization() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.CurrentAverageUtilization
+	}).(pulumi.IntPtrOutput)
+}
+
+// currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
+func (o ContainerResourceMetricStatusPtrOutput) CurrentAverageValue() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.CurrentAverageValue
+	}).(pulumi.StringPtrOutput)
+}
+
+// name is the name of the resource in question.
+func (o ContainerResourceMetricStatusPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ContainerResourceMetricStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReference struct {
 	// API version of the referent
@@ -1341,6 +1723,8 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) ObservedGeneration() pulumi.IntP
 
 // MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
 type MetricSpec struct {
+	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+	ContainerResource *ContainerResourceMetricSource `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External *ExternalMetricSource `pulumi:"external"`
 	// object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1349,7 +1733,7 @@ type MetricSpec struct {
 	Pods *PodsMetricSource `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource *ResourceMetricSource `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
+	// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 	Type string `pulumi:"type"`
 }
 
@@ -1366,6 +1750,8 @@ type MetricSpecInput interface {
 
 // MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
 type MetricSpecArgs struct {
+	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+	ContainerResource ContainerResourceMetricSourcePtrInput `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External ExternalMetricSourcePtrInput `pulumi:"external"`
 	// object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1374,7 +1760,7 @@ type MetricSpecArgs struct {
 	Pods PodsMetricSourcePtrInput `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource ResourceMetricSourcePtrInput `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
+	// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -1430,6 +1816,11 @@ func (o MetricSpecOutput) ToMetricSpecOutputWithContext(ctx context.Context) Met
 	return o
 }
 
+// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+func (o MetricSpecOutput) ContainerResource() ContainerResourceMetricSourcePtrOutput {
+	return o.ApplyT(func(v MetricSpec) *ContainerResourceMetricSource { return v.ContainerResource }).(ContainerResourceMetricSourcePtrOutput)
+}
+
 // external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 func (o MetricSpecOutput) External() ExternalMetricSourcePtrOutput {
 	return o.ApplyT(func(v MetricSpec) *ExternalMetricSource { return v.External }).(ExternalMetricSourcePtrOutput)
@@ -1450,7 +1841,7 @@ func (o MetricSpecOutput) Resource() ResourceMetricSourcePtrOutput {
 	return o.ApplyT(func(v MetricSpec) *ResourceMetricSource { return v.Resource }).(ResourceMetricSourcePtrOutput)
 }
 
-// type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
+// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 func (o MetricSpecOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v MetricSpec) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -1477,6 +1868,8 @@ func (o MetricSpecArrayOutput) Index(i pulumi.IntInput) MetricSpecOutput {
 
 // MetricStatus describes the last-read state of a single metric.
 type MetricStatus struct {
+	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+	ContainerResource *ContainerResourceMetricStatus `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External *ExternalMetricStatus `pulumi:"external"`
 	// object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1485,7 +1878,7 @@ type MetricStatus struct {
 	Pods *PodsMetricStatus `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource *ResourceMetricStatus `pulumi:"resource"`
-	// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+	// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 	Type string `pulumi:"type"`
 }
 
@@ -1502,6 +1895,8 @@ type MetricStatusInput interface {
 
 // MetricStatus describes the last-read state of a single metric.
 type MetricStatusArgs struct {
+	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+	ContainerResource ContainerResourceMetricStatusPtrInput `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External ExternalMetricStatusPtrInput `pulumi:"external"`
 	// object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1510,7 +1905,7 @@ type MetricStatusArgs struct {
 	Pods PodsMetricStatusPtrInput `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource ResourceMetricStatusPtrInput `pulumi:"resource"`
-	// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+	// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -1566,6 +1961,11 @@ func (o MetricStatusOutput) ToMetricStatusOutputWithContext(ctx context.Context)
 	return o
 }
 
+// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+func (o MetricStatusOutput) ContainerResource() ContainerResourceMetricStatusPtrOutput {
+	return o.ApplyT(func(v MetricStatus) *ContainerResourceMetricStatus { return v.ContainerResource }).(ContainerResourceMetricStatusPtrOutput)
+}
+
 // external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 func (o MetricStatusOutput) External() ExternalMetricStatusPtrOutput {
 	return o.ApplyT(func(v MetricStatus) *ExternalMetricStatus { return v.External }).(ExternalMetricStatusPtrOutput)
@@ -1586,7 +1986,7 @@ func (o MetricStatusOutput) Resource() ResourceMetricStatusPtrOutput {
 	return o.ApplyT(func(v MetricStatus) *ResourceMetricStatus { return v.Resource }).(ResourceMetricStatusPtrOutput)
 }
 
-// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
 func (o MetricStatusOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v MetricStatus) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -2720,6 +3120,10 @@ func (o ResourceMetricStatusPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterOutputType(ContainerResourceMetricSourceOutput{})
+	pulumi.RegisterOutputType(ContainerResourceMetricSourcePtrOutput{})
+	pulumi.RegisterOutputType(ContainerResourceMetricStatusOutput{})
+	pulumi.RegisterOutputType(ContainerResourceMetricStatusPtrOutput{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferenceOutput{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferencePtrOutput{})
 	pulumi.RegisterOutputType(ExternalMetricSourceOutput{})

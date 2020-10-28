@@ -10,6 +10,8 @@ from ... import _utilities, _tables
 from ... import meta as _meta
 
 __all__ = [
+    'ContainerResourceMetricSourceArgs',
+    'ContainerResourceMetricStatusArgs',
     'CrossVersionObjectReferenceArgs',
     'ExternalMetricSourceArgs',
     'ExternalMetricStatusArgs',
@@ -26,6 +28,145 @@ __all__ = [
     'ResourceMetricSourceArgs',
     'ResourceMetricStatusArgs',
 ]
+
+@pulumi.input_type
+class ContainerResourceMetricSourceArgs:
+    def __init__(__self__, *,
+                 container: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 target_average_utilization: Optional[pulumi.Input[int]] = None,
+                 target_average_value: Optional[pulumi.Input[str]] = None):
+        """
+        ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+        :param pulumi.Input[str] container: container is the name of the container in the pods of the scaling target
+        :param pulumi.Input[str] name: name is the name of the resource in question.
+        :param pulumi.Input[int] target_average_utilization: targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        :param pulumi.Input[str] target_average_value: targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+        """
+        pulumi.set(__self__, "container", container)
+        pulumi.set(__self__, "name", name)
+        if target_average_utilization is not None:
+            pulumi.set(__self__, "target_average_utilization", target_average_utilization)
+        if target_average_value is not None:
+            pulumi.set(__self__, "target_average_value", target_average_value)
+
+    @property
+    @pulumi.getter
+    def container(self) -> pulumi.Input[str]:
+        """
+        container is the name of the container in the pods of the scaling target
+        """
+        return pulumi.get(self, "container")
+
+    @container.setter
+    def container(self, value: pulumi.Input[str]):
+        pulumi.set(self, "container", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        name is the name of the resource in question.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="targetAverageUtilization")
+    def target_average_utilization(self) -> Optional[pulumi.Input[int]]:
+        """
+        targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        """
+        return pulumi.get(self, "target_average_utilization")
+
+    @target_average_utilization.setter
+    def target_average_utilization(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "target_average_utilization", value)
+
+    @property
+    @pulumi.getter(name="targetAverageValue")
+    def target_average_value(self) -> Optional[pulumi.Input[str]]:
+        """
+        targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
+        """
+        return pulumi.get(self, "target_average_value")
+
+    @target_average_value.setter
+    def target_average_value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "target_average_value", value)
+
+
+@pulumi.input_type
+class ContainerResourceMetricStatusArgs:
+    def __init__(__self__, *,
+                 container: pulumi.Input[str],
+                 current_average_value: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 current_average_utilization: Optional[pulumi.Input[int]] = None):
+        """
+        ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        :param pulumi.Input[str] container: container is the name of the container in the pods of the scaling target
+        :param pulumi.Input[str] current_average_value: currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
+        :param pulumi.Input[str] name: name is the name of the resource in question.
+        :param pulumi.Input[int] current_average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
+        """
+        pulumi.set(__self__, "container", container)
+        pulumi.set(__self__, "current_average_value", current_average_value)
+        pulumi.set(__self__, "name", name)
+        if current_average_utilization is not None:
+            pulumi.set(__self__, "current_average_utilization", current_average_utilization)
+
+    @property
+    @pulumi.getter
+    def container(self) -> pulumi.Input[str]:
+        """
+        container is the name of the container in the pods of the scaling target
+        """
+        return pulumi.get(self, "container")
+
+    @container.setter
+    def container(self, value: pulumi.Input[str]):
+        pulumi.set(self, "container", value)
+
+    @property
+    @pulumi.getter(name="currentAverageValue")
+    def current_average_value(self) -> pulumi.Input[str]:
+        """
+        currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
+        """
+        return pulumi.get(self, "current_average_value")
+
+    @current_average_value.setter
+    def current_average_value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "current_average_value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        name is the name of the resource in question.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="currentAverageUtilization")
+    def current_average_utilization(self) -> Optional[pulumi.Input[int]]:
+        """
+        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
+        """
+        return pulumi.get(self, "current_average_utilization")
+
+    @current_average_utilization.setter
+    def current_average_utilization(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "current_average_utilization", value)
+
 
 @pulumi.input_type
 class CrossVersionObjectReferenceArgs:
@@ -571,19 +712,23 @@ class HorizontalPodAutoscalerStatusArgs:
 class MetricSpecArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[str],
+                 container_resource: Optional[pulumi.Input['ContainerResourceMetricSourceArgs']] = None,
                  external: Optional[pulumi.Input['ExternalMetricSourceArgs']] = None,
                  object: Optional[pulumi.Input['ObjectMetricSourceArgs']] = None,
                  pods: Optional[pulumi.Input['PodsMetricSourceArgs']] = None,
                  resource: Optional[pulumi.Input['ResourceMetricSourceArgs']] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
-        :param pulumi.Input[str] type: type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
+        :param pulumi.Input[str] type: type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        :param pulumi.Input['ContainerResourceMetricSourceArgs'] container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param pulumi.Input['ExternalMetricSourceArgs'] external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param pulumi.Input['ObjectMetricSourceArgs'] object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
         :param pulumi.Input['PodsMetricSourceArgs'] pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
         :param pulumi.Input['ResourceMetricSourceArgs'] resource: resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         """
         pulumi.set(__self__, "type", type)
+        if container_resource is not None:
+            pulumi.set(__self__, "container_resource", container_resource)
         if external is not None:
             pulumi.set(__self__, "external", external)
         if object is not None:
@@ -597,13 +742,25 @@ class MetricSpecArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[str]:
         """
-        type is the type of metric source.  It should be one of "Object", "Pods", "Resource" or "External", each mapping to a matching field in the object.
+        type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
         """
         return pulumi.get(self, "type")
 
     @type.setter
     def type(self, value: pulumi.Input[str]):
         pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter(name="containerResource")
+    def container_resource(self) -> Optional[pulumi.Input['ContainerResourceMetricSourceArgs']]:
+        """
+        container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+        """
+        return pulumi.get(self, "container_resource")
+
+    @container_resource.setter
+    def container_resource(self, value: Optional[pulumi.Input['ContainerResourceMetricSourceArgs']]):
+        pulumi.set(self, "container_resource", value)
 
     @property
     @pulumi.getter
@@ -658,19 +815,23 @@ class MetricSpecArgs:
 class MetricStatusArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[str],
+                 container_resource: Optional[pulumi.Input['ContainerResourceMetricStatusArgs']] = None,
                  external: Optional[pulumi.Input['ExternalMetricStatusArgs']] = None,
                  object: Optional[pulumi.Input['ObjectMetricStatusArgs']] = None,
                  pods: Optional[pulumi.Input['PodsMetricStatusArgs']] = None,
                  resource: Optional[pulumi.Input['ResourceMetricStatusArgs']] = None):
         """
         MetricStatus describes the last-read state of a single metric.
-        :param pulumi.Input[str] type: type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+        :param pulumi.Input[str] type: type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        :param pulumi.Input['ContainerResourceMetricStatusArgs'] container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param pulumi.Input['ExternalMetricStatusArgs'] external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param pulumi.Input['ObjectMetricStatusArgs'] object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
         :param pulumi.Input['PodsMetricStatusArgs'] pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
         :param pulumi.Input['ResourceMetricStatusArgs'] resource: resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         """
         pulumi.set(__self__, "type", type)
+        if container_resource is not None:
+            pulumi.set(__self__, "container_resource", container_resource)
         if external is not None:
             pulumi.set(__self__, "external", external)
         if object is not None:
@@ -684,13 +845,25 @@ class MetricStatusArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[str]:
         """
-        type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+        type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
         """
         return pulumi.get(self, "type")
 
     @type.setter
     def type(self, value: pulumi.Input[str]):
         pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter(name="containerResource")
+    def container_resource(self) -> Optional[pulumi.Input['ContainerResourceMetricStatusArgs']]:
+        """
+        container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        """
+        return pulumi.get(self, "container_resource")
+
+    @container_resource.setter
+    def container_resource(self, value: Optional[pulumi.Input['ContainerResourceMetricStatusArgs']]):
+        pulumi.set(self, "container_resource", value)
 
     @property
     @pulumi.getter

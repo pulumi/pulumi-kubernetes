@@ -12441,11 +12441,14 @@ class ServicePortArgs:
 class ServiceSpecArgs:
     def __init__(__self__, *,
                  cluster_ip: Optional[pulumi.Input[str]] = None,
+                 cluster_ips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  external_ips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  external_name: Optional[pulumi.Input[str]] = None,
                  external_traffic_policy: Optional[pulumi.Input[str]] = None,
                  health_check_node_port: Optional[pulumi.Input[int]] = None,
+                 ip_families: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  ip_family: Optional[pulumi.Input[str]] = None,
+                 ip_family_policy: Optional[pulumi.Input[str]] = None,
                  load_balancer_ip: Optional[pulumi.Input[str]] = None,
                  load_balancer_source_ranges: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  ports: Optional[pulumi.Input[Sequence[pulumi.Input['ServicePortArgs']]]] = None,
@@ -12458,11 +12461,14 @@ class ServiceSpecArgs:
         """
         ServiceSpec describes the attributes that a user creates on a service.
         :param pulumi.Input[str] cluster_ip: clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are "None", empty string (""), or a valid IP address. "None" can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] cluster_ips: ClusterIPs identifies all the ClusterIPs assigned to this service. ClusterIPs are assigned or reserved based on the values of service.spec.ipFamilies. A maximum of two entries (dual-stack IPs) are allowed in ClusterIPs. The IPFamily of each ClusterIP must match values provided in service.spec.ipFamilies. Clients using ClusterIPs must keep it in sync with ClusterIP (if provided) by having ClusterIP matching first element of ClusterIPs.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] external_ips: externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
         :param pulumi.Input[str] external_name: externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
         :param pulumi.Input[str] external_traffic_policy: externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
         :param pulumi.Input[int] health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
-        :param pulumi.Input[str] ip_family: ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] ip_families: IPFamilies identifies all the IPFamilies assigned for this Service. If a value was not provided for IPFamilies it will be defaulted based on the cluster configuration and the value of service.spec.ipFamilyPolicy. A maximum of two values (dual-stack IPFamilies) are allowed in IPFamilies. IPFamilies field is conditionally mutable: it allows for adding or removing a secondary IPFamily, but it does not allow changing the primary IPFamily of the service.
+        :param pulumi.Input[str] ip_family: ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+        :param pulumi.Input[str] ip_family_policy: IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this Service will be considered SingleStack (single IPFamily). Services can be SingleStack (single IPFamily), PreferDualStack (two dual-stack IPFamilies on dual-stack clusters or single IPFamily on single-stack clusters), or RequireDualStack (two dual-stack IPFamilies on dual-stack configured clusters, otherwise fail). The IPFamilies and ClusterIPs assigned to this service can be controlled by service.spec.ipFamilies and service.spec.clusterIPs respectively.
         :param pulumi.Input[str] load_balancer_ip: Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] load_balancer_source_ranges: If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
         :param pulumi.Input[Sequence[pulumi.Input['ServicePortArgs']]] ports: The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
@@ -12475,6 +12481,8 @@ class ServiceSpecArgs:
         """
         if cluster_ip is not None:
             pulumi.set(__self__, "cluster_ip", cluster_ip)
+        if cluster_ips is not None:
+            pulumi.set(__self__, "cluster_ips", cluster_ips)
         if external_ips is not None:
             pulumi.set(__self__, "external_ips", external_ips)
         if external_name is not None:
@@ -12483,8 +12491,12 @@ class ServiceSpecArgs:
             pulumi.set(__self__, "external_traffic_policy", external_traffic_policy)
         if health_check_node_port is not None:
             pulumi.set(__self__, "health_check_node_port", health_check_node_port)
+        if ip_families is not None:
+            pulumi.set(__self__, "ip_families", ip_families)
         if ip_family is not None:
             pulumi.set(__self__, "ip_family", ip_family)
+        if ip_family_policy is not None:
+            pulumi.set(__self__, "ip_family_policy", ip_family_policy)
         if load_balancer_ip is not None:
             pulumi.set(__self__, "load_balancer_ip", load_balancer_ip)
         if load_balancer_source_ranges is not None:
@@ -12515,6 +12527,18 @@ class ServiceSpecArgs:
     @cluster_ip.setter
     def cluster_ip(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "cluster_ip", value)
+
+    @property
+    @pulumi.getter(name="clusterIPs")
+    def cluster_ips(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        ClusterIPs identifies all the ClusterIPs assigned to this service. ClusterIPs are assigned or reserved based on the values of service.spec.ipFamilies. A maximum of two entries (dual-stack IPs) are allowed in ClusterIPs. The IPFamily of each ClusterIP must match values provided in service.spec.ipFamilies. Clients using ClusterIPs must keep it in sync with ClusterIP (if provided) by having ClusterIP matching first element of ClusterIPs.
+        """
+        return pulumi.get(self, "cluster_ips")
+
+    @cluster_ips.setter
+    def cluster_ips(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "cluster_ips", value)
 
     @property
     @pulumi.getter(name="externalIPs")
@@ -12565,16 +12589,40 @@ class ServiceSpecArgs:
         pulumi.set(self, "health_check_node_port", value)
 
     @property
+    @pulumi.getter(name="ipFamilies")
+    def ip_families(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        IPFamilies identifies all the IPFamilies assigned for this Service. If a value was not provided for IPFamilies it will be defaulted based on the cluster configuration and the value of service.spec.ipFamilyPolicy. A maximum of two values (dual-stack IPFamilies) are allowed in IPFamilies. IPFamilies field is conditionally mutable: it allows for adding or removing a secondary IPFamily, but it does not allow changing the primary IPFamily of the service.
+        """
+        return pulumi.get(self, "ip_families")
+
+    @ip_families.setter
+    def ip_families(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "ip_families", value)
+
+    @property
     @pulumi.getter(name="ipFamily")
     def ip_family(self) -> Optional[pulumi.Input[str]]:
         """
-        ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+        ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
         """
         return pulumi.get(self, "ip_family")
 
     @ip_family.setter
     def ip_family(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ip_family", value)
+
+    @property
+    @pulumi.getter(name="ipFamilyPolicy")
+    def ip_family_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this Service will be considered SingleStack (single IPFamily). Services can be SingleStack (single IPFamily), PreferDualStack (two dual-stack IPFamilies on dual-stack clusters or single IPFamily on single-stack clusters), or RequireDualStack (two dual-stack IPFamilies on dual-stack configured clusters, otherwise fail). The IPFamilies and ClusterIPs assigned to this service can be controlled by service.spec.ipFamilies and service.spec.clusterIPs respectively.
+        """
+        return pulumi.get(self, "ip_family_policy")
+
+    @ip_family_policy.setter
+    def ip_family_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ip_family_policy", value)
 
     @property
     @pulumi.getter(name="loadBalancerIP")

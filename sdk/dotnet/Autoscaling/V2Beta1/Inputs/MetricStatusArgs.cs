@@ -16,6 +16,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
     public class MetricStatusArgs : Pulumi.ResourceArgs
     {
         /// <summary>
+        /// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        /// </summary>
+        [Input("containerResource")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1.ContainerResourceMetricStatusArgs>? ContainerResource { get; set; }
+
+        /// <summary>
         /// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         /// </summary>
         [Input("external")]
@@ -40,7 +46,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1.ResourceMetricStatusArgs>? Resource { get; set; }
 
         /// <summary>
-        /// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+        /// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
