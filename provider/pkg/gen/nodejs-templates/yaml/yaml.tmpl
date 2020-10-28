@@ -25,6 +25,7 @@ import { getVersion } from "../utilities";
 
 export abstract class CollectionComponentResource extends pulumi.ComponentResource {
     resources!: pulumi.Output<{ [key: string]: pulumi.CustomResource }>;
+    ready!: pulumi.Output<pulumi.Output<pulumi.CustomResource>[]>;
 
     protected constructor(
         resourceType: string, name: string, config: any, opts?: pulumi.ComponentResourceOptions,

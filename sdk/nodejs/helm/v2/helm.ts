@@ -254,6 +254,8 @@ export class Chart extends yaml.CollectionComponentResource {
                 overrides.removeCallback();
             }
         });
+
+        this.ready = this.resources.apply(m => pulumi.all(m).apply(m => Object.values(m).map(r => pulumi.output(r))));
     }
 
     parseTemplate(
