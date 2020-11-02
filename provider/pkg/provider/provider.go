@@ -1418,24 +1418,24 @@ func (k *kubeProvider) Create(
 
 	newInputs := propMapToUnstructured(newResInputs)
 
+	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
+	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
+	// dry run, return the inputs as-is.
+	if req.GetPreview() &&
+		(hasComputedValue(newInputs) || !k.supportsDryRun(newInputs.GroupVersionKind())) {
+
+		logger.V(9).Infof("cannot preview Create(%v)", urn)
+		return &pulumirpc.CreateResponse{
+			Id: fqObjName(newInputs), Properties: req.GetProperties(),
+		}, nil
+	}
+
 	annotatedInputs, err := withLastAppliedConfig(newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
 				"`.metadata.annotations`",
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
-	}
-
-	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
-	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
-	// dry run, return the inputs as-is.
-	if req.GetPreview() &&
-		(hasComputedValue(annotatedInputs) || !k.supportsDryRun(annotatedInputs.GroupVersionKind())) {
-
-		logger.V(9).Infof("cannot preview Create(%v)", urn)
-		return &pulumirpc.CreateResponse{
-			Id: fqObjName(annotatedInputs), Properties: req.GetProperties(),
-		}, nil
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
