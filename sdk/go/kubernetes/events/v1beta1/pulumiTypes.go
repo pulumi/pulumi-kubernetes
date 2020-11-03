@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
-// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 type EventType struct {
 	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
 	Action *string `pulumi:"action"`
@@ -60,7 +60,7 @@ type EventTypeInput interface {
 	ToEventTypeOutputWithContext(context.Context) EventTypeOutput
 }
 
-// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 type EventTypeArgs struct {
 	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
 	Action pulumi.StringPtrInput `pulumi:"action"`
@@ -134,7 +134,7 @@ func (i EventTypeArray) ToEventTypeArrayOutputWithContext(ctx context.Context) E
 	return pulumi.ToOutputWithContext(ctx, i).(EventTypeArrayOutput)
 }
 
-// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 type EventTypeOutput struct{ *pulumi.OutputState }
 
 func (EventTypeOutput) ElementType() reflect.Type {
