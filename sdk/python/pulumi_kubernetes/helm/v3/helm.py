@@ -56,7 +56,7 @@ class Chart(pulumi.ComponentResource):
                 chart="nginx-ingress",
                 version="1.24.4",
                 fetch_opts=FetchOpts(
-                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                    repo="https://charts.helm.sh/stable",
                 ),
             ),
         )
@@ -72,7 +72,7 @@ class Chart(pulumi.ComponentResource):
                 chart="nginx-ingress",
                 version="1.24.4",
                 fetch_opts=FetchOpts(
-                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                    repo="https://charts.helm.sh/stable",
                 ),
                 values={
                     "controller": {
@@ -96,7 +96,7 @@ class Chart(pulumi.ComponentResource):
                 version="1.24.4",
                 namespace="test-namespace",
                 fetch_opts=FetchOpts(
-                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                    repo="https://charts.helm.sh/stable",
                 ),
             ),
         )
@@ -136,7 +136,7 @@ class Chart(pulumi.ComponentResource):
                 chart="nginx-ingress",
                 version="1.24.4",
                 fetch_opts=FetchOpts(
-                    repo="https://kubernetes-charts.storage.googleapis.com/",
+                    repo="https://charts.helm.sh/stable",
                 ),
                 transformations=[make_service_private, alias, omit_resource],
             ),

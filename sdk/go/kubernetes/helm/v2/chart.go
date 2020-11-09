@@ -85,7 +85,7 @@ import (
 //             Chart:   pulumi.String("nginx-ingress"),
 //             Version: pulumi.String("1.24.4"),
 //             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
 //             },
 //         })
 //         if err != nil {
@@ -112,7 +112,7 @@ import (
 //             Chart:   pulumi.String("nginx-ingress"),
 //             Version: pulumi.String("1.24.4"),
 //             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
 //             },
 //             Values: pulumi.Map{
 //                 "controller": pulumi.Map{
@@ -147,7 +147,7 @@ import (
 //             Version:   pulumi.String("1.24.4"),
 //             Namespace: pulumi.String("test-namespace"),
 //             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
 //             },
 //         })
 //         if err != nil {
@@ -175,7 +175,7 @@ import (
 //             Chart:   pulumi.String("nginx-ingress"),
 //             Version: pulumi.String("1.24.4"),
 //             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://kubernetes-charts.storage.googleapis.com/"),
+//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
 //             },
 //             Transformations: []yaml.Transformation{
 //                 // Make every service private to the cluster, i.e., turn all services into ClusterIP

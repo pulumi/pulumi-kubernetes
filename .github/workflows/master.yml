@@ -98,7 +98,7 @@ jobs:
           sudo mv linux-amd64/helm /usr/local/bin
       - name: Configure helm
         run: |
-          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo add stable https://charts.helm.sh/stable
           helm repo update
       - name: Login to Google Cloud Registry
         run: |
@@ -335,7 +335,7 @@ jobs:
           sudo mv linux-amd64/helm /usr/local/bin
       - name: Configure helm
         run: |
-          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo add stable https://charts.helm.sh/stable
           helm repo update
       - name: Run tests
         run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout 2h -parallel 4 ./...
@@ -412,7 +412,7 @@ jobs:
           sudo mv linux-amd64/helm /usr/local/bin
       - name: Configure helm
         run: |
-          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo add stable https://charts.helm.sh/stable
           helm repo update
       - name: Login to Google Cloud Registry
         run: |
