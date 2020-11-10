@@ -51,7 +51,7 @@ import * as yaml from "../../yaml/index";
  *   chart: "nginx-ingress",
  *   version: "1.24.4",
  *   fetchOpts:{
- *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *     repo: "https://charts.helm.sh/stable",
  *   },
  * });
  * ```
@@ -64,7 +64,7 @@ import * as yaml from "../../yaml/index";
  *   chart: "nginx-ingress",
  *   version: "1.24.4",
  *   fetchOpts:{
- *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *     repo: "https://charts.helm.sh/stable",
  *   },
  *   values: {
  *     controller: {
@@ -85,7 +85,7 @@ import * as yaml from "../../yaml/index";
  *   version: "1.24.4",
  *   namespace: "test-namespace",
  *   fetchOpts:{
- *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *     repo: "https://charts.helm.sh/stable",
  *   },
  * });
  * ```
@@ -98,7 +98,7 @@ import * as yaml from "../../yaml/index";
  *   chart: "nginx-ingress",
  *   version: "1.24.4",
  *   fetchOpts:{
- *     repo: "https://kubernetes-charts.storage.googleapis.com/",
+ *     repo: "https://charts.helm.sh/stable",
  *   },
  *   transformations: [
  *     // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
