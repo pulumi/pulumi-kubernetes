@@ -1,8 +1,10 @@
 ## HEAD (Unreleased)
 
+-   Add support for previewing Create and Update operations for API servers that support dry-run (https://github.com/pulumi/pulumi-kubernetes/pull/1355)
+-   Fix panic introduced in #1355 (https://github.com/pulumi/pulumi-kubernetes/pull/1368)
+
 ## 2.6.3 (October 12, 2020)
 
--   Add support for previewing Create and Update operations for API servers that support dry-run (https://github.com/pulumi/pulumi-kubernetes/pull/1355)
 -   Revert Helm v2 deprecation warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1352)
 
 ## 2.6.2 (October 7, 2020)
