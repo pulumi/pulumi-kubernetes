@@ -58,12 +58,18 @@ func TestGet(t *testing.T) {
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
-	for _, dir := range []string{"get", "get-old"} {
+	for _, dir := range []string{ "get-old"} {
 		t.Run(dir, func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				ExpectRefreshChanges: true, // CRD changes on refresh
-				Dir:                  filepath.Join(cwd, dir),
+				Dir:                  filepath.Join(cwd, dir, "step1"),
 				NoParallel:           true,
+				EditDirs: []integration.EditDir{
+					{
+						Dir:      "step2",
+						Additive: true,
+					},
+				},
 			})
 			integration.ProgramTest(t, &options)
 		})
