@@ -14,6 +14,7 @@ env:
   PULUMI_TEST_OWNER: moolumi
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
+  PR_COMMIT_SHA: ${{ github.event.client_payload.pull_request.head.sha }}
 
 jobs:
   comment-notification:
@@ -35,10 +36,10 @@ jobs:
     strategy:
       matrix:
         platform: [ ubuntu-latest ]
-        go-version: [ 1.13.x ]
-        node-version: [ 10.x ]
+        go-version: [ 1.15.x ]
+        node-version: [ 14.x ]
         python-version: [ 3.7 ]
-        dotnet-version: [ '3.1.100' ]
+        dotnet-version: [ 3.1.x ]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Install DotNet ${{ matrix.dotnet-version }}
@@ -87,6 +88,8 @@ jobs:
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@releases/v1
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PR_COMMIT_SHA }}
       - name: Create test infra
         run: |
           ./scripts/ci-cluster-create.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{ github.run_number }}"
@@ -100,6 +103,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PR_COMMIT_SHA }}
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
       - name: Install Go
@@ -138,6 +143,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PR_COMMIT_SHA }}
       - name: Checkout Scripts Repo
         uses: actions/checkout@v2
         with:
@@ -195,7 +202,7 @@ jobs:
       fail-fast: true
       matrix:
         dotnetversion:
-          - 3.1.301
+          - 3.1.x
         goversion:
           - 1.15.x
         language:
@@ -204,9 +211,9 @@ jobs:
           - dotnet
           - go
         nodeversion:
-          - 13.x
+          - 14.x
         pythonversion:
-          - "3.7"
+          - 3.7
   test-sdks:
     name: test-language-sdks
     runs-on: ubuntu-latest
@@ -214,6 +221,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PR_COMMIT_SHA }}
       - name: Checkout Scripts Repo
         uses: actions/checkout@v2
         with:
@@ -303,7 +312,7 @@ jobs:
       fail-fast: false
       matrix:
         dotnetversion:
-          - 3.1.301
+          - 3.1.x
         goversion:
           - 1.15.x
         language:
@@ -314,17 +323,17 @@ jobs:
         nodeversion:
           - 13.x
         pythonversion:
-          - "3.7"
+          - 3.7
   cleanup-infra:
     name: cleanup-test-infra
     needs: test-sdks
     strategy:
       matrix:
         platform: [ ubuntu-latest ]
-        go-version: [ 1.13.x ]
-        node-version: [ 10.x ]
+        go-version: [ 1.15.x ]
+        node-version: [ 14.x ]
         python-version: [ 3.7 ]
-        dotnet-version: [ '3.1.100' ]
+        dotnet-version: [ 3.1.x ]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Install DotNet ${{ matrix.dotnet-version }}
@@ -373,6 +382,8 @@ jobs:
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@releases/v1
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PR_COMMIT_SHA }}
       - name: Create test infra
         run: |
           ./scripts/ci-cluster-destroy.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{ github.run_number }}"
