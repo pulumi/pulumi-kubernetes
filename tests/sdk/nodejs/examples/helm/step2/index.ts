@@ -19,33 +19,18 @@ import * as pulumi from "@pulumi/pulumi";
 const namespace = new k8s.core.v1.Namespace("test");
 const namespaceName = namespace.metadata.name;
 
-const nginx = new k8s.helm.v3.Chart("simple-nginx", {
-    // Represents chart `stable/nginx-lego@v0.3.1`.
-    repo: "stable",
-    chart: "nginx-lego",
-    version: "0.3.1",
+const nginx = new k8s.helm.v3.Chart("test", {
+    chart: "nginx",
+    version: "6.0.4",
     namespace: namespaceName,
     fetchOpts: {
         home: os.homedir(),
+        repo: "https://charts.bitnami.com/bitnami",
     },
     values: {
-        // Override for the Chart's `values.yml` file. Use `null` to zero out resource requests so it
-        // can be scheduled on our (wimpy) CI cluster. (Setting these values to `null` is the "normal"
-        // way to delete values.)
-        nginx: { resources: null },
-        default: { resources: null },
-        lego: { resources: null }
+        service: { type: "ClusterIP" }
     },
     transformations: [
-        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of
-        // LoadBalancer.
-        (obj: any) => {
-            if (obj.kind == "Service" && obj.apiVersion == "v1") {
-                if (obj.spec && obj.spec.type && obj.spec.type == "LoadBalancer") {
-                    obj.spec.type = "ClusterIP";
-                }
-            }
-        },
         (obj: any, opts: pulumi.CustomResourceOptions) => {
             if (obj.kind == "Service" && obj.apiVersion == "v1") {
                 opts.additionalSecretOutputs = ["status"];
@@ -56,7 +41,7 @@ const nginx = new k8s.helm.v3.Chart("simple-nginx", {
 
 // Export the (cluster-private) IP address of the Guestbook frontend.
 const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
-    nginx.getResourceProperty("v1/Service", nsName, "simple-nginx-nginx-lego", "spec"));
+    nginx.getResourceProperty("v1/Service", nsName, "test-nginx", "spec"));
 export const frontendServiceIP = frontendServiceSpec.clusterIP;
 
 // Test a variety of other inputs on a chart that creates no resources.
