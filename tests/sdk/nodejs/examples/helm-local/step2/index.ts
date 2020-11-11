@@ -44,7 +44,7 @@ const nginx = chart();
 new k8s.core.v1.ConfigMap("foo", {
     metadata: { namespace: namespaceName },
     data: {foo: "bar"}
-}, {dependsOn: nginx})
+}, {dependsOn: nginx.ready})
 
 // Export the (cluster-private) IP address of the Guestbook frontend.
 const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
