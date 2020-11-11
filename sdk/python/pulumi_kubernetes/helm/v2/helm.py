@@ -185,6 +185,7 @@ class Chart(pulumi.ComponentResource):
         # resolution of all resources that this Helm chart created.
         self.resources = all_config.apply(_parse_chart)
         self.register_outputs({"resources": self.resources})
+        self.ready = self.resources.apply(lambda x: list(x.values()))
 
     def get_resource(self,
                      group_version_kind: str,

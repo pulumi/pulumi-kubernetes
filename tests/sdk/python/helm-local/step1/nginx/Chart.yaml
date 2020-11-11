@@ -18,4 +18,4 @@ maintainers:
 name: nginx
 sources:
 - https://github.com/bitnami/bitnami-docker-nginx
-version: 6.0.5
+version: 6.0.4
