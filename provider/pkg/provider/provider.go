@@ -1956,10 +1956,10 @@ func (k *kubeProvider) Delete(
 	label := fmt.Sprintf("%s.Delete(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
-	// If the cluster is unreachable, consider the resource deleted and inform the user.
 	if k.clusterUnreachable {
-		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
-		return &pbempty.Empty{}, nil
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s\n"+
+			"If the cluster has been deleted, you can edit the pulumi state to remove this resource",
+			k.clusterUnreachableReason)
 	}
 
 	// TODO(hausdorff): Propagate other options, like grace period through flags.
