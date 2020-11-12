@@ -73,15 +73,6 @@ jobs:
           project_id: ${{ env.GOOGLE_PROJECT }}
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-      - name: Install helm
-        run: |
-          curl -LO  https://get.helm.sh/helm-v3.2.1-linux-amd64.tar.gz
-          tar -xvf helm-v3.2.1-linux-amd64.tar.gz
-          sudo mv linux-amd64/helm /usr/local/bin
-      - name: Configure helm
-        run: |
-          helm repo add stable https://charts.helm.sh/stable
-          helm repo update
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
@@ -367,15 +358,6 @@ jobs:
           project_id: ${{ env.GOOGLE_PROJECT }}
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-      - name: Install helm
-        run: |
-          curl -LO  https://get.helm.sh/helm-v3.2.1-linux-amd64.tar.gz
-          tar -xvf helm-v3.2.1-linux-amd64.tar.gz
-          sudo mv linux-amd64/helm /usr/local/bin
-      - name: Configure helm
-        run: |
-          helm repo add stable https://charts.helm.sh/stable
-          helm repo update
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
