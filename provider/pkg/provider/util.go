@@ -1,6 +1,7 @@
 package provider
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -75,14 +76,27 @@ func fqName(namespace, name string) string {
 // --------------------------------------------------------------------------
 
 // parseKubeconfigPropertyValue takes a PropertyValue that possibly contains a raw kubeconfig
-// (YAML or JSON) string and attempts to unmarshal it into a Config struct. If the property value
+// (YAML or JSON) string or map and attempts to unmarshal it into a Config struct. If the property value
 // is empty, an empty Config is returned.
 func parseKubeconfigPropertyValue(kubeconfig resource.PropertyValue) (*clientapi.Config, error) {
 	if kubeconfig.IsNull() {
 		return &clientapi.Config{}, nil
 	}
 
-	config, err := clientcmd.Load([]byte(kubeconfig.StringValue()))
+	var cfg []byte
+	if kubeconfig.IsString() {
+		cfg = []byte(kubeconfig.StringValue())
+	} else if kubeconfig.IsObject() {
+		raw := kubeconfig.ObjectValue().Mappable()
+		jsonBytes, err := json.Marshal(raw)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal kubeconfig: %v", err)
+		}
+		cfg = jsonBytes
+	} else {
+		return nil, fmt.Errorf("unexpected kubeconfig format, type: %v", kubeconfig.TypeString())
+	}
+	config, err := clientcmd.Load(cfg)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
 	}
