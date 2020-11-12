@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Error on delete if cluster is unreachable (https://github.com/pulumi/pulumi-kubernetes/pull/1379)
+
 ## 2.7.0 (November 12, 2020)
 
 -   Add support for previewing Create and Update operations for API servers that support dry-run (https://github.com/pulumi/pulumi-kubernetes/pull/1355)
