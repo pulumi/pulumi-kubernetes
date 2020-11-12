@@ -157,6 +157,8 @@ export class Chart extends yaml.CollectionComponentResource {
         this.resources = allConfig.apply(cfg => {
             return this.parseChart(cfg, releaseName, opts)
         });
+
+        this.ready = this.resources.apply(m => Object.values(m));
     }
 
     parseChart(config: ChartOpts | LocalChartOpts, releaseName: string, opts?: pulumi.ComponentResourceOptions) {

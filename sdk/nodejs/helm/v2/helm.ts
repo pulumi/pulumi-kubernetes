@@ -254,6 +254,8 @@ export class Chart extends yaml.CollectionComponentResource {
                 overrides.removeCallback();
             }
         });
+
+        this.ready = this.resources.apply(m => Object.values(m));
     }
 
     parseTemplate(
