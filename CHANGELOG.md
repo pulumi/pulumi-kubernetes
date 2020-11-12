@@ -4,6 +4,7 @@
 -   Fix panic introduced in #1355 (https://github.com/pulumi/pulumi-kubernetes/pull/1368)
 -   Update Helm to v3.4.0 and client-go to v1.19.2 (https://github.com/pulumi/pulumi-kubernetes/pull/1360)
 -   Update Helm to v3.4.1 and client-go to v1.19.3 (https://github.com/pulumi/pulumi-kubernetes/pull/1365)
+-   Fix panic when provider is given kubeconfig as an object instead of string (https://github.com/pulumi/pulumi-kubernetes/pull/1373)
 -   Fix concurrency issue in Helm + .NET SDK [#1311](https://github.com/pulumi/pulumi-kubernetes/issues/1311) and [#1374](https://github.com/pulumi/pulumi-kubernetes/issues/1374)
 
 ## 2.6.3 (October 12, 2020)
