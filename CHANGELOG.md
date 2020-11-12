@@ -3,6 +3,7 @@
 -   Add support for previewing Create and Update operations for API servers that support dry-run (https://github.com/pulumi/pulumi-kubernetes/pull/1355)
 -   Fix panic introduced in #1355 (https://github.com/pulumi/pulumi-kubernetes/pull/1368)
 -   Update Helm to v3.4.0 and client-go to v1.19.2 (https://github.com/pulumi/pulumi-kubernetes/pull/1360)
+-   Fix concurrency issue in Helm + .NET SDK [#1311](https://github.com/pulumi/pulumi-kubernetes/issues/1311) and [#1374](https://github.com/pulumi/pulumi-kubernetes/issues/1374)
 
 ## 2.6.3 (October 12, 2020)
 
