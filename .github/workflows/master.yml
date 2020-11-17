@@ -34,6 +34,8 @@ jobs:
   golangci:
     name: lint
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
       - uses: actions/checkout@v2
       - name: golangci-lint-provider-pkg
@@ -95,7 +97,7 @@ jobs:
         run: |
           gcloud --quiet auth configure-docker
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@releases/v1
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
       - uses: actions/checkout@v2
       - name: Create test infra
         run: |
@@ -124,11 +126,11 @@ jobs:
         with:
           go-version: 1.15.x
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@releases/v1
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
       - name: Build K8sgen
         run: make k8sgen
       - name: Prepare openapi file
@@ -174,11 +176,11 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@releases/v1
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -257,11 +259,11 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@releases/v1
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -295,7 +297,7 @@ jobs:
         run: tar -zxf ${{ github.workspace}}/sdk/${{ matrix.language}}.tar.gz -C ${{
           github.workspace}}/sdk/${{ matrix.language}}
       - name: Update path
-        run: echo ::add-path::${{ github.workspace }}/bin
+        run: echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
       - name: Install Python deps
         run: |-
           pip3 install virtualenv==20.0.23
@@ -400,7 +402,7 @@ jobs:
         run: |
           gcloud --quiet auth configure-docker
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@releases/v1
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
       - uses: actions/checkout@v2
       - name: Create test infra
         run: |
@@ -445,14 +447,14 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@releases/v1
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
       - name: Set PreRelease Version
-        run: echo "::set-env name=GORELEASER_CURRENT_TAG::v$(pulumictl get version --language
-          generic)"
+        run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language
+          generic)" >> $GITHUB_ENV
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
@@ -484,11 +486,11 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@release/v1-alpha
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@releases/v1
+        uses: pulumi/action-install-pulumi-cli@v1.0.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
