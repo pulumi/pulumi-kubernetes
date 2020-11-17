@@ -33,4 +33,34 @@ import * as settings from "./settings";
 import * as storage from "./storage";
 import * as types from "./types";
 import * as yaml from "./yaml";
-export {admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, flowcontrol, helm, kustomize, meta, networking, node, policy, rbac, scheduling, settings, storage, types, yaml};
+
+export {
+    admissionregistration,
+    apiextensions,
+    apiregistration,
+    apps,
+    auditregistration,
+    authentication,
+    authorization,
+    autoscaling,
+    batch,
+    certificates,
+    coordination,
+    core,
+    discovery,
+    events,
+    extensions,
+    flowcontrol,
+    helm,
+    kustomize,
+    meta,
+    networking,
+    node,
+    policy,
+    rbac,
+    scheduling,
+    settings,
+    storage,
+    types,
+    yaml,
+};
