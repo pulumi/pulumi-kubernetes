@@ -50,7 +50,7 @@ class HelmStack : Stack
         // Test a variety of other inputs on a chart that creates no resources.
         var empty1 = new Chart("empty1", new ChartArgs
         {
-            Chart = "https://charts.helm.sh/incubator/raw-0.1.0.tgz"
+            Chart = "https://charts.helm.sh/incubator/packages/raw-0.1.0.tgz"
         });
 
         var empty2 = new Chart("empty2", new ChartArgs

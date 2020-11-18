@@ -46,7 +46,7 @@ export const frontendServiceIP = frontendServiceSpec.clusterIP;
 
 // Test a variety of other inputs on a chart that creates no resources.
 const empty1 = new k8s.helm.v3.Chart("empty1", {
-    chart: "https://charts.helm.sh/incubator/raw-0.1.0.tgz",
+    chart: "https://charts.helm.sh/incubator/packages/raw-0.1.0.tgz",
 });
 
 const empty2 = new k8s.helm.v3.Chart("empty2", {
