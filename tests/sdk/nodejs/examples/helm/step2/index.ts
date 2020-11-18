@@ -46,20 +46,20 @@ export const frontendServiceIP = frontendServiceSpec.clusterIP;
 
 // Test a variety of other inputs on a chart that creates no resources.
 const empty1 = new k8s.helm.v3.Chart("empty1", {
-    chart: "https://kubernetes-charts-incubator.storage.googleapis.com/raw-0.1.0.tgz",
+    chart: "https://charts.helm.sh/incubator/packages/raw-0.1.0.tgz",
 });
 
 const empty2 = new k8s.helm.v3.Chart("empty2", {
     chart: "raw",
     version: "0.1.0",
     fetchOpts: {
-        repo: "https://kubernetes-charts-incubator.storage.googleapis.com/",
+        repo: "https://charts.helm.sh/incubator",
     },
 });
 
 const empty3 = new k8s.helm.v3.Chart("empty3", {
     chart: "raw",
     fetchOpts: {
-        repo: "https://kubernetes-charts-incubator.storage.googleapis.com/",
+        repo: "https://charts.helm.sh/incubator",
     },
 });

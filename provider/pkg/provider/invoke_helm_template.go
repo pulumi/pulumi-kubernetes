@@ -199,7 +199,7 @@ func (c *chart) template() (string, error) {
 		// Check if the chart value is a URL with a defined scheme.
 		if _url, err := url.Parse(c.opts.Chart); err == nil && len(_url.Scheme) > 0 {
 			// Chart path will be of the form `/name-version.tgz`
-			re := regexp.MustCompile(`^/(\w+)-(\S+)\.tgz$`)
+			re := regexp.MustCompile(`/(\w+)-(\S+)\.tgz$`)
 			matches := re.FindStringSubmatch(_url.Path)
 			if len(matches) > 1 {
 				return matches[1]
