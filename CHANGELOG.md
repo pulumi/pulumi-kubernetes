@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.7.1 (November 18, 2020)
+
 -   Error on delete if cluster is unreachable (https://github.com/pulumi/pulumi-kubernetes/pull/1379)
 -   Update pulumi deps to v2.13.2 (https://github.com/pulumi/pulumi-kubernetes/pull/1383)
 
