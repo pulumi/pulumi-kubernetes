@@ -59,7 +59,7 @@ class RuntimeClass(pulumi.CustomResource):
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__['spec'] = spec
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1beta1:RuntimeClass")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1:RuntimeClass"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1beta1:RuntimeClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(RuntimeClass, __self__).__init__(
             'kubernetes:node.k8s.io/v1alpha1:RuntimeClass',

@@ -14,6 +14,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ServiceSpec
     {
         /// <summary>
+        /// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+        /// </summary>
+        public readonly bool AllocateLoadBalancerNodePorts;
+        /// <summary>
         /// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         /// </summary>
         public readonly string ClusterIP;
@@ -82,7 +86,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SessionAffinityConfig SessionAffinityConfig;
         /// <summary>
-        /// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+        /// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
         /// </summary>
         public readonly ImmutableArray<string> TopologyKeys;
         /// <summary>
@@ -92,6 +96,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
         [OutputConstructor]
         private ServiceSpec(
+            bool allocateLoadBalancerNodePorts,
+
             string clusterIP,
 
             ImmutableArray<string> clusterIPs,
@@ -128,6 +134,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string type)
         {
+            AllocateLoadBalancerNodePorts = allocateLoadBalancerNodePorts;
             ClusterIP = clusterIP;
             ClusterIPs = clusterIPs;
             ExternalIPs = externalIPs;

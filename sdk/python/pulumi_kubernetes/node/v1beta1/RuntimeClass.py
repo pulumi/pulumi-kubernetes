@@ -65,7 +65,7 @@ class RuntimeClass(pulumi.CustomResource):
             __props__['metadata'] = metadata
             __props__['overhead'] = overhead
             __props__['scheduling'] = scheduling
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClass")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1:RuntimeClass"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(RuntimeClass, __self__).__init__(
             'kubernetes:node.k8s.io/v1beta1:RuntimeClass',

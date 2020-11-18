@@ -23,6 +23,7 @@ class EndpointArgs:
                  addresses: pulumi.Input[Sequence[pulumi.Input[str]]],
                  conditions: Optional[pulumi.Input['EndpointConditionsArgs']] = None,
                  hostname: Optional[pulumi.Input[str]] = None,
+                 node_name: Optional[pulumi.Input[str]] = None,
                  target_ref: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
                  topology: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
@@ -30,6 +31,7 @@ class EndpointArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
         :param pulumi.Input['EndpointConditionsArgs'] conditions: conditions contains information about the current status of the endpoint.
         :param pulumi.Input[str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+        :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
         :param pulumi.Input['_core.v1.ObjectReferenceArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] topology: topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
                  where the endpoint is located. This should match the corresponding
@@ -38,12 +40,15 @@ class EndpointArgs:
                  endpoint is located. This should match the corresponding node label.
                * topology.kubernetes.io/region: the value indicates the region where the
                  endpoint is located. This should match the corresponding node label.
+               This field is deprecated and will be removed in future api versions.
         """
         pulumi.set(__self__, "addresses", addresses)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
         if target_ref is not None:
             pulumi.set(__self__, "target_ref", target_ref)
         if topology is not None:
@@ -86,6 +91,18 @@ class EndpointArgs:
         pulumi.set(self, "hostname", value)
 
     @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        """
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "node_name", value)
+
+    @property
     @pulumi.getter(name="targetRef")
     def target_ref(self) -> Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]:
         """
@@ -108,6 +125,7 @@ class EndpointArgs:
           endpoint is located. This should match the corresponding node label.
         * topology.kubernetes.io/region: the value indicates the region where the
           endpoint is located. This should match the corresponding node label.
+        This field is deprecated and will be removed in future api versions.
         """
         return pulumi.get(self, "topology")
 
@@ -119,25 +137,57 @@ class EndpointArgs:
 @pulumi.input_type
 class EndpointConditionsArgs:
     def __init__(__self__, *,
-                 ready: Optional[pulumi.Input[bool]] = None):
+                 ready: Optional[pulumi.Input[bool]] = None,
+                 serving: Optional[pulumi.Input[bool]] = None,
+                 terminating: Optional[pulumi.Input[bool]] = None):
         """
         EndpointConditions represents the current condition of an endpoint.
-        :param pulumi.Input[bool] ready: ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+        :param pulumi.Input[bool] ready: ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+        :param pulumi.Input[bool] serving: serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        :param pulumi.Input[bool] terminating: terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
         """
         if ready is not None:
             pulumi.set(__self__, "ready", ready)
+        if serving is not None:
+            pulumi.set(__self__, "serving", serving)
+        if terminating is not None:
+            pulumi.set(__self__, "terminating", terminating)
 
     @property
     @pulumi.getter
     def ready(self) -> Optional[pulumi.Input[bool]]:
         """
-        ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+        ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
         """
         return pulumi.get(self, "ready")
 
     @ready.setter
     def ready(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "ready", value)
+
+    @property
+    @pulumi.getter
+    def serving(self) -> Optional[pulumi.Input[bool]]:
+        """
+        serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        """
+        return pulumi.get(self, "serving")
+
+    @serving.setter
+    def serving(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "serving", value)
+
+    @property
+    @pulumi.getter
+    def terminating(self) -> Optional[pulumi.Input[bool]]:
+        """
+        terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        """
+        return pulumi.get(self, "terminating")
+
+    @terminating.setter
+    def terminating(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "terminating", value)
 
 
 @pulumi.input_type

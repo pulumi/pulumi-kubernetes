@@ -20,6 +20,8 @@ type Endpoint struct {
 	Conditions *EndpointConditions `pulumi:"conditions"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname *string `pulumi:"hostname"`
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	NodeName *string `pulumi:"nodeName"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef *corev1.ObjectReference `pulumi:"targetRef"`
 	// topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
@@ -29,6 +31,7 @@ type Endpoint struct {
 	//   endpoint is located. This should match the corresponding node label.
 	// * topology.kubernetes.io/region: the value indicates the region where the
 	//   endpoint is located. This should match the corresponding node label.
+	//   This field is deprecated and will be removed in future api versions.
 	Topology map[string]string `pulumi:"topology"`
 }
 
@@ -51,6 +54,8 @@ type EndpointArgs struct {
 	Conditions EndpointConditionsPtrInput `pulumi:"conditions"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef corev1.ObjectReferencePtrInput `pulumi:"targetRef"`
 	// topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
@@ -60,6 +65,7 @@ type EndpointArgs struct {
 	//   endpoint is located. This should match the corresponding node label.
 	// * topology.kubernetes.io/region: the value indicates the region where the
 	//   endpoint is located. This should match the corresponding node label.
+	//   This field is deprecated and will be removed in future api versions.
 	Topology pulumi.StringMapInput `pulumi:"topology"`
 }
 
@@ -130,6 +136,11 @@ func (o EndpointOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Endpoint) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
+// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+func (o EndpointOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Endpoint) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
 // targetRef is a reference to a Kubernetes object that represents this endpoint.
 func (o EndpointOutput) TargetRef() corev1.ObjectReferencePtrOutput {
 	return o.ApplyT(func(v Endpoint) *corev1.ObjectReference { return v.TargetRef }).(corev1.ObjectReferencePtrOutput)
@@ -142,6 +153,7 @@ func (o EndpointOutput) TargetRef() corev1.ObjectReferencePtrOutput {
 //   endpoint is located. This should match the corresponding node label.
 // * topology.kubernetes.io/region: the value indicates the region where the
 //   endpoint is located. This should match the corresponding node label.
+//   This field is deprecated and will be removed in future api versions.
 func (o EndpointOutput) Topology() pulumi.StringMapOutput {
 	return o.ApplyT(func(v Endpoint) map[string]string { return v.Topology }).(pulumi.StringMapOutput)
 }
@@ -168,8 +180,12 @@ func (o EndpointArrayOutput) Index(i pulumi.IntInput) EndpointOutput {
 
 // EndpointConditions represents the current condition of an endpoint.
 type EndpointConditions struct {
-	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 	Ready *bool `pulumi:"ready"`
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Serving *bool `pulumi:"serving"`
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Terminating *bool `pulumi:"terminating"`
 }
 
 // EndpointConditionsInput is an input type that accepts EndpointConditionsArgs and EndpointConditionsOutput values.
@@ -185,8 +201,12 @@ type EndpointConditionsInput interface {
 
 // EndpointConditions represents the current condition of an endpoint.
 type EndpointConditionsArgs struct {
-	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 	Ready pulumi.BoolPtrInput `pulumi:"ready"`
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Serving pulumi.BoolPtrInput `pulumi:"serving"`
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Terminating pulumi.BoolPtrInput `pulumi:"terminating"`
 }
 
 func (EndpointConditionsArgs) ElementType() reflect.Type {
@@ -267,9 +287,19 @@ func (o EndpointConditionsOutput) ToEndpointConditionsPtrOutputWithContext(ctx c
 	}).(EndpointConditionsPtrOutput)
 }
 
-// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 func (o EndpointConditionsOutput) Ready() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
+}
+
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsOutput) Serving() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v EndpointConditions) *bool { return v.Serving }).(pulumi.BoolPtrOutput)
+}
+
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsOutput) Terminating() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v EndpointConditions) *bool { return v.Terminating }).(pulumi.BoolPtrOutput)
 }
 
 type EndpointConditionsPtrOutput struct{ *pulumi.OutputState }
@@ -290,13 +320,33 @@ func (o EndpointConditionsPtrOutput) Elem() EndpointConditionsOutput {
 	return o.ApplyT(func(v *EndpointConditions) EndpointConditions { return *v }).(EndpointConditionsOutput)
 }
 
-// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 func (o EndpointConditionsPtrOutput) Ready() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *EndpointConditions) *bool {
 		if v == nil {
 			return nil
 		}
 		return v.Ready
+	}).(pulumi.BoolPtrOutput)
+}
+
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsPtrOutput) Serving() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *EndpointConditions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Serving
+	}).(pulumi.BoolPtrOutput)
+}
+
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsPtrOutput) Terminating() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *EndpointConditions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Terminating
 	}).(pulumi.BoolPtrOutput)
 }
 

@@ -40,6 +40,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
         public Input<string>? Hostname { get; set; }
 
         /// <summary>
+        /// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        /// </summary>
+        [Input("nodeName")]
+        public Input<string>? NodeName { get; set; }
+
+        /// <summary>
         /// targetRef is a reference to a Kubernetes object that represents this endpoint.
         /// </summary>
         [Input("targetRef")]
@@ -56,6 +62,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
         ///   endpoint is located. This should match the corresponding node label.
         /// * topology.kubernetes.io/region: the value indicates the region where the
         ///   endpoint is located. This should match the corresponding node label.
+        /// This field is deprecated and will be removed in future api versions.
         /// </summary>
         public InputMap<string> Topology
         {

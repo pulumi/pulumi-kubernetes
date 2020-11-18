@@ -85,6 +85,8 @@ export class FlowSchema extends pulumi.CustomResource {
         if (!opts.version) {
             opts.version = utilities.getVersion();
         }
+        const aliasOpts = { aliases: [{ type: "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema" }] };
+        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
         super(FlowSchema.__pulumiType, name, inputs, opts);
     }
 }

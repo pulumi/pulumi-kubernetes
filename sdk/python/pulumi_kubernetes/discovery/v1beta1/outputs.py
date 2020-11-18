@@ -27,6 +27,7 @@ class Endpoint(dict):
                  addresses: Sequence[str],
                  conditions: Optional['outputs.EndpointConditions'] = None,
                  hostname: Optional[str] = None,
+                 node_name: Optional[str] = None,
                  target_ref: Optional['_core.v1.outputs.ObjectReference'] = None,
                  topology: Optional[Mapping[str, str]] = None):
         """
@@ -34,6 +35,7 @@ class Endpoint(dict):
         :param Sequence[str] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
         :param 'EndpointConditionsArgs' conditions: conditions contains information about the current status of the endpoint.
         :param str hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+        :param str node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
         :param '_core.v1.ObjectReferenceArgs' target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
         :param Mapping[str, str] topology: topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
                  where the endpoint is located. This should match the corresponding
@@ -42,12 +44,15 @@ class Endpoint(dict):
                  endpoint is located. This should match the corresponding node label.
                * topology.kubernetes.io/region: the value indicates the region where the
                  endpoint is located. This should match the corresponding node label.
+               This field is deprecated and will be removed in future api versions.
         """
         pulumi.set(__self__, "addresses", addresses)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
         if target_ref is not None:
             pulumi.set(__self__, "target_ref", target_ref)
         if topology is not None:
@@ -78,6 +83,14 @@ class Endpoint(dict):
         return pulumi.get(self, "hostname")
 
     @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
     @pulumi.getter(name="targetRef")
     def target_ref(self) -> Optional['_core.v1.outputs.ObjectReference']:
         """
@@ -96,6 +109,7 @@ class Endpoint(dict):
           endpoint is located. This should match the corresponding node label.
         * topology.kubernetes.io/region: the value indicates the region where the
           endpoint is located. This should match the corresponding node label.
+        This field is deprecated and will be removed in future api versions.
         """
         return pulumi.get(self, "topology")
 
@@ -109,21 +123,45 @@ class EndpointConditions(dict):
     EndpointConditions represents the current condition of an endpoint.
     """
     def __init__(__self__, *,
-                 ready: Optional[bool] = None):
+                 ready: Optional[bool] = None,
+                 serving: Optional[bool] = None,
+                 terminating: Optional[bool] = None):
         """
         EndpointConditions represents the current condition of an endpoint.
-        :param bool ready: ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+        :param bool ready: ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+        :param bool serving: serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        :param bool terminating: terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
         """
         if ready is not None:
             pulumi.set(__self__, "ready", ready)
+        if serving is not None:
+            pulumi.set(__self__, "serving", serving)
+        if terminating is not None:
+            pulumi.set(__self__, "terminating", terminating)
 
     @property
     @pulumi.getter
     def ready(self) -> Optional[bool]:
         """
-        ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
+        ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
         """
         return pulumi.get(self, "ready")
+
+    @property
+    @pulumi.getter
+    def serving(self) -> Optional[bool]:
+        """
+        serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        """
+        return pulumi.get(self, "serving")
+
+    @property
+    @pulumi.getter
+    def terminating(self) -> Optional[bool]:
+        """
+        terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        """
+        return pulumi.get(self, "terminating")
 
     def _translate_property(self, prop):
         return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop

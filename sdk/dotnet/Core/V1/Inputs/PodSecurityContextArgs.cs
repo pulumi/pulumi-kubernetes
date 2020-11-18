@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<int>? FsGroup { get; set; }
 
         /// <summary>
-        /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+        /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
         /// </summary>
         [Input("fsGroupChangePolicy")]
         public Input<string>? FsGroupChangePolicy { get; set; }

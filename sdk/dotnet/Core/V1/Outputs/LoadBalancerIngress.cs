@@ -21,15 +21,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
         /// </summary>
         public readonly string Ip;
+        /// <summary>
+        /// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PortStatus> Ports;
 
         [OutputConstructor]
         private LoadBalancerIngress(
             string hostname,
 
-            string ip)
+            string ip,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PortStatus> ports)
         {
             Hostname = hostname;
             Ip = ip;
+            Ports = ports;
         }
     }
 }

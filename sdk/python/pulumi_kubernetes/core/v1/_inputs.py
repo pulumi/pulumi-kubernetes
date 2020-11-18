@@ -124,6 +124,7 @@ __all__ = [
     'PodStatusArgs',
     'PodTemplateArgs',
     'PodTemplateSpecArgs',
+    'PortStatusArgs',
     'PortworxVolumeSourceArgs',
     'PreferredSchedulingTermArgs',
     'ProbeArgs',
@@ -5479,16 +5480,20 @@ class LimitRangeSpecArgs:
 class LoadBalancerIngressArgs:
     def __init__(__self__, *,
                  hostname: Optional[pulumi.Input[str]] = None,
-                 ip: Optional[pulumi.Input[str]] = None):
+                 ip: Optional[pulumi.Input[str]] = None,
+                 ports: Optional[pulumi.Input[Sequence[pulumi.Input['PortStatusArgs']]]] = None):
         """
         LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
         :param pulumi.Input[str] hostname: Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
         :param pulumi.Input[str] ip: IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+        :param pulumi.Input[Sequence[pulumi.Input['PortStatusArgs']]] ports: Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
         """
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if ip is not None:
             pulumi.set(__self__, "ip", ip)
+        if ports is not None:
+            pulumi.set(__self__, "ports", ports)
 
     @property
     @pulumi.getter
@@ -5513,6 +5518,18 @@ class LoadBalancerIngressArgs:
     @ip.setter
     def ip(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ip", value)
+
+    @property
+    @pulumi.getter
+    def ports(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PortStatusArgs']]]]:
+        """
+        Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+        """
+        return pulumi.get(self, "ports")
+
+    @ports.setter
+    def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PortStatusArgs']]]]):
+        pulumi.set(self, "ports", value)
 
 
 @pulumi.input_type
@@ -7291,7 +7308,7 @@ class PersistentVolumeClaimSpecArgs:
         """
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-        :param pulumi.Input['TypedLocalObjectReferenceArgs'] data_source: This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+        :param pulumi.Input['TypedLocalObjectReferenceArgs'] data_source: This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
         :param pulumi.Input['ResourceRequirementsArgs'] resources: Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over volumes to consider for binding.
         :param pulumi.Input[str] storage_class_name: Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
@@ -7329,7 +7346,7 @@ class PersistentVolumeClaimSpecArgs:
     @pulumi.getter(name="dataSource")
     def data_source(self) -> Optional[pulumi.Input['TypedLocalObjectReferenceArgs']]:
         """
-        This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+        This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
         """
         return pulumi.get(self, "data_source")
 
@@ -8631,7 +8648,7 @@ class PodSecurityContextArgs:
                1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
                
                If unset, the Kubelet will not modify the ownership and permissions of any volume.
-        :param pulumi.Input[str] fs_group_change_policy: fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+        :param pulumi.Input[str] fs_group_change_policy: fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
         :param pulumi.Input[int] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
         :param pulumi.Input[bool] run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         :param pulumi.Input[int] run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
@@ -8682,7 +8699,7 @@ class PodSecurityContextArgs:
     @pulumi.getter(name="fsGroupChangePolicy")
     def fs_group_change_policy(self) -> Optional[pulumi.Input[str]]:
         """
-        fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+        fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
         """
         return pulumi.get(self, "fs_group_change_policy")
 
@@ -9688,6 +9705,65 @@ class PodTemplateSpecArgs:
     @spec.setter
     def spec(self, value: Optional[pulumi.Input['PodSpecArgs']]):
         pulumi.set(self, "spec", value)
+
+
+@pulumi.input_type
+class PortStatusArgs:
+    def __init__(__self__, *,
+                 port: pulumi.Input[int],
+                 protocol: pulumi.Input[str],
+                 error: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[int] port: Port is the port number of the service port of which status is recorded here
+        :param pulumi.Input[str] protocol: Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        :param pulumi.Input[str] error: Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+                 CamelCase names
+               - cloud provider specific error values must have names that comply with the
+                 format foo.example.com/CamelCase.
+        """
+        pulumi.set(__self__, "port", port)
+        pulumi.set(__self__, "protocol", protocol)
+        if error is not None:
+            pulumi.set(__self__, "error", error)
+
+    @property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[int]:
+        """
+        Port is the port number of the service port of which status is recorded here
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[int]):
+        pulumi.set(self, "port", value)
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> pulumi.Input[str]:
+        """
+        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        """
+        return pulumi.get(self, "protocol")
+
+    @protocol.setter
+    def protocol(self, value: pulumi.Input[str]):
+        pulumi.set(self, "protocol", value)
+
+    @property
+    @pulumi.getter
+    def error(self) -> Optional[pulumi.Input[str]]:
+        """
+        Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+          CamelCase names
+        - cloud provider specific error values must have names that comply with the
+          format foo.example.com/CamelCase.
+        """
+        return pulumi.get(self, "error")
+
+    @error.setter
+    def error(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "error", value)
 
 
 @pulumi.input_type
@@ -12440,6 +12516,7 @@ class ServicePortArgs:
 @pulumi.input_type
 class ServiceSpecArgs:
     def __init__(__self__, *,
+                 allocate_load_balancer_node_ports: Optional[pulumi.Input[bool]] = None,
                  cluster_ip: Optional[pulumi.Input[str]] = None,
                  cluster_ips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  external_ips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -12460,6 +12537,7 @@ class ServiceSpecArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         ServiceSpec describes the attributes that a user creates on a service.
+        :param pulumi.Input[bool] allocate_load_balancer_node_ports: allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
         :param pulumi.Input[str] cluster_ip: clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input[Sequence[pulumi.Input[str]]] cluster_ips: ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
                
@@ -12480,9 +12558,11 @@ class ServiceSpecArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] selector: Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
         :param pulumi.Input[str] session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input['SessionAffinityConfigArgs'] session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
         :param pulumi.Input[str] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
         """
+        if allocate_load_balancer_node_ports is not None:
+            pulumi.set(__self__, "allocate_load_balancer_node_ports", allocate_load_balancer_node_ports)
         if cluster_ip is not None:
             pulumi.set(__self__, "cluster_ip", cluster_ip)
         if cluster_ips is not None:
@@ -12519,6 +12599,18 @@ class ServiceSpecArgs:
             pulumi.set(__self__, "topology_keys", topology_keys)
         if type is not None:
             pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="allocateLoadBalancerNodePorts")
+    def allocate_load_balancer_node_ports(self) -> Optional[pulumi.Input[bool]]:
+        """
+        allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+        """
+        return pulumi.get(self, "allocate_load_balancer_node_ports")
+
+    @allocate_load_balancer_node_ports.setter
+    def allocate_load_balancer_node_ports(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allocate_load_balancer_node_ports", value)
 
     @property
     @pulumi.getter(name="clusterIP")
@@ -12720,7 +12812,7 @@ class ServiceSpecArgs:
     @pulumi.getter(name="topologyKeys")
     def topology_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+        topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
         """
         return pulumi.get(self, "topology_keys")
 
@@ -12744,13 +12836,29 @@ class ServiceSpecArgs:
 @pulumi.input_type
 class ServiceStatusArgs:
     def __init__(__self__, *,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
                  load_balancer: Optional[pulumi.Input['LoadBalancerStatusArgs']] = None):
         """
         ServiceStatus represents the current status of a service.
+        :param pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]] conditions: Current service state
         :param pulumi.Input['LoadBalancerStatusArgs'] load_balancer: LoadBalancer contains the current status of the load-balancer, if one is present.
         """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
         if load_balancer is not None:
             pulumi.set(__self__, "load_balancer", load_balancer)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+        """
+        Current service state
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+        pulumi.set(self, "conditions", value)
 
     @property
     @pulumi.getter(name="loadBalancer")

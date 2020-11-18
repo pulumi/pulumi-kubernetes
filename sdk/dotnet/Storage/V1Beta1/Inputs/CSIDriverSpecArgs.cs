@@ -37,6 +37,16 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         public Input<bool>? PodInfoOnMount { get; set; }
 
         /// <summary>
+        /// RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+        /// 
+        /// Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+        /// 
+        /// This is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.
+        /// </summary>
+        [Input("requiresRepublish")]
+        public Input<bool>? RequiresRepublish { get; set; }
+
+        /// <summary>
         /// If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
         /// 
         /// The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -47,6 +57,28 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         /// </summary>
         [Input("storageCapacity")]
         public Input<bool>? StorageCapacity { get; set; }
+
+        [Input("tokenRequests")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1.TokenRequestArgs>? _tokenRequests;
+
+        /// <summary>
+        /// TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+        ///   "&lt;audience&gt;": {
+        ///     "token": &lt;token&gt;,
+        ///     "expirationTimestamp": &lt;expiration timestamp in RFC3339&gt;,
+        ///   },
+        ///   ...
+        /// }
+        /// 
+        /// Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
+        /// 
+        /// This is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1.TokenRequestArgs> TokenRequests
+        {
+            get => _tokenRequests ?? (_tokenRequests = new InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1.TokenRequestArgs>());
+            set => _tokenRequests = value;
+        }
 
         [Input("volumeLifecycleModes")]
         private InputList<string>? _volumeLifecycleModes;

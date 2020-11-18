@@ -14,13 +14,21 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ServiceStatus
     {
         /// <summary>
+        /// Current service state
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.Condition> Conditions;
+        /// <summary>
         /// LoadBalancer contains the current status of the load-balancer, if one is present.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.LoadBalancerStatus LoadBalancer;
 
         [OutputConstructor]
-        private ServiceStatus(Pulumi.Kubernetes.Types.Outputs.Core.V1.LoadBalancerStatus loadBalancer)
+        private ServiceStatus(
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.Condition> conditions,
+
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.LoadBalancerStatus loadBalancer)
         {
+            Conditions = conditions;
             LoadBalancer = loadBalancer;
         }
     }

@@ -94,7 +94,7 @@ export class RuntimeClass extends pulumi.CustomResource {
         if (!opts.version) {
             opts.version = utilities.getVersion();
         }
-        const aliasOpts = { aliases: [{ type: "kubernetes:node.k8s.io/v1alpha1:RuntimeClass" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:node.k8s.io/v1:RuntimeClass" }, { type: "kubernetes:node.k8s.io/v1alpha1:RuntimeClass" }] };
         opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
         super(RuntimeClass.__pulumiType, name, inputs, opts);
     }

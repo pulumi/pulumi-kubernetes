@@ -13625,6 +13625,13 @@
                 "ip": {
                     "type": "string",
                     "description": "IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)"
+                },
+                "ports": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:core/v1:PortStatus"
+                    },
+                    "description": "Ports is a list of records of service ports If used, every port defined in the service should have an entry in it"
                 }
             },
             "type": "object",
@@ -13632,7 +13639,8 @@
                 "nodejs": {
                     "requiredOutputs": [
                         "hostname",
-                        "ip"
+                        "ip",
+                        "ports"
                     ]
                 }
             }
@@ -14680,7 +14688,7 @@
                 },
                 "dataSource": {
                     "$ref": "#/types/kubernetes:core/v1:TypedLocalObjectReference",
-                    "description": "This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change."
+                    "description": "This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source."
                 },
                 "resources": {
                     "$ref": "#/types/kubernetes:core/v1:ResourceRequirements",
@@ -15389,7 +15397,7 @@
                 },
                 "fsGroupChangePolicy": {
                     "type": "string",
-                    "description": "fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are \"OnRootMismatch\" and \"Always\". If not specified defaults to \"Always\"."
+                    "description": "fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are \"OnRootMismatch\" and \"Always\". If not specified, \"Always\" is used."
                 },
                 "runAsGroup": {
                     "type": "integer",
@@ -15855,6 +15863,36 @@
                     "requiredOutputs": [
                         "metadata",
                         "spec"
+                    ]
+                }
+            }
+        },
+        "kubernetes:core/v1:PortStatus": {
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "description": "Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use\n  CamelCase names\n- cloud provider specific error values must have names that comply with the\n  format foo.example.com/CamelCase."
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "Port is the port number of the service port of which status is recorded here"
+                },
+                "protocol": {
+                    "type": "string",
+                    "description": "Protocol is the protocol of the service port of which status is recorded here The supported values are: \"TCP\", \"UDP\", \"SCTP\""
+                }
+            },
+            "type": "object",
+            "required": [
+                "port",
+                "protocol"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "error",
+                        "port",
+                        "protocol"
                     ]
                 }
             }
@@ -17362,6 +17400,10 @@
         "kubernetes:core/v1:ServiceSpec": {
             "description": "ServiceSpec describes the attributes that a user creates on a service.",
             "properties": {
+                "allocateLoadBalancerNodePorts": {
+                    "type": "boolean",
+                    "description": "allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is \"true\". It may be set to \"false\" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature."
+                },
                 "clusterIP": {
                     "type": "string",
                     "description": "clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are \"None\", empty string (\"\"), or a valid IP address. Setting this to \"None\" makes a \"headless service\" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies"
@@ -17449,7 +17491,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value \"*\" may be used to mean \"any topology\". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied."
+                    "description": "topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value \"*\" may be used to mean \"any topology\". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature."
                 },
                 "type": {
                     "type": "string",
@@ -17460,6 +17502,7 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
+                        "allocateLoadBalancerNodePorts",
                         "clusterIP",
                         "clusterIPs",
                         "externalIPs",
@@ -17485,6 +17528,13 @@
         "kubernetes:core/v1:ServiceStatus": {
             "description": "ServiceStatus represents the current status of a service.",
             "properties": {
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:meta/v1:Condition"
+                    },
+                    "description": "Current service state"
+                },
                 "loadBalancer": {
                     "$ref": "#/types/kubernetes:core/v1:LoadBalancerStatus",
                     "description": "LoadBalancer contains the current status of the load-balancer, if one is present."
@@ -17494,6 +17544,7 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
+                        "conditions",
                         "loadBalancer"
                     ]
                 }
@@ -18230,6 +18281,10 @@
                     "type": "string",
                     "description": "hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation."
                 },
+                "nodeName": {
+                    "type": "string",
+                    "description": "nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate."
+                },
                 "targetRef": {
                     "$ref": "#/types/kubernetes:core/v1:ObjectReference",
                     "description": "targetRef is a reference to a Kubernetes object that represents this endpoint."
@@ -18239,7 +18294,7 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node\n  where the endpoint is located. This should match the corresponding\n  node label.\n* topology.kubernetes.io/zone: the value indicates the zone where the\n  endpoint is located. This should match the corresponding node label.\n* topology.kubernetes.io/region: the value indicates the region where the\n  endpoint is located. This should match the corresponding node label."
+                    "description": "topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node\n  where the endpoint is located. This should match the corresponding\n  node label.\n* topology.kubernetes.io/zone: the value indicates the zone where the\n  endpoint is located. This should match the corresponding node label.\n* topology.kubernetes.io/region: the value indicates the region where the\n  endpoint is located. This should match the corresponding node label.\nThis field is deprecated and will be removed in future api versions."
                 }
             },
             "type": "object",
@@ -18252,6 +18307,7 @@
                         "addresses",
                         "conditions",
                         "hostname",
+                        "nodeName",
                         "targetRef",
                         "topology"
                     ]
@@ -18263,14 +18319,24 @@
             "properties": {
                 "ready": {
                     "type": "boolean",
-                    "description": "ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready."
+                    "description": "ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be \"true\" for terminating endpoints."
+                },
+                "serving": {
+                    "type": "boolean",
+                    "description": "serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate."
+                },
+                "terminating": {
+                    "type": "boolean",
+                    "description": "terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate."
                 }
             },
             "type": "object",
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
-                        "ready"
+                        "ready",
+                        "serving",
+                        "terminating"
                     ]
                 }
             }
@@ -21388,6 +21454,678 @@
                 }
             }
         },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowDistinguisherMethod": {
+            "description": "FlowDistinguisherMethod specifies the method of a flow distinguisher.",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "`type` is the type of flow distinguisher method The supported types are \"ByUser\" and \"ByNamespace\". Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "type"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema": {
+            "description": "FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a \"flow distinguisher\".",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "FlowSchema"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "spec": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaSpec",
+                    "description": "`spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                },
+                "status": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaStatus",
+                    "description": "`status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiVersion",
+                        "kind",
+                        "metadata",
+                        "spec",
+                        "status"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaCondition": {
+            "description": "FlowSchemaCondition describes conditions for a FlowSchema.",
+            "properties": {
+                "lastTransitionTime": {
+                    "type": "string",
+                    "description": "`lastTransitionTime` is the last time the condition transitioned from one status to another."
+                },
+                "message": {
+                    "type": "string",
+                    "description": "`message` is a human-readable message indicating details about last transition."
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "`reason` is a unique, one-word, CamelCase reason for the condition's last transition."
+                },
+                "status": {
+                    "type": "string",
+                    "description": "`status` is the status of the condition. Can be True, False, Unknown. Required."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "`type` is the type of the condition. Required."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "lastTransitionTime",
+                        "message",
+                        "reason",
+                        "status",
+                        "type"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaList": {
+            "description": "FlowSchemaList is a list of FlowSchema objects.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema"
+                    },
+                    "description": "`items` is a list of FlowSchemas."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "FlowSchemaList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "`metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "type": "object",
+            "required": [
+                "items"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiVersion",
+                        "items",
+                        "kind",
+                        "metadata"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaSpec": {
+            "description": "FlowSchemaSpec describes how the FlowSchema's specification looks like.",
+            "properties": {
+                "distinguisherMethod": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowDistinguisherMethod",
+                    "description": "`distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string."
+                },
+                "matchingPrecedence": {
+                    "type": "integer",
+                    "description": "`matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default."
+                },
+                "priorityLevelConfiguration": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationReference",
+                    "description": "`priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required."
+                },
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PolicyRulesWithSubjects"
+                    },
+                    "description": "`rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema."
+                }
+            },
+            "type": "object",
+            "required": [
+                "priorityLevelConfiguration"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "distinguisherMethod",
+                        "matchingPrecedence",
+                        "priorityLevelConfiguration",
+                        "rules"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaStatus": {
+            "description": "FlowSchemaStatus represents the current state of a FlowSchema.",
+            "properties": {
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaCondition"
+                    },
+                    "description": "`conditions` is a list of the current states of FlowSchema."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "conditions"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:GroupSubject": {
+            "description": "GroupSubject holds detailed information for group-kind subject.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "name is the user group that matches, or \"*\" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:LimitResponse": {
+            "description": "LimitResponse defines how to handle requests that can not be executed right now.",
+            "properties": {
+                "queuing": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:QueuingConfiguration",
+                    "description": "`queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `\"Queue\"`."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "`type` is \"Queue\" or \"Reject\". \"Queue\" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. \"Reject\" means that requests that can not be executed upon arrival are rejected. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "queuing",
+                        "type"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:LimitedPriorityLevelConfiguration": {
+            "description": "LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:\n * How are requests for this priority level limited?\n * What should be done with requests that exceed the limit?",
+            "properties": {
+                "assuredConcurrencyShares": {
+                    "type": "integer",
+                    "description": "`assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:\n\n            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )\n\nbigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30."
+                },
+                "limitResponse": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:LimitResponse",
+                    "description": "`limitResponse` indicates what to do with requests that can not be executed right now"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "assuredConcurrencyShares",
+                        "limitResponse"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:NonResourcePolicyRule": {
+            "description": "NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.",
+            "properties": {
+                "nonResourceURLs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "`nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:\n  - \"/healthz\" is legal\n  - \"/hea*\" is illegal\n  - \"/hea\" is legal but matches nothing\n  - \"/hea/*\" also matches nothing\n  - \"/healthz/*\" matches all per-component health checks.\n\"*\" matches all non-resource urls. if it is present, it must be the only entry. Required."
+                },
+                "verbs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "`verbs` is a list of matching verbs and may not be empty. \"*\" matches all verbs. If it is present, it must be the only entry. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "nonResourceURLs",
+                "verbs"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "nonResourceURLs",
+                        "verbs"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PolicyRulesWithSubjects": {
+            "description": "PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.",
+            "properties": {
+                "nonResourceRules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:NonResourcePolicyRule"
+                    },
+                    "description": "`nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL."
+                },
+                "resourceRules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:ResourcePolicyRule"
+                    },
+                    "description": "`resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty."
+                },
+                "subjects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:Subject"
+                    },
+                    "description": "subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "subjects"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "nonResourceRules",
+                        "resourceRules",
+                        "subjects"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration": {
+            "description": "PriorityLevelConfiguration represents the configuration of a priority level.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "PriorityLevelConfiguration"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "spec": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationSpec",
+                    "description": "`spec` is the specification of the desired behavior of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                },
+                "status": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationStatus",
+                    "description": "`status` is the current status of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiVersion",
+                        "kind",
+                        "metadata",
+                        "spec",
+                        "status"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationCondition": {
+            "description": "PriorityLevelConfigurationCondition defines the condition of priority level.",
+            "properties": {
+                "lastTransitionTime": {
+                    "type": "string",
+                    "description": "`lastTransitionTime` is the last time the condition transitioned from one status to another."
+                },
+                "message": {
+                    "type": "string",
+                    "description": "`message` is a human-readable message indicating details about last transition."
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "`reason` is a unique, one-word, CamelCase reason for the condition's last transition."
+                },
+                "status": {
+                    "type": "string",
+                    "description": "`status` is the status of the condition. Can be True, False, Unknown. Required."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "`type` is the type of the condition. Required."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "lastTransitionTime",
+                        "message",
+                        "reason",
+                        "status",
+                        "type"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationList": {
+            "description": "PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration"
+                    },
+                    "description": "`items` is a list of request-priorities."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "PriorityLevelConfigurationList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "type": "object",
+            "required": [
+                "items"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiVersion",
+                        "items",
+                        "kind",
+                        "metadata"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationReference": {
+            "description": "PriorityLevelConfigurationReference contains information that points to the \"request-priority\" being used.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "`name` is the name of the priority level configuration being referenced Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationSpec": {
+            "description": "PriorityLevelConfigurationSpec specifies the configuration of a priority level.",
+            "properties": {
+                "limited": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:LimitedPriorityLevelConfiguration",
+                    "description": "`limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `\"Limited\"`."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "`type` indicates whether this priority level is subject to limitation on request execution.  A value of `\"Exempt\"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `\"Limited\"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "limited",
+                        "type"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationStatus": {
+            "description": "PriorityLevelConfigurationStatus represents the current state of a \"request-priority\".",
+            "properties": {
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationCondition"
+                    },
+                    "description": "`conditions` is the current state of \"request-priority\"."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "conditions"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:QueuingConfiguration": {
+            "description": "QueuingConfiguration holds the configuration parameters for queuing",
+            "properties": {
+                "handSize": {
+                    "type": "integer",
+                    "description": "`handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8."
+                },
+                "queueLengthLimit": {
+                    "type": "integer",
+                    "description": "`queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50."
+                },
+                "queues": {
+                    "type": "integer",
+                    "description": "`queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "handSize",
+                        "queueLengthLimit",
+                        "queues"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:ResourcePolicyRule": {
+            "description": "ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.",
+            "properties": {
+                "apiGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "`apiGroups` is a list of matching API groups and may not be empty. \"*\" matches all API groups and, if present, must be the only entry. Required."
+                },
+                "clusterScope": {
+                    "type": "boolean",
+                    "description": "`clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list."
+                },
+                "namespaces": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "`namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains \"*\".  Note that \"*\" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true."
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "`resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ \"services\", \"nodes/status\" ].  This list may not be empty. \"*\" matches all resources and, if present, must be the only entry. Required."
+                },
+                "verbs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "`verbs` is a list of matching verbs and may not be empty. \"*\" matches all verbs and, if present, must be the only entry. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "apiGroups",
+                "resources",
+                "verbs"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiGroups",
+                        "clusterScope",
+                        "namespaces",
+                        "resources",
+                        "verbs"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:ServiceAccountSubject": {
+            "description": "ServiceAccountSubject holds detailed information for service-account-kind subject.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "`name` is the name of matching ServiceAccount objects, or \"*\" to match regardless of name. Required."
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "`namespace` is the namespace of matching ServiceAccount objects. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "namespace"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name",
+                        "namespace"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:Subject": {
+            "description": "Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.",
+            "properties": {
+                "group": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:GroupSubject"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Required"
+                },
+                "serviceAccount": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:ServiceAccountSubject"
+                },
+                "user": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:UserSubject"
+                }
+            },
+            "type": "object",
+            "required": [
+                "kind"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "group",
+                        "kind",
+                        "serviceAccount",
+                        "user"
+                    ]
+                }
+            }
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:UserSubject": {
+            "description": "UserSubject holds detailed information for user-kind subject.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "`name` is the username that matches, or \"*\" to match all usernames. Required."
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name"
+                    ]
+                }
+            }
+        },
         "kubernetes:meta/v1:APIGroup": {
             "description": "APIGroup contains the name, the supported versions, and the preferred version of a group.",
             "properties": {
@@ -21628,6 +22366,55 @@
                         "kind",
                         "serverAddressByClientCIDRs",
                         "versions"
+                    ]
+                }
+            }
+        },
+        "kubernetes:meta/v1:Condition": {
+            "description": "Condition contains details for one aspect of the current state of this API Resource.",
+            "properties": {
+                "lastTransitionTime": {
+                    "type": "string",
+                    "description": "lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable."
+                },
+                "message": {
+                    "type": "string",
+                    "description": "message is a human readable message indicating details about the transition. This may be an empty string."
+                },
+                "observedGeneration": {
+                    "type": "integer",
+                    "description": "observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance."
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty."
+                },
+                "status": {
+                    "type": "string",
+                    "description": "status of the condition, one of True, False, Unknown."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "type of condition in CamelCase or in foo.example.com/CamelCase."
+                }
+            },
+            "type": "object",
+            "required": [
+                "lastTransitionTime",
+                "message",
+                "reason",
+                "status",
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "lastTransitionTime",
+                        "message",
+                        "observedGeneration",
+                        "reason",
+                        "status",
+                        "type"
                     ]
                 }
             }
@@ -23224,6 +24011,141 @@
                     "requiredOutputs": [
                         "hosts",
                         "secretName"
+                    ]
+                }
+            }
+        },
+        "kubernetes:node.k8s.io/v1:Overhead": {
+            "description": "Overhead structure represents the resource overhead associated with running a pod.",
+            "properties": {
+                "podFixed": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "PodFixed represents the fixed resource overhead associated with running a pod."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "podFixed"
+                    ]
+                }
+            }
+        },
+        "kubernetes:node.k8s.io/v1:RuntimeClass": {
+            "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "node.k8s.io/v1"
+                },
+                "handler": {
+                    "type": "string",
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "RuntimeClass"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "overhead": {
+                    "$ref": "#/types/kubernetes:node.k8s.io/v1:Overhead",
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see\n https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/\nThis field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature."
+                },
+                "scheduling": {
+                    "$ref": "#/types/kubernetes:node.k8s.io/v1:Scheduling",
+                    "description": "Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes."
+                }
+            },
+            "type": "object",
+            "required": [
+                "handler"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiVersion",
+                        "handler",
+                        "kind",
+                        "metadata",
+                        "overhead",
+                        "scheduling"
+                    ]
+                }
+            }
+        },
+        "kubernetes:node.k8s.io/v1:RuntimeClassList": {
+            "description": "RuntimeClassList is a list of RuntimeClass objects.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "node.k8s.io/v1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:node.k8s.io/v1:RuntimeClass"
+                    },
+                    "description": "Items is a list of schema objects."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "RuntimeClassList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "type": "object",
+            "required": [
+                "items"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiVersion",
+                        "items",
+                        "kind",
+                        "metadata"
+                    ]
+                }
+            }
+        },
+        "kubernetes:node.k8s.io/v1:Scheduling": {
+            "description": "Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.",
+            "properties": {
+                "nodeSelector": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission."
+                },
+                "tolerations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:core/v1:Toleration"
+                    },
+                    "description": "tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "nodeSelector",
+                        "tolerations"
                     ]
                 }
             }
@@ -26200,9 +27122,20 @@
                     "type": "boolean",
                     "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" iff the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver."
                 },
+                "requiresRepublish": {
+                    "type": "boolean",
+                    "description": "RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.\n\nNote: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled."
+                },
                 "storageCapacity": {
                     "type": "boolean",
                     "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false."
+                },
+                "tokenRequests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:storage.k8s.io/v1:TokenRequest"
+                    },
+                    "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"\u003caudience\u003e\": {\n    \"token\": \u003ctoken\u003e,\n    \"expirationTimestamp\": \u003cexpiration timestamp in RFC3339\u003e,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled."
                 },
                 "volumeLifecycleModes": {
                     "type": "array",
@@ -26219,7 +27152,9 @@
                         "attachRequired",
                         "fsGroupPolicy",
                         "podInfoOnMount",
+                        "requiresRepublish",
                         "storageCapacity",
+                        "tokenRequests",
                         "volumeLifecycleModes"
                     ]
                 }
@@ -26476,6 +27411,31 @@
                         "items",
                         "kind",
                         "metadata"
+                    ]
+                }
+            }
+        },
+        "kubernetes:storage.k8s.io/v1:TokenRequest": {
+            "description": "TokenRequest contains parameters of a service account token.",
+            "properties": {
+                "audience": {
+                    "type": "string",
+                    "description": "Audience is the intended audience of the token in \"TokenRequestSpec\". It will default to the audiences of kube apiserver."
+                },
+                "expirationSeconds": {
+                    "type": "integer",
+                    "description": "ExpirationSeconds is the duration of validity of the token in \"TokenRequestSpec\". It has the same default value of \"ExpirationSeconds\" in \"TokenRequestSpec\"."
+                }
+            },
+            "type": "object",
+            "required": [
+                "audience"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "audience",
+                        "expirationSeconds"
                     ]
                 }
             }
@@ -26981,9 +27941,20 @@
                     "type": "boolean",
                     "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" iff the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver."
                 },
+                "requiresRepublish": {
+                    "type": "boolean",
+                    "description": "RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.\n\nNote: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled."
+                },
                 "storageCapacity": {
                     "type": "boolean",
                     "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false."
+                },
+                "tokenRequests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:storage.k8s.io/v1beta1:TokenRequest"
+                    },
+                    "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"\u003caudience\u003e\": {\n    \"token\": \u003ctoken\u003e,\n    \"expirationTimestamp\": \u003cexpiration timestamp in RFC3339\u003e,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled."
                 },
                 "volumeLifecycleModes": {
                     "type": "array",
@@ -27000,7 +27971,9 @@
                         "attachRequired",
                         "fsGroupPolicy",
                         "podInfoOnMount",
+                        "requiresRepublish",
                         "storageCapacity",
+                        "tokenRequests",
                         "volumeLifecycleModes"
                     ]
                 }
@@ -27257,6 +28230,31 @@
                         "items",
                         "kind",
                         "metadata"
+                    ]
+                }
+            }
+        },
+        "kubernetes:storage.k8s.io/v1beta1:TokenRequest": {
+            "description": "TokenRequest contains parameters of a service account token.",
+            "properties": {
+                "audience": {
+                    "type": "string",
+                    "description": "Audience is the intended audience of the token in \"TokenRequestSpec\". It will default to the audiences of kube apiserver."
+                },
+                "expirationSeconds": {
+                    "type": "integer",
+                    "description": "ExpirationSeconds is the duration of validity of the token in \"TokenRequestSpec\". It has the same default value of \"ExpirationSeconds\" in \"TokenRequestSpec\""
+                }
+            },
+            "type": "object",
+            "required": [
+                "audience"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "audience",
+                        "expirationSeconds"
                     ]
                 }
             }
@@ -34798,7 +35796,12 @@
                     "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaSpec",
                     "description": "`spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
                 }
-            }
+            },
+            "aliases": [
+                {
+                    "type": "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema"
+                }
+            ]
         },
         "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList": {
             "description": "FlowSchemaList is a list of FlowSchema objects.",
@@ -34902,7 +35905,12 @@
                     "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationSpec",
                     "description": "`spec` is the specification of the desired behavior of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
                 }
-            }
+            },
+            "aliases": [
+                {
+                    "type": "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration"
+                }
+            ]
         },
         "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList": {
             "description": "PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.",
@@ -34943,6 +35951,224 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration"
+                    },
+                    "description": "`items` is a list of request-priorities."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "PriorityLevelConfigurationList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "requiredInputs": [
+                "items"
+            ]
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema": {
+            "description": "FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a \"flow distinguisher\".",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "FlowSchema"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "spec": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaSpec",
+                    "description": "`spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                },
+                "status": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaStatus",
+                    "description": "`status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "FlowSchema"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "spec": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaSpec",
+                    "description": "`spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                }
+            },
+            "aliases": [
+                {
+                    "type": "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema"
+                }
+            ]
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaList": {
+            "description": "FlowSchemaList is a list of FlowSchema objects.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema"
+                    },
+                    "description": "`items` is a list of FlowSchemas."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "FlowSchemaList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "`metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "type": "object",
+            "required": [
+                "items"
+            ],
+            "inputProperties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema"
+                    },
+                    "description": "`items` is a list of FlowSchemas."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "FlowSchemaList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "`metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "requiredInputs": [
+                "items"
+            ]
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration": {
+            "description": "PriorityLevelConfiguration represents the configuration of a priority level.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "PriorityLevelConfiguration"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "spec": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationSpec",
+                    "description": "`spec` is the specification of the desired behavior of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                },
+                "status": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationStatus",
+                    "description": "`status` is the current status of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "PriorityLevelConfiguration"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "spec": {
+                    "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationSpec",
+                    "description": "`spec` is the specification of the desired behavior of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+                }
+            },
+            "aliases": [
+                {
+                    "type": "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration"
+                }
+            ]
+        },
+        "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationList": {
+            "description": "PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration"
+                    },
+                    "description": "`items` is a list of request-priorities."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "PriorityLevelConfigurationList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "type": "object",
+            "required": [
+                "items"
+            ],
+            "inputProperties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "flowcontrol.apiserver.k8s.io/v1beta1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration"
                     },
                     "description": "`items` is a list of request-priorities."
                 },
@@ -35576,6 +36802,136 @@
                 "items"
             ]
         },
+        "kubernetes:node.k8s.io/v1:RuntimeClass": {
+            "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "node.k8s.io/v1"
+                },
+                "handler": {
+                    "type": "string",
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "RuntimeClass"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "overhead": {
+                    "$ref": "#/types/kubernetes:node.k8s.io/v1:Overhead",
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see\n https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/\nThis field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature."
+                },
+                "scheduling": {
+                    "$ref": "#/types/kubernetes:node.k8s.io/v1:Scheduling",
+                    "description": "Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes."
+                }
+            },
+            "type": "object",
+            "required": [
+                "handler"
+            ],
+            "inputProperties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "node.k8s.io/v1"
+                },
+                "handler": {
+                    "type": "string",
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "RuntimeClass"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                },
+                "overhead": {
+                    "$ref": "#/types/kubernetes:node.k8s.io/v1:Overhead",
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see\n https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/\nThis field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature."
+                },
+                "scheduling": {
+                    "$ref": "#/types/kubernetes:node.k8s.io/v1:Scheduling",
+                    "description": "Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes."
+                }
+            },
+            "requiredInputs": [
+                "handler"
+            ],
+            "aliases": [
+                {
+                    "type": "kubernetes:node.k8s.io/v1alpha1:RuntimeClass"
+                },
+                {
+                    "type": "kubernetes:node.k8s.io/v1beta1:RuntimeClass"
+                }
+            ]
+        },
+        "kubernetes:node.k8s.io/v1:RuntimeClassList": {
+            "description": "RuntimeClassList is a list of RuntimeClass objects.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "node.k8s.io/v1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:node.k8s.io/v1:RuntimeClass"
+                    },
+                    "description": "Items is a list of schema objects."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "RuntimeClassList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "type": "object",
+            "required": [
+                "items"
+            ],
+            "inputProperties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+                    "const": "node.k8s.io/v1"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:node.k8s.io/v1:RuntimeClass"
+                    },
+                    "description": "Items is a list of schema objects."
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "const": "RuntimeClassList"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ListMeta",
+                    "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                }
+            },
+            "requiredInputs": [
+                "items"
+            ]
+        },
         "kubernetes:node.k8s.io/v1alpha1:RuntimeClass": {
             "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md",
             "properties": {
@@ -35626,6 +36982,9 @@
                 "spec"
             ],
             "aliases": [
+                {
+                    "type": "kubernetes:node.k8s.io/v1:RuntimeClass"
+                },
                 {
                     "type": "kubernetes:node.k8s.io/v1beta1:RuntimeClass"
                 }
@@ -35753,6 +37112,9 @@
                 "handler"
             ],
             "aliases": [
+                {
+                    "type": "kubernetes:node.k8s.io/v1:RuntimeClass"
+                },
                 {
                     "type": "kubernetes:node.k8s.io/v1alpha1:RuntimeClass"
                 }
@@ -39192,9 +40554,11 @@
                 "events.k8s.io/v1beta1": "Events.V1Beta1",
                 "extensions/v1beta1": "Extensions.V1Beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "FlowControl.V1Alpha1",
+                "flowcontrol.apiserver.k8s.io/v1beta1": "FlowControl.V1Beta1",
                 "meta/v1": "Meta.V1",
                 "networking.k8s.io/v1": "Networking.V1",
                 "networking.k8s.io/v1beta1": "Networking.V1Beta1",
+                "node.k8s.io/v1": "Node.V1",
                 "node.k8s.io/v1alpha1": "Node.V1Alpha1",
                 "node.k8s.io/v1beta1": "Node.V1Beta1",
                 "pkg/version": "Pkg.Version",
@@ -39249,9 +40613,11 @@
                 "events.k8s.io/v1beta1": "events/v1beta1",
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
+                "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",
+                "node.k8s.io/v1": "node/v1",
                 "node.k8s.io/v1alpha1": "node/v1alpha1",
                 "node.k8s.io/v1beta1": "node/v1beta1",
                 "pkg/version": "pkg/version",
@@ -39298,9 +40664,11 @@
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/events/v1beta1": "eventsv1beta1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/extensions/v1beta1": "extensionsv1beta1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/flowcontrol/v1alpha1": "flowcontrolv1alpha1",
+                "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/flowcontrol/v1beta1": "flowcontrolv1beta1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1": "metav1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/networking/v1": "networkingv1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/networking/v1beta1": "networkingv1beta1",
+                "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/node/v1": "nodev1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/node/v1alpha1": "nodev1alpha1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/node/v1beta1": "nodev1beta1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/pkg/version": "pkgversion",
@@ -39365,9 +40733,11 @@
                 "events.k8s.io/v1beta1": "events/v1beta1",
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
+                "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",
+                "node.k8s.io/v1": "node/v1",
                 "node.k8s.io/v1alpha1": "node/v1alpha1",
                 "node.k8s.io/v1beta1": "node/v1beta1",
                 "pkg/version": "pkg/version",
@@ -39418,9 +40788,11 @@
                 "events.k8s.io/v1beta1": "events/v1beta1",
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
+                "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",
+                "node.k8s.io/v1": "node/v1",
                 "node.k8s.io/v1alpha1": "node/v1alpha1",
                 "node.k8s.io/v1beta1": "node/v1beta1",
                 "pkg/version": "pkg/version",

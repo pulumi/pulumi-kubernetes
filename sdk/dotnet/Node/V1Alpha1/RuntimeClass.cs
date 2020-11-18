@@ -75,6 +75,7 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new Pulumi.Alias { Type = "kubernetes:node.k8s.io/v1:RuntimeClass"},
                     new Pulumi.Alias { Type = "kubernetes:node.k8s.io/v1beta1:RuntimeClass"},
                 },
             };

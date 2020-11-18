@@ -12388,6 +12388,8 @@ type LoadBalancerIngress struct {
 	Hostname *string `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip *string `pulumi:"ip"`
+	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+	Ports []PortStatus `pulumi:"ports"`
 }
 
 // LoadBalancerIngressInput is an input type that accepts LoadBalancerIngressArgs and LoadBalancerIngressOutput values.
@@ -12407,6 +12409,8 @@ type LoadBalancerIngressArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
+	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+	Ports PortStatusArrayInput `pulumi:"ports"`
 }
 
 func (LoadBalancerIngressArgs) ElementType() reflect.Type {
@@ -12469,6 +12473,11 @@ func (o LoadBalancerIngressOutput) Hostname() pulumi.StringPtrOutput {
 // IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 func (o LoadBalancerIngressOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LoadBalancerIngress) *string { return v.Ip }).(pulumi.StringPtrOutput)
+}
+
+// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+func (o LoadBalancerIngressOutput) Ports() PortStatusArrayOutput {
+	return o.ApplyT(func(v LoadBalancerIngress) []PortStatus { return v.Ports }).(PortStatusArrayOutput)
 }
 
 type LoadBalancerIngressArrayOutput struct{ *pulumi.OutputState }
@@ -17028,7 +17037,7 @@ func (o PersistentVolumeClaimListTypeOutput) Metadata() metav1.ListMetaPtrOutput
 type PersistentVolumeClaimSpec struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 	DataSource *TypedLocalObjectReference `pulumi:"dataSource"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *ResourceRequirements `pulumi:"resources"`
@@ -17057,7 +17066,7 @@ type PersistentVolumeClaimSpecInput interface {
 type PersistentVolumeClaimSpecArgs struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 	DataSource TypedLocalObjectReferencePtrInput `pulumi:"dataSource"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
@@ -17154,7 +17163,7 @@ func (o PersistentVolumeClaimSpecOutput) AccessModes() pulumi.StringArrayOutput 
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSource }).(TypedLocalObjectReferencePtrOutput)
 }
@@ -17212,7 +17221,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) AccessModes() pulumi.StringArrayOutp
 	}).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
 		if v == nil {
@@ -20186,7 +20195,7 @@ type PodSecurityContext struct {
 	//
 	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
 	FsGroup *int `pulumi:"fsGroup"`
-	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 	FsGroupChangePolicy *string `pulumi:"fsGroupChangePolicy"`
 	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	RunAsGroup *int `pulumi:"runAsGroup"`
@@ -20225,7 +20234,7 @@ type PodSecurityContextArgs struct {
 	//
 	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
 	FsGroup pulumi.IntPtrInput `pulumi:"fsGroup"`
-	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 	FsGroupChangePolicy pulumi.StringPtrInput `pulumi:"fsGroupChangePolicy"`
 	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	RunAsGroup pulumi.IntPtrInput `pulumi:"runAsGroup"`
@@ -20332,7 +20341,7 @@ func (o PodSecurityContextOutput) FsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.FsGroup }).(pulumi.IntPtrOutput)
 }
 
-// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 func (o PodSecurityContextOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *string { return v.FsGroupChangePolicy }).(pulumi.StringPtrOutput)
 }
@@ -20409,7 +20418,7 @@ func (o PodSecurityContextPtrOutput) FsGroup() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 func (o PodSecurityContextPtrOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *string {
 		if v == nil {
@@ -22017,6 +22026,130 @@ func (o PodTemplateSpecPtrOutput) Spec() PodSpecPtrOutput {
 		}
 		return v.Spec
 	}).(PodSpecPtrOutput)
+}
+
+type PortStatus struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error *string `pulumi:"error"`
+	// Port is the port number of the service port of which status is recorded here
+	Port int `pulumi:"port"`
+	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+	Protocol string `pulumi:"protocol"`
+}
+
+// PortStatusInput is an input type that accepts PortStatusArgs and PortStatusOutput values.
+// You can construct a concrete instance of `PortStatusInput` via:
+//
+//          PortStatusArgs{...}
+type PortStatusInput interface {
+	pulumi.Input
+
+	ToPortStatusOutput() PortStatusOutput
+	ToPortStatusOutputWithContext(context.Context) PortStatusOutput
+}
+
+type PortStatusArgs struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error pulumi.StringPtrInput `pulumi:"error"`
+	// Port is the port number of the service port of which status is recorded here
+	Port pulumi.IntInput `pulumi:"port"`
+	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+	Protocol pulumi.StringInput `pulumi:"protocol"`
+}
+
+func (PortStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PortStatus)(nil)).Elem()
+}
+
+func (i PortStatusArgs) ToPortStatusOutput() PortStatusOutput {
+	return i.ToPortStatusOutputWithContext(context.Background())
+}
+
+func (i PortStatusArgs) ToPortStatusOutputWithContext(ctx context.Context) PortStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PortStatusOutput)
+}
+
+// PortStatusArrayInput is an input type that accepts PortStatusArray and PortStatusArrayOutput values.
+// You can construct a concrete instance of `PortStatusArrayInput` via:
+//
+//          PortStatusArray{ PortStatusArgs{...} }
+type PortStatusArrayInput interface {
+	pulumi.Input
+
+	ToPortStatusArrayOutput() PortStatusArrayOutput
+	ToPortStatusArrayOutputWithContext(context.Context) PortStatusArrayOutput
+}
+
+type PortStatusArray []PortStatusInput
+
+func (PortStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PortStatus)(nil)).Elem()
+}
+
+func (i PortStatusArray) ToPortStatusArrayOutput() PortStatusArrayOutput {
+	return i.ToPortStatusArrayOutputWithContext(context.Background())
+}
+
+func (i PortStatusArray) ToPortStatusArrayOutputWithContext(ctx context.Context) PortStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PortStatusArrayOutput)
+}
+
+type PortStatusOutput struct{ *pulumi.OutputState }
+
+func (PortStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PortStatus)(nil)).Elem()
+}
+
+func (o PortStatusOutput) ToPortStatusOutput() PortStatusOutput {
+	return o
+}
+
+func (o PortStatusOutput) ToPortStatusOutputWithContext(ctx context.Context) PortStatusOutput {
+	return o
+}
+
+// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+//   CamelCase names
+// - cloud provider specific error values must have names that comply with the
+//   format foo.example.com/CamelCase.
+func (o PortStatusOutput) Error() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PortStatus) *string { return v.Error }).(pulumi.StringPtrOutput)
+}
+
+// Port is the port number of the service port of which status is recorded here
+func (o PortStatusOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v PortStatus) int { return v.Port }).(pulumi.IntOutput)
+}
+
+// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+func (o PortStatusOutput) Protocol() pulumi.StringOutput {
+	return o.ApplyT(func(v PortStatus) string { return v.Protocol }).(pulumi.StringOutput)
+}
+
+type PortStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (PortStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PortStatus)(nil)).Elem()
+}
+
+func (o PortStatusArrayOutput) ToPortStatusArrayOutput() PortStatusArrayOutput {
+	return o
+}
+
+func (o PortStatusArrayOutput) ToPortStatusArrayOutputWithContext(ctx context.Context) PortStatusArrayOutput {
+	return o
+}
+
+func (o PortStatusArrayOutput) Index(i pulumi.IntInput) PortStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PortStatus {
+		return vs[0].([]PortStatus)[vs[1].(int)]
+	}).(PortStatusOutput)
 }
 
 // PortworxVolumeSource represents a Portworx volume resource.
@@ -28627,6 +28760,8 @@ func (o ServicePortArrayOutput) Index(i pulumi.IntInput) ServicePortOutput {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpec struct {
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	AllocateLoadBalancerNodePorts *bool `pulumi:"allocateLoadBalancerNodePorts"`
 	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP *string `pulumi:"clusterIP"`
 	// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
@@ -28663,7 +28798,7 @@ type ServiceSpec struct {
 	SessionAffinity *string `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig *SessionAffinityConfig `pulumi:"sessionAffinityConfig"`
-	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 	TopologyKeys []string `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type *string `pulumi:"type"`
@@ -28682,6 +28817,8 @@ type ServiceSpecInput interface {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpecArgs struct {
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	AllocateLoadBalancerNodePorts pulumi.BoolPtrInput `pulumi:"allocateLoadBalancerNodePorts"`
 	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP pulumi.StringPtrInput `pulumi:"clusterIP"`
 	// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
@@ -28718,7 +28855,7 @@ type ServiceSpecArgs struct {
 	SessionAffinity pulumi.StringPtrInput `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig SessionAffinityConfigPtrInput `pulumi:"sessionAffinityConfig"`
-	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -28800,6 +28937,11 @@ func (o ServiceSpecOutput) ToServiceSpecPtrOutputWithContext(ctx context.Context
 	return o.ApplyT(func(v ServiceSpec) *ServiceSpec {
 		return &v
 	}).(ServiceSpecPtrOutput)
+}
+
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+func (o ServiceSpecOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ServiceSpec) *bool { return v.AllocateLoadBalancerNodePorts }).(pulumi.BoolPtrOutput)
 }
 
 // clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
@@ -28886,7 +29028,7 @@ func (o ServiceSpecOutput) SessionAffinityConfig() SessionAffinityConfigPtrOutpu
 	return o.ApplyT(func(v ServiceSpec) *SessionAffinityConfig { return v.SessionAffinityConfig }).(SessionAffinityConfigPtrOutput)
 }
 
-// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 func (o ServiceSpecOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
@@ -28912,6 +29054,16 @@ func (o ServiceSpecPtrOutput) ToServiceSpecPtrOutputWithContext(ctx context.Cont
 
 func (o ServiceSpecPtrOutput) Elem() ServiceSpecOutput {
 	return o.ApplyT(func(v *ServiceSpec) ServiceSpec { return *v }).(ServiceSpecOutput)
+}
+
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+func (o ServiceSpecPtrOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ServiceSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllocateLoadBalancerNodePorts
+	}).(pulumi.BoolPtrOutput)
 }
 
 // clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
@@ -29078,7 +29230,7 @@ func (o ServiceSpecPtrOutput) SessionAffinityConfig() SessionAffinityConfigPtrOu
 	}).(SessionAffinityConfigPtrOutput)
 }
 
-// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ServiceSpec) []string {
 		if v == nil {
@@ -29100,6 +29252,8 @@ func (o ServiceSpecPtrOutput) Type() pulumi.StringPtrOutput {
 
 // ServiceStatus represents the current status of a service.
 type ServiceStatus struct {
+	// Current service state
+	Conditions []metav1.Condition `pulumi:"conditions"`
 	// LoadBalancer contains the current status of the load-balancer, if one is present.
 	LoadBalancer *LoadBalancerStatus `pulumi:"loadBalancer"`
 }
@@ -29117,6 +29271,8 @@ type ServiceStatusInput interface {
 
 // ServiceStatus represents the current status of a service.
 type ServiceStatusArgs struct {
+	// Current service state
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
 	// LoadBalancer contains the current status of the load-balancer, if one is present.
 	LoadBalancer LoadBalancerStatusPtrInput `pulumi:"loadBalancer"`
 }
@@ -29199,6 +29355,11 @@ func (o ServiceStatusOutput) ToServiceStatusPtrOutputWithContext(ctx context.Con
 	}).(ServiceStatusPtrOutput)
 }
 
+// Current service state
+func (o ServiceStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v ServiceStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
 // LoadBalancer contains the current status of the load-balancer, if one is present.
 func (o ServiceStatusOutput) LoadBalancer() LoadBalancerStatusPtrOutput {
 	return o.ApplyT(func(v ServiceStatus) *LoadBalancerStatus { return v.LoadBalancer }).(LoadBalancerStatusPtrOutput)
@@ -29220,6 +29381,16 @@ func (o ServiceStatusPtrOutput) ToServiceStatusPtrOutputWithContext(ctx context.
 
 func (o ServiceStatusPtrOutput) Elem() ServiceStatusOutput {
 	return o.ApplyT(func(v *ServiceStatus) ServiceStatus { return *v }).(ServiceStatusOutput)
+}
+
+// Current service state
+func (o ServiceStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *ServiceStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
 }
 
 // LoadBalancer contains the current status of the load-balancer, if one is present.
@@ -32462,6 +32633,8 @@ func init() {
 	pulumi.RegisterOutputType(PodTemplateListTypeOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecPtrOutput{})
+	pulumi.RegisterOutputType(PortStatusOutput{})
+	pulumi.RegisterOutputType(PortStatusArrayOutput{})
 	pulumi.RegisterOutputType(PortworxVolumeSourceOutput{})
 	pulumi.RegisterOutputType(PortworxVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(PreferredSchedulingTermOutput{})

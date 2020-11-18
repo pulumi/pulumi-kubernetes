@@ -15,6 +15,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// </summary>
     public class ServiceStatusArgs : Pulumi.ResourceArgs
     {
+        [Input("conditions")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>? _conditions;
+
+        /// <summary>
+        /// Current service state
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs> Conditions
+        {
+            get => _conditions ?? (_conditions = new InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>());
+            set => _conditions = value;
+        }
+
         /// <summary>
         /// LoadBalancer contains the current status of the load-balancer, if one is present.
         /// </summary>

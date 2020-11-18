@@ -26,6 +26,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
         /// </summary>
         public readonly string Hostname;
         /// <summary>
+        /// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        /// </summary>
+        public readonly string NodeName;
+        /// <summary>
         /// targetRef is a reference to a Kubernetes object that represents this endpoint.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectReference TargetRef;
@@ -37,6 +41,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
         ///   endpoint is located. This should match the corresponding node label.
         /// * topology.kubernetes.io/region: the value indicates the region where the
         ///   endpoint is located. This should match the corresponding node label.
+        /// This field is deprecated and will be removed in future api versions.
         /// </summary>
         public readonly ImmutableDictionary<string, string> Topology;
 
@@ -48,6 +53,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
 
             string hostname,
 
+            string nodeName,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectReference targetRef,
 
             ImmutableDictionary<string, string> topology)
@@ -55,6 +62,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
             Addresses = addresses;
             Conditions = conditions;
             Hostname = hostname;
+            NodeName = nodeName;
             TargetRef = targetRef;
             Topology = topology;
         }
