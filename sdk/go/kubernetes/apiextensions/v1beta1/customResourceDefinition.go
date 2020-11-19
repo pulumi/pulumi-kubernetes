@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -115,4 +116,43 @@ type CustomResourceDefinitionArgs struct {
 
 func (CustomResourceDefinitionArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*customResourceDefinitionArgs)(nil)).Elem()
+}
+
+type CustomResourceDefinitionInput interface {
+	pulumi.Input
+
+	ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput
+	ToCustomResourceDefinitionOutputWithContext(ctx context.Context) CustomResourceDefinitionOutput
+}
+
+func (CustomResourceDefinition) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinition)(nil)).Elem()
+}
+
+func (i CustomResourceDefinition) ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput {
+	return i.ToCustomResourceDefinitionOutputWithContext(context.Background())
+}
+
+func (i CustomResourceDefinition) ToCustomResourceDefinitionOutputWithContext(ctx context.Context) CustomResourceDefinitionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionOutput)
+}
+
+type CustomResourceDefinitionOutput struct {
+	*pulumi.OutputState
+}
+
+func (CustomResourceDefinitionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionOutput)(nil)).Elem()
+}
+
+func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput {
+	return o
+}
+
+func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionOutputWithContext(ctx context.Context) CustomResourceDefinitionOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(CustomResourceDefinitionOutput{})
 }

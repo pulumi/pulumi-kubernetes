@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -98,4 +99,43 @@ type StatefulSetListArgs struct {
 
 func (StatefulSetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*statefulSetListArgs)(nil)).Elem()
+}
+
+type StatefulSetListInput interface {
+	pulumi.Input
+
+	ToStatefulSetListOutput() StatefulSetListOutput
+	ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput
+}
+
+func (StatefulSetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetList)(nil)).Elem()
+}
+
+func (i StatefulSetList) ToStatefulSetListOutput() StatefulSetListOutput {
+	return i.ToStatefulSetListOutputWithContext(context.Background())
+}
+
+func (i StatefulSetList) ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListOutput)
+}
+
+type StatefulSetListOutput struct {
+	*pulumi.OutputState
+}
+
+func (StatefulSetListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetListOutput)(nil)).Elem()
+}
+
+func (o StatefulSetListOutput) ToStatefulSetListOutput() StatefulSetListOutput {
+	return o
+}
+
+func (o StatefulSetListOutput) ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(StatefulSetListOutput{})
 }

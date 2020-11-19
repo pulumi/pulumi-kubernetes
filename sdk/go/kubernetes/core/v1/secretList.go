@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type SecretListArgs struct {
 
 func (SecretListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*secretListArgs)(nil)).Elem()
+}
+
+type SecretListInput interface {
+	pulumi.Input
+
+	ToSecretListOutput() SecretListOutput
+	ToSecretListOutputWithContext(ctx context.Context) SecretListOutput
+}
+
+func (SecretList) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretList)(nil)).Elem()
+}
+
+func (i SecretList) ToSecretListOutput() SecretListOutput {
+	return i.ToSecretListOutputWithContext(context.Background())
+}
+
+func (i SecretList) ToSecretListOutputWithContext(ctx context.Context) SecretListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretListOutput)
+}
+
+type SecretListOutput struct {
+	*pulumi.OutputState
+}
+
+func (SecretListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretListOutput)(nil)).Elem()
+}
+
+func (o SecretListOutput) ToSecretListOutput() SecretListOutput {
+	return o
+}
+
+func (o SecretListOutput) ToSecretListOutputWithContext(ctx context.Context) SecretListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(SecretListOutput{})
 }

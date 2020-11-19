@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type PriorityLevelConfigurationListArgs struct {
 
 func (PriorityLevelConfigurationListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*priorityLevelConfigurationListArgs)(nil)).Elem()
+}
+
+type PriorityLevelConfigurationListInput interface {
+	pulumi.Input
+
+	ToPriorityLevelConfigurationListOutput() PriorityLevelConfigurationListOutput
+	ToPriorityLevelConfigurationListOutputWithContext(ctx context.Context) PriorityLevelConfigurationListOutput
+}
+
+func (PriorityLevelConfigurationList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityLevelConfigurationList)(nil)).Elem()
+}
+
+func (i PriorityLevelConfigurationList) ToPriorityLevelConfigurationListOutput() PriorityLevelConfigurationListOutput {
+	return i.ToPriorityLevelConfigurationListOutputWithContext(context.Background())
+}
+
+func (i PriorityLevelConfigurationList) ToPriorityLevelConfigurationListOutputWithContext(ctx context.Context) PriorityLevelConfigurationListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListOutput)
+}
+
+type PriorityLevelConfigurationListOutput struct {
+	*pulumi.OutputState
+}
+
+func (PriorityLevelConfigurationListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityLevelConfigurationListOutput)(nil)).Elem()
+}
+
+func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListOutput() PriorityLevelConfigurationListOutput {
+	return o
+}
+
+func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListOutputWithContext(ctx context.Context) PriorityLevelConfigurationListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PriorityLevelConfigurationListOutput{})
 }

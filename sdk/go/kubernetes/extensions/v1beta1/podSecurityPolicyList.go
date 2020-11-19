@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type PodSecurityPolicyListArgs struct {
 
 func (PodSecurityPolicyListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podSecurityPolicyListArgs)(nil)).Elem()
+}
+
+type PodSecurityPolicyListInput interface {
+	pulumi.Input
+
+	ToPodSecurityPolicyListOutput() PodSecurityPolicyListOutput
+	ToPodSecurityPolicyListOutputWithContext(ctx context.Context) PodSecurityPolicyListOutput
+}
+
+func (PodSecurityPolicyList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodSecurityPolicyList)(nil)).Elem()
+}
+
+func (i PodSecurityPolicyList) ToPodSecurityPolicyListOutput() PodSecurityPolicyListOutput {
+	return i.ToPodSecurityPolicyListOutputWithContext(context.Background())
+}
+
+func (i PodSecurityPolicyList) ToPodSecurityPolicyListOutputWithContext(ctx context.Context) PodSecurityPolicyListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyListOutput)
+}
+
+type PodSecurityPolicyListOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodSecurityPolicyListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodSecurityPolicyListOutput)(nil)).Elem()
+}
+
+func (o PodSecurityPolicyListOutput) ToPodSecurityPolicyListOutput() PodSecurityPolicyListOutput {
+	return o
+}
+
+func (o PodSecurityPolicyListOutput) ToPodSecurityPolicyListOutputWithContext(ctx context.Context) PodSecurityPolicyListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodSecurityPolicyListOutput{})
 }

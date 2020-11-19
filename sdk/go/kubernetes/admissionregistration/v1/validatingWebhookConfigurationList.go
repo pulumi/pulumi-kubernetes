@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type ValidatingWebhookConfigurationListArgs struct {
 
 func (ValidatingWebhookConfigurationListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*validatingWebhookConfigurationListArgs)(nil)).Elem()
+}
+
+type ValidatingWebhookConfigurationListInput interface {
+	pulumi.Input
+
+	ToValidatingWebhookConfigurationListOutput() ValidatingWebhookConfigurationListOutput
+	ToValidatingWebhookConfigurationListOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListOutput
+}
+
+func (ValidatingWebhookConfigurationList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationList)(nil)).Elem()
+}
+
+func (i ValidatingWebhookConfigurationList) ToValidatingWebhookConfigurationListOutput() ValidatingWebhookConfigurationListOutput {
+	return i.ToValidatingWebhookConfigurationListOutputWithContext(context.Background())
+}
+
+func (i ValidatingWebhookConfigurationList) ToValidatingWebhookConfigurationListOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationListOutput)
+}
+
+type ValidatingWebhookConfigurationListOutput struct {
+	*pulumi.OutputState
+}
+
+func (ValidatingWebhookConfigurationListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationListOutput)(nil)).Elem()
+}
+
+func (o ValidatingWebhookConfigurationListOutput) ToValidatingWebhookConfigurationListOutput() ValidatingWebhookConfigurationListOutput {
+	return o
+}
+
+func (o ValidatingWebhookConfigurationListOutput) ToValidatingWebhookConfigurationListOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationListOutput{})
 }

@@ -1,5 +1,10 @@
 ## HEAD (Unreleased)
 
+## Note
+
+-   Fixed a gRPC error for larger Helm charts in the .NET SDK [#4224](https://github.com/pulumi/pulumi/issues/4224)
+-   Update pulumi deps to v2.14.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1385)
+
 ## 2.7.1 (November 18, 2020)
 
 -   Error on delete if cluster is unreachable (https://github.com/pulumi/pulumi-kubernetes/pull/1379)

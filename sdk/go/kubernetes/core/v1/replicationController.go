@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type ReplicationControllerArgs struct {
 
 func (ReplicationControllerArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*replicationControllerArgs)(nil)).Elem()
+}
+
+type ReplicationControllerInput interface {
+	pulumi.Input
+
+	ToReplicationControllerOutput() ReplicationControllerOutput
+	ToReplicationControllerOutputWithContext(ctx context.Context) ReplicationControllerOutput
+}
+
+func (ReplicationController) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationController)(nil)).Elem()
+}
+
+func (i ReplicationController) ToReplicationControllerOutput() ReplicationControllerOutput {
+	return i.ToReplicationControllerOutputWithContext(context.Background())
+}
+
+func (i ReplicationController) ToReplicationControllerOutputWithContext(ctx context.Context) ReplicationControllerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerOutput)
+}
+
+type ReplicationControllerOutput struct {
+	*pulumi.OutputState
+}
+
+func (ReplicationControllerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerOutput)(nil)).Elem()
+}
+
+func (o ReplicationControllerOutput) ToReplicationControllerOutput() ReplicationControllerOutput {
+	return o
+}
+
+func (o ReplicationControllerOutput) ToReplicationControllerOutputWithContext(ctx context.Context) ReplicationControllerOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ReplicationControllerOutput{})
 }

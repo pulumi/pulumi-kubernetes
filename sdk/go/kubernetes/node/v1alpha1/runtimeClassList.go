@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type RuntimeClassListArgs struct {
 
 func (RuntimeClassListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*runtimeClassListArgs)(nil)).Elem()
+}
+
+type RuntimeClassListInput interface {
+	pulumi.Input
+
+	ToRuntimeClassListOutput() RuntimeClassListOutput
+	ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput
+}
+
+func (RuntimeClassList) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassList)(nil)).Elem()
+}
+
+func (i RuntimeClassList) ToRuntimeClassListOutput() RuntimeClassListOutput {
+	return i.ToRuntimeClassListOutputWithContext(context.Background())
+}
+
+func (i RuntimeClassList) ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListOutput)
+}
+
+type RuntimeClassListOutput struct {
+	*pulumi.OutputState
+}
+
+func (RuntimeClassListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassListOutput)(nil)).Elem()
+}
+
+func (o RuntimeClassListOutput) ToRuntimeClassListOutput() RuntimeClassListOutput {
+	return o
+}
+
+func (o RuntimeClassListOutput) ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(RuntimeClassListOutput{})
 }

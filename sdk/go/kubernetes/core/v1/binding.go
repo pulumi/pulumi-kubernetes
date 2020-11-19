@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type BindingArgs struct {
 
 func (BindingArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*bindingArgs)(nil)).Elem()
+}
+
+type BindingInput interface {
+	pulumi.Input
+
+	ToBindingOutput() BindingOutput
+	ToBindingOutputWithContext(ctx context.Context) BindingOutput
+}
+
+func (Binding) ElementType() reflect.Type {
+	return reflect.TypeOf((*Binding)(nil)).Elem()
+}
+
+func (i Binding) ToBindingOutput() BindingOutput {
+	return i.ToBindingOutputWithContext(context.Background())
+}
+
+func (i Binding) ToBindingOutputWithContext(ctx context.Context) BindingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BindingOutput)
+}
+
+type BindingOutput struct {
+	*pulumi.OutputState
+}
+
+func (BindingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BindingOutput)(nil)).Elem()
+}
+
+func (o BindingOutput) ToBindingOutput() BindingOutput {
+	return o
+}
+
+func (o BindingOutput) ToBindingOutputWithContext(ctx context.Context) BindingOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(BindingOutput{})
 }

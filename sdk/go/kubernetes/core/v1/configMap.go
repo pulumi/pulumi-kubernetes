@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -124,4 +125,43 @@ type ConfigMapArgs struct {
 
 func (ConfigMapArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*configMapArgs)(nil)).Elem()
+}
+
+type ConfigMapInput interface {
+	pulumi.Input
+
+	ToConfigMapOutput() ConfigMapOutput
+	ToConfigMapOutputWithContext(ctx context.Context) ConfigMapOutput
+}
+
+func (ConfigMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMap)(nil)).Elem()
+}
+
+func (i ConfigMap) ToConfigMapOutput() ConfigMapOutput {
+	return i.ToConfigMapOutputWithContext(context.Background())
+}
+
+func (i ConfigMap) ToConfigMapOutputWithContext(ctx context.Context) ConfigMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapOutput)
+}
+
+type ConfigMapOutput struct {
+	*pulumi.OutputState
+}
+
+func (ConfigMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMapOutput)(nil)).Elem()
+}
+
+func (o ConfigMapOutput) ToConfigMapOutput() ConfigMapOutput {
+	return o
+}
+
+func (o ConfigMapOutput) ToConfigMapOutputWithContext(ctx context.Context) ConfigMapOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ConfigMapOutput{})
 }

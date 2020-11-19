@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -105,4 +106,43 @@ type PodDisruptionBudgetArgs struct {
 
 func (PodDisruptionBudgetArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podDisruptionBudgetArgs)(nil)).Elem()
+}
+
+type PodDisruptionBudgetInput interface {
+	pulumi.Input
+
+	ToPodDisruptionBudgetOutput() PodDisruptionBudgetOutput
+	ToPodDisruptionBudgetOutputWithContext(ctx context.Context) PodDisruptionBudgetOutput
+}
+
+func (PodDisruptionBudget) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodDisruptionBudget)(nil)).Elem()
+}
+
+func (i PodDisruptionBudget) ToPodDisruptionBudgetOutput() PodDisruptionBudgetOutput {
+	return i.ToPodDisruptionBudgetOutputWithContext(context.Background())
+}
+
+func (i PodDisruptionBudget) ToPodDisruptionBudgetOutputWithContext(ctx context.Context) PodDisruptionBudgetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetOutput)
+}
+
+type PodDisruptionBudgetOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodDisruptionBudgetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodDisruptionBudgetOutput)(nil)).Elem()
+}
+
+func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetOutput() PodDisruptionBudgetOutput {
+	return o
+}
+
+func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetOutputWithContext(ctx context.Context) PodDisruptionBudgetOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodDisruptionBudgetOutput{})
 }

@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type NamespaceListArgs struct {
 
 func (NamespaceListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*namespaceListArgs)(nil)).Elem()
+}
+
+type NamespaceListInput interface {
+	pulumi.Input
+
+	ToNamespaceListOutput() NamespaceListOutput
+	ToNamespaceListOutputWithContext(ctx context.Context) NamespaceListOutput
+}
+
+func (NamespaceList) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceList)(nil)).Elem()
+}
+
+func (i NamespaceList) ToNamespaceListOutput() NamespaceListOutput {
+	return i.ToNamespaceListOutputWithContext(context.Background())
+}
+
+func (i NamespaceList) ToNamespaceListOutputWithContext(ctx context.Context) NamespaceListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamespaceListOutput)
+}
+
+type NamespaceListOutput struct {
+	*pulumi.OutputState
+}
+
+func (NamespaceListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceListOutput)(nil)).Elem()
+}
+
+func (o NamespaceListOutput) ToNamespaceListOutput() NamespaceListOutput {
+	return o
+}
+
+func (o NamespaceListOutput) ToNamespaceListOutputWithContext(ctx context.Context) NamespaceListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(NamespaceListOutput{})
 }

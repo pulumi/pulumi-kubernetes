@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type EndpointSliceListArgs struct {
 
 func (EndpointSliceListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*endpointSliceListArgs)(nil)).Elem()
+}
+
+type EndpointSliceListInput interface {
+	pulumi.Input
+
+	ToEndpointSliceListOutput() EndpointSliceListOutput
+	ToEndpointSliceListOutputWithContext(ctx context.Context) EndpointSliceListOutput
+}
+
+func (EndpointSliceList) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSliceList)(nil)).Elem()
+}
+
+func (i EndpointSliceList) ToEndpointSliceListOutput() EndpointSliceListOutput {
+	return i.ToEndpointSliceListOutputWithContext(context.Background())
+}
+
+func (i EndpointSliceList) ToEndpointSliceListOutputWithContext(ctx context.Context) EndpointSliceListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListOutput)
+}
+
+type EndpointSliceListOutput struct {
+	*pulumi.OutputState
+}
+
+func (EndpointSliceListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSliceListOutput)(nil)).Elem()
+}
+
+func (o EndpointSliceListOutput) ToEndpointSliceListOutput() EndpointSliceListOutput {
+	return o
+}
+
+func (o EndpointSliceListOutput) ToEndpointSliceListOutputWithContext(ctx context.Context) EndpointSliceListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(EndpointSliceListOutput{})
 }

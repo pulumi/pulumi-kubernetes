@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -177,4 +178,43 @@ type StorageClassArgs struct {
 
 func (StorageClassArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*storageClassArgs)(nil)).Elem()
+}
+
+type StorageClassInput interface {
+	pulumi.Input
+
+	ToStorageClassOutput() StorageClassOutput
+	ToStorageClassOutputWithContext(ctx context.Context) StorageClassOutput
+}
+
+func (StorageClass) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageClass)(nil)).Elem()
+}
+
+func (i StorageClass) ToStorageClassOutput() StorageClassOutput {
+	return i.ToStorageClassOutputWithContext(context.Background())
+}
+
+func (i StorageClass) ToStorageClassOutputWithContext(ctx context.Context) StorageClassOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassOutput)
+}
+
+type StorageClassOutput struct {
+	*pulumi.OutputState
+}
+
+func (StorageClassOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageClassOutput)(nil)).Elem()
+}
+
+func (o StorageClassOutput) ToStorageClassOutput() StorageClassOutput {
+	return o
+}
+
+func (o StorageClassOutput) ToStorageClassOutputWithContext(ctx context.Context) StorageClassOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(StorageClassOutput{})
 }

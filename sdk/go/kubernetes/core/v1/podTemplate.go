@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -104,4 +105,43 @@ type PodTemplateArgs struct {
 
 func (PodTemplateArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podTemplateArgs)(nil)).Elem()
+}
+
+type PodTemplateInput interface {
+	pulumi.Input
+
+	ToPodTemplateOutput() PodTemplateOutput
+	ToPodTemplateOutputWithContext(ctx context.Context) PodTemplateOutput
+}
+
+func (PodTemplate) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodTemplate)(nil)).Elem()
+}
+
+func (i PodTemplate) ToPodTemplateOutput() PodTemplateOutput {
+	return i.ToPodTemplateOutputWithContext(context.Background())
+}
+
+func (i PodTemplate) ToPodTemplateOutputWithContext(ctx context.Context) PodTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateOutput)
+}
+
+type PodTemplateOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodTemplateOutput)(nil)).Elem()
+}
+
+func (o PodTemplateOutput) ToPodTemplateOutput() PodTemplateOutput {
+	return o
+}
+
+func (o PodTemplateOutput) ToPodTemplateOutputWithContext(ctx context.Context) PodTemplateOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodTemplateOutput{})
 }

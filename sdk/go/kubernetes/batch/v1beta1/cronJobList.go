@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type CronJobListArgs struct {
 
 func (CronJobListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*cronJobListArgs)(nil)).Elem()
+}
+
+type CronJobListInput interface {
+	pulumi.Input
+
+	ToCronJobListOutput() CronJobListOutput
+	ToCronJobListOutputWithContext(ctx context.Context) CronJobListOutput
+}
+
+func (CronJobList) ElementType() reflect.Type {
+	return reflect.TypeOf((*CronJobList)(nil)).Elem()
+}
+
+func (i CronJobList) ToCronJobListOutput() CronJobListOutput {
+	return i.ToCronJobListOutputWithContext(context.Background())
+}
+
+func (i CronJobList) ToCronJobListOutputWithContext(ctx context.Context) CronJobListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CronJobListOutput)
+}
+
+type CronJobListOutput struct {
+	*pulumi.OutputState
+}
+
+func (CronJobListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CronJobListOutput)(nil)).Elem()
+}
+
+func (o CronJobListOutput) ToCronJobListOutput() CronJobListOutput {
+	return o
+}
+
+func (o CronJobListOutput) ToCronJobListOutputWithContext(ctx context.Context) CronJobListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(CronJobListOutput{})
 }

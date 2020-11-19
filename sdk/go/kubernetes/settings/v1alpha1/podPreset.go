@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -94,4 +95,43 @@ type PodPresetArgs struct {
 
 func (PodPresetArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podPresetArgs)(nil)).Elem()
+}
+
+type PodPresetInput interface {
+	pulumi.Input
+
+	ToPodPresetOutput() PodPresetOutput
+	ToPodPresetOutputWithContext(ctx context.Context) PodPresetOutput
+}
+
+func (PodPreset) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPreset)(nil)).Elem()
+}
+
+func (i PodPreset) ToPodPresetOutput() PodPresetOutput {
+	return i.ToPodPresetOutputWithContext(context.Background())
+}
+
+func (i PodPreset) ToPodPresetOutputWithContext(ctx context.Context) PodPresetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodPresetOutput)
+}
+
+type PodPresetOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodPresetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPresetOutput)(nil)).Elem()
+}
+
+func (o PodPresetOutput) ToPodPresetOutput() PodPresetOutput {
+	return o
+}
+
+func (o PodPresetOutput) ToPodPresetOutputWithContext(ctx context.Context) PodPresetOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodPresetOutput{})
 }

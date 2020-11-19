@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type PodListArgs struct {
 
 func (PodListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podListArgs)(nil)).Elem()
+}
+
+type PodListInput interface {
+	pulumi.Input
+
+	ToPodListOutput() PodListOutput
+	ToPodListOutputWithContext(ctx context.Context) PodListOutput
+}
+
+func (PodList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodList)(nil)).Elem()
+}
+
+func (i PodList) ToPodListOutput() PodListOutput {
+	return i.ToPodListOutputWithContext(context.Background())
+}
+
+func (i PodList) ToPodListOutputWithContext(ctx context.Context) PodListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodListOutput)
+}
+
+type PodListOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodListOutput)(nil)).Elem()
+}
+
+func (o PodListOutput) ToPodListOutput() PodListOutput {
+	return o
+}
+
+func (o PodListOutput) ToPodListOutputWithContext(ctx context.Context) PodListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodListOutput{})
 }

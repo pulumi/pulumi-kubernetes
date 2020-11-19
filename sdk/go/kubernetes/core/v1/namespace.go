@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type NamespaceArgs struct {
 
 func (NamespaceArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*namespaceArgs)(nil)).Elem()
+}
+
+type NamespaceInput interface {
+	pulumi.Input
+
+	ToNamespaceOutput() NamespaceOutput
+	ToNamespaceOutputWithContext(ctx context.Context) NamespaceOutput
+}
+
+func (Namespace) ElementType() reflect.Type {
+	return reflect.TypeOf((*Namespace)(nil)).Elem()
+}
+
+func (i Namespace) ToNamespaceOutput() NamespaceOutput {
+	return i.ToNamespaceOutputWithContext(context.Background())
+}
+
+func (i Namespace) ToNamespaceOutputWithContext(ctx context.Context) NamespaceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamespaceOutput)
+}
+
+type NamespaceOutput struct {
+	*pulumi.OutputState
+}
+
+func (NamespaceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceOutput)(nil)).Elem()
+}
+
+func (o NamespaceOutput) ToNamespaceOutput() NamespaceOutput {
+	return o
+}
+
+func (o NamespaceOutput) ToNamespaceOutputWithContext(ctx context.Context) NamespaceOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(NamespaceOutput{})
 }

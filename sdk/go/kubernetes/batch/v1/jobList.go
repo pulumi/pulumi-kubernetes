@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type JobListArgs struct {
 
 func (JobListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*jobListArgs)(nil)).Elem()
+}
+
+type JobListInput interface {
+	pulumi.Input
+
+	ToJobListOutput() JobListOutput
+	ToJobListOutputWithContext(ctx context.Context) JobListOutput
+}
+
+func (JobList) ElementType() reflect.Type {
+	return reflect.TypeOf((*JobList)(nil)).Elem()
+}
+
+func (i JobList) ToJobListOutput() JobListOutput {
+	return i.ToJobListOutputWithContext(context.Background())
+}
+
+func (i JobList) ToJobListOutputWithContext(ctx context.Context) JobListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JobListOutput)
+}
+
+type JobListOutput struct {
+	*pulumi.OutputState
+}
+
+func (JobListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JobListOutput)(nil)).Elem()
+}
+
+func (o JobListOutput) ToJobListOutput() JobListOutput {
+	return o
+}
+
+func (o JobListOutput) ToJobListOutputWithContext(ctx context.Context) JobListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(JobListOutput{})
 }

@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type ValidatingWebhookConfigurationArgs struct {
 
 func (ValidatingWebhookConfigurationArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*validatingWebhookConfigurationArgs)(nil)).Elem()
+}
+
+type ValidatingWebhookConfigurationInput interface {
+	pulumi.Input
+
+	ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput
+	ToValidatingWebhookConfigurationOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationOutput
+}
+
+func (ValidatingWebhookConfiguration) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfiguration)(nil)).Elem()
+}
+
+func (i ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput {
+	return i.ToValidatingWebhookConfigurationOutputWithContext(context.Background())
+}
+
+func (i ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationOutput)
+}
+
+type ValidatingWebhookConfigurationOutput struct {
+	*pulumi.OutputState
+}
+
+func (ValidatingWebhookConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingWebhookConfigurationOutput)(nil)).Elem()
+}
+
+func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput {
+	return o
+}
+
+func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ValidatingWebhookConfigurationOutput{})
 }

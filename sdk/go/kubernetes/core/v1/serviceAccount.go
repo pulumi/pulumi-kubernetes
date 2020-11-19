@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -124,4 +125,43 @@ type ServiceAccountArgs struct {
 
 func (ServiceAccountArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*serviceAccountArgs)(nil)).Elem()
+}
+
+type ServiceAccountInput interface {
+	pulumi.Input
+
+	ToServiceAccountOutput() ServiceAccountOutput
+	ToServiceAccountOutputWithContext(ctx context.Context) ServiceAccountOutput
+}
+
+func (ServiceAccount) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceAccount)(nil)).Elem()
+}
+
+func (i ServiceAccount) ToServiceAccountOutput() ServiceAccountOutput {
+	return i.ToServiceAccountOutputWithContext(context.Background())
+}
+
+func (i ServiceAccount) ToServiceAccountOutputWithContext(ctx context.Context) ServiceAccountOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountOutput)
+}
+
+type ServiceAccountOutput struct {
+	*pulumi.OutputState
+}
+
+func (ServiceAccountOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceAccountOutput)(nil)).Elem()
+}
+
+func (o ServiceAccountOutput) ToServiceAccountOutput() ServiceAccountOutput {
+	return o
+}
+
+func (o ServiceAccountOutput) ToServiceAccountOutputWithContext(ctx context.Context) ServiceAccountOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ServiceAccountOutput{})
 }

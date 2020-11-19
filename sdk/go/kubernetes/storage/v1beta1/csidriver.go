@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -114,4 +115,43 @@ type CSIDriverArgs struct {
 
 func (CSIDriverArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*csidriverArgs)(nil)).Elem()
+}
+
+type CSIDriverInput interface {
+	pulumi.Input
+
+	ToCSIDriverOutput() CSIDriverOutput
+	ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput
+}
+
+func (CSIDriver) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriver)(nil)).Elem()
+}
+
+func (i CSIDriver) ToCSIDriverOutput() CSIDriverOutput {
+	return i.ToCSIDriverOutputWithContext(context.Background())
+}
+
+func (i CSIDriver) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverOutput)
+}
+
+type CSIDriverOutput struct {
+	*pulumi.OutputState
+}
+
+func (CSIDriverOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriverOutput)(nil)).Elem()
+}
+
+func (o CSIDriverOutput) ToCSIDriverOutput() CSIDriverOutput {
+	return o
+}
+
+func (o CSIDriverOutput) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(CSIDriverOutput{})
 }

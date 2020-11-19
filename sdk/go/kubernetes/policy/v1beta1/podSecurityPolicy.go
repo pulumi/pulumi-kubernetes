@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type PodSecurityPolicyArgs struct {
 
 func (PodSecurityPolicyArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podSecurityPolicyArgs)(nil)).Elem()
+}
+
+type PodSecurityPolicyInput interface {
+	pulumi.Input
+
+	ToPodSecurityPolicyOutput() PodSecurityPolicyOutput
+	ToPodSecurityPolicyOutputWithContext(ctx context.Context) PodSecurityPolicyOutput
+}
+
+func (PodSecurityPolicy) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodSecurityPolicy)(nil)).Elem()
+}
+
+func (i PodSecurityPolicy) ToPodSecurityPolicyOutput() PodSecurityPolicyOutput {
+	return i.ToPodSecurityPolicyOutputWithContext(context.Background())
+}
+
+func (i PodSecurityPolicy) ToPodSecurityPolicyOutputWithContext(ctx context.Context) PodSecurityPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyOutput)
+}
+
+type PodSecurityPolicyOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodSecurityPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodSecurityPolicyOutput)(nil)).Elem()
+}
+
+func (o PodSecurityPolicyOutput) ToPodSecurityPolicyOutput() PodSecurityPolicyOutput {
+	return o
+}
+
+func (o PodSecurityPolicyOutput) ToPodSecurityPolicyOutputWithContext(ctx context.Context) PodSecurityPolicyOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodSecurityPolicyOutput{})
 }

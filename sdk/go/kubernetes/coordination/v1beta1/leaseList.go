@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type LeaseListArgs struct {
 
 func (LeaseListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*leaseListArgs)(nil)).Elem()
+}
+
+type LeaseListInput interface {
+	pulumi.Input
+
+	ToLeaseListOutput() LeaseListOutput
+	ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput
+}
+
+func (LeaseList) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseList)(nil)).Elem()
+}
+
+func (i LeaseList) ToLeaseListOutput() LeaseListOutput {
+	return i.ToLeaseListOutputWithContext(context.Background())
+}
+
+func (i LeaseList) ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LeaseListOutput)
+}
+
+type LeaseListOutput struct {
+	*pulumi.OutputState
+}
+
+func (LeaseListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseListOutput)(nil)).Elem()
+}
+
+func (o LeaseListOutput) ToLeaseListOutput() LeaseListOutput {
+	return o
+}
+
+func (o LeaseListOutput) ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(LeaseListOutput{})
 }

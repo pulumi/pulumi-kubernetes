@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -127,4 +128,43 @@ type ClusterRoleBindingArgs struct {
 
 func (ClusterRoleBindingArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*clusterRoleBindingArgs)(nil)).Elem()
+}
+
+type ClusterRoleBindingInput interface {
+	pulumi.Input
+
+	ToClusterRoleBindingOutput() ClusterRoleBindingOutput
+	ToClusterRoleBindingOutputWithContext(ctx context.Context) ClusterRoleBindingOutput
+}
+
+func (ClusterRoleBinding) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterRoleBinding)(nil)).Elem()
+}
+
+func (i ClusterRoleBinding) ToClusterRoleBindingOutput() ClusterRoleBindingOutput {
+	return i.ToClusterRoleBindingOutputWithContext(context.Background())
+}
+
+func (i ClusterRoleBinding) ToClusterRoleBindingOutputWithContext(ctx context.Context) ClusterRoleBindingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingOutput)
+}
+
+type ClusterRoleBindingOutput struct {
+	*pulumi.OutputState
+}
+
+func (ClusterRoleBindingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterRoleBindingOutput)(nil)).Elem()
+}
+
+func (o ClusterRoleBindingOutput) ToClusterRoleBindingOutput() ClusterRoleBindingOutput {
+	return o
+}
+
+func (o ClusterRoleBindingOutput) ToClusterRoleBindingOutputWithContext(ctx context.Context) ClusterRoleBindingOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ClusterRoleBindingOutput{})
 }

@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -101,4 +102,43 @@ type TokenRequestArgs struct {
 
 func (TokenRequestArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*tokenRequestArgs)(nil)).Elem()
+}
+
+type TokenRequestInput interface {
+	pulumi.Input
+
+	ToTokenRequestOutput() TokenRequestOutput
+	ToTokenRequestOutputWithContext(ctx context.Context) TokenRequestOutput
+}
+
+func (TokenRequest) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenRequest)(nil)).Elem()
+}
+
+func (i TokenRequest) ToTokenRequestOutput() TokenRequestOutput {
+	return i.ToTokenRequestOutputWithContext(context.Background())
+}
+
+func (i TokenRequest) ToTokenRequestOutputWithContext(ctx context.Context) TokenRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestOutput)
+}
+
+type TokenRequestOutput struct {
+	*pulumi.OutputState
+}
+
+func (TokenRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenRequestOutput)(nil)).Elem()
+}
+
+func (o TokenRequestOutput) ToTokenRequestOutput() TokenRequestOutput {
+	return o
+}
+
+func (o TokenRequestOutput) ToTokenRequestOutputWithContext(ctx context.Context) TokenRequestOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(TokenRequestOutput{})
 }

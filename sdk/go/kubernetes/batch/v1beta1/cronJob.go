@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -116,4 +117,43 @@ type CronJobArgs struct {
 
 func (CronJobArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*cronJobArgs)(nil)).Elem()
+}
+
+type CronJobInput interface {
+	pulumi.Input
+
+	ToCronJobOutput() CronJobOutput
+	ToCronJobOutputWithContext(ctx context.Context) CronJobOutput
+}
+
+func (CronJob) ElementType() reflect.Type {
+	return reflect.TypeOf((*CronJob)(nil)).Elem()
+}
+
+func (i CronJob) ToCronJobOutput() CronJobOutput {
+	return i.ToCronJobOutputWithContext(context.Background())
+}
+
+func (i CronJob) ToCronJobOutputWithContext(ctx context.Context) CronJobOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CronJobOutput)
+}
+
+type CronJobOutput struct {
+	*pulumi.OutputState
+}
+
+func (CronJobOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CronJobOutput)(nil)).Elem()
+}
+
+func (o CronJobOutput) ToCronJobOutput() CronJobOutput {
+	return o
+}
+
+func (o CronJobOutput) ToCronJobOutputWithContext(ctx context.Context) CronJobOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(CronJobOutput{})
 }

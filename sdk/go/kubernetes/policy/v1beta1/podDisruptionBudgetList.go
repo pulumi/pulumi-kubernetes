@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -98,4 +99,43 @@ type PodDisruptionBudgetListArgs struct {
 
 func (PodDisruptionBudgetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podDisruptionBudgetListArgs)(nil)).Elem()
+}
+
+type PodDisruptionBudgetListInput interface {
+	pulumi.Input
+
+	ToPodDisruptionBudgetListOutput() PodDisruptionBudgetListOutput
+	ToPodDisruptionBudgetListOutputWithContext(ctx context.Context) PodDisruptionBudgetListOutput
+}
+
+func (PodDisruptionBudgetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodDisruptionBudgetList)(nil)).Elem()
+}
+
+func (i PodDisruptionBudgetList) ToPodDisruptionBudgetListOutput() PodDisruptionBudgetListOutput {
+	return i.ToPodDisruptionBudgetListOutputWithContext(context.Background())
+}
+
+func (i PodDisruptionBudgetList) ToPodDisruptionBudgetListOutputWithContext(ctx context.Context) PodDisruptionBudgetListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListOutput)
+}
+
+type PodDisruptionBudgetListOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodDisruptionBudgetListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodDisruptionBudgetListOutput)(nil)).Elem()
+}
+
+func (o PodDisruptionBudgetListOutput) ToPodDisruptionBudgetListOutput() PodDisruptionBudgetListOutput {
+	return o
+}
+
+func (o PodDisruptionBudgetListOutput) ToPodDisruptionBudgetListOutputWithContext(ctx context.Context) PodDisruptionBudgetListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodDisruptionBudgetListOutput{})
 }

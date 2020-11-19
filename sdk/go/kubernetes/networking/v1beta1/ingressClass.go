@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type IngressClassArgs struct {
 
 func (IngressClassArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*ingressClassArgs)(nil)).Elem()
+}
+
+type IngressClassInput interface {
+	pulumi.Input
+
+	ToIngressClassOutput() IngressClassOutput
+	ToIngressClassOutputWithContext(ctx context.Context) IngressClassOutput
+}
+
+func (IngressClass) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClass)(nil)).Elem()
+}
+
+func (i IngressClass) ToIngressClassOutput() IngressClassOutput {
+	return i.ToIngressClassOutputWithContext(context.Background())
+}
+
+func (i IngressClass) ToIngressClassOutputWithContext(ctx context.Context) IngressClassOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassOutput)
+}
+
+type IngressClassOutput struct {
+	*pulumi.OutputState
+}
+
+func (IngressClassOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassOutput)(nil)).Elem()
+}
+
+func (o IngressClassOutput) ToIngressClassOutput() IngressClassOutput {
+	return o
+}
+
+func (o IngressClassOutput) ToIngressClassOutputWithContext(ctx context.Context) IngressClassOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(IngressClassOutput{})
 }

@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -127,4 +128,43 @@ type RoleBindingArgs struct {
 
 func (RoleBindingArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*roleBindingArgs)(nil)).Elem()
+}
+
+type RoleBindingInput interface {
+	pulumi.Input
+
+	ToRoleBindingOutput() RoleBindingOutput
+	ToRoleBindingOutputWithContext(ctx context.Context) RoleBindingOutput
+}
+
+func (RoleBinding) ElementType() reflect.Type {
+	return reflect.TypeOf((*RoleBinding)(nil)).Elem()
+}
+
+func (i RoleBinding) ToRoleBindingOutput() RoleBindingOutput {
+	return i.ToRoleBindingOutputWithContext(context.Background())
+}
+
+func (i RoleBinding) ToRoleBindingOutputWithContext(ctx context.Context) RoleBindingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingOutput)
+}
+
+type RoleBindingOutput struct {
+	*pulumi.OutputState
+}
+
+func (RoleBindingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RoleBindingOutput)(nil)).Elem()
+}
+
+func (o RoleBindingOutput) ToRoleBindingOutput() RoleBindingOutput {
+	return o
+}
+
+func (o RoleBindingOutput) ToRoleBindingOutputWithContext(ctx context.Context) RoleBindingOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(RoleBindingOutput{})
 }

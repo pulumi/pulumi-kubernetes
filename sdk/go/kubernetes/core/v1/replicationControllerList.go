@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type ReplicationControllerListArgs struct {
 
 func (ReplicationControllerListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*replicationControllerListArgs)(nil)).Elem()
+}
+
+type ReplicationControllerListInput interface {
+	pulumi.Input
+
+	ToReplicationControllerListOutput() ReplicationControllerListOutput
+	ToReplicationControllerListOutputWithContext(ctx context.Context) ReplicationControllerListOutput
+}
+
+func (ReplicationControllerList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerList)(nil)).Elem()
+}
+
+func (i ReplicationControllerList) ToReplicationControllerListOutput() ReplicationControllerListOutput {
+	return i.ToReplicationControllerListOutputWithContext(context.Background())
+}
+
+func (i ReplicationControllerList) ToReplicationControllerListOutputWithContext(ctx context.Context) ReplicationControllerListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListOutput)
+}
+
+type ReplicationControllerListOutput struct {
+	*pulumi.OutputState
+}
+
+func (ReplicationControllerListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerListOutput)(nil)).Elem()
+}
+
+func (o ReplicationControllerListOutput) ToReplicationControllerListOutput() ReplicationControllerListOutput {
+	return o
+}
+
+func (o ReplicationControllerListOutput) ToReplicationControllerListOutputWithContext(ctx context.Context) ReplicationControllerListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ReplicationControllerListOutput{})
 }
