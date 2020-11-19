@@ -29,7 +29,7 @@ openapi_file::
 k8sgen::
 	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
-schema::
+schema:: k8sgen
 	@echo "Generating Pulumi schema..."
 	$(WORKING_DIR)/bin/${CODEGEN} schema $(OPENAPI_FILE) $(CURDIR)
 	@echo "Finished generating schema."
