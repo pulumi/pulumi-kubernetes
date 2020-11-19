@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type DeploymentListArgs struct {
 
 func (DeploymentListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*deploymentListArgs)(nil)).Elem()
+}
+
+type DeploymentListInput interface {
+	pulumi.Input
+
+	ToDeploymentListOutput() DeploymentListOutput
+	ToDeploymentListOutputWithContext(ctx context.Context) DeploymentListOutput
+}
+
+func (DeploymentList) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeploymentList)(nil)).Elem()
+}
+
+func (i DeploymentList) ToDeploymentListOutput() DeploymentListOutput {
+	return i.ToDeploymentListOutputWithContext(context.Background())
+}
+
+func (i DeploymentList) ToDeploymentListOutputWithContext(ctx context.Context) DeploymentListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeploymentListOutput)
+}
+
+type DeploymentListOutput struct {
+	*pulumi.OutputState
+}
+
+func (DeploymentListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeploymentListOutput)(nil)).Elem()
+}
+
+func (o DeploymentListOutput) ToDeploymentListOutput() DeploymentListOutput {
+	return o
+}
+
+func (o DeploymentListOutput) ToDeploymentListOutputWithContext(ctx context.Context) DeploymentListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(DeploymentListOutput{})
 }

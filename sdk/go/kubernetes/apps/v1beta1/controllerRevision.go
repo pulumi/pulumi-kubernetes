@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -129,4 +130,43 @@ type ControllerRevisionArgs struct {
 
 func (ControllerRevisionArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*controllerRevisionArgs)(nil)).Elem()
+}
+
+type ControllerRevisionInput interface {
+	pulumi.Input
+
+	ToControllerRevisionOutput() ControllerRevisionOutput
+	ToControllerRevisionOutputWithContext(ctx context.Context) ControllerRevisionOutput
+}
+
+func (ControllerRevision) ElementType() reflect.Type {
+	return reflect.TypeOf((*ControllerRevision)(nil)).Elem()
+}
+
+func (i ControllerRevision) ToControllerRevisionOutput() ControllerRevisionOutput {
+	return i.ToControllerRevisionOutputWithContext(context.Background())
+}
+
+func (i ControllerRevision) ToControllerRevisionOutputWithContext(ctx context.Context) ControllerRevisionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionOutput)
+}
+
+type ControllerRevisionOutput struct {
+	*pulumi.OutputState
+}
+
+func (ControllerRevisionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ControllerRevisionOutput)(nil)).Elem()
+}
+
+func (o ControllerRevisionOutput) ToControllerRevisionOutput() ControllerRevisionOutput {
+	return o
+}
+
+func (o ControllerRevisionOutput) ToControllerRevisionOutputWithContext(ctx context.Context) ControllerRevisionOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ControllerRevisionOutput{})
 }

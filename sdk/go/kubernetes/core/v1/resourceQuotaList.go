@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type ResourceQuotaListArgs struct {
 
 func (ResourceQuotaListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*resourceQuotaListArgs)(nil)).Elem()
+}
+
+type ResourceQuotaListInput interface {
+	pulumi.Input
+
+	ToResourceQuotaListOutput() ResourceQuotaListOutput
+	ToResourceQuotaListOutputWithContext(ctx context.Context) ResourceQuotaListOutput
+}
+
+func (ResourceQuotaList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuotaList)(nil)).Elem()
+}
+
+func (i ResourceQuotaList) ToResourceQuotaListOutput() ResourceQuotaListOutput {
+	return i.ToResourceQuotaListOutputWithContext(context.Background())
+}
+
+func (i ResourceQuotaList) ToResourceQuotaListOutputWithContext(ctx context.Context) ResourceQuotaListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListOutput)
+}
+
+type ResourceQuotaListOutput struct {
+	*pulumi.OutputState
+}
+
+func (ResourceQuotaListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuotaListOutput)(nil)).Elem()
+}
+
+func (o ResourceQuotaListOutput) ToResourceQuotaListOutput() ResourceQuotaListOutput {
+	return o
+}
+
+func (o ResourceQuotaListOutput) ToResourceQuotaListOutputWithContext(ctx context.Context) ResourceQuotaListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ResourceQuotaListOutput{})
 }

@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -99,4 +100,43 @@ type AuditSinkArgs struct {
 
 func (AuditSinkArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*auditSinkArgs)(nil)).Elem()
+}
+
+type AuditSinkInput interface {
+	pulumi.Input
+
+	ToAuditSinkOutput() AuditSinkOutput
+	ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput
+}
+
+func (AuditSink) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSink)(nil)).Elem()
+}
+
+func (i AuditSink) ToAuditSinkOutput() AuditSinkOutput {
+	return i.ToAuditSinkOutputWithContext(context.Background())
+}
+
+func (i AuditSink) ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkOutput)
+}
+
+type AuditSinkOutput struct {
+	*pulumi.OutputState
+}
+
+func (AuditSinkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSinkOutput)(nil)).Elem()
+}
+
+func (o AuditSinkOutput) ToAuditSinkOutput() AuditSinkOutput {
+	return o
+}
+
+func (o AuditSinkOutput) ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(AuditSinkOutput{})
 }

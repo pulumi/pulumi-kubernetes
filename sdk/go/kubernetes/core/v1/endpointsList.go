@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type EndpointsListArgs struct {
 
 func (EndpointsListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*endpointsListArgs)(nil)).Elem()
+}
+
+type EndpointsListInput interface {
+	pulumi.Input
+
+	ToEndpointsListOutput() EndpointsListOutput
+	ToEndpointsListOutputWithContext(ctx context.Context) EndpointsListOutput
+}
+
+func (EndpointsList) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsList)(nil)).Elem()
+}
+
+func (i EndpointsList) ToEndpointsListOutput() EndpointsListOutput {
+	return i.ToEndpointsListOutputWithContext(context.Background())
+}
+
+func (i EndpointsList) ToEndpointsListOutputWithContext(ctx context.Context) EndpointsListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListOutput)
+}
+
+type EndpointsListOutput struct {
+	*pulumi.OutputState
+}
+
+func (EndpointsListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsListOutput)(nil)).Elem()
+}
+
+func (o EndpointsListOutput) ToEndpointsListOutput() EndpointsListOutput {
+	return o
+}
+
+func (o EndpointsListOutput) ToEndpointsListOutputWithContext(ctx context.Context) EndpointsListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(EndpointsListOutput{})
 }

@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -243,4 +244,43 @@ type EventArgs struct {
 
 func (EventArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*eventArgs)(nil)).Elem()
+}
+
+type EventInput interface {
+	pulumi.Input
+
+	ToEventOutput() EventOutput
+	ToEventOutputWithContext(ctx context.Context) EventOutput
+}
+
+func (Event) ElementType() reflect.Type {
+	return reflect.TypeOf((*Event)(nil)).Elem()
+}
+
+func (i Event) ToEventOutput() EventOutput {
+	return i.ToEventOutputWithContext(context.Background())
+}
+
+func (i Event) ToEventOutputWithContext(ctx context.Context) EventOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventOutput)
+}
+
+type EventOutput struct {
+	*pulumi.OutputState
+}
+
+func (EventOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventOutput)(nil)).Elem()
+}
+
+func (o EventOutput) ToEventOutput() EventOutput {
+	return o
+}
+
+func (o EventOutput) ToEventOutputWithContext(ctx context.Context) EventOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(EventOutput{})
 }

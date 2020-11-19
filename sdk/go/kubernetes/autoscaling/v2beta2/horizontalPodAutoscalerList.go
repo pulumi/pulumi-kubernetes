@@ -4,6 +4,7 @@
 package v2beta2
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type HorizontalPodAutoscalerListArgs struct {
 
 func (HorizontalPodAutoscalerListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*horizontalPodAutoscalerListArgs)(nil)).Elem()
+}
+
+type HorizontalPodAutoscalerListInput interface {
+	pulumi.Input
+
+	ToHorizontalPodAutoscalerListOutput() HorizontalPodAutoscalerListOutput
+	ToHorizontalPodAutoscalerListOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListOutput
+}
+
+func (HorizontalPodAutoscalerList) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerList)(nil)).Elem()
+}
+
+func (i HorizontalPodAutoscalerList) ToHorizontalPodAutoscalerListOutput() HorizontalPodAutoscalerListOutput {
+	return i.ToHorizontalPodAutoscalerListOutputWithContext(context.Background())
+}
+
+func (i HorizontalPodAutoscalerList) ToHorizontalPodAutoscalerListOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerListOutput)
+}
+
+type HorizontalPodAutoscalerListOutput struct {
+	*pulumi.OutputState
+}
+
+func (HorizontalPodAutoscalerListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerListOutput)(nil)).Elem()
+}
+
+func (o HorizontalPodAutoscalerListOutput) ToHorizontalPodAutoscalerListOutput() HorizontalPodAutoscalerListOutput {
+	return o
+}
+
+func (o HorizontalPodAutoscalerListOutput) ToHorizontalPodAutoscalerListOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(HorizontalPodAutoscalerListOutput{})
 }

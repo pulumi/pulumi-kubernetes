@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type NodeArgs struct {
 
 func (NodeArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*nodeArgs)(nil)).Elem()
+}
+
+type NodeInput interface {
+	pulumi.Input
+
+	ToNodeOutput() NodeOutput
+	ToNodeOutputWithContext(ctx context.Context) NodeOutput
+}
+
+func (Node) ElementType() reflect.Type {
+	return reflect.TypeOf((*Node)(nil)).Elem()
+}
+
+func (i Node) ToNodeOutput() NodeOutput {
+	return i.ToNodeOutputWithContext(context.Background())
+}
+
+func (i Node) ToNodeOutputWithContext(ctx context.Context) NodeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeOutput)
+}
+
+type NodeOutput struct {
+	*pulumi.OutputState
+}
+
+func (NodeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeOutput)(nil)).Elem()
+}
+
+func (o NodeOutput) ToNodeOutput() NodeOutput {
+	return o
+}
+
+func (o NodeOutput) ToNodeOutputWithContext(ctx context.Context) NodeOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(NodeOutput{})
 }

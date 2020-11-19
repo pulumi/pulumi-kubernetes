@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -97,4 +98,43 @@ type CertificateSigningRequestListArgs struct {
 
 func (CertificateSigningRequestListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*certificateSigningRequestListArgs)(nil)).Elem()
+}
+
+type CertificateSigningRequestListInput interface {
+	pulumi.Input
+
+	ToCertificateSigningRequestListOutput() CertificateSigningRequestListOutput
+	ToCertificateSigningRequestListOutputWithContext(ctx context.Context) CertificateSigningRequestListOutput
+}
+
+func (CertificateSigningRequestList) ElementType() reflect.Type {
+	return reflect.TypeOf((*CertificateSigningRequestList)(nil)).Elem()
+}
+
+func (i CertificateSigningRequestList) ToCertificateSigningRequestListOutput() CertificateSigningRequestListOutput {
+	return i.ToCertificateSigningRequestListOutputWithContext(context.Background())
+}
+
+func (i CertificateSigningRequestList) ToCertificateSigningRequestListOutputWithContext(ctx context.Context) CertificateSigningRequestListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListOutput)
+}
+
+type CertificateSigningRequestListOutput struct {
+	*pulumi.OutputState
+}
+
+func (CertificateSigningRequestListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CertificateSigningRequestListOutput)(nil)).Elem()
+}
+
+func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListOutput() CertificateSigningRequestListOutput {
+	return o
+}
+
+func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListOutputWithContext(ctx context.Context) CertificateSigningRequestListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(CertificateSigningRequestListOutput{})
 }

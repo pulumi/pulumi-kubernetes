@@ -4,6 +4,7 @@
 package v1beta2
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -121,4 +122,43 @@ type ReplicaSetArgs struct {
 
 func (ReplicaSetArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*replicaSetArgs)(nil)).Elem()
+}
+
+type ReplicaSetInput interface {
+	pulumi.Input
+
+	ToReplicaSetOutput() ReplicaSetOutput
+	ToReplicaSetOutputWithContext(ctx context.Context) ReplicaSetOutput
+}
+
+func (ReplicaSet) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicaSet)(nil)).Elem()
+}
+
+func (i ReplicaSet) ToReplicaSetOutput() ReplicaSetOutput {
+	return i.ToReplicaSetOutputWithContext(context.Background())
+}
+
+func (i ReplicaSet) ToReplicaSetOutputWithContext(ctx context.Context) ReplicaSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetOutput)
+}
+
+type ReplicaSetOutput struct {
+	*pulumi.OutputState
+}
+
+func (ReplicaSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicaSetOutput)(nil)).Elem()
+}
+
+func (o ReplicaSetOutput) ToReplicaSetOutput() ReplicaSetOutput {
+	return o
+}
+
+func (o ReplicaSetOutput) ToReplicaSetOutputWithContext(ctx context.Context) ReplicaSetOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ReplicaSetOutput{})
 }

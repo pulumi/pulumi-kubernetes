@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -115,4 +116,43 @@ type SelfSubjectRulesReviewArgs struct {
 
 func (SelfSubjectRulesReviewArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*selfSubjectRulesReviewArgs)(nil)).Elem()
+}
+
+type SelfSubjectRulesReviewInput interface {
+	pulumi.Input
+
+	ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput
+	ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput
+}
+
+func (SelfSubjectRulesReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectRulesReview)(nil)).Elem()
+}
+
+func (i SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
+	return i.ToSelfSubjectRulesReviewOutputWithContext(context.Background())
+}
+
+func (i SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewOutput)
+}
+
+type SelfSubjectRulesReviewOutput struct {
+	*pulumi.OutputState
+}
+
+func (SelfSubjectRulesReviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectRulesReviewOutput)(nil)).Elem()
+}
+
+func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
+	return o
+}
+
+func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(SelfSubjectRulesReviewOutput{})
 }

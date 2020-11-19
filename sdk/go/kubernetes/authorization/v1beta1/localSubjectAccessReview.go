@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -115,4 +116,43 @@ type LocalSubjectAccessReviewArgs struct {
 
 func (LocalSubjectAccessReviewArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*localSubjectAccessReviewArgs)(nil)).Elem()
+}
+
+type LocalSubjectAccessReviewInput interface {
+	pulumi.Input
+
+	ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput
+	ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput
+}
+
+func (LocalSubjectAccessReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*LocalSubjectAccessReview)(nil)).Elem()
+}
+
+func (i LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
+	return i.ToLocalSubjectAccessReviewOutputWithContext(context.Background())
+}
+
+func (i LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewOutput)
+}
+
+type LocalSubjectAccessReviewOutput struct {
+	*pulumi.OutputState
+}
+
+func (LocalSubjectAccessReviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LocalSubjectAccessReviewOutput)(nil)).Elem()
+}
+
+func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
+	return o
+}
+
+func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(LocalSubjectAccessReviewOutput{})
 }

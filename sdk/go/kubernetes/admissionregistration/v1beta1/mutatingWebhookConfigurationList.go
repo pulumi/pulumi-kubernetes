@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type MutatingWebhookConfigurationListArgs struct {
 
 func (MutatingWebhookConfigurationListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*mutatingWebhookConfigurationListArgs)(nil)).Elem()
+}
+
+type MutatingWebhookConfigurationListInput interface {
+	pulumi.Input
+
+	ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput
+	ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput
+}
+
+func (MutatingWebhookConfigurationList) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationList)(nil)).Elem()
+}
+
+func (i MutatingWebhookConfigurationList) ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput {
+	return i.ToMutatingWebhookConfigurationListOutputWithContext(context.Background())
+}
+
+func (i MutatingWebhookConfigurationList) ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListOutput)
+}
+
+type MutatingWebhookConfigurationListOutput struct {
+	*pulumi.OutputState
+}
+
+func (MutatingWebhookConfigurationListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationListOutput)(nil)).Elem()
+}
+
+func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationListOutput{})
 }

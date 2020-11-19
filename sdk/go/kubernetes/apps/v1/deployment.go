@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -144,4 +145,43 @@ type DeploymentArgs struct {
 
 func (DeploymentArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*deploymentArgs)(nil)).Elem()
+}
+
+type DeploymentInput interface {
+	pulumi.Input
+
+	ToDeploymentOutput() DeploymentOutput
+	ToDeploymentOutputWithContext(ctx context.Context) DeploymentOutput
+}
+
+func (Deployment) ElementType() reflect.Type {
+	return reflect.TypeOf((*Deployment)(nil)).Elem()
+}
+
+func (i Deployment) ToDeploymentOutput() DeploymentOutput {
+	return i.ToDeploymentOutputWithContext(context.Background())
+}
+
+func (i Deployment) ToDeploymentOutputWithContext(ctx context.Context) DeploymentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeploymentOutput)
+}
+
+type DeploymentOutput struct {
+	*pulumi.OutputState
+}
+
+func (DeploymentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeploymentOutput)(nil)).Elem()
+}
+
+func (o DeploymentOutput) ToDeploymentOutput() DeploymentOutput {
+	return o
+}
+
+func (o DeploymentOutput) ToDeploymentOutputWithContext(ctx context.Context) DeploymentOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(DeploymentOutput{})
 }

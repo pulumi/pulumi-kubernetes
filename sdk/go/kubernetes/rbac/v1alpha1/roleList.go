@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type RoleListArgs struct {
 
 func (RoleListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*roleListArgs)(nil)).Elem()
+}
+
+type RoleListInput interface {
+	pulumi.Input
+
+	ToRoleListOutput() RoleListOutput
+	ToRoleListOutputWithContext(ctx context.Context) RoleListOutput
+}
+
+func (RoleList) ElementType() reflect.Type {
+	return reflect.TypeOf((*RoleList)(nil)).Elem()
+}
+
+func (i RoleList) ToRoleListOutput() RoleListOutput {
+	return i.ToRoleListOutputWithContext(context.Background())
+}
+
+func (i RoleList) ToRoleListOutputWithContext(ctx context.Context) RoleListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleListOutput)
+}
+
+type RoleListOutput struct {
+	*pulumi.OutputState
+}
+
+func (RoleListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RoleListOutput)(nil)).Elem()
+}
+
+func (o RoleListOutput) ToRoleListOutput() RoleListOutput {
+	return o
+}
+
+func (o RoleListOutput) ToRoleListOutputWithContext(ctx context.Context) RoleListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(RoleListOutput{})
 }

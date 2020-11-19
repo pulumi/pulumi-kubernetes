@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type NetworkPolicyListArgs struct {
 
 func (NetworkPolicyListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*networkPolicyListArgs)(nil)).Elem()
+}
+
+type NetworkPolicyListInput interface {
+	pulumi.Input
+
+	ToNetworkPolicyListOutput() NetworkPolicyListOutput
+	ToNetworkPolicyListOutputWithContext(ctx context.Context) NetworkPolicyListOutput
+}
+
+func (NetworkPolicyList) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyList)(nil)).Elem()
+}
+
+func (i NetworkPolicyList) ToNetworkPolicyListOutput() NetworkPolicyListOutput {
+	return i.ToNetworkPolicyListOutputWithContext(context.Background())
+}
+
+func (i NetworkPolicyList) ToNetworkPolicyListOutputWithContext(ctx context.Context) NetworkPolicyListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyListOutput)
+}
+
+type NetworkPolicyListOutput struct {
+	*pulumi.OutputState
+}
+
+func (NetworkPolicyListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyListOutput)(nil)).Elem()
+}
+
+func (o NetworkPolicyListOutput) ToNetworkPolicyListOutput() NetworkPolicyListOutput {
+	return o
+}
+
+func (o NetworkPolicyListOutput) ToNetworkPolicyListOutputWithContext(ctx context.Context) NetworkPolicyListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(NetworkPolicyListOutput{})
 }

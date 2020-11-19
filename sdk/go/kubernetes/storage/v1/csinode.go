@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -114,4 +115,43 @@ type CSINodeArgs struct {
 
 func (CSINodeArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*csinodeArgs)(nil)).Elem()
+}
+
+type CSINodeInput interface {
+	pulumi.Input
+
+	ToCSINodeOutput() CSINodeOutput
+	ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput
+}
+
+func (CSINode) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINode)(nil)).Elem()
+}
+
+func (i CSINode) ToCSINodeOutput() CSINodeOutput {
+	return i.ToCSINodeOutputWithContext(context.Background())
+}
+
+func (i CSINode) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeOutput)
+}
+
+type CSINodeOutput struct {
+	*pulumi.OutputState
+}
+
+func (CSINodeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeOutput)(nil)).Elem()
+}
+
+func (o CSINodeOutput) ToCSINodeOutput() CSINodeOutput {
+	return o
+}
+
+func (o CSINodeOutput) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(CSINodeOutput{})
 }

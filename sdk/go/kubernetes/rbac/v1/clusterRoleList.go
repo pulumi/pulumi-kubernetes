@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type ClusterRoleListArgs struct {
 
 func (ClusterRoleListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*clusterRoleListArgs)(nil)).Elem()
+}
+
+type ClusterRoleListInput interface {
+	pulumi.Input
+
+	ToClusterRoleListOutput() ClusterRoleListOutput
+	ToClusterRoleListOutputWithContext(ctx context.Context) ClusterRoleListOutput
+}
+
+func (ClusterRoleList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterRoleList)(nil)).Elem()
+}
+
+func (i ClusterRoleList) ToClusterRoleListOutput() ClusterRoleListOutput {
+	return i.ToClusterRoleListOutputWithContext(context.Background())
+}
+
+func (i ClusterRoleList) ToClusterRoleListOutputWithContext(ctx context.Context) ClusterRoleListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListOutput)
+}
+
+type ClusterRoleListOutput struct {
+	*pulumi.OutputState
+}
+
+func (ClusterRoleListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterRoleListOutput)(nil)).Elem()
+}
+
+func (o ClusterRoleListOutput) ToClusterRoleListOutput() ClusterRoleListOutput {
+	return o
+}
+
+func (o ClusterRoleListOutput) ToClusterRoleListOutputWithContext(ctx context.Context) ClusterRoleListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ClusterRoleListOutput{})
 }

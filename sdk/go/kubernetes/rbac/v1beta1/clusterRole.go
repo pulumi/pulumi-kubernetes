@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -123,4 +124,43 @@ type ClusterRoleArgs struct {
 
 func (ClusterRoleArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*clusterRoleArgs)(nil)).Elem()
+}
+
+type ClusterRoleInput interface {
+	pulumi.Input
+
+	ToClusterRoleOutput() ClusterRoleOutput
+	ToClusterRoleOutputWithContext(ctx context.Context) ClusterRoleOutput
+}
+
+func (ClusterRole) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterRole)(nil)).Elem()
+}
+
+func (i ClusterRole) ToClusterRoleOutput() ClusterRoleOutput {
+	return i.ToClusterRoleOutputWithContext(context.Background())
+}
+
+func (i ClusterRole) ToClusterRoleOutputWithContext(ctx context.Context) ClusterRoleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleOutput)
+}
+
+type ClusterRoleOutput struct {
+	*pulumi.OutputState
+}
+
+func (ClusterRoleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterRoleOutput)(nil)).Elem()
+}
+
+func (o ClusterRoleOutput) ToClusterRoleOutput() ClusterRoleOutput {
+	return o
+}
+
+func (o ClusterRoleOutput) ToClusterRoleOutputWithContext(ctx context.Context) ClusterRoleOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ClusterRoleOutput{})
 }

@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -115,4 +116,43 @@ type TokenReviewArgs struct {
 
 func (TokenReviewArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*tokenReviewArgs)(nil)).Elem()
+}
+
+type TokenReviewInput interface {
+	pulumi.Input
+
+	ToTokenReviewOutput() TokenReviewOutput
+	ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput
+}
+
+func (TokenReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenReview)(nil)).Elem()
+}
+
+func (i TokenReview) ToTokenReviewOutput() TokenReviewOutput {
+	return i.ToTokenReviewOutputWithContext(context.Background())
+}
+
+func (i TokenReview) ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewOutput)
+}
+
+type TokenReviewOutput struct {
+	*pulumi.OutputState
+}
+
+func (TokenReviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenReviewOutput)(nil)).Elem()
+}
+
+func (o TokenReviewOutput) ToTokenReviewOutput() TokenReviewOutput {
+	return o
+}
+
+func (o TokenReviewOutput) ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(TokenReviewOutput{})
 }

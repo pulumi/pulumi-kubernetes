@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -115,4 +116,43 @@ type EndpointsArgs struct {
 
 func (EndpointsArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*endpointsArgs)(nil)).Elem()
+}
+
+type EndpointsInput interface {
+	pulumi.Input
+
+	ToEndpointsOutput() EndpointsOutput
+	ToEndpointsOutputWithContext(ctx context.Context) EndpointsOutput
+}
+
+func (Endpoints) ElementType() reflect.Type {
+	return reflect.TypeOf((*Endpoints)(nil)).Elem()
+}
+
+func (i Endpoints) ToEndpointsOutput() EndpointsOutput {
+	return i.ToEndpointsOutputWithContext(context.Background())
+}
+
+func (i Endpoints) ToEndpointsOutputWithContext(ctx context.Context) EndpointsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointsOutput)
+}
+
+type EndpointsOutput struct {
+	*pulumi.OutputState
+}
+
+func (EndpointsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsOutput)(nil)).Elem()
+}
+
+func (o EndpointsOutput) ToEndpointsOutput() EndpointsOutput {
+	return o
+}
+
+func (o EndpointsOutput) ToEndpointsOutputWithContext(ctx context.Context) EndpointsOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(EndpointsOutput{})
 }

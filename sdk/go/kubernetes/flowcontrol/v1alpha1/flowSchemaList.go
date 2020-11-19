@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type FlowSchemaListArgs struct {
 
 func (FlowSchemaListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*flowSchemaListArgs)(nil)).Elem()
+}
+
+type FlowSchemaListInput interface {
+	pulumi.Input
+
+	ToFlowSchemaListOutput() FlowSchemaListOutput
+	ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput
+}
+
+func (FlowSchemaList) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlowSchemaList)(nil)).Elem()
+}
+
+func (i FlowSchemaList) ToFlowSchemaListOutput() FlowSchemaListOutput {
+	return i.ToFlowSchemaListOutputWithContext(context.Background())
+}
+
+func (i FlowSchemaList) ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListOutput)
+}
+
+type FlowSchemaListOutput struct {
+	*pulumi.OutputState
+}
+
+func (FlowSchemaListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlowSchemaListOutput)(nil)).Elem()
+}
+
+func (o FlowSchemaListOutput) ToFlowSchemaListOutput() FlowSchemaListOutput {
+	return o
+}
+
+func (o FlowSchemaListOutput) ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(FlowSchemaListOutput{})
 }

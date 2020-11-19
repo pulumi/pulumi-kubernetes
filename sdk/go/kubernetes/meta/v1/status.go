@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
@@ -139,4 +140,43 @@ type StatusArgs struct {
 
 func (StatusArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusArgs)(nil)).Elem()
+}
+
+type StatusInput interface {
+	pulumi.Input
+
+	ToStatusOutput() StatusOutput
+	ToStatusOutputWithContext(ctx context.Context) StatusOutput
+}
+
+func (Status) ElementType() reflect.Type {
+	return reflect.TypeOf((*Status)(nil)).Elem()
+}
+
+func (i Status) ToStatusOutput() StatusOutput {
+	return i.ToStatusOutputWithContext(context.Background())
+}
+
+func (i Status) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusOutput)
+}
+
+type StatusOutput struct {
+	*pulumi.OutputState
+}
+
+func (StatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusOutput)(nil)).Elem()
+}
+
+func (o StatusOutput) ToStatusOutput() StatusOutput {
+	return o
+}
+
+func (o StatusOutput) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(StatusOutput{})
 }

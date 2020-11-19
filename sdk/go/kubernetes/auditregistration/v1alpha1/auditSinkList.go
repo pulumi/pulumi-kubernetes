@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -103,4 +104,43 @@ type AuditSinkListArgs struct {
 
 func (AuditSinkListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*auditSinkListArgs)(nil)).Elem()
+}
+
+type AuditSinkListInput interface {
+	pulumi.Input
+
+	ToAuditSinkListOutput() AuditSinkListOutput
+	ToAuditSinkListOutputWithContext(ctx context.Context) AuditSinkListOutput
+}
+
+func (AuditSinkList) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSinkList)(nil)).Elem()
+}
+
+func (i AuditSinkList) ToAuditSinkListOutput() AuditSinkListOutput {
+	return i.ToAuditSinkListOutputWithContext(context.Background())
+}
+
+func (i AuditSinkList) ToAuditSinkListOutputWithContext(ctx context.Context) AuditSinkListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListOutput)
+}
+
+type AuditSinkListOutput struct {
+	*pulumi.OutputState
+}
+
+func (AuditSinkListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSinkListOutput)(nil)).Elem()
+}
+
+func (o AuditSinkListOutput) ToAuditSinkListOutput() AuditSinkListOutput {
+	return o
+}
+
+func (o AuditSinkListOutput) ToAuditSinkListOutputWithContext(ctx context.Context) AuditSinkListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(AuditSinkListOutput{})
 }

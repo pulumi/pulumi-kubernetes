@@ -4,6 +4,7 @@
 package v1beta2
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -121,4 +122,43 @@ type DaemonSetArgs struct {
 
 func (DaemonSetArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*daemonSetArgs)(nil)).Elem()
+}
+
+type DaemonSetInput interface {
+	pulumi.Input
+
+	ToDaemonSetOutput() DaemonSetOutput
+	ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetOutput
+}
+
+func (DaemonSet) ElementType() reflect.Type {
+	return reflect.TypeOf((*DaemonSet)(nil)).Elem()
+}
+
+func (i DaemonSet) ToDaemonSetOutput() DaemonSetOutput {
+	return i.ToDaemonSetOutputWithContext(context.Background())
+}
+
+func (i DaemonSet) ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetOutput)
+}
+
+type DaemonSetOutput struct {
+	*pulumi.OutputState
+}
+
+func (DaemonSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DaemonSetOutput)(nil)).Elem()
+}
+
+func (o DaemonSetOutput) ToDaemonSetOutput() DaemonSetOutput {
+	return o
+}
+
+func (o DaemonSetOutput) ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(DaemonSetOutput{})
 }

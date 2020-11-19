@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -147,4 +148,43 @@ type PriorityClassArgs struct {
 
 func (PriorityClassArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*priorityClassArgs)(nil)).Elem()
+}
+
+type PriorityClassInput interface {
+	pulumi.Input
+
+	ToPriorityClassOutput() PriorityClassOutput
+	ToPriorityClassOutputWithContext(ctx context.Context) PriorityClassOutput
+}
+
+func (PriorityClass) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityClass)(nil)).Elem()
+}
+
+func (i PriorityClass) ToPriorityClassOutput() PriorityClassOutput {
+	return i.ToPriorityClassOutputWithContext(context.Background())
+}
+
+func (i PriorityClass) ToPriorityClassOutputWithContext(ctx context.Context) PriorityClassOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassOutput)
+}
+
+type PriorityClassOutput struct {
+	*pulumi.OutputState
+}
+
+func (PriorityClassOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityClassOutput)(nil)).Elem()
+}
+
+func (o PriorityClassOutput) ToPriorityClassOutput() PriorityClassOutput {
+	return o
+}
+
+func (o PriorityClassOutput) ToPriorityClassOutputWithContext(ctx context.Context) PriorityClassOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PriorityClassOutput{})
 }

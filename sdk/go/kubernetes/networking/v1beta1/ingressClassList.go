@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type IngressClassListArgs struct {
 
 func (IngressClassListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*ingressClassListArgs)(nil)).Elem()
+}
+
+type IngressClassListInput interface {
+	pulumi.Input
+
+	ToIngressClassListOutput() IngressClassListOutput
+	ToIngressClassListOutputWithContext(ctx context.Context) IngressClassListOutput
+}
+
+func (IngressClassList) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassList)(nil)).Elem()
+}
+
+func (i IngressClassList) ToIngressClassListOutput() IngressClassListOutput {
+	return i.ToIngressClassListOutputWithContext(context.Background())
+}
+
+func (i IngressClassList) ToIngressClassListOutputWithContext(ctx context.Context) IngressClassListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassListOutput)
+}
+
+type IngressClassListOutput struct {
+	*pulumi.OutputState
+}
+
+func (IngressClassListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassListOutput)(nil)).Elem()
+}
+
+func (o IngressClassListOutput) ToIngressClassListOutput() IngressClassListOutput {
+	return o
+}
+
+func (o IngressClassListOutput) ToIngressClassListOutputWithContext(ctx context.Context) IngressClassListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(IngressClassListOutput{})
 }

@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type DaemonSetListArgs struct {
 
 func (DaemonSetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*daemonSetListArgs)(nil)).Elem()
+}
+
+type DaemonSetListInput interface {
+	pulumi.Input
+
+	ToDaemonSetListOutput() DaemonSetListOutput
+	ToDaemonSetListOutputWithContext(ctx context.Context) DaemonSetListOutput
+}
+
+func (DaemonSetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*DaemonSetList)(nil)).Elem()
+}
+
+func (i DaemonSetList) ToDaemonSetListOutput() DaemonSetListOutput {
+	return i.ToDaemonSetListOutputWithContext(context.Background())
+}
+
+func (i DaemonSetList) ToDaemonSetListOutputWithContext(ctx context.Context) DaemonSetListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListOutput)
+}
+
+type DaemonSetListOutput struct {
+	*pulumi.OutputState
+}
+
+func (DaemonSetListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DaemonSetListOutput)(nil)).Elem()
+}
+
+func (o DaemonSetListOutput) ToDaemonSetListOutput() DaemonSetListOutput {
+	return o
+}
+
+func (o DaemonSetListOutput) ToDaemonSetListOutputWithContext(ctx context.Context) DaemonSetListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(DaemonSetListOutput{})
 }

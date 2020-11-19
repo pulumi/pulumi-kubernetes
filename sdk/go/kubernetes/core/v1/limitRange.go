@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -104,4 +105,43 @@ type LimitRangeArgs struct {
 
 func (LimitRangeArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*limitRangeArgs)(nil)).Elem()
+}
+
+type LimitRangeInput interface {
+	pulumi.Input
+
+	ToLimitRangeOutput() LimitRangeOutput
+	ToLimitRangeOutputWithContext(ctx context.Context) LimitRangeOutput
+}
+
+func (LimitRange) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRange)(nil)).Elem()
+}
+
+func (i LimitRange) ToLimitRangeOutput() LimitRangeOutput {
+	return i.ToLimitRangeOutputWithContext(context.Background())
+}
+
+func (i LimitRange) ToLimitRangeOutputWithContext(ctx context.Context) LimitRangeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeOutput)
+}
+
+type LimitRangeOutput struct {
+	*pulumi.OutputState
+}
+
+func (LimitRangeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeOutput)(nil)).Elem()
+}
+
+func (o LimitRangeOutput) ToLimitRangeOutput() LimitRangeOutput {
+	return o
+}
+
+func (o LimitRangeOutput) ToLimitRangeOutputWithContext(ctx context.Context) LimitRangeOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(LimitRangeOutput{})
 }

@@ -1,5 +1,12 @@
 ## HEAD (Unreleased)
 
+## Note
+
+This release fixes https://github.com/pulumi/pulumi/issues/4224 where users were unable to install
+large CRDs using .NET.
+
+-   Update pulumi deps to v2.14.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1385)
+
 ## 2.7.1 (November 18, 2020)
 
 -   Error on delete if cluster is unreachable (https://github.com/pulumi/pulumi-kubernetes/pull/1379)

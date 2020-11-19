@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type ResourceQuotaArgs struct {
 
 func (ResourceQuotaArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*resourceQuotaArgs)(nil)).Elem()
+}
+
+type ResourceQuotaInput interface {
+	pulumi.Input
+
+	ToResourceQuotaOutput() ResourceQuotaOutput
+	ToResourceQuotaOutputWithContext(ctx context.Context) ResourceQuotaOutput
+}
+
+func (ResourceQuota) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuota)(nil)).Elem()
+}
+
+func (i ResourceQuota) ToResourceQuotaOutput() ResourceQuotaOutput {
+	return i.ToResourceQuotaOutputWithContext(context.Background())
+}
+
+func (i ResourceQuota) ToResourceQuotaOutputWithContext(ctx context.Context) ResourceQuotaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaOutput)
+}
+
+type ResourceQuotaOutput struct {
+	*pulumi.OutputState
+}
+
+func (ResourceQuotaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceQuotaOutput)(nil)).Elem()
+}
+
+func (o ResourceQuotaOutput) ToResourceQuotaOutput() ResourceQuotaOutput {
+	return o
+}
+
+func (o ResourceQuotaOutput) ToResourceQuotaOutputWithContext(ctx context.Context) ResourceQuotaOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ResourceQuotaOutput{})
 }

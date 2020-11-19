@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type LimitRangeListArgs struct {
 
 func (LimitRangeListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*limitRangeListArgs)(nil)).Elem()
+}
+
+type LimitRangeListInput interface {
+	pulumi.Input
+
+	ToLimitRangeListOutput() LimitRangeListOutput
+	ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput
+}
+
+func (LimitRangeList) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeList)(nil)).Elem()
+}
+
+func (i LimitRangeList) ToLimitRangeListOutput() LimitRangeListOutput {
+	return i.ToLimitRangeListOutputWithContext(context.Background())
+}
+
+func (i LimitRangeList) ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListOutput)
+}
+
+type LimitRangeListOutput struct {
+	*pulumi.OutputState
+}
+
+func (LimitRangeListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeListOutput)(nil)).Elem()
+}
+
+func (o LimitRangeListOutput) ToLimitRangeListOutput() LimitRangeListOutput {
+	return o
+}
+
+func (o LimitRangeListOutput) ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(LimitRangeListOutput{})
 }

@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
@@ -110,4 +111,43 @@ type PriorityLevelConfigurationArgs struct {
 
 func (PriorityLevelConfigurationArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*priorityLevelConfigurationArgs)(nil)).Elem()
+}
+
+type PriorityLevelConfigurationInput interface {
+	pulumi.Input
+
+	ToPriorityLevelConfigurationOutput() PriorityLevelConfigurationOutput
+	ToPriorityLevelConfigurationOutputWithContext(ctx context.Context) PriorityLevelConfigurationOutput
+}
+
+func (PriorityLevelConfiguration) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityLevelConfiguration)(nil)).Elem()
+}
+
+func (i PriorityLevelConfiguration) ToPriorityLevelConfigurationOutput() PriorityLevelConfigurationOutput {
+	return i.ToPriorityLevelConfigurationOutputWithContext(context.Background())
+}
+
+func (i PriorityLevelConfiguration) ToPriorityLevelConfigurationOutputWithContext(ctx context.Context) PriorityLevelConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationOutput)
+}
+
+type PriorityLevelConfigurationOutput struct {
+	*pulumi.OutputState
+}
+
+func (PriorityLevelConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityLevelConfigurationOutput)(nil)).Elem()
+}
+
+func (o PriorityLevelConfigurationOutput) ToPriorityLevelConfigurationOutput() PriorityLevelConfigurationOutput {
+	return o
+}
+
+func (o PriorityLevelConfigurationOutput) ToPriorityLevelConfigurationOutputWithContext(ctx context.Context) PriorityLevelConfigurationOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PriorityLevelConfigurationOutput{})
 }

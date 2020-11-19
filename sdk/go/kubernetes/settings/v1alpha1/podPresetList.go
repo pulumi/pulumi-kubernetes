@@ -4,6 +4,7 @@
 package v1alpha1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type PodPresetListArgs struct {
 
 func (PodPresetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*podPresetListArgs)(nil)).Elem()
+}
+
+type PodPresetListInput interface {
+	pulumi.Input
+
+	ToPodPresetListOutput() PodPresetListOutput
+	ToPodPresetListOutputWithContext(ctx context.Context) PodPresetListOutput
+}
+
+func (PodPresetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPresetList)(nil)).Elem()
+}
+
+func (i PodPresetList) ToPodPresetListOutput() PodPresetListOutput {
+	return i.ToPodPresetListOutputWithContext(context.Background())
+}
+
+func (i PodPresetList) ToPodPresetListOutputWithContext(ctx context.Context) PodPresetListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListOutput)
+}
+
+type PodPresetListOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodPresetListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPresetListOutput)(nil)).Elem()
+}
+
+func (o PodPresetListOutput) ToPodPresetListOutput() PodPresetListOutput {
+	return o
+}
+
+func (o PodPresetListOutput) ToPodPresetListOutputWithContext(ctx context.Context) PodPresetListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(PodPresetListOutput{})
 }

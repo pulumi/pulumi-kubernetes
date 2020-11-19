@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -125,4 +126,43 @@ type VolumeAttachmentArgs struct {
 
 func (VolumeAttachmentArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*volumeAttachmentArgs)(nil)).Elem()
+}
+
+type VolumeAttachmentInput interface {
+	pulumi.Input
+
+	ToVolumeAttachmentOutput() VolumeAttachmentOutput
+	ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput
+}
+
+func (VolumeAttachment) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachment)(nil)).Elem()
+}
+
+func (i VolumeAttachment) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
+	return i.ToVolumeAttachmentOutputWithContext(context.Background())
+}
+
+func (i VolumeAttachment) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentOutput)
+}
+
+type VolumeAttachmentOutput struct {
+	*pulumi.OutputState
+}
+
+func (VolumeAttachmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentOutput)(nil)).Elem()
+}
+
+func (o VolumeAttachmentOutput) ToVolumeAttachmentOutput() VolumeAttachmentOutput {
+	return o
+}
+
+func (o VolumeAttachmentOutput) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(VolumeAttachmentOutput{})
 }

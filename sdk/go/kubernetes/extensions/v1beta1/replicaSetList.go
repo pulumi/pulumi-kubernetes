@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -108,4 +109,43 @@ type ReplicaSetListArgs struct {
 
 func (ReplicaSetListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*replicaSetListArgs)(nil)).Elem()
+}
+
+type ReplicaSetListInput interface {
+	pulumi.Input
+
+	ToReplicaSetListOutput() ReplicaSetListOutput
+	ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput
+}
+
+func (ReplicaSetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicaSetList)(nil)).Elem()
+}
+
+func (i ReplicaSetList) ToReplicaSetListOutput() ReplicaSetListOutput {
+	return i.ToReplicaSetListOutputWithContext(context.Background())
+}
+
+func (i ReplicaSetList) ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListOutput)
+}
+
+type ReplicaSetListOutput struct {
+	*pulumi.OutputState
+}
+
+func (ReplicaSetListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicaSetListOutput)(nil)).Elem()
+}
+
+func (o ReplicaSetListOutput) ToReplicaSetListOutput() ReplicaSetListOutput {
+	return o
+}
+
+func (o ReplicaSetListOutput) ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(ReplicaSetListOutput{})
 }
