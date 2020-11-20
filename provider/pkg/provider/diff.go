@@ -114,7 +114,7 @@ var core = _versions{
 				".spec.storageClassName",
 				".spec.volumeName",
 			},
-			labelSelectorForceNewProperties(".spec")...),
+			labelSelectorForceNewProperties(".spec.selector")...),
 		"Pod": append(
 			properties{
 				".spec.affinity",
@@ -162,20 +162,29 @@ var core = _versions{
 	},
 }
 
-var daemonset = properties{
-	".spec.selector",
-}
+var daemonset = append(
+	properties{
+		".spec.selector",
+	},
+	labelSelectorForceNewProperties(".spec.selector")...,
+)
 
-var deployment = properties{
-	".spec.selector",
-}
+var deployment = append(
+	properties{
+		".spec.selector",
+	},
+	labelSelectorForceNewProperties(".spec.selector")...,
+)
 
-var job = properties{
-	".spec.completions",
-	".spec.parallelism",
-	".spec.selector",
-	".spec.template",
-}
+var job = append(
+	properties{
+		".spec.completions",
+		".spec.parallelism",
+		".spec.selector",
+		".spec.template",
+	},
+	labelSelectorForceNewProperties(".spec.selector")...,
+)
 
 var podDisruptionBudget = properties{
 	".spec",
@@ -185,13 +194,16 @@ var roleBinding = properties{
 	".roleRef",
 }
 
-var statefulSet = properties{
-	".spec.podManagementPolicy",
-	".spec.revisionHistoryLimit",
-	".spec.selector",
-	".spec.serviceName",
-	".spec.volumeClaimTemplates",
-}
+var statefulSet = append(
+	properties{
+		".spec.podManagementPolicy",
+		".spec.revisionHistoryLimit",
+		".spec.selector",
+		".spec.serviceName",
+		".spec.volumeClaimTemplates",
+	},
+	labelSelectorForceNewProperties(".spec.selector")...,
+)
 
 func metadataForceNewProperties(prefix string) properties {
 	return properties{

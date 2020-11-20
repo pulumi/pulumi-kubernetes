@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Replace workload resources if any field in `.spec.selector` changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1387)
+
 ## 2.7.2 (November 19, 2020)
 
 -   Fixed a gRPC error for larger Helm charts in the .NET SDK [#4224](https://github.com/pulumi/pulumi/issues/4224)
