@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -28,11 +29,12 @@ type RuntimeClassList struct {
 // NewRuntimeClassList registers a new resource with the given unique name, arguments, and options.
 func NewRuntimeClassList(ctx *pulumi.Context,
 	name string, args *RuntimeClassListArgs, opts ...pulumi.ResourceOption) (*RuntimeClassList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &RuntimeClassListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("node.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("RuntimeClassList")
@@ -108,4 +110,43 @@ type RuntimeClassListArgs struct {
 
 func (RuntimeClassListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*runtimeClassListArgs)(nil)).Elem()
+}
+
+type RuntimeClassListInput interface {
+	pulumi.Input
+
+	ToRuntimeClassListOutput() RuntimeClassListOutput
+	ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput
+}
+
+func (RuntimeClassList) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassList)(nil)).Elem()
+}
+
+func (i RuntimeClassList) ToRuntimeClassListOutput() RuntimeClassListOutput {
+	return i.ToRuntimeClassListOutputWithContext(context.Background())
+}
+
+func (i RuntimeClassList) ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListOutput)
+}
+
+type RuntimeClassListOutput struct {
+	*pulumi.OutputState
+}
+
+func (RuntimeClassListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassListOutput)(nil)).Elem()
+}
+
+func (o RuntimeClassListOutput) ToRuntimeClassListOutput() RuntimeClassListOutput {
+	return o
+}
+
+func (o RuntimeClassListOutput) ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(RuntimeClassListOutput{})
 }

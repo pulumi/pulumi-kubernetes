@@ -17,7 +17,7 @@ import (
 type Event struct {
 	pulumi.CustomResourceState
 
-	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action pulumi.StringPtrOutput `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
@@ -32,11 +32,11 @@ type Event struct {
 	// eventTime is the time when this Event was first observed. It is required.
 	EventTime pulumi.StringOutput `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrOutput  `pulumi:"kind"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrOutput `pulumi:"note"`
-	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Reason pulumi.StringPtrOutput `pulumi:"reason"`
 	// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 	Regarding corev1.ObjectReferencePtrOutput `pulumi:"regarding"`
@@ -48,7 +48,7 @@ type Event struct {
 	ReportingInstance pulumi.StringPtrOutput `pulumi:"reportingInstance"`
 	// series is data about the Event series this event represents or nil if it's a singleton Event.
 	Series EventSeriesPtrOutput `pulumi:"series"`
-	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 	Type pulumi.StringPtrOutput `pulumi:"type"`
 }
 
@@ -61,6 +61,9 @@ func NewEvent(ctx *pulumi.Context,
 
 	if args.EventTime == nil {
 		return nil, errors.New("invalid value for required argument 'EventTime'")
+	}
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
 	}
 	args.ApiVersion = pulumi.StringPtr("events.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("Event")
@@ -95,7 +98,7 @@ func GetEvent(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Event resources.
 type eventState struct {
-	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action *string `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -114,7 +117,7 @@ type eventState struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note *string `pulumi:"note"`
-	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Reason *string `pulumi:"reason"`
 	// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 	Regarding *corev1.ObjectReference `pulumi:"regarding"`
@@ -126,12 +129,12 @@ type eventState struct {
 	ReportingInstance *string `pulumi:"reportingInstance"`
 	// series is data about the Event series this event represents or nil if it's a singleton Event.
 	Series *EventSeries `pulumi:"series"`
-	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 	Type *string `pulumi:"type"`
 }
 
 type EventState struct {
-	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action pulumi.StringPtrInput
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
@@ -150,7 +153,7 @@ type EventState struct {
 	Metadata metav1.ObjectMetaPtrInput
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrInput
-	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Reason pulumi.StringPtrInput
 	// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 	Regarding corev1.ObjectReferencePtrInput
@@ -162,7 +165,7 @@ type EventState struct {
 	ReportingInstance pulumi.StringPtrInput
 	// series is data about the Event series this event represents or nil if it's a singleton Event.
 	Series EventSeriesPtrInput
-	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 	Type pulumi.StringPtrInput
 }
 
@@ -171,7 +174,7 @@ func (EventState) ElementType() reflect.Type {
 }
 
 type eventArgs struct {
-	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action *string `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -186,11 +189,11 @@ type eventArgs struct {
 	// eventTime is the time when this Event was first observed. It is required.
 	EventTime string `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     *string           `pulumi:"kind"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note *string `pulumi:"note"`
-	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Reason *string `pulumi:"reason"`
 	// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 	Regarding *corev1.ObjectReference `pulumi:"regarding"`
@@ -202,13 +205,13 @@ type eventArgs struct {
 	ReportingInstance *string `pulumi:"reportingInstance"`
 	// series is data about the Event series this event represents or nil if it's a singleton Event.
 	Series *EventSeries `pulumi:"series"`
-	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 	Type *string `pulumi:"type"`
 }
 
 // The set of arguments for constructing a Event resource.
 type EventArgs struct {
-	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action pulumi.StringPtrInput
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
@@ -224,10 +227,10 @@ type EventArgs struct {
 	EventTime pulumi.StringInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     pulumi.StringPtrInput
-	Metadata metav1.ObjectMetaPtrInput
+	Metadata metav1.ObjectMetaInput
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrInput
-	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Reason pulumi.StringPtrInput
 	// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
 	Regarding corev1.ObjectReferencePtrInput
@@ -239,7 +242,7 @@ type EventArgs struct {
 	ReportingInstance pulumi.StringPtrInput
 	// series is data about the Event series this event represents or nil if it's a singleton Event.
 	Series EventSeriesPtrInput
-	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+	// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
 	Type pulumi.StringPtrInput
 }
 

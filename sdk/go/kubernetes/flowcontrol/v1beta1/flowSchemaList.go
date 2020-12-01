@@ -4,6 +4,7 @@
 package v1beta1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -28,11 +29,12 @@ type FlowSchemaList struct {
 // NewFlowSchemaList registers a new resource with the given unique name, arguments, and options.
 func NewFlowSchemaList(ctx *pulumi.Context,
 	name string, args *FlowSchemaListArgs, opts ...pulumi.ResourceOption) (*FlowSchemaList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &FlowSchemaListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("flowcontrol.apiserver.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("FlowSchemaList")
@@ -108,4 +110,43 @@ type FlowSchemaListArgs struct {
 
 func (FlowSchemaListArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*flowSchemaListArgs)(nil)).Elem()
+}
+
+type FlowSchemaListInput interface {
+	pulumi.Input
+
+	ToFlowSchemaListOutput() FlowSchemaListOutput
+	ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput
+}
+
+func (FlowSchemaList) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlowSchemaList)(nil)).Elem()
+}
+
+func (i FlowSchemaList) ToFlowSchemaListOutput() FlowSchemaListOutput {
+	return i.ToFlowSchemaListOutputWithContext(context.Background())
+}
+
+func (i FlowSchemaList) ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListOutput)
+}
+
+type FlowSchemaListOutput struct {
+	*pulumi.OutputState
+}
+
+func (FlowSchemaListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlowSchemaListOutput)(nil)).Elem()
+}
+
+func (o FlowSchemaListOutput) ToFlowSchemaListOutput() FlowSchemaListOutput {
+	return o
+}
+
+func (o FlowSchemaListOutput) ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(FlowSchemaListOutput{})
 }

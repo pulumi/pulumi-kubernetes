@@ -114,7 +114,7 @@ export class Event extends pulumi.CustomResource {
             if ((!args || args.eventTime === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'eventTime'");
             }
-            if (!args || args.metadata === undefined) {
+            if ((!args || args.metadata === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'metadata'");
             }
             inputs["action"] = args ? args.action : undefined;

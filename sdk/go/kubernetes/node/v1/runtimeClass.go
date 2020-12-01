@@ -4,6 +4,7 @@
 package v1
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -34,11 +35,12 @@ type RuntimeClass struct {
 // NewRuntimeClass registers a new resource with the given unique name, arguments, and options.
 func NewRuntimeClass(ctx *pulumi.Context,
 	name string, args *RuntimeClassArgs, opts ...pulumi.ResourceOption) (*RuntimeClass, error) {
-	if args == nil || args.Handler == nil {
-		return nil, errors.New("missing required argument 'Handler'")
-	}
 	if args == nil {
-		args = &RuntimeClassArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Handler == nil {
+		return nil, errors.New("invalid value for required argument 'Handler'")
 	}
 	args.ApiVersion = pulumi.StringPtr("node.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("RuntimeClass")
@@ -147,4 +149,43 @@ type RuntimeClassArgs struct {
 
 func (RuntimeClassArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*runtimeClassArgs)(nil)).Elem()
+}
+
+type RuntimeClassInput interface {
+	pulumi.Input
+
+	ToRuntimeClassOutput() RuntimeClassOutput
+	ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput
+}
+
+func (RuntimeClass) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClass)(nil)).Elem()
+}
+
+func (i RuntimeClass) ToRuntimeClassOutput() RuntimeClassOutput {
+	return i.ToRuntimeClassOutputWithContext(context.Background())
+}
+
+func (i RuntimeClass) ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassOutput)
+}
+
+type RuntimeClassOutput struct {
+	*pulumi.OutputState
+}
+
+func (RuntimeClassOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassOutput)(nil)).Elem()
+}
+
+func (o RuntimeClassOutput) ToRuntimeClassOutput() RuntimeClassOutput {
+	return o
+}
+
+func (o RuntimeClassOutput) ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput {
+	return o
+}
+
+func init() {
+	pulumi.RegisterOutputType(RuntimeClassOutput{})
 }
