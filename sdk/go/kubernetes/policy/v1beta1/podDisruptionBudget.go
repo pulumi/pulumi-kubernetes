@@ -32,6 +32,7 @@ func NewPodDisruptionBudget(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodDisruptionBudgetArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("policy/v1beta1")
 	args.Kind = pulumi.StringPtr("PodDisruptionBudget")
 	var resource PodDisruptionBudget

@@ -29,11 +29,12 @@ type CronJobList struct {
 // NewCronJobList registers a new resource with the given unique name, arguments, and options.
 func NewCronJobList(ctx *pulumi.Context,
 	name string, args *CronJobListArgs, opts ...pulumi.ResourceOption) (*CronJobList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &CronJobListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("batch/v1beta1")
 	args.Kind = pulumi.StringPtr("CronJobList")

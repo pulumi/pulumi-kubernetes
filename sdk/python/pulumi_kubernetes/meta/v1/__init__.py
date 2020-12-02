@@ -6,3 +6,22 @@
 from .Status import *
 from ._inputs import *
 from . import outputs
+
+def _register_module():
+    import pulumi
+
+    class Module(pulumi.runtime.ResourceModule):
+        def version(self):
+            return None
+
+        def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
+            if typ == "kubernetes:meta/v1:Status":
+                return Status(name, pulumi.ResourceOptions(urn=urn))
+            else:
+                raise Exception(f"unknown resource type {typ}")
+
+
+    _module_instance = Module()
+    pulumi.runtime.register_resource_module("kubernetes", "meta/v1", _module_instance)
+
+_register_module()

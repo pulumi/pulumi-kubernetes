@@ -83,13 +83,13 @@ class Event(pulumi.CustomResource):
             __props__['count'] = count
             __props__['event_time'] = event_time
             __props__['first_timestamp'] = first_timestamp
-            if involved_object is None:
+            if involved_object is None and not opts.urn:
                 raise TypeError("Missing required property 'involved_object'")
             __props__['involved_object'] = involved_object
             __props__['kind'] = 'Event'
             __props__['last_timestamp'] = last_timestamp
             __props__['message'] = message
-            if metadata is None:
+            if metadata is None and not opts.urn:
                 raise TypeError("Missing required property 'metadata'")
             __props__['metadata'] = metadata
             __props__['reason'] = reason

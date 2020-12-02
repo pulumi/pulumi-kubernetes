@@ -31,11 +31,12 @@ type ClusterRoleBinding struct {
 // NewClusterRoleBinding registers a new resource with the given unique name, arguments, and options.
 func NewClusterRoleBinding(ctx *pulumi.Context,
 	name string, args *ClusterRoleBindingArgs, opts ...pulumi.ResourceOption) (*ClusterRoleBinding, error) {
-	if args == nil || args.RoleRef == nil {
-		return nil, errors.New("missing required argument 'RoleRef'")
-	}
 	if args == nil {
-		args = &ClusterRoleBindingArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.RoleRef == nil {
+		return nil, errors.New("invalid value for required argument 'RoleRef'")
 	}
 	args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("ClusterRoleBinding")

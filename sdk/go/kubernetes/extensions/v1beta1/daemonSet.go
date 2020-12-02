@@ -35,6 +35,7 @@ func NewDaemonSet(ctx *pulumi.Context,
 	if args == nil {
 		args = &DaemonSetArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("extensions/v1beta1")
 	args.Kind = pulumi.StringPtr("DaemonSet")
 	aliases := pulumi.Aliases([]pulumi.Alias{

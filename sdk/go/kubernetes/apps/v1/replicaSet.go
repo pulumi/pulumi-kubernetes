@@ -33,6 +33,7 @@ func NewReplicaSet(ctx *pulumi.Context,
 	if args == nil {
 		args = &ReplicaSetArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("ReplicaSet")
 	aliases := pulumi.Aliases([]pulumi.Alias{

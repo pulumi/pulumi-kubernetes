@@ -55,14 +55,15 @@ type Event struct {
 // NewEvent registers a new resource with the given unique name, arguments, and options.
 func NewEvent(ctx *pulumi.Context,
 	name string, args *EventArgs, opts ...pulumi.ResourceOption) (*Event, error) {
-	if args == nil || args.InvolvedObject == nil {
-		return nil, errors.New("missing required argument 'InvolvedObject'")
-	}
-	if args == nil || args.Metadata == nil {
-		return nil, errors.New("missing required argument 'Metadata'")
-	}
 	if args == nil {
-		args = &EventArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.InvolvedObject == nil {
+		return nil, errors.New("invalid value for required argument 'InvolvedObject'")
+	}
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
 	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Event")

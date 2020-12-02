@@ -48,6 +48,7 @@ func NewJob(ctx *pulumi.Context,
 	if args == nil {
 		args = &JobArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("batch/v1")
 	args.Kind = pulumi.StringPtr("Job")
 	var resource Job

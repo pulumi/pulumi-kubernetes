@@ -31,6 +31,7 @@ func NewPodSecurityPolicy(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodSecurityPolicyArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("policy/v1beta1")
 	args.Kind = pulumi.StringPtr("PodSecurityPolicy")
 	aliases := pulumi.Aliases([]pulumi.Alias{

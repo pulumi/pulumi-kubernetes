@@ -29,11 +29,12 @@ type DaemonSetList struct {
 // NewDaemonSetList registers a new resource with the given unique name, arguments, and options.
 func NewDaemonSetList(ctx *pulumi.Context,
 	name string, args *DaemonSetListArgs, opts ...pulumi.ResourceOption) (*DaemonSetList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &DaemonSetListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1beta2")
 	args.Kind = pulumi.StringPtr("DaemonSetList")

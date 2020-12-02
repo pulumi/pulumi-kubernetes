@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 -   Replace workload resources if any field in `.spec.selector` changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1387)
+-   Update pulumi deps to v2.15.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1393)
 
 ## 2.7.2 (November 19, 2020)
 

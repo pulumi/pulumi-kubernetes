@@ -31,6 +31,7 @@ func NewMutatingWebhookConfiguration(ctx *pulumi.Context,
 	if args == nil {
 		args = &MutatingWebhookConfigurationArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("MutatingWebhookConfiguration")
 	aliases := pulumi.Aliases([]pulumi.Alias{

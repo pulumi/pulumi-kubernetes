@@ -29,11 +29,12 @@ type RuntimeClass struct {
 // NewRuntimeClass registers a new resource with the given unique name, arguments, and options.
 func NewRuntimeClass(ctx *pulumi.Context,
 	name string, args *RuntimeClassArgs, opts ...pulumi.ResourceOption) (*RuntimeClass, error) {
-	if args == nil || args.Spec == nil {
-		return nil, errors.New("missing required argument 'Spec'")
-	}
 	if args == nil {
-		args = &RuntimeClassArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
 	}
 	args.ApiVersion = pulumi.StringPtr("node.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("RuntimeClass")

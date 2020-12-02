@@ -31,6 +31,7 @@ func NewLimitRange(ctx *pulumi.Context,
 	if args == nil {
 		args = &LimitRangeArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("LimitRange")
 	var resource LimitRange

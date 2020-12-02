@@ -31,6 +31,7 @@ func NewPodTemplate(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodTemplateArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("PodTemplate")
 	var resource PodTemplate

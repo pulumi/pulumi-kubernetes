@@ -31,6 +31,7 @@ func NewRole(ctx *pulumi.Context,
 	if args == nil {
 		args = &RoleArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("Role")
 	aliases := pulumi.Aliases([]pulumi.Alias{

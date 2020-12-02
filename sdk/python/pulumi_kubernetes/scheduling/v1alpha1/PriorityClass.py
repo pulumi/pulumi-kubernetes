@@ -62,7 +62,7 @@ class PriorityClass(pulumi.CustomResource):
             __props__['kind'] = 'PriorityClass'
             __props__['metadata'] = metadata
             __props__['preemption_policy'] = preemption_policy
-            if value is None:
+            if value is None and not opts.urn:
                 raise TypeError("Missing required property 'value'")
             __props__['value'] = value
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1:PriorityClass"), pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1beta1:PriorityClass")])

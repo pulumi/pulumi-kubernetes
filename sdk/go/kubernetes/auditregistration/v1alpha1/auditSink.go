@@ -30,6 +30,7 @@ func NewAuditSink(ctx *pulumi.Context,
 	if args == nil {
 		args = &AuditSinkArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("auditregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("AuditSink")
 	var resource AuditSink

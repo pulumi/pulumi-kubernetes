@@ -33,6 +33,7 @@ func NewHorizontalPodAutoscaler(ctx *pulumi.Context,
 	if args == nil {
 		args = &HorizontalPodAutoscalerArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("autoscaling/v2beta2")
 	args.Kind = pulumi.StringPtr("HorizontalPodAutoscaler")
 	aliases := pulumi.Aliases([]pulumi.Alias{

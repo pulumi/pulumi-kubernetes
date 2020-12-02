@@ -35,6 +35,7 @@ func NewServiceAccount(ctx *pulumi.Context,
 	if args == nil {
 		args = &ServiceAccountArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("ServiceAccount")
 	var resource ServiceAccount

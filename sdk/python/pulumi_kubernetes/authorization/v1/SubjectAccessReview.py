@@ -54,7 +54,7 @@ class SubjectAccessReview(pulumi.CustomResource):
             __props__['api_version'] = 'authorization.k8s.io/v1'
             __props__['kind'] = 'SubjectAccessReview'
             __props__['metadata'] = metadata
-            if spec is None:
+            if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__['spec'] = spec
             __props__['status'] = None

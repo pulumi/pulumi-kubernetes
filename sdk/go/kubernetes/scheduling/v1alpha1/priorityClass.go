@@ -35,11 +35,12 @@ type PriorityClass struct {
 // NewPriorityClass registers a new resource with the given unique name, arguments, and options.
 func NewPriorityClass(ctx *pulumi.Context,
 	name string, args *PriorityClassArgs, opts ...pulumi.ResourceOption) (*PriorityClass, error) {
-	if args == nil || args.Value == nil {
-		return nil, errors.New("missing required argument 'Value'")
-	}
 	if args == nil {
-		args = &PriorityClassArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Value == nil {
+		return nil, errors.New("invalid value for required argument 'Value'")
 	}
 	args.ApiVersion = pulumi.StringPtr("scheduling.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("PriorityClass")

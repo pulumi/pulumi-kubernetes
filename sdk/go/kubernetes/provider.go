@@ -21,6 +21,7 @@ func NewProvider(ctx *pulumi.Context,
 	if args == nil {
 		args = &ProviderArgs{}
 	}
+
 	if args.EnableDryRun == nil {
 		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
 	}

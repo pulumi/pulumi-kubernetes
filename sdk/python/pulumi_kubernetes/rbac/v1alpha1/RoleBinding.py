@@ -57,7 +57,7 @@ class RoleBinding(pulumi.CustomResource):
             __props__['api_version'] = 'rbac.authorization.k8s.io/v1alpha1'
             __props__['kind'] = 'RoleBinding'
             __props__['metadata'] = metadata
-            if role_ref is None:
+            if role_ref is None and not opts.urn:
                 raise TypeError("Missing required property 'role_ref'")
             __props__['role_ref'] = role_ref
             __props__['subjects'] = subjects

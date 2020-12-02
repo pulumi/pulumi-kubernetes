@@ -11,7 +11,7 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v2 v2.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v2 v2.4.3
-	github.com/pulumi/pulumi/pkg/v2 v2.14.0
-	github.com/pulumi/pulumi/sdk/v2 v2.14.0
+	github.com/pulumi/pulumi/pkg/v2 v2.15.0
+	github.com/pulumi/pulumi/sdk/v2 v2.15.0
 	github.com/stretchr/testify v1.6.1
 )

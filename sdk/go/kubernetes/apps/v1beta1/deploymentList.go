@@ -29,11 +29,12 @@ type DeploymentList struct {
 // NewDeploymentList registers a new resource with the given unique name, arguments, and options.
 func NewDeploymentList(ctx *pulumi.Context,
 	name string, args *DeploymentListArgs, opts ...pulumi.ResourceOption) (*DeploymentList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &DeploymentListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1beta1")
 	args.Kind = pulumi.StringPtr("DeploymentList")

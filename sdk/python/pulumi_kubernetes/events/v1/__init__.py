@@ -7,3 +7,24 @@ from .Event import *
 from .EventList import *
 from ._inputs import *
 from . import outputs
+
+def _register_module():
+    import pulumi
+
+    class Module(pulumi.runtime.ResourceModule):
+        def version(self):
+            return None
+
+        def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
+            if typ == "kubernetes:events.k8s.io/v1:Event":
+                return Event(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:events.k8s.io/v1:EventList":
+                return EventList(name, pulumi.ResourceOptions(urn=urn))
+            else:
+                raise Exception(f"unknown resource type {typ}")
+
+
+    _module_instance = Module()
+    pulumi.runtime.register_resource_module("kubernetes", "events.k8s.io/v1", _module_instance)
+
+_register_module()

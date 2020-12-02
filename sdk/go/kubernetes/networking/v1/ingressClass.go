@@ -31,6 +31,7 @@ func NewIngressClass(ctx *pulumi.Context,
 	if args == nil {
 		args = &IngressClassArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("IngressClass")
 	aliases := pulumi.Aliases([]pulumi.Alias{

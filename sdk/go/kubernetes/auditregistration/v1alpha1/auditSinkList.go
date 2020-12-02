@@ -28,11 +28,12 @@ type AuditSinkList struct {
 // NewAuditSinkList registers a new resource with the given unique name, arguments, and options.
 func NewAuditSinkList(ctx *pulumi.Context,
 	name string, args *AuditSinkListArgs, opts ...pulumi.ResourceOption) (*AuditSinkList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &AuditSinkListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("auditregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("AuditSinkList")

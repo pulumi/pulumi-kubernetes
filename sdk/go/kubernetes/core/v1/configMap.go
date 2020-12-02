@@ -35,6 +35,7 @@ func NewConfigMap(ctx *pulumi.Context,
 	if args == nil {
 		args = &ConfigMapArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("ConfigMap")
 	var resource ConfigMap

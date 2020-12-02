@@ -72,7 +72,7 @@ class StorageClass(pulumi.CustomResource):
             __props__['metadata'] = metadata
             __props__['mount_options'] = mount_options
             __props__['parameters'] = parameters
-            if provisioner is None:
+            if provisioner is None and not opts.urn:
                 raise TypeError("Missing required property 'provisioner'")
             __props__['provisioner'] = provisioner
             __props__['reclaim_policy'] = reclaim_policy

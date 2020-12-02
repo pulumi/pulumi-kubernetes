@@ -42,6 +42,7 @@ func NewEndpoints(ctx *pulumi.Context,
 	if args == nil {
 		args = &EndpointsArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Endpoints")
 	var resource Endpoints

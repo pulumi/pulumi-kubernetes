@@ -33,6 +33,7 @@ func NewCronJob(ctx *pulumi.Context,
 	if args == nil {
 		args = &CronJobArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("batch/v2alpha1")
 	args.Kind = pulumi.StringPtr("CronJob")
 	aliases := pulumi.Aliases([]pulumi.Alias{

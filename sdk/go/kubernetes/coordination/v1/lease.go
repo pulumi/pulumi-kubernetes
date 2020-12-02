@@ -31,6 +31,7 @@ func NewLease(ctx *pulumi.Context,
 	if args == nil {
 		args = &LeaseArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("coordination.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("Lease")
 	aliases := pulumi.Aliases([]pulumi.Alias{

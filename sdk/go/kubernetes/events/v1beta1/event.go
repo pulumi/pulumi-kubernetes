@@ -55,11 +55,12 @@ type Event struct {
 // NewEvent registers a new resource with the given unique name, arguments, and options.
 func NewEvent(ctx *pulumi.Context,
 	name string, args *EventArgs, opts ...pulumi.ResourceOption) (*Event, error) {
-	if args == nil || args.EventTime == nil {
-		return nil, errors.New("missing required argument 'EventTime'")
-	}
 	if args == nil {
-		args = &EventArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.EventTime == nil {
+		return nil, errors.New("invalid value for required argument 'EventTime'")
 	}
 	args.ApiVersion = pulumi.StringPtr("events.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("Event")

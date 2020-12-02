@@ -32,6 +32,7 @@ func NewCertificateSigningRequest(ctx *pulumi.Context,
 	if args == nil {
 		args = &CertificateSigningRequestArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("certificates.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("CertificateSigningRequest")
 	aliases := pulumi.Aliases([]pulumi.Alias{
