@@ -114,10 +114,10 @@ export class Event extends pulumi.CustomResource {
     constructor(name: string, args?: EventArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.involvedObject === undefined) {
+            if ((!args || args.involvedObject === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'involvedObject'");
             }
-            if (!args || args.metadata === undefined) {
+            if ((!args || args.metadata === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'metadata'");
             }
             inputs["action"] = args ? args.action : undefined;

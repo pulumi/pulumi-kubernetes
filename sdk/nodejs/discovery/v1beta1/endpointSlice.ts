@@ -70,10 +70,10 @@ export class EndpointSlice extends pulumi.CustomResource {
     constructor(name: string, args?: EndpointSliceArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.addressType === undefined) {
+            if ((!args || args.addressType === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'addressType'");
             }
-            if (!args || args.endpoints === undefined) {
+            if ((!args || args.endpoints === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'endpoints'");
             }
             inputs["addressType"] = args ? args.addressType : undefined;

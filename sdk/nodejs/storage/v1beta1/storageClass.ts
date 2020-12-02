@@ -88,7 +88,7 @@ export class StorageClass extends pulumi.CustomResource {
     constructor(name: string, args?: StorageClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.provisioner === undefined) {
+            if ((!args || args.provisioner === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'provisioner'");
             }
             inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;

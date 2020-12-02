@@ -62,7 +62,7 @@ export class StorageClassList extends pulumi.CustomResource {
     constructor(name: string, args?: StorageClassListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.items === undefined) {
+            if ((!args || args.items === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'items'");
             }
             inputs["apiVersion"] = "storage.k8s.io/v1";

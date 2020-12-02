@@ -74,7 +74,7 @@ export class PriorityClass extends pulumi.CustomResource {
     constructor(name: string, args?: PriorityClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.value === undefined) {
+            if ((!args || args.value === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'value'");
             }
             inputs["apiVersion"] = "scheduling.k8s.io/v1";

@@ -63,7 +63,7 @@ export class SelfSubjectRulesReview extends pulumi.CustomResource {
     constructor(name: string, args?: SelfSubjectRulesReviewArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.spec === undefined) {
+            if ((!args || args.spec === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'spec'");
             }
             inputs["apiVersion"] = "authorization.k8s.io/v1";

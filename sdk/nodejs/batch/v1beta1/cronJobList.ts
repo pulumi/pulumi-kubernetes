@@ -62,7 +62,7 @@ export class CronJobList extends pulumi.CustomResource {
     constructor(name: string, args?: CronJobListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.items === undefined) {
+            if ((!args || args.items === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'items'");
             }
             inputs["apiVersion"] = "batch/v1beta1";

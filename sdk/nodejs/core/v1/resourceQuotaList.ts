@@ -62,7 +62,7 @@ export class ResourceQuotaList extends pulumi.CustomResource {
     constructor(name: string, args?: ResourceQuotaListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.items === undefined) {
+            if ((!args || args.items === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'items'");
             }
             inputs["apiVersion"] = "v1";

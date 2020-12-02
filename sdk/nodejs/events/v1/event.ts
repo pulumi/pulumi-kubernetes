@@ -111,7 +111,7 @@ export class Event extends pulumi.CustomResource {
     constructor(name: string, args?: EventArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.eventTime === undefined) {
+            if ((!args || args.eventTime === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'eventTime'");
             }
             inputs["action"] = args ? args.action : undefined;
