@@ -33,14 +33,15 @@ type EndpointSlice struct {
 // NewEndpointSlice registers a new resource with the given unique name, arguments, and options.
 func NewEndpointSlice(ctx *pulumi.Context,
 	name string, args *EndpointSliceArgs, opts ...pulumi.ResourceOption) (*EndpointSlice, error) {
-	if args == nil || args.AddressType == nil {
-		return nil, errors.New("missing required argument 'AddressType'")
-	}
-	if args == nil || args.Endpoints == nil {
-		return nil, errors.New("missing required argument 'Endpoints'")
-	}
 	if args == nil {
-		args = &EndpointSliceArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.AddressType == nil {
+		return nil, errors.New("invalid value for required argument 'AddressType'")
+	}
+	if args.Endpoints == nil {
+		return nil, errors.New("invalid value for required argument 'Endpoints'")
 	}
 	args.ApiVersion = pulumi.StringPtr("discovery.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("EndpointSlice")

@@ -33,6 +33,7 @@ func NewPersistentVolume(ctx *pulumi.Context,
 	if args == nil {
 		args = &PersistentVolumeArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("PersistentVolume")
 	var resource PersistentVolume

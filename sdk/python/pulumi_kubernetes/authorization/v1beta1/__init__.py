@@ -9,3 +9,28 @@ from .SelfSubjectRulesReview import *
 from .SubjectAccessReview import *
 from ._inputs import *
 from . import outputs
+
+def _register_module():
+    import pulumi
+
+    class Module(pulumi.runtime.ResourceModule):
+        def version(self):
+            return None
+
+        def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
+            if typ == "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview":
+                return LocalSubjectAccessReview(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview":
+                return SelfSubjectAccessReview(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview":
+                return SelfSubjectRulesReview(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview":
+                return SubjectAccessReview(name, pulumi.ResourceOptions(urn=urn))
+            else:
+                raise Exception(f"unknown resource type {typ}")
+
+
+    _module_instance = Module()
+    pulumi.runtime.register_resource_module("kubernetes", "authorization.k8s.io/v1beta1", _module_instance)
+
+_register_module()

@@ -29,11 +29,12 @@ type RoleBindingList struct {
 // NewRoleBindingList registers a new resource with the given unique name, arguments, and options.
 func NewRoleBindingList(ctx *pulumi.Context,
 	name string, args *RoleBindingListArgs, opts ...pulumi.ResourceOption) (*RoleBindingList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &RoleBindingListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("RoleBindingList")

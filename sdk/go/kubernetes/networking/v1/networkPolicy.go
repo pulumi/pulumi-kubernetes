@@ -31,6 +31,7 @@ func NewNetworkPolicy(ctx *pulumi.Context,
 	if args == nil {
 		args = &NetworkPolicyArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("NetworkPolicy")
 	aliases := pulumi.Aliases([]pulumi.Alias{

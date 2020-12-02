@@ -32,6 +32,7 @@ func NewAPIService(ctx *pulumi.Context,
 	if args == nil {
 		args = &APIServiceArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("apiregistration.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("APIService")
 	aliases := pulumi.Aliases([]pulumi.Alias{

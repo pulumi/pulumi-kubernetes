@@ -58,7 +58,7 @@ class RuntimeClass(pulumi.CustomResource):
             __props__ = dict()
 
             __props__['api_version'] = 'node.k8s.io/v1beta1'
-            if handler is None:
+            if handler is None and not opts.urn:
                 raise TypeError("Missing required property 'handler'")
             __props__['handler'] = handler
             __props__['kind'] = 'RuntimeClass'

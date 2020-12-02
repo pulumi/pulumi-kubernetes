@@ -33,6 +33,7 @@ func NewNode(ctx *pulumi.Context,
 	if args == nil {
 		args = &NodeArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Node")
 	var resource Node

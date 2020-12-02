@@ -50,6 +50,7 @@ func NewStatefulSet(ctx *pulumi.Context,
 	if args == nil {
 		args = &StatefulSetArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("apps/v1beta2")
 	args.Kind = pulumi.StringPtr("StatefulSet")
 	aliases := pulumi.Aliases([]pulumi.Alias{

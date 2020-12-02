@@ -57,11 +57,11 @@ class EndpointSlice(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = dict()
 
-            if address_type is None:
+            if address_type is None and not opts.urn:
                 raise TypeError("Missing required property 'address_type'")
             __props__['address_type'] = address_type
             __props__['api_version'] = 'discovery.k8s.io/v1beta1'
-            if endpoints is None:
+            if endpoints is None and not opts.urn:
                 raise TypeError("Missing required property 'endpoints'")
             __props__['endpoints'] = endpoints
             __props__['kind'] = 'EndpointSlice'

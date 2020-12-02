@@ -56,7 +56,7 @@ class ControllerRevision(pulumi.CustomResource):
             __props__['data'] = data
             __props__['kind'] = 'ControllerRevision'
             __props__['metadata'] = metadata
-            if revision is None:
+            if revision is None and not opts.urn:
                 raise TypeError("Missing required property 'revision'")
             __props__['revision'] = revision
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:apps/v1:ControllerRevision"), pulumi.Alias(type_="kubernetes:apps/v1beta2:ControllerRevision")])

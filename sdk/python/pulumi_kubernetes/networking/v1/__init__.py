@@ -11,3 +11,32 @@ from .NetworkPolicy import *
 from .NetworkPolicyList import *
 from ._inputs import *
 from . import outputs
+
+def _register_module():
+    import pulumi
+
+    class Module(pulumi.runtime.ResourceModule):
+        def version(self):
+            return None
+
+        def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
+            if typ == "kubernetes:networking.k8s.io/v1:Ingress":
+                return Ingress(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:networking.k8s.io/v1:IngressClass":
+                return IngressClass(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:networking.k8s.io/v1:IngressClassList":
+                return IngressClassList(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:networking.k8s.io/v1:IngressList":
+                return IngressList(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:networking.k8s.io/v1:NetworkPolicy":
+                return NetworkPolicy(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:networking.k8s.io/v1:NetworkPolicyList":
+                return NetworkPolicyList(name, pulumi.ResourceOptions(urn=urn))
+            else:
+                raise Exception(f"unknown resource type {typ}")
+
+
+    _module_instance = Module()
+    pulumi.runtime.register_resource_module("kubernetes", "networking.k8s.io/v1", _module_instance)
+
+_register_module()

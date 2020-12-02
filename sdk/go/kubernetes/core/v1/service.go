@@ -58,6 +58,7 @@ func NewService(ctx *pulumi.Context,
 	if args == nil {
 		args = &ServiceArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Service")
 	var resource Service

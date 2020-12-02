@@ -33,6 +33,7 @@ func NewResourceQuota(ctx *pulumi.Context,
 	if args == nil {
 		args = &ResourceQuotaArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("ResourceQuota")
 	var resource ResourceQuota

@@ -33,6 +33,7 @@ func NewPriorityLevelConfiguration(ctx *pulumi.Context,
 	if args == nil {
 		args = &PriorityLevelConfigurationArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("flowcontrol.apiserver.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("PriorityLevelConfiguration")
 	var resource PriorityLevelConfiguration

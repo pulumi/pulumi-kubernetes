@@ -33,6 +33,7 @@ func NewNamespace(ctx *pulumi.Context,
 	if args == nil {
 		args = &NamespaceArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Namespace")
 	var resource Namespace

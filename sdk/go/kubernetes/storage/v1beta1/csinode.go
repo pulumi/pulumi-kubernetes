@@ -31,11 +31,12 @@ type CSINode struct {
 // NewCSINode registers a new resource with the given unique name, arguments, and options.
 func NewCSINode(ctx *pulumi.Context,
 	name string, args *CSINodeArgs, opts ...pulumi.ResourceOption) (*CSINode, error) {
-	if args == nil || args.Spec == nil {
-		return nil, errors.New("missing required argument 'Spec'")
-	}
 	if args == nil {
-		args = &CSINodeArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
 	}
 	args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("CSINode")

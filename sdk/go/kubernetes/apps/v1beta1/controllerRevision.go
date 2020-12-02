@@ -33,11 +33,12 @@ type ControllerRevision struct {
 // NewControllerRevision registers a new resource with the given unique name, arguments, and options.
 func NewControllerRevision(ctx *pulumi.Context,
 	name string, args *ControllerRevisionArgs, opts ...pulumi.ResourceOption) (*ControllerRevision, error) {
-	if args == nil || args.Revision == nil {
-		return nil, errors.New("missing required argument 'Revision'")
-	}
 	if args == nil {
-		args = &ControllerRevisionArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Revision == nil {
+		return nil, errors.New("invalid value for required argument 'Revision'")
 	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1beta1")
 	args.Kind = pulumi.StringPtr("ControllerRevision")

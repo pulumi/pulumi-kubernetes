@@ -29,11 +29,12 @@ type LimitRangeList struct {
 // NewLimitRangeList registers a new resource with the given unique name, arguments, and options.
 func NewLimitRangeList(ctx *pulumi.Context,
 	name string, args *LimitRangeListArgs, opts ...pulumi.ResourceOption) (*LimitRangeList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &LimitRangeListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("LimitRangeList")

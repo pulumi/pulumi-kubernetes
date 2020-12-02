@@ -29,11 +29,12 @@ type ServiceList struct {
 // NewServiceList registers a new resource with the given unique name, arguments, and options.
 func NewServiceList(ctx *pulumi.Context,
 	name string, args *ServiceListArgs, opts ...pulumi.ResourceOption) (*ServiceList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &ServiceListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("ServiceList")

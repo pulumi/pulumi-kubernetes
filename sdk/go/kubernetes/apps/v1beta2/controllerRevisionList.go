@@ -29,11 +29,12 @@ type ControllerRevisionList struct {
 // NewControllerRevisionList registers a new resource with the given unique name, arguments, and options.
 func NewControllerRevisionList(ctx *pulumi.Context,
 	name string, args *ControllerRevisionListArgs, opts ...pulumi.ResourceOption) (*ControllerRevisionList, error) {
-	if args == nil || args.Items == nil {
-		return nil, errors.New("missing required argument 'Items'")
-	}
 	if args == nil {
-		args = &ControllerRevisionListArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
 	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1beta2")
 	args.Kind = pulumi.StringPtr("ControllerRevisionList")

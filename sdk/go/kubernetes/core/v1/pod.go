@@ -48,6 +48,7 @@ func NewPod(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Pod")
 	var resource Pod

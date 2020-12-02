@@ -33,6 +33,7 @@ func NewClusterRole(ctx *pulumi.Context,
 	if args == nil {
 		args = &ClusterRoleArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("ClusterRole")
 	aliases := pulumi.Aliases([]pulumi.Alias{

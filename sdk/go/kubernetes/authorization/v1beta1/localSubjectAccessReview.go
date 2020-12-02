@@ -30,11 +30,12 @@ type LocalSubjectAccessReview struct {
 // NewLocalSubjectAccessReview registers a new resource with the given unique name, arguments, and options.
 func NewLocalSubjectAccessReview(ctx *pulumi.Context,
 	name string, args *LocalSubjectAccessReviewArgs, opts ...pulumi.ResourceOption) (*LocalSubjectAccessReview, error) {
-	if args == nil || args.Spec == nil {
-		return nil, errors.New("missing required argument 'Spec'")
-	}
 	if args == nil {
-		args = &LocalSubjectAccessReviewArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
 	}
 	args.ApiVersion = pulumi.StringPtr("authorization.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("LocalSubjectAccessReview")

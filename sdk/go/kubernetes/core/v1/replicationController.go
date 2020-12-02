@@ -33,6 +33,7 @@ func NewReplicationController(ctx *pulumi.Context,
 	if args == nil {
 		args = &ReplicationControllerArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("ReplicationController")
 	var resource ReplicationController

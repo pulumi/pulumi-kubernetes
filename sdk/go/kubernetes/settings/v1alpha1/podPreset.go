@@ -29,6 +29,7 @@ func NewPodPreset(ctx *pulumi.Context,
 	if args == nil {
 		args = &PodPresetArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("settings.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("PodPreset")
 	var resource PodPreset

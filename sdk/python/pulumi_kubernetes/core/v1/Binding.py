@@ -55,7 +55,7 @@ class Binding(pulumi.CustomResource):
             __props__['api_version'] = 'v1'
             __props__['kind'] = 'Binding'
             __props__['metadata'] = metadata
-            if target is None:
+            if target is None and not opts.urn:
                 raise TypeError("Missing required property 'target'")
             __props__['target'] = target
         super(Binding, __self__).__init__(

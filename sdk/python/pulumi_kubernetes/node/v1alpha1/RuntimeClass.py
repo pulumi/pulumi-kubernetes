@@ -56,7 +56,7 @@ class RuntimeClass(pulumi.CustomResource):
             __props__['api_version'] = 'node.k8s.io/v1alpha1'
             __props__['kind'] = 'RuntimeClass'
             __props__['metadata'] = metadata
-            if spec is None:
+            if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__['spec'] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1beta1:RuntimeClass")])

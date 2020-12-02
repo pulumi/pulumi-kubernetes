@@ -47,6 +47,7 @@ func NewSecret(ctx *pulumi.Context,
 	if args == nil {
 		args = &SecretArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Secret")
 	secrets := pulumi.AdditionalSecretOutputs([]string{

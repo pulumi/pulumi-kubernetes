@@ -7,3 +7,24 @@ from .HorizontalPodAutoscaler import *
 from .HorizontalPodAutoscalerList import *
 from ._inputs import *
 from . import outputs
+
+def _register_module():
+    import pulumi
+
+    class Module(pulumi.runtime.ResourceModule):
+        def version(self):
+            return None
+
+        def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
+            if typ == "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler":
+                return HorizontalPodAutoscaler(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList":
+                return HorizontalPodAutoscalerList(name, pulumi.ResourceOptions(urn=urn))
+            else:
+                raise Exception(f"unknown resource type {typ}")
+
+
+    _module_instance = Module()
+    pulumi.runtime.register_resource_module("kubernetes", "autoscaling/v2beta2", _module_instance)
+
+_register_module()

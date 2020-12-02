@@ -29,11 +29,12 @@ type Binding struct {
 // NewBinding registers a new resource with the given unique name, arguments, and options.
 func NewBinding(ctx *pulumi.Context,
 	name string, args *BindingArgs, opts ...pulumi.ResourceOption) (*Binding, error) {
-	if args == nil || args.Target == nil {
-		return nil, errors.New("missing required argument 'Target'")
-	}
 	if args == nil {
-		args = &BindingArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Target == nil {
+		return nil, errors.New("invalid value for required argument 'Target'")
 	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Binding")

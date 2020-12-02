@@ -38,6 +38,7 @@ func NewStatus(ctx *pulumi.Context,
 	if args == nil {
 		args = &StatusArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Status")
 	var resource Status

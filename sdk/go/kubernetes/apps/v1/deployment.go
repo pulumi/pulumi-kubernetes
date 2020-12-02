@@ -55,6 +55,7 @@ func NewDeployment(ctx *pulumi.Context,
 	if args == nil {
 		args = &DeploymentArgs{}
 	}
+
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("Deployment")
 	aliases := pulumi.Aliases([]pulumi.Alias{

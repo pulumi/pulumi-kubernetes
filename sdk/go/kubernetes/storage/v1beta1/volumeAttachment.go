@@ -33,11 +33,12 @@ type VolumeAttachment struct {
 // NewVolumeAttachment registers a new resource with the given unique name, arguments, and options.
 func NewVolumeAttachment(ctx *pulumi.Context,
 	name string, args *VolumeAttachmentArgs, opts ...pulumi.ResourceOption) (*VolumeAttachment, error) {
-	if args == nil || args.Spec == nil {
-		return nil, errors.New("missing required argument 'Spec'")
-	}
 	if args == nil {
-		args = &VolumeAttachmentArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
 	}
 	args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("VolumeAttachment")

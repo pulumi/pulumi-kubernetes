@@ -84,7 +84,7 @@ class Event(pulumi.CustomResource):
             __props__['deprecated_first_timestamp'] = deprecated_first_timestamp
             __props__['deprecated_last_timestamp'] = deprecated_last_timestamp
             __props__['deprecated_source'] = deprecated_source
-            if event_time is None:
+            if event_time is None and not opts.urn:
                 raise TypeError("Missing required property 'event_time'")
             __props__['event_time'] = event_time
             __props__['kind'] = 'Event'
