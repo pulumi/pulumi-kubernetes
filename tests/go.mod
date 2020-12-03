@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi-kubernetes/tests/v2
 
-go 1.14
+go 1.15
 
 replace (
 	github.com/Azure/go-autorest => github.com/Azure/go-autorest v13.3.1+incompatible
