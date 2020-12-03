@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.7.3 (December 3, 2020)
+
 -   Replace workload resources if any field in `.spec.selector` changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1387)
 -   Update pulumi deps to v2.15.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1393)
 -   Add package/module registration for NodeJS and Python (https://github.com/pulumi/pulumi-kubernetes/pull/1394)
