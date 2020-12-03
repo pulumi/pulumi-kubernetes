@@ -224,7 +224,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"compatibility": kubernetes20,
 		"dependencies": map[string]string{
-			"@pulumi/pulumi":    "^2.0.0",
+			"@pulumi/pulumi":    "^2.15.0",
 			"shell-quote":       "^1.6.1",
 			"tmp":               "^0.0.33",
 			"@types/tmp":        "^0.0.33",
@@ -257,7 +257,7 @@ Use the navigation below to see detailed documentation for each of the supported
 	})
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
-			"pulumi":   ">=2.11.2,<3.0.0",
+			"pulumi":   ">=2.15.0,<3.0.0",
 			"requests": ">=2.21,<3.0",
 			"pyyaml":   ">=5.3.1,<5.4",
 		},

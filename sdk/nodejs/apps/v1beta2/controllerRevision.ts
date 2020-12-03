@@ -69,7 +69,7 @@ export class ControllerRevision extends pulumi.CustomResource {
     constructor(name: string, args?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.revision === undefined) {
+            if ((!args || args.revision === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'revision'");
             }
             inputs["apiVersion"] = "apps/v1beta2";

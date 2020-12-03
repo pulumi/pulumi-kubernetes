@@ -62,7 +62,7 @@ export class EventList extends pulumi.CustomResource {
     constructor(name: string, args?: EventListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
         if (!(opts && opts.id)) {
-            if (!args || args.items === undefined) {
+            if ((!args || args.items === undefined) && !(opts && opts.urn)) {
                 throw new Error("Missing required property 'items'");
             }
             inputs["apiVersion"] = "events.k8s.io/v1";
