@@ -422,6 +422,9 @@ jobs:
     name: publish
     needs: test-sdks
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ 1.15.x ]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
