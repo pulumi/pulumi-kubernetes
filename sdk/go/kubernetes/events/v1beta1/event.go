@@ -13,7 +13,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
-// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 type Event struct {
 	pulumi.CustomResourceState
 
@@ -32,8 +32,8 @@ type Event struct {
 	// eventTime is the time when this Event was first observed. It is required.
 	EventTime pulumi.StringOutput `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Kind     pulumi.StringPtrOutput  `pulumi:"kind"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrOutput `pulumi:"note"`
 	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
@@ -61,6 +61,9 @@ func NewEvent(ctx *pulumi.Context,
 
 	if args.EventTime == nil {
 		return nil, errors.New("invalid value for required argument 'EventTime'")
+	}
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
 	}
 	args.ApiVersion = pulumi.StringPtr("events.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("Event")
@@ -186,8 +189,8 @@ type eventArgs struct {
 	// eventTime is the time when this Event was first observed. It is required.
 	EventTime string `pulumi:"eventTime"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	Kind     *string           `pulumi:"kind"`
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note *string `pulumi:"note"`
 	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
@@ -224,7 +227,7 @@ type EventArgs struct {
 	EventTime pulumi.StringInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     pulumi.StringPtrInput
-	Metadata metav1.ObjectMetaPtrInput
+	Metadata metav1.ObjectMetaInput
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrInput
 	// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.

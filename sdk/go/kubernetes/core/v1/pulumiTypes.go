@@ -4293,7 +4293,7 @@ type Container struct {
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext *SecurityContext `pulumi:"securityContext"`
-	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe *Probe `pulumi:"startupProbe"`
 	// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
 	Stdin *bool `pulumi:"stdin"`
@@ -4352,7 +4352,7 @@ type ContainerArgs struct {
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext SecurityContextPtrInput `pulumi:"securityContext"`
-	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe ProbePtrInput `pulumi:"startupProbe"`
 	// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
 	Stdin pulumi.BoolPtrInput `pulumi:"stdin"`
@@ -4489,7 +4489,7 @@ func (o ContainerOutput) SecurityContext() SecurityContextPtrOutput {
 	return o.ApplyT(func(v Container) *SecurityContext { return v.SecurityContext }).(SecurityContextPtrOutput)
 }
 
-// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 func (o ContainerOutput) StartupProbe() ProbePtrOutput {
 	return o.ApplyT(func(v Container) *Probe { return v.StartupProbe }).(ProbePtrOutput)
 }
@@ -7916,7 +7916,7 @@ func (o EphemeralVolumeSourcePtrOutput) VolumeClaimTemplate() PersistentVolumeCl
 	}).(PersistentVolumeClaimTemplatePtrOutput)
 }
 
-// Event is a report of an event somewhere in the cluster.
+// Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 type EventType struct {
 	// What action was taken/failed regarding to the Regarding object.
 	Action *string `pulumi:"action"`
@@ -7965,7 +7965,7 @@ type EventTypeInput interface {
 	ToEventTypeOutputWithContext(context.Context) EventTypeOutput
 }
 
-// Event is a report of an event somewhere in the cluster.
+// Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 type EventTypeArgs struct {
 	// What action was taken/failed regarding to the Regarding object.
 	Action pulumi.StringPtrInput `pulumi:"action"`
@@ -8040,7 +8040,7 @@ func (i EventTypeArray) ToEventTypeArrayOutputWithContext(ctx context.Context) E
 	return pulumi.ToOutputWithContext(ctx, i).(EventTypeArrayOutput)
 }
 
-// Event is a report of an event somewhere in the cluster.
+// Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 type EventTypeOutput struct{ *pulumi.OutputState }
 
 func (EventTypeOutput) ElementType() reflect.Type {
@@ -12388,6 +12388,8 @@ type LoadBalancerIngress struct {
 	Hostname *string `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip *string `pulumi:"ip"`
+	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+	Ports []PortStatus `pulumi:"ports"`
 }
 
 // LoadBalancerIngressInput is an input type that accepts LoadBalancerIngressArgs and LoadBalancerIngressOutput values.
@@ -12407,6 +12409,8 @@ type LoadBalancerIngressArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
+	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+	Ports PortStatusArrayInput `pulumi:"ports"`
 }
 
 func (LoadBalancerIngressArgs) ElementType() reflect.Type {
@@ -12469,6 +12473,11 @@ func (o LoadBalancerIngressOutput) Hostname() pulumi.StringPtrOutput {
 // IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 func (o LoadBalancerIngressOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LoadBalancerIngress) *string { return v.Ip }).(pulumi.StringPtrOutput)
+}
+
+// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+func (o LoadBalancerIngressOutput) Ports() PortStatusArrayOutput {
+	return o.ApplyT(func(v LoadBalancerIngress) []PortStatus { return v.Ports }).(PortStatusArrayOutput)
 }
 
 type LoadBalancerIngressArrayOutput struct{ *pulumi.OutputState }
@@ -17028,7 +17037,7 @@ func (o PersistentVolumeClaimListTypeOutput) Metadata() metav1.ListMetaPtrOutput
 type PersistentVolumeClaimSpec struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 	DataSource *TypedLocalObjectReference `pulumi:"dataSource"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *ResourceRequirements `pulumi:"resources"`
@@ -17057,7 +17066,7 @@ type PersistentVolumeClaimSpecInput interface {
 type PersistentVolumeClaimSpecArgs struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 	DataSource TypedLocalObjectReferencePtrInput `pulumi:"dataSource"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
@@ -17154,7 +17163,7 @@ func (o PersistentVolumeClaimSpecOutput) AccessModes() pulumi.StringArrayOutput 
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSource }).(TypedLocalObjectReferencePtrOutput)
 }
@@ -17212,7 +17221,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) AccessModes() pulumi.StringArrayOutp
 	}).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
 		if v == nil {
@@ -20186,7 +20195,7 @@ type PodSecurityContext struct {
 	//
 	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
 	FsGroup *int `pulumi:"fsGroup"`
-	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 	FsGroupChangePolicy *string `pulumi:"fsGroupChangePolicy"`
 	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	RunAsGroup *int `pulumi:"runAsGroup"`
@@ -20225,7 +20234,7 @@ type PodSecurityContextArgs struct {
 	//
 	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
 	FsGroup pulumi.IntPtrInput `pulumi:"fsGroup"`
-	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 	FsGroupChangePolicy pulumi.StringPtrInput `pulumi:"fsGroupChangePolicy"`
 	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	RunAsGroup pulumi.IntPtrInput `pulumi:"runAsGroup"`
@@ -20332,7 +20341,7 @@ func (o PodSecurityContextOutput) FsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.FsGroup }).(pulumi.IntPtrOutput)
 }
 
-// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 func (o PodSecurityContextOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *string { return v.FsGroupChangePolicy }).(pulumi.StringPtrOutput)
 }
@@ -20409,7 +20418,7 @@ func (o PodSecurityContextPtrOutput) FsGroup() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
 func (o PodSecurityContextPtrOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *string {
 		if v == nil {
@@ -22017,6 +22026,130 @@ func (o PodTemplateSpecPtrOutput) Spec() PodSpecPtrOutput {
 		}
 		return v.Spec
 	}).(PodSpecPtrOutput)
+}
+
+type PortStatus struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error *string `pulumi:"error"`
+	// Port is the port number of the service port of which status is recorded here
+	Port int `pulumi:"port"`
+	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+	Protocol string `pulumi:"protocol"`
+}
+
+// PortStatusInput is an input type that accepts PortStatusArgs and PortStatusOutput values.
+// You can construct a concrete instance of `PortStatusInput` via:
+//
+//          PortStatusArgs{...}
+type PortStatusInput interface {
+	pulumi.Input
+
+	ToPortStatusOutput() PortStatusOutput
+	ToPortStatusOutputWithContext(context.Context) PortStatusOutput
+}
+
+type PortStatusArgs struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error pulumi.StringPtrInput `pulumi:"error"`
+	// Port is the port number of the service port of which status is recorded here
+	Port pulumi.IntInput `pulumi:"port"`
+	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+	Protocol pulumi.StringInput `pulumi:"protocol"`
+}
+
+func (PortStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PortStatus)(nil)).Elem()
+}
+
+func (i PortStatusArgs) ToPortStatusOutput() PortStatusOutput {
+	return i.ToPortStatusOutputWithContext(context.Background())
+}
+
+func (i PortStatusArgs) ToPortStatusOutputWithContext(ctx context.Context) PortStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PortStatusOutput)
+}
+
+// PortStatusArrayInput is an input type that accepts PortStatusArray and PortStatusArrayOutput values.
+// You can construct a concrete instance of `PortStatusArrayInput` via:
+//
+//          PortStatusArray{ PortStatusArgs{...} }
+type PortStatusArrayInput interface {
+	pulumi.Input
+
+	ToPortStatusArrayOutput() PortStatusArrayOutput
+	ToPortStatusArrayOutputWithContext(context.Context) PortStatusArrayOutput
+}
+
+type PortStatusArray []PortStatusInput
+
+func (PortStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PortStatus)(nil)).Elem()
+}
+
+func (i PortStatusArray) ToPortStatusArrayOutput() PortStatusArrayOutput {
+	return i.ToPortStatusArrayOutputWithContext(context.Background())
+}
+
+func (i PortStatusArray) ToPortStatusArrayOutputWithContext(ctx context.Context) PortStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PortStatusArrayOutput)
+}
+
+type PortStatusOutput struct{ *pulumi.OutputState }
+
+func (PortStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PortStatus)(nil)).Elem()
+}
+
+func (o PortStatusOutput) ToPortStatusOutput() PortStatusOutput {
+	return o
+}
+
+func (o PortStatusOutput) ToPortStatusOutputWithContext(ctx context.Context) PortStatusOutput {
+	return o
+}
+
+// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+//   CamelCase names
+// - cloud provider specific error values must have names that comply with the
+//   format foo.example.com/CamelCase.
+func (o PortStatusOutput) Error() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PortStatus) *string { return v.Error }).(pulumi.StringPtrOutput)
+}
+
+// Port is the port number of the service port of which status is recorded here
+func (o PortStatusOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v PortStatus) int { return v.Port }).(pulumi.IntOutput)
+}
+
+// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+func (o PortStatusOutput) Protocol() pulumi.StringOutput {
+	return o.ApplyT(func(v PortStatus) string { return v.Protocol }).(pulumi.StringOutput)
+}
+
+type PortStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (PortStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PortStatus)(nil)).Elem()
+}
+
+func (o PortStatusArrayOutput) ToPortStatusArrayOutput() PortStatusArrayOutput {
+	return o
+}
+
+func (o PortStatusArrayOutput) ToPortStatusArrayOutputWithContext(ctx context.Context) PortStatusArrayOutput {
+	return o
+}
+
+func (o PortStatusArrayOutput) Index(i pulumi.IntInput) PortStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PortStatus {
+		return vs[0].([]PortStatus)[vs[1].(int)]
+	}).(PortStatusOutput)
 }
 
 // PortworxVolumeSource represents a Portworx volume resource.
@@ -28486,7 +28619,7 @@ type ServicePort struct {
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name *string `pulumi:"name"`
-	// The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+	// The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
 	NodePort *int `pulumi:"nodePort"`
 	// The port that will be exposed by this service.
 	Port int `pulumi:"port"`
@@ -28513,7 +28646,7 @@ type ServicePortArgs struct {
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+	// The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
 	NodePort pulumi.IntPtrInput `pulumi:"nodePort"`
 	// The port that will be exposed by this service.
 	Port pulumi.IntInput `pulumi:"port"`
@@ -28585,7 +28718,7 @@ func (o ServicePortOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServicePort) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+// The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
 func (o ServicePortOutput) NodePort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ServicePort) *int { return v.NodePort }).(pulumi.IntPtrOutput)
 }
@@ -28627,18 +28760,30 @@ func (o ServicePortArrayOutput) Index(i pulumi.IntInput) ServicePortOutput {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpec struct {
-	// clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are "None", empty string (""), or a valid IP address. "None" can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	AllocateLoadBalancerNodePorts *bool `pulumi:"allocateLoadBalancerNodePorts"`
+	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP *string `pulumi:"clusterIP"`
+	// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
+	//
+	// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	ClusterIPs []string `pulumi:"clusterIPs"`
 	// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 	ExternalIPs []string `pulumi:"externalIPs"`
-	// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+	// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be
 	ExternalName *string `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
 	ExternalTrafficPolicy *string `pulumi:"externalTrafficPolicy"`
-	// healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
+	// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 	HealthCheckNodePort *int `pulumi:"healthCheckNodePort"`
-	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+	// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+	//
+	// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+	IpFamilies []string `pulumi:"ipFamilies"`
+	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
 	IpFamily *string `pulumi:"ipFamily"`
+	// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+	IpFamilyPolicy *string `pulumi:"ipFamilyPolicy"`
 	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
 	LoadBalancerIP *string `pulumi:"loadBalancerIP"`
 	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
@@ -28653,9 +28798,9 @@ type ServiceSpec struct {
 	SessionAffinity *string `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig *SessionAffinityConfig `pulumi:"sessionAffinityConfig"`
-	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 	TopologyKeys []string `pulumi:"topologyKeys"`
-	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type *string `pulumi:"type"`
 }
 
@@ -28672,18 +28817,30 @@ type ServiceSpecInput interface {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpecArgs struct {
-	// clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are "None", empty string (""), or a valid IP address. "None" can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	AllocateLoadBalancerNodePorts pulumi.BoolPtrInput `pulumi:"allocateLoadBalancerNodePorts"`
+	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP pulumi.StringPtrInput `pulumi:"clusterIP"`
+	// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
+	//
+	// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	ClusterIPs pulumi.StringArrayInput `pulumi:"clusterIPs"`
 	// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 	ExternalIPs pulumi.StringArrayInput `pulumi:"externalIPs"`
-	// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+	// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be
 	ExternalName pulumi.StringPtrInput `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
 	ExternalTrafficPolicy pulumi.StringPtrInput `pulumi:"externalTrafficPolicy"`
-	// healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
+	// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 	HealthCheckNodePort pulumi.IntPtrInput `pulumi:"healthCheckNodePort"`
-	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+	// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+	//
+	// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+	IpFamilies pulumi.StringArrayInput `pulumi:"ipFamilies"`
+	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
 	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+	IpFamilyPolicy pulumi.StringPtrInput `pulumi:"ipFamilyPolicy"`
 	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
 	LoadBalancerIP pulumi.StringPtrInput `pulumi:"loadBalancerIP"`
 	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
@@ -28698,9 +28855,9 @@ type ServiceSpecArgs struct {
 	SessionAffinity pulumi.StringPtrInput `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig SessionAffinityConfigPtrInput `pulumi:"sessionAffinityConfig"`
-	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
-	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -28782,9 +28939,21 @@ func (o ServiceSpecOutput) ToServiceSpecPtrOutputWithContext(ctx context.Context
 	}).(ServiceSpecPtrOutput)
 }
 
-// clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are "None", empty string (""), or a valid IP address. "None" can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+func (o ServiceSpecOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ServiceSpec) *bool { return v.AllocateLoadBalancerNodePorts }).(pulumi.BoolPtrOutput)
+}
+
+// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 func (o ServiceSpecOutput) ClusterIP() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.ClusterIP }).(pulumi.StringPtrOutput)
+}
+
+// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
+//
+// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+func (o ServiceSpecOutput) ClusterIPs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ServiceSpec) []string { return v.ClusterIPs }).(pulumi.StringArrayOutput)
 }
 
 // externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
@@ -28792,7 +28961,7 @@ func (o ServiceSpecOutput) ExternalIPs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.ExternalIPs }).(pulumi.StringArrayOutput)
 }
 
-// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be
 func (o ServiceSpecOutput) ExternalName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.ExternalName }).(pulumi.StringPtrOutput)
 }
@@ -28802,14 +28971,26 @@ func (o ServiceSpecOutput) ExternalTrafficPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.ExternalTrafficPolicy }).(pulumi.StringPtrOutput)
 }
 
-// healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
+// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 func (o ServiceSpecOutput) HealthCheckNodePort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *int { return v.HealthCheckNodePort }).(pulumi.IntPtrOutput)
 }
 
-// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+//
+// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+func (o ServiceSpecOutput) IpFamilies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ServiceSpec) []string { return v.IpFamilies }).(pulumi.StringArrayOutput)
+}
+
+// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
 func (o ServiceSpecOutput) IpFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+func (o ServiceSpecOutput) IpFamilyPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceSpec) *string { return v.IpFamilyPolicy }).(pulumi.StringPtrOutput)
 }
 
 // Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
@@ -28847,12 +29028,12 @@ func (o ServiceSpecOutput) SessionAffinityConfig() SessionAffinityConfigPtrOutpu
 	return o.ApplyT(func(v ServiceSpec) *SessionAffinityConfig { return v.SessionAffinityConfig }).(SessionAffinityConfigPtrOutput)
 }
 
-// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 func (o ServiceSpecOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
 
-// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 func (o ServiceSpecOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -28875,7 +29056,17 @@ func (o ServiceSpecPtrOutput) Elem() ServiceSpecOutput {
 	return o.ApplyT(func(v *ServiceSpec) ServiceSpec { return *v }).(ServiceSpecOutput)
 }
 
-// clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are "None", empty string (""), or a valid IP address. "None" can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+func (o ServiceSpecPtrOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ServiceSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllocateLoadBalancerNodePorts
+	}).(pulumi.BoolPtrOutput)
+}
+
+// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 func (o ServiceSpecPtrOutput) ClusterIP() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -28883,6 +29074,18 @@ func (o ServiceSpecPtrOutput) ClusterIP() pulumi.StringPtrOutput {
 		}
 		return v.ClusterIP
 	}).(pulumi.StringPtrOutput)
+}
+
+// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
+//
+// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+func (o ServiceSpecPtrOutput) ClusterIPs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ServiceSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ClusterIPs
+	}).(pulumi.StringArrayOutput)
 }
 
 // externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
@@ -28895,7 +29098,7 @@ func (o ServiceSpecPtrOutput) ExternalIPs() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.
+// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be
 func (o ServiceSpecPtrOutput) ExternalName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -28915,7 +29118,7 @@ func (o ServiceSpecPtrOutput) ExternalTrafficPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.
+// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 func (o ServiceSpecPtrOutput) HealthCheckNodePort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *int {
 		if v == nil {
@@ -28925,13 +29128,35 @@ func (o ServiceSpecPtrOutput) HealthCheckNodePort() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values "IPv4" and "IPv6"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)
+// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+//
+// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+func (o ServiceSpecPtrOutput) IpFamilies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ServiceSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamilies
+	}).(pulumi.StringArrayOutput)
+}
+
+// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
 func (o ServiceSpecPtrOutput) IpFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
 			return nil
 		}
 		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+func (o ServiceSpecPtrOutput) IpFamilyPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ServiceSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamilyPolicy
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -29005,7 +29230,7 @@ func (o ServiceSpecPtrOutput) SessionAffinityConfig() SessionAffinityConfigPtrOu
 	}).(SessionAffinityConfigPtrOutput)
 }
 
-// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
 func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ServiceSpec) []string {
 		if v == nil {
@@ -29015,7 +29240,7 @@ func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 func (o ServiceSpecPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -29027,6 +29252,8 @@ func (o ServiceSpecPtrOutput) Type() pulumi.StringPtrOutput {
 
 // ServiceStatus represents the current status of a service.
 type ServiceStatus struct {
+	// Current service state
+	Conditions []metav1.Condition `pulumi:"conditions"`
 	// LoadBalancer contains the current status of the load-balancer, if one is present.
 	LoadBalancer *LoadBalancerStatus `pulumi:"loadBalancer"`
 }
@@ -29044,6 +29271,8 @@ type ServiceStatusInput interface {
 
 // ServiceStatus represents the current status of a service.
 type ServiceStatusArgs struct {
+	// Current service state
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
 	// LoadBalancer contains the current status of the load-balancer, if one is present.
 	LoadBalancer LoadBalancerStatusPtrInput `pulumi:"loadBalancer"`
 }
@@ -29126,6 +29355,11 @@ func (o ServiceStatusOutput) ToServiceStatusPtrOutputWithContext(ctx context.Con
 	}).(ServiceStatusPtrOutput)
 }
 
+// Current service state
+func (o ServiceStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v ServiceStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
 // LoadBalancer contains the current status of the load-balancer, if one is present.
 func (o ServiceStatusOutput) LoadBalancer() LoadBalancerStatusPtrOutput {
 	return o.ApplyT(func(v ServiceStatus) *LoadBalancerStatus { return v.LoadBalancer }).(LoadBalancerStatusPtrOutput)
@@ -29147,6 +29381,16 @@ func (o ServiceStatusPtrOutput) ToServiceStatusPtrOutputWithContext(ctx context.
 
 func (o ServiceStatusPtrOutput) Elem() ServiceStatusOutput {
 	return o.ApplyT(func(v *ServiceStatus) ServiceStatus { return *v }).(ServiceStatusOutput)
+}
+
+// Current service state
+func (o ServiceStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *ServiceStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
 }
 
 // LoadBalancer contains the current status of the load-balancer, if one is present.
@@ -32389,6 +32633,8 @@ func init() {
 	pulumi.RegisterOutputType(PodTemplateListTypeOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecPtrOutput{})
+	pulumi.RegisterOutputType(PortStatusOutput{})
+	pulumi.RegisterOutputType(PortStatusArrayOutput{})
 	pulumi.RegisterOutputType(PortworxVolumeSourceOutput{})
 	pulumi.RegisterOutputType(PortworxVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(PreferredSchedulingTermOutput{})

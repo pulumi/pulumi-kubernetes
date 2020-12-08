@@ -10,6 +10,7 @@ from ... import _utilities, _tables
 from . import outputs
 
 __all__ = [
+    'Condition',
     'LabelSelector',
     'LabelSelectorRequirement',
     'ListMeta',
@@ -19,6 +20,87 @@ __all__ = [
     'StatusCause',
     'StatusDetails',
 ]
+
+@pulumi.output_type
+class Condition(dict):
+    """
+    Condition contains details for one aspect of the current state of this API Resource.
+    """
+    def __init__(__self__, *,
+                 last_transition_time: str,
+                 message: str,
+                 reason: str,
+                 status: str,
+                 type: str,
+                 observed_generation: Optional[int] = None):
+        """
+        Condition contains details for one aspect of the current state of this API Resource.
+        :param str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+        :param str message: message is a human readable message indicating details about the transition. This may be an empty string.
+        :param str reason: reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+        :param str status: status of the condition, one of True, False, Unknown.
+        :param str type: type of condition in CamelCase or in foo.example.com/CamelCase.
+        :param int observed_generation: observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+        """
+        pulumi.set(__self__, "last_transition_time", last_transition_time)
+        pulumi.set(__self__, "message", message)
+        pulumi.set(__self__, "reason", reason)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> str:
+        """
+        lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> str:
+        """
+        message is a human readable message indicating details about the transition. This may be an empty string.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> str:
+        """
+        reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> str:
+        """
+        status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        """
+        type of condition in CamelCase or in foo.example.com/CamelCase.
+        """
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    def _translate_property(self, prop):
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+
 
 @pulumi.output_type
 class LabelSelector(dict):

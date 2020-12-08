@@ -691,9 +691,9 @@ func (o JobSpecPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 type JobStatus struct {
 	// The number of actively running pods.
 	Active *int `pulumi:"active"`
-	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 	CompletionTime *string `pulumi:"completionTime"`
-	// The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+	// The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Conditions []JobCondition `pulumi:"conditions"`
 	// The number of pods which reached phase Failed.
 	Failed *int `pulumi:"failed"`
@@ -718,9 +718,9 @@ type JobStatusInput interface {
 type JobStatusArgs struct {
 	// The number of actively running pods.
 	Active pulumi.IntPtrInput `pulumi:"active"`
-	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 	CompletionTime pulumi.StringPtrInput `pulumi:"completionTime"`
-	// The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+	// The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Conditions JobConditionArrayInput `pulumi:"conditions"`
 	// The number of pods which reached phase Failed.
 	Failed pulumi.IntPtrInput `pulumi:"failed"`
@@ -813,12 +813,12 @@ func (o JobStatusOutput) Active() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Active }).(pulumi.IntPtrOutput)
 }
 
-// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 func (o JobStatusOutput) CompletionTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatus) *string { return v.CompletionTime }).(pulumi.StringPtrOutput)
 }
 
-// The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+// The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobStatusOutput) Conditions() JobConditionArrayOutput {
 	return o.ApplyT(func(v JobStatus) []JobCondition { return v.Conditions }).(JobConditionArrayOutput)
 }
@@ -866,7 +866,7 @@ func (o JobStatusPtrOutput) Active() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 func (o JobStatusPtrOutput) CompletionTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *string {
 		if v == nil {
@@ -876,7 +876,7 @@ func (o JobStatusPtrOutput) CompletionTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+// The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobStatusPtrOutput) Conditions() JobConditionArrayOutput {
 	return o.ApplyT(func(v *JobStatus) []JobCondition {
 		if v == nil {

@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+## 2.7.4 (December 8, 2020)
+
+-   Add support for k8s v1.20.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1330)
+
 ## 2.7.3 (December 3, 2020)
 
 -   Replace workload resources if any field in `.spec.selector` changes. (https://github.com/pulumi/pulumi-kubernetes/pull/1387)

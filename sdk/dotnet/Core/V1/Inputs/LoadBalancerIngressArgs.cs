@@ -27,6 +27,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("ip")]
         public Input<string>? Ip { get; set; }
 
+        [Input("ports")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PortStatusArgs>? _ports;
+
+        /// <summary>
+        /// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PortStatusArgs> Ports
+        {
+            get => _ports ?? (_ports = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PortStatusArgs>());
+            set => _ports = value;
+        }
+
         public LoadBalancerIngressArgs()
         {
         }

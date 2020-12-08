@@ -36,6 +36,12 @@ func NewFlowSchema(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("flowcontrol.apiserver.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("FlowSchema")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource FlowSchema
 	err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", name, args, &resource, opts...)
 	if err != nil {

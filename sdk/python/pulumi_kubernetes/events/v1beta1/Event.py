@@ -40,7 +40,7 @@ class Event(pulumi.CustomResource):
                  __name__=None,
                  __opts__=None):
         """
-        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -88,6 +88,8 @@ class Event(pulumi.CustomResource):
                 raise TypeError("Missing required property 'event_time'")
             __props__['event_time'] = event_time
             __props__['kind'] = 'Event'
+            if metadata is None and not opts.urn:
+                raise TypeError("Missing required property 'metadata'")
             __props__['metadata'] = metadata
             __props__['note'] = note
             __props__['reason'] = reason
@@ -189,7 +191,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         return pulumi.get(self, "metadata")
 
     @property

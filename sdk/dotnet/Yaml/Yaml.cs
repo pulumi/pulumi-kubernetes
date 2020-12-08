@@ -184,6 +184,10 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(FlowControl.V1Alpha1.FlowSchemaList) ? "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList" :
                 type == typeof(FlowControl.V1Alpha1.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration" :
                 type == typeof(FlowControl.V1Alpha1.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList" :
+                type == typeof(FlowControl.V1Beta1.FlowSchema) ? "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchema" :
+                type == typeof(FlowControl.V1Beta1.FlowSchemaList) ? "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList" :
+                type == typeof(FlowControl.V1Beta1.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration" :
+                type == typeof(FlowControl.V1Beta1.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList" :
                 type == typeof(Meta.V1.Status) ? "meta/v1/Status" :
                 type == typeof(Networking.V1.Ingress) ? "networking.k8s.io/v1/Ingress" :
                 type == typeof(Networking.V1.IngressClass) ? "networking.k8s.io/v1/IngressClass" :
@@ -195,6 +199,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Networking.V1Beta1.IngressClass) ? "networking.k8s.io/v1beta1/IngressClass" :
                 type == typeof(Networking.V1Beta1.IngressClassList) ? "networking.k8s.io/v1beta1/IngressClassList" :
                 type == typeof(Networking.V1Beta1.IngressList) ? "networking.k8s.io/v1beta1/IngressList" :
+                type == typeof(Node.V1.RuntimeClass) ? "node.k8s.io/v1/RuntimeClass" :
+                type == typeof(Node.V1.RuntimeClassList) ? "node.k8s.io/v1/RuntimeClassList" :
                 type == typeof(Node.V1Alpha1.RuntimeClass) ? "node.k8s.io/v1alpha1/RuntimeClass" :
                 type == typeof(Node.V1Alpha1.RuntimeClassList) ? "node.k8s.io/v1alpha1/RuntimeClassList" :
                 type == typeof(Node.V1Beta1.RuntimeClass) ? "node.k8s.io/v1beta1/RuntimeClass" :
@@ -481,11 +487,14 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "extensions/v1beta1/ReplicaSetList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList"
                 || gvk == "networking.k8s.io/v1/IngressClassList"
                 || gvk == "networking.k8s.io/v1/IngressList"
                 || gvk == "networking.k8s.io/v1/NetworkPolicyList"
                 || gvk == "networking.k8s.io/v1beta1/IngressClassList"
                 || gvk == "networking.k8s.io/v1beta1/IngressList"
+                || gvk == "node.k8s.io/v1/RuntimeClassList"
                 || gvk == "node.k8s.io/v1alpha1/RuntimeClassList"
                 || gvk == "node.k8s.io/v1beta1/RuntimeClassList"
                 || gvk == "policy/v1beta1/PodDisruptionBudgetList"
@@ -962,6 +971,18 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration::{id}",
                                 new FlowControl.V1Alpha1.PriorityLevelConfiguration(id, obj!, opts) as KubernetesResource))
                         };
+                    case "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchema":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta1/FlowSchema::{id}",
+                                new FlowControl.V1Beta1.FlowSchema(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration::{id}",
+                                new FlowControl.V1Beta1.PriorityLevelConfiguration(id, obj!, opts) as KubernetesResource))
+                        };
                     case "meta/v1/Status":
                         return new[]
                         {
@@ -997,6 +1018,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"networking.k8s.io/v1beta1/IngressClass::{id}",
                                 new Networking.V1Beta1.IngressClass(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "node.k8s.io/v1/RuntimeClass":
+                        return new[]
+                        {
+                            id.Apply(id => ($"node.k8s.io/v1/RuntimeClass::{id}",
+                                new Node.V1.RuntimeClass(id, obj!, opts) as KubernetesResource))
                         };
                     case "node.k8s.io/v1alpha1/RuntimeClass":
                         return new[]

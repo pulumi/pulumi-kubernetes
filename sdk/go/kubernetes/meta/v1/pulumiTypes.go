@@ -573,6 +573,151 @@ func (o APIVersionsOutput) Versions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v APIVersions) []string { return v.Versions }).(pulumi.StringArrayOutput)
 }
 
+// Condition contains details for one aspect of the current state of this API Resource.
+type Condition struct {
+	// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+	LastTransitionTime string `pulumi:"lastTransitionTime"`
+	// message is a human readable message indicating details about the transition. This may be an empty string.
+	Message string `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
+	// reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+	Reason string `pulumi:"reason"`
+	// status of the condition, one of True, False, Unknown.
+	Status string `pulumi:"status"`
+	// type of condition in CamelCase or in foo.example.com/CamelCase.
+	Type string `pulumi:"type"`
+}
+
+// ConditionInput is an input type that accepts ConditionArgs and ConditionOutput values.
+// You can construct a concrete instance of `ConditionInput` via:
+//
+//          ConditionArgs{...}
+type ConditionInput interface {
+	pulumi.Input
+
+	ToConditionOutput() ConditionOutput
+	ToConditionOutputWithContext(context.Context) ConditionOutput
+}
+
+// Condition contains details for one aspect of the current state of this API Resource.
+type ConditionArgs struct {
+	// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+	LastTransitionTime pulumi.StringInput `pulumi:"lastTransitionTime"`
+	// message is a human readable message indicating details about the transition. This may be an empty string.
+	Message pulumi.StringInput `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
+	// reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+	Reason pulumi.StringInput `pulumi:"reason"`
+	// status of the condition, one of True, False, Unknown.
+	Status pulumi.StringInput `pulumi:"status"`
+	// type of condition in CamelCase or in foo.example.com/CamelCase.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (ConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Condition)(nil)).Elem()
+}
+
+func (i ConditionArgs) ToConditionOutput() ConditionOutput {
+	return i.ToConditionOutputWithContext(context.Background())
+}
+
+func (i ConditionArgs) ToConditionOutputWithContext(ctx context.Context) ConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConditionOutput)
+}
+
+// ConditionArrayInput is an input type that accepts ConditionArray and ConditionArrayOutput values.
+// You can construct a concrete instance of `ConditionArrayInput` via:
+//
+//          ConditionArray{ ConditionArgs{...} }
+type ConditionArrayInput interface {
+	pulumi.Input
+
+	ToConditionArrayOutput() ConditionArrayOutput
+	ToConditionArrayOutputWithContext(context.Context) ConditionArrayOutput
+}
+
+type ConditionArray []ConditionInput
+
+func (ConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Condition)(nil)).Elem()
+}
+
+func (i ConditionArray) ToConditionArrayOutput() ConditionArrayOutput {
+	return i.ToConditionArrayOutputWithContext(context.Background())
+}
+
+func (i ConditionArray) ToConditionArrayOutputWithContext(ctx context.Context) ConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConditionArrayOutput)
+}
+
+// Condition contains details for one aspect of the current state of this API Resource.
+type ConditionOutput struct{ *pulumi.OutputState }
+
+func (ConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Condition)(nil)).Elem()
+}
+
+func (o ConditionOutput) ToConditionOutput() ConditionOutput {
+	return o
+}
+
+func (o ConditionOutput) ToConditionOutputWithContext(ctx context.Context) ConditionOutput {
+	return o
+}
+
+// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+func (o ConditionOutput) LastTransitionTime() pulumi.StringOutput {
+	return o.ApplyT(func(v Condition) string { return v.LastTransitionTime }).(pulumi.StringOutput)
+}
+
+// message is a human readable message indicating details about the transition. This may be an empty string.
+func (o ConditionOutput) Message() pulumi.StringOutput {
+	return o.ApplyT(func(v Condition) string { return v.Message }).(pulumi.StringOutput)
+}
+
+// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+func (o ConditionOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v Condition) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
+// reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+func (o ConditionOutput) Reason() pulumi.StringOutput {
+	return o.ApplyT(func(v Condition) string { return v.Reason }).(pulumi.StringOutput)
+}
+
+// status of the condition, one of True, False, Unknown.
+func (o ConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v Condition) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// type of condition in CamelCase or in foo.example.com/CamelCase.
+func (o ConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v Condition) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type ConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (ConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Condition)(nil)).Elem()
+}
+
+func (o ConditionArrayOutput) ToConditionArrayOutput() ConditionArrayOutput {
+	return o
+}
+
+func (o ConditionArrayOutput) ToConditionArrayOutputWithContext(ctx context.Context) ConditionArrayOutput {
+	return o
+}
+
+func (o ConditionArrayOutput) Index(i pulumi.IntInput) ConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Condition {
+		return vs[0].([]Condition)[vs[1].(int)]
+	}).(ConditionOutput)
+}
+
 // DeleteOptions may be provided when deleting an API object.
 type DeleteOptions struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3127,6 +3272,8 @@ func init() {
 	pulumi.RegisterOutputType(APIResourceArrayOutput{})
 	pulumi.RegisterOutputType(APIResourceListOutput{})
 	pulumi.RegisterOutputType(APIVersionsOutput{})
+	pulumi.RegisterOutputType(ConditionOutput{})
+	pulumi.RegisterOutputType(ConditionArrayOutput{})
 	pulumi.RegisterOutputType(DeleteOptionsOutput{})
 	pulumi.RegisterOutputType(DeleteOptionsPtrOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryOutput{})

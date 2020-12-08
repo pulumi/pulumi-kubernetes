@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Events.V1Beta1
 {
     /// <summary>
-    /// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+    /// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
     /// </summary>
     public partial class Event : KubernetesResource
     {
@@ -226,8 +226,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.

@@ -17,6 +17,7 @@ __all__ = [
     'CSINodeDriverArgs',
     'CSINodeSpecArgs',
     'StorageClassArgs',
+    'TokenRequestArgs',
     'VolumeAttachmentArgs',
     'VolumeAttachmentSourceArgs',
     'VolumeAttachmentSpecArgs',
@@ -102,7 +103,9 @@ class CSIDriverSpecArgs:
                  attach_required: Optional[pulumi.Input[bool]] = None,
                  fs_group_policy: Optional[pulumi.Input[str]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[bool]] = None,
+                 requires_republish: Optional[pulumi.Input[bool]] = None,
                  storage_capacity: Optional[pulumi.Input[bool]] = None,
+                 token_requests: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]]] = None,
                  volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         CSIDriverSpec is the specification of a CSIDriver.
@@ -112,6 +115,11 @@ class CSIDriverSpecArgs:
                                                defined by a CSIVolumeSource, otherwise "false"
                
                "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+        :param pulumi.Input[bool] requires_republish: RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+               
+               Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+               
+               This is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.
         :param pulumi.Input[bool] storage_capacity: If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
                
                The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -119,6 +127,17 @@ class CSIDriverSpecArgs:
                Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
                
                This is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.
+        :param pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]] token_requests: TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+                 "<audience>": {
+                   "token": <token>,
+                   "expirationTimestamp": <expiration timestamp in RFC3339>,
+                 },
+                 ...
+               }
+               
+               Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
+               
+               This is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] volume_lifecycle_modes: volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
         """
         if attach_required is not None:
@@ -127,8 +146,12 @@ class CSIDriverSpecArgs:
             pulumi.set(__self__, "fs_group_policy", fs_group_policy)
         if pod_info_on_mount is not None:
             pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
+        if requires_republish is not None:
+            pulumi.set(__self__, "requires_republish", requires_republish)
         if storage_capacity is not None:
             pulumi.set(__self__, "storage_capacity", storage_capacity)
+        if token_requests is not None:
+            pulumi.set(__self__, "token_requests", token_requests)
         if volume_lifecycle_modes is not None:
             pulumi.set(__self__, "volume_lifecycle_modes", volume_lifecycle_modes)
 
@@ -172,6 +195,22 @@ class CSIDriverSpecArgs:
         pulumi.set(self, "pod_info_on_mount", value)
 
     @property
+    @pulumi.getter(name="requiresRepublish")
+    def requires_republish(self) -> Optional[pulumi.Input[bool]]:
+        """
+        RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+
+        Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+
+        This is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.
+        """
+        return pulumi.get(self, "requires_republish")
+
+    @requires_republish.setter
+    def requires_republish(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "requires_republish", value)
+
+    @property
     @pulumi.getter(name="storageCapacity")
     def storage_capacity(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -188,6 +227,28 @@ class CSIDriverSpecArgs:
     @storage_capacity.setter
     def storage_capacity(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "storage_capacity", value)
+
+    @property
+    @pulumi.getter(name="tokenRequests")
+    def token_requests(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]]]:
+        """
+        TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+          "<audience>": {
+            "token": <token>,
+            "expirationTimestamp": <expiration timestamp in RFC3339>,
+          },
+          ...
+        }
+
+        Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
+
+        This is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.
+        """
+        return pulumi.get(self, "token_requests")
+
+    @token_requests.setter
+    def token_requests(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]]]):
+        pulumi.set(self, "token_requests", value)
 
     @property
     @pulumi.getter(name="volumeLifecycleModes")
@@ -533,6 +594,45 @@ class StorageClassArgs:
     @volume_binding_mode.setter
     def volume_binding_mode(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "volume_binding_mode", value)
+
+
+@pulumi.input_type
+class TokenRequestArgs:
+    def __init__(__self__, *,
+                 audience: pulumi.Input[str],
+                 expiration_seconds: Optional[pulumi.Input[int]] = None):
+        """
+        TokenRequest contains parameters of a service account token.
+        :param pulumi.Input[str] audience: Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
+        :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
+        """
+        pulumi.set(__self__, "audience", audience)
+        if expiration_seconds is not None:
+            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+
+    @property
+    @pulumi.getter
+    def audience(self) -> pulumi.Input[str]:
+        """
+        Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
+        """
+        return pulumi.get(self, "audience")
+
+    @audience.setter
+    def audience(self, value: pulumi.Input[str]):
+        pulumi.set(self, "audience", value)
+
+    @property
+    @pulumi.getter(name="expirationSeconds")
+    def expiration_seconds(self) -> Optional[pulumi.Input[int]]:
+        """
+        ExpirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
+        """
+        return pulumi.get(self, "expiration_seconds")
+
+    @expiration_seconds.setter
+    def expiration_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "expiration_seconds", value)
 
 
 @pulumi.input_type
