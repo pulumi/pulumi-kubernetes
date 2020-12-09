@@ -2,6 +2,9 @@ name: Run Acceptance Tests from PR
 on:
   repository_dispatch:
     types: [run-acceptance-tests-command]
+  pull_request:
+    branches:
+      - master
 
 env:
   AWS_REGION: us-west-2
@@ -18,6 +21,8 @@ env:
 
 jobs:
   comment-notification:
+    # We only care about adding the result to the PR if it's a repository_dispatch event
+    if: github.event_name == 'repository_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Create URL to the run output
@@ -41,6 +46,7 @@ jobs:
         python-version: [ 3.7 ]
         dotnet-version: [ 3.1.x ]
     runs-on: ${{ matrix.platform }}
+    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Install DotNet ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
@@ -92,6 +98,7 @@ jobs:
   prerequisities:
     name: build-provider
     runs-on: ubuntu-latest
+    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - uses: actions/checkout@v2
         with:
@@ -131,6 +138,7 @@ jobs:
     name: build-language-sdks
     runs-on: ubuntu-latest
     needs: prerequisities
+    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -209,6 +217,7 @@ jobs:
     name: test-language-sdks
     runs-on: ubuntu-latest
     needs: [build_sdks, build-test-cluster]
+    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -326,6 +335,7 @@ jobs:
         python-version: [ 3.7 ]
         dotnet-version: [ 3.1.x ]
     runs-on: ${{ matrix.platform }}
+    if: ${{ always() }} && github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Install DotNet ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
