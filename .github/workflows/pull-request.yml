@@ -1,8 +1,6 @@
 name: pull-request
 "on":
-  pull_request:
-    branches:
-      - master
+  pull_request_target:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -11,6 +9,8 @@ env:
 
 jobs:
   comment-on-pr:
+    # We only care about commenting on a PR if the PR is from a fork
+    if: github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,31 +35,3 @@ jobs:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
           args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
           working-directory: provider/pkg
-  prerequisities:
-    name: build-provider
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Unshallow clone for tags
-        run: git fetch --prune --unshallow --tags
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.15.x
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.1.0
-        with:
-          repo: pulumi/pulumictl
-      - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - name: Build K8sgen
-        run: make k8sgen
-      - name: Prepare openapi file
-        run: make openapi_file
-      - name: Prepare Schema
-        run: make schema
-      - name: Make Kubernetes Provider
-        run: make k8sprovider
-      - name: Test provider
-        run: make test_provider
-
