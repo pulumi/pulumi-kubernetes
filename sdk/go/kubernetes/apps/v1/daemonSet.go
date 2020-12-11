@@ -130,15 +130,15 @@ type DaemonSetInput interface {
 	ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetOutput
 }
 
-func (DaemonSet) ElementType() reflect.Type {
-	return reflect.TypeOf((*DaemonSet)(nil)).Elem()
+func (*DaemonSet) ElementType() reflect.Type {
+	return reflect.TypeOf((*DaemonSet)(nil))
 }
 
-func (i DaemonSet) ToDaemonSetOutput() DaemonSetOutput {
+func (i *DaemonSet) ToDaemonSetOutput() DaemonSetOutput {
 	return i.ToDaemonSetOutputWithContext(context.Background())
 }
 
-func (i DaemonSet) ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetOutput {
+func (i *DaemonSet) ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetOutput)
 }
 
@@ -147,7 +147,7 @@ type DaemonSetOutput struct {
 }
 
 func (DaemonSetOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DaemonSetOutput)(nil)).Elem()
+	return reflect.TypeOf((*DaemonSet)(nil))
 }
 
 func (o DaemonSetOutput) ToDaemonSetOutput() DaemonSetOutput {

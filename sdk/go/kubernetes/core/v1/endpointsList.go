@@ -119,15 +119,15 @@ type EndpointsListInput interface {
 	ToEndpointsListOutputWithContext(ctx context.Context) EndpointsListOutput
 }
 
-func (EndpointsList) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointsList)(nil)).Elem()
+func (*EndpointsList) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointsList)(nil))
 }
 
-func (i EndpointsList) ToEndpointsListOutput() EndpointsListOutput {
+func (i *EndpointsList) ToEndpointsListOutput() EndpointsListOutput {
 	return i.ToEndpointsListOutputWithContext(context.Background())
 }
 
-func (i EndpointsList) ToEndpointsListOutputWithContext(ctx context.Context) EndpointsListOutput {
+func (i *EndpointsList) ToEndpointsListOutputWithContext(ctx context.Context) EndpointsListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListOutput)
 }
 
@@ -136,7 +136,7 @@ type EndpointsListOutput struct {
 }
 
 func (EndpointsListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointsListOutput)(nil)).Elem()
+	return reflect.TypeOf((*EndpointsList)(nil))
 }
 
 func (o EndpointsListOutput) ToEndpointsListOutput() EndpointsListOutput {

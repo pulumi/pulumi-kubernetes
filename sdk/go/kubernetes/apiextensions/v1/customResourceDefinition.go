@@ -126,15 +126,15 @@ type CustomResourceDefinitionInput interface {
 	ToCustomResourceDefinitionOutputWithContext(ctx context.Context) CustomResourceDefinitionOutput
 }
 
-func (CustomResourceDefinition) ElementType() reflect.Type {
-	return reflect.TypeOf((*CustomResourceDefinition)(nil)).Elem()
+func (*CustomResourceDefinition) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinition)(nil))
 }
 
-func (i CustomResourceDefinition) ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput {
+func (i *CustomResourceDefinition) ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput {
 	return i.ToCustomResourceDefinitionOutputWithContext(context.Background())
 }
 
-func (i CustomResourceDefinition) ToCustomResourceDefinitionOutputWithContext(ctx context.Context) CustomResourceDefinitionOutput {
+func (i *CustomResourceDefinition) ToCustomResourceDefinitionOutputWithContext(ctx context.Context) CustomResourceDefinitionOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionOutput)
 }
 
@@ -143,7 +143,7 @@ type CustomResourceDefinitionOutput struct {
 }
 
 func (CustomResourceDefinitionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CustomResourceDefinitionOutput)(nil)).Elem()
+	return reflect.TypeOf((*CustomResourceDefinition)(nil))
 }
 
 func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput {

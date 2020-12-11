@@ -119,15 +119,15 @@ type BindingInput interface {
 	ToBindingOutputWithContext(ctx context.Context) BindingOutput
 }
 
-func (Binding) ElementType() reflect.Type {
-	return reflect.TypeOf((*Binding)(nil)).Elem()
+func (*Binding) ElementType() reflect.Type {
+	return reflect.TypeOf((*Binding)(nil))
 }
 
-func (i Binding) ToBindingOutput() BindingOutput {
+func (i *Binding) ToBindingOutput() BindingOutput {
 	return i.ToBindingOutputWithContext(context.Background())
 }
 
-func (i Binding) ToBindingOutputWithContext(ctx context.Context) BindingOutput {
+func (i *Binding) ToBindingOutputWithContext(ctx context.Context) BindingOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(BindingOutput)
 }
 
@@ -136,7 +136,7 @@ type BindingOutput struct {
 }
 
 func (BindingOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*BindingOutput)(nil)).Elem()
+	return reflect.TypeOf((*Binding)(nil))
 }
 
 func (o BindingOutput) ToBindingOutput() BindingOutput {

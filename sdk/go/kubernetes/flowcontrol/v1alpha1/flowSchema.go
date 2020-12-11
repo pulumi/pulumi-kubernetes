@@ -127,15 +127,15 @@ type FlowSchemaInput interface {
 	ToFlowSchemaOutputWithContext(ctx context.Context) FlowSchemaOutput
 }
 
-func (FlowSchema) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlowSchema)(nil)).Elem()
+func (*FlowSchema) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlowSchema)(nil))
 }
 
-func (i FlowSchema) ToFlowSchemaOutput() FlowSchemaOutput {
+func (i *FlowSchema) ToFlowSchemaOutput() FlowSchemaOutput {
 	return i.ToFlowSchemaOutputWithContext(context.Background())
 }
 
-func (i FlowSchema) ToFlowSchemaOutputWithContext(ctx context.Context) FlowSchemaOutput {
+func (i *FlowSchema) ToFlowSchemaOutputWithContext(ctx context.Context) FlowSchemaOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaOutput)
 }
 
@@ -144,7 +144,7 @@ type FlowSchemaOutput struct {
 }
 
 func (FlowSchemaOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlowSchemaOutput)(nil)).Elem()
+	return reflect.TypeOf((*FlowSchema)(nil))
 }
 
 func (o FlowSchemaOutput) ToFlowSchemaOutput() FlowSchemaOutput {

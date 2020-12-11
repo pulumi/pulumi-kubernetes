@@ -126,15 +126,15 @@ type TokenReviewInput interface {
 	ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput
 }
 
-func (TokenReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenReview)(nil)).Elem()
+func (*TokenReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenReview)(nil))
 }
 
-func (i TokenReview) ToTokenReviewOutput() TokenReviewOutput {
+func (i *TokenReview) ToTokenReviewOutput() TokenReviewOutput {
 	return i.ToTokenReviewOutputWithContext(context.Background())
 }
 
-func (i TokenReview) ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput {
+func (i *TokenReview) ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewOutput)
 }
 
@@ -143,7 +143,7 @@ type TokenReviewOutput struct {
 }
 
 func (TokenReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenReviewOutput)(nil)).Elem()
+	return reflect.TypeOf((*TokenReview)(nil))
 }
 
 func (o TokenReviewOutput) ToTokenReviewOutput() TokenReviewOutput {

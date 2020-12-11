@@ -105,15 +105,15 @@ type PodPresetInput interface {
 	ToPodPresetOutputWithContext(ctx context.Context) PodPresetOutput
 }
 
-func (PodPreset) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodPreset)(nil)).Elem()
+func (*PodPreset) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodPreset)(nil))
 }
 
-func (i PodPreset) ToPodPresetOutput() PodPresetOutput {
+func (i *PodPreset) ToPodPresetOutput() PodPresetOutput {
 	return i.ToPodPresetOutputWithContext(context.Background())
 }
 
-func (i PodPreset) ToPodPresetOutputWithContext(ctx context.Context) PodPresetOutput {
+func (i *PodPreset) ToPodPresetOutputWithContext(ctx context.Context) PodPresetOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetOutput)
 }
 
@@ -122,7 +122,7 @@ type PodPresetOutput struct {
 }
 
 func (PodPresetOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodPresetOutput)(nil)).Elem()
+	return reflect.TypeOf((*PodPreset)(nil))
 }
 
 func (o PodPresetOutput) ToPodPresetOutput() PodPresetOutput {

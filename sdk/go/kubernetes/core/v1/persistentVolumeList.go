@@ -119,15 +119,15 @@ type PersistentVolumeListInput interface {
 	ToPersistentVolumeListOutputWithContext(ctx context.Context) PersistentVolumeListOutput
 }
 
-func (PersistentVolumeList) ElementType() reflect.Type {
-	return reflect.TypeOf((*PersistentVolumeList)(nil)).Elem()
+func (*PersistentVolumeList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PersistentVolumeList)(nil))
 }
 
-func (i PersistentVolumeList) ToPersistentVolumeListOutput() PersistentVolumeListOutput {
+func (i *PersistentVolumeList) ToPersistentVolumeListOutput() PersistentVolumeListOutput {
 	return i.ToPersistentVolumeListOutputWithContext(context.Background())
 }
 
-func (i PersistentVolumeList) ToPersistentVolumeListOutputWithContext(ctx context.Context) PersistentVolumeListOutput {
+func (i *PersistentVolumeList) ToPersistentVolumeListOutputWithContext(ctx context.Context) PersistentVolumeListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeListOutput)
 }
 
@@ -136,7 +136,7 @@ type PersistentVolumeListOutput struct {
 }
 
 func (PersistentVolumeListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PersistentVolumeListOutput)(nil)).Elem()
+	return reflect.TypeOf((*PersistentVolumeList)(nil))
 }
 
 func (o PersistentVolumeListOutput) ToPersistentVolumeListOutput() PersistentVolumeListOutput {

@@ -126,15 +126,15 @@ type SubjectAccessReviewInput interface {
 	ToSubjectAccessReviewOutputWithContext(ctx context.Context) SubjectAccessReviewOutput
 }
 
-func (SubjectAccessReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReview)(nil)).Elem()
+func (*SubjectAccessReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*SubjectAccessReview)(nil))
 }
 
-func (i SubjectAccessReview) ToSubjectAccessReviewOutput() SubjectAccessReviewOutput {
+func (i *SubjectAccessReview) ToSubjectAccessReviewOutput() SubjectAccessReviewOutput {
 	return i.ToSubjectAccessReviewOutputWithContext(context.Background())
 }
 
-func (i SubjectAccessReview) ToSubjectAccessReviewOutputWithContext(ctx context.Context) SubjectAccessReviewOutput {
+func (i *SubjectAccessReview) ToSubjectAccessReviewOutputWithContext(ctx context.Context) SubjectAccessReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewOutput)
 }
 
@@ -143,7 +143,7 @@ type SubjectAccessReviewOutput struct {
 }
 
 func (SubjectAccessReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewOutput)(nil)).Elem()
+	return reflect.TypeOf((*SubjectAccessReview)(nil))
 }
 
 func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutput() SubjectAccessReviewOutput {

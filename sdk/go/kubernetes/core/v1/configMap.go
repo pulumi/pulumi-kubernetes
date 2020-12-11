@@ -135,15 +135,15 @@ type ConfigMapInput interface {
 	ToConfigMapOutputWithContext(ctx context.Context) ConfigMapOutput
 }
 
-func (ConfigMap) ElementType() reflect.Type {
-	return reflect.TypeOf((*ConfigMap)(nil)).Elem()
+func (*ConfigMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMap)(nil))
 }
 
-func (i ConfigMap) ToConfigMapOutput() ConfigMapOutput {
+func (i *ConfigMap) ToConfigMapOutput() ConfigMapOutput {
 	return i.ToConfigMapOutputWithContext(context.Background())
 }
 
-func (i ConfigMap) ToConfigMapOutputWithContext(ctx context.Context) ConfigMapOutput {
+func (i *ConfigMap) ToConfigMapOutputWithContext(ctx context.Context) ConfigMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapOutput)
 }
 
@@ -152,7 +152,7 @@ type ConfigMapOutput struct {
 }
 
 func (ConfigMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ConfigMapOutput)(nil)).Elem()
+	return reflect.TypeOf((*ConfigMap)(nil))
 }
 
 func (o ConfigMapOutput) ToConfigMapOutput() ConfigMapOutput {

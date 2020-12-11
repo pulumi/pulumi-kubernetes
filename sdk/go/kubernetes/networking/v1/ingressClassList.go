@@ -119,15 +119,15 @@ type IngressClassListInput interface {
 	ToIngressClassListOutputWithContext(ctx context.Context) IngressClassListOutput
 }
 
-func (IngressClassList) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressClassList)(nil)).Elem()
+func (*IngressClassList) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassList)(nil))
 }
 
-func (i IngressClassList) ToIngressClassListOutput() IngressClassListOutput {
+func (i *IngressClassList) ToIngressClassListOutput() IngressClassListOutput {
 	return i.ToIngressClassListOutputWithContext(context.Background())
 }
 
-func (i IngressClassList) ToIngressClassListOutputWithContext(ctx context.Context) IngressClassListOutput {
+func (i *IngressClassList) ToIngressClassListOutputWithContext(ctx context.Context) IngressClassListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassListOutput)
 }
 
@@ -136,7 +136,7 @@ type IngressClassListOutput struct {
 }
 
 func (IngressClassListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressClassListOutput)(nil)).Elem()
+	return reflect.TypeOf((*IngressClassList)(nil))
 }
 
 func (o IngressClassListOutput) ToIngressClassListOutput() IngressClassListOutput {

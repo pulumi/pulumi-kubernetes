@@ -119,15 +119,15 @@ type StorageClassListInput interface {
 	ToStorageClassListOutputWithContext(ctx context.Context) StorageClassListOutput
 }
 
-func (StorageClassList) ElementType() reflect.Type {
-	return reflect.TypeOf((*StorageClassList)(nil)).Elem()
+func (*StorageClassList) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageClassList)(nil))
 }
 
-func (i StorageClassList) ToStorageClassListOutput() StorageClassListOutput {
+func (i *StorageClassList) ToStorageClassListOutput() StorageClassListOutput {
 	return i.ToStorageClassListOutputWithContext(context.Background())
 }
 
-func (i StorageClassList) ToStorageClassListOutputWithContext(ctx context.Context) StorageClassListOutput {
+func (i *StorageClassList) ToStorageClassListOutputWithContext(ctx context.Context) StorageClassListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListOutput)
 }
 
@@ -136,7 +136,7 @@ type StorageClassListOutput struct {
 }
 
 func (StorageClassListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*StorageClassListOutput)(nil)).Elem()
+	return reflect.TypeOf((*StorageClassList)(nil))
 }
 
 func (o StorageClassListOutput) ToStorageClassListOutput() StorageClassListOutput {

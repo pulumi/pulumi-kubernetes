@@ -119,15 +119,15 @@ type LimitRangeListInput interface {
 	ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput
 }
 
-func (LimitRangeList) ElementType() reflect.Type {
-	return reflect.TypeOf((*LimitRangeList)(nil)).Elem()
+func (*LimitRangeList) ElementType() reflect.Type {
+	return reflect.TypeOf((*LimitRangeList)(nil))
 }
 
-func (i LimitRangeList) ToLimitRangeListOutput() LimitRangeListOutput {
+func (i *LimitRangeList) ToLimitRangeListOutput() LimitRangeListOutput {
 	return i.ToLimitRangeListOutputWithContext(context.Background())
 }
 
-func (i LimitRangeList) ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput {
+func (i *LimitRangeList) ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListOutput)
 }
 
@@ -136,7 +136,7 @@ type LimitRangeListOutput struct {
 }
 
 func (LimitRangeListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LimitRangeListOutput)(nil)).Elem()
+	return reflect.TypeOf((*LimitRangeList)(nil))
 }
 
 func (o LimitRangeListOutput) ToLimitRangeListOutput() LimitRangeListOutput {

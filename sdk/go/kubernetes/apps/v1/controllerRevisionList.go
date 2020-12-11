@@ -119,15 +119,15 @@ type ControllerRevisionListInput interface {
 	ToControllerRevisionListOutputWithContext(ctx context.Context) ControllerRevisionListOutput
 }
 
-func (ControllerRevisionList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ControllerRevisionList)(nil)).Elem()
+func (*ControllerRevisionList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ControllerRevisionList)(nil))
 }
 
-func (i ControllerRevisionList) ToControllerRevisionListOutput() ControllerRevisionListOutput {
+func (i *ControllerRevisionList) ToControllerRevisionListOutput() ControllerRevisionListOutput {
 	return i.ToControllerRevisionListOutputWithContext(context.Background())
 }
 
-func (i ControllerRevisionList) ToControllerRevisionListOutputWithContext(ctx context.Context) ControllerRevisionListOutput {
+func (i *ControllerRevisionList) ToControllerRevisionListOutputWithContext(ctx context.Context) ControllerRevisionListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionListOutput)
 }
 
@@ -136,7 +136,7 @@ type ControllerRevisionListOutput struct {
 }
 
 func (ControllerRevisionListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ControllerRevisionListOutput)(nil)).Elem()
+	return reflect.TypeOf((*ControllerRevisionList)(nil))
 }
 
 func (o ControllerRevisionListOutput) ToControllerRevisionListOutput() ControllerRevisionListOutput {

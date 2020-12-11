@@ -142,15 +142,15 @@ type EndpointSliceInput interface {
 	ToEndpointSliceOutputWithContext(ctx context.Context) EndpointSliceOutput
 }
 
-func (EndpointSlice) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSlice)(nil)).Elem()
+func (*EndpointSlice) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSlice)(nil))
 }
 
-func (i EndpointSlice) ToEndpointSliceOutput() EndpointSliceOutput {
+func (i *EndpointSlice) ToEndpointSliceOutput() EndpointSliceOutput {
 	return i.ToEndpointSliceOutputWithContext(context.Background())
 }
 
-func (i EndpointSlice) ToEndpointSliceOutputWithContext(ctx context.Context) EndpointSliceOutput {
+func (i *EndpointSlice) ToEndpointSliceOutputWithContext(ctx context.Context) EndpointSliceOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceOutput)
 }
 
@@ -159,7 +159,7 @@ type EndpointSliceOutput struct {
 }
 
 func (EndpointSliceOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSliceOutput)(nil)).Elem()
+	return reflect.TypeOf((*EndpointSlice)(nil))
 }
 
 func (o EndpointSliceOutput) ToEndpointSliceOutput() EndpointSliceOutput {

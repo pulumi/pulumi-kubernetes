@@ -119,15 +119,15 @@ type FlowSchemaListInput interface {
 	ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput
 }
 
-func (FlowSchemaList) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlowSchemaList)(nil)).Elem()
+func (*FlowSchemaList) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlowSchemaList)(nil))
 }
 
-func (i FlowSchemaList) ToFlowSchemaListOutput() FlowSchemaListOutput {
+func (i *FlowSchemaList) ToFlowSchemaListOutput() FlowSchemaListOutput {
 	return i.ToFlowSchemaListOutputWithContext(context.Background())
 }
 
-func (i FlowSchemaList) ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput {
+func (i *FlowSchemaList) ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListOutput)
 }
 
@@ -136,7 +136,7 @@ type FlowSchemaListOutput struct {
 }
 
 func (FlowSchemaListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlowSchemaListOutput)(nil)).Elem()
+	return reflect.TypeOf((*FlowSchemaList)(nil))
 }
 
 func (o FlowSchemaListOutput) ToFlowSchemaListOutput() FlowSchemaListOutput {

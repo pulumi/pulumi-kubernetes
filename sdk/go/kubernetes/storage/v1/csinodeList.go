@@ -119,15 +119,15 @@ type CSINodeListInput interface {
 	ToCSINodeListOutputWithContext(ctx context.Context) CSINodeListOutput
 }
 
-func (CSINodeList) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeList)(nil)).Elem()
+func (*CSINodeList) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeList)(nil))
 }
 
-func (i CSINodeList) ToCSINodeListOutput() CSINodeListOutput {
+func (i *CSINodeList) ToCSINodeListOutput() CSINodeListOutput {
 	return i.ToCSINodeListOutputWithContext(context.Background())
 }
 
-func (i CSINodeList) ToCSINodeListOutputWithContext(ctx context.Context) CSINodeListOutput {
+func (i *CSINodeList) ToCSINodeListOutputWithContext(ctx context.Context) CSINodeListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListOutput)
 }
 
@@ -136,7 +136,7 @@ type CSINodeListOutput struct {
 }
 
 func (CSINodeListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeListOutput)(nil)).Elem()
+	return reflect.TypeOf((*CSINodeList)(nil))
 }
 
 func (o CSINodeListOutput) ToCSINodeListOutput() CSINodeListOutput {

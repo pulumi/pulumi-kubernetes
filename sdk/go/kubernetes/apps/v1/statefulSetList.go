@@ -109,15 +109,15 @@ type StatefulSetListInput interface {
 	ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput
 }
 
-func (StatefulSetList) ElementType() reflect.Type {
-	return reflect.TypeOf((*StatefulSetList)(nil)).Elem()
+func (*StatefulSetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetList)(nil))
 }
 
-func (i StatefulSetList) ToStatefulSetListOutput() StatefulSetListOutput {
+func (i *StatefulSetList) ToStatefulSetListOutput() StatefulSetListOutput {
 	return i.ToStatefulSetListOutputWithContext(context.Background())
 }
 
-func (i StatefulSetList) ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput {
+func (i *StatefulSetList) ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListOutput)
 }
 
@@ -126,7 +126,7 @@ type StatefulSetListOutput struct {
 }
 
 func (StatefulSetListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*StatefulSetListOutput)(nil)).Elem()
+	return reflect.TypeOf((*StatefulSetList)(nil))
 }
 
 func (o StatefulSetListOutput) ToStatefulSetListOutput() StatefulSetListOutput {

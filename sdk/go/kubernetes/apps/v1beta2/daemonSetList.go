@@ -119,15 +119,15 @@ type DaemonSetListInput interface {
 	ToDaemonSetListOutputWithContext(ctx context.Context) DaemonSetListOutput
 }
 
-func (DaemonSetList) ElementType() reflect.Type {
-	return reflect.TypeOf((*DaemonSetList)(nil)).Elem()
+func (*DaemonSetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*DaemonSetList)(nil))
 }
 
-func (i DaemonSetList) ToDaemonSetListOutput() DaemonSetListOutput {
+func (i *DaemonSetList) ToDaemonSetListOutput() DaemonSetListOutput {
 	return i.ToDaemonSetListOutputWithContext(context.Background())
 }
 
-func (i DaemonSetList) ToDaemonSetListOutputWithContext(ctx context.Context) DaemonSetListOutput {
+func (i *DaemonSetList) ToDaemonSetListOutputWithContext(ctx context.Context) DaemonSetListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListOutput)
 }
 
@@ -136,7 +136,7 @@ type DaemonSetListOutput struct {
 }
 
 func (DaemonSetListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DaemonSetListOutput)(nil)).Elem()
+	return reflect.TypeOf((*DaemonSetList)(nil))
 }
 
 func (o DaemonSetListOutput) ToDaemonSetListOutput() DaemonSetListOutput {

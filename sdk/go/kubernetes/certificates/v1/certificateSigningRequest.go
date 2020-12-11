@@ -132,15 +132,15 @@ type CertificateSigningRequestInput interface {
 	ToCertificateSigningRequestOutputWithContext(ctx context.Context) CertificateSigningRequestOutput
 }
 
-func (CertificateSigningRequest) ElementType() reflect.Type {
-	return reflect.TypeOf((*CertificateSigningRequest)(nil)).Elem()
+func (*CertificateSigningRequest) ElementType() reflect.Type {
+	return reflect.TypeOf((*CertificateSigningRequest)(nil))
 }
 
-func (i CertificateSigningRequest) ToCertificateSigningRequestOutput() CertificateSigningRequestOutput {
+func (i *CertificateSigningRequest) ToCertificateSigningRequestOutput() CertificateSigningRequestOutput {
 	return i.ToCertificateSigningRequestOutputWithContext(context.Background())
 }
 
-func (i CertificateSigningRequest) ToCertificateSigningRequestOutputWithContext(ctx context.Context) CertificateSigningRequestOutput {
+func (i *CertificateSigningRequest) ToCertificateSigningRequestOutputWithContext(ctx context.Context) CertificateSigningRequestOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestOutput)
 }
 
@@ -149,7 +149,7 @@ type CertificateSigningRequestOutput struct {
 }
 
 func (CertificateSigningRequestOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CertificateSigningRequestOutput)(nil)).Elem()
+	return reflect.TypeOf((*CertificateSigningRequest)(nil))
 }
 
 func (o CertificateSigningRequestOutput) ToCertificateSigningRequestOutput() CertificateSigningRequestOutput {

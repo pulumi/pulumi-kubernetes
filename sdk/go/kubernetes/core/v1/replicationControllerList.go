@@ -119,15 +119,15 @@ type ReplicationControllerListInput interface {
 	ToReplicationControllerListOutputWithContext(ctx context.Context) ReplicationControllerListOutput
 }
 
-func (ReplicationControllerList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicationControllerList)(nil)).Elem()
+func (*ReplicationControllerList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationControllerList)(nil))
 }
 
-func (i ReplicationControllerList) ToReplicationControllerListOutput() ReplicationControllerListOutput {
+func (i *ReplicationControllerList) ToReplicationControllerListOutput() ReplicationControllerListOutput {
 	return i.ToReplicationControllerListOutputWithContext(context.Background())
 }
 
-func (i ReplicationControllerList) ToReplicationControllerListOutputWithContext(ctx context.Context) ReplicationControllerListOutput {
+func (i *ReplicationControllerList) ToReplicationControllerListOutputWithContext(ctx context.Context) ReplicationControllerListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListOutput)
 }
 
@@ -136,7 +136,7 @@ type ReplicationControllerListOutput struct {
 }
 
 func (ReplicationControllerListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicationControllerListOutput)(nil)).Elem()
+	return reflect.TypeOf((*ReplicationControllerList)(nil))
 }
 
 func (o ReplicationControllerListOutput) ToReplicationControllerListOutput() ReplicationControllerListOutput {

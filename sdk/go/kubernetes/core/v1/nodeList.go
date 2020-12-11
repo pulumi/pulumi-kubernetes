@@ -119,15 +119,15 @@ type NodeListInput interface {
 	ToNodeListOutputWithContext(ctx context.Context) NodeListOutput
 }
 
-func (NodeList) ElementType() reflect.Type {
-	return reflect.TypeOf((*NodeList)(nil)).Elem()
+func (*NodeList) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeList)(nil))
 }
 
-func (i NodeList) ToNodeListOutput() NodeListOutput {
+func (i *NodeList) ToNodeListOutput() NodeListOutput {
 	return i.ToNodeListOutputWithContext(context.Background())
 }
 
-func (i NodeList) ToNodeListOutputWithContext(ctx context.Context) NodeListOutput {
+func (i *NodeList) ToNodeListOutputWithContext(ctx context.Context) NodeListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NodeListOutput)
 }
 
@@ -136,7 +136,7 @@ type NodeListOutput struct {
 }
 
 func (NodeListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NodeListOutput)(nil)).Elem()
+	return reflect.TypeOf((*NodeList)(nil))
 }
 
 func (o NodeListOutput) ToNodeListOutput() NodeListOutput {

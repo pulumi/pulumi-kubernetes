@@ -125,15 +125,15 @@ type CSIDriverInput interface {
 	ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput
 }
 
-func (CSIDriver) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSIDriver)(nil)).Elem()
+func (*CSIDriver) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIDriver)(nil))
 }
 
-func (i CSIDriver) ToCSIDriverOutput() CSIDriverOutput {
+func (i *CSIDriver) ToCSIDriverOutput() CSIDriverOutput {
 	return i.ToCSIDriverOutputWithContext(context.Background())
 }
 
-func (i CSIDriver) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput {
+func (i *CSIDriver) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverOutput)
 }
 
@@ -142,7 +142,7 @@ type CSIDriverOutput struct {
 }
 
 func (CSIDriverOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSIDriverOutput)(nil)).Elem()
+	return reflect.TypeOf((*CSIDriver)(nil))
 }
 
 func (o CSIDriverOutput) ToCSIDriverOutput() CSIDriverOutput {

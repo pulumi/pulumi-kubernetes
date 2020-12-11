@@ -119,15 +119,15 @@ type ServiceListInput interface {
 	ToServiceListOutputWithContext(ctx context.Context) ServiceListOutput
 }
 
-func (ServiceList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ServiceList)(nil)).Elem()
+func (*ServiceList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceList)(nil))
 }
 
-func (i ServiceList) ToServiceListOutput() ServiceListOutput {
+func (i *ServiceList) ToServiceListOutput() ServiceListOutput {
 	return i.ToServiceListOutputWithContext(context.Background())
 }
 
-func (i ServiceList) ToServiceListOutputWithContext(ctx context.Context) ServiceListOutput {
+func (i *ServiceList) ToServiceListOutputWithContext(ctx context.Context) ServiceListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceListOutput)
 }
 
@@ -136,7 +136,7 @@ type ServiceListOutput struct {
 }
 
 func (ServiceListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ServiceListOutput)(nil)).Elem()
+	return reflect.TypeOf((*ServiceList)(nil))
 }
 
 func (o ServiceListOutput) ToServiceListOutput() ServiceListOutput {

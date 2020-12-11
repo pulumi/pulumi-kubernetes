@@ -115,15 +115,15 @@ type APIServiceListInput interface {
 	ToAPIServiceListOutputWithContext(ctx context.Context) APIServiceListOutput
 }
 
-func (APIServiceList) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIServiceList)(nil)).Elem()
+func (*APIServiceList) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIServiceList)(nil))
 }
 
-func (i APIServiceList) ToAPIServiceListOutput() APIServiceListOutput {
+func (i *APIServiceList) ToAPIServiceListOutput() APIServiceListOutput {
 	return i.ToAPIServiceListOutputWithContext(context.Background())
 }
 
-func (i APIServiceList) ToAPIServiceListOutputWithContext(ctx context.Context) APIServiceListOutput {
+func (i *APIServiceList) ToAPIServiceListOutputWithContext(ctx context.Context) APIServiceListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceListOutput)
 }
 
@@ -132,7 +132,7 @@ type APIServiceListOutput struct {
 }
 
 func (APIServiceListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIServiceListOutput)(nil)).Elem()
+	return reflect.TypeOf((*APIServiceList)(nil))
 }
 
 func (o APIServiceListOutput) ToAPIServiceListOutput() APIServiceListOutput {

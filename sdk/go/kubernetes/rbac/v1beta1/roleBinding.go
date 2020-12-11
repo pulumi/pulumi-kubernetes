@@ -138,15 +138,15 @@ type RoleBindingInput interface {
 	ToRoleBindingOutputWithContext(ctx context.Context) RoleBindingOutput
 }
 
-func (RoleBinding) ElementType() reflect.Type {
-	return reflect.TypeOf((*RoleBinding)(nil)).Elem()
+func (*RoleBinding) ElementType() reflect.Type {
+	return reflect.TypeOf((*RoleBinding)(nil))
 }
 
-func (i RoleBinding) ToRoleBindingOutput() RoleBindingOutput {
+func (i *RoleBinding) ToRoleBindingOutput() RoleBindingOutput {
 	return i.ToRoleBindingOutputWithContext(context.Background())
 }
 
-func (i RoleBinding) ToRoleBindingOutputWithContext(ctx context.Context) RoleBindingOutput {
+func (i *RoleBinding) ToRoleBindingOutputWithContext(ctx context.Context) RoleBindingOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingOutput)
 }
 
@@ -155,7 +155,7 @@ type RoleBindingOutput struct {
 }
 
 func (RoleBindingOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RoleBindingOutput)(nil)).Elem()
+	return reflect.TypeOf((*RoleBinding)(nil))
 }
 
 func (o RoleBindingOutput) ToRoleBindingOutput() RoleBindingOutput {

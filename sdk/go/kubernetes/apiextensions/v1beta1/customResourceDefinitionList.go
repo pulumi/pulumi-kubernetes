@@ -114,15 +114,15 @@ type CustomResourceDefinitionListInput interface {
 	ToCustomResourceDefinitionListOutputWithContext(ctx context.Context) CustomResourceDefinitionListOutput
 }
 
-func (CustomResourceDefinitionList) ElementType() reflect.Type {
-	return reflect.TypeOf((*CustomResourceDefinitionList)(nil)).Elem()
+func (*CustomResourceDefinitionList) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionList)(nil))
 }
 
-func (i CustomResourceDefinitionList) ToCustomResourceDefinitionListOutput() CustomResourceDefinitionListOutput {
+func (i *CustomResourceDefinitionList) ToCustomResourceDefinitionListOutput() CustomResourceDefinitionListOutput {
 	return i.ToCustomResourceDefinitionListOutputWithContext(context.Background())
 }
 
-func (i CustomResourceDefinitionList) ToCustomResourceDefinitionListOutputWithContext(ctx context.Context) CustomResourceDefinitionListOutput {
+func (i *CustomResourceDefinitionList) ToCustomResourceDefinitionListOutputWithContext(ctx context.Context) CustomResourceDefinitionListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListOutput)
 }
 
@@ -131,7 +131,7 @@ type CustomResourceDefinitionListOutput struct {
 }
 
 func (CustomResourceDefinitionListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CustomResourceDefinitionListOutput)(nil)).Elem()
+	return reflect.TypeOf((*CustomResourceDefinitionList)(nil))
 }
 
 func (o CustomResourceDefinitionListOutput) ToCustomResourceDefinitionListOutput() CustomResourceDefinitionListOutput {

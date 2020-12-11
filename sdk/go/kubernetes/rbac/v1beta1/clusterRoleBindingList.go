@@ -119,15 +119,15 @@ type ClusterRoleBindingListInput interface {
 	ToClusterRoleBindingListOutputWithContext(ctx context.Context) ClusterRoleBindingListOutput
 }
 
-func (ClusterRoleBindingList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterRoleBindingList)(nil)).Elem()
+func (*ClusterRoleBindingList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterRoleBindingList)(nil))
 }
 
-func (i ClusterRoleBindingList) ToClusterRoleBindingListOutput() ClusterRoleBindingListOutput {
+func (i *ClusterRoleBindingList) ToClusterRoleBindingListOutput() ClusterRoleBindingListOutput {
 	return i.ToClusterRoleBindingListOutputWithContext(context.Background())
 }
 
-func (i ClusterRoleBindingList) ToClusterRoleBindingListOutputWithContext(ctx context.Context) ClusterRoleBindingListOutput {
+func (i *ClusterRoleBindingList) ToClusterRoleBindingListOutputWithContext(ctx context.Context) ClusterRoleBindingListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingListOutput)
 }
 
@@ -136,7 +136,7 @@ type ClusterRoleBindingListOutput struct {
 }
 
 func (ClusterRoleBindingListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterRoleBindingListOutput)(nil)).Elem()
+	return reflect.TypeOf((*ClusterRoleBindingList)(nil))
 }
 
 func (o ClusterRoleBindingListOutput) ToClusterRoleBindingListOutput() ClusterRoleBindingListOutput {

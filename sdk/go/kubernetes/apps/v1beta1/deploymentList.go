@@ -119,15 +119,15 @@ type DeploymentListInput interface {
 	ToDeploymentListOutputWithContext(ctx context.Context) DeploymentListOutput
 }
 
-func (DeploymentList) ElementType() reflect.Type {
-	return reflect.TypeOf((*DeploymentList)(nil)).Elem()
+func (*DeploymentList) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeploymentList)(nil))
 }
 
-func (i DeploymentList) ToDeploymentListOutput() DeploymentListOutput {
+func (i *DeploymentList) ToDeploymentListOutput() DeploymentListOutput {
 	return i.ToDeploymentListOutputWithContext(context.Background())
 }
 
-func (i DeploymentList) ToDeploymentListOutputWithContext(ctx context.Context) DeploymentListOutput {
+func (i *DeploymentList) ToDeploymentListOutputWithContext(ctx context.Context) DeploymentListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentListOutput)
 }
 
@@ -136,7 +136,7 @@ type DeploymentListOutput struct {
 }
 
 func (DeploymentListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DeploymentListOutput)(nil)).Elem()
+	return reflect.TypeOf((*DeploymentList)(nil))
 }
 
 func (o DeploymentListOutput) ToDeploymentListOutput() DeploymentListOutput {

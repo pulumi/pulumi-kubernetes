@@ -115,15 +115,15 @@ type PodTemplateInput interface {
 	ToPodTemplateOutputWithContext(ctx context.Context) PodTemplateOutput
 }
 
-func (PodTemplate) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodTemplate)(nil)).Elem()
+func (*PodTemplate) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodTemplate)(nil))
 }
 
-func (i PodTemplate) ToPodTemplateOutput() PodTemplateOutput {
+func (i *PodTemplate) ToPodTemplateOutput() PodTemplateOutput {
 	return i.ToPodTemplateOutputWithContext(context.Background())
 }
 
-func (i PodTemplate) ToPodTemplateOutputWithContext(ctx context.Context) PodTemplateOutput {
+func (i *PodTemplate) ToPodTemplateOutputWithContext(ctx context.Context) PodTemplateOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateOutput)
 }
 
@@ -132,7 +132,7 @@ type PodTemplateOutput struct {
 }
 
 func (PodTemplateOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodTemplateOutput)(nil)).Elem()
+	return reflect.TypeOf((*PodTemplate)(nil))
 }
 
 func (o PodTemplateOutput) ToPodTemplateOutput() PodTemplateOutput {

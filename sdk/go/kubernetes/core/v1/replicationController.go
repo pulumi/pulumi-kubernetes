@@ -121,15 +121,15 @@ type ReplicationControllerInput interface {
 	ToReplicationControllerOutputWithContext(ctx context.Context) ReplicationControllerOutput
 }
 
-func (ReplicationController) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicationController)(nil)).Elem()
+func (*ReplicationController) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicationController)(nil))
 }
 
-func (i ReplicationController) ToReplicationControllerOutput() ReplicationControllerOutput {
+func (i *ReplicationController) ToReplicationControllerOutput() ReplicationControllerOutput {
 	return i.ToReplicationControllerOutputWithContext(context.Background())
 }
 
-func (i ReplicationController) ToReplicationControllerOutputWithContext(ctx context.Context) ReplicationControllerOutput {
+func (i *ReplicationController) ToReplicationControllerOutputWithContext(ctx context.Context) ReplicationControllerOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerOutput)
 }
 
@@ -138,7 +138,7 @@ type ReplicationControllerOutput struct {
 }
 
 func (ReplicationControllerOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicationControllerOutput)(nil)).Elem()
+	return reflect.TypeOf((*ReplicationController)(nil))
 }
 
 func (o ReplicationControllerOutput) ToReplicationControllerOutput() ReplicationControllerOutput {

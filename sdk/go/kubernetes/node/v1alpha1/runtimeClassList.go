@@ -119,15 +119,15 @@ type RuntimeClassListInput interface {
 	ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput
 }
 
-func (RuntimeClassList) ElementType() reflect.Type {
-	return reflect.TypeOf((*RuntimeClassList)(nil)).Elem()
+func (*RuntimeClassList) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassList)(nil))
 }
 
-func (i RuntimeClassList) ToRuntimeClassListOutput() RuntimeClassListOutput {
+func (i *RuntimeClassList) ToRuntimeClassListOutput() RuntimeClassListOutput {
 	return i.ToRuntimeClassListOutputWithContext(context.Background())
 }
 
-func (i RuntimeClassList) ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput {
+func (i *RuntimeClassList) ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListOutput)
 }
 
@@ -136,7 +136,7 @@ type RuntimeClassListOutput struct {
 }
 
 func (RuntimeClassListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RuntimeClassListOutput)(nil)).Elem()
+	return reflect.TypeOf((*RuntimeClassList)(nil))
 }
 
 func (o RuntimeClassListOutput) ToRuntimeClassListOutput() RuntimeClassListOutput {

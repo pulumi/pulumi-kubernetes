@@ -119,15 +119,15 @@ type LeaseListInput interface {
 	ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput
 }
 
-func (LeaseList) ElementType() reflect.Type {
-	return reflect.TypeOf((*LeaseList)(nil)).Elem()
+func (*LeaseList) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseList)(nil))
 }
 
-func (i LeaseList) ToLeaseListOutput() LeaseListOutput {
+func (i *LeaseList) ToLeaseListOutput() LeaseListOutput {
 	return i.ToLeaseListOutputWithContext(context.Background())
 }
 
-func (i LeaseList) ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput {
+func (i *LeaseList) ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseListOutput)
 }
 
@@ -136,7 +136,7 @@ type LeaseListOutput struct {
 }
 
 func (LeaseListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LeaseListOutput)(nil)).Elem()
+	return reflect.TypeOf((*LeaseList)(nil))
 }
 
 func (o LeaseListOutput) ToLeaseListOutput() LeaseListOutput {

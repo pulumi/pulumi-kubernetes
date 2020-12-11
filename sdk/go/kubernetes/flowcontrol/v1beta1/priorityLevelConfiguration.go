@@ -127,15 +127,15 @@ type PriorityLevelConfigurationInput interface {
 	ToPriorityLevelConfigurationOutputWithContext(ctx context.Context) PriorityLevelConfigurationOutput
 }
 
-func (PriorityLevelConfiguration) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityLevelConfiguration)(nil)).Elem()
+func (*PriorityLevelConfiguration) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityLevelConfiguration)(nil))
 }
 
-func (i PriorityLevelConfiguration) ToPriorityLevelConfigurationOutput() PriorityLevelConfigurationOutput {
+func (i *PriorityLevelConfiguration) ToPriorityLevelConfigurationOutput() PriorityLevelConfigurationOutput {
 	return i.ToPriorityLevelConfigurationOutputWithContext(context.Background())
 }
 
-func (i PriorityLevelConfiguration) ToPriorityLevelConfigurationOutputWithContext(ctx context.Context) PriorityLevelConfigurationOutput {
+func (i *PriorityLevelConfiguration) ToPriorityLevelConfigurationOutputWithContext(ctx context.Context) PriorityLevelConfigurationOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationOutput)
 }
 
@@ -144,7 +144,7 @@ type PriorityLevelConfigurationOutput struct {
 }
 
 func (PriorityLevelConfigurationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityLevelConfigurationOutput)(nil)).Elem()
+	return reflect.TypeOf((*PriorityLevelConfiguration)(nil))
 }
 
 func (o PriorityLevelConfigurationOutput) ToPriorityLevelConfigurationOutput() PriorityLevelConfigurationOutput {

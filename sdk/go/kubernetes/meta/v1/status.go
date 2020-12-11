@@ -150,15 +150,15 @@ type StatusInput interface {
 	ToStatusOutputWithContext(ctx context.Context) StatusOutput
 }
 
-func (Status) ElementType() reflect.Type {
-	return reflect.TypeOf((*Status)(nil)).Elem()
+func (*Status) ElementType() reflect.Type {
+	return reflect.TypeOf((*Status)(nil))
 }
 
-func (i Status) ToStatusOutput() StatusOutput {
+func (i *Status) ToStatusOutput() StatusOutput {
 	return i.ToStatusOutputWithContext(context.Background())
 }
 
-func (i Status) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
+func (i *Status) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatusOutput)
 }
 
@@ -167,7 +167,7 @@ type StatusOutput struct {
 }
 
 func (StatusOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*StatusOutput)(nil)).Elem()
+	return reflect.TypeOf((*Status)(nil))
 }
 
 func (o StatusOutput) ToStatusOutput() StatusOutput {

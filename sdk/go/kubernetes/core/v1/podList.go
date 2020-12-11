@@ -119,15 +119,15 @@ type PodListInput interface {
 	ToPodListOutputWithContext(ctx context.Context) PodListOutput
 }
 
-func (PodList) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodList)(nil)).Elem()
+func (*PodList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodList)(nil))
 }
 
-func (i PodList) ToPodListOutput() PodListOutput {
+func (i *PodList) ToPodListOutput() PodListOutput {
 	return i.ToPodListOutputWithContext(context.Background())
 }
 
-func (i PodList) ToPodListOutputWithContext(ctx context.Context) PodListOutput {
+func (i *PodList) ToPodListOutputWithContext(ctx context.Context) PodListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodListOutput)
 }
 
@@ -136,7 +136,7 @@ type PodListOutput struct {
 }
 
 func (PodListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodListOutput)(nil)).Elem()
+	return reflect.TypeOf((*PodList)(nil))
 }
 
 func (o PodListOutput) ToPodListOutput() PodListOutput {

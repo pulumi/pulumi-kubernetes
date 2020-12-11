@@ -125,15 +125,15 @@ type CSINodeInput interface {
 	ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput
 }
 
-func (CSINode) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINode)(nil)).Elem()
+func (*CSINode) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINode)(nil))
 }
 
-func (i CSINode) ToCSINodeOutput() CSINodeOutput {
+func (i *CSINode) ToCSINodeOutput() CSINodeOutput {
 	return i.ToCSINodeOutputWithContext(context.Background())
 }
 
-func (i CSINode) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput {
+func (i *CSINode) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeOutput)
 }
 
@@ -142,7 +142,7 @@ type CSINodeOutput struct {
 }
 
 func (CSINodeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeOutput)(nil)).Elem()
+	return reflect.TypeOf((*CSINode)(nil))
 }
 
 func (o CSINodeOutput) ToCSINodeOutput() CSINodeOutput {
