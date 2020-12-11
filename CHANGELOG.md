@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Update pulumi deps to v2.15.5 (https://github.com/pulumi/pulumi-kubernetes/pull/1402)
+
 ## 2.7.4 (December 8, 2020)
 
 -   Add support for k8s v1.20.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1330)

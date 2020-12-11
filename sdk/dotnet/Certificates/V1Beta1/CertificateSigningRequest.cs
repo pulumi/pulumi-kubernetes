@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
     /// <summary>
     /// Describes a certificate signing request
     /// </summary>
+    [KubernetesResourceType("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest")]
     public partial class CertificateSigningRequest : KubernetesResource
     {
         /// <summary>

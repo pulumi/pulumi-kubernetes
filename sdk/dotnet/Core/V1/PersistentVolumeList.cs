@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PersistentVolumeList is a list of PersistentVolume items.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:PersistentVolumeList")]
     public partial class PersistentVolumeList : KubernetesResource
     {
         /// <summary>

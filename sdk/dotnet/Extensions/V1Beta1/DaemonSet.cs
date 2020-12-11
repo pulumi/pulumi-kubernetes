@@ -13,6 +13,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
     [Obsolete(@"extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters.")]
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:DaemonSet")]
     public partial class DaemonSet : KubernetesResource
     {
         /// <summary>

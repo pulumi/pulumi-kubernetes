@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList")]
     public partial class VolumeAttachmentList : KubernetesResource
     {
         /// <summary>

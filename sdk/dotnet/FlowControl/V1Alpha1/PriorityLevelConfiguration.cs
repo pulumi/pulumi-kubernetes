@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
     /// <summary>
     /// PriorityLevelConfiguration represents the configuration of a priority level.
     /// </summary>
+    [KubernetesResourceType("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration")]
     public partial class PriorityLevelConfiguration : KubernetesResource
     {
         /// <summary>

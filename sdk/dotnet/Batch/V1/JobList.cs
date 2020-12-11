@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// <summary>
     /// JobList is a collection of jobs.
     /// </summary>
+    [KubernetesResourceType("kubernetes:batch/v1:JobList")]
     public partial class JobList : KubernetesResource
     {
         /// <summary>

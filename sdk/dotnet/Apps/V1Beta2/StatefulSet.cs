@@ -29,6 +29,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
     [Obsolete(@"apps/v1beta2/StatefulSet is deprecated by apps/v1/StatefulSet and not supported by Kubernetes v1.16+ clusters.")]
+    [KubernetesResourceType("kubernetes:apps/v1beta2:StatefulSet")]
     public partial class StatefulSet : KubernetesResource
     {
         /// <summary>

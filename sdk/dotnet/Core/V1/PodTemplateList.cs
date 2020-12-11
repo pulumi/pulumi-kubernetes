@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PodTemplateList is a list of PodTemplates.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:PodTemplateList")]
     public partial class PodTemplateList : KubernetesResource
     {
         /// <summary>

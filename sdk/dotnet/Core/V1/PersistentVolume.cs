@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:PersistentVolume")]
     public partial class PersistentVolume : KubernetesResource
     {
         /// <summary>

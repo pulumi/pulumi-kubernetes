@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
     /// <summary>
     /// configuration of a horizontal pod autoscaler.
     /// </summary>
+    [KubernetesResourceType("kubernetes:autoscaling/v1:HorizontalPodAutoscaler")]
     public partial class HorizontalPodAutoscaler : KubernetesResource
     {
         /// <summary>

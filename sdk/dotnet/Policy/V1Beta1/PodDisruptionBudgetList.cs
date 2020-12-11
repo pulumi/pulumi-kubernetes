@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
     /// <summary>
     /// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
     /// </summary>
+    [KubernetesResourceType("kubernetes:policy/v1beta1:PodDisruptionBudgetList")]
     public partial class PodDisruptionBudgetList : KubernetesResource
     {
         /// <summary>

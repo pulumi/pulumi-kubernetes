@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
     /// <summary>
     /// StorageClassList is a collection of storage classes.
     /// </summary>
+    [KubernetesResourceType("kubernetes:storage.k8s.io/v1beta1:StorageClassList")]
     public partial class StorageClassList : KubernetesResource
     {
         /// <summary>

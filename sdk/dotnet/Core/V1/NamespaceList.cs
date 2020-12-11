@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// NamespaceList is a list of Namespaces.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:NamespaceList")]
     public partial class NamespaceList : KubernetesResource
     {
         /// <summary>

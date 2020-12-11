@@ -77,4 +77,11 @@ namespace Pulumi.Kubernetes
             }
         }
     }
+
+    internal sealed class KubernetesResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    {
+        public KubernetesResourceTypeAttribute(string type) : base(type, Utilities.Version)
+        {
+        }
+    }
 }

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1
     /// <summary>
     /// APIServiceList is a list of APIService objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apiregistration.k8s.io/v1beta1:APIServiceList")]
     public partial class APIServiceList : KubernetesResource
     {
         /// <summary>

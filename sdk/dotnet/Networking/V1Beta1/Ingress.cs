@@ -26,6 +26,7 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
+    [KubernetesResourceType("kubernetes:networking.k8s.io/v1beta1:Ingress")]
     public partial class Ingress : KubernetesResource
     {
         /// <summary>

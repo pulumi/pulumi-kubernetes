@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
     /// <summary>
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:policy/v1beta1:PodSecurityPolicyList")]
     public partial class PodSecurityPolicyList : KubernetesResource
     {
         /// <summary>

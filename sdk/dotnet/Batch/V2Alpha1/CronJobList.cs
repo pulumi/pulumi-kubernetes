@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1
     /// <summary>
     /// CronJobList is a collection of cron jobs.
     /// </summary>
+    [KubernetesResourceType("kubernetes:batch/v2alpha1:CronJobList")]
     public partial class CronJobList : KubernetesResource
     {
         /// <summary>

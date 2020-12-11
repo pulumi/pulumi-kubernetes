@@ -13,6 +13,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
     [Obsolete(@"extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters.")]
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:ReplicaSet")]
     public partial class ReplicaSet : KubernetesResource
     {
         /// <summary>

@@ -3,6 +3,7 @@ module github.com/pulumi/pulumi-kubernetes/provider/v2
 go 1.15
 
 require (
+	github.com/Azure/go-autorest/autorest v0.10.0 // indirect
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/evanphx/json-patch v4.9.0+incompatible
 	github.com/golang/protobuf v1.4.2
@@ -11,8 +12,8 @@ require (
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg/v2 v2.15.1-0.20201202214525-260620430c4c
-	github.com/pulumi/pulumi/sdk/v2 v2.15.1-0.20201202214525-260620430c4c
+	github.com/pulumi/pulumi/pkg/v2 v2.15.5
+	github.com/pulumi/pulumi/sdk/v2 v2.15.5
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.29.1
 	helm.sh/helm/v3 v3.4.1

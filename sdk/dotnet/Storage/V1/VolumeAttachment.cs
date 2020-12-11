@@ -14,6 +14,7 @@ namespace Pulumi.Kubernetes.Storage.V1
     /// 
     /// VolumeAttachment objects are non-namespaced.
     /// </summary>
+    [KubernetesResourceType("kubernetes:storage.k8s.io/v1:VolumeAttachment")]
     public partial class VolumeAttachment : KubernetesResource
     {
         /// <summary>

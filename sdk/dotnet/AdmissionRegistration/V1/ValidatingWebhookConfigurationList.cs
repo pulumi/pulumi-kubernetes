@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
     /// <summary>
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
+    [KubernetesResourceType("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList")]
     public partial class ValidatingWebhookConfigurationList : KubernetesResource
     {
         /// <summary>

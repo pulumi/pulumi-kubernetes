@@ -35,6 +35,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
     [Obsolete(@"extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.")]
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:Deployment")]
     public partial class Deployment : KubernetesResource
     {
         /// <summary>

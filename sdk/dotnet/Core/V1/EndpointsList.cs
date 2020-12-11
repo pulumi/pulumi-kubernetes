@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// EndpointsList is a list of endpoints.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:EndpointsList")]
     public partial class EndpointsList : KubernetesResource
     {
         /// <summary>

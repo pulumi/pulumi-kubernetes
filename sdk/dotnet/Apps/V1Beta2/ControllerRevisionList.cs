@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
     /// <summary>
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apps/v1beta2:ControllerRevisionList")]
     public partial class ControllerRevisionList : KubernetesResource
     {
         /// <summary>

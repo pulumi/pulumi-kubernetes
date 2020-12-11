@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apps/v1beta2:DeploymentList")]
     public partial class DeploymentList : KubernetesResource
     {
         /// <summary>

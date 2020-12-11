@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PersistentVolumeClaim is a user's request for and claim to a persistent volume
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:PersistentVolumeClaim")]
     public partial class PersistentVolumeClaim : KubernetesResource
     {
         /// <summary>

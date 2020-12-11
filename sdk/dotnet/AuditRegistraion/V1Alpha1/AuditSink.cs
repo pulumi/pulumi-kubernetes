@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
     /// <summary>
     /// AuditSink represents a cluster level audit sink
     /// </summary>
+    [KubernetesResourceType("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink")]
     public partial class AuditSink : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Storage.V1
     /// <summary>
     /// CSIDriverList is a collection of CSIDriver objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:storage.k8s.io/v1:CSIDriverList")]
     public partial class CSIDriverList : KubernetesResource
     {
         /// <summary>

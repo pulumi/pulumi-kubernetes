@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList")]
     public partial class CustomResourceDefinitionList : KubernetesResource
     {
         /// <summary>

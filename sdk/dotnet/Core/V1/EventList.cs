@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// EventList is a list of events.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:EventList")]
     public partial class EventList : KubernetesResource
     {
         /// <summary>

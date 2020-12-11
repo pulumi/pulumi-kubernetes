@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
     /// <summary>
     /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
     /// </summary>
+    [KubernetesResourceType("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList")]
     public partial class MutatingWebhookConfigurationList : KubernetesResource
     {
         /// <summary>

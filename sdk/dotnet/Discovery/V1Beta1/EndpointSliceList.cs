@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
     /// <summary>
     /// EndpointSliceList represents a list of endpoint slices
     /// </summary>
+    [KubernetesResourceType("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList")]
     public partial class EndpointSliceList : KubernetesResource
     {
         /// <summary>

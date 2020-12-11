@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ConfigMapList is a resource containing a list of ConfigMap objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:ConfigMapList")]
     public partial class ConfigMapList : KubernetesResource
     {
         /// <summary>

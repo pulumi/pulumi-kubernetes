@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ResourceQuota sets aggregate quota restrictions enforced per namespace
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:ResourceQuota")]
     public partial class ResourceQuota : KubernetesResource
     {
         /// <summary>

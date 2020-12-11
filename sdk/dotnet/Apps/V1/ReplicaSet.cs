@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// <summary>
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apps/v1:ReplicaSet")]
     public partial class ReplicaSet : KubernetesResource
     {
         /// <summary>

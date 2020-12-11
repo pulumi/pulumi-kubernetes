@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
     /// <summary>
     /// MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
     /// </summary>
+    [KubernetesResourceType("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration")]
     public partial class MutatingWebhookConfiguration : KubernetesResource
     {
         /// <summary>

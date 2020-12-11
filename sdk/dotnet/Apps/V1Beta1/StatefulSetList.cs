@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta1
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apps/v1beta1:StatefulSetList")]
     public partial class StatefulSetList : KubernetesResource
     {
         /// <summary>

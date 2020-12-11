@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
+    [KubernetesResourceType("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList")]
     public partial class PriorityClassList : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// <summary>
     /// NetworkPolicy describes what network traffic is allowed for a set of Pods
     /// </summary>
+    [KubernetesResourceType("kubernetes:networking.k8s.io/v1:NetworkPolicy")]
     public partial class NetworkPolicy : KubernetesResource
     {
         /// <summary>

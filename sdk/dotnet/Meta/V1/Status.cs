@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Meta.V1
     /// <summary>
     /// Status is a return value for calls that don't return other objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:meta/v1:Status")]
     public partial class Status : KubernetesResource
     {
         /// <summary>

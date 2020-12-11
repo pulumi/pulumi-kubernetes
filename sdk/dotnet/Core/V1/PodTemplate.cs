@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PodTemplate describes a template for creating copies of a predefined pod.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:PodTemplate")]
     public partial class PodTemplate : KubernetesResource
     {
         /// <summary>
