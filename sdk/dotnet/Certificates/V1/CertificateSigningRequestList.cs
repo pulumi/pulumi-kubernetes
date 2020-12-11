@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Certificates.V1
     /// <summary>
     /// CertificateSigningRequestList is a collection of CertificateSigningRequest objects
     /// </summary>
+    [KubernetesResourceType("kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList")]
     public partial class CertificateSigningRequestList : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
     /// <summary>
     /// AuditSinkList is a list of AuditSink items.
     /// </summary>
+    [KubernetesResourceType("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList")]
     public partial class AuditSinkList : KubernetesResource
     {
         /// <summary>

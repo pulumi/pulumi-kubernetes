@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2
     /// <summary>
     /// HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList")]
     public partial class HorizontalPodAutoscalerList : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
     /// <summary>
     /// EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
     /// </summary>
+    [KubernetesResourceType("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice")]
     public partial class EndpointSlice : KubernetesResource
     {
         /// <summary>

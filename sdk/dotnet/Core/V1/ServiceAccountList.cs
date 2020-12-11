@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ServiceAccountList is a list of ServiceAccount objects
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:ServiceAccountList")]
     public partial class ServiceAccountList : KubernetesResource
     {
         /// <summary>

@@ -23,6 +23,7 @@ namespace Pulumi.Kubernetes.Core.V1
     ///     },
     ///  ]
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:Endpoints")]
     public partial class Endpoints : KubernetesResource
     {
         /// <summary>

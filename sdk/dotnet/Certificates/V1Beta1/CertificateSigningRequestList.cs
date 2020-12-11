@@ -9,6 +9,7 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Kubernetes.Certificates.V1Beta1
 {
+    [KubernetesResourceType("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList")]
     public partial class CertificateSigningRequestList : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// LimitRangeList is a list of LimitRange items.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:LimitRangeList")]
     public partial class LimitRangeList : KubernetesResource
     {
         /// <summary>

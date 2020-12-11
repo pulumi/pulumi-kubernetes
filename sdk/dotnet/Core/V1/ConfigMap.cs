@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ConfigMap holds configuration data for pods to consume.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:ConfigMap")]
     public partial class ConfigMap : KubernetesResource
     {
         /// <summary>

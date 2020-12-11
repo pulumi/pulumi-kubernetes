@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// SecretList is a list of Secret.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:SecretList")]
     public partial class SecretList : KubernetesResource
     {
         /// <summary>

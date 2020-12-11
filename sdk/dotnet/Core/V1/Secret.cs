@@ -22,6 +22,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
     /// https://kubernetes.io/docs/concepts/configuration/secret/#risks
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:Secret")]
     public partial class Secret : KubernetesResource
     {
         /// <summary>

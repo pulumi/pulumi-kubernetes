@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:NetworkPolicyList")]
     public partial class NetworkPolicyList : KubernetesResource
     {
         /// <summary>

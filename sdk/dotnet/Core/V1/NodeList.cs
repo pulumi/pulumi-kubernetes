@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// NodeList is the whole list of all Nodes which have been registered with master.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:NodeList")]
     public partial class NodeList : KubernetesResource
     {
         /// <summary>

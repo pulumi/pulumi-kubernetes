@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Coordination.V1Beta1
     /// <summary>
     /// LeaseList is a list of Lease objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:coordination.k8s.io/v1beta1:LeaseList")]
     public partial class LeaseList : KubernetesResource
     {
         /// <summary>

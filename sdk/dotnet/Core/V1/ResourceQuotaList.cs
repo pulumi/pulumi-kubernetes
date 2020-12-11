@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ResourceQuotaList is a list of ResourceQuota items.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:ResourceQuotaList")]
     public partial class ResourceQuotaList : KubernetesResource
     {
         /// <summary>

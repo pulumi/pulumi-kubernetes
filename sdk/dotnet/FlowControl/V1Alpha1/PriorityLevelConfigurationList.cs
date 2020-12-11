@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
     /// <summary>
     /// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList")]
     public partial class PriorityLevelConfigurationList : KubernetesResource
     {
         /// <summary>

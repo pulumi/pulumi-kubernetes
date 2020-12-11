@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
     /// <summary>
     /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
     /// </summary>
+    [KubernetesResourceType("kubernetes:apiregistration.k8s.io/v1:APIService")]
     public partial class APIService : KubernetesResource
     {
         /// <summary>

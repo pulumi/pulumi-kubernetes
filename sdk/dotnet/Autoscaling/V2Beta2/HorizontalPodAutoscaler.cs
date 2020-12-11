@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2
     /// <summary>
     /// HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
     /// </summary>
+    [KubernetesResourceType("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler")]
     public partial class HorizontalPodAutoscaler : KubernetesResource
     {
         /// <summary>

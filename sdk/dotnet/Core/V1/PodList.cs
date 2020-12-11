@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PodList is a list of Pods.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:PodList")]
     public partial class PodList : KubernetesResource
     {
         /// <summary>

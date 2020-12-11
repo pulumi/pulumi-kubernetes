@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// <summary>
     /// IngressClassList is a collection of IngressClasses.
     /// </summary>
+    [KubernetesResourceType("kubernetes:networking.k8s.io/v1:IngressClassList")]
     public partial class IngressClassList : KubernetesResource
     {
         /// <summary>

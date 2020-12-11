@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Node.V1Beta1
     /// <summary>
     /// RuntimeClassList is a list of RuntimeClass objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:node.k8s.io/v1beta1:RuntimeClassList")]
     public partial class RuntimeClassList : KubernetesResource
     {
         /// <summary>

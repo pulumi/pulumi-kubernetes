@@ -14,6 +14,7 @@ namespace Pulumi.Kubernetes.Storage.V1
     /// 
     /// StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
     /// </summary>
+    [KubernetesResourceType("kubernetes:storage.k8s.io/v1:StorageClass")]
     public partial class StorageClass : KubernetesResource
     {
         /// <summary>

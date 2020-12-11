@@ -27,6 +27,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
     [Obsolete(@"extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.")]
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:Ingress")]
     public partial class Ingress : KubernetesResource
     {
         /// <summary>

@@ -18,6 +18,7 @@ namespace Pulumi.Kubernetes.Certificates.V1
     /// 
     /// This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
     /// </summary>
+    [KubernetesResourceType("kubernetes:certificates.k8s.io/v1:CertificateSigningRequest")]
     public partial class CertificateSigningRequest : KubernetesResource
     {
         /// <summary>

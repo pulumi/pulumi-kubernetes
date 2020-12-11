@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Batch.V1Beta1
     /// <summary>
     /// CronJob represents the configuration of a single cron job.
     /// </summary>
+    [KubernetesResourceType("kubernetes:batch/v1beta1:CronJob")]
     public partial class CronJob : KubernetesResource
     {
         /// <summary>

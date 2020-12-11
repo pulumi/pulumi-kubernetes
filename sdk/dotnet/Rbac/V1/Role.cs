@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
     /// </summary>
+    [KubernetesResourceType("kubernetes:rbac.authorization.k8s.io/v1:Role")]
     public partial class Role : KubernetesResource
     {
         /// <summary>

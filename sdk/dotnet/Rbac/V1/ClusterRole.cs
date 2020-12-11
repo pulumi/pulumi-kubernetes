@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
     /// </summary>
+    [KubernetesResourceType("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole")]
     public partial class ClusterRole : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ServiceList holds a list of services.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:ServiceList")]
     public partial class ServiceList : KubernetesResource
     {
         /// <summary>

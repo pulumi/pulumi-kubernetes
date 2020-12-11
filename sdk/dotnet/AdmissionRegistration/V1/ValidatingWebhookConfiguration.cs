@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
     /// <summary>
     /// ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
     /// </summary>
+    [KubernetesResourceType("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration")]
     public partial class ValidatingWebhookConfiguration : KubernetesResource
     {
         /// <summary>

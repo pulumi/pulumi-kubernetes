@@ -48,7 +48,7 @@ setup(name='pulumi_kubernetes',
       packages=find_packages(),
       package_data={
           'pulumi_kubernetes': [
-              'py.typed'
+              'py.typed',
           ]
       },
       install_requires=[

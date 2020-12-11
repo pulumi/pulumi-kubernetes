@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Authorization.V1
     /// <summary>
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
+    [KubernetesResourceType("kubernetes:authorization.k8s.io/v1:SubjectAccessReview")]
     public partial class SubjectAccessReview : KubernetesResource
     {
         /// <summary>

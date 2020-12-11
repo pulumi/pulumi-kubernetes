@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apps/v1beta2:ReplicaSetList")]
     public partial class ReplicaSetList : KubernetesResource
     {
         /// <summary>

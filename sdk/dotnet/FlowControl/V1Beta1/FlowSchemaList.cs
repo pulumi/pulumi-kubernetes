@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Beta1
     /// <summary>
     /// FlowSchemaList is a list of FlowSchema objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaList")]
     public partial class FlowSchemaList : KubernetesResource
     {
         /// <summary>

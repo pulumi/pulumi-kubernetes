@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
     /// <summary>
     /// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
     /// </summary>
+    [KubernetesResourceType("kubernetes:policy/v1beta1:PodSecurityPolicy")]
     public partial class PodSecurityPolicy : KubernetesResource
     {
         /// <summary>

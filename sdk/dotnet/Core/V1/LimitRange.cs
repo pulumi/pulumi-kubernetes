@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// LimitRange sets resource usage limits for each kind of resource in a Namespace.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:LimitRange")]
     public partial class LimitRange : KubernetesResource
     {
         /// <summary>

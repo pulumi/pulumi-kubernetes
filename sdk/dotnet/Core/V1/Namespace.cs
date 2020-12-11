@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// Namespace provides a scope for Names. Use of multiple namespaces is optional.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:Namespace")]
     public partial class Namespace : KubernetesResource
     {
         /// <summary>

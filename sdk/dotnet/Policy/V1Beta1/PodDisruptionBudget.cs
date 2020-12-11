@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
     /// <summary>
     /// PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
     /// </summary>
+    [KubernetesResourceType("kubernetes:policy/v1beta1:PodDisruptionBudget")]
     public partial class PodDisruptionBudget : KubernetesResource
     {
         /// <summary>

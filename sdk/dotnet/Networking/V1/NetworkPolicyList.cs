@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// <summary>
     /// NetworkPolicyList is a list of NetworkPolicy objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:networking.k8s.io/v1:NetworkPolicyList")]
     public partial class NetworkPolicyList : KubernetesResource
     {
         /// <summary>

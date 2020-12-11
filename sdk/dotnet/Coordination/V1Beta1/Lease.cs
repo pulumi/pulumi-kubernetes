@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Coordination.V1Beta1
     /// <summary>
     /// Lease defines a lease concept.
     /// </summary>
+    [KubernetesResourceType("kubernetes:coordination.k8s.io/v1beta1:Lease")]
     public partial class Lease : KubernetesResource
     {
         /// <summary>

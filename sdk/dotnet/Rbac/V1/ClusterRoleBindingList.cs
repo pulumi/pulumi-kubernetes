@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     /// <summary>
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
+    [KubernetesResourceType("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList")]
     public partial class ClusterRoleBindingList : KubernetesResource
     {
         /// <summary>

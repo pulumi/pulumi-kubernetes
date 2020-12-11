@@ -27,6 +27,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:Pod")]
     public partial class Pod : KubernetesResource
     {
         /// <summary>

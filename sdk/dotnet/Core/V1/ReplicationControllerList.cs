@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// ReplicationControllerList is a collection of replication controllers.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:ReplicationControllerList")]
     public partial class ReplicationControllerList : KubernetesResource
     {
         /// <summary>

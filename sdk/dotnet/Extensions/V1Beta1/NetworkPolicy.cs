@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a set of Pods
     /// </summary>
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:NetworkPolicy")]
     public partial class NetworkPolicy : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// <summary>
     /// IngressList is a collection of Ingress.
     /// </summary>
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:IngressList")]
     public partial class IngressList : KubernetesResource
     {
         /// <summary>

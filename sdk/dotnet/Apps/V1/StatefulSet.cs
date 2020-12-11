@@ -28,6 +28,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apps/v1:StatefulSet")]
     public partial class StatefulSet : KubernetesResource
     {
         /// <summary>

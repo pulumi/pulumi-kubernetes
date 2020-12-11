@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:Node")]
     public partial class Node : KubernetesResource
     {
         /// <summary>

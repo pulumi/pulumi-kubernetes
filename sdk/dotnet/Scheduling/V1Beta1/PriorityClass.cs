@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1Beta1
     /// <summary>
     /// DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
     /// </summary>
+    [KubernetesResourceType("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass")]
     public partial class PriorityClass : KubernetesResource
     {
         /// <summary>

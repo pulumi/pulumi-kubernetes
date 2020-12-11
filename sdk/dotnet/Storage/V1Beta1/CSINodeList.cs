@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
     /// <summary>
     /// CSINodeList is a collection of CSINode objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:storage.k8s.io/v1beta1:CSINodeList")]
     public partial class CSINodeList : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     /// <summary>
     /// RoleList is a collection of Roles
     /// </summary>
+    [KubernetesResourceType("kubernetes:rbac.authorization.k8s.io/v1:RoleList")]
     public partial class RoleList : KubernetesResource
     {
         /// <summary>

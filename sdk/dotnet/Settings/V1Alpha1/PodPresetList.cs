@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
     /// <summary>
     /// PodPresetList is a list of PodPreset objects.
     /// </summary>
+    [KubernetesResourceType("kubernetes:settings.k8s.io/v1alpha1:PodPresetList")]
     public partial class PodPresetList : KubernetesResource
     {
         /// <summary>

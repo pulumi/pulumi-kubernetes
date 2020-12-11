@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Authentication.V1
     /// <summary>
     /// TokenRequest requests a token for a given service account.
     /// </summary>
+    [KubernetesResourceType("kubernetes:authentication.k8s.io/v1:TokenRequest")]
     public partial class TokenRequest : KubernetesResource
     {
         /// <summary>

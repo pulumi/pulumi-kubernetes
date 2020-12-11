@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes
     /// <summary>
     /// The provider type for the kubernetes package.
     /// </summary>
+    [KubernetesResourceType("pulumi:providers:kubernetes")]
     public partial class Provider : Pulumi.ProviderResource
     {
         /// <summary>

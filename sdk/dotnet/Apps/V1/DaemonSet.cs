@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// <summary>
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
+    [KubernetesResourceType("kubernetes:apps/v1:DaemonSet")]
     public partial class DaemonSet : KubernetesResource
     {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1
     /// <summary>
     /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
     /// </summary>
+    [KubernetesResourceType("kubernetes:settings.k8s.io/v1alpha1:PodPreset")]
     public partial class PodPreset : KubernetesResource
     {
         /// <summary>

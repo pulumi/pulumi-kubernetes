@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
     /// <summary>
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use PodSecurityPolicyList from policy API Group instead.
     /// </summary>
+    [KubernetesResourceType("kubernetes:extensions/v1beta1:PodSecurityPolicyList")]
     public partial class PodSecurityPolicyList : KubernetesResource
     {
         /// <summary>

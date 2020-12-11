@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// <summary>
     /// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
     /// </summary>
+    [KubernetesResourceType("kubernetes:core/v1:PersistentVolumeClaimList")]
     public partial class PersistentVolumeClaimList : KubernetesResource
     {
         /// <summary>

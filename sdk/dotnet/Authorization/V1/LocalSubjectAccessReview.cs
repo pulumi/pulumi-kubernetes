@@ -12,6 +12,7 @@ namespace Pulumi.Kubernetes.Authorization.V1
     /// <summary>
     /// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
     /// </summary>
+    [KubernetesResourceType("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview")]
     public partial class LocalSubjectAccessReview : KubernetesResource
     {
         /// <summary>
