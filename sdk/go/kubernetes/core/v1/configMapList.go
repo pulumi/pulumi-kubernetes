@@ -119,15 +119,15 @@ type ConfigMapListInput interface {
 	ToConfigMapListOutputWithContext(ctx context.Context) ConfigMapListOutput
 }
 
-func (ConfigMapList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ConfigMapList)(nil)).Elem()
+func (*ConfigMapList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ConfigMapList)(nil))
 }
 
-func (i ConfigMapList) ToConfigMapListOutput() ConfigMapListOutput {
+func (i *ConfigMapList) ToConfigMapListOutput() ConfigMapListOutput {
 	return i.ToConfigMapListOutputWithContext(context.Background())
 }
 
-func (i ConfigMapList) ToConfigMapListOutputWithContext(ctx context.Context) ConfigMapListOutput {
+func (i *ConfigMapList) ToConfigMapListOutputWithContext(ctx context.Context) ConfigMapListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListOutput)
 }
 
@@ -136,7 +136,7 @@ type ConfigMapListOutput struct {
 }
 
 func (ConfigMapListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ConfigMapListOutput)(nil)).Elem()
+	return reflect.TypeOf((*ConfigMapList)(nil))
 }
 
 func (o ConfigMapListOutput) ToConfigMapListOutput() ConfigMapListOutput {

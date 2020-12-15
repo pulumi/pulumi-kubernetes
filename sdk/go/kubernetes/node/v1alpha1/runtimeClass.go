@@ -128,15 +128,15 @@ type RuntimeClassInput interface {
 	ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput
 }
 
-func (RuntimeClass) ElementType() reflect.Type {
-	return reflect.TypeOf((*RuntimeClass)(nil)).Elem()
+func (*RuntimeClass) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClass)(nil))
 }
 
-func (i RuntimeClass) ToRuntimeClassOutput() RuntimeClassOutput {
+func (i *RuntimeClass) ToRuntimeClassOutput() RuntimeClassOutput {
 	return i.ToRuntimeClassOutputWithContext(context.Background())
 }
 
-func (i RuntimeClass) ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput {
+func (i *RuntimeClass) ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassOutput)
 }
 
@@ -145,7 +145,7 @@ type RuntimeClassOutput struct {
 }
 
 func (RuntimeClassOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RuntimeClassOutput)(nil)).Elem()
+	return reflect.TypeOf((*RuntimeClass)(nil))
 }
 
 func (o RuntimeClassOutput) ToRuntimeClassOutput() RuntimeClassOutput {

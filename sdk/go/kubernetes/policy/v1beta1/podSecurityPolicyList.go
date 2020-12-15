@@ -119,15 +119,15 @@ type PodSecurityPolicyListInput interface {
 	ToPodSecurityPolicyListOutputWithContext(ctx context.Context) PodSecurityPolicyListOutput
 }
 
-func (PodSecurityPolicyList) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodSecurityPolicyList)(nil)).Elem()
+func (*PodSecurityPolicyList) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodSecurityPolicyList)(nil))
 }
 
-func (i PodSecurityPolicyList) ToPodSecurityPolicyListOutput() PodSecurityPolicyListOutput {
+func (i *PodSecurityPolicyList) ToPodSecurityPolicyListOutput() PodSecurityPolicyListOutput {
 	return i.ToPodSecurityPolicyListOutputWithContext(context.Background())
 }
 
-func (i PodSecurityPolicyList) ToPodSecurityPolicyListOutputWithContext(ctx context.Context) PodSecurityPolicyListOutput {
+func (i *PodSecurityPolicyList) ToPodSecurityPolicyListOutputWithContext(ctx context.Context) PodSecurityPolicyListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyListOutput)
 }
 
@@ -136,7 +136,7 @@ type PodSecurityPolicyListOutput struct {
 }
 
 func (PodSecurityPolicyListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodSecurityPolicyListOutput)(nil)).Elem()
+	return reflect.TypeOf((*PodSecurityPolicyList)(nil))
 }
 
 func (o PodSecurityPolicyListOutput) ToPodSecurityPolicyListOutput() PodSecurityPolicyListOutput {

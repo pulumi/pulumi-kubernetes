@@ -112,15 +112,15 @@ type TokenRequestInput interface {
 	ToTokenRequestOutputWithContext(ctx context.Context) TokenRequestOutput
 }
 
-func (TokenRequest) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenRequest)(nil)).Elem()
+func (*TokenRequest) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenRequest)(nil))
 }
 
-func (i TokenRequest) ToTokenRequestOutput() TokenRequestOutput {
+func (i *TokenRequest) ToTokenRequestOutput() TokenRequestOutput {
 	return i.ToTokenRequestOutputWithContext(context.Background())
 }
 
-func (i TokenRequest) ToTokenRequestOutputWithContext(ctx context.Context) TokenRequestOutput {
+func (i *TokenRequest) ToTokenRequestOutputWithContext(ctx context.Context) TokenRequestOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestOutput)
 }
 
@@ -129,7 +129,7 @@ type TokenRequestOutput struct {
 }
 
 func (TokenRequestOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenRequestOutput)(nil)).Elem()
+	return reflect.TypeOf((*TokenRequest)(nil))
 }
 
 func (o TokenRequestOutput) ToTokenRequestOutput() TokenRequestOutput {

@@ -119,15 +119,15 @@ type JobListInput interface {
 	ToJobListOutputWithContext(ctx context.Context) JobListOutput
 }
 
-func (JobList) ElementType() reflect.Type {
-	return reflect.TypeOf((*JobList)(nil)).Elem()
+func (*JobList) ElementType() reflect.Type {
+	return reflect.TypeOf((*JobList)(nil))
 }
 
-func (i JobList) ToJobListOutput() JobListOutput {
+func (i *JobList) ToJobListOutput() JobListOutput {
 	return i.ToJobListOutputWithContext(context.Background())
 }
 
-func (i JobList) ToJobListOutputWithContext(ctx context.Context) JobListOutput {
+func (i *JobList) ToJobListOutputWithContext(ctx context.Context) JobListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(JobListOutput)
 }
 
@@ -136,7 +136,7 @@ type JobListOutput struct {
 }
 
 func (JobListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*JobListOutput)(nil)).Elem()
+	return reflect.TypeOf((*JobList)(nil))
 }
 
 func (o JobListOutput) ToJobListOutput() JobListOutput {

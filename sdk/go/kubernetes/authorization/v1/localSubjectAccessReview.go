@@ -126,15 +126,15 @@ type LocalSubjectAccessReviewInput interface {
 	ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput
 }
 
-func (LocalSubjectAccessReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReview)(nil)).Elem()
+func (*LocalSubjectAccessReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*LocalSubjectAccessReview)(nil))
 }
 
-func (i LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
+func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
 	return i.ToLocalSubjectAccessReviewOutputWithContext(context.Background())
 }
 
-func (i LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
+func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewOutput)
 }
 
@@ -143,7 +143,7 @@ type LocalSubjectAccessReviewOutput struct {
 }
 
 func (LocalSubjectAccessReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReviewOutput)(nil)).Elem()
+	return reflect.TypeOf((*LocalSubjectAccessReview)(nil))
 }
 
 func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {

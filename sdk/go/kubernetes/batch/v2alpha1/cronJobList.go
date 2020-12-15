@@ -119,15 +119,15 @@ type CronJobListInput interface {
 	ToCronJobListOutputWithContext(ctx context.Context) CronJobListOutput
 }
 
-func (CronJobList) ElementType() reflect.Type {
-	return reflect.TypeOf((*CronJobList)(nil)).Elem()
+func (*CronJobList) ElementType() reflect.Type {
+	return reflect.TypeOf((*CronJobList)(nil))
 }
 
-func (i CronJobList) ToCronJobListOutput() CronJobListOutput {
+func (i *CronJobList) ToCronJobListOutput() CronJobListOutput {
 	return i.ToCronJobListOutputWithContext(context.Background())
 }
 
-func (i CronJobList) ToCronJobListOutputWithContext(ctx context.Context) CronJobListOutput {
+func (i *CronJobList) ToCronJobListOutputWithContext(ctx context.Context) CronJobListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobListOutput)
 }
 
@@ -136,7 +136,7 @@ type CronJobListOutput struct {
 }
 
 func (CronJobListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CronJobListOutput)(nil)).Elem()
+	return reflect.TypeOf((*CronJobList)(nil))
 }
 
 func (o CronJobListOutput) ToCronJobListOutput() CronJobListOutput {

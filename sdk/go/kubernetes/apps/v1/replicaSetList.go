@@ -119,15 +119,15 @@ type ReplicaSetListInput interface {
 	ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput
 }
 
-func (ReplicaSetList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicaSetList)(nil)).Elem()
+func (*ReplicaSetList) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicaSetList)(nil))
 }
 
-func (i ReplicaSetList) ToReplicaSetListOutput() ReplicaSetListOutput {
+func (i *ReplicaSetList) ToReplicaSetListOutput() ReplicaSetListOutput {
 	return i.ToReplicaSetListOutputWithContext(context.Background())
 }
 
-func (i ReplicaSetList) ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput {
+func (i *ReplicaSetList) ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListOutput)
 }
 
@@ -136,7 +136,7 @@ type ReplicaSetListOutput struct {
 }
 
 func (ReplicaSetListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicaSetListOutput)(nil)).Elem()
+	return reflect.TypeOf((*ReplicaSetList)(nil))
 }
 
 func (o ReplicaSetListOutput) ToReplicaSetListOutput() ReplicaSetListOutput {

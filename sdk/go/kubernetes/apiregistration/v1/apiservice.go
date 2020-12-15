@@ -128,15 +128,15 @@ type APIServiceInput interface {
 	ToAPIServiceOutputWithContext(ctx context.Context) APIServiceOutput
 }
 
-func (APIService) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIService)(nil)).Elem()
+func (*APIService) ElementType() reflect.Type {
+	return reflect.TypeOf((*APIService)(nil))
 }
 
-func (i APIService) ToAPIServiceOutput() APIServiceOutput {
+func (i *APIService) ToAPIServiceOutput() APIServiceOutput {
 	return i.ToAPIServiceOutputWithContext(context.Background())
 }
 
-func (i APIService) ToAPIServiceOutputWithContext(ctx context.Context) APIServiceOutput {
+func (i *APIService) ToAPIServiceOutputWithContext(ctx context.Context) APIServiceOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceOutput)
 }
 
@@ -145,7 +145,7 @@ type APIServiceOutput struct {
 }
 
 func (APIServiceOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIServiceOutput)(nil)).Elem()
+	return reflect.TypeOf((*APIService)(nil))
 }
 
 func (o APIServiceOutput) ToAPIServiceOutput() APIServiceOutput {

@@ -135,15 +135,15 @@ type ServiceAccountInput interface {
 	ToServiceAccountOutputWithContext(ctx context.Context) ServiceAccountOutput
 }
 
-func (ServiceAccount) ElementType() reflect.Type {
-	return reflect.TypeOf((*ServiceAccount)(nil)).Elem()
+func (*ServiceAccount) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceAccount)(nil))
 }
 
-func (i ServiceAccount) ToServiceAccountOutput() ServiceAccountOutput {
+func (i *ServiceAccount) ToServiceAccountOutput() ServiceAccountOutput {
 	return i.ToServiceAccountOutputWithContext(context.Background())
 }
 
-func (i ServiceAccount) ToServiceAccountOutputWithContext(ctx context.Context) ServiceAccountOutput {
+func (i *ServiceAccount) ToServiceAccountOutputWithContext(ctx context.Context) ServiceAccountOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountOutput)
 }
 
@@ -152,7 +152,7 @@ type ServiceAccountOutput struct {
 }
 
 func (ServiceAccountOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ServiceAccountOutput)(nil)).Elem()
+	return reflect.TypeOf((*ServiceAccount)(nil))
 }
 
 func (o ServiceAccountOutput) ToServiceAccountOutput() ServiceAccountOutput {

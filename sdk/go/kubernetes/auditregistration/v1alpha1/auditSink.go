@@ -110,15 +110,15 @@ type AuditSinkInput interface {
 	ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput
 }
 
-func (AuditSink) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSink)(nil)).Elem()
+func (*AuditSink) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditSink)(nil))
 }
 
-func (i AuditSink) ToAuditSinkOutput() AuditSinkOutput {
+func (i *AuditSink) ToAuditSinkOutput() AuditSinkOutput {
 	return i.ToAuditSinkOutputWithContext(context.Background())
 }
 
-func (i AuditSink) ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput {
+func (i *AuditSink) ToAuditSinkOutputWithContext(ctx context.Context) AuditSinkOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkOutput)
 }
 
@@ -127,7 +127,7 @@ type AuditSinkOutput struct {
 }
 
 func (AuditSinkOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSinkOutput)(nil)).Elem()
+	return reflect.TypeOf((*AuditSink)(nil))
 }
 
 func (o AuditSinkOutput) ToAuditSinkOutput() AuditSinkOutput {

@@ -119,15 +119,15 @@ type IngressListInput interface {
 	ToIngressListOutputWithContext(ctx context.Context) IngressListOutput
 }
 
-func (IngressList) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressList)(nil)).Elem()
+func (*IngressList) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressList)(nil))
 }
 
-func (i IngressList) ToIngressListOutput() IngressListOutput {
+func (i *IngressList) ToIngressListOutput() IngressListOutput {
 	return i.ToIngressListOutputWithContext(context.Background())
 }
 
-func (i IngressList) ToIngressListOutputWithContext(ctx context.Context) IngressListOutput {
+func (i *IngressList) ToIngressListOutputWithContext(ctx context.Context) IngressListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IngressListOutput)
 }
 
@@ -136,7 +136,7 @@ type IngressListOutput struct {
 }
 
 func (IngressListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressListOutput)(nil)).Elem()
+	return reflect.TypeOf((*IngressList)(nil))
 }
 
 func (o IngressListOutput) ToIngressListOutput() IngressListOutput {

@@ -130,15 +130,15 @@ type ReplicaSetInput interface {
 	ToReplicaSetOutputWithContext(ctx context.Context) ReplicaSetOutput
 }
 
-func (ReplicaSet) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicaSet)(nil)).Elem()
+func (*ReplicaSet) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReplicaSet)(nil))
 }
 
-func (i ReplicaSet) ToReplicaSetOutput() ReplicaSetOutput {
+func (i *ReplicaSet) ToReplicaSetOutput() ReplicaSetOutput {
 	return i.ToReplicaSetOutputWithContext(context.Background())
 }
 
-func (i ReplicaSet) ToReplicaSetOutputWithContext(ctx context.Context) ReplicaSetOutput {
+func (i *ReplicaSet) ToReplicaSetOutputWithContext(ctx context.Context) ReplicaSetOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetOutput)
 }
 
@@ -147,7 +147,7 @@ type ReplicaSetOutput struct {
 }
 
 func (ReplicaSetOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicaSetOutput)(nil)).Elem()
+	return reflect.TypeOf((*ReplicaSet)(nil))
 }
 
 func (o ReplicaSetOutput) ToReplicaSetOutput() ReplicaSetOutput {

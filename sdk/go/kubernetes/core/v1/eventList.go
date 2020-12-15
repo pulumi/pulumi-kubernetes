@@ -119,15 +119,15 @@ type EventListInput interface {
 	ToEventListOutputWithContext(ctx context.Context) EventListOutput
 }
 
-func (EventList) ElementType() reflect.Type {
-	return reflect.TypeOf((*EventList)(nil)).Elem()
+func (*EventList) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventList)(nil))
 }
 
-func (i EventList) ToEventListOutput() EventListOutput {
+func (i *EventList) ToEventListOutput() EventListOutput {
 	return i.ToEventListOutputWithContext(context.Background())
 }
 
-func (i EventList) ToEventListOutputWithContext(ctx context.Context) EventListOutput {
+func (i *EventList) ToEventListOutputWithContext(ctx context.Context) EventListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EventListOutput)
 }
 
@@ -136,7 +136,7 @@ type EventListOutput struct {
 }
 
 func (EventListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EventListOutput)(nil)).Elem()
+	return reflect.TypeOf((*EventList)(nil))
 }
 
 func (o EventListOutput) ToEventListOutput() EventListOutput {

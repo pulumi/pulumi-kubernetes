@@ -119,15 +119,15 @@ type NamespaceListInput interface {
 	ToNamespaceListOutputWithContext(ctx context.Context) NamespaceListOutput
 }
 
-func (NamespaceList) ElementType() reflect.Type {
-	return reflect.TypeOf((*NamespaceList)(nil)).Elem()
+func (*NamespaceList) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamespaceList)(nil))
 }
 
-func (i NamespaceList) ToNamespaceListOutput() NamespaceListOutput {
+func (i *NamespaceList) ToNamespaceListOutput() NamespaceListOutput {
 	return i.ToNamespaceListOutputWithContext(context.Background())
 }
 
-func (i NamespaceList) ToNamespaceListOutputWithContext(ctx context.Context) NamespaceListOutput {
+func (i *NamespaceList) ToNamespaceListOutputWithContext(ctx context.Context) NamespaceListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NamespaceListOutput)
 }
 
@@ -136,7 +136,7 @@ type NamespaceListOutput struct {
 }
 
 func (NamespaceListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NamespaceListOutput)(nil)).Elem()
+	return reflect.TypeOf((*NamespaceList)(nil))
 }
 
 func (o NamespaceListOutput) ToNamespaceListOutput() NamespaceListOutput {

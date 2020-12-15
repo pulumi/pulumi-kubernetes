@@ -136,15 +136,15 @@ type PodInput interface {
 	ToPodOutputWithContext(ctx context.Context) PodOutput
 }
 
-func (Pod) ElementType() reflect.Type {
-	return reflect.TypeOf((*Pod)(nil)).Elem()
+func (*Pod) ElementType() reflect.Type {
+	return reflect.TypeOf((*Pod)(nil))
 }
 
-func (i Pod) ToPodOutput() PodOutput {
+func (i *Pod) ToPodOutput() PodOutput {
 	return i.ToPodOutputWithContext(context.Background())
 }
 
-func (i Pod) ToPodOutputWithContext(ctx context.Context) PodOutput {
+func (i *Pod) ToPodOutputWithContext(ctx context.Context) PodOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodOutput)
 }
 
@@ -153,7 +153,7 @@ type PodOutput struct {
 }
 
 func (PodOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodOutput)(nil)).Elem()
+	return reflect.TypeOf((*Pod)(nil))
 }
 
 func (o PodOutput) ToPodOutput() PodOutput {

@@ -141,15 +141,15 @@ type StatefulSetInput interface {
 	ToStatefulSetOutputWithContext(ctx context.Context) StatefulSetOutput
 }
 
-func (StatefulSet) ElementType() reflect.Type {
-	return reflect.TypeOf((*StatefulSet)(nil)).Elem()
+func (*StatefulSet) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSet)(nil))
 }
 
-func (i StatefulSet) ToStatefulSetOutput() StatefulSetOutput {
+func (i *StatefulSet) ToStatefulSetOutput() StatefulSetOutput {
 	return i.ToStatefulSetOutputWithContext(context.Background())
 }
 
-func (i StatefulSet) ToStatefulSetOutputWithContext(ctx context.Context) StatefulSetOutput {
+func (i *StatefulSet) ToStatefulSetOutputWithContext(ctx context.Context) StatefulSetOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetOutput)
 }
 
@@ -158,7 +158,7 @@ type StatefulSetOutput struct {
 }
 
 func (StatefulSetOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*StatefulSetOutput)(nil)).Elem()
+	return reflect.TypeOf((*StatefulSet)(nil))
 }
 
 func (o StatefulSetOutput) ToStatefulSetOutput() StatefulSetOutput {

@@ -126,15 +126,15 @@ type SelfSubjectAccessReviewInput interface {
 	ToSelfSubjectAccessReviewOutputWithContext(ctx context.Context) SelfSubjectAccessReviewOutput
 }
 
-func (SelfSubjectAccessReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReview)(nil)).Elem()
+func (*SelfSubjectAccessReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectAccessReview)(nil))
 }
 
-func (i SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput {
+func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput {
 	return i.ToSelfSubjectAccessReviewOutputWithContext(context.Background())
 }
 
-func (i SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutputWithContext(ctx context.Context) SelfSubjectAccessReviewOutput {
+func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutputWithContext(ctx context.Context) SelfSubjectAccessReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewOutput)
 }
 
@@ -143,7 +143,7 @@ type SelfSubjectAccessReviewOutput struct {
 }
 
 func (SelfSubjectAccessReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReviewOutput)(nil)).Elem()
+	return reflect.TypeOf((*SelfSubjectAccessReview)(nil))
 }
 
 func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput {

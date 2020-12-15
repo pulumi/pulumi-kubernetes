@@ -119,15 +119,15 @@ type MutatingWebhookConfigurationListInput interface {
 	ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput
 }
 
-func (MutatingWebhookConfigurationList) ElementType() reflect.Type {
-	return reflect.TypeOf((*MutatingWebhookConfigurationList)(nil)).Elem()
+func (*MutatingWebhookConfigurationList) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingWebhookConfigurationList)(nil))
 }
 
-func (i MutatingWebhookConfigurationList) ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput {
+func (i *MutatingWebhookConfigurationList) ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput {
 	return i.ToMutatingWebhookConfigurationListOutputWithContext(context.Background())
 }
 
-func (i MutatingWebhookConfigurationList) ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput {
+func (i *MutatingWebhookConfigurationList) ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListOutput)
 }
 
@@ -136,7 +136,7 @@ type MutatingWebhookConfigurationListOutput struct {
 }
 
 func (MutatingWebhookConfigurationListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MutatingWebhookConfigurationListOutput)(nil)).Elem()
+	return reflect.TypeOf((*MutatingWebhookConfigurationList)(nil))
 }
 
 func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationListOutput() MutatingWebhookConfigurationListOutput {

@@ -126,15 +126,15 @@ type SelfSubjectRulesReviewInput interface {
 	ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput
 }
 
-func (SelfSubjectRulesReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReview)(nil)).Elem()
+func (*SelfSubjectRulesReview) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectRulesReview)(nil))
 }
 
-func (i SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
+func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
 	return i.ToSelfSubjectRulesReviewOutputWithContext(context.Background())
 }
 
-func (i SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
+func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewOutput)
 }
 
@@ -143,7 +143,7 @@ type SelfSubjectRulesReviewOutput struct {
 }
 
 func (SelfSubjectRulesReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReviewOutput)(nil)).Elem()
+	return reflect.TypeOf((*SelfSubjectRulesReview)(nil))
 }
 
 func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
