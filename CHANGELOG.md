@@ -1,5 +1,6 @@
 ## HEAD (Unreleased)
 
+-   Add enum for kubernetes.core.v1.Service.Spec.Type (https://github.com/pulumi/pulumi-kubernetes/pull/1408)
 -   Update pulumi deps to v2.15.5 (https://github.com/pulumi/pulumi-kubernetes/pull/1402)
 -   Fix Go resource Input/Output methods (https://github.com/pulumi/pulumi-kubernetes/pull/1406)
 
