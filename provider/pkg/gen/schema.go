@@ -145,6 +145,11 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	definitions := swagger["definitions"].(map[string]interface{})
 	groupsSlice := createGroups(definitions)
+
+	// Make a copy of the overlay types and resources
+	overlayTypes := pkg.Types
+	overlayResources := pkg.Resources
+
 	for _, group := range groupsSlice {
 		if group.Group() == "apiserverinternal" {
 			continue
@@ -175,6 +180,22 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 				objectSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
+				// Check if the current type exists in the overlays and overwrite types accordingly
+				if overlaySpec, hasType := overlayTypes[tok]; hasType {
+					for propName, overlayProp := range overlaySpec.Properties {
+						// If overlay prop types are defined, overwrite the k8s schema prop type.
+						if len(overlayProp.OneOf) > 1 {
+							if k8sProp, propExists := objectSpec.Properties[propName]; propExists {
+								k8sProp.OneOf = overlayProp.OneOf
+								k8sProp.Ref = ""
+								k8sProp.Type = ""
+
+								objectSpec.Properties[propName] = k8sProp
+							}
+						}
+					}
+				}
+
 				pkg.Types[tok] = pschema.ComplexTypeSpec{
 					ObjectTypeSpec: objectSpec,
 				}
@@ -199,6 +220,22 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				for _, t := range kind.Aliases() {
 					aliasedType := t
 					resourceSpec.Aliases = append(resourceSpec.Aliases, pschema.AliasSpec{Type: &aliasedType})
+				}
+
+				// Check if the current resource exists in the overlays and overwrite types accordingly
+				if overlaySpec, hasResource := overlayResources[tok]; hasResource {
+					for propName, overlayProp := range overlaySpec.InputProperties {
+						// If overlay prop types are defined, overwrite the k8s schema prop type.
+						if len(overlayProp.OneOf) > 1 {
+							if k8sProp, propExists := objectSpec.Properties[propName]; propExists {
+								k8sProp.OneOf = overlayProp.OneOf
+								k8sProp.Ref = ""
+								k8sProp.Type = ""
+
+								resourceSpec.InputProperties[propName] = k8sProp
+							}
+						}
+					}
 				}
 
 				pkg.Resources[tok] = resourceSpec
