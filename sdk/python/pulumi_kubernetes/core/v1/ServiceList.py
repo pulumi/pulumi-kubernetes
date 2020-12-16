@@ -9,6 +9,7 @@ from typing import Any, Mapping, Optional, Sequence, Union
 from ... import _utilities, _tables
 from . import outputs
 from ... import meta as _meta
+from ._enums import *
 from ._inputs import *
 
 __all__ = ['ServiceList']

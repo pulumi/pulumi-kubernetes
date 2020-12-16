@@ -17,7 +17,33 @@ package gen
 import pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
 
 // typeOverlays augment the types defined by the kubernetes schema.
-var typeOverlays = map[string]pschema.ComplexTypeSpec{}
+var typeOverlays = map[string]pschema.ComplexTypeSpec{
+	"kubernetes:core/v1:ServiceSpec": {
+		ObjectTypeSpec: pschema.ObjectTypeSpec{
+			Properties: map[string]pschema.PropertySpec{
+				"type": {
+					TypeSpec: pschema.TypeSpec{
+						OneOf: []pschema.TypeSpec{
+							{Type: "string"},
+							{Ref: "#/types/kubernetes:core/v1:ServiceSpecType"},
+						},
+					},
+				},
+			},
+		},
+	},
+	"kubernetes:core/v1:ServiceSpecType": {
+		ObjectTypeSpec: pschema.ObjectTypeSpec{
+			Type: "string",
+		},
+		Enum: []*pschema.EnumValueSpec{
+			{Value: "ExternalName"},
+			{Value: "ClusterIP"},
+			{Value: "NodePort"},
+			{Value: "LoadBalancer"},
+		},
+	},
+}
 
 // resourceOverlays augment the resources defined by the kubernetes schema.
 var resourceOverlays = map[string]pschema.ResourceSpec{}
