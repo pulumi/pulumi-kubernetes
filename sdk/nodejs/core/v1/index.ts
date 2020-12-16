@@ -37,6 +37,9 @@ export * from "./serviceAccount";
 export * from "./serviceAccountList";
 export * from "./serviceList";
 
+// Export enums:
+export * from "../../types/enums/core/v1";
+
 // Import resources to register:
 import { Binding } from "./binding";
 import { ConfigMap } from "./configMap";
