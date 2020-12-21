@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Upgrade helm and k8s deps (https://github.com/pulumi/pulumi-kubernetes/pull/1414)
+
 ## 2.7.5 (December 16, 2020)
 
 -   Add enum for kubernetes.core.v1.Service.Spec.Type (https://github.com/pulumi/pulumi-kubernetes/pull/1408)
