@@ -61,6 +61,8 @@ jobs:
         python-version: [ 3.7 ]
         dotnet-version: [ '3.1.100' ]
     runs-on: ${{ matrix.platform }}
+    outputs:
+      stack-name: ${{ steps.vars.outputs.stack-name }}
     steps:
       - name: Install DotNet ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
@@ -99,9 +101,11 @@ jobs:
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
       - uses: actions/checkout@v2
+      - id: vars
+        run: echo "::set-output name=stack-name::${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-$(date +%s)"
       - name: Create test infra
         run: |
-          ./scripts/ci-cluster-create.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{ github.run_number }}"
+          ./scripts/ci-cluster-create.sh ${{ steps.vars.outputs.stack-name }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -357,7 +361,7 @@ jobs:
           - "3.7"
   cleanup-infra:
     name: cleanup-test-infra
-    needs: test-sdks
+    needs: [test-sdks, build-test-cluster]
     strategy:
       matrix:
         platform: [ ubuntu-latest ]
@@ -404,9 +408,9 @@ jobs:
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
       - uses: actions/checkout@v2
-      - name: Create test infra
+      - name: Destroy test infra
         run: |
-          ./scripts/ci-cluster-destroy.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{ github.run_number }}"
+          ./scripts/ci-cluster-destroy.sh ${{needs.build-test-cluster.outputs.stack-name}}
       - if: always()
         uses: geekyeggo/delete-artifact@v1
         with:
