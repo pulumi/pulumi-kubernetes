@@ -46,6 +46,8 @@ jobs:
         python-version: [ 3.7 ]
         dotnet-version: [ 3.1.x ]
     runs-on: ${{ matrix.platform }}
+    outputs:
+      stack-name: ${{ steps.vars.outputs.stack-name }}
     if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Install DotNet ${{ matrix.dotnet-version }}
@@ -87,9 +89,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.PR_COMMIT_SHA }}
+      - id: vars
+        run: echo "::set-output name=stack-name::${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-$(date +%s)"
       - name: Create test infra
         run: |
-          ./scripts/ci-cluster-create.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{ github.run_number }}"
+          ./scripts/ci-cluster-create.sh ${{ steps.vars.outputs.stack-name }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -326,7 +330,7 @@ jobs:
           - 3.7
   cleanup-infra:
     name: cleanup-test-infra
-    needs: test-sdks
+    needs: [test-sdks, build-test-cluster]
     strategy:
       matrix:
         platform: [ ubuntu-latest ]
@@ -376,9 +380,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.PR_COMMIT_SHA }}
-      - name: Create test infra
+      - name: Destroy test infra
         run: |
-          ./scripts/ci-cluster-destroy.sh "${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{ github.run_number }}"
+          ./scripts/ci-cluster-destroy.sh ${{needs.build-test-cluster.outputs.stack-name}}
       - if: always()
         uses: geekyeggo/delete-artifact@v1
         with:
