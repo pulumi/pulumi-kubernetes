@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 -   Upgrade helm and k8s deps (https://github.com/pulumi/pulumi-kubernetes/pull/1414)
+-   Fix bug with Go Helm v3 transformation marshaling (https://github.com/pulumi/pulumi-kubernetes/pull/1420)
 
 ## 2.7.5 (December 16, 2020)
 

@@ -146,11 +146,12 @@ type ChartArgs struct {
 }
 
 // chartArgs is a copy of ChartArgs but without using TInput in types.
+// Note that Transformations are omitted in JSON marshaling because functions are not serializable.
 type chartArgs struct {
 	APIVersions     []string               `json:"api_versions,omitempty" pulumi:"apiVersions"`
 	Namespace       string                 `json:"namespace,omitempty" pulumi:"namespace"`
 	Values          map[string]interface{} `json:"values,omitempty" pulumi:"values"`
-	Transformations []yaml.Transformation  `json:"transformations,omitempty" pulumi:"transformations"`
+	Transformations []yaml.Transformation  `json:"-" pulumi:"transformations"`
 	ResourcePrefix  string                 `json:"resource_prefix,omitempty" pulumi:"resourcePrefix"`
 	Repo            string                 `json:"repo,omitempty" pulumi:"repo"`
 	Chart           string                 `json:"chart,omitempty" pulumi:"chart"`
