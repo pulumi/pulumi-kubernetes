@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Fix bug where rendering manifests results in files being overwritten by subsequent resources with the same kind and name, but different namespace (https://github.com/pulumi/pulumi-kubernetes/pull/1429)
+
 ## 2.8.2 (February 23, 2021)
 
 -   Postpone the removal of admissionregistration/v1beta1, which has been retargeted at 1.22 (https://github.com/pulumi/pulumi-kubernetes/pull/1474)

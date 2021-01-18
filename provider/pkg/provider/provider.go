@@ -2764,7 +2764,7 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 	crdDirectory := filepath.Join(yamlDirectory, "0-crd")
 	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 
-	fileName := fmt.Sprintf("%s-%s.yaml", strings.ToLower(resource.GetKind()), resource.GetName())
+	fileName := fmt.Sprintf("%s-%s-%s.yaml", strings.ToLower(resource.GetKind()), resource.GetNamespace(), resource.GetName())
 	filepath.Join(yamlDirectory, fileName)
 
 	var path string
