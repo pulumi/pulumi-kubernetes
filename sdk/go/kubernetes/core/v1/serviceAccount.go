@@ -147,6 +147,85 @@ func (i *ServiceAccount) ToServiceAccountOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountOutput)
 }
 
+func (i *ServiceAccount) ToServiceAccountPtrOutput() ServiceAccountPtrOutput {
+	return i.ToServiceAccountPtrOutputWithContext(context.Background())
+}
+
+func (i *ServiceAccount) ToServiceAccountPtrOutputWithContext(ctx context.Context) ServiceAccountPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountPtrOutput)
+}
+
+type ServiceAccountPtrInput interface {
+	pulumi.Input
+
+	ToServiceAccountPtrOutput() ServiceAccountPtrOutput
+	ToServiceAccountPtrOutputWithContext(ctx context.Context) ServiceAccountPtrOutput
+}
+
+type serviceAccountPtrType ServiceAccountArgs
+
+func (*serviceAccountPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceAccount)(nil))
+}
+
+func (i *serviceAccountPtrType) ToServiceAccountPtrOutput() ServiceAccountPtrOutput {
+	return i.ToServiceAccountPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceAccountPtrType) ToServiceAccountPtrOutputWithContext(ctx context.Context) ServiceAccountPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountPtrOutput)
+}
+
+// ServiceAccountArrayInput is an input type that accepts ServiceAccountArray and ServiceAccountArrayOutput values.
+// You can construct a concrete instance of `ServiceAccountArrayInput` via:
+//
+//          ServiceAccountArray{ ServiceAccountArgs{...} }
+type ServiceAccountArrayInput interface {
+	pulumi.Input
+
+	ToServiceAccountArrayOutput() ServiceAccountArrayOutput
+	ToServiceAccountArrayOutputWithContext(context.Context) ServiceAccountArrayOutput
+}
+
+type ServiceAccountArray []ServiceAccountInput
+
+func (ServiceAccountArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ServiceAccount)(nil))
+}
+
+func (i ServiceAccountArray) ToServiceAccountArrayOutput() ServiceAccountArrayOutput {
+	return i.ToServiceAccountArrayOutputWithContext(context.Background())
+}
+
+func (i ServiceAccountArray) ToServiceAccountArrayOutputWithContext(ctx context.Context) ServiceAccountArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountArrayOutput)
+}
+
+// ServiceAccountMapInput is an input type that accepts ServiceAccountMap and ServiceAccountMapOutput values.
+// You can construct a concrete instance of `ServiceAccountMapInput` via:
+//
+//          ServiceAccountMap{ "key": ServiceAccountArgs{...} }
+type ServiceAccountMapInput interface {
+	pulumi.Input
+
+	ToServiceAccountMapOutput() ServiceAccountMapOutput
+	ToServiceAccountMapOutputWithContext(context.Context) ServiceAccountMapOutput
+}
+
+type ServiceAccountMap map[string]ServiceAccountInput
+
+func (ServiceAccountMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ServiceAccount)(nil))
+}
+
+func (i ServiceAccountMap) ToServiceAccountMapOutput() ServiceAccountMapOutput {
+	return i.ToServiceAccountMapOutputWithContext(context.Background())
+}
+
+func (i ServiceAccountMap) ToServiceAccountMapOutputWithContext(ctx context.Context) ServiceAccountMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountMapOutput)
+}
+
 type ServiceAccountOutput struct {
 	*pulumi.OutputState
 }
@@ -163,6 +242,75 @@ func (o ServiceAccountOutput) ToServiceAccountOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o ServiceAccountOutput) ToServiceAccountPtrOutput() ServiceAccountPtrOutput {
+	return o.ToServiceAccountPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceAccountOutput) ToServiceAccountPtrOutputWithContext(ctx context.Context) ServiceAccountPtrOutput {
+	return o.ApplyT(func(v ServiceAccount) *ServiceAccount {
+		return &v
+	}).(ServiceAccountPtrOutput)
+}
+
+type ServiceAccountPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ServiceAccountPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceAccount)(nil))
+}
+
+func (o ServiceAccountPtrOutput) ToServiceAccountPtrOutput() ServiceAccountPtrOutput {
+	return o
+}
+
+func (o ServiceAccountPtrOutput) ToServiceAccountPtrOutputWithContext(ctx context.Context) ServiceAccountPtrOutput {
+	return o
+}
+
+type ServiceAccountArrayOutput struct{ *pulumi.OutputState }
+
+func (ServiceAccountArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceAccount)(nil))
+}
+
+func (o ServiceAccountArrayOutput) ToServiceAccountArrayOutput() ServiceAccountArrayOutput {
+	return o
+}
+
+func (o ServiceAccountArrayOutput) ToServiceAccountArrayOutputWithContext(ctx context.Context) ServiceAccountArrayOutput {
+	return o
+}
+
+func (o ServiceAccountArrayOutput) Index(i pulumi.IntInput) ServiceAccountOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ServiceAccount {
+		return vs[0].([]ServiceAccount)[vs[1].(int)]
+	}).(ServiceAccountOutput)
+}
+
+type ServiceAccountMapOutput struct{ *pulumi.OutputState }
+
+func (ServiceAccountMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ServiceAccount)(nil))
+}
+
+func (o ServiceAccountMapOutput) ToServiceAccountMapOutput() ServiceAccountMapOutput {
+	return o
+}
+
+func (o ServiceAccountMapOutput) ToServiceAccountMapOutputWithContext(ctx context.Context) ServiceAccountMapOutput {
+	return o
+}
+
+func (o ServiceAccountMapOutput) MapIndex(k pulumi.StringInput) ServiceAccountOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ServiceAccount {
+		return vs[0].(map[string]ServiceAccount)[vs[1].(string)]
+	}).(ServiceAccountOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ServiceAccountOutput{})
+	pulumi.RegisterOutputType(ServiceAccountPtrOutput{})
+	pulumi.RegisterOutputType(ServiceAccountArrayOutput{})
+	pulumi.RegisterOutputType(ServiceAccountMapOutput{})
 }

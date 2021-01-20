@@ -121,6 +121,85 @@ func (i *PodDisruptionBudgetList) ToPodDisruptionBudgetListOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListOutput)
 }
 
+func (i *PodDisruptionBudgetList) ToPodDisruptionBudgetListPtrOutput() PodDisruptionBudgetListPtrOutput {
+	return i.ToPodDisruptionBudgetListPtrOutputWithContext(context.Background())
+}
+
+func (i *PodDisruptionBudgetList) ToPodDisruptionBudgetListPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListPtrOutput)
+}
+
+type PodDisruptionBudgetListPtrInput interface {
+	pulumi.Input
+
+	ToPodDisruptionBudgetListPtrOutput() PodDisruptionBudgetListPtrOutput
+	ToPodDisruptionBudgetListPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetListPtrOutput
+}
+
+type podDisruptionBudgetListPtrType PodDisruptionBudgetListArgs
+
+func (*podDisruptionBudgetListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodDisruptionBudgetList)(nil))
+}
+
+func (i *podDisruptionBudgetListPtrType) ToPodDisruptionBudgetListPtrOutput() PodDisruptionBudgetListPtrOutput {
+	return i.ToPodDisruptionBudgetListPtrOutputWithContext(context.Background())
+}
+
+func (i *podDisruptionBudgetListPtrType) ToPodDisruptionBudgetListPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListPtrOutput)
+}
+
+// PodDisruptionBudgetListArrayInput is an input type that accepts PodDisruptionBudgetListArray and PodDisruptionBudgetListArrayOutput values.
+// You can construct a concrete instance of `PodDisruptionBudgetListArrayInput` via:
+//
+//          PodDisruptionBudgetListArray{ PodDisruptionBudgetListArgs{...} }
+type PodDisruptionBudgetListArrayInput interface {
+	pulumi.Input
+
+	ToPodDisruptionBudgetListArrayOutput() PodDisruptionBudgetListArrayOutput
+	ToPodDisruptionBudgetListArrayOutputWithContext(context.Context) PodDisruptionBudgetListArrayOutput
+}
+
+type PodDisruptionBudgetListArray []PodDisruptionBudgetListInput
+
+func (PodDisruptionBudgetListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*PodDisruptionBudgetList)(nil))
+}
+
+func (i PodDisruptionBudgetListArray) ToPodDisruptionBudgetListArrayOutput() PodDisruptionBudgetListArrayOutput {
+	return i.ToPodDisruptionBudgetListArrayOutputWithContext(context.Background())
+}
+
+func (i PodDisruptionBudgetListArray) ToPodDisruptionBudgetListArrayOutputWithContext(ctx context.Context) PodDisruptionBudgetListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListArrayOutput)
+}
+
+// PodDisruptionBudgetListMapInput is an input type that accepts PodDisruptionBudgetListMap and PodDisruptionBudgetListMapOutput values.
+// You can construct a concrete instance of `PodDisruptionBudgetListMapInput` via:
+//
+//          PodDisruptionBudgetListMap{ "key": PodDisruptionBudgetListArgs{...} }
+type PodDisruptionBudgetListMapInput interface {
+	pulumi.Input
+
+	ToPodDisruptionBudgetListMapOutput() PodDisruptionBudgetListMapOutput
+	ToPodDisruptionBudgetListMapOutputWithContext(context.Context) PodDisruptionBudgetListMapOutput
+}
+
+type PodDisruptionBudgetListMap map[string]PodDisruptionBudgetListInput
+
+func (PodDisruptionBudgetListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*PodDisruptionBudgetList)(nil))
+}
+
+func (i PodDisruptionBudgetListMap) ToPodDisruptionBudgetListMapOutput() PodDisruptionBudgetListMapOutput {
+	return i.ToPodDisruptionBudgetListMapOutputWithContext(context.Background())
+}
+
+func (i PodDisruptionBudgetListMap) ToPodDisruptionBudgetListMapOutputWithContext(ctx context.Context) PodDisruptionBudgetListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListMapOutput)
+}
+
 type PodDisruptionBudgetListOutput struct {
 	*pulumi.OutputState
 }
@@ -137,6 +216,75 @@ func (o PodDisruptionBudgetListOutput) ToPodDisruptionBudgetListOutputWithContex
 	return o
 }
 
+func (o PodDisruptionBudgetListOutput) ToPodDisruptionBudgetListPtrOutput() PodDisruptionBudgetListPtrOutput {
+	return o.ToPodDisruptionBudgetListPtrOutputWithContext(context.Background())
+}
+
+func (o PodDisruptionBudgetListOutput) ToPodDisruptionBudgetListPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetListPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetList) *PodDisruptionBudgetList {
+		return &v
+	}).(PodDisruptionBudgetListPtrOutput)
+}
+
+type PodDisruptionBudgetListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodDisruptionBudgetListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodDisruptionBudgetList)(nil))
+}
+
+func (o PodDisruptionBudgetListPtrOutput) ToPodDisruptionBudgetListPtrOutput() PodDisruptionBudgetListPtrOutput {
+	return o
+}
+
+func (o PodDisruptionBudgetListPtrOutput) ToPodDisruptionBudgetListPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetListPtrOutput {
+	return o
+}
+
+type PodDisruptionBudgetListArrayOutput struct{ *pulumi.OutputState }
+
+func (PodDisruptionBudgetListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodDisruptionBudgetList)(nil))
+}
+
+func (o PodDisruptionBudgetListArrayOutput) ToPodDisruptionBudgetListArrayOutput() PodDisruptionBudgetListArrayOutput {
+	return o
+}
+
+func (o PodDisruptionBudgetListArrayOutput) ToPodDisruptionBudgetListArrayOutputWithContext(ctx context.Context) PodDisruptionBudgetListArrayOutput {
+	return o
+}
+
+func (o PodDisruptionBudgetListArrayOutput) Index(i pulumi.IntInput) PodDisruptionBudgetListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodDisruptionBudgetList {
+		return vs[0].([]PodDisruptionBudgetList)[vs[1].(int)]
+	}).(PodDisruptionBudgetListOutput)
+}
+
+type PodDisruptionBudgetListMapOutput struct{ *pulumi.OutputState }
+
+func (PodDisruptionBudgetListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]PodDisruptionBudgetList)(nil))
+}
+
+func (o PodDisruptionBudgetListMapOutput) ToPodDisruptionBudgetListMapOutput() PodDisruptionBudgetListMapOutput {
+	return o
+}
+
+func (o PodDisruptionBudgetListMapOutput) ToPodDisruptionBudgetListMapOutputWithContext(ctx context.Context) PodDisruptionBudgetListMapOutput {
+	return o
+}
+
+func (o PodDisruptionBudgetListMapOutput) MapIndex(k pulumi.StringInput) PodDisruptionBudgetListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PodDisruptionBudgetList {
+		return vs[0].(map[string]PodDisruptionBudgetList)[vs[1].(string)]
+	}).(PodDisruptionBudgetListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(PodDisruptionBudgetListOutput{})
+	pulumi.RegisterOutputType(PodDisruptionBudgetListPtrOutput{})
+	pulumi.RegisterOutputType(PodDisruptionBudgetListArrayOutput{})
+	pulumi.RegisterOutputType(PodDisruptionBudgetListMapOutput{})
 }

@@ -131,6 +131,85 @@ func (i *ReplicationControllerList) ToReplicationControllerListOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListOutput)
 }
 
+func (i *ReplicationControllerList) ToReplicationControllerListPtrOutput() ReplicationControllerListPtrOutput {
+	return i.ToReplicationControllerListPtrOutputWithContext(context.Background())
+}
+
+func (i *ReplicationControllerList) ToReplicationControllerListPtrOutputWithContext(ctx context.Context) ReplicationControllerListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListPtrOutput)
+}
+
+type ReplicationControllerListPtrInput interface {
+	pulumi.Input
+
+	ToReplicationControllerListPtrOutput() ReplicationControllerListPtrOutput
+	ToReplicationControllerListPtrOutputWithContext(ctx context.Context) ReplicationControllerListPtrOutput
+}
+
+type replicationControllerListPtrType ReplicationControllerListArgs
+
+func (*replicationControllerListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ReplicationControllerList)(nil))
+}
+
+func (i *replicationControllerListPtrType) ToReplicationControllerListPtrOutput() ReplicationControllerListPtrOutput {
+	return i.ToReplicationControllerListPtrOutputWithContext(context.Background())
+}
+
+func (i *replicationControllerListPtrType) ToReplicationControllerListPtrOutputWithContext(ctx context.Context) ReplicationControllerListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListPtrOutput)
+}
+
+// ReplicationControllerListArrayInput is an input type that accepts ReplicationControllerListArray and ReplicationControllerListArrayOutput values.
+// You can construct a concrete instance of `ReplicationControllerListArrayInput` via:
+//
+//          ReplicationControllerListArray{ ReplicationControllerListArgs{...} }
+type ReplicationControllerListArrayInput interface {
+	pulumi.Input
+
+	ToReplicationControllerListArrayOutput() ReplicationControllerListArrayOutput
+	ToReplicationControllerListArrayOutputWithContext(context.Context) ReplicationControllerListArrayOutput
+}
+
+type ReplicationControllerListArray []ReplicationControllerListInput
+
+func (ReplicationControllerListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ReplicationControllerList)(nil))
+}
+
+func (i ReplicationControllerListArray) ToReplicationControllerListArrayOutput() ReplicationControllerListArrayOutput {
+	return i.ToReplicationControllerListArrayOutputWithContext(context.Background())
+}
+
+func (i ReplicationControllerListArray) ToReplicationControllerListArrayOutputWithContext(ctx context.Context) ReplicationControllerListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListArrayOutput)
+}
+
+// ReplicationControllerListMapInput is an input type that accepts ReplicationControllerListMap and ReplicationControllerListMapOutput values.
+// You can construct a concrete instance of `ReplicationControllerListMapInput` via:
+//
+//          ReplicationControllerListMap{ "key": ReplicationControllerListArgs{...} }
+type ReplicationControllerListMapInput interface {
+	pulumi.Input
+
+	ToReplicationControllerListMapOutput() ReplicationControllerListMapOutput
+	ToReplicationControllerListMapOutputWithContext(context.Context) ReplicationControllerListMapOutput
+}
+
+type ReplicationControllerListMap map[string]ReplicationControllerListInput
+
+func (ReplicationControllerListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ReplicationControllerList)(nil))
+}
+
+func (i ReplicationControllerListMap) ToReplicationControllerListMapOutput() ReplicationControllerListMapOutput {
+	return i.ToReplicationControllerListMapOutputWithContext(context.Background())
+}
+
+func (i ReplicationControllerListMap) ToReplicationControllerListMapOutputWithContext(ctx context.Context) ReplicationControllerListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListMapOutput)
+}
+
 type ReplicationControllerListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o ReplicationControllerListOutput) ToReplicationControllerListOutputWithCo
 	return o
 }
 
+func (o ReplicationControllerListOutput) ToReplicationControllerListPtrOutput() ReplicationControllerListPtrOutput {
+	return o.ToReplicationControllerListPtrOutputWithContext(context.Background())
+}
+
+func (o ReplicationControllerListOutput) ToReplicationControllerListPtrOutputWithContext(ctx context.Context) ReplicationControllerListPtrOutput {
+	return o.ApplyT(func(v ReplicationControllerList) *ReplicationControllerList {
+		return &v
+	}).(ReplicationControllerListPtrOutput)
+}
+
+type ReplicationControllerListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ReplicationControllerListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ReplicationControllerList)(nil))
+}
+
+func (o ReplicationControllerListPtrOutput) ToReplicationControllerListPtrOutput() ReplicationControllerListPtrOutput {
+	return o
+}
+
+func (o ReplicationControllerListPtrOutput) ToReplicationControllerListPtrOutputWithContext(ctx context.Context) ReplicationControllerListPtrOutput {
+	return o
+}
+
+type ReplicationControllerListArrayOutput struct{ *pulumi.OutputState }
+
+func (ReplicationControllerListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ReplicationControllerList)(nil))
+}
+
+func (o ReplicationControllerListArrayOutput) ToReplicationControllerListArrayOutput() ReplicationControllerListArrayOutput {
+	return o
+}
+
+func (o ReplicationControllerListArrayOutput) ToReplicationControllerListArrayOutputWithContext(ctx context.Context) ReplicationControllerListArrayOutput {
+	return o
+}
+
+func (o ReplicationControllerListArrayOutput) Index(i pulumi.IntInput) ReplicationControllerListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ReplicationControllerList {
+		return vs[0].([]ReplicationControllerList)[vs[1].(int)]
+	}).(ReplicationControllerListOutput)
+}
+
+type ReplicationControllerListMapOutput struct{ *pulumi.OutputState }
+
+func (ReplicationControllerListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ReplicationControllerList)(nil))
+}
+
+func (o ReplicationControllerListMapOutput) ToReplicationControllerListMapOutput() ReplicationControllerListMapOutput {
+	return o
+}
+
+func (o ReplicationControllerListMapOutput) ToReplicationControllerListMapOutputWithContext(ctx context.Context) ReplicationControllerListMapOutput {
+	return o
+}
+
+func (o ReplicationControllerListMapOutput) MapIndex(k pulumi.StringInput) ReplicationControllerListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ReplicationControllerList {
+		return vs[0].(map[string]ReplicationControllerList)[vs[1].(string)]
+	}).(ReplicationControllerListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ReplicationControllerListOutput{})
+	pulumi.RegisterOutputType(ReplicationControllerListPtrOutput{})
+	pulumi.RegisterOutputType(ReplicationControllerListArrayOutput{})
+	pulumi.RegisterOutputType(ReplicationControllerListMapOutput{})
 }

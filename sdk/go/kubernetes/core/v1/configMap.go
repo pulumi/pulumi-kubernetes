@@ -147,6 +147,85 @@ func (i *ConfigMap) ToConfigMapOutputWithContext(ctx context.Context) ConfigMapO
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapOutput)
 }
 
+func (i *ConfigMap) ToConfigMapPtrOutput() ConfigMapPtrOutput {
+	return i.ToConfigMapPtrOutputWithContext(context.Background())
+}
+
+func (i *ConfigMap) ToConfigMapPtrOutputWithContext(ctx context.Context) ConfigMapPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapPtrOutput)
+}
+
+type ConfigMapPtrInput interface {
+	pulumi.Input
+
+	ToConfigMapPtrOutput() ConfigMapPtrOutput
+	ToConfigMapPtrOutputWithContext(ctx context.Context) ConfigMapPtrOutput
+}
+
+type configMapPtrType ConfigMapArgs
+
+func (*configMapPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConfigMap)(nil))
+}
+
+func (i *configMapPtrType) ToConfigMapPtrOutput() ConfigMapPtrOutput {
+	return i.ToConfigMapPtrOutputWithContext(context.Background())
+}
+
+func (i *configMapPtrType) ToConfigMapPtrOutputWithContext(ctx context.Context) ConfigMapPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapPtrOutput)
+}
+
+// ConfigMapArrayInput is an input type that accepts ConfigMapArray and ConfigMapArrayOutput values.
+// You can construct a concrete instance of `ConfigMapArrayInput` via:
+//
+//          ConfigMapArray{ ConfigMapArgs{...} }
+type ConfigMapArrayInput interface {
+	pulumi.Input
+
+	ToConfigMapArrayOutput() ConfigMapArrayOutput
+	ToConfigMapArrayOutputWithContext(context.Context) ConfigMapArrayOutput
+}
+
+type ConfigMapArray []ConfigMapInput
+
+func (ConfigMapArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ConfigMap)(nil))
+}
+
+func (i ConfigMapArray) ToConfigMapArrayOutput() ConfigMapArrayOutput {
+	return i.ToConfigMapArrayOutputWithContext(context.Background())
+}
+
+func (i ConfigMapArray) ToConfigMapArrayOutputWithContext(ctx context.Context) ConfigMapArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapArrayOutput)
+}
+
+// ConfigMapMapInput is an input type that accepts ConfigMapMap and ConfigMapMapOutput values.
+// You can construct a concrete instance of `ConfigMapMapInput` via:
+//
+//          ConfigMapMap{ "key": ConfigMapArgs{...} }
+type ConfigMapMapInput interface {
+	pulumi.Input
+
+	ToConfigMapMapOutput() ConfigMapMapOutput
+	ToConfigMapMapOutputWithContext(context.Context) ConfigMapMapOutput
+}
+
+type ConfigMapMap map[string]ConfigMapInput
+
+func (ConfigMapMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ConfigMap)(nil))
+}
+
+func (i ConfigMapMap) ToConfigMapMapOutput() ConfigMapMapOutput {
+	return i.ToConfigMapMapOutputWithContext(context.Background())
+}
+
+func (i ConfigMapMap) ToConfigMapMapOutputWithContext(ctx context.Context) ConfigMapMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapMapOutput)
+}
+
 type ConfigMapOutput struct {
 	*pulumi.OutputState
 }
@@ -163,6 +242,75 @@ func (o ConfigMapOutput) ToConfigMapOutputWithContext(ctx context.Context) Confi
 	return o
 }
 
+func (o ConfigMapOutput) ToConfigMapPtrOutput() ConfigMapPtrOutput {
+	return o.ToConfigMapPtrOutputWithContext(context.Background())
+}
+
+func (o ConfigMapOutput) ToConfigMapPtrOutputWithContext(ctx context.Context) ConfigMapPtrOutput {
+	return o.ApplyT(func(v ConfigMap) *ConfigMap {
+		return &v
+	}).(ConfigMapPtrOutput)
+}
+
+type ConfigMapPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ConfigMapPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ConfigMap)(nil))
+}
+
+func (o ConfigMapPtrOutput) ToConfigMapPtrOutput() ConfigMapPtrOutput {
+	return o
+}
+
+func (o ConfigMapPtrOutput) ToConfigMapPtrOutputWithContext(ctx context.Context) ConfigMapPtrOutput {
+	return o
+}
+
+type ConfigMapArrayOutput struct{ *pulumi.OutputState }
+
+func (ConfigMapArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ConfigMap)(nil))
+}
+
+func (o ConfigMapArrayOutput) ToConfigMapArrayOutput() ConfigMapArrayOutput {
+	return o
+}
+
+func (o ConfigMapArrayOutput) ToConfigMapArrayOutputWithContext(ctx context.Context) ConfigMapArrayOutput {
+	return o
+}
+
+func (o ConfigMapArrayOutput) Index(i pulumi.IntInput) ConfigMapOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ConfigMap {
+		return vs[0].([]ConfigMap)[vs[1].(int)]
+	}).(ConfigMapOutput)
+}
+
+type ConfigMapMapOutput struct{ *pulumi.OutputState }
+
+func (ConfigMapMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ConfigMap)(nil))
+}
+
+func (o ConfigMapMapOutput) ToConfigMapMapOutput() ConfigMapMapOutput {
+	return o
+}
+
+func (o ConfigMapMapOutput) ToConfigMapMapOutputWithContext(ctx context.Context) ConfigMapMapOutput {
+	return o
+}
+
+func (o ConfigMapMapOutput) MapIndex(k pulumi.StringInput) ConfigMapOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ConfigMap {
+		return vs[0].(map[string]ConfigMap)[vs[1].(string)]
+	}).(ConfigMapOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ConfigMapOutput{})
+	pulumi.RegisterOutputType(ConfigMapPtrOutput{})
+	pulumi.RegisterOutputType(ConfigMapArrayOutput{})
+	pulumi.RegisterOutputType(ConfigMapMapOutput{})
 }

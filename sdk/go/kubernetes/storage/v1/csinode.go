@@ -137,6 +137,85 @@ func (i *CSINode) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeOutput)
 }
 
+func (i *CSINode) ToCSINodePtrOutput() CSINodePtrOutput {
+	return i.ToCSINodePtrOutputWithContext(context.Background())
+}
+
+func (i *CSINode) ToCSINodePtrOutputWithContext(ctx context.Context) CSINodePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodePtrOutput)
+}
+
+type CSINodePtrInput interface {
+	pulumi.Input
+
+	ToCSINodePtrOutput() CSINodePtrOutput
+	ToCSINodePtrOutputWithContext(ctx context.Context) CSINodePtrOutput
+}
+
+type csinodePtrType CSINodeArgs
+
+func (*csinodePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINode)(nil))
+}
+
+func (i *csinodePtrType) ToCSINodePtrOutput() CSINodePtrOutput {
+	return i.ToCSINodePtrOutputWithContext(context.Background())
+}
+
+func (i *csinodePtrType) ToCSINodePtrOutputWithContext(ctx context.Context) CSINodePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodePtrOutput)
+}
+
+// CSINodeArrayInput is an input type that accepts CSINodeArray and CSINodeArrayOutput values.
+// You can construct a concrete instance of `CSINodeArrayInput` via:
+//
+//          CSINodeArray{ CSINodeArgs{...} }
+type CSINodeArrayInput interface {
+	pulumi.Input
+
+	ToCSINodeArrayOutput() CSINodeArrayOutput
+	ToCSINodeArrayOutputWithContext(context.Context) CSINodeArrayOutput
+}
+
+type CSINodeArray []CSINodeInput
+
+func (CSINodeArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*CSINode)(nil))
+}
+
+func (i CSINodeArray) ToCSINodeArrayOutput() CSINodeArrayOutput {
+	return i.ToCSINodeArrayOutputWithContext(context.Background())
+}
+
+func (i CSINodeArray) ToCSINodeArrayOutputWithContext(ctx context.Context) CSINodeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeArrayOutput)
+}
+
+// CSINodeMapInput is an input type that accepts CSINodeMap and CSINodeMapOutput values.
+// You can construct a concrete instance of `CSINodeMapInput` via:
+//
+//          CSINodeMap{ "key": CSINodeArgs{...} }
+type CSINodeMapInput interface {
+	pulumi.Input
+
+	ToCSINodeMapOutput() CSINodeMapOutput
+	ToCSINodeMapOutputWithContext(context.Context) CSINodeMapOutput
+}
+
+type CSINodeMap map[string]CSINodeInput
+
+func (CSINodeMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*CSINode)(nil))
+}
+
+func (i CSINodeMap) ToCSINodeMapOutput() CSINodeMapOutput {
+	return i.ToCSINodeMapOutputWithContext(context.Background())
+}
+
+func (i CSINodeMap) ToCSINodeMapOutputWithContext(ctx context.Context) CSINodeMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeMapOutput)
+}
+
 type CSINodeOutput struct {
 	*pulumi.OutputState
 }
@@ -153,6 +232,75 @@ func (o CSINodeOutput) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOu
 	return o
 }
 
+func (o CSINodeOutput) ToCSINodePtrOutput() CSINodePtrOutput {
+	return o.ToCSINodePtrOutputWithContext(context.Background())
+}
+
+func (o CSINodeOutput) ToCSINodePtrOutputWithContext(ctx context.Context) CSINodePtrOutput {
+	return o.ApplyT(func(v CSINode) *CSINode {
+		return &v
+	}).(CSINodePtrOutput)
+}
+
+type CSINodePtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (CSINodePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINode)(nil))
+}
+
+func (o CSINodePtrOutput) ToCSINodePtrOutput() CSINodePtrOutput {
+	return o
+}
+
+func (o CSINodePtrOutput) ToCSINodePtrOutputWithContext(ctx context.Context) CSINodePtrOutput {
+	return o
+}
+
+type CSINodeArrayOutput struct{ *pulumi.OutputState }
+
+func (CSINodeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSINode)(nil))
+}
+
+func (o CSINodeArrayOutput) ToCSINodeArrayOutput() CSINodeArrayOutput {
+	return o
+}
+
+func (o CSINodeArrayOutput) ToCSINodeArrayOutputWithContext(ctx context.Context) CSINodeArrayOutput {
+	return o
+}
+
+func (o CSINodeArrayOutput) Index(i pulumi.IntInput) CSINodeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CSINode {
+		return vs[0].([]CSINode)[vs[1].(int)]
+	}).(CSINodeOutput)
+}
+
+type CSINodeMapOutput struct{ *pulumi.OutputState }
+
+func (CSINodeMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]CSINode)(nil))
+}
+
+func (o CSINodeMapOutput) ToCSINodeMapOutput() CSINodeMapOutput {
+	return o
+}
+
+func (o CSINodeMapOutput) ToCSINodeMapOutputWithContext(ctx context.Context) CSINodeMapOutput {
+	return o
+}
+
+func (o CSINodeMapOutput) MapIndex(k pulumi.StringInput) CSINodeOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CSINode {
+		return vs[0].(map[string]CSINode)[vs[1].(string)]
+	}).(CSINodeOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(CSINodeOutput{})
+	pulumi.RegisterOutputType(CSINodePtrOutput{})
+	pulumi.RegisterOutputType(CSINodeArrayOutput{})
+	pulumi.RegisterOutputType(CSINodeMapOutput{})
 }

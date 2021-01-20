@@ -131,6 +131,85 @@ func (i *StorageClassList) ToStorageClassListOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListOutput)
 }
 
+func (i *StorageClassList) ToStorageClassListPtrOutput() StorageClassListPtrOutput {
+	return i.ToStorageClassListPtrOutputWithContext(context.Background())
+}
+
+func (i *StorageClassList) ToStorageClassListPtrOutputWithContext(ctx context.Context) StorageClassListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListPtrOutput)
+}
+
+type StorageClassListPtrInput interface {
+	pulumi.Input
+
+	ToStorageClassListPtrOutput() StorageClassListPtrOutput
+	ToStorageClassListPtrOutputWithContext(ctx context.Context) StorageClassListPtrOutput
+}
+
+type storageClassListPtrType StorageClassListArgs
+
+func (*storageClassListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StorageClassList)(nil))
+}
+
+func (i *storageClassListPtrType) ToStorageClassListPtrOutput() StorageClassListPtrOutput {
+	return i.ToStorageClassListPtrOutputWithContext(context.Background())
+}
+
+func (i *storageClassListPtrType) ToStorageClassListPtrOutputWithContext(ctx context.Context) StorageClassListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListPtrOutput)
+}
+
+// StorageClassListArrayInput is an input type that accepts StorageClassListArray and StorageClassListArrayOutput values.
+// You can construct a concrete instance of `StorageClassListArrayInput` via:
+//
+//          StorageClassListArray{ StorageClassListArgs{...} }
+type StorageClassListArrayInput interface {
+	pulumi.Input
+
+	ToStorageClassListArrayOutput() StorageClassListArrayOutput
+	ToStorageClassListArrayOutputWithContext(context.Context) StorageClassListArrayOutput
+}
+
+type StorageClassListArray []StorageClassListInput
+
+func (StorageClassListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*StorageClassList)(nil))
+}
+
+func (i StorageClassListArray) ToStorageClassListArrayOutput() StorageClassListArrayOutput {
+	return i.ToStorageClassListArrayOutputWithContext(context.Background())
+}
+
+func (i StorageClassListArray) ToStorageClassListArrayOutputWithContext(ctx context.Context) StorageClassListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListArrayOutput)
+}
+
+// StorageClassListMapInput is an input type that accepts StorageClassListMap and StorageClassListMapOutput values.
+// You can construct a concrete instance of `StorageClassListMapInput` via:
+//
+//          StorageClassListMap{ "key": StorageClassListArgs{...} }
+type StorageClassListMapInput interface {
+	pulumi.Input
+
+	ToStorageClassListMapOutput() StorageClassListMapOutput
+	ToStorageClassListMapOutputWithContext(context.Context) StorageClassListMapOutput
+}
+
+type StorageClassListMap map[string]StorageClassListInput
+
+func (StorageClassListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*StorageClassList)(nil))
+}
+
+func (i StorageClassListMap) ToStorageClassListMapOutput() StorageClassListMapOutput {
+	return i.ToStorageClassListMapOutputWithContext(context.Background())
+}
+
+func (i StorageClassListMap) ToStorageClassListMapOutputWithContext(ctx context.Context) StorageClassListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListMapOutput)
+}
+
 type StorageClassListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o StorageClassListOutput) ToStorageClassListOutputWithContext(ctx context.
 	return o
 }
 
+func (o StorageClassListOutput) ToStorageClassListPtrOutput() StorageClassListPtrOutput {
+	return o.ToStorageClassListPtrOutputWithContext(context.Background())
+}
+
+func (o StorageClassListOutput) ToStorageClassListPtrOutputWithContext(ctx context.Context) StorageClassListPtrOutput {
+	return o.ApplyT(func(v StorageClassList) *StorageClassList {
+		return &v
+	}).(StorageClassListPtrOutput)
+}
+
+type StorageClassListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (StorageClassListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StorageClassList)(nil))
+}
+
+func (o StorageClassListPtrOutput) ToStorageClassListPtrOutput() StorageClassListPtrOutput {
+	return o
+}
+
+func (o StorageClassListPtrOutput) ToStorageClassListPtrOutputWithContext(ctx context.Context) StorageClassListPtrOutput {
+	return o
+}
+
+type StorageClassListArrayOutput struct{ *pulumi.OutputState }
+
+func (StorageClassListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageClassList)(nil))
+}
+
+func (o StorageClassListArrayOutput) ToStorageClassListArrayOutput() StorageClassListArrayOutput {
+	return o
+}
+
+func (o StorageClassListArrayOutput) ToStorageClassListArrayOutputWithContext(ctx context.Context) StorageClassListArrayOutput {
+	return o
+}
+
+func (o StorageClassListArrayOutput) Index(i pulumi.IntInput) StorageClassListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StorageClassList {
+		return vs[0].([]StorageClassList)[vs[1].(int)]
+	}).(StorageClassListOutput)
+}
+
+type StorageClassListMapOutput struct{ *pulumi.OutputState }
+
+func (StorageClassListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]StorageClassList)(nil))
+}
+
+func (o StorageClassListMapOutput) ToStorageClassListMapOutput() StorageClassListMapOutput {
+	return o
+}
+
+func (o StorageClassListMapOutput) ToStorageClassListMapOutputWithContext(ctx context.Context) StorageClassListMapOutput {
+	return o
+}
+
+func (o StorageClassListMapOutput) MapIndex(k pulumi.StringInput) StorageClassListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) StorageClassList {
+		return vs[0].(map[string]StorageClassList)[vs[1].(string)]
+	}).(StorageClassListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(StorageClassListOutput{})
+	pulumi.RegisterOutputType(StorageClassListPtrOutput{})
+	pulumi.RegisterOutputType(StorageClassListArrayOutput{})
+	pulumi.RegisterOutputType(StorageClassListMapOutput{})
 }
