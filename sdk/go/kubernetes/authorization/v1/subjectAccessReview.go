@@ -138,6 +138,85 @@ func (i *SubjectAccessReview) ToSubjectAccessReviewOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewOutput)
 }
 
+func (i *SubjectAccessReview) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
+	return i.ToSubjectAccessReviewPtrOutputWithContext(context.Background())
+}
+
+func (i *SubjectAccessReview) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewPtrOutput)
+}
+
+type SubjectAccessReviewPtrInput interface {
+	pulumi.Input
+
+	ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput
+	ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput
+}
+
+type subjectAccessReviewPtrType SubjectAccessReviewArgs
+
+func (*subjectAccessReviewPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SubjectAccessReview)(nil))
+}
+
+func (i *subjectAccessReviewPtrType) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
+	return i.ToSubjectAccessReviewPtrOutputWithContext(context.Background())
+}
+
+func (i *subjectAccessReviewPtrType) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewPtrOutput)
+}
+
+// SubjectAccessReviewArrayInput is an input type that accepts SubjectAccessReviewArray and SubjectAccessReviewArrayOutput values.
+// You can construct a concrete instance of `SubjectAccessReviewArrayInput` via:
+//
+//          SubjectAccessReviewArray{ SubjectAccessReviewArgs{...} }
+type SubjectAccessReviewArrayInput interface {
+	pulumi.Input
+
+	ToSubjectAccessReviewArrayOutput() SubjectAccessReviewArrayOutput
+	ToSubjectAccessReviewArrayOutputWithContext(context.Context) SubjectAccessReviewArrayOutput
+}
+
+type SubjectAccessReviewArray []SubjectAccessReviewInput
+
+func (SubjectAccessReviewArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*SubjectAccessReview)(nil))
+}
+
+func (i SubjectAccessReviewArray) ToSubjectAccessReviewArrayOutput() SubjectAccessReviewArrayOutput {
+	return i.ToSubjectAccessReviewArrayOutputWithContext(context.Background())
+}
+
+func (i SubjectAccessReviewArray) ToSubjectAccessReviewArrayOutputWithContext(ctx context.Context) SubjectAccessReviewArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewArrayOutput)
+}
+
+// SubjectAccessReviewMapInput is an input type that accepts SubjectAccessReviewMap and SubjectAccessReviewMapOutput values.
+// You can construct a concrete instance of `SubjectAccessReviewMapInput` via:
+//
+//          SubjectAccessReviewMap{ "key": SubjectAccessReviewArgs{...} }
+type SubjectAccessReviewMapInput interface {
+	pulumi.Input
+
+	ToSubjectAccessReviewMapOutput() SubjectAccessReviewMapOutput
+	ToSubjectAccessReviewMapOutputWithContext(context.Context) SubjectAccessReviewMapOutput
+}
+
+type SubjectAccessReviewMap map[string]SubjectAccessReviewInput
+
+func (SubjectAccessReviewMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*SubjectAccessReview)(nil))
+}
+
+func (i SubjectAccessReviewMap) ToSubjectAccessReviewMapOutput() SubjectAccessReviewMapOutput {
+	return i.ToSubjectAccessReviewMapOutputWithContext(context.Background())
+}
+
+func (i SubjectAccessReviewMap) ToSubjectAccessReviewMapOutputWithContext(ctx context.Context) SubjectAccessReviewMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewMapOutput)
+}
+
 type SubjectAccessReviewOutput struct {
 	*pulumi.OutputState
 }
@@ -154,6 +233,75 @@ func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutputWithContext(ctx co
 	return o
 }
 
+func (o SubjectAccessReviewOutput) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
+	return o.ToSubjectAccessReviewPtrOutputWithContext(context.Background())
+}
+
+func (o SubjectAccessReviewOutput) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReview) *SubjectAccessReview {
+		return &v
+	}).(SubjectAccessReviewPtrOutput)
+}
+
+type SubjectAccessReviewPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (SubjectAccessReviewPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SubjectAccessReview)(nil))
+}
+
+func (o SubjectAccessReviewPtrOutput) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
+	return o
+}
+
+func (o SubjectAccessReviewPtrOutput) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
+	return o
+}
+
+type SubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }
+
+func (SubjectAccessReviewArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SubjectAccessReview)(nil))
+}
+
+func (o SubjectAccessReviewArrayOutput) ToSubjectAccessReviewArrayOutput() SubjectAccessReviewArrayOutput {
+	return o
+}
+
+func (o SubjectAccessReviewArrayOutput) ToSubjectAccessReviewArrayOutputWithContext(ctx context.Context) SubjectAccessReviewArrayOutput {
+	return o
+}
+
+func (o SubjectAccessReviewArrayOutput) Index(i pulumi.IntInput) SubjectAccessReviewOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SubjectAccessReview {
+		return vs[0].([]SubjectAccessReview)[vs[1].(int)]
+	}).(SubjectAccessReviewOutput)
+}
+
+type SubjectAccessReviewMapOutput struct{ *pulumi.OutputState }
+
+func (SubjectAccessReviewMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]SubjectAccessReview)(nil))
+}
+
+func (o SubjectAccessReviewMapOutput) ToSubjectAccessReviewMapOutput() SubjectAccessReviewMapOutput {
+	return o
+}
+
+func (o SubjectAccessReviewMapOutput) ToSubjectAccessReviewMapOutputWithContext(ctx context.Context) SubjectAccessReviewMapOutput {
+	return o
+}
+
+func (o SubjectAccessReviewMapOutput) MapIndex(k pulumi.StringInput) SubjectAccessReviewOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) SubjectAccessReview {
+		return vs[0].(map[string]SubjectAccessReview)[vs[1].(string)]
+	}).(SubjectAccessReviewOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(SubjectAccessReviewOutput{})
+	pulumi.RegisterOutputType(SubjectAccessReviewPtrOutput{})
+	pulumi.RegisterOutputType(SubjectAccessReviewArrayOutput{})
+	pulumi.RegisterOutputType(SubjectAccessReviewMapOutput{})
 }

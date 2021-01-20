@@ -260,9 +260,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"dictionaryConstructors": true,
 	})
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
-		"importBasePath":       goImportPath,
-		"moduleToPackage":      modToPkg,
-		"packageImportAliases": pkgImportAliases,
+		"importBasePath":                 goImportPath,
+		"moduleToPackage":                modToPkg,
+		"packageImportAliases":           pkgImportAliases,
+		"generateResourceContainerTypes": true,
 	})
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"compatibility": kubernetes20,

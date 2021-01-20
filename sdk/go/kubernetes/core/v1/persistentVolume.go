@@ -133,6 +133,85 @@ func (i *PersistentVolume) ToPersistentVolumeOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeOutput)
 }
 
+func (i *PersistentVolume) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
+	return i.ToPersistentVolumePtrOutputWithContext(context.Background())
+}
+
+func (i *PersistentVolume) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumePtrOutput)
+}
+
+type PersistentVolumePtrInput interface {
+	pulumi.Input
+
+	ToPersistentVolumePtrOutput() PersistentVolumePtrOutput
+	ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput
+}
+
+type persistentVolumePtrType PersistentVolumeArgs
+
+func (*persistentVolumePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PersistentVolume)(nil))
+}
+
+func (i *persistentVolumePtrType) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
+	return i.ToPersistentVolumePtrOutputWithContext(context.Background())
+}
+
+func (i *persistentVolumePtrType) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumePtrOutput)
+}
+
+// PersistentVolumeArrayInput is an input type that accepts PersistentVolumeArray and PersistentVolumeArrayOutput values.
+// You can construct a concrete instance of `PersistentVolumeArrayInput` via:
+//
+//          PersistentVolumeArray{ PersistentVolumeArgs{...} }
+type PersistentVolumeArrayInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeArrayOutput() PersistentVolumeArrayOutput
+	ToPersistentVolumeArrayOutputWithContext(context.Context) PersistentVolumeArrayOutput
+}
+
+type PersistentVolumeArray []PersistentVolumeInput
+
+func (PersistentVolumeArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*PersistentVolume)(nil))
+}
+
+func (i PersistentVolumeArray) ToPersistentVolumeArrayOutput() PersistentVolumeArrayOutput {
+	return i.ToPersistentVolumeArrayOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeArray) ToPersistentVolumeArrayOutputWithContext(ctx context.Context) PersistentVolumeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeArrayOutput)
+}
+
+// PersistentVolumeMapInput is an input type that accepts PersistentVolumeMap and PersistentVolumeMapOutput values.
+// You can construct a concrete instance of `PersistentVolumeMapInput` via:
+//
+//          PersistentVolumeMap{ "key": PersistentVolumeArgs{...} }
+type PersistentVolumeMapInput interface {
+	pulumi.Input
+
+	ToPersistentVolumeMapOutput() PersistentVolumeMapOutput
+	ToPersistentVolumeMapOutputWithContext(context.Context) PersistentVolumeMapOutput
+}
+
+type PersistentVolumeMap map[string]PersistentVolumeInput
+
+func (PersistentVolumeMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*PersistentVolume)(nil))
+}
+
+func (i PersistentVolumeMap) ToPersistentVolumeMapOutput() PersistentVolumeMapOutput {
+	return i.ToPersistentVolumeMapOutputWithContext(context.Background())
+}
+
+func (i PersistentVolumeMap) ToPersistentVolumeMapOutputWithContext(ctx context.Context) PersistentVolumeMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeMapOutput)
+}
+
 type PersistentVolumeOutput struct {
 	*pulumi.OutputState
 }
@@ -149,6 +228,75 @@ func (o PersistentVolumeOutput) ToPersistentVolumeOutputWithContext(ctx context.
 	return o
 }
 
+func (o PersistentVolumeOutput) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
+	return o.ToPersistentVolumePtrOutputWithContext(context.Background())
+}
+
+func (o PersistentVolumeOutput) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
+	return o.ApplyT(func(v PersistentVolume) *PersistentVolume {
+		return &v
+	}).(PersistentVolumePtrOutput)
+}
+
+type PersistentVolumePtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (PersistentVolumePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PersistentVolume)(nil))
+}
+
+func (o PersistentVolumePtrOutput) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
+	return o
+}
+
+func (o PersistentVolumePtrOutput) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
+	return o
+}
+
+type PersistentVolumeArrayOutput struct{ *pulumi.OutputState }
+
+func (PersistentVolumeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PersistentVolume)(nil))
+}
+
+func (o PersistentVolumeArrayOutput) ToPersistentVolumeArrayOutput() PersistentVolumeArrayOutput {
+	return o
+}
+
+func (o PersistentVolumeArrayOutput) ToPersistentVolumeArrayOutputWithContext(ctx context.Context) PersistentVolumeArrayOutput {
+	return o
+}
+
+func (o PersistentVolumeArrayOutput) Index(i pulumi.IntInput) PersistentVolumeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PersistentVolume {
+		return vs[0].([]PersistentVolume)[vs[1].(int)]
+	}).(PersistentVolumeOutput)
+}
+
+type PersistentVolumeMapOutput struct{ *pulumi.OutputState }
+
+func (PersistentVolumeMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]PersistentVolume)(nil))
+}
+
+func (o PersistentVolumeMapOutput) ToPersistentVolumeMapOutput() PersistentVolumeMapOutput {
+	return o
+}
+
+func (o PersistentVolumeMapOutput) ToPersistentVolumeMapOutputWithContext(ctx context.Context) PersistentVolumeMapOutput {
+	return o
+}
+
+func (o PersistentVolumeMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PersistentVolume {
+		return vs[0].(map[string]PersistentVolume)[vs[1].(string)]
+	}).(PersistentVolumeOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(PersistentVolumeOutput{})
+	pulumi.RegisterOutputType(PersistentVolumePtrOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeArrayOutput{})
+	pulumi.RegisterOutputType(PersistentVolumeMapOutput{})
 }

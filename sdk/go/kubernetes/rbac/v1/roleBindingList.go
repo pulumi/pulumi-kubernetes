@@ -131,6 +131,85 @@ func (i *RoleBindingList) ToRoleBindingListOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingListOutput)
 }
 
+func (i *RoleBindingList) ToRoleBindingListPtrOutput() RoleBindingListPtrOutput {
+	return i.ToRoleBindingListPtrOutputWithContext(context.Background())
+}
+
+func (i *RoleBindingList) ToRoleBindingListPtrOutputWithContext(ctx context.Context) RoleBindingListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingListPtrOutput)
+}
+
+type RoleBindingListPtrInput interface {
+	pulumi.Input
+
+	ToRoleBindingListPtrOutput() RoleBindingListPtrOutput
+	ToRoleBindingListPtrOutputWithContext(ctx context.Context) RoleBindingListPtrOutput
+}
+
+type roleBindingListPtrType RoleBindingListArgs
+
+func (*roleBindingListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RoleBindingList)(nil))
+}
+
+func (i *roleBindingListPtrType) ToRoleBindingListPtrOutput() RoleBindingListPtrOutput {
+	return i.ToRoleBindingListPtrOutputWithContext(context.Background())
+}
+
+func (i *roleBindingListPtrType) ToRoleBindingListPtrOutputWithContext(ctx context.Context) RoleBindingListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingListPtrOutput)
+}
+
+// RoleBindingListArrayInput is an input type that accepts RoleBindingListArray and RoleBindingListArrayOutput values.
+// You can construct a concrete instance of `RoleBindingListArrayInput` via:
+//
+//          RoleBindingListArray{ RoleBindingListArgs{...} }
+type RoleBindingListArrayInput interface {
+	pulumi.Input
+
+	ToRoleBindingListArrayOutput() RoleBindingListArrayOutput
+	ToRoleBindingListArrayOutputWithContext(context.Context) RoleBindingListArrayOutput
+}
+
+type RoleBindingListArray []RoleBindingListInput
+
+func (RoleBindingListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*RoleBindingList)(nil))
+}
+
+func (i RoleBindingListArray) ToRoleBindingListArrayOutput() RoleBindingListArrayOutput {
+	return i.ToRoleBindingListArrayOutputWithContext(context.Background())
+}
+
+func (i RoleBindingListArray) ToRoleBindingListArrayOutputWithContext(ctx context.Context) RoleBindingListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingListArrayOutput)
+}
+
+// RoleBindingListMapInput is an input type that accepts RoleBindingListMap and RoleBindingListMapOutput values.
+// You can construct a concrete instance of `RoleBindingListMapInput` via:
+//
+//          RoleBindingListMap{ "key": RoleBindingListArgs{...} }
+type RoleBindingListMapInput interface {
+	pulumi.Input
+
+	ToRoleBindingListMapOutput() RoleBindingListMapOutput
+	ToRoleBindingListMapOutputWithContext(context.Context) RoleBindingListMapOutput
+}
+
+type RoleBindingListMap map[string]RoleBindingListInput
+
+func (RoleBindingListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*RoleBindingList)(nil))
+}
+
+func (i RoleBindingListMap) ToRoleBindingListMapOutput() RoleBindingListMapOutput {
+	return i.ToRoleBindingListMapOutputWithContext(context.Background())
+}
+
+func (i RoleBindingListMap) ToRoleBindingListMapOutputWithContext(ctx context.Context) RoleBindingListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingListMapOutput)
+}
+
 type RoleBindingListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o RoleBindingListOutput) ToRoleBindingListOutputWithContext(ctx context.Co
 	return o
 }
 
+func (o RoleBindingListOutput) ToRoleBindingListPtrOutput() RoleBindingListPtrOutput {
+	return o.ToRoleBindingListPtrOutputWithContext(context.Background())
+}
+
+func (o RoleBindingListOutput) ToRoleBindingListPtrOutputWithContext(ctx context.Context) RoleBindingListPtrOutput {
+	return o.ApplyT(func(v RoleBindingList) *RoleBindingList {
+		return &v
+	}).(RoleBindingListPtrOutput)
+}
+
+type RoleBindingListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (RoleBindingListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RoleBindingList)(nil))
+}
+
+func (o RoleBindingListPtrOutput) ToRoleBindingListPtrOutput() RoleBindingListPtrOutput {
+	return o
+}
+
+func (o RoleBindingListPtrOutput) ToRoleBindingListPtrOutputWithContext(ctx context.Context) RoleBindingListPtrOutput {
+	return o
+}
+
+type RoleBindingListArrayOutput struct{ *pulumi.OutputState }
+
+func (RoleBindingListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RoleBindingList)(nil))
+}
+
+func (o RoleBindingListArrayOutput) ToRoleBindingListArrayOutput() RoleBindingListArrayOutput {
+	return o
+}
+
+func (o RoleBindingListArrayOutput) ToRoleBindingListArrayOutputWithContext(ctx context.Context) RoleBindingListArrayOutput {
+	return o
+}
+
+func (o RoleBindingListArrayOutput) Index(i pulumi.IntInput) RoleBindingListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RoleBindingList {
+		return vs[0].([]RoleBindingList)[vs[1].(int)]
+	}).(RoleBindingListOutput)
+}
+
+type RoleBindingListMapOutput struct{ *pulumi.OutputState }
+
+func (RoleBindingListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]RoleBindingList)(nil))
+}
+
+func (o RoleBindingListMapOutput) ToRoleBindingListMapOutput() RoleBindingListMapOutput {
+	return o
+}
+
+func (o RoleBindingListMapOutput) ToRoleBindingListMapOutputWithContext(ctx context.Context) RoleBindingListMapOutput {
+	return o
+}
+
+func (o RoleBindingListMapOutput) MapIndex(k pulumi.StringInput) RoleBindingListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) RoleBindingList {
+		return vs[0].(map[string]RoleBindingList)[vs[1].(string)]
+	}).(RoleBindingListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(RoleBindingListOutput{})
+	pulumi.RegisterOutputType(RoleBindingListPtrOutput{})
+	pulumi.RegisterOutputType(RoleBindingListArrayOutput{})
+	pulumi.RegisterOutputType(RoleBindingListMapOutput{})
 }

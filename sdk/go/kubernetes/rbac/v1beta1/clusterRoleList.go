@@ -131,6 +131,85 @@ func (i *ClusterRoleList) ToClusterRoleListOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListOutput)
 }
 
+func (i *ClusterRoleList) ToClusterRoleListPtrOutput() ClusterRoleListPtrOutput {
+	return i.ToClusterRoleListPtrOutputWithContext(context.Background())
+}
+
+func (i *ClusterRoleList) ToClusterRoleListPtrOutputWithContext(ctx context.Context) ClusterRoleListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListPtrOutput)
+}
+
+type ClusterRoleListPtrInput interface {
+	pulumi.Input
+
+	ToClusterRoleListPtrOutput() ClusterRoleListPtrOutput
+	ToClusterRoleListPtrOutputWithContext(ctx context.Context) ClusterRoleListPtrOutput
+}
+
+type clusterRoleListPtrType ClusterRoleListArgs
+
+func (*clusterRoleListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterRoleList)(nil))
+}
+
+func (i *clusterRoleListPtrType) ToClusterRoleListPtrOutput() ClusterRoleListPtrOutput {
+	return i.ToClusterRoleListPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterRoleListPtrType) ToClusterRoleListPtrOutputWithContext(ctx context.Context) ClusterRoleListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListPtrOutput)
+}
+
+// ClusterRoleListArrayInput is an input type that accepts ClusterRoleListArray and ClusterRoleListArrayOutput values.
+// You can construct a concrete instance of `ClusterRoleListArrayInput` via:
+//
+//          ClusterRoleListArray{ ClusterRoleListArgs{...} }
+type ClusterRoleListArrayInput interface {
+	pulumi.Input
+
+	ToClusterRoleListArrayOutput() ClusterRoleListArrayOutput
+	ToClusterRoleListArrayOutputWithContext(context.Context) ClusterRoleListArrayOutput
+}
+
+type ClusterRoleListArray []ClusterRoleListInput
+
+func (ClusterRoleListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ClusterRoleList)(nil))
+}
+
+func (i ClusterRoleListArray) ToClusterRoleListArrayOutput() ClusterRoleListArrayOutput {
+	return i.ToClusterRoleListArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterRoleListArray) ToClusterRoleListArrayOutputWithContext(ctx context.Context) ClusterRoleListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListArrayOutput)
+}
+
+// ClusterRoleListMapInput is an input type that accepts ClusterRoleListMap and ClusterRoleListMapOutput values.
+// You can construct a concrete instance of `ClusterRoleListMapInput` via:
+//
+//          ClusterRoleListMap{ "key": ClusterRoleListArgs{...} }
+type ClusterRoleListMapInput interface {
+	pulumi.Input
+
+	ToClusterRoleListMapOutput() ClusterRoleListMapOutput
+	ToClusterRoleListMapOutputWithContext(context.Context) ClusterRoleListMapOutput
+}
+
+type ClusterRoleListMap map[string]ClusterRoleListInput
+
+func (ClusterRoleListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ClusterRoleList)(nil))
+}
+
+func (i ClusterRoleListMap) ToClusterRoleListMapOutput() ClusterRoleListMapOutput {
+	return i.ToClusterRoleListMapOutputWithContext(context.Background())
+}
+
+func (i ClusterRoleListMap) ToClusterRoleListMapOutputWithContext(ctx context.Context) ClusterRoleListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListMapOutput)
+}
+
 type ClusterRoleListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o ClusterRoleListOutput) ToClusterRoleListOutputWithContext(ctx context.Co
 	return o
 }
 
+func (o ClusterRoleListOutput) ToClusterRoleListPtrOutput() ClusterRoleListPtrOutput {
+	return o.ToClusterRoleListPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterRoleListOutput) ToClusterRoleListPtrOutputWithContext(ctx context.Context) ClusterRoleListPtrOutput {
+	return o.ApplyT(func(v ClusterRoleList) *ClusterRoleList {
+		return &v
+	}).(ClusterRoleListPtrOutput)
+}
+
+type ClusterRoleListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ClusterRoleListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterRoleList)(nil))
+}
+
+func (o ClusterRoleListPtrOutput) ToClusterRoleListPtrOutput() ClusterRoleListPtrOutput {
+	return o
+}
+
+func (o ClusterRoleListPtrOutput) ToClusterRoleListPtrOutputWithContext(ctx context.Context) ClusterRoleListPtrOutput {
+	return o
+}
+
+type ClusterRoleListArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterRoleListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterRoleList)(nil))
+}
+
+func (o ClusterRoleListArrayOutput) ToClusterRoleListArrayOutput() ClusterRoleListArrayOutput {
+	return o
+}
+
+func (o ClusterRoleListArrayOutput) ToClusterRoleListArrayOutputWithContext(ctx context.Context) ClusterRoleListArrayOutput {
+	return o
+}
+
+func (o ClusterRoleListArrayOutput) Index(i pulumi.IntInput) ClusterRoleListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterRoleList {
+		return vs[0].([]ClusterRoleList)[vs[1].(int)]
+	}).(ClusterRoleListOutput)
+}
+
+type ClusterRoleListMapOutput struct{ *pulumi.OutputState }
+
+func (ClusterRoleListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ClusterRoleList)(nil))
+}
+
+func (o ClusterRoleListMapOutput) ToClusterRoleListMapOutput() ClusterRoleListMapOutput {
+	return o
+}
+
+func (o ClusterRoleListMapOutput) ToClusterRoleListMapOutputWithContext(ctx context.Context) ClusterRoleListMapOutput {
+	return o
+}
+
+func (o ClusterRoleListMapOutput) MapIndex(k pulumi.StringInput) ClusterRoleListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ClusterRoleList {
+		return vs[0].(map[string]ClusterRoleList)[vs[1].(string)]
+	}).(ClusterRoleListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ClusterRoleListOutput{})
+	pulumi.RegisterOutputType(ClusterRoleListPtrOutput{})
+	pulumi.RegisterOutputType(ClusterRoleListArrayOutput{})
+	pulumi.RegisterOutputType(ClusterRoleListMapOutput{})
 }

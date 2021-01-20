@@ -131,6 +131,85 @@ func (i *ResourceQuotaList) ToResourceQuotaListOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListOutput)
 }
 
+func (i *ResourceQuotaList) ToResourceQuotaListPtrOutput() ResourceQuotaListPtrOutput {
+	return i.ToResourceQuotaListPtrOutputWithContext(context.Background())
+}
+
+func (i *ResourceQuotaList) ToResourceQuotaListPtrOutputWithContext(ctx context.Context) ResourceQuotaListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListPtrOutput)
+}
+
+type ResourceQuotaListPtrInput interface {
+	pulumi.Input
+
+	ToResourceQuotaListPtrOutput() ResourceQuotaListPtrOutput
+	ToResourceQuotaListPtrOutputWithContext(ctx context.Context) ResourceQuotaListPtrOutput
+}
+
+type resourceQuotaListPtrType ResourceQuotaListArgs
+
+func (*resourceQuotaListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourceQuotaList)(nil))
+}
+
+func (i *resourceQuotaListPtrType) ToResourceQuotaListPtrOutput() ResourceQuotaListPtrOutput {
+	return i.ToResourceQuotaListPtrOutputWithContext(context.Background())
+}
+
+func (i *resourceQuotaListPtrType) ToResourceQuotaListPtrOutputWithContext(ctx context.Context) ResourceQuotaListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListPtrOutput)
+}
+
+// ResourceQuotaListArrayInput is an input type that accepts ResourceQuotaListArray and ResourceQuotaListArrayOutput values.
+// You can construct a concrete instance of `ResourceQuotaListArrayInput` via:
+//
+//          ResourceQuotaListArray{ ResourceQuotaListArgs{...} }
+type ResourceQuotaListArrayInput interface {
+	pulumi.Input
+
+	ToResourceQuotaListArrayOutput() ResourceQuotaListArrayOutput
+	ToResourceQuotaListArrayOutputWithContext(context.Context) ResourceQuotaListArrayOutput
+}
+
+type ResourceQuotaListArray []ResourceQuotaListInput
+
+func (ResourceQuotaListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ResourceQuotaList)(nil))
+}
+
+func (i ResourceQuotaListArray) ToResourceQuotaListArrayOutput() ResourceQuotaListArrayOutput {
+	return i.ToResourceQuotaListArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceQuotaListArray) ToResourceQuotaListArrayOutputWithContext(ctx context.Context) ResourceQuotaListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListArrayOutput)
+}
+
+// ResourceQuotaListMapInput is an input type that accepts ResourceQuotaListMap and ResourceQuotaListMapOutput values.
+// You can construct a concrete instance of `ResourceQuotaListMapInput` via:
+//
+//          ResourceQuotaListMap{ "key": ResourceQuotaListArgs{...} }
+type ResourceQuotaListMapInput interface {
+	pulumi.Input
+
+	ToResourceQuotaListMapOutput() ResourceQuotaListMapOutput
+	ToResourceQuotaListMapOutputWithContext(context.Context) ResourceQuotaListMapOutput
+}
+
+type ResourceQuotaListMap map[string]ResourceQuotaListInput
+
+func (ResourceQuotaListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ResourceQuotaList)(nil))
+}
+
+func (i ResourceQuotaListMap) ToResourceQuotaListMapOutput() ResourceQuotaListMapOutput {
+	return i.ToResourceQuotaListMapOutputWithContext(context.Background())
+}
+
+func (i ResourceQuotaListMap) ToResourceQuotaListMapOutputWithContext(ctx context.Context) ResourceQuotaListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListMapOutput)
+}
+
 type ResourceQuotaListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o ResourceQuotaListOutput) ToResourceQuotaListOutputWithContext(ctx contex
 	return o
 }
 
+func (o ResourceQuotaListOutput) ToResourceQuotaListPtrOutput() ResourceQuotaListPtrOutput {
+	return o.ToResourceQuotaListPtrOutputWithContext(context.Background())
+}
+
+func (o ResourceQuotaListOutput) ToResourceQuotaListPtrOutputWithContext(ctx context.Context) ResourceQuotaListPtrOutput {
+	return o.ApplyT(func(v ResourceQuotaList) *ResourceQuotaList {
+		return &v
+	}).(ResourceQuotaListPtrOutput)
+}
+
+type ResourceQuotaListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ResourceQuotaListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourceQuotaList)(nil))
+}
+
+func (o ResourceQuotaListPtrOutput) ToResourceQuotaListPtrOutput() ResourceQuotaListPtrOutput {
+	return o
+}
+
+func (o ResourceQuotaListPtrOutput) ToResourceQuotaListPtrOutputWithContext(ctx context.Context) ResourceQuotaListPtrOutput {
+	return o
+}
+
+type ResourceQuotaListArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceQuotaListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceQuotaList)(nil))
+}
+
+func (o ResourceQuotaListArrayOutput) ToResourceQuotaListArrayOutput() ResourceQuotaListArrayOutput {
+	return o
+}
+
+func (o ResourceQuotaListArrayOutput) ToResourceQuotaListArrayOutputWithContext(ctx context.Context) ResourceQuotaListArrayOutput {
+	return o
+}
+
+func (o ResourceQuotaListArrayOutput) Index(i pulumi.IntInput) ResourceQuotaListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceQuotaList {
+		return vs[0].([]ResourceQuotaList)[vs[1].(int)]
+	}).(ResourceQuotaListOutput)
+}
+
+type ResourceQuotaListMapOutput struct{ *pulumi.OutputState }
+
+func (ResourceQuotaListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ResourceQuotaList)(nil))
+}
+
+func (o ResourceQuotaListMapOutput) ToResourceQuotaListMapOutput() ResourceQuotaListMapOutput {
+	return o
+}
+
+func (o ResourceQuotaListMapOutput) ToResourceQuotaListMapOutputWithContext(ctx context.Context) ResourceQuotaListMapOutput {
+	return o
+}
+
+func (o ResourceQuotaListMapOutput) MapIndex(k pulumi.StringInput) ResourceQuotaListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ResourceQuotaList {
+		return vs[0].(map[string]ResourceQuotaList)[vs[1].(string)]
+	}).(ResourceQuotaListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ResourceQuotaListOutput{})
+	pulumi.RegisterOutputType(ResourceQuotaListPtrOutput{})
+	pulumi.RegisterOutputType(ResourceQuotaListArrayOutput{})
+	pulumi.RegisterOutputType(ResourceQuotaListMapOutput{})
 }

@@ -133,6 +133,85 @@ func (i *MutatingWebhookConfiguration) ToMutatingWebhookConfigurationOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationOutput)
 }
 
+func (i *MutatingWebhookConfiguration) ToMutatingWebhookConfigurationPtrOutput() MutatingWebhookConfigurationPtrOutput {
+	return i.ToMutatingWebhookConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i *MutatingWebhookConfiguration) ToMutatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationPtrOutput)
+}
+
+type MutatingWebhookConfigurationPtrInput interface {
+	pulumi.Input
+
+	ToMutatingWebhookConfigurationPtrOutput() MutatingWebhookConfigurationPtrOutput
+	ToMutatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPtrOutput
+}
+
+type mutatingWebhookConfigurationPtrType MutatingWebhookConfigurationArgs
+
+func (*mutatingWebhookConfigurationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingWebhookConfiguration)(nil))
+}
+
+func (i *mutatingWebhookConfigurationPtrType) ToMutatingWebhookConfigurationPtrOutput() MutatingWebhookConfigurationPtrOutput {
+	return i.ToMutatingWebhookConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i *mutatingWebhookConfigurationPtrType) ToMutatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationPtrOutput)
+}
+
+// MutatingWebhookConfigurationArrayInput is an input type that accepts MutatingWebhookConfigurationArray and MutatingWebhookConfigurationArrayOutput values.
+// You can construct a concrete instance of `MutatingWebhookConfigurationArrayInput` via:
+//
+//          MutatingWebhookConfigurationArray{ MutatingWebhookConfigurationArgs{...} }
+type MutatingWebhookConfigurationArrayInput interface {
+	pulumi.Input
+
+	ToMutatingWebhookConfigurationArrayOutput() MutatingWebhookConfigurationArrayOutput
+	ToMutatingWebhookConfigurationArrayOutputWithContext(context.Context) MutatingWebhookConfigurationArrayOutput
+}
+
+type MutatingWebhookConfigurationArray []MutatingWebhookConfigurationInput
+
+func (MutatingWebhookConfigurationArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*MutatingWebhookConfiguration)(nil))
+}
+
+func (i MutatingWebhookConfigurationArray) ToMutatingWebhookConfigurationArrayOutput() MutatingWebhookConfigurationArrayOutput {
+	return i.ToMutatingWebhookConfigurationArrayOutputWithContext(context.Background())
+}
+
+func (i MutatingWebhookConfigurationArray) ToMutatingWebhookConfigurationArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationArrayOutput)
+}
+
+// MutatingWebhookConfigurationMapInput is an input type that accepts MutatingWebhookConfigurationMap and MutatingWebhookConfigurationMapOutput values.
+// You can construct a concrete instance of `MutatingWebhookConfigurationMapInput` via:
+//
+//          MutatingWebhookConfigurationMap{ "key": MutatingWebhookConfigurationArgs{...} }
+type MutatingWebhookConfigurationMapInput interface {
+	pulumi.Input
+
+	ToMutatingWebhookConfigurationMapOutput() MutatingWebhookConfigurationMapOutput
+	ToMutatingWebhookConfigurationMapOutputWithContext(context.Context) MutatingWebhookConfigurationMapOutput
+}
+
+type MutatingWebhookConfigurationMap map[string]MutatingWebhookConfigurationInput
+
+func (MutatingWebhookConfigurationMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*MutatingWebhookConfiguration)(nil))
+}
+
+func (i MutatingWebhookConfigurationMap) ToMutatingWebhookConfigurationMapOutput() MutatingWebhookConfigurationMapOutput {
+	return i.ToMutatingWebhookConfigurationMapOutputWithContext(context.Background())
+}
+
+func (i MutatingWebhookConfigurationMap) ToMutatingWebhookConfigurationMapOutputWithContext(ctx context.Context) MutatingWebhookConfigurationMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationMapOutput)
+}
+
 type MutatingWebhookConfigurationOutput struct {
 	*pulumi.OutputState
 }
@@ -149,6 +228,75 @@ func (o MutatingWebhookConfigurationOutput) ToMutatingWebhookConfigurationOutput
 	return o
 }
 
+func (o MutatingWebhookConfigurationOutput) ToMutatingWebhookConfigurationPtrOutput() MutatingWebhookConfigurationPtrOutput {
+	return o.ToMutatingWebhookConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (o MutatingWebhookConfigurationOutput) ToMutatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPtrOutput {
+	return o.ApplyT(func(v MutatingWebhookConfiguration) *MutatingWebhookConfiguration {
+		return &v
+	}).(MutatingWebhookConfigurationPtrOutput)
+}
+
+type MutatingWebhookConfigurationPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (MutatingWebhookConfigurationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingWebhookConfiguration)(nil))
+}
+
+func (o MutatingWebhookConfigurationPtrOutput) ToMutatingWebhookConfigurationPtrOutput() MutatingWebhookConfigurationPtrOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationPtrOutput) ToMutatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPtrOutput {
+	return o
+}
+
+type MutatingWebhookConfigurationArrayOutput struct{ *pulumi.OutputState }
+
+func (MutatingWebhookConfigurationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingWebhookConfiguration)(nil))
+}
+
+func (o MutatingWebhookConfigurationArrayOutput) ToMutatingWebhookConfigurationArrayOutput() MutatingWebhookConfigurationArrayOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationArrayOutput) ToMutatingWebhookConfigurationArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationArrayOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationArrayOutput) Index(i pulumi.IntInput) MutatingWebhookConfigurationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingWebhookConfiguration {
+		return vs[0].([]MutatingWebhookConfiguration)[vs[1].(int)]
+	}).(MutatingWebhookConfigurationOutput)
+}
+
+type MutatingWebhookConfigurationMapOutput struct{ *pulumi.OutputState }
+
+func (MutatingWebhookConfigurationMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]MutatingWebhookConfiguration)(nil))
+}
+
+func (o MutatingWebhookConfigurationMapOutput) ToMutatingWebhookConfigurationMapOutput() MutatingWebhookConfigurationMapOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationMapOutput) ToMutatingWebhookConfigurationMapOutputWithContext(ctx context.Context) MutatingWebhookConfigurationMapOutput {
+	return o
+}
+
+func (o MutatingWebhookConfigurationMapOutput) MapIndex(k pulumi.StringInput) MutatingWebhookConfigurationOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) MutatingWebhookConfiguration {
+		return vs[0].(map[string]MutatingWebhookConfiguration)[vs[1].(string)]
+	}).(MutatingWebhookConfigurationOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(MutatingWebhookConfigurationOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationPtrOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationArrayOutput{})
+	pulumi.RegisterOutputType(MutatingWebhookConfigurationMapOutput{})
 }

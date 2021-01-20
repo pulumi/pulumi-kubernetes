@@ -133,6 +133,85 @@ func (i *IngressClass) ToIngressClassOutputWithContext(ctx context.Context) Ingr
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassOutput)
 }
 
+func (i *IngressClass) ToIngressClassPtrOutput() IngressClassPtrOutput {
+	return i.ToIngressClassPtrOutputWithContext(context.Background())
+}
+
+func (i *IngressClass) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassPtrOutput)
+}
+
+type IngressClassPtrInput interface {
+	pulumi.Input
+
+	ToIngressClassPtrOutput() IngressClassPtrOutput
+	ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput
+}
+
+type ingressClassPtrType IngressClassArgs
+
+func (*ingressClassPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClass)(nil))
+}
+
+func (i *ingressClassPtrType) ToIngressClassPtrOutput() IngressClassPtrOutput {
+	return i.ToIngressClassPtrOutputWithContext(context.Background())
+}
+
+func (i *ingressClassPtrType) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassPtrOutput)
+}
+
+// IngressClassArrayInput is an input type that accepts IngressClassArray and IngressClassArrayOutput values.
+// You can construct a concrete instance of `IngressClassArrayInput` via:
+//
+//          IngressClassArray{ IngressClassArgs{...} }
+type IngressClassArrayInput interface {
+	pulumi.Input
+
+	ToIngressClassArrayOutput() IngressClassArrayOutput
+	ToIngressClassArrayOutputWithContext(context.Context) IngressClassArrayOutput
+}
+
+type IngressClassArray []IngressClassInput
+
+func (IngressClassArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*IngressClass)(nil))
+}
+
+func (i IngressClassArray) ToIngressClassArrayOutput() IngressClassArrayOutput {
+	return i.ToIngressClassArrayOutputWithContext(context.Background())
+}
+
+func (i IngressClassArray) ToIngressClassArrayOutputWithContext(ctx context.Context) IngressClassArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassArrayOutput)
+}
+
+// IngressClassMapInput is an input type that accepts IngressClassMap and IngressClassMapOutput values.
+// You can construct a concrete instance of `IngressClassMapInput` via:
+//
+//          IngressClassMap{ "key": IngressClassArgs{...} }
+type IngressClassMapInput interface {
+	pulumi.Input
+
+	ToIngressClassMapOutput() IngressClassMapOutput
+	ToIngressClassMapOutputWithContext(context.Context) IngressClassMapOutput
+}
+
+type IngressClassMap map[string]IngressClassInput
+
+func (IngressClassMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*IngressClass)(nil))
+}
+
+func (i IngressClassMap) ToIngressClassMapOutput() IngressClassMapOutput {
+	return i.ToIngressClassMapOutputWithContext(context.Background())
+}
+
+func (i IngressClassMap) ToIngressClassMapOutputWithContext(ctx context.Context) IngressClassMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassMapOutput)
+}
+
 type IngressClassOutput struct {
 	*pulumi.OutputState
 }
@@ -149,6 +228,75 @@ func (o IngressClassOutput) ToIngressClassOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o IngressClassOutput) ToIngressClassPtrOutput() IngressClassPtrOutput {
+	return o.ToIngressClassPtrOutputWithContext(context.Background())
+}
+
+func (o IngressClassOutput) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
+	return o.ApplyT(func(v IngressClass) *IngressClass {
+		return &v
+	}).(IngressClassPtrOutput)
+}
+
+type IngressClassPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (IngressClassPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClass)(nil))
+}
+
+func (o IngressClassPtrOutput) ToIngressClassPtrOutput() IngressClassPtrOutput {
+	return o
+}
+
+func (o IngressClassPtrOutput) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
+	return o
+}
+
+type IngressClassArrayOutput struct{ *pulumi.OutputState }
+
+func (IngressClassArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressClass)(nil))
+}
+
+func (o IngressClassArrayOutput) ToIngressClassArrayOutput() IngressClassArrayOutput {
+	return o
+}
+
+func (o IngressClassArrayOutput) ToIngressClassArrayOutputWithContext(ctx context.Context) IngressClassArrayOutput {
+	return o
+}
+
+func (o IngressClassArrayOutput) Index(i pulumi.IntInput) IngressClassOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressClass {
+		return vs[0].([]IngressClass)[vs[1].(int)]
+	}).(IngressClassOutput)
+}
+
+type IngressClassMapOutput struct{ *pulumi.OutputState }
+
+func (IngressClassMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]IngressClass)(nil))
+}
+
+func (o IngressClassMapOutput) ToIngressClassMapOutput() IngressClassMapOutput {
+	return o
+}
+
+func (o IngressClassMapOutput) ToIngressClassMapOutputWithContext(ctx context.Context) IngressClassMapOutput {
+	return o
+}
+
+func (o IngressClassMapOutput) MapIndex(k pulumi.StringInput) IngressClassOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) IngressClass {
+		return vs[0].(map[string]IngressClass)[vs[1].(string)]
+	}).(IngressClassOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(IngressClassOutput{})
+	pulumi.RegisterOutputType(IngressClassPtrOutput{})
+	pulumi.RegisterOutputType(IngressClassArrayOutput{})
+	pulumi.RegisterOutputType(IngressClassMapOutput{})
 }

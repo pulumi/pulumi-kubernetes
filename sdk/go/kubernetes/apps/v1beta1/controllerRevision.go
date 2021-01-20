@@ -152,6 +152,85 @@ func (i *ControllerRevision) ToControllerRevisionOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionOutput)
 }
 
+func (i *ControllerRevision) ToControllerRevisionPtrOutput() ControllerRevisionPtrOutput {
+	return i.ToControllerRevisionPtrOutputWithContext(context.Background())
+}
+
+func (i *ControllerRevision) ToControllerRevisionPtrOutputWithContext(ctx context.Context) ControllerRevisionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionPtrOutput)
+}
+
+type ControllerRevisionPtrInput interface {
+	pulumi.Input
+
+	ToControllerRevisionPtrOutput() ControllerRevisionPtrOutput
+	ToControllerRevisionPtrOutputWithContext(ctx context.Context) ControllerRevisionPtrOutput
+}
+
+type controllerRevisionPtrType ControllerRevisionArgs
+
+func (*controllerRevisionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ControllerRevision)(nil))
+}
+
+func (i *controllerRevisionPtrType) ToControllerRevisionPtrOutput() ControllerRevisionPtrOutput {
+	return i.ToControllerRevisionPtrOutputWithContext(context.Background())
+}
+
+func (i *controllerRevisionPtrType) ToControllerRevisionPtrOutputWithContext(ctx context.Context) ControllerRevisionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionPtrOutput)
+}
+
+// ControllerRevisionArrayInput is an input type that accepts ControllerRevisionArray and ControllerRevisionArrayOutput values.
+// You can construct a concrete instance of `ControllerRevisionArrayInput` via:
+//
+//          ControllerRevisionArray{ ControllerRevisionArgs{...} }
+type ControllerRevisionArrayInput interface {
+	pulumi.Input
+
+	ToControllerRevisionArrayOutput() ControllerRevisionArrayOutput
+	ToControllerRevisionArrayOutputWithContext(context.Context) ControllerRevisionArrayOutput
+}
+
+type ControllerRevisionArray []ControllerRevisionInput
+
+func (ControllerRevisionArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ControllerRevision)(nil))
+}
+
+func (i ControllerRevisionArray) ToControllerRevisionArrayOutput() ControllerRevisionArrayOutput {
+	return i.ToControllerRevisionArrayOutputWithContext(context.Background())
+}
+
+func (i ControllerRevisionArray) ToControllerRevisionArrayOutputWithContext(ctx context.Context) ControllerRevisionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionArrayOutput)
+}
+
+// ControllerRevisionMapInput is an input type that accepts ControllerRevisionMap and ControllerRevisionMapOutput values.
+// You can construct a concrete instance of `ControllerRevisionMapInput` via:
+//
+//          ControllerRevisionMap{ "key": ControllerRevisionArgs{...} }
+type ControllerRevisionMapInput interface {
+	pulumi.Input
+
+	ToControllerRevisionMapOutput() ControllerRevisionMapOutput
+	ToControllerRevisionMapOutputWithContext(context.Context) ControllerRevisionMapOutput
+}
+
+type ControllerRevisionMap map[string]ControllerRevisionInput
+
+func (ControllerRevisionMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ControllerRevision)(nil))
+}
+
+func (i ControllerRevisionMap) ToControllerRevisionMapOutput() ControllerRevisionMapOutput {
+	return i.ToControllerRevisionMapOutputWithContext(context.Background())
+}
+
+func (i ControllerRevisionMap) ToControllerRevisionMapOutputWithContext(ctx context.Context) ControllerRevisionMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionMapOutput)
+}
+
 type ControllerRevisionOutput struct {
 	*pulumi.OutputState
 }
@@ -168,6 +247,75 @@ func (o ControllerRevisionOutput) ToControllerRevisionOutputWithContext(ctx cont
 	return o
 }
 
+func (o ControllerRevisionOutput) ToControllerRevisionPtrOutput() ControllerRevisionPtrOutput {
+	return o.ToControllerRevisionPtrOutputWithContext(context.Background())
+}
+
+func (o ControllerRevisionOutput) ToControllerRevisionPtrOutputWithContext(ctx context.Context) ControllerRevisionPtrOutput {
+	return o.ApplyT(func(v ControllerRevision) *ControllerRevision {
+		return &v
+	}).(ControllerRevisionPtrOutput)
+}
+
+type ControllerRevisionPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ControllerRevisionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ControllerRevision)(nil))
+}
+
+func (o ControllerRevisionPtrOutput) ToControllerRevisionPtrOutput() ControllerRevisionPtrOutput {
+	return o
+}
+
+func (o ControllerRevisionPtrOutput) ToControllerRevisionPtrOutputWithContext(ctx context.Context) ControllerRevisionPtrOutput {
+	return o
+}
+
+type ControllerRevisionArrayOutput struct{ *pulumi.OutputState }
+
+func (ControllerRevisionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ControllerRevision)(nil))
+}
+
+func (o ControllerRevisionArrayOutput) ToControllerRevisionArrayOutput() ControllerRevisionArrayOutput {
+	return o
+}
+
+func (o ControllerRevisionArrayOutput) ToControllerRevisionArrayOutputWithContext(ctx context.Context) ControllerRevisionArrayOutput {
+	return o
+}
+
+func (o ControllerRevisionArrayOutput) Index(i pulumi.IntInput) ControllerRevisionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ControllerRevision {
+		return vs[0].([]ControllerRevision)[vs[1].(int)]
+	}).(ControllerRevisionOutput)
+}
+
+type ControllerRevisionMapOutput struct{ *pulumi.OutputState }
+
+func (ControllerRevisionMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ControllerRevision)(nil))
+}
+
+func (o ControllerRevisionMapOutput) ToControllerRevisionMapOutput() ControllerRevisionMapOutput {
+	return o
+}
+
+func (o ControllerRevisionMapOutput) ToControllerRevisionMapOutputWithContext(ctx context.Context) ControllerRevisionMapOutput {
+	return o
+}
+
+func (o ControllerRevisionMapOutput) MapIndex(k pulumi.StringInput) ControllerRevisionOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ControllerRevision {
+		return vs[0].(map[string]ControllerRevision)[vs[1].(string)]
+	}).(ControllerRevisionOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ControllerRevisionOutput{})
+	pulumi.RegisterOutputType(ControllerRevisionPtrOutput{})
+	pulumi.RegisterOutputType(ControllerRevisionArrayOutput{})
+	pulumi.RegisterOutputType(ControllerRevisionMapOutput{})
 }

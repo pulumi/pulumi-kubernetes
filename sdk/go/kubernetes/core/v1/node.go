@@ -133,6 +133,85 @@ func (i *Node) ToNodeOutputWithContext(ctx context.Context) NodeOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NodeOutput)
 }
 
+func (i *Node) ToNodePtrOutput() NodePtrOutput {
+	return i.ToNodePtrOutputWithContext(context.Background())
+}
+
+func (i *Node) ToNodePtrOutputWithContext(ctx context.Context) NodePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePtrOutput)
+}
+
+type NodePtrInput interface {
+	pulumi.Input
+
+	ToNodePtrOutput() NodePtrOutput
+	ToNodePtrOutputWithContext(ctx context.Context) NodePtrOutput
+}
+
+type nodePtrType NodeArgs
+
+func (*nodePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Node)(nil))
+}
+
+func (i *nodePtrType) ToNodePtrOutput() NodePtrOutput {
+	return i.ToNodePtrOutputWithContext(context.Background())
+}
+
+func (i *nodePtrType) ToNodePtrOutputWithContext(ctx context.Context) NodePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePtrOutput)
+}
+
+// NodeArrayInput is an input type that accepts NodeArray and NodeArrayOutput values.
+// You can construct a concrete instance of `NodeArrayInput` via:
+//
+//          NodeArray{ NodeArgs{...} }
+type NodeArrayInput interface {
+	pulumi.Input
+
+	ToNodeArrayOutput() NodeArrayOutput
+	ToNodeArrayOutputWithContext(context.Context) NodeArrayOutput
+}
+
+type NodeArray []NodeInput
+
+func (NodeArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*Node)(nil))
+}
+
+func (i NodeArray) ToNodeArrayOutput() NodeArrayOutput {
+	return i.ToNodeArrayOutputWithContext(context.Background())
+}
+
+func (i NodeArray) ToNodeArrayOutputWithContext(ctx context.Context) NodeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeArrayOutput)
+}
+
+// NodeMapInput is an input type that accepts NodeMap and NodeMapOutput values.
+// You can construct a concrete instance of `NodeMapInput` via:
+//
+//          NodeMap{ "key": NodeArgs{...} }
+type NodeMapInput interface {
+	pulumi.Input
+
+	ToNodeMapOutput() NodeMapOutput
+	ToNodeMapOutputWithContext(context.Context) NodeMapOutput
+}
+
+type NodeMap map[string]NodeInput
+
+func (NodeMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*Node)(nil))
+}
+
+func (i NodeMap) ToNodeMapOutput() NodeMapOutput {
+	return i.ToNodeMapOutputWithContext(context.Background())
+}
+
+func (i NodeMap) ToNodeMapOutputWithContext(ctx context.Context) NodeMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeMapOutput)
+}
+
 type NodeOutput struct {
 	*pulumi.OutputState
 }
@@ -149,6 +228,75 @@ func (o NodeOutput) ToNodeOutputWithContext(ctx context.Context) NodeOutput {
 	return o
 }
 
+func (o NodeOutput) ToNodePtrOutput() NodePtrOutput {
+	return o.ToNodePtrOutputWithContext(context.Background())
+}
+
+func (o NodeOutput) ToNodePtrOutputWithContext(ctx context.Context) NodePtrOutput {
+	return o.ApplyT(func(v Node) *Node {
+		return &v
+	}).(NodePtrOutput)
+}
+
+type NodePtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (NodePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Node)(nil))
+}
+
+func (o NodePtrOutput) ToNodePtrOutput() NodePtrOutput {
+	return o
+}
+
+func (o NodePtrOutput) ToNodePtrOutputWithContext(ctx context.Context) NodePtrOutput {
+	return o
+}
+
+type NodeArrayOutput struct{ *pulumi.OutputState }
+
+func (NodeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Node)(nil))
+}
+
+func (o NodeArrayOutput) ToNodeArrayOutput() NodeArrayOutput {
+	return o
+}
+
+func (o NodeArrayOutput) ToNodeArrayOutputWithContext(ctx context.Context) NodeArrayOutput {
+	return o
+}
+
+func (o NodeArrayOutput) Index(i pulumi.IntInput) NodeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Node {
+		return vs[0].([]Node)[vs[1].(int)]
+	}).(NodeOutput)
+}
+
+type NodeMapOutput struct{ *pulumi.OutputState }
+
+func (NodeMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]Node)(nil))
+}
+
+func (o NodeMapOutput) ToNodeMapOutput() NodeMapOutput {
+	return o
+}
+
+func (o NodeMapOutput) ToNodeMapOutputWithContext(ctx context.Context) NodeMapOutput {
+	return o
+}
+
+func (o NodeMapOutput) MapIndex(k pulumi.StringInput) NodeOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) Node {
+		return vs[0].(map[string]Node)[vs[1].(string)]
+	}).(NodeOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(NodeOutput{})
+	pulumi.RegisterOutputType(NodePtrOutput{})
+	pulumi.RegisterOutputType(NodeArrayOutput{})
+	pulumi.RegisterOutputType(NodeMapOutput{})
 }

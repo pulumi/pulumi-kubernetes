@@ -131,6 +131,85 @@ func (i *PriorityLevelConfigurationList) ToPriorityLevelConfigurationListOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListOutput)
 }
 
+func (i *PriorityLevelConfigurationList) ToPriorityLevelConfigurationListPtrOutput() PriorityLevelConfigurationListPtrOutput {
+	return i.ToPriorityLevelConfigurationListPtrOutputWithContext(context.Background())
+}
+
+func (i *PriorityLevelConfigurationList) ToPriorityLevelConfigurationListPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListPtrOutput)
+}
+
+type PriorityLevelConfigurationListPtrInput interface {
+	pulumi.Input
+
+	ToPriorityLevelConfigurationListPtrOutput() PriorityLevelConfigurationListPtrOutput
+	ToPriorityLevelConfigurationListPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationListPtrOutput
+}
+
+type priorityLevelConfigurationListPtrType PriorityLevelConfigurationListArgs
+
+func (*priorityLevelConfigurationListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PriorityLevelConfigurationList)(nil))
+}
+
+func (i *priorityLevelConfigurationListPtrType) ToPriorityLevelConfigurationListPtrOutput() PriorityLevelConfigurationListPtrOutput {
+	return i.ToPriorityLevelConfigurationListPtrOutputWithContext(context.Background())
+}
+
+func (i *priorityLevelConfigurationListPtrType) ToPriorityLevelConfigurationListPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListPtrOutput)
+}
+
+// PriorityLevelConfigurationListArrayInput is an input type that accepts PriorityLevelConfigurationListArray and PriorityLevelConfigurationListArrayOutput values.
+// You can construct a concrete instance of `PriorityLevelConfigurationListArrayInput` via:
+//
+//          PriorityLevelConfigurationListArray{ PriorityLevelConfigurationListArgs{...} }
+type PriorityLevelConfigurationListArrayInput interface {
+	pulumi.Input
+
+	ToPriorityLevelConfigurationListArrayOutput() PriorityLevelConfigurationListArrayOutput
+	ToPriorityLevelConfigurationListArrayOutputWithContext(context.Context) PriorityLevelConfigurationListArrayOutput
+}
+
+type PriorityLevelConfigurationListArray []PriorityLevelConfigurationListInput
+
+func (PriorityLevelConfigurationListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*PriorityLevelConfigurationList)(nil))
+}
+
+func (i PriorityLevelConfigurationListArray) ToPriorityLevelConfigurationListArrayOutput() PriorityLevelConfigurationListArrayOutput {
+	return i.ToPriorityLevelConfigurationListArrayOutputWithContext(context.Background())
+}
+
+func (i PriorityLevelConfigurationListArray) ToPriorityLevelConfigurationListArrayOutputWithContext(ctx context.Context) PriorityLevelConfigurationListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListArrayOutput)
+}
+
+// PriorityLevelConfigurationListMapInput is an input type that accepts PriorityLevelConfigurationListMap and PriorityLevelConfigurationListMapOutput values.
+// You can construct a concrete instance of `PriorityLevelConfigurationListMapInput` via:
+//
+//          PriorityLevelConfigurationListMap{ "key": PriorityLevelConfigurationListArgs{...} }
+type PriorityLevelConfigurationListMapInput interface {
+	pulumi.Input
+
+	ToPriorityLevelConfigurationListMapOutput() PriorityLevelConfigurationListMapOutput
+	ToPriorityLevelConfigurationListMapOutputWithContext(context.Context) PriorityLevelConfigurationListMapOutput
+}
+
+type PriorityLevelConfigurationListMap map[string]PriorityLevelConfigurationListInput
+
+func (PriorityLevelConfigurationListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*PriorityLevelConfigurationList)(nil))
+}
+
+func (i PriorityLevelConfigurationListMap) ToPriorityLevelConfigurationListMapOutput() PriorityLevelConfigurationListMapOutput {
+	return i.ToPriorityLevelConfigurationListMapOutputWithContext(context.Background())
+}
+
+func (i PriorityLevelConfigurationListMap) ToPriorityLevelConfigurationListMapOutputWithContext(ctx context.Context) PriorityLevelConfigurationListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListMapOutput)
+}
+
 type PriorityLevelConfigurationListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListOu
 	return o
 }
 
+func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListPtrOutput() PriorityLevelConfigurationListPtrOutput {
+	return o.ToPriorityLevelConfigurationListPtrOutputWithContext(context.Background())
+}
+
+func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationListPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationList) *PriorityLevelConfigurationList {
+		return &v
+	}).(PriorityLevelConfigurationListPtrOutput)
+}
+
+type PriorityLevelConfigurationListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (PriorityLevelConfigurationListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PriorityLevelConfigurationList)(nil))
+}
+
+func (o PriorityLevelConfigurationListPtrOutput) ToPriorityLevelConfigurationListPtrOutput() PriorityLevelConfigurationListPtrOutput {
+	return o
+}
+
+func (o PriorityLevelConfigurationListPtrOutput) ToPriorityLevelConfigurationListPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationListPtrOutput {
+	return o
+}
+
+type PriorityLevelConfigurationListArrayOutput struct{ *pulumi.OutputState }
+
+func (PriorityLevelConfigurationListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PriorityLevelConfigurationList)(nil))
+}
+
+func (o PriorityLevelConfigurationListArrayOutput) ToPriorityLevelConfigurationListArrayOutput() PriorityLevelConfigurationListArrayOutput {
+	return o
+}
+
+func (o PriorityLevelConfigurationListArrayOutput) ToPriorityLevelConfigurationListArrayOutputWithContext(ctx context.Context) PriorityLevelConfigurationListArrayOutput {
+	return o
+}
+
+func (o PriorityLevelConfigurationListArrayOutput) Index(i pulumi.IntInput) PriorityLevelConfigurationListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PriorityLevelConfigurationList {
+		return vs[0].([]PriorityLevelConfigurationList)[vs[1].(int)]
+	}).(PriorityLevelConfigurationListOutput)
+}
+
+type PriorityLevelConfigurationListMapOutput struct{ *pulumi.OutputState }
+
+func (PriorityLevelConfigurationListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]PriorityLevelConfigurationList)(nil))
+}
+
+func (o PriorityLevelConfigurationListMapOutput) ToPriorityLevelConfigurationListMapOutput() PriorityLevelConfigurationListMapOutput {
+	return o
+}
+
+func (o PriorityLevelConfigurationListMapOutput) ToPriorityLevelConfigurationListMapOutputWithContext(ctx context.Context) PriorityLevelConfigurationListMapOutput {
+	return o
+}
+
+func (o PriorityLevelConfigurationListMapOutput) MapIndex(k pulumi.StringInput) PriorityLevelConfigurationListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PriorityLevelConfigurationList {
+		return vs[0].(map[string]PriorityLevelConfigurationList)[vs[1].(string)]
+	}).(PriorityLevelConfigurationListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(PriorityLevelConfigurationListOutput{})
+	pulumi.RegisterOutputType(PriorityLevelConfigurationListPtrOutput{})
+	pulumi.RegisterOutputType(PriorityLevelConfigurationListArrayOutput{})
+	pulumi.RegisterOutputType(PriorityLevelConfigurationListMapOutput{})
 }

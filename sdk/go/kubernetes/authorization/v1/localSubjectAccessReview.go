@@ -138,6 +138,85 @@ func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewOutput)
 }
 
+func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
+	return i.ToLocalSubjectAccessReviewPtrOutputWithContext(context.Background())
+}
+
+func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewPtrOutput)
+}
+
+type LocalSubjectAccessReviewPtrInput interface {
+	pulumi.Input
+
+	ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput
+	ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput
+}
+
+type localSubjectAccessReviewPtrType LocalSubjectAccessReviewArgs
+
+func (*localSubjectAccessReviewPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**LocalSubjectAccessReview)(nil))
+}
+
+func (i *localSubjectAccessReviewPtrType) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
+	return i.ToLocalSubjectAccessReviewPtrOutputWithContext(context.Background())
+}
+
+func (i *localSubjectAccessReviewPtrType) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewPtrOutput)
+}
+
+// LocalSubjectAccessReviewArrayInput is an input type that accepts LocalSubjectAccessReviewArray and LocalSubjectAccessReviewArrayOutput values.
+// You can construct a concrete instance of `LocalSubjectAccessReviewArrayInput` via:
+//
+//          LocalSubjectAccessReviewArray{ LocalSubjectAccessReviewArgs{...} }
+type LocalSubjectAccessReviewArrayInput interface {
+	pulumi.Input
+
+	ToLocalSubjectAccessReviewArrayOutput() LocalSubjectAccessReviewArrayOutput
+	ToLocalSubjectAccessReviewArrayOutputWithContext(context.Context) LocalSubjectAccessReviewArrayOutput
+}
+
+type LocalSubjectAccessReviewArray []LocalSubjectAccessReviewInput
+
+func (LocalSubjectAccessReviewArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*LocalSubjectAccessReview)(nil))
+}
+
+func (i LocalSubjectAccessReviewArray) ToLocalSubjectAccessReviewArrayOutput() LocalSubjectAccessReviewArrayOutput {
+	return i.ToLocalSubjectAccessReviewArrayOutputWithContext(context.Background())
+}
+
+func (i LocalSubjectAccessReviewArray) ToLocalSubjectAccessReviewArrayOutputWithContext(ctx context.Context) LocalSubjectAccessReviewArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewArrayOutput)
+}
+
+// LocalSubjectAccessReviewMapInput is an input type that accepts LocalSubjectAccessReviewMap and LocalSubjectAccessReviewMapOutput values.
+// You can construct a concrete instance of `LocalSubjectAccessReviewMapInput` via:
+//
+//          LocalSubjectAccessReviewMap{ "key": LocalSubjectAccessReviewArgs{...} }
+type LocalSubjectAccessReviewMapInput interface {
+	pulumi.Input
+
+	ToLocalSubjectAccessReviewMapOutput() LocalSubjectAccessReviewMapOutput
+	ToLocalSubjectAccessReviewMapOutputWithContext(context.Context) LocalSubjectAccessReviewMapOutput
+}
+
+type LocalSubjectAccessReviewMap map[string]LocalSubjectAccessReviewInput
+
+func (LocalSubjectAccessReviewMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*LocalSubjectAccessReview)(nil))
+}
+
+func (i LocalSubjectAccessReviewMap) ToLocalSubjectAccessReviewMapOutput() LocalSubjectAccessReviewMapOutput {
+	return i.ToLocalSubjectAccessReviewMapOutputWithContext(context.Background())
+}
+
+func (i LocalSubjectAccessReviewMap) ToLocalSubjectAccessReviewMapOutputWithContext(ctx context.Context) LocalSubjectAccessReviewMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewMapOutput)
+}
+
 type LocalSubjectAccessReviewOutput struct {
 	*pulumi.OutputState
 }
@@ -154,6 +233,75 @@ func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutputWithCont
 	return o
 }
 
+func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
+	return o.ToLocalSubjectAccessReviewPtrOutputWithContext(context.Background())
+}
+
+func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReview) *LocalSubjectAccessReview {
+		return &v
+	}).(LocalSubjectAccessReviewPtrOutput)
+}
+
+type LocalSubjectAccessReviewPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (LocalSubjectAccessReviewPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LocalSubjectAccessReview)(nil))
+}
+
+func (o LocalSubjectAccessReviewPtrOutput) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
+	return o
+}
+
+func (o LocalSubjectAccessReviewPtrOutput) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
+	return o
+}
+
+type LocalSubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }
+
+func (LocalSubjectAccessReviewArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]LocalSubjectAccessReview)(nil))
+}
+
+func (o LocalSubjectAccessReviewArrayOutput) ToLocalSubjectAccessReviewArrayOutput() LocalSubjectAccessReviewArrayOutput {
+	return o
+}
+
+func (o LocalSubjectAccessReviewArrayOutput) ToLocalSubjectAccessReviewArrayOutputWithContext(ctx context.Context) LocalSubjectAccessReviewArrayOutput {
+	return o
+}
+
+func (o LocalSubjectAccessReviewArrayOutput) Index(i pulumi.IntInput) LocalSubjectAccessReviewOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) LocalSubjectAccessReview {
+		return vs[0].([]LocalSubjectAccessReview)[vs[1].(int)]
+	}).(LocalSubjectAccessReviewOutput)
+}
+
+type LocalSubjectAccessReviewMapOutput struct{ *pulumi.OutputState }
+
+func (LocalSubjectAccessReviewMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]LocalSubjectAccessReview)(nil))
+}
+
+func (o LocalSubjectAccessReviewMapOutput) ToLocalSubjectAccessReviewMapOutput() LocalSubjectAccessReviewMapOutput {
+	return o
+}
+
+func (o LocalSubjectAccessReviewMapOutput) ToLocalSubjectAccessReviewMapOutputWithContext(ctx context.Context) LocalSubjectAccessReviewMapOutput {
+	return o
+}
+
+func (o LocalSubjectAccessReviewMapOutput) MapIndex(k pulumi.StringInput) LocalSubjectAccessReviewOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) LocalSubjectAccessReview {
+		return vs[0].(map[string]LocalSubjectAccessReview)[vs[1].(string)]
+	}).(LocalSubjectAccessReviewOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewOutput{})
+	pulumi.RegisterOutputType(LocalSubjectAccessReviewPtrOutput{})
+	pulumi.RegisterOutputType(LocalSubjectAccessReviewArrayOutput{})
+	pulumi.RegisterOutputType(LocalSubjectAccessReviewMapOutput{})
 }

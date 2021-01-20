@@ -133,6 +133,85 @@ func (i *PodSecurityPolicy) ToPodSecurityPolicyOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyOutput)
 }
 
+func (i *PodSecurityPolicy) ToPodSecurityPolicyPtrOutput() PodSecurityPolicyPtrOutput {
+	return i.ToPodSecurityPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *PodSecurityPolicy) ToPodSecurityPolicyPtrOutputWithContext(ctx context.Context) PodSecurityPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyPtrOutput)
+}
+
+type PodSecurityPolicyPtrInput interface {
+	pulumi.Input
+
+	ToPodSecurityPolicyPtrOutput() PodSecurityPolicyPtrOutput
+	ToPodSecurityPolicyPtrOutputWithContext(ctx context.Context) PodSecurityPolicyPtrOutput
+}
+
+type podSecurityPolicyPtrType PodSecurityPolicyArgs
+
+func (*podSecurityPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodSecurityPolicy)(nil))
+}
+
+func (i *podSecurityPolicyPtrType) ToPodSecurityPolicyPtrOutput() PodSecurityPolicyPtrOutput {
+	return i.ToPodSecurityPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *podSecurityPolicyPtrType) ToPodSecurityPolicyPtrOutputWithContext(ctx context.Context) PodSecurityPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyPtrOutput)
+}
+
+// PodSecurityPolicyArrayInput is an input type that accepts PodSecurityPolicyArray and PodSecurityPolicyArrayOutput values.
+// You can construct a concrete instance of `PodSecurityPolicyArrayInput` via:
+//
+//          PodSecurityPolicyArray{ PodSecurityPolicyArgs{...} }
+type PodSecurityPolicyArrayInput interface {
+	pulumi.Input
+
+	ToPodSecurityPolicyArrayOutput() PodSecurityPolicyArrayOutput
+	ToPodSecurityPolicyArrayOutputWithContext(context.Context) PodSecurityPolicyArrayOutput
+}
+
+type PodSecurityPolicyArray []PodSecurityPolicyInput
+
+func (PodSecurityPolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*PodSecurityPolicy)(nil))
+}
+
+func (i PodSecurityPolicyArray) ToPodSecurityPolicyArrayOutput() PodSecurityPolicyArrayOutput {
+	return i.ToPodSecurityPolicyArrayOutputWithContext(context.Background())
+}
+
+func (i PodSecurityPolicyArray) ToPodSecurityPolicyArrayOutputWithContext(ctx context.Context) PodSecurityPolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyArrayOutput)
+}
+
+// PodSecurityPolicyMapInput is an input type that accepts PodSecurityPolicyMap and PodSecurityPolicyMapOutput values.
+// You can construct a concrete instance of `PodSecurityPolicyMapInput` via:
+//
+//          PodSecurityPolicyMap{ "key": PodSecurityPolicyArgs{...} }
+type PodSecurityPolicyMapInput interface {
+	pulumi.Input
+
+	ToPodSecurityPolicyMapOutput() PodSecurityPolicyMapOutput
+	ToPodSecurityPolicyMapOutputWithContext(context.Context) PodSecurityPolicyMapOutput
+}
+
+type PodSecurityPolicyMap map[string]PodSecurityPolicyInput
+
+func (PodSecurityPolicyMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*PodSecurityPolicy)(nil))
+}
+
+func (i PodSecurityPolicyMap) ToPodSecurityPolicyMapOutput() PodSecurityPolicyMapOutput {
+	return i.ToPodSecurityPolicyMapOutputWithContext(context.Background())
+}
+
+func (i PodSecurityPolicyMap) ToPodSecurityPolicyMapOutputWithContext(ctx context.Context) PodSecurityPolicyMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyMapOutput)
+}
+
 type PodSecurityPolicyOutput struct {
 	*pulumi.OutputState
 }
@@ -149,6 +228,75 @@ func (o PodSecurityPolicyOutput) ToPodSecurityPolicyOutputWithContext(ctx contex
 	return o
 }
 
+func (o PodSecurityPolicyOutput) ToPodSecurityPolicyPtrOutput() PodSecurityPolicyPtrOutput {
+	return o.ToPodSecurityPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o PodSecurityPolicyOutput) ToPodSecurityPolicyPtrOutputWithContext(ctx context.Context) PodSecurityPolicyPtrOutput {
+	return o.ApplyT(func(v PodSecurityPolicy) *PodSecurityPolicy {
+		return &v
+	}).(PodSecurityPolicyPtrOutput)
+}
+
+type PodSecurityPolicyPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodSecurityPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodSecurityPolicy)(nil))
+}
+
+func (o PodSecurityPolicyPtrOutput) ToPodSecurityPolicyPtrOutput() PodSecurityPolicyPtrOutput {
+	return o
+}
+
+func (o PodSecurityPolicyPtrOutput) ToPodSecurityPolicyPtrOutputWithContext(ctx context.Context) PodSecurityPolicyPtrOutput {
+	return o
+}
+
+type PodSecurityPolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (PodSecurityPolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodSecurityPolicy)(nil))
+}
+
+func (o PodSecurityPolicyArrayOutput) ToPodSecurityPolicyArrayOutput() PodSecurityPolicyArrayOutput {
+	return o
+}
+
+func (o PodSecurityPolicyArrayOutput) ToPodSecurityPolicyArrayOutputWithContext(ctx context.Context) PodSecurityPolicyArrayOutput {
+	return o
+}
+
+func (o PodSecurityPolicyArrayOutput) Index(i pulumi.IntInput) PodSecurityPolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodSecurityPolicy {
+		return vs[0].([]PodSecurityPolicy)[vs[1].(int)]
+	}).(PodSecurityPolicyOutput)
+}
+
+type PodSecurityPolicyMapOutput struct{ *pulumi.OutputState }
+
+func (PodSecurityPolicyMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]PodSecurityPolicy)(nil))
+}
+
+func (o PodSecurityPolicyMapOutput) ToPodSecurityPolicyMapOutput() PodSecurityPolicyMapOutput {
+	return o
+}
+
+func (o PodSecurityPolicyMapOutput) ToPodSecurityPolicyMapOutputWithContext(ctx context.Context) PodSecurityPolicyMapOutput {
+	return o
+}
+
+func (o PodSecurityPolicyMapOutput) MapIndex(k pulumi.StringInput) PodSecurityPolicyOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PodSecurityPolicy {
+		return vs[0].(map[string]PodSecurityPolicy)[vs[1].(string)]
+	}).(PodSecurityPolicyOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(PodSecurityPolicyOutput{})
+	pulumi.RegisterOutputType(PodSecurityPolicyPtrOutput{})
+	pulumi.RegisterOutputType(PodSecurityPolicyArrayOutput{})
+	pulumi.RegisterOutputType(PodSecurityPolicyMapOutput{})
 }
