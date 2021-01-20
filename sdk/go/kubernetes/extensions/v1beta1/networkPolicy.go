@@ -133,6 +133,85 @@ func (i *NetworkPolicy) ToNetworkPolicyOutputWithContext(ctx context.Context) Ne
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyOutput)
 }
 
+func (i *NetworkPolicy) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
+	return i.ToNetworkPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *NetworkPolicy) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyPtrOutput)
+}
+
+type NetworkPolicyPtrInput interface {
+	pulumi.Input
+
+	ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput
+	ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput
+}
+
+type networkPolicyPtrType NetworkPolicyArgs
+
+func (*networkPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkPolicy)(nil))
+}
+
+func (i *networkPolicyPtrType) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
+	return i.ToNetworkPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *networkPolicyPtrType) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyPtrOutput)
+}
+
+// NetworkPolicyArrayInput is an input type that accepts NetworkPolicyArray and NetworkPolicyArrayOutput values.
+// You can construct a concrete instance of `NetworkPolicyArrayInput` via:
+//
+//          NetworkPolicyArray{ NetworkPolicyArgs{...} }
+type NetworkPolicyArrayInput interface {
+	pulumi.Input
+
+	ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutput
+	ToNetworkPolicyArrayOutputWithContext(context.Context) NetworkPolicyArrayOutput
+}
+
+type NetworkPolicyArray []NetworkPolicyInput
+
+func (NetworkPolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*NetworkPolicy)(nil))
+}
+
+func (i NetworkPolicyArray) ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutput {
+	return i.ToNetworkPolicyArrayOutputWithContext(context.Background())
+}
+
+func (i NetworkPolicyArray) ToNetworkPolicyArrayOutputWithContext(ctx context.Context) NetworkPolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyArrayOutput)
+}
+
+// NetworkPolicyMapInput is an input type that accepts NetworkPolicyMap and NetworkPolicyMapOutput values.
+// You can construct a concrete instance of `NetworkPolicyMapInput` via:
+//
+//          NetworkPolicyMap{ "key": NetworkPolicyArgs{...} }
+type NetworkPolicyMapInput interface {
+	pulumi.Input
+
+	ToNetworkPolicyMapOutput() NetworkPolicyMapOutput
+	ToNetworkPolicyMapOutputWithContext(context.Context) NetworkPolicyMapOutput
+}
+
+type NetworkPolicyMap map[string]NetworkPolicyInput
+
+func (NetworkPolicyMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*NetworkPolicy)(nil))
+}
+
+func (i NetworkPolicyMap) ToNetworkPolicyMapOutput() NetworkPolicyMapOutput {
+	return i.ToNetworkPolicyMapOutputWithContext(context.Background())
+}
+
+func (i NetworkPolicyMap) ToNetworkPolicyMapOutputWithContext(ctx context.Context) NetworkPolicyMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyMapOutput)
+}
+
 type NetworkPolicyOutput struct {
 	*pulumi.OutputState
 }
@@ -149,6 +228,75 @@ func (o NetworkPolicyOutput) ToNetworkPolicyOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o NetworkPolicyOutput) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
+	return o.ToNetworkPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o NetworkPolicyOutput) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
+	return o.ApplyT(func(v NetworkPolicy) *NetworkPolicy {
+		return &v
+	}).(NetworkPolicyPtrOutput)
+}
+
+type NetworkPolicyPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (NetworkPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkPolicy)(nil))
+}
+
+func (o NetworkPolicyPtrOutput) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
+	return o
+}
+
+func (o NetworkPolicyPtrOutput) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
+	return o
+}
+
+type NetworkPolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (NetworkPolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NetworkPolicy)(nil))
+}
+
+func (o NetworkPolicyArrayOutput) ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutput {
+	return o
+}
+
+func (o NetworkPolicyArrayOutput) ToNetworkPolicyArrayOutputWithContext(ctx context.Context) NetworkPolicyArrayOutput {
+	return o
+}
+
+func (o NetworkPolicyArrayOutput) Index(i pulumi.IntInput) NetworkPolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NetworkPolicy {
+		return vs[0].([]NetworkPolicy)[vs[1].(int)]
+	}).(NetworkPolicyOutput)
+}
+
+type NetworkPolicyMapOutput struct{ *pulumi.OutputState }
+
+func (NetworkPolicyMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]NetworkPolicy)(nil))
+}
+
+func (o NetworkPolicyMapOutput) ToNetworkPolicyMapOutput() NetworkPolicyMapOutput {
+	return o
+}
+
+func (o NetworkPolicyMapOutput) ToNetworkPolicyMapOutputWithContext(ctx context.Context) NetworkPolicyMapOutput {
+	return o
+}
+
+func (o NetworkPolicyMapOutput) MapIndex(k pulumi.StringInput) NetworkPolicyOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) NetworkPolicy {
+		return vs[0].(map[string]NetworkPolicy)[vs[1].(string)]
+	}).(NetworkPolicyOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(NetworkPolicyOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyPtrOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyArrayOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyMapOutput{})
 }

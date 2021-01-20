@@ -131,6 +131,85 @@ func (i *PodList) ToPodListOutputWithContext(ctx context.Context) PodListOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(PodListOutput)
 }
 
+func (i *PodList) ToPodListPtrOutput() PodListPtrOutput {
+	return i.ToPodListPtrOutputWithContext(context.Background())
+}
+
+func (i *PodList) ToPodListPtrOutputWithContext(ctx context.Context) PodListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodListPtrOutput)
+}
+
+type PodListPtrInput interface {
+	pulumi.Input
+
+	ToPodListPtrOutput() PodListPtrOutput
+	ToPodListPtrOutputWithContext(ctx context.Context) PodListPtrOutput
+}
+
+type podListPtrType PodListArgs
+
+func (*podListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodList)(nil))
+}
+
+func (i *podListPtrType) ToPodListPtrOutput() PodListPtrOutput {
+	return i.ToPodListPtrOutputWithContext(context.Background())
+}
+
+func (i *podListPtrType) ToPodListPtrOutputWithContext(ctx context.Context) PodListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodListPtrOutput)
+}
+
+// PodListArrayInput is an input type that accepts PodListArray and PodListArrayOutput values.
+// You can construct a concrete instance of `PodListArrayInput` via:
+//
+//          PodListArray{ PodListArgs{...} }
+type PodListArrayInput interface {
+	pulumi.Input
+
+	ToPodListArrayOutput() PodListArrayOutput
+	ToPodListArrayOutputWithContext(context.Context) PodListArrayOutput
+}
+
+type PodListArray []PodListInput
+
+func (PodListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*PodList)(nil))
+}
+
+func (i PodListArray) ToPodListArrayOutput() PodListArrayOutput {
+	return i.ToPodListArrayOutputWithContext(context.Background())
+}
+
+func (i PodListArray) ToPodListArrayOutputWithContext(ctx context.Context) PodListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodListArrayOutput)
+}
+
+// PodListMapInput is an input type that accepts PodListMap and PodListMapOutput values.
+// You can construct a concrete instance of `PodListMapInput` via:
+//
+//          PodListMap{ "key": PodListArgs{...} }
+type PodListMapInput interface {
+	pulumi.Input
+
+	ToPodListMapOutput() PodListMapOutput
+	ToPodListMapOutputWithContext(context.Context) PodListMapOutput
+}
+
+type PodListMap map[string]PodListInput
+
+func (PodListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*PodList)(nil))
+}
+
+func (i PodListMap) ToPodListMapOutput() PodListMapOutput {
+	return i.ToPodListMapOutputWithContext(context.Background())
+}
+
+func (i PodListMap) ToPodListMapOutputWithContext(ctx context.Context) PodListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodListMapOutput)
+}
+
 type PodListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o PodListOutput) ToPodListOutputWithContext(ctx context.Context) PodListOu
 	return o
 }
 
+func (o PodListOutput) ToPodListPtrOutput() PodListPtrOutput {
+	return o.ToPodListPtrOutputWithContext(context.Background())
+}
+
+func (o PodListOutput) ToPodListPtrOutputWithContext(ctx context.Context) PodListPtrOutput {
+	return o.ApplyT(func(v PodList) *PodList {
+		return &v
+	}).(PodListPtrOutput)
+}
+
+type PodListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (PodListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodList)(nil))
+}
+
+func (o PodListPtrOutput) ToPodListPtrOutput() PodListPtrOutput {
+	return o
+}
+
+func (o PodListPtrOutput) ToPodListPtrOutputWithContext(ctx context.Context) PodListPtrOutput {
+	return o
+}
+
+type PodListArrayOutput struct{ *pulumi.OutputState }
+
+func (PodListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodList)(nil))
+}
+
+func (o PodListArrayOutput) ToPodListArrayOutput() PodListArrayOutput {
+	return o
+}
+
+func (o PodListArrayOutput) ToPodListArrayOutputWithContext(ctx context.Context) PodListArrayOutput {
+	return o
+}
+
+func (o PodListArrayOutput) Index(i pulumi.IntInput) PodListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodList {
+		return vs[0].([]PodList)[vs[1].(int)]
+	}).(PodListOutput)
+}
+
+type PodListMapOutput struct{ *pulumi.OutputState }
+
+func (PodListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]PodList)(nil))
+}
+
+func (o PodListMapOutput) ToPodListMapOutput() PodListMapOutput {
+	return o
+}
+
+func (o PodListMapOutput) ToPodListMapOutputWithContext(ctx context.Context) PodListMapOutput {
+	return o
+}
+
+func (o PodListMapOutput) MapIndex(k pulumi.StringInput) PodListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PodList {
+		return vs[0].(map[string]PodList)[vs[1].(string)]
+	}).(PodListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(PodListOutput{})
+	pulumi.RegisterOutputType(PodListPtrOutput{})
+	pulumi.RegisterOutputType(PodListArrayOutput{})
+	pulumi.RegisterOutputType(PodListMapOutput{})
 }

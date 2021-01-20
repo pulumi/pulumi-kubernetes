@@ -131,6 +131,85 @@ func (i *ReplicaSetList) ToReplicaSetListOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListOutput)
 }
 
+func (i *ReplicaSetList) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
+	return i.ToReplicaSetListPtrOutputWithContext(context.Background())
+}
+
+func (i *ReplicaSetList) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListPtrOutput)
+}
+
+type ReplicaSetListPtrInput interface {
+	pulumi.Input
+
+	ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput
+	ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput
+}
+
+type replicaSetListPtrType ReplicaSetListArgs
+
+func (*replicaSetListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ReplicaSetList)(nil))
+}
+
+func (i *replicaSetListPtrType) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
+	return i.ToReplicaSetListPtrOutputWithContext(context.Background())
+}
+
+func (i *replicaSetListPtrType) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListPtrOutput)
+}
+
+// ReplicaSetListArrayInput is an input type that accepts ReplicaSetListArray and ReplicaSetListArrayOutput values.
+// You can construct a concrete instance of `ReplicaSetListArrayInput` via:
+//
+//          ReplicaSetListArray{ ReplicaSetListArgs{...} }
+type ReplicaSetListArrayInput interface {
+	pulumi.Input
+
+	ToReplicaSetListArrayOutput() ReplicaSetListArrayOutput
+	ToReplicaSetListArrayOutputWithContext(context.Context) ReplicaSetListArrayOutput
+}
+
+type ReplicaSetListArray []ReplicaSetListInput
+
+func (ReplicaSetListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*ReplicaSetList)(nil))
+}
+
+func (i ReplicaSetListArray) ToReplicaSetListArrayOutput() ReplicaSetListArrayOutput {
+	return i.ToReplicaSetListArrayOutputWithContext(context.Background())
+}
+
+func (i ReplicaSetListArray) ToReplicaSetListArrayOutputWithContext(ctx context.Context) ReplicaSetListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListArrayOutput)
+}
+
+// ReplicaSetListMapInput is an input type that accepts ReplicaSetListMap and ReplicaSetListMapOutput values.
+// You can construct a concrete instance of `ReplicaSetListMapInput` via:
+//
+//          ReplicaSetListMap{ "key": ReplicaSetListArgs{...} }
+type ReplicaSetListMapInput interface {
+	pulumi.Input
+
+	ToReplicaSetListMapOutput() ReplicaSetListMapOutput
+	ToReplicaSetListMapOutputWithContext(context.Context) ReplicaSetListMapOutput
+}
+
+type ReplicaSetListMap map[string]ReplicaSetListInput
+
+func (ReplicaSetListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*ReplicaSetList)(nil))
+}
+
+func (i ReplicaSetListMap) ToReplicaSetListMapOutput() ReplicaSetListMapOutput {
+	return i.ToReplicaSetListMapOutputWithContext(context.Background())
+}
+
+func (i ReplicaSetListMap) ToReplicaSetListMapOutputWithContext(ctx context.Context) ReplicaSetListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListMapOutput)
+}
+
 type ReplicaSetListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o ReplicaSetListOutput) ToReplicaSetListOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o ReplicaSetListOutput) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
+	return o.ToReplicaSetListPtrOutputWithContext(context.Background())
+}
+
+func (o ReplicaSetListOutput) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
+	return o.ApplyT(func(v ReplicaSetList) *ReplicaSetList {
+		return &v
+	}).(ReplicaSetListPtrOutput)
+}
+
+type ReplicaSetListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (ReplicaSetListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ReplicaSetList)(nil))
+}
+
+func (o ReplicaSetListPtrOutput) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
+	return o
+}
+
+func (o ReplicaSetListPtrOutput) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
+	return o
+}
+
+type ReplicaSetListArrayOutput struct{ *pulumi.OutputState }
+
+func (ReplicaSetListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ReplicaSetList)(nil))
+}
+
+func (o ReplicaSetListArrayOutput) ToReplicaSetListArrayOutput() ReplicaSetListArrayOutput {
+	return o
+}
+
+func (o ReplicaSetListArrayOutput) ToReplicaSetListArrayOutputWithContext(ctx context.Context) ReplicaSetListArrayOutput {
+	return o
+}
+
+func (o ReplicaSetListArrayOutput) Index(i pulumi.IntInput) ReplicaSetListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ReplicaSetList {
+		return vs[0].([]ReplicaSetList)[vs[1].(int)]
+	}).(ReplicaSetListOutput)
+}
+
+type ReplicaSetListMapOutput struct{ *pulumi.OutputState }
+
+func (ReplicaSetListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]ReplicaSetList)(nil))
+}
+
+func (o ReplicaSetListMapOutput) ToReplicaSetListMapOutput() ReplicaSetListMapOutput {
+	return o
+}
+
+func (o ReplicaSetListMapOutput) ToReplicaSetListMapOutputWithContext(ctx context.Context) ReplicaSetListMapOutput {
+	return o
+}
+
+func (o ReplicaSetListMapOutput) MapIndex(k pulumi.StringInput) ReplicaSetListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ReplicaSetList {
+		return vs[0].(map[string]ReplicaSetList)[vs[1].(string)]
+	}).(ReplicaSetListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(ReplicaSetListOutput{})
+	pulumi.RegisterOutputType(ReplicaSetListPtrOutput{})
+	pulumi.RegisterOutputType(ReplicaSetListArrayOutput{})
+	pulumi.RegisterOutputType(ReplicaSetListMapOutput{})
 }

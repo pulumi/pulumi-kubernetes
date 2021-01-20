@@ -131,6 +131,85 @@ func (i *FlowSchemaList) ToFlowSchemaListOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListOutput)
 }
 
+func (i *FlowSchemaList) ToFlowSchemaListPtrOutput() FlowSchemaListPtrOutput {
+	return i.ToFlowSchemaListPtrOutputWithContext(context.Background())
+}
+
+func (i *FlowSchemaList) ToFlowSchemaListPtrOutputWithContext(ctx context.Context) FlowSchemaListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListPtrOutput)
+}
+
+type FlowSchemaListPtrInput interface {
+	pulumi.Input
+
+	ToFlowSchemaListPtrOutput() FlowSchemaListPtrOutput
+	ToFlowSchemaListPtrOutputWithContext(ctx context.Context) FlowSchemaListPtrOutput
+}
+
+type flowSchemaListPtrType FlowSchemaListArgs
+
+func (*flowSchemaListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlowSchemaList)(nil))
+}
+
+func (i *flowSchemaListPtrType) ToFlowSchemaListPtrOutput() FlowSchemaListPtrOutput {
+	return i.ToFlowSchemaListPtrOutputWithContext(context.Background())
+}
+
+func (i *flowSchemaListPtrType) ToFlowSchemaListPtrOutputWithContext(ctx context.Context) FlowSchemaListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListPtrOutput)
+}
+
+// FlowSchemaListArrayInput is an input type that accepts FlowSchemaListArray and FlowSchemaListArrayOutput values.
+// You can construct a concrete instance of `FlowSchemaListArrayInput` via:
+//
+//          FlowSchemaListArray{ FlowSchemaListArgs{...} }
+type FlowSchemaListArrayInput interface {
+	pulumi.Input
+
+	ToFlowSchemaListArrayOutput() FlowSchemaListArrayOutput
+	ToFlowSchemaListArrayOutputWithContext(context.Context) FlowSchemaListArrayOutput
+}
+
+type FlowSchemaListArray []FlowSchemaListInput
+
+func (FlowSchemaListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*FlowSchemaList)(nil))
+}
+
+func (i FlowSchemaListArray) ToFlowSchemaListArrayOutput() FlowSchemaListArrayOutput {
+	return i.ToFlowSchemaListArrayOutputWithContext(context.Background())
+}
+
+func (i FlowSchemaListArray) ToFlowSchemaListArrayOutputWithContext(ctx context.Context) FlowSchemaListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListArrayOutput)
+}
+
+// FlowSchemaListMapInput is an input type that accepts FlowSchemaListMap and FlowSchemaListMapOutput values.
+// You can construct a concrete instance of `FlowSchemaListMapInput` via:
+//
+//          FlowSchemaListMap{ "key": FlowSchemaListArgs{...} }
+type FlowSchemaListMapInput interface {
+	pulumi.Input
+
+	ToFlowSchemaListMapOutput() FlowSchemaListMapOutput
+	ToFlowSchemaListMapOutputWithContext(context.Context) FlowSchemaListMapOutput
+}
+
+type FlowSchemaListMap map[string]FlowSchemaListInput
+
+func (FlowSchemaListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*FlowSchemaList)(nil))
+}
+
+func (i FlowSchemaListMap) ToFlowSchemaListMapOutput() FlowSchemaListMapOutput {
+	return i.ToFlowSchemaListMapOutputWithContext(context.Background())
+}
+
+func (i FlowSchemaListMap) ToFlowSchemaListMapOutputWithContext(ctx context.Context) FlowSchemaListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListMapOutput)
+}
+
 type FlowSchemaListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o FlowSchemaListOutput) ToFlowSchemaListOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o FlowSchemaListOutput) ToFlowSchemaListPtrOutput() FlowSchemaListPtrOutput {
+	return o.ToFlowSchemaListPtrOutputWithContext(context.Background())
+}
+
+func (o FlowSchemaListOutput) ToFlowSchemaListPtrOutputWithContext(ctx context.Context) FlowSchemaListPtrOutput {
+	return o.ApplyT(func(v FlowSchemaList) *FlowSchemaList {
+		return &v
+	}).(FlowSchemaListPtrOutput)
+}
+
+type FlowSchemaListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (FlowSchemaListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlowSchemaList)(nil))
+}
+
+func (o FlowSchemaListPtrOutput) ToFlowSchemaListPtrOutput() FlowSchemaListPtrOutput {
+	return o
+}
+
+func (o FlowSchemaListPtrOutput) ToFlowSchemaListPtrOutputWithContext(ctx context.Context) FlowSchemaListPtrOutput {
+	return o
+}
+
+type FlowSchemaListArrayOutput struct{ *pulumi.OutputState }
+
+func (FlowSchemaListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FlowSchemaList)(nil))
+}
+
+func (o FlowSchemaListArrayOutput) ToFlowSchemaListArrayOutput() FlowSchemaListArrayOutput {
+	return o
+}
+
+func (o FlowSchemaListArrayOutput) ToFlowSchemaListArrayOutputWithContext(ctx context.Context) FlowSchemaListArrayOutput {
+	return o
+}
+
+func (o FlowSchemaListArrayOutput) Index(i pulumi.IntInput) FlowSchemaListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlowSchemaList {
+		return vs[0].([]FlowSchemaList)[vs[1].(int)]
+	}).(FlowSchemaListOutput)
+}
+
+type FlowSchemaListMapOutput struct{ *pulumi.OutputState }
+
+func (FlowSchemaListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]FlowSchemaList)(nil))
+}
+
+func (o FlowSchemaListMapOutput) ToFlowSchemaListMapOutput() FlowSchemaListMapOutput {
+	return o
+}
+
+func (o FlowSchemaListMapOutput) ToFlowSchemaListMapOutputWithContext(ctx context.Context) FlowSchemaListMapOutput {
+	return o
+}
+
+func (o FlowSchemaListMapOutput) MapIndex(k pulumi.StringInput) FlowSchemaListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) FlowSchemaList {
+		return vs[0].(map[string]FlowSchemaList)[vs[1].(string)]
+	}).(FlowSchemaListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(FlowSchemaListOutput{})
+	pulumi.RegisterOutputType(FlowSchemaListPtrOutput{})
+	pulumi.RegisterOutputType(FlowSchemaListArrayOutput{})
+	pulumi.RegisterOutputType(FlowSchemaListMapOutput{})
 }

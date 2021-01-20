@@ -131,6 +131,85 @@ func (i *DaemonSetList) ToDaemonSetListOutputWithContext(ctx context.Context) Da
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListOutput)
 }
 
+func (i *DaemonSetList) ToDaemonSetListPtrOutput() DaemonSetListPtrOutput {
+	return i.ToDaemonSetListPtrOutputWithContext(context.Background())
+}
+
+func (i *DaemonSetList) ToDaemonSetListPtrOutputWithContext(ctx context.Context) DaemonSetListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListPtrOutput)
+}
+
+type DaemonSetListPtrInput interface {
+	pulumi.Input
+
+	ToDaemonSetListPtrOutput() DaemonSetListPtrOutput
+	ToDaemonSetListPtrOutputWithContext(ctx context.Context) DaemonSetListPtrOutput
+}
+
+type daemonSetListPtrType DaemonSetListArgs
+
+func (*daemonSetListPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DaemonSetList)(nil))
+}
+
+func (i *daemonSetListPtrType) ToDaemonSetListPtrOutput() DaemonSetListPtrOutput {
+	return i.ToDaemonSetListPtrOutputWithContext(context.Background())
+}
+
+func (i *daemonSetListPtrType) ToDaemonSetListPtrOutputWithContext(ctx context.Context) DaemonSetListPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListPtrOutput)
+}
+
+// DaemonSetListArrayInput is an input type that accepts DaemonSetListArray and DaemonSetListArrayOutput values.
+// You can construct a concrete instance of `DaemonSetListArrayInput` via:
+//
+//          DaemonSetListArray{ DaemonSetListArgs{...} }
+type DaemonSetListArrayInput interface {
+	pulumi.Input
+
+	ToDaemonSetListArrayOutput() DaemonSetListArrayOutput
+	ToDaemonSetListArrayOutputWithContext(context.Context) DaemonSetListArrayOutput
+}
+
+type DaemonSetListArray []DaemonSetListInput
+
+func (DaemonSetListArray) ElementType() reflect.Type {
+	return reflect.TypeOf(([]*DaemonSetList)(nil))
+}
+
+func (i DaemonSetListArray) ToDaemonSetListArrayOutput() DaemonSetListArrayOutput {
+	return i.ToDaemonSetListArrayOutputWithContext(context.Background())
+}
+
+func (i DaemonSetListArray) ToDaemonSetListArrayOutputWithContext(ctx context.Context) DaemonSetListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListArrayOutput)
+}
+
+// DaemonSetListMapInput is an input type that accepts DaemonSetListMap and DaemonSetListMapOutput values.
+// You can construct a concrete instance of `DaemonSetListMapInput` via:
+//
+//          DaemonSetListMap{ "key": DaemonSetListArgs{...} }
+type DaemonSetListMapInput interface {
+	pulumi.Input
+
+	ToDaemonSetListMapOutput() DaemonSetListMapOutput
+	ToDaemonSetListMapOutputWithContext(context.Context) DaemonSetListMapOutput
+}
+
+type DaemonSetListMap map[string]DaemonSetListInput
+
+func (DaemonSetListMap) ElementType() reflect.Type {
+	return reflect.TypeOf((map[string]*DaemonSetList)(nil))
+}
+
+func (i DaemonSetListMap) ToDaemonSetListMapOutput() DaemonSetListMapOutput {
+	return i.ToDaemonSetListMapOutputWithContext(context.Background())
+}
+
+func (i DaemonSetListMap) ToDaemonSetListMapOutputWithContext(ctx context.Context) DaemonSetListMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListMapOutput)
+}
+
 type DaemonSetListOutput struct {
 	*pulumi.OutputState
 }
@@ -147,6 +226,75 @@ func (o DaemonSetListOutput) ToDaemonSetListOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o DaemonSetListOutput) ToDaemonSetListPtrOutput() DaemonSetListPtrOutput {
+	return o.ToDaemonSetListPtrOutputWithContext(context.Background())
+}
+
+func (o DaemonSetListOutput) ToDaemonSetListPtrOutputWithContext(ctx context.Context) DaemonSetListPtrOutput {
+	return o.ApplyT(func(v DaemonSetList) *DaemonSetList {
+		return &v
+	}).(DaemonSetListPtrOutput)
+}
+
+type DaemonSetListPtrOutput struct {
+	*pulumi.OutputState
+}
+
+func (DaemonSetListPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DaemonSetList)(nil))
+}
+
+func (o DaemonSetListPtrOutput) ToDaemonSetListPtrOutput() DaemonSetListPtrOutput {
+	return o
+}
+
+func (o DaemonSetListPtrOutput) ToDaemonSetListPtrOutputWithContext(ctx context.Context) DaemonSetListPtrOutput {
+	return o
+}
+
+type DaemonSetListArrayOutput struct{ *pulumi.OutputState }
+
+func (DaemonSetListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DaemonSetList)(nil))
+}
+
+func (o DaemonSetListArrayOutput) ToDaemonSetListArrayOutput() DaemonSetListArrayOutput {
+	return o
+}
+
+func (o DaemonSetListArrayOutput) ToDaemonSetListArrayOutputWithContext(ctx context.Context) DaemonSetListArrayOutput {
+	return o
+}
+
+func (o DaemonSetListArrayOutput) Index(i pulumi.IntInput) DaemonSetListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DaemonSetList {
+		return vs[0].([]DaemonSetList)[vs[1].(int)]
+	}).(DaemonSetListOutput)
+}
+
+type DaemonSetListMapOutput struct{ *pulumi.OutputState }
+
+func (DaemonSetListMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]DaemonSetList)(nil))
+}
+
+func (o DaemonSetListMapOutput) ToDaemonSetListMapOutput() DaemonSetListMapOutput {
+	return o
+}
+
+func (o DaemonSetListMapOutput) ToDaemonSetListMapOutputWithContext(ctx context.Context) DaemonSetListMapOutput {
+	return o
+}
+
+func (o DaemonSetListMapOutput) MapIndex(k pulumi.StringInput) DaemonSetListOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) DaemonSetList {
+		return vs[0].(map[string]DaemonSetList)[vs[1].(string)]
+	}).(DaemonSetListOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(DaemonSetListOutput{})
+	pulumi.RegisterOutputType(DaemonSetListPtrOutput{})
+	pulumi.RegisterOutputType(DaemonSetListArrayOutput{})
+	pulumi.RegisterOutputType(DaemonSetListMapOutput{})
 }
