@@ -1,6 +1,6 @@
 name: pull-request
 "on":
-  pull_request:
+  pull_request_target:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
