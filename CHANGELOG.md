@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Expand allowed Python pyyaml dependency versions (https://github.com/pulumi/pulumi-kubernetes/pull/1435)
+
 ## 2.7.6 (January 13, 2021)
 
 -   Upgrade helm and k8s deps (https://github.com/pulumi/pulumi-kubernetes/pull/1414)
