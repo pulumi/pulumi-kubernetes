@@ -1,7 +1,5 @@
 ## HEAD (Unreleased)
 
-## 2.7.7 (January 20, 2021)
-
 -   Expand allowed Python pyyaml dependency versions (https://github.com/pulumi/pulumi-kubernetes/pull/1435)
 
 ## 2.7.6 (January 13, 2021)
