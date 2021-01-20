@@ -22,6 +22,7 @@ builds:
       - GO111MODULE=on
     goarch:
       - amd64
+      - arm64
     goos:
       - darwin
       - windows
