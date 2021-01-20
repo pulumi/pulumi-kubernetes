@@ -40605,6 +40605,7 @@
             }
         },
         "go": {
+            "generateResourceContainerTypes": true,
             "importBasePath": "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes",
             "moduleToPackage": {
                 "admissionregistration.k8s.io/v1": "admissionregistration/v1",
