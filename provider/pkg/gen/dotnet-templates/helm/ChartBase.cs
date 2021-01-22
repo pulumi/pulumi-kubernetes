@@ -84,7 +84,7 @@ namespace Pulumi.Kubernetes.Helm
                         fetchOptions.Version = cfg.Version;
                         Fetch(chartToFetch, fetchOptions);
                         // Sort the directories into alphabetical order, and choose the first
-                        var fetchedChart = chartDirectory.GetDirectories().OrderBy(x => x.Name).ToArray()[0];
+                        var fetchedChart = chartDirectory.GetDirectories().OrderBy(x => x.Name).First();
                         var fetchedChartName = fetchedChart.Name;
                         chart = fetchedChart.FullName;
                         defaultValues = Path.Join(chartDirectoryName, fetchedChartName, "values.yaml");
@@ -110,13 +110,13 @@ namespace Pulumi.Kubernetes.Helm
                     // > looked up or retrieved in-cluster will be faked locally. Additionally, none
                     // > of the server-side testing of chart validity (e.g. whether an API is supported)
                     // > is done.
-                    var flags = new List<string>(new[]
+                    var flags = new List<string>
                     {
                         "template", chart,
                         "--name-template", releaseName,
                         "--values", defaultValues,
                         "--values", overrides
-                    });
+                    };
                     if (cfgBase.ApiVersions.Length > 0)
                     {
                         foreach (string version in cfgBase.ApiVersions)
@@ -136,7 +136,7 @@ namespace Pulumi.Kubernetes.Helm
                         flags.Add("--include-crds");
                     }
 
-                    var yaml = ExecuteCommand("helm", flags.ToArray(), new Dictionary<string, string>());
+                    var yaml = ExecuteCommand("helm", flags);
                     return ParseTemplate(
                         yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
                 }
@@ -161,7 +161,6 @@ namespace Pulumi.Kubernetes.Helm
 
         private static bool IsHelmV3()
         {
-            var env = new Dictionary<string, string>();
             string[] flags = { "version", "--short" };
 
             // Helm v2 returns version like this:
@@ -169,14 +168,14 @@ namespace Pulumi.Kubernetes.Helm
             // Helm v3 returns a version like this:
             // v3.1.2+gd878d4d
             // --include-crds is available in helm v3.1+ so check for a regex matching that version
-            var version = ExecuteCommand("helm", flags, env);
+            var version = ExecuteCommand("helm", flags);
             Regex r = new Regex(@"^v3\.[1-9]");
             return r.IsMatch(version);
         }
 
         private void Fetch(string chart, ChartFetchArgsUnwrap opts)
         {
-            var flags = new List<string>(new[] { "fetch", chart });
+            var flags = new List<string>{ "fetch", chart };
 
             // Untar by default.
             if (opts.Untar != false)
@@ -184,11 +183,12 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add("--untar");
             }
 
-            var env = new Dictionary<string, string>();
+            Dictionary<string, string>? env = null;
 
             // Helm v3 removed the `--home` flag, so we must use an env var instead.
             if (!string.IsNullOrEmpty(opts.Home))
             {
+                env = new Dictionary<string, string>();
                 env["HELM_HOME"] = opts.Home;
             }
 
@@ -255,7 +255,7 @@ namespace Pulumi.Kubernetes.Helm
                 flags.Add("--verify");
             }
 
-            ExecuteCommand("helm", flags.ToArray(), env);
+            ExecuteCommand("helm", flags, env);
         }
 
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
@@ -277,7 +277,7 @@ namespace Pulumi.Kubernetes.Helm
                 });
         }
 
-        private static string ExecuteCommand(string command, string[] flags, IDictionary<string, string> env)
+        private static string ExecuteCommand(string command, IEnumerable<string> flags, Dictionary<string, string>? env = null)
         {
             using var process = new Process
             {
@@ -290,9 +290,12 @@ namespace Pulumi.Kubernetes.Helm
                 }
             };
 
-            foreach (KeyValuePair<string, string> value in env)
+            if (env != null)
             {
-                process.StartInfo.EnvironmentVariables[value.Key] = value.Value;
+                foreach (KeyValuePair<string, string> value in env)
+                {
+                    process.StartInfo.EnvironmentVariables[value.Key] = value.Value;
+                }
             }
 
             process.Start();
@@ -309,11 +312,11 @@ namespace Pulumi.Kubernetes.Helm
         /// <summary>
         /// Convert an argument array to an argument string for using with Process.StartInfo.Arguments.
         /// </summary>
-        private static string EscapeArguments(params string[] args)
-            => string.Join(" ", args.Select(EscapeArguments));
+        private static string EscapeArguments(IEnumerable<string> args)
+            => string.Join(" ", args.Select(a => EscapeArguments(a)));
 
         /// <summary>
-        /// Convert an argument array to an argument string for using with Process.StartInfo.Arguments.
+        /// Convert argument to an argument string for using with Process.StartInfo.Arguments.
         /// </summary>
         private static string EscapeArguments(string argument)
         {
@@ -335,7 +338,7 @@ namespace Pulumi.Kubernetes.Helm
 
                     case '\"':
                         // Escape any preceding backslashes
-                        escapedArgument.Append(new string('\\', backslashCount));
+                        escapedArgument.Append('\\', backslashCount);
 
                         // Append an escaped double quote.
                         escapedArgument.Append("\\\"");
@@ -378,7 +381,7 @@ namespace Pulumi.Kubernetes.Helm
             escapedArgument.Insert(0, '"');
 
             // Escape any preceding backslashes before appending the "
-            escapedArgument.Append(new string('\\', backslashCount));
+            escapedArgument.Append('\\', backslashCount);
 
             // Append the final "
             escapedArgument.Append('\"');

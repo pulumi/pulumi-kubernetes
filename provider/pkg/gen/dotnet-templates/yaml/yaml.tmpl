@@ -161,7 +161,8 @@ namespace Pulumi.Kubernetes.Yaml
 
         }
 
-        internal static bool IsUrl(string s) => s.StartsWith("http://") || s.StartsWith("https://");
+        internal static bool IsUrl(string s)
+            => s.StartsWith("http://", StringComparison.Ordinal) || s.StartsWith("https://", StringComparison.Ordinal);
 
         internal static Output<ImmutableDictionary<string, KubernetesResource>> ParseYamlDocument(ParseArgs config,
             ComponentResourceOptions? options = null)
