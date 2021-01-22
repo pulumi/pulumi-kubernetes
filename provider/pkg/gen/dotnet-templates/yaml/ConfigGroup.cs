@@ -200,7 +200,7 @@ namespace Pulumi.Kubernetes.Yaml
         /// Create a ConfigGroup resource with the given unique name, arguments, and options.
         /// </summary>
         /// <param name="name">The unique name of the resource</param>
-        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="config">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ConfigGroup(string name, ConfigGroupArgs config, ComponentResourceOptions? options = null)
             : base("kubernetes:yaml:ConfigGroup", name, options)
