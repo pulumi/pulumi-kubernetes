@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Update pulumi dependency to remove unused Go types (https://github.com/pulumi/pulumi-kubernetes/pull/1450)
+
 ## 2.7.7 (January 20, 2021)
 
 -   Expand allowed Python pyyaml dependency versions (https://github.com/pulumi/pulumi-kubernetes/pull/1435)
