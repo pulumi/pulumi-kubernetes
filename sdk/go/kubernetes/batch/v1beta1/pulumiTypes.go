@@ -485,6 +485,8 @@ type CronJobStatus struct {
 	Active []corev1.ObjectReference `pulumi:"active"`
 	// Information when was the last time the job was successfully scheduled.
 	LastScheduleTime *string `pulumi:"lastScheduleTime"`
+	// Information when was the last time the job successfully completed.
+	LastSuccessfulTime *string `pulumi:"lastSuccessfulTime"`
 }
 
 // CronJobStatusInput is an input type that accepts CronJobStatusArgs and CronJobStatusOutput values.
@@ -504,6 +506,8 @@ type CronJobStatusArgs struct {
 	Active corev1.ObjectReferenceArrayInput `pulumi:"active"`
 	// Information when was the last time the job was successfully scheduled.
 	LastScheduleTime pulumi.StringPtrInput `pulumi:"lastScheduleTime"`
+	// Information when was the last time the job successfully completed.
+	LastSuccessfulTime pulumi.StringPtrInput `pulumi:"lastSuccessfulTime"`
 }
 
 func (CronJobStatusArgs) ElementType() reflect.Type {
@@ -594,6 +598,11 @@ func (o CronJobStatusOutput) LastScheduleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobStatus) *string { return v.LastScheduleTime }).(pulumi.StringPtrOutput)
 }
 
+// Information when was the last time the job successfully completed.
+func (o CronJobStatusOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CronJobStatus) *string { return v.LastSuccessfulTime }).(pulumi.StringPtrOutput)
+}
+
 type CronJobStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (CronJobStatusPtrOutput) ElementType() reflect.Type {
@@ -629,6 +638,16 @@ func (o CronJobStatusPtrOutput) LastScheduleTime() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.LastScheduleTime
+	}).(pulumi.StringPtrOutput)
+}
+
+// Information when was the last time the job successfully completed.
+func (o CronJobStatusPtrOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CronJobStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LastSuccessfulTime
 	}).(pulumi.StringPtrOutput)
 }
 

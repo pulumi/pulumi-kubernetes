@@ -20,13 +20,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
         /// <summary>
         /// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         /// </summary>
-        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.TypedLocalObjectReference Parameters;
+        public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressClassParametersReference Parameters;
 
         [OutputConstructor]
         private IngressClassSpec(
             string controller,
 
-            Pulumi.Kubernetes.Types.Outputs.Core.V1.TypedLocalObjectReference parameters)
+            Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressClassParametersReference parameters)
         {
             Controller = controller;
             Parameters = parameters;

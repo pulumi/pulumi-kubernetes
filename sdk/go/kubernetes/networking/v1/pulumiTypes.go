@@ -987,12 +987,222 @@ func (o IngressClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v IngressClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+type IngressClassParametersReference struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	ApiGroup *string `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced.
+	Kind string `pulumi:"kind"`
+	// Name is the name of resource being referenced.
+	Name string `pulumi:"name"`
+	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	Namespace *string `pulumi:"namespace"`
+	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+	Scope *string `pulumi:"scope"`
+}
+
+// IngressClassParametersReferenceInput is an input type that accepts IngressClassParametersReferenceArgs and IngressClassParametersReferenceOutput values.
+// You can construct a concrete instance of `IngressClassParametersReferenceInput` via:
+//
+//          IngressClassParametersReferenceArgs{...}
+type IngressClassParametersReferenceInput interface {
+	pulumi.Input
+
+	ToIngressClassParametersReferenceOutput() IngressClassParametersReferenceOutput
+	ToIngressClassParametersReferenceOutputWithContext(context.Context) IngressClassParametersReferenceOutput
+}
+
+// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+type IngressClassParametersReferenceArgs struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced.
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// Name is the name of resource being referenced.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+	Scope pulumi.StringPtrInput `pulumi:"scope"`
+}
+
+func (IngressClassParametersReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassParametersReference)(nil)).Elem()
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferenceOutput() IngressClassParametersReferenceOutput {
+	return i.ToIngressClassParametersReferenceOutputWithContext(context.Background())
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferenceOutputWithContext(ctx context.Context) IngressClassParametersReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassParametersReferenceOutput)
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return i.ToIngressClassParametersReferencePtrOutputWithContext(context.Background())
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassParametersReferenceOutput).ToIngressClassParametersReferencePtrOutputWithContext(ctx)
+}
+
+// IngressClassParametersReferencePtrInput is an input type that accepts IngressClassParametersReferenceArgs, IngressClassParametersReferencePtr and IngressClassParametersReferencePtrOutput values.
+// You can construct a concrete instance of `IngressClassParametersReferencePtrInput` via:
+//
+//          IngressClassParametersReferenceArgs{...}
+//
+//  or:
+//
+//          nil
+type IngressClassParametersReferencePtrInput interface {
+	pulumi.Input
+
+	ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput
+	ToIngressClassParametersReferencePtrOutputWithContext(context.Context) IngressClassParametersReferencePtrOutput
+}
+
+type ingressClassParametersReferencePtrType IngressClassParametersReferenceArgs
+
+func IngressClassParametersReferencePtr(v *IngressClassParametersReferenceArgs) IngressClassParametersReferencePtrInput {
+	return (*ingressClassParametersReferencePtrType)(v)
+}
+
+func (*ingressClassParametersReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClassParametersReference)(nil)).Elem()
+}
+
+func (i *ingressClassParametersReferencePtrType) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return i.ToIngressClassParametersReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *ingressClassParametersReferencePtrType) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassParametersReferencePtrOutput)
+}
+
+// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+type IngressClassParametersReferenceOutput struct{ *pulumi.OutputState }
+
+func (IngressClassParametersReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassParametersReference)(nil)).Elem()
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferenceOutput() IngressClassParametersReferenceOutput {
+	return o
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferenceOutputWithContext(ctx context.Context) IngressClassParametersReferenceOutput {
+	return o
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return o.ToIngressClassParametersReferencePtrOutputWithContext(context.Background())
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *IngressClassParametersReference {
+		return &v
+	}).(IngressClassParametersReferencePtrOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+func (o IngressClassParametersReferenceOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced.
+func (o IngressClassParametersReferenceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) string { return v.Kind }).(pulumi.StringOutput)
+}
+
+// Name is the name of resource being referenced.
+func (o IngressClassParametersReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+func (o IngressClassParametersReferenceOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+func (o IngressClassParametersReferenceOutput) Scope() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Scope }).(pulumi.StringPtrOutput)
+}
+
+type IngressClassParametersReferencePtrOutput struct{ *pulumi.OutputState }
+
+func (IngressClassParametersReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClassParametersReference)(nil)).Elem()
+}
+
+func (o IngressClassParametersReferencePtrOutput) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return o
+}
+
+func (o IngressClassParametersReferencePtrOutput) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return o
+}
+
+func (o IngressClassParametersReferencePtrOutput) Elem() IngressClassParametersReferenceOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) IngressClassParametersReference { return *v }).(IngressClassParametersReferenceOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+func (o IngressClassParametersReferencePtrOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiGroup
+	}).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced.
+func (o IngressClassParametersReferencePtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of resource being referenced.
+func (o IngressClassParametersReferencePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+func (o IngressClassParametersReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
+}
+
+// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+func (o IngressClassParametersReferencePtrOutput) Scope() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Scope
+	}).(pulumi.StringPtrOutput)
+}
+
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpec struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller *string `pulumi:"controller"`
 	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-	Parameters *corev1.TypedLocalObjectReference `pulumi:"parameters"`
+	Parameters *IngressClassParametersReference `pulumi:"parameters"`
 }
 
 // IngressClassSpecInput is an input type that accepts IngressClassSpecArgs and IngressClassSpecOutput values.
@@ -1011,7 +1221,7 @@ type IngressClassSpecArgs struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller pulumi.StringPtrInput `pulumi:"controller"`
 	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-	Parameters corev1.TypedLocalObjectReferencePtrInput `pulumi:"parameters"`
+	Parameters IngressClassParametersReferencePtrInput `pulumi:"parameters"`
 }
 
 func (IngressClassSpecArgs) ElementType() reflect.Type {
@@ -1098,8 +1308,8 @@ func (o IngressClassSpecOutput) Controller() pulumi.StringPtrOutput {
 }
 
 // Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-func (o IngressClassSpecOutput) Parameters() corev1.TypedLocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v IngressClassSpec) *corev1.TypedLocalObjectReference { return v.Parameters }).(corev1.TypedLocalObjectReferencePtrOutput)
+func (o IngressClassSpecOutput) Parameters() IngressClassParametersReferencePtrOutput {
+	return o.ApplyT(func(v IngressClassSpec) *IngressClassParametersReference { return v.Parameters }).(IngressClassParametersReferencePtrOutput)
 }
 
 type IngressClassSpecPtrOutput struct{ *pulumi.OutputState }
@@ -1131,13 +1341,13 @@ func (o IngressClassSpecPtrOutput) Controller() pulumi.StringPtrOutput {
 }
 
 // Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-func (o IngressClassSpecPtrOutput) Parameters() corev1.TypedLocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v *IngressClassSpec) *corev1.TypedLocalObjectReference {
+func (o IngressClassSpecPtrOutput) Parameters() IngressClassParametersReferencePtrOutput {
+	return o.ApplyT(func(v *IngressClassSpec) *IngressClassParametersReference {
 		if v == nil {
 			return nil
 		}
 		return v.Parameters
-	}).(corev1.TypedLocalObjectReferencePtrOutput)
+	}).(IngressClassParametersReferencePtrOutput)
 }
 
 // IngressList is a collection of Ingress.
@@ -2495,7 +2705,9 @@ func (o NetworkPolicyPeerArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPeer
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPort struct {
-	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+	EndPort *int `pulumi:"endPort"`
+	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port interface{} `pulumi:"port"`
 	// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 	Protocol *string `pulumi:"protocol"`
@@ -2514,7 +2726,9 @@ type NetworkPolicyPortInput interface {
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPortArgs struct {
-	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+	EndPort pulumi.IntPtrInput `pulumi:"endPort"`
+	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port pulumi.Input `pulumi:"port"`
 	// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
@@ -2572,7 +2786,12 @@ func (o NetworkPolicyPortOutput) ToNetworkPolicyPortOutputWithContext(ctx contex
 	return o
 }
 
-// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+func (o NetworkPolicyPortOutput) EndPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyPort) *int { return v.EndPort }).(pulumi.IntPtrOutput)
+}
+
+// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 func (o NetworkPolicyPortOutput) Port() pulumi.AnyOutput {
 	return o.ApplyT(func(v NetworkPolicyPort) interface{} { return v.Port }).(pulumi.AnyOutput)
 }
@@ -2610,7 +2829,7 @@ type NetworkPolicySpec struct {
 	Ingress []NetworkPolicyIngressRule `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 	PodSelector metav1.LabelSelector `pulumi:"podSelector"`
-	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+	// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes []string `pulumi:"policyTypes"`
 }
 
@@ -2633,7 +2852,7 @@ type NetworkPolicySpecArgs struct {
 	Ingress NetworkPolicyIngressRuleArrayInput `pulumi:"ingress"`
 	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 	PodSelector metav1.LabelSelectorInput `pulumi:"podSelector"`
-	// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+	// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes pulumi.StringArrayInput `pulumi:"policyTypes"`
 }
 
@@ -2730,7 +2949,7 @@ func (o NetworkPolicySpecOutput) PodSelector() metav1.LabelSelectorOutput {
 	return o.ApplyT(func(v NetworkPolicySpec) metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorOutput)
 }
 
-// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
 }
@@ -2783,7 +3002,7 @@ func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput 
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicySpec) []string {
 		if v == nil {
@@ -2960,6 +3179,8 @@ func init() {
 	pulumi.RegisterOutputType(IngressClassTypeOutput{})
 	pulumi.RegisterOutputType(IngressClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(IngressClassListTypeOutput{})
+	pulumi.RegisterOutputType(IngressClassParametersReferenceOutput{})
+	pulumi.RegisterOutputType(IngressClassParametersReferencePtrOutput{})
 	pulumi.RegisterOutputType(IngressClassSpecOutput{})
 	pulumi.RegisterOutputType(IngressClassSpecPtrOutput{})
 	pulumi.RegisterOutputType(IngressListTypeOutput{})

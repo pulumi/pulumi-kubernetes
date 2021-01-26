@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
         /// </summary>
         public readonly Union<int, string> MinAvailable;
         /// <summary>
-        /// Label query over pods whose evictions are managed by the disruption budget.
+        /// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelector Selector;
 

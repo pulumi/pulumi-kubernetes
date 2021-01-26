@@ -18,7 +18,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1.FlowDistinguisherMethod DistinguisherMethod;
         /// <summary>
-        /// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
+        /// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
         /// </summary>
         public readonly int MatchingPrecedence;
         /// <summary>

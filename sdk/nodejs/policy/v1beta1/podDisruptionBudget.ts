@@ -79,6 +79,8 @@ export class PodDisruptionBudget extends pulumi.CustomResource {
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
+        const aliasOpts = { aliases: [{ type: "kubernetes:policy/v1:PodDisruptionBudget" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PodDisruptionBudget.__pulumiType, name, inputs, opts);
     }
 }

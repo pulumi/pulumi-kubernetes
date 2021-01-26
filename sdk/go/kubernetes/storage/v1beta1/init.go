@@ -29,6 +29,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r, err = NewCSINode(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:storage.k8s.io/v1beta1:CSINodeList":
 		r, err = NewCSINodeList(ctx, name, nil, pulumi.URN_(urn))
+	case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity":
+		r, err = NewCSIStorageCapacity(ctx, name, nil, pulumi.URN_(urn))
+	case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList":
+		r, err = NewCSIStorageCapacityList(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:storage.k8s.io/v1beta1:StorageClass":
 		r, err = NewStorageClass(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:storage.k8s.io/v1beta1:StorageClassList":

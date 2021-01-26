@@ -63,6 +63,9 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         [Output("kind")]
         public Output<string> Kind { get; private set; } = null!;
 
+        /// <summary>
+        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
@@ -227,8 +230,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        [Input("metadata", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs> Metadata { get; set; } = null!;
+        /// <summary>
+        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
+        [Input("metadata")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
         /// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.

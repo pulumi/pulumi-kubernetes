@@ -829,6 +829,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta2/HorizontalPodAutoscalerList:{x}",
                        HorizontalPodAutoscalerList(f"{x}", opts, **obj)))]
+    if gvk == "batch/v1/CronJob":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v1 import CronJob
+        return [identifier.apply(
+            lambda x: (f"batch/v1/CronJob:{x}",
+                       CronJob(f"{x}", opts, **obj)))]
+    if gvk == "batch/v1/CronJobList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v1 import CronJobList
+        return [identifier.apply(
+            lambda x: (f"batch/v1/CronJobList:{x}",
+                       CronJobList(f"{x}", opts, **obj)))]
     if gvk == "batch/v1/Job":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.batch.v1 import Job
@@ -943,6 +955,12 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"v1/EndpointsList:{x}",
                        EndpointsList(f"{x}", opts, **obj)))]
+    if gvk == "v1/EphemeralContainers":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import EphemeralContainers
+        return [identifier.apply(
+            lambda x: (f"v1/EphemeralContainers:{x}",
+                       EphemeralContainers(f"{x}", opts, **obj)))]
     if gvk == "v1/Event":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.core.v1 import Event
@@ -1099,6 +1117,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"v1/ServiceList:{x}",
                        ServiceList(f"{x}", opts, **obj)))]
+    if gvk == "discovery.k8s.io/v1/EndpointSlice":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.discovery.v1 import EndpointSlice
+        return [identifier.apply(
+            lambda x: (f"discovery.k8s.io/v1/EndpointSlice:{x}",
+                       EndpointSlice(f"{x}", opts, **obj)))]
+    if gvk == "discovery.k8s.io/v1/EndpointSliceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.discovery.v1 import EndpointSliceList
+        return [identifier.apply(
+            lambda x: (f"discovery.k8s.io/v1/EndpointSliceList:{x}",
+                       EndpointSliceList(f"{x}", opts, **obj)))]
     if gvk == "discovery.k8s.io/v1beta1/EndpointSlice":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.discovery.v1beta1 import EndpointSlice
@@ -1357,6 +1387,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1beta1/RuntimeClassList:{x}",
                        RuntimeClassList(f"{x}", opts, **obj)))]
+    if gvk == "policy/v1/PodDisruptionBudget":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.policy.v1 import PodDisruptionBudget
+        return [identifier.apply(
+            lambda x: (f"policy/v1/PodDisruptionBudget:{x}",
+                       PodDisruptionBudget(f"{x}", opts, **obj)))]
+    if gvk == "policy/v1/PodDisruptionBudgetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.policy.v1 import PodDisruptionBudgetList
+        return [identifier.apply(
+            lambda x: (f"policy/v1/PodDisruptionBudgetList:{x}",
+                       PodDisruptionBudgetList(f"{x}", opts, **obj)))]
     if gvk == "policy/v1beta1/PodDisruptionBudget":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.policy.v1beta1 import PodDisruptionBudget
@@ -1621,6 +1663,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1alpha1/CSIStorageCapacity":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1alpha1 import CSIStorageCapacity
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1alpha1/CSIStorageCapacity:{x}",
+                       CSIStorageCapacity(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1alpha1/CSIStorageCapacityList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1alpha1 import CSIStorageCapacityList
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1alpha1/CSIStorageCapacityList:{x}",
+                       CSIStorageCapacityList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachment":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.storage.v1alpha1 import VolumeAttachment
@@ -1657,6 +1711,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSINodeList:{x}",
                        CSINodeList(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1beta1/CSIStorageCapacity":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import CSIStorageCapacity
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1beta1/CSIStorageCapacity:{x}",
+                       CSIStorageCapacity(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1beta1/CSIStorageCapacityList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import CSIStorageCapacityList
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1beta1/CSIStorageCapacityList:{x}",
+                       CSIStorageCapacityList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/StorageClass":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.storage.v1beta1 import StorageClass

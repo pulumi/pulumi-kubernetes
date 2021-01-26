@@ -117,6 +117,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Autoscaling.V2Beta1.HorizontalPodAutoscalerList) ? "autoscaling/v2beta1/HorizontalPodAutoscalerList" :
                 type == typeof(Autoscaling.V2Beta2.HorizontalPodAutoscaler) ? "autoscaling/v2beta2/HorizontalPodAutoscaler" :
                 type == typeof(Autoscaling.V2Beta2.HorizontalPodAutoscalerList) ? "autoscaling/v2beta2/HorizontalPodAutoscalerList" :
+                type == typeof(Batch.V1.CronJob) ? "batch/v1/CronJob" :
+                type == typeof(Batch.V1.CronJobList) ? "batch/v1/CronJobList" :
                 type == typeof(Batch.V1.Job) ? "batch/v1/Job" :
                 type == typeof(Batch.V1.JobList) ? "batch/v1/JobList" :
                 type == typeof(Batch.V1Beta1.CronJob) ? "batch/v1beta1/CronJob" :
@@ -136,6 +138,7 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Core.V1.ConfigMapList) ? "v1/ConfigMapList" :
                 type == typeof(Core.V1.Endpoints) ? "v1/Endpoints" :
                 type == typeof(Core.V1.EndpointsList) ? "v1/EndpointsList" :
+                type == typeof(Core.V1.EphemeralContainers) ? "v1/EphemeralContainers" :
                 type == typeof(Core.V1.Event) ? "v1/Event" :
                 type == typeof(Core.V1.EventList) ? "v1/EventList" :
                 type == typeof(Core.V1.LimitRange) ? "v1/LimitRange" :
@@ -162,6 +165,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Core.V1.ServiceAccount) ? "v1/ServiceAccount" :
                 type == typeof(Core.V1.ServiceAccountList) ? "v1/ServiceAccountList" :
                 type == typeof(Core.V1.ServiceList) ? "v1/ServiceList" :
+                type == typeof(Discovery.V1.EndpointSlice) ? "discovery.k8s.io/v1/EndpointSlice" :
+                type == typeof(Discovery.V1.EndpointSliceList) ? "discovery.k8s.io/v1/EndpointSliceList" :
                 type == typeof(Discovery.V1Beta1.EndpointSlice) ? "discovery.k8s.io/v1beta1/EndpointSlice" :
                 type == typeof(Discovery.V1Beta1.EndpointSliceList) ? "discovery.k8s.io/v1beta1/EndpointSliceList" :
                 type == typeof(Events.V1.Event) ? "events.k8s.io/v1/Event" :
@@ -205,6 +210,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Node.V1Alpha1.RuntimeClassList) ? "node.k8s.io/v1alpha1/RuntimeClassList" :
                 type == typeof(Node.V1Beta1.RuntimeClass) ? "node.k8s.io/v1beta1/RuntimeClass" :
                 type == typeof(Node.V1Beta1.RuntimeClassList) ? "node.k8s.io/v1beta1/RuntimeClassList" :
+                type == typeof(Policy.V1.PodDisruptionBudget) ? "policy/v1/PodDisruptionBudget" :
+                type == typeof(Policy.V1.PodDisruptionBudgetList) ? "policy/v1/PodDisruptionBudgetList" :
                 type == typeof(Policy.V1Beta1.PodDisruptionBudget) ? "policy/v1beta1/PodDisruptionBudget" :
                 type == typeof(Policy.V1Beta1.PodDisruptionBudgetList) ? "policy/v1beta1/PodDisruptionBudgetList" :
                 type == typeof(Policy.V1Beta1.PodSecurityPolicy) ? "policy/v1beta1/PodSecurityPolicy" :
@@ -249,12 +256,16 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Storage.V1.StorageClassList) ? "storage.k8s.io/v1/StorageClassList" :
                 type == typeof(Storage.V1.VolumeAttachment) ? "storage.k8s.io/v1/VolumeAttachment" :
                 type == typeof(Storage.V1.VolumeAttachmentList) ? "storage.k8s.io/v1/VolumeAttachmentList" :
+                type == typeof(Storage.V1Alpha1.CSIStorageCapacity) ? "storage.k8s.io/v1alpha1/CSIStorageCapacity" :
+                type == typeof(Storage.V1Alpha1.CSIStorageCapacityList) ? "storage.k8s.io/v1alpha1/CSIStorageCapacityList" :
                 type == typeof(Storage.V1Alpha1.VolumeAttachment) ? "storage.k8s.io/v1alpha1/VolumeAttachment" :
                 type == typeof(Storage.V1Alpha1.VolumeAttachmentList) ? "storage.k8s.io/v1alpha1/VolumeAttachmentList" :
                 type == typeof(Storage.V1Beta1.CSIDriver) ? "storage.k8s.io/v1beta1/CSIDriver" :
                 type == typeof(Storage.V1Beta1.CSIDriverList) ? "storage.k8s.io/v1beta1/CSIDriverList" :
                 type == typeof(Storage.V1Beta1.CSINode) ? "storage.k8s.io/v1beta1/CSINode" :
                 type == typeof(Storage.V1Beta1.CSINodeList) ? "storage.k8s.io/v1beta1/CSINodeList" :
+                type == typeof(Storage.V1Beta1.CSIStorageCapacity) ? "storage.k8s.io/v1beta1/CSIStorageCapacity" :
+                type == typeof(Storage.V1Beta1.CSIStorageCapacityList) ? "storage.k8s.io/v1beta1/CSIStorageCapacityList" :
                 type == typeof(Storage.V1Beta1.StorageClass) ? "storage.k8s.io/v1beta1/StorageClass" :
                 type == typeof(Storage.V1Beta1.StorageClassList) ? "storage.k8s.io/v1beta1/StorageClassList" :
                 type == typeof(Storage.V1Beta1.VolumeAttachment) ? "storage.k8s.io/v1beta1/VolumeAttachment" :
@@ -455,6 +466,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "autoscaling/v1/HorizontalPodAutoscalerList"
                 || gvk == "autoscaling/v2beta1/HorizontalPodAutoscalerList"
                 || gvk == "autoscaling/v2beta2/HorizontalPodAutoscalerList"
+                || gvk == "batch/v1/CronJobList"
                 || gvk == "batch/v1/JobList"
                 || gvk == "batch/v1beta1/CronJobList"
                 || gvk == "batch/v2alpha1/CronJobList"
@@ -477,6 +489,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "v1/SecretList"
                 || gvk == "v1/ServiceAccountList"
                 || gvk == "v1/ServiceList"
+                || gvk == "discovery.k8s.io/v1/EndpointSliceList"
                 || gvk == "discovery.k8s.io/v1beta1/EndpointSliceList"
                 || gvk == "events.k8s.io/v1/EventList"
                 || gvk == "events.k8s.io/v1beta1/EventList"
@@ -498,6 +511,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "node.k8s.io/v1/RuntimeClassList"
                 || gvk == "node.k8s.io/v1alpha1/RuntimeClassList"
                 || gvk == "node.k8s.io/v1beta1/RuntimeClassList"
+                || gvk == "policy/v1/PodDisruptionBudgetList"
                 || gvk == "policy/v1beta1/PodDisruptionBudgetList"
                 || gvk == "policy/v1beta1/PodSecurityPolicyList"
                 || gvk == "rbac.authorization.k8s.io/v1/ClusterRoleBindingList"
@@ -520,9 +534,11 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "storage.k8s.io/v1/CSINodeList"
                 || gvk == "storage.k8s.io/v1/StorageClassList"
                 || gvk == "storage.k8s.io/v1/VolumeAttachmentList"
+                || gvk == "storage.k8s.io/v1alpha1/CSIStorageCapacityList"
                 || gvk == "storage.k8s.io/v1alpha1/VolumeAttachmentList"
                 || gvk == "storage.k8s.io/v1beta1/CSIDriverList"
                 || gvk == "storage.k8s.io/v1beta1/CSINodeList"
+                || gvk == "storage.k8s.io/v1beta1/CSIStorageCapacityList"
                 || gvk == "storage.k8s.io/v1beta1/StorageClassList"
                 || gvk == "storage.k8s.io/v1beta1/VolumeAttachmentList"
                )
@@ -768,6 +784,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"autoscaling/v2beta2/HorizontalPodAutoscaler::{id}",
                                 new Autoscaling.V2Beta2.HorizontalPodAutoscaler(id, obj!, opts) as KubernetesResource))
                         };
+                    case "batch/v1/CronJob":
+                        return new[]
+                        {
+                            id.Apply(id => ($"batch/v1/CronJob::{id}",
+                                new Batch.V1.CronJob(id, obj!, opts) as KubernetesResource))
+                        };
                     case "batch/v1/Job":
                         return new[]
                         {
@@ -827,6 +849,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"v1/Endpoints::{id}",
                                 new Core.V1.Endpoints(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "v1/EphemeralContainers":
+                        return new[]
+                        {
+                            id.Apply(id => ($"v1/EphemeralContainers::{id}",
+                                new Core.V1.EphemeralContainers(id, obj!, opts) as KubernetesResource))
                         };
                     case "v1/Event":
                         return new[]
@@ -905,6 +933,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"v1/ServiceAccount::{id}",
                                 new Core.V1.ServiceAccount(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "discovery.k8s.io/v1/EndpointSlice":
+                        return new[]
+                        {
+                            id.Apply(id => ($"discovery.k8s.io/v1/EndpointSlice::{id}",
+                                new Discovery.V1.EndpointSlice(id, obj!, opts) as KubernetesResource))
                         };
                     case "discovery.k8s.io/v1beta1/EndpointSlice":
                         return new[]
@@ -1038,6 +1072,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"node.k8s.io/v1beta1/RuntimeClass::{id}",
                                 new Node.V1Beta1.RuntimeClass(id, obj!, opts) as KubernetesResource))
                         };
+                    case "policy/v1/PodDisruptionBudget":
+                        return new[]
+                        {
+                            id.Apply(id => ($"policy/v1/PodDisruptionBudget::{id}",
+                                new Policy.V1.PodDisruptionBudget(id, obj!, opts) as KubernetesResource))
+                        };
                     case "policy/v1beta1/PodDisruptionBudget":
                         return new[]
                         {
@@ -1170,6 +1210,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"storage.k8s.io/v1/VolumeAttachment::{id}",
                                 new Storage.V1.VolumeAttachment(id, obj!, opts) as KubernetesResource))
                         };
+                    case "storage.k8s.io/v1alpha1/CSIStorageCapacity":
+                        return new[]
+                        {
+                            id.Apply(id => ($"storage.k8s.io/v1alpha1/CSIStorageCapacity::{id}",
+                                new Storage.V1Alpha1.CSIStorageCapacity(id, obj!, opts) as KubernetesResource))
+                        };
                     case "storage.k8s.io/v1alpha1/VolumeAttachment":
                         return new[]
                         {
@@ -1187,6 +1233,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"storage.k8s.io/v1beta1/CSINode::{id}",
                                 new Storage.V1Beta1.CSINode(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "storage.k8s.io/v1beta1/CSIStorageCapacity":
+                        return new[]
+                        {
+                            id.Apply(id => ($"storage.k8s.io/v1beta1/CSIStorageCapacity::{id}",
+                                new Storage.V1Beta1.CSIStorageCapacity(id, obj!, opts) as KubernetesResource))
                         };
                     case "storage.k8s.io/v1beta1/StorageClass":
                         return new[]

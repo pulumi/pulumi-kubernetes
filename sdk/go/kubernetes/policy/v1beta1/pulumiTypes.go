@@ -995,7 +995,7 @@ type PodDisruptionBudgetSpec struct {
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable interface{} `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget.
+	// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 }
 
@@ -1016,7 +1016,7 @@ type PodDisruptionBudgetSpecArgs struct {
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget.
+	// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 }
 
@@ -1108,7 +1108,7 @@ func (o PodDisruptionBudgetSpecOutput) MinAvailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) interface{} { return v.MinAvailable }).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget.
+// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
 func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
@@ -1151,7 +1151,7 @@ func (o PodDisruptionBudgetSpecPtrOutput) MinAvailable() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget.
+// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
 func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpec) *metav1.LabelSelector {
 		if v == nil {
@@ -1163,6 +1163,16 @@ func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutp
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatus struct {
+	// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
+	//               the number of allowed disruptions. Therefore no disruptions are
+	//               allowed and the status of the condition will be False.
+	// - InsufficientPods: The number of pods are either at or below the number
+	//                     required by the PodDisruptionBudget. No disruptions are
+	//                     allowed and the status of the condition will be False.
+	// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+	//                   The condition will be True, and the number of allowed
+	//                   disruptions are provided by the disruptionsAllowed property.
+	Conditions []metav1.Condition `pulumi:"conditions"`
 	// current number of healthy pods
 	CurrentHealthy int `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
@@ -1190,6 +1200,16 @@ type PodDisruptionBudgetStatusInput interface {
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusArgs struct {
+	// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
+	//               the number of allowed disruptions. Therefore no disruptions are
+	//               allowed and the status of the condition will be False.
+	// - InsufficientPods: The number of pods are either at or below the number
+	//                     required by the PodDisruptionBudget. No disruptions are
+	//                     allowed and the status of the condition will be False.
+	// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+	//                   The condition will be True, and the number of allowed
+	//                   disruptions are provided by the disruptionsAllowed property.
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
 	// current number of healthy pods
 	CurrentHealthy pulumi.IntInput `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
@@ -1282,6 +1302,19 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWit
 	}).(PodDisruptionBudgetStatusPtrOutput)
 }
 
+// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
+//               the number of allowed disruptions. Therefore no disruptions are
+//               allowed and the status of the condition will be False.
+// - InsufficientPods: The number of pods are either at or below the number
+//                     required by the PodDisruptionBudget. No disruptions are
+//                     allowed and the status of the condition will be False.
+// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//                   The condition will be True, and the number of allowed
+//                   disruptions are provided by the disruptionsAllowed property.
+func (o PodDisruptionBudgetStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
 // current number of healthy pods
 func (o PodDisruptionBudgetStatusOutput) CurrentHealthy() pulumi.IntOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) int { return v.CurrentHealthy }).(pulumi.IntOutput)
@@ -1328,6 +1361,24 @@ func (o PodDisruptionBudgetStatusPtrOutput) ToPodDisruptionBudgetStatusPtrOutput
 
 func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetStatus) PodDisruptionBudgetStatus { return *v }).(PodDisruptionBudgetStatusOutput)
+}
+
+// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
+//               the number of allowed disruptions. Therefore no disruptions are
+//               allowed and the status of the condition will be False.
+// - InsufficientPods: The number of pods are either at or below the number
+//                     required by the PodDisruptionBudget. No disruptions are
+//                     allowed and the status of the condition will be False.
+// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//                   The condition will be True, and the number of allowed
+//                   disruptions are provided by the disruptionsAllowed property.
+func (o PodDisruptionBudgetStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
 }
 
 // current number of healthy pods
@@ -1390,7 +1441,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOu
 	}).(pulumi.IntPtrOutput)
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
 type PodSecurityPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1413,7 +1464,7 @@ type PodSecurityPolicyTypeInput interface {
 	ToPodSecurityPolicyTypeOutputWithContext(context.Context) PodSecurityPolicyTypeOutput
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
 type PodSecurityPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1462,7 +1513,7 @@ func (i PodSecurityPolicyTypeArray) ToPodSecurityPolicyTypeArrayOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyTypeArrayOutput)
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
 type PodSecurityPolicyTypeOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyTypeOutput) ElementType() reflect.Type {

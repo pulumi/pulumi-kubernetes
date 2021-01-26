@@ -16,6 +16,7 @@ __all__ = [
     'IngressArgs',
     'IngressBackendArgs',
     'IngressClassArgs',
+    'IngressClassParametersReferenceArgs',
     'IngressClassSpecArgs',
     'IngressRuleArgs',
     'IngressSpecArgs',
@@ -350,14 +351,100 @@ class IngressClassArgs:
 
 
 @pulumi.input_type
+class IngressClassParametersReferenceArgs:
+    def __init__(__self__, *,
+                 kind: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 api_group: Optional[pulumi.Input[str]] = None,
+                 namespace: Optional[pulumi.Input[str]] = None,
+                 scope: Optional[pulumi.Input[str]] = None):
+        """
+        IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+        :param pulumi.Input[str] kind: Kind is the type of resource being referenced.
+        :param pulumi.Input[str] name: Name is the name of resource being referenced.
+        :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+        :param pulumi.Input[str] namespace: Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+        :param pulumi.Input[str] scope: Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+        """
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "name", name)
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+        if scope is not None:
+            pulumi.set(__self__, "scope", scope)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[str]:
+        """
+        Kind is the type of resource being referenced.
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[str]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Name is the name of resource being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_group", value)
+
+    @property
+    @pulumi.getter
+    def namespace(self) -> Optional[pulumi.Input[str]]:
+        """
+        Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+        """
+        return pulumi.get(self, "namespace")
+
+    @namespace.setter
+    def namespace(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "namespace", value)
+
+    @property
+    @pulumi.getter
+    def scope(self) -> Optional[pulumi.Input[str]]:
+        """
+        Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+        """
+        return pulumi.get(self, "scope")
+
+    @scope.setter
+    def scope(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "scope", value)
+
+
+@pulumi.input_type
 class IngressClassSpecArgs:
     def __init__(__self__, *,
                  controller: Optional[pulumi.Input[str]] = None,
-                 parameters: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None):
+                 parameters: Optional[pulumi.Input['IngressClassParametersReferenceArgs']] = None):
         """
         IngressClassSpec provides information about the class of an Ingress.
         :param pulumi.Input[str] controller: Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
-        :param pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs'] parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+        :param pulumi.Input['IngressClassParametersReferenceArgs'] parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         if controller is not None:
             pulumi.set(__self__, "controller", controller)
@@ -378,14 +465,14 @@ class IngressClassSpecArgs:
 
     @property
     @pulumi.getter
-    def parameters(self) -> Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']]:
+    def parameters(self) -> Optional[pulumi.Input['IngressClassParametersReferenceArgs']]:
         """
         Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         return pulumi.get(self, "parameters")
 
     @parameters.setter
-    def parameters(self, value: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']]):
+    def parameters(self, value: Optional[pulumi.Input['IngressClassParametersReferenceArgs']]):
         pulumi.set(self, "parameters", value)
 
 

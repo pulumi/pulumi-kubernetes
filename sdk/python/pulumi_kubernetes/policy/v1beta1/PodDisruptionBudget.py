@@ -56,6 +56,8 @@ class PodDisruptionBudget(pulumi.CustomResource):
             __props__['metadata'] = metadata
             __props__['spec'] = spec
             __props__['status'] = None
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:policy/v1:PodDisruptionBudget")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(PodDisruptionBudget, __self__).__init__(
             'kubernetes:policy/v1beta1:PodDisruptionBudget',
             resource_name,

@@ -34,6 +34,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
         public Input<Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1.EndpointConditionsArgs>? Conditions { get; set; }
 
         /// <summary>
+        /// hints contains information associated with how an endpoint should be consumed.
+        /// </summary>
+        [Input("hints")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1.EndpointHintsArgs>? Hints { get; set; }
+
+        /// <summary>
         /// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
         /// </summary>
         [Input("hostname")]

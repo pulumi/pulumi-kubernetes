@@ -7,6 +7,8 @@ from .CSIDriver import *
 from .CSIDriverList import *
 from .CSINode import *
 from .CSINodeList import *
+from .CSIStorageCapacity import *
+from .CSIStorageCapacityList import *
 from .StorageClass import *
 from .StorageClassList import *
 from .VolumeAttachment import *
@@ -34,6 +36,10 @@ def _register_module():
                 return CSINode(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:storage.k8s.io/v1beta1:CSINodeList":
                 return CSINodeList(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity":
+                return CSIStorageCapacity(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList":
+                return CSIStorageCapacityList(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:storage.k8s.io/v1beta1:StorageClass":
                 return StorageClass(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:storage.k8s.io/v1beta1:StorageClassList":

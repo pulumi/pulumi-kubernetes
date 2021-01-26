@@ -54,7 +54,7 @@ export class Secret extends pulumi.CustomResource {
      */
     public readonly data!: pulumi.Output<{[key: string]: string}>;
     /**
-     * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
+     * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
      */
     public readonly immutable!: pulumi.Output<boolean>;
     /**
@@ -66,7 +66,7 @@ export class Secret extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.
+     * stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
      */
     public readonly stringData!: pulumi.Output<{[key: string]: string}>;
     /**
@@ -123,7 +123,7 @@ export interface SecretArgs {
      */
     readonly data?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
+     * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
      */
     readonly immutable?: pulumi.Input<boolean>;
     /**
@@ -135,7 +135,7 @@ export interface SecretArgs {
      */
     readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.
+     * stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
      */
     readonly stringData?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**

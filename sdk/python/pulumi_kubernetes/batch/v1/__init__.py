@@ -3,6 +3,8 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
+from .CronJob import *
+from .CronJobList import *
 from .Job import *
 from .JobList import *
 from ._inputs import *
@@ -20,7 +22,11 @@ def _register_module():
             return Module._version
 
         def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
-            if typ == "kubernetes:batch/v1:Job":
+            if typ == "kubernetes:batch/v1:CronJob":
+                return CronJob(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:batch/v1:CronJobList":
+                return CronJobList(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:batch/v1:Job":
                 return Job(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:batch/v1:JobList":
                 return JobList(name, pulumi.ResourceOptions(urn=urn))

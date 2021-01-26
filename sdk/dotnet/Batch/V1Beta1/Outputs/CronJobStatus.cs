@@ -21,15 +21,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1Beta1
         /// Information when was the last time the job was successfully scheduled.
         /// </summary>
         public readonly string LastScheduleTime;
+        /// <summary>
+        /// Information when was the last time the job successfully completed.
+        /// </summary>
+        public readonly string LastSuccessfulTime;
 
         [OutputConstructor]
         private CronJobStatus(
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectReference> active,
 
-            string lastScheduleTime)
+            string lastScheduleTime,
+
+            string lastSuccessfulTime)
         {
             Active = active;
             LastScheduleTime = lastScheduleTime;
+            LastSuccessfulTime = lastSuccessfulTime;
         }
     }
 }

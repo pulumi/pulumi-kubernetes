@@ -17,6 +17,7 @@ __all__ = [
     'IngressArgs',
     'IngressBackendArgs',
     'IngressClassArgs',
+    'IngressClassParametersReferenceArgs',
     'IngressClassSpecArgs',
     'IngressRuleArgs',
     'IngressServiceBackendArgs',
@@ -384,14 +385,100 @@ class IngressClassArgs:
 
 
 @pulumi.input_type
+class IngressClassParametersReferenceArgs:
+    def __init__(__self__, *,
+                 kind: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 api_group: Optional[pulumi.Input[str]] = None,
+                 namespace: Optional[pulumi.Input[str]] = None,
+                 scope: Optional[pulumi.Input[str]] = None):
+        """
+        IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+        :param pulumi.Input[str] kind: Kind is the type of resource being referenced.
+        :param pulumi.Input[str] name: Name is the name of resource being referenced.
+        :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+        :param pulumi.Input[str] namespace: Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+        :param pulumi.Input[str] scope: Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+        """
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "name", name)
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+        if scope is not None:
+            pulumi.set(__self__, "scope", scope)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[str]:
+        """
+        Kind is the type of resource being referenced.
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[str]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Name is the name of resource being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_group", value)
+
+    @property
+    @pulumi.getter
+    def namespace(self) -> Optional[pulumi.Input[str]]:
+        """
+        Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+        """
+        return pulumi.get(self, "namespace")
+
+    @namespace.setter
+    def namespace(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "namespace", value)
+
+    @property
+    @pulumi.getter
+    def scope(self) -> Optional[pulumi.Input[str]]:
+        """
+        Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+        """
+        return pulumi.get(self, "scope")
+
+    @scope.setter
+    def scope(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "scope", value)
+
+
+@pulumi.input_type
 class IngressClassSpecArgs:
     def __init__(__self__, *,
                  controller: Optional[pulumi.Input[str]] = None,
-                 parameters: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None):
+                 parameters: Optional[pulumi.Input['IngressClassParametersReferenceArgs']] = None):
         """
         IngressClassSpec provides information about the class of an Ingress.
         :param pulumi.Input[str] controller: Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
-        :param pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs'] parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+        :param pulumi.Input['IngressClassParametersReferenceArgs'] parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         if controller is not None:
             pulumi.set(__self__, "controller", controller)
@@ -412,14 +499,14 @@ class IngressClassSpecArgs:
 
     @property
     @pulumi.getter
-    def parameters(self) -> Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']]:
+    def parameters(self) -> Optional[pulumi.Input['IngressClassParametersReferenceArgs']]:
         """
         Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         return pulumi.get(self, "parameters")
 
     @parameters.setter
-    def parameters(self, value: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']]):
+    def parameters(self, value: Optional[pulumi.Input['IngressClassParametersReferenceArgs']]):
         pulumi.set(self, "parameters", value)
 
 
@@ -867,23 +954,39 @@ class NetworkPolicyPeerArgs:
 @pulumi.input_type
 class NetworkPolicyPortArgs:
     def __init__(__self__, *,
+                 end_port: Optional[pulumi.Input[int]] = None,
                  port: Optional[pulumi.Input[Union[int, str]]] = None,
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
-        :param pulumi.Input[Union[int, str]] port: The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+        :param pulumi.Input[int] end_port: If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+        :param pulumi.Input[Union[int, str]] port: The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         :param pulumi.Input[str] protocol: The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
+        if end_port is not None:
+            pulumi.set(__self__, "end_port", end_port)
         if port is not None:
             pulumi.set(__self__, "port", port)
         if protocol is not None:
             pulumi.set(__self__, "protocol", protocol)
 
     @property
+    @pulumi.getter(name="endPort")
+    def end_port(self) -> Optional[pulumi.Input[int]]:
+        """
+        If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+        """
+        return pulumi.get(self, "end_port")
+
+    @end_port.setter
+    def end_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "end_port", value)
+
+    @property
     @pulumi.getter
     def port(self) -> Optional[pulumi.Input[Union[int, str]]]:
         """
-        The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+        The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         """
         return pulumi.get(self, "port")
 
@@ -916,7 +1019,7 @@ class NetworkPolicySpecArgs:
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] pod_selector: Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]] egress: List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]] ingress: List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
         pulumi.set(__self__, "pod_selector", pod_selector)
         if egress is not None:
@@ -966,7 +1069,7 @@ class NetworkPolicySpecArgs:
     @pulumi.getter(name="policyTypes")
     def policy_types(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+        List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
         return pulumi.get(self, "policy_types")
 

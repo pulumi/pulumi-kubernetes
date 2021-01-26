@@ -67,6 +67,8 @@ class EndpointSlice(pulumi.CustomResource):
             __props__['kind'] = 'EndpointSlice'
             __props__['metadata'] = metadata
             __props__['ports'] = ports
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:discovery.k8s.io/v1:EndpointSlice")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(EndpointSlice, __self__).__init__(
             'kubernetes:discovery.k8s.io/v1beta1:EndpointSlice',
             resource_name,

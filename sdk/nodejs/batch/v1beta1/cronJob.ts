@@ -82,7 +82,7 @@ export class CronJob extends pulumi.CustomResource {
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        const aliasOpts = { aliases: [{ type: "kubernetes:batch/v2alpha1:CronJob" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:batch/v1:CronJob" }, { type: "kubernetes:batch/v2alpha1:CronJob" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(CronJob.__pulumiType, name, inputs, opts);
     }

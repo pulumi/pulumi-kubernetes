@@ -22,6 +22,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1.EndpointConditions Conditions;
         /// <summary>
+        /// hints contains information associated with how an endpoint should be consumed.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1.EndpointHints Hints;
+        /// <summary>
         /// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
         /// </summary>
         public readonly string Hostname;
@@ -51,6 +55,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
 
             Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1.EndpointConditions conditions,
 
+            Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1.EndpointHints hints,
+
             string hostname,
 
             string nodeName,
@@ -61,6 +67,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1Beta1
         {
             Addresses = addresses;
             Conditions = conditions;
+            Hints = hints;
             Hostname = hostname;
             NodeName = nodeName;
             TargetRef = targetRef;

@@ -38,6 +38,9 @@ func NewCronJob(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("CronJob")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:batch/v1:CronJob"),
+		},
+		{
 			Type: pulumi.String("kubernetes:batch/v1beta1:CronJob"),
 		},
 	})

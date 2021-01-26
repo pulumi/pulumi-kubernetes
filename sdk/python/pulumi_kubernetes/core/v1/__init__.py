@@ -9,6 +9,7 @@ from .ConfigMap import *
 from .ConfigMapList import *
 from .Endpoints import *
 from .EndpointsList import *
+from .EphemeralContainers import *
 from .Event import *
 from .EventList import *
 from .LimitRange import *
@@ -60,6 +61,8 @@ def _register_module():
                 return Endpoints(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:core/v1:EndpointsList":
                 return EndpointsList(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:core/v1:EphemeralContainers":
+                return EphemeralContainers(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:core/v1:Event":
                 return Event(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:core/v1:EventList":

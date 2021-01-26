@@ -853,12 +853,222 @@ func (o IngressClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v IngressClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+type IngressClassParametersReference struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	ApiGroup *string `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced.
+	Kind string `pulumi:"kind"`
+	// Name is the name of resource being referenced.
+	Name string `pulumi:"name"`
+	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	Namespace *string `pulumi:"namespace"`
+	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+	Scope *string `pulumi:"scope"`
+}
+
+// IngressClassParametersReferenceInput is an input type that accepts IngressClassParametersReferenceArgs and IngressClassParametersReferenceOutput values.
+// You can construct a concrete instance of `IngressClassParametersReferenceInput` via:
+//
+//          IngressClassParametersReferenceArgs{...}
+type IngressClassParametersReferenceInput interface {
+	pulumi.Input
+
+	ToIngressClassParametersReferenceOutput() IngressClassParametersReferenceOutput
+	ToIngressClassParametersReferenceOutputWithContext(context.Context) IngressClassParametersReferenceOutput
+}
+
+// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+type IngressClassParametersReferenceArgs struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced.
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// Name is the name of resource being referenced.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+	Scope pulumi.StringPtrInput `pulumi:"scope"`
+}
+
+func (IngressClassParametersReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassParametersReference)(nil)).Elem()
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferenceOutput() IngressClassParametersReferenceOutput {
+	return i.ToIngressClassParametersReferenceOutputWithContext(context.Background())
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferenceOutputWithContext(ctx context.Context) IngressClassParametersReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassParametersReferenceOutput)
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return i.ToIngressClassParametersReferencePtrOutputWithContext(context.Background())
+}
+
+func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassParametersReferenceOutput).ToIngressClassParametersReferencePtrOutputWithContext(ctx)
+}
+
+// IngressClassParametersReferencePtrInput is an input type that accepts IngressClassParametersReferenceArgs, IngressClassParametersReferencePtr and IngressClassParametersReferencePtrOutput values.
+// You can construct a concrete instance of `IngressClassParametersReferencePtrInput` via:
+//
+//          IngressClassParametersReferenceArgs{...}
+//
+//  or:
+//
+//          nil
+type IngressClassParametersReferencePtrInput interface {
+	pulumi.Input
+
+	ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput
+	ToIngressClassParametersReferencePtrOutputWithContext(context.Context) IngressClassParametersReferencePtrOutput
+}
+
+type ingressClassParametersReferencePtrType IngressClassParametersReferenceArgs
+
+func IngressClassParametersReferencePtr(v *IngressClassParametersReferenceArgs) IngressClassParametersReferencePtrInput {
+	return (*ingressClassParametersReferencePtrType)(v)
+}
+
+func (*ingressClassParametersReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClassParametersReference)(nil)).Elem()
+}
+
+func (i *ingressClassParametersReferencePtrType) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return i.ToIngressClassParametersReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *ingressClassParametersReferencePtrType) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassParametersReferencePtrOutput)
+}
+
+// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+type IngressClassParametersReferenceOutput struct{ *pulumi.OutputState }
+
+func (IngressClassParametersReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassParametersReference)(nil)).Elem()
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferenceOutput() IngressClassParametersReferenceOutput {
+	return o
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferenceOutputWithContext(ctx context.Context) IngressClassParametersReferenceOutput {
+	return o
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return o.ToIngressClassParametersReferencePtrOutputWithContext(context.Background())
+}
+
+func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *IngressClassParametersReference {
+		return &v
+	}).(IngressClassParametersReferencePtrOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+func (o IngressClassParametersReferenceOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced.
+func (o IngressClassParametersReferenceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) string { return v.Kind }).(pulumi.StringOutput)
+}
+
+// Name is the name of resource being referenced.
+func (o IngressClassParametersReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+func (o IngressClassParametersReferenceOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+func (o IngressClassParametersReferenceOutput) Scope() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Scope }).(pulumi.StringPtrOutput)
+}
+
+type IngressClassParametersReferencePtrOutput struct{ *pulumi.OutputState }
+
+func (IngressClassParametersReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClassParametersReference)(nil)).Elem()
+}
+
+func (o IngressClassParametersReferencePtrOutput) ToIngressClassParametersReferencePtrOutput() IngressClassParametersReferencePtrOutput {
+	return o
+}
+
+func (o IngressClassParametersReferencePtrOutput) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
+	return o
+}
+
+func (o IngressClassParametersReferencePtrOutput) Elem() IngressClassParametersReferenceOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) IngressClassParametersReference { return *v }).(IngressClassParametersReferenceOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+func (o IngressClassParametersReferencePtrOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiGroup
+	}).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced.
+func (o IngressClassParametersReferencePtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of resource being referenced.
+func (o IngressClassParametersReferencePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+func (o IngressClassParametersReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
+}
+
+// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+func (o IngressClassParametersReferencePtrOutput) Scope() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IngressClassParametersReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Scope
+	}).(pulumi.StringPtrOutput)
+}
+
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpec struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller *string `pulumi:"controller"`
 	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-	Parameters *corev1.TypedLocalObjectReference `pulumi:"parameters"`
+	Parameters *IngressClassParametersReference `pulumi:"parameters"`
 }
 
 // IngressClassSpecInput is an input type that accepts IngressClassSpecArgs and IngressClassSpecOutput values.
@@ -877,7 +1087,7 @@ type IngressClassSpecArgs struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller pulumi.StringPtrInput `pulumi:"controller"`
 	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-	Parameters corev1.TypedLocalObjectReferencePtrInput `pulumi:"parameters"`
+	Parameters IngressClassParametersReferencePtrInput `pulumi:"parameters"`
 }
 
 func (IngressClassSpecArgs) ElementType() reflect.Type {
@@ -964,8 +1174,8 @@ func (o IngressClassSpecOutput) Controller() pulumi.StringPtrOutput {
 }
 
 // Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-func (o IngressClassSpecOutput) Parameters() corev1.TypedLocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v IngressClassSpec) *corev1.TypedLocalObjectReference { return v.Parameters }).(corev1.TypedLocalObjectReferencePtrOutput)
+func (o IngressClassSpecOutput) Parameters() IngressClassParametersReferencePtrOutput {
+	return o.ApplyT(func(v IngressClassSpec) *IngressClassParametersReference { return v.Parameters }).(IngressClassParametersReferencePtrOutput)
 }
 
 type IngressClassSpecPtrOutput struct{ *pulumi.OutputState }
@@ -997,13 +1207,13 @@ func (o IngressClassSpecPtrOutput) Controller() pulumi.StringPtrOutput {
 }
 
 // Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
-func (o IngressClassSpecPtrOutput) Parameters() corev1.TypedLocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v *IngressClassSpec) *corev1.TypedLocalObjectReference {
+func (o IngressClassSpecPtrOutput) Parameters() IngressClassParametersReferencePtrOutput {
+	return o.ApplyT(func(v *IngressClassSpec) *IngressClassParametersReference {
 		if v == nil {
 			return nil
 		}
 		return v.Parameters
-	}).(corev1.TypedLocalObjectReferencePtrOutput)
+	}).(IngressClassParametersReferencePtrOutput)
 }
 
 // IngressList is a collection of Ingress.
@@ -1661,6 +1871,8 @@ func init() {
 	pulumi.RegisterOutputType(IngressClassTypeOutput{})
 	pulumi.RegisterOutputType(IngressClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(IngressClassListTypeOutput{})
+	pulumi.RegisterOutputType(IngressClassParametersReferenceOutput{})
+	pulumi.RegisterOutputType(IngressClassParametersReferencePtrOutput{})
 	pulumi.RegisterOutputType(IngressClassSpecOutput{})
 	pulumi.RegisterOutputType(IngressClassSpecPtrOutput{})
 	pulumi.RegisterOutputType(IngressListTypeOutput{})

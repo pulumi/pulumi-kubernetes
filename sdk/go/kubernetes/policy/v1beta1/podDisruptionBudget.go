@@ -35,6 +35,12 @@ func NewPodDisruptionBudget(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("policy/v1beta1")
 	args.Kind = pulumi.StringPtr("PodDisruptionBudget")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:policy/v1:PodDisruptionBudget"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource PodDisruptionBudget
 	err := ctx.RegisterResource("kubernetes:policy/v1beta1:PodDisruptionBudget", name, args, &resource, opts...)
 	if err != nil {

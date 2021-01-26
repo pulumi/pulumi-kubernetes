@@ -31,6 +31,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r, err = NewEndpoints(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:core/v1:EndpointsList":
 		r, err = NewEndpointsList(ctx, name, nil, pulumi.URN_(urn))
+	case "kubernetes:core/v1:EphemeralContainers":
+		r, err = NewEphemeralContainers(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:core/v1:Event":
 		r, err = NewEvent(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:core/v1:EventList":

@@ -59,7 +59,7 @@ class CronJob(pulumi.CustomResource):
             __props__['metadata'] = metadata
             __props__['spec'] = spec
             __props__['status'] = None
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:batch/v1beta1:CronJob")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:batch/v1:CronJob"), pulumi.Alias(type_="kubernetes:batch/v1beta1:CronJob")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(CronJob, __self__).__init__(
             'kubernetes:batch/v2alpha1:CronJob',

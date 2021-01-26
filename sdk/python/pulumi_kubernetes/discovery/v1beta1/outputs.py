@@ -14,8 +14,10 @@ from ... import meta as _meta
 __all__ = [
     'Endpoint',
     'EndpointConditions',
+    'EndpointHints',
     'EndpointPort',
     'EndpointSlice',
+    'ForZone',
 ]
 
 @pulumi.output_type
@@ -26,6 +28,7 @@ class Endpoint(dict):
     def __init__(__self__, *,
                  addresses: Sequence[str],
                  conditions: Optional['outputs.EndpointConditions'] = None,
+                 hints: Optional['outputs.EndpointHints'] = None,
                  hostname: Optional[str] = None,
                  node_name: Optional[str] = None,
                  target_ref: Optional['_core.v1.outputs.ObjectReference'] = None,
@@ -34,6 +37,7 @@ class Endpoint(dict):
         Endpoint represents a single logical "backend" implementing a service.
         :param Sequence[str] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
         :param 'EndpointConditionsArgs' conditions: conditions contains information about the current status of the endpoint.
+        :param 'EndpointHintsArgs' hints: hints contains information associated with how an endpoint should be consumed.
         :param str hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
         :param str node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
         :param '_core.v1.ObjectReferenceArgs' target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
@@ -49,6 +53,8 @@ class Endpoint(dict):
         pulumi.set(__self__, "addresses", addresses)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
+        if hints is not None:
+            pulumi.set(__self__, "hints", hints)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if node_name is not None:
@@ -73,6 +79,14 @@ class Endpoint(dict):
         conditions contains information about the current status of the endpoint.
         """
         return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def hints(self) -> Optional['outputs.EndpointHints']:
+        """
+        hints contains information associated with how an endpoint should be consumed.
+        """
+        return pulumi.get(self, "hints")
 
     @property
     @pulumi.getter
@@ -162,6 +176,32 @@ class EndpointConditions(dict):
         terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
         """
         return pulumi.get(self, "terminating")
+
+    def _translate_property(self, prop):
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+
+
+@pulumi.output_type
+class EndpointHints(dict):
+    """
+    EndpointHints provides hints describing how an endpoint should be consumed.
+    """
+    def __init__(__self__, *,
+                 for_zones: Optional[Sequence['outputs.ForZone']] = None):
+        """
+        EndpointHints provides hints describing how an endpoint should be consumed.
+        :param Sequence['ForZoneArgs'] for_zones: forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+        """
+        if for_zones is not None:
+            pulumi.set(__self__, "for_zones", for_zones)
+
+    @property
+    @pulumi.getter(name="forZones")
+    def for_zones(self) -> Optional[Sequence['outputs.ForZone']]:
+        """
+        forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+        """
+        return pulumi.get(self, "for_zones")
 
     def _translate_property(self, prop):
         return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
@@ -308,6 +348,31 @@ class EndpointSlice(dict):
         ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
         """
         return pulumi.get(self, "ports")
+
+    def _translate_property(self, prop):
+        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
+
+
+@pulumi.output_type
+class ForZone(dict):
+    """
+    ForZone provides information about which zones should consume this endpoint.
+    """
+    def __init__(__self__, *,
+                 name: str):
+        """
+        ForZone provides information about which zones should consume this endpoint.
+        :param str name: name represents the name of the zone.
+        """
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        name represents the name of the zone.
+        """
+        return pulumi.get(self, "name")
 
     def _translate_property(self, prop):
         return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
