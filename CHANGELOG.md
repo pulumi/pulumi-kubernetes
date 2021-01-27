@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.7.8 (January 27, 2021)
+
 -   Update pulumi dependency to remove unused Go types (https://github.com/pulumi/pulumi-kubernetes/pull/1450)
 
 ## 2.7.7 (January 20, 2021)
