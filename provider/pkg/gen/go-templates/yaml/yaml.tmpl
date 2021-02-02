@@ -167,7 +167,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	// for resource definitions that can be managed by Kubernetes, and registers those with the
 	// engine instead.
 	switch fullKind {
-	case {{range $idx, $v := .ListKinds -}} {{if $idx}},
+	case "v1/List",
+	    {{range $idx, $v := .ListKinds -}} {{if $idx}},
 	    {{end}}"{{$v.GVK}}" {{- end}}:
 		var resources []resourceTuple
 		if rawItems, hasItems := obj["items"]; hasItems {
