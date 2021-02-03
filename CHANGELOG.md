@@ -1,5 +1,11 @@
 ## HEAD (Unreleased)
 
+## 2.8.0 (February 3, 2021)
+
+Note: This release fixes a bug with the Helm v3 SDK that omitted any chart resources that included a hook annotation.
+If you have existing charts deployed with the v3 SDK that include hook resources, the next update will create these
+resources.
+
 -   [Go SDK] Fix bug with v1/List in YAML parsing (https://github.com/pulumi/pulumi-kubernetes/pull/1457)
 -   Fix bug rendering Helm v3 resources that include hooks (https://github.com/pulumi/pulumi-kubernetes/pull/1459)
 -   Print warning for Helm resources using unsupported hooks (https://github.com/pulumi/pulumi-kubernetes/pull/1460)
