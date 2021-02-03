@@ -212,7 +212,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	// for resource definitions that can be managed by Kubernetes, and registers those with the
 	// engine instead.
 	switch fullKind {
-	case "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList",
+	case "v1/List",
+		"admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList",
 		"admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList",
 		"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList",
 		"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList",
