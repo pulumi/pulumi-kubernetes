@@ -58,7 +58,7 @@ func TestGet(t *testing.T) {
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
-	for _, dir := range []string{ "get-old"} {
+	for _, dir := range []string{"get-old"} {
 		t.Run(dir, func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				ExpectRefreshChanges: true, // CRD changes on refresh
