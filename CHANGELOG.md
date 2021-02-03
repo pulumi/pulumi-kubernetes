@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Fix bug rendering Helm v3 resources that include hooks (https://github.com/pulumi/pulumi-kubernetes/pull/1458)
+
 ## 2.7.8 (January 27, 2021)
 
 -   Update pulumi dependency to remove unused Go types (https://github.com/pulumi/pulumi-kubernetes/pull/1450)

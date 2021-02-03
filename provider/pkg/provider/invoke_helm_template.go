@@ -222,6 +222,12 @@ func (c *chart) template() (string, error) {
 	if err != nil {
 		return "", pkgerrors.Wrap(err, "failed to create chart from template")
 	}
+	manifests := strings.Builder{}
+	manifests.WriteString(rel.Manifest)
+	for _, hook := range rel.Hooks {
+		manifests.WriteString("\n---\n")
+		manifests.WriteString(hook.Manifest)
+	}
 
-	return rel.Manifest, nil
+	return manifests.String(), nil
 }
