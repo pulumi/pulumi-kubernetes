@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Print warning for Helm resources using unsupported hooks (https://github.com/pulumi/pulumi-kubernetes/pull/1460)
+
 ## 2.7.8 (January 27, 2021)
 
 -   Update pulumi dependency to remove unused Go types (https://github.com/pulumi/pulumi-kubernetes/pull/1450)
