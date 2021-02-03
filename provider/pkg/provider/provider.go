@@ -1034,12 +1034,24 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	var failures []*pulumirpc.CheckFailure
 
-	// If annotations with a reserved internal prefix exist, ignore them.
+	hasHelmHook := false
 	for key := range newInputs.GetAnnotations() {
+		// If annotations with a reserved internal prefix exist, ignore them.
 		if metadata.IsInternalAnnotation(key) {
 			_ = k.host.Log(ctx, diag.Warning, urn,
 				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
 		}
+
+		// If the Helm hook annotation is found, set the hasHelmHook flag.
+		if has := metadata.IsHelmHookAnnotation(key); has {
+			hasHelmHook = hasHelmHook || has
+		}
+	}
+	if hasHelmHook {
+		_ = k.host.Log(ctx, diag.Warning, urn,
+			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will"+
+				"be created, but any hooks will not be executed. Hooks support is tracked at "+
+				"https://github.com/pulumi/pulumi-kubernetes/issues/555")
 	}
 
 	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)

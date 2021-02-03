@@ -2,6 +2,7 @@
 
 -   [Go SDK] Fix bug with v1/List in YAML parsing (https://github.com/pulumi/pulumi-kubernetes/pull/1457)
 -   Fix bug rendering Helm v3 resources that include hooks (https://github.com/pulumi/pulumi-kubernetes/pull/1459)
+-   Print warning for Helm resources using unsupported hooks (https://github.com/pulumi/pulumi-kubernetes/pull/1460)
 
 ## 2.7.8 (January 27, 2021)
 

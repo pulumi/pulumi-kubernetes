@@ -31,6 +31,8 @@ const (
 	AnnotationSkipAwait         = AnnotationPrefix + "skipAwait"
 	AnnotationTimeoutSeconds    = AnnotationPrefix + "timeoutSeconds"
 	AnnotationInitialAPIVersion = AnnotationPrefix + "initialApiVersion"
+
+	AnnotationHelmHook = "helm.sh/hook"
 )
 
 // Annotations for internal Pulumi use only.
@@ -45,6 +47,11 @@ func IsInternalAnnotation(key string) bool {
 	}
 
 	return false
+}
+
+// IsHelmHookAnnotation returns true if the specified annotation has the `helm.sh/hook` prefix, false otherwise.
+func IsHelmHookAnnotation(key string) bool {
+	return strings.HasPrefix(key, AnnotationHelmHook)
 }
 
 // SetAnnotation sets the specified key, value annotation on the provided Unstructured object.
