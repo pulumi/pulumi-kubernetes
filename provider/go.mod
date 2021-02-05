@@ -13,18 +13,21 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi/pkg/v2 v2.18.3-0.20210126224412-216fd2bed529
 	github.com/pulumi/pulumi/sdk/v2 v2.18.3-0.20210126224412-216fd2bed529
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.29.1
-	helm.sh/helm/v3 v3.5.1
-	k8s.io/api v0.20.1
-	k8s.io/apimachinery v0.20.1
-	k8s.io/cli-runtime v0.20.1
-	k8s.io/client-go v0.20.1
+	helm.sh/helm/v3 v3.5.2
+	k8s.io/api v0.20.2
+	k8s.io/apimachinery v0.20.2
+	k8s.io/cli-runtime v0.20.2
+	k8s.io/client-go v0.20.2
 	k8s.io/kube-openapi v0.0.0-20201113171705-d219536bb9fd
 	k8s.io/kubectl v0.20.1
-	rsc.io/letsencrypt v0.0.3 // indirect
 	sigs.k8s.io/kustomize/api v0.4.1
 	sigs.k8s.io/yaml v1.2.0
 )
 
-replace github.com/evanphx/json-patch => github.com/evanphx/json-patch v4.9.0+incompatible
+replace (
+	github.com/docker/distribution => github.com/docker/distribution v0.0.0-20191216044856-a8371794149d
+	github.com/docker/docker => github.com/moby/moby v17.12.0-ce-rc1.0.20200618181300-9dc6525e6118+incompatible
+	github.com/evanphx/json-patch => github.com/evanphx/json-patch v4.9.0+incompatible
+)
