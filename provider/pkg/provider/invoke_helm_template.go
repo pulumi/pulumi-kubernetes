@@ -32,6 +32,9 @@ import (
 	"helm.sh/helm/v3/pkg/storage/driver"
 )
 
+// testAnnotation matches test-related Helm hook annotations (test, test-success, test-failure)
+var testAnnotation = regexp.MustCompile(`"?helm.sh\/hook"?:.*test`)
+
 type HelmFetchOpts struct {
 	CAFile      string `json:"ca_file,omitempty"`
 	CertFile    string `json:"cert_file,omitempty"`
@@ -225,8 +228,14 @@ func (c *chart) template() (string, error) {
 	manifests := strings.Builder{}
 	manifests.WriteString(rel.Manifest)
 	for _, hook := range rel.Hooks {
-		manifests.WriteString("\n---\n")
-		manifests.WriteString(hook.Manifest)
+		switch {
+		case testAnnotation.MatchString(hook.Manifest):
+			// TODO: allow user to opt out via flag
+			// Skip test hook.
+		default:
+			manifests.WriteString("\n---\n")
+			manifests.WriteString(hook.Manifest)
+		}
 	}
 
 	return manifests.String(), nil

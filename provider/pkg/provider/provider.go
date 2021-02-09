@@ -1044,12 +1044,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 		// If the Helm hook annotation is found, set the hasHelmHook flag.
 		if has := metadata.IsHelmHookAnnotation(key); has {
+			// TODO: except for test
 			hasHelmHook = hasHelmHook || has
 		}
 	}
 	if hasHelmHook {
 		_ = k.host.Log(ctx, diag.Warning, urn,
-			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will"+
+			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
 				"be created, but any hooks will not be executed. Hooks support is tracked at "+
 				"https://github.com/pulumi/pulumi-kubernetes/issues/555")
 	}
