@@ -117,6 +117,9 @@ func (o FetchArgsOutput) ToFetchArgsOutputWithContext(ctx context.Context) Fetch
 type ChartArgs struct {
 	// The optional Kubernetes API versions used for Capabilities.APIVersions.
 	APIVersions pulumi.StringArrayInput
+	// By default, Helm resources with the `test`, `test-success`, and `test-failure` hooks are not installed. Set
+	// this flag to true to include these resources.
+	IncludeTestHookResources pulumi.BoolInput
 	// The optional namespace to install chart resources into.
 	Namespace pulumi.StringInput
 	// Overrides for chart values.
@@ -148,16 +151,17 @@ type ChartArgs struct {
 // chartArgs is a copy of ChartArgs but without using TInput in types.
 // Note that Transformations are omitted in JSON marshaling because functions are not serializable.
 type chartArgs struct {
-	APIVersions     []string               `json:"api_versions,omitempty" pulumi:"apiVersions"`
-	Namespace       string                 `json:"namespace,omitempty" pulumi:"namespace"`
-	Values          map[string]interface{} `json:"values,omitempty" pulumi:"values"`
-	Transformations []yaml.Transformation  `json:"-" pulumi:"transformations"`
-	ResourcePrefix  string                 `json:"resource_prefix,omitempty" pulumi:"resourcePrefix"`
-	Repo            string                 `json:"repo,omitempty" pulumi:"repo"`
-	Chart           string                 `json:"chart,omitempty" pulumi:"chart"`
-	Version         string                 `json:"version,omitempty" pulumi:"version"`
-	FetchArgs       fetchArgs              `json:"fetch_opts,omitempty" pulumi:"fetchArgs"`
-	Path            string                 `json:"path,omitempty" pulumi:"path"`
+	APIVersions              []string               `json:"api_versions,omitempty" pulumi:"apiVersions"`
+	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty" pulumi:"includeTestHookResources"`
+	Namespace                string                 `json:"namespace,omitempty" pulumi:"namespace"`
+	Values                   map[string]interface{} `json:"values,omitempty" pulumi:"values"`
+	Transformations          []yaml.Transformation  `json:"-" pulumi:"transformations"`
+	ResourcePrefix           string                 `json:"resource_prefix,omitempty" pulumi:"resourcePrefix"`
+	Repo                     string                 `json:"repo,omitempty" pulumi:"repo"`
+	Chart                    string                 `json:"chart,omitempty" pulumi:"chart"`
+	Version                  string                 `json:"version,omitempty" pulumi:"version"`
+	FetchArgs                fetchArgs              `json:"fetch_opts,omitempty" pulumi:"fetchArgs"`
+	Path                     string                 `json:"path,omitempty" pulumi:"path"`
 }
 
 type ChartArgsInput interface {

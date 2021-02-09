@@ -361,6 +361,12 @@ class BaseChartOpts:
     Optional namespace to install chart resources into.
     """
 
+    include_test_hook_resources: Optional[pulumi.Input[bool]]
+    """
+    By default, Helm resources with the 'test', 'test-success', and 'test-failure' hooks are not installed. Set
+    this flag to true to include these resources.
+    """
+
     values: Optional[pulumi.Inputs]
     """
     Optional overrides for chart values.
@@ -385,12 +391,16 @@ class BaseChartOpts:
 
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
+                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
+        :param Optional[pulumi.Input[bool]] include_test_hook_resources: By default, Helm resources with the 'test',
+               'test-success', and 'test-failure' hooks are not installed. Set this flag to true to include these
+               resources.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
         :param Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] transformations: Optional list
                of transformations to apply to resources that will be created by this chart prior to creation.
@@ -401,6 +411,7 @@ class BaseChartOpts:
                Capabilities.APIVersions.
         """
         self.namespace = namespace
+        self.include_test_hook_resources = include_test_hook_resources
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix

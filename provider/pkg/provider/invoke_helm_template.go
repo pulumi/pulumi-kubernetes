@@ -55,14 +55,15 @@ type HelmFetchOpts struct {
 type HelmChartOpts struct {
 	HelmFetchOpts `json:"fetch_opts,omitempty"`
 
-	APIVersions []string               `json:"api_versions,omitempty"`
-	Chart       string                 `json:"chart,omitempty"`
-	Namespace   string                 `json:"namespace,omitempty"`
-	Path        string                 `json:"path,omitempty"`
-	ReleaseName string                 `json:"release_name,omitempty"`
-	Repo        string                 `json:"repo,omitempty"`
-	Values      map[string]interface{} `json:"values,omitempty"`
-	Version     string                 `json:"version,omitempty"`
+	APIVersions              []string               `json:"api_versions,omitempty"`
+	Chart                    string                 `json:"chart,omitempty"`
+	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty"`
+	Namespace                string                 `json:"namespace,omitempty"`
+	Path                     string                 `json:"path,omitempty"`
+	ReleaseName              string                 `json:"release_name,omitempty"`
+	Repo                     string                 `json:"repo,omitempty"`
+	Values                   map[string]interface{} `json:"values,omitempty"`
+	Version                  string                 `json:"version,omitempty"`
 }
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
@@ -229,8 +230,7 @@ func (c *chart) template() (string, error) {
 	manifests.WriteString(rel.Manifest)
 	for _, hook := range rel.Hooks {
 		switch {
-		case testAnnotation.MatchString(hook.Manifest):
-			// TODO: allow user to opt out via flag
+		case !c.opts.IncludeTestHookResources && testAnnotation.MatchString(hook.Manifest):
 			// Skip test hook.
 		default:
 			manifests.WriteString("\n---\n")

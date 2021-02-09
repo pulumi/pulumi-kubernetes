@@ -187,6 +187,10 @@ export class Chart extends yaml.CollectionComponentResource {
                                 obj["fetch_opts"] = value;
                                 break;
                             }
+                            case "includeTestHookResources": {
+                                obj["include_test_hook_resources"] = value;
+                                break;
+                            }
                             case "releaseName": {
                                 obj["release_name"] = value;
                                 break;
@@ -232,6 +236,11 @@ interface BaseChartOpts {
      * The optional kubernetes api versions used for Capabilities.APIVersions.
      */
     apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * By default, Helm resources with the `test`, `test-success`, and `test-failure` hooks are not installed. Set
+     * this flag to true to include these resources.
+     */
+    includeTestHookResources?: boolean;
     /**
      * The optional namespace to install chart resources into.
      */

@@ -372,6 +372,8 @@ namespace Pulumi.Kubernetes.Helm.V3
         {
             [JsonPropertyName("api_versions")]
             public ImmutableArray<string> ApiVersions { get; set; }
+            [JsonPropertyName("include_test_hook_resources")]
+            public bool? IncludeTestHookResources { get; set; }
             [JsonPropertyName("namespace")]
             public string? Namespace { get; set; }
             [JsonPropertyName("values")]
