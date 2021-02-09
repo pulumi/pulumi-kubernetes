@@ -32,8 +32,8 @@ import (
 	"helm.sh/helm/v3/pkg/storage/driver"
 )
 
-// testAnnotation matches test-related Helm hook annotations (test, test-success, test-failure)
-var testAnnotation = regexp.MustCompile(`"?helm.sh\/hook"?:.*test`)
+// testHookAnnotation matches test-related Helm hook annotations (test, test-success, test-failure)
+var testHookAnnotation = regexp.MustCompile(`"?helm.sh\/hook"?:.*test`)
 
 type HelmFetchOpts struct {
 	CAFile      string `json:"ca_file,omitempty"`
@@ -230,7 +230,7 @@ func (c *chart) template() (string, error) {
 	manifests.WriteString(rel.Manifest)
 	for _, hook := range rel.Hooks {
 		switch {
-		case !c.opts.IncludeTestHookResources && testAnnotation.MatchString(hook.Manifest):
+		case !c.opts.IncludeTestHookResources && testHookAnnotation.MatchString(hook.Manifest):
 			// Skip test hook.
 		default:
 			manifests.WriteString("\n---\n")
