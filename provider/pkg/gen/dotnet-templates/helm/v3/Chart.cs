@@ -309,6 +309,7 @@ namespace Pulumi.Kubernetes.Helm.V3
                 jsonOpts = new JsonOpts
                 {
                     ApiVersions = cfgBase.ApiVersions,
+                    IncludeTestHookResources = cfgBase.IncludeTestHookResources,
                     Namespace = cfgBase.Namespace,
                     Values = cfgBase.Values,
                     ReleaseName = releaseName,
@@ -345,6 +346,7 @@ namespace Pulumi.Kubernetes.Helm.V3
                 jsonOpts = new JsonOpts
                 {
                     ApiVersions = cfgBase.ApiVersions,
+                    IncludeTestHookResources = cfgBase.IncludeTestHookResources,
                     Namespace = cfgBase.Namespace,
                     Values = cfgBase.Values,
                     ReleaseName = releaseName,
