@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Skip Helm test hook resources by default (https://github.com/pulumi/pulumi-kubernetes/pull/1467)
+
 ## 2.8.0 (February 3, 2021)
 
 Note: This release fixes a bug with the Helm v3 SDK that omitted any chart resources that included a hook annotation.
