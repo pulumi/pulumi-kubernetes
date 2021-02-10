@@ -24,6 +24,7 @@ import (
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
+	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
@@ -231,6 +232,7 @@ func (c *chart) template() (string, error) {
 	for _, hook := range rel.Hooks {
 		switch {
 		case !c.opts.IncludeTestHookResources && testHookAnnotation.MatchString(hook.Manifest):
+			logger.V(9).Infof("Skipping Helm resource with test hook: %s", hook.Name)
 			// Skip test hook.
 		default:
 			manifests.WriteString("\n---\n")
