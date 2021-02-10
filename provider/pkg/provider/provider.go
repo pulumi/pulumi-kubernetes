@@ -2092,7 +2092,10 @@ func (k *kubeProvider) label() string {
 }
 
 func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
-	contract.Assertf(string(urn.Type().Package()) == k.providerPackage, "Kubernetes GVK is: %q", string(urn))
+	if string(urn.Type().Package()) != k.providerPackage {
+		return schema.GroupVersionKind{}, fmt.Errorf("unrecognized resource type: %q for this provider",
+			urn.Type())
+	}
 
 	// Emit GVK.
 	kind := string(urn.Type().Name())
