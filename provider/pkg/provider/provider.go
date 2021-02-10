@@ -26,6 +26,7 @@ import (
 	"os/user"
 	"path/filepath"
 	"reflect"
+	"regexp"
 	"strings"
 	"sync"
 
@@ -1035,7 +1036,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	var failures []*pulumirpc.CheckFailure
 
 	hasHelmHook := false
-	for key := range newInputs.GetAnnotations() {
+	for key, value := range newInputs.GetAnnotations() {
 		// If annotations with a reserved internal prefix exist, ignore them.
 		if metadata.IsInternalAnnotation(key) {
 			_ = k.host.Log(ctx, diag.Warning, urn,
@@ -1044,12 +1045,15 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 		// If the Helm hook annotation is found, set the hasHelmHook flag.
 		if has := metadata.IsHelmHookAnnotation(key); has {
-			hasHelmHook = hasHelmHook || has
+			// Test hooks are handled, so ignore this one.
+			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
+				hasHelmHook = hasHelmHook || has
+			}
 		}
 	}
 	if hasHelmHook {
 		_ = k.host.Log(ctx, diag.Warning, urn,
-			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will"+
+			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
 				"be created, but any hooks will not be executed. Hooks support is tracked at "+
 				"https://github.com/pulumi/pulumi-kubernetes/issues/555")
 	}

@@ -404,6 +404,12 @@ namespace Pulumi.Kubernetes.Helm
         }
 
         /// <summary>
+        /// By default, Helm resources with the 'test', 'test-success', and 'test-failure' hooks are not installed. Set
+        /// this flag to true to include these resources.
+        /// </summary>
+        public Input<bool>? IncludeTestHookResources { get; set; }
+
+        /// <summary>
         /// The optional namespace to install chart resources into.
         /// </summary>
         public Input<string>? Namespace { get; set; }

@@ -24,6 +24,7 @@ import (
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
+	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
@@ -31,6 +32,9 @@ import (
 	"helm.sh/helm/v3/pkg/storage"
 	"helm.sh/helm/v3/pkg/storage/driver"
 )
+
+// testHookAnnotation matches test-related Helm hook annotations (test, test-success, test-failure)
+var testHookAnnotation = regexp.MustCompile(`"?helm.sh\/hook"?:.*test`)
 
 type HelmFetchOpts struct {
 	CAFile      string `json:"ca_file,omitempty"`
@@ -52,14 +56,15 @@ type HelmFetchOpts struct {
 type HelmChartOpts struct {
 	HelmFetchOpts `json:"fetch_opts,omitempty"`
 
-	APIVersions []string               `json:"api_versions,omitempty"`
-	Chart       string                 `json:"chart,omitempty"`
-	Namespace   string                 `json:"namespace,omitempty"`
-	Path        string                 `json:"path,omitempty"`
-	ReleaseName string                 `json:"release_name,omitempty"`
-	Repo        string                 `json:"repo,omitempty"`
-	Values      map[string]interface{} `json:"values,omitempty"`
-	Version     string                 `json:"version,omitempty"`
+	APIVersions              []string               `json:"api_versions,omitempty"`
+	Chart                    string                 `json:"chart,omitempty"`
+	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty"`
+	Namespace                string                 `json:"namespace,omitempty"`
+	Path                     string                 `json:"path,omitempty"`
+	ReleaseName              string                 `json:"release_name,omitempty"`
+	Repo                     string                 `json:"repo,omitempty"`
+	Values                   map[string]interface{} `json:"values,omitempty"`
+	Version                  string                 `json:"version,omitempty"`
 }
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
@@ -225,8 +230,14 @@ func (c *chart) template() (string, error) {
 	manifests := strings.Builder{}
 	manifests.WriteString(rel.Manifest)
 	for _, hook := range rel.Hooks {
-		manifests.WriteString("\n---\n")
-		manifests.WriteString(hook.Manifest)
+		switch {
+		case !c.opts.IncludeTestHookResources && testHookAnnotation.MatchString(hook.Manifest):
+			logger.V(9).Infof("Skipping Helm resource with test hook: %s", hook.Name)
+			// Skip test hook.
+		default:
+			manifests.WriteString("\n---\n")
+			manifests.WriteString(hook.Manifest)
+		}
 	}
 
 	return manifests.String(), nil

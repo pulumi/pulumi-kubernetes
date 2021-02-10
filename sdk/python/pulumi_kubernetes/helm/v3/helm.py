@@ -383,12 +383,19 @@ class BaseChartOpts:
     Optional kubernetes api versions used for Capabilities.APIVersions.
     """
 
+    include_test_hook_resources: Optional[pulumi.Input[bool]]
+    """
+    By default, Helm resources with the 'test', 'test-success', and 'test-failure' hooks are not installed. Set
+    this flag to true to include these resources.
+    """
+
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
-                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None):
+                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
+                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
@@ -399,8 +406,12 @@ class BaseChartOpts:
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         :param Optional[Sequence[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
                Capabilities.APIVersions.
+        :param Optional[pulumi.Input[bool]] include_test_hook_resources: By default, Helm resources with the 'test',
+               'test-success', and 'test-failure' hooks are not installed. Set this flag to true to include these
+               resources.
         """
         self.namespace = namespace
+        self.include_test_hook_resources = include_test_hook_resources
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix
@@ -448,7 +459,8 @@ class ChartOpts(BaseChartOpts):
                  repo: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  fetch_opts: Optional[pulumi.Input[FetchOpts]] = None,
-                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None):
+                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
+                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[str] chart: The name of the chart to deploy.  If `repo` is provided, this chart name
                will be prefixed by the repo name.
@@ -469,8 +481,12 @@ class ChartOpts(BaseChartOpts):
                fetching of the Helm chart.
         :param Optional[Sequence[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
                Capabilities.APIVersions.
+        :param Optional[pulumi.Input[bool]] include_test_hook_resources: By default, Helm resources with the 'test',
+               'test-success', and 'test-failure' hooks are not installed. Set this flag to true to include these
+               resources.
         """
-        super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions)
+        super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
+                                        include_test_hook_resources)
         self.chart = chart
         self.repo = repo
         self.version = version
@@ -493,7 +509,8 @@ class LocalChartOpts(BaseChartOpts):
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
-                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None):
+                 api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
+                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
@@ -506,9 +523,13 @@ class LocalChartOpts(BaseChartOpts):
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         :param Optional[Sequence[pulumi.Input[str]]] api_versions: Optional kubernetes api versions used for
                Capabilities.APIVersions.
+        :param Optional[pulumi.Input[bool]] include_test_hook_resources: By default, Helm resources with the 'test',
+               'test-success', and 'test-failure' hooks are not installed. Set this flag to true to include these
+               resources.
         """
 
-        super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions)
+        super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
+                                             include_test_hook_resources)
         self.path = path
 
 
