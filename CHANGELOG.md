@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 -   Skip Helm test hook resources by default (https://github.com/pulumi/pulumi-kubernetes/pull/1467)
+-   Ensure no panic when a kubernetes provider is used with an incompatible resource type (https://github.com/pulumi/pulumi-kubernetes/pull/1469)
 
 ## 2.8.0 (February 3, 2021)
 
