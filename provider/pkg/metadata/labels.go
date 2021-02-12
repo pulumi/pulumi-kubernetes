@@ -16,6 +16,7 @@ package metadata
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -90,7 +91,12 @@ func GetLabel(obj *unstructured.Unstructured, key string) interface{} {
 // (e.g.) the underlying object is mistyped. In particular, TrySetLabel will fail if the underlying
 // object has a Pulumi computed value.
 func TrySetManagedByLabel(obj *unstructured.Unstructured) (bool, error) {
-	return TrySetLabel(obj, managedByLabel, "pulumi")
+	managedBy := "pulumi"
+	labelVal, exists := os.LookupEnv("PULUMI_KUBERNETES_MANAGED_BY_LABEL")
+	if exists {
+		managedBy = labelVal
+	}
+	return TrySetLabel(obj, managedByLabel, managedBy)
 }
 
 // HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to `pulumi`,
