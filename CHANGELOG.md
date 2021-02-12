@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.8.1 (February 12, 2021)
+
 -   Skip Helm test hook resources by default (https://github.com/pulumi/pulumi-kubernetes/pull/1467)
 -   Ensure no panic when a kubernetes provider is used with an incompatible resource type (https://github.com/pulumi/pulumi-kubernetes/pull/1469)
 -   Allow users to set `PULUMI_KUBERNETES_MANAGED_BY_LABEL` environment variable to control `app.kubernetes.io/managed-by` label (https://github.com/pulumi/pulumi-kubernetes/pull/1471)
