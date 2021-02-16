@@ -46,12 +46,8 @@ type providerArgs struct {
 	Context *string `pulumi:"context"`
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
-	//
-	// This config can be specified in the following ways, using this precedence:
-	// 1. This `enableDryRun` parameter.
-	// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
-	// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+	// The contents of a kubeconfig file or the path to a kubeconfig file.
 	Kubeconfig *string `pulumi:"kubeconfig"`
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
 	//
@@ -70,10 +66,6 @@ type providerArgs struct {
 	// used in these resources will be rendered in plaintext to the resulting YAML.
 	RenderYamlToDirectory *string `pulumi:"renderYamlToDirectory"`
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
-	//
-	// This config can be specified in the following ways, using this precedence:
-	// 1. This `suppressDeprecationWarnings` parameter.
-	// 2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
 	SuppressDeprecationWarnings *bool `pulumi:"suppressDeprecationWarnings"`
 }
 
@@ -85,12 +77,8 @@ type ProviderArgs struct {
 	Context pulumi.StringPtrInput
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
-	//
-	// This config can be specified in the following ways, using this precedence:
-	// 1. This `enableDryRun` parameter.
-	// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
 	EnableDryRun pulumi.BoolPtrInput
-	// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+	// The contents of a kubeconfig file or the path to a kubeconfig file.
 	Kubeconfig pulumi.StringPtrInput
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
 	//
@@ -109,10 +97,6 @@ type ProviderArgs struct {
 	// used in these resources will be rendered in plaintext to the resulting YAML.
 	RenderYamlToDirectory pulumi.StringPtrInput
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
-	//
-	// This config can be specified in the following ways, using this precedence:
-	// 1. This `suppressDeprecationWarnings` parameter.
-	// 2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
 	SuppressDeprecationWarnings pulumi.BoolPtrInput
 }
 

@@ -34,11 +34,7 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
         :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to true, enable server-side diff calculations.
                This feature is in developer preview, and is disabled by default.
-               
-               This config can be specified in the following ways, using this precedence:
-               1. This `enableDryRun` parameter.
-               2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
-        :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+        :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
         :param pulumi.Input[str] namespace: If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
                
                A namespace can be specified in multiple places, and the precedence is as follows:
@@ -54,10 +50,6 @@ class Provider(pulumi.ProviderResource):
                and may result in an error if they are referenced by other resources. Also note that any secret values
                used in these resources will be rendered in plaintext to the resulting YAML.
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
-               
-               This config can be specified in the following ways, using this precedence:
-               1. This `suppressDeprecationWarnings` parameter.
-               2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
