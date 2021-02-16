@@ -67,14 +67,10 @@ export interface ProviderArgs {
     /**
      * BETA FEATURE - If present and set to true, enable server-side diff calculations.
      * This feature is in developer preview, and is disabled by default.
-     *
-     * This config can be specified in the following ways, using this precedence:
-     * 1. This `enableDryRun` parameter.
-     * 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
      */
     readonly enableDryRun?: pulumi.Input<boolean>;
     /**
-     * The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+     * The contents of a kubeconfig file or the path to a kubeconfig file.
      */
     readonly kubeconfig?: pulumi.Input<string>;
     /**
@@ -99,10 +95,6 @@ export interface ProviderArgs {
     readonly renderYamlToDirectory?: pulumi.Input<string>;
     /**
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
-     *
-     * This config can be specified in the following ways, using this precedence:
-     * 1. This `suppressDeprecationWarnings` parameter.
-     * 2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
      */
     readonly suppressDeprecationWarnings?: pulumi.Input<boolean>;
 }

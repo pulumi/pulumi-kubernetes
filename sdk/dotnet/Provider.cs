@@ -61,16 +61,12 @@ namespace Pulumi.Kubernetes
         /// <summary>
         /// BETA FEATURE - If present and set to true, enable server-side diff calculations.
         /// This feature is in developer preview, and is disabled by default.
-        /// 
-        /// This config can be specified in the following ways, using this precedence:
-        /// 1. This `enableDryRun` parameter.
-        /// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
         /// </summary>
         [Input("enableDryRun", json: true)]
         public Input<bool>? EnableDryRun { get; set; }
 
         /// <summary>
-        /// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
+        /// The contents of a kubeconfig file or the path to a kubeconfig file.
         /// </summary>
         [Input("kubeconfig")]
         public Input<string>? KubeConfig { get; set; }
@@ -101,10 +97,6 @@ namespace Pulumi.Kubernetes
 
         /// <summary>
         /// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
-        /// 
-        /// This config can be specified in the following ways, using this precedence:
-        /// 1. This `suppressDeprecationWarnings` parameter.
-        /// 2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.
         /// </summary>
         [Input("suppressDeprecationWarnings", json: true)]
         public Input<bool>? SuppressDeprecationWarnings { get; set; }

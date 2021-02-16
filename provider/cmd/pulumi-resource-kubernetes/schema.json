@@ -28511,7 +28511,7 @@
             },
             "enableDryRun": {
                 "type": "boolean",
-                "description": "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.",
+                "description": "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.",
                 "defaultInfo": {
                     "environment": [
                         "PULUMI_K8S_ENABLE_DRY_RUN"
@@ -28520,7 +28520,7 @@
             },
             "kubeconfig": {
                 "type": "string",
-                "description": "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
+                "description": "The contents of a kubeconfig file or the path to a kubeconfig file.",
                 "defaultInfo": {
                     "environment": [
                         "KUBECONFIG"
@@ -28542,7 +28542,7 @@
             },
             "suppressDeprecationWarnings": {
                 "type": "boolean",
-                "description": "If present and set to true, suppress apiVersion deprecation warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressDeprecationWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.",
+                "description": "If present and set to true, suppress apiVersion deprecation warnings from the CLI.",
                 "defaultInfo": {
                     "environment": [
                         "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"

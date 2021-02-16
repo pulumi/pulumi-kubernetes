@@ -85,8 +85,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"KUBECONFIG",
 						},
 					},
-					Description: "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set," +
-						" this config will be used instead of $KUBECONFIG.",
+					Description: "The contents of a kubeconfig file or the path to a kubeconfig file.",
 					TypeSpec: pschema.TypeSpec{Type: "string"},
 					Language: map[string]json.RawMessage{
 						"csharp": rawMessage(map[string]interface{}{
@@ -112,7 +111,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_ENABLE_DRY_RUN",
 						},
 					},
-					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.",
+					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"renderYamlToDirectory": {
@@ -125,7 +124,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS",
 						},
 					},
-					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressDeprecationWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.",
+					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 			},
