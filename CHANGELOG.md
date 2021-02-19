@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Postpone the removal of admissionregistration/v1beta1, which has been retargeted at 1.22 (https://github.com/pulumi/pulumi-kubernetes/pull/1474)
+
 ## 2.8.1 (February 12, 2021)
 
 -   Skip Helm test hook resources by default (https://github.com/pulumi/pulumi-kubernetes/pull/1467)
@@ -215,7 +217,7 @@ not be affected by this change.
     - Fixed the type of some properties in `JSONSchemaPropsArgs` (there's no need to have 2nd-level inputs there):
         - `InputList<InputJson>` -> `InputList<JsonElement>`
         - `InputMap<Union<TArgs, InputList<string>>>` -> `InputMap<Union<TArgs, ImmutableArray<string>>>`
-        
+
 ### Bug Fixes
 
 -   Fix incorrect schema consts for apiVersion and kind (https://github.com/pulumi/pulumi-kubernetes/pull/1153)
