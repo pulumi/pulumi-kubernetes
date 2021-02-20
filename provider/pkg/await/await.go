@@ -20,6 +20,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
@@ -56,6 +57,7 @@ type ProviderConfig struct {
 	Host              *pulumiprovider.HostClient
 	URN               resource.URN
 	InitialAPIVersion string
+	ClusterVersion    *cluster.ServerVersion
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -117,6 +119,19 @@ func ResourceIDFromUnstructured(uns *unstructured.Unstructured) ResourceID {
 	}
 }
 
+// skipRetry checks if we should skip retrying creation for unresolvable errors.
+func skipRetry(gvk schema.GroupVersionKind, k8sVersion *cluster.ServerVersion, err error,
+) (bool, *cluster.ServerVersion) {
+	if meta.IsNoMatchError(err) {
+		// If the GVK is known to have been removed, it's not waiting on any CRD creation, and we can return early.
+		if removed, version := kinds.RemovedAPIVersion(gvk, *k8sVersion); removed {
+			return true, version
+		}
+	}
+
+	return false, nil
+}
+
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
@@ -149,6 +164,13 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			if client == nil {
 				client, err = c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
 				if err != nil {
+					if skip, version := skipRetry(c.Inputs.GroupVersionKind(), c.ClusterVersion, err); skip {
+						return &kinds.RemovedAPIError{
+							GVK:     c.Inputs.GroupVersionKind(),
+							Version: version,
+						}
+					}
+
 					_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
 						"Retry #%d; creation failed: %v", i, err))
 					return err

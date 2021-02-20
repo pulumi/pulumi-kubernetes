@@ -1108,9 +1108,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// Skip the API version check if the cluster is unreachable.
 	if !k.clusterUnreachable {
 		if removed, version := kinds.RemovedAPIVersion(gvk, k.k8sVersion); removed {
-			return nil, &kinds.RemovedAPIError{GVK: gvk, Version: version}
-		}
-		if !k.suppressDeprecationWarnings && kinds.DeprecatedAPIVersion(gvk, &k.k8sVersion) {
+			_ = k.host.Log(ctx, diag.Warning, urn, (&kinds.RemovedAPIError{GVK: gvk, Version: version}).Error())
+		} else if !k.suppressDeprecationWarnings && kinds.DeprecatedAPIVersion(gvk, &k.k8sVersion) {
 			_ = k.host.Log(ctx, diag.Warning, urn, gen.APIVersionComment(gvk))
 		}
 	}
@@ -1497,6 +1496,7 @@ func (k *kubeProvider) Create(
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
+			ClusterVersion:    &k.k8sVersion,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
