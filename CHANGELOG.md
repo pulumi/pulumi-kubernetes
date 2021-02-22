@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+-   Change k8s API removals from error to warning (https://github.com/pulumi/pulumi-kubernetes/pull/1475)
+
 ## 2.8.1 (February 12, 2021)
 
 -   Skip Helm test hook resources by default (https://github.com/pulumi/pulumi-kubernetes/pull/1467)
