@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.8.2 (February 23, 2021)
+
 -   Postpone the removal of admissionregistration/v1beta1, which has been retargeted at 1.22 (https://github.com/pulumi/pulumi-kubernetes/pull/1474)
 -   Change k8s API removals from error to warning (https://github.com/pulumi/pulumi-kubernetes/pull/1475)
 
