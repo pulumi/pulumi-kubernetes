@@ -77,7 +77,8 @@ export class Status extends pulumi.CustomResource {
      */
     constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "v1";
             inputs["code"] = args ? args.code : undefined;
             inputs["details"] = args ? args.details : undefined;
@@ -96,12 +97,8 @@ export class Status extends pulumi.CustomResource {
             inputs["reason"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Status.__pulumiType, name, inputs, opts);
     }

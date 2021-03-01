@@ -87,6 +87,14 @@ class Status(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["api_version"] = None
+        __props__["code"] = None
+        __props__["details"] = None
+        __props__["kind"] = None
+        __props__["message"] = None
+        __props__["metadata"] = None
+        __props__["reason"] = None
+        __props__["status"] = None
         return Status(resource_name, opts=opts, __props__=__props__)
 
     @property

@@ -61,7 +61,8 @@ export class IngressClass extends pulumi.CustomResource {
      */
     constructor(name: string, args?: IngressClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "networking.k8s.io/v1beta1";
             inputs["kind"] = "IngressClass";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -72,15 +73,11 @@ export class IngressClass extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["spec"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1:IngressClass" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(IngressClass.__pulumiType, name, inputs, opts);
     }
 }

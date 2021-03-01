@@ -87,8 +87,9 @@ export class StorageClass extends pulumi.CustomResource {
      */
     constructor(name: string, args?: StorageClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.provisioner === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.provisioner === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'provisioner'");
             }
             inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
@@ -113,15 +114,11 @@ export class StorageClass extends pulumi.CustomResource {
             inputs["reclaimPolicy"] = undefined /*out*/;
             inputs["volumeBindingMode"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1:StorageClass" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(StorageClass.__pulumiType, name, inputs, opts);
     }
 }

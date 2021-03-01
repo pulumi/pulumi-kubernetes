@@ -69,7 +69,8 @@ export class ConfigMap extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "v1";
             inputs["binaryData"] = args ? args.binaryData : undefined;
             inputs["data"] = args ? args.data : undefined;
@@ -84,12 +85,8 @@ export class ConfigMap extends pulumi.CustomResource {
             inputs["kind"] = undefined /*out*/;
             inputs["metadata"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(ConfigMap.__pulumiType, name, inputs, opts);
     }

@@ -61,7 +61,8 @@ export class PodSecurityPolicy extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PodSecurityPolicyArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "policy/v1beta1";
             inputs["kind"] = "PodSecurityPolicy";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -72,15 +73,11 @@ export class PodSecurityPolicy extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["spec"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:extensions/v1beta1:PodSecurityPolicy" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PodSecurityPolicy.__pulumiType, name, inputs, opts);
     }
 }

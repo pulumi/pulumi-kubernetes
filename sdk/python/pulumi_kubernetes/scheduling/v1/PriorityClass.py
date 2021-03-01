@@ -89,6 +89,13 @@ class PriorityClass(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["api_version"] = None
+        __props__["description"] = None
+        __props__["global_default"] = None
+        __props__["kind"] = None
+        __props__["metadata"] = None
+        __props__["preemption_policy"] = None
+        __props__["value"] = None
         return PriorityClass(resource_name, opts=opts, __props__=__props__)
 
     @property

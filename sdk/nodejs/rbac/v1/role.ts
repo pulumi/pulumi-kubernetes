@@ -61,7 +61,8 @@ export class Role extends pulumi.CustomResource {
      */
     constructor(name: string, args?: RoleArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
             inputs["kind"] = "Role";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -72,15 +73,11 @@ export class Role extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["rules"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role" }, { type: "kubernetes:rbac.authorization.k8s.io/v1beta1:Role" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Role.__pulumiType, name, inputs, opts);
     }
 }

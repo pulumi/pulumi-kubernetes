@@ -65,8 +65,9 @@ export class ControllerRevision extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.revision === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.revision === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'revision'");
             }
             inputs["apiVersion"] = "apps/v1";
@@ -81,15 +82,11 @@ export class ControllerRevision extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["revision"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1beta1:ControllerRevision" }, { type: "kubernetes:apps/v1beta2:ControllerRevision" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ControllerRevision.__pulumiType, name, inputs, opts);
     }
 }

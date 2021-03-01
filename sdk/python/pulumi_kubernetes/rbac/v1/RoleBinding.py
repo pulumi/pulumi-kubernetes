@@ -85,6 +85,11 @@ class RoleBinding(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["api_version"] = None
+        __props__["kind"] = None
+        __props__["metadata"] = None
+        __props__["role_ref"] = None
+        __props__["subjects"] = None
         return RoleBinding(resource_name, opts=opts, __props__=__props__)
 
     @property

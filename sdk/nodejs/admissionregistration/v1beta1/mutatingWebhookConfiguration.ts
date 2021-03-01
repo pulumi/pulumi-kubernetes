@@ -61,7 +61,8 @@ export class MutatingWebhookConfiguration extends pulumi.CustomResource {
      */
     constructor(name: string, args?: MutatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
             inputs["kind"] = "MutatingWebhookConfiguration";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -72,15 +73,11 @@ export class MutatingWebhookConfiguration extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["webhooks"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(MutatingWebhookConfiguration.__pulumiType, name, inputs, opts);
     }
 }

@@ -67,8 +67,9 @@ export class VolumeAttachment extends pulumi.CustomResource {
      */
     constructor(name: string, args?: VolumeAttachmentArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.spec === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.spec === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'spec'");
             }
             inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
@@ -83,15 +84,11 @@ export class VolumeAttachment extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1:VolumeAttachment" }, { type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(VolumeAttachment.__pulumiType, name, inputs, opts);
     }
 }

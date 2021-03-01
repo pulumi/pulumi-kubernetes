@@ -88,6 +88,11 @@ class CertificateSigningRequest(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["api_version"] = None
+        __props__["kind"] = None
+        __props__["metadata"] = None
+        __props__["spec"] = None
+        __props__["status"] = None
         return CertificateSigningRequest(resource_name, opts=opts, __props__=__props__)
 
     @property

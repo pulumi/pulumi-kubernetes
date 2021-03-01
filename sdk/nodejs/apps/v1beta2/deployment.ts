@@ -90,7 +90,8 @@ export class Deployment extends pulumi.CustomResource {
     /** @deprecated apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters. */
     constructor(name: string, args?: DeploymentArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "apps/v1beta2";
             inputs["kind"] = "Deployment";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -103,15 +104,11 @@ export class Deployment extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1:Deployment" }, { type: "kubernetes:apps/v1beta1:Deployment" }, { type: "kubernetes:extensions/v1beta1:Deployment" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Deployment.__pulumiType, name, inputs, opts);
     }
 }

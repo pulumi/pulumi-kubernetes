@@ -62,8 +62,9 @@ export class CustomResourceDefinition extends pulumi.CustomResource {
      */
     constructor(name: string, args?: CustomResourceDefinitionArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.spec === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.spec === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'spec'");
             }
             inputs["apiVersion"] = "apiextensions.k8s.io/v1";
@@ -78,15 +79,11 @@ export class CustomResourceDefinition extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(CustomResourceDefinition.__pulumiType, name, inputs, opts);
     }
 }

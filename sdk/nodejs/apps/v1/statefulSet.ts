@@ -78,7 +78,8 @@ export class StatefulSet extends pulumi.CustomResource {
      */
     constructor(name: string, args?: StatefulSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "apps/v1";
             inputs["kind"] = "StatefulSet";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -91,15 +92,11 @@ export class StatefulSet extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1beta1:StatefulSet" }, { type: "kubernetes:apps/v1beta2:StatefulSet" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(StatefulSet.__pulumiType, name, inputs, opts);
     }
 }

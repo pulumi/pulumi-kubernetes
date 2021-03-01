@@ -65,8 +65,9 @@ export class ClusterRoleBinding extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ClusterRoleBindingArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.roleRef === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.roleRef === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'roleRef'");
             }
             inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
@@ -81,15 +82,11 @@ export class ClusterRoleBinding extends pulumi.CustomResource {
             inputs["roleRef"] = undefined /*out*/;
             inputs["subjects"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding" }, { type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ClusterRoleBinding.__pulumiType, name, inputs, opts);
     }
 }

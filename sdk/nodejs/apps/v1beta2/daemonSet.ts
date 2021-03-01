@@ -68,7 +68,8 @@ export class DaemonSet extends pulumi.CustomResource {
     /** @deprecated apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by Kubernetes v1.16+ clusters. */
     constructor(name: string, args?: DaemonSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "apps/v1beta2";
             inputs["kind"] = "DaemonSet";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -81,15 +82,11 @@ export class DaemonSet extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1:DaemonSet" }, { type: "kubernetes:extensions/v1beta1:DaemonSet" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(DaemonSet.__pulumiType, name, inputs, opts);
     }
 }

@@ -83,7 +83,8 @@ export class Secret extends pulumi.CustomResource {
      */
     constructor(name: string, args?: SecretArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "v1";
             inputs["data"] = args ? args.data : undefined;
             inputs["immutable"] = args ? args.immutable : undefined;
@@ -100,15 +101,11 @@ export class Secret extends pulumi.CustomResource {
             inputs["stringData"] = undefined /*out*/;
             inputs["type"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const secretOpts = { additionalSecretOutputs: ["data", "stringData"] };
-        opts = opts ? pulumi.mergeOptions(opts, secretOpts) : secretOpts;
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Secret.__pulumiType, name, inputs, opts);
     }
 }

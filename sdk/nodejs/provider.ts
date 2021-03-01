@@ -32,6 +32,7 @@ export class Provider extends pulumi.ProviderResource {
      */
     constructor(name: string, args?: ProviderArgs, opts?: pulumi.ResourceOptions) {
         let inputs: pulumi.Inputs = {};
+        opts = opts || {};
         {
             inputs["cluster"] = args ? args.cluster : undefined;
             inputs["context"] = args ? args.context : undefined;
@@ -41,12 +42,8 @@ export class Provider extends pulumi.ProviderResource {
             inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
             inputs["suppressDeprecationWarnings"] = pulumi.output(((args ? args.suppressDeprecationWarnings : undefined) || <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Provider.__pulumiType, name, inputs, opts);
     }

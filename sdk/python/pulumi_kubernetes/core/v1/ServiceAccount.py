@@ -84,6 +84,12 @@ class ServiceAccount(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["api_version"] = None
+        __props__["automount_service_account_token"] = None
+        __props__["image_pull_secrets"] = None
+        __props__["kind"] = None
+        __props__["metadata"] = None
+        __props__["secrets"] = None
         return ServiceAccount(resource_name, opts=opts, __props__=__props__)
 
     @property

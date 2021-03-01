@@ -65,7 +65,8 @@ export class Node extends pulumi.CustomResource {
      */
     constructor(name: string, args?: NodeArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "v1";
             inputs["kind"] = "Node";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -78,12 +79,8 @@ export class Node extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Node.__pulumiType, name, inputs, opts);
     }

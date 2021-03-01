@@ -55,8 +55,9 @@ export class APIServiceList extends pulumi.CustomResource {
      */
     constructor(name: string, args?: APIServiceListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.items === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.items === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
             inputs["apiVersion"] = "apiregistration.k8s.io/v1";
@@ -69,15 +70,11 @@ export class APIServiceList extends pulumi.CustomResource {
             inputs["kind"] = undefined /*out*/;
             inputs["metadata"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apiregistration/v1:APIServiceList" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(APIServiceList.__pulumiType, name, inputs, opts);
     }
 }

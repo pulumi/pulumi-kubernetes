@@ -79,6 +79,10 @@ class CertificateSigningRequestList(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["api_version"] = None
+        __props__["items"] = None
+        __props__["kind"] = None
+        __props__["metadata"] = None
         return CertificateSigningRequestList(resource_name, opts=opts, __props__=__props__)
 
     @property

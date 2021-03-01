@@ -61,7 +61,8 @@ export class PodTemplate extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PodTemplateArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "v1";
             inputs["kind"] = "PodTemplate";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -72,12 +73,8 @@ export class PodTemplate extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["template"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(PodTemplate.__pulumiType, name, inputs, opts);
     }
