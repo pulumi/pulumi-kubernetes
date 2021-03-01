@@ -69,11 +69,12 @@ export class EndpointSlice extends pulumi.CustomResource {
      */
     constructor(name: string, args?: EndpointSliceArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.addressType === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.addressType === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'addressType'");
             }
-            if ((!args || args.endpoints === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.endpoints === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'endpoints'");
             }
             inputs["addressType"] = args ? args.addressType : undefined;
@@ -90,12 +91,8 @@ export class EndpointSlice extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["ports"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(EndpointSlice.__pulumiType, name, inputs, opts);
     }

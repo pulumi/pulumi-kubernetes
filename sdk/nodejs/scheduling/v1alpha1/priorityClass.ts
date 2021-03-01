@@ -73,8 +73,9 @@ export class PriorityClass extends pulumi.CustomResource {
      */
     constructor(name: string, args?: PriorityClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.value === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
             inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
@@ -93,15 +94,11 @@ export class PriorityClass extends pulumi.CustomResource {
             inputs["preemptionPolicy"] = undefined /*out*/;
             inputs["value"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:scheduling.k8s.io/v1:PriorityClass" }, { type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PriorityClass.__pulumiType, name, inputs, opts);
     }
 }

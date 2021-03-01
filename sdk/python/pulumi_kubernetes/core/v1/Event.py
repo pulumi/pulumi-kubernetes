@@ -123,6 +123,23 @@ class Event(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["action"] = None
+        __props__["api_version"] = None
+        __props__["count"] = None
+        __props__["event_time"] = None
+        __props__["first_timestamp"] = None
+        __props__["involved_object"] = None
+        __props__["kind"] = None
+        __props__["last_timestamp"] = None
+        __props__["message"] = None
+        __props__["metadata"] = None
+        __props__["reason"] = None
+        __props__["related"] = None
+        __props__["reporting_component"] = None
+        __props__["reporting_instance"] = None
+        __props__["series"] = None
+        __props__["source"] = None
+        __props__["type"] = None
         return Event(resource_name, opts=opts, __props__=__props__)
 
     @property

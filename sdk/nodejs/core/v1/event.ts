@@ -113,11 +113,12 @@ export class Event extends pulumi.CustomResource {
      */
     constructor(name: string, args?: EventArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.involvedObject === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.involvedObject === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'involvedObject'");
             }
-            if ((!args || args.metadata === undefined) && !(opts && opts.urn)) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'metadata'");
             }
             inputs["action"] = args ? args.action : undefined;
@@ -156,15 +157,11 @@ export class Event extends pulumi.CustomResource {
             inputs["source"] = undefined /*out*/;
             inputs["type"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:events.k8s.io/v1:Event" }, { type: "kubernetes:events.k8s.io/v1beta1:Event" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Event.__pulumiType, name, inputs, opts);
     }
 }

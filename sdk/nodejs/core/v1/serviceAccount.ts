@@ -69,7 +69,8 @@ export class ServiceAccount extends pulumi.CustomResource {
      */
     constructor(name: string, args?: ServiceAccountArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "v1";
             inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
             inputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
@@ -84,12 +85,8 @@ export class ServiceAccount extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["secrets"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(ServiceAccount.__pulumiType, name, inputs, opts);
     }

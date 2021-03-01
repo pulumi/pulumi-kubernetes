@@ -55,8 +55,9 @@ export class StatefulSetList extends pulumi.CustomResource {
      */
     constructor(name: string, args?: StatefulSetListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.items === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.items === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
             inputs["apiVersion"] = "apps/v1beta2";
@@ -69,12 +70,8 @@ export class StatefulSetList extends pulumi.CustomResource {
             inputs["kind"] = undefined /*out*/;
             inputs["metadata"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(StatefulSetList.__pulumiType, name, inputs, opts);
     }

@@ -62,7 +62,8 @@ export class CertificateSigningRequest extends pulumi.CustomResource {
      */
     constructor(name: string, args?: CertificateSigningRequestArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
             inputs["kind"] = "CertificateSigningRequest";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -75,15 +76,11 @@ export class CertificateSigningRequest extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:certificates.k8s.io/v1:CertificateSigningRequest" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(CertificateSigningRequest.__pulumiType, name, inputs, opts);
     }
 }

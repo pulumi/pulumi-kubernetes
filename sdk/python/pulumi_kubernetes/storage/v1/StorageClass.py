@@ -101,6 +101,16 @@ class StorageClass(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__["allow_volume_expansion"] = None
+        __props__["allowed_topologies"] = None
+        __props__["api_version"] = None
+        __props__["kind"] = None
+        __props__["metadata"] = None
+        __props__["mount_options"] = None
+        __props__["parameters"] = None
+        __props__["provisioner"] = None
+        __props__["reclaim_policy"] = None
+        __props__["volume_binding_mode"] = None
         return StorageClass(resource_name, opts=opts, __props__=__props__)
 
     @property

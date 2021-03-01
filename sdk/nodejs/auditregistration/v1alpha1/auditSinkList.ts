@@ -58,8 +58,9 @@ export class AuditSinkList extends pulumi.CustomResource {
      */
     constructor(name: string, args?: AuditSinkListArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.items === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.items === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
             inputs["apiVersion"] = "auditregistration.k8s.io/v1alpha1";
@@ -72,12 +73,8 @@ export class AuditSinkList extends pulumi.CustomResource {
             inputs["kind"] = undefined /*out*/;
             inputs["metadata"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(AuditSinkList.__pulumiType, name, inputs, opts);
     }

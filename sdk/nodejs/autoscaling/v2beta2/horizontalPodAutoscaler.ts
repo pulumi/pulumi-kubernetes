@@ -65,7 +65,8 @@ export class HorizontalPodAutoscaler extends pulumi.CustomResource {
      */
     constructor(name: string, args?: HorizontalPodAutoscalerArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "autoscaling/v2beta2";
             inputs["kind"] = "HorizontalPodAutoscaler";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -78,15 +79,11 @@ export class HorizontalPodAutoscaler extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:autoscaling/v1:HorizontalPodAutoscaler" }, { type: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(HorizontalPodAutoscaler.__pulumiType, name, inputs, opts);
     }
 }

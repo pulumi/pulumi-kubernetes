@@ -61,8 +61,9 @@ export class Binding extends pulumi.CustomResource {
      */
     constructor(name: string, args?: BindingArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.target === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.target === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'target'");
             }
             inputs["apiVersion"] = "v1";
@@ -75,12 +76,8 @@ export class Binding extends pulumi.CustomResource {
             inputs["metadata"] = undefined /*out*/;
             inputs["target"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         super(Binding.__pulumiType, name, inputs, opts);
     }

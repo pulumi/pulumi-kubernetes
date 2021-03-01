@@ -69,8 +69,9 @@ export class RuntimeClass extends pulumi.CustomResource {
      */
     constructor(name: string, args?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
-            if ((!args || args.handler === undefined) && !(opts && opts.urn)) {
+        opts = opts || {};
+        if (!opts.id) {
+            if ((!args || args.handler === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'handler'");
             }
             inputs["apiVersion"] = "node.k8s.io/v1beta1";
@@ -87,15 +88,11 @@ export class RuntimeClass extends pulumi.CustomResource {
             inputs["overhead"] = undefined /*out*/;
             inputs["scheduling"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:node.k8s.io/v1:RuntimeClass" }, { type: "kubernetes:node.k8s.io/v1alpha1:RuntimeClass" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(RuntimeClass.__pulumiType, name, inputs, opts);
     }
 }

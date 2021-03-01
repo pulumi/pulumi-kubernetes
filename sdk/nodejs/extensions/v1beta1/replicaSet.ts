@@ -68,7 +68,8 @@ export class ReplicaSet extends pulumi.CustomResource {
     /** @deprecated extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by Kubernetes v1.16+ clusters. */
     constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "extensions/v1beta1";
             inputs["kind"] = "ReplicaSet";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -81,15 +82,11 @@ export class ReplicaSet extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1:ReplicaSet" }, { type: "kubernetes:apps/v1beta2:ReplicaSet" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ReplicaSet.__pulumiType, name, inputs, opts);
     }
 }

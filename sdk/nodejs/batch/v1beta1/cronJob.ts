@@ -65,7 +65,8 @@ export class CronJob extends pulumi.CustomResource {
      */
     constructor(name: string, args?: CronJobArgs, opts?: pulumi.CustomResourceOptions) {
         let inputs: pulumi.Inputs = {};
-        if (!(opts && opts.id)) {
+        opts = opts || {};
+        if (!opts.id) {
             inputs["apiVersion"] = "batch/v1beta1";
             inputs["kind"] = "CronJob";
             inputs["metadata"] = args ? args.metadata : undefined;
@@ -78,15 +79,11 @@ export class CronJob extends pulumi.CustomResource {
             inputs["spec"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
-        if (!opts) {
-            opts = {}
-        }
-
         if (!opts.version) {
-            opts.version = utilities.getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:batch/v2alpha1:CronJob" }] };
-        opts = opts ? pulumi.mergeOptions(opts, aliasOpts) : aliasOpts;
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(CronJob.__pulumiType, name, inputs, opts);
     }
 }
