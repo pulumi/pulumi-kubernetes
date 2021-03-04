@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi-kubernetes/tests/v2
 
-go 1.15
+go 1.16
 
 replace (
 	github.com/docker/distribution => github.com/docker/distribution v0.0.0-20191216044856-a8371794149d
@@ -12,7 +12,7 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v2 v2.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v2 v2.4.3
-	github.com/pulumi/pulumi/pkg/v2 v2.18.3-0.20210126224412-216fd2bed529
-	github.com/pulumi/pulumi/sdk/v2 v2.18.3-0.20210126224412-216fd2bed529
+	github.com/pulumi/pulumi/pkg/v2 v2.21.3-0.20210301175425-8616390418f8
+	github.com/pulumi/pulumi/sdk/v2 v2.21.3-0.20210301175425-8616390418f8
 	github.com/stretchr/testify v1.7.0
 )
