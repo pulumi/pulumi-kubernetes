@@ -387,3 +387,16 @@ jobs:
         uses: geekyeggo/delete-artifact@v1
         with:
           name: config
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint-provider-pkg
+        uses: golangci/golangci-lint-action@v1
+        with:
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
+          args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
+          working-directory: provider/pkg
