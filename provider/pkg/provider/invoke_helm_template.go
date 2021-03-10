@@ -160,19 +160,36 @@ func (c *chart) fetch() error {
 		p.Version = c.opts.HelmFetchOpts.Version
 	} // If both are set, prefer the top-level version over the FetchOpts version.
 
-	chartRef := func() string {
-		if len(c.opts.Repo) > 0 {
-			return fmt.Sprintf("%s/%s", strings.TrimSuffix(c.opts.Repo, "/"), c.opts.Chart)
-		}
+	chartRef := normalizeChartRef(c.opts.Repo, p.RepoURL, c.opts.Chart)
 
-		return c.opts.Chart
-	}
-
-	_, err := p.Run(chartRef())
+	_, err := p.Run(chartRef)
 	if err != nil {
 		return pkgerrors.Wrap(err, "failed to pull chart")
 	}
 	return nil
+}
+
+// In case URL is not known we prefix the chart ref with the repoName,
+// so for example "apache" becomes "bitnami/apache". We should not
+// prefix it when URL is known, as that results in an error such as:
+//
+// failed to pull chart: chart "bitnami/apache" version "1.0.0" not
+// found in https://charts.bitnami.com/bitnami repository
+func normalizeChartRef(repoName string, repoUrl string, originalChartRef string) string {
+
+	// If URL is known, do not prefix
+	if len(repoUrl) > 0 {
+		return originalChartRef
+	}
+
+	// Add a prefix if repoName is known and ref is not already prefixed
+	prefix := fmt.Sprintf("%s/", strings.TrimSuffix(repoName, "/"))
+	if len(repoName) > 0 && !strings.HasPrefix(originalChartRef, prefix) {
+		return fmt.Sprintf("%s%s", prefix, originalChartRef)
+	}
+
+	// Otherwise leave as-is
+	return originalChartRef
 }
 
 // template runs the `helm template` action to produce YAML from the Chart configuration.
