@@ -451,7 +451,7 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
-          args: release --rm-dist
+          args: -p 3 release --rm-dist
           version: latest
       - if: failure() && github.event_name == 'push'
         name: Notify Slack
