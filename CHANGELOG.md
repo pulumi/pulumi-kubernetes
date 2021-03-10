@@ -4,6 +4,7 @@
 - Update pulumi dependency to fix python Resource.get() functions (https://github.com/pulumi/pulumi-kubernetes/pull/1480)
 - Upgrade to Go1.16 (https://github.com/pulumi/pulumi-kubernetes/pull/1486)
 - Adding arm64 plugin builds (https://github.com/pulumi/pulumi-kubernetes/pull/1490)
+- Fix bug preventing helm chart being located in bitnami repo (https://github.com/pulumi/pulumi-kubernetes/pull/1491)
 
 ## 2.8.2 (February 23, 2021)
 
