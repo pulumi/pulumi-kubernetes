@@ -175,10 +175,10 @@ func (c *chart) fetch() error {
 //
 // failed to pull chart: chart "bitnami/apache" version "1.0.0" not
 // found in https://charts.bitnami.com/bitnami repository
-func normalizeChartRef(repoName string, repoUrl string, originalChartRef string) string {
+func normalizeChartRef(repoName string, repoURL string, originalChartRef string) string {
 
 	// If URL is known, do not prefix
-	if len(repoUrl) > 0 {
+	if len(repoURL) > 0 {
 		return originalChartRef
 	}
 
