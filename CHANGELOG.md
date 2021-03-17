@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 2.8.3 (March 17, 2021)
+
 - Fix bug where rendering manifests results in files being overwritten by subsequent resources with the same kind and name, but different namespace (https://github.com/pulumi/pulumi-kubernetes/pull/1429)
 - Update pulumi dependency to fix python Resource.get() functions (https://github.com/pulumi/pulumi-kubernetes/pull/1480)
 - Upgrade to Go1.16 (https://github.com/pulumi/pulumi-kubernetes/pull/1486)
