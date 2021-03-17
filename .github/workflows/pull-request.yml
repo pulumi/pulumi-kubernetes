@@ -4,8 +4,6 @@ name: pull-request
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GOLANGCI_LINT_VERSION: v1.31
-  GOLANGCI_LINT_TIMEOUT: 10m
 
 jobs:
   comment-on-pr:
