@@ -9,7 +9,7 @@ NUGET_PKG_NAME   := Pulumi.Kubernetes
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
 VERSION         ?= $(shell pulumictl get version)
-PROVIDER_PATH   := provider/v2
+PROVIDER_PATH   := provider/v3
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
 KUBE_VERSION    ?= v1.20.0
@@ -37,10 +37,10 @@ schema:: k8sgen
 k8sprovider::
 	$(WORKING_DIR)/bin/${CODEGEN} kinds $(SCHEMA_FILE) $(CURDIR)
 	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
-	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/provider/v2/cmd/$(PROVIDER))
+	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/provider/v3/cmd/$(PROVIDER))
 
 k8sprovider_debug::
-	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/provider/v2/cmd/$(PROVIDER))
+	(cd provider && go build -a -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/provider/v3/cmd/$(PROVIDER))
 
 test_provider::
 	cd provider/pkg && go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM} ./...

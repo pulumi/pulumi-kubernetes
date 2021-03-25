@@ -3,6 +3,7 @@ name: master
   push:
     branches:
       - master
+      - "feature-**"
     paths-ignore:
       - CHANGELOG.md
     tags-ignore:
@@ -122,6 +123,9 @@ jobs:
     name: build-provider
     runs-on: ubuntu-latest
     steps:
+      - if: github.ref == 'refs/heads/feature-3.0'
+        run:
+          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
@@ -166,6 +170,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: prerequisities
     steps:
+      - if: github.ref == 'refs/heads/feature-3.0'
+        run:
+          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Checkout Scripts Repo
@@ -249,6 +256,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_sdks, build-test-cluster]
     steps:
+      - if: github.ref == 'refs/heads/feature-3.0'
+        run:
+          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Checkout Scripts Repo
@@ -431,6 +441,9 @@ jobs:
       matrix:
         go-version: [ 1.16.x ]
     steps:
+      - if: github.ref == 'refs/heads/feature-3.0'
+        run:
+          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Unshallow clone for tags
@@ -480,6 +493,9 @@ jobs:
     needs: publish
     runs-on: ubuntu-latest
     steps:
+      - if: github.ref == 'refs/heads/feature-3.0'
+        run:
+          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Checkout Scripts Repo
