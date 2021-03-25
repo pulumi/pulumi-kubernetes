@@ -15,7 +15,7 @@
 package provider
 
 import (
-	"github.com/pulumi/pulumi/pkg/v2/resource/provider"
+	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/cmdutil"
 	lumirpc "github.com/pulumi/pulumi/sdk/v2/proto/go"
 

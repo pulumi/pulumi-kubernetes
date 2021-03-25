@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 

@@ -19,7 +19,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )

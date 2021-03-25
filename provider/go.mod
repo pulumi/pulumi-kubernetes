@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-kubernetes/provider/v2
+module github.com/pulumi/pulumi-kubernetes/provider/v3
 
 go 1.16
 
@@ -11,8 +11,8 @@ require (
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg/v2 v2.23.2
-	github.com/pulumi/pulumi/sdk/v2 v2.23.2
+	github.com/pulumi/pulumi/pkg/v3 v3.0.0-20210324220902-b543e235f01d
+	github.com/pulumi/pulumi/sdk/v3 v3.0.0-20210324220902-b543e235f01d
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.34.0
 	helm.sh/helm/v3 v3.5.2

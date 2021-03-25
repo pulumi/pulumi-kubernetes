@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
