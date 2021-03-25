@@ -14,7 +14,7 @@
 
 package gen
 
-import pschema "github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+import pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 
 // typeOverlays augment the types defined by the kubernetes schema.
 var typeOverlays = map[string]pschema.ComplexTypeSpec{

@@ -30,14 +30,14 @@ import (
 	"text/template"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/gen"
-	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/version"
-	"github.com/pulumi/pulumi/pkg/v2/codegen"
-	dotnetgen "github.com/pulumi/pulumi/pkg/v2/codegen/dotnet"
-	gogen "github.com/pulumi/pulumi/pkg/v2/codegen/go"
-	nodejsgen "github.com/pulumi/pulumi/pkg/v2/codegen/nodejs"
-	pythongen "github.com/pulumi/pulumi/pkg/v2/codegen/python"
-	"github.com/pulumi/pulumi/pkg/v2/codegen/schema"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/gen"
+	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/version"
+	"github.com/pulumi/pulumi/pkg/v3/codegen"
+	dotnetgen "github.com/pulumi/pulumi/pkg/v3/codegen/dotnet"
+	gogen "github.com/pulumi/pulumi/pkg/v3/codegen/go"
+	nodejsgen "github.com/pulumi/pulumi/pkg/v3/codegen/nodejs"
+	pythongen "github.com/pulumi/pulumi/pkg/v3/codegen/python"
+	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
 )
 

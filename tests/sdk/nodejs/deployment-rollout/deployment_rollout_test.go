@@ -18,12 +18,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/tests/v2"
-	"github.com/pulumi/pulumi/pkg/v2/resource/deploy/providers"
-	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/tokens"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v3"
+	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
+	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
 )
 

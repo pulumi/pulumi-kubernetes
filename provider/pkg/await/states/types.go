@@ -17,7 +17,7 @@ package states
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

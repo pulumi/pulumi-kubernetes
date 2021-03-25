@@ -18,7 +18,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/pulumi/pulumi/pkg/v2/resource/provider"
+	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v2/go/common/resource"
 )
