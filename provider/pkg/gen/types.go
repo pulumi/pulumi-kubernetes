@@ -19,7 +19,7 @@ import (
 	"strings"
 
 	"github.com/pulumi/pulumi/pkg/v3/codegen"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
 // TemplateProperty holds information about a resource property that can be used to generate SDK overlays.

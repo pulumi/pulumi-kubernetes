@@ -17,7 +17,7 @@ package ints
 import (
 	"testing"
 
-	"github.com/pulumi/pulumi/sdk/v2/go/common/tokens"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v3"

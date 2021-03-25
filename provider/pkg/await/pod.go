@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
-	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"

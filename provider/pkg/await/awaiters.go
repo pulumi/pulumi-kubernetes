@@ -26,9 +26,9 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/watcher"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/resource"
-	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
 )

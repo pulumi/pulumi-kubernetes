@@ -8,8 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.

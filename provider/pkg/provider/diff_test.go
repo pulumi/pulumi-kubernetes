@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	jsonpatch "github.com/evanphx/json-patch"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v2/proto/go"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )

@@ -8,8 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/meta/v1"
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.

@@ -19,9 +19,9 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/util/cmdutil"
-	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 )
 
 // ------------------------------------------------------------------------------------------------

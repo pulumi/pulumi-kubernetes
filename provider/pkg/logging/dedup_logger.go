@@ -19,8 +19,8 @@ import (
 	"sync"
 
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )
 
 // DedupLogger wraps a time-ordered log set to allow batched logging of unique messages.

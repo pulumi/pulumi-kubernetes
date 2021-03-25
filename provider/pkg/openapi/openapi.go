@@ -18,7 +18,7 @@ import (
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
-	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
