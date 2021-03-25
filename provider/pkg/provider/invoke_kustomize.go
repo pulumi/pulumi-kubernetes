@@ -19,8 +19,8 @@ import (
 	"os"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/workspace"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
 	"sigs.k8s.io/kustomize/api/filesys"
 	"sigs.k8s.io/kustomize/api/krusty"
 	"sigs.k8s.io/kustomize/api/types"

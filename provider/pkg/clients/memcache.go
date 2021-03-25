@@ -35,7 +35,7 @@ import (
 	"syscall"
 
 	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
-	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	errorsutil "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/version"

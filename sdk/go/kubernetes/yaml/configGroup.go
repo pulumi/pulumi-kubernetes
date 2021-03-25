@@ -21,7 +21,7 @@ import (
 	"fmt"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML. The YAML text may be supplied using
@@ -39,8 +39,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -64,8 +64,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -89,8 +89,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -114,8 +114,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -139,8 +139,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -170,8 +170,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
