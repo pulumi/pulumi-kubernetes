@@ -21,7 +21,7 @@ import (
 	"strings"
 
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/v2/go/common/util/contract"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
@@ -136,7 +136,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Language:  map[string]json.RawMessage{},
 	}
 
-	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes"
+	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
 
 	csharpNamespaces := map[string]string{}
 	modToPkg := map[string]string{}

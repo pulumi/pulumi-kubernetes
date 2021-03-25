@@ -19,8 +19,8 @@ package kustomize
 
 import (
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
@@ -32,8 +32,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/kustomize"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/kustomize"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -57,8 +57,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/kustomize"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/kustomize"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -82,9 +82,9 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/kustomize"
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/kustomize"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {

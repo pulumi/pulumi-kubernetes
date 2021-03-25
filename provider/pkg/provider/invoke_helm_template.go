@@ -24,7 +24,7 @@ import (
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
-	logger "github.com/pulumi/pulumi/sdk/v2/go/common/util/logging"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"

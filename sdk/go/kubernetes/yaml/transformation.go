@@ -18,7 +18,7 @@
 package yaml
 
 import (
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Transformation is the callback signature for YAML-related resources. A transformation is passed a map

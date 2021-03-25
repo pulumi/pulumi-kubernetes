@@ -22,8 +22,8 @@ import (
 	"fmt"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Chart is a component representing a collection of resources described by an arbitrary Helm
@@ -44,8 +44,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -67,8 +67,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -94,8 +94,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -128,8 +128,8 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
@@ -156,9 +156,9 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {

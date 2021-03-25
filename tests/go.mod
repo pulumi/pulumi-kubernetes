@@ -10,9 +10,10 @@ replace (
 )
 
 require (
-	github.com/pulumi/pulumi-kubernetes/provider/v2 v2.0.0
-	github.com/pulumi/pulumi-kubernetes/sdk/v2 v2.4.3
-	github.com/pulumi/pulumi/pkg/v2 v2.23.2
-	github.com/pulumi/pulumi/sdk/v2 v2.23.2
+
+	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-20210325155552-a82a42f4927b
+	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-20210325155552-a82a42f4927b
+	github.com/pulumi/pulumi/pkg/v3 v3.0.0-20210324220902-b543e235f01d
+	github.com/pulumi/pulumi/sdk/v3 v3.0.0-20210324220902-b543e235f01d
 	github.com/stretchr/testify v1.7.0
 )

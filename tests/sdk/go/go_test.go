@@ -27,7 +27,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
 			Dir: "basic",
 			Dependencies: []string{
-				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+				"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 			},
 			Quick: true,
 		})
@@ -37,7 +37,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
 			Dir: "yaml",
 			Dependencies: []string{
-				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+				"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 			},
 			Quick:                true,
 			ExpectRefreshChanges: true,
@@ -48,7 +48,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
 			Dir: filepath.Join("helm-local", "step1"),
 			Dependencies: []string{
-				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+				"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 			},
 			Quick: true,
 			EditDirs: []integration.EditDir{
@@ -65,7 +65,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
 			Dir: filepath.Join("helm", "step1"),
 			Dependencies: []string{
-				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+				"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 			},
 			Quick: true,
 			EditDirs: []integration.EditDir{
@@ -82,7 +82,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
 			Dir: filepath.Join("helm-api-versions", "step1"),
 			Dependencies: []string{
-				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+				"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 			},
 			Quick: true,
 			EditDirs: []integration.EditDir{
@@ -99,7 +99,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &integration.ProgramTestOptions{
 			Dir: "kustomize",
 			Dependencies: []string{
-				"github.com/pulumi/pulumi-kubernetes/sdk/v2",
+				"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 			},
 			Quick: true,
 		})
