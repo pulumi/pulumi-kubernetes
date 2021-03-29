@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Ensure using `PULUMI_KUBERNETES_MANAGED_BY_LABEL` doesn't cause diffs on further stack updates (https://github.com/pulumi/pulumi-kubernetes/pull/1508)
+- [sdk/ts] Update CustomResource to match current codegen (https://github.com/pulumi/pulumi-kubernetes/pull/1510)
 
 ## 2.8.3 (March 17, 2021)
 
