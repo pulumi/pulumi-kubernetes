@@ -36,11 +36,11 @@ export class Provider extends pulumi.ProviderResource {
         {
             inputs["cluster"] = args ? args.cluster : undefined;
             inputs["context"] = args ? args.context : undefined;
-            inputs["enableDryRun"] = pulumi.output(((args ? args.enableDryRun : undefined) || <any>utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
-            inputs["kubeconfig"] = ((args ? args.kubeconfig : undefined) || utilities.getEnv("KUBECONFIG")) ?? utilities.getEnv("KUBECONFIG");
+            inputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
+            inputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
             inputs["namespace"] = args ? args.namespace : undefined;
             inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
-            inputs["suppressDeprecationWarnings"] = pulumi.output(((args ? args.suppressDeprecationWarnings : undefined) || <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
+            inputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
