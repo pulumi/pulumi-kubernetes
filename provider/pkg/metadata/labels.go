@@ -99,12 +99,18 @@ func TrySetManagedByLabel(obj *unstructured.Unstructured) (bool, error) {
 	return TrySetLabel(obj, managedByLabel, managedBy)
 }
 
-// HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to `pulumi`,
-// or is a computed value.
+// HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to the value
+// of `PULUMI_KUBERNETES_MANAGED_BY_LABEL` EnvVar, `pulumi`, or is a computed value.
 func HasManagedByLabel(obj *unstructured.Unstructured) bool {
 	val := GetLabel(obj, managedByLabel)
 	if isComputedValue(val) {
 		return true
+	}
+	// now we should check to see if the user has specified a label via EnvVar
+	// we should also check to see if that value is the same as what is in the metadata
+	labelVal, exists := os.LookupEnv("PULUMI_KUBERNETES_MANAGED_BY_LABEL")
+	if exists {
+		return labelVal == val.(string)
 	}
 	str, ok := val.(string)
 	return ok && str == "pulumi"

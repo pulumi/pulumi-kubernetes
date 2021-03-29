@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Ensure using `PULUMI_KUBERNETES_MANAGED_BY_LABEL` doesn't cause diffs on further stack updates (https://github.com/pulumi/pulumi-kubernetes/pull/1508)
+
 ## 2.8.3 (March 17, 2021)
 
 - Fix bug where rendering manifests results in files being overwritten by subsequent resources with the same kind and name, but different namespace (https://github.com/pulumi/pulumi-kubernetes/pull/1429)
