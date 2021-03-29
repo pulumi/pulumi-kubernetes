@@ -18,7 +18,7 @@
 import * as pulumi from "@pulumi/pulumi"
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
-import { getVersion } from "../utilities";
+import * as utilities from "../utilities";
 
 /**
  * CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
@@ -74,18 +74,21 @@ export class CustomResource extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: CustomResourceArgs, opts?: pulumi.CustomResourceOptions) {
-        const props: pulumi.Inputs = {};
-        for (const key of Object.keys(args)) {
-            props[key] = (args as any)[key];
-        }
-
-        if (!opts) {
-            opts = {}
+        let inputs: pulumi.Inputs = {};
+        opts = opts || {};
+        if (!opts.id) {
+            for (const key of Object.keys(args)) {
+                inputs[key] = (args as any)[key];
+            }
+        } else {
+            for (const key of Object.keys(args)) {
+                inputs[key] = undefined;
+            }
         }
         if (!opts.version) {
-            opts.version = getVersion();
+            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(`kubernetes:${args.apiVersion}:${args.kind}`, name, props, opts);
+        super(`kubernetes:${args.apiVersion}:${args.kind}`, name, inputs, opts);
         this.__inputs = args;
     }
 }
