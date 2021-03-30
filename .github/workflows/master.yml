@@ -99,8 +99,14 @@ jobs:
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
+      - name: Retrieve Pulumi CLI Version
+        run: |
+          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
+        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
       - uses: actions/checkout@v2
       - id: vars
         run: echo "::set-output name=stack-name::${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-$(date +%s)"
@@ -137,8 +143,14 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
+      - name: Retrieve Pulumi CLI Version
+        run: |
+          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
+        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
       - name: Build K8sgen
         run: make k8sgen
       - name: Prepare openapi file
@@ -190,8 +202,14 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
+      - name: Retrieve Pulumi CLI Version
+        run: |
+          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
+        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -276,8 +294,14 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
+      - name: Retrieve Pulumi CLI Version
+        run: |
+          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
+        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -416,8 +440,14 @@ jobs:
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
+      - name: Retrieve Pulumi CLI Version
+        run: |
+          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
+        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
       - uses: actions/checkout@v2
       - name: Destroy test infra
         run: |
@@ -471,8 +501,14 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
+      - name: Retrieve Pulumi CLI Version
+        run: |
+          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
+        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
       - name: Set PreRelease Version
         run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language
           generic)" >> $GITHUB_ENV
@@ -513,8 +549,14 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
+      - name: Retrieve Pulumi CLI Version
+        run: |
+          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
+        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
+        with:
+          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
