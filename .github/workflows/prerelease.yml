@@ -1,9 +1,8 @@
-name: release
+name: prerelease
 "on":
   push:
     tags:
-      - v*.*.*
-      - '!v*.*.*-**'
+      - v*.*.*-**
 
 env:
   AWS_REGION: us-west-2
@@ -24,6 +23,7 @@ env:
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   TRAVIS_OS_NAME: linux
+  IS_PRERELEASE: true
 
 jobs:
   golangci:
@@ -453,7 +453,8 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
-          args: -p 3 release --rm-dist
+          args: -p 2 release --rm-dist --config=.goreleaser.prerelease.yml  --timeout
+            90m0s
           version: latest
       - if: failure() && github.event_name == 'push'
         name: Notify Slack
@@ -529,16 +530,3 @@ jobs:
           author_name: Failure in publishing SDK
           fields: repo,commit,author,action
           status: ${{ job.status }}
-  create_docs_build:
-    name: Create docs build
-    needs: publish_sdk
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.1.0
-        with:
-          repo: pulumi/pulumictl
-      - env:
-          GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
-        name: Dispatch event
-        run: pulumictl create docs-build pulumi-${{ env.PROVIDER }} ${GITHUB_REF#refs/tags/}
