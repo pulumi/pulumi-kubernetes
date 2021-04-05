@@ -34,15 +34,14 @@ func TestDeploymentRollout(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
 			appsv1Deploy := stackInfo.Deployment.Resources[0]
 			namespace := stackInfo.Deployment.Resources[1]
-			extensionsv1beta1Deploy := stackInfo.Deployment.Resources[2]
-			provRes := stackInfo.Deployment.Resources[3]
-			stackRes := stackInfo.Deployment.Resources[4]
+			provRes := stackInfo.Deployment.Resources[2]
+			stackRes := stackInfo.Deployment.Resources[3]
 
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
@@ -50,7 +49,7 @@ func TestDeploymentRollout(t *testing.T) {
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
 
 			//
-			// Assert deployments are successfully created.
+			// Assert deployment is successfully created.
 			//
 
 			name, _ := openapi.Pluck(appsv1Deploy.Outputs, "metadata", "name")
@@ -60,7 +59,6 @@ func TestDeploymentRollout(t *testing.T) {
 			image := containerStatus["image"]
 			assert.Equal(t, image.(string), "nginx")
 
-			name, _ = openapi.Pluck(extensionsv1beta1Deploy.Outputs, "metadata", "name")
 			assert.True(t, strings.Contains(name.(string), "nginx"))
 			containers, _ = openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
 			containerStatus = containers.([]interface{})[0].(map[string]interface{})
@@ -73,15 +71,14 @@ func TestDeploymentRollout(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
 					appsv1Deploy := stackInfo.Deployment.Resources[0]
 					namespace := stackInfo.Deployment.Resources[1]
-					extensionsv1beta1Deploy := stackInfo.Deployment.Resources[2]
-					provRes := stackInfo.Deployment.Resources[3]
-					stackRes := stackInfo.Deployment.Resources[4]
+					provRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
 
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
@@ -89,7 +86,7 @@ func TestDeploymentRollout(t *testing.T) {
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
 
 					//
-					// Assert deployments are updated successfully.
+					// Assert deployment is updated successfully.
 					//
 
 					name, _ := openapi.Pluck(appsv1Deploy.Outputs, "metadata", "name")
@@ -97,13 +94,6 @@ func TestDeploymentRollout(t *testing.T) {
 					containers, _ := openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
 					containerStatus := containers.([]interface{})[0].(map[string]interface{})
 					image := containerStatus["image"]
-					assert.Equal(t, image.(string), "nginx:stable")
-
-					name, _ = openapi.Pluck(extensionsv1beta1Deploy.Outputs, "metadata", "name")
-					assert.True(t, strings.Contains(name.(string), "nginx-ev1b1"))
-					containers, _ = openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
-					containerStatus = containers.([]interface{})[0].(map[string]interface{})
-					image = containerStatus["image"]
 					assert.Equal(t, image.(string), "nginx:stable")
 				},
 			},

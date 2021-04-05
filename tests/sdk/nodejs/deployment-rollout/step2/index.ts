@@ -21,22 +21,6 @@ export const namespace = new k8s.core.v1.Namespace("test-namespace");
 //
 
 const appLabels = {app: "nginx"};
-new k8s.extensions.v1beta1.Deployment("nginx-ev1b1", {
-  metadata: { namespace: namespace.metadata.name },
-  spec: {
-    selector: {matchLabels: appLabels},
-    replicas: 1,
-    template: {
-      metadata: {labels: appLabels},
-      spec: {containers: [{name: "nginx", image: "nginx:stable", ports: [{containerPort: 80}]}]}
-    }
-  }
-});
-
-//
-// Change the image to trigger an update.
-//
-
 new k8s.apps.v1.Deployment("nginx", {
   metadata: { namespace: namespace.metadata.name },
   spec: {
