@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- [sdk/go] Fix plugin versioning for invoke calls (https://github.com/pulumi/pulumi-kubernetes/pull/1520)
+
 ## 2.8.4 (March 29, 2021)
 
 - Ensure using `PULUMI_KUBERNETES_MANAGED_BY_LABEL` doesn't cause diffs on further stack updates (https://github.com/pulumi/pulumi-kubernetes/pull/1508)
