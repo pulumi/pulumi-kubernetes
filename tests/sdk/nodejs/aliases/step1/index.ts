@@ -15,7 +15,7 @@
 import * as k8s from "@pulumi/kubernetes";
 
 //
-// Create an extensions/v1beta1/Deployment.
+// Change apiVersion to apps/v1/Deployment.
 //
 
-new k8s.yaml.ConfigFile("alias-test", {file: "manifests/ev1b1Deployment.yaml"});
+new k8s.yaml.ConfigFile("alias-test", {file: "manifests/av1Deployment.yaml"});

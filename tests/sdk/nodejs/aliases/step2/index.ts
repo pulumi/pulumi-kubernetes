@@ -15,7 +15,7 @@
 import * as k8s from "@pulumi/kubernetes";
 
 //
-// Change apiVersion to apps/v1/Deployment.
+// Force a rollout and ensure update completes successfully.
 //
 
-new k8s.yaml.ConfigFile("alias-test", {file: "manifests/av1Deployment.yaml"});
+new k8s.yaml.ConfigFile("alias-test", {file: "manifests/av1DeploymentRollout.yaml"});
