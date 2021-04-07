@@ -292,10 +292,7 @@ func helmTemplate(ctx *pulumi.Context, jsonOpts string) ([]map[string]interface{
 		Result []map[string]interface{} `pulumi:"result"`
 	}
 
-	// TODO: Rather than hardcoding, try to parse a version from a go.mod
-	// https://github.com/pulumi/pulumi-kubernetes/issues/1324
-	versionOpt := pulumi.Version("2.6.1") // Pin invoke to 2.6.1 so that the helm:template function is available
-	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret, versionOpt); err != nil {
+	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret); err != nil {
 		return nil, errors.Wrap(err, "failed to invoke helm template")
 	}
 	return ret.Result, nil
