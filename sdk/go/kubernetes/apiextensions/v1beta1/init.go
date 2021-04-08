@@ -22,13 +22,14 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition":
-		r, err = NewCustomResourceDefinition(ctx, name, nil, pulumi.URN_(urn))
+		r = &CustomResourceDefinition{}
 	case "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList":
-		r, err = NewCustomResourceDefinitionList(ctx, name, nil, pulumi.URN_(urn))
+		r = &CustomResourceDefinitionList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

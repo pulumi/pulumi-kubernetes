@@ -1,5 +1,9 @@
 ## HEAD (Unreleased)
 
+- Update pulumi dependency (https://github.com/pulumi/pulumi-kubernetes/pull/1521)
+    - [sdk/go] Fix Go resource registrations (https://github.com/pulumi/pulumi/pull/6641)
+    - [sdk/python] Support `<Resource>Args` classes (https://github.com/pulumi/pulumi/pull/6525)
+
 ## 2.9.1 (April 12, 2021)
 
 - Fix refresh for render-yaml resources (https://github.com/pulumi/pulumi-kubernetes/pull/1523)

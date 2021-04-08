@@ -22,13 +22,14 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:discovery.k8s.io/v1:EndpointSlice":
-		r, err = NewEndpointSlice(ctx, name, nil, pulumi.URN_(urn))
+		r = &EndpointSlice{}
 	case "kubernetes:discovery.k8s.io/v1:EndpointSliceList":
-		r, err = NewEndpointSliceList(ctx, name, nil, pulumi.URN_(urn))
+		r = &EndpointSliceList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

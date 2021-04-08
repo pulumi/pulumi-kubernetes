@@ -22,13 +22,14 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:events.k8s.io/v1:Event":
-		r, err = NewEvent(ctx, name, nil, pulumi.URN_(urn))
+		r = &Event{}
 	case "kubernetes:events.k8s.io/v1:EventList":
-		r, err = NewEventList(ctx, name, nil, pulumi.URN_(urn))
+		r = &EventList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

@@ -22,13 +22,14 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink":
-		r, err = NewAuditSink(ctx, name, nil, pulumi.URN_(urn))
+		r = &AuditSink{}
 	case "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList":
-		r, err = NewAuditSinkList(ctx, name, nil, pulumi.URN_(urn))
+		r = &AuditSinkList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

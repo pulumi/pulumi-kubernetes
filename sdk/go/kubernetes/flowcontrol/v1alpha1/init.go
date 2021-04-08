@@ -22,17 +22,18 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema":
-		r, err = NewFlowSchema(ctx, name, nil, pulumi.URN_(urn))
+		r = &FlowSchema{}
 	case "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList":
-		r, err = NewFlowSchemaList(ctx, name, nil, pulumi.URN_(urn))
+		r = &FlowSchemaList{}
 	case "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration":
-		r, err = NewPriorityLevelConfiguration(ctx, name, nil, pulumi.URN_(urn))
+		r = &PriorityLevelConfiguration{}
 	case "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList":
-		r, err = NewPriorityLevelConfigurationList(ctx, name, nil, pulumi.URN_(urn))
+		r = &PriorityLevelConfigurationList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

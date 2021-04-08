@@ -22,73 +22,74 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:core/v1:Binding":
-		r, err = NewBinding(ctx, name, nil, pulumi.URN_(urn))
+		r = &Binding{}
 	case "kubernetes:core/v1:ConfigMap":
-		r, err = NewConfigMap(ctx, name, nil, pulumi.URN_(urn))
+		r = &ConfigMap{}
 	case "kubernetes:core/v1:ConfigMapList":
-		r, err = NewConfigMapList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ConfigMapList{}
 	case "kubernetes:core/v1:Endpoints":
-		r, err = NewEndpoints(ctx, name, nil, pulumi.URN_(urn))
+		r = &Endpoints{}
 	case "kubernetes:core/v1:EndpointsList":
-		r, err = NewEndpointsList(ctx, name, nil, pulumi.URN_(urn))
+		r = &EndpointsList{}
 	case "kubernetes:core/v1:EphemeralContainers":
-		r, err = NewEphemeralContainers(ctx, name, nil, pulumi.URN_(urn))
+		r = &EphemeralContainers{}
 	case "kubernetes:core/v1:Event":
-		r, err = NewEvent(ctx, name, nil, pulumi.URN_(urn))
+		r = &Event{}
 	case "kubernetes:core/v1:EventList":
-		r, err = NewEventList(ctx, name, nil, pulumi.URN_(urn))
+		r = &EventList{}
 	case "kubernetes:core/v1:LimitRange":
-		r, err = NewLimitRange(ctx, name, nil, pulumi.URN_(urn))
+		r = &LimitRange{}
 	case "kubernetes:core/v1:LimitRangeList":
-		r, err = NewLimitRangeList(ctx, name, nil, pulumi.URN_(urn))
+		r = &LimitRangeList{}
 	case "kubernetes:core/v1:Namespace":
-		r, err = NewNamespace(ctx, name, nil, pulumi.URN_(urn))
+		r = &Namespace{}
 	case "kubernetes:core/v1:NamespaceList":
-		r, err = NewNamespaceList(ctx, name, nil, pulumi.URN_(urn))
+		r = &NamespaceList{}
 	case "kubernetes:core/v1:Node":
-		r, err = NewNode(ctx, name, nil, pulumi.URN_(urn))
+		r = &Node{}
 	case "kubernetes:core/v1:NodeList":
-		r, err = NewNodeList(ctx, name, nil, pulumi.URN_(urn))
+		r = &NodeList{}
 	case "kubernetes:core/v1:PersistentVolume":
-		r, err = NewPersistentVolume(ctx, name, nil, pulumi.URN_(urn))
+		r = &PersistentVolume{}
 	case "kubernetes:core/v1:PersistentVolumeClaim":
-		r, err = NewPersistentVolumeClaim(ctx, name, nil, pulumi.URN_(urn))
+		r = &PersistentVolumeClaim{}
 	case "kubernetes:core/v1:PersistentVolumeClaimList":
-		r, err = NewPersistentVolumeClaimList(ctx, name, nil, pulumi.URN_(urn))
+		r = &PersistentVolumeClaimList{}
 	case "kubernetes:core/v1:PersistentVolumeList":
-		r, err = NewPersistentVolumeList(ctx, name, nil, pulumi.URN_(urn))
+		r = &PersistentVolumeList{}
 	case "kubernetes:core/v1:Pod":
-		r, err = NewPod(ctx, name, nil, pulumi.URN_(urn))
+		r = &Pod{}
 	case "kubernetes:core/v1:PodList":
-		r, err = NewPodList(ctx, name, nil, pulumi.URN_(urn))
+		r = &PodList{}
 	case "kubernetes:core/v1:PodTemplate":
-		r, err = NewPodTemplate(ctx, name, nil, pulumi.URN_(urn))
+		r = &PodTemplate{}
 	case "kubernetes:core/v1:PodTemplateList":
-		r, err = NewPodTemplateList(ctx, name, nil, pulumi.URN_(urn))
+		r = &PodTemplateList{}
 	case "kubernetes:core/v1:ReplicationController":
-		r, err = NewReplicationController(ctx, name, nil, pulumi.URN_(urn))
+		r = &ReplicationController{}
 	case "kubernetes:core/v1:ReplicationControllerList":
-		r, err = NewReplicationControllerList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ReplicationControllerList{}
 	case "kubernetes:core/v1:ResourceQuota":
-		r, err = NewResourceQuota(ctx, name, nil, pulumi.URN_(urn))
+		r = &ResourceQuota{}
 	case "kubernetes:core/v1:ResourceQuotaList":
-		r, err = NewResourceQuotaList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ResourceQuotaList{}
 	case "kubernetes:core/v1:Secret":
-		r, err = NewSecret(ctx, name, nil, pulumi.URN_(urn))
+		r = &Secret{}
 	case "kubernetes:core/v1:SecretList":
-		r, err = NewSecretList(ctx, name, nil, pulumi.URN_(urn))
+		r = &SecretList{}
 	case "kubernetes:core/v1:Service":
-		r, err = NewService(ctx, name, nil, pulumi.URN_(urn))
+		r = &Service{}
 	case "kubernetes:core/v1:ServiceAccount":
-		r, err = NewServiceAccount(ctx, name, nil, pulumi.URN_(urn))
+		r = &ServiceAccount{}
 	case "kubernetes:core/v1:ServiceAccountList":
-		r, err = NewServiceAccountList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ServiceAccountList{}
 	case "kubernetes:core/v1:ServiceList":
-		r, err = NewServiceList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ServiceList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 
