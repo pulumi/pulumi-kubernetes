@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -33,6 +33,23 @@ class CSIDriver(dict):
     """
     CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIDriver. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIDriver.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIDriver.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec: 'outputs.CSIDriverSpec',
                  api_version: Optional[str] = None,
@@ -85,15 +102,41 @@ class CSIDriver(dict):
         """
         return pulumi.get(self, "metadata")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CSIDriverSpec(dict):
     """
     CSIDriverSpec is the specification of a CSIDriver.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "attachRequired":
+            suggest = "attach_required"
+        elif key == "fsGroupPolicy":
+            suggest = "fs_group_policy"
+        elif key == "podInfoOnMount":
+            suggest = "pod_info_on_mount"
+        elif key == "requiresRepublish":
+            suggest = "requires_republish"
+        elif key == "storageCapacity":
+            suggest = "storage_capacity"
+        elif key == "tokenRequests":
+            suggest = "token_requests"
+        elif key == "volumeLifecycleModes":
+            suggest = "volume_lifecycle_modes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIDriverSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIDriverSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIDriverSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  attach_required: Optional[bool] = None,
                  fs_group_policy: Optional[str] = None,
@@ -249,15 +292,29 @@ class CSIDriverSpec(dict):
         """
         return pulumi.get(self, "volume_lifecycle_modes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CSINode(dict):
     """
     CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSINode. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSINode.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSINode.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec: 'outputs.CSINodeSpec',
                  api_version: Optional[str] = None,
@@ -310,15 +367,31 @@ class CSINode(dict):
         """
         return pulumi.get(self, "metadata")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CSINodeDriver(dict):
     """
     CSINodeDriver holds information about the specification of one CSI driver installed on a node
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeID":
+            suggest = "node_id"
+        elif key == "topologyKeys":
+            suggest = "topology_keys"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSINodeDriver. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSINodeDriver.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSINodeDriver.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  name: str,
                  node_id: str,
@@ -370,9 +443,6 @@ class CSINodeDriver(dict):
         """
         return pulumi.get(self, "topology_keys")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CSINodeSpec(dict):
@@ -395,9 +465,6 @@ class CSINodeSpec(dict):
         """
         return pulumi.get(self, "drivers")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CSIStorageCapacity(dict):
@@ -412,6 +479,29 @@ class CSIStorageCapacity(dict):
 
     They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "storageClassName":
+            suggest = "storage_class_name"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "maximumVolumeSize":
+            suggest = "maximum_volume_size"
+        elif key == "nodeTopology":
+            suggest = "node_topology"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIStorageCapacity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIStorageCapacity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIStorageCapacity.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  storage_class_name: str,
                  api_version: Optional[str] = None,
@@ -524,9 +614,6 @@ class CSIStorageCapacity(dict):
         """
         return pulumi.get(self, "node_topology")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StorageClass(dict):
@@ -535,6 +622,33 @@ class StorageClass(dict):
 
     StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allowVolumeExpansion":
+            suggest = "allow_volume_expansion"
+        elif key == "allowedTopologies":
+            suggest = "allowed_topologies"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "mountOptions":
+            suggest = "mount_options"
+        elif key == "reclaimPolicy":
+            suggest = "reclaim_policy"
+        elif key == "volumeBindingMode":
+            suggest = "volume_binding_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StorageClass. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StorageClass.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StorageClass.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  provisioner: str,
                  allow_volume_expansion: Optional[bool] = None,
@@ -661,15 +775,29 @@ class StorageClass(dict):
         """
         return pulumi.get(self, "volume_binding_mode")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class TokenRequest(dict):
     """
     TokenRequest contains parameters of a service account token.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "expirationSeconds":
+            suggest = "expiration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TokenRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TokenRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TokenRequest.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  audience: str,
                  expiration_seconds: Optional[int] = None):
@@ -698,9 +826,6 @@ class TokenRequest(dict):
         """
         return pulumi.get(self, "expiration_seconds")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachment(dict):
@@ -709,6 +834,23 @@ class VolumeAttachment(dict):
 
     VolumeAttachment objects are non-namespaced.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachment.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec: 'outputs.VolumeAttachmentSpec',
                  api_version: Optional[str] = None,
@@ -775,15 +917,31 @@ class VolumeAttachment(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachmentSource(dict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "inlineVolumeSpec":
+            suggest = "inline_volume_spec"
+        elif key == "persistentVolumeName":
+            suggest = "persistent_volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  inline_volume_spec: Optional['_core.v1.outputs.PersistentVolumeSpec'] = None,
                  persistent_volume_name: Optional[str] = None):
@@ -813,15 +971,29 @@ class VolumeAttachmentSource(dict):
         """
         return pulumi.get(self, "persistent_volume_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachmentSpec(dict):
     """
     VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  attacher: str,
                  node_name: str,
@@ -860,15 +1032,33 @@ class VolumeAttachmentSpec(dict):
         """
         return pulumi.get(self, "source")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachmentStatus(dict):
     """
     VolumeAttachmentStatus is the status of a VolumeAttachment request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "attachError":
+            suggest = "attach_error"
+        elif key == "attachmentMetadata":
+            suggest = "attachment_metadata"
+        elif key == "detachError":
+            suggest = "detach_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  attached: bool,
                  attach_error: Optional['outputs.VolumeError'] = None,
@@ -921,9 +1111,6 @@ class VolumeAttachmentStatus(dict):
         """
         return pulumi.get(self, "detach_error")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeError(dict):
@@ -959,9 +1146,6 @@ class VolumeError(dict):
         """
         return pulumi.get(self, "time")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeNodeResources(dict):
@@ -984,8 +1168,5 @@ class VolumeNodeResources(dict):
         Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is nil, then the supported number of volumes on this node is unbounded.
         """
         return pulumi.get(self, "count")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

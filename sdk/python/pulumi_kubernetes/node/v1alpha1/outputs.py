@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -23,6 +23,23 @@ class Overhead(dict):
     """
     Overhead structure represents the resource overhead associated with running a pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "podFixed":
+            suggest = "pod_fixed"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Overhead. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Overhead.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Overhead.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  pod_fixed: Optional[Mapping[str, str]] = None):
         """
@@ -40,15 +57,29 @@ class Overhead(dict):
         """
         return pulumi.get(self, "pod_fixed")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RuntimeClass(dict):
     """
     RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RuntimeClass. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RuntimeClass.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RuntimeClass.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec: 'outputs.RuntimeClassSpec',
                  api_version: Optional[str] = None,
@@ -101,15 +132,29 @@ class RuntimeClass(dict):
         """
         return pulumi.get(self, "metadata")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RuntimeClassSpec(dict):
     """
     RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "runtimeHandler":
+            suggest = "runtime_handler"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RuntimeClassSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RuntimeClassSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RuntimeClassSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  runtime_handler: str,
                  overhead: Optional['outputs.Overhead'] = None,
@@ -150,15 +195,29 @@ class RuntimeClassSpec(dict):
         """
         return pulumi.get(self, "scheduling")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Scheduling(dict):
     """
     Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeSelector":
+            suggest = "node_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Scheduling. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Scheduling.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Scheduling.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  node_selector: Optional[Mapping[str, str]] = None,
                  tolerations: Optional[Sequence['_core.v1.outputs.Toleration']] = None):
@@ -187,8 +246,5 @@ class Scheduling(dict):
         tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
         return pulumi.get(self, "tolerations")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

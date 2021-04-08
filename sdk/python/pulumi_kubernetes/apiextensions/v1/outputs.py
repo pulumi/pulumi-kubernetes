@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 
@@ -34,6 +34,23 @@ class CustomResourceColumnDefinition(dict):
     """
     CustomResourceColumnDefinition specifies a column for server side printing.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "jsonPath":
+            suggest = "json_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceColumnDefinition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceColumnDefinition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceColumnDefinition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  json_path: str,
                  name: str,
@@ -108,9 +125,6 @@ class CustomResourceColumnDefinition(dict):
         """
         return pulumi.get(self, "priority")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceConversion(dict):
@@ -147,15 +161,29 @@ class CustomResourceConversion(dict):
         """
         return pulumi.get(self, "webhook")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceDefinition(dict):
     """
     CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceDefinition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceDefinition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec: 'outputs.CustomResourceDefinitionSpec',
                  api_version: Optional[str] = None,
@@ -216,15 +244,29 @@ class CustomResourceDefinition(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceDefinitionCondition(dict):
     """
     CustomResourceDefinitionCondition contains details for the current condition of this pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinitionCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceDefinitionCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceDefinitionCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -288,15 +330,31 @@ class CustomResourceDefinitionCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceDefinitionNames(dict):
     """
     CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "listKind":
+            suggest = "list_kind"
+        elif key == "shortNames":
+            suggest = "short_names"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinitionNames. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceDefinitionNames.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceDefinitionNames.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kind: str,
                  plural: str,
@@ -372,15 +430,29 @@ class CustomResourceDefinitionNames(dict):
         """
         return pulumi.get(self, "singular")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceDefinitionSpec(dict):
     """
     CustomResourceDefinitionSpec describes how a user wants their resource to appear
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preserveUnknownFields":
+            suggest = "preserve_unknown_fields"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinitionSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceDefinitionSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceDefinitionSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  group: str,
                  names: 'outputs.CustomResourceDefinitionNames',
@@ -454,15 +526,31 @@ class CustomResourceDefinitionSpec(dict):
         """
         return pulumi.get(self, "preserve_unknown_fields")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceDefinitionStatus(dict):
     """
     CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "acceptedNames":
+            suggest = "accepted_names"
+        elif key == "storedVersions":
+            suggest = "stored_versions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinitionStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceDefinitionStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceDefinitionStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  accepted_names: 'outputs.CustomResourceDefinitionNames',
                  stored_versions: Sequence[str],
@@ -502,15 +590,31 @@ class CustomResourceDefinitionStatus(dict):
         """
         return pulumi.get(self, "conditions")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceDefinitionVersion(dict):
     """
     CustomResourceDefinitionVersion describes a version for CRD.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalPrinterColumns":
+            suggest = "additional_printer_columns"
+        elif key == "deprecationWarning":
+            suggest = "deprecation_warning"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinitionVersion. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceDefinitionVersion.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceDefinitionVersion.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  name: str,
                  served: bool,
@@ -609,15 +713,33 @@ class CustomResourceDefinitionVersion(dict):
         """
         return pulumi.get(self, "subresources")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceSubresourceScale(dict):
     """
     CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "specReplicasPath":
+            suggest = "spec_replicas_path"
+        elif key == "statusReplicasPath":
+            suggest = "status_replicas_path"
+        elif key == "labelSelectorPath":
+            suggest = "label_selector_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceSubresourceScale. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceSubresourceScale.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceSubresourceScale.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec_replicas_path: str,
                  status_replicas_path: str,
@@ -657,9 +779,6 @@ class CustomResourceSubresourceScale(dict):
         """
         return pulumi.get(self, "label_selector_path")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceSubresources(dict):
@@ -695,15 +814,29 @@ class CustomResourceSubresources(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CustomResourceValidation(dict):
     """
     CustomResourceValidation is a list of validation methods for CustomResources.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "openAPIV3Schema":
+            suggest = "open_apiv3_schema"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CustomResourceValidation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CustomResourceValidation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CustomResourceValidation.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  open_apiv3_schema: Optional['outputs.JSONSchemaProps'] = None):
         """
@@ -720,9 +853,6 @@ class CustomResourceValidation(dict):
         openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
         return pulumi.get(self, "open_apiv3_schema")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -751,15 +881,67 @@ class ExternalDocumentation(dict):
     def url(self) -> Optional[str]:
         return pulumi.get(self, "url")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class JSONSchemaProps(dict):
     """
     JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "$ref":
+            suggest = "_ref"
+        elif key == "$schema":
+            suggest = "_schema"
+        elif key == "additionalItems":
+            suggest = "additional_items"
+        elif key == "additionalProperties":
+            suggest = "additional_properties"
+        elif key == "allOf":
+            suggest = "all_of"
+        elif key == "anyOf":
+            suggest = "any_of"
+        elif key == "exclusiveMaximum":
+            suggest = "exclusive_maximum"
+        elif key == "exclusiveMinimum":
+            suggest = "exclusive_minimum"
+        elif key == "externalDocs":
+            suggest = "external_docs"
+        elif key == "maxItems":
+            suggest = "max_items"
+        elif key == "maxLength":
+            suggest = "max_length"
+        elif key == "maxProperties":
+            suggest = "max_properties"
+        elif key == "minItems":
+            suggest = "min_items"
+        elif key == "minLength":
+            suggest = "min_length"
+        elif key == "minProperties":
+            suggest = "min_properties"
+        elif key == "multipleOf":
+            suggest = "multiple_of"
+        elif key == "not":
+            suggest = "not_"
+        elif key == "oneOf":
+            suggest = "one_of"
+        elif key == "patternProperties":
+            suggest = "pattern_properties"
+        elif key == "uniqueItems":
+            suggest = "unique_items"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in JSONSchemaProps. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        JSONSchemaProps.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        JSONSchemaProps.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  _ref: Optional[str] = None,
                  _schema: Optional[str] = None,
@@ -1211,9 +1393,6 @@ class JSONSchemaProps(dict):
         """
         return pulumi.get(self, "x_kubernetes_preserve_unknown_fields")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceReference(dict):
@@ -1271,15 +1450,29 @@ class ServiceReference(dict):
         """
         return pulumi.get(self, "port")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class WebhookClientConfig(dict):
     """
     WebhookClientConfig contains the information to make a TLS connection with the webhook.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "caBundle":
+            suggest = "ca_bundle"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WebhookClientConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WebhookClientConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WebhookClientConfig.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  ca_bundle: Optional[str] = None,
                  service: Optional['outputs.ServiceReference'] = None,
@@ -1345,15 +1538,31 @@ class WebhookClientConfig(dict):
         """
         return pulumi.get(self, "url")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class WebhookConversion(dict):
     """
     WebhookConversion describes how to call a conversion webhook
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "conversionReviewVersions":
+            suggest = "conversion_review_versions"
+        elif key == "clientConfig":
+            suggest = "client_config"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WebhookConversion. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WebhookConversion.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WebhookConversion.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  conversion_review_versions: Sequence[str],
                  client_config: Optional['outputs.WebhookClientConfig'] = None):
@@ -1381,8 +1590,5 @@ class WebhookConversion(dict):
         clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         """
         return pulumi.get(self, "client_config")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 
@@ -21,6 +21,23 @@ class PodDisruptionBudget(dict):
     """
     PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudget. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudget.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudget.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -86,15 +103,31 @@ class PodDisruptionBudget(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodDisruptionBudgetSpec(dict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxUnavailable":
+            suggest = "max_unavailable"
+        elif key == "minAvailable":
+            suggest = "min_available"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudgetSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudgetSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudgetSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_unavailable: Optional[Any] = None,
                  min_available: Optional[Any] = None,
@@ -136,15 +169,39 @@ class PodDisruptionBudgetSpec(dict):
         """
         return pulumi.get(self, "selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodDisruptionBudgetStatus(dict):
     """
     PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentHealthy":
+            suggest = "current_healthy"
+        elif key == "desiredHealthy":
+            suggest = "desired_healthy"
+        elif key == "disruptionsAllowed":
+            suggest = "disruptions_allowed"
+        elif key == "expectedPods":
+            suggest = "expected_pods"
+        elif key == "disruptedPods":
+            suggest = "disrupted_pods"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudgetStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudgetStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudgetStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_healthy: int,
                  desired_healthy: int,
@@ -245,8 +302,5 @@ class PodDisruptionBudgetStatus(dict):
         Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
         return pulumi.get(self, "observed_generation")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

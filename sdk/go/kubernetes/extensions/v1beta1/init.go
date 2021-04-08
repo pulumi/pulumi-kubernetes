@@ -22,33 +22,34 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:extensions/v1beta1:DaemonSet":
-		r, err = NewDaemonSet(ctx, name, nil, pulumi.URN_(urn))
+		r = &DaemonSet{}
 	case "kubernetes:extensions/v1beta1:DaemonSetList":
-		r, err = NewDaemonSetList(ctx, name, nil, pulumi.URN_(urn))
+		r = &DaemonSetList{}
 	case "kubernetes:extensions/v1beta1:Deployment":
-		r, err = NewDeployment(ctx, name, nil, pulumi.URN_(urn))
+		r = &Deployment{}
 	case "kubernetes:extensions/v1beta1:DeploymentList":
-		r, err = NewDeploymentList(ctx, name, nil, pulumi.URN_(urn))
+		r = &DeploymentList{}
 	case "kubernetes:extensions/v1beta1:Ingress":
-		r, err = NewIngress(ctx, name, nil, pulumi.URN_(urn))
+		r = &Ingress{}
 	case "kubernetes:extensions/v1beta1:IngressList":
-		r, err = NewIngressList(ctx, name, nil, pulumi.URN_(urn))
+		r = &IngressList{}
 	case "kubernetes:extensions/v1beta1:NetworkPolicy":
-		r, err = NewNetworkPolicy(ctx, name, nil, pulumi.URN_(urn))
+		r = &NetworkPolicy{}
 	case "kubernetes:extensions/v1beta1:NetworkPolicyList":
-		r, err = NewNetworkPolicyList(ctx, name, nil, pulumi.URN_(urn))
+		r = &NetworkPolicyList{}
 	case "kubernetes:extensions/v1beta1:PodSecurityPolicy":
-		r, err = NewPodSecurityPolicy(ctx, name, nil, pulumi.URN_(urn))
+		r = &PodSecurityPolicy{}
 	case "kubernetes:extensions/v1beta1:PodSecurityPolicyList":
-		r, err = NewPodSecurityPolicyList(ctx, name, nil, pulumi.URN_(urn))
+		r = &PodSecurityPolicyList{}
 	case "kubernetes:extensions/v1beta1:ReplicaSet":
-		r, err = NewReplicaSet(ctx, name, nil, pulumi.URN_(urn))
+		r = &ReplicaSet{}
 	case "kubernetes:extensions/v1beta1:ReplicaSetList":
-		r, err = NewReplicaSetList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ReplicaSetList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

@@ -5,16 +5,87 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['RoleBindingList']
+__all__ = ['RoleBindingListArgs', 'RoleBindingList']
+
+@pulumi.input_type
+class RoleBindingListArgs:
+    def __init__(__self__, *,
+                 items: pulumi.Input[Sequence[pulumi.Input['RoleBindingArgs']]],
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None):
+        """
+        The set of arguments for constructing a RoleBindingList resource.
+        :param pulumi.Input[Sequence[pulumi.Input['RoleBindingArgs']]] items: Items is a list of RoleBindings
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ListMetaArgs'] metadata: Standard object's metadata.
+        """
+        pulumi.set(__self__, "items", items)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'RoleBindingList')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @property
+    @pulumi.getter
+    def items(self) -> pulumi.Input[Sequence[pulumi.Input['RoleBindingArgs']]]:
+        """
+        Items is a list of RoleBindings
+        """
+        return pulumi.get(self, "items")
+
+    @items.setter
+    def items(self, value: pulumi.Input[Sequence[pulumi.Input['RoleBindingArgs']]]):
+        pulumi.set(self, "items", value)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ListMetaArgs']]:
+        """
+        Standard object's metadata.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ListMetaArgs']]):
+        pulumi.set(self, "metadata", value)
 
 
 class RoleBindingList(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -35,6 +106,37 @@ class RoleBindingList(pulumi.CustomResource):
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']] metadata: Standard object's metadata.
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: RoleBindingListArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.22.
+
+        :param str resource_name: The name of the resource.
+        :param RoleBindingListArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(RoleBindingListArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 items: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RoleBindingArgs']]]]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__
@@ -50,14 +152,14 @@ class RoleBindingList(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = RoleBindingListArgs.__new__(RoleBindingListArgs)
 
-            __props__['api_version'] = 'rbac.authorization.k8s.io/v1alpha1'
+            __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1alpha1'
             if items is None and not opts.urn:
                 raise TypeError("Missing required property 'items'")
-            __props__['items'] = items
-            __props__['kind'] = 'RoleBindingList'
-            __props__['metadata'] = metadata
+            __props__.__dict__["items"] = items
+            __props__.__dict__["kind"] = 'RoleBindingList'
+            __props__.__dict__["metadata"] = metadata
         super(RoleBindingList, __self__).__init__(
             'kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList',
             resource_name,
@@ -78,12 +180,12 @@ class RoleBindingList(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = RoleBindingListArgs.__new__(RoleBindingListArgs)
 
-        __props__["api_version"] = None
-        __props__["items"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["items"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
         return RoleBindingList(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -117,10 +219,4 @@ class RoleBindingList(pulumi.CustomResource):
         Standard object's metadata.
         """
         return pulumi.get(self, "metadata")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

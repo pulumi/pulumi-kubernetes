@@ -5,16 +5,103 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['ClusterRoleBinding']
+__all__ = ['ClusterRoleBindingArgs', 'ClusterRoleBinding']
+
+@pulumi.input_type
+class ClusterRoleBindingArgs:
+    def __init__(__self__, *,
+                 role_ref: pulumi.Input['RoleRefArgs'],
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None):
+        """
+        The set of arguments for constructing a ClusterRoleBinding resource.
+        :param pulumi.Input['RoleRefArgs'] role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]] subjects: Subjects holds references to the objects the role applies to.
+        """
+        pulumi.set(__self__, "role_ref", role_ref)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ClusterRoleBinding')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if subjects is not None:
+            pulumi.set(__self__, "subjects", subjects)
+
+    @property
+    @pulumi.getter(name="roleRef")
+    def role_ref(self) -> pulumi.Input['RoleRefArgs']:
+        """
+        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        """
+        return pulumi.get(self, "role_ref")
+
+    @role_ref.setter
+    def role_ref(self, value: pulumi.Input['RoleRefArgs']):
+        pulumi.set(self, "role_ref", value)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def subjects(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]]:
+        """
+        Subjects holds references to the objects the role applies to.
+        """
+        return pulumi.get(self, "subjects")
+
+    @subjects.setter
+    def subjects(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]]):
+        pulumi.set(self, "subjects", value)
 
 
 class ClusterRoleBinding(pulumi.CustomResource):
+    @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
@@ -37,6 +124,38 @@ class ClusterRoleBinding(pulumi.CustomResource):
         :param pulumi.Input[pulumi.InputType['RoleRefArgs']] role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]] subjects: Subjects holds references to the objects the role applies to.
         """
+        ...
+    @overload
+    def __init__(__self__,
+                 resource_name: str,
+                 args: ClusterRoleBindingArgs,
+                 opts: Optional[pulumi.ResourceOptions] = None):
+        """
+        ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
+
+        :param str resource_name: The name of the resource.
+        :param ClusterRoleBindingArgs args: The arguments to use to populate this resource's properties.
+        :param pulumi.ResourceOptions opts: Options for the resource.
+        """
+        ...
+    def __init__(__self__, resource_name: str, *args, **kwargs):
+        resource_args, opts = _utilities.get_resource_args_opts(ClusterRoleBindingArgs, pulumi.ResourceOptions, *args, **kwargs)
+        if resource_args is not None:
+            __self__._internal_init(resource_name, opts, **resource_args.__dict__)
+        else:
+            __self__._internal_init(resource_name, *args, **kwargs)
+
+    def _internal_init(__self__,
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
+                 role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefArgs']]] = None,
+                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]]] = None,
+                 __props__=None,
+                 __name__=None,
+                 __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__
@@ -52,15 +171,15 @@ class ClusterRoleBinding(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ClusterRoleBindingArgs.__new__(ClusterRoleBindingArgs)
 
-            __props__['api_version'] = 'rbac.authorization.k8s.io/v1'
-            __props__['kind'] = 'ClusterRoleBinding'
-            __props__['metadata'] = metadata
+            __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1'
+            __props__.__dict__["kind"] = 'ClusterRoleBinding'
+            __props__.__dict__["metadata"] = metadata
             if role_ref is None and not opts.urn:
                 raise TypeError("Missing required property 'role_ref'")
-            __props__['role_ref'] = role_ref
-            __props__['subjects'] = subjects
+            __props__.__dict__["role_ref"] = role_ref
+            __props__.__dict__["subjects"] = subjects
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ClusterRoleBinding, __self__).__init__(
@@ -83,13 +202,13 @@ class ClusterRoleBinding(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = ClusterRoleBindingArgs.__new__(ClusterRoleBindingArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["role_ref"] = None
-        __props__["subjects"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["role_ref"] = None
+        __props__.__dict__["subjects"] = None
         return ClusterRoleBinding(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -131,10 +250,4 @@ class ClusterRoleBinding(pulumi.CustomResource):
         Subjects holds references to the objects the role applies to.
         """
         return pulumi.get(self, "subjects")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

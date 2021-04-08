@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -51,9 +51,6 @@ class AllowedCSIDriver(dict):
         """
         return pulumi.get(self, "name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AllowedFlexVolume(dict):
@@ -76,15 +73,31 @@ class AllowedFlexVolume(dict):
         """
         return pulumi.get(self, "driver")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AllowedHostPath(dict):
     """
     AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "pathPrefix":
+            suggest = "path_prefix"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AllowedHostPath. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AllowedHostPath.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AllowedHostPath.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  path_prefix: Optional[str] = None,
                  read_only: Optional[bool] = None):
@@ -117,9 +130,6 @@ class AllowedHostPath(dict):
         when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly.
         """
         return pulumi.get(self, "read_only")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -156,9 +166,6 @@ class FSGroupStrategyOptions(dict):
         """
         return pulumi.get(self, "rule")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HostPortRange(dict):
@@ -191,9 +198,6 @@ class HostPortRange(dict):
         min is the start of the range, inclusive.
         """
         return pulumi.get(self, "min")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -228,15 +232,29 @@ class IDRange(dict):
         """
         return pulumi.get(self, "min")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodDisruptionBudget(dict):
     """
     PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudget. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudget.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudget.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -298,15 +316,31 @@ class PodDisruptionBudget(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodDisruptionBudgetSpec(dict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxUnavailable":
+            suggest = "max_unavailable"
+        elif key == "minAvailable":
+            suggest = "min_available"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudgetSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudgetSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudgetSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_unavailable: Optional[Any] = None,
                  min_available: Optional[Any] = None,
@@ -348,15 +382,39 @@ class PodDisruptionBudgetSpec(dict):
         """
         return pulumi.get(self, "selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodDisruptionBudgetStatus(dict):
     """
     PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentHealthy":
+            suggest = "current_healthy"
+        elif key == "desiredHealthy":
+            suggest = "desired_healthy"
+        elif key == "disruptionsAllowed":
+            suggest = "disruptions_allowed"
+        elif key == "expectedPods":
+            suggest = "expected_pods"
+        elif key == "disruptedPods":
+            suggest = "disrupted_pods"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudgetStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudgetStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudgetStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_healthy: int,
                  desired_healthy: int,
@@ -458,15 +516,29 @@ class PodDisruptionBudgetStatus(dict):
         """
         return pulumi.get(self, "observed_generation")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodSecurityPolicy(dict):
     """
     PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSecurityPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSecurityPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSecurityPolicy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -520,15 +592,71 @@ class PodSecurityPolicy(dict):
         """
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodSecurityPolicySpec(dict):
     """
     PodSecurityPolicySpec defines the policy enforced.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsGroup":
+            suggest = "fs_group"
+        elif key == "runAsUser":
+            suggest = "run_as_user"
+        elif key == "seLinux":
+            suggest = "se_linux"
+        elif key == "supplementalGroups":
+            suggest = "supplemental_groups"
+        elif key == "allowPrivilegeEscalation":
+            suggest = "allow_privilege_escalation"
+        elif key == "allowedCSIDrivers":
+            suggest = "allowed_csi_drivers"
+        elif key == "allowedCapabilities":
+            suggest = "allowed_capabilities"
+        elif key == "allowedFlexVolumes":
+            suggest = "allowed_flex_volumes"
+        elif key == "allowedHostPaths":
+            suggest = "allowed_host_paths"
+        elif key == "allowedProcMountTypes":
+            suggest = "allowed_proc_mount_types"
+        elif key == "allowedUnsafeSysctls":
+            suggest = "allowed_unsafe_sysctls"
+        elif key == "defaultAddCapabilities":
+            suggest = "default_add_capabilities"
+        elif key == "defaultAllowPrivilegeEscalation":
+            suggest = "default_allow_privilege_escalation"
+        elif key == "forbiddenSysctls":
+            suggest = "forbidden_sysctls"
+        elif key == "hostIPC":
+            suggest = "host_ipc"
+        elif key == "hostNetwork":
+            suggest = "host_network"
+        elif key == "hostPID":
+            suggest = "host_pid"
+        elif key == "hostPorts":
+            suggest = "host_ports"
+        elif key == "readOnlyRootFilesystem":
+            suggest = "read_only_root_filesystem"
+        elif key == "requiredDropCapabilities":
+            suggest = "required_drop_capabilities"
+        elif key == "runAsGroup":
+            suggest = "run_as_group"
+        elif key == "runtimeClass":
+            suggest = "runtime_class"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSecurityPolicySpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSecurityPolicySpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSecurityPolicySpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  fs_group: 'outputs.FSGroupStrategyOptions',
                  run_as_user: 'outputs.RunAsUserStrategyOptions',
@@ -826,9 +954,6 @@ class PodSecurityPolicySpec(dict):
         """
         return pulumi.get(self, "volumes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RunAsGroupStrategyOptions(dict):
@@ -862,9 +987,6 @@ class RunAsGroupStrategyOptions(dict):
         ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
         return pulumi.get(self, "ranges")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -900,15 +1022,31 @@ class RunAsUserStrategyOptions(dict):
         """
         return pulumi.get(self, "ranges")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RuntimeClassStrategyOptions(dict):
     """
     RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allowedRuntimeClassNames":
+            suggest = "allowed_runtime_class_names"
+        elif key == "defaultRuntimeClassName":
+            suggest = "default_runtime_class_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RuntimeClassStrategyOptions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RuntimeClassStrategyOptions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RuntimeClassStrategyOptions.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  allowed_runtime_class_names: Sequence[str],
                  default_runtime_class_name: Optional[str] = None):
@@ -937,15 +1075,29 @@ class RuntimeClassStrategyOptions(dict):
         """
         return pulumi.get(self, "default_runtime_class_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SELinuxStrategyOptions(dict):
     """
     SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "seLinuxOptions":
+            suggest = "se_linux_options"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SELinuxStrategyOptions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SELinuxStrategyOptions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SELinuxStrategyOptions.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  rule: str,
                  se_linux_options: Optional['_core.v1.outputs.SELinuxOptions'] = None):
@@ -973,9 +1125,6 @@ class SELinuxStrategyOptions(dict):
         seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
         return pulumi.get(self, "se_linux_options")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -1011,8 +1160,5 @@ class SupplementalGroupsStrategyOptions(dict):
         rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
         return pulumi.get(self, "rule")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

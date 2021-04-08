@@ -22,13 +22,14 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:batch/v2alpha1:CronJob":
-		r, err = NewCronJob(ctx, name, nil, pulumi.URN_(urn))
+		r = &CronJob{}
 	case "kubernetes:batch/v2alpha1:CronJobList":
-		r, err = NewCronJobList(ctx, name, nil, pulumi.URN_(urn))
+		r = &CronJobList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

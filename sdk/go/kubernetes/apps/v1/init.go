@@ -22,29 +22,30 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:apps/v1:ControllerRevision":
-		r, err = NewControllerRevision(ctx, name, nil, pulumi.URN_(urn))
+		r = &ControllerRevision{}
 	case "kubernetes:apps/v1:ControllerRevisionList":
-		r, err = NewControllerRevisionList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ControllerRevisionList{}
 	case "kubernetes:apps/v1:DaemonSet":
-		r, err = NewDaemonSet(ctx, name, nil, pulumi.URN_(urn))
+		r = &DaemonSet{}
 	case "kubernetes:apps/v1:DaemonSetList":
-		r, err = NewDaemonSetList(ctx, name, nil, pulumi.URN_(urn))
+		r = &DaemonSetList{}
 	case "kubernetes:apps/v1:Deployment":
-		r, err = NewDeployment(ctx, name, nil, pulumi.URN_(urn))
+		r = &Deployment{}
 	case "kubernetes:apps/v1:DeploymentList":
-		r, err = NewDeploymentList(ctx, name, nil, pulumi.URN_(urn))
+		r = &DeploymentList{}
 	case "kubernetes:apps/v1:ReplicaSet":
-		r, err = NewReplicaSet(ctx, name, nil, pulumi.URN_(urn))
+		r = &ReplicaSet{}
 	case "kubernetes:apps/v1:ReplicaSetList":
-		r, err = NewReplicaSetList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ReplicaSetList{}
 	case "kubernetes:apps/v1:StatefulSet":
-		r, err = NewStatefulSet(ctx, name, nil, pulumi.URN_(urn))
+		r = &StatefulSet{}
 	case "kubernetes:apps/v1:StatefulSetList":
-		r, err = NewStatefulSetList(ctx, name, nil, pulumi.URN_(urn))
+		r = &StatefulSetList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

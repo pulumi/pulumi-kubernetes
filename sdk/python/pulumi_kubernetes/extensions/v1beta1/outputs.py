@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -80,9 +80,6 @@ class AllowedCSIDriver(dict):
         """
         return pulumi.get(self, "name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AllowedFlexVolume(dict):
@@ -105,15 +102,31 @@ class AllowedFlexVolume(dict):
         """
         return pulumi.get(self, "driver")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AllowedHostPath(dict):
     """
     AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined. Deprecated: use AllowedHostPath from policy API Group instead.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "pathPrefix":
+            suggest = "path_prefix"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AllowedHostPath. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AllowedHostPath.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AllowedHostPath.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  path_prefix: Optional[str] = None,
                  read_only: Optional[bool] = None):
@@ -147,15 +160,29 @@ class AllowedHostPath(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DaemonSet(dict):
     """
     DaemonSet represents the configuration of a daemon set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSet. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSet.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSet.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -221,15 +248,29 @@ class DaemonSet(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DaemonSetCondition(dict):
     """
     DaemonSetCondition describes the state of a DaemonSet at a certain point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -293,15 +334,35 @@ class DaemonSetCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DaemonSetSpec(dict):
     """
     DaemonSetSpec is the specification of a daemon set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+        elif key == "revisionHistoryLimit":
+            suggest = "revision_history_limit"
+        elif key == "templateGeneration":
+            suggest = "template_generation"
+        elif key == "updateStrategy":
+            suggest = "update_strategy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  template: '_core.v1.outputs.PodTemplateSpec',
                  min_ready_seconds: Optional[int] = None,
@@ -378,15 +439,45 @@ class DaemonSetSpec(dict):
         """
         return pulumi.get(self, "update_strategy")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DaemonSetStatus(dict):
     """
     DaemonSetStatus represents the current status of a daemon set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentNumberScheduled":
+            suggest = "current_number_scheduled"
+        elif key == "desiredNumberScheduled":
+            suggest = "desired_number_scheduled"
+        elif key == "numberMisscheduled":
+            suggest = "number_misscheduled"
+        elif key == "numberReady":
+            suggest = "number_ready"
+        elif key == "collisionCount":
+            suggest = "collision_count"
+        elif key == "numberAvailable":
+            suggest = "number_available"
+        elif key == "numberUnavailable":
+            suggest = "number_unavailable"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "updatedNumberScheduled":
+            suggest = "updated_number_scheduled"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_number_scheduled: int,
                  desired_number_scheduled: int,
@@ -508,12 +599,26 @@ class DaemonSetStatus(dict):
         """
         return pulumi.get(self, "updated_number_scheduled")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DaemonSetUpdateStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdate":
+            suggest = "rolling_update"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetUpdateStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetUpdateStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetUpdateStrategy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  rolling_update: Optional['outputs.RollingUpdateDaemonSet'] = None,
                  type: Optional[str] = None):
@@ -541,9 +646,6 @@ class DaemonSetUpdateStrategy(dict):
         Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is OnDelete.
         """
         return pulumi.get(self, "type")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -573,6 +675,23 @@ class Deployment(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Deployment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Deployment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Deployment.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -660,15 +779,31 @@ class Deployment(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentCondition(dict):
     """
     DeploymentCondition describes the state of a deployment at a certain point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+        elif key == "lastUpdateTime":
+            suggest = "last_update_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -744,15 +879,35 @@ class DeploymentCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentSpec(dict):
     """
     DeploymentSpec is the specification of the desired behavior of the Deployment.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+        elif key == "progressDeadlineSeconds":
+            suggest = "progress_deadline_seconds"
+        elif key == "revisionHistoryLimit":
+            suggest = "revision_history_limit"
+        elif key == "rollbackTo":
+            suggest = "rollback_to"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  template: '_core.v1.outputs.PodTemplateSpec',
                  min_ready_seconds: Optional[int] = None,
@@ -865,15 +1020,39 @@ class DeploymentSpec(dict):
         """
         return pulumi.get(self, "strategy")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentStatus(dict):
     """
     DeploymentStatus is the most recently observed status of the Deployment.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availableReplicas":
+            suggest = "available_replicas"
+        elif key == "collisionCount":
+            suggest = "collision_count"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+        elif key == "unavailableReplicas":
+            suggest = "unavailable_replicas"
+        elif key == "updatedReplicas":
+            suggest = "updated_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  available_replicas: Optional[int] = None,
                  collision_count: Optional[int] = None,
@@ -975,15 +1154,29 @@ class DeploymentStatus(dict):
         """
         return pulumi.get(self, "updated_replicas")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentStrategy(dict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdate":
+            suggest = "rolling_update"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentStrategy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  rolling_update: Optional['outputs.RollingUpdateDeployment'] = None,
                  type: Optional[str] = None):
@@ -1012,9 +1205,6 @@ class DeploymentStrategy(dict):
         Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
         return pulumi.get(self, "type")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -1051,15 +1241,29 @@ class FSGroupStrategyOptions(dict):
         """
         return pulumi.get(self, "rule")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HTTPIngressPath(dict):
     """
     HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "pathType":
+            suggest = "path_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HTTPIngressPath. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HTTPIngressPath.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HTTPIngressPath.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  backend: 'outputs.IngressBackend',
                  path: Optional[str] = None,
@@ -1120,9 +1324,6 @@ class HTTPIngressPath(dict):
         """
         return pulumi.get(self, "path_type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HTTPIngressRuleValue(dict):
@@ -1144,9 +1345,6 @@ class HTTPIngressRuleValue(dict):
         A collection of paths that map requests to backends.
         """
         return pulumi.get(self, "paths")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -1181,9 +1379,6 @@ class HostPortRange(dict):
         """
         return pulumi.get(self, "min")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IDRange(dict):
@@ -1217,15 +1412,29 @@ class IDRange(dict):
         """
         return pulumi.get(self, "min")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IPBlock(dict):
     """
     DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock. IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "except":
+            suggest = "except_"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IPBlock. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IPBlock.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IPBlock.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  cidr: str,
                  except_: Optional[Sequence[str]] = None):
@@ -1254,9 +1463,6 @@ class IPBlock(dict):
         """
         return pulumi.get(self, "except_")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Ingress(dict):
@@ -1277,6 +1483,23 @@ class Ingress(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Ingress. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Ingress.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Ingress.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -1356,15 +1579,31 @@ class Ingress(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressBackend(dict):
     """
     IngressBackend describes all endpoints for a given service and port.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "serviceName":
+            suggest = "service_name"
+        elif key == "servicePort":
+            suggest = "service_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressBackend. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressBackend.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressBackend.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  service_name: str,
                  service_port: Any,
@@ -1403,9 +1642,6 @@ class IngressBackend(dict):
         Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
         """
         return pulumi.get(self, "resource")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -1452,15 +1688,29 @@ class IngressRule(dict):
     def http(self) -> Optional['outputs.HTTPIngressRuleValue']:
         return pulumi.get(self, "http")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressSpec(dict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ingressClassName":
+            suggest = "ingress_class_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  backend: Optional['outputs.IngressBackend'] = None,
                  ingress_class_name: Optional[str] = None,
@@ -1514,15 +1764,29 @@ class IngressSpec(dict):
         """
         return pulumi.get(self, "tls")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressStatus(dict):
     """
     IngressStatus describe the current state of the Ingress.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "loadBalancer":
+            suggest = "load_balancer"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  load_balancer: Optional['_core.v1.outputs.LoadBalancerStatus'] = None):
         """
@@ -1540,15 +1804,29 @@ class IngressStatus(dict):
         """
         return pulumi.get(self, "load_balancer")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressTLS(dict):
     """
     IngressTLS describes the transport layer security associated with an Ingress.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "secretName":
+            suggest = "secret_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressTLS. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressTLS.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressTLS.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  hosts: Optional[Sequence[str]] = None,
                  secret_name: Optional[str] = None):
@@ -1578,15 +1856,29 @@ class IngressTLS(dict):
         """
         return pulumi.get(self, "secret_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicy(dict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a set of Pods
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -1640,9 +1932,6 @@ class NetworkPolicy(dict):
         """
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyEgressRule(dict):
@@ -1678,15 +1967,29 @@ class NetworkPolicyEgressRule(dict):
         """
         return pulumi.get(self, "to")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyIngressRule(dict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and only if the traffic matches both ports AND from.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "from":
+            suggest = "from_"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicyIngressRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicyIngressRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicyIngressRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  from_: Optional[Sequence['outputs.NetworkPolicyPeer']] = None,
                  ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None):
@@ -1716,15 +2019,33 @@ class NetworkPolicyIngressRule(dict):
         """
         return pulumi.get(self, "ports")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyPeer(dict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ipBlock":
+            suggest = "ip_block"
+        elif key == "namespaceSelector":
+            suggest = "namespace_selector"
+        elif key == "podSelector":
+            suggest = "pod_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicyPeer. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicyPeer.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicyPeer.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  ip_block: Optional['outputs.IPBlock'] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
@@ -1774,9 +2095,6 @@ class NetworkPolicyPeer(dict):
         """
         return pulumi.get(self, "pod_selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyPort(dict):
@@ -1812,15 +2130,31 @@ class NetworkPolicyPort(dict):
         """
         return pulumi.get(self, "protocol")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicySpec(dict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by networking/v1/NetworkPolicySpec.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "podSelector":
+            suggest = "pod_selector"
+        elif key == "policyTypes":
+            suggest = "policy_types"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicySpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicySpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicySpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  pod_selector: '_meta.v1.outputs.LabelSelector',
                  egress: Optional[Sequence['outputs.NetworkPolicyEgressRule']] = None,
@@ -1873,15 +2207,29 @@ class NetworkPolicySpec(dict):
         """
         return pulumi.get(self, "policy_types")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodSecurityPolicy(dict):
     """
     PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group instead.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSecurityPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSecurityPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSecurityPolicy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -1935,15 +2283,71 @@ class PodSecurityPolicy(dict):
         """
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodSecurityPolicySpec(dict):
     """
     PodSecurityPolicySpec defines the policy enforced. Deprecated: use PodSecurityPolicySpec from policy API Group instead.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsGroup":
+            suggest = "fs_group"
+        elif key == "runAsUser":
+            suggest = "run_as_user"
+        elif key == "seLinux":
+            suggest = "se_linux"
+        elif key == "supplementalGroups":
+            suggest = "supplemental_groups"
+        elif key == "allowPrivilegeEscalation":
+            suggest = "allow_privilege_escalation"
+        elif key == "allowedCSIDrivers":
+            suggest = "allowed_csi_drivers"
+        elif key == "allowedCapabilities":
+            suggest = "allowed_capabilities"
+        elif key == "allowedFlexVolumes":
+            suggest = "allowed_flex_volumes"
+        elif key == "allowedHostPaths":
+            suggest = "allowed_host_paths"
+        elif key == "allowedProcMountTypes":
+            suggest = "allowed_proc_mount_types"
+        elif key == "allowedUnsafeSysctls":
+            suggest = "allowed_unsafe_sysctls"
+        elif key == "defaultAddCapabilities":
+            suggest = "default_add_capabilities"
+        elif key == "defaultAllowPrivilegeEscalation":
+            suggest = "default_allow_privilege_escalation"
+        elif key == "forbiddenSysctls":
+            suggest = "forbidden_sysctls"
+        elif key == "hostIPC":
+            suggest = "host_ipc"
+        elif key == "hostNetwork":
+            suggest = "host_network"
+        elif key == "hostPID":
+            suggest = "host_pid"
+        elif key == "hostPorts":
+            suggest = "host_ports"
+        elif key == "readOnlyRootFilesystem":
+            suggest = "read_only_root_filesystem"
+        elif key == "requiredDropCapabilities":
+            suggest = "required_drop_capabilities"
+        elif key == "runAsGroup":
+            suggest = "run_as_group"
+        elif key == "runtimeClass":
+            suggest = "runtime_class"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSecurityPolicySpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSecurityPolicySpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSecurityPolicySpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  fs_group: 'outputs.FSGroupStrategyOptions',
                  run_as_user: 'outputs.RunAsUserStrategyOptions',
@@ -2241,15 +2645,29 @@ class PodSecurityPolicySpec(dict):
         """
         return pulumi.get(self, "volumes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicaSet(dict):
     """
     ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicaSet. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicaSet.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicaSet.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -2315,15 +2733,29 @@ class ReplicaSet(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicaSetCondition(dict):
     """
     ReplicaSetCondition describes the state of a replica set at a certain point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicaSetCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicaSetCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicaSetCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -2387,15 +2819,29 @@ class ReplicaSetCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicaSetSpec(dict):
     """
     ReplicaSetSpec is the specification of a ReplicaSet.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicaSetSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicaSetSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicaSetSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  min_ready_seconds: Optional[int] = None,
                  replicas: Optional[int] = None,
@@ -2449,15 +2895,35 @@ class ReplicaSetSpec(dict):
         """
         return pulumi.get(self, "template")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicaSetStatus(dict):
     """
     ReplicaSetStatus represents the current status of a ReplicaSet.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availableReplicas":
+            suggest = "available_replicas"
+        elif key == "fullyLabeledReplicas":
+            suggest = "fully_labeled_replicas"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicaSetStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicaSetStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicaSetStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  replicas: int,
                  available_replicas: Optional[int] = None,
@@ -2534,9 +3000,6 @@ class ReplicaSetStatus(dict):
         """
         return pulumi.get(self, "ready_replicas")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RollbackConfig(dict):
@@ -2560,15 +3023,29 @@ class RollbackConfig(dict):
         """
         return pulumi.get(self, "revision")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RollingUpdateDaemonSet(dict):
     """
     Spec to control the desired behavior of daemon set rolling update.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxUnavailable":
+            suggest = "max_unavailable"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RollingUpdateDaemonSet. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RollingUpdateDaemonSet.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RollingUpdateDaemonSet.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_unavailable: Optional[Any] = None):
         """
@@ -2586,15 +3063,31 @@ class RollingUpdateDaemonSet(dict):
         """
         return pulumi.get(self, "max_unavailable")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RollingUpdateDeployment(dict):
     """
     Spec to control the desired behavior of rolling update.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxSurge":
+            suggest = "max_surge"
+        elif key == "maxUnavailable":
+            suggest = "max_unavailable"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RollingUpdateDeployment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RollingUpdateDeployment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RollingUpdateDeployment.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_surge: Optional[Any] = None,
                  max_unavailable: Optional[Any] = None):
@@ -2623,9 +3116,6 @@ class RollingUpdateDeployment(dict):
         The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
         return pulumi.get(self, "max_unavailable")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -2661,9 +3151,6 @@ class RunAsGroupStrategyOptions(dict):
         """
         return pulumi.get(self, "ranges")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RunAsUserStrategyOptions(dict):
@@ -2698,15 +3185,31 @@ class RunAsUserStrategyOptions(dict):
         """
         return pulumi.get(self, "ranges")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RuntimeClassStrategyOptions(dict):
     """
     RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allowedRuntimeClassNames":
+            suggest = "allowed_runtime_class_names"
+        elif key == "defaultRuntimeClassName":
+            suggest = "default_runtime_class_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RuntimeClassStrategyOptions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RuntimeClassStrategyOptions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RuntimeClassStrategyOptions.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  allowed_runtime_class_names: Sequence[str],
                  default_runtime_class_name: Optional[str] = None):
@@ -2735,15 +3238,29 @@ class RuntimeClassStrategyOptions(dict):
         """
         return pulumi.get(self, "default_runtime_class_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SELinuxStrategyOptions(dict):
     """
     SELinuxStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "seLinuxOptions":
+            suggest = "se_linux_options"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SELinuxStrategyOptions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SELinuxStrategyOptions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SELinuxStrategyOptions.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  rule: str,
                  se_linux_options: Optional['_core.v1.outputs.SELinuxOptions'] = None):
@@ -2771,9 +3288,6 @@ class SELinuxStrategyOptions(dict):
         seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
         return pulumi.get(self, "se_linux_options")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -2809,8 +3323,5 @@ class SupplementalGroupsStrategyOptions(dict):
         rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
         return pulumi.get(self, "rule")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

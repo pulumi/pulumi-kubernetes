@@ -22,29 +22,30 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:storage.k8s.io/v1beta1:CSIDriver":
-		r, err = NewCSIDriver(ctx, name, nil, pulumi.URN_(urn))
+		r = &CSIDriver{}
 	case "kubernetes:storage.k8s.io/v1beta1:CSIDriverList":
-		r, err = NewCSIDriverList(ctx, name, nil, pulumi.URN_(urn))
+		r = &CSIDriverList{}
 	case "kubernetes:storage.k8s.io/v1beta1:CSINode":
-		r, err = NewCSINode(ctx, name, nil, pulumi.URN_(urn))
+		r = &CSINode{}
 	case "kubernetes:storage.k8s.io/v1beta1:CSINodeList":
-		r, err = NewCSINodeList(ctx, name, nil, pulumi.URN_(urn))
+		r = &CSINodeList{}
 	case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity":
-		r, err = NewCSIStorageCapacity(ctx, name, nil, pulumi.URN_(urn))
+		r = &CSIStorageCapacity{}
 	case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList":
-		r, err = NewCSIStorageCapacityList(ctx, name, nil, pulumi.URN_(urn))
+		r = &CSIStorageCapacityList{}
 	case "kubernetes:storage.k8s.io/v1beta1:StorageClass":
-		r, err = NewStorageClass(ctx, name, nil, pulumi.URN_(urn))
+		r = &StorageClass{}
 	case "kubernetes:storage.k8s.io/v1beta1:StorageClassList":
-		r, err = NewStorageClassList(ctx, name, nil, pulumi.URN_(urn))
+		r = &StorageClassList{}
 	case "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment":
-		r, err = NewVolumeAttachment(ctx, name, nil, pulumi.URN_(urn))
+		r = &VolumeAttachment{}
 	case "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList":
-		r, err = NewVolumeAttachmentList(ctx, name, nil, pulumi.URN_(urn))
+		r = &VolumeAttachmentList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

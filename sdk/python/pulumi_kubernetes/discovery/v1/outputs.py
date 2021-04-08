@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -25,6 +25,27 @@ class Endpoint(dict):
     """
     Endpoint represents a single logical "backend" implementing a service.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "deprecatedTopology":
+            suggest = "deprecated_topology"
+        elif key == "nodeName":
+            suggest = "node_name"
+        elif key == "targetRef":
+            suggest = "target_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Endpoint. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Endpoint.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Endpoint.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  addresses: Sequence[str],
                  conditions: Optional['outputs.EndpointConditions'] = None,
@@ -125,9 +146,6 @@ class Endpoint(dict):
         """
         return pulumi.get(self, "zone")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EndpointConditions(dict):
@@ -175,15 +193,29 @@ class EndpointConditions(dict):
         """
         return pulumi.get(self, "terminating")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EndpointHints(dict):
     """
     EndpointHints provides hints describing how an endpoint should be consumed.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "forZones":
+            suggest = "for_zones"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointHints. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointHints.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointHints.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  for_zones: Optional[Sequence['outputs.ForZone']] = None):
         """
@@ -201,15 +233,29 @@ class EndpointHints(dict):
         """
         return pulumi.get(self, "for_zones")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EndpointPort(dict):
     """
     EndpointPort represents a Port used by an EndpointSlice
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "appProtocol":
+            suggest = "app_protocol"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointPort. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointPort.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointPort.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  app_protocol: Optional[str] = None,
                  name: Optional[str] = None,
@@ -263,15 +309,31 @@ class EndpointPort(dict):
         """
         return pulumi.get(self, "protocol")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EndpointSlice(dict):
     """
     EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "addressType":
+            suggest = "address_type"
+        elif key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointSlice. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointSlice.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointSlice.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  address_type: str,
                  endpoints: Sequence['outputs.Endpoint'],
@@ -347,9 +409,6 @@ class EndpointSlice(dict):
         """
         return pulumi.get(self, "ports")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ForZone(dict):
@@ -371,8 +430,5 @@ class ForZone(dict):
         name represents the name of the zone.
         """
         return pulumi.get(self, "name")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

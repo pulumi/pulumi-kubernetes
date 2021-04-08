@@ -5,8 +5,8 @@
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union
-from ... import _utilities, _tables
+from typing import Any, Mapping, Optional, Sequence, Union, overload
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -33,6 +33,23 @@ class ControllerRevision(dict):
     """
     ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ControllerRevision. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ControllerRevision.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ControllerRevision.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  revision: int,
                  api_version: Optional[str] = None,
@@ -97,9 +114,6 @@ class ControllerRevision(dict):
         """
         return pulumi.get(self, "metadata")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Deployment(dict):
@@ -128,6 +142,23 @@ class Deployment(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Deployment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Deployment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Deployment.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -215,15 +246,31 @@ class Deployment(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentCondition(dict):
     """
     DeploymentCondition describes the state of a deployment at a certain point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+        elif key == "lastUpdateTime":
+            suggest = "last_update_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -299,15 +346,35 @@ class DeploymentCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentSpec(dict):
     """
     DeploymentSpec is the specification of the desired behavior of the Deployment.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+        elif key == "progressDeadlineSeconds":
+            suggest = "progress_deadline_seconds"
+        elif key == "revisionHistoryLimit":
+            suggest = "revision_history_limit"
+        elif key == "rollbackTo":
+            suggest = "rollback_to"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  template: '_core.v1.outputs.PodTemplateSpec',
                  min_ready_seconds: Optional[int] = None,
@@ -420,15 +487,39 @@ class DeploymentSpec(dict):
         """
         return pulumi.get(self, "strategy")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentStatus(dict):
     """
     DeploymentStatus is the most recently observed status of the Deployment.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availableReplicas":
+            suggest = "available_replicas"
+        elif key == "collisionCount":
+            suggest = "collision_count"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+        elif key == "unavailableReplicas":
+            suggest = "unavailable_replicas"
+        elif key == "updatedReplicas":
+            suggest = "updated_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  available_replicas: Optional[int] = None,
                  collision_count: Optional[int] = None,
@@ -530,15 +621,29 @@ class DeploymentStatus(dict):
         """
         return pulumi.get(self, "updated_replicas")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DeploymentStrategy(dict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdate":
+            suggest = "rolling_update"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentStrategy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  rolling_update: Optional['outputs.RollingUpdateDeployment'] = None,
                  type: Optional[str] = None):
@@ -568,9 +673,6 @@ class DeploymentStrategy(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RollbackConfig(dict):
@@ -594,15 +696,31 @@ class RollbackConfig(dict):
         """
         return pulumi.get(self, "revision")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RollingUpdateDeployment(dict):
     """
     Spec to control the desired behavior of rolling update.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxSurge":
+            suggest = "max_surge"
+        elif key == "maxUnavailable":
+            suggest = "max_unavailable"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RollingUpdateDeployment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RollingUpdateDeployment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RollingUpdateDeployment.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_surge: Optional[Any] = None,
                  max_unavailable: Optional[Any] = None):
@@ -632,9 +750,6 @@ class RollingUpdateDeployment(dict):
         """
         return pulumi.get(self, "max_unavailable")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RollingUpdateStatefulSetStrategy(dict):
@@ -658,9 +773,6 @@ class RollingUpdateStatefulSetStrategy(dict):
         """
         return pulumi.get(self, "partition")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StatefulSet(dict):
@@ -683,6 +795,23 @@ class StatefulSet(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSet. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSet.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSet.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -760,15 +889,29 @@ class StatefulSet(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StatefulSetCondition(dict):
     """
     StatefulSetCondition describes the state of a statefulset at a certain point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -832,15 +975,37 @@ class StatefulSetCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StatefulSetSpec(dict):
     """
     A StatefulSetSpec is the specification of a StatefulSet.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "serviceName":
+            suggest = "service_name"
+        elif key == "podManagementPolicy":
+            suggest = "pod_management_policy"
+        elif key == "revisionHistoryLimit":
+            suggest = "revision_history_limit"
+        elif key == "updateStrategy":
+            suggest = "update_strategy"
+        elif key == "volumeClaimTemplates":
+            suggest = "volume_claim_templates"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  service_name: str,
                  template: '_core.v1.outputs.PodTemplateSpec',
@@ -940,15 +1105,41 @@ class StatefulSetSpec(dict):
         """
         return pulumi.get(self, "volume_claim_templates")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StatefulSetStatus(dict):
     """
     StatefulSetStatus represents the current state of a StatefulSet.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "collisionCount":
+            suggest = "collision_count"
+        elif key == "currentReplicas":
+            suggest = "current_replicas"
+        elif key == "currentRevision":
+            suggest = "current_revision"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+        elif key == "updateRevision":
+            suggest = "update_revision"
+        elif key == "updatedReplicas":
+            suggest = "updated_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  replicas: int,
                  collision_count: Optional[int] = None,
@@ -1061,15 +1252,29 @@ class StatefulSetStatus(dict):
         """
         return pulumi.get(self, "updated_replicas")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StatefulSetUpdateStrategy(dict):
     """
     StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdate":
+            suggest = "rolling_update"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetUpdateStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetUpdateStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetUpdateStrategy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  rolling_update: Optional['outputs.RollingUpdateStatefulSetStrategy'] = None,
                  type: Optional[str] = None):
@@ -1098,8 +1303,5 @@ class StatefulSetUpdateStrategy(dict):
         Type indicates the type of the StatefulSetUpdateStrategy.
         """
         return pulumi.get(self, "type")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

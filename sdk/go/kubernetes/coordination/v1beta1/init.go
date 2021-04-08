@@ -22,13 +22,14 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:coordination.k8s.io/v1beta1:Lease":
-		r, err = NewLease(ctx, name, nil, pulumi.URN_(urn))
+		r = &Lease{}
 	case "kubernetes:coordination.k8s.io/v1beta1:LeaseList":
-		r, err = NewLeaseList(ctx, name, nil, pulumi.URN_(urn))
+		r = &LeaseList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 
