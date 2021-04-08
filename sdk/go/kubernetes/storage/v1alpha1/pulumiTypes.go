@@ -12,6 +12,290 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
+// CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
+//
+// For example this can express things like: - StorageClass "standard" has "1234 GiB" available in "topology.kubernetes.io/zone=us-east1" - StorageClass "localssd" has "10 GiB" available in "kubernetes.io/hostname=knode-abc123"
+//
+// The following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero
+//
+// The producer of these objects can decide which approach is more suitable.
+//
+// They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
+type CSIStorageCapacityType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+	//
+	// The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable and treated like zero capacity.
+	Capacity *string `pulumi:"capacity"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+	//
+	// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
+	MaximumVolumeSize *string `pulumi:"maximumVolumeSize"`
+	// Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+	//
+	// Objects are namespaced.
+	//
+	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
+	NodeTopology *metav1.LabelSelector `pulumi:"nodeTopology"`
+	// The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
+	StorageClassName string `pulumi:"storageClassName"`
+}
+
+// CSIStorageCapacityTypeInput is an input type that accepts CSIStorageCapacityTypeArgs and CSIStorageCapacityTypeOutput values.
+// You can construct a concrete instance of `CSIStorageCapacityTypeInput` via:
+//
+//          CSIStorageCapacityTypeArgs{...}
+type CSIStorageCapacityTypeInput interface {
+	pulumi.Input
+
+	ToCSIStorageCapacityTypeOutput() CSIStorageCapacityTypeOutput
+	ToCSIStorageCapacityTypeOutputWithContext(context.Context) CSIStorageCapacityTypeOutput
+}
+
+// CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
+//
+// For example this can express things like: - StorageClass "standard" has "1234 GiB" available in "topology.kubernetes.io/zone=us-east1" - StorageClass "localssd" has "10 GiB" available in "kubernetes.io/hostname=knode-abc123"
+//
+// The following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero
+//
+// The producer of these objects can decide which approach is more suitable.
+//
+// They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
+type CSIStorageCapacityTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+	//
+	// The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable and treated like zero capacity.
+	Capacity pulumi.StringPtrInput `pulumi:"capacity"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+	//
+	// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
+	MaximumVolumeSize pulumi.StringPtrInput `pulumi:"maximumVolumeSize"`
+	// Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+	//
+	// Objects are namespaced.
+	//
+	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
+	NodeTopology metav1.LabelSelectorPtrInput `pulumi:"nodeTopology"`
+	// The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
+	StorageClassName pulumi.StringInput `pulumi:"storageClassName"`
+}
+
+func (CSIStorageCapacityTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIStorageCapacityType)(nil)).Elem()
+}
+
+func (i CSIStorageCapacityTypeArgs) ToCSIStorageCapacityTypeOutput() CSIStorageCapacityTypeOutput {
+	return i.ToCSIStorageCapacityTypeOutputWithContext(context.Background())
+}
+
+func (i CSIStorageCapacityTypeArgs) ToCSIStorageCapacityTypeOutputWithContext(ctx context.Context) CSIStorageCapacityTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityTypeOutput)
+}
+
+// CSIStorageCapacityTypeArrayInput is an input type that accepts CSIStorageCapacityTypeArray and CSIStorageCapacityTypeArrayOutput values.
+// You can construct a concrete instance of `CSIStorageCapacityTypeArrayInput` via:
+//
+//          CSIStorageCapacityTypeArray{ CSIStorageCapacityTypeArgs{...} }
+type CSIStorageCapacityTypeArrayInput interface {
+	pulumi.Input
+
+	ToCSIStorageCapacityTypeArrayOutput() CSIStorageCapacityTypeArrayOutput
+	ToCSIStorageCapacityTypeArrayOutputWithContext(context.Context) CSIStorageCapacityTypeArrayOutput
+}
+
+type CSIStorageCapacityTypeArray []CSIStorageCapacityTypeInput
+
+func (CSIStorageCapacityTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSIStorageCapacityType)(nil)).Elem()
+}
+
+func (i CSIStorageCapacityTypeArray) ToCSIStorageCapacityTypeArrayOutput() CSIStorageCapacityTypeArrayOutput {
+	return i.ToCSIStorageCapacityTypeArrayOutputWithContext(context.Background())
+}
+
+func (i CSIStorageCapacityTypeArray) ToCSIStorageCapacityTypeArrayOutputWithContext(ctx context.Context) CSIStorageCapacityTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityTypeArrayOutput)
+}
+
+// CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
+//
+// For example this can express things like: - StorageClass "standard" has "1234 GiB" available in "topology.kubernetes.io/zone=us-east1" - StorageClass "localssd" has "10 GiB" available in "kubernetes.io/hostname=knode-abc123"
+//
+// The following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero
+//
+// The producer of these objects can decide which approach is more suitable.
+//
+// They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
+type CSIStorageCapacityTypeOutput struct{ *pulumi.OutputState }
+
+func (CSIStorageCapacityTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIStorageCapacityType)(nil)).Elem()
+}
+
+func (o CSIStorageCapacityTypeOutput) ToCSIStorageCapacityTypeOutput() CSIStorageCapacityTypeOutput {
+	return o
+}
+
+func (o CSIStorageCapacityTypeOutput) ToCSIStorageCapacityTypeOutputWithContext(ctx context.Context) CSIStorageCapacityTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CSIStorageCapacityTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+//
+// The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable and treated like zero capacity.
+func (o CSIStorageCapacityTypeOutput) Capacity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityType) *string { return v.Capacity }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CSIStorageCapacityTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+//
+// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
+func (o CSIStorageCapacityTypeOutput) MaximumVolumeSize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityType) *string { return v.MaximumVolumeSize }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+//
+// Objects are namespaced.
+//
+// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o CSIStorageCapacityTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
+func (o CSIStorageCapacityTypeOutput) NodeTopology() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityType) *metav1.LabelSelector { return v.NodeTopology }).(metav1.LabelSelectorPtrOutput)
+}
+
+// The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
+func (o CSIStorageCapacityTypeOutput) StorageClassName() pulumi.StringOutput {
+	return o.ApplyT(func(v CSIStorageCapacityType) string { return v.StorageClassName }).(pulumi.StringOutput)
+}
+
+type CSIStorageCapacityTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (CSIStorageCapacityTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CSIStorageCapacityType)(nil)).Elem()
+}
+
+func (o CSIStorageCapacityTypeArrayOutput) ToCSIStorageCapacityTypeArrayOutput() CSIStorageCapacityTypeArrayOutput {
+	return o
+}
+
+func (o CSIStorageCapacityTypeArrayOutput) ToCSIStorageCapacityTypeArrayOutputWithContext(ctx context.Context) CSIStorageCapacityTypeArrayOutput {
+	return o
+}
+
+func (o CSIStorageCapacityTypeArrayOutput) Index(i pulumi.IntInput) CSIStorageCapacityTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CSIStorageCapacityType {
+		return vs[0].([]CSIStorageCapacityType)[vs[1].(int)]
+	}).(CSIStorageCapacityTypeOutput)
+}
+
+// CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+type CSIStorageCapacityListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of CSIStorageCapacity objects.
+	Items []CSIStorageCapacityType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// CSIStorageCapacityListTypeInput is an input type that accepts CSIStorageCapacityListTypeArgs and CSIStorageCapacityListTypeOutput values.
+// You can construct a concrete instance of `CSIStorageCapacityListTypeInput` via:
+//
+//          CSIStorageCapacityListTypeArgs{...}
+type CSIStorageCapacityListTypeInput interface {
+	pulumi.Input
+
+	ToCSIStorageCapacityListTypeOutput() CSIStorageCapacityListTypeOutput
+	ToCSIStorageCapacityListTypeOutputWithContext(context.Context) CSIStorageCapacityListTypeOutput
+}
+
+// CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+type CSIStorageCapacityListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of CSIStorageCapacity objects.
+	Items CSIStorageCapacityTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (CSIStorageCapacityListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIStorageCapacityListType)(nil)).Elem()
+}
+
+func (i CSIStorageCapacityListTypeArgs) ToCSIStorageCapacityListTypeOutput() CSIStorageCapacityListTypeOutput {
+	return i.ToCSIStorageCapacityListTypeOutputWithContext(context.Background())
+}
+
+func (i CSIStorageCapacityListTypeArgs) ToCSIStorageCapacityListTypeOutputWithContext(ctx context.Context) CSIStorageCapacityListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityListTypeOutput)
+}
+
+// CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+type CSIStorageCapacityListTypeOutput struct{ *pulumi.OutputState }
+
+func (CSIStorageCapacityListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIStorageCapacityListType)(nil)).Elem()
+}
+
+func (o CSIStorageCapacityListTypeOutput) ToCSIStorageCapacityListTypeOutput() CSIStorageCapacityListTypeOutput {
+	return o
+}
+
+func (o CSIStorageCapacityListTypeOutput) ToCSIStorageCapacityListTypeOutputWithContext(ctx context.Context) CSIStorageCapacityListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CSIStorageCapacityListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of CSIStorageCapacity objects.
+func (o CSIStorageCapacityListTypeOutput) Items() CSIStorageCapacityTypeArrayOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) []CSIStorageCapacityType { return v.Items }).(CSIStorageCapacityTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CSIStorageCapacityListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o CSIStorageCapacityListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
@@ -906,6 +1190,9 @@ func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterOutputType(CSIStorageCapacityTypeOutput{})
+	pulumi.RegisterOutputType(CSIStorageCapacityTypeArrayOutput{})
+	pulumi.RegisterOutputType(CSIStorageCapacityListTypeOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentTypeOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentTypeArrayOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentListTypeOutput{})

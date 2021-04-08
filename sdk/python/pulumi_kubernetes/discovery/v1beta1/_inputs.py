@@ -13,8 +13,10 @@ from ... import meta as _meta
 __all__ = [
     'EndpointArgs',
     'EndpointConditionsArgs',
+    'EndpointHintsArgs',
     'EndpointPortArgs',
     'EndpointSliceArgs',
+    'ForZoneArgs',
 ]
 
 @pulumi.input_type
@@ -22,6 +24,7 @@ class EndpointArgs:
     def __init__(__self__, *,
                  addresses: pulumi.Input[Sequence[pulumi.Input[str]]],
                  conditions: Optional[pulumi.Input['EndpointConditionsArgs']] = None,
+                 hints: Optional[pulumi.Input['EndpointHintsArgs']] = None,
                  hostname: Optional[pulumi.Input[str]] = None,
                  node_name: Optional[pulumi.Input[str]] = None,
                  target_ref: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
@@ -30,6 +33,7 @@ class EndpointArgs:
         Endpoint represents a single logical "backend" implementing a service.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
         :param pulumi.Input['EndpointConditionsArgs'] conditions: conditions contains information about the current status of the endpoint.
+        :param pulumi.Input['EndpointHintsArgs'] hints: hints contains information associated with how an endpoint should be consumed.
         :param pulumi.Input[str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
         :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
         :param pulumi.Input['_core.v1.ObjectReferenceArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
@@ -45,6 +49,8 @@ class EndpointArgs:
         pulumi.set(__self__, "addresses", addresses)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
+        if hints is not None:
+            pulumi.set(__self__, "hints", hints)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if node_name is not None:
@@ -77,6 +83,18 @@ class EndpointArgs:
     @conditions.setter
     def conditions(self, value: Optional[pulumi.Input['EndpointConditionsArgs']]):
         pulumi.set(self, "conditions", value)
+
+    @property
+    @pulumi.getter
+    def hints(self) -> Optional[pulumi.Input['EndpointHintsArgs']]:
+        """
+        hints contains information associated with how an endpoint should be consumed.
+        """
+        return pulumi.get(self, "hints")
+
+    @hints.setter
+    def hints(self, value: Optional[pulumi.Input['EndpointHintsArgs']]):
+        pulumi.set(self, "hints", value)
 
     @property
     @pulumi.getter
@@ -188,6 +206,30 @@ class EndpointConditionsArgs:
     @terminating.setter
     def terminating(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "terminating", value)
+
+
+@pulumi.input_type
+class EndpointHintsArgs:
+    def __init__(__self__, *,
+                 for_zones: Optional[pulumi.Input[Sequence[pulumi.Input['ForZoneArgs']]]] = None):
+        """
+        EndpointHints provides hints describing how an endpoint should be consumed.
+        :param pulumi.Input[Sequence[pulumi.Input['ForZoneArgs']]] for_zones: forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+        """
+        if for_zones is not None:
+            pulumi.set(__self__, "for_zones", for_zones)
+
+    @property
+    @pulumi.getter(name="forZones")
+    def for_zones(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ForZoneArgs']]]]:
+        """
+        forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+        """
+        return pulumi.get(self, "for_zones")
+
+    @for_zones.setter
+    def for_zones(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ForZoneArgs']]]]):
+        pulumi.set(self, "for_zones", value)
 
 
 @pulumi.input_type
@@ -362,5 +404,28 @@ class EndpointSliceArgs:
     @ports.setter
     def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]]]):
         pulumi.set(self, "ports", value)
+
+
+@pulumi.input_type
+class ForZoneArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str]):
+        """
+        ForZone provides information about which zones should consume this endpoint.
+        :param pulumi.Input[str] name: name represents the name of the zone.
+        """
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        name represents the name of the zone.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
 
 

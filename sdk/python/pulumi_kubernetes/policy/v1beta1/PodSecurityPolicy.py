@@ -27,7 +27,7 @@ class PodSecurityPolicy(pulumi.CustomResource):
                  __name__=None,
                  __opts__=None):
         """
-        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.

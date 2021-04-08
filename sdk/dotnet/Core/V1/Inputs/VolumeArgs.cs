@@ -70,7 +70,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.EmptyDirVolumeSourceArgs>? EmptyDir { get; set; }
 
         /// <summary>
-        /// Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+        /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
         /// 
         /// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
         ///    tracking are needed,
@@ -84,6 +84,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
         /// 
         /// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+        /// 
+        /// This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
         /// </summary>
         [Input("ephemeral")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.EphemeralVolumeSourceArgs>? Ephemeral { get; set; }

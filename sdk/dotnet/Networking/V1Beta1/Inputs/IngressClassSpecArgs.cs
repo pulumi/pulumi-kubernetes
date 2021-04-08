@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
         /// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         /// </summary>
         [Input("parameters")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.TypedLocalObjectReferenceArgs>? Parameters { get; set; }
+        public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1.IngressClassParametersReferenceArgs>? Parameters { get; set; }
 
         public IngressClassSpecArgs()
         {

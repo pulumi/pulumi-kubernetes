@@ -48,7 +48,7 @@ export class ConfigMap extends pulumi.CustomResource {
      */
     public readonly data!: pulumi.Output<{[key: string]: string}>;
     /**
-     * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
+     * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
      */
     public readonly immutable!: pulumi.Output<boolean>;
     /**
@@ -109,7 +109,7 @@ export interface ConfigMapArgs {
      */
     readonly data?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.
+     * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
      */
     readonly immutable?: pulumi.Input<boolean>;
     /**

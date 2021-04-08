@@ -21,6 +21,10 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity":
+		r, err = NewCSIStorageCapacity(ctx, name, nil, pulumi.URN_(urn))
+	case "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityList":
+		r, err = NewCSIStorageCapacityList(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment":
 		r, err = NewVolumeAttachment(ctx, name, nil, pulumi.URN_(urn))
 	case "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList":

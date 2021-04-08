@@ -196,16 +196,20 @@ class CronJobStatus(dict):
     """
     def __init__(__self__, *,
                  active: Optional[Sequence['_core.v1.outputs.ObjectReference']] = None,
-                 last_schedule_time: Optional[str] = None):
+                 last_schedule_time: Optional[str] = None,
+                 last_successful_time: Optional[str] = None):
         """
         CronJobStatus represents the current state of a cron job.
         :param Sequence['_core.v1.ObjectReferenceArgs'] active: A list of pointers to currently running jobs.
         :param str last_schedule_time: Information when was the last time the job was successfully scheduled.
+        :param str last_successful_time: Information when was the last time the job successfully completed.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
         if last_schedule_time is not None:
             pulumi.set(__self__, "last_schedule_time", last_schedule_time)
+        if last_successful_time is not None:
+            pulumi.set(__self__, "last_successful_time", last_successful_time)
 
     @property
     @pulumi.getter
@@ -222,6 +226,14 @@ class CronJobStatus(dict):
         Information when was the last time the job was successfully scheduled.
         """
         return pulumi.get(self, "last_schedule_time")
+
+    @property
+    @pulumi.getter(name="lastSuccessfulTime")
+    def last_successful_time(self) -> Optional[str]:
+        """
+        Information when was the last time the job successfully completed.
+        """
+        return pulumi.get(self, "last_successful_time")
 
     def _translate_property(self, prop):
         return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop

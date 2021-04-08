@@ -5,10 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
+export * from "./cronJob";
+export * from "./cronJobList";
 export * from "./job";
 export * from "./jobList";
 
 // Import resources to register:
+import { CronJob } from "./cronJob";
+import { CronJobList } from "./cronJobList";
 import { Job } from "./job";
 import { JobList } from "./jobList";
 
@@ -16,6 +20,10 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "kubernetes:batch/v1:CronJob":
+                return new CronJob(name, <any>undefined, { urn })
+            case "kubernetes:batch/v1:CronJobList":
+                return new CronJobList(name, <any>undefined, { urn })
             case "kubernetes:batch/v1:Job":
                 return new Job(name, <any>undefined, { urn })
             case "kubernetes:batch/v1:JobList":

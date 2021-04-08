@@ -23,7 +23,6 @@ class Event(dict):
     """
     def __init__(__self__, *,
                  event_time: str,
-                 metadata: '_meta.v1.outputs.ObjectMeta',
                  action: Optional[str] = None,
                  api_version: Optional[str] = None,
                  deprecated_count: Optional[int] = None,
@@ -31,6 +30,7 @@ class Event(dict):
                  deprecated_last_timestamp: Optional[str] = None,
                  deprecated_source: Optional['_core.v1.outputs.EventSource'] = None,
                  kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
                  note: Optional[str] = None,
                  reason: Optional[str] = None,
                  regarding: Optional['_core.v1.outputs.ObjectReference'] = None,
@@ -49,6 +49,7 @@ class Event(dict):
         :param str deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param '_core.v1.EventSourceArgs' deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param str note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         :param str reason: reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
         :param '_core.v1.ObjectReferenceArgs' regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
@@ -59,7 +60,6 @@ class Event(dict):
         :param str type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
         """
         pulumi.set(__self__, "event_time", event_time)
-        pulumi.set(__self__, "metadata", metadata)
         if action is not None:
             pulumi.set(__self__, "action", action)
         if api_version is not None:
@@ -74,6 +74,8 @@ class Event(dict):
             pulumi.set(__self__, "deprecated_source", deprecated_source)
         if kind is not None:
             pulumi.set(__self__, "kind", 'Event')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
         if note is not None:
             pulumi.set(__self__, "note", note)
         if reason is not None:
@@ -98,11 +100,6 @@ class Event(dict):
         eventTime is the time when this Event was first observed. It is required.
         """
         return pulumi.get(self, "event_time")
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> '_meta.v1.outputs.ObjectMeta':
-        return pulumi.get(self, "metadata")
 
     @property
     @pulumi.getter
@@ -159,6 +156,14 @@ class Event(dict):
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
 
     @property
     @pulumi.getter

@@ -94,6 +94,8 @@ export class EndpointSlice extends pulumi.CustomResource {
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
+        const aliasOpts = { aliases: [{ type: "kubernetes:discovery.k8s.io/v1:EndpointSlice" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(EndpointSlice.__pulumiType, name, inputs, opts);
     }
 }

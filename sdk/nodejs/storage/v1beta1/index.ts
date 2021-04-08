@@ -9,6 +9,8 @@ export * from "./csidriver";
 export * from "./csidriverList";
 export * from "./csinode";
 export * from "./csinodeList";
+export * from "./csistorageCapacity";
+export * from "./csistorageCapacityList";
 export * from "./storageClass";
 export * from "./storageClassList";
 export * from "./volumeAttachment";
@@ -19,6 +21,8 @@ import { CSIDriver } from "./csidriver";
 import { CSIDriverList } from "./csidriverList";
 import { CSINode } from "./csinode";
 import { CSINodeList } from "./csinodeList";
+import { CSIStorageCapacity } from "./csistorageCapacity";
+import { CSIStorageCapacityList } from "./csistorageCapacityList";
 import { StorageClass } from "./storageClass";
 import { StorageClassList } from "./storageClassList";
 import { VolumeAttachment } from "./volumeAttachment";
@@ -36,6 +40,10 @@ const _module = {
                 return new CSINode(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:CSINodeList":
                 return new CSINodeList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity":
+                return new CSIStorageCapacity(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList":
+                return new CSIStorageCapacityList(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:StorageClass":
                 return new StorageClass(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:StorageClassList":

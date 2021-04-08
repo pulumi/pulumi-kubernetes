@@ -77,6 +77,10 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new Pulumi.Alias { Type = "kubernetes:policy/v1:PodDisruptionBudget"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

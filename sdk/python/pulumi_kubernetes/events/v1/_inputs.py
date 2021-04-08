@@ -19,7 +19,6 @@ __all__ = [
 class EventArgs:
     def __init__(__self__, *,
                  event_time: pulumi.Input[str],
-                 metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
                  action: Optional[pulumi.Input[str]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  deprecated_count: Optional[pulumi.Input[int]] = None,
@@ -27,6 +26,7 @@ class EventArgs:
                  deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_source: Optional[pulumi.Input['_core.v1.EventSourceArgs']] = None,
                  kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
                  note: Optional[pulumi.Input[str]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
                  regarding: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
@@ -45,6 +45,7 @@ class EventArgs:
         :param pulumi.Input[str] deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input['_core.v1.EventSourceArgs'] deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         :param pulumi.Input[str] reason: reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         :param pulumi.Input['_core.v1.ObjectReferenceArgs'] regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
@@ -55,7 +56,6 @@ class EventArgs:
         :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         """
         pulumi.set(__self__, "event_time", event_time)
-        pulumi.set(__self__, "metadata", metadata)
         if action is not None:
             pulumi.set(__self__, "action", action)
         if api_version is not None:
@@ -70,6 +70,8 @@ class EventArgs:
             pulumi.set(__self__, "deprecated_source", deprecated_source)
         if kind is not None:
             pulumi.set(__self__, "kind", 'Event')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
         if note is not None:
             pulumi.set(__self__, "note", note)
         if reason is not None:
@@ -98,15 +100,6 @@ class EventArgs:
     @event_time.setter
     def event_time(self, value: pulumi.Input[str]):
         pulumi.set(self, "event_time", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaArgs']:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaArgs']):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter
@@ -191,6 +184,18 @@ class EventArgs:
     @kind.setter
     def kind(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter

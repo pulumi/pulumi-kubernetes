@@ -3,6 +3,8 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
+from .CSIStorageCapacity import *
+from .CSIStorageCapacityList import *
 from .VolumeAttachment import *
 from .VolumeAttachmentList import *
 from ._inputs import *
@@ -20,7 +22,11 @@ def _register_module():
             return Module._version
 
         def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
-            if typ == "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment":
+            if typ == "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity":
+                return CSIStorageCapacity(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityList":
+                return CSIStorageCapacityList(name, pulumi.ResourceOptions(urn=urn))
+            elif typ == "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment":
                 return VolumeAttachment(name, pulumi.ResourceOptions(urn=urn))
             elif typ == "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList":
                 return VolumeAttachmentList(name, pulumi.ResourceOptions(urn=urn))

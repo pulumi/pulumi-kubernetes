@@ -1,5 +1,8 @@
 ## HEAD (Unreleased)
 
+## 2.9.0 (April 8, 2021)
+
+- Add support for k8s v1.21.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1449)
 - [sdk/go] Fix plugin versioning for invoke calls (https://github.com/pulumi/pulumi-kubernetes/pull/1520)
 
 ## 2.8.4 (March 29, 2021)

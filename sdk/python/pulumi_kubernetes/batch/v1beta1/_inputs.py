@@ -228,16 +228,20 @@ class CronJobSpecArgs:
 class CronJobStatusArgs:
     def __init__(__self__, *,
                  active: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]] = None,
-                 last_schedule_time: Optional[pulumi.Input[str]] = None):
+                 last_schedule_time: Optional[pulumi.Input[str]] = None,
+                 last_successful_time: Optional[pulumi.Input[str]] = None):
         """
         CronJobStatus represents the current state of a cron job.
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]] active: A list of pointers to currently running jobs.
         :param pulumi.Input[str] last_schedule_time: Information when was the last time the job was successfully scheduled.
+        :param pulumi.Input[str] last_successful_time: Information when was the last time the job successfully completed.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
         if last_schedule_time is not None:
             pulumi.set(__self__, "last_schedule_time", last_schedule_time)
+        if last_successful_time is not None:
+            pulumi.set(__self__, "last_successful_time", last_successful_time)
 
     @property
     @pulumi.getter
@@ -262,6 +266,18 @@ class CronJobStatusArgs:
     @last_schedule_time.setter
     def last_schedule_time(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "last_schedule_time", value)
+
+    @property
+    @pulumi.getter(name="lastSuccessfulTime")
+    def last_successful_time(self) -> Optional[pulumi.Input[str]]:
+        """
+        Information when was the last time the job successfully completed.
+        """
+        return pulumi.get(self, "last_successful_time")
+
+    @last_successful_time.setter
+    def last_successful_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "last_successful_time", value)
 
 
 @pulumi.input_type

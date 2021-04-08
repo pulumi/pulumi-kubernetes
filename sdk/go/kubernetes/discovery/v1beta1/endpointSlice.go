@@ -45,6 +45,12 @@ func NewEndpointSlice(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("discovery.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("EndpointSlice")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:discovery.k8s.io/v1:EndpointSlice"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource EndpointSlice
 	err := ctx.RegisterResource("kubernetes:discovery.k8s.io/v1beta1:EndpointSlice", name, args, &resource, opts...)
 	if err != nil {

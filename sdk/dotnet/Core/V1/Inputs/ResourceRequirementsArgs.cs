@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputMap<string>? _limits;
 
         /// <summary>
-        /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+        /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         /// </summary>
         public InputMap<string> Limits
         {
@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputMap<string>? _requests;
 
         /// <summary>
-        /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+        /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         /// </summary>
         public InputMap<string> Requests
         {

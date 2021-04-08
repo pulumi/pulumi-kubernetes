@@ -18,6 +18,8 @@ type Endpoint struct {
 	Addresses []string `pulumi:"addresses"`
 	// conditions contains information about the current status of the endpoint.
 	Conditions *EndpointConditions `pulumi:"conditions"`
+	// hints contains information associated with how an endpoint should be consumed.
+	Hints *EndpointHints `pulumi:"hints"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname *string `pulumi:"hostname"`
 	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
@@ -52,6 +54,8 @@ type EndpointArgs struct {
 	Addresses pulumi.StringArrayInput `pulumi:"addresses"`
 	// conditions contains information about the current status of the endpoint.
 	Conditions EndpointConditionsPtrInput `pulumi:"conditions"`
+	// hints contains information associated with how an endpoint should be consumed.
+	Hints EndpointHintsPtrInput `pulumi:"hints"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
@@ -129,6 +133,11 @@ func (o EndpointOutput) Addresses() pulumi.StringArrayOutput {
 // conditions contains information about the current status of the endpoint.
 func (o EndpointOutput) Conditions() EndpointConditionsPtrOutput {
 	return o.ApplyT(func(v Endpoint) *EndpointConditions { return v.Conditions }).(EndpointConditionsPtrOutput)
+}
+
+// hints contains information associated with how an endpoint should be consumed.
+func (o EndpointOutput) Hints() EndpointHintsPtrOutput {
+	return o.ApplyT(func(v Endpoint) *EndpointHints { return v.Hints }).(EndpointHintsPtrOutput)
 }
 
 // hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
@@ -348,6 +357,140 @@ func (o EndpointConditionsPtrOutput) Terminating() pulumi.BoolPtrOutput {
 		}
 		return v.Terminating
 	}).(pulumi.BoolPtrOutput)
+}
+
+// EndpointHints provides hints describing how an endpoint should be consumed.
+type EndpointHints struct {
+	// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+	ForZones []ForZone `pulumi:"forZones"`
+}
+
+// EndpointHintsInput is an input type that accepts EndpointHintsArgs and EndpointHintsOutput values.
+// You can construct a concrete instance of `EndpointHintsInput` via:
+//
+//          EndpointHintsArgs{...}
+type EndpointHintsInput interface {
+	pulumi.Input
+
+	ToEndpointHintsOutput() EndpointHintsOutput
+	ToEndpointHintsOutputWithContext(context.Context) EndpointHintsOutput
+}
+
+// EndpointHints provides hints describing how an endpoint should be consumed.
+type EndpointHintsArgs struct {
+	// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+	ForZones ForZoneArrayInput `pulumi:"forZones"`
+}
+
+func (EndpointHintsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointHints)(nil)).Elem()
+}
+
+func (i EndpointHintsArgs) ToEndpointHintsOutput() EndpointHintsOutput {
+	return i.ToEndpointHintsOutputWithContext(context.Background())
+}
+
+func (i EndpointHintsArgs) ToEndpointHintsOutputWithContext(ctx context.Context) EndpointHintsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsOutput)
+}
+
+func (i EndpointHintsArgs) ToEndpointHintsPtrOutput() EndpointHintsPtrOutput {
+	return i.ToEndpointHintsPtrOutputWithContext(context.Background())
+}
+
+func (i EndpointHintsArgs) ToEndpointHintsPtrOutputWithContext(ctx context.Context) EndpointHintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsOutput).ToEndpointHintsPtrOutputWithContext(ctx)
+}
+
+// EndpointHintsPtrInput is an input type that accepts EndpointHintsArgs, EndpointHintsPtr and EndpointHintsPtrOutput values.
+// You can construct a concrete instance of `EndpointHintsPtrInput` via:
+//
+//          EndpointHintsArgs{...}
+//
+//  or:
+//
+//          nil
+type EndpointHintsPtrInput interface {
+	pulumi.Input
+
+	ToEndpointHintsPtrOutput() EndpointHintsPtrOutput
+	ToEndpointHintsPtrOutputWithContext(context.Context) EndpointHintsPtrOutput
+}
+
+type endpointHintsPtrType EndpointHintsArgs
+
+func EndpointHintsPtr(v *EndpointHintsArgs) EndpointHintsPtrInput {
+	return (*endpointHintsPtrType)(v)
+}
+
+func (*endpointHintsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointHints)(nil)).Elem()
+}
+
+func (i *endpointHintsPtrType) ToEndpointHintsPtrOutput() EndpointHintsPtrOutput {
+	return i.ToEndpointHintsPtrOutputWithContext(context.Background())
+}
+
+func (i *endpointHintsPtrType) ToEndpointHintsPtrOutputWithContext(ctx context.Context) EndpointHintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsPtrOutput)
+}
+
+// EndpointHints provides hints describing how an endpoint should be consumed.
+type EndpointHintsOutput struct{ *pulumi.OutputState }
+
+func (EndpointHintsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointHints)(nil)).Elem()
+}
+
+func (o EndpointHintsOutput) ToEndpointHintsOutput() EndpointHintsOutput {
+	return o
+}
+
+func (o EndpointHintsOutput) ToEndpointHintsOutputWithContext(ctx context.Context) EndpointHintsOutput {
+	return o
+}
+
+func (o EndpointHintsOutput) ToEndpointHintsPtrOutput() EndpointHintsPtrOutput {
+	return o.ToEndpointHintsPtrOutputWithContext(context.Background())
+}
+
+func (o EndpointHintsOutput) ToEndpointHintsPtrOutputWithContext(ctx context.Context) EndpointHintsPtrOutput {
+	return o.ApplyT(func(v EndpointHints) *EndpointHints {
+		return &v
+	}).(EndpointHintsPtrOutput)
+}
+
+// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+func (o EndpointHintsOutput) ForZones() ForZoneArrayOutput {
+	return o.ApplyT(func(v EndpointHints) []ForZone { return v.ForZones }).(ForZoneArrayOutput)
+}
+
+type EndpointHintsPtrOutput struct{ *pulumi.OutputState }
+
+func (EndpointHintsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointHints)(nil)).Elem()
+}
+
+func (o EndpointHintsPtrOutput) ToEndpointHintsPtrOutput() EndpointHintsPtrOutput {
+	return o
+}
+
+func (o EndpointHintsPtrOutput) ToEndpointHintsPtrOutputWithContext(ctx context.Context) EndpointHintsPtrOutput {
+	return o
+}
+
+func (o EndpointHintsPtrOutput) Elem() EndpointHintsOutput {
+	return o.ApplyT(func(v *EndpointHints) EndpointHints { return *v }).(EndpointHintsOutput)
+}
+
+// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+func (o EndpointHintsPtrOutput) ForZones() ForZoneArrayOutput {
+	return o.ApplyT(func(v *EndpointHints) []ForZone {
+		if v == nil {
+			return nil
+		}
+		return v.ForZones
+	}).(ForZoneArrayOutput)
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
@@ -704,14 +847,118 @@ func (o EndpointSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v EndpointSliceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// ForZone provides information about which zones should consume this endpoint.
+type ForZone struct {
+	// name represents the name of the zone.
+	Name string `pulumi:"name"`
+}
+
+// ForZoneInput is an input type that accepts ForZoneArgs and ForZoneOutput values.
+// You can construct a concrete instance of `ForZoneInput` via:
+//
+//          ForZoneArgs{...}
+type ForZoneInput interface {
+	pulumi.Input
+
+	ToForZoneOutput() ForZoneOutput
+	ToForZoneOutputWithContext(context.Context) ForZoneOutput
+}
+
+// ForZone provides information about which zones should consume this endpoint.
+type ForZoneArgs struct {
+	// name represents the name of the zone.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (ForZoneArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ForZone)(nil)).Elem()
+}
+
+func (i ForZoneArgs) ToForZoneOutput() ForZoneOutput {
+	return i.ToForZoneOutputWithContext(context.Background())
+}
+
+func (i ForZoneArgs) ToForZoneOutputWithContext(ctx context.Context) ForZoneOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ForZoneOutput)
+}
+
+// ForZoneArrayInput is an input type that accepts ForZoneArray and ForZoneArrayOutput values.
+// You can construct a concrete instance of `ForZoneArrayInput` via:
+//
+//          ForZoneArray{ ForZoneArgs{...} }
+type ForZoneArrayInput interface {
+	pulumi.Input
+
+	ToForZoneArrayOutput() ForZoneArrayOutput
+	ToForZoneArrayOutputWithContext(context.Context) ForZoneArrayOutput
+}
+
+type ForZoneArray []ForZoneInput
+
+func (ForZoneArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ForZone)(nil)).Elem()
+}
+
+func (i ForZoneArray) ToForZoneArrayOutput() ForZoneArrayOutput {
+	return i.ToForZoneArrayOutputWithContext(context.Background())
+}
+
+func (i ForZoneArray) ToForZoneArrayOutputWithContext(ctx context.Context) ForZoneArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ForZoneArrayOutput)
+}
+
+// ForZone provides information about which zones should consume this endpoint.
+type ForZoneOutput struct{ *pulumi.OutputState }
+
+func (ForZoneOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ForZone)(nil)).Elem()
+}
+
+func (o ForZoneOutput) ToForZoneOutput() ForZoneOutput {
+	return o
+}
+
+func (o ForZoneOutput) ToForZoneOutputWithContext(ctx context.Context) ForZoneOutput {
+	return o
+}
+
+// name represents the name of the zone.
+func (o ForZoneOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ForZone) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type ForZoneArrayOutput struct{ *pulumi.OutputState }
+
+func (ForZoneArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ForZone)(nil)).Elem()
+}
+
+func (o ForZoneArrayOutput) ToForZoneArrayOutput() ForZoneArrayOutput {
+	return o
+}
+
+func (o ForZoneArrayOutput) ToForZoneArrayOutputWithContext(ctx context.Context) ForZoneArrayOutput {
+	return o
+}
+
+func (o ForZoneArrayOutput) Index(i pulumi.IntInput) ForZoneOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ForZone {
+		return vs[0].([]ForZone)[vs[1].(int)]
+	}).(ForZoneOutput)
+}
+
 func init() {
 	pulumi.RegisterOutputType(EndpointOutput{})
 	pulumi.RegisterOutputType(EndpointArrayOutput{})
 	pulumi.RegisterOutputType(EndpointConditionsOutput{})
 	pulumi.RegisterOutputType(EndpointConditionsPtrOutput{})
+	pulumi.RegisterOutputType(EndpointHintsOutput{})
+	pulumi.RegisterOutputType(EndpointHintsPtrOutput{})
 	pulumi.RegisterOutputType(EndpointPortOutput{})
 	pulumi.RegisterOutputType(EndpointPortArrayOutput{})
 	pulumi.RegisterOutputType(EndpointSliceTypeOutput{})
 	pulumi.RegisterOutputType(EndpointSliceTypeArrayOutput{})
 	pulumi.RegisterOutputType(EndpointSliceListTypeOutput{})
+	pulumi.RegisterOutputType(ForZoneOutput{})
+	pulumi.RegisterOutputType(ForZoneArrayOutput{})
 }

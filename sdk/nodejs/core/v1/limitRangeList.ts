@@ -40,7 +40,7 @@ export class LimitRangeList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"v1">;
     /**
-     * Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+     * Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
      */
     public readonly items!: pulumi.Output<outputs.core.v1.LimitRange[]>;
     /**
@@ -92,7 +92,7 @@ export interface LimitRangeListArgs {
      */
     readonly apiVersion?: pulumi.Input<"v1">;
     /**
-     * Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+     * Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
      */
     readonly items: pulumi.Input<pulumi.Input<inputs.core.v1.LimitRange>[]>;
     /**

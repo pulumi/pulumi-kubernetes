@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     public class VolumeAttachmentSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
+        /// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
         /// </summary>
         [Input("inlineVolumeSpec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeSpecArgs>? InlineVolumeSpec { get; set; }
