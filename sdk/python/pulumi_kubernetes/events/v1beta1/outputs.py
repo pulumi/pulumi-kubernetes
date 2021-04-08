@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -21,6 +25,37 @@ class Event(dict):
     """
     Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "eventTime":
+            suggest = "event_time"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "deprecatedCount":
+            suggest = "deprecated_count"
+        elif key == "deprecatedFirstTimestamp":
+            suggest = "deprecated_first_timestamp"
+        elif key == "deprecatedLastTimestamp":
+            suggest = "deprecated_last_timestamp"
+        elif key == "deprecatedSource":
+            suggest = "deprecated_source"
+        elif key == "reportingController":
+            suggest = "reporting_controller"
+        elif key == "reportingInstance":
+            suggest = "reporting_instance"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Event. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Event.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Event.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  event_time: str,
                  action: Optional[str] = None,
@@ -229,15 +264,29 @@ class Event(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EventSeries(dict):
     """
     EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastObservedTime":
+            suggest = "last_observed_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EventSeries. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EventSeries.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EventSeries.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  count: int,
                  last_observed_time: str,
@@ -276,8 +325,5 @@ class EventSeries(dict):
         Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
         return pulumi.get(self, "state")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

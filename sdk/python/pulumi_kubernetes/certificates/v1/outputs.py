@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 
@@ -28,6 +32,23 @@ class CertificateSigningRequest(dict):
 
     This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CertificateSigningRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CertificateSigningRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CertificateSigningRequest.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec: 'outputs.CertificateSigningRequestSpec',
                  api_version: Optional[str] = None,
@@ -94,15 +115,31 @@ class CertificateSigningRequest(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CertificateSigningRequestCondition(dict):
     """
     CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+        elif key == "lastUpdateTime":
+            suggest = "last_update_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CertificateSigningRequestCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CertificateSigningRequestCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CertificateSigningRequestCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -198,15 +235,29 @@ class CertificateSigningRequestCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CertificateSigningRequestSpec(dict):
     """
     CertificateSigningRequestSpec contains the certificate request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "signerName":
+            suggest = "signer_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CertificateSigningRequestSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CertificateSigningRequestSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CertificateSigningRequestSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  request: str,
                  signer_name: str,
@@ -360,9 +411,6 @@ class CertificateSigningRequestSpec(dict):
         """
         return pulumi.get(self, "username")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CertificateSigningRequestStatus(dict):
@@ -439,8 +487,5 @@ class CertificateSigningRequestStatus(dict):
         conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """
         return pulumi.get(self, "conditions")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

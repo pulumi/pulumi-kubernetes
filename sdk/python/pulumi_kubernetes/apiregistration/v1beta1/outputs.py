@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 
@@ -23,6 +27,23 @@ class APIService(dict):
     """
     APIService represents a server for a particular GroupVersion. Name must be "version.group".
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in APIService. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        APIService.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        APIService.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -84,15 +105,29 @@ class APIService(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class APIServiceCondition(dict):
     """
     APIServiceCondition describes the state of an APIService at a particular point
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in APIServiceCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        APIServiceCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        APIServiceCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -156,15 +191,35 @@ class APIServiceCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class APIServiceSpec(dict):
     """
     APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "groupPriorityMinimum":
+            suggest = "group_priority_minimum"
+        elif key == "versionPriority":
+            suggest = "version_priority"
+        elif key == "caBundle":
+            suggest = "ca_bundle"
+        elif key == "insecureSkipTLSVerify":
+            suggest = "insecure_skip_tls_verify"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in APIServiceSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        APIServiceSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        APIServiceSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  group_priority_minimum: int,
                  version_priority: int,
@@ -252,9 +307,6 @@ class APIServiceSpec(dict):
         """
         return pulumi.get(self, "version")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class APIServiceStatus(dict):
@@ -277,9 +329,6 @@ class APIServiceStatus(dict):
         Current service state of apiService.
         """
         return pulumi.get(self, "conditions")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -327,8 +376,5 @@ class ServiceReference(dict):
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         return pulumi.get(self, "port")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

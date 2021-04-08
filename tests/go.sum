@@ -1219,11 +1219,15 @@ github.com/pulumi/pulumi/pkg/v3 v3.0.0-20210324220902-b543e235f01d h1:1avqGOvRbU
 github.com/pulumi/pulumi/pkg/v3 v3.0.0-20210324220902-b543e235f01d/go.mod h1:eMwJviOF/gL0fubZg6bW5CgleNqjNg90UE/Ww0MPtqg=
 github.com/pulumi/pulumi/pkg/v3 v3.0.0-beta.1 h1:Bx8Mvc+SeiCICxMKyieLtaY2kJ3SfMGQmjOWQIjYrXw=
 github.com/pulumi/pulumi/pkg/v3 v3.0.0-beta.1/go.mod h1:83nQREgS2+vyTBcLchSfStt1IhgZbTm5rIJ42tLEjxg=
+github.com/pulumi/pulumi/pkg/v3 v3.0.0-beta.2 h1:9ZrTeR2CKNmyYjx4GprltxHGMRguno4shKRWedWBRvo=
+github.com/pulumi/pulumi/pkg/v3 v3.0.0-beta.2/go.mod h1:JCl+sZFEEeDQF1CLAYkxmQv7jxGsNVR7Sn2+gXTu/ag=
 github.com/pulumi/pulumi/sdk/v3 v3.0.0-20210317132005-b866c3cc620e/go.mod h1:GBHyQ7awNQSRmiKp/p8kIKrGrMOZeA/k2czoM/GOqds=
 github.com/pulumi/pulumi/sdk/v3 v3.0.0-20210324220902-b543e235f01d h1:0ftlLO6CtdlI9nh4CEKEVh8t5fzT1SOVPw+c2n+YGfU=
 github.com/pulumi/pulumi/sdk/v3 v3.0.0-20210324220902-b543e235f01d/go.mod h1:GBHyQ7awNQSRmiKp/p8kIKrGrMOZeA/k2czoM/GOqds=
 github.com/pulumi/pulumi/sdk/v3 v3.0.0-beta.1 h1:pJSaN1edck4ICJiSpeC7qdqPWNxQQ+/52aSCtFPWmT4=
 github.com/pulumi/pulumi/sdk/v3 v3.0.0-beta.1/go.mod h1:of2on912OvQZLA33FfNUcTEgRrTId7jvk9yFuvtaV88=
+github.com/pulumi/pulumi/sdk/v3 v3.0.0-beta.2 h1:uw3nUFEtygkBTSVjL+kvE12pS8imafKcALPewEFVv1c=
+github.com/pulumi/pulumi/sdk/v3 v3.0.0-beta.2/go.mod h1:GBHyQ7awNQSRmiKp/p8kIKrGrMOZeA/k2czoM/GOqds=
 github.com/qri-io/starlib v0.4.2-0.20200213133954-ff2e8cd5ef8d h1:K6eOUihrFLdZjZnA4XlRp864fmWXv9YTIk7VPLhRacA=
 github.com/qri-io/starlib v0.4.2-0.20200213133954-ff2e8cd5ef8d/go.mod h1:7DPO4domFU579Ga6E61sB9VFNaniPVwJP5C4bBCu3wA=
 github.com/quasilyte/go-consistent v0.0.0-20190521200055-c6f3937de18c h1:JoUA0uz9U0FVFq5p4LjEq4C0VgQ0El320s3Ms0V4eww=

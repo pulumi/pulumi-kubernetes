@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import batch as _batch
 from ... import core as _core
@@ -154,14 +158,14 @@ class CronJobList(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = CronJobListArgs.__new__(CronJobListArgs)
 
-            __props__['api_version'] = 'batch/v2alpha1'
+            __props__.__dict__["api_version"] = 'batch/v2alpha1'
             if items is None and not opts.urn:
                 raise TypeError("Missing required property 'items'")
-            __props__['items'] = items
-            __props__['kind'] = 'CronJobList'
-            __props__['metadata'] = metadata
+            __props__.__dict__["items"] = items
+            __props__.__dict__["kind"] = 'CronJobList'
+            __props__.__dict__["metadata"] = metadata
         super(CronJobList, __self__).__init__(
             'kubernetes:batch/v2alpha1:CronJobList',
             resource_name,
@@ -182,12 +186,12 @@ class CronJobList(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = CronJobListArgs.__new__(CronJobListArgs)
 
-        __props__["api_version"] = None
-        __props__["items"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["items"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
         return CronJobList(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -221,10 +225,4 @@ class CronJobList(pulumi.CustomResource):
         Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

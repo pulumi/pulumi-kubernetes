@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 
@@ -25,6 +29,23 @@ class AuditSink(dict):
     """
     AuditSink represents a cluster level audit sink
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AuditSink. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AuditSink.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AuditSink.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -74,9 +95,6 @@ class AuditSink(dict):
         """
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AuditSinkSpec(dict):
@@ -109,9 +127,6 @@ class AuditSinkSpec(dict):
         Webhook to send events required
         """
         return pulumi.get(self, "webhook")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -146,9 +161,6 @@ class Policy(dict):
         Stages is a list of stages for which events are created.
         """
         return pulumi.get(self, "stages")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -207,15 +219,29 @@ class ServiceReference(dict):
         """
         return pulumi.get(self, "port")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Webhook(dict):
     """
     Webhook holds the configuration of the webhook
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clientConfig":
+            suggest = "client_config"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Webhook. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Webhook.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Webhook.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  client_config: 'outputs.WebhookClientConfig',
                  throttle: Optional['outputs.WebhookThrottleConfig'] = None):
@@ -244,15 +270,29 @@ class Webhook(dict):
         """
         return pulumi.get(self, "throttle")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class WebhookClientConfig(dict):
     """
     WebhookClientConfig contains the information to make a connection with the webhook
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "caBundle":
+            suggest = "ca_bundle"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WebhookClientConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WebhookClientConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WebhookClientConfig.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  ca_bundle: Optional[str] = None,
                  service: Optional['outputs.ServiceReference'] = None,
@@ -318,9 +358,6 @@ class WebhookClientConfig(dict):
         """
         return pulumi.get(self, "url")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class WebhookThrottleConfig(dict):
@@ -355,8 +392,5 @@ class WebhookThrottleConfig(dict):
         ThrottleQPS maximum number of batches per second default 10 QPS
         """
         return pulumi.get(self, "qps")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

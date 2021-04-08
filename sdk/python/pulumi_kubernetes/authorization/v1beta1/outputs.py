@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 
 __all__ = [
@@ -55,15 +59,29 @@ class NonResourceAttributes(dict):
         """
         return pulumi.get(self, "verb")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NonResourceRule(dict):
     """
     NonResourceRule holds information that describes a rule for the non-resource
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nonResourceURLs":
+            suggest = "non_resource_urls"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NonResourceRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NonResourceRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NonResourceRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  verbs: Sequence[str],
                  non_resource_urls: Optional[Sequence[str]] = None):
@@ -91,9 +109,6 @@ class NonResourceRule(dict):
         NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
         """
         return pulumi.get(self, "non_resource_urls")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -190,15 +205,31 @@ class ResourceAttributes(dict):
         """
         return pulumi.get(self, "version")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceRule(dict):
     """
     ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroups":
+            suggest = "api_groups"
+        elif key == "resourceNames":
+            suggest = "resource_names"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  verbs: Sequence[str],
                  api_groups: Optional[Sequence[str]] = None,
@@ -253,15 +284,31 @@ class ResourceRule(dict):
         """
         return pulumi.get(self, "resources")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SelfSubjectAccessReviewSpec(dict):
     """
     SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nonResourceAttributes":
+            suggest = "non_resource_attributes"
+        elif key == "resourceAttributes":
+            suggest = "resource_attributes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SelfSubjectAccessReviewSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SelfSubjectAccessReviewSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SelfSubjectAccessReviewSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  non_resource_attributes: Optional['outputs.NonResourceAttributes'] = None,
                  resource_attributes: Optional['outputs.ResourceAttributes'] = None):
@@ -291,9 +338,6 @@ class SelfSubjectAccessReviewSpec(dict):
         """
         return pulumi.get(self, "resource_attributes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SelfSubjectRulesReviewSpec(dict):
@@ -313,15 +357,31 @@ class SelfSubjectRulesReviewSpec(dict):
         """
         return pulumi.get(self, "namespace")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SubjectAccessReviewSpec(dict):
     """
     SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nonResourceAttributes":
+            suggest = "non_resource_attributes"
+        elif key == "resourceAttributes":
+            suggest = "resource_attributes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SubjectAccessReviewSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SubjectAccessReviewSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SubjectAccessReviewSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  extra: Optional[Mapping[str, Sequence[str]]] = None,
                  group: Optional[Sequence[str]] = None,
@@ -399,15 +459,29 @@ class SubjectAccessReviewSpec(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SubjectAccessReviewStatus(dict):
     """
     SubjectAccessReviewStatus
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "evaluationError":
+            suggest = "evaluation_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SubjectAccessReviewStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SubjectAccessReviewStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SubjectAccessReviewStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  allowed: bool,
                  denied: Optional[bool] = None,
@@ -460,15 +534,33 @@ class SubjectAccessReviewStatus(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SubjectRulesReviewStatus(dict):
     """
     SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nonResourceRules":
+            suggest = "non_resource_rules"
+        elif key == "resourceRules":
+            suggest = "resource_rules"
+        elif key == "evaluationError":
+            suggest = "evaluation_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SubjectRulesReviewStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SubjectRulesReviewStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SubjectRulesReviewStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  incomplete: bool,
                  non_resource_rules: Sequence['outputs.NonResourceRule'],
@@ -518,8 +610,5 @@ class SubjectRulesReviewStatus(dict):
         EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
         """
         return pulumi.get(self, "evaluation_error")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

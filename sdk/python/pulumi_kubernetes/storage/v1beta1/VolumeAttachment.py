@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -157,15 +161,15 @@ class VolumeAttachment(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = VolumeAttachmentArgs.__new__(VolumeAttachmentArgs)
 
-            __props__['api_version'] = 'storage.k8s.io/v1beta1'
-            __props__['kind'] = 'VolumeAttachment'
-            __props__['metadata'] = metadata
+            __props__.__dict__["api_version"] = 'storage.k8s.io/v1beta1'
+            __props__.__dict__["kind"] = 'VolumeAttachment'
+            __props__.__dict__["metadata"] = metadata
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
-            __props__['spec'] = spec
-            __props__['status'] = None
+            __props__.__dict__["spec"] = spec
+            __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1:VolumeAttachment"), pulumi.Alias(type_="kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(VolumeAttachment, __self__).__init__(
@@ -188,13 +192,13 @@ class VolumeAttachment(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = VolumeAttachmentArgs.__new__(VolumeAttachmentArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["spec"] = None
-        __props__["status"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["spec"] = None
+        __props__.__dict__["status"] = None
         return VolumeAttachment(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -236,10 +240,4 @@ class VolumeAttachment(pulumi.CustomResource):
         Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
         """
         return pulumi.get(self, "status")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

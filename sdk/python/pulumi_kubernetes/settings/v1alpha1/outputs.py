@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -21,6 +25,23 @@ class PodPreset(dict):
     """
     PodPreset is a policy resource that defines additional runtime requirements for a Pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodPreset. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodPreset.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodPreset.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -66,15 +87,31 @@ class PodPreset(dict):
     def spec(self) -> Optional['outputs.PodPresetSpec']:
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodPresetSpec(dict):
     """
     PodPresetSpec is a description of a pod preset.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envFrom":
+            suggest = "env_from"
+        elif key == "volumeMounts":
+            suggest = "volume_mounts"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodPresetSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodPresetSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodPresetSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  env: Optional[Sequence['_core.v1.outputs.EnvVar']] = None,
                  env_from: Optional[Sequence['_core.v1.outputs.EnvFromSource']] = None,
@@ -139,8 +176,5 @@ class PodPresetSpec(dict):
         Volumes defines the collection of Volume to inject into the pod.
         """
         return pulumi.get(self, "volumes")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -175,12 +179,12 @@ class Endpoints(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = EndpointsArgs.__new__(EndpointsArgs)
 
-            __props__['api_version'] = 'v1'
-            __props__['kind'] = 'Endpoints'
-            __props__['metadata'] = metadata
-            __props__['subsets'] = subsets
+            __props__.__dict__["api_version"] = 'v1'
+            __props__.__dict__["kind"] = 'Endpoints'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["subsets"] = subsets
         super(Endpoints, __self__).__init__(
             'kubernetes:core/v1:Endpoints',
             resource_name,
@@ -201,12 +205,12 @@ class Endpoints(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = EndpointsArgs.__new__(EndpointsArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["subsets"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["subsets"] = None
         return Endpoints(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -240,10 +244,4 @@ class Endpoints(pulumi.CustomResource):
         The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
         """
         return pulumi.get(self, "subsets")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

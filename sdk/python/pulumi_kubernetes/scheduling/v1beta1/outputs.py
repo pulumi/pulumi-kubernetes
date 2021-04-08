@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from ... import meta as _meta
 
 __all__ = [
@@ -18,6 +22,27 @@ class PriorityClass(dict):
     """
     DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "globalDefault":
+            suggest = "global_default"
+        elif key == "preemptionPolicy":
+            suggest = "preemption_policy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PriorityClass. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PriorityClass.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PriorityClass.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  value: int,
                  api_version: Optional[str] = None,
@@ -105,8 +130,5 @@ class PriorityClass(dict):
         PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
         """
         return pulumi.get(self, "preemption_policy")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

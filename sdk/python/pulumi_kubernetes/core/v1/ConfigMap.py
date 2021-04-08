@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from ... import meta as _meta
 
 __all__ = ['ConfigMapArgs', 'ConfigMap']
@@ -189,14 +193,14 @@ class ConfigMap(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ConfigMapArgs.__new__(ConfigMapArgs)
 
-            __props__['api_version'] = 'v1'
-            __props__['binary_data'] = binary_data
-            __props__['data'] = data
-            __props__['immutable'] = immutable
-            __props__['kind'] = 'ConfigMap'
-            __props__['metadata'] = metadata
+            __props__.__dict__["api_version"] = 'v1'
+            __props__.__dict__["binary_data"] = binary_data
+            __props__.__dict__["data"] = data
+            __props__.__dict__["immutable"] = immutable
+            __props__.__dict__["kind"] = 'ConfigMap'
+            __props__.__dict__["metadata"] = metadata
         super(ConfigMap, __self__).__init__(
             'kubernetes:core/v1:ConfigMap',
             resource_name,
@@ -217,14 +221,14 @@ class ConfigMap(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = ConfigMapArgs.__new__(ConfigMapArgs)
 
-        __props__["api_version"] = None
-        __props__["binary_data"] = None
-        __props__["data"] = None
-        __props__["immutable"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["binary_data"] = None
+        __props__.__dict__["data"] = None
+        __props__.__dict__["immutable"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
         return ConfigMap(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -274,10 +278,4 @@ class ConfigMap(pulumi.CustomResource):
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

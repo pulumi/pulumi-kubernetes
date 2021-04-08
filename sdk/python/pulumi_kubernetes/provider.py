@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from . import _utilities, _tables
+=======
+from . import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 
 __all__ = ['ProviderArgs', 'Provider']
 
@@ -252,30 +256,24 @@ class Provider(pulumi.ProviderResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ProviderArgs.__new__(ProviderArgs)
 
-            __props__['cluster'] = cluster
-            __props__['context'] = context
+            __props__.__dict__["cluster"] = cluster
+            __props__.__dict__["context"] = context
             if enable_dry_run is None:
                 enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
-            __props__['enable_dry_run'] = pulumi.Output.from_input(enable_dry_run).apply(pulumi.runtime.to_json) if enable_dry_run is not None else None
+            __props__.__dict__["enable_dry_run"] = pulumi.Output.from_input(enable_dry_run).apply(pulumi.runtime.to_json) if enable_dry_run is not None else None
             if kubeconfig is None:
                 kubeconfig = _utilities.get_env('KUBECONFIG')
-            __props__['kubeconfig'] = kubeconfig
-            __props__['namespace'] = namespace
-            __props__['render_yaml_to_directory'] = render_yaml_to_directory
+            __props__.__dict__["kubeconfig"] = kubeconfig
+            __props__.__dict__["namespace"] = namespace
+            __props__.__dict__["render_yaml_to_directory"] = render_yaml_to_directory
             if suppress_deprecation_warnings is None:
                 suppress_deprecation_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
-            __props__['suppress_deprecation_warnings'] = pulumi.Output.from_input(suppress_deprecation_warnings).apply(pulumi.runtime.to_json) if suppress_deprecation_warnings is not None else None
+            __props__.__dict__["suppress_deprecation_warnings"] = pulumi.Output.from_input(suppress_deprecation_warnings).apply(pulumi.runtime.to_json) if suppress_deprecation_warnings is not None else None
         super(Provider, __self__).__init__(
             'kubernetes',
             resource_name,
             __props__,
             opts)
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

@@ -33,6 +33,6 @@ builds:
 changelog:
   skip: true
 release:
-  prerelease: auto
+  disable: true
 snapshot:
   name_template: '{{ .Tag }}-SNAPSHOT'

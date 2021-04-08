@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 
@@ -35,6 +39,25 @@ class ContainerResourceMetricSource(dict):
     """
     ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "targetAverageUtilization":
+            suggest = "target_average_utilization"
+        elif key == "targetAverageValue":
+            suggest = "target_average_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerResourceMetricSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerResourceMetricSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerResourceMetricSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  container: str,
                  name: str,
@@ -86,15 +109,31 @@ class ContainerResourceMetricSource(dict):
         """
         return pulumi.get(self, "target_average_value")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerResourceMetricStatus(dict):
     """
     ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentAverageValue":
+            suggest = "current_average_value"
+        elif key == "currentAverageUtilization":
+            suggest = "current_average_utilization"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerResourceMetricStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerResourceMetricStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerResourceMetricStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  container: str,
                  current_average_value: str,
@@ -145,15 +184,29 @@ class ContainerResourceMetricStatus(dict):
         """
         return pulumi.get(self, "current_average_utilization")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CrossVersionObjectReference(dict):
     """
     CrossVersionObjectReference contains enough information to let you identify the referred resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CrossVersionObjectReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CrossVersionObjectReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CrossVersionObjectReference.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kind: str,
                  name: str,
@@ -193,15 +246,35 @@ class CrossVersionObjectReference(dict):
         """
         return pulumi.get(self, "api_version")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ExternalMetricSource(dict):
     """
     ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster). Exactly one "target" type should be set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "metricName":
+            suggest = "metric_name"
+        elif key == "metricSelector":
+            suggest = "metric_selector"
+        elif key == "targetAverageValue":
+            suggest = "target_average_value"
+        elif key == "targetValue":
+            suggest = "target_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ExternalMetricSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ExternalMetricSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ExternalMetricSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  metric_name: str,
                  metric_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
@@ -254,15 +327,35 @@ class ExternalMetricSource(dict):
         """
         return pulumi.get(self, "target_value")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ExternalMetricStatus(dict):
     """
     ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentValue":
+            suggest = "current_value"
+        elif key == "metricName":
+            suggest = "metric_name"
+        elif key == "currentAverageValue":
+            suggest = "current_average_value"
+        elif key == "metricSelector":
+            suggest = "metric_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ExternalMetricStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ExternalMetricStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ExternalMetricStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_value: str,
                  metric_name: str,
@@ -314,15 +407,29 @@ class ExternalMetricStatus(dict):
         """
         return pulumi.get(self, "metric_selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HorizontalPodAutoscaler(dict):
     """
     HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscaler. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscaler.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscaler.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -388,15 +495,29 @@ class HorizontalPodAutoscaler(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HorizontalPodAutoscalerCondition(dict):
     """
     HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscalerCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscalerCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -460,15 +581,33 @@ class HorizontalPodAutoscalerCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HorizontalPodAutoscalerSpec(dict):
     """
     HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxReplicas":
+            suggest = "max_replicas"
+        elif key == "scaleTargetRef":
+            suggest = "scale_target_ref"
+        elif key == "minReplicas":
+            suggest = "min_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscalerSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscalerSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_replicas: int,
                  scale_target_ref: 'outputs.CrossVersionObjectReference',
@@ -520,15 +659,37 @@ class HorizontalPodAutoscalerSpec(dict):
         """
         return pulumi.get(self, "min_replicas")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HorizontalPodAutoscalerStatus(dict):
     """
     HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentReplicas":
+            suggest = "current_replicas"
+        elif key == "desiredReplicas":
+            suggest = "desired_replicas"
+        elif key == "currentMetrics":
+            suggest = "current_metrics"
+        elif key == "lastScaleTime":
+            suggest = "last_scale_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscalerStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscalerStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  conditions: Sequence['outputs.HorizontalPodAutoscalerCondition'],
                  current_replicas: int,
@@ -603,15 +764,29 @@ class HorizontalPodAutoscalerStatus(dict):
         """
         return pulumi.get(self, "observed_generation")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class MetricSpec(dict):
     """
     MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerResource":
+            suggest = "container_resource"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MetricSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MetricSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MetricSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  type: str,
                  container_resource: Optional['outputs.ContainerResourceMetricSource'] = None,
@@ -688,15 +863,29 @@ class MetricSpec(dict):
         """
         return pulumi.get(self, "resource")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class MetricStatus(dict):
     """
     MetricStatus describes the last-read state of a single metric.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerResource":
+            suggest = "container_resource"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MetricStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MetricStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MetricStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  type: str,
                  container_resource: Optional['outputs.ContainerResourceMetricStatus'] = None,
@@ -773,15 +962,33 @@ class MetricStatus(dict):
         """
         return pulumi.get(self, "resource")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ObjectMetricSource(dict):
     """
     ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "metricName":
+            suggest = "metric_name"
+        elif key == "targetValue":
+            suggest = "target_value"
+        elif key == "averageValue":
+            suggest = "average_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ObjectMetricSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ObjectMetricSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ObjectMetricSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  metric_name: str,
                  target: 'outputs.CrossVersionObjectReference',
@@ -844,15 +1051,33 @@ class ObjectMetricSource(dict):
         """
         return pulumi.get(self, "selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ObjectMetricStatus(dict):
     """
     ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentValue":
+            suggest = "current_value"
+        elif key == "metricName":
+            suggest = "metric_name"
+        elif key == "averageValue":
+            suggest = "average_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ObjectMetricStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ObjectMetricStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ObjectMetricStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_value: str,
                  metric_name: str,
@@ -915,15 +1140,31 @@ class ObjectMetricStatus(dict):
         """
         return pulumi.get(self, "selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodsMetricSource(dict):
     """
     PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "metricName":
+            suggest = "metric_name"
+        elif key == "targetAverageValue":
+            suggest = "target_average_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodsMetricSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodsMetricSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodsMetricSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  metric_name: str,
                  target_average_value: str,
@@ -963,15 +1204,31 @@ class PodsMetricSource(dict):
         """
         return pulumi.get(self, "selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodsMetricStatus(dict):
     """
     PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentAverageValue":
+            suggest = "current_average_value"
+        elif key == "metricName":
+            suggest = "metric_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodsMetricStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodsMetricStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodsMetricStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_average_value: str,
                  metric_name: str,
@@ -1011,15 +1268,31 @@ class PodsMetricStatus(dict):
         """
         return pulumi.get(self, "selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceMetricSource(dict):
     """
     ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "targetAverageUtilization":
+            suggest = "target_average_utilization"
+        elif key == "targetAverageValue":
+            suggest = "target_average_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceMetricSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceMetricSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceMetricSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  name: str,
                  target_average_utilization: Optional[int] = None,
@@ -1060,15 +1333,31 @@ class ResourceMetricSource(dict):
         """
         return pulumi.get(self, "target_average_value")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceMetricStatus(dict):
     """
     ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentAverageValue":
+            suggest = "current_average_value"
+        elif key == "currentAverageUtilization":
+            suggest = "current_average_utilization"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceMetricStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceMetricStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceMetricStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_average_value: str,
                  name: str,
@@ -1107,8 +1396,5 @@ class ResourceMetricStatus(dict):
         currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
         """
         return pulumi.get(self, "current_average_utilization")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

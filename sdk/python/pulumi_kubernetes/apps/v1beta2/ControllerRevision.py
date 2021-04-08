@@ -6,7 +6,11 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+<<<<<<< HEAD
 from ... import _utilities, _tables
+=======
+from ... import _utilities
+>>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from ... import meta as _meta
 
 __all__ = ['ControllerRevisionArgs', 'ControllerRevision']
@@ -169,15 +173,15 @@ class ControllerRevision(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ControllerRevisionArgs.__new__(ControllerRevisionArgs)
 
-            __props__['api_version'] = 'apps/v1beta2'
-            __props__['data'] = data
-            __props__['kind'] = 'ControllerRevision'
-            __props__['metadata'] = metadata
+            __props__.__dict__["api_version"] = 'apps/v1beta2'
+            __props__.__dict__["data"] = data
+            __props__.__dict__["kind"] = 'ControllerRevision'
+            __props__.__dict__["metadata"] = metadata
             if revision is None and not opts.urn:
                 raise TypeError("Missing required property 'revision'")
-            __props__['revision'] = revision
+            __props__.__dict__["revision"] = revision
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:apps/v1:ControllerRevision"), pulumi.Alias(type_="kubernetes:apps/v1beta1:ControllerRevision")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ControllerRevision, __self__).__init__(
@@ -200,13 +204,13 @@ class ControllerRevision(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = ControllerRevisionArgs.__new__(ControllerRevisionArgs)
 
-        __props__["api_version"] = None
-        __props__["data"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["revision"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["data"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["revision"] = None
         return ControllerRevision(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -248,10 +252,4 @@ class ControllerRevision(pulumi.CustomResource):
         Revision indicates the revision of the state represented by Data.
         """
         return pulumi.get(self, "revision")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 
