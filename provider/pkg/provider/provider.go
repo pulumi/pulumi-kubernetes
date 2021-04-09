@@ -1647,6 +1647,30 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if err != nil {
 		return nil, err
 	}
+
+	if k.yamlRenderMode {
+		// Return a new "checkpoint object".
+		state, err := plugin.MarshalProperties(
+			checkpointObject(oldInputs, newInputs, oldState, initialAPIVersion), plugin.MarshalOptions{
+				Label:        fmt.Sprintf("%s.state", label),
+				KeepUnknowns: true,
+				SkipNulls:    true,
+				KeepSecrets:  k.enableSecrets,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		inputs, err := plugin.MarshalProperties(oldInputsPM, plugin.MarshalOptions{
+			Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: k.enableSecrets,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.ReadResponse{Id: req.GetId(), Properties: state, Inputs: inputs}, nil
+	}
+
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -2412,8 +2436,12 @@ var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
 // parseLastAppliedConfig attempts to find and parse an annotation that records the last applied configuration for the
 // given live object state.
 func parseLastAppliedConfig(live *unstructured.Unstructured) *unstructured.Unstructured {
-	// If `kubectl.kubernetes.io/last-applied-configuration` metadata anotation is present, parse it into a real object
+	// If `kubectl.kubernetes.io/last-applied-configuration` metadata annotation is present, parse it into a real object
 	// and use it as the current set of live inputs. Otherwise, return nil.
+	if live == nil {
+		return nil
+	}
+
 	annotations := live.GetAnnotations()
 	if annotations == nil {
 		return nil
