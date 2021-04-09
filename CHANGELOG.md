@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Fix refresh for render-yaml resources (https://github.com/pulumi/pulumi-kubernetes/pull/1523)
+- Behavior change: Error on refresh for an unreachable cluster. (https://github.com/pulumi/pulumi-kubernetes/pull/1522)
 
 ## 2.9.0 (April 8, 2021)
 

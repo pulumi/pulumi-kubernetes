@@ -1598,7 +1598,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if k.clusterUnreachable {
 		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
 			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
-		return deleteResponse, nil
+		return nil, fmt.Errorf("failed to read resource state due to unreachable cluster. " +
+			"If the cluster has been deleted, you can edit the pulumi state to remove this resource")
 	}
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
