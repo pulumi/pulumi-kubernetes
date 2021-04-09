@@ -1594,7 +1594,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	label := fmt.Sprintf("%s.Read(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
-	// If the cluster is unreachable, consider the resource deleted and inform the user.
+	// If the cluster is unreachable, return an error.
 	if k.clusterUnreachable {
 		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
 			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
