@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Fix refresh for render-yaml resources (https://github.com/pulumi/pulumi-kubernetes/pull/1523)
+
 ## 2.9.0 (April 8, 2021)
 
 - Add support for k8s v1.21.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1449)
