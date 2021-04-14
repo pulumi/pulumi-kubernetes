@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Do not return an ID when previewing the creation of a resource. (https://github.com/pulumi/pulumi-kubernetes/pull/1526)
+
 ## 2.9.1 (April 12, 2021)
 
 - Fix refresh for render-yaml resources (https://github.com/pulumi/pulumi-kubernetes/pull/1523)
