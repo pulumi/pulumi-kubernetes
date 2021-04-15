@@ -76,6 +76,23 @@ func TestGet(t *testing.T) {
 	}
 }
 
+func TestGetOneStep(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	for _, dir := range []string{"get-one-step"} {
+		t.Run(dir, func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				ExpectRefreshChanges: true, // CRD changes on refresh
+				Dir:                  filepath.Join(cwd, dir),
+				NoParallel:           true,
+			})
+			integration.ProgramTest(t, &options)
+		})
+	}
+}
+
 func TestYaml(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {

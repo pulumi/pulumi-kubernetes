@@ -1440,9 +1440,7 @@ func (k *kubeProvider) Create(
 		(hasComputedValue(newInputs) || !k.supportsDryRun(newInputs.GroupVersionKind())) {
 
 		logger.V(9).Infof("cannot preview Create(%v)", urn)
-		return &pulumirpc.CreateResponse{
-			Id: fqObjName(newInputs), Properties: req.GetProperties(),
-		}, nil
+		return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
 	}
 
 	annotatedInputs, err := withLastAppliedConfig(newInputs)
@@ -1509,9 +1507,7 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		if req.GetPreview() && k.isDryRunDisabledError(err) {
 			logger.V(9).Infof("could not preview Create(%v): %v", urn, err)
-			return &pulumirpc.CreateResponse{
-				Id: fqObjName(annotatedInputs), Properties: req.GetProperties(),
-			}, nil
+			return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
 		}
 
 		if meta.IsNoMatchError(awaitErr) {
@@ -1567,9 +1563,11 @@ func (k *kubeProvider) Create(
 		k.invalidateResources()
 	}
 
-	return &pulumirpc.CreateResponse{
-		Id: fqObjName(initialized), Properties: inputsAndComputed,
-	}, nil
+	id := ""
+	if !req.GetPreview() {
+		id = fqObjName(initialized)
+	}
+	return &pulumirpc.CreateResponse{Id: id, Properties: inputsAndComputed}, nil
 }
 
 // Read the current live state associated with a resource.  Enough state must be include in the
