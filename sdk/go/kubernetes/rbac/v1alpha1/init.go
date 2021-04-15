@@ -22,25 +22,26 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole":
-		r, err = NewClusterRole(ctx, name, nil, pulumi.URN_(urn))
+		r = &ClusterRole{}
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding":
-		r, err = NewClusterRoleBinding(ctx, name, nil, pulumi.URN_(urn))
+		r = &ClusterRoleBinding{}
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList":
-		r, err = NewClusterRoleBindingList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ClusterRoleBindingList{}
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList":
-		r, err = NewClusterRoleList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ClusterRoleList{}
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role":
-		r, err = NewRole(ctx, name, nil, pulumi.URN_(urn))
+		r = &Role{}
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding":
-		r, err = NewRoleBinding(ctx, name, nil, pulumi.URN_(urn))
+		r = &RoleBinding{}
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList":
-		r, err = NewRoleBindingList(ctx, name, nil, pulumi.URN_(urn))
+		r = &RoleBindingList{}
 	case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList":
-		r, err = NewRoleList(ctx, name, nil, pulumi.URN_(urn))
+		r = &RoleList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

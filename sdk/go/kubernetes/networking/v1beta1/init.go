@@ -22,17 +22,18 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:networking.k8s.io/v1beta1:Ingress":
-		r, err = NewIngress(ctx, name, nil, pulumi.URN_(urn))
+		r = &Ingress{}
 	case "kubernetes:networking.k8s.io/v1beta1:IngressClass":
-		r, err = NewIngressClass(ctx, name, nil, pulumi.URN_(urn))
+		r = &IngressClass{}
 	case "kubernetes:networking.k8s.io/v1beta1:IngressClassList":
-		r, err = NewIngressClassList(ctx, name, nil, pulumi.URN_(urn))
+		r = &IngressClassList{}
 	case "kubernetes:networking.k8s.io/v1beta1:IngressList":
-		r, err = NewIngressList(ctx, name, nil, pulumi.URN_(urn))
+		r = &IngressList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

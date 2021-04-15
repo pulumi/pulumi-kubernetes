@@ -22,13 +22,14 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:node.k8s.io/v1:RuntimeClass":
-		r, err = NewRuntimeClass(ctx, name, nil, pulumi.URN_(urn))
+		r = &RuntimeClass{}
 	case "kubernetes:node.k8s.io/v1:RuntimeClassList":
-		r, err = NewRuntimeClassList(ctx, name, nil, pulumi.URN_(urn))
+		r = &RuntimeClassList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

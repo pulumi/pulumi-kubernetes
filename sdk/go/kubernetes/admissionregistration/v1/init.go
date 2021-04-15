@@ -22,17 +22,18 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration":
-		r, err = NewMutatingWebhookConfiguration(ctx, name, nil, pulumi.URN_(urn))
+		r = &MutatingWebhookConfiguration{}
 	case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList":
-		r, err = NewMutatingWebhookConfigurationList(ctx, name, nil, pulumi.URN_(urn))
+		r = &MutatingWebhookConfigurationList{}
 	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration":
-		r, err = NewValidatingWebhookConfiguration(ctx, name, nil, pulumi.URN_(urn))
+		r = &ValidatingWebhookConfiguration{}
 	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList":
-		r, err = NewValidatingWebhookConfigurationList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ValidatingWebhookConfigurationList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 

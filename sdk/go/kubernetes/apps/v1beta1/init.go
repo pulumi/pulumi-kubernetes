@@ -22,21 +22,22 @@ func (m *module) Version() semver.Version {
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
 	case "kubernetes:apps/v1beta1:ControllerRevision":
-		r, err = NewControllerRevision(ctx, name, nil, pulumi.URN_(urn))
+		r = &ControllerRevision{}
 	case "kubernetes:apps/v1beta1:ControllerRevisionList":
-		r, err = NewControllerRevisionList(ctx, name, nil, pulumi.URN_(urn))
+		r = &ControllerRevisionList{}
 	case "kubernetes:apps/v1beta1:Deployment":
-		r, err = NewDeployment(ctx, name, nil, pulumi.URN_(urn))
+		r = &Deployment{}
 	case "kubernetes:apps/v1beta1:DeploymentList":
-		r, err = NewDeploymentList(ctx, name, nil, pulumi.URN_(urn))
+		r = &DeploymentList{}
 	case "kubernetes:apps/v1beta1:StatefulSet":
-		r, err = NewStatefulSet(ctx, name, nil, pulumi.URN_(urn))
+		r = &StatefulSet{}
 	case "kubernetes:apps/v1beta1:StatefulSetList":
-		r, err = NewStatefulSetList(ctx, name, nil, pulumi.URN_(urn))
+		r = &StatefulSetList{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
 
+	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
 	return
 }
 
